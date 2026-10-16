@@ -84,24 +84,12 @@ function syncGodItemPickerV2182(){
 /* 小组信息里的主要/次要道具卡说明，按当前持有 key 强制同步。
    通过按钮 onclick 取 key，不依赖旧版具体 DOM 类名。 */
 function syncOwnedItemCardsV2182(){
-  document.querySelectorAll('button[onclick*="useItem"],button[onclick*="admin"]').forEach(()=>{});
-  document.querySelectorAll('*').forEach(card=>{
-    const txt=card.textContent||'';
-    if(!/(主要道具|次要道具)/.test(txt))return;
-    const candidates=Object.keys(ITEM_DEFS).filter(k=>{
-      const name=ITEM_DEFS[k]?.name;
-      return name && txt.includes(name);
-    });
-    if(candidates.length!==1)return;
-    const key=candidates[0], desc=groupItemDescV2182(key);
-    if(!desc)return;
-    const texts=[...card.querySelectorAll('div,p,span')].filter(el=>{
-      const t=(el.textContent||'').trim();
-      return t && t.length>8 && !/(主要道具|次要道具)/.test(t) && !t.includes(ITEM_DEFS[key].name);
-    });
-    /* 优先替换看起来像旧说明的最短文本节点。 */
-    const target=texts.sort((a,b)=>a.textContent.length-b.textContent.length)[0];
-    if(target && target.textContent.length<180) target.textContent=desc;
+  const group=state.groups.find(g=>g.id===activeItemGroupId);
+  if(!group||activeItemTab!=='items')return;
+  document.querySelectorAll('#itemWindowBody .queue-item-card').forEach((card,index)=>{
+    const key=group.inventory[index]?.key;
+    const target=card.querySelector('.item-big-desc');
+    if(key&&target)target.textContent=groupItemDescV2182(key);
   });
 }
 
