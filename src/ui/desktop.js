@@ -140,6 +140,8 @@ const DesktopUI = (() => {
       `${innerWidth / zoom}px`,
     );
   }
+  let historyEntryPending = false,
+    archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
     for (const m of [...openStack].reverse()) {
@@ -165,11 +167,25 @@ const DesktopUI = (() => {
     $(".ui-dock-menu")?.removeAttribute("open");
     $(".dock-humor-tip-v2185")?.classList.remove("show");
     cancelAnimations();
+    historyEntryPending = name === "history";
+    archiveEntryPending = name === "archives";
     if (preferences.pageMotion) {
       const host = $(`#view-${name}`);
-      animate(host, [{ opacity: 0.5 }, { opacity: 1 }], {
-        duration: 160 / preferences.speed,
-      });
+      const shift =
+        preferences.motion === "full"
+          ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ||
+            "0 0"
+          : "0 0";
+      animate(
+        host,
+        [
+          { opacity: 0.5, translate: shift },
+          { opacity: 1, translate: "0 0" },
+        ],
+        {
+          duration: 160 / preferences.speed,
+        },
+      );
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings);
@@ -194,6 +210,7 @@ const DesktopUI = (() => {
           g.inventory,
           g.itemEffect,
           g.booShield,
+          g.booRoundsLeftV218,
         ]),
       ) + mask;
     if (signature !== lastWelcome) {
@@ -207,11 +224,14 @@ const DesktopUI = (() => {
                   .filter(
                     ([k, v]) =>
                       (k === "type" && !!v) ||
-                      (k === "iceLock" && Number(v) > 0),
+                      (["iceLock", "featherDodge"].includes(k) &&
+                        Number(v) > 0),
                   )
                   .map(
                     ([k, v]) =>
                       ({
+                        bullet: "炮弹追击",
+                        featherDodge: "羽毛闪避",
                         star: "无敌星",
                         mega: "巨大蘑菇",
                         boo: "幽灵保护",
@@ -221,6 +241,8 @@ const DesktopUI = (() => {
                       })[k === "type" ? v : k] ||
                       (k === "iceLock" ? "冻结" : k),
                   );
+              if (g.booShield > 0 || g.booRoundsLeftV218 > 0)
+                states.push("幽灵保护");
               return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
             })
             .join("")
@@ -388,6 +410,19 @@ const DesktopUI = (() => {
       })
       .reverse()
       .join("");
+    if (historyEntryPending && preferences.pageMotion) {
+      historyEntryPending = false;
+      host.querySelectorAll(".ui-history:nth-child(-n+8)").forEach((el, i) =>
+        animate(
+          el,
+          [
+            { opacity: 0, translate: "0 5px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          { delay: i * 20, duration: 160 },
+        ),
+      );
+    }
     host.querySelectorAll("[data-restore]").forEach(
       (b) =>
         (b.onclick = async () => {
@@ -731,7 +766,11 @@ const DesktopUI = (() => {
             ? "点名"
             : /undoLast/.test(action)
               ? "撤销"
-              : b.getAttribute("title") || b.textContent;
+              : UI_ICON_TARGETS.find(([, , selector]) =>
+                  b.matches(selector),
+                )?.[1] ||
+                b.getAttribute("title") ||
+                b.textContent;
       b.setAttribute("aria-label", label);
       b.setAttribute("title", label);
       if (keep) {
@@ -746,7 +785,16 @@ const DesktopUI = (() => {
                 : "users",
           ) + `<span style="font-size:12px">${E(label)}</span>`;
       } else {
-        b.textContent = label;
+        b.innerHTML =
+          icon(
+            /zoom/.test(action)
+              ? "home"
+              : /Lock/.test(action)
+                ? "shield"
+                : /addGroup|Search/.test(action)
+                  ? "users"
+                  : "book",
+          ) + `<span>${E(label)}</span>`;
         menu.append(b);
       }
     }
@@ -767,6 +815,17 @@ const DesktopUI = (() => {
       },
       true,
     );
+  }
+  function refreshLockControl(button) {
+    if (!ready) return;
+    const label = state.isLocked ? "解锁管理口令" : "管理已解锁";
+    const original = icon("shield") + `<span>${label}</span>`;
+    button.dataset.v26Original = original;
+    const image = Reliability.safeImage(uiIconsV26().dock_lock);
+    button.innerHTML = image
+      ? `<img class="custom-ui-icon" src="${image}" alt=""><span>${label}</span>`
+      : original;
+    button.setAttribute("aria-label", label);
   }
   const modalClosers = {
     welcomeModal: () => closeWelcomeModal(),
@@ -943,9 +1002,19 @@ const DesktopUI = (() => {
     });
     pickerChanged();
   }
-  let settlementBusy = false;
+  let settlementBusy = false,
+    settlementGeneration = 0;
+  function prepareSettlement() {
+    settlementGeneration++;
+    const status = $("#uiSettlementStatus");
+    if (status) status.textContent = "先完整归档，保存成功后才会清零。";
+  }
+  function cancelSettlement() {
+    settlementGeneration++;
+  }
   async function settleFromUI(button) {
     if (settlementBusy) return { ok: false, reason: "busy" };
+    const generation = settlementGeneration;
     settlementBusy = true;
     button.disabled = true;
     button.setAttribute("aria-busy", "true");
@@ -957,8 +1026,14 @@ const DesktopUI = (() => {
       await new Promise((resolve) =>
         requestAnimationFrame(() => requestAnimationFrame(resolve)),
       );
-      if (!$("#settlementNameModal").classList.contains("active"))
+      if (
+        generation !== settlementGeneration ||
+        !$("#settlementNameModal").classList.contains("active")
+      ) {
+        if (generation === settlementGeneration && status)
+          status.textContent = "已取消，未执行归档。";
         return { ok: false, reason: "cancelled" };
+      }
       const result = confirmFinalSettlement();
       if (status)
         status.textContent = result?.ok
@@ -1001,9 +1076,37 @@ const DesktopUI = (() => {
       b.setAttribute("role", "tab");
     });
     setupDock();
+    UI_ICON_TARGETS.forEach(([, , selector]) => {
+      const el = $(selector);
+      if (el) el.dataset.v26Original = el.innerHTML;
+    });
+    applyUiIconsV26();
     setupSettings();
     setupPicker();
     setupModals();
+    $("#settlementHistoryContainer").addEventListener(
+      "toggle",
+      (event) => {
+        const details = event.target;
+        if (details.tagName !== "DETAILS") return;
+        if (!details.open) {
+          for (const a of animations)
+            if (details.contains(a.effect?.target)) a.cancel();
+          return;
+        }
+        details.querySelectorAll(".ui-podium>div").forEach((el, i) =>
+          animate(
+            el,
+            [
+              { opacity: 0, translate: "0 8px" },
+              { opacity: 1, translate: "0 0" },
+            ],
+            { delay: i * 70, duration: 200 },
+          ),
+        );
+      },
+      true,
+    );
     const t = $("#uiGroupTrack");
     t.addEventListener("scroll", updateArrows, { passive: true });
     t.addEventListener(
@@ -1059,12 +1162,24 @@ const DesktopUI = (() => {
           ),
         );
     }
+    if (canAnimate())
+      animate(
+        $(".welcome-enter-btn"),
+        [
+          { opacity: 0.5, scale: ".98" },
+          { opacity: 1, scale: "1" },
+        ],
+        { delay: 650, duration: 180 },
+      );
     $("#uiSkipWelcome").onclick = () => cancelAnimations();
   }
   return {
     init,
     settleFromUI,
+    prepareSettlement,
+    cancelSettlement,
     syncViewport,
+    refreshLockControl,
     renderDaily,
     renderWelcome,
     renderHistory,

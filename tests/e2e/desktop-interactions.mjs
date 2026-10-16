@@ -214,6 +214,139 @@ try {
     assert.equal(await p.locator("#grandModalOverlay").isVisible(), false);
     assert.equal(await p.evaluate(() => getSettlementHistory().length), 1);
   });
+  await test("Welcome score masking and ghost/feather status survive UI redesign and expire", async () => {
+    await p.evaluate(() => {
+      state.groups[0].booRoundsLeftV218 = 2;
+      state.groups[1].itemEffect = { featherDodge: 1 };
+      state.itemGlobal.blooperUntil = Date.now() + 20000;
+      switchView("welcome");
+      renderAll();
+    });
+    assert.ok(
+      (await p.locator(".ui-group-card").first().textContent()).includes(
+        "幽灵保护",
+      ),
+    );
+    assert.ok(
+      (await p.locator(".ui-group-card").nth(1).textContent()).includes(
+        "羽毛闪避",
+      ),
+    );
+    assert.equal(
+      await p.locator(".ui-group-score").first().textContent(),
+      "???",
+    );
+    assert.equal(
+      await p
+        .locator("#wTotalScore")
+        .evaluate((e) => e.classList.contains("squid-hidden-score")),
+      true,
+    );
+    await p.evaluate(() => {
+      state.itemGlobal.blooperUntil = 0;
+      applyBlooperMask();
+      updateWelcomeClock();
+    });
+    assert.equal(
+      await p.locator(".ui-group-score").first().textContent(),
+      "100",
+    );
+    assert.equal(
+      await p
+        .locator("#wTotalScore")
+        .evaluate((e) => e.classList.contains("squid-hidden-score")),
+      false,
+    );
+  });
+  await test("Custom navigation/dock icons preserve text, reset to SVG and survive startup", async () => {
+    await p.evaluate(() => {
+      const image =
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jUTkAAAAASUVORK5CYII=";
+      STORAGE.setJSON("politics_ui_icons_v26", {
+        nav_welcome: image,
+        dock_picker: image,
+        dock_lock: image,
+      });
+      applyUiIconsV26();
+      renderLockStatus();
+    });
+    assert.equal(
+      await p.locator('.nav-tab[data-view="welcome"] .custom-ui-icon').count(),
+      1,
+    );
+    assert.match(
+      await p.locator('.nav-tab[data-view="welcome"]').textContent(),
+      /欢迎/,
+    );
+    assert.match(
+      await p.locator('button[onclick="openPickerModal()"]').textContent(),
+      /点名/,
+    );
+    assert.equal(await p.locator("#lockBtn .custom-ui-icon").count(), 1);
+    const navigation = p.waitForNavigation({
+        waitUntil: "domcontentloaded",
+        timeout: 90000,
+      }),
+      session = await context.newCDPSession(p);
+    await session.send("Page.reload", { ignoreCache: true });
+    await navigation;
+    await session.detach();
+    await p.waitForTimeout(300);
+    await p.evaluate(() => closeWelcomeModal());
+    assert.equal(
+      await p.locator('.nav-tab[data-view="welcome"] .custom-ui-icon').count(),
+      1,
+    );
+    assert.equal(
+      await p
+        .locator('button[onclick="openPickerModal()"] .custom-ui-icon')
+        .count(),
+      1,
+    );
+    await p.evaluate(() => resetUiIconV26("nav_welcome"));
+    assert.equal(
+      await p.locator('.nav-tab[data-view="welcome"] svg.ui-icon').count(),
+      1,
+    );
+    assert.match(
+      await p.locator('.nav-tab[data-view="welcome"]').textContent(),
+      /欢迎/,
+    );
+    await p.evaluate(() => {
+      resetUiIconV26("dock_picker");
+      resetUiIconV26("dock_lock");
+    });
+  });
+  await test("Cancelling and immediately reopening queued settlement never executes stale save", async () => {
+    const result = await p.evaluate(async () => {
+      triggerFinalSettlement();
+      const before = JSON.stringify(state.groups),
+        archives = getSettlementHistory().length;
+      const pending = DesktopUI.settleFromUI(
+        document.querySelector(
+          '#settlementNameModal button[onclick^="DesktopUI.settleFromUI"]',
+        ),
+      );
+      closeSettlementNameModal();
+      triggerFinalSettlement();
+      const result = await pending;
+      return {
+        result,
+        unchanged: before === JSON.stringify(state.groups),
+        archivesUnchanged: archives === getSettlementHistory().length,
+        open: document
+          .querySelector("#settlementNameModal")
+          .classList.contains("active"),
+        status: document.querySelector("#uiSettlementStatus").textContent,
+      };
+    });
+    assert.equal(result.result.reason, "cancelled");
+    assert.equal(result.unchanged, true);
+    assert.equal(result.archivesUnchanged, true);
+    assert.equal(result.open, true);
+    assert.match(result.status, /先完整归档/);
+    await p.evaluate(() => closeSettlementNameModal());
+  });
   await test("All supplemental interactions have no uncaught errors", async () =>
     assert.deepEqual(errors, []));
 } finally {

@@ -95,7 +95,7 @@
     </header>
     <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
     <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
-    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount"></b></div><div>总积分 <b id="wTotalScore"></b></div><div>最高分 <b id="wMaxScore"></b></div><div>领先 <b id="wLeaderName"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount" class="w-stat-num"></b></div><div>总积分 <b id="wTotalScore" class="w-stat-num"></b></div><div>最高分 <b id="wMaxScore" class="w-stat-num"></b></div><div>领先 <b id="wLeaderName" class="w-stat-num"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg" class="w-stat-num"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
   </main>
 </div>
 
@@ -215,12 +215,13 @@
 <div id="grandModalOverlay" class="grand-modal-overlay">
   <canvas id="confettiCanvas"></canvas>
   <div class="grand-card">
+    <div class="ui-eyebrow">完整归档已保存 · 课堂竞技荣誉</div>
     <div class="grand-trophy">🏆</div>
     <div class="grand-title" id="grandModalTitle">封神榜正式开奖</div>
-    <p style="color:#64748b; font-size:14px; margin-bottom: 16px;" id="grandModalSubTitle">榜单已定，恩怨暂存档。以下小组成功登榜，全员积分随后归零，准备下一轮重新做人。</p>
+    <p style="color:#64748b; font-size:14px; margin-bottom: 16px;" id="grandModalSubTitle">完整档案与最终排名已封存，当前课堂已按原规则初始化。新一届的荣誉，等待下一次登场。</p>
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
-      <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">去档案馆翻案</button>
+      <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">查看完整档案 · 去档案馆翻案</button>
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
     </div>
   </div>

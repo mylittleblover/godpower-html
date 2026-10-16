@@ -232,11 +232,13 @@ function triggerFinalSettlement() {
 
   const input = document.getElementById('settlementNameInput');
   if (input) input.value = defaultTitle;
+  if(typeof DesktopUI!=='undefined')DesktopUI.prepareSettlement();
   document.getElementById('settlementNameModal').classList.add('active');
   setTimeout(() => { if (input) { input.focus(); input.select(); } }, 60);
 }
 
 function closeSettlementNameModal() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelSettlement();
   document.getElementById('settlementNameModal').classList.remove('active');
 }
 
@@ -2487,6 +2489,7 @@ function renderLockStatus() {
     if(resetBtn) resetBtn.classList.remove('locked-disabled');
     if(undoBtn) undoBtn.classList.remove('locked-disabled');
   }
+  if(typeof DesktopUI!=='undefined')DesktopUI.refreshLockControl(btn);
 }
 
 function renderControls() {
@@ -3424,7 +3427,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
-  if(typeof DesktopUI!=='undefined')DesktopUI.renderDaily();
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
   const mm = String(now.getMinutes()).padStart(2, '0');
@@ -5313,18 +5316,20 @@ let pendingUiIconV26=null;
 function uiIconsV26(){return STORAGE.getJSON('politics_ui_icons_v26',{})||{}}
 function applyUiIconsV26(){
  const map=uiIconsV26();
- UI_ICON_TARGETS.forEach(([id,label,sel,fallback])=>{
+ UI_ICON_TARGETS.forEach(([id,label,sel])=>{
   const el=document.querySelector(sel);if(!el)return;
   if(!el.dataset.v26Original)el.dataset.v26Original=el.innerHTML;
-  const data=map[id];
+  const data=Reliability.safeImage(map[id]);
   if(data){
-    if(el.classList.contains('nav-tab')){
-      const original=el.dataset.v26Original.replace(/^[^\s]+\s*/,'');
-      el.innerHTML=`<img class="custom-ui-icon" src="${data}"> ${original}`;
-    }else el.innerHTML=`<img class="custom-ui-icon" src="${data}" alt="${label}">`;
-  }else if(el.dataset.v26Original)el.innerHTML=el.dataset.v26Original;
- })
+    const template=document.createElement('template');template.innerHTML=el.dataset.v26Original;
+    template.content.querySelector('svg,.custom-ui-icon')?.remove();
+    const text=template.innerHTML.trim()||escapeHtml(label);
+    el.innerHTML=`<img class="custom-ui-icon" src="${data}" alt=""> ${text}`;
+  }else el.innerHTML=el.dataset.v26Original;
+  el.setAttribute('aria-label',label);
+ });
 }
+
 function chooseUiIconV26(id){pendingUiIconV26=id;const f=document.getElementById('uiIconInputV26');f.value='';f.click()}
 function handleUiIconV26(e){
  const f=e.target.files?.[0];if(!f||!pendingUiIconV26)return;

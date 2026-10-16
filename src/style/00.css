@@ -850,17 +850,19 @@
     position: relative;
     z-index: 2;
     background: #ffffff;
-    border: 3px solid #fde047;
-    box-shadow: 0 0 50px rgba(234, 179, 8, 0.7);
+    border: 1px solid var(--ui-border);
+    box-shadow: var(--shadow-float);
     border-radius: 20px;
     padding: 30px 24px;
-    width: 90%;
-    max-width: 580px;
+    width: min(var(--modal-lg),calc(var(--ui-viewport-width,100vw) - 64px));
+    max-width:var(--modal-lg);
+    max-height:calc(var(--ui-viewport-height,100dvh) - 64px);
+    overflow:auto;box-sizing:border-box;
     text-align: center;
     animation: grandScaleUp 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
   }
   @keyframes grandScaleUp {
-    0% { transform: scale(0.6); opacity: 0; }
+    0% { transform: scale(0.96); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
   .grand-title {

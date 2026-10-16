@@ -24,6 +24,7 @@ const modals = [
   ["aboutBackdrop", "openAbout"],
   ["batchImportModal", "openBatchImportModal"],
   ["quickPersonBackdropV218", "openQuickPersonScoreV218"],
+  ["grandModalOverlay", "confirmFinalSettlement"],
 ];
 try {
   for (const [width, height] of [
@@ -46,10 +47,14 @@ try {
       for (const [id, fn, arg] of modals) {
         const row = { id, width, height, zoom };
         try {
+          if (id === "grandModalOverlay") await setup(p);
           await p.evaluate(({ fn, arg }) => window[fn](arg), { fn, arg });
           await p.waitForTimeout(60);
           row.bounds = await p.locator("#" + id).evaluate((e) => {
-            const c = e.firstElementChild,
+            const c =
+                e.id === "grandModalOverlay"
+                  ? e.querySelector(".grand-card")
+                  : e.firstElementChild,
               r = c.getBoundingClientRect();
             return {
               x: r.x,

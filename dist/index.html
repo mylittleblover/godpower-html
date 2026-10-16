@@ -857,17 +857,19 @@
     position: relative;
     z-index: 2;
     background: #ffffff;
-    border: 3px solid #fde047;
-    box-shadow: 0 0 50px rgba(234, 179, 8, 0.7);
+    border: 1px solid var(--ui-border);
+    box-shadow: var(--shadow-float);
     border-radius: 20px;
     padding: 30px 24px;
-    width: 90%;
-    max-width: 580px;
+    width: min(var(--modal-lg),calc(var(--ui-viewport-width,100vw) - 64px));
+    max-width:var(--modal-lg);
+    max-height:calc(var(--ui-viewport-height,100dvh) - 64px);
+    overflow:auto;box-sizing:border-box;
     text-align: center;
     animation: grandScaleUp 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
   }
   @keyframes grandScaleUp {
-    0% { transform: scale(0.6); opacity: 0; }
+    0% { transform: scale(0.96); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
   .grand-title {
@@ -5333,7 +5335,7 @@ summary:focus-visible {
     </header>
     <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
     <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
-    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount"></b></div><div>总积分 <b id="wTotalScore"></b></div><div>最高分 <b id="wMaxScore"></b></div><div>领先 <b id="wLeaderName"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount" class="w-stat-num"></b></div><div>总积分 <b id="wTotalScore" class="w-stat-num"></b></div><div>最高分 <b id="wMaxScore" class="w-stat-num"></b></div><div>领先 <b id="wLeaderName" class="w-stat-num"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg" class="w-stat-num"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
   </main>
 </div>
 
@@ -5453,12 +5455,13 @@ summary:focus-visible {
 <div id="grandModalOverlay" class="grand-modal-overlay">
   <canvas id="confettiCanvas"></canvas>
   <div class="grand-card">
+    <div class="ui-eyebrow">完整归档已保存 · 课堂竞技荣誉</div>
     <div class="grand-trophy">🏆</div>
     <div class="grand-title" id="grandModalTitle">封神榜正式开奖</div>
-    <p style="color:#64748b; font-size:14px; margin-bottom: 16px;" id="grandModalSubTitle">榜单已定，恩怨暂存档。以下小组成功登榜，全员积分随后归零，准备下一轮重新做人。</p>
+    <p style="color:#64748b; font-size:14px; margin-bottom: 16px;" id="grandModalSubTitle">完整档案与最终排名已封存，当前课堂已按原规则初始化。新一届的荣誉，等待下一次登场。</p>
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
-      <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">去档案馆翻案</button>
+      <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">查看完整档案 · 去档案馆翻案</button>
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
     </div>
   </div>
@@ -6087,11 +6090,13 @@ function triggerFinalSettlement() {
 
   const input = document.getElementById('settlementNameInput');
   if (input) input.value = defaultTitle;
+  if(typeof DesktopUI!=='undefined')DesktopUI.prepareSettlement();
   document.getElementById('settlementNameModal').classList.add('active');
   setTimeout(() => { if (input) { input.focus(); input.select(); } }, 60);
 }
 
 function closeSettlementNameModal() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelSettlement();
   document.getElementById('settlementNameModal').classList.remove('active');
 }
 
@@ -8342,6 +8347,7 @@ function renderLockStatus() {
     if(resetBtn) resetBtn.classList.remove('locked-disabled');
     if(undoBtn) undoBtn.classList.remove('locked-disabled');
   }
+  if(typeof DesktopUI!=='undefined')DesktopUI.refreshLockControl(btn);
 }
 
 function renderControls() {
@@ -9279,7 +9285,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
-  if(typeof DesktopUI!=='undefined')DesktopUI.renderDaily();
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
   const mm = String(now.getMinutes()).padStart(2, '0');
@@ -11168,18 +11174,20 @@ let pendingUiIconV26=null;
 function uiIconsV26(){return STORAGE.getJSON('politics_ui_icons_v26',{})||{}}
 function applyUiIconsV26(){
  const map=uiIconsV26();
- UI_ICON_TARGETS.forEach(([id,label,sel,fallback])=>{
+ UI_ICON_TARGETS.forEach(([id,label,sel])=>{
   const el=document.querySelector(sel);if(!el)return;
   if(!el.dataset.v26Original)el.dataset.v26Original=el.innerHTML;
-  const data=map[id];
+  const data=Reliability.safeImage(map[id]);
   if(data){
-    if(el.classList.contains('nav-tab')){
-      const original=el.dataset.v26Original.replace(/^[^\s]+\s*/,'');
-      el.innerHTML=`<img class="custom-ui-icon" src="${data}"> ${original}`;
-    }else el.innerHTML=`<img class="custom-ui-icon" src="${data}" alt="${label}">`;
-  }else if(el.dataset.v26Original)el.innerHTML=el.dataset.v26Original;
- })
+    const template=document.createElement('template');template.innerHTML=el.dataset.v26Original;
+    template.content.querySelector('svg,.custom-ui-icon')?.remove();
+    const text=template.innerHTML.trim()||escapeHtml(label);
+    el.innerHTML=`<img class="custom-ui-icon" src="${data}" alt=""> ${text}`;
+  }else el.innerHTML=el.dataset.v26Original;
+  el.setAttribute('aria-label',label);
+ });
 }
+
 function chooseUiIconV26(id){pendingUiIconV26=id;const f=document.getElementById('uiIconInputV26');f.value='';f.click()}
 function handleUiIconV26(e){
  const f=e.target.files?.[0];if(!f||!pendingUiIconV26)return;
@@ -18621,6 +18629,8 @@ const DesktopUI = (() => {
       `${innerWidth / zoom}px`,
     );
   }
+  let historyEntryPending = false,
+    archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
     for (const m of [...openStack].reverse()) {
@@ -18646,11 +18656,25 @@ const DesktopUI = (() => {
     $(".ui-dock-menu")?.removeAttribute("open");
     $(".dock-humor-tip-v2185")?.classList.remove("show");
     cancelAnimations();
+    historyEntryPending = name === "history";
+    archiveEntryPending = name === "archives";
     if (preferences.pageMotion) {
       const host = $(`#view-${name}`);
-      animate(host, [{ opacity: 0.5 }, { opacity: 1 }], {
-        duration: 160 / preferences.speed,
-      });
+      const shift =
+        preferences.motion === "full"
+          ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ||
+            "0 0"
+          : "0 0";
+      animate(
+        host,
+        [
+          { opacity: 0.5, translate: shift },
+          { opacity: 1, translate: "0 0" },
+        ],
+        {
+          duration: 160 / preferences.speed,
+        },
+      );
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings);
@@ -18675,6 +18699,7 @@ const DesktopUI = (() => {
           g.inventory,
           g.itemEffect,
           g.booShield,
+          g.booRoundsLeftV218,
         ]),
       ) + mask;
     if (signature !== lastWelcome) {
@@ -18688,11 +18713,14 @@ const DesktopUI = (() => {
                   .filter(
                     ([k, v]) =>
                       (k === "type" && !!v) ||
-                      (k === "iceLock" && Number(v) > 0),
+                      (["iceLock", "featherDodge"].includes(k) &&
+                        Number(v) > 0),
                   )
                   .map(
                     ([k, v]) =>
                       ({
+                        bullet: "炮弹追击",
+                        featherDodge: "羽毛闪避",
                         star: "无敌星",
                         mega: "巨大蘑菇",
                         boo: "幽灵保护",
@@ -18702,6 +18730,8 @@ const DesktopUI = (() => {
                       })[k === "type" ? v : k] ||
                       (k === "iceLock" ? "冻结" : k),
                   );
+              if (g.booShield > 0 || g.booRoundsLeftV218 > 0)
+                states.push("幽灵保护");
               return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
             })
             .join("")
@@ -18869,6 +18899,19 @@ const DesktopUI = (() => {
       })
       .reverse()
       .join("");
+    if (historyEntryPending && preferences.pageMotion) {
+      historyEntryPending = false;
+      host.querySelectorAll(".ui-history:nth-child(-n+8)").forEach((el, i) =>
+        animate(
+          el,
+          [
+            { opacity: 0, translate: "0 5px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          { delay: i * 20, duration: 160 },
+        ),
+      );
+    }
     host.querySelectorAll("[data-restore]").forEach(
       (b) =>
         (b.onclick = async () => {
@@ -19212,7 +19255,11 @@ const DesktopUI = (() => {
             ? "点名"
             : /undoLast/.test(action)
               ? "撤销"
-              : b.getAttribute("title") || b.textContent;
+              : UI_ICON_TARGETS.find(([, , selector]) =>
+                  b.matches(selector),
+                )?.[1] ||
+                b.getAttribute("title") ||
+                b.textContent;
       b.setAttribute("aria-label", label);
       b.setAttribute("title", label);
       if (keep) {
@@ -19227,7 +19274,16 @@ const DesktopUI = (() => {
                 : "users",
           ) + `<span style="font-size:12px">${E(label)}</span>`;
       } else {
-        b.textContent = label;
+        b.innerHTML =
+          icon(
+            /zoom/.test(action)
+              ? "home"
+              : /Lock/.test(action)
+                ? "shield"
+                : /addGroup|Search/.test(action)
+                  ? "users"
+                  : "book",
+          ) + `<span>${E(label)}</span>`;
         menu.append(b);
       }
     }
@@ -19248,6 +19304,17 @@ const DesktopUI = (() => {
       },
       true,
     );
+  }
+  function refreshLockControl(button) {
+    if (!ready) return;
+    const label = state.isLocked ? "解锁管理口令" : "管理已解锁";
+    const original = icon("shield") + `<span>${label}</span>`;
+    button.dataset.v26Original = original;
+    const image = Reliability.safeImage(uiIconsV26().dock_lock);
+    button.innerHTML = image
+      ? `<img class="custom-ui-icon" src="${image}" alt=""><span>${label}</span>`
+      : original;
+    button.setAttribute("aria-label", label);
   }
   const modalClosers = {
     welcomeModal: () => closeWelcomeModal(),
@@ -19424,9 +19491,19 @@ const DesktopUI = (() => {
     });
     pickerChanged();
   }
-  let settlementBusy = false;
+  let settlementBusy = false,
+    settlementGeneration = 0;
+  function prepareSettlement() {
+    settlementGeneration++;
+    const status = $("#uiSettlementStatus");
+    if (status) status.textContent = "先完整归档，保存成功后才会清零。";
+  }
+  function cancelSettlement() {
+    settlementGeneration++;
+  }
   async function settleFromUI(button) {
     if (settlementBusy) return { ok: false, reason: "busy" };
+    const generation = settlementGeneration;
     settlementBusy = true;
     button.disabled = true;
     button.setAttribute("aria-busy", "true");
@@ -19438,8 +19515,14 @@ const DesktopUI = (() => {
       await new Promise((resolve) =>
         requestAnimationFrame(() => requestAnimationFrame(resolve)),
       );
-      if (!$("#settlementNameModal").classList.contains("active"))
+      if (
+        generation !== settlementGeneration ||
+        !$("#settlementNameModal").classList.contains("active")
+      ) {
+        if (generation === settlementGeneration && status)
+          status.textContent = "已取消，未执行归档。";
         return { ok: false, reason: "cancelled" };
+      }
       const result = confirmFinalSettlement();
       if (status)
         status.textContent = result?.ok
@@ -19482,9 +19565,37 @@ const DesktopUI = (() => {
       b.setAttribute("role", "tab");
     });
     setupDock();
+    UI_ICON_TARGETS.forEach(([, , selector]) => {
+      const el = $(selector);
+      if (el) el.dataset.v26Original = el.innerHTML;
+    });
+    applyUiIconsV26();
     setupSettings();
     setupPicker();
     setupModals();
+    $("#settlementHistoryContainer").addEventListener(
+      "toggle",
+      (event) => {
+        const details = event.target;
+        if (details.tagName !== "DETAILS") return;
+        if (!details.open) {
+          for (const a of animations)
+            if (details.contains(a.effect?.target)) a.cancel();
+          return;
+        }
+        details.querySelectorAll(".ui-podium>div").forEach((el, i) =>
+          animate(
+            el,
+            [
+              { opacity: 0, translate: "0 8px" },
+              { opacity: 1, translate: "0 0" },
+            ],
+            { delay: i * 70, duration: 200 },
+          ),
+        );
+      },
+      true,
+    );
     const t = $("#uiGroupTrack");
     t.addEventListener("scroll", updateArrows, { passive: true });
     t.addEventListener(
@@ -19540,12 +19651,24 @@ const DesktopUI = (() => {
           ),
         );
     }
+    if (canAnimate())
+      animate(
+        $(".welcome-enter-btn"),
+        [
+          { opacity: 0.5, scale: ".98" },
+          { opacity: 1, scale: "1" },
+        ],
+        { delay: 650, duration: 180 },
+      );
     $("#uiSkipWelcome").onclick = () => cancelAnimations();
   }
   return {
     init,
     settleFromUI,
+    prepareSettlement,
+    cancelSettlement,
     syncViewport,
+    refreshLockControl,
     renderDaily,
     renderWelcome,
     renderHistory,
