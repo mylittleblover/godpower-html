@@ -1,0 +1,61 @@
+
+> godpower-html@2.18.14 test
+> node --test tests/unit/*.test.mjs tests/integration/*.test.mjs
+
+✔ verified write roundtrip (1.616826ms)
+✔ write quota surfaced (0.307424ms)
+✔ write security surfaced (0.937062ms)
+✔ readback mismatch surfaced (0.263507ms)
+✔ archive success preserves complete snapshot (2.932758ms)
+✔ archive quota failure leaves old archive unchanged (0.303317ms)
+✔ corrupt archive not overwritten (0.400484ms)
+✔ archive retry deduplicates same id (0.313873ms)
+✔ more than 40 archives retained (1.748845ms)
+✔ common item guard null 0 true (0.840311ms)
+✔ common item guard {"inventory":[{"key":"fire_flower"}],"score":0} 1 true (0.155254ms)
+✔ common item guard {"inventory":[{"key":"ice_flower"}],"score":-1} 0 true (0.108513ms)
+✔ common item guard {"inventory":[{"key":"coin"}],"score":0} 0 false (0.124538ms)
+✔ same triple continuation allowed (0.150537ms)
+✔ different second item blocked (0.077576ms)
+✔ valid score 0 (2.780439ms)
+✔ valid score 1 (0.390629ms)
+✔ valid score -1 (0.130647ms)
+✔ valid score 9999999 (0.253182ms)
+✔ valid score 9007199254740991 (0.294664ms)
+✔ invalid backup null (0.772894ms)
+✔ invalid backup [] (0.285981ms)
+✔ invalid backup {} (0.134242ms)
+✔ invalid backup {"groups":[]} (0.835289ms)
+✔ invalid backup {"schemaVersion":2,"groups":[{}]} (0.261183ms)
+✔ invalid backup {"groups":[{"score":null}]} (0.255756ms)
+✔ invalid backup {"groups":[{"score":1.5}]} (3.578843ms)
+✔ invalid backup {"groups":[{"score":9007199254740992}]} (0.175334ms)
+✔ invalid backup {"groups":[{"members":"abc"}]} (0.203456ms)
+✔ invalid backup {"groups":[{"members":[null]}]} (0.14586ms)
+✔ invalid backup {"groups":[{"inventory":{}}]} (0.110076ms)
+✔ invalid backup {"groups":[{"inventory":[1,2,3,4]}]} (0.040751ms)
+✔ invalid backup {"groups":[{"itemEffect":[]}]} (0.05975ms)
+✔ invalid backup {"groups":[{}],"picker":[]} (0.123747ms)
+✔ phase NOT_STARTED (0.089094ms)
+✔ phase FINISHED (0.030897ms)
+✔ phase ANSWERING (0.028072ms)
+✔ phase ANSWER_SELECTED (0.027001ms)
+✔ phase SETTLED (0.244308ms)
+✔ reject image x" onerror="alert(1) (0.25878ms)
+✔ reject image javascript:alert(1) (0.129195ms)
+✔ reject image https://example.com/x (0.036715ms)
+✔ reject image data:image/svg+xml;base64,AAAA (0.027071ms)
+✔ raster data image accepted (0.049825ms)
+✔ CSV formula neutralization preserves numeric input externally (0.106481ms)
+✔ unsafe All In score is rejected before mutation (0.362145ms)
+✔ round calculation preserves answer and All In rules (3.256371ms)
+✔ statistics and effects reject injected strings (0.285771ms)
+✔ corrupt undo snapshots rejected on import (0.367164ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 49
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 259.876908

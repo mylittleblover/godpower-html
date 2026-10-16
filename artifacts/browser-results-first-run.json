@@ -1,0 +1,752 @@
+{
+  "date": "2026-10-16T15:07:32.917Z",
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "name": "archive failure never clears scores, inventory or history",
+      "status": "PASS",
+      "ms": 3205
+    },
+    {
+      "name": "archive success captures full state before reset",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeGrandModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:1:214)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at evaluate (/workspace/godpower-html/tests/e2e/run.mjs:11:22)\n    at /workspace/godpower-html/tests/e2e/run.mjs:16:16\n    at test (/workspace/godpower-html/tests/e2e/run.mjs:10:78)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:15:1",
+      "ms": 492
+    },
+    {
+      "name": "successful archive plus failed classroom write restores classroom",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeGrandModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:1:290)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at evaluate (/workspace/godpower-html/tests/e2e/run.mjs:11:22)\n    at /workspace/godpower-html/tests/e2e/run.mjs:19:16\n    at test (/workspace/godpower-html/tests/e2e/run.mjs:10:78)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:18:1",
+      "ms": 121
+    },
+    {
+      "name": "fire flower damage, All In cancellation and exact undo",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:22:471\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:21:1",
+      "ms": 205
+    },
+    {
+      "name": "fire and ice obey queue, disabled mode, negative scores and round lock",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: {\"key\":\"fire_flower\",\"condition\":\"secondary\",\"result\":false,\"unchanged\":false}\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:25:716\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:24:1",
+      "ms": 63
+    },
+    {
+      "name": "frozen flower attempt unfreezes without consuming, locks All In, undo restores ice",
+      "status": "PASS",
+      "ms": 265
+    },
+    {
+      "name": "ice skips already frozen targets and consumes when all frozen",
+      "status": "PASS",
+      "ms": 621
+    },
+    {
+      "name": "normalization preserves group numbers, ghost duration and continuation",
+      "status": "PASS",
+      "ms": 523
+    },
+    {
+      "name": "malformed imports leave live state intact",
+      "status": "PASS",
+      "ms": 179
+    },
+    {
+      "name": "legacy backup import and versioned complete backup roundtrip",
+      "status": "PASS",
+      "ms": 177
+    },
+    {
+      "name": "failed import persistence rolls back",
+      "status": "PASS",
+      "ms": 203
+    },
+    {
+      "name": "group name HTML injection is rendered as text",
+      "status": "PASS",
+      "ms": 208
+    },
+    {
+      "name": "all A/B/C/D scoring and duplicate judge idempotence",
+      "status": "PASS",
+      "ms": 1030
+    },
+    {
+      "name": "item:green: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 194
+    },
+    {
+      "name": "item:green: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 307
+    },
+    {
+      "name": "item:triple_green: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 111
+    },
+    {
+      "name": "item:triple_green: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 269
+    },
+    {
+      "name": "item:red: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 112
+    },
+    {
+      "name": "item:red: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 304
+    },
+    {
+      "name": "item:triple_red: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 143
+    },
+    {
+      "name": "item:triple_red: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 254
+    },
+    {
+      "name": "item:spiny: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 117
+    },
+    {
+      "name": "item:spiny: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 751
+    },
+    {
+      "name": "item:banana: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 63
+    },
+    {
+      "name": "item:banana: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 166
+    },
+    {
+      "name": "item:triple_banana: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 92
+    },
+    {
+      "name": "item:triple_banana: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 415
+    },
+    {
+      "name": "item:horn: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 115
+    },
+    {
+      "name": "item:horn: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 225
+    },
+    {
+      "name": "item:bomb: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 113
+    },
+    {
+      "name": "item:bomb: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 352
+    },
+    {
+      "name": "item:hammer: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 51
+    },
+    {
+      "name": "item:hammer: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 237
+    },
+    {
+      "name": "item:coin: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 87
+    },
+    {
+      "name": "item:coin: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 195
+    },
+    {
+      "name": "item:coin_shell: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 103
+    },
+    {
+      "name": "item:coin_shell: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 204
+    },
+    {
+      "name": "item:question: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 77
+    },
+    {
+      "name": "item:question: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 205
+    },
+    {
+      "name": "item:mushroom: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 95
+    },
+    {
+      "name": "item:mushroom: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 181
+    },
+    {
+      "name": "item:triple_mushroom: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 88
+    },
+    {
+      "name": "item:triple_mushroom: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 177
+    },
+    {
+      "name": "item:boo: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 78
+    },
+    {
+      "name": "item:boo: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 129
+    },
+    {
+      "name": "item:blooper: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 54
+    },
+    {
+      "name": "item:blooper: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 141
+    },
+    {
+      "name": "item:lightning: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 45
+    },
+    {
+      "name": "item:lightning: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 109
+    },
+    {
+      "name": "item:star: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 25
+    },
+    {
+      "name": "item:star: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 126
+    },
+    {
+      "name": "item:mega: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 51
+    },
+    {
+      "name": "item:mega: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 102
+    },
+    {
+      "name": "item:bullet: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 56
+    },
+    {
+      "name": "item:bullet: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 147
+    },
+    {
+      "name": "item:power: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 62
+    },
+    {
+      "name": "item:power: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 111
+    },
+    {
+      "name": "item:feather: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 58
+    },
+    {
+      "name": "item:feather: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 130
+    },
+    {
+      "name": "item:fire_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 39
+    },
+    {
+      "name": "item:fire_flower: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 105
+    },
+    {
+      "name": "item:ice_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 30
+    },
+    {
+      "name": "item:ice_flower: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 155
+    },
+    {
+      "name": "item:boomerang_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 38
+    },
+    {
+      "name": "item:boomerang_flower: secondary slot rejected",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    result: false,\n+   same: false\n-   same: true\n  }\n\n    at file:///workspace/godpower-html/tests/e2e/run.mjs:48:318\n    at async test (file:///workspace/godpower-html/tests/e2e/run.mjs:10:72)\n    at async file:///workspace/godpower-html/tests/e2e/run.mjs:48:2",
+      "ms": 124
+    },
+    {
+      "name": "triple item may finish same stack but next item cannot bypass round lock",
+      "status": "PASS",
+      "ms": 32
+    },
+    {
+      "name": "main passive defense consumed before target score loss",
+      "status": "PASS",
+      "ms": 425
+    },
+    {
+      "name": "50/100 rounds: correct scores, capped history and stable DOM",
+      "status": "PASS",
+      "ms": 1261
+    },
+    {
+      "name": "reload restores round and persistent state",
+      "status": "PASS",
+      "ms": 2369
+    },
+    {
+      "name": "custom icon payload cannot add executable HTML attributes",
+      "status": "PASS",
+      "ms": 585
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ui": [
+    {
+      "view": "welcome",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 49
+    },
+    {
+      "view": "welcome",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 49
+    },
+    {
+      "view": "welcome",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-768x1024.png",
+      "scrollWidth": 768,
+      "viewport": 768,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-768x1024.png",
+      "scrollWidth": 768,
+      "viewport": 768,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-768x1024.png",
+      "scrollWidth": 768,
+      "viewport": 768,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-768x1024.png",
+      "scrollWidth": 768,
+      "viewport": 768,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 768,
+      "height": 1024,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-768x1024.png",
+      "scrollWidth": 768,
+      "viewport": 768,
+      "visibleButtons": 49
+    },
+    {
+      "view": "welcome",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-1024x768.png",
+      "scrollWidth": 1024,
+      "viewport": 1024,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-1024x768.png",
+      "scrollWidth": 1024,
+      "viewport": 1024,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-1024x768.png",
+      "scrollWidth": 1024,
+      "viewport": 1024,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-1024x768.png",
+      "scrollWidth": 1024,
+      "viewport": 1024,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 1024,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-1024x768.png",
+      "scrollWidth": 1024,
+      "viewport": 1024,
+      "visibleButtons": 49
+    },
+    {
+      "view": "welcome",
+      "width": 390,
+      "height": 844,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-390x844.png",
+      "scrollWidth": 390,
+      "viewport": 390,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 390,
+      "height": 844,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-390x844.png",
+      "scrollWidth": 390,
+      "viewport": 390,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 390,
+      "height": 844,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-390x844.png",
+      "scrollWidth": 390,
+      "viewport": 390,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 390,
+      "height": 844,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-390x844.png",
+      "scrollWidth": 390,
+      "viewport": 390,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 390,
+      "height": 844,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-390x844.png",
+      "scrollWidth": 390,
+      "viewport": 390,
+      "visibleButtons": 49
+    },
+    {
+      "view": "welcome",
+      "width": 844,
+      "height": 390,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/welcome-844x390.png",
+      "scrollWidth": 844,
+      "viewport": 844,
+      "visibleButtons": 26
+    },
+    {
+      "view": "battle",
+      "width": 844,
+      "height": 390,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/battle-844x390.png",
+      "scrollWidth": 844,
+      "viewport": 844,
+      "visibleButtons": 54
+    },
+    {
+      "view": "history",
+      "width": 844,
+      "height": 390,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/history-844x390.png",
+      "scrollWidth": 844,
+      "viewport": 844,
+      "visibleButtons": 26
+    },
+    {
+      "view": "archives",
+      "width": 844,
+      "height": 390,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/archives-844x390.png",
+      "scrollWidth": 844,
+      "viewport": 844,
+      "visibleButtons": 30
+    },
+    {
+      "view": "settings",
+      "width": 844,
+      "height": 390,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/settings-844x390.png",
+      "scrollWidth": 844,
+      "viewport": 844,
+      "visibleButtons": 49
+    },
+    {
+      "view": "picker",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-picker.png"
+    },
+    {
+      "view": "hand",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-hand.png"
+    },
+    {
+      "view": "about",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-about.png"
+    },
+    {
+      "view": "member-search",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-member-search.png"
+    },
+    {
+      "view": "item-window",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-item-window.png"
+    },
+    {
+      "view": "settlement-name",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/modal-settlement-name.png"
+    }
+  ],
+  "compatibility": [
+    {
+      "browser": "chromium",
+      "protocol": "file",
+      "status": "BLOCKED",
+      "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-html/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "browser": "firefox",
+      "protocol": "http",
+      "status": "BLOCKED",
+      "error": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/firefox-1495/firefox/firefox\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝"
+    },
+    {
+      "browser": "webkit",
+      "protocol": "http",
+      "status": "BLOCKED",
+      "error": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/webkit-2215/pw_run.sh\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "view": "welcome",
+    "size": [
+      1920,
+      1080
+    ],
+    "changedPixels": 260,
+    "fraction": 0.0001253858024691358,
+    "classification": "EXPECTED_CHANGE_AND_DYNAMIC_CONTENT_REQUIRES_REVIEW"
+  },
+  {
+    "view": "battle",
+    "size": [
+      1920,
+      1080
+    ],
+    "changedPixels": 277,
+    "fraction": 0.0001335841049382716,
+    "classification": "EXPECTED_CHANGE_AND_DYNAMIC_CONTENT_REQUIRES_REVIEW"
+  },
+  {
+    "view": "history",
+    "size": [
+      1920,
+      1080
+    ],
+    "changedPixels": 277,
+    "fraction": 0.0001335841049382716,
+    "classification": "EXPECTED_CHANGE_AND_DYNAMIC_CONTENT_REQUIRES_REVIEW"
+  },
+  {
+    "view": "archives",
+    "size": [
+      1920,
+      1080
+    ],
+    "changedPixels": 277,
+    "fraction": 0.0001335841049382716,
+    "classification": "EXPECTED_CHANGE_AND_DYNAMIC_CONTENT_REQUIRES_REVIEW"
+  },
+  {
+    "view": "settings",
+    "size": [
+      1920,
+      1080
+    ],
+    "changedPixels": 277,
+    "fraction": 0.0001335841049382716,
+    "classification": "EXPECTED_CHANGE_AND_DYNAMIC_CONTENT_REQUIRES_REVIEW"
+  }
+]

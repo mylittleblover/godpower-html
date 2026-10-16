@@ -1,0 +1,132 @@
+[
+  {
+    "key": "green",
+    "name": "绿龟壳",
+    "charges": 1
+  },
+  {
+    "key": "triple_green",
+    "name": "三重绿龟壳",
+    "charges": 3
+  },
+  {
+    "key": "red",
+    "name": "红龟壳",
+    "charges": 1
+  },
+  {
+    "key": "triple_red",
+    "name": "三重红龟壳",
+    "charges": 3
+  },
+  {
+    "key": "spiny",
+    "name": "刺龟壳",
+    "charges": 1
+  },
+  {
+    "key": "banana",
+    "name": "香蕉皮",
+    "charges": 1
+  },
+  {
+    "key": "triple_banana",
+    "name": "三重香蕉皮",
+    "charges": 3
+  },
+  {
+    "key": "horn",
+    "name": "超级喇叭",
+    "charges": 1
+  },
+  {
+    "key": "bomb",
+    "name": "炸弹兵",
+    "charges": 1
+  },
+  {
+    "key": "hammer",
+    "name": "锤子",
+    "charges": 1
+  },
+  {
+    "key": "coin",
+    "name": "金币",
+    "charges": 1
+  },
+  {
+    "key": "coin_shell",
+    "name": "金币龟壳",
+    "charges": 1
+  },
+  {
+    "key": "question",
+    "name": "？砖块",
+    "charges": 1
+  },
+  {
+    "key": "mushroom",
+    "name": "蘑菇",
+    "charges": 1
+  },
+  {
+    "key": "triple_mushroom",
+    "name": "三重蘑菇",
+    "charges": 3
+  },
+  {
+    "key": "boo",
+    "name": "害羞幽灵",
+    "charges": 1
+  },
+  {
+    "key": "blooper",
+    "name": "鱿鱿",
+    "charges": 1
+  },
+  {
+    "key": "lightning",
+    "name": "闪电",
+    "charges": 1
+  },
+  {
+    "key": "star",
+    "name": "无敌星",
+    "charges": 1
+  },
+  {
+    "key": "mega",
+    "name": "巨大蘑菇",
+    "charges": 1
+  },
+  {
+    "key": "bullet",
+    "name": "炮弹刺客",
+    "charges": 1
+  },
+  {
+    "key": "power",
+    "name": "强力蘑菇",
+    "charges": 1
+  },
+  {
+    "key": "feather",
+    "name": "羽毛",
+    "charges": 1
+  },
+  {
+    "key": "fire_flower",
+    "name": "火之花",
+    "charges": 3
+  },
+  {
+    "key": "ice_flower",
+    "name": "冰之花",
+    "charges": 3
+  },
+  {
+    "key": "boomerang_flower",
+    "name": "回旋镖花",
+    "charges": 3
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "version": "baseline",
+    "view": "welcome",
+    "path": "artifacts/screenshots/reference-baseline/welcome.png"
+  },
+  {
+    "version": "baseline",
+    "view": "battle",
+    "path": "artifacts/screenshots/reference-baseline/battle.png"
+  },
+  {
+    "version": "baseline",
+    "view": "history",
+    "path": "artifacts/screenshots/reference-baseline/history.png"
+  },
+  {
+    "version": "baseline",
+    "view": "archives",
+    "path": "artifacts/screenshots/reference-baseline/archives.png"
+  },
+  {
+    "version": "baseline",
+    "view": "settings",
+    "path": "artifacts/screenshots/reference-baseline/settings.png"
+  },
+  {
+    "version": "fixed",
+    "view": "welcome",
+    "path": "artifacts/screenshots/reference-fixed/welcome.png"
+  },
+  {
+    "version": "fixed",
+    "view": "battle",
+    "path": "artifacts/screenshots/reference-fixed/battle.png"
+  },
+  {
+    "version": "fixed",
+    "view": "history",
+    "path": "artifacts/screenshots/reference-fixed/history.png"
+  },
+  {
+    "version": "fixed",
+    "view": "archives",
+    "path": "artifacts/screenshots/reference-fixed/archives.png"
+  },
+  {
+    "version": "fixed",
+    "view": "settings",
+    "path": "artifacts/screenshots/reference-fixed/settings.png"
+  }
+]
