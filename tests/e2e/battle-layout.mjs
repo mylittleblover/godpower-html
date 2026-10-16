@@ -54,6 +54,15 @@ try {
         b.cards.every((c) => c.bottom <= b.dock.top),
         "all 14 groups must remain above dock",
       );
+      for (const card of b.cards)
+        for (const button of card.buttons || [])
+          assert.ok(
+            button.x >= card.x - 1 &&
+              button.x + button.width <= card.x + card.width + 1 &&
+              button.top >= card.top - 1 &&
+              button.bottom <= card.bottom + 1,
+            "necessary group controls must remain inside the card",
+          );
       for (let i = 0; i < 14; i++)
         for (const prop of ["x", "y", "width", "height"])
           assert.ok(

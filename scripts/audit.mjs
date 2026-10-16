@@ -1,7 +1,7 @@
 import {parse} from 'acorn';import {readFile,readdir,writeFile} from 'node:fs/promises';
 const entries=[],keys=new Set(),frames=new Set(),counts={},handlers=new Set(),fields=new Set();
 const textSource=[];
-for(const dir of ['src/script','src/core'])for(const f of await readdir(dir)){
+for(const dir of ['src/script','src/core','src/ui'])for(const f of await readdir(dir)){
  if(!f.endsWith('.js'))continue;const path=`${dir}/${f}`,s=await readFile(path,'utf8');textSource.push(s);
  for(const m of s.matchAll(/['"]((?:politics|godpower)_[a-zA-Z0-9_]+)['"]/g))keys.add(m[1]);
  for(const m of s.matchAll(/(?:state|g)\.([a-zA-Z_][a-zA-Z0-9_]*)\s*=/g))fields.add(m[1]);

@@ -1,85 +1,93 @@
 
-> godpower-html@2.18.14 verify
-> npm run build && npm run check && npm test && npm run test:e2e
+> godpower-html@2.19.0 verify
+> npm run build && npm run check && npm test && npm run test:e2e && npm run test:ui
 
 
-> godpower-html@2.18.14 build
+> godpower-html@2.19.0 build
 > node scripts/build.mjs
 
-{"file":"dist/godpower.html","bytes":7560175,"sha256":"cce73b787ab4e6bfc7f96354cd08a5a3ce9d55a60e01fc80f82d77a0a1380c6c"}
+{"file":"dist/godpower.html","bytes":7626016,"sha256":"55452d47e7211adbbe29b781bde6ea992ced550ad5f72651d798d84b05648159"}
 
-> godpower-html@2.18.14 check
+> godpower-html@2.19.0 check
 > node scripts/check.mjs
 
-48 script blocks parse; all 27 original embedded resources preserved
+50 script blocks parse; all 27 original embedded resources preserved
 
-> godpower-html@2.18.14 test
+> godpower-html@2.19.0 test
 > node --test tests/unit/*.test.mjs tests/integration/*.test.mjs
 
-✔ verified write roundtrip (0.973247ms)
-✔ write quota surfaced (3.288988ms)
-✔ write security surfaced (0.102284ms)
-✔ readback mismatch surfaced (0.1258ms)
-✔ archive success preserves complete snapshot (0.839055ms)
-✔ archive quota failure leaves old archive unchanged (0.170357ms)
-✔ corrupt archive not overwritten (0.173542ms)
-✔ archive retry deduplicates same id (0.186121ms)
-✔ more than 40 archives retained (0.578032ms)
-✔ common item guard null 0 true (0.273953ms)
-✔ common item guard {"inventory":[{"key":"fire_flower"}],"score":0} 1 true (0.108323ms)
-✔ common item guard {"inventory":[{"key":"ice_flower"}],"score":-1} 0 true (0.064498ms)
-✔ common item guard {"inventory":[{"key":"coin"}],"score":0} 0 false (1.932484ms)
-✔ same triple continuation allowed (0.118278ms)
-✔ different second item blocked (0.072119ms)
-✔ valid score 0 (1.558515ms)
-✔ valid score 1 (0.262325ms)
-✔ valid score -1 (0.089254ms)
-✔ valid score 9999999 (0.098238ms)
-✔ valid score 9007199254740991 (0.101092ms)
-✔ invalid backup null (0.558513ms)
-✔ invalid backup [] (0.146471ms)
-✔ invalid backup {} (0.073911ms)
-✔ invalid backup {"groups":[]} (0.211389ms)
-✔ invalid backup {"schemaVersion":2,"groups":[{}]} (0.300533ms)
-✔ invalid backup {"groups":[{"score":null}]} (0.184058ms)
-✔ invalid backup {"groups":[{"score":1.5}]} (0.158279ms)
-✔ invalid backup {"groups":[{"score":9007199254740992}]} (1.169834ms)
-✔ invalid backup {"groups":[{"members":"abc"}]} (0.070646ms)
-✔ invalid backup {"groups":[{"members":[null]}]} (0.122084ms)
-✔ invalid backup {"groups":[{"inventory":{}}]} (0.09943ms)
-✔ invalid backup {"groups":[{"inventory":[1,2,3,4]}]} (0.071498ms)
-✔ invalid backup {"groups":[{"itemEffect":[]}]} (0.040331ms)
-✔ invalid backup {"groups":[{}],"picker":[]} (0.062174ms)
-✔ phase NOT_STARTED (0.085058ms)
-✔ phase FINISHED (0.057767ms)
-✔ phase ANSWERING (0.02694ms)
-✔ phase ANSWER_SELECTED (0.023896ms)
-✔ phase SETTLED (0.023215ms)
-✔ reject image x" onerror="alert(1) (0.158629ms)
-✔ reject image javascript:alert(1) (0.070726ms)
-✔ reject image https://example.com/x (0.027081ms)
-✔ reject image data:image/svg+xml;base64,AAAA (0.024337ms)
-✔ raster data image accepted (0.045879ms)
-✔ CSV formula neutralization preserves numeric input externally (0.125589ms)
-✔ unsafe All In score is rejected before mutation (0.186471ms)
-✔ round calculation preserves answer and All In rules (1.161887ms)
-✔ statistics and effects reject injected strings (0.220392ms)
-✔ corrupt undo snapshots rejected on import (0.166151ms)
-ℹ tests 49
+✔ verified write roundtrip (1.052677ms)
+✔ write quota surfaced (0.156586ms)
+✔ write security surfaced (0.083456ms)
+✔ readback mismatch surfaced (0.117117ms)
+✔ archive success preserves complete snapshot (0.788088ms)
+✔ archive quota failure leaves old archive unchanged (0.234373ms)
+✔ corrupt archive not overwritten (0.340684ms)
+✔ archive retry deduplicates same id (0.155244ms)
+✔ more than 40 archives retained (0.693925ms)
+✔ common item guard null 0 true (0.350898ms)
+✔ common item guard {"inventory":[{"key":"fire_flower"}],"score":0} 1 true (0.117497ms)
+✔ common item guard {"inventory":[{"key":"ice_flower"}],"score":-1} 0 true (0.062704ms)
+✔ common item guard {"inventory":[{"key":"coin"}],"score":0} 0 false (0.071938ms)
+✔ same triple continuation allowed (0.127642ms)
+✔ different second item blocked (3.353053ms)
+✔ valid score 0 (1.886674ms)
+✔ valid score 1 (0.146591ms)
+✔ valid score -1 (0.085348ms)
+✔ valid score 9999999 (0.071458ms)
+✔ valid score 9007199254740991 (0.162465ms)
+✔ invalid backup null (0.618071ms)
+✔ invalid backup [] (0.210437ms)
+✔ invalid backup {} (0.094903ms)
+✔ invalid backup {"groups":[]} (0.127843ms)
+✔ invalid backup {"schemaVersion":2,"groups":[{}]} (0.237258ms)
+✔ invalid backup {"groups":[{"score":null}]} (0.150356ms)
+✔ invalid backup {"groups":[{"score":1.5}]} (1.296273ms)
+✔ invalid backup {"groups":[{"score":9007199254740992}]} (0.093531ms)
+✔ invalid backup {"groups":[{"members":"abc"}]} (0.051658ms)
+✔ invalid backup {"groups":[{"members":[null]}]} (0.126661ms)
+✔ invalid backup {"groups":[{"inventory":{}}]} (0.147693ms)
+✔ invalid backup {"groups":[{"inventory":[1,2,3,4]}]} (0.084497ms)
+✔ invalid backup {"groups":[{"itemEffect":[]}]} (0.091979ms)
+✔ invalid backup {"groups":[{}],"picker":[]} (0.104427ms)
+✔ phase NOT_STARTED (0.076154ms)
+✔ phase FINISHED (0.029875ms)
+✔ phase ANSWERING (0.121483ms)
+✔ phase ANSWER_SELECTED (0.034141ms)
+✔ phase SETTLED (0.240192ms)
+✔ reject image x" onerror="alert(1) (0.186421ms)
+✔ reject image javascript:alert(1) (0.087252ms)
+✔ reject image https://example.com/x (0.032098ms)
+✔ reject image data:image/svg+xml;base64,AAAA (0.025127ms)
+✔ raster data image accepted (0.048664ms)
+✔ CSV formula neutralization preserves numeric input externally (0.120151ms)
+✔ unsafe All In score is rejected before mutation (0.156897ms)
+✔ round calculation preserves answer and All In rules (0.643269ms)
+✔ statistics and effects reject injected strings (0.1723ms)
+✔ corrupt undo snapshots rejected on import (0.136827ms)
+✔ daily content is stable across same-day reloads and changes next date (1.21453ms)
+✔ local civil day handles month and year boundaries (1.247791ms)
+✔ empty bank has no fabricated fallback question (0.177548ms)
+✔ built-in examples have sources and corresponding answers (0.41776ms)
+✔ invalid local bank rejected {} (0.271919ms)
+✔ invalid local bank rejected {"knowledge":[],"challenges":[{"id":"q","title":"x","subject":"politics","source":"source","options":["a","b","c","d"],"answer":4,"explanation":"x"}]} (0.110086ms)
+✔ invalid local bank rejected {"knowledge":[{"id":"a","title":"x","subject":"politics"}],"challenges":[]} (0.394946ms)
+✔ history differences use real snapshots without mutations (0.355415ms)
+ℹ tests 57
 ℹ suites 0
-ℹ pass 49
+ℹ pass 57
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 180.850391
+ℹ duration_ms 250.738627
 
-> godpower-html@2.18.14 test:e2e
-> node tests/e2e/run.mjs && node tests/e2e/rules.mjs
+> godpower-html@2.19.0 test:e2e
+> node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs
 
 PASS denied browser storage getter reports failure without throwing
 PASS failed item cannot persist a phantom undo snapshot
-PASS item save failure restores score inventory and undo history
+PASS item save failure retains session result with explicit unsaved warning
 PASS archive failure never clears scores, inventory or history
 PASS archive success captures full state before reset
 PASS successful archive plus failed classroom write restores classroom
@@ -196,3 +204,51 @@ PASS modal/page repetition has bounded DOM after animations settle
 PASS item description sync cannot destroy batch actions
 {"pass":117,"fail":0,"errors":[],"compatibility":[{"browser":"chromium","protocol":"file","status":"BLOCKED","error":"page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-html/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n"}]}
 { pass: 26, fail: 0 }
+PASS after none [ 2, 2, 2, 2 ]
+PASS after quota [ 2, 2, 2, 2 ]
+PASS after startup-denied [ 2, 2, 2, 2 ]
+
+> godpower-html@2.19.0 test:ui
+> node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs
+
+1366 PASS
+1920 PASS
+2560 PASS
+PASS UI boot and five-page dock isolation (including programmatic stale-button clicks)
+PASS Toast stays in native top layer above functional and confirmation modals
+PASS Welcome 0 real groups, long names and large scores
+PASS Welcome 1 real groups, long names and large scores
+PASS Welcome 2 real groups, long names and large scores
+PASS Welcome 4 real groups, long names and large scores
+PASS Welcome 8 real groups, long names and large scores
+PASS Welcome 16 real groups, long names and large scores
+PASS Daily quiz answer/explanation match; formal state remains unchanged
+PASS History 0 snapshots and genuine score/inventory differences
+PASS History 1 snapshots and genuine score/inventory differences
+PASS History 40 snapshots and genuine score/inventory differences
+PASS History restore retains exact original pre-action semantics
+PASS All eight setting categories expose preserved controls; preferences persist
+PASS Local bank rejects malformed JSON without changing saved content; category toggle works
+PASS Archives 0 events, original ties/order and incomplete legacy fields
+PASS Archives 1 events, original ties/order and incomplete legacy fields
+PASS Archives 24 events, original ties/order and incomplete legacy fields
+PASS Picker all three modes, stop results and exact target reward
+FAIL All actual item definitions render main/secondary queues, real descriptions and visual event cleanup The expression evaluated to a falsy value:
+
+  assert.ok((await p.evaluate(() => DesktopUI.getAnimationCount())) <= 1)
+
+FAIL Modal keyboard focus, nested Escape and reopen/close cleanup Expected values to be strictly equal:
+
+false !== true
+
+PASS Desktop 1366x768 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 1366x768 app zoom 1 five pages bounds/navigation
+PASS Desktop 1366x768 app zoom 1.25 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 1 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 1.25 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 1 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 1.25 five pages bounds/navigation
+PASS No uncaught browser errors across complete desktop acceptance
+{"pass":29,"fail":2}

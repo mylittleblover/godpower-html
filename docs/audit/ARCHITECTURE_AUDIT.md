@@ -1,3 +1,5 @@
+> 最新桌面 UI 交付：见 `docs/reports/DESKTOP_UI_ACCEPTANCE.md`、`docs/ui/DESIGN_SYSTEM.md` 和 `artifacts/desktop-ui/acceptance-matrix.json`。以下原始审查结论保留为历史记录。
+
 # 架构独立审查
 
 基线：仓库 main `a66587215603fc1b5459630f534289257242af0b` 仅 README；附件为实际 V2.18.13。备份提交 `70d1b42`。工作区最初为空且干净，建立 `fix/html-reliability-audit`。原文件为7,546,905字节、17,414行、46段脚本、24段样式、27个嵌入图片。首次拆分重建与附件逐字 SHA-256 一致；没有用旧代码覆盖更新的仓库功能。

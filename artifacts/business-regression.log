@@ -1,0 +1,138 @@
+
+> godpower-html@2.18.15 test:e2e
+> node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs
+
+PASS denied browser storage getter reports failure without throwing
+PASS failed item cannot persist a phantom undo snapshot
+PASS item save failure retains session result with explicit unsaved warning
+PASS archive failure never clears scores, inventory or history
+PASS archive success captures full state before reset
+PASS successful archive plus failed classroom write restores classroom
+PASS fire flower damage, All In cancellation and exact undo
+PASS fire and ice obey queue, disabled mode, negative scores and round lock
+PASS frozen flower attempt unfreezes without consuming, locks All In, undo restores ice
+PASS ice skips already frozen targets and consumes when all frozen
+PASS normalization preserves group numbers, ghost duration and continuation
+PASS malformed imports leave live state intact
+PASS legacy backup import and versioned complete backup roundtrip
+PASS failed import persistence rolls back
+PASS group name HTML injection is rendered as text
+PASS all A/B/C/D scoring and duplicate judge idempotence
+PASS item:green: negative/mode/round/freeze/reload guards
+PASS item:green: acquire/use/consume/undo
+PASS item:green: secondary slot rejected
+PASS item:triple_green: negative/mode/round/freeze/reload guards
+PASS item:triple_green: acquire/use/consume/undo
+PASS item:triple_green: secondary slot rejected
+PASS item:red: negative/mode/round/freeze/reload guards
+PASS item:red: acquire/use/consume/undo
+PASS item:red: secondary slot rejected
+PASS item:triple_red: negative/mode/round/freeze/reload guards
+PASS item:triple_red: acquire/use/consume/undo
+PASS item:triple_red: secondary slot rejected
+PASS item:spiny: negative/mode/round/freeze/reload guards
+PASS item:spiny: acquire/use/consume/undo
+PASS item:spiny: secondary slot rejected
+PASS item:banana: negative/mode/round/freeze/reload guards
+PASS item:banana: acquire/use/consume/undo
+PASS item:banana: secondary slot rejected
+PASS item:triple_banana: negative/mode/round/freeze/reload guards
+PASS item:triple_banana: acquire/use/consume/undo
+PASS item:triple_banana: secondary slot rejected
+PASS item:horn: negative/mode/round/freeze/reload guards
+PASS item:horn: acquire/use/consume/undo
+PASS item:horn: secondary slot rejected
+PASS item:bomb: negative/mode/round/freeze/reload guards
+PASS item:bomb: acquire/use/consume/undo
+PASS item:bomb: secondary slot rejected
+PASS item:hammer: negative/mode/round/freeze/reload guards
+PASS item:hammer: acquire/use/consume/undo
+PASS item:hammer: secondary slot rejected
+PASS item:coin: negative/mode/round/freeze/reload guards
+PASS item:coin: acquire/use/consume/undo
+PASS item:coin: secondary slot rejected
+PASS item:coin_shell: negative/mode/round/freeze/reload guards
+PASS item:coin_shell: acquire/use/consume/undo
+PASS item:coin_shell: secondary slot rejected
+PASS item:question: negative/mode/round/freeze/reload guards
+PASS item:question: acquire/use/consume/undo
+PASS item:question: secondary slot rejected
+PASS item:mushroom: negative/mode/round/freeze/reload guards
+PASS item:mushroom: acquire/use/consume/undo
+PASS item:mushroom: secondary slot rejected
+PASS item:triple_mushroom: negative/mode/round/freeze/reload guards
+PASS item:triple_mushroom: acquire/use/consume/undo
+PASS item:triple_mushroom: secondary slot rejected
+PASS item:boo: negative/mode/round/freeze/reload guards
+PASS item:boo: acquire/use/consume/undo
+PASS item:boo: secondary slot rejected
+PASS item:blooper: negative/mode/round/freeze/reload guards
+PASS item:blooper: acquire/use/consume/undo
+PASS item:blooper: secondary slot rejected
+PASS item:lightning: negative/mode/round/freeze/reload guards
+PASS item:lightning: acquire/use/consume/undo
+PASS item:lightning: secondary slot rejected
+PASS item:star: negative/mode/round/freeze/reload guards
+PASS item:star: acquire/use/consume/undo
+PASS item:star: secondary slot rejected
+PASS item:mega: negative/mode/round/freeze/reload guards
+PASS item:mega: acquire/use/consume/undo
+PASS item:mega: secondary slot rejected
+PASS item:bullet: negative/mode/round/freeze/reload guards
+PASS item:bullet: acquire/use/consume/undo
+PASS item:bullet: secondary slot rejected
+PASS item:power: negative/mode/round/freeze/reload guards
+PASS item:power: acquire/use/consume/undo
+PASS item:power: secondary slot rejected
+PASS item:feather: negative/mode/round/freeze/reload guards
+PASS item:feather: acquire/use/consume/undo
+PASS item:feather: secondary slot rejected
+PASS item:fire_flower: negative/mode/round/freeze/reload guards
+PASS item:fire_flower: acquire/use/consume/undo
+PASS item:fire_flower: secondary slot rejected
+PASS item:ice_flower: negative/mode/round/freeze/reload guards
+PASS item:ice_flower: acquire/use/consume/undo
+PASS item:ice_flower: secondary slot rejected
+PASS item:boomerang_flower: negative/mode/round/freeze/reload guards
+PASS item:boomerang_flower: acquire/use/consume/undo
+PASS item:boomerang_flower: secondary slot rejected
+PASS triple item may finish same stack but next item cannot bypass round lock
+PASS main passive defense consumed before target score loss
+PASS 50/100 rounds: correct scores, capped history and stable DOM
+PASS reload restores round and persistent state
+PASS custom icon payload cannot add executable HTML attributes
+PASS unsafe item result rolls back score and inventory atomically
+PASS denied next round cannot clear used-item lock
+PASS unsafe All In scores reject whole settlement before mutation
+PASS all-correct/all-wrong and unchanged no-answer groups
+PASS real answer click, deselect, keyboard focus and hover
+PASS manual score, negative score, 7-digit score, ranking and undo
+PASS members, group rename, add and delete undo
+PASS picker modes, anti-repeat exhaustion and actual spin stop
+PASS hand raise correct/wrong statistics and reward undo
+PASS normal next round and force end undo
+PASS all items with 1 groups remain valid
+PASS all items with 2 groups remain valid
+PASS all items with 4 groups remain valid
+PASS all items with 8 groups remain valid
+PASS download JSON and full archive CSV contain real payloads
+PASS audio context first gesture, mute, volume and invalid decode
+PASS modal/page repetition has bounded DOM after animations settle
+PASS item description sync cannot destroy batch actions
+{"pass":117,"fail":0,"errors":[],"compatibility":[{"browser":"chromium","protocol":"file","status":"BLOCKED","error":"page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-html/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n"}]}
+{ pass: 26, fail: 0 }
+PASS after none [ 2, 2, 2, 2 ]
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.reload: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+    at run (/workspace/godpower-html/tests/e2e/scoring-persistence.mjs:38:12)
+    at async file:///workspace/godpower-html/tests/e2e/scoring-persistence.mjs:46:57 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

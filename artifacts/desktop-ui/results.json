@@ -1,0 +1,251 @@
+{
+  "browser": "Chromium",
+  "zoomMethod": "existing applyZoom (CSS body zoom), not browser chrome UI zoom",
+  "results": [
+    {
+      "name": "UI boot and five-page dock isolation (including programmatic stale-button clicks)",
+      "status": "PASS"
+    },
+    {
+      "name": "Toast stays in native top layer above functional and confirmation modals",
+      "status": "PASS"
+    },
+    {
+      "name": "Welcome 0 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 1 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 2 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 4 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 8 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": true
+      }
+    },
+    {
+      "name": "Welcome 16 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": true
+      }
+    },
+    {
+      "name": "Daily quiz answer/explanation match; formal state remains unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "History 0 snapshots and genuine score/inventory differences",
+      "status": "PASS"
+    },
+    {
+      "name": "History 1 snapshots and genuine score/inventory differences",
+      "status": "PASS"
+    },
+    {
+      "name": "History 40 snapshots and genuine score/inventory differences",
+      "status": "PASS"
+    },
+    {
+      "name": "History restore retains exact original pre-action semantics",
+      "status": "PASS"
+    },
+    {
+      "name": "All eight setting categories expose preserved controls; preferences persist",
+      "status": "PASS",
+      "evidence": {
+        "originalControls": 188,
+        "currentControls": 199
+      }
+    },
+    {
+      "name": "Local bank rejects malformed JSON without changing saved content; category toggle works",
+      "status": "PASS"
+    },
+    {
+      "name": "Archives 0 events, original ties/order and incomplete legacy fields",
+      "status": "PASS"
+    },
+    {
+      "name": "Archives 1 events, original ties/order and incomplete legacy fields",
+      "status": "PASS"
+    },
+    {
+      "name": "Archives 24 events, original ties/order and incomplete legacy fields",
+      "status": "PASS"
+    },
+    {
+      "name": "Picker all three modes, stop results and exact target reward",
+      "status": "PASS"
+    },
+    {
+      "name": "All actual item definitions render main/secondary queues, real descriptions and visual event cleanup",
+      "status": "PASS",
+      "evidence": {
+        "itemDefinitions": [
+          "green",
+          "triple_green",
+          "red",
+          "triple_red",
+          "spiny",
+          "banana",
+          "triple_banana",
+          "horn",
+          "bomb",
+          "hammer",
+          "coin",
+          "coin_shell",
+          "question",
+          "mushroom",
+          "triple_mushroom",
+          "boo",
+          "blooper",
+          "lightning",
+          "star",
+          "mega",
+          "bullet",
+          "power",
+          "feather",
+          "fire_flower",
+          "ice_flower",
+          "boomerang_flower"
+        ]
+      }
+    },
+    {
+      "name": "Modal keyboard focus, nested Escape and reopen/close cleanup",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1366x768 app zoom 0.8 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1366x768 app zoom 1 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1366x768 app zoom 1.25 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1920x1080 app zoom 0.8 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1920x1080 app zoom 1 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 1920x1080 app zoom 1.25 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 2560x1440 app zoom 0.8 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 2560x1440 app zoom 1 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop 2560x1440 app zoom 1.25 five pages bounds/navigation",
+      "status": "PASS"
+    },
+    {
+      "name": "No uncaught browser errors across complete desktop acceptance",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "artifacts/desktop-ui/toast-over-confirmation.png",
+    "artifacts/desktop-ui/welcome-16-groups.png",
+    "artifacts/desktop-ui/history-0.png",
+    "artifacts/desktop-ui/history-1-restore-confirm.png",
+    "artifacts/desktop-ui/history-1.png",
+    "artifacts/desktop-ui/history-40-restore-confirm.png",
+    "artifacts/desktop-ui/history-40.png",
+    "artifacts/desktop-ui/settings-rules.png",
+    "artifacts/desktop-ui/settings-appearance.png",
+    "artifacts/desktop-ui/settings-motion.png",
+    "artifacts/desktop-ui/settings-sound.png",
+    "artifacts/desktop-ui/settings-items.png",
+    "artifacts/desktop-ui/settings-students.png",
+    "artifacts/desktop-ui/settings-welcome.png",
+    "artifacts/desktop-ui/settings-data.png",
+    "artifacts/desktop-ui/archives-0.png",
+    "artifacts/desktop-ui/archives-1.png",
+    "artifacts/desktop-ui/archives-24.png",
+    "artifacts/desktop-ui/picker-individual.png",
+    "artifacts/desktop-ui/picker-group.png",
+    "artifacts/desktop-ui/picker-two_tier.png",
+    "artifacts/desktop-ui/welcome-1366-zoom0.8.png",
+    "artifacts/desktop-ui/battle-1366-zoom0.8.png",
+    "artifacts/desktop-ui/history-1366-zoom0.8.png",
+    "artifacts/desktop-ui/archives-1366-zoom0.8.png",
+    "artifacts/desktop-ui/settings-1366-zoom0.8.png",
+    "artifacts/desktop-ui/welcome-1366-zoom1.png",
+    "artifacts/desktop-ui/battle-1366-zoom1.png",
+    "artifacts/desktop-ui/history-1366-zoom1.png",
+    "artifacts/desktop-ui/archives-1366-zoom1.png",
+    "artifacts/desktop-ui/settings-1366-zoom1.png",
+    "artifacts/desktop-ui/welcome-1366-zoom1.25.png",
+    "artifacts/desktop-ui/battle-1366-zoom1.25.png",
+    "artifacts/desktop-ui/history-1366-zoom1.25.png",
+    "artifacts/desktop-ui/archives-1366-zoom1.25.png",
+    "artifacts/desktop-ui/settings-1366-zoom1.25.png",
+    "artifacts/desktop-ui/welcome-1920-zoom0.8.png",
+    "artifacts/desktop-ui/battle-1920-zoom0.8.png",
+    "artifacts/desktop-ui/history-1920-zoom0.8.png",
+    "artifacts/desktop-ui/archives-1920-zoom0.8.png",
+    "artifacts/desktop-ui/settings-1920-zoom0.8.png",
+    "artifacts/desktop-ui/welcome-1920-zoom1.png",
+    "artifacts/desktop-ui/battle-1920-zoom1.png",
+    "artifacts/desktop-ui/history-1920-zoom1.png",
+    "artifacts/desktop-ui/archives-1920-zoom1.png",
+    "artifacts/desktop-ui/settings-1920-zoom1.png",
+    "artifacts/desktop-ui/welcome-1920-zoom1.25.png",
+    "artifacts/desktop-ui/battle-1920-zoom1.25.png",
+    "artifacts/desktop-ui/history-1920-zoom1.25.png",
+    "artifacts/desktop-ui/archives-1920-zoom1.25.png",
+    "artifacts/desktop-ui/settings-1920-zoom1.25.png",
+    "artifacts/desktop-ui/welcome-2560-zoom0.8.png",
+    "artifacts/desktop-ui/battle-2560-zoom0.8.png",
+    "artifacts/desktop-ui/history-2560-zoom0.8.png",
+    "artifacts/desktop-ui/archives-2560-zoom0.8.png",
+    "artifacts/desktop-ui/settings-2560-zoom0.8.png",
+    "artifacts/desktop-ui/welcome-2560-zoom1.png",
+    "artifacts/desktop-ui/battle-2560-zoom1.png",
+    "artifacts/desktop-ui/history-2560-zoom1.png",
+    "artifacts/desktop-ui/archives-2560-zoom1.png",
+    "artifacts/desktop-ui/settings-2560-zoom1.png",
+    "artifacts/desktop-ui/welcome-2560-zoom1.25.png",
+    "artifacts/desktop-ui/battle-2560-zoom1.25.png",
+    "artifacts/desktop-ui/history-2560-zoom1.25.png",
+    "artifacts/desktop-ui/archives-2560-zoom1.25.png",
+    "artifacts/desktop-ui/settings-2560-zoom1.25.png"
+  ]
+}

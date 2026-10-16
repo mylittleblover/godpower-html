@@ -1,0 +1,125 @@
+{
+  "browser": "Chromium",
+  "zoomMethod": "existing applyZoom (CSS body zoom), not browser chrome UI zoom",
+  "results": [
+    {
+      "name": "UI boot and five-page dock isolation (including programmatic stale-button clicks)",
+      "status": "PASS"
+    },
+    {
+      "name": "Toast stays in native top layer above functional and confirmation modals",
+      "status": "PASS"
+    },
+    {
+      "name": "Welcome 0 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 1 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 2 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 4 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": false
+      }
+    },
+    {
+      "name": "Welcome 8 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": true
+      }
+    },
+    {
+      "name": "Welcome 16 real groups, long names and large scores",
+      "status": "PASS",
+      "evidence": {
+        "overflow": true
+      }
+    },
+    {
+      "name": "Daily quiz answer/explanation match; formal state remains unchanged",
+      "status": "FAIL",
+      "error": "page.reload: Timeout 6000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:10:536\n    at async test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:49)\n    at async file:///workspace/godpower-html/tests/e2e/desktop-ui.mjs:10:1"
+    },
+    {
+      "name": "History 0 snapshots and genuine score/inventory differences",
+      "status": "FAIL",
+      "error": "page.evaluate: Execution context was destroyed, most likely because of a navigation\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:125\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:35"
+    },
+    {
+      "name": "History 1 snapshots and genuine score/inventory differences",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:125\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:35"
+    },
+    {
+      "name": "History 40 snapshots and genuine score/inventory differences",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:125\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:12:35"
+    },
+    {
+      "name": "History restore retains exact original pre-action semantics",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:13:90\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:13:7"
+    },
+    {
+      "name": "All eight setting categories expose preserved controls; preferences persist",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:14:106\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:14:7"
+    },
+    {
+      "name": "Local bank rejects malformed JSON without changing saved content; category toggle works",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: switchView is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:1:5)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:15:120\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:15:7"
+    },
+    {
+      "name": "Archives 0 events, original ties/order and incomplete legacy fields",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:133\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:35"
+    },
+    {
+      "name": "Archives 1 events, original ties/order and incomplete legacy fields",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:133\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:35"
+    },
+    {
+      "name": "Archives 24 events, original ties/order and incomplete legacy fields",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:133\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:16:35"
+    },
+    {
+      "name": "Picker all three modes, stop results and exact target reward",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:17:144\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:17:7"
+    },
+    {
+      "name": "All actual item definitions render main/secondary queues, real descriptions and visual event cleanup",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: closeWelcomeModal is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:4)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:9:13)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:18:131\n    at test (/workspace/godpower-html/tests/e2e/desktop-ui.mjs:3:55)\n    at /workspace/godpower-html/tests/e2e/desktop-ui.mjs:18:7"
+    },
+    {
+      "name": "Modal keyboard focus, nested Escape and reopen/close cleanup",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "artifacts/desktop-ui/toast-over-confirmation.png",
+    "artifacts/desktop-ui/welcome-16-groups.png"
+  ]
+}

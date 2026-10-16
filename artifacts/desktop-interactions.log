@@ -1,0 +1,17 @@
+PASS Stable settings navigation and all eight panel scroll bounds at minimum desktop
+PASS Modal bounds, focus and Escape: scoreModalBackdrop
+PASS Modal bounds, focus and Escape: memberSearchBackdrop
+PASS Modal bounds, focus and Escape: pwdModal
+PASS Modal bounds, focus and Escape: settlementNameModal
+PASS Modal bounds, focus and Escape: pickerModal
+PASS Modal bounds, focus and Escape: itemModalBackdrop
+PASS Modal bounds, focus and Escape: handRaiseBackdrop
+PASS Modal bounds, focus and Escape: aboutBackdrop
+PASS Modal bounds, focus and Escape: batchImportModal
+PASS Modal bounds, focus and Escape: quickPersonBackdropV218
+PASS Score input rejects invalid integer without changing state and accepts signed score
+PASS All item UI states and real use/hit/defense animations: 26 definitions
+PASS Animation preferences genuinely disable current item FX and clean interruptions
+PASS Final settlement UI cannot clear on archive failure; success persists then skip only stops celebration
+PASS All supplemental interactions have no uncaught errors
+{ pass: 16, fail: 0 }

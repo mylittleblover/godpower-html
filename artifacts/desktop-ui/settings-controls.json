@@ -1,0 +1,1196 @@
+[
+  {
+    "id": "",
+    "type": "file",
+    "text": "",
+    "handler": "onWallpaperFile(this)"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复极光",
+    "handler": "resetWallpaper()"
+  },
+  {
+    "id": "cfgWallVeil",
+    "type": "range",
+    "text": "",
+    "handler": "changeWallpaperVeil(this.value)"
+  },
+  {
+    "id": "cfgSaveAllIn",
+    "type": "checkbox",
+    "text": "",
+    "handler": "toggleSaveAllIn(this.checked)"
+  },
+  {
+    "id": "cfgResizerEnabled",
+    "type": "checkbox",
+    "text": "",
+    "handler": "toggleResizerEnabled(this.checked)"
+  },
+  {
+    "id": "cfgColumnMode",
+    "type": "select-one",
+    "text": "\n        单列显示\n        多列自适应 (双列)\n      ",
+    "handler": "updateColumnMode(this.value)"
+  },
+  {
+    "id": "communismModeToggle",
+    "type": "checkbox",
+    "text": "",
+    "handler": "setCommunismMode(this.checked)"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "−",
+    "handler": "zoomOut()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "复位 100%",
+    "handler": "zoomReset()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "＋",
+    "handler": "zoomIn()"
+  },
+  {
+    "id": "uiPref-motion",
+    "type": "select-one",
+    "text": "完整动效简洁动效关闭非必要动效",
+    "handler": null
+  },
+  {
+    "id": "uiPref-speed",
+    "type": "select-one",
+    "text": "舒缓标准快速",
+    "handler": null
+  },
+  {
+    "id": "uiPref-pageMotion",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-itemFx",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-systemMotion",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "cfgMasterVolume",
+    "type": "range",
+    "text": "",
+    "handler": "updateMasterVolume(this.value)"
+  },
+  {
+    "id": "cfgSfxVolumeV2176",
+    "type": "range",
+    "text": "",
+    "handler": "updateSfxVolumeV2176(this.value)"
+  },
+  {
+    "id": "cfgSetSelector",
+    "type": "select-one",
+    "text": "\n        曲目套 1\n        曲目套 2\n        曲目套 3\n        曲目套 4\n        曲目套 5\n        曲",
+    "handler": "renderBgmSlotList()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_intro_normal')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_intro_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_intro_loss')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_thinking')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_battle')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_victory')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_trans_0')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_trans_1')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_trans_2')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('bgm_set_0_trans_3')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('score_add')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_score_add')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('score_sub')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_score_sub')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('pk_correct')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_pk_correct')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('allin_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_allin_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('allin_lose')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_allin_lose')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('big_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_big_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('rewind')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_rewind')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('ui_click')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_ui_click')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('roll_tick')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_roll_tick')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('roll_loop')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_roll_loop')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('roll_win')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_roll_win')"
+  },
+  {
+    "id": "",
+    "type": "button",
+    "text": "\n      导出音效包 (.bin)\n    ",
+    "handler": "exportFxBundleV2175()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_draw_start')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_draw_start')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_draw_tick')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_draw_tick')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_draw_reveal')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_draw_reveal')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_defend')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_defend')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_triple_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_triple_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_triple_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_triple_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_spiny')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_spiny')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_triple_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_triple_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_horn')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_horn')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_bomb')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_bomb')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_hammer')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_hammer')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_coin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_coin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_coin_shell')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_coin_shell')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_question')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_question')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_triple_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_triple_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_boo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_boo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_blooper')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_blooper')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_lightning')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_lightning')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_star')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_star')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_mega')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_mega')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_bullet')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_bullet')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_power')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_power')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_feather')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_feather')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_fire_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_fire_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_ice_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_ice_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "试听",
+    "handler": "playSound('item_boomerang_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "triggerUploadAudio('fx_item_boomerang_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_welcome')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_battle')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_history')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_archives')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_settings')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_item')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_hand')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_picker')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_about')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_search')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_undo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_lock')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_add')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomout')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomreset')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "导出图标包",
+    "handler": "exportItemIconPack()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "导入图标包",
+    "handler": "document.getElementById('itemPackInput').click()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复全部默认图标",
+    "handler": "resetAllItemIcons()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('triple_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('triple_green')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('triple_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('triple_red')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('spiny')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('spiny')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('triple_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('triple_banana')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('horn')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('horn')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('bomb')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('bomb')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('hammer')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('hammer')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('coin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('coin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('coin_shell')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('coin_shell')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('question')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('question')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('triple_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('triple_mushroom')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('boo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('boo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('blooper')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('blooper')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('lightning')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('lightning')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('star')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('star')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('mega')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('mega')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('bullet')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('bullet')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('power')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('power')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('feather')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('feather')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('fire_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('fire_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('ice_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('ice_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传图片",
+    "handler": "chooseItemIcon('boomerang_flower')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复默认",
+    "handler": "resetItemIcon('boomerang_flower')"
+  },
+  {
+    "id": "settingsBatchMemberText",
+    "type": "textarea",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "应用并重建小组",
+    "handler": "applySettingsBatchMembers()"
+  },
+  {
+    "id": "uiPref-knowledge",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-itemTip",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-honors",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-challenge",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiPref-subject",
+    "type": "select-one",
+    "text": "政治",
+    "handler": null
+  },
+  {
+    "id": "uiBankEditor",
+    "type": "textarea",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "uiSaveBank",
+    "type": "submit",
+    "text": "验证并保存题库",
+    "handler": null
+  },
+  {
+    "id": "uiExportBank",
+    "type": "submit",
+    "text": "导出题库",
+    "handler": null
+  },
+  {
+    "id": "uiResetBank",
+    "type": "submit",
+    "text": "恢复内置示例",
+    "handler": null
+  },
+  {
+    "id": "newPwdInput",
+    "type": "password",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "更新",
+    "handler": "updateAdminPin()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "导出备份",
+    "handler": "exportData()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "恢复备份",
+    "handler": "triggerImport()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "积分清零",
+    "handler": "resetAllScores()"
+  },
+  {
+    "id": "",
+    "type": "button",
+    "text": "清空所有道具",
+    "handler": "clearAllItemsV2172()"
+  }
+]

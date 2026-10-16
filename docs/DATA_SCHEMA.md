@@ -47,3 +47,18 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 ## V2.18.15 保存不可用策略
 
 读取存储被拒绝与 JSON 损坏分开处理，不把 iOS 存储限制误报成损坏存档。普通选项、加分、判题和道具在 RAM 中继续；保存失败不会伪报已持久化，页面持续显示警告，导出包含当前真实积分和历史。恢复保存能力后可再次保存并自动移除警告。业务计算失败仍回滚；导入及最终归档保留严格保存失败回滚，不能在归档失败时清零。内存模式无法保证刷新或关闭后的恢复。
+
+## V2.19.0 界面扩展（不修改课堂 schema）
+
+| 存储键 | 类型/默认值 | 校验与恢复 |
+| --- | --- | --- |
+| godpower_ui_preferences_v1 | 对象，见下表 | 按默认值类型筛选；异常使用默认，不清空课堂存储；写入失败当次界面仍生效并提示 |
+| godpower_ui_bank_v1 | `{knowledge:[],challenges:[]}`，默认内置教学示例 | 解析/校验/保存均成功后替换题库；失败保留现有对象和旧存储；可单独导出与恢复 |
+
+偏好默认：motion=`full`（full/simple/off），speed=1（0.75/1/1.5），pageMotion/itemFx/systemMotion/knowledge/itemTip/honors/challenge=true，subject=`politics`。全部为持久化 UI 状态，不参与计分、结算或历史恢复。程序启动读取；改动立即保存。主课堂备份未扩展为包含题库/界面偏好，题库应单独导出；完整偏好打包列入维护任务。
+
+知识字段：id/title/subject/source 必填字符串；module/summary/mistake/detail 为展示用文本。挑战另需四项文本 options、整数 answer（0–3）、文本 explanation。合计最多 500 条，每项顶层字符串最多 10000 字符。所有展示文本转义，不当作 HTML 执行。示例不是教材原文，增加内容须标明审核来源。
+
+日序号不是持久化字段，由本地年月日生成；当天索引对分类筛选后的数组取模。题库或分类变更可以改变当日展示；同一题库与配置下刷新稳定。
+
+历史 UI 差异只读取 groups 中的 score/inventory/itemEffect/booShield/booRoundsLeftV218 与回合字段。未知字段在完整原始档案 JSON 中保留；UI 不进行猜测补全、改写旧排名或数据迁移。

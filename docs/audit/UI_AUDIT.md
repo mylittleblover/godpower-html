@@ -1,3 +1,5 @@
+> 最新桌面 UI 交付：见 `docs/reports/DESKTOP_UI_ACCEPTANCE.md`、`docs/ui/DESIGN_SYSTEM.md` 和 `artifacts/desktop-ui/acceptance-matrix.json`。以下原始审查结论保留为历史记录。
+
 # Chromium UI 验收
 
 用户最终指定仅Chromium。主E2E使用真实渲染，五页×六尺寸共30张，另有6主要窗口及键盘、百科、特殊状态截图。截图“捕获成功”不等于全部视觉语义已验收。

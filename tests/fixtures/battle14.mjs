@@ -51,7 +51,10 @@ export function measure14() {
   };
   const grid = document.querySelector("#groupList");
   return {
-    cards: [...grid.querySelectorAll(":scope>.group-row-card")].map(rect),
+    cards: [...grid.querySelectorAll(":scope>.group-row-card")].map((card) => ({
+      ...rect(card),
+      buttons: [...card.querySelectorAll("button")].map(rect),
+    })),
     dock: rect(document.querySelector(".bottom-dock")),
     spacer: rect(document.querySelector("#heightResizerDock")),
     header: rect(document.querySelector(".app-topnav")),

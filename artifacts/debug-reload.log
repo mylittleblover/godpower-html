@@ -1,0 +1,10 @@
+request /
+request /favicon.ico
+reload begin
+request /
+FAIL page.reload: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+SOURCE {"scriptId":"69","lineNumber":0,"columnNumber":0}  0
+PAUSED [{"name":"","line":0,"url":""}]

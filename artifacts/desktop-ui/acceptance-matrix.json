@@ -1,0 +1,2751 @@
+{
+  "generatedAt": "2026-10-16T17:08:17.944837+00:00",
+  "sha256": "a8b97524d3a108997af200f0782a47358befee2de16a3d033b61a7628f8f58b4",
+  "rows": [
+    {
+      "suite": "业务 Chromium",
+      "name": "denied browser storage getter reports failure without throwing",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "failed item cannot persist a phantom undo snapshot",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item save failure retains session result with explicit unsaved warning",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "archive failure never clears scores, inventory or history",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "archive success captures full state before reset",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "successful archive plus failed classroom write restores classroom",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "fire flower damage, All In cancellation and exact undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "fire and ice obey queue, disabled mode, negative scores and round lock",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "frozen flower attempt unfreezes without consuming, locks All In, undo restores ice",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "ice skips already frozen targets and consumes when all frozen",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "normalization preserves group numbers, ghost duration and continuation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "malformed imports leave live state intact",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "legacy backup import and versioned complete backup roundtrip",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "failed import persistence rolls back",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "group name HTML injection is rendered as text",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all A/B/C/D scoring and duplicate judge idempotence",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:green: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:green: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:green: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_green: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_green: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_green: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:red: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:red: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:red: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_red: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_red: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_red: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:spiny: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:spiny: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:spiny: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:banana: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:banana: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:banana: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_banana: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_banana: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_banana: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:horn: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:horn: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:horn: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bomb: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bomb: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bomb: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:hammer: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:hammer: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:hammer: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin_shell: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin_shell: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:coin_shell: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:question: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:question: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:question: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mushroom: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mushroom: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mushroom: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_mushroom: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_mushroom: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:triple_mushroom: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boo: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boo: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boo: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:blooper: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:blooper: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:blooper: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:lightning: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:lightning: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:lightning: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:star: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:star: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:star: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mega: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mega: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:mega: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bullet: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bullet: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:bullet: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:power: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:power: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:power: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:feather: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:feather: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:feather: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:fire_flower: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:fire_flower: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:fire_flower: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:ice_flower: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:ice_flower: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:ice_flower: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boomerang_flower: negative/mode/round/freeze/reload guards",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boomerang_flower: acquire/use/consume/undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item:boomerang_flower: secondary slot rejected",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "triple item may finish same stack but next item cannot bypass round lock",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "main passive defense consumed before target score loss",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "50/100 rounds: correct scores, capped history and stable DOM",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "reload restores round and persistent state",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "custom icon payload cannot add executable HTML attributes",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "unsafe item result rolls back score and inventory atomically",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "denied next round cannot clear used-item lock",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "unsafe All In scores reject whole settlement before mutation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all-correct/all-wrong and unchanged no-answer groups",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "real answer click, deselect, keyboard focus and hover",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "manual score, negative score, 7-digit score, ranking and undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "members, group rename, add and delete undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "picker modes, anti-repeat exhaustion and actual spin stop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "hand raise correct/wrong statistics and reward undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "normal next round and force end undo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all items with 1 groups remain valid",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all items with 2 groups remain valid",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all items with 4 groups remain valid",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "all items with 8 groups remain valid",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "download JSON and full archive CSV contain real payloads",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "audio context first gesture, mute, volume and invalid decode",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "modal/page repetition has bounded DOM after animations settle",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "业务 Chromium",
+      "name": "item description sync cannot destroy batch actions",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "green",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "triple_green",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "red",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "triple_red",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "spiny",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "banana",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "triple_banana",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "horn",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "bomb",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "hammer",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "coin",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "coin_shell",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "question",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "mushroom",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "triple_mushroom",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "boo",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "blooper",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "lightning",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "star",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "mega",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "bullet",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "power",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "feather",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "fire_flower",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "ice_flower",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "道具精确结果",
+      "name": "boomerang_flower",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "suite": "存储失败与答对计分",
+      "name": "1",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/scoring-persistence-results.json"
+    },
+    {
+      "suite": "存储失败与答对计分",
+      "name": "2",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/scoring-persistence-results.json"
+    },
+    {
+      "suite": "存储失败与答对计分",
+      "name": "3",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/scoring-persistence-results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "UI boot and five-page dock isolation (including programmatic stale-button clicks)",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Toast stays in native top layer above functional and confirmation modals",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 0 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 1 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 2 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 4 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 8 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Welcome 16 real groups, long names and large scores",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Daily quiz answer/explanation match; formal state remains unchanged",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "History 0 snapshots and genuine score/inventory differences",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "History 1 snapshots and genuine score/inventory differences",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "History 40 snapshots and genuine score/inventory differences",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "History restore retains exact original pre-action semantics",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "All eight setting categories expose preserved controls; preferences persist",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Local bank rejects malformed JSON without changing saved content; category toggle works",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Archives 0 events, original ties/order and incomplete legacy fields",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Archives 1 events, original ties/order and incomplete legacy fields",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Archives 24 events, original ties/order and incomplete legacy fields",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Picker all three modes, stop results and exact target reward",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "All actual item definitions render main/secondary queues, real descriptions and visual event cleanup",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Modal keyboard focus, nested Escape and reopen/close cleanup",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1366x768 app zoom 0.8 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1366x768 app zoom 1 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1366x768 app zoom 1.25 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1920x1080 app zoom 0.8 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1920x1080 app zoom 1 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 1920x1080 app zoom 1.25 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 2560x1440 app zoom 0.8 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 2560x1440 app zoom 1 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "Desktop 2560x1440 app zoom 1.25 five pages bounds/navigation",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "桌面页面与交互",
+      "name": "No uncaught browser errors across complete desktop acceptance",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Stable settings navigation and all eight panel scroll bounds at minimum desktop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: scoreModalBackdrop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: memberSearchBackdrop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: pwdModal",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: settlementNameModal",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: pickerModal",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: itemModalBackdrop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: handRaiseBackdrop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: aboutBackdrop",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: batchImportModal",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Modal bounds, focus and Escape: quickPersonBackdropV218",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Score input rejects invalid integer without changing state and accepts signed score",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "All item UI states and real use/hit/defense animations: 26 definitions",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Animation preferences genuinely disable current item FX and clean interruptions",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Final settlement UI cannot clear on archive failure; success persists then skip only stops celebration",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Welcome score masking and ghost/feather status survive UI redesign and expire",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Custom navigation/dock icons preserve text, reset to SVG and survive startup",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Cancelling and immediately reopening queued settlement never executes stale save",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Slow picker audio preparation cannot start a closed/reopened or changed-mode window",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "Legacy archive missing/null/empty scores cannot invent a zero highest score",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "界面专项",
+      "name": "All supplemental interactions have no uncaught errors",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "窗口尺寸与键盘",
+      "name": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "suite": "14 组几何保护",
+      "name": "BATTLE_14_GROUPS_BASELINE",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/battle-14-comparison.json"
+    },
+    {
+      "suite": "14 组几何保护",
+      "name": "BATTLE_14_GROUPS_BASELINE",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/battle-14-comparison.json"
+    },
+    {
+      "suite": "14 组几何保护",
+      "name": "BATTLE_14_GROUPS_BASELINE",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/battle-14-comparison.json"
+    },
+    {
+      "suite": "离线与控制台",
+      "name": "HTTP document continues offline: five page navigation and actual correct-answer scoring",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "suite": "离线与控制台",
+      "name": "Offline representative major modal lifecycle has no console errors",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "suite": "离线与控制台",
+      "name": "Actual archived four-group podium centers champion, preserves ties, full names and CSV offline",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "suite": "离线与控制台",
+      "name": "Representative release has no uncaught errors, console.error or external runtime requests",
+      "width": null,
+      "height": null,
+      "zoom": null,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    }
+  ],
+  "blocked": [
+    "file URL initial load",
+    "native browser toolbar zoom"
+  ],
+  "notTested": [
+    "human audio acceptance",
+    "all resource-control file combinations",
+    "hours-long profiling"
+  ]
+}

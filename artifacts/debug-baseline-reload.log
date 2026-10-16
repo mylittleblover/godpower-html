@@ -1,0 +1,14 @@
+request /
+RESPONSE 200 http://127.0.0.1:45265/
+FINISHED http://127.0.0.1:45265/
+request /favicon.ico
+reload begin
+request /
+RESPONSE 200 http://127.0.0.1:45265/
+FAIL page.reload: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+SOURCE {"scriptId":"67","lineNumber":0,"columnNumber":0}  0
+PAUSED [{"name":"","line":0,"url":""}]
+FINISHED http://127.0.0.1:45265/
