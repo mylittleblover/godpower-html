@@ -1,0 +1,383 @@
+{
+  "blocks": [
+    {
+      "type": "style",
+      "path": "style/00.css",
+      "attributes": ""
+    },
+    {
+      "type": "style",
+      "path": "style/01.css",
+      "attributes": ""
+    },
+    {
+      "type": "style",
+      "path": "style/02.css",
+      "attributes": " id=\"modernFlatV217Style\""
+    },
+    {
+      "type": "style",
+      "path": "style/03.css",
+      "attributes": " id=\"v2161Fixes\""
+    },
+    {
+      "type": "style",
+      "path": "style/04.css",
+      "attributes": " id=\"v2162DrawAndMaskFix\""
+    },
+    {
+      "type": "style",
+      "path": "style/05.css",
+      "attributes": " id=\"v2163RoulettePositionFix\""
+    },
+    {
+      "type": "style",
+      "path": "style/06.css",
+      "attributes": " id=\"v2170EncyclopediaStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/07.css",
+      "attributes": " id=\"v2172ItemDataStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/08.css",
+      "attributes": " id=\"v2174PerItemSoundStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/09.css",
+      "attributes": " id=\"v2175FxBinStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/10.css",
+      "attributes": " id=\"v2177RoundItemUseLimitStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/11.css",
+      "attributes": " id=\"v2179CooldownStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/12.css",
+      "attributes": " id=\"v21712FastItemFlowStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/13.css",
+      "attributes": " id=\"v21714QuickBarBottomStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/14.css",
+      "attributes": " id=\"v21716GroupPaletteStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/15.css",
+      "attributes": " id=\"v21719FlatUiConsistencyFix\""
+    },
+    {
+      "type": "style",
+      "path": "style/16.css",
+      "attributes": " id=\"v21721BattleRankPreviewStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/17.css",
+      "attributes": " id=\"v21727ThemeDialogStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/18.css",
+      "attributes": " id=\"v21730ItemScoreFxStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/19.css",
+      "attributes": " id=\"v21735TopNoticeStackStyle\""
+    },
+    {
+      "type": "style",
+      "path": "style/20.css",
+      "attributes": " id=\"v2180PlanStyle\""
+    },
+    {
+      "type": "script",
+      "path": "script/00.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "script/01.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "script/02.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "script/03.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "script/04.js",
+      "attributes": " id=\"v2164PowerAndItemAudioFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/05.js",
+      "attributes": " id=\"v2170DefenseChainAndEncyclopedia\""
+    },
+    {
+      "type": "script",
+      "path": "script/06.js",
+      "attributes": " id=\"v2171DrawAudioStopFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/07.js",
+      "attributes": " id=\"v2172ItemWeightsAndClear\""
+    },
+    {
+      "type": "script",
+      "path": "script/08.js",
+      "attributes": " id=\"v2173ItemWeightTuning\""
+    },
+    {
+      "type": "script",
+      "path": "script/09.js",
+      "attributes": " id=\"v2174PerItemSounds\""
+    },
+    {
+      "type": "script",
+      "path": "script/10.js",
+      "attributes": " id=\"v2175FxBinExport\""
+    },
+    {
+      "type": "script",
+      "path": "script/11.js",
+      "attributes": " id=\"v2176SfxVolume\""
+    },
+    {
+      "type": "script",
+      "path": "script/12.js",
+      "attributes": " id=\"v2177RoundItemUseLimit\""
+    },
+    {
+      "type": "script",
+      "path": "script/13.js",
+      "attributes": " id=\"v2178BatchAllInLimitFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/14.js",
+      "attributes": " id=\"v2179ItemDrawCooldownRules\""
+    },
+    {
+      "type": "script",
+      "path": "script/15.js",
+      "attributes": " id=\"v21710GlobalDrawSessionCooldownFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/16.js",
+      "attributes": " id=\"v21712FastItemFlow\""
+    },
+    {
+      "type": "script",
+      "path": "script/17.js",
+      "attributes": " id=\"v21713AttackFxOrdering\""
+    },
+    {
+      "type": "script",
+      "path": "script/18.js",
+      "attributes": " id=\"v21715EncyclopediaEffectOnly\""
+    },
+    {
+      "type": "script",
+      "path": "script/19.js",
+      "attributes": " id=\"v21716GroupPaletteLogic\""
+    },
+    {
+      "type": "script",
+      "path": "script/20.js",
+      "attributes": " id=\"v21717SpinyCooldown\""
+    },
+    {
+      "type": "script",
+      "path": "script/21.js",
+      "attributes": " id=\"v21718NoDuplicateInventory\""
+    },
+    {
+      "type": "script",
+      "path": "script/22.js",
+      "attributes": " id=\"v21719FlowerPersistenceGuard\""
+    },
+    {
+      "type": "script",
+      "path": "script/23.js",
+      "attributes": " id=\"v21720CardReorderRepair\""
+    },
+    {
+      "type": "script",
+      "path": "script/24.js",
+      "attributes": " id=\"v21721BattleRankPreviewLogic\""
+    },
+    {
+      "type": "script",
+      "path": "script/25.js",
+      "attributes": " id=\"v21722RankPreviewAndStableCards\""
+    },
+    {
+      "type": "script",
+      "path": "script/26.js",
+      "attributes": " id=\"v21723RankReorderRestore\""
+    },
+    {
+      "type": "script",
+      "path": "script/27.js",
+      "attributes": " id=\"v21724SortingContractFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/28.js",
+      "attributes": " id=\"v21725RoundStateFlip\""
+    },
+    {
+      "type": "script",
+      "path": "script/29.js",
+      "attributes": " id=\"v21726RoundFlipDomGuard\""
+    },
+    {
+      "type": "script",
+      "path": "script/30.js",
+      "attributes": " id=\"v21727ThemeDialogLogic\""
+    },
+    {
+      "type": "script",
+      "path": "script/31.js",
+      "attributes": " id=\"v21732ItemScoreAnimation\""
+    },
+    {
+      "type": "script",
+      "path": "script/32.js",
+      "attributes": " id=\"v21731ItemStatusRepair\""
+    },
+    {
+      "type": "script",
+      "path": "script/33.js",
+      "attributes": " id=\"v21733ScoreRollVisibilityFix\""
+    },
+    {
+      "type": "script",
+      "path": "script/34.js",
+      "attributes": " id=\"v21734NoticeDurationSync\""
+    },
+    {
+      "type": "script",
+      "path": "script/35.js",
+      "attributes": " id=\"v21735DefenseNoticeStack\""
+    },
+    {
+      "type": "script",
+      "path": "script/36.js",
+      "attributes": " id=\"v2180HandwrittenPlanLogic\""
+    },
+    {
+      "type": "style",
+      "path": "style/21.css",
+      "attributes": " id=\"v2182GroupItemSyncStyle\""
+    },
+    {
+      "type": "script",
+      "path": "script/37.js",
+      "attributes": " id=\"v2182GroupItemSync\""
+    },
+    {
+      "type": "script",
+      "path": "script/38.js",
+      "attributes": " id=\"v2184FunnyEncyclopediaCopy\""
+    },
+    {
+      "type": "style",
+      "path": "style/22.css",
+      "attributes": " id=\"v2185DockHumorStyle\""
+    },
+    {
+      "type": "script",
+      "path": "script/39.js",
+      "attributes": " id=\"v2185DockHumor\""
+    },
+    {
+      "type": "script",
+      "path": "script/40.js",
+      "attributes": " id=\"v2186OpenFixMarker\""
+    },
+    {
+      "type": "style",
+      "path": "style/23.css",
+      "attributes": " id=\"v2187CopyPolishStyle\""
+    },
+    {
+      "type": "script",
+      "path": "script/41.js",
+      "attributes": " id=\"v2187CopyAuditAndHumor\""
+    },
+    {
+      "type": "script",
+      "path": "script/42.js",
+      "attributes": " id=\"v2189FlowerBalancePatch\""
+    },
+    {
+      "type": "script",
+      "path": "script/43.js",
+      "attributes": " id=\"v21811VisibleCopyGuard\""
+    },
+    {
+      "type": "script",
+      "path": "script/44.js",
+      "attributes": " id=\"v21812SettlementFullReset\""
+    },
+    {
+      "type": "script",
+      "path": "script/45.js",
+      "attributes": " id=\"v21813FullSettlementArchive\""
+    }
+  ],
+  "resources": [
+    "asset-000.txt",
+    "asset-001.txt",
+    "asset-002.txt",
+    "asset-003.txt",
+    "asset-004.txt",
+    "asset-005.txt",
+    "asset-006.txt",
+    "asset-007.txt",
+    "asset-008.txt",
+    "asset-009.txt",
+    "asset-010.txt",
+    "asset-011.txt",
+    "asset-012.txt",
+    "asset-013.txt",
+    "asset-014.txt",
+    "asset-015.txt",
+    "asset-016.txt",
+    "asset-017.txt",
+    "asset-018.txt",
+    "asset-019.txt",
+    "asset-020.txt",
+    "asset-021.txt",
+    "asset-022.txt",
+    "asset-023.txt",
+    "asset-024.txt",
+    "asset-025.txt",
+    "asset-026.txt"
+  ]
+}
