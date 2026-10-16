@@ -44,7 +44,7 @@ for it in items:
 s+='\n## 隐藏入口、设置、存储、动画与资源\n\nSOURCE_CATALOG.md列出所有命名函数及覆盖定义、输入、返回、副作用字段、调用依赖、风险、事件入口、存储键和88个原动画名；artifacts/static-inventory.json保留机器可读AST结果。静态模板／动态字符串事件均扫描，含解锁后管理、设置控制的道具模式、三重续用、首次举手抽取、刺龟壳防御选择等条件分支。\n\n不能据此声称所有二／三级菜单和所有条件都经过浏览器操作。SOURCE_CATALOG 的单实现 NOT TESTED 与本表集成PASS分开记录，避免以调用存在冒充覆盖。\n'
 Path('docs/audit/FEATURE_INVENTORY.md').write_text(s)
 # One row per executed scenario, plus honest gaps.
-s='# 功能 × 场景 × 类型 × 结果\n\n状态：PASS实际通过；FAIL实际失败；BLOCKED环境限制；NOT TESTED未执行；NOT APPLICABLE不适用。不将后两类计入通过。最新证据为 artifacts/browser-results.json、rule-oracles.json、final-ui-verification.log；早期失败证据另存，不作为最终结果。\n\n'
+s='# 功能 × 场景 × 类型 × 结果\n\n状态：PASS实际通过；FAIL实际失败；BLOCKED环境限制；NOT TESTED未执行；NOT APPLICABLE不适用。不将后两类计入通过。最新证据为 artifacts/browser-results.json、rule-oracles.json、ios-hotfix-verification.log；早期失败证据另存，不作为最终结果。\n\n'
 s+=f'Node单元／存储集成共49项通过（34单元、15集成）；Chromium主回归{passcount} PASS、{fails} FAIL；道具精确oracle {opass} PASS。\n\n| 功能／场景 | 类型 | 结果 | 证据 |\n|---|---|---|---|\n'
 for x in r['results']:s+=f"| {x['name']} | Chromium E2E | {x['status']} | browser-results.json，{x['ms']} ms |\n"
 for x in oracles:s+=f"| {x['key']} 确定性目标／积分或状态初值 | Chromium E2E | {x['status']} | rule-oracles.json |\n"
@@ -75,7 +75,7 @@ for x in r['ui']:
 s+='''\n## 已修复并重新截图\n\n1. 390竖屏下核心操作藏在底栏水平区域；底栏改为换行，并按实际高度预留页面空间。短横屏工具栏可纵向滚动，仍需真实触摸验收。
 2. 说明同步器全页面猜测文本节点，实际把5个批量按钮替换为冰之花说明。限制至库存卡，回归断言保持五个按钮。见历史special-states截图及最终chromium/special-states.png。
 3. 768/1024宽度下顶部三列挤压统计文字，改为统计独立一行并断言高度不超过80px。
-4. 版本标签从原来的v3统一为V2.18.14；焦点轮廓可见。键盘focus/hover已实际操作。
+4. 版本标签从原来的v3统一为V2.18.15；焦点轮廓可见。键盘focus/hover已实际操作。
 
 ## 实际人工图像复核边界
 
@@ -91,7 +91,7 @@ s+='\n字体／环境：Linux Chromium系统字体，非课堂实际投影字体
 Path('docs/audit/UI_AUDIT.md').write_text(s)
 # Human-readable acceptance, with no inflated completeness claim.
 code_sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
-s=f'''# V2.18.14 综合验收报告
+s=f'''# V2.18.15 综合验收报告
 
 ## 结论
 
@@ -101,7 +101,7 @@ s=f'''# V2.18.14 综合验收报告
 
 - 起点：main `a66587215603fc1b5459630f534289257242af0b`；附件V2.18.13；原文件备份提交70d1b42。
 - 修复分支：fix/html-reliability-audit；报告生成时实现提交：{code_sha}（之后仅文档／产物提交）。
-- 最终应用：V2.18.14；单文件 `dist/godpower.html`，{bytesize:,}字节，SHA-256 `{sha}`。
+- 最终应用：V2.18.15；单文件 `dist/godpower.html`，{bytesize:,}字节，SHA-256 `{sha}`。
 - 27个原版内置data URI逐字保持；原版无内嵌可播放音轨。自定义音频仍在用户IndexedDB，需原有音频包备份。
 - 目录／修改文件：src/core两服务、src/script原脚本拆分及修复、src/style原样式拆分与主题修复、模板／27资源文件、scripts、tests、docs、artifacts、dist、README、package锁文件，以及仅手动触发的GitHub Actions配置。完整名单以git log --stat为准。
 
@@ -113,9 +113,9 @@ s=f'''# V2.18.14 综合验收报告
 
 | 验证 | 结果 | 证据 |
 |---|---|---|
-| JavaScript语法／资源完整性 | PASS，48脚本、27原资源 | final-ui-verification.log、scripts/check.mjs |
-| Node业务／schema单元 | PASS 34项 | final-ui-verification.log |
-| Node存储／验证集成 | PASS 15项 | final-ui-verification.log |
+| JavaScript语法／资源完整性 | PASS，48脚本、27原资源 | ios-hotfix-verification.log、scripts/check.mjs |
+| Node业务／schema单元 | PASS 34项 | ios-hotfix-verification.log |
+| Node存储／验证集成 | PASS 15项 | ios-hotfix-verification.log |
 | Chromium主回归 | PASS {passcount}，FAIL {fails} | browser-results.json |
 | 26道具目标／积分／初始状态预期 | PASS {opass} | rule-oracles.json |
 | 未捕获页面脚本错误 | {len(r['errors'])} | browser-results.json.errors |
@@ -126,7 +126,7 @@ s=f'''# V2.18.14 综合验收报告
 | 全量人工音频／真实设备 | NOT TESTED | 维护说明中的人工步骤 |
 | 远端CI | NOT TESTED | 本次仅本地运行；未执行CircleCI相关操作 |
 
-测试使用新browser context、合成中文名单、受控随机种子21813。道具oracle将随机数固定0并手写26条预期积分向量／效果初始值，未由实现函数计算期望。保存异常通过Storage.setItem故障注入，能证明归档失败不会清零。读取旧JSON、非法schema／分数／历史、存储失败回滚和刷新恢复均有断言。正常26道具测试包含库存获取、实际使用、统计和撤销；全19维组合覆盖缺口在TEST_MATRIX，不能把这26项扩大成全部情景通过。
+测试使用新browser context、合成中文名单、受控随机种子21813。道具oracle将随机数固定0并手写26条预期积分向量／效果初始值，未由实现函数计算期望。保存异常通过Storage.setItem故障注入，能证明归档失败不会清零。V2.18.15另有scoring-persistence-results.json：保存受限时普通判题保留本页+2并支持导出，不再回滚；iOS尺寸／触摸模拟使用Chromium，不冒称Safari真机测试。读取旧JSON、非法schema／分数／历史、存储失败回滚和刷新恢复均有断言。正常26道具测试包含库存获取、实际使用、统计和撤销；全19维组合覆盖缺口在TEST_MATRIX，不能把这26项扩大成全部情景通过。
 
 ## UI和性能
 

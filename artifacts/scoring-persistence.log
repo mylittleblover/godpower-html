@@ -1,0 +1,5 @@
+REPRODUCED before quota [ 0, 0, 0, 0 ]
+REPRODUCED before startup-denied [ 0, 0, 0, 0 ]
+PASS after none [ 2, 2, 2, 2 ]
+PASS after quota [ 2, 2, 2, 2 ]
+PASS after startup-denied [ 2, 2, 2, 2 ]

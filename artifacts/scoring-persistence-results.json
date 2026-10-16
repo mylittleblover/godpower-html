@@ -1,0 +1,109 @@
+{
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "version": "after",
+      "failure": "none",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": false,
+        "toast": "未检测到战斗音频：已静音启动（0.05s 跳过加载）",
+        "result": {
+          "ok": true,
+          "persisted": true
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "version": "after",
+      "failure": "quota",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": true,
+        "toast": "更改仅保存在本页。关闭或刷新前请导出备份。",
+        "result": {
+          "ok": true,
+          "persisted": false,
+          "error": "test full"
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "version": "after",
+      "failure": "startup-denied",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": true,
+        "toast": "未检测到战斗音频：已静音启动（0.05s 跳过加载）",
+        "result": {
+          "ok": true,
+          "persisted": false,
+          "error": "storage denied"
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    }
+  ]
+}

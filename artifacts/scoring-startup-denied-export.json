@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "V2.18.15",
+  "timestamp": "2026-10-16T15:43:16.097Z",
+  "groups": [
+    {
+      "id": 1,
+      "name": "第 1 组",
+      "color": "#e53935",
+      "score": 2,
+      "displayScore": 2,
+      "selectedOpt": "A",
+      "allIn": false,
+      "resultText": "正确(+2)",
+      "animState": "",
+      "members": [
+        "陈思远",
+        "林子涵",
+        "许文博"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 1,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 1,
+      "booRoundsLeftV218": 0,
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 2,
+      "name": "第 2 组",
+      "color": "#1e88e5",
+      "score": 2,
+      "displayScore": 2,
+      "selectedOpt": "A",
+      "allIn": false,
+      "resultText": "正确(+2)",
+      "animState": "",
+      "members": [
+        "张晨阳",
+        "罗心怡",
+        "魏嘉豪"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 1,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 2,
+      "booRoundsLeftV218": 0,
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 3,
+      "name": "第 3 组",
+      "color": "#43a047",
+      "score": 2,
+      "displayScore": 2,
+      "selectedOpt": "A",
+      "allIn": false,
+      "resultText": "正确(+2)",
+      "animState": "",
+      "members": [
+        "陆天宇",
+        "谭静雅",
+        "孙雨泽"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 1,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 3,
+      "booRoundsLeftV218": 0,
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 4,
+      "name": "第 4 组",
+      "color": "#fb8c00",
+      "score": 2,
+      "displayScore": 2,
+      "selectedOpt": "A",
+      "allIn": false,
+      "resultText": "正确(+2)",
+      "animState": "",
+      "members": [
+        "董奕辰",
+        "蒋雨欣",
+        "汪浩然"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 1,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 4,
+      "booRoundsLeftV218": 0,
+      "itemUsedThisRound": false
+    }
+  ],
+  "picker": {
+    "mode": "individual",
+    "antiRepeat": true,
+    "pickedStudentKeys": [],
+    "pickedGroupIds": [],
+    "preselectedGroupIds": []
+  },
+  "itemGlobal": {
+    "blooperUntil": 0,
+    "totalDraws": 0,
+    "pickerHistory": [],
+    "handRaiseHistory": [],
+    "handRaiseTotal": 0,
+    "pkTotal": 1,
+    "customIcons": {},
+    "drawThrottleV2179": {
+      "sequence": 0,
+      "nextEligible": {
+        "lightning": 0,
+        "blooper": 0
+      },
+      "groupStrongSkip": {}
+    },
+    "drawSessionThrottleV21710": {
+      "sessionNo": 0,
+      "nextEligibleSession": {
+        "lightning": 0,
+        "blooper": 0,
+        "spiny": 0
+      }
+    }
+  },
+  "round": {
+    "roundActive": true,
+    "evaluated": true,
+    "correctAns": "A",
+    "hasStartedOnce": true,
+    "lastRoundAllIn": {
+      "wins": 0,
+      "losses": 0
+    }
+  },
+  "history": [
+    {
+      "desc": "自动判定结算 (正解: A)",
+      "time": "3:43:14 PM",
+      "groups": [
+        {
+          "id": 1,
+          "name": "第 1 组",
+          "color": "#e53935",
+          "score": 0,
+          "displayScore": 0,
+          "selectedOpt": "A",
+          "allIn": false,
+          "resultText": "",
+          "animState": "",
+          "members": [
+            "陈思远",
+            "林子涵",
+            "许文博"
+          ],
+          "inventory": [],
+          "itemStats": {
+            "correct": 0,
+            "wrong": 0,
+            "draws": 0,
+            "used": 0
+          },
+          "itemEffect": null,
+          "booShield": 0,
+          "groupNo": 1,
+          "booRoundsLeftV218": 0,
+          "roundItemContinuationKeyV218": "",
+          "itemUsedThisRound": false
+        },
+        {
+          "id": 2,
+          "name": "第 2 组",
+          "color": "#1e88e5",
+          "score": 0,
+          "displayScore": 0,
+          "selectedOpt": "A",
+          "allIn": false,
+          "resultText": "",
+          "animState": "",
+          "members": [
+            "张晨阳",
+            "罗心怡",
+            "魏嘉豪"
+          ],
+          "inventory": [],
+          "itemStats": {
+            "correct": 0,
+            "wrong": 0,
+            "draws": 0,
+            "used": 0
+          },
+          "itemEffect": null,
+          "booShield": 0,
+          "groupNo": 2,
+          "booRoundsLeftV218": 0,
+          "roundItemContinuationKeyV218": "",
+          "itemUsedThisRound": false
+        },
+        {
+          "id": 3,
+          "name": "第 3 组",
+          "color": "#43a047",
+          "score": 0,
+          "displayScore": 0,
+          "selectedOpt": "A",
+          "allIn": false,
+          "resultText": "",
+          "animState": "",
+          "members": [
+            "陆天宇",
+            "谭静雅",
+            "孙雨泽"
+          ],
+          "inventory": [],
+          "itemStats": {
+            "correct": 0,
+            "wrong": 0,
+            "draws": 0,
+            "used": 0
+          },
+          "itemEffect": null,
+          "booShield": 0,
+          "groupNo": 3,
+          "booRoundsLeftV218": 0,
+          "roundItemContinuationKeyV218": "",
+          "itemUsedThisRound": false
+        },
+        {
+          "id": 4,
+          "name": "第 4 组",
+          "color": "#fb8c00",
+          "score": 0,
+          "displayScore": 0,
+          "selectedOpt": "A",
+          "allIn": false,
+          "resultText": "",
+          "animState": "",
+          "members": [
+            "董奕辰",
+            "蒋雨欣",
+            "汪浩然"
+          ],
+          "inventory": [],
+          "itemStats": {
+            "correct": 0,
+            "wrong": 0,
+            "draws": 0,
+            "used": 0
+          },
+          "itemEffect": null,
+          "booShield": 0,
+          "groupNo": 4,
+          "booRoundsLeftV218": 0,
+          "roundItemContinuationKeyV218": "",
+          "itemUsedThisRound": false
+        }
+      ],
+      "picker": {
+        "mode": "individual",
+        "antiRepeat": true,
+        "pickedStudentKeys": [],
+        "pickedGroupIds": [],
+        "preselectedGroupIds": []
+      },
+      "resizerHeight": 120,
+      "correctAns": "A",
+      "evaluated": false,
+      "roundActive": true,
+      "hasStartedOnce": true,
+      "lastRoundAllIn": null,
+      "itemGlobal": {
+        "blooperUntil": 0,
+        "totalDraws": 0,
+        "pickerHistory": [],
+        "handRaiseHistory": [],
+        "handRaiseTotal": 0,
+        "pkTotal": 0,
+        "customIcons": {},
+        "drawThrottleV2179": {
+          "sequence": 0,
+          "nextEligible": {
+            "lightning": 0,
+            "blooper": 0
+          },
+          "groupStrongSkip": {}
+        },
+        "drawSessionThrottleV21710": {
+          "sessionNo": 0,
+          "nextEligibleSession": {
+            "lightning": 0,
+            "blooper": 0,
+            "spiny": 0
+          }
+        }
+      }
+    }
+  ],
+  "firstHandDrawPending": true,
+  "adminPin": "1234",
+  "masterVolume": 0.85,
+  "sfxVolume": 1,
+  "zoomLevel": 1,
+  "resizerEnabled": false,
+  "resizerHeight": 120,
+  "columnMode": "double",
+  "saveAllIn": true
+}
