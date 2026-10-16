@@ -11,7 +11,8 @@
     "verify": "npm run build && npm run check && npm test && npm run test:e2e",
     "audit": "node scripts/audit.mjs",
     "test:visual": "node tests/e2e/visual.mjs",
-    "report": "python3 scripts/report.py"
+    "report": "python3 scripts/report.py",
+    "test:file": "node tests/e2e/file.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

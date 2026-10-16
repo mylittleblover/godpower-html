@@ -30,14 +30,14 @@ body.modern-flat-v217 #groupList{min-width:0;max-width:100%;overflow-x:hidden;ov
 /* 顶栏、底栏与稳定布局 */
 body.modern-flat-v217 .app-topnav{
   position:sticky!important;top:0!important;z-index:800!important;display:grid!important;
-  grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr)!important;align-items:center!important;
+  grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr);align-items:center!important;
   gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
   border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .app-topnav .header-title{justify-self:start!important;color:var(--ui-text)!important}
 body.modern-flat-v217 .app-topnav .header-title small,body.modern-flat-v217 .app-topnav .header-stats{color:var(--ui-muted)!important}
 body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important}
-body.modern-flat-v217 .app-topnav .header-stats{justify-self:end!important;text-align:right!important}
+body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right}
 body.modern-flat-v217 .bottom-dock{background:var(--ui-panel)!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:0 -2px 8px rgba(23,48,45,.06)!important}
 @media(min-width:701px){
   body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:auto!important}
@@ -276,6 +276,8 @@ body.modern-flat-v217 button:focus-visible,
 body.modern-flat-v217 input:focus-visible,
 body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-secondary);outline-offset:3px; }
 @media(max-width:1100px){
+  body.modern-flat-v217 .app-topnav{grid-template-columns:minmax(150px,1fr) auto;}
+  body.modern-flat-v217 .app-topnav .header-stats{grid-column:1/-1;justify-self:center;text-align:center;}
   body.modern-flat-v217 .bottom-dock{flex-direction:column;align-items:stretch;max-height:40dvh;overflow-y:auto;}
   body.modern-flat-v217 .dock-left,body.modern-flat-v217 .dock-right{width:100%;flex-wrap:wrap;flex-shrink:0;}
 }

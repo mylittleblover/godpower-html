@@ -214,7 +214,7 @@ function getSettlementHistory() {
 function saveSettlementRecord(record) {
   if (!record.clearedData) record.clearedData=buildSettlementClearedDataV21813();
   record.schemaVersion=Reliability.schemaVersion;
-  return Reliability.appendArchive(localStorage,record);
+  return Reliability.appendArchive(CLASSROOM_STORAGE,record);
 }
 
 function triggerFinalSettlement() {
@@ -1551,7 +1551,7 @@ function saveState() {
   if (!window.classroomReady || window.itemCommandActive) return {ok:true,deferred:true};
   ensureV2State();
   const payload=buildClassroomBackup();
-  const result=Reliability.writeVerified(localStorage,Reliability.stateKey,payload);
+  const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
   if(!result.ok){
     showToast('保存失败，请立即导出 JSON 备份：'+result.error);
     return result;
@@ -5306,6 +5306,7 @@ showItemUseFx=function(key,casterId=null,targetText=''){
 /* 1. 道具与历史跨关闭保存 */
 const V26_HISTORY_KEY='politics_history_stack_v26';
 function persistHistoryV26(){
+  if(window.itemCommandActive||window.classroomRecordingCommand)return;
   try{STORAGE.setJSON(V26_HISTORY_KEY,historyStack.slice(-MAX_HISTORY))}catch(e){}
 }
 try{

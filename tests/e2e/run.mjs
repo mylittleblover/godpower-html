@@ -11,6 +11,15 @@ let p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));
 await p.goto(url,{waitUntil:'domcontentloaded'});await p.waitForTimeout(500);
 async function test(name,fn){const start=Date.now();try{await setup(p);await fn();results.push({name,status:'PASS',ms:Date.now()-start});console.log('PASS',name)}catch(e){results.push({name,status:'FAIL',error:e.stack,ms:Date.now()-start});console.log('FAIL',name,e.message);await p.screenshot({path:`artifacts/screenshots/${browserKind}/failure-${results.length}.png`}).catch(()=>{})}}
 const evaluate=fn=>p.evaluate(fn);
+await test('denied browser storage getter reports failure without throwing',async()=>{
+ const r=await evaluate(()=>{const descriptor=Object.getOwnPropertyDescriptor(window,'localStorage');Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('denied','SecurityError')}});let result;try{result=saveState()}finally{Object.defineProperty(window,'localStorage',descriptor)}return result.ok});assert.equal(r,false);
+});
+await test('failed item cannot persist a phantom undo snapshot',async()=>{
+ const r=await evaluate(()=>{const g=state.groups[3];g.inventory=[{key:'hammer',charges:1,acquiredAt:1}];const oldHistory=localStorage.getItem(V26_HISTORY_KEY),before=historyStack.length;const result=useItem(g.id,0);return {result,before,after:historyStack.length,mirrorSame:oldHistory===localStorage.getItem(V26_HISTORY_KEY)}});assert.deepEqual(r,{result:false,before:0,after:0,mirrorSame:true});
+});
+await test('item save failure restores score inventory and undo history',async()=>{
+ const r=await evaluate(()=>{const g=state.groups[0];g.inventory=[{key:'coin',charges:1,acquiredAt:1}];const before=JSON.stringify(state.groups),history=JSON.stringify(historyStack);const orig=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='godpower_state_v1')throw Error('quota');return orig.call(this,k,v)};const result=useItem(g.id,0);Storage.prototype.setItem=orig;return {result,same:before===JSON.stringify(state.groups),historySame:history===JSON.stringify(historyStack)}});assert.deepEqual(r,{result:false,same:true,historySame:true});
+});
 await test('archive failure never clears scores, inventory or history',async()=>{
  const r=await evaluate(()=>{state.groups[0].inventory=[{key:'ice_flower',charges:2}];recordHistory('before');const before=JSON.stringify(state);const orig=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='politics_settlement_history')throw Error('simulated quota');return orig.call(this,k,v)};const r=confirmFinalSettlement();Storage.prototype.setItem=orig;closeThemeDialogV21727();return {ok:r.ok,same:before===JSON.stringify(state),history:historyStack.length}});assert.deepEqual(r,{ok:false,same:true,history:1});
 });
@@ -103,6 +112,7 @@ for(const [width,height]of [[1920,1080],[1366,768],[768,1024],[1024,768],[390,84
  for(const view of ['welcome','battle','history','archives','settings']){
   await p.evaluate(view=>switchView(view),view);await p.waitForTimeout(200);
   const shot=`artifacts/screenshots/${browserKind}/${view}-${width}x${height}.png`;await p.screenshot({path:shot,fullPage:true});
+  assert.ok(await p.locator('#topHeaderStats').evaluate(el=>el.getBoundingClientRect().height<80),'Header statistics must not collapse into a vertical character column');
   ui.push({view,width,height,status:'PASS',screenshot:shot,...await evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth,visibleButtons:[...document.querySelectorAll('button')].filter(x=>x.getClientRects().length).length}))});
  }
 }

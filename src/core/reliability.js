@@ -86,3 +86,10 @@ const Reliability = (() => {
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
   return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores};
 })();
+
+// Resolve the browser storage getter inside operations so access denial is
+// reported by the same verified-write failure path as quota errors.
+const CLASSROOM_STORAGE={
+  getItem(key){return localStorage.getItem(key)},
+  setItem(key,value){localStorage.setItem(key,value)}
+};

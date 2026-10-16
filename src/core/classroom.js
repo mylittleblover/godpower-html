@@ -67,7 +67,8 @@ function itemCommandSnapshot(){return JSON.stringify({groups:state.groups,itemGl
 function runClassroomCommand(description,operation){
   if(window.itemCommandActive)return false;
   const before=clone(state),oldHistory=clone(historyStack);
-  recordHistory(description);
+  window.classroomRecordingCommand=true;
+  try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
   window.itemCommandActive=true;
   try{
     const result=operation();
