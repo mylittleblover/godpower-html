@@ -401,48 +401,7 @@ function renderArchiveClassStats() {
 }
 
 function renderSettlementHistoryList() {
-  const container = document.getElementById('settlementHistoryContainer');
-  if (!container) return;
-  renderArchiveClassStats();
-  const list = getSettlementHistory();
-  container.innerHTML = '';
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center; padding: 24px; color:#94a3b8;">当前档案处尚无结算归档记录</div>';
-    return;
-  }
-
-  list.forEach((item, idx) => {
-    const card = document.createElement('div');
-    card.className = 'history-item';
-    card.style.flexDirection = 'column';
-    card.style.alignItems = 'stretch';
-    card.style.gap = '8px';
-
-    const groupRanksHtml = item.groups.map((g, r) => 
-      `<div style="font-size:12px; display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed #f1f5f9;">
-        <span><b>NO.${r+1}</b> ${escapeHtml(g.name)} (${g.members && g.members.length ? g.members.join('、') : '无成员登记'})</span>
-        <span style="font-weight:bold; color:${g.color};">${g.score}分</span>
-      </div>`
-    ).join('');
-
-    card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <div>
-          <span style="font-weight:900; color:#1e293b; font-size:15px;">📜 ${escapeHtml(item.title || '最终结算')}</span>
-          <span style="margin-left:8px; font-size:12px; color:#b45309; font-weight:bold;">🏆 第 1 名: ${escapeHtml(item.champion)}</span>
-          <span style="margin-left:8px; font-size:12px; color:#64748b;">(归档时间: ${item.time})</span>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn btn-sm btn-primary" onclick="exportSingleSettlementCSV(${idx})">导出完整档案 (.csv)</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteSettlementRecord(${idx})">删除</button>
-        </div>
-      </div>
-      <div style="background:#ffffff; border-radius:6px; padding:8px 12px; margin-top:4px; border:1px solid #e2e8f0;">
-        ${groupRanksHtml}
-      </div>
-    `;
-    container.appendChild(card);
-  });
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderArchives();
 }
 
 function exportSingleSettlementCSV(index) {
@@ -625,48 +584,7 @@ function closeHistoryModal() {
 }
 
 function renderHistoryList() {
-  const container = document.getElementById('historyListView');
-  if (!container) return;
-  container.innerHTML = '';
-  if (!historyStack.length) {
-    container.innerHTML = '<div style="text-align:center; padding: 32px; color:#94a3b8; font-size:14px;">当前尚无任何积分变动记录，去比赛页开始第一轮 PK 吧</div>';
-    return;
-  }
-  const curScores = {};
-  state.groups.forEach(g => { curScores[g.id] = Number(g.score) || 0; });
-  for (let i = historyStack.length - 1; i >= 0; i--) {
-    const item = historyStack[i];
-    const snapshotMap = {};
-    item.groups.forEach(g => { snapshotMap[g.id] = Number(g.score) || 0; });
-    const rows = item.groups.map(g => {
-      const oldV = snapshotMap[g.id] !== undefined ? snapshotMap[g.id] : 0;
-      const curV = curScores[g.id] !== undefined ? curScores[g.id] : 0;
-      const diff = curV - oldV;
-      const diffCls = diff > 0 ? 'hist-delta-pos' : diff < 0 ? 'hist-delta-neg' : 'hist-delta-zero';
-      const diffTxt = diff > 0 ? '+' + diff : String(diff);
-      return `<tr><td style="color:${g.color}; font-weight:800;">${escapeHtml(g.name)}</td><td>${oldV}</td><td>${curV}</td><td class="${diffCls}">${diffTxt}</td></tr>`;
-    }).join('');
-    const node = document.createElement('div');
-    node.className = 'hist-node' + (i === historyStack.length - 1 ? ' current' : '');
-    node.innerHTML = `
-      <div class="hist-card" onclick="toggleHistExpand(${i})">
-        <div class="hist-card-top">
-          <span class="hist-desc">${escapeHtml(item.desc)}</span>
-          <span class="hist-time">${item.time}</span>
-        </div>
-        <div class="hist-compare">
-          <table class="hist-compare-table">
-            <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
-            <tr><th>小组</th><th>快照分数</th><th>当前分数</th><th>差值</th></tr>
-            ${rows}
-          </table>
-          <div class="hist-actions">
-            <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); revertToHistory(${i})">回溯到此节点</button>
-          </div>
-        </div>
-      </div>`;
-    container.appendChild(node);
-  }
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderHistory();
 }
 
 function toggleHistExpand(index) {
@@ -1530,10 +1448,12 @@ function showToast(msg) {
     clearTimeout(toastTimer);
     toastTimer = null;
   }
-  t.innerText = msg;
+  t.innerText = String(msg);
+  if(typeof t.showPopover==='function'){try{t.showPopover()}catch(e){console.warn('Toast top-layer unavailable',e.name)}}
   t.classList.add('show');
   toastTimer = setTimeout(() => {
     t.classList.remove('show');
+    if(t.matches(':popover-open'))t.hidePopover();
     toastTimer = null;
   }, 3800);
 }
@@ -1577,6 +1497,7 @@ function saveState() {
 function applyZoom(level) {
   state.zoomLevel = Math.max(0.4, Math.min(2.0, level));
   document.body.style.zoom = state.zoomLevel;
+  if(typeof DesktopUI!=='undefined')DesktopUI.syncViewport();
   STORAGE.set('politics_zoom_level', state.zoomLevel);
   showToast(`视图缩放比例: ${Math.round(state.zoomLevel * 100)}%`);
 }
@@ -3450,6 +3371,7 @@ function switchView(name) {
   if (!VIEW_NAMES.includes(name)) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
+  if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);
 
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const target = document.getElementById('view-' + name);
@@ -3502,6 +3424,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderDaily();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
   const mm = String(now.getMinutes()).padStart(2, '0');
@@ -3519,6 +3442,7 @@ function updateWelcomeClock() {
 }
 
 function renderWelcomePage() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const wrap = document.getElementById('welcomePodiumDeck');
   if (!wrap) return;
   const sorted = [...state.groups].sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
@@ -5261,6 +5185,7 @@ function clearCardFx(card){
  card.style.removeProperty('--hitc');
 }
 function playCasterCardFx(key,gid){
+ if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
  const card=battleCard(gid),d=ITEM_DEFS[key];if(!card||!d)return;
  clearCardFx(card);void card.offsetWidth;
  card.classList.add('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
@@ -5270,6 +5195,7 @@ function playCasterCardFx(key,gid){
  setTimeout(()=>{card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');b.remove()},1850);
 }
 function playTargetCardFx(id,key,type='hit'){
+ if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
  const card=battleCard(id);if(!card)return;
  /* 不抹掉持续状态 class，只清一次性命中特效 */
  card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');void card.offsetWidth;
@@ -5412,7 +5338,7 @@ function renderUiIconManagerV26(){
 
 /* 5. 重建设置页标签，真正做到互斥显示 */
 function rebuildSettingsV26(){
- const sc=document.querySelector('#view-settings .settings-scroll');if(!sc||document.getElementById('settingsV26Tabs'))return;
+ const sc=document.querySelector('#view-settings .settings-scroll');if(!sc||document.getElementById('settingsV26Tabs')||document.getElementById('uiSettingsShell'))return;
  removeBgmEngineeringConsoleV26();
  document.getElementById('settingsV2Tabs')?.remove();
  document.getElementById('v2ItemPane')?.remove();
@@ -5438,6 +5364,7 @@ function rebuildSettingsV26(){
  installCommunismModeSetting();renderUiIconManagerV26();renderItemEncyclopedia();renderItemFxSoundListV26();showSettingsV26('function');
 }
 function showSettingsV26(which){
+ if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);if(which==='sound'){renderBgmSlotList();renderFxSlotList();renderItemFxSoundListV26()}if(which==='items')renderItemEncyclopedia();return;}
  document.querySelectorAll('.settings-v26-pane').forEach(p=>p.classList.toggle('active',p.id==='settingsV26_'+which));
  document.querySelectorAll('#settingsV26Tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v26===which));
  const sc=document.querySelector('#view-settings .settings-scroll');if(sc)sc.scrollTop=0;
@@ -6398,6 +6325,7 @@ function clearAttackHitFxV2116(card){
 
 /* 受击者动画。defended=true 时保留蓝色盾牌反馈，同时附加对应攻击的短促冲击。 */
 function playAttackTargetFxV2116(groupId,key,defended=false){
+ if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(groupId);
   if(!card)return;
   clearAttackHitFxV2116(card);
@@ -6534,6 +6462,10 @@ function queueUseStateV2120(g,index){
   if(index!==0)return {usable:false,label:'🔒 等待主要道具'};
   if(isQueuePersistentActiveV2120(g,it))return {usable:false,label:'⏳ 生效中 · 等待结束'};
   if(!eligibleForItems(g))return {usable:false,label:'负分保护'};
+  if(state.isLocked)return {usable:false,label:'请先解锁管理口令'};
+  const reason=Reliability.validateItem(state,g,index,isCommunismMode());
+  if(reason)return {usable:false,label:reason};
+  if(g.itemEffect?.iceLock)return {usable:true,label:'解除冻结（本次不发动）'};
   return {usable:true,label:'使用主要道具'};
 }
 

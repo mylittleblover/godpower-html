@@ -30,17 +30,17 @@ body.modern-flat-v217 #groupList{min-width:0;max-width:100%;overflow-x:hidden;ov
 /* 顶栏、底栏与稳定布局 */
 body.modern-flat-v217 .app-topnav{
   position:sticky!important;top:0!important;z-index:800!important;display:grid!important;
-  grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr);align-items:center!important;
-  gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
+  grid-template-columns:minmax(190px,1fr) auto minmax(100px,1fr);align-items:center!important;
+  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
   border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .app-topnav .header-title{justify-self:start!important;color:var(--ui-text)!important}
 body.modern-flat-v217 .app-topnav .header-title small,body.modern-flat-v217 .app-topnav .header-stats{color:var(--ui-muted)!important}
 body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important}
-body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right}
+body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right;display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body.modern-flat-v217 .bottom-dock{background:var(--ui-panel)!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:0 -2px 8px rgba(23,48,45,.06)!important}
 @media(min-width:701px){
-  body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:auto!important}
+  body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:clip;overflow-y:visible;height:67px;box-sizing:border-box}
   body.modern-flat-v217 .dock-left{gap:6px!important;min-width:0!important;flex-shrink:1!important}
   body.modern-flat-v217 .dock-right{gap:5px!important;flex-shrink:1!important}
   body.modern-flat-v217 .bottom-dock .btn{padding-left:13px!important;padding-right:13px!important}
@@ -60,13 +60,13 @@ body.modern-flat-v217 .member-search-card,body.modern-flat-v217 #batchImportModa
 body.modern-flat-v217 .modal-box.large{
   width:min(680px,calc(100vw - 48px))!important;height:auto!important;max-height:76dvh!important;overflow:auto!important;
 }
-body.modern-flat-v217 .item-window,body.modern-flat-v217 #pickerModal .modal-box,
-body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,
+body.modern-flat-v217 .item-window,body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,
 body.modern-flat-v217 .item-draw-board{
   width:min(920px,calc(100vw - 48px))!important;height:auto!important;max-height:82dvh!important;overflow:hidden!important;
 }
 body.modern-flat-v217 .item-window{display:grid!important;grid-template-columns:180px minmax(0,1fr)!important}
-body.modern-flat-v217 #pickerModal .modal-box,body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
+body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain}
+body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
 body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
   min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;
@@ -220,19 +220,10 @@ body.modern-flat-v217 .v292-switch input:checked+.v292-switch-track{background:v
 /* V2.16 欢迎页布局迁移，不再依赖 legacy 主题类 */
 body.modern-flat-v217 .battle-main-v216{padding-top:14px!important}
 body.modern-flat-v217 .battle-main-v216>.top-dashboard-grid{display:none!important}
-body.modern-flat-v217 .welcome-dashboard-v216{min-height:calc(100vh - 96px)!important;padding:28px 28px 54px!important;gap:18px!important;justify-content:flex-start!important;background:var(--ui-bg)!important;background-image:none!important;color:var(--ui-text)!important}
-body.modern-flat-v217 .welcome-heading-v216{text-align:center;width:100%}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-clock{font-size:46px!important;line-height:1.05!important}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-greeting{font-size:25px!important;margin-top:16px!important;color:var(--ui-text)!important}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-sub,body.modern-flat-v217 .welcome-date{color:var(--ui-muted)!important}
-body.modern-flat-v217 .welcome-three-columns-v216{width:min(1500px,100%)!important;display:grid!important;grid-template-columns:minmax(250px,.8fr) minmax(410px,1.35fr) minmax(330px,1fr)!important;gap:14px!important;align-items:stretch!important}
-body.modern-flat-v217 .welcome-three-columns-v216 .welcome-card{margin:0!important;padding:16px 18px!important;text-align:left!important;min-width:0!important}
 body.modern-flat-v217 .welcome-card-title-row-v216{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:10px!important}
 body.modern-flat-v217 .welcome-stat-grid-v216>div,body.modern-flat-v217 .welcome-extra-metrics-v216 .metric-box{background:var(--ui-soft-2)!important;background-image:none!important}
 body.modern-flat-v217 .welcome-extra-metrics-v216{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;margin-top:10px!important;padding-top:10px!important;border-top:1px solid var(--ui-border)!important}
 body.modern-flat-v217 .welcome-chart-wrapper-v216{min-height:226px!important;max-height:270px!important;overflow-y:auto!important;padding-right:4px!important}
-body.modern-flat-v217 .welcome-podium-v216 .podium-deck{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;height:calc(100% - 30px)!important;align-items:stretch!important}
-body.modern-flat-v217 .welcome-podium-v216 .podium-col{justify-content:center!important;min-width:0!important;padding:10px 6px!important}
 
 /* 常驻 UI 禁止材质效果；功能性道具动画类不在此清单中 */
 body.modern-flat-v217 .status-badge,body.modern-flat-v217 .metric-box,
@@ -269,41 +260,14 @@ body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;back
 .group-detail-lock{padding:10px 12px;border:1px solid #FCD34D;border-radius:8px;background:#FFFBEB;color:#92400E;font-weight:800;font-size:12px}
 .group-detail-danger{border-color:#FECACA;background:#FEF2F2}.group-detail-danger p{margin:0 0 10px;color:#991B1B;font-size:12px}
 
-@media(max-width:1050px){body.modern-flat-v217 .welcome-three-columns-v216{grid-template-columns:1fr 1fr!important}body.modern-flat-v217 .welcome-podium-v216{grid-column:1/-1!important}}
+@media(max-width:1050px){}
 /* Dock layout has one responsive owner. Narrow windows keep all actions reachable. */
 body.modern-flat-v217 { padding-bottom:calc(var(--dock-height, 78px) + 16px); }
 body.modern-flat-v217 button:focus-visible,
 body.modern-flat-v217 input:focus-visible,
 body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-secondary);outline-offset:3px; }
-@media(max-width:1100px){
-  body.modern-flat-v217 .app-topnav{grid-template-columns:minmax(150px,1fr) auto;}
-  body.modern-flat-v217 .app-topnav .header-stats{grid-column:1/-1;justify-self:center;text-align:center;}
-  body.modern-flat-v217 .bottom-dock{flex-direction:column;align-items:stretch;max-height:40dvh;overflow-y:auto;}
-  body.modern-flat-v217 .dock-left,body.modern-flat-v217 .dock-right{width:100%;flex-wrap:wrap;flex-shrink:0;}
-}
-@media(max-width:700px){
-  body.modern-flat-v217 .bottom-dock{overflow-x:auto!important}
-  body.modern-flat-v217 .app-topnav{grid-template-columns:1fr!important;text-align:center!important}
-  body.modern-flat-v217 .app-topnav .header-title,body.modern-flat-v217 .app-topnav .header-stats,body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;text-align:center!important}
-  body.modern-flat-v217 .app-topnav .nav-tabs{flex-wrap:wrap!important}
-  body.modern-flat-v217 .welcome-dashboard-v216{padding:22px 12px 48px!important}
-  body.modern-flat-v217 .welcome-three-columns-v216{grid-template-columns:1fr!important}
-  body.modern-flat-v217 .welcome-podium-v216{grid-column:auto!important}
-  body.modern-flat-v217 .welcome-heading-v216 .welcome-clock{font-size:36px!important}
-  body.modern-flat-v217 .welcome-heading-v216 .welcome-greeting{font-size:20px!important;letter-spacing:2px!important}
-  body.modern-flat-v217 .score-modal-backdrop,body.modern-flat-v217 .modal-overlay,
-  body.modern-flat-v217 .member-search-backdrop,body.modern-flat-v217 .item-modal-backdrop,
-  body.modern-flat-v217 .classroom-backdrop,body.modern-flat-v217 .about-backdrop{padding:8px!important}
-  body.modern-flat-v217 .score-modal-card,body.modern-flat-v217 .program-confirm-window,
-  body.modern-flat-v217 .member-search-card,body.modern-flat-v217 .modal-box,
-  body.modern-flat-v217 .item-window,body.modern-flat-v217 #pickerModal .modal-box,
-  body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,body.modern-flat-v217 .item-draw-board{
-    width:calc(100vw - 16px)!important;max-width:none!important;max-height:calc(100dvh - 16px)!important;
-  }
-  body.modern-flat-v217 .item-window{grid-template-columns:1fr!important}
-  .group-detail-fields{grid-template-columns:1fr}
-  .item-use-banner-v216{top:64px!important}
-}
+
+
 @media(prefers-reduced-motion:reduce){body.modern-flat-v217 *,body.modern-flat-v217 *::before,body.modern-flat-v217 *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 
 .classroom-save-warning{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#fff7db;color:#713f12;border-bottom:1px solid #f5cc71;font-size:14px;line-height:1.6;}

@@ -86,6 +86,7 @@ if(typeof syncPickerScoreTarget==='function'){
   syncPickerScoreTarget=function(){
     const el=document.getElementById('pickerScoreTarget'),w=slotEngine.chosenResult;
     if(!el)return;
+    if(typeof DesktopUI!=='undefined')DesktopUI.pickerChanged();
     if(!w){el.textContent='抽中学生或小组后，可直接给所属小组赋分。';return}
     const g=state.picker.mode==='group'?w:w.group;
     el.innerHTML=`<b style="color:${g.color}">${escapeHtml(g.name)}</b>${state.picker.mode==='group'?'':`<br>${studentLabelHTMLV218(w.memberName,g)}`}<br>当前 ${g.score} 分`;

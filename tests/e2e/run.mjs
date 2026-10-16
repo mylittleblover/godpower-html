@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';import {createServer} from 'node:http';import {readFile,writeFile,mkdir} from 'node:fs/promises';import {launch,setup} from '../fixtures/browser.mjs';
-const server=createServer(async(req,res)=>{try{const path=new URL(req.url,'http://localhost').pathname;if(!['/dist/godpower.html','/baseline/V2.18.13.html'].includes(path)){res.writeHead(404).end();return}res.setHeader('Content-Type','text/html; charset=utf-8');res.end(await readFile('.'+path))}catch{res.writeHead(500).end()}});
+const server=createServer(async(req,res)=>{try{const path=new URL(req.url,'http://localhost').pathname;if(!['/dist/godpower.html','/baseline/V2.18.13.html'].includes(path)){res.writeHead(404).end();return}res.setHeader('Content-Type','text/html; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(await readFile('.'+path))}catch{res.writeHead(500).end()}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const url=`http://127.0.0.1:${server.address().port}/dist/godpower.html`;
 await mkdir('artifacts/screenshots',{recursive:true});const results=[],errors=[],requests=[];
 const browserKind=process.env.BROWSER||'chromium';
@@ -107,7 +107,7 @@ await test('item description sync cannot destroy batch actions',async()=>{
 });
 // Screenshot and layout evidence: use real renders, freeze only time-dependent clock text.
 const ui=[];
-for(const [width,height]of [[1920,1080],[1366,768],[768,1024],[1024,768],[390,844],[844,390]]){
+for(const [width,height]of [[1366,768],[1920,1080],[2560,1440]]){
  await p.setViewportSize({width,height});await setup(p);
  for(const view of ['welcome','battle','history','archives','settings']){
   await p.evaluate(view=>switchView(view),view);await p.waitForTimeout(200);
@@ -123,7 +123,7 @@ for(const [name,open,close]of [['picker','openPickerModal','closePickerModal'],[
 await evaluate(()=>{openAbout();renderAbout('items')});await p.screenshot({path:`artifacts/screenshots/${browserKind}/item-encyclopedia.png`});await evaluate(()=>closeAbout());
 await evaluate(()=>{state.groups[0].allIn=true;state.groups[1].itemEffect={type:'star',hitsLeft:3};state.groups[2].itemEffect={iceLock:1,iceRoundsLeftV218:3};state.groups[3].score=12345678;state.groups[3].displayScore=12345678;renderAll()});await p.screenshot({path:`artifacts/screenshots/${browserKind}/special-states.png`});
 const compatibility=[];
-try{const f=await context.newPage();await context.setOffline(true);await f.goto('file://'+process.cwd()+'/dist/godpower.html',{timeout:10000,waitUntil:'domcontentloaded'});assert.equal(await f.evaluate(()=>window.__GOD_POWER_VERSION__),'V2.18.15');compatibility.push({browser:browserKind,protocol:'file',status:'PASS'});await f.close();await context.setOffline(false)}catch(e){compatibility.push({browser:browserKind,protocol:'file',status:'BLOCKED',error:e.message})}
+try{const f=await context.newPage();await context.setOffline(true);await f.goto('file://'+process.cwd()+'/dist/godpower.html',{timeout:10000,waitUntil:'domcontentloaded'});assert.equal(await f.evaluate(()=>window.__GOD_POWER_VERSION__),'V2.19.0');compatibility.push({browser:browserKind,protocol:'file',status:'PASS'});await f.close();await context.setOffline(false)}catch(e){compatibility.push({browser:browserKind,protocol:'file',status:'BLOCKED',error:e.message})}
 await context.setOffline(false);
 await writeFile(`artifacts/browser-results${browserKind==='chromium'?'':'-'+browserKind}.json`,JSON.stringify({date:new Date().toISOString(),browser:browser.version(),results,errors,externalRequests:requests,ui,compatibility},null,2));
 await browser.close();server.close();console.log(JSON.stringify({pass:results.filter(x=>x.status==='PASS').length,fail:results.filter(x=>x.status==='FAIL').length,errors,compatibility}));

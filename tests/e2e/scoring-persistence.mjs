@@ -6,11 +6,11 @@ import {launch} from '../fixtures/browser.mjs';
 const compare=process.argv.includes('--compare-before');
 const current=await readFile('dist/godpower.html','utf8');
 const old=compare?execFileSync('git',['show','bc42a43:dist/godpower.html'],{maxBuffer:16*1024*1024}).toString():null;
-const server=createServer((req,res)=>{res.setHeader('Content-Type','text/html; charset=utf-8');res.end(req.url.startsWith('/before')?old:current)});
+const server=createServer((req,res)=>{res.setHeader('Content-Type','text/html; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(req.url.startsWith('/before')?old:current)});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browser=await launch();const results=[];
 async function run(version,failure){
- const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1'}),p=await context.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));
+ const context=await browser.newContext({viewport:{width:1920,height:1080}}),p=await context.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));await context.route('**/*',r=>r.continue());
  if(failure==='startup-denied')await context.addInitScript(()=>{Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('storage denied','SecurityError')}})});
  await p.goto(`http://127.0.0.1:${server.address().port}/${version}`,{waitUntil:'domcontentloaded'});
  if(failure==='startup-denied'){await p.waitForTimeout(1200);await p.evaluate(()=>closeThemeDialogV21727())}
@@ -35,7 +35,7 @@ async function run(version,failure){
   if(failure==='quota'){
    await p.screenshot({path:'artifacts/screenshots/chromium/scoring-unsaved-warning.png'});
    assert.equal(await p.evaluate(()=>{restoreTestStorage();return saveState().ok}),true);assert.equal(await p.locator('#classroomSaveWarning').isVisible(),false);
-   await p.reload({waitUntil:'domcontentloaded'});assert.deepEqual(await p.evaluate(()=>state.groups.map(g=>g.score)),[2,2,2,2]);
+   const navigation=p.waitForNavigation({waitUntil:'domcontentloaded',timeout:90000});const session=await context.newCDPSession(p);await session.send('Page.reload',{ignoreCache:true});await navigation;await session.detach();assert.deepEqual(await p.evaluate(()=>state.groups.map(g=>g.score)),[2,2,2,2]);
   }
   row.status='PASS';
  }

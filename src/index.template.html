@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V2.18.15</title>
+<title>上帝的力量 V2.19.0</title>
 
   <style>@@SOURCE:style/00.css@@</style>
 <style>@@SOURCE:style/01.css@@</style>
@@ -66,11 +66,12 @@
 
 <style id="v2180PlanStyle">@@SOURCE:style/20.css@@</style>
 
+<style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
 </head>
 <body class="modern-flat-v217">
 
 <div class="header-banner app-topnav">
-  <div class="header-title">上帝的力量 <small>V2.18.15</small></div>
+  <div class="header-title">上帝的力量 <small>V2.19.0</small></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -87,47 +88,17 @@
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
 </div>
 <div id="view-welcome" class="view active">
-  <div class="welcome-hero welcome-dashboard-v216">
-    <div class="welcome-heading-v216">
-      <div class="welcome-clock" id="welcomeClock">--:--:--</div>
-      <div class="welcome-date" id="welcomeDate">----年--月--日 星期-</div>
-      <div class="welcome-greeting" id="welcomeGreeting">欢迎使用上帝（马克思）的力量</div>
-      <div class="welcome-sub" id="welcomeSub">要想试试，不属于你的力量吗？</div>
-    </div>
-
-    <div class="welcome-three-columns-v216">
-      <section class="welcome-card welcome-overview-v216">
-        <div class="welcome-card-title">班级总态势</div>
-        <div class="welcome-stat-grid welcome-stat-grid-v216">
-          <div><div class="w-stat-num" id="wGroupCount">0</div><div class="w-stat-label">小组总数</div></div>
-          <div><div class="w-stat-num" id="wTotalScore">0</div><div class="w-stat-label">班级总积分</div></div>
-          <div><div class="w-stat-num" id="wMaxScore">0</div><div class="w-stat-label">最高分组</div></div>
-          <div><div class="w-stat-num" id="wLeaderName">—</div><div class="w-stat-label">当前领先</div></div>
-        </div>
-        <div class="welcome-extra-metrics-v216">
-          <div class="metric-box"><div class="metric-label">本轮作答进度</div><div class="metric-value" id="metricAnswered">0 / 0 组</div></div>
-          <div class="metric-box"><div class="metric-label">All In 锁定</div><div class="metric-value" id="metricAllIn">0 组</div></div>
-          <div class="metric-box"><div class="metric-label">班级平均分</div><div class="metric-value" id="metricAvg">0 分</div></div>
-        </div>
-      </section>
-
-      <section class="welcome-card welcome-chart-v216">
-        <div class="welcome-card-title welcome-card-title-row-v216"><span>实时积分排名</span><small>全班动态排位</small></div>
-        <div id="chartWrapper" class="chart-wrapper welcome-chart-wrapper-v216"></div>
-      </section>
-
-      <section class="welcome-card welcome-podium-v216">
-        <div class="welcome-card-title welcome-card-title-row-v216"><span>前三名</span><small>当前排名</small></div>
-        <div class="podium-deck" id="podiumDeck"></div>
-        <div id="welcomePodiumDeck" style="display:none"></div>
-      </section>
-    </div>
-
-    <div class="welcome-enter-wrap">
-      <button type="button" class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛</button>
-    </div>
-  </div>
+  <main class="ui-page" style="width:100%;box-sizing:border-box">
+    <header class="ui-welcome-head">
+      <div><div class="ui-eyebrow">课堂竞技 · 每一次参与都有力量</div><h1>上帝的力量</h1><h2 id="welcomeGreeting">欢迎回到课堂</h2><p class="ui-muted">让知识成为力量，让每个小组都有登场时刻。</p></div>
+      <div class="ui-welcome-time"><div id="welcomeClock" class="ui-clock">--:--:--</div><div id="welcomeDate" class="ui-muted"></div><button class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛 →</button><br><button id="uiSkipWelcome" class="btn btn-sm" style="margin-top:8px">跳过入场动画</button></div>
+    </header>
+    <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
+    <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
+    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount"></b></div><div>总积分 <b id="wTotalScore"></b></div><div>最高分 <b id="wMaxScore"></b></div><div>领先 <b id="wLeaderName"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+  </main>
 </div>
+
 
 <div id="view-battle" class="view">
 <div class="main-viewport battle-main-v216">
@@ -250,7 +221,7 @@
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">去档案馆翻案</button>
-      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">收工</button>
+      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
     </div>
   </div>
 </div>
@@ -262,10 +233,11 @@
     <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
     </p>
+    <p id="uiSettlementStatus" class="ui-muted" role="status">先完整归档，保存成功后才会清零。</p>
     <input type="text" id="settlementNameInput" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeSettlementNameModal()">取消</button>
-      <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="confirmFinalSettlement()">封存并清零</button>
+      <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="DesktopUI.settleFromUI(this)">封存并清零</button>
     </div>
   </div>
 </div>
@@ -274,7 +246,7 @@
 <div id="view-archives" class="view">
   <div class="fullview-header">
     <div>
-      <h2>🗄️ 封神榜档案馆</h2>
+      <h2>封神榜 · 课堂历届竞技档案馆</h2>
       <div class="fullview-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
     </div>
     <div class="settings-toolbar">
@@ -283,6 +255,7 @@
   </div>
   <div class="fullview-body">
     <section id="archiveClassStats" class="archive-class-stats" aria-label="课堂累计统计"></section>
+    <div class="ui-toolbar"><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select><span id="uiArchiveCount" class="ui-record-count"></span></div>
     <div id="settlementHistoryContainer" class="history-list archives-list"></div>
   </div>
 </div>
@@ -325,11 +298,11 @@
 <div id="view-history" class="view">
   <div class="fullview-header">
     <div>
-      <h2>📜 后悔药仓库</h2>
-      <div class="fullview-sub">最近 40 次操作都在这里留了案底。点开看看当时谁手滑了，必要时把时间线拖回去。</div>
+      <h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <div class="fullview-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
     </div>
     <div class="settings-toolbar">
-      <button class="btn btn-sm btn-primary" onclick="clearHistoryStack()">清空记录</button>
+      <button class="btn btn-sm btn-danger" onclick="clearHistoryStack()">清空记录</button>
     </div>
   </div>
   <div class="fullview-body">
@@ -543,7 +516,7 @@
 <input type="file" id="soundFileInput" style="display: none;" accept="audio/*" onchange="handleSoundFileUpload(event)">
 <input type="file" id="bundleFileInput" style="display: none;" accept=".bin" onchange="handleBundleFilePicked(event)">
 <input type="file" id="importFileInput" style="display: none;" accept=".json" onchange="handleFileImport(event)">
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast ui-toast" popover="manual" role="status" aria-live="polite" aria-atomic="true"></div>
 
 
   <script>@@SOURCE:core/reliability.js@@</script>
@@ -740,5 +713,7 @@
 <script id="v21813FullSettlementArchive">@@SOURCE:script/45.js@@</script>
 
 <script>@@SOURCE:core/classroom.js@@</script>
+<script>@@SOURCE:ui/model.js@@</script>
+<script>@@SOURCE:ui/desktop.js@@</script>
 </body>
 </html>

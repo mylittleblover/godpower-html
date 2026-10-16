@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V2.18.15</title>
+<title>上帝的力量 V2.19.0</title>
 
   <style>
 
@@ -1076,8 +1076,8 @@
     border-radius: 8px;
     font-size: 15px;
     font-weight: bold;
-    z-index: 1000;
-    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 2147483647;
+    transition: opacity 0.2s, transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     pointer-events: none;
     box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
@@ -1208,7 +1208,7 @@
   .fullview-header h2 { font-size: 20px; font-weight: 900; color: #1e293b; margin: 0; }
   .fullview-sub { font-size: 13px; color: #64748b; margin-top: 3px; }
   .fullview-body { background: #fff; border-radius: 0 0 12px 12px; padding: 18px 24px; flex: 1; }
-  #view-history, #view-archives, #view-settings { padding: 16px; gap: 0; max-width: 1280px; width: 100%; margin: 0 auto; }
+  #view-history, #view-archives, #view-settings { padding: 24px; gap: 0; max-width: 2200px; width: 100%; margin: 0 auto; }
 
   /* 历史时间轴 */
   .history-timeline { position: relative; padding: 8px 0 8px 26px; }
@@ -2532,17 +2532,17 @@ body.modern-flat-v217 #groupList{min-width:0;max-width:100%;overflow-x:hidden;ov
 /* 顶栏、底栏与稳定布局 */
 body.modern-flat-v217 .app-topnav{
   position:sticky!important;top:0!important;z-index:800!important;display:grid!important;
-  grid-template-columns:minmax(190px,1fr) auto minmax(190px,1fr);align-items:center!important;
-  gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
+  grid-template-columns:minmax(190px,1fr) auto minmax(100px,1fr);align-items:center!important;
+  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
   border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .app-topnav .header-title{justify-self:start!important;color:var(--ui-text)!important}
 body.modern-flat-v217 .app-topnav .header-title small,body.modern-flat-v217 .app-topnav .header-stats{color:var(--ui-muted)!important}
 body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important}
-body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right}
+body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right;display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 body.modern-flat-v217 .bottom-dock{background:var(--ui-panel)!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:0 -2px 8px rgba(23,48,45,.06)!important}
 @media(min-width:701px){
-  body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:auto!important}
+  body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:clip;overflow-y:visible;height:67px;box-sizing:border-box}
   body.modern-flat-v217 .dock-left{gap:6px!important;min-width:0!important;flex-shrink:1!important}
   body.modern-flat-v217 .dock-right{gap:5px!important;flex-shrink:1!important}
   body.modern-flat-v217 .bottom-dock .btn{padding-left:13px!important;padding-right:13px!important}
@@ -2562,13 +2562,13 @@ body.modern-flat-v217 .member-search-card,body.modern-flat-v217 #batchImportModa
 body.modern-flat-v217 .modal-box.large{
   width:min(680px,calc(100vw - 48px))!important;height:auto!important;max-height:76dvh!important;overflow:auto!important;
 }
-body.modern-flat-v217 .item-window,body.modern-flat-v217 #pickerModal .modal-box,
-body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,
+body.modern-flat-v217 .item-window,body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,
 body.modern-flat-v217 .item-draw-board{
   width:min(920px,calc(100vw - 48px))!important;height:auto!important;max-height:82dvh!important;overflow:hidden!important;
 }
 body.modern-flat-v217 .item-window{display:grid!important;grid-template-columns:180px minmax(0,1fr)!important}
-body.modern-flat-v217 #pickerModal .modal-box,body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
+body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain}
+body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
 body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
   min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;
@@ -2722,19 +2722,10 @@ body.modern-flat-v217 .v292-switch input:checked+.v292-switch-track{background:v
 /* V2.16 欢迎页布局迁移，不再依赖 legacy 主题类 */
 body.modern-flat-v217 .battle-main-v216{padding-top:14px!important}
 body.modern-flat-v217 .battle-main-v216>.top-dashboard-grid{display:none!important}
-body.modern-flat-v217 .welcome-dashboard-v216{min-height:calc(100vh - 96px)!important;padding:28px 28px 54px!important;gap:18px!important;justify-content:flex-start!important;background:var(--ui-bg)!important;background-image:none!important;color:var(--ui-text)!important}
-body.modern-flat-v217 .welcome-heading-v216{text-align:center;width:100%}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-clock{font-size:46px!important;line-height:1.05!important}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-greeting{font-size:25px!important;margin-top:16px!important;color:var(--ui-text)!important}
-body.modern-flat-v217 .welcome-heading-v216 .welcome-sub,body.modern-flat-v217 .welcome-date{color:var(--ui-muted)!important}
-body.modern-flat-v217 .welcome-three-columns-v216{width:min(1500px,100%)!important;display:grid!important;grid-template-columns:minmax(250px,.8fr) minmax(410px,1.35fr) minmax(330px,1fr)!important;gap:14px!important;align-items:stretch!important}
-body.modern-flat-v217 .welcome-three-columns-v216 .welcome-card{margin:0!important;padding:16px 18px!important;text-align:left!important;min-width:0!important}
 body.modern-flat-v217 .welcome-card-title-row-v216{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:10px!important}
 body.modern-flat-v217 .welcome-stat-grid-v216>div,body.modern-flat-v217 .welcome-extra-metrics-v216 .metric-box{background:var(--ui-soft-2)!important;background-image:none!important}
 body.modern-flat-v217 .welcome-extra-metrics-v216{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;margin-top:10px!important;padding-top:10px!important;border-top:1px solid var(--ui-border)!important}
 body.modern-flat-v217 .welcome-chart-wrapper-v216{min-height:226px!important;max-height:270px!important;overflow-y:auto!important;padding-right:4px!important}
-body.modern-flat-v217 .welcome-podium-v216 .podium-deck{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;height:calc(100% - 30px)!important;align-items:stretch!important}
-body.modern-flat-v217 .welcome-podium-v216 .podium-col{justify-content:center!important;min-width:0!important;padding:10px 6px!important}
 
 /* 常驻 UI 禁止材质效果；功能性道具动画类不在此清单中 */
 body.modern-flat-v217 .status-badge,body.modern-flat-v217 .metric-box,
@@ -2771,41 +2762,14 @@ body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;back
 .group-detail-lock{padding:10px 12px;border:1px solid #FCD34D;border-radius:8px;background:#FFFBEB;color:#92400E;font-weight:800;font-size:12px}
 .group-detail-danger{border-color:#FECACA;background:#FEF2F2}.group-detail-danger p{margin:0 0 10px;color:#991B1B;font-size:12px}
 
-@media(max-width:1050px){body.modern-flat-v217 .welcome-three-columns-v216{grid-template-columns:1fr 1fr!important}body.modern-flat-v217 .welcome-podium-v216{grid-column:1/-1!important}}
+@media(max-width:1050px){}
 /* Dock layout has one responsive owner. Narrow windows keep all actions reachable. */
 body.modern-flat-v217 { padding-bottom:calc(var(--dock-height, 78px) + 16px); }
 body.modern-flat-v217 button:focus-visible,
 body.modern-flat-v217 input:focus-visible,
 body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-secondary);outline-offset:3px; }
-@media(max-width:1100px){
-  body.modern-flat-v217 .app-topnav{grid-template-columns:minmax(150px,1fr) auto;}
-  body.modern-flat-v217 .app-topnav .header-stats{grid-column:1/-1;justify-self:center;text-align:center;}
-  body.modern-flat-v217 .bottom-dock{flex-direction:column;align-items:stretch;max-height:40dvh;overflow-y:auto;}
-  body.modern-flat-v217 .dock-left,body.modern-flat-v217 .dock-right{width:100%;flex-wrap:wrap;flex-shrink:0;}
-}
-@media(max-width:700px){
-  body.modern-flat-v217 .bottom-dock{overflow-x:auto!important}
-  body.modern-flat-v217 .app-topnav{grid-template-columns:1fr!important;text-align:center!important}
-  body.modern-flat-v217 .app-topnav .header-title,body.modern-flat-v217 .app-topnav .header-stats,body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;text-align:center!important}
-  body.modern-flat-v217 .app-topnav .nav-tabs{flex-wrap:wrap!important}
-  body.modern-flat-v217 .welcome-dashboard-v216{padding:22px 12px 48px!important}
-  body.modern-flat-v217 .welcome-three-columns-v216{grid-template-columns:1fr!important}
-  body.modern-flat-v217 .welcome-podium-v216{grid-column:auto!important}
-  body.modern-flat-v217 .welcome-heading-v216 .welcome-clock{font-size:36px!important}
-  body.modern-flat-v217 .welcome-heading-v216 .welcome-greeting{font-size:20px!important;letter-spacing:2px!important}
-  body.modern-flat-v217 .score-modal-backdrop,body.modern-flat-v217 .modal-overlay,
-  body.modern-flat-v217 .member-search-backdrop,body.modern-flat-v217 .item-modal-backdrop,
-  body.modern-flat-v217 .classroom-backdrop,body.modern-flat-v217 .about-backdrop{padding:8px!important}
-  body.modern-flat-v217 .score-modal-card,body.modern-flat-v217 .program-confirm-window,
-  body.modern-flat-v217 .member-search-card,body.modern-flat-v217 .modal-box,
-  body.modern-flat-v217 .item-window,body.modern-flat-v217 #pickerModal .modal-box,
-  body.modern-flat-v217 .about-window,body.modern-flat-v217 .classroom-window,body.modern-flat-v217 .item-draw-board{
-    width:calc(100vw - 16px)!important;max-width:none!important;max-height:calc(100dvh - 16px)!important;
-  }
-  body.modern-flat-v217 .item-window{grid-template-columns:1fr!important}
-  .group-detail-fields{grid-template-columns:1fr}
-  .item-use-banner-v216{top:64px!important}
-}
+
+
 @media(prefers-reduced-motion:reduce){body.modern-flat-v217 *,body.modern-flat-v217 *::before,body.modern-flat-v217 *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 
 .classroom-save-warning{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#fff7db;color:#713f12;border-bottom:1px solid #f5cc71;font-size:14px;line-height:1.6;}
@@ -3875,7 +3839,7 @@ body.modern-flat-v217 .item-window{
   grid-template-columns:196px minmax(0,1fr)!important;
   width:min(960px,calc(100vw - 48px))!important;
   height:auto!important;
-  max-height:82dvh!important;
+  max-height:min(82dvh,calc(var(--ui-viewport-height,100dvh) - 48px))!important;
   overflow:hidden!important;
 }
 body.modern-flat-v217 .item-side{min-height:0!important;overflow:hidden!important}
@@ -3884,7 +3848,7 @@ body.modern-flat-v217 .item-main{
   flex-direction:column!important;
   min-width:0!important;
   min-height:0!important;
-  max-height:82dvh!important;
+  max-height:min(82dvh,calc(var(--ui-viewport-height,100dvh) - 48px))!important;
   padding:0!important;
   overflow:hidden!important;
 }
@@ -3900,7 +3864,7 @@ body.modern-flat-v217 #itemWindowBody{
   flex:1 1 auto!important;
   min-width:0!important;
   min-height:0!important;
-  max-height:calc(82dvh - 67px)!important;
+  max-height:calc(min(82dvh,calc(var(--ui-viewport-height,100dvh) - 48px)) - 67px)!important;
   padding:16px 20px 34px!important;
   overflow-y:auto!important;
   overflow-x:hidden!important;
@@ -3914,7 +3878,7 @@ body.modern-flat-v217 .group-detail-form{padding-bottom:0!important}
 body.modern-flat-v217:has(#view-settings.active){
   height:100dvh!important;
   min-height:0!important;
-  padding-bottom:72px!important;
+  padding-bottom:0;
   overflow:hidden!important;
 }
 body.modern-flat-v217 #view-settings.active{
@@ -3932,27 +3896,6 @@ body.modern-flat-v217 #view-settings .settings-scroll{
   overflow:hidden!important;
   padding:0 18px 18px!important;
 }
-body.modern-flat-v217 #view-settings .settings-v26-tabs{
-  position:sticky!important;
-  top:0!important;
-  flex:0 0 auto!important;
-  margin:0 -18px 12px!important;
-  padding:10px 18px!important;
-  background:#fff!important;
-  border-bottom:1px solid var(--ui-border)!important;
-}
-body.modern-flat-v217 #view-settings .settings-v26-pane{
-  display:none!important;
-  min-width:0!important;
-  min-height:0!important;
-  padding:0 2px 28px!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  scrollbar-gutter:stable;
-  overscroll-behavior:contain;
-}
-body.modern-flat-v217 #view-settings .settings-v26-pane.active{display:block!important;flex:1 1 auto!important}
-
 /* 设置页字重层级：标题最重，字段名中等，解释文字使用正常字重。 */
 body.modern-flat-v217 #view-settings .fullview-header h2,
 body.modern-flat-v217 #view-settings .setting-section-title{font-weight:850!important}
@@ -4513,11 +4456,860 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 }
 </style>
 
+<style id="desktop-design-system">/* Owned desktop components; battle grid/card geometry remains owned by legacy layout. */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-md: 16px;
+  --font-lg: 22px;
+  --font-xl: 32px;
+  --weight-body: 400;
+  --weight-label: 600;
+  --weight-heading: 800;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-card: 0 4px 20px #17302d08;
+  --shadow-float: 0 16px 56px #17302d26;
+  --nav-height: 59px;
+  --dock-height: 67px;
+  --modal-sm: 480px;
+  --modal-md: 680px;
+  --modal-lg: 1120px;
+  --motion-fast: 140ms;
+  --motion-normal: 240ms;
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ui-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+.ui-page {
+  max-width: 2200px;
+  margin: auto;
+  padding: var(--space-6);
+  color: var(--ui-text);
+}
+.ui-page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.ui-eyebrow {
+  font-size: var(--font-xs);
+  letter-spacing: 0.13em;
+  color: var(--ui-primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ui-page h1 {
+  font-size: var(--font-xl);
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+.ui-page h2 {
+  font-size: var(--font-lg);
+  margin: 0;
+}
+.ui-page h3 {
+  font-size: 17px;
+  margin: 0 0 12px;
+}
+.ui-muted {
+  color: var(--ui-muted);
+  font-size: var(--font-sm);
+  line-height: 1.7;
+}
+.ui-page p {
+  line-height: 1.7;
+}
+.ui-panel {
+  padding: 24px;
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  min-width: 0;
+}
+.ui-clock {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ui-welcome-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 8px 0 24px;
+}
+.ui-welcome-head h1 {
+  font-size: 36px;
+}
+.ui-welcome-time {
+  text-align: right;
+}
+.ui-welcome-time .welcome-enter-btn {
+  font-size: var(--font-md);
+  margin-top: 16px;
+  padding: 12px 28px;
+}
+.ui-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.ui-scroll-buttons {
+  display: flex;
+  gap: 8px;
+}
+.ui-scroll-buttons button {
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  color: var(--ui-primary);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+.ui-scroll-buttons button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.ui-group-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding: 8px 2px 20px;
+  overscroll-behavior-x: contain;
+  scrollbar-color: var(--ui-border-strong) transparent;
+}
+.ui-group-track.ui-few {
+  justify-content: center;
+}
+.ui-group-card {
+  flex: 0 0 270px;
+  min-width: 0;
+  scroll-snap-align: start;
+  text-align: left;
+  border: 1px solid var(--ui-border);
+  border-top: 4px solid var(--group-color);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  cursor: pointer;
+  transition:
+    box-shadow var(--motion-fast),
+    translate var(--motion-fast);
+}
+.ui-group-card:hover {
+  box-shadow: var(--shadow-float);
+  translate: 0 -3px;
+}
+.ui-group-card .ui-group-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+  min-height: 48px;
+}
+.ui-group-score {
+  font-size: var(--font-xl);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+  overflow-wrap: anywhere;
+}
+.ui-group-card footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--ui-border);
+  margin-top: 16px;
+  padding-top: 12px;
+  font-size: 13px;
+}
+.ui-group-card footer img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  background: var(--ui-soft);
+  border-radius: 8px;
+  font-size: var(--font-xs);
+  color: var(--ui-primary);
+  font-weight: 700;
+}
+.ui-daily-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.ui-daily-grid .ui-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.ui-daily-grid h3 {
+  line-height: 1.5;
+  margin: 12px 0;
+}
+.ui-daily-grid details {
+  margin-top: auto;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ui-daily-grid summary {
+  cursor: pointer;
+  color: var(--ui-primary);
+  font-weight: 700;
+}
+.ui-source {
+  font-size: 11px;
+  color: var(--ui-muted);
+  margin-top: 12px;
+  line-height: 1.7;
+}
+.ui-item-tip-icon {
+  font-size: 36px;
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+}
+.ui-item-tip-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.ui-quiz-options {
+  display: grid;
+  gap: 6px;
+}
+.ui-quiz-options button {
+  border: 1px solid var(--ui-border);
+  background: var(--ui-soft-2);
+  border-radius: 8px;
+  text-align: left;
+  padding: 8px;
+  color: var(--ui-text);
+  cursor: pointer;
+}
+.ui-quiz-options button[aria-pressed="true"] {
+  border-color: var(--ui-primary);
+  background: var(--ui-soft);
+}
+.ui-quiz-result {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ui-primary);
+  margin-top: 10px;
+}
+.ui-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.ui-overview strong {
+  display: block;
+  font-size: 26px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+.ui-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.ui-toolbar input {
+  flex: 1;
+  min-width: 180px;
+}
+.ui-toolbar input,
+.ui-toolbar select,
+.ui-settings-body select,
+.ui-settings-body input[type="number"] {
+  padding: 9px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+}
+.ui-timeline {
+  max-width: 1260px;
+  margin: 0 auto;
+  border-left: 2px solid var(--ui-border);
+  padding-left: 24px;
+  display: grid;
+  gap: 16px;
+}
+.ui-history {
+  position: relative;
+}
+.ui-history::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 3px solid var(--ui-panel);
+  border-radius: 50%;
+  background: var(--ui-primary);
+  left: -33px;
+  top: 27px;
+}
+.ui-history[data-kind="danger"]::before {
+  background: var(--ui-danger);
+}
+.ui-history[data-kind="item"]::before {
+  background: var(--ui-accent);
+}
+.ui-history summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  list-style: none;
+}
+.ui-history summary h3 {
+  overflow-wrap: anywhere;
+  margin: 8px 0;
+}
+.ui-history details[open] summary {
+  margin-bottom: 16px;
+}
+.ui-table-wrap {
+  overflow: auto;
+  max-height: 420px;
+}
+.ui-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  text-align: left;
+}
+.ui-table th,
+.ui-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--ui-border);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.ui-table th {
+  background: var(--ui-soft-2);
+  position: sticky;
+  top: 0;
+}
+.ui-positive {
+  color: #147344;
+}
+.ui-negative {
+  color: var(--ui-danger);
+}
+.ui-snapshot-note {
+  background: var(--ui-soft);
+  padding: 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.ui-empty {
+  text-align: center;
+  padding: 56px 24px;
+  background: var(--ui-panel);
+  border: 1px dashed var(--ui-border-strong);
+  border-radius: 20px;
+}
+.ui-empty > .ui-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+.ui-empty p {
+  color: var(--ui-muted);
+}
+.ui-archive-list {
+  display: grid;
+  gap: 16px;
+}
+.ui-archive-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  list-style: none;
+}
+.ui-archive-summary h3 {
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+.ui-podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+  align-items: stretch;
+}
+.ui-podium > div {
+  background: var(--ui-soft-2);
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.ui-podium > div:first-child {
+  background: var(--ui-soft);
+  border: 1px solid var(--ui-primary);
+}
+.ui-podium strong {
+  display: block;
+  font-size: var(--font-lg);
+  margin: 10px 0;
+}
+.ui-archive-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+.ui-record-count {
+  font-size: 13px;
+  color: var(--ui-muted);
+}
+.ui-settings-shell {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  height: auto;
+  min-height: 0;
+  flex: 1;
+  max-width: 1700px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.ui-settings-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: 16px;
+  overflow: auto;
+}
+.ui-settings-nav button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 12px;
+  border-radius: 9px;
+  color: var(--ui-muted);
+  font-size: var(--font-sm);
+  cursor: pointer;
+}
+.ui-settings-nav button[aria-current="true"] {
+  background: var(--ui-soft);
+  color: var(--ui-primary);
+  font-weight: 800;
+}
+.ui-settings-body {
+  overflow: auto;
+  overscroll-behavior: contain;
+  min-width: 0;
+  padding: 0 16px 36px 0;
+}
+.ui-settings-category {
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 1150px;
+}
+.ui-settings-category[hidden] {
+  display: none;
+}
+.ui-settings-title {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ui-border);
+}
+.ui-settings-title h3 {
+  margin: 0 0 8px;
+}
+.ui-settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--ui-border);
+}
+.ui-settings-row label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+.ui-settings-row input[type="checkbox"] {
+  accent-color: var(--ui-primary);
+  width: 18px;
+  height: 18px;
+}
+.ui-settings-row select {
+  max-width: 260px;
+}
+.ui-settings-category .setting-item,
+.ui-settings-category .setting-row {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.ui-bank-editor {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 200px;
+  font: 12px/1.7 monospace;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  padding: 12px;
+}
+.ui-danger-zone {
+  border-top: 3px solid var(--ui-danger);
+  padding-top: 16px;
+  margin-top: 20px;
+}
+.ui-danger-zone .ui-muted {
+  color: #9f2929;
+}
+.ui-dock-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+.ui-dock-menu summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  color: var(--ui-primary);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.ui-dock-menu-body {
+  position: fixed;
+  bottom: calc(var(--dock-height) + 10px);
+  right: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-float);
+  z-index: 1000;
+  max-height: 65vh;
+  overflow: auto;
+}
+.ui-dock-menu:not([open]) .ui-dock-menu-body {
+  display: none;
+}
+.ui-dock-menu-body .icon-btn {
+  width: auto;
+  min-width: 110px;
+  font-size: 13px;
+  gap: 7px;
+  padding: 8px;
+  justify-content: flex-start;
+}
+.ui-toast {
+  inset: auto auto 28px 50%;
+  margin: 0;
+  border: 0;
+  max-width: min(760px, calc(100vw - 64px));
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  z-index: 2147483647;
+}
+.ui-toast::backdrop {
+  background: transparent;
+  pointer-events: none;
+}
+.ui-modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 2;
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--ui-muted);
+}
+body[data-motion="off"] *,
+body[data-motion="off"] *::before,
+body[data-motion="off"] *::after {
+  animation-duration: 0.001ms;
+  animation-iteration-count: 1;
+  transition-duration: 0.001ms;
+  scroll-behavior: auto;
+}
+body[data-motion="simple"] .persistent-aura-v213,
+body[data-item-fx="off"] .persistent-aura-v213 {
+  animation: none;
+}
+body[data-item-fx="off"] .card-fx-layer,
+body[data-item-fx="off"] .item-use-banner-v216 {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-system-motion="true"] *,
+  body[data-system-motion="true"] *::before,
+  body[data-system-motion="true"] *::after {
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.001ms;
+    scroll-behavior: auto;
+  }
+}
+@media (max-width: 1500px) {
+  .ui-page {
+    padding: 24px;
+  }
+  .ui-daily-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ui-settings-shell {
+    grid-template-columns: 195px minmax(0, 1fr);
+  }
+  .ui-welcome-head h1 {
+    font-size: 30px;
+  }
+}
+
+body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
+  padding-bottom: 0;
+}
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  box-sizing: border-box;
+}
+.ui-settings-host {
+  box-sizing: border-box;
+}
+.ui-settings-category .settings-v26-pane {
+  padding: 0;
+  overflow: visible;
+}
+#view-history,
+#view-archives,
+#view-settings {
+  box-sizing: border-box;
+}
+.picker-layout-v2 {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) 240px;
+  min-height: 500px;
+}
+.picker-left-v2,
+.picker-right-v2 {
+  min-width: 0;
+  padding: 24px;
+  overflow: auto;
+  max-height: calc(100dvh - 52px);
+}
+.picker-center-v2 {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+}
+.picker-left-v2 .slot-options-row {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 24px;
+  gap: 16px;
+}
+.picker-vtab {
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+  line-height: 1.7;
+}
+.picker-vtab.active {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: -2px;
+}
+#pickerInfoBox {
+  max-height: 240px;
+  overflow: auto;
+  margin-top: 12px;
+}
+.slot-reel-text {
+  overflow-wrap: anywhere;
+}
+.slot-reel-frame {
+  min-width: 0;
+}
+#slotResultPanel.show #resultHeadline {
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}
+.picker-right-v2 .picker-info-tabs {
+  margin-top: 24px;
+}
+.ui-settings-category #bgmListContainer {
+  display: grid;
+  gap: 12px;
+}
+.ui-settings-category .setting-section-title {
+  margin-top: 20px;
+}
+.ui-settings-category #uiIconManagerV26 img,
+.item-big-icon img,
+.ency-v213-icon img,
+.ency-icon img {
+  max-width: 64px;
+  max-height: 64px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.item-big-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.item-big-desc {
+  line-height: 1.7;
+}
+.queue-main-card {
+  border-color: var(--ui-primary);
+}
+.queue-secondary-card {
+  opacity: 1;
+}
+.queue-item-card {
+  position: relative;
+}
+.queue-role-badge {
+  font-weight: 800;
+}
+.queue-main-card .queue-role-badge {
+  color: var(--ui-primary);
+}
+.ui-settings-row input:disabled,
+.ui-settings-row select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ui-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.ui-page button:focus-visible,
+.ui-settings-shell button:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--ui-secondary);
+  outline-offset: 3px;
+}
+@media (max-width: 1150px) {
+  .app-topnav .header-stats {
+    display: none;
+  }
+  .picker-layout-v2 {
+    grid-template-columns: 185px minmax(0, 1fr) 210px;
+  }
+  .picker-left-v2,
+  .picker-right-v2,
+  .picker-center-v2 {
+    padding: 16px;
+  }
+}
+
+.ui-settings-category .settings-v26-pane {
+  display: block;
+  max-height: none;
+  overflow: visible;
+}
+.ui-settings-category .settings-v26-pane:not(.active) {
+  display: block;
+}
+.ui-settings-body .ui-settings-category .setting-item {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ui-settings-category .ui-danger-zone {
+  background: #fff7f7;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.ui-podium:has(> div:nth-child(3)) > div:first-child {
+  grid-column: 2;
+  grid-row: 1;
+}
+.ui-podium:has(> div:nth-child(3)) > div:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+}
+.ui-podium:has(> div:nth-child(3)) > div:nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+}
+.ui-podium:not(:has(> div:nth-child(2))) {
+  grid-template-columns: 1fr;
+}
+</style>
 </head>
 <body class="modern-flat-v217">
 
 <div class="header-banner app-topnav">
-  <div class="header-title">上帝的力量 <small>V2.18.15</small></div>
+  <div class="header-title">上帝的力量 <small>V2.19.0</small></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -4534,47 +5326,17 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
 </div>
 <div id="view-welcome" class="view active">
-  <div class="welcome-hero welcome-dashboard-v216">
-    <div class="welcome-heading-v216">
-      <div class="welcome-clock" id="welcomeClock">--:--:--</div>
-      <div class="welcome-date" id="welcomeDate">----年--月--日 星期-</div>
-      <div class="welcome-greeting" id="welcomeGreeting">欢迎使用上帝（马克思）的力量</div>
-      <div class="welcome-sub" id="welcomeSub">要想试试，不属于你的力量吗？</div>
-    </div>
-
-    <div class="welcome-three-columns-v216">
-      <section class="welcome-card welcome-overview-v216">
-        <div class="welcome-card-title">班级总态势</div>
-        <div class="welcome-stat-grid welcome-stat-grid-v216">
-          <div><div class="w-stat-num" id="wGroupCount">0</div><div class="w-stat-label">小组总数</div></div>
-          <div><div class="w-stat-num" id="wTotalScore">0</div><div class="w-stat-label">班级总积分</div></div>
-          <div><div class="w-stat-num" id="wMaxScore">0</div><div class="w-stat-label">最高分组</div></div>
-          <div><div class="w-stat-num" id="wLeaderName">—</div><div class="w-stat-label">当前领先</div></div>
-        </div>
-        <div class="welcome-extra-metrics-v216">
-          <div class="metric-box"><div class="metric-label">本轮作答进度</div><div class="metric-value" id="metricAnswered">0 / 0 组</div></div>
-          <div class="metric-box"><div class="metric-label">All In 锁定</div><div class="metric-value" id="metricAllIn">0 组</div></div>
-          <div class="metric-box"><div class="metric-label">班级平均分</div><div class="metric-value" id="metricAvg">0 分</div></div>
-        </div>
-      </section>
-
-      <section class="welcome-card welcome-chart-v216">
-        <div class="welcome-card-title welcome-card-title-row-v216"><span>实时积分排名</span><small>全班动态排位</small></div>
-        <div id="chartWrapper" class="chart-wrapper welcome-chart-wrapper-v216"></div>
-      </section>
-
-      <section class="welcome-card welcome-podium-v216">
-        <div class="welcome-card-title welcome-card-title-row-v216"><span>前三名</span><small>当前排名</small></div>
-        <div class="podium-deck" id="podiumDeck"></div>
-        <div id="welcomePodiumDeck" style="display:none"></div>
-      </section>
-    </div>
-
-    <div class="welcome-enter-wrap">
-      <button type="button" class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛</button>
-    </div>
-  </div>
+  <main class="ui-page" style="width:100%;box-sizing:border-box">
+    <header class="ui-welcome-head">
+      <div><div class="ui-eyebrow">课堂竞技 · 每一次参与都有力量</div><h1>上帝的力量</h1><h2 id="welcomeGreeting">欢迎回到课堂</h2><p class="ui-muted">让知识成为力量，让每个小组都有登场时刻。</p></div>
+      <div class="ui-welcome-time"><div id="welcomeClock" class="ui-clock">--:--:--</div><div id="welcomeDate" class="ui-muted"></div><button class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛 →</button><br><button id="uiSkipWelcome" class="btn btn-sm" style="margin-top:8px">跳过入场动画</button></div>
+    </header>
+    <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
+    <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
+    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount"></b></div><div>总积分 <b id="wTotalScore"></b></div><div>最高分 <b id="wMaxScore"></b></div><div>领先 <b id="wLeaderName"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+  </main>
 </div>
+
 
 <div id="view-battle" class="view">
 <div class="main-viewport battle-main-v216">
@@ -4697,7 +5459,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">去档案馆翻案</button>
-      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">收工</button>
+      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
     </div>
   </div>
 </div>
@@ -4709,10 +5471,11 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
     <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
     </p>
+    <p id="uiSettlementStatus" class="ui-muted" role="status">先完整归档，保存成功后才会清零。</p>
     <input type="text" id="settlementNameInput" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeSettlementNameModal()">取消</button>
-      <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="confirmFinalSettlement()">封存并清零</button>
+      <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="DesktopUI.settleFromUI(this)">封存并清零</button>
     </div>
   </div>
 </div>
@@ -4721,7 +5484,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 <div id="view-archives" class="view">
   <div class="fullview-header">
     <div>
-      <h2>🗄️ 封神榜档案馆</h2>
+      <h2>封神榜 · 课堂历届竞技档案馆</h2>
       <div class="fullview-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
     </div>
     <div class="settings-toolbar">
@@ -4730,6 +5493,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   </div>
   <div class="fullview-body">
     <section id="archiveClassStats" class="archive-class-stats" aria-label="课堂累计统计"></section>
+    <div class="ui-toolbar"><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select><span id="uiArchiveCount" class="ui-record-count"></span></div>
     <div id="settlementHistoryContainer" class="history-list archives-list"></div>
   </div>
 </div>
@@ -4772,11 +5536,11 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 <div id="view-history" class="view">
   <div class="fullview-header">
     <div>
-      <h2>📜 后悔药仓库</h2>
-      <div class="fullview-sub">最近 40 次操作都在这里留了案底。点开看看当时谁手滑了，必要时把时间线拖回去。</div>
+      <h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <div class="fullview-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
     </div>
     <div class="settings-toolbar">
-      <button class="btn btn-sm btn-primary" onclick="clearHistoryStack()">清空记录</button>
+      <button class="btn btn-sm btn-danger" onclick="clearHistoryStack()">清空记录</button>
     </div>
   </div>
   <div class="fullview-body">
@@ -4990,7 +5754,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 <input type="file" id="soundFileInput" style="display: none;" accept="audio/*" onchange="handleSoundFileUpload(event)">
 <input type="file" id="bundleFileInput" style="display: none;" accept=".bin" onchange="handleBundleFilePicked(event)">
 <input type="file" id="importFileInput" style="display: none;" accept=".json" onchange="handleFileImport(event)">
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast ui-toast" popover="manual" role="status" aria-live="polite" aria-atomic="true"></div>
 
 
   <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
@@ -5492,48 +6256,7 @@ function renderArchiveClassStats() {
 }
 
 function renderSettlementHistoryList() {
-  const container = document.getElementById('settlementHistoryContainer');
-  if (!container) return;
-  renderArchiveClassStats();
-  const list = getSettlementHistory();
-  container.innerHTML = '';
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center; padding: 24px; color:#94a3b8;">当前档案处尚无结算归档记录</div>';
-    return;
-  }
-
-  list.forEach((item, idx) => {
-    const card = document.createElement('div');
-    card.className = 'history-item';
-    card.style.flexDirection = 'column';
-    card.style.alignItems = 'stretch';
-    card.style.gap = '8px';
-
-    const groupRanksHtml = item.groups.map((g, r) => 
-      `<div style="font-size:12px; display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed #f1f5f9;">
-        <span><b>NO.${r+1}</b> ${escapeHtml(g.name)} (${g.members && g.members.length ? g.members.join('、') : '无成员登记'})</span>
-        <span style="font-weight:bold; color:${g.color};">${g.score}分</span>
-      </div>`
-    ).join('');
-
-    card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-        <div>
-          <span style="font-weight:900; color:#1e293b; font-size:15px;">📜 ${escapeHtml(item.title || '最终结算')}</span>
-          <span style="margin-left:8px; font-size:12px; color:#b45309; font-weight:bold;">🏆 第 1 名: ${escapeHtml(item.champion)}</span>
-          <span style="margin-left:8px; font-size:12px; color:#64748b;">(归档时间: ${item.time})</span>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="btn btn-sm btn-primary" onclick="exportSingleSettlementCSV(${idx})">导出完整档案 (.csv)</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteSettlementRecord(${idx})">删除</button>
-        </div>
-      </div>
-      <div style="background:#ffffff; border-radius:6px; padding:8px 12px; margin-top:4px; border:1px solid #e2e8f0;">
-        ${groupRanksHtml}
-      </div>
-    `;
-    container.appendChild(card);
-  });
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderArchives();
 }
 
 function exportSingleSettlementCSV(index) {
@@ -5716,48 +6439,7 @@ function closeHistoryModal() {
 }
 
 function renderHistoryList() {
-  const container = document.getElementById('historyListView');
-  if (!container) return;
-  container.innerHTML = '';
-  if (!historyStack.length) {
-    container.innerHTML = '<div style="text-align:center; padding: 32px; color:#94a3b8; font-size:14px;">当前尚无任何积分变动记录，去比赛页开始第一轮 PK 吧</div>';
-    return;
-  }
-  const curScores = {};
-  state.groups.forEach(g => { curScores[g.id] = Number(g.score) || 0; });
-  for (let i = historyStack.length - 1; i >= 0; i--) {
-    const item = historyStack[i];
-    const snapshotMap = {};
-    item.groups.forEach(g => { snapshotMap[g.id] = Number(g.score) || 0; });
-    const rows = item.groups.map(g => {
-      const oldV = snapshotMap[g.id] !== undefined ? snapshotMap[g.id] : 0;
-      const curV = curScores[g.id] !== undefined ? curScores[g.id] : 0;
-      const diff = curV - oldV;
-      const diffCls = diff > 0 ? 'hist-delta-pos' : diff < 0 ? 'hist-delta-neg' : 'hist-delta-zero';
-      const diffTxt = diff > 0 ? '+' + diff : String(diff);
-      return `<tr><td style="color:${g.color}; font-weight:800;">${escapeHtml(g.name)}</td><td>${oldV}</td><td>${curV}</td><td class="${diffCls}">${diffTxt}</td></tr>`;
-    }).join('');
-    const node = document.createElement('div');
-    node.className = 'hist-node' + (i === historyStack.length - 1 ? ' current' : '');
-    node.innerHTML = `
-      <div class="hist-card" onclick="toggleHistExpand(${i})">
-        <div class="hist-card-top">
-          <span class="hist-desc">${escapeHtml(item.desc)}</span>
-          <span class="hist-time">${item.time}</span>
-        </div>
-        <div class="hist-compare">
-          <table class="hist-compare-table">
-            <colgroup><col style="width:34%"><col style="width:22%"><col style="width:22%"><col style="width:22%"></colgroup>
-            <tr><th>小组</th><th>快照分数</th><th>当前分数</th><th>差值</th></tr>
-            ${rows}
-          </table>
-          <div class="hist-actions">
-            <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); revertToHistory(${i})">回溯到此节点</button>
-          </div>
-        </div>
-      </div>`;
-    container.appendChild(node);
-  }
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderHistory();
 }
 
 function toggleHistExpand(index) {
@@ -6621,10 +7303,12 @@ function showToast(msg) {
     clearTimeout(toastTimer);
     toastTimer = null;
   }
-  t.innerText = msg;
+  t.innerText = String(msg);
+  if(typeof t.showPopover==='function'){try{t.showPopover()}catch(e){console.warn('Toast top-layer unavailable',e.name)}}
   t.classList.add('show');
   toastTimer = setTimeout(() => {
     t.classList.remove('show');
+    if(t.matches(':popover-open'))t.hidePopover();
     toastTimer = null;
   }, 3800);
 }
@@ -6668,6 +7352,7 @@ function saveState() {
 function applyZoom(level) {
   state.zoomLevel = Math.max(0.4, Math.min(2.0, level));
   document.body.style.zoom = state.zoomLevel;
+  if(typeof DesktopUI!=='undefined')DesktopUI.syncViewport();
   STORAGE.set('politics_zoom_level', state.zoomLevel);
   showToast(`视图缩放比例: ${Math.round(state.zoomLevel * 100)}%`);
 }
@@ -8541,6 +9226,7 @@ function switchView(name) {
   if (!VIEW_NAMES.includes(name)) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
+  if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);
 
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const target = document.getElementById('view-' + name);
@@ -8593,6 +9279,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderDaily();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
   const mm = String(now.getMinutes()).padStart(2, '0');
@@ -8610,6 +9297,7 @@ function updateWelcomeClock() {
 }
 
 function renderWelcomePage() {
+  if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const wrap = document.getElementById('welcomePodiumDeck');
   if (!wrap) return;
   const sorted = [...state.groups].sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
@@ -10352,6 +11040,7 @@ function clearCardFx(card){
  card.style.removeProperty('--hitc');
 }
 function playCasterCardFx(key,gid){
+ if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
  const card=battleCard(gid),d=ITEM_DEFS[key];if(!card||!d)return;
  clearCardFx(card);void card.offsetWidth;
  card.classList.add('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
@@ -10361,6 +11050,7 @@ function playCasterCardFx(key,gid){
  setTimeout(()=>{card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');b.remove()},1850);
 }
 function playTargetCardFx(id,key,type='hit'){
+ if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
  const card=battleCard(id);if(!card)return;
  /* 不抹掉持续状态 class，只清一次性命中特效 */
  card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');void card.offsetWidth;
@@ -10503,7 +11193,7 @@ function renderUiIconManagerV26(){
 
 /* 5. 重建设置页标签，真正做到互斥显示 */
 function rebuildSettingsV26(){
- const sc=document.querySelector('#view-settings .settings-scroll');if(!sc||document.getElementById('settingsV26Tabs'))return;
+ const sc=document.querySelector('#view-settings .settings-scroll');if(!sc||document.getElementById('settingsV26Tabs')||document.getElementById('uiSettingsShell'))return;
  removeBgmEngineeringConsoleV26();
  document.getElementById('settingsV2Tabs')?.remove();
  document.getElementById('v2ItemPane')?.remove();
@@ -10529,6 +11219,7 @@ function rebuildSettingsV26(){
  installCommunismModeSetting();renderUiIconManagerV26();renderItemEncyclopedia();renderItemFxSoundListV26();showSettingsV26('function');
 }
 function showSettingsV26(which){
+ if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);if(which==='sound'){renderBgmSlotList();renderFxSlotList();renderItemFxSoundListV26()}if(which==='items')renderItemEncyclopedia();return;}
  document.querySelectorAll('.settings-v26-pane').forEach(p=>p.classList.toggle('active',p.id==='settingsV26_'+which));
  document.querySelectorAll('#settingsV26Tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v26===which));
  const sc=document.querySelector('#view-settings .settings-scroll');if(sc)sc.scrollTop=0;
@@ -11489,6 +12180,7 @@ function clearAttackHitFxV2116(card){
 
 /* 受击者动画。defended=true 时保留蓝色盾牌反馈，同时附加对应攻击的短促冲击。 */
 function playAttackTargetFxV2116(groupId,key,defended=false){
+ if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(groupId);
   if(!card)return;
   clearAttackHitFxV2116(card);
@@ -11625,6 +12317,10 @@ function queueUseStateV2120(g,index){
   if(index!==0)return {usable:false,label:'🔒 等待主要道具'};
   if(isQueuePersistentActiveV2120(g,it))return {usable:false,label:'⏳ 生效中 · 等待结束'};
   if(!eligibleForItems(g))return {usable:false,label:'负分保护'};
+  if(state.isLocked)return {usable:false,label:'请先解锁管理口令'};
+  const reason=Reliability.validateItem(state,g,index,isCommunismMode());
+  if(reason)return {usable:false,label:reason};
+  if(g.itemEffect?.iceLock)return {usable:true,label:'解除冻结（本次不发动）'};
   return {usable:true,label:'使用主要道具'};
 }
 
@@ -14363,6 +15059,7 @@ globalItemDraw=function(){
 
   /* V2.17.10：一次按钮操作只算 1 个全局抽取轮次。 */
   if(typeof beginDrawSessionV21710==='function') beginDrawSessionV21710('global');
+  if(typeof DesktopUI!=='undefined')DesktopUI.visualEvent('ITEM_DRAW_START',{scope:'global'});
 
   try{startDrawSoundBedV2164()}catch(e){}
 
@@ -14466,6 +15163,7 @@ handDrawItem=function(){
   if(handItemDrawTimer)return;
 
   if(typeof beginDrawSessionV21710==='function') beginDrawSessionV21710('hand');
+  if(typeof DesktopUI!=='undefined')DesktopUI.visualEvent('ITEM_DRAW_START',{groupId:handRaiseGroupId,scope:'hand'});
   try{startDrawSoundBedV2164()}catch(e){}
 
   handItemDrawGroupId=g.id;
@@ -14569,6 +15267,7 @@ handDrawItem=function(){
 
 /* 使用者卡片特效快速收束。 */
 playCasterCardFx=function(key,gid){
+  if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
   const card=battleCard(gid),d=ITEM_DEFS[key];
   if(!card||!d)return;
 
@@ -14590,6 +15289,7 @@ playCasterCardFx=function(key,gid){
 
 /* 普通目标命中 / 防御 / 治疗快速收束。 */
 playTargetCardFx=function(id,key,type='hit'){
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(id);
   if(!card)return;
 
@@ -14617,6 +15317,7 @@ playTargetCardFx=function(id,key,type='hit'){
 
 /* V2.11.6 的实际受击反馈也同步加速。 */
 playAttackTargetFxV2116=function(groupId,key,defended=false){
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(groupId);
   if(!card)return;
 
@@ -15620,22 +16321,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 /* ===== V2.17.34：顶部道具提示与底部 Toast 统一持续时间 ===== */
 const NOTICE_DURATION_V21734 = 3800;
 
-/* 最终覆盖 Toast，保持现有视觉样式，仅统一生命周期。 */
-showToast = function(msg){
-  const t=document.getElementById('toast');
-  if(!t)return;
-  if(toastTimer){
-    clearTimeout(toastTimer);
-    toastTimer=null;
-  }
-  t.innerText=msg;
-  t.classList.add('show');
-  toastTimer=setTimeout(()=>{
-    t.classList.remove('show');
-    toastTimer=null;
-  },NOTICE_DURATION_V21734);
-};
-
+/* Toast 生命周期已归入基础 showToast；不再覆盖同名函数。 */
 /* 最终覆盖顶部道具使用提示的 animation-duration。
    仍使用现有进入/停留/淡出关键帧，只把总生命周期与 Toast 对齐。 */
 (function(){
@@ -15684,6 +16370,7 @@ const _v21735ShowItemUseFx=showItemUseFx;
 showItemUseFx=function(key,casterId=null,targetText=''){
   /* 保留 V2.17.7 等外层逻辑，但绕过旧版 banner 的 DOM 输出。
      这里重新实现最终视觉，同时保留音效和卡片特效。 */
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent('ITEM_USE_START',{groupId:casterId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'){playSound('item_use');if(typeof itemSoundCategoryV26==='function')setTimeout(()=>playSound(itemSoundCategoryV26(key)),55);return;}}
   const d=ITEM_DEFS?.[key];
   if(!d)return;
 
@@ -15883,6 +16570,7 @@ if(typeof syncPickerScoreTarget==='function'){
   syncPickerScoreTarget=function(){
     const el=document.getElementById('pickerScoreTarget'),w=slotEngine.chosenResult;
     if(!el)return;
+    if(typeof DesktopUI!=='undefined')DesktopUI.pickerChanged();
     if(!w){el.textContent='抽中学生或小组后，可直接给所属小组赋分。';return}
     const g=state.picker.mode==='group'?w:w.group;
     el.innerHTML=`<b style="color:${g.color}">${escapeHtml(g.name)}</b>${state.picker.mode==='group'?'':`<br>${studentLabelHTMLV218(w.memberName,g)}`}<br>当前 ${g.score} 分`;
@@ -16818,7 +17506,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V2.18.15';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V2.19.0';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -17480,7 +18168,7 @@ exportSingleSettlementCSV=function(index){
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup(){
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V2.18.15',timestamp:new Date().toISOString(),
+    schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
     round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
       hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},
@@ -17633,6 +18321,1246 @@ const classroomDock=document.querySelector('.bottom-dock');
 if(classroomDock&&typeof ResizeObserver==='function'){
   new ResizeObserver(()=>document.body.style.setProperty('--dock-height',classroomDock.getBoundingClientRect().height+'px')).observe(classroomDock);
 }
+</script>
+<script>/* Pure presentation models. No classroom state mutations or network access. */
+(function (root) {
+  const examples = {
+    knowledge: [
+      {
+        id: "politics-rule-law",
+        subject: "politics",
+        title: "权利与义务",
+        module: "政治 · 法治观念",
+        summary: "公民依法享有权利，也应依法履行义务。行使权利有边界。",
+        mistake: "把“享有权利”理解成可以损害他人的合法权利。",
+        detail:
+          "结合课堂案例，区分个人权利与公共利益。这里是教学示例，不是教材原文。",
+        source: "示例数据；依据《中华人民共和国宪法》第三十三条、第五十一条。",
+      },
+      {
+        id: "politics-constitution",
+        subject: "politics",
+        title: "宪法的地位",
+        module: "政治 · 宪法与法治",
+        summary: "宪法是国家的根本法，具有最高的法律效力。",
+        mistake: "把宪法与普通法律的法律效力混为一谈。",
+        detail:
+          "普通法律不得同宪法相抵触。可以用法律体系中的层级关系帮助理解。",
+        source: "示例数据；依据《中华人民共和国宪法》序言。",
+      },
+    ],
+    challenges: [
+      {
+        id: "politics-q1",
+        subject: "politics",
+        title: "下列哪项表述正确？",
+        options: [
+          "行使权利不受任何限制",
+          "宪法是国家的根本法",
+          "义务可以任意放弃",
+          "普通法律可以与宪法相抵触",
+        ],
+        answer: 1,
+        explanation: "宪法是国家的根本法，具有最高的法律效力。",
+        source: "示例数据；依据《中华人民共和国宪法》序言。",
+      },
+      {
+        id: "politics-q2",
+        subject: "politics",
+        title: "公民行使自由和权利时，应当怎样做？",
+        options: [
+          "同时尊重他人的合法权利",
+          "只考虑个人意愿",
+          "不必考虑公共利益",
+          "可以违反法律",
+        ],
+        answer: 0,
+        explanation:
+          "行使自由和权利不得损害国家、社会、集体的利益和其他公民的合法自由和权利。",
+        source: "示例数据；依据《中华人民共和国宪法》第五十一条。",
+      },
+    ],
+  };
+  function dayIndex(d = new Date()) {
+    return Math.floor(
+      Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
+    );
+  }
+  function daily(list, date = new Date()) {
+    return list.length
+      ? list[((dayIndex(date) % list.length) + list.length) % list.length]
+      : null;
+  }
+  function differences(before, after) {
+    const a = new Map((before.groups || []).map((g) => [g.id, g])),
+      b = new Map((after.groups || []).map((g) => [g.id, g]));
+    const rank = (groups) =>
+      new Map(
+        [...groups]
+          .sort((x, y) => Number(y.score) - Number(x.score))
+          .map((g, i) => [g.id, i + 1]),
+      );
+    const ra = rank(before.groups || []),
+      rb = rank(after.groups || []);
+    return [...new Set([...a.keys(), ...b.keys()])].map((id) => {
+      const x = a.get(id),
+        y = b.get(id);
+      return {
+        id,
+        name: y?.name || x?.name,
+        before: x?.score ?? null,
+        after: y?.score ?? null,
+        delta: x && y ? Number(y.score) - Number(x.score) : null,
+        rankBefore: ra.get(id),
+        rankAfter: rb.get(id),
+        inventoryBefore: x?.inventory || [],
+        inventoryAfter: y?.inventory || [],
+        effectsBefore: {
+          ...(x?.itemEffect || {}),
+          booShield: x?.booShield || 0,
+          booRoundsLeftV218: x?.booRoundsLeftV218 || 0,
+        },
+        effectsAfter: {
+          ...(y?.itemEffect || {}),
+          booShield: y?.booShield || 0,
+          booRoundsLeftV218: y?.booRoundsLeftV218 || 0,
+        },
+        added: !x,
+        removed: !y,
+      };
+    });
+  }
+  function validateBank(value) {
+    if (
+      !value ||
+      !Array.isArray(value.knowledge) ||
+      !Array.isArray(value.challenges) ||
+      value.knowledge.length + value.challenges.length > 500
+    )
+      throw Error("题库须包含 knowledge、challenges 数组，合计最多 500 条");
+    for (const row of [...value.knowledge, ...value.challenges]) {
+      if (
+        !row ||
+        typeof row.id !== "string" ||
+        typeof row.title !== "string" ||
+        !row.title.trim() ||
+        typeof row.subject !== "string" ||
+        typeof row.source !== "string" ||
+        !row.source.trim()
+      )
+        throw Error("每项须含 id、title、subject 和 source 来源");
+      if (
+        Object.values(row).some(
+          (v) => typeof v === "string" && v.length > 10000,
+        )
+      )
+        throw Error("单字段不能超过 10000 字符");
+    }
+    for (const q of value.challenges) {
+      if (
+        !Array.isArray(q.options) ||
+        q.options.length !== 4 ||
+        q.options.some((x) => typeof x !== "string") ||
+        !Number.isInteger(q.answer) ||
+        q.answer < 0 ||
+        q.answer > 3 ||
+        typeof q.explanation !== "string"
+      )
+        throw Error("题目须有四个文本选项、0–3 正确答案及 explanation 解析");
+    }
+    return value;
+  }
+  root.GodpowerUIModel = {
+    examples,
+    dayIndex,
+    daily,
+    differences,
+    validateBank,
+  };
+})(globalThis);
+</script>
+<script>/* UI composition service. Existing business commands remain the only state writers. */
+const DesktopUI = (() => {
+  const M = GodpowerUIModel,
+    E = escapeHtml,
+    $ = (s) => document.querySelector(s),
+    defaults = {
+      motion: "full",
+      speed: 1,
+      pageMotion: true,
+      itemFx: true,
+      systemMotion: true,
+      knowledge: true,
+      itemTip: true,
+      honors: true,
+      challenge: true,
+      subject: "politics",
+    };
+  let preferences = { ...defaults },
+    bank = M.examples,
+    ready = false,
+    activeSettings = "rules",
+    archiveSearch = "",
+    archiveSort = "new",
+    lastWelcome = "",
+    animations = new Set();
+  const paths = {
+    home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
+    battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",
+    history: "M3 12a9 9 0 1 0 3-7M3 3v6h6m3-2v5l3 2",
+    archive: "M4 5h16v5H4Zm2 5v11h12V10m-9 4h6",
+    settings:
+      "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m-2-5h4l1 3 3 1 3 3v4l-3 1-1 3-3 3h-4l-1-3-3-1-3-3v-4l3-1 1-3Z",
+    users:
+      "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m14-13a4 4 0 0 1 0 8m5 5v-2a4 4 0 0 0-3-4M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8",
+    spark: "m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z",
+    sound: "m3 9 5 0 5-5v16l-5-5H3Zm14-2a7 7 0 0 1 0 10m3-13a11 11 0 0 1 0 16",
+    book: "M12 5Q7 1 2 4v16q5-3 10 1 5-4 10-1V4q-5-3-10 1v16",
+    shield: "M12 2 3 6v6q0 7 9 10 9-3 9-10V6Z",
+    arrow: "m9 5 7 7-7 7",
+    gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
+  };
+  function icon(name) {
+    return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] || paths.spark}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+  function empty(title, text) {
+    return `<div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">进入比赛</button></div>`;
+  }
+  function persistPreferences() {
+    try {
+      localStorage.setItem(
+        "godpower_ui_preferences_v1",
+        JSON.stringify(preferences),
+      );
+      return true;
+    } catch (e) {
+      showToast("界面偏好未保存：浏览器存储不可用，本次设置仍生效");
+      return false;
+    }
+  }
+  function applyPreferences() {
+    document.body.dataset.motion = preferences.motion;
+    document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
+    document.body.dataset.systemMotion = String(preferences.systemMotion);
+    if (preferences.motion === "off") {
+      cancelAnimations();
+      document.getAnimations().forEach((a) => a.cancel());
+    }
+  }
+  function canAnimate() {
+    return (
+      preferences.motion !== "off" &&
+      !(
+        preferences.systemMotion &&
+        matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+    );
+  }
+  function animate(el, frames, options = {}) {
+    if (!el || !canAnimate()) return;
+    const a = el.animate(frames, {
+      duration: 240 / preferences.speed,
+      easing: "cubic-bezier(.2,.8,.2,1)",
+      ...options,
+    });
+    animations.add(a);
+    a.finished.catch(() => {}).finally(() => animations.delete(a));
+    return a;
+  }
+  function cancelAnimations() {
+    for (const a of animations) a.cancel();
+    animations.clear();
+    document.querySelectorAll("#groupList .group-row-card").forEach((card) => {
+      if (typeof clearCardFx === "function") clearCardFx(card);
+      if (typeof clearAttackHitFxV2116 === "function")
+        clearAttackHitFxV2116(card);
+    });
+    document
+      .querySelectorAll(".card-fx-badge,.attack-hit-badge-v2116")
+      .forEach((el) => el.remove());
+    document.querySelectorAll(".ui-fx-layer").forEach((x) => x.remove());
+  }
+  function visualEvent(type, detail = {}) {
+    document.dispatchEvent(
+      new CustomEvent("godpower:visual", { detail: { type, ...detail } }),
+    );
+    if (!preferences.itemFx || !canAnimate()) return;
+    const id = detail.groupId,
+      card =
+        id != null
+          ? $(`#groupList [data-group-id="${CSS.escape(String(id))}"]`)
+          : null;
+    if (
+      card &&
+      [
+        "ITEM_HIT",
+        "ITEM_DEFENDED",
+        "ITEM_USE_START",
+        "ITEM_EFFECT_APPLIED",
+        "ITEM_QUEUE_PROMOTED",
+      ].includes(type)
+    )
+      animate(
+        card,
+        [{ filter: "brightness(1.12)" }, { filter: "brightness(1)" }],
+        { duration: 280 / preferences.speed },
+      );
+  }
+  let viewportSignature = "";
+  function syncViewport() {
+    const zoom = Number(getComputedStyle(document.body).zoom) || 1,
+      value = `${innerWidth}/${innerHeight}/${zoom}`;
+    if (value === viewportSignature) return;
+    viewportSignature = value;
+    document.body.style.setProperty(
+      "--ui-viewport-height",
+      `${innerHeight / zoom}px`,
+    );
+    document.body.style.setProperty(
+      "--ui-viewport-width",
+      `${innerWidth / zoom}px`,
+    );
+  }
+  function viewChanged(name) {
+    if (!ready) return;
+    for (const m of [...openStack].reverse()) {
+      if (
+        !["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes(
+          m.id,
+        )
+      )
+        m.close();
+    }
+    document.body.dataset.currentView = name;
+    const dock = $(".bottom-dock");
+    dock.hidden = name !== "battle";
+    dock.inert = name !== "battle";
+    dock.style.display = name === "battle" ? "" : "none";
+    document.querySelectorAll(".nav-tab").forEach((b) => {
+      b.setAttribute("aria-selected", String(b.dataset.view === name));
+      b.setAttribute(
+        "aria-current",
+        b.dataset.view === name ? "page" : "false",
+      );
+    });
+    $(".ui-dock-menu")?.removeAttribute("open");
+    $(".dock-humor-tip-v2185")?.classList.remove("show");
+    cancelAnimations();
+    if (preferences.pageMotion) {
+      const host = $(`#view-${name}`);
+      animate(host, [{ opacity: 0.5 }, { opacity: 1 }], {
+        duration: 160 / preferences.speed,
+      });
+    }
+    if (name === "welcome") renderWelcome();
+    if (name === "settings") selectSettings(activeSettings);
+  }
+  function renderWelcome() {
+    if (!ready) return;
+    const track = $("#uiGroupTrack");
+    if (!track) return;
+    syncViewport();
+    observeVisualState();
+    if (!canAnimate()) document.getAnimations().forEach((a) => a.cancel());
+    const groups = state.groups || [],
+      sorted = [...groups].sort((a, b) => Number(b.score) - Number(a.score));
+    const mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+    const signature =
+      JSON.stringify(
+        groups.map((g) => [
+          g.id,
+          g.name,
+          g.score,
+          g.color,
+          g.inventory,
+          g.itemEffect,
+          g.booShield,
+        ]),
+      ) + mask;
+    if (signature !== lastWelcome) {
+      lastWelcome = signature;
+      const x = track.scrollLeft;
+      track.innerHTML = groups.length
+        ? groups
+            .map((g) => {
+              const item = g.inventory?.[0],
+                states = Object.entries(g.itemEffect || {})
+                  .filter(
+                    ([k, v]) =>
+                      (k === "type" && !!v) ||
+                      (k === "iceLock" && Number(v) > 0),
+                  )
+                  .map(
+                    ([k, v]) =>
+                      ({
+                        star: "无敌星",
+                        mega: "巨大蘑菇",
+                        boo: "幽灵保护",
+                        ice: "冻结",
+                        power: "强力蘑菇",
+                        feather: "羽毛",
+                      })[k === "type" ? v : k] ||
+                      (k === "iceLock" ? "冻结" : k),
+                  );
+              return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
+            })
+            .join("")
+        : empty(
+            "课堂，准备就绪",
+            "添加小组后，这里将展示实时积分、排名与道具。",
+          );
+      track.scrollLeft = x;
+      track
+        .querySelectorAll("[data-group]")
+        .forEach(
+          (el) =>
+            (el.onclick = () =>
+              openItemWindow(Number(el.dataset.group), "detail")),
+        );
+    }
+    requestAnimationFrame(updateArrows);
+    renderDaily();
+  }
+  function updateArrows() {
+    const t = $("#uiGroupTrack");
+    if (!t) return;
+    const overflow = t.scrollWidth > t.clientWidth + 2;
+    t.classList.toggle("ui-few", !overflow);
+    $("#uiGroupPrev").disabled = !overflow || t.scrollLeft <= 1;
+    $("#uiGroupNext").disabled =
+      !overflow || t.scrollLeft + t.clientWidth >= t.scrollWidth - 2;
+  }
+  let visualSnapshot = new Map();
+  function observeVisualState() {
+    const next = new Map();
+    for (const g of state.groups) {
+      const current = {
+        main: g.inventory?.[0]?.key || "",
+        inventory: JSON.stringify(g.inventory || []),
+        effect: JSON.stringify(g.itemEffect || null),
+        count: g.inventory?.length || 0,
+      };
+      const prior = visualSnapshot.get(g.id);
+      if (prior) {
+        if (
+          prior.main &&
+          current.main &&
+          prior.main !== current.main &&
+          current.count <= prior.count
+        )
+          visualEvent("ITEM_QUEUE_PROMOTED", {
+            groupId: g.id,
+            key: current.main,
+          });
+        if (current.count > prior.count)
+          visualEvent("ITEM_DRAW_REVEAL", {
+            groupId: g.id,
+            key: g.inventory.at(-1)?.key,
+          });
+        if (current.effect !== prior.effect) {
+          visualEvent(
+            current.effect === "null"
+              ? "ITEM_EFFECT_EXPIRED"
+              : "ITEM_EFFECT_APPLIED",
+            { groupId: g.id, key: g.itemEffect?.type },
+          );
+        }
+      }
+      next.set(g.id, current);
+    }
+    visualSnapshot = next;
+  }
+  let dailySignature = "";
+  function renderDaily() {
+    const host = $("#uiDailyGrid");
+    if (!host) return;
+    const history = getSettlementHistory(),
+      signature =
+        M.dayIndex() +
+        JSON.stringify(preferences) +
+        JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
+        Object.keys(ITEM_DEFS).length;
+    if (signature === dailySignature) return;
+    dailySignature = signature;
+    const knowledge = M.daily(
+        bank.knowledge.filter((x) => x.subject === preferences.subject),
+      ),
+      quiz = M.daily(
+        bank.challenges.filter((x) => x.subject === preferences.subject),
+      ),
+      keys = Object.keys(ITEM_DEFS),
+      key = M.daily(keys),
+      item = ITEM_DEFS[key],
+      last = history[0],
+      winner = last?.groups?.[0];
+    let html = "";
+    if (preferences.knowledge)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+    if (preferences.itemTip)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
+    if (preferences.honors)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
+    if (preferences.challenge)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+    host.innerHTML = html;
+    host.querySelectorAll("[data-quiz-answer]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          b.parentElement
+            .querySelectorAll("button")
+            .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          host.querySelector(".ui-quiz-result").textContent =
+            (Number(b.dataset.quizAnswer) === quiz.answer
+              ? "回答正确。"
+              : "再想一想，正确答案是 " + "ABCD"[quiz.answer] + "。") +
+            quiz.explanation;
+        }),
+    );
+  }
+  function historyKind(desc = "") {
+    return /清零|恢复|撤销|回溯|删除/.test(desc)
+      ? ["danger", "shield", "数据与恢复"]
+      : /道具|攻击|龟壳|蘑菇/.test(desc)
+        ? ["item", "gift", "道具操作"]
+        : /题|回合|答题|结算/.test(desc)
+          ? ["round", "battle", "回合操作"]
+          : /成员|小组|名单/.test(desc)
+            ? ["manage", "users", "小组管理"]
+            : ["score", "history", "积分与操作"];
+  }
+  function inventory(items) {
+    return (
+      items
+        .map((i) => `${ITEM_DEFS[i.key]?.name || i.key} ×${i.charges ?? 1}`)
+        .join("、") || "空"
+    );
+  }
+  function renderHistory() {
+    if (!ready) return;
+    const host = $("#historyListView");
+    if (!host) return;
+    host.className = "ui-timeline";
+    $("#uiHistoryCount").textContent =
+      `${historyStack.length} / ${MAX_HISTORY} 条记录`;
+    if (!historyStack.length) {
+      host.className = "";
+      host.innerHTML = empty(
+        "后悔药还没开封",
+        "每次操作前的快照会留在这里。查看记录不会改变当前比赛。",
+      );
+      return;
+    }
+    host.innerHTML = historyStack
+      .map((h, i) => {
+        const next = historyStack[i + 1] || state,
+          diffs = M.differences(h, next),
+          [kind, glyph, label] = historyKind(h.desc),
+          changed = diffs.filter(
+            (d) =>
+              d.delta ||
+              d.added ||
+              d.removed ||
+              JSON.stringify(d.inventoryBefore) !==
+                JSON.stringify(d.inventoryAfter) ||
+              JSON.stringify(d.effectsBefore) !==
+                JSON.stringify(d.effectsAfter),
+          );
+        return `<article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
+      })
+      .reverse()
+      .join("");
+    host.querySelectorAll("[data-restore]").forEach(
+      (b) =>
+        (b.onclick = async () => {
+          const index = Number(b.dataset.restore),
+            target = historyStack[index];
+          if (!target) return;
+          const ok = await themeConfirm(
+            `恢复到 ${target.time || "未记录时间"}「${target.desc || "未命名操作"}」之前？将恢复小组、积分、道具、持续状态与快照包含的回合字段，并丢弃此节点及其后 ${historyStack.length - index - 1} 条历史。查看不会恢复，确认才执行。`,
+            {
+              title: "确认恢复历史快照",
+              danger: true,
+              confirmText: "恢复快照",
+            },
+          );
+          if (ok && historyStack[index] === target) revertToHistory(index);
+        }),
+    );
+  }
+  function renderArchives() {
+    if (!ready) return;
+    const records = getSettlementHistory();
+    const all = records
+      .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))
+      .filter((g) => Number.isFinite(Number(g.score)));
+    const best = all.length
+      ? Math.max(...all.map((g) => Number(g.score)))
+      : null;
+    $("#archiveClassStats").innerHTML = `<div class="ui-overview">${[
+      ["已归档届数", records.length],
+      [
+        "最近冠军",
+        records[0]?.champion || records[0]?.groups?.[0]?.name || "暂无",
+      ],
+      ["历史最高积分", best ?? "暂无"],
+      ["最近归档", records[0]?.time || "暂无"],
+    ]
+      .map(
+        ([t, v]) =>
+          `<div class="ui-panel"><span class="ui-muted">${t}</span><strong>${E(v)}</strong></div>`,
+      )
+      .join("")}</div>`;
+    const host = $("#settlementHistoryContainer");
+    host.className = "ui-archive-list";
+    let list = records
+      .map((r, index) => ({ r, index }))
+      .filter(({ r }) =>
+        [r.title, r.champion, ...(r.groups || []).map((g) => g.name)]
+          .join(" ")
+          .toLowerCase()
+          .includes(archiveSearch.toLowerCase()),
+      );
+    if (archiveSort === "old") list.reverse();
+    if (archiveSort === "score")
+      list.sort(
+        (a, b) =>
+          Number(b.r.groups?.[0]?.score || 0) -
+          Number(a.r.groups?.[0]?.score || 0),
+      );
+    $("#uiArchiveCount").textContent =
+      `显示 ${list.length} / ${records.length} 届`;
+    host.innerHTML = list.length
+      ? list
+          .map(({ r, index }) => {
+            const groups = Array.isArray(r.groups) ? r.groups : [];
+            return `<article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
+              .slice(0, 3)
+              .map(
+                (g, i) =>
+                  `<div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name || "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>`,
+              )
+              .join(
+                "",
+              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">导出完整 CSV</button><button class="btn" data-json="${index}">导出原始 JSON</button><button class="btn btn-danger" data-delete="${index}">删除档案</button></div></details></article>`;
+          })
+          .join("")
+      : empty(
+          records.length ? "没有匹配的档案" : "第一座奖杯，等待揭晓",
+          records.length
+            ? "试试其他比赛或小组名称。"
+            : "正式结算成功后，这里会保存比赛排名、成员及归档数据。",
+        );
+    host
+      .querySelectorAll("[data-csv]")
+      .forEach(
+        (b) =>
+          (b.onclick = () => exportSingleSettlementCSV(Number(b.dataset.csv))),
+      );
+    host
+      .querySelectorAll("[data-delete]")
+      .forEach(
+        (b) =>
+          (b.onclick = () => deleteSettlementRecord(Number(b.dataset.delete))),
+      );
+    host
+      .querySelectorAll("[data-json]")
+      .forEach(
+        (b) =>
+          (b.onclick = () =>
+            downloadJson(records[Number(b.dataset.json)], "课堂归档.json")),
+      );
+  }
+  function downloadJson(value, name) {
+    const url = URL.createObjectURL(
+        new Blob([JSON.stringify(value, null, 2)], {
+          type: "application/json",
+        }),
+      ),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  const categories = [
+    ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
+    ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
+    ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
+    ["sound", "sound", "音效与音乐", "原有音乐套数、音轨、循环与资源管理"],
+    ["items", "gift", "道具与图标", "实际道具定义与自定义图像"],
+    ["students", "users", "学生与小组管理", "原有名单导入与课堂数据管理"],
+    ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
+    ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
+  ];
+  function setupSettings() {
+    const sc = $("#view-settings .settings-scroll");
+    if (!sc || $("#uiSettingsShell")) return;
+    const shell = document.createElement("div");
+    shell.className = "ui-settings-shell";
+    shell.id = "uiSettingsShell";
+    shell.innerHTML = `<nav class="ui-settings-nav" aria-label="设置分类">${categories.map(([id, glyph, title]) => `<button data-category="${id}">${icon(glyph)}${title}</button>`).join("")}</nav><main class="ui-settings-body">${categories.map(([id, , title, desc]) => `<section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${title}</h3><div class="ui-muted">${desc}</div></header></section>`).join("")}</main>`;
+    const sections = Object.fromEntries(
+      [...shell.querySelectorAll("[data-category-panel]")].map((p) => [
+        p.dataset.categoryPanel,
+        p,
+      ]),
+    );
+    for (const pane of document.querySelectorAll(".settings-v26-pane")) {
+      const originalId = pane.id.replace("settingsV26_", "");
+      if (originalId === "function") {
+        let dest = "appearance";
+        for (const el of [...pane.children]) {
+          const txt = el.textContent || "";
+          if (
+            el.querySelector("#settingsBatchMemberText") ||
+            /批量导入学生|学生名单/.test(txt)
+          )
+            dest = "students";
+          if (
+            el.querySelector("#cfgSaveAllIn") ||
+            /All In|顶部垫片|分栏|共产主义/.test(txt)
+          )
+            dest = "rules";
+          if (el.querySelector("#uiIconManagerV26")) dest = "items";
+          sections[dest].append(el);
+        }
+        pane.classList.add("active");
+        sections.rules.append(pane);
+      } else {
+        sections[originalId]?.append(pane);
+        pane.classList.add("active");
+      }
+    }
+    $("#settingsV26Tabs")?.remove();
+    sc.append(shell);
+    sc.classList.add("ui-settings-host");
+    shell
+      .querySelectorAll("[data-category]")
+      .forEach((b) => (b.onclick = () => selectSettings(b.dataset.category)));
+    sections.appearance.insertAdjacentHTML(
+      "beforeend",
+      '<div class="ui-settings-row"><label for="uiZoom">比赛视图缩放（原有设置）</label><div><button class="btn btn-sm" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" onclick="zoomIn()">＋</button></div></div>',
+    );
+    function row(title, id, content) {
+      return `<div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>`;
+    }
+    const check = (key) =>
+      `<input id="uiPref-${key}" data-pref="${key}" type="checkbox" ${preferences[key] ? "checked" : ""}>`;
+    sections.motion.insertAdjacentHTML(
+      "beforeend",
+      row(
+        "动效模式",
+        "uiPref-motion",
+        `<select id="uiPref-motion" data-pref="motion"><option value="full">完整动效</option><option value="simple">简洁动效</option><option value="off">关闭非必要动效</option></select>`,
+      ) +
+        row(
+          "新界面过渡速度",
+          "uiPref-speed",
+          '<select id="uiPref-speed" data-pref="speed"><option value="0.75">舒缓</option><option value="1">标准</option><option value="1.5">快速</option></select>',
+        ) +
+        row("页面切换", "uiPref-pageMotion", check("pageMotion")) +
+        row("道具视觉反馈", "uiPref-itemFx", check("itemFx")) +
+        row(
+          "尊重系统减少动态效果",
+          "uiPref-systemMotion",
+          check("systemMotion"),
+        ) +
+        '<p class="ui-muted">关闭非必要动效会停用页面与持续光环动画；音效开关仍由音频设置控制。</p>',
+    );
+    sections.welcome.insertAdjacentHTML(
+      "beforeend",
+      [
+        ["knowledge", "每日知识卡片"],
+        ["itemTip", "每日道具小知识"],
+        ["honors", "历史荣誉"],
+        ["challenge", "每日课堂挑战"],
+      ]
+        .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
+        .join("") +
+        row(
+          "展示学科",
+          "uiPref-subject",
+          '<select id="uiPref-subject" data-pref="subject"></select>',
+        ) +
+        '<h3 style="margin-top:24px">本地审核题库</h3><p class="ui-muted">导入完整 JSON：knowledge、challenges 数组；每项需 id、title、subject、source。题目需 4 个 options、0–3 的 answer 和 explanation。请仅使用已审核内容并标明来源。</p><textarea id="uiBankEditor" class="ui-bank-editor" aria-label="本地题库 JSON"></textarea><div class="ui-toolbar"><button class="btn btn-primary" id="uiSaveBank">验证并保存题库</button><button class="btn" id="uiExportBank">导出题库</button><button class="btn btn-warning" id="uiResetBank">恢复内置示例</button></div><p id="uiBankStatus" role="status" class="ui-muted"></p>',
+    );
+    sections.data.insertAdjacentHTML(
+      "afterbegin",
+      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。操作前建议导出备份。</div>',
+    );
+    const danger = [...sections.data.querySelectorAll("button")].filter((b) =>
+      /resetAllScores|clear/.test(b.getAttribute("onclick") || ""),
+    );
+    for (const b of danger) {
+      b.classList.remove("btn-primary");
+      b.classList.add("btn-danger");
+    }
+    for (const key of ["motion", "speed"])
+      $("#uiPref-" + key).value = String(preferences[key]);
+    refreshSubjects();
+    $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+    shell.querySelectorAll("[data-pref]").forEach(
+      (el) =>
+        (el.onchange = () => {
+          const key = el.dataset.pref;
+          preferences[key] =
+            el.type === "checkbox"
+              ? el.checked
+              : key === "speed"
+                ? Number(el.value)
+                : el.value;
+          persistPreferences();
+          applyPreferences();
+          dailySignature = "";
+          renderDaily();
+        }),
+    );
+    $("#uiExportBank").onclick = () =>
+      downloadJson(bank, "欢迎页审核题库.json");
+    $("#uiSaveBank").onclick = () => {
+      try {
+        const next = M.validateBank(JSON.parse($("#uiBankEditor").value));
+        localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
+        bank = next;
+        dailySignature = "";
+        refreshSubjects();
+        renderDaily();
+        $("#uiBankStatus").textContent = "验证成功，题库已保存。";
+      } catch (e) {
+        $("#uiBankStatus").textContent =
+          "未保存，现有题库保持原样：" + e.message;
+      }
+    };
+    $("#uiResetBank").onclick = async () => {
+      if (
+        !(await themeConfirm("恢复内置审核示例？建议先导出当前题库。", {
+          title: "恢复欢迎页题库",
+          danger: true,
+        }))
+      )
+        return;
+      try {
+        localStorage.removeItem("godpower_ui_bank_v1");
+        bank = M.examples;
+        $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+        dailySignature = "";
+        refreshSubjects();
+        renderDaily();
+        $("#uiBankStatus").textContent = "已恢复内置示例";
+      } catch (e) {
+        $("#uiBankStatus").textContent = "恢复失败：" + e.message;
+      }
+    };
+    selectSettings(activeSettings);
+  }
+  function refreshSubjects() {
+    const el = $("#uiPref-subject");
+    if (!el) return;
+    const subjects = [
+      ...new Set([
+        "politics",
+        ...bank.knowledge.map((x) => x.subject),
+        ...bank.challenges.map((x) => x.subject),
+      ]),
+    ];
+    el.innerHTML = subjects
+      .map(
+        (s) =>
+          `<option value="${E(s)}">${E({ politics: "政治", history: "历史", geography: "地理", english: "英语" }[s] || s)}</option>`,
+      )
+      .join("");
+    if (!subjects.includes(preferences.subject))
+      preferences.subject = "politics";
+    el.value = preferences.subject;
+  }
+  function selectSettings(id) {
+    if (!$("#uiSettingsShell")) return;
+    const aliases = { function: "rules" };
+    activeSettings = aliases[id] || id;
+    if (!categories.some((c) => c[0] === activeSettings))
+      activeSettings = "rules";
+    document
+      .querySelectorAll("[data-category-panel]")
+      .forEach((p) => (p.hidden = p.dataset.categoryPanel !== activeSettings));
+    document
+      .querySelectorAll(".ui-settings-nav button")
+      .forEach((b) =>
+        b.setAttribute(
+          "aria-current",
+          String(b.dataset.category === activeSettings),
+        ),
+      );
+    $(".ui-settings-body").scrollTop = 0;
+  }
+  function setupDock() {
+    const right = $(".dock-right");
+    const details = document.createElement("details");
+    details.className = "ui-dock-menu";
+    details.innerHTML =
+      '<summary>管理与视图 ▴</summary><div class="ui-dock-menu-body"></div>';
+    const menu = details.lastElementChild;
+    for (const b of [...right.children]) {
+      const action = b.getAttribute("onclick") || "";
+      const keep = /globalItemDraw|openHandRaise|openPickerModal|undoLast/.test(
+        action,
+      );
+      const label = /globalItemDraw/.test(action)
+        ? "道具"
+        : /openHandRaise/.test(action)
+          ? "举手"
+          : /openPickerModal/.test(action)
+            ? "点名"
+            : /undoLast/.test(action)
+              ? "撤销"
+              : b.getAttribute("title") || b.textContent;
+      b.setAttribute("aria-label", label);
+      b.setAttribute("title", label);
+      if (keep) {
+        b.style.width = "auto";
+        b.style.padding = "0 8px";
+        b.innerHTML =
+          icon(
+            /globalItemDraw/.test(action)
+              ? "gift"
+              : /undoLast/.test(action)
+                ? "history"
+                : "users",
+          ) + `<span style="font-size:12px">${E(label)}</span>`;
+      } else {
+        b.textContent = label;
+        menu.append(b);
+      }
+    }
+    right.append(details);
+    const final = $("#btnFinalSettlement");
+    final.style.background = "var(--ui-danger)";
+    final.style.borderColor = "var(--ui-danger)";
+    final.setAttribute("title", "归档成功后清零；操作前需确认");
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (e.target.closest(".bottom-dock") && currentView !== "battle") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
+        if (!e.target.closest(".ui-dock-menu")) details.open = false;
+      },
+      true,
+    );
+  }
+  const modalClosers = {
+    welcomeModal: () => closeWelcomeModal(),
+    scoreModalBackdrop: () => closeScoreModal(),
+    pwdModal: () => closePwdModal(),
+    memberSearchBackdrop: () => closeMemberSearchModal(),
+    settlementNameModal: () => closeSettlementNameModal(),
+    grandModalOverlay: () => closeGrandSettlementModal(),
+    pickerModal: () => closePickerModal(),
+    itemModalBackdrop: () => closeItemWindow(),
+    handRaiseBackdrop: () => closeHandRaise(),
+    aboutBackdrop: () => closeAbout(),
+    batchImportModal: () => closeBatchImportModal(),
+    themeDialogV21727: () => closeThemeDialogV21727(false),
+    quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
+  };
+  let openStack = [];
+  function setupModals() {
+    const known = new Map();
+    function scan() {
+      for (const [id, close] of Object.entries(modalClosers)) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const visible =
+          el.classList.contains("active") ||
+          el.classList.contains("show") ||
+          el.style.display === "flex";
+        if (visible && !known.get(id)) {
+          const focus = document.activeElement;
+          known.set(id, true);
+          openStack.push({ id, el, close, focus });
+          const dialog =
+            el.firstElementChild?.tagName === "CANVAS"
+              ? el.querySelector(".grand-card")
+              : el.firstElementChild;
+          dialog?.setAttribute("role", "dialog");
+          dialog?.setAttribute("aria-modal", "true");
+          if (
+            dialog &&
+            !dialog.getAttribute("aria-label") &&
+            !dialog.getAttribute("aria-labelledby")
+          )
+            dialog.setAttribute(
+              "aria-label",
+              dialog.querySelector("h3,h2,[class*=title]")?.textContent ||
+                "课堂操作窗口",
+            );
+          el.dataset.uiModalOpen = "true";
+          if (id === "grandModalOverlay") {
+            if (!canAnimate()) stopConfetti();
+            el.querySelectorAll(".podium-col").forEach((col, i) =>
+              animate(
+                col,
+                [
+                  { opacity: 0, translate: "0 10px" },
+                  { opacity: 1, translate: "0 0" },
+                ],
+                { delay: i * 100, duration: 220 },
+              ),
+            );
+            animate(dialog, [
+              { opacity: 0, translate: "0 12px" },
+              { opacity: 1, translate: "0 0" },
+            ]);
+          }
+          requestAnimationFrame(() => {
+            if (!el.contains(document.activeElement))
+              el.querySelector(
+                'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',
+              )?.focus({ preventScroll: true });
+          });
+        } else if (!visible && known.get(id)) {
+          known.set(id, false);
+          const item = openStack.find((x) => x.id === id);
+          openStack = openStack.filter((x) => x.id !== id);
+          delete el.dataset.uiModalOpen;
+          if (
+            item?.focus?.isConnected &&
+            !item.focus.closest(".view:not(.active)")
+          )
+            item.focus.focus({ preventScroll: true });
+          cancelAnimations();
+        }
+      }
+    }
+    new MutationObserver(scan).observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class", "style"],
+    });
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        const top = openStack.at(-1);
+        if (!top) return;
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          top.close();
+          return;
+        }
+        if (e.key === "Tab") {
+          const nodes = [
+            ...top.el.querySelectorAll(
+              'button,input,select,textarea,a[href],[tabindex="0"]',
+            ),
+          ].filter(
+            (x) => !x.disabled && !x.hidden && x.getClientRects().length,
+          );
+          if (!nodes.length) {
+            e.preventDefault();
+            return;
+          }
+          const first = nodes[0],
+            last = nodes.at(-1);
+          if (
+            e.shiftKey &&
+            (document.activeElement === first ||
+              !top.el.contains(document.activeElement))
+          ) {
+            e.preventDefault();
+            last.focus();
+          } else if (
+            !e.shiftKey &&
+            (document.activeElement === last ||
+              !top.el.contains(document.activeElement))
+          ) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      },
+      true,
+    );
+    scan();
+  }
+  function pickerChanged() {
+    const target = pickerTargetGroup();
+    const valid =
+      !!target &&
+      state.groups.some((g) => g.id === target.id) &&
+      !slotEngine.isSpinning;
+    document
+      .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')
+      .forEach((b) => (b.disabled = !valid));
+    if (valid)
+      animate(
+        $("#slotResultPanel"),
+        [
+          { opacity: 0.4, scale: ".98" },
+          { opacity: 1, scale: "1" },
+        ],
+        { duration: 250 },
+      );
+  }
+  function setupPicker() {
+    const left = $(".picker-left-v2"),
+      right = $(".picker-right-v2");
+    const options = $(".slot-options-row");
+    left.append(options);
+    const tabs = $(".picker-info-tabs"),
+      info = $("#pickerInfoBox");
+    right.append(tabs, info);
+    const stats = $("#pickerStatsBtn");
+    stats.hidden = false;
+    stats.removeAttribute("aria-hidden");
+    stats.removeAttribute("tabindex");
+    $("#resultHeadline").style.fontSize = "26px";
+    const target = $("#pickerScoreTarget");
+    new MutationObserver(pickerChanged).observe(target, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+    pickerChanged();
+  }
+  let settlementBusy = false;
+  async function settleFromUI(button) {
+    if (settlementBusy) return { ok: false, reason: "busy" };
+    settlementBusy = true;
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    const text = button.textContent;
+    button.textContent = "正在保存完整档案…";
+    const status = $("#uiSettlementStatus");
+    if (status) status.textContent = "正在写入归档，保存成功后才会清零。";
+    try {
+      await new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      );
+      if (!$("#settlementNameModal").classList.contains("active"))
+        return { ok: false, reason: "cancelled" };
+      const result = confirmFinalSettlement();
+      if (status)
+        status.textContent = result?.ok
+          ? "完整档案已保存。"
+          : "保存未完成，课堂数据保留，请先导出备份。";
+      return result;
+    } finally {
+      settlementBusy = false;
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      button.textContent = text;
+    }
+  }
+  function init() {
+    try {
+      const value = JSON.parse(
+        localStorage.getItem("godpower_ui_preferences_v1") || "{}",
+      );
+      for (const key of Object.keys(defaults)) {
+        if (typeof value[key] === typeof defaults[key])
+          preferences[key] = value[key];
+      }
+      if (!["full", "simple", "off"].includes(preferences.motion))
+        preferences.motion = "full";
+      if (![0.75, 1, 1.5].includes(preferences.speed)) preferences.speed = 1;
+      const saved = localStorage.getItem("godpower_ui_bank_v1");
+      if (saved) bank = M.validateBank(JSON.parse(saved));
+    } catch (e) {
+      console.warn("UI preferences use defaults:", e.name);
+    }
+    applyPreferences();
+    syncViewport();
+    window.addEventListener("resize", syncViewport);
+    ready = true;
+    document.querySelectorAll(".nav-tab").forEach((b, i) => {
+      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
+      b.innerHTML =
+        icon(["home", "battle", "history", "archive", "settings"][i]) +
+        `<span>${text}</span>`;
+      b.setAttribute("role", "tab");
+    });
+    setupDock();
+    setupSettings();
+    setupPicker();
+    setupModals();
+    const t = $("#uiGroupTrack");
+    t.addEventListener("scroll", updateArrows, { passive: true });
+    t.addEventListener(
+      "wheel",
+      (e) => {
+        if (
+          t.scrollWidth <= t.clientWidth + 2 ||
+          Math.abs(e.deltaX) > Math.abs(e.deltaY) ||
+          e.ctrlKey
+        )
+          return;
+        const next = Math.max(
+          0,
+          Math.min(t.scrollWidth - t.clientWidth, t.scrollLeft + e.deltaY),
+        );
+        if (next !== t.scrollLeft) {
+          e.preventDefault();
+          t.scrollLeft = next;
+        }
+      },
+      { passive: false },
+    );
+    $("#uiGroupPrev").onclick = () =>
+      t.scrollBy({ left: -600, behavior: canAnimate() ? "smooth" : "auto" });
+    $("#uiGroupNext").onclick = () =>
+      t.scrollBy({ left: 600, behavior: canAnimate() ? "smooth" : "auto" });
+    new ResizeObserver(updateArrows).observe(t);
+    $("#uiArchiveSearch").oninput = (e) => {
+      archiveSearch = e.target.value;
+      renderArchives();
+    };
+    $("#uiArchiveSort").onchange = (e) => {
+      archiveSort = e.target.value;
+      renderArchives();
+    };
+    viewChanged(currentView);
+    renderWelcome();
+    renderHistory();
+    renderArchives();
+    if (canAnimate()) {
+      document
+        .querySelectorAll(
+          ".ui-welcome-head,.ui-group-card,.ui-daily-grid .ui-panel",
+        )
+        .forEach((el, i) =>
+          animate(
+            el,
+            [
+              { opacity: 0, translate: "0 10px" },
+              { opacity: 1, translate: "0 0" },
+            ],
+            { delay: Math.min(i * 40, 550), duration: 250 },
+          ),
+        );
+    }
+    $("#uiSkipWelcome").onclick = () => cancelAnimations();
+  }
+  return {
+    init,
+    settleFromUI,
+    syncViewport,
+    renderDaily,
+    renderWelcome,
+    renderHistory,
+    renderArchives,
+    viewChanged,
+    selectSettings,
+    pickerChanged,
+    visualEvent,
+    cancelAnimations,
+    icon,
+    getPreferences: () => ({ ...preferences }),
+    getAnimationCount: () => animations.size,
+  };
+})();
+window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
 </script>
 </body>
 </html>

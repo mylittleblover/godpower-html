@@ -60,6 +60,7 @@ globalItemDraw=function(){
 
   /* V2.17.10：一次按钮操作只算 1 个全局抽取轮次。 */
   if(typeof beginDrawSessionV21710==='function') beginDrawSessionV21710('global');
+  if(typeof DesktopUI!=='undefined')DesktopUI.visualEvent('ITEM_DRAW_START',{scope:'global'});
 
   try{startDrawSoundBedV2164()}catch(e){}
 
@@ -163,6 +164,7 @@ handDrawItem=function(){
   if(handItemDrawTimer)return;
 
   if(typeof beginDrawSessionV21710==='function') beginDrawSessionV21710('hand');
+  if(typeof DesktopUI!=='undefined')DesktopUI.visualEvent('ITEM_DRAW_START',{groupId:handRaiseGroupId,scope:'hand'});
   try{startDrawSoundBedV2164()}catch(e){}
 
   handItemDrawGroupId=g.id;
@@ -266,6 +268,7 @@ handDrawItem=function(){
 
 /* 使用者卡片特效快速收束。 */
 playCasterCardFx=function(key,gid){
+  if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
   const card=battleCard(gid),d=ITEM_DEFS[key];
   if(!card||!d)return;
 
@@ -287,6 +290,7 @@ playCasterCardFx=function(key,gid){
 
 /* 普通目标命中 / 防御 / 治疗快速收束。 */
 playTargetCardFx=function(id,key,type='hit'){
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(id);
   if(!card)return;
 
@@ -314,6 +318,7 @@ playTargetCardFx=function(id,key,type='hit'){
 
 /* V2.11.6 的实际受击反馈也同步加速。 */
 playAttackTargetFxV2116=function(groupId,key,defended=false){
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(groupId);
   if(!card)return;
 

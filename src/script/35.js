@@ -31,6 +31,7 @@ const _v21735ShowItemUseFx=showItemUseFx;
 showItemUseFx=function(key,casterId=null,targetText=''){
   /* 保留 V2.17.7 等外层逻辑，但绕过旧版 banner 的 DOM 输出。
      这里重新实现最终视觉，同时保留音效和卡片特效。 */
+  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent('ITEM_USE_START',{groupId:casterId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'){playSound('item_use');if(typeof itemSoundCategoryV26==='function')setTimeout(()=>playSound(itemSoundCategoryV26(key)),55);return;}}
   const d=ITEM_DEFS?.[key];
   if(!d)return;
 

@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "2.18.15",
+  "version": "2.19.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,14 +8,17 @@
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
     "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs",
-    "verify": "npm run build && npm run check && npm test && npm run test:e2e",
+    "verify": "npm run build && npm run check && npm test && npm run test:e2e && npm run test:ui",
     "audit": "node scripts/audit.mjs",
     "test:visual": "node tests/e2e/visual.mjs",
     "report": "python3 scripts/report.py",
-    "test:file": "node tests/e2e/file.mjs"
+    "test:file": "node tests/e2e/file.mjs",
+    "test:ui": "node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs",
+    "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",
-    "playwright": "1.56.1"
+    "playwright": "1.56.1",
+    "prettier": "3.6.2"
   }
 }

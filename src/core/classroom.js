@@ -2,7 +2,7 @@
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup(){
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V2.18.15',timestamp:new Date().toISOString(),
+    schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
     round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
       hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},

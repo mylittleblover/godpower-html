@@ -1,0 +1,1082 @@
+/* UI composition service. Existing business commands remain the only state writers. */
+const DesktopUI = (() => {
+  const M = GodpowerUIModel,
+    E = escapeHtml,
+    $ = (s) => document.querySelector(s),
+    defaults = {
+      motion: "full",
+      speed: 1,
+      pageMotion: true,
+      itemFx: true,
+      systemMotion: true,
+      knowledge: true,
+      itemTip: true,
+      honors: true,
+      challenge: true,
+      subject: "politics",
+    };
+  let preferences = { ...defaults },
+    bank = M.examples,
+    ready = false,
+    activeSettings = "rules",
+    archiveSearch = "",
+    archiveSort = "new",
+    lastWelcome = "",
+    animations = new Set();
+  const paths = {
+    home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
+    battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",
+    history: "M3 12a9 9 0 1 0 3-7M3 3v6h6m3-2v5l3 2",
+    archive: "M4 5h16v5H4Zm2 5v11h12V10m-9 4h6",
+    settings:
+      "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m-2-5h4l1 3 3 1 3 3v4l-3 1-1 3-3 3h-4l-1-3-3-1-3-3v-4l3-1 1-3Z",
+    users:
+      "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m14-13a4 4 0 0 1 0 8m5 5v-2a4 4 0 0 0-3-4M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8",
+    spark: "m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z",
+    sound: "m3 9 5 0 5-5v16l-5-5H3Zm14-2a7 7 0 0 1 0 10m3-13a11 11 0 0 1 0 16",
+    book: "M12 5Q7 1 2 4v16q5-3 10 1 5-4 10-1V4q-5-3-10 1v16",
+    shield: "M12 2 3 6v6q0 7 9 10 9-3 9-10V6Z",
+    arrow: "m9 5 7 7-7 7",
+    gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
+  };
+  function icon(name) {
+    return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] || paths.spark}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+  function empty(title, text) {
+    return `<div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">进入比赛</button></div>`;
+  }
+  function persistPreferences() {
+    try {
+      localStorage.setItem(
+        "godpower_ui_preferences_v1",
+        JSON.stringify(preferences),
+      );
+      return true;
+    } catch (e) {
+      showToast("界面偏好未保存：浏览器存储不可用，本次设置仍生效");
+      return false;
+    }
+  }
+  function applyPreferences() {
+    document.body.dataset.motion = preferences.motion;
+    document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
+    document.body.dataset.systemMotion = String(preferences.systemMotion);
+    if (preferences.motion === "off") {
+      cancelAnimations();
+      document.getAnimations().forEach((a) => a.cancel());
+    }
+  }
+  function canAnimate() {
+    return (
+      preferences.motion !== "off" &&
+      !(
+        preferences.systemMotion &&
+        matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+    );
+  }
+  function animate(el, frames, options = {}) {
+    if (!el || !canAnimate()) return;
+    const a = el.animate(frames, {
+      duration: 240 / preferences.speed,
+      easing: "cubic-bezier(.2,.8,.2,1)",
+      ...options,
+    });
+    animations.add(a);
+    a.finished.catch(() => {}).finally(() => animations.delete(a));
+    return a;
+  }
+  function cancelAnimations() {
+    for (const a of animations) a.cancel();
+    animations.clear();
+    document.querySelectorAll("#groupList .group-row-card").forEach((card) => {
+      if (typeof clearCardFx === "function") clearCardFx(card);
+      if (typeof clearAttackHitFxV2116 === "function")
+        clearAttackHitFxV2116(card);
+    });
+    document
+      .querySelectorAll(".card-fx-badge,.attack-hit-badge-v2116")
+      .forEach((el) => el.remove());
+    document.querySelectorAll(".ui-fx-layer").forEach((x) => x.remove());
+  }
+  function visualEvent(type, detail = {}) {
+    document.dispatchEvent(
+      new CustomEvent("godpower:visual", { detail: { type, ...detail } }),
+    );
+    if (!preferences.itemFx || !canAnimate()) return;
+    const id = detail.groupId,
+      card =
+        id != null
+          ? $(`#groupList [data-group-id="${CSS.escape(String(id))}"]`)
+          : null;
+    if (
+      card &&
+      [
+        "ITEM_HIT",
+        "ITEM_DEFENDED",
+        "ITEM_USE_START",
+        "ITEM_EFFECT_APPLIED",
+        "ITEM_QUEUE_PROMOTED",
+      ].includes(type)
+    )
+      animate(
+        card,
+        [{ filter: "brightness(1.12)" }, { filter: "brightness(1)" }],
+        { duration: 280 / preferences.speed },
+      );
+  }
+  let viewportSignature = "";
+  function syncViewport() {
+    const zoom = Number(getComputedStyle(document.body).zoom) || 1,
+      value = `${innerWidth}/${innerHeight}/${zoom}`;
+    if (value === viewportSignature) return;
+    viewportSignature = value;
+    document.body.style.setProperty(
+      "--ui-viewport-height",
+      `${innerHeight / zoom}px`,
+    );
+    document.body.style.setProperty(
+      "--ui-viewport-width",
+      `${innerWidth / zoom}px`,
+    );
+  }
+  function viewChanged(name) {
+    if (!ready) return;
+    for (const m of [...openStack].reverse()) {
+      if (
+        !["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes(
+          m.id,
+        )
+      )
+        m.close();
+    }
+    document.body.dataset.currentView = name;
+    const dock = $(".bottom-dock");
+    dock.hidden = name !== "battle";
+    dock.inert = name !== "battle";
+    dock.style.display = name === "battle" ? "" : "none";
+    document.querySelectorAll(".nav-tab").forEach((b) => {
+      b.setAttribute("aria-selected", String(b.dataset.view === name));
+      b.setAttribute(
+        "aria-current",
+        b.dataset.view === name ? "page" : "false",
+      );
+    });
+    $(".ui-dock-menu")?.removeAttribute("open");
+    $(".dock-humor-tip-v2185")?.classList.remove("show");
+    cancelAnimations();
+    if (preferences.pageMotion) {
+      const host = $(`#view-${name}`);
+      animate(host, [{ opacity: 0.5 }, { opacity: 1 }], {
+        duration: 160 / preferences.speed,
+      });
+    }
+    if (name === "welcome") renderWelcome();
+    if (name === "settings") selectSettings(activeSettings);
+  }
+  function renderWelcome() {
+    if (!ready) return;
+    const track = $("#uiGroupTrack");
+    if (!track) return;
+    syncViewport();
+    observeVisualState();
+    if (!canAnimate()) document.getAnimations().forEach((a) => a.cancel());
+    const groups = state.groups || [],
+      sorted = [...groups].sort((a, b) => Number(b.score) - Number(a.score));
+    const mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+    const signature =
+      JSON.stringify(
+        groups.map((g) => [
+          g.id,
+          g.name,
+          g.score,
+          g.color,
+          g.inventory,
+          g.itemEffect,
+          g.booShield,
+        ]),
+      ) + mask;
+    if (signature !== lastWelcome) {
+      lastWelcome = signature;
+      const x = track.scrollLeft;
+      track.innerHTML = groups.length
+        ? groups
+            .map((g) => {
+              const item = g.inventory?.[0],
+                states = Object.entries(g.itemEffect || {})
+                  .filter(
+                    ([k, v]) =>
+                      (k === "type" && !!v) ||
+                      (k === "iceLock" && Number(v) > 0),
+                  )
+                  .map(
+                    ([k, v]) =>
+                      ({
+                        star: "无敌星",
+                        mega: "巨大蘑菇",
+                        boo: "幽灵保护",
+                        ice: "冻结",
+                        power: "强力蘑菇",
+                        feather: "羽毛",
+                      })[k === "type" ? v : k] ||
+                      (k === "iceLock" ? "冻结" : k),
+                  );
+              return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
+            })
+            .join("")
+        : empty(
+            "课堂，准备就绪",
+            "添加小组后，这里将展示实时积分、排名与道具。",
+          );
+      track.scrollLeft = x;
+      track
+        .querySelectorAll("[data-group]")
+        .forEach(
+          (el) =>
+            (el.onclick = () =>
+              openItemWindow(Number(el.dataset.group), "detail")),
+        );
+    }
+    requestAnimationFrame(updateArrows);
+    renderDaily();
+  }
+  function updateArrows() {
+    const t = $("#uiGroupTrack");
+    if (!t) return;
+    const overflow = t.scrollWidth > t.clientWidth + 2;
+    t.classList.toggle("ui-few", !overflow);
+    $("#uiGroupPrev").disabled = !overflow || t.scrollLeft <= 1;
+    $("#uiGroupNext").disabled =
+      !overflow || t.scrollLeft + t.clientWidth >= t.scrollWidth - 2;
+  }
+  let visualSnapshot = new Map();
+  function observeVisualState() {
+    const next = new Map();
+    for (const g of state.groups) {
+      const current = {
+        main: g.inventory?.[0]?.key || "",
+        inventory: JSON.stringify(g.inventory || []),
+        effect: JSON.stringify(g.itemEffect || null),
+        count: g.inventory?.length || 0,
+      };
+      const prior = visualSnapshot.get(g.id);
+      if (prior) {
+        if (
+          prior.main &&
+          current.main &&
+          prior.main !== current.main &&
+          current.count <= prior.count
+        )
+          visualEvent("ITEM_QUEUE_PROMOTED", {
+            groupId: g.id,
+            key: current.main,
+          });
+        if (current.count > prior.count)
+          visualEvent("ITEM_DRAW_REVEAL", {
+            groupId: g.id,
+            key: g.inventory.at(-1)?.key,
+          });
+        if (current.effect !== prior.effect) {
+          visualEvent(
+            current.effect === "null"
+              ? "ITEM_EFFECT_EXPIRED"
+              : "ITEM_EFFECT_APPLIED",
+            { groupId: g.id, key: g.itemEffect?.type },
+          );
+        }
+      }
+      next.set(g.id, current);
+    }
+    visualSnapshot = next;
+  }
+  let dailySignature = "";
+  function renderDaily() {
+    const host = $("#uiDailyGrid");
+    if (!host) return;
+    const history = getSettlementHistory(),
+      signature =
+        M.dayIndex() +
+        JSON.stringify(preferences) +
+        JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
+        Object.keys(ITEM_DEFS).length;
+    if (signature === dailySignature) return;
+    dailySignature = signature;
+    const knowledge = M.daily(
+        bank.knowledge.filter((x) => x.subject === preferences.subject),
+      ),
+      quiz = M.daily(
+        bank.challenges.filter((x) => x.subject === preferences.subject),
+      ),
+      keys = Object.keys(ITEM_DEFS),
+      key = M.daily(keys),
+      item = ITEM_DEFS[key],
+      last = history[0],
+      winner = last?.groups?.[0];
+    let html = "";
+    if (preferences.knowledge)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+    if (preferences.itemTip)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
+    if (preferences.honors)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
+    if (preferences.challenge)
+      html += `<article class="ui-panel"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+    host.innerHTML = html;
+    host.querySelectorAll("[data-quiz-answer]").forEach(
+      (b) =>
+        (b.onclick = () => {
+          b.parentElement
+            .querySelectorAll("button")
+            .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          host.querySelector(".ui-quiz-result").textContent =
+            (Number(b.dataset.quizAnswer) === quiz.answer
+              ? "回答正确。"
+              : "再想一想，正确答案是 " + "ABCD"[quiz.answer] + "。") +
+            quiz.explanation;
+        }),
+    );
+  }
+  function historyKind(desc = "") {
+    return /清零|恢复|撤销|回溯|删除/.test(desc)
+      ? ["danger", "shield", "数据与恢复"]
+      : /道具|攻击|龟壳|蘑菇/.test(desc)
+        ? ["item", "gift", "道具操作"]
+        : /题|回合|答题|结算/.test(desc)
+          ? ["round", "battle", "回合操作"]
+          : /成员|小组|名单/.test(desc)
+            ? ["manage", "users", "小组管理"]
+            : ["score", "history", "积分与操作"];
+  }
+  function inventory(items) {
+    return (
+      items
+        .map((i) => `${ITEM_DEFS[i.key]?.name || i.key} ×${i.charges ?? 1}`)
+        .join("、") || "空"
+    );
+  }
+  function renderHistory() {
+    if (!ready) return;
+    const host = $("#historyListView");
+    if (!host) return;
+    host.className = "ui-timeline";
+    $("#uiHistoryCount").textContent =
+      `${historyStack.length} / ${MAX_HISTORY} 条记录`;
+    if (!historyStack.length) {
+      host.className = "";
+      host.innerHTML = empty(
+        "后悔药还没开封",
+        "每次操作前的快照会留在这里。查看记录不会改变当前比赛。",
+      );
+      return;
+    }
+    host.innerHTML = historyStack
+      .map((h, i) => {
+        const next = historyStack[i + 1] || state,
+          diffs = M.differences(h, next),
+          [kind, glyph, label] = historyKind(h.desc),
+          changed = diffs.filter(
+            (d) =>
+              d.delta ||
+              d.added ||
+              d.removed ||
+              JSON.stringify(d.inventoryBefore) !==
+                JSON.stringify(d.inventoryAfter) ||
+              JSON.stringify(d.effectsBefore) !==
+                JSON.stringify(d.effectsAfter),
+          );
+        return `<article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
+      })
+      .reverse()
+      .join("");
+    host.querySelectorAll("[data-restore]").forEach(
+      (b) =>
+        (b.onclick = async () => {
+          const index = Number(b.dataset.restore),
+            target = historyStack[index];
+          if (!target) return;
+          const ok = await themeConfirm(
+            `恢复到 ${target.time || "未记录时间"}「${target.desc || "未命名操作"}」之前？将恢复小组、积分、道具、持续状态与快照包含的回合字段，并丢弃此节点及其后 ${historyStack.length - index - 1} 条历史。查看不会恢复，确认才执行。`,
+            {
+              title: "确认恢复历史快照",
+              danger: true,
+              confirmText: "恢复快照",
+            },
+          );
+          if (ok && historyStack[index] === target) revertToHistory(index);
+        }),
+    );
+  }
+  function renderArchives() {
+    if (!ready) return;
+    const records = getSettlementHistory();
+    const all = records
+      .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))
+      .filter((g) => Number.isFinite(Number(g.score)));
+    const best = all.length
+      ? Math.max(...all.map((g) => Number(g.score)))
+      : null;
+    $("#archiveClassStats").innerHTML = `<div class="ui-overview">${[
+      ["已归档届数", records.length],
+      [
+        "最近冠军",
+        records[0]?.champion || records[0]?.groups?.[0]?.name || "暂无",
+      ],
+      ["历史最高积分", best ?? "暂无"],
+      ["最近归档", records[0]?.time || "暂无"],
+    ]
+      .map(
+        ([t, v]) =>
+          `<div class="ui-panel"><span class="ui-muted">${t}</span><strong>${E(v)}</strong></div>`,
+      )
+      .join("")}</div>`;
+    const host = $("#settlementHistoryContainer");
+    host.className = "ui-archive-list";
+    let list = records
+      .map((r, index) => ({ r, index }))
+      .filter(({ r }) =>
+        [r.title, r.champion, ...(r.groups || []).map((g) => g.name)]
+          .join(" ")
+          .toLowerCase()
+          .includes(archiveSearch.toLowerCase()),
+      );
+    if (archiveSort === "old") list.reverse();
+    if (archiveSort === "score")
+      list.sort(
+        (a, b) =>
+          Number(b.r.groups?.[0]?.score || 0) -
+          Number(a.r.groups?.[0]?.score || 0),
+      );
+    $("#uiArchiveCount").textContent =
+      `显示 ${list.length} / ${records.length} 届`;
+    host.innerHTML = list.length
+      ? list
+          .map(({ r, index }) => {
+            const groups = Array.isArray(r.groups) ? r.groups : [];
+            return `<article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
+              .slice(0, 3)
+              .map(
+                (g, i) =>
+                  `<div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name || "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>`,
+              )
+              .join(
+                "",
+              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">导出完整 CSV</button><button class="btn" data-json="${index}">导出原始 JSON</button><button class="btn btn-danger" data-delete="${index}">删除档案</button></div></details></article>`;
+          })
+          .join("")
+      : empty(
+          records.length ? "没有匹配的档案" : "第一座奖杯，等待揭晓",
+          records.length
+            ? "试试其他比赛或小组名称。"
+            : "正式结算成功后，这里会保存比赛排名、成员及归档数据。",
+        );
+    host
+      .querySelectorAll("[data-csv]")
+      .forEach(
+        (b) =>
+          (b.onclick = () => exportSingleSettlementCSV(Number(b.dataset.csv))),
+      );
+    host
+      .querySelectorAll("[data-delete]")
+      .forEach(
+        (b) =>
+          (b.onclick = () => deleteSettlementRecord(Number(b.dataset.delete))),
+      );
+    host
+      .querySelectorAll("[data-json]")
+      .forEach(
+        (b) =>
+          (b.onclick = () =>
+            downloadJson(records[Number(b.dataset.json)], "课堂归档.json")),
+      );
+  }
+  function downloadJson(value, name) {
+    const url = URL.createObjectURL(
+        new Blob([JSON.stringify(value, null, 2)], {
+          type: "application/json",
+        }),
+      ),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  const categories = [
+    ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
+    ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
+    ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
+    ["sound", "sound", "音效与音乐", "原有音乐套数、音轨、循环与资源管理"],
+    ["items", "gift", "道具与图标", "实际道具定义与自定义图像"],
+    ["students", "users", "学生与小组管理", "原有名单导入与课堂数据管理"],
+    ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
+    ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
+  ];
+  function setupSettings() {
+    const sc = $("#view-settings .settings-scroll");
+    if (!sc || $("#uiSettingsShell")) return;
+    const shell = document.createElement("div");
+    shell.className = "ui-settings-shell";
+    shell.id = "uiSettingsShell";
+    shell.innerHTML = `<nav class="ui-settings-nav" aria-label="设置分类">${categories.map(([id, glyph, title]) => `<button data-category="${id}">${icon(glyph)}${title}</button>`).join("")}</nav><main class="ui-settings-body">${categories.map(([id, , title, desc]) => `<section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${title}</h3><div class="ui-muted">${desc}</div></header></section>`).join("")}</main>`;
+    const sections = Object.fromEntries(
+      [...shell.querySelectorAll("[data-category-panel]")].map((p) => [
+        p.dataset.categoryPanel,
+        p,
+      ]),
+    );
+    for (const pane of document.querySelectorAll(".settings-v26-pane")) {
+      const originalId = pane.id.replace("settingsV26_", "");
+      if (originalId === "function") {
+        let dest = "appearance";
+        for (const el of [...pane.children]) {
+          const txt = el.textContent || "";
+          if (
+            el.querySelector("#settingsBatchMemberText") ||
+            /批量导入学生|学生名单/.test(txt)
+          )
+            dest = "students";
+          if (
+            el.querySelector("#cfgSaveAllIn") ||
+            /All In|顶部垫片|分栏|共产主义/.test(txt)
+          )
+            dest = "rules";
+          if (el.querySelector("#uiIconManagerV26")) dest = "items";
+          sections[dest].append(el);
+        }
+        pane.classList.add("active");
+        sections.rules.append(pane);
+      } else {
+        sections[originalId]?.append(pane);
+        pane.classList.add("active");
+      }
+    }
+    $("#settingsV26Tabs")?.remove();
+    sc.append(shell);
+    sc.classList.add("ui-settings-host");
+    shell
+      .querySelectorAll("[data-category]")
+      .forEach((b) => (b.onclick = () => selectSettings(b.dataset.category)));
+    sections.appearance.insertAdjacentHTML(
+      "beforeend",
+      '<div class="ui-settings-row"><label for="uiZoom">比赛视图缩放（原有设置）</label><div><button class="btn btn-sm" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" onclick="zoomIn()">＋</button></div></div>',
+    );
+    function row(title, id, content) {
+      return `<div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>`;
+    }
+    const check = (key) =>
+      `<input id="uiPref-${key}" data-pref="${key}" type="checkbox" ${preferences[key] ? "checked" : ""}>`;
+    sections.motion.insertAdjacentHTML(
+      "beforeend",
+      row(
+        "动效模式",
+        "uiPref-motion",
+        `<select id="uiPref-motion" data-pref="motion"><option value="full">完整动效</option><option value="simple">简洁动效</option><option value="off">关闭非必要动效</option></select>`,
+      ) +
+        row(
+          "新界面过渡速度",
+          "uiPref-speed",
+          '<select id="uiPref-speed" data-pref="speed"><option value="0.75">舒缓</option><option value="1">标准</option><option value="1.5">快速</option></select>',
+        ) +
+        row("页面切换", "uiPref-pageMotion", check("pageMotion")) +
+        row("道具视觉反馈", "uiPref-itemFx", check("itemFx")) +
+        row(
+          "尊重系统减少动态效果",
+          "uiPref-systemMotion",
+          check("systemMotion"),
+        ) +
+        '<p class="ui-muted">关闭非必要动效会停用页面与持续光环动画；音效开关仍由音频设置控制。</p>',
+    );
+    sections.welcome.insertAdjacentHTML(
+      "beforeend",
+      [
+        ["knowledge", "每日知识卡片"],
+        ["itemTip", "每日道具小知识"],
+        ["honors", "历史荣誉"],
+        ["challenge", "每日课堂挑战"],
+      ]
+        .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
+        .join("") +
+        row(
+          "展示学科",
+          "uiPref-subject",
+          '<select id="uiPref-subject" data-pref="subject"></select>',
+        ) +
+        '<h3 style="margin-top:24px">本地审核题库</h3><p class="ui-muted">导入完整 JSON：knowledge、challenges 数组；每项需 id、title、subject、source。题目需 4 个 options、0–3 的 answer 和 explanation。请仅使用已审核内容并标明来源。</p><textarea id="uiBankEditor" class="ui-bank-editor" aria-label="本地题库 JSON"></textarea><div class="ui-toolbar"><button class="btn btn-primary" id="uiSaveBank">验证并保存题库</button><button class="btn" id="uiExportBank">导出题库</button><button class="btn btn-warning" id="uiResetBank">恢复内置示例</button></div><p id="uiBankStatus" role="status" class="ui-muted"></p>',
+    );
+    sections.data.insertAdjacentHTML(
+      "afterbegin",
+      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。操作前建议导出备份。</div>',
+    );
+    const danger = [...sections.data.querySelectorAll("button")].filter((b) =>
+      /resetAllScores|clear/.test(b.getAttribute("onclick") || ""),
+    );
+    for (const b of danger) {
+      b.classList.remove("btn-primary");
+      b.classList.add("btn-danger");
+    }
+    for (const key of ["motion", "speed"])
+      $("#uiPref-" + key).value = String(preferences[key]);
+    refreshSubjects();
+    $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+    shell.querySelectorAll("[data-pref]").forEach(
+      (el) =>
+        (el.onchange = () => {
+          const key = el.dataset.pref;
+          preferences[key] =
+            el.type === "checkbox"
+              ? el.checked
+              : key === "speed"
+                ? Number(el.value)
+                : el.value;
+          persistPreferences();
+          applyPreferences();
+          dailySignature = "";
+          renderDaily();
+        }),
+    );
+    $("#uiExportBank").onclick = () =>
+      downloadJson(bank, "欢迎页审核题库.json");
+    $("#uiSaveBank").onclick = () => {
+      try {
+        const next = M.validateBank(JSON.parse($("#uiBankEditor").value));
+        localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
+        bank = next;
+        dailySignature = "";
+        refreshSubjects();
+        renderDaily();
+        $("#uiBankStatus").textContent = "验证成功，题库已保存。";
+      } catch (e) {
+        $("#uiBankStatus").textContent =
+          "未保存，现有题库保持原样：" + e.message;
+      }
+    };
+    $("#uiResetBank").onclick = async () => {
+      if (
+        !(await themeConfirm("恢复内置审核示例？建议先导出当前题库。", {
+          title: "恢复欢迎页题库",
+          danger: true,
+        }))
+      )
+        return;
+      try {
+        localStorage.removeItem("godpower_ui_bank_v1");
+        bank = M.examples;
+        $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+        dailySignature = "";
+        refreshSubjects();
+        renderDaily();
+        $("#uiBankStatus").textContent = "已恢复内置示例";
+      } catch (e) {
+        $("#uiBankStatus").textContent = "恢复失败：" + e.message;
+      }
+    };
+    selectSettings(activeSettings);
+  }
+  function refreshSubjects() {
+    const el = $("#uiPref-subject");
+    if (!el) return;
+    const subjects = [
+      ...new Set([
+        "politics",
+        ...bank.knowledge.map((x) => x.subject),
+        ...bank.challenges.map((x) => x.subject),
+      ]),
+    ];
+    el.innerHTML = subjects
+      .map(
+        (s) =>
+          `<option value="${E(s)}">${E({ politics: "政治", history: "历史", geography: "地理", english: "英语" }[s] || s)}</option>`,
+      )
+      .join("");
+    if (!subjects.includes(preferences.subject))
+      preferences.subject = "politics";
+    el.value = preferences.subject;
+  }
+  function selectSettings(id) {
+    if (!$("#uiSettingsShell")) return;
+    const aliases = { function: "rules" };
+    activeSettings = aliases[id] || id;
+    if (!categories.some((c) => c[0] === activeSettings))
+      activeSettings = "rules";
+    document
+      .querySelectorAll("[data-category-panel]")
+      .forEach((p) => (p.hidden = p.dataset.categoryPanel !== activeSettings));
+    document
+      .querySelectorAll(".ui-settings-nav button")
+      .forEach((b) =>
+        b.setAttribute(
+          "aria-current",
+          String(b.dataset.category === activeSettings),
+        ),
+      );
+    $(".ui-settings-body").scrollTop = 0;
+  }
+  function setupDock() {
+    const right = $(".dock-right");
+    const details = document.createElement("details");
+    details.className = "ui-dock-menu";
+    details.innerHTML =
+      '<summary>管理与视图 ▴</summary><div class="ui-dock-menu-body"></div>';
+    const menu = details.lastElementChild;
+    for (const b of [...right.children]) {
+      const action = b.getAttribute("onclick") || "";
+      const keep = /globalItemDraw|openHandRaise|openPickerModal|undoLast/.test(
+        action,
+      );
+      const label = /globalItemDraw/.test(action)
+        ? "道具"
+        : /openHandRaise/.test(action)
+          ? "举手"
+          : /openPickerModal/.test(action)
+            ? "点名"
+            : /undoLast/.test(action)
+              ? "撤销"
+              : b.getAttribute("title") || b.textContent;
+      b.setAttribute("aria-label", label);
+      b.setAttribute("title", label);
+      if (keep) {
+        b.style.width = "auto";
+        b.style.padding = "0 8px";
+        b.innerHTML =
+          icon(
+            /globalItemDraw/.test(action)
+              ? "gift"
+              : /undoLast/.test(action)
+                ? "history"
+                : "users",
+          ) + `<span style="font-size:12px">${E(label)}</span>`;
+      } else {
+        b.textContent = label;
+        menu.append(b);
+      }
+    }
+    right.append(details);
+    const final = $("#btnFinalSettlement");
+    final.style.background = "var(--ui-danger)";
+    final.style.borderColor = "var(--ui-danger)";
+    final.setAttribute("title", "归档成功后清零；操作前需确认");
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (e.target.closest(".bottom-dock") && currentView !== "battle") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
+        if (!e.target.closest(".ui-dock-menu")) details.open = false;
+      },
+      true,
+    );
+  }
+  const modalClosers = {
+    welcomeModal: () => closeWelcomeModal(),
+    scoreModalBackdrop: () => closeScoreModal(),
+    pwdModal: () => closePwdModal(),
+    memberSearchBackdrop: () => closeMemberSearchModal(),
+    settlementNameModal: () => closeSettlementNameModal(),
+    grandModalOverlay: () => closeGrandSettlementModal(),
+    pickerModal: () => closePickerModal(),
+    itemModalBackdrop: () => closeItemWindow(),
+    handRaiseBackdrop: () => closeHandRaise(),
+    aboutBackdrop: () => closeAbout(),
+    batchImportModal: () => closeBatchImportModal(),
+    themeDialogV21727: () => closeThemeDialogV21727(false),
+    quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
+  };
+  let openStack = [];
+  function setupModals() {
+    const known = new Map();
+    function scan() {
+      for (const [id, close] of Object.entries(modalClosers)) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const visible =
+          el.classList.contains("active") ||
+          el.classList.contains("show") ||
+          el.style.display === "flex";
+        if (visible && !known.get(id)) {
+          const focus = document.activeElement;
+          known.set(id, true);
+          openStack.push({ id, el, close, focus });
+          const dialog =
+            el.firstElementChild?.tagName === "CANVAS"
+              ? el.querySelector(".grand-card")
+              : el.firstElementChild;
+          dialog?.setAttribute("role", "dialog");
+          dialog?.setAttribute("aria-modal", "true");
+          if (
+            dialog &&
+            !dialog.getAttribute("aria-label") &&
+            !dialog.getAttribute("aria-labelledby")
+          )
+            dialog.setAttribute(
+              "aria-label",
+              dialog.querySelector("h3,h2,[class*=title]")?.textContent ||
+                "课堂操作窗口",
+            );
+          el.dataset.uiModalOpen = "true";
+          if (id === "grandModalOverlay") {
+            if (!canAnimate()) stopConfetti();
+            el.querySelectorAll(".podium-col").forEach((col, i) =>
+              animate(
+                col,
+                [
+                  { opacity: 0, translate: "0 10px" },
+                  { opacity: 1, translate: "0 0" },
+                ],
+                { delay: i * 100, duration: 220 },
+              ),
+            );
+            animate(dialog, [
+              { opacity: 0, translate: "0 12px" },
+              { opacity: 1, translate: "0 0" },
+            ]);
+          }
+          requestAnimationFrame(() => {
+            if (!el.contains(document.activeElement))
+              el.querySelector(
+                'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',
+              )?.focus({ preventScroll: true });
+          });
+        } else if (!visible && known.get(id)) {
+          known.set(id, false);
+          const item = openStack.find((x) => x.id === id);
+          openStack = openStack.filter((x) => x.id !== id);
+          delete el.dataset.uiModalOpen;
+          if (
+            item?.focus?.isConnected &&
+            !item.focus.closest(".view:not(.active)")
+          )
+            item.focus.focus({ preventScroll: true });
+          cancelAnimations();
+        }
+      }
+    }
+    new MutationObserver(scan).observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class", "style"],
+    });
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        const top = openStack.at(-1);
+        if (!top) return;
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          top.close();
+          return;
+        }
+        if (e.key === "Tab") {
+          const nodes = [
+            ...top.el.querySelectorAll(
+              'button,input,select,textarea,a[href],[tabindex="0"]',
+            ),
+          ].filter(
+            (x) => !x.disabled && !x.hidden && x.getClientRects().length,
+          );
+          if (!nodes.length) {
+            e.preventDefault();
+            return;
+          }
+          const first = nodes[0],
+            last = nodes.at(-1);
+          if (
+            e.shiftKey &&
+            (document.activeElement === first ||
+              !top.el.contains(document.activeElement))
+          ) {
+            e.preventDefault();
+            last.focus();
+          } else if (
+            !e.shiftKey &&
+            (document.activeElement === last ||
+              !top.el.contains(document.activeElement))
+          ) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      },
+      true,
+    );
+    scan();
+  }
+  function pickerChanged() {
+    const target = pickerTargetGroup();
+    const valid =
+      !!target &&
+      state.groups.some((g) => g.id === target.id) &&
+      !slotEngine.isSpinning;
+    document
+      .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')
+      .forEach((b) => (b.disabled = !valid));
+    if (valid)
+      animate(
+        $("#slotResultPanel"),
+        [
+          { opacity: 0.4, scale: ".98" },
+          { opacity: 1, scale: "1" },
+        ],
+        { duration: 250 },
+      );
+  }
+  function setupPicker() {
+    const left = $(".picker-left-v2"),
+      right = $(".picker-right-v2");
+    const options = $(".slot-options-row");
+    left.append(options);
+    const tabs = $(".picker-info-tabs"),
+      info = $("#pickerInfoBox");
+    right.append(tabs, info);
+    const stats = $("#pickerStatsBtn");
+    stats.hidden = false;
+    stats.removeAttribute("aria-hidden");
+    stats.removeAttribute("tabindex");
+    $("#resultHeadline").style.fontSize = "26px";
+    const target = $("#pickerScoreTarget");
+    new MutationObserver(pickerChanged).observe(target, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+    pickerChanged();
+  }
+  let settlementBusy = false;
+  async function settleFromUI(button) {
+    if (settlementBusy) return { ok: false, reason: "busy" };
+    settlementBusy = true;
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    const text = button.textContent;
+    button.textContent = "正在保存完整档案…";
+    const status = $("#uiSettlementStatus");
+    if (status) status.textContent = "正在写入归档，保存成功后才会清零。";
+    try {
+      await new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      );
+      if (!$("#settlementNameModal").classList.contains("active"))
+        return { ok: false, reason: "cancelled" };
+      const result = confirmFinalSettlement();
+      if (status)
+        status.textContent = result?.ok
+          ? "完整档案已保存。"
+          : "保存未完成，课堂数据保留，请先导出备份。";
+      return result;
+    } finally {
+      settlementBusy = false;
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      button.textContent = text;
+    }
+  }
+  function init() {
+    try {
+      const value = JSON.parse(
+        localStorage.getItem("godpower_ui_preferences_v1") || "{}",
+      );
+      for (const key of Object.keys(defaults)) {
+        if (typeof value[key] === typeof defaults[key])
+          preferences[key] = value[key];
+      }
+      if (!["full", "simple", "off"].includes(preferences.motion))
+        preferences.motion = "full";
+      if (![0.75, 1, 1.5].includes(preferences.speed)) preferences.speed = 1;
+      const saved = localStorage.getItem("godpower_ui_bank_v1");
+      if (saved) bank = M.validateBank(JSON.parse(saved));
+    } catch (e) {
+      console.warn("UI preferences use defaults:", e.name);
+    }
+    applyPreferences();
+    syncViewport();
+    window.addEventListener("resize", syncViewport);
+    ready = true;
+    document.querySelectorAll(".nav-tab").forEach((b, i) => {
+      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
+      b.innerHTML =
+        icon(["home", "battle", "history", "archive", "settings"][i]) +
+        `<span>${text}</span>`;
+      b.setAttribute("role", "tab");
+    });
+    setupDock();
+    setupSettings();
+    setupPicker();
+    setupModals();
+    const t = $("#uiGroupTrack");
+    t.addEventListener("scroll", updateArrows, { passive: true });
+    t.addEventListener(
+      "wheel",
+      (e) => {
+        if (
+          t.scrollWidth <= t.clientWidth + 2 ||
+          Math.abs(e.deltaX) > Math.abs(e.deltaY) ||
+          e.ctrlKey
+        )
+          return;
+        const next = Math.max(
+          0,
+          Math.min(t.scrollWidth - t.clientWidth, t.scrollLeft + e.deltaY),
+        );
+        if (next !== t.scrollLeft) {
+          e.preventDefault();
+          t.scrollLeft = next;
+        }
+      },
+      { passive: false },
+    );
+    $("#uiGroupPrev").onclick = () =>
+      t.scrollBy({ left: -600, behavior: canAnimate() ? "smooth" : "auto" });
+    $("#uiGroupNext").onclick = () =>
+      t.scrollBy({ left: 600, behavior: canAnimate() ? "smooth" : "auto" });
+    new ResizeObserver(updateArrows).observe(t);
+    $("#uiArchiveSearch").oninput = (e) => {
+      archiveSearch = e.target.value;
+      renderArchives();
+    };
+    $("#uiArchiveSort").onchange = (e) => {
+      archiveSort = e.target.value;
+      renderArchives();
+    };
+    viewChanged(currentView);
+    renderWelcome();
+    renderHistory();
+    renderArchives();
+    if (canAnimate()) {
+      document
+        .querySelectorAll(
+          ".ui-welcome-head,.ui-group-card,.ui-daily-grid .ui-panel",
+        )
+        .forEach((el, i) =>
+          animate(
+            el,
+            [
+              { opacity: 0, translate: "0 10px" },
+              { opacity: 1, translate: "0 0" },
+            ],
+            { delay: Math.min(i * 40, 550), duration: 250 },
+          ),
+        );
+    }
+    $("#uiSkipWelcome").onclick = () => cancelAnimations();
+  }
+  return {
+    init,
+    settleFromUI,
+    syncViewport,
+    renderDaily,
+    renderWelcome,
+    renderHistory,
+    renderArchives,
+    viewChanged,
+    selectSettings,
+    pickerChanged,
+    visualEvent,
+    cancelAnimations,
+    icon,
+    getPreferences: () => ({ ...preferences }),
+    getAnimationCount: () => animations.size,
+  };
+})();
+window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
