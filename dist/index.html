@@ -5581,7 +5581,7 @@ summary:focus-visible {
           <span id="poolStatusText" style="color:#64748b">剩余: 0</span>
           <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b" onclick="resetPickerPool()">重置</button>
         </div>
-        <div style="margin:10px 0"><button id="btnSlotTrigger" class="btn-slot-action start" onclick="toggleSlotSpin()">开始抽签</button></div>
+        <div style="margin:10px 0"><button id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()">开始抽签</button></div>
         <div id="slotResultPanel" class="slot-result-panel"><div id="resultHeadline" style="font-size:16px;font-weight:800;color:#0284c7">等待抽签</div></div>
         <div style="text-align:center;margin-top:12px"><button class="btn" style="background:#e2e8f0;color:#1e293b" onclick="closePickerModal()">退出</button></div>
       </main>
@@ -8488,6 +8488,8 @@ function renderGrid() {
 }
 
 function openPickerModal() {
+  if(document.getElementById('pickerModal').classList.contains('active'))return;
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   document.getElementById('pickerModal').classList.add('active');
   updatePickerView();
   updatePickerPoolUI();
@@ -8496,12 +8498,14 @@ function openPickerModal() {
 
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   document.getElementById('pickerModal').classList.remove('active');
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
 function setPickerMode(mode) {
   if (slotEngine.isSpinning) return;
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
   ['btnModeInd', 'btnModeGrp', 'btnModeTwo'].forEach(id => document.getElementById(id).classList.remove('active'));
   if (mode === 'individual') document.getElementById('btnModeInd').classList.add('active');
@@ -8643,17 +8647,19 @@ function updatePickerPoolUI() {
 }
 
 function toggleSlotSpin() {
-  if (!slotEngine.isSpinning) startSlotSpin();
-  else stopSlotSpin();
+  if (!slotEngine.isSpinning) return startSlotSpin();
+  return stopSlotSpin();
 }
 
 async function startSlotSpin() {
+  const uiGeneration=typeof DesktopUI!=='undefined'?DesktopUI.getPickerGeneration():null;
   const pool = getAvailablePool();
   if (pool.list.length === 0) {
     themeAlert('奖池空了');
     return;
   }
   await getAudioContext();
+  if(slotEngine.isSpinning||(uiGeneration!==null&&!DesktopUI.isPickerCurrent(uiGeneration)))return false;
   startRollLoop();
   slotEngine.isSpinning = true;
   document.getElementById('slotResultPanel').classList.remove('show');
@@ -8751,6 +8757,7 @@ function stopSlotSpin() {
   saveState();
   updatePickerPoolUI();
   document.getElementById('slotResultPanel').classList.add('show');
+  if(typeof DesktopUI!=='undefined')DesktopUI.pickerStopped();
 }
 
 function rewardPickedStudent(points) {
@@ -19480,6 +19487,87 @@ const DesktopUI = (() => {
     );
     scan();
   }
+  let pickerGeneration = 0,
+    pickerPreparing = false;
+  function cancelPickerPreparation() {
+    pickerGeneration++;
+    pickerPreparing = false;
+    const button = $("#btnSlotTrigger");
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      if (!slotEngine.isSpinning) button.textContent = "开始抽签";
+    }
+    const modal = $("#pickerModal");
+    for (const a of animations)
+      if (modal?.contains(a.effect?.target)) a.cancel();
+  }
+  function isPickerCurrent(generation) {
+    return (
+      generation === pickerGeneration &&
+      $("#pickerModal").classList.contains("active")
+    );
+  }
+  async function togglePicker() {
+    if (pickerPreparing) return false;
+    if (slotEngine.isSpinning) {
+      stopSlotSpin();
+      return true;
+    }
+    const generation = ++pickerGeneration;
+    pickerPreparing = true;
+    const button = $("#btnSlotTrigger");
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "准备抽签…";
+    try {
+      await toggleSlotSpin();
+      return slotEngine.isSpinning;
+    } catch (error) {
+      showToast("抽签未启动：" + error.message);
+      return false;
+    } finally {
+      if (generation === pickerGeneration) {
+        pickerPreparing = false;
+        button.disabled = false;
+        button.removeAttribute("aria-busy");
+        if (!slotEngine.isSpinning) button.textContent = "开始抽签";
+      }
+    }
+  }
+  function pickerStopped() {
+    const win = slotEngine.chosenResult,
+      generation = pickerGeneration,
+      modal = $("#pickerModal"),
+      badge = $("#slotSubBadge");
+    if (!win || !modal.classList.contains("active")) return;
+    const label = badge.textContent;
+    const frames = [
+      { translate: "0 -12px", opacity: 0.65 },
+      { translate: "0 3px", opacity: 0.9, offset: 0.75 },
+      { translate: "0 0", opacity: 1 },
+    ];
+    let last;
+    modal.querySelectorAll(".slot-reel-text").forEach((el) => {
+      last = animate(el, frames, {
+        duration: preferences.motion === "simple" ? 160 : 380,
+        easing: "cubic-bezier(.15,.8,.25,1)",
+      });
+    });
+    const complete = () => {
+      if (
+        isPickerCurrent(generation) &&
+        slotEngine.chosenResult === win &&
+        !slotEngine.isSpinning
+      )
+        badge.textContent = label + " · 抽取完成";
+    };
+    if (last)
+      last.finished.then(complete, () => {
+        /* Presentation cancelled; business result is retained. */
+      });
+    else complete();
+  }
   function pickerChanged() {
     const target = pickerTargetGroup();
     const valid =
@@ -19705,6 +19793,11 @@ const DesktopUI = (() => {
     viewChanged,
     selectSettings,
     pickerChanged,
+    togglePicker,
+    pickerStopped,
+    cancelPickerPreparation,
+    getPickerGeneration: () => pickerGeneration,
+    isPickerCurrent,
     visualEvent,
     cancelAnimations,
     icon,

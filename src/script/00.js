@@ -2629,6 +2629,8 @@ function renderGrid() {
 }
 
 function openPickerModal() {
+  if(document.getElementById('pickerModal').classList.contains('active'))return;
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   document.getElementById('pickerModal').classList.add('active');
   updatePickerView();
   updatePickerPoolUI();
@@ -2637,12 +2639,14 @@ function openPickerModal() {
 
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   document.getElementById('pickerModal').classList.remove('active');
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
 function setPickerMode(mode) {
   if (slotEngine.isSpinning) return;
+  if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
   ['btnModeInd', 'btnModeGrp', 'btnModeTwo'].forEach(id => document.getElementById(id).classList.remove('active'));
   if (mode === 'individual') document.getElementById('btnModeInd').classList.add('active');
@@ -2784,17 +2788,19 @@ function updatePickerPoolUI() {
 }
 
 function toggleSlotSpin() {
-  if (!slotEngine.isSpinning) startSlotSpin();
-  else stopSlotSpin();
+  if (!slotEngine.isSpinning) return startSlotSpin();
+  return stopSlotSpin();
 }
 
 async function startSlotSpin() {
+  const uiGeneration=typeof DesktopUI!=='undefined'?DesktopUI.getPickerGeneration():null;
   const pool = getAvailablePool();
   if (pool.list.length === 0) {
     themeAlert('奖池空了');
     return;
   }
   await getAudioContext();
+  if(slotEngine.isSpinning||(uiGeneration!==null&&!DesktopUI.isPickerCurrent(uiGeneration)))return false;
   startRollLoop();
   slotEngine.isSpinning = true;
   document.getElementById('slotResultPanel').classList.remove('show');
@@ -2892,6 +2898,7 @@ function stopSlotSpin() {
   saveState();
   updatePickerPoolUI();
   document.getElementById('slotResultPanel').classList.add('show');
+  if(typeof DesktopUI!=='undefined')DesktopUI.pickerStopped();
 }
 
 function rewardPickedStudent(points) {

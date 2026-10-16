@@ -987,6 +987,87 @@ const DesktopUI = (() => {
     );
     scan();
   }
+  let pickerGeneration = 0,
+    pickerPreparing = false;
+  function cancelPickerPreparation() {
+    pickerGeneration++;
+    pickerPreparing = false;
+    const button = $("#btnSlotTrigger");
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
+      if (!slotEngine.isSpinning) button.textContent = "开始抽签";
+    }
+    const modal = $("#pickerModal");
+    for (const a of animations)
+      if (modal?.contains(a.effect?.target)) a.cancel();
+  }
+  function isPickerCurrent(generation) {
+    return (
+      generation === pickerGeneration &&
+      $("#pickerModal").classList.contains("active")
+    );
+  }
+  async function togglePicker() {
+    if (pickerPreparing) return false;
+    if (slotEngine.isSpinning) {
+      stopSlotSpin();
+      return true;
+    }
+    const generation = ++pickerGeneration;
+    pickerPreparing = true;
+    const button = $("#btnSlotTrigger");
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "准备抽签…";
+    try {
+      await toggleSlotSpin();
+      return slotEngine.isSpinning;
+    } catch (error) {
+      showToast("抽签未启动：" + error.message);
+      return false;
+    } finally {
+      if (generation === pickerGeneration) {
+        pickerPreparing = false;
+        button.disabled = false;
+        button.removeAttribute("aria-busy");
+        if (!slotEngine.isSpinning) button.textContent = "开始抽签";
+      }
+    }
+  }
+  function pickerStopped() {
+    const win = slotEngine.chosenResult,
+      generation = pickerGeneration,
+      modal = $("#pickerModal"),
+      badge = $("#slotSubBadge");
+    if (!win || !modal.classList.contains("active")) return;
+    const label = badge.textContent;
+    const frames = [
+      { translate: "0 -12px", opacity: 0.65 },
+      { translate: "0 3px", opacity: 0.9, offset: 0.75 },
+      { translate: "0 0", opacity: 1 },
+    ];
+    let last;
+    modal.querySelectorAll(".slot-reel-text").forEach((el) => {
+      last = animate(el, frames, {
+        duration: preferences.motion === "simple" ? 160 : 380,
+        easing: "cubic-bezier(.15,.8,.25,1)",
+      });
+    });
+    const complete = () => {
+      if (
+        isPickerCurrent(generation) &&
+        slotEngine.chosenResult === win &&
+        !slotEngine.isSpinning
+      )
+        badge.textContent = label + " · 抽取完成";
+    };
+    if (last)
+      last.finished.then(complete, () => {
+        /* Presentation cancelled; business result is retained. */
+      });
+    else complete();
+  }
   function pickerChanged() {
     const target = pickerTargetGroup();
     const valid =
@@ -1212,6 +1293,11 @@ const DesktopUI = (() => {
     viewChanged,
     selectSettings,
     pickerChanged,
+    togglePicker,
+    pickerStopped,
+    cancelPickerPreparation,
+    getPickerGeneration: () => pickerGeneration,
+    isPickerCurrent,
     visualEvent,
     cancelAnimations,
     icon,

@@ -347,6 +347,48 @@ try {
     assert.match(result.status, /先完整归档/);
     await p.evaluate(() => closeSettlementNameModal());
   });
+  await test("Slow picker audio preparation cannot start a closed/reopened or changed-mode window", async () => {
+    const result = await p.evaluate(async () => {
+      openPickerModal();
+      const original = getAudioContext,
+        context = await original();
+      let release;
+      getAudioContext = () =>
+        new Promise((resolve) => (release = () => resolve(context)));
+      try {
+        const pending = DesktopUI.togglePicker();
+        const duplicate = await DesktopUI.togglePicker();
+        closePickerModal();
+        openPickerModal();
+        release();
+        const closed = await pending;
+        let releaseMode;
+        getAudioContext = () =>
+          new Promise((resolve) => (releaseMode = () => resolve(context)));
+        const stale = DesktopUI.togglePicker();
+        setPickerMode("group");
+        releaseMode();
+        await stale;
+        return {
+          duplicate,
+          closed,
+          spinning: slotEngine.isSpinning,
+          target: slotEngine.chosenResult,
+          enabled: !document.querySelector("#btnSlotTrigger").disabled,
+          mode: state.picker.mode,
+        };
+      } finally {
+        getAudioContext = original;
+        closePickerModal();
+      }
+    });
+    assert.equal(result.duplicate, false);
+    assert.equal(result.closed, false);
+    assert.equal(result.spinning, false);
+    assert.equal(result.target, null);
+    assert.equal(result.enabled, true);
+    assert.equal(result.mode, "group");
+  });
   await test("All supplemental interactions have no uncaught errors", async () =>
     assert.deepEqual(errors, []));
 } finally {
