@@ -64,41 +64,49 @@ function importClassroomData(data){
   }
 }
 function itemCommandSnapshot(){return JSON.stringify({groups:state.groups,itemGlobal:state.itemGlobal})}
+function runClassroomCommand(description,operation){
+  if(window.itemCommandActive)return false;
+  const before=clone(state),oldHistory=clone(historyStack);
+  recordHistory(description);
+  window.itemCommandActive=true;
+  try{
+    const result=operation();
+    if(result===false){
+      state=before;historyStack=oldHistory;cancelItemScoreAnimations();return false;
+    }
+    if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围');
+    window.itemCommandActive=false;
+    const saved=saveState();
+    if(!saved.ok)throw Error(saved.error);
+    renderAll();return true;
+  }catch(error){
+    state=before;historyStack=oldHistory;cancelScoreAnimationAndSync();
+    renderAll();showToast('操作未完成，已回滚，请导出备份：'+error.message);
+    return false;
+  }finally{window.itemCommandActive=false;}
+}
 function useItem(groupId,index){
   if(window.itemCommandActive)return false;
   const g=state.groups.find(x=>x.id===groupId);
   const reason=Reliability.validateItem(state,g,index,isCommunismMode());
   closeItemWindowForFx();
   if(reason){showToast(reason);return false}
-  const before=clone(state),oldHistory=clone(historyStack),beforeValue=itemCommandSnapshot();
   const key=g.inventory[index].key;
-  recordHistory(`${g.name} 使用道具：${ITEM_DEFS[key]?.name||key}`);
-  window.itemCommandActive=true;
-  try{
+  return runClassroomCommand(`${g.name} 使用道具：${ITEM_DEFS[key]?.name||key}`,()=>{
     ensureV2State();
-    let result;
+    const beforeValue=itemCommandSnapshot();
     if(g.itemEffect?.iceLock){
       delete g.itemEffect.iceLock;delete g.itemEffect.iceRoundsLeftV218;
       if(!Object.keys(g.itemEffect).length)g.itemEffect=null;
       markItemUsedThisRoundV2177(groupId);
       showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
-      result=true;
-    }else{
-      result=legacyUseItem(groupId,index);
-      if(result===false || itemCommandSnapshot()===beforeValue){
-        state=before;historyStack=oldHistory;return false;
-      }
-      markItemUsedThisRoundV2177(groupId);
+      return true;
     }
-    window.itemCommandActive=false;
-    const saved=saveState();
-    if(!saved.ok){state=before;historyStack=oldHistory;renderAll();showToast('道具操作未保存，已回滚，请导出备份');return false}
-    renderAll();return true;
-  }catch(error){
-    state=before;historyStack=oldHistory;
-    console.error('道具执行失败，已恢复操作前状态',error);
-    showToast('道具执行失败，已回滚：'+error.message);return false;
-  }finally{window.itemCommandActive=false;}
+    const result=legacyUseItem(groupId,index);
+    if(result===false||itemCommandSnapshot()===beforeValue)return false;
+    markItemUsedThisRoundV2177(groupId);
+    return true;
+  });
 }
 // Restore only after legacy startup adapters exist; never auto-save during boot.
 try{
@@ -114,8 +122,7 @@ window.classroomReady=!window.classroomRecoveryRequired;
 function judgeRound(){
   if(!state.roundActive||state.evaluated||!state.correctAns)return false;
   try{Reliability.calculateRoundScores(state)}catch(error){themeAlert(error.message);return false}
-  legacyJudgeRound();
-  return true;
+  return runClassroomCommand(`自动判定结算 (正解: ${state.correctAns})`,()=>{legacyJudgeRound();return true});
 }
 
 const classroomDock=document.querySelector('.bottom-dock');
