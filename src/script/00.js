@@ -1547,15 +1547,18 @@ function getPersistableGroups() {
 }
 
 function saveState() {
-  if(window.classroomRecoveryRequired)return {ok:false,error:"需要先恢复主存档"};
+  if(window.classroomRecoveryRequired){showClassroomSaveWarning("需要先恢复主存档");return {ok:false,error:"需要先恢复主存档"}}
   if (!window.classroomReady || window.itemCommandActive) return {ok:true,deferred:true};
   ensureV2State();
   const payload=buildClassroomBackup();
   const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
   if(!result.ok){
-    showToast('保存失败，请立即导出 JSON 备份：'+result.error);
+    showClassroomSaveWarning(result.error);
     return result;
   }
+  window.classroomUnsavedChanges=false;
+  const saveWarning=document.getElementById('classroomSaveWarning');
+  if(saveWarning)saveWarning.hidden=true;
   // Legacy keys remain readable by V2.18.13. The single envelope is authoritative.
   const mirrors=[
     ['politics_groups_data',payload.groups],['politics_picker_state',state.picker],

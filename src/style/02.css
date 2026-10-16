@@ -305,3 +305,6 @@ body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-second
   .item-use-banner-v216{top:64px!important}
 }
 @media(prefers-reduced-motion:reduce){body.modern-flat-v217 *,body.modern-flat-v217 *::before,body.modern-flat-v217 *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+.classroom-save-warning{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#fff7db;color:#713f12;border-bottom:1px solid #f5cc71;font-size:14px;line-height:1.6;}
+.classroom-save-warning[hidden]{display:none;}

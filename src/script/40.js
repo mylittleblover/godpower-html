@@ -1,1 +1,1 @@
-window.__GOD_POWER_VERSION__='V2.18.14';
+window.__GOD_POWER_VERSION__='V2.18.15';

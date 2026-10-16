@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V2.18.14</title>
+<title>上帝的力量 V2.18.15</title>
 
   <style>@@SOURCE:style/00.css@@</style>
 <style>@@SOURCE:style/01.css@@</style>
@@ -70,7 +70,7 @@
 <body class="modern-flat-v217">
 
 <div class="header-banner app-topnav">
-  <div class="header-title">上帝的力量 <small>V2.18.14</small></div>
+  <div class="header-title">上帝的力量 <small>V2.18.15</small></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -82,6 +82,10 @@
 </div>
 
 <!-- ===== 视图：欢迎界面 ===== -->
+<div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
+  <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
+  <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
+</div>
 <div id="view-welcome" class="view active">
   <div class="welcome-hero welcome-dashboard-v216">
     <div class="welcome-heading-v216">

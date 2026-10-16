@@ -2,7 +2,7 @@
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup(){
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V2.18.14',timestamp:new Date().toISOString(),
+    schemaVersion:Reliability.schemaVersion,appVersion:'V2.18.15',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
     round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
       hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},
@@ -64,7 +64,15 @@ function importClassroomData(data){
   }
 }
 function itemCommandSnapshot(){return JSON.stringify({groups:state.groups,itemGlobal:state.itemGlobal})}
-function runClassroomCommand(description,operation){
+function showClassroomSaveWarning(error){
+  const alreadyUnsaved=!!window.classroomUnsavedChanges;
+  window.classroomUnsavedChanges=true;
+  window.classroomPersistenceError=String(error||'保存不可用');
+  const warning=document.getElementById('classroomSaveWarning');
+  if(warning){warning.hidden=false;warning.dataset.reason=String(error||'保存不可用')}
+  if(!alreadyUnsaved)showToast('更改仅保存在本页。关闭或刷新前请导出备份。');
+}
+function runClassroomCommand(description,operation,options={retainOnPersistenceFailure:true}){
   if(window.itemCommandActive)return false;
   const before=clone(state),oldHistory=clone(historyStack);
   window.classroomRecordingCommand=true;
@@ -78,7 +86,16 @@ function runClassroomCommand(description,operation){
     if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围');
     window.itemCommandActive=false;
     const saved=saveState();
-    if(!saved.ok)throw Error(saved.error);
+    if(!saved.ok){
+      if(options.retainOnPersistenceFailure){
+        // Ordinary grading remains usable when storage is denied or full.
+        // Import and final settlement use separate strict persistence policies.
+        window.lastClassroomCommandResult={ok:true,persisted:false,error:saved.error};
+        renderAll();showClassroomSaveWarning(saved.error);return true;
+      }
+      throw Error(saved.error);
+    }
+    window.lastClassroomCommandResult={ok:true,persisted:true};
     renderAll();return true;
   }catch(error){
     state=before;historyStack=oldHistory;cancelScoreAnimationAndSync();
@@ -109,21 +126,29 @@ function useItem(groupId,index){
     return true;
   });
 }
-// Restore only after legacy startup adapters exist; never auto-save during boot.
+// Read access denial is a browser capability limitation, not a corrupt save.
+// Leave stored data untouched and keep ordinary classroom actions usable in RAM.
+let classroomStoredState=null;
 try{
-  const raw=localStorage.getItem(Reliability.stateKey);
-  if(raw)applyClassroomBackup(JSON.parse(raw));
+  classroomStoredState=CLASSROOM_STORAGE.getItem(Reliability.stateKey);
 }catch(error){
-  console.error('主存档读取失败，未覆盖原存档',error);
-  window.classroomRecoveryRequired=true;
-  setTimeout(()=>themeAlert('主存档损坏或无法读取。未自动覆盖原数据；请导出备份并检查存储权限。'),1000);
+  window.classroomStorageUnavailable=true;
+  showClassroomSaveWarning(error.message);
 }
-window.classroomReady=!window.classroomRecoveryRequired;
+if(classroomStoredState!==null){
+  try{applyClassroomBackup(JSON.parse(classroomStoredState))}
+  catch(error){
+    console.error('主存档读取失败，未覆盖原存档',error);
+    window.classroomRecoveryRequired=true;
+    showClassroomSaveWarning('原存档无法解析，已保护原数据：'+error.message);
+  }
+}
+window.classroomReady=true;
 
 function judgeRound(){
   if(!state.roundActive||state.evaluated||!state.correctAns)return false;
   try{Reliability.calculateRoundScores(state)}catch(error){themeAlert(error.message);return false}
-  return runClassroomCommand(`自动判定结算 (正解: ${state.correctAns})`,()=>{legacyJudgeRound();return true});
+  return runClassroomCommand(`自动判定结算 (正解: ${state.correctAns})`,()=>{legacyJudgeRound();return true},{retainOnPersistenceFailure:true});
 }
 
 const classroomDock=document.querySelector('.bottom-dock');
