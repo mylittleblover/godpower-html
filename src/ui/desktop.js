@@ -103,7 +103,8 @@ const DesktopUI = (() => {
     document.dispatchEvent(
       new CustomEvent("godpower:visual", { detail: { type, ...detail } }),
     );
-    if (!preferences.itemFx || !canAnimate()) return;
+    if (!preferences.itemFx || !canAnimate() || currentView !== "battle")
+      return;
     const id = detail.groupId,
       card =
         id != null
@@ -845,6 +846,27 @@ const DesktopUI = (() => {
   let openStack = [];
   function setupModals() {
     const known = new Map();
+    function focusModal(top) {
+      if (
+        !top.el.getClientRects().length ||
+        top.el.contains(document.activeElement)
+      )
+        return;
+      const target = [
+        ...top.el.querySelectorAll(
+          'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',
+        ),
+      ].find((el) => !el.disabled && el.getClientRects().length);
+      if (target) target.focus({ preventScroll: true });
+    }
+    document.addEventListener(
+      "focusin",
+      (event) => {
+        const top = openStack.at(-1);
+        if (top && !top.el.contains(event.target)) focusModal(top);
+      },
+      true,
+    );
     function scan() {
       for (const [id, close] of Object.entries(modalClosers)) {
         const el = document.getElementById(id);
@@ -891,18 +913,21 @@ const DesktopUI = (() => {
               { opacity: 1, translate: "0 0" },
             ]);
           }
-          requestAnimationFrame(() => {
-            if (!el.contains(document.activeElement))
-              el.querySelector(
-                'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',
-              )?.focus({ preventScroll: true });
+          queueMicrotask(() => {
+            const top = openStack.at(-1);
+            if (top?.el === el) focusModal(top);
           });
         } else if (!visible && known.get(id)) {
           known.set(id, false);
           const item = openStack.find((x) => x.id === id);
           openStack = openStack.filter((x) => x.id !== id);
           delete el.dataset.uiModalOpen;
-          if (
+          const top = openStack.at(-1);
+          if (top) {
+            if (item?.focus?.isConnected && top.el.contains(item.focus))
+              item.focus.focus({ preventScroll: true });
+            else focusModal(top);
+          } else if (
             item?.focus?.isConnected &&
             !item.focus.closest(".view:not(.active)")
           )

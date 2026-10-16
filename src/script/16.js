@@ -268,6 +268,7 @@ handDrawItem=function(){
 
 /* 使用者卡片特效快速收束。 */
 playCasterCardFx=function(key,gid){
+  if(currentView!=='battle')return;
   if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
   const card=battleCard(gid),d=ITEM_DEFS[key];
   if(!card||!d)return;
@@ -290,6 +291,7 @@ playCasterCardFx=function(key,gid){
 
 /* 普通目标命中 / 防御 / 治疗快速收束。 */
 playTargetCardFx=function(id,key,type='hit'){
+  if(currentView!=='battle')return;
   if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(id);
   if(!card)return;
@@ -318,6 +320,7 @@ playTargetCardFx=function(id,key,type='hit'){
 
 /* V2.11.6 的实际受击反馈也同步加速。 */
 playAttackTargetFxV2116=function(groupId,key,defended=false){
+  if(currentView!=='battle')return;
   if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
   const card=battleCard(groupId);
   if(!card)return;
