@@ -389,6 +389,31 @@ try {
     assert.equal(result.enabled, true);
     assert.equal(result.mode, "group");
   });
+  await test("Legacy archive missing/null/empty scores cannot invent a zero highest score", async () => {
+    await p.evaluate(() => {
+      STORAGE.setJSON("politics_settlement_history", [
+        {
+          title: "不完整旧档案",
+          time: "时间未完整记录",
+          groups: [
+            { name: "甲", score: null },
+            { name: "乙", score: -10 },
+            { name: "丙", score: "" },
+            { name: "丁" },
+          ],
+        },
+      ]);
+      switchView("archives");
+    });
+    const highest = await p
+      .locator("#archiveClassStats .ui-panel")
+      .nth(2)
+      .locator("strong")
+      .textContent();
+    assert.equal(highest, "-10");
+    await p.locator(".ui-archive-summary").click();
+    assert.match(await p.locator(".ui-table").textContent(), /未记录/);
+  });
   await test("All supplemental interactions have no uncaught errors", async () =>
     assert.deepEqual(errors, []));
 } finally {

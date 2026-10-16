@@ -447,7 +447,12 @@ const DesktopUI = (() => {
     const records = getSettlementHistory();
     const all = records
       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))
-      .filter((g) => Number.isFinite(Number(g.score)));
+      .filter(
+        (g) =>
+          (typeof g.score === "number" ||
+            (typeof g.score === "string" && g.score.trim() !== "")) &&
+          Number.isFinite(Number(g.score)),
+      );
     const best = all.length
       ? Math.max(...all.map((g) => Number(g.score)))
       : null;
