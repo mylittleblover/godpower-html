@@ -59,8 +59,9 @@ const Reliability = (() => {
     return null;
   }
   // Stale asynchronous defense dialogs must never modify a different round or item.
-  let defenseDecisionEpoch=0;
-  function invalidateDefenseDecisions(){return ++defenseDecisionEpoch}
+  let defenseDecisionEpoch=0, defenseInvalidationHandler=null;
+  function onDefenseInvalidation(handler){defenseInvalidationHandler=handler;}
+  function invalidateDefenseDecisions(){++defenseDecisionEpoch;defenseInvalidationHandler?.();return defenseDecisionEpoch}
   function captureDefenseDecision(s,target,key){
     const item=target?.inventory?.[0];
     if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;
@@ -115,7 +116,7 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,planBatchScoreChanges};
+  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is

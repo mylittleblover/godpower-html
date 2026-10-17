@@ -374,25 +374,24 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
   ){
     target.__spinyHornDecisionPendingV218=true;
     const decision=Reliability.captureDefenseDecision(state,target,'horn');
-    themeConfirm(
+    const prompt=themeConfirm(
       `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 超级喇叭 抵消本次攻击？`,
       {title:'刺龟壳来袭',confirmText:'使用超级喇叭',cancelText:'承受攻击'}
-    ).then(useIt=>{
-      if(!Reliability.isDefenseDecisionCurrent(state,decision))return;
+    );
+    deferClassroomDefense(prompt,useIt=>{
+      target.__spinyHornDecisionPendingV218=false;
       if(useIt){
         consumeInventoryItem(target,0,1);
         tinyDefenseToast(`${target.name} 使用超级喇叭成功击碎刺龟壳`);
-        saveState();renderAll();return;
+        return;
       }
       target.__spinyHornDeclinedV218=true;
       try{_v218ApplyItemScore.call(this,target,delta,sourceId,attackType)}
       finally{
         delete target.__spinyHornDeclinedV218;
-        saveState();renderAll();
       }
-    }).catch(error=>console.warn('刺龟壳喇叭防御确认失败',error)).finally(()=>{
-      target.__spinyHornDecisionPendingV218=false;
-    });
+    },()=>Reliability.isDefenseDecisionCurrent(state,decision));
+    Promise.resolve(prompt).then(()=>{target.__spinyHornDecisionPendingV218=false},()=>{target.__spinyHornDecisionPendingV218=false});
     return {changed:false,blocked:'pending-horn-defense'};
   }
   return _v218ApplyItemScore.call(this,target,delta,sourceId,attackType);

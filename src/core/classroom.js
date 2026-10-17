@@ -1,6 +1,7 @@
 /* Stable public APIs. Legacy item executors remain isolated until their rule
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup(){
+  if(window.classroomReady && classroomCommands.isPending())return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
@@ -49,6 +50,7 @@ function applyClassroomBackup(raw){
 }
 function importClassroomData(data){
   if(state.isLocked)return {ok:false,error:'请先解锁'};
+  Reliability.invalidateDefenseDecisions();
   const old=clone(state),history=clone(historyStack),first=firstHandDrawPendingV218;
   try{
     Reliability.validateBackup(data);
@@ -72,40 +74,49 @@ function showClassroomSaveWarning(error){
   if(warning){warning.hidden=false;warning.dataset.reason=String(error||'保存不可用')}
   if(!alreadyUnsaved)showToast('更改仅保存在本页。关闭或刷新前请导出备份。');
 }
-function runClassroomCommand(description,operation,options={retainOnPersistenceFailure:true}){
-  if(window.itemCommandActive)return false;
-  Reliability.invalidateDefenseDecisions();
-  const before=clone(state),oldHistory=clone(historyStack);
-  window.classroomRecordingCommand=true;
-  try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
-  window.itemCommandActive=true;
-  try{
-    const result=operation();
-    if(result===false){
-      state=before;historyStack=oldHistory;cancelItemScoreAnimations();return false;
+// Only this adapter touches global classroom state; the controller is pure/testable.
+const classroomCommands=CommandLifecycle.create({
+  active:()=>!!window.itemCommandActive,
+  setActive:value=>{window.itemCommandActive=value},
+  invalidate:()=>Reliability.invalidateDefenseDecisions(),
+  snapshot:()=>({state:clone(state),history:clone(historyStack),identity:state,backup:clone(buildClassroomBackup())}),
+  restore:before=>{
+    // Imported/replaced state belongs to a newer classroom and must be preserved.
+    if(state===before.identity){
+      const liveGroups=new Map(state.groups.map(g=>[g.id,g]));
+      const restored=before.state;
+      restored.groups=restored.groups.map(g=>{
+        const live=liveGroups.get(g.id);if(!live)return g;
+        Object.keys(live).forEach(k=>delete live[k]);Object.assign(live,g);return live;
+      });
+      Object.keys(state).forEach(k=>delete state[k]);Object.assign(state,restored);
+      historyStack=before.history;
     }
-    if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围');
-    window.itemCommandActive=false;
-    const saved=saveState();
-    if(!saved.ok){
-      if(options.retainOnPersistenceFailure){
-        // Ordinary grading remains usable when storage is denied or full.
-        // Import and final settlement use separate strict persistence policies.
-        window.lastClassroomCommandResult={ok:true,persisted:false,error:saved.error};
-        renderAll();showClassroomSaveWarning(saved.error);return true;
-      }
-      throw Error(saved.error);
-    }
-    window.lastClassroomCommandResult={ok:true,persisted:true};
-    renderAll();return true;
-  }catch(error){
-    state=before;historyStack=oldHistory;cancelScoreAnimationAndSync();
-    renderAll();showToast('操作未完成，已回滚，请导出备份：'+error.message);
-    return false;
-  }finally{window.itemCommandActive=false;}
+    cancelScoreAnimationAndSync();
+  },
+  record:description=>{
+    window.classroomRecordingCommand=true;
+    try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
+  },
+  validate:()=>{if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围')},
+  persist:()=>saveState(), render:()=>renderAll(),
+  result:value=>{window.lastClassroomCommandResult=value},
+  warning:error=>showClassroomSaveWarning(error),
+  error:error=>showToast('操作未完成，已回滚，请导出备份：'+error.message)
+});
+Reliability.onDefenseInvalidation(()=>classroomCommands.cancel('lifecycle-changed'));
+function runClassroomCommand(description,operation,options){return classroomCommands.run(description,operation,options)}
+function deferClassroomDefense(promise,apply,isCurrent){
+  if(classroomCommands.defer(promise,apply,isCurrent))return;
+  // Compatibility for direct effect callers outside the public item command.
+  Promise.resolve(promise).then(answer=>{
+    if(!isCurrent())return;
+    apply(answer);saveState();renderAll();
+  }).catch(error=>{console.error('防御确认失败',error);showToast('防御确认未完成，请重试')});
 }
 function useItem(groupId,index){
   if(window.itemCommandActive)return false;
+  Reliability.invalidateDefenseDecisions();
   const g=state.groups.find(x=>x.id===groupId);
   const reason=Reliability.validateItem(state,g,index,isCommunismMode());
   closeItemWindowForFx();

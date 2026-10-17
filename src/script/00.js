@@ -243,6 +243,7 @@ function closeSettlementNameModal() {
 }
 
 function confirmFinalSettlement() {
+  Reliability.invalidateDefenseDecisions();
   if(state.isLocked){openPwdModal();return {ok:false,reason:'locked'}}
   if(itemDrawBusy || slotEngine.isSpinning || isStartingRound || isSwitchingRound){
     showToast('请等待当前抽取或回合切换完成后结算');return {ok:false,reason:'busy'};
@@ -528,6 +529,7 @@ function getTrackCurrentBeat() {
 
 function recordHistory(actionDesc) {
   if(window.itemCommandActive)return;
+  if(window.classroomReady && !window.classroomRecordingCommand)Reliability.invalidateDefenseDecisions();
   try {
     const snapshot = {
       desc: actionDesc,
@@ -564,6 +566,7 @@ function restoreStateFromSnapshot(snapshot) {
 }
 
 function undoLast() {
+  if(window.classroomReady && classroomCommands.isPending()){Reliability.invalidateDefenseDecisions();return;}
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -1471,7 +1474,7 @@ function getPersistableGroups() {
 
 function saveState() {
   if(window.classroomRecoveryRequired){showClassroomSaveWarning("需要先恢复主存档");return {ok:false,error:"需要先恢复主存档"}}
-  if (!window.classroomReady || window.itemCommandActive) return {ok:true,deferred:true};
+  if (!window.classroomReady || window.itemCommandActive || classroomCommands.isPending()) return {ok:true,deferred:true};
   ensureV2State();
   const payload=buildClassroomBackup();
   const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
@@ -1642,6 +1645,7 @@ async function preloadInitialAudio() {
 }
 
 async function startRound() {
+  Reliability.invalidateDefenseDecisions();
   if (isStartingRound || isSwitchingRound) return;
   isStartingRound = true;
   const overlay = document.getElementById('initProgressOverlay');
@@ -2033,6 +2037,7 @@ function animateScores(scoreUpdates, onComplete) {
 }
 
 function applyScoreDelta(groupId, delta) {
+  Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
   if (state.isLocked) { openPwdModal(); return; }
   const g = state.groups.find(x => x.id === groupId);
@@ -4342,15 +4347,11 @@ function normalizeInventoryV21718(inventory){
     .map((it,i)=>{
       const maxCharges=Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
       const storedCharges=Number(it.charges);
-      return {
-        key:it.key,
-        /* V2.17.19：重进页面后严格保留 1/2/3 的剩余次数，
-           不会重置成 3，也不会因为定义加载顺序被判为异常。 */
-        charges:Number.isFinite(storedCharges)
-          ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges)))
-          : maxCharges,
-        acquiredAt:Number(it.acquiredAt)||Date.now()+i
-      };
+      const charges=Number.isFinite(storedCharges)
+        ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
+      const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
+      if(Object.keys(it).length===3 && it.charges===charges && it.acquiredAt===acquiredAt)return it;
+      return {key:it.key,charges,acquiredAt};
     });
 }
 

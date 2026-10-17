@@ -157,16 +157,16 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
         const itemName=ITEM_DEFS[main.key]?.name||'蘑菇';
         const decision=Reliability.captureDefenseDecision(state,target,main.key);
 
-        themeConfirm(
+        const prompt=themeConfirm(
           `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${itemName} 抵消本次攻击？`,
           {title:'刺龟壳来袭', confirmText:'使用蘑菇闪避', cancelText:'承受攻击'}
-        ).then(useIt=>{
-          if(!Reliability.isDefenseDecisionCurrent(state,decision))return;
+        );
+        deferClassroomDefense(prompt,useIt=>{
+          target.__spinyDecisionPendingV21727=false;
 
           if(useIt){
             consumeInventoryItem(target,0,1);
             tinyDefenseToast(`${target.name} 使用主要道具蘑菇成功闪避刺龟壳`);
-            try{saveState();renderAll()}catch(e){}
             return;
           }
 
@@ -175,11 +175,9 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
             _v2170ApplyItemScore.call(this,target,delta,sourceId,attackType);
           }finally{
             delete target.__spinyMushroomDeclinedV21727;
-            try{saveState();renderAll()}catch(e){}
           }
-        }).catch(error=>console.warn('刺龟壳蘑菇防御确认失败',error)).finally(()=>{
-          target.__spinyDecisionPendingV21727=false;
-        });
+        },()=>Reliability.isDefenseDecisionCurrent(state,decision));
+        Promise.resolve(prompt).then(()=>{target.__spinyDecisionPendingV21727=false},()=>{target.__spinyDecisionPendingV21727=false});
 
         /* 当前攻击暂缓，等待主题弹窗选择。 */
         return {changed:false,blocked:'pending-defense'};

@@ -5821,6 +5821,38 @@ const Reliability = (() => {
     if(['star','mega','power'].includes(g.itemEffect?.type)&&g.itemEffect.type===key)return '主要道具持续状态尚未结束';
     return null;
   }
+  // Stale asynchronous defense dialogs must never modify a different round or item.
+  let defenseDecisionEpoch=0, defenseInvalidationHandler=null;
+  function onDefenseInvalidation(handler){defenseInvalidationHandler=handler;}
+  function invalidateDefenseDecisions(){++defenseDecisionEpoch;defenseInvalidationHandler?.();return defenseDecisionEpoch}
+  function captureDefenseDecision(s,target,key){
+    const item=target?.inventory?.[0];
+    if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;
+    return {epoch:defenseDecisionEpoch,state:s,groups:s.groups,target,targetId:target.id,item,key,
+      phase:phase(s),round:s.round,roundActive:s.roundActive,evaluated:s.evaluated,
+      hasStartedOnce:s.hasStartedOnce,correctAns:s.correctAns,settlements:s.itemGlobal?.pkTotal};
+  }
+  function isDefenseDecisionCurrent(s,d){
+    if(!s||!d||d.epoch!==defenseDecisionEpoch||s!==d.state||s.groups!==d.groups||
+       !Array.isArray(s.groups)||s.groups.find(g=>g.id===d.targetId)!==d.target||
+       d.target.inventory?.[0]!==d.item||d.item.key!==d.key||phase(s)!==d.phase)return false;
+    return Object.is(s.round,d.round)&&s.roundActive===d.roundActive&&
+      s.evaluated===d.evaluated&&s.hasStartedOnce===d.hasStartedOnce&&
+      s.correctAns===d.correctAns&&s.itemGlobal?.pkTotal===d.settlements;
+  }
+
+  function planBatchScoreChanges(groups,groupCounts,points){
+    if(!Number.isSafeInteger(points)||points===0)throw Error('分值必须为非零安全整数');
+    if(!Array.isArray(groups)||!Array.isArray(groupCounts))throw Error('小组列表无效');
+    const groupMap=new Map(groups.map(g=>[g.id,g]));
+    return groupCounts.map(([id,count])=>{
+      const g=groupMap.get(id);
+      if(!g||!Number.isSafeInteger(count)||count<1)throw Error('批量计分对象无效');
+      const old=Number(g.score),delta=points*count,score=old+delta;
+      if(!Number.isSafeInteger(old)||!Number.isSafeInteger(delta)||!Number.isSafeInteger(score))throw Error('批量计分超出安全整数范围');
+      return {id,old,delta,score};
+    });
+  }
   function safeImage(value) {
     return typeof value==='string' && /^data:image\/(?:png|jpe?g|webp|gif);base64,[a-zA-Z0-9+/=\s]+$/.test(value) ? value : '';
   }
@@ -5847,7 +5879,7 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores};
+  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is
@@ -6102,6 +6134,7 @@ function closeSettlementNameModal() {
 }
 
 function confirmFinalSettlement() {
+  Reliability.invalidateDefenseDecisions();
   if(state.isLocked){openPwdModal();return {ok:false,reason:'locked'}}
   if(itemDrawBusy || slotEngine.isSpinning || isStartingRound || isSwitchingRound){
     showToast('请等待当前抽取或回合切换完成后结算');return {ok:false,reason:'busy'};
@@ -6387,6 +6420,7 @@ function getTrackCurrentBeat() {
 
 function recordHistory(actionDesc) {
   if(window.itemCommandActive)return;
+  if(window.classroomReady && !window.classroomRecordingCommand)Reliability.invalidateDefenseDecisions();
   try {
     const snapshot = {
       desc: actionDesc,
@@ -6406,6 +6440,7 @@ function recordHistory(actionDesc) {
 }
 
 function restoreStateFromSnapshot(snapshot) {
+  Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
   if(snapshot.itemGlobal)state.itemGlobal=clone(snapshot.itemGlobal);
   state.groups = normalizeAllGroups(snapshot.groups);
@@ -6422,6 +6457,7 @@ function restoreStateFromSnapshot(snapshot) {
 }
 
 function undoLast() {
+  if(window.classroomReady && classroomCommands.isPending()){Reliability.invalidateDefenseDecisions();return;}
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -7329,7 +7365,7 @@ function getPersistableGroups() {
 
 function saveState() {
   if(window.classroomRecoveryRequired){showClassroomSaveWarning("需要先恢复主存档");return {ok:false,error:"需要先恢复主存档"}}
-  if (!window.classroomReady || window.itemCommandActive) return {ok:true,deferred:true};
+  if (!window.classroomReady || window.itemCommandActive || classroomCommands.isPending()) return {ok:true,deferred:true};
   ensureV2State();
   const payload=buildClassroomBackup();
   const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
@@ -7500,6 +7536,7 @@ async function preloadInitialAudio() {
 }
 
 async function startRound() {
+  Reliability.invalidateDefenseDecisions();
   if (isStartingRound || isSwitchingRound) return;
   isStartingRound = true;
   const overlay = document.getElementById('initProgressOverlay');
@@ -7551,6 +7588,7 @@ async function startRound() {
 }
 
 function finishStartRound() {
+  Reliability.invalidateDefenseDecisions();
   const flipSnapshotV21725 = captureCardRectsV21725();
 
   state.hasStartedOnce = true;
@@ -7593,6 +7631,7 @@ async function nextRound() {
     themeAlert('请先公布正解并点击「判定结算」后，才可进入下一题 (或点击强制结束)');
     return;
   }
+  Reliability.invalidateDefenseDecisions();
   isSwitchingRound = true;
 
   const overlay = document.getElementById('initProgressOverlay');
@@ -7651,6 +7690,7 @@ async function nextRound() {
 async function forceEndRound() {
   if (!state.roundActive || state.evaluated) return;
   if (await themeConfirm('确认强制结束当前题目吗？（当前作答将作废，不进行加分结算）', {title:'强制结束题目', danger:true, confirmText:'强制结束'})) {
+    Reliability.invalidateDefenseDecisions();
     const flipSnapshotV21725 = captureCardRectsV21725();
 
     bgmStopAll();
@@ -7888,6 +7928,7 @@ function animateScores(scoreUpdates, onComplete) {
 }
 
 function applyScoreDelta(groupId, delta) {
+  Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
   if (state.isLocked) { openPwdModal(); return; }
   const g = state.groups.find(x => x.id === groupId);
@@ -10197,15 +10238,11 @@ function normalizeInventoryV21718(inventory){
     .map((it,i)=>{
       const maxCharges=Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
       const storedCharges=Number(it.charges);
-      return {
-        key:it.key,
-        /* V2.17.19：重进页面后严格保留 1/2/3 的剩余次数，
-           不会重置成 3，也不会因为定义加载顺序被判为异常。 */
-        charges:Number.isFinite(storedCharges)
-          ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges)))
-          : maxCharges,
-        acquiredAt:Number(it.acquiredAt)||Date.now()+i
-      };
+      const charges=Number.isFinite(storedCharges)
+        ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
+      const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
+      if(Object.keys(it).length===3 && it.charges===charges && it.acquiredAt===acquiredAt)return it;
+      return {key:it.key,charges,acquiredAt};
     });
 }
 
@@ -13273,17 +13310,18 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
       if(canMushroomDodge && !target.__spinyMushroomDeclinedV21727 && !target.__spinyDecisionPendingV21727){
         target.__spinyDecisionPendingV21727=true;
         const itemName=ITEM_DEFS[main.key]?.name||'蘑菇';
+        const decision=Reliability.captureDefenseDecision(state,target,main.key);
 
-        themeConfirm(
+        const prompt=themeConfirm(
           `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${itemName} 抵消本次攻击？`,
           {title:'刺龟壳来袭', confirmText:'使用蘑菇闪避', cancelText:'承受攻击'}
-        ).then(useIt=>{
+        );
+        deferClassroomDefense(prompt,useIt=>{
           target.__spinyDecisionPendingV21727=false;
 
           if(useIt){
             consumeInventoryItem(target,0,1);
             tinyDefenseToast(`${target.name} 使用主要道具蘑菇成功闪避刺龟壳`);
-            try{saveState();renderAll()}catch(e){}
             return;
           }
 
@@ -13292,9 +13330,9 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
             _v2170ApplyItemScore.call(this,target,delta,sourceId,attackType);
           }finally{
             delete target.__spinyMushroomDeclinedV21727;
-            try{saveState();renderAll()}catch(e){}
           }
-        });
+        },()=>Reliability.isDefenseDecisionCurrent(state,decision));
+        Promise.resolve(prompt).then(()=>{target.__spinyDecisionPendingV21727=false},()=>{target.__spinyDecisionPendingV21727=false});
 
         /* 当前攻击暂缓，等待主题弹窗选择。 */
         return {changed:false,blocked:'pending-defense'};
@@ -16670,23 +16708,30 @@ function toggleQuickPersonV218(key){
   renderQuickPersonListV218();
 }
 function applyQuickPersonScoreV218(points){
+  if(state.isLocked){openPwdModal();return false}
   points=Number(points);
-  if(!Number.isFinite(points)||points===0){showToast('请输入有效分值');return}
-  const all=allStudentsV218();
-  const selected=all.filter(s=>qpStateV218.selected.has(s.key));
-  if(!selected.length){showToast('请先选择学生');return}
-  const groupCounts=new Map();
-  selected.forEach(s=>groupCounts.set(s.group.id,(groupCounts.get(s.group.id)||0)+1));
-  const parts=[];
-  groupCounts.forEach((count,gid)=>{
-    const g=state.groups.find(x=>x.id===gid);if(!g)return;
-    const delta=points*count;
-    applyScoreDelta(gid,delta);
-    parts.push(`${g.name} ${delta>=0?'+':''}${delta}`);
+  if(!Number.isSafeInteger(points)||points===0){showToast('请输入非零整数分值');return false}
+  const selected=allStudentsV218().filter(s=>qpStateV218.selected.has(s.key));
+  if(!selected.length){showToast('请先选择学生');return false}
+  const counts=new Map();
+  selected.forEach(s=>counts.set(s.group.id,(counts.get(s.group.id)||0)+1));
+  let updates;
+  try{updates=Reliability.planBatchScoreChanges(state.groups,[...counts],points)}
+  catch(error){showToast(error.message);return false}
+  const description='快速按人加分：'+selected.length+' 人 · '+updates.map(u=>{
+    const name=state.groups.find(g=>g.id===u.id)?.name||'小组';
+    return name+' '+(u.delta>=0?'+':'')+u.delta;
+  }).join('，');
+  cancelScoreAnimationAndSync();
+  const ok=runClassroomCommand(description,()=>{
+    for(const u of updates)state.groups.find(g=>g.id===u.id).score=u.score;
+    return true;
   });
-  recordHistory(`快速按人加分：${selected.length} 人 · ${parts.join('，')}`);
-  saveState();renderAll();
-  showToast(`已为 ${selected.length} 名学生完成加分`);
+  if(!ok)return false;
+  animateScores(updates.map(u=>({groupId:u.id,start:u.old,target:u.score})));
+  playSound(points>0?'score_add':'score_sub');
+  showToast('已为 '+selected.length+' 名学生完成加分');
+  return true;
 }
 function applyQuickPersonCustomV218(){
   const v=Number(document.getElementById('qpCustomScoreV218')?.value);
@@ -16869,23 +16914,25 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
     !target.__spinyHornDeclinedV218
   ){
     target.__spinyHornDecisionPendingV218=true;
-    themeConfirm(
+    const decision=Reliability.captureDefenseDecision(state,target,'horn');
+    const prompt=themeConfirm(
       `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 超级喇叭 抵消本次攻击？`,
       {title:'刺龟壳来袭',confirmText:'使用超级喇叭',cancelText:'承受攻击'}
-    ).then(useIt=>{
+    );
+    deferClassroomDefense(prompt,useIt=>{
       target.__spinyHornDecisionPendingV218=false;
       if(useIt){
         consumeInventoryItem(target,0,1);
         tinyDefenseToast(`${target.name} 使用超级喇叭成功击碎刺龟壳`);
-        saveState();renderAll();return;
+        return;
       }
       target.__spinyHornDeclinedV218=true;
       try{_v218ApplyItemScore.call(this,target,delta,sourceId,attackType)}
       finally{
         delete target.__spinyHornDeclinedV218;
-        saveState();renderAll();
       }
-    });
+    },()=>Reliability.isDefenseDecisionCurrent(state,decision));
+    Promise.resolve(prompt).then(()=>{target.__spinyHornDecisionPendingV218=false},()=>{target.__spinyHornDecisionPendingV218=false});
     return {changed:false,blocked:'pending-horn-defense'};
   }
   return _v218ApplyItemScore.call(this,target,delta,sourceId,attackType);
@@ -17144,21 +17191,6 @@ if(typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715!=='undefined'){
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.ice_flower='拥有 3 次冰之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/5，并冻结其主动道具使用。';
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.boomerang_flower='拥有 3 次回旋镖攻击次数；每次攻击当前排名紧邻自己的上方和下方小组，各扣除其当前积分的 1/5。';
 }
-
-/* ---------- 9. 小组状态文字补充冰冻 / 幽灵剩余次数 ---------- */
-const _v218RenderItemWindow=renderItemWindow;
-renderItemWindow=function(){
-  const r=_v218RenderItemWindow.apply(this,arguments);
-  const g=state.groups.find(x=>x.id===activeItemGroupId);
-  if(!g)return r;
-  /* 状态文本由旧版生成，这里只修正可能出现的“鱿鱿”文字。 */
-  document.querySelectorAll('#itemWindowBody *').forEach(el=>{
-    if(el.childNodes.length===1&&el.firstChild?.nodeType===3&&el.textContent.includes('鱿鱿')){
-      el.textContent=el.textContent.replaceAll('鱿鱿','鱿鱿');
-    }
-  });
-  return r;
-};
 
 /* 初始化 / 兼容旧存档 */
 state.groups.forEach(g=>{
@@ -18183,9 +18215,90 @@ exportSingleSettlementCSV=function(index){
 };
 </script>
 
+<script>/* Dependency-injected command lifecycle. No DOM, storage or game rules here. */
+const CommandLifecycle = (() => {
+  function create(host) {
+    let current = null;
+    function cancel(reason = 'cancelled') {
+      const tx = current;
+      if (!tx) return false;
+      current = null;
+      tx.cancelled = true;
+      host.restore(tx.before);
+      host.result({ok:false,cancelled:true,reason});
+      host.render();
+      return true;
+    }
+    function fail(tx, error) {
+      if (current !== tx) return;
+      cancel(String(error.message || error));
+      host.error(error);
+    }
+    function finish(tx) {
+      if (current !== tx || tx.waiting) return;
+      try {
+        host.validate();
+        current = null;
+        const saved = host.persist();
+        if (!saved.ok && !tx.retainOnPersistenceFailure) {
+          tx.cancelled = true;
+          host.restore(tx.before);
+          host.result({ok:false,error:saved.error});
+          host.error(Error(saved.error));
+        } else {
+          host.result({ok:true,persisted:!!saved.ok,...(!saved.ok?{error:saved.error}:{})});
+          if (!saved.ok) host.warning(saved.error);
+        }
+        host.render();
+      } catch (error) {
+        // persist may itself throw, including in a test/storage adapter.
+        current = tx;
+        fail(tx,error);
+      }
+    }
+    function run(description, operation, options = {}) {
+      if (host.active()) return false;
+      host.invalidate(); // Cancels any older pending command before the new snapshot.
+      cancel('superseded');
+      const tx = {before:host.snapshot(),waiting:0,retainOnPersistenceFailure:options.retainOnPersistenceFailure !== false};
+      current = tx;
+      try {
+        host.record(description);
+        host.setActive(true);
+        const result = operation();
+        if (result === false) {cancel('rejected');return false;}
+        host.validate();
+      } catch (error) {
+        fail(tx,error);return false;
+      } finally {host.setActive(false);}
+      if (tx.waiting) host.result({ok:true,pending:true,persisted:false});
+      else finish(tx);
+      return !tx.cancelled;
+    }
+    function defer(promise, apply, isCurrent = () => true) {
+      const tx = current;
+      if (!tx) return false;
+      tx.waiting++;
+      Promise.resolve(promise).then(value => {
+        if (current !== tx) return;
+        if (!isCurrent()) {cancel('stale-defense');return;}
+        host.setActive(true);
+        try {apply(value);host.validate();}
+        finally {host.setActive(false);}
+        tx.waiting--;
+        finish(tx);
+      }).catch(error => fail(tx,error));
+      return true;
+    }
+    return {run,defer,cancel,isPending:()=>!!current,baseline:()=>current?.before};
+  }
+  return {create};
+})();
+</script>
 <script>/* Stable public APIs. Legacy item executors remain isolated until their rule
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup(){
+  if(window.classroomReady && classroomCommands.isPending())return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
@@ -18234,6 +18347,7 @@ function applyClassroomBackup(raw){
 }
 function importClassroomData(data){
   if(state.isLocked)return {ok:false,error:'请先解锁'};
+  Reliability.invalidateDefenseDecisions();
   const old=clone(state),history=clone(historyStack),first=firstHandDrawPendingV218;
   try{
     Reliability.validateBackup(data);
@@ -18257,39 +18371,49 @@ function showClassroomSaveWarning(error){
   if(warning){warning.hidden=false;warning.dataset.reason=String(error||'保存不可用')}
   if(!alreadyUnsaved)showToast('更改仅保存在本页。关闭或刷新前请导出备份。');
 }
-function runClassroomCommand(description,operation,options={retainOnPersistenceFailure:true}){
-  if(window.itemCommandActive)return false;
-  const before=clone(state),oldHistory=clone(historyStack);
-  window.classroomRecordingCommand=true;
-  try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
-  window.itemCommandActive=true;
-  try{
-    const result=operation();
-    if(result===false){
-      state=before;historyStack=oldHistory;cancelItemScoreAnimations();return false;
+// Only this adapter touches global classroom state; the controller is pure/testable.
+const classroomCommands=CommandLifecycle.create({
+  active:()=>!!window.itemCommandActive,
+  setActive:value=>{window.itemCommandActive=value},
+  invalidate:()=>Reliability.invalidateDefenseDecisions(),
+  snapshot:()=>({state:clone(state),history:clone(historyStack),identity:state,backup:clone(buildClassroomBackup())}),
+  restore:before=>{
+    // Imported/replaced state belongs to a newer classroom and must be preserved.
+    if(state===before.identity){
+      const liveGroups=new Map(state.groups.map(g=>[g.id,g]));
+      const restored=before.state;
+      restored.groups=restored.groups.map(g=>{
+        const live=liveGroups.get(g.id);if(!live)return g;
+        Object.keys(live).forEach(k=>delete live[k]);Object.assign(live,g);return live;
+      });
+      Object.keys(state).forEach(k=>delete state[k]);Object.assign(state,restored);
+      historyStack=before.history;
     }
-    if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围');
-    window.itemCommandActive=false;
-    const saved=saveState();
-    if(!saved.ok){
-      if(options.retainOnPersistenceFailure){
-        // Ordinary grading remains usable when storage is denied or full.
-        // Import and final settlement use separate strict persistence policies.
-        window.lastClassroomCommandResult={ok:true,persisted:false,error:saved.error};
-        renderAll();showClassroomSaveWarning(saved.error);return true;
-      }
-      throw Error(saved.error);
-    }
-    window.lastClassroomCommandResult={ok:true,persisted:true};
-    renderAll();return true;
-  }catch(error){
-    state=before;historyStack=oldHistory;cancelScoreAnimationAndSync();
-    renderAll();showToast('操作未完成，已回滚，请导出备份：'+error.message);
-    return false;
-  }finally{window.itemCommandActive=false;}
+    cancelScoreAnimationAndSync();
+  },
+  record:description=>{
+    window.classroomRecordingCommand=true;
+    try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
+  },
+  validate:()=>{if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围')},
+  persist:()=>saveState(), render:()=>renderAll(),
+  result:value=>{window.lastClassroomCommandResult=value},
+  warning:error=>showClassroomSaveWarning(error),
+  error:error=>showToast('操作未完成，已回滚，请导出备份：'+error.message)
+});
+Reliability.onDefenseInvalidation(()=>classroomCommands.cancel('lifecycle-changed'));
+function runClassroomCommand(description,operation,options){return classroomCommands.run(description,operation,options)}
+function deferClassroomDefense(promise,apply,isCurrent){
+  if(classroomCommands.defer(promise,apply,isCurrent))return;
+  // Compatibility for direct effect callers outside the public item command.
+  Promise.resolve(promise).then(answer=>{
+    if(!isCurrent())return;
+    apply(answer);saveState();renderAll();
+  }).catch(error=>{console.error('防御确认失败',error);showToast('防御确认未完成，请重试')});
 }
 function useItem(groupId,index){
   if(window.itemCommandActive)return false;
+  Reliability.invalidateDefenseDecisions();
   const g=state.groups.find(x=>x.id===groupId);
   const reason=Reliability.validateItem(state,g,index,isCommunismMode());
   closeItemWindowForFx();
