@@ -9,7 +9,7 @@
         260
       ],
       "history": 20,
-      "nodes": 1891
+      "nodes": 1919
     },
     {
       "round": 50,
@@ -20,7 +20,7 @@
         320
       ],
       "history": 40,
-      "nodes": 1891
+      "nodes": 1919
     },
     {
       "round": 100,
@@ -31,9 +31,9 @@
         420
       ],
       "history": 40,
-      "nodes": 1891
+      "nodes": 1919
     }
   ],
-  "durationMs": 3057.300000000745,
-  "heap": 25220988
+  "durationMs": 17688,
+  "heap": 21025567
 }

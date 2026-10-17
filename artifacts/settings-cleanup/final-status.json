@@ -1,0 +1,11 @@
+{
+  "completedAt": "2026-10-17T16:53:46.376936+00:00",
+  "settingsCommand": "npm run test:settings",
+  "settingsExitCode": 0,
+  "settingsLog": "artifacts/settings-cleanup/focused-shipping.log",
+  "sha256": "1316dab003e14cc7e1df22e8a7435dfeb226fae8f723333d1819312cc7f4d719",
+  "finalUiScenarios": 43,
+  "nodeTests": 90,
+  "fullVerifyRerun": false,
+  "circleCiOperations": false
+}

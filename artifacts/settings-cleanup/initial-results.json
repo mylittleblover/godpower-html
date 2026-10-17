@@ -1,0 +1,688 @@
+{
+  "sha256": "b197d3dfc1ee44d3446f202cb8d127aeaa1bac90c35c4e5bc530de0e5c02d586",
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "name": "Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768",
+      "status": "PASS",
+      "evidence": [
+        {
+          "category": "rules",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "appearance",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "motion",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "sound",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "items",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "students",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "welcome",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        },
+        {
+          "category": "data",
+          "width": 1366,
+          "scrollWidth": 1366,
+          "nav": {
+            "x": 42,
+            "y": 246,
+            "width": 195,
+            "height": 480,
+            "top": 246,
+            "right": 237,
+            "bottom": 726,
+            "left": 42
+          },
+          "body": {
+            "x": 261,
+            "y": 246,
+            "width": 1063,
+            "height": 480,
+            "top": 246,
+            "right": 1324,
+            "bottom": 726,
+            "left": 261
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080",
+      "status": "PASS",
+      "evidence": [
+        {
+          "category": "rules",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "appearance",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "motion",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "sound",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "items",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "students",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "welcome",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        },
+        {
+          "category": "data",
+          "width": 1920,
+          "scrollWidth": 1920,
+          "nav": {
+            "x": 110,
+            "y": 246,
+            "width": 220,
+            "height": 792,
+            "top": 246,
+            "right": 330,
+            "bottom": 1038,
+            "left": 110
+          },
+          "body": {
+            "x": 354,
+            "y": 246,
+            "width": 1456,
+            "height": 792,
+            "top": 246,
+            "right": 1810,
+            "bottom": 1038,
+            "left": 354
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440",
+      "status": "PASS",
+      "evidence": [
+        {
+          "category": "rules",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "appearance",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "motion",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "sound",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "items",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "students",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "welcome",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        },
+        {
+          "category": "data",
+          "width": 2560,
+          "scrollWidth": 2560,
+          "nav": {
+            "x": 430,
+            "y": 246,
+            "width": 220,
+            "height": 1152,
+            "top": 246,
+            "right": 650,
+            "bottom": 1398,
+            "left": 430
+          },
+          "body": {
+            "x": 674,
+            "y": 246,
+            "width": 1456,
+            "height": 1152,
+            "top": 246,
+            "right": 2130,
+            "bottom": 1398,
+            "left": 674
+          }
+        }
+      ]
+    },
+    {
+      "name": "Every original control and action survives exactly once; categories use explicit ownership",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: triggerUploadAudio('bgm_set_0_intro_normal')\n\n0 !== 1\n\n    at file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:34:132\n    at async test (file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:11:49)\n    at async file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:32:2"
+    },
+    {
+      "name": "Daily volume uses original live setters and persists across reload",
+      "status": "FAIL",
+      "error": "page.reload: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"domcontentloaded\"\u001b[22m\n\n    at /workspace/godpower-html/tests/e2e/settings-cleanup.mjs:46:117\n    at async test (/workspace/godpower-html/tests/e2e/settings-cleanup.mjs:11:49)\n    at async file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:44:2"
+    },
+    {
+      "name": "All nine music choices and all 30 item sound editors remain available after repeated navigation",
+      "status": "PASS",
+      "evidence": {
+        "musicChoices": 9,
+        "itemEditors": 30,
+        "actualItems": [
+          "green",
+          "triple_green",
+          "red",
+          "triple_red",
+          "spiny",
+          "banana",
+          "triple_banana",
+          "horn",
+          "bomb",
+          "hammer",
+          "coin",
+          "coin_shell",
+          "question",
+          "mushroom",
+          "triple_mushroom",
+          "boo",
+          "blooper",
+          "lightning",
+          "star",
+          "mega",
+          "bullet",
+          "power",
+          "feather",
+          "fire_flower",
+          "ice_flower",
+          "boomerang_flower"
+        ]
+      }
+    },
+    {
+      "name": "Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command",
+      "status": "PASS"
+    },
+    {
+      "name": "Danger tools stay collapsed; cancel score and item clearing preserves all data",
+      "status": "PASS"
+    },
+    {
+      "name": "All item icons retained; reset-all has confirmation and preserves custom image on cancel",
+      "status": "PASS"
+    },
+    {
+      "name": "Moved audio actions: real WAV upload, both BGMP exports, import into isolated storage and refreshed item status",
+      "status": "FAIL",
+      "error": "locator.waitFor: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#itemFxSoundListV26 .sound-row').filter({ has: locator('button[onclick=\"triggerUploadAudio(\\'fx_item_coin\\')\"]') }).locator('button[onclick^=\"deleteFxTrack\"]') to be visible\u001b[22m\n\n    at /workspace/godpower-html/tests/e2e/settings-cleanup.mjs:78:245\n    at async test (/workspace/godpower-html/tests/e2e/settings-cleanup.mjs:11:49)\n    at async file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:71:2"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,42 @@
+
+> godpower-html@2.19.0 test:settings
+> node tests/e2e/settings-cleanup.mjs
+
+PASS Settings entry and category staggered motion, rapid switching, Escape and reduced-motion cleanup
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440
+FAIL Aligned full-width settings at all desktop sizes and 80/100/125 percent application zoom {"header":{"x":30,"y":103.75,"width":1306,"height":177.5,"top":103.75,"right":1336,"bottom":281.25,"left":30},"shell":{"x":30,"y":306.25,"width":1306,"height":601.25,"top":306.25,"right":1336,"bottom":907.5,"left":30},"body":{"x":303.75,"y":306.25,"width":1032.25,"height":601.25,"top":306.25,"right":1336,"bottom":907.5,"left":303.75},"scroll":1366,"width":1366,"height":768}
+PASS Every original control and action survives exactly once; categories use explicit ownership
+PASS Moved layout, rules, real wallpaper and veil save and restore without changing groups
+PASS Daily volume uses original live setters and persists across reload
+PASS All nine music choices and all 30 item sound editors remain available after repeated navigation
+PASS Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command
+PASS Danger tools stay collapsed; cancel score and item clearing preserves all data
+PASS All item icons retained; reset-all has confirmation and preserves custom image on cancel
+PASS Local bank maintenance is secondary, validates edits and exports real saved content
+FAIL Data backup and local management PIN keep existing behavior after moving controls locator.click: Error: strict mode violation: locator('button[onclick="exportData()"]') resolved to 2 elements:
+    1) <button type="button" onclick="exportData()" class="btn btn-warning">导出当前课堂备份</button> aka getByText('导出当前课堂备份')
+    2) <button class="btn btn-sm" onclick="exportData()">导出备份</button> aka getByRole('button', { name: '导出备份' })
+
+Call log:
+[2m  - waiting for locator('button[onclick="exportData()"]')[22m
+
+FAIL Moved audio actions: real WAV upload, both BGMP exports, import into isolated storage and refreshed item status The input did not match the regular expression /自定义/. Input:
+
+'\n' +
+  '      \n' +
+  '          \n' +
+  '          \n' +
+  '            金币\n' +
+  '            已载入独立音频\n' +
+  '          \n' +
+  '        \n' +
+  '      \n' +
+  '        试听\n' +
+  '        上传\n' +
+  '        还原\n' +
+  '      \n' +
+  '    '
+
+{ pass: 12, fail: 3, errors: [] }

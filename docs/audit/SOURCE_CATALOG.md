@@ -2,7 +2,7 @@
 
 由 `npm run audit` 生成。此目录包含旧实现和覆盖层，不能把定义存在视为功能通过。测试覆盖见 TEST_MATRIX.md。
 
-共 702 个命名定义、546 个函数名；23 个字面量存储键、88 个动画名、1689 个 !important。
+共 704 个命名定义、550 个函数名；23 个字面量存储键、88 个动画名、1657 个 !important。
 
 | 功能／实现 | 位置 | 输入 | 源码返回表达式（截断） | 依赖调用 | 涉及状态字段 | 风险 | 测试结果 |
 |---|---|---|---|---|---|---|---|
@@ -146,263 +146,263 @@
 | closeSoundModal | src/script/00.js:3036 | 无参数 | DOM／状态副作用；需按调用场景确认 | switchView |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | syncSettingsControls | src/script/00.js:3040 | 无参数 | DOM／状态副作用；需按调用场景确认 |  | resizerEnabled, saveAllIn, columnMode, masterVolume, groups, name, members | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | updateMasterVolume | src/script/00.js:3050 | vol | DOM／状态副作用；需按调用场景确认 | parseFloat, saveState | masterVolume | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderBgmSlotList | src/script/00.js:3059 | 无参数 | void; void | parseInt, Number, refreshSoundIdCache, checkSetCompleteness, hasSound |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderFxSlotList | src/script/00.js:3113 | 无参数 | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| previewBgmTrack | src/script/00.js:3136 | slotId | void | getAudioContext |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| triggerUploadAudio | src/script/00.js:3157 | slotId | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| handleSoundFileUpload | src/script/00.js:3162 | event | void | getAudioContext, showToast, renderBgmSlotList, renderFxSlotList, themeAlert |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| deleteBgmTrack | src/script/00.js:3199 | slotId | void | showToast, renderBgmSlotList |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| deleteFxTrack | src/script/00.js:3213 | idbKey, fxKey | void | showToast, renderFxSlotList |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| exportAudioBundle | src/script/00.js:3226 | 无参数 | void; void | showToast, resolve, themeAlert |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| triggerImportAudioBundle | src/script/00.js:3275 | 无参数 | void | openPwdModal | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handleBundleFilePicked | src/script/00.js:3280 | event | void; void | showToast, themeAlert, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| escapeHtml | src/script/00.js:3324 | str | String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, " | String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| ensureAudioUnlocked | src/script/00.js:3338 | 无参数 | Promise.resolve(); getAudioContext().then(() => { audioUnlocked = true; }).catch(() => { audioUnlocked = false; }) | getAudioContext |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| switchView | src/script/00.js:3343 | name | DOM／状态副作用；需按调用场景确认 | ensureAudioUnlocked, renderWelcomePage, updateWelcomeTrackIfNeeded, renderHistoryList, renderSettlementHistoryList, syncSettingsControls, renderBgmSlotList, renderFxSlotList, renderBgmEngineConsole, menuFadeOut, renderAll, bgmStopAll, getMenuTrackKeyForView, menuStartOrSwitch |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| enterBattleFromWelcome | src/script/00.js:3371 | 无参数 | DOM／状态副作用；需按调用场景确认 | switchView |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| getMenuTrackKeyForView | src/script/00.js:3375 | name | getWelcomeTrackKey(); 'aux_history'; 'aux_archives'; 'aux_settings'; null | getWelcomeTrackKey |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| getWelcomeTrackKey | src/script/00.js:3383 | 无参数 | 'welcome_' + digits | Number, String | groups, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| startWelcomeClock | src/script/00.js:3393 | 无参数 | void | updateWelcomeClock, setInterval |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| updateWelcomeClock | src/script/00.js:3399 | 无参数 | DOM／状态副作用；需按调用场景确认 | updateHeaderStats, String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderWelcomePage | src/script/00.js:3418 | 无参数 | void | Number, escapeHtml, getScore | groups, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| saveMenuCfg | src/script/00.js:3489 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| midiToFreq | src/script/00.js:3492 | m | 440 * Math.pow(2, (m - 69) / 12) |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| mulberry32 | src/script/00.js:3494 | seed | function() {     a ／= 0; a = a + 0x6D2B79F5 ／ 0;     let t = Math.imul(a ^ a >>> 15, 1 ／ a);     t =; ((t ^ t >>> 14) >>> 0) / 4294967296 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| buildMenuPattern | src/script/00.js:3508 | key, bars | MENU_PATTERN_CACHE[cacheKey]; MENU_PATTERN_CACHE[cacheKey] | Number, mulberry32, rnd |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| getNoiseBuffer | src/script/00.js:3546 | 无参数 | null; noiseBuffer; noiseBuffer |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuSecPerBeat | src/script/00.js:3580 | 无参数 | 60 / Math.max(40, Number(menuCfg.bpm) ／／ 130) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuLoopSpan | src/script/00.js:3582 | 无参数 | {     startBeat,     endBeat,     startSec: (startBeat - 1) * menuSecPerBeat(),     endSec: (endBeat | Number, menuSecPerBeat |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| normalizeWelcomeLoopBuffer | src/script/00.js:3597 | key, buf | buf; buf; fixed; buf | menuLoopSpan, menuSecPerBeat |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuEnsureGraph | src/script/00.js:3617 | 无参数 | false; true |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| makeSynthMenuBuffer | src/script/00.js:3628 | key | offline.startRendering() | Number, buildMenuPattern, midiToFreq | gain, connect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuLoadBuffer | src/script/00.js:3688 | key | menuBgm.buffers[key]; menuLoading[key]; buf; await p | res, normalizeWelcomeLoopBuffer, makeSynthMenuBuffer |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuLoopParams | src/script/00.js:3719 | buf, key | { startSec, endSec }; { startSec: 0, endSec: buf.duration } | menuLoopSpan |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuTrimFor | src/script/00.js:3729 | key | Math.max(0, Math.min(3, Number.isFinite(t) ? t : 1)) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuPosForKey | src/script/00.js:3735 | key, buf, t | elapsed; Math.min(elapsed, Math.max(0, buf.duration - 0.02)); lp.startSec + ((elapsed - lp.startSec) % dur) | menuLoopParams |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuVoiceGainAt | src/script/00.js:3744 | v, t | r.v0; r.v1; r.v0 + (r.v1 - r.v0) * ((t - r.t0) / (r.t1 - r.t0)) |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuVoiceRamp | src/script/00.js:3752 | v, target, dur | DOM／状态副作用；需按调用场景确认 | menuVoiceGainAt | cancelScheduledValues, setValueAtTime, linearRampToValueAtTime | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuSpawnVoice | src/script/00.js:3762 | key, buf, startAt | v | menuLoopParams, menuPosForKey |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuRetireVoice | src/script/00.js:3787 | v, fadeSec | void | menuVoiceRamp |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuSwitchNow | src/script/00.js:3799 | key, buf | DOM／状态副作用；需按调用场景确认 | menuRetireVoice, menuTrimFor, menuVoiceGainAt, menuVoiceRamp, menuSpawnVoice |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuStartOrSwitch | src/script/00.js:3822 | key | void; void; void; void; void; void | ensureAudioUnlocked, menuEnsureGraph, menuLoadBuffer, menuSwitchNow |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuFadeOut | src/script/00.js:3840 | 无参数 | void | menuPosForKey, menuRetireVoice |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuStop | src/script/00.js:3854 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuResyncGrid | src/script/00.js:3867 | 无参数 | void; void; void | menuLoopParams, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuScheduleReload | src/script/00.js:3882 | 无参数 | void; void | clearTimeout, setTimeout, menuLoadBuffer, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| updateWelcomeTrackIfNeeded | src/script/00.js:3900 | 无参数 | void | getWelcomeTrackKey, menuStartOrSwitch |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderBgmEngineConsole | src/script/00.js:3907 | 无参数 | void | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuEnabledChange | src/script/00.js:3961 | v | DOM／状态副作用；需按调用场景确认 | saveMenuCfg, menuStop, menuStartOrSwitch, getMenuTrackKeyForView |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuBpmChange | src/script/00.js:3966 | v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuScheduleReload |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuMeterChange | src/script/00.js:3971 | v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuResyncGrid |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuLoopChange | src/script/00.js:3975 | field, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuResyncGrid |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| menuTrimChange | src/script/00.js:3979 | k, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuVoiceRamp, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| battleBpmChange | src/script/00.js:3986 | which, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| makeRollLoopBuffer | src/script/00.js:3996 | 无参数 | null; buf |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| startRollLoop | src/script/00.js:4016 | 无参数 | void; void | makeRollLoopBuffer, getFxOutputV2176 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| stopRollLoop | src/script/00.js:4034 | cb | void | cb, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| uiDbOpen | src/script/00.js:4054 | 无参数 | uiDbPromise; uiDbPromise | res |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| uiDbReq | src/script/00.js:4069 | mode, fn | null; new Promise(res => {     try {       const tx = d.transaction('kv', mode);       const req = fn(tx.o | uiDbOpen, fn, res |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| getWallVeil | src/script/00.js:4083 | 无参数 | Number.isFinite(v) ? Math.max(0, Math.min(0.8, v)) : 0.35 | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyWallpaperVeil | src/script/00.js:4087 | 无参数 | DOM／状态副作用；需按调用场景确认 | getWallVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyWallpaper | src/script/00.js:4096 | blob | DOM／状态副作用；需按调用场景确认 | applyWallpaperVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| compressWallpaper | src/script/00.js:4109 | file | new Promise(res => canvas.toBlob(b => res(b), 'image/jpeg', 0.85)) | createImageBitmap, res, rej |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| onWallpaperFile | src/script/00.js:4135 | input | void; void | showToast, compressWallpaper, uiDbReq, applyWallpaper |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| resetWallpaper | src/script/00.js:4151 | 无参数 | DOM／状态副作用；需按调用场景确认 | uiDbReq, applyWallpaper, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| changeWallpaperVeil | src/script/00.js:4156 | v | DOM／状态副作用；需按调用场景确认 | Number, applyWallpaperVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| initWallpaper | src/script/00.js:4160 | 无参数 | DOM／状态副作用；需按调用场景确认 | uiDbReq, applyWallpaper |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| normalizeInventoryV21718 | src/script/00.js:4284 | inventory | (Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter(it=>{       const key=it&&it.key; false; true; it; {key:it.key,charges,acquiredAt} | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| ensureItemState | src/script/00.js:4305 | 无参数 | DOM／状态副作用；需按调用场景确认 | normalizeInventoryV21718 | groups, inventory, itemStats, itemEffect, booShield, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| ranking | src/script/00.js:4317 | 无参数 | state.groups.slice().sort((a,b)=>(Number(b.score)／／0)-(Number(a.score)／／0)／／state.groups.indexOf(a)- | Number | groups | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| rankIndex | src/script/00.js:4318 | id | ranking().findIndex(g=>g.id===id) | ranking | id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| roundQuarter | src/script/00.js:4319 | v | Math.round((Number(v)／／0)/4) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| roundThird | src/script/00.js:4320 | v | Math.round((Number(v)／／0)/3) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| roundHalf | src/script/00.js:4321 | v | Math.round((Number(v)／／0)/2) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| eligibleForItems | src/script/00.js:4322 | g | g && Number(g.score)>=0 | Number | score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| consumeInventoryItem | src/script/00.js:4323 | g, index, amount=1 | void |  | inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| addItemToGroup | src/script/00.js:4324 | g, key | false; true | eligibleForItems | inventory, itemStats, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| tinyDefenseToast | src/script/00.js:4325 | msg | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| defenseCandidates | src/script/00.js:4327 | g, attackType | -1; 1; -1; 1; (a.at／／0)-(b.at／／0); out |  | itemEffect, booShield, inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| damageFraction | src/script/00.js:4344 | target, denom, sourceId, type='normal' | applyItemScore(target,-loss,sourceId,type) | roundHalf, roundThird, roundQuarter, applyItemScore |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| boostFraction | src/script/00.js:4345 | target, denom=4 | false; true | eligibleForItems, roundQuarter |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemDropWeights | src/script/00.js:4347 | pos, total | W | put |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| weightedPick | src/script/00.js:4437 | weights | k; arr[0]?.[0]／／'coin' |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| drawItemForGroup | src/script/00.js:4438 | g | null; weightedPick(itemDropWeights(pos,r.length)) | eligibleForItems, ranking, weightedPick, itemDropWeights | inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| detectOvertakePunish | src/script/00.js:4440 | actorId, beforeOrder | void; void | ranking, eligibleForItems, tryDefend, roundQuarter | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:4446 | groupId, index | void; void; void; void; void; void; void | ensureItemState, closeItemWindowForFx, eligibleForItems, showToast, ranking, recordHistory, other, damageFraction, flashBomb, boostFraction, consumeInventoryItem, saveState, renderAll, startBlooperClock, applyLightningHitV2116, detectOvertakePunish, Number | groups, inventory, id, itemEffect, name, score, displayScore, booShield, itemStats, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| flashBomb | src/script/00.js:4522 | id | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| startBulletTimer | src/script/00.js:4524 | 无参数 | void; void | clearInterval, setInterval, ensureItemState, rankIndex, showToast, eligibleForItems, saveState, renderGrid, renderChart, renderDashboard | groups, itemEffect, id, inventory, name, score, displayScore | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| startBlooperClock | src/script/00.js:4525 | 无参数 | DOM／状态副作用；需按调用场景确认 | applyBlooperMask, setTimeout | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyBlooperMask | src/script/00.js:4526 | 无参数 | DOM／状态副作用；需按调用场景确认 |  | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:4528 | 无参数 | void; void | ensureItemState, eligibleForItems, showToast, recordHistory, escapeHtml, setInterval, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, id, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| openItemWindow | src/script/00.js:4534 | groupId, tab='detail' | DOM／状态副作用；需按调用场景确认 | ensureItemState, renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| closeItemWindow | src/script/00.js:4535 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| switchItemTab | src/script/00.js:4536 | tab | DOM／状态副作用；需按调用场景确认 | renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemWindow | src/script/00.js:4537 | 无参数 | closeItemWindow(); '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div>; <div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-na | closeItemWindow, ensureGroupNumbersV213, String, Number, escapeHtml, eligibleForItems, itemVisual | groups, name, isLocked, itemStats, itemEffect, booShield, score, groupNo, color, id, members, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| previewItemDetailColor | src/script/00.js:4616 | value | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| saveItemDetailColor | src/script/00.js:4617 | id, value | void; void | renderItemWindow, updateGroupColor | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| saveItemGroupDetail | src/script/00.js:4623 | id | void; void; void; void; void | openPwdModal, showToast, Number, recordHistory, saveState, renderAll, updatePickerPoolUI, renderItemWindow | isLocked, groups, name, groupNo, members | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| deleteItemDetailGroup | src/script/00.js:4640 | id | void | openPwdModal, deleteGroup, closeItemWindow, renderItemWindow | isLocked, groups, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemQuickScore | src/script/00.js:4649 | id, d | void | openPwdModal, applyScoreDelta, renderItemWindow | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemCustomScore | src/script/00.js:4650 | id | void | Number, itemQuickScore |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| enhanceItemCards | src/script/00.js:4652 | 无参数 | void; it?<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?<s | ensureItemState, itemVisual, openItemWindow, applyBlooperMask | groups, id, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderGrid | src/script/00.js:4653 | 无参数 | DOM／状态副作用；需按调用场景确认 | _itemBaseRenderGrid, enhanceItemCards |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyJudgeRound | src/script/00.js:4655 | 无参数 | false; void | ranking, _itemBaseJudgeRound, eligibleForItems, detectOvertakePunish, saveState, renderAll | roundActive, evaluated, correctAns, id, groups, selectedOpt, itemStats, itemEffect, score, displayScore, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| ensureV2State | src/script/00.js:4668 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureItemState | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemVisual | src/script/00.js:4678 | key, cls='' | src?<img class="${cls}" src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}">:d.icon | ensureV2State, escapeHtml | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemBoxVisualV2121 | src/script/00.js:4684 | cls='' | BUILTIN_ITEM_BOX_V2121?<img class="${cls}" src="${BUILTIN_ITEM_BOX_V2121}" alt="道具箱">:'❔' |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| setPickerInfoTab | src/script/00.js:4687 | tab | DOM／状态副作用；需按调用场景确认 | renderPickerInfo |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderPickerInfo | src/script/00.js:4688 | 无参数 | void | ensureV2State, escapeHtml | groups, itemStats, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openPickerModal | src/script/00.js:4697 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, _v2OpenPicker, setPickerInfoTab, syncPickerScoreTarget |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| syncPickerScoreTarget | src/script/00.js:4698 | 无参数 | void; void | escapeHtml | picker, name, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| pickerTargetGroup | src/script/00.js:4699 | 无参数 | null; state.picker.mode==='group'?w:w.group |  | picker | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| scorePickerTarget | src/script/00.js:4700 | n | void | pickerTargetGroup, showToast, applyScoreDelta, syncPickerScoreTarget | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| scorePickerCustom | src/script/00.js:4701 | 无参数 | void | Number, scorePickerTarget |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| stopSlotSpin | src/script/00.js:4702 | 无参数 | DOM／状态副作用；需按调用场景确认 | _v2StopSlot, ensureV2State, saveState, syncPickerScoreTarget, renderPickerInfo | picker, name, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openHandRaise | src/script/00.js:4705 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, renderHandRaise |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| closeHandRaise | src/script/00.js:4706 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderHandRaise | src/script/00.js:4707 | 无参数 | void | escapeHtml | groups, id, name, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| selectHandGroup | src/script/00.js:4708 | id | DOM／状态副作用；需按调用场景确认 | renderHandRaise | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| judgeHandRaise | src/script/00.js:4709 | correct | void; void | ensureV2State, showToast, recordHistory, saveState, renderAll | groups, name, itemStats, itemGlobal, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handQuickScore | src/script/00.js:4716 | n | DOM／状态副作用；需按调用场景确认 | applyScoreDelta |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:4717 | 无参数 | void; void | eligibleForItems, showToast, recordHistory, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handUseItem | src/script/00.js:4718 | 无参数 | void | showToast, closeHandRaise, openItemWindow | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:4721 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, setInterval, ranking, weightedPick, itemDropWeights, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| openItemEncyclopedia | src/script/00.js:4735 | 无参数 | DOM／状态副作用；需按调用场景确认 | switchView, setTimeout, installSettingsTabs, showSettingsV2 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemEncyclopedia | src/script/00.js:4736 | 无参数 | void; <div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d | ensureV2State, itemVisual |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| chooseItemIcon | src/script/00.js:4740 | k | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handleItemIconUpload | src/script/00.js:4741 | e | void | ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| resetItemIcon | src/script/00.js:4742 | k | DOM／状态副作用；需按调用场景确认 | ensureV2State, saveState, renderItemEncyclopedia, renderAll | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| resetAllItemIcons | src/script/00.js:4743 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, saveState, renderItemEncyclopedia, renderAll | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| exportItemIconPack | src/script/00.js:4744 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, setTimeout | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| importItemIconPack | src/script/00.js:4745 | e | void | ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| installSettingsTabs | src/script/00.js:4748 | 无参数 | void | renderItemEncyclopedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| showSettingsV2 | src/script/00.js:4754 | which | DOM／状态副作用；需按调用场景确认 | installSettingsTabs, renderItemEncyclopedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openAbout | src/script/00.js:4763 | 无参数 | DOM／状态副作用；需按调用场景确认 | renderAbout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| closeAbout | src/script/00.js:4764 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderAbout | src/script/00.js:4765 | tab | DOM／状态副作用；需按调用场景确认 | itemVisual |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemWindow | src/script/00.js:4773 | 无参数 | void | _v2RenderItemWindow, itemVisual | groups, isLocked, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godAddItem | src/script/00.js:4774 | id, k | void; void | showToast, recordHistory, saveState, renderAll, renderItemWindow | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godClearItems | src/script/00.js:4775 | id | void | recordHistory, saveState, renderAll, renderItemWindow | groups, name, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| enhanceItemCards | src/script/00.js:4778 | 无参数 | void | _v2Enhance, ensureV2State, itemVisual | groups, id, inventory, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemWindow | src/script/00.js:4779 | 无参数 | void | _v2RenderItemWindowIcons, itemVisual | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyJudgeRound | src/script/00.js:4782 | 无参数 | DOM／状态副作用；需按调用场景确认 | _v2Judge, ensureV2State, saveState | roundActive, evaluated, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| switchView | src/script/00.js:4787 | name | DOM／状态副作用；需按调用场景确认 | _v2SwitchView, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| cancelHandItemDraw | src/script/00.js:4794 | silent=false | DOM／状态副作用；需按调用场景确认 | clearInterval, clearTimeout, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| closeHandRaise | src/script/00.js:4803 | 无参数 | DOM／状态副作用；需按调用场景确认 | cancelHandItemDraw, _v21CloseHandRaise |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| selectHandGroup | src/script/00.js:4806 | id | void | showToast, _v21SelectHandGroup |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| judgeHandRaise | src/script/00.js:4812 | correct | DOM／状态副作用；需按调用场景确认 | cancelHandItemDraw, _v21JudgeHandRaise, eligibleForItems | groups, inventory, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:4825 | 无参数 | void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, ranking, weightedPick, itemDropWeights, itemVisual, tick, setInterval, setTimeout, clearInterval, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| finishHandItemReward | src/script/00.js:4880 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handUseNewItem | src/script/00.js:4886 | 无参数 | void; void | showToast, closeHandRaise, openItemWindow, setTimeout | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| showItemUseFx | src/script/00.js:4903 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemFxTargetText | src/script/00.js:4904 | key, gid | ['coin','mushroom','triple_mushroom','star','mega','bullet','power'].includes(key)?'作用于本组':''; '目标：'+names.join('、') | ranking, add | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| closeItemWindowForFx | src/script/00.js:4917 | 无参数 | DOM／状态副作用；需按调用场景确认 | closeItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:4922 | groupId, index, ...rest | result | closeItemWindowForFx, setTimeout, showItemUseFx, itemFxTargetText | groups, inventory, itemEffect, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| normalizeItemIconFile | src/script/00.js:4940 | file, done | DOM／状态副作用；需按调用场景确认 | done |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handleItemIconUpload | src/script/00.js:4959 | e | void | normalizeItemIconFile, ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| updateCardRouletteVisual | src/script/00.js:4969 | o, key | void | itemVisual |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:4981 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, ranking, weightedPick, itemDropWeights, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:4998 | now | void | ranking, weightedPick, itemDropWeights, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:5035 | 无参数 | void; void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, ranking, weightedPick, itemDropWeights, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:5053 | now | void; void; void; void; void | ranking, weightedPick, itemDropWeights, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| cancelHandItemDraw | src/script/00.js:5085 | silent=false | DOM／状态副作用；需按调用场景确认 | clearTimeout, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| battleCard | src/script/00.js:5111 | id | document.querySelector(#view-battle .group-row-card[data-group-id="${id}"])／／document.querySelecto |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| clearCardFx | src/script/00.js:5112 | card | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| playCasterCardFx | src/script/00.js:5118 | key, gid | void; void | battleCard, clearCardFx, itemVisual, escapeHtml, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| playTargetCardFx | src/script/00.js:5128 | id, key, type='hit' | void; void | battleCard, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| cardFxTargets | src/script/00.js:5137 | key, gid | ids | ranking, add | id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| showItemUseFx | src/script/00.js:5151 | key, casterId=null, targetText='' | _v25ShowItemUseFx(key,casterId,targetText) | playCasterCardFx, cardFxTargets, setTimeout, playTargetCardFx, _v25ShowItemUseFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| removeBgmEngineeringConsoleV26 | src/script/00.js:5186 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemFxSoundListV26 | src/script/00.js:5205 | 无参数 | void; <div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="s | hasSound |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemSoundCategoryV26 | src/script/00.js:5212 | k | 'item_attack'; 'item_buff'; 'item_steal'; 'item_status' |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| showItemUseFx | src/script/00.js:5219 | k, g, t | _v26ShowItemUseFx(k,g,t) | playSound, setTimeout, itemSoundCategoryV26, _v26ShowItemUseFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| tinyDefenseToast | src/script/00.js:5221 | m | _v26TinyDefense(m) | playSound, _v26TinyDefense |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| startDrawSoundBedV26 | src/script/00.js:5222 | ms=3600 | DOM／状态副作用；需按调用场景确认 | playSound, setInterval, clearInterval, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:5227 | 无参数 | _v26GlobalDraw() | startDrawSoundBedV26, _v26GlobalDraw |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:5228 | 无参数 | _v26HandDraw() | startDrawSoundBedV26, _v26HandDraw |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| uiIconsV26 | src/script/00.js:5241 | 无参数 | STORAGE.getJSON('politics_ui_icons_v26',{})／／{} |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyUiIconsV26 | src/script/00.js:5242 | 无参数 | void | uiIconsV26, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| chooseUiIconV26 | src/script/00.js:5258 | id | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| handleUiIconV26 | src/script/00.js:5259 | e | void | normalizeItemIconFile, uiIconsV26, applyUiIconsV26, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| resetUiIconV26 | src/script/00.js:5263 | id | DOM／状态副作用；需按调用场景确认 | uiIconsV26, applyUiIconsV26, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderUiIconManagerV26 | src/script/00.js:5264 | 无参数 | void | uiIconsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| rebuildSettingsV26 | src/script/00.js:5270 | 无参数 | void | removeBgmEngineeringConsoleV26, installCommunismModeSetting, renderUiIconManagerV26, renderItemEncyclopedia, renderItemFxSoundListV26, showSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| showSettingsV26 | src/script/00.js:5296 | which | void | renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, installCommunismModeSetting, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| installSettingsTabs | src/script/00.js:5306 | 无参数 | DOM／状态副作用；需按调用场景确认 | rebuildSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| showSettingsV2 | src/script/00.js:5307 | which | DOM／状态副作用；需按调用场景确认 | showSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| syncVisualViewportV27 | src/script/00.js:5318 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| repairPersistentItemsV28 | src/script/00.js:5335 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureItemState, normalizeInventoryV21718, saveState | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| programConfirmV28 | src/script/00.js:5345 | message, opts={} | new Promise(resolve=>{     document.getElementById('programConfirmV28')?.remove();     programConfir; void; void | escapeHtml, resolve, finish |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setCorrectAns | src/script/00.js:5372 | opt | void; void; void | playSound, renderControls, programConfirmV28 | evaluated, correctAns, groups, selectedOpt, name | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| heldItemKeysV281 | src/script/00.js:5402 | g | new Set((g?.inventory／／[]).map(it=>it?.key).filter(Boolean)) |  | inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| weightedPickNoRepeatV281 | src/script/00.js:5405 | weights, blocked=new Set() | weightedPick(filtered); null | Number, weightedPick |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| pickItemForGroupV281 | src/script/00.js:5414 | g, batchUsed=new Set() | k | ranking, itemDropWeights, heldItemKeysV281, weightedPickNoRepeatV281, weightedPick | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:5429 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, pickItemForGroupV281, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:5446 | now | void | pickItemForGroupV281, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:5488 | 无参数 | void; void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, pickItemForGroupV281, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:5504 | now | void; void; void; void; void | pickItemForGroupV281, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| v282RandomOther | src/script/00.js:5555 | caster | arr.length?arr[Math.floor(Math.random()*arr.length)]:null | Number | groups, id, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| v282TakeFraction | src/script/00.js:5559 | target, frac, key, caster | false; true; applyItemAttack(caster,target,amount,key); true | Number, applyItemAttack |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| v282Consume | src/script/00.js:5569 | g, index | void | Number | inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:5577 | groupId, index, ...rest | _v282UseItem.call(this,groupId,index,...rest); false; true; false; true; false; true; false; true | Number, showToast, recordHistory, saveState, renderAll, showItemUseFx, v282RandomOther, v282TakeFraction, v282Consume, ranking | groups, inventory, score, name, itemEffect, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| roulettePreviewPickV282 | src/script/00.js:5619 | 无参数 | keys[Math.floor(Math.random()*keys.length)] |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| updateAllRoulettePreviewLogicV282 | src/script/00.js:5623 | 无参数 | roulettePreviewPickV282() | roulettePreviewPickV282 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:5629 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, updateCardRouletteVisual, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:5645 | now | void | updateCardRouletteVisual, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| handDrawItem | src/script/00.js:5678 | 无参数 | void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, roulettePreviewPickV282, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| frame | src/script/00.js:5692 | now | void; void; void; void | roulettePreviewPickV282, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:5723 | groupId, index, ...rest | false; _v282UseItemWithIce.call(this,groupId,index,...rest) | closeItemWindowForFx, saveState, renderAll, showToast | groups, itemEffect, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemKeysV283 | src/script/00.js:5748 | 无参数 | ITEM_ORDER_V283.filter(k=>ITEM_DEFS[k]) |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| itemAdminButtonV283 | src/script/00.js:5750 | k, gid | <button class="btn item-admin-add-v283" onclick="godAddItemV283(${gid},'${k}')">${itemVisual(k)} <s | itemVisual, escapeHtml |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godAddItemV283 | src/script/00.js:5754 | gid, key | void; void; void | showToast, Number, recordHistory, addItemToGroup, saveState, renderAll, renderGroupModalV283 | groups, inventory, score, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderGodItemManagerV283 | src/script/00.js:5763 | gid | void; void | itemKeysV283, itemAdminButtonV283 | groups | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| patchVisibleGodManagerV283 | src/script/00.js:5776 | gid | void | itemKeysV283, itemAdminButtonV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderEncyclopediaV283 | src/script/00.js:5788 | 无参数 | void; void; <div class="guide-block encyclopedia-item"><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escap | itemKeysV283, itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| appendMissingEncyclopediaV283 | src/script/00.js:5817 | 无参数 | void; void | itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| patchItemIconSettingsV283 | src/script/00.js:5834 | 无参数 | void; void; void | itemVisual, escapeHtml |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderGroupModalV283 | src/script/00.js:5852 | gid | DOM／状态副作用；需按调用场景确认 | setTimeout, patchVisibleGodManagerV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openGroupModal | src/script/00.js:5857 | gid, ...a | r | renderGroupModalV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderGroupModal | src/script/00.js:5861 | ...a | r | renderGroupModalV283 | activeModalGroupId | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openAboutModal | src/script/00.js:5866 | ...a | r | setTimeout, appendMissingEncyclopediaV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| refresh26ItemInterfacesV284 | src/script/00.js:5874 | 无参数 | DOM／状态副作用；需按调用场景确认 | renderItemEncyclopedia, renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| appendMissingEncyclopediaV283 | src/script/00.js:5892 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| patchItemIconSettingsV283 | src/script/00.js:5893 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| patchVisibleGodManagerV283 | src/script/00.js:5896 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderGroupModalV283 | src/script/00.js:5897 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderAbout | src/script/00.js:5903 | tab | void; r | _v284RenderAbout, itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| isCommunismMode | src/script/00.js:5928 | 无参数 | STORAGE.getJSON(COMMUNISM_MODE_KEY,true)!==false |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setCommunismMode | src/script/00.js:5931 | enabled | DOM／状态副作用；需按调用场景确认 | applyCommunismMode, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyCommunismMode | src/script/00.js:5936 | 无参数 | DOM／状态副作用；需按调用场景确认 | isCommunismMode |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| globalItemDraw | src/script/00.js:5961 | ...a | void; _v291GlobalItemDraw.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:5966 | ...a | false; _v291UseItem.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| openItemWindow | src/script/00.js:5972 | ...a | void; _v291OpenItemWindow.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| installCommunismModeSetting | src/script/00.js:5979 | 无参数 | void | isCommunismMode |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| formatChartScoreV294 | src/script/00.js:6008 | value | String(Math.trunc(n)); sign+(v>=100 ? Math.round(v) : v.toFixed(v>=10?1:2).replace(/\.?0+$/,''))+'亿'; sign+(v>=100 ? Math.round(v) : v.toFixed(v>=10?1:2).replace(/\.?0+$/,''))+'万' | Number, String |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| activePersistentEffect | src/script/00.js:6035 | g | null; { key:type, def }; null |  | itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:6045 | groupId, index, ...rest | previousUseItemV299.call(this, groupId, index, ...rest); false; previousUseItemV299.call(this, groupId, index, ...rest) | ensureItemState, activePersistentEffect, closeItemWindowForFx, showToast | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| cleanEmptyEffectV2113 | src/script/00.js:6086 | g | void |  | itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| consumeChargeV2113 | src/script/00.js:6094 | g, index | void | Number | inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| randomTargetV2113 | src/script/00.js:6101 | g | pool.length ? pool[Math.floor(Math.random()*pool.length)] : null | eligibleForItems | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| attackFractionV2113 | src/script/00.js:6106 | caster, target, denom, key | {changed:false,blocked:'invalid'}; {changed:false,blocked:null}; applyItemScore(target,-amount,caster.id,key) | eligibleForItems, Number, applyItemScore |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:6113 | groupId, index, ...rest | previousUseItemV2113.call(this,groupId,index,...rest); false; false; false; false; false; false; false; true | closeItemWindowForFx, isCommunismMode, showToast, eligibleForItems, cleanEmptyEffectV2113, saveState, renderAll, randomTargetV2113, attackFractionV2113, consumeChargeV2113, ranking, recordHistory, Number, showItemUseFx | groups, inventory, itemEffect, name, id, itemStats | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| attackHitClassV2116 | src/script/00.js:6234 | key | 'hit-green-shell'; 'hit-red-shell'; 'hit-spiny'; 'hit-banana'; 'hit-horn'; 'hit-bomb-v2116'; 'hit-hammer'; 'hit-lightning'; 'hit-fire'; 'hit-ice'; 'hit-boomerang'; 'hit-generic-v2116' |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| clearAttackHitFxV2116 | src/script/00.js:6249 | card | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| playAttackTargetFxV2116 | src/script/00.js:6257 | groupId, key, defended=false | void; void | battleCard, clearAttackHitFxV2116, attackHitClassV2116, itemVisual, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| tryDefendLightningV2116 | src/script/00.js:6290 | target | true; false; true | Number, tinyDefenseToast, setTimeout, playAttackTargetFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyLightningHitV2116 | src/script/00.js:6318 | caster, target | false; false; true | eligibleForItems, tryDefendLightningV2116, Number, roundHalf, setTimeout, playAttackTargetFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| showItemUseFx | src/script/00.js:6342 | key, casterId=null, targetText='' | _v2116ShowItemUseFx.call(this,key,casterId,targetText) | setTimeout, playCasterCardFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| isQueuePersistentActiveV2120 | src/script/00.js:6370 | g, it=null | false; ['star','mega','power'].includes(g.itemEffect.type) && main.key===g.itemEffect.type |  | inventory, itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| queueRoleTextV2120 | src/script/00.js:6376 | index | index===0?'主要道具':次要道具 ${index} |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| queueUseStateV2120 | src/script/00.js:6380 | g, index | {usable:false,label:'空道具槽'}; {usable:false,label:'🔒 等待主要道具'}; {usable:false,label:'⏳ 生效中 · 等待结束'}; {usable:false,label:'负分保护'}; {usable:false,label:'请先解锁管理口令'}; {usable:false,label:reason}; {usable:true,label:'解除冻结（本次不发动）'}; {usable:true,label:'使用主要道具'} | isQueuePersistentActiveV2120, eligibleForItems, isCommunismMode | inventory, isLocked, itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| legacyUseItem | src/script/00.js:6395 | groupId, index, ...rest | false; false; false; false; _v2120UseItem.call(this,groupId,0,...rest) | closeItemWindowForFx, showToast, isQueuePersistentActiveV2120 | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godAddQueueItemV2120 | src/script/00.js:6425 | gid, key | void; void; void | showToast, eligibleForItems, recordHistory, addItemToGroup, saveState, renderAll, renderItemWindow | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godClearQueueItemsV2120 | src/script/00.js:6437 | gid | void | recordHistory, saveState, renderAll, renderItemWindow | groups, name, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godAddItem | src/script/00.js:6445 | id, k | DOM／状态副作用；需按调用场景确认 | godAddQueueItemV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godAddItemV283 | src/script/00.js:6446 | id, k | DOM／状态副作用；需按调用场景确认 | godAddQueueItemV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| godClearItems | src/script/00.js:6447 | id | DOM／状态副作用；需按调用场景确认 | godClearQueueItemsV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemWindow | src/script/00.js:6451 | 无参数 | void; <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} empty">     ; <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} ${active?'qu | _v2120RenderItemWindow, queueRoleTextV2120, queueUseStateV2120, isQueuePersistentActiveV2120, itemVisual, escapeHtml | groups, inventory, id, score, isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| enhanceItemCards | src/script/00.js:6504 | 无参数 | void; void | _v2120EnhanceItemCards, isQueuePersistentActiveV2120, queueRoleTextV2120, itemVisual, setTimeout | groups, id, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| handUseNewItem | src/script/00.js:6543 | 无参数 | void | showToast, closeHandRaise, openItemWindow | groups, id, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderBgmSlotList | src/script/00.js:3060 | 无参数 | void; void | parseInt, Number, refreshSoundIdCache, checkSetCompleteness, hasSound |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderFxSlotList | src/script/00.js:3115 | 无参数 | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| previewBgmTrack | src/script/00.js:3138 | slotId | void | getAudioContext |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| triggerUploadAudio | src/script/00.js:3159 | slotId | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| handleSoundFileUpload | src/script/00.js:3164 | event | void | getAudioContext, showToast, renderBgmSlotList, renderFxSlotList, themeAlert |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| deleteBgmTrack | src/script/00.js:3201 | slotId | void | showToast, renderBgmSlotList |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| deleteFxTrack | src/script/00.js:3215 | idbKey, fxKey | void | showToast, renderFxSlotList |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| exportAudioBundle | src/script/00.js:3228 | 无参数 | void; void | showToast, resolve, themeAlert |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| triggerImportAudioBundle | src/script/00.js:3277 | 无参数 | void | openPwdModal | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handleBundleFilePicked | src/script/00.js:3282 | event | void; void | showToast, themeAlert, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| escapeHtml | src/script/00.js:3327 | str | String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, " | String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| ensureAudioUnlocked | src/script/00.js:3341 | 无参数 | Promise.resolve(); getAudioContext().then(() => { audioUnlocked = true; }).catch(() => { audioUnlocked = false; }) | getAudioContext |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| switchView | src/script/00.js:3346 | name | DOM／状态副作用；需按调用场景确认 | ensureAudioUnlocked, renderWelcomePage, updateWelcomeTrackIfNeeded, renderHistoryList, renderSettlementHistoryList, syncSettingsControls, renderBgmSlotList, renderFxSlotList, renderBgmEngineConsole, menuFadeOut, renderAll, bgmStopAll, getMenuTrackKeyForView, menuStartOrSwitch |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| enterBattleFromWelcome | src/script/00.js:3374 | 无参数 | DOM／状态副作用；需按调用场景确认 | switchView |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| getMenuTrackKeyForView | src/script/00.js:3378 | name | getWelcomeTrackKey(); 'aux_history'; 'aux_archives'; 'aux_settings'; null | getWelcomeTrackKey |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| getWelcomeTrackKey | src/script/00.js:3386 | 无参数 | 'welcome_' + digits | Number, String | groups, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| startWelcomeClock | src/script/00.js:3396 | 无参数 | void | updateWelcomeClock, setInterval |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| updateWelcomeClock | src/script/00.js:3402 | 无参数 | DOM／状态副作用；需按调用场景确认 | updateHeaderStats, String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderWelcomePage | src/script/00.js:3421 | 无参数 | void | Number, escapeHtml, getScore | groups, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| saveMenuCfg | src/script/00.js:3492 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| midiToFreq | src/script/00.js:3495 | m | 440 * Math.pow(2, (m - 69) / 12) |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| mulberry32 | src/script/00.js:3497 | seed | function() {     a ／= 0; a = a + 0x6D2B79F5 ／ 0;     let t = Math.imul(a ^ a >>> 15, 1 ／ a);     t =; ((t ^ t >>> 14) >>> 0) / 4294967296 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| buildMenuPattern | src/script/00.js:3511 | key, bars | MENU_PATTERN_CACHE[cacheKey]; MENU_PATTERN_CACHE[cacheKey] | Number, mulberry32, rnd |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| getNoiseBuffer | src/script/00.js:3549 | 无参数 | null; noiseBuffer; noiseBuffer |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuSecPerBeat | src/script/00.js:3583 | 无参数 | 60 / Math.max(40, Number(menuCfg.bpm) ／／ 130) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuLoopSpan | src/script/00.js:3585 | 无参数 | {     startBeat,     endBeat,     startSec: (startBeat - 1) * menuSecPerBeat(),     endSec: (endBeat | Number, menuSecPerBeat |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| normalizeWelcomeLoopBuffer | src/script/00.js:3600 | key, buf | buf; buf; fixed; buf | menuLoopSpan, menuSecPerBeat |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuEnsureGraph | src/script/00.js:3620 | 无参数 | false; true |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| makeSynthMenuBuffer | src/script/00.js:3631 | key | offline.startRendering() | Number, buildMenuPattern, midiToFreq | gain, connect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuLoadBuffer | src/script/00.js:3691 | key | menuBgm.buffers[key]; menuLoading[key]; buf; await p | res, normalizeWelcomeLoopBuffer, makeSynthMenuBuffer |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuLoopParams | src/script/00.js:3722 | buf, key | { startSec, endSec }; { startSec: 0, endSec: buf.duration } | menuLoopSpan |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuTrimFor | src/script/00.js:3732 | key | Math.max(0, Math.min(3, Number.isFinite(t) ? t : 1)) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuPosForKey | src/script/00.js:3738 | key, buf, t | elapsed; Math.min(elapsed, Math.max(0, buf.duration - 0.02)); lp.startSec + ((elapsed - lp.startSec) % dur) | menuLoopParams |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuVoiceGainAt | src/script/00.js:3747 | v, t | r.v0; r.v1; r.v0 + (r.v1 - r.v0) * ((t - r.t0) / (r.t1 - r.t0)) |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuVoiceRamp | src/script/00.js:3755 | v, target, dur | DOM／状态副作用；需按调用场景确认 | menuVoiceGainAt | cancelScheduledValues, setValueAtTime, linearRampToValueAtTime | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuSpawnVoice | src/script/00.js:3765 | key, buf, startAt | v | menuLoopParams, menuPosForKey |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuRetireVoice | src/script/00.js:3790 | v, fadeSec | void | menuVoiceRamp |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuSwitchNow | src/script/00.js:3802 | key, buf | DOM／状态副作用；需按调用场景确认 | menuRetireVoice, menuTrimFor, menuVoiceGainAt, menuVoiceRamp, menuSpawnVoice |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuStartOrSwitch | src/script/00.js:3825 | key | void; void; void; void; void; void | ensureAudioUnlocked, menuEnsureGraph, menuLoadBuffer, menuSwitchNow |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuFadeOut | src/script/00.js:3843 | 无参数 | void | menuPosForKey, menuRetireVoice |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuStop | src/script/00.js:3857 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuResyncGrid | src/script/00.js:3870 | 无参数 | void; void; void | menuLoopParams, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuScheduleReload | src/script/00.js:3885 | 无参数 | void; void | clearTimeout, setTimeout, menuLoadBuffer, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| updateWelcomeTrackIfNeeded | src/script/00.js:3903 | 无参数 | void | getWelcomeTrackKey, menuStartOrSwitch |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderBgmEngineConsole | src/script/00.js:3910 | 无参数 | void | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuEnabledChange | src/script/00.js:3964 | v | DOM／状态副作用；需按调用场景确认 | saveMenuCfg, menuStop, menuStartOrSwitch, getMenuTrackKeyForView |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuBpmChange | src/script/00.js:3969 | v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuScheduleReload |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuMeterChange | src/script/00.js:3974 | v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuResyncGrid |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuLoopChange | src/script/00.js:3978 | field, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuResyncGrid |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| menuTrimChange | src/script/00.js:3982 | k, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg, menuVoiceRamp, menuTrimFor |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| battleBpmChange | src/script/00.js:3989 | which, v | DOM／状态副作用；需按调用场景确认 | Number, saveMenuCfg |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| makeRollLoopBuffer | src/script/00.js:3999 | 无参数 | null; buf |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| startRollLoop | src/script/00.js:4019 | 无参数 | void; void | makeRollLoopBuffer, getFxOutputV2176 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| stopRollLoop | src/script/00.js:4037 | cb | void | cb, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| uiDbOpen | src/script/00.js:4057 | 无参数 | uiDbPromise; uiDbPromise | res |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| uiDbReq | src/script/00.js:4072 | mode, fn | null; new Promise(res => {     try {       const tx = d.transaction('kv', mode);       const req = fn(tx.o | uiDbOpen, fn, res |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| getWallVeil | src/script/00.js:4086 | 无参数 | Number.isFinite(v) ? Math.max(0, Math.min(0.8, v)) : 0.35 | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyWallpaperVeil | src/script/00.js:4090 | 无参数 | DOM／状态副作用；需按调用场景确认 | getWallVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyWallpaper | src/script/00.js:4099 | blob | DOM／状态副作用；需按调用场景确认 | applyWallpaperVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| compressWallpaper | src/script/00.js:4112 | file | new Promise(res => canvas.toBlob(b => res(b), 'image/jpeg', 0.85)) | createImageBitmap, res, rej |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| onWallpaperFile | src/script/00.js:4138 | input | void; void | showToast, compressWallpaper, uiDbReq, applyWallpaper |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| resetWallpaper | src/script/00.js:4154 | 无参数 | DOM／状态副作用；需按调用场景确认 | uiDbReq, applyWallpaper, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| changeWallpaperVeil | src/script/00.js:4159 | v | DOM／状态副作用；需按调用场景确认 | Number, applyWallpaperVeil |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| initWallpaper | src/script/00.js:4163 | 无参数 | DOM／状态副作用；需按调用场景确认 | uiDbReq, applyWallpaper |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| normalizeInventoryV21718 | src/script/00.js:4287 | inventory | (Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter(it=>{       const key=it&&it.key; false; true; it; {key:it.key,charges,acquiredAt} | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| ensureItemState | src/script/00.js:4308 | 无参数 | DOM／状态副作用；需按调用场景确认 | normalizeInventoryV21718 | groups, inventory, itemStats, itemEffect, booShield, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| ranking | src/script/00.js:4320 | 无参数 | state.groups.slice().sort((a,b)=>(Number(b.score)／／0)-(Number(a.score)／／0)／／state.groups.indexOf(a)- | Number | groups | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| rankIndex | src/script/00.js:4321 | id | ranking().findIndex(g=>g.id===id) | ranking | id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| roundQuarter | src/script/00.js:4322 | v | Math.round((Number(v)／／0)/4) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| roundThird | src/script/00.js:4323 | v | Math.round((Number(v)／／0)/3) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| roundHalf | src/script/00.js:4324 | v | Math.round((Number(v)／／0)/2) | Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| eligibleForItems | src/script/00.js:4325 | g | g && Number(g.score)>=0 | Number | score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| consumeInventoryItem | src/script/00.js:4326 | g, index, amount=1 | void |  | inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| addItemToGroup | src/script/00.js:4327 | g, key | false; true | eligibleForItems | inventory, itemStats, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| tinyDefenseToast | src/script/00.js:4328 | msg | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| defenseCandidates | src/script/00.js:4330 | g, attackType | -1; 1; -1; 1; (a.at／／0)-(b.at／／0); out |  | itemEffect, booShield, inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| damageFraction | src/script/00.js:4347 | target, denom, sourceId, type='normal' | applyItemScore(target,-loss,sourceId,type) | roundHalf, roundThird, roundQuarter, applyItemScore |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| boostFraction | src/script/00.js:4348 | target, denom=4 | false; true | eligibleForItems, roundQuarter |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemDropWeights | src/script/00.js:4350 | pos, total | W | put |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| weightedPick | src/script/00.js:4440 | weights | k; arr[0]?.[0]／／'coin' |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| drawItemForGroup | src/script/00.js:4441 | g | null; weightedPick(itemDropWeights(pos,r.length)) | eligibleForItems, ranking, weightedPick, itemDropWeights | inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| detectOvertakePunish | src/script/00.js:4443 | actorId, beforeOrder | void; void | ranking, eligibleForItems, tryDefend, roundQuarter | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:4449 | groupId, index | void; void; void; void; void; void; void | ensureItemState, closeItemWindowForFx, eligibleForItems, showToast, ranking, recordHistory, other, damageFraction, flashBomb, boostFraction, consumeInventoryItem, saveState, renderAll, startBlooperClock, applyLightningHitV2116, detectOvertakePunish, Number | groups, inventory, id, itemEffect, name, score, displayScore, booShield, itemStats, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| flashBomb | src/script/00.js:4525 | id | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| startBulletTimer | src/script/00.js:4527 | 无参数 | void; void | clearInterval, setInterval, ensureItemState, rankIndex, showToast, eligibleForItems, saveState, renderGrid, renderChart, renderDashboard | groups, itemEffect, id, inventory, name, score, displayScore | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| startBlooperClock | src/script/00.js:4528 | 无参数 | DOM／状态副作用；需按调用场景确认 | applyBlooperMask, setTimeout | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyBlooperMask | src/script/00.js:4529 | 无参数 | DOM／状态副作用；需按调用场景确认 |  | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:4531 | 无参数 | void; void | ensureItemState, eligibleForItems, showToast, recordHistory, escapeHtml, setInterval, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, id, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| openItemWindow | src/script/00.js:4537 | groupId, tab='detail' | DOM／状态副作用；需按调用场景确认 | ensureItemState, renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| closeItemWindow | src/script/00.js:4538 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| switchItemTab | src/script/00.js:4539 | tab | DOM／状态副作用；需按调用场景确认 | renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemWindow | src/script/00.js:4540 | 无参数 | closeItemWindow(); '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div>; <div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-na | closeItemWindow, ensureGroupNumbersV213, String, Number, escapeHtml, eligibleForItems, itemVisual | groups, name, isLocked, itemStats, itemEffect, booShield, score, groupNo, color, id, members, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| previewItemDetailColor | src/script/00.js:4619 | value | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| saveItemDetailColor | src/script/00.js:4620 | id, value | void; void | renderItemWindow, updateGroupColor | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| saveItemGroupDetail | src/script/00.js:4626 | id | void; void; void; void; void | openPwdModal, showToast, Number, recordHistory, saveState, renderAll, updatePickerPoolUI, renderItemWindow | isLocked, groups, name, groupNo, members | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| deleteItemDetailGroup | src/script/00.js:4643 | id | void | openPwdModal, deleteGroup, closeItemWindow, renderItemWindow | isLocked, groups, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemQuickScore | src/script/00.js:4652 | id, d | void | openPwdModal, applyScoreDelta, renderItemWindow | isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemCustomScore | src/script/00.js:4653 | id | void | Number, itemQuickScore |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| enhanceItemCards | src/script/00.js:4655 | 无参数 | void; it?<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?<s | ensureItemState, itemVisual, openItemWindow, applyBlooperMask | groups, id, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderGrid | src/script/00.js:4656 | 无参数 | DOM／状态副作用；需按调用场景确认 | _itemBaseRenderGrid, enhanceItemCards |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyJudgeRound | src/script/00.js:4658 | 无参数 | false; void | ranking, _itemBaseJudgeRound, eligibleForItems, detectOvertakePunish, saveState, renderAll | roundActive, evaluated, correctAns, id, groups, selectedOpt, itemStats, itemEffect, score, displayScore, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| ensureV2State | src/script/00.js:4671 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureItemState | itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemVisual | src/script/00.js:4681 | key, cls='' | src?<img class="${cls}" src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}">:d.icon | ensureV2State, escapeHtml | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemBoxVisualV2121 | src/script/00.js:4687 | cls='' | BUILTIN_ITEM_BOX_V2121?<img class="${cls}" src="${BUILTIN_ITEM_BOX_V2121}" alt="道具箱">:'❔' |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| setPickerInfoTab | src/script/00.js:4690 | tab | DOM／状态副作用；需按调用场景确认 | renderPickerInfo |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderPickerInfo | src/script/00.js:4691 | 无参数 | void | ensureV2State, escapeHtml | groups, itemStats, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openPickerModal | src/script/00.js:4700 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, _v2OpenPicker, setPickerInfoTab, syncPickerScoreTarget |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| syncPickerScoreTarget | src/script/00.js:4701 | 无参数 | void; void | escapeHtml | picker, name, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| pickerTargetGroup | src/script/00.js:4702 | 无参数 | null; state.picker.mode==='group'?w:w.group |  | picker | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| scorePickerTarget | src/script/00.js:4703 | n | void | pickerTargetGroup, showToast, applyScoreDelta, syncPickerScoreTarget | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| scorePickerCustom | src/script/00.js:4704 | 无参数 | void | Number, scorePickerTarget |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| stopSlotSpin | src/script/00.js:4705 | 无参数 | DOM／状态副作用；需按调用场景确认 | _v2StopSlot, ensureV2State, saveState, syncPickerScoreTarget, renderPickerInfo | picker, name, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openHandRaise | src/script/00.js:4708 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, renderHandRaise |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| closeHandRaise | src/script/00.js:4709 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderHandRaise | src/script/00.js:4710 | 无参数 | void | escapeHtml | groups, id, name, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| selectHandGroup | src/script/00.js:4711 | id | DOM／状态副作用；需按调用场景确认 | renderHandRaise | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| judgeHandRaise | src/script/00.js:4712 | correct | void; void | ensureV2State, showToast, recordHistory, saveState, renderAll | groups, name, itemStats, itemGlobal, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handQuickScore | src/script/00.js:4719 | n | DOM／状态副作用；需按调用场景确认 | applyScoreDelta |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:4720 | 无参数 | void; void | eligibleForItems, showToast, recordHistory, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handUseItem | src/script/00.js:4721 | 无参数 | void | showToast, closeHandRaise, openItemWindow | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:4724 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, setInterval, ranking, weightedPick, itemDropWeights, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, saveState, renderAll | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| openItemEncyclopedia | src/script/00.js:4738 | 无参数 | DOM／状态副作用；需按调用场景确认 | switchView, setTimeout, installSettingsTabs, showSettingsV2 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemEncyclopedia | src/script/00.js:4739 | 无参数 | void; <div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d | ensureV2State, itemVisual |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| chooseItemIcon | src/script/00.js:4743 | k | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handleItemIconUpload | src/script/00.js:4744 | e | void | ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| resetItemIcon | src/script/00.js:4745 | k | DOM／状态副作用；需按调用场景确认 | ensureV2State, saveState, renderItemEncyclopedia, renderAll | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| resetAllItemIcons | src/script/00.js:4746 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, saveState, renderItemEncyclopedia, renderAll | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| exportItemIconPack | src/script/00.js:4747 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureV2State, setTimeout | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| importItemIconPack | src/script/00.js:4748 | e | void | ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| installSettingsTabs | src/script/00.js:4751 | 无参数 | void | renderItemEncyclopedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| showSettingsV2 | src/script/00.js:4757 | which | DOM／状态副作用；需按调用场景确认 | installSettingsTabs, renderItemEncyclopedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openAbout | src/script/00.js:4766 | 无参数 | DOM／状态副作用；需按调用场景确认 | renderAbout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| closeAbout | src/script/00.js:4767 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderAbout | src/script/00.js:4768 | tab | DOM／状态副作用；需按调用场景确认 | itemVisual |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemWindow | src/script/00.js:4776 | 无参数 | void | _v2RenderItemWindow, itemVisual | groups, isLocked, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godAddItem | src/script/00.js:4777 | id, k | void; void | showToast, recordHistory, saveState, renderAll, renderItemWindow | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godClearItems | src/script/00.js:4778 | id | void | recordHistory, saveState, renderAll, renderItemWindow | groups, name, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| enhanceItemCards | src/script/00.js:4781 | 无参数 | void | _v2Enhance, ensureV2State, itemVisual | groups, id, inventory, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemWindow | src/script/00.js:4782 | 无参数 | void | _v2RenderItemWindowIcons, itemVisual | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyJudgeRound | src/script/00.js:4785 | 无参数 | DOM／状态副作用；需按调用场景确认 | _v2Judge, ensureV2State, saveState | roundActive, evaluated, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| switchView | src/script/00.js:4790 | name | DOM／状态副作用；需按调用场景确认 | _v2SwitchView, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelHandItemDraw | src/script/00.js:4797 | silent=false | DOM／状态副作用；需按调用场景确认 | clearInterval, clearTimeout, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| closeHandRaise | src/script/00.js:4806 | 无参数 | DOM／状态副作用；需按调用场景确认 | cancelHandItemDraw, _v21CloseHandRaise |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| selectHandGroup | src/script/00.js:4809 | id | void | showToast, _v21SelectHandGroup |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| judgeHandRaise | src/script/00.js:4815 | correct | DOM／状态副作用；需按调用场景确认 | cancelHandItemDraw, _v21JudgeHandRaise, eligibleForItems | groups, inventory, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:4828 | 无参数 | void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, ranking, weightedPick, itemDropWeights, itemVisual, tick, setInterval, setTimeout, clearInterval, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| finishHandItemReward | src/script/00.js:4883 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handUseNewItem | src/script/00.js:4889 | 无参数 | void; void | showToast, closeHandRaise, openItemWindow, setTimeout | groups, inventory, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| showItemUseFx | src/script/00.js:4906 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemFxTargetText | src/script/00.js:4907 | key, gid | ['coin','mushroom','triple_mushroom','star','mega','bullet','power'].includes(key)?'作用于本组':''; '目标：'+names.join('、') | ranking, add | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| closeItemWindowForFx | src/script/00.js:4920 | 无参数 | DOM／状态副作用；需按调用场景确认 | closeItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:4925 | groupId, index, ...rest | result | closeItemWindowForFx, setTimeout, showItemUseFx, itemFxTargetText | groups, inventory, itemEffect, score | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| normalizeItemIconFile | src/script/00.js:4943 | file, done | DOM／状态副作用；需按调用场景确认 | done |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handleItemIconUpload | src/script/00.js:4962 | e | void | normalizeItemIconFile, ensureV2State, saveState, renderItemEncyclopedia, renderAll, showToast | itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| updateCardRouletteVisual | src/script/00.js:4972 | o, key | void | itemVisual |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:4984 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, ranking, weightedPick, itemDropWeights, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5001 | now | void | ranking, weightedPick, itemDropWeights, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:5038 | 无参数 | void; void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, ranking, weightedPick, itemDropWeights, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5056 | now | void; void; void; void; void | ranking, weightedPick, itemDropWeights, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelHandItemDraw | src/script/00.js:5088 | silent=false | DOM／状态副作用；需按调用场景确认 | clearTimeout, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| battleCard | src/script/00.js:5114 | id | document.querySelector(#view-battle .group-row-card[data-group-id="${id}"])／／document.querySelecto |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| clearCardFx | src/script/00.js:5115 | card | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| playCasterCardFx | src/script/00.js:5121 | key, gid | void; void | battleCard, clearCardFx, itemVisual, escapeHtml, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| playTargetCardFx | src/script/00.js:5131 | id, key, type='hit' | void; void | battleCard, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cardFxTargets | src/script/00.js:5140 | key, gid | ids | ranking, add | id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| showItemUseFx | src/script/00.js:5154 | key, casterId=null, targetText='' | _v25ShowItemUseFx(key,casterId,targetText) | playCasterCardFx, cardFxTargets, setTimeout, playTargetCardFx, _v25ShowItemUseFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| removeBgmEngineeringConsoleV26 | src/script/00.js:5189 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemFxSoundListV26 | src/script/00.js:5208 | 无参数 | void; <div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="s | hasSound |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemSoundCategoryV26 | src/script/00.js:5215 | k | 'item_attack'; 'item_buff'; 'item_steal'; 'item_status' |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| showItemUseFx | src/script/00.js:5222 | k, g, t | _v26ShowItemUseFx(k,g,t) | playSound, setTimeout, itemSoundCategoryV26, _v26ShowItemUseFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| tinyDefenseToast | src/script/00.js:5224 | m | _v26TinyDefense(m) | playSound, _v26TinyDefense |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| startDrawSoundBedV26 | src/script/00.js:5225 | ms=3600 | DOM／状态副作用；需按调用场景确认 | playSound, setInterval, clearInterval, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:5230 | 无参数 | _v26GlobalDraw() | startDrawSoundBedV26, _v26GlobalDraw |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:5231 | 无参数 | _v26HandDraw() | startDrawSoundBedV26, _v26HandDraw |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| uiIconsV26 | src/script/00.js:5244 | 无参数 | STORAGE.getJSON('politics_ui_icons_v26',{})／／{} |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyUiIconsV26 | src/script/00.js:5245 | 无参数 | void | uiIconsV26, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| chooseUiIconV26 | src/script/00.js:5261 | id | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| handleUiIconV26 | src/script/00.js:5262 | e | void | normalizeItemIconFile, uiIconsV26, applyUiIconsV26, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| resetUiIconV26 | src/script/00.js:5266 | id | DOM／状态副作用；需按调用场景确认 | uiIconsV26, applyUiIconsV26, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderUiIconManagerV26 | src/script/00.js:5267 | 无参数 | void | uiIconsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| rebuildSettingsV26 | src/script/00.js:5273 | 无参数 | void | removeBgmEngineeringConsoleV26, installCommunismModeSetting, renderUiIconManagerV26, renderItemEncyclopedia, renderItemFxSoundListV26, showSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| showSettingsV26 | src/script/00.js:5299 | which | void | renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, installCommunismModeSetting, renderUiIconManagerV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| installSettingsTabs | src/script/00.js:5309 | 无参数 | DOM／状态副作用；需按调用场景确认 | rebuildSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| showSettingsV2 | src/script/00.js:5310 | which | DOM／状态副作用；需按调用场景确认 | showSettingsV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| syncVisualViewportV27 | src/script/00.js:5321 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| repairPersistentItemsV28 | src/script/00.js:5338 | 无参数 | DOM／状态副作用；需按调用场景确认 | ensureItemState, normalizeInventoryV21718, saveState | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| programConfirmV28 | src/script/00.js:5348 | message, opts={} | new Promise(resolve=>{     document.getElementById('programConfirmV28')?.remove();     programConfir; void; void | escapeHtml, resolve, finish |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setCorrectAns | src/script/00.js:5375 | opt | void; void; void | playSound, renderControls, programConfirmV28 | evaluated, correctAns, groups, selectedOpt, name | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| heldItemKeysV281 | src/script/00.js:5405 | g | new Set((g?.inventory／／[]).map(it=>it?.key).filter(Boolean)) |  | inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| weightedPickNoRepeatV281 | src/script/00.js:5408 | weights, blocked=new Set() | weightedPick(filtered); null | Number, weightedPick |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| pickItemForGroupV281 | src/script/00.js:5417 | g, batchUsed=new Set() | k | ranking, itemDropWeights, heldItemKeysV281, weightedPickNoRepeatV281, weightedPick | id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:5432 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, pickItemForGroupV281, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5449 | now | void | pickItemForGroupV281, updateCardRouletteVisual, requestAnimationFrame, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:5491 | 无参数 | void; void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, pickItemForGroupV281, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5507 | now | void; void; void; void; void | pickItemForGroupV281, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| v282RandomOther | src/script/00.js:5558 | caster | arr.length?arr[Math.floor(Math.random()*arr.length)]:null | Number | groups, id, score | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| v282TakeFraction | src/script/00.js:5562 | target, frac, key, caster | false; true; applyItemAttack(caster,target,amount,key); true | Number, applyItemAttack |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| v282Consume | src/script/00.js:5572 | g, index | void | Number | inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:5580 | groupId, index, ...rest | _v282UseItem.call(this,groupId,index,...rest); false; true; false; true; false; true; false; true | Number, showToast, recordHistory, saveState, renderAll, showItemUseFx, v282RandomOther, v282TakeFraction, v282Consume, ranking | groups, inventory, score, name, itemEffect, id | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| roulettePreviewPickV282 | src/script/00.js:5622 | 无参数 | keys[Math.floor(Math.random()*keys.length)] |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| updateAllRoulettePreviewLogicV282 | src/script/00.js:5626 | 无参数 | roulettePreviewPickV282() | roulettePreviewPickV282 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:5632 | 无参数 | void; void; void; void | ensureV2State, eligibleForItems, showToast, switchView, recordHistory, renderGrid, updateCardRouletteVisual, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, saveState, setTimeout, renderAll | groups, inventory, id, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5648 | now | void | updateCardRouletteVisual, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, saveState, setTimeout, renderAll | id, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| handDrawItem | src/script/00.js:5681 | 无参数 | void; void; void; void; void; void; void; void | ensureV2State, eligibleForItems, showToast, escapeHtml, roulettePreviewPickV282, itemVisual, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll | groups, inventory, id, name, itemGlobal | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| frame | src/script/00.js:5695 | now | void; void; void; void | roulettePreviewPickV282, itemVisual, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml | groups, itemGlobal | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:5726 | groupId, index, ...rest | false; _v282UseItemWithIce.call(this,groupId,index,...rest) | closeItemWindowForFx, saveState, renderAll, showToast | groups, itemEffect, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemKeysV283 | src/script/00.js:5751 | 无参数 | ITEM_ORDER_V283.filter(k=>ITEM_DEFS[k]) |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| itemAdminButtonV283 | src/script/00.js:5753 | k, gid | <button class="btn item-admin-add-v283" onclick="godAddItemV283(${gid},'${k}')">${itemVisual(k)} <s | itemVisual, escapeHtml |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godAddItemV283 | src/script/00.js:5757 | gid, key | void; void; void | showToast, Number, recordHistory, addItemToGroup, saveState, renderAll, renderGroupModalV283 | groups, inventory, score, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderGodItemManagerV283 | src/script/00.js:5766 | gid | void; void | itemKeysV283, itemAdminButtonV283 | groups | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| patchVisibleGodManagerV283 | src/script/00.js:5779 | gid | void | itemKeysV283, itemAdminButtonV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderEncyclopediaV283 | src/script/00.js:5791 | 无参数 | void; void; <div class="guide-block encyclopedia-item"><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escap | itemKeysV283, itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| appendMissingEncyclopediaV283 | src/script/00.js:5820 | 无参数 | void; void | itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| patchItemIconSettingsV283 | src/script/00.js:5837 | 无参数 | void; void; void | itemVisual, escapeHtml |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderGroupModalV283 | src/script/00.js:5855 | gid | DOM／状态副作用；需按调用场景确认 | setTimeout, patchVisibleGodManagerV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openGroupModal | src/script/00.js:5860 | gid, ...a | r | renderGroupModalV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderGroupModal | src/script/00.js:5864 | ...a | r | renderGroupModalV283 | activeModalGroupId | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openAboutModal | src/script/00.js:5869 | ...a | r | setTimeout, appendMissingEncyclopediaV283 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| refresh26ItemInterfacesV284 | src/script/00.js:5877 | 无参数 | DOM／状态副作用；需按调用场景确认 | renderItemEncyclopedia, renderItemWindow |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| appendMissingEncyclopediaV283 | src/script/00.js:5895 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| patchItemIconSettingsV283 | src/script/00.js:5896 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| patchVisibleGodManagerV283 | src/script/00.js:5899 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderGroupModalV283 | src/script/00.js:5900 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderAbout | src/script/00.js:5906 | tab | void; r | _v284RenderAbout, itemVisual, escapeHtml |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| isCommunismMode | src/script/00.js:5931 | 无参数 | STORAGE.getJSON(COMMUNISM_MODE_KEY,true)!==false |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setCommunismMode | src/script/00.js:5934 | enabled | DOM／状态副作用；需按调用场景确认 | applyCommunismMode, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyCommunismMode | src/script/00.js:5939 | 无参数 | DOM／状态副作用；需按调用场景确认 | isCommunismMode |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| globalItemDraw | src/script/00.js:5964 | ...a | void; _v291GlobalItemDraw.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:5969 | ...a | false; _v291UseItem.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| openItemWindow | src/script/00.js:5975 | ...a | void; _v291OpenItemWindow.apply(this,a) | isCommunismMode, showToast |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| installCommunismModeSetting | src/script/00.js:5982 | 无参数 | void | isCommunismMode |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| formatChartScoreV294 | src/script/00.js:6011 | value | String(Math.trunc(n)); sign+(v>=100 ? Math.round(v) : v.toFixed(v>=10?1:2).replace(/\.?0+$/,''))+'亿'; sign+(v>=100 ? Math.round(v) : v.toFixed(v>=10?1:2).replace(/\.?0+$/,''))+'万' | Number, String |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| activePersistentEffect | src/script/00.js:6038 | g | null; { key:type, def }; null |  | itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:6048 | groupId, index, ...rest | previousUseItemV299.call(this, groupId, index, ...rest); false; previousUseItemV299.call(this, groupId, index, ...rest) | ensureItemState, activePersistentEffect, closeItemWindowForFx, showToast | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| cleanEmptyEffectV2113 | src/script/00.js:6089 | g | void |  | itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| consumeChargeV2113 | src/script/00.js:6097 | g, index | void | Number | inventory | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| randomTargetV2113 | src/script/00.js:6104 | g | pool.length ? pool[Math.floor(Math.random()*pool.length)] : null | eligibleForItems | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| attackFractionV2113 | src/script/00.js:6109 | caster, target, denom, key | {changed:false,blocked:'invalid'}; {changed:false,blocked:null}; applyItemScore(target,-amount,caster.id,key) | eligibleForItems, Number, applyItemScore |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:6116 | groupId, index, ...rest | previousUseItemV2113.call(this,groupId,index,...rest); false; false; false; false; false; false; false; true | closeItemWindowForFx, isCommunismMode, showToast, eligibleForItems, cleanEmptyEffectV2113, saveState, renderAll, randomTargetV2113, attackFractionV2113, consumeChargeV2113, ranking, recordHistory, Number, showItemUseFx | groups, inventory, itemEffect, name, id, itemStats | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| attackHitClassV2116 | src/script/00.js:6237 | key | 'hit-green-shell'; 'hit-red-shell'; 'hit-spiny'; 'hit-banana'; 'hit-horn'; 'hit-bomb-v2116'; 'hit-hammer'; 'hit-lightning'; 'hit-fire'; 'hit-ice'; 'hit-boomerang'; 'hit-generic-v2116' |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| clearAttackHitFxV2116 | src/script/00.js:6252 | card | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| playAttackTargetFxV2116 | src/script/00.js:6260 | groupId, key, defended=false | void; void | battleCard, clearAttackHitFxV2116, attackHitClassV2116, itemVisual, setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| tryDefendLightningV2116 | src/script/00.js:6293 | target | true; false; true | Number, tinyDefenseToast, setTimeout, playAttackTargetFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyLightningHitV2116 | src/script/00.js:6321 | caster, target | false; false; true | eligibleForItems, tryDefendLightningV2116, Number, roundHalf, setTimeout, playAttackTargetFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| showItemUseFx | src/script/00.js:6345 | key, casterId=null, targetText='' | _v2116ShowItemUseFx.call(this,key,casterId,targetText) | setTimeout, playCasterCardFx |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| isQueuePersistentActiveV2120 | src/script/00.js:6373 | g, it=null | false; ['star','mega','power'].includes(g.itemEffect.type) && main.key===g.itemEffect.type |  | inventory, itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| queueRoleTextV2120 | src/script/00.js:6379 | index | index===0?'主要道具':次要道具 ${index} |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| queueUseStateV2120 | src/script/00.js:6383 | g, index | {usable:false,label:'空道具槽'}; {usable:false,label:'🔒 等待主要道具'}; {usable:false,label:'⏳ 生效中 · 等待结束'}; {usable:false,label:'负分保护'}; {usable:false,label:'请先解锁管理口令'}; {usable:false,label:reason}; {usable:true,label:'解除冻结（本次不发动）'}; {usable:true,label:'使用主要道具'} | isQueuePersistentActiveV2120, eligibleForItems, isCommunismMode | inventory, isLocked, itemEffect | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| legacyUseItem | src/script/00.js:6398 | groupId, index, ...rest | false; false; false; false; _v2120UseItem.call(this,groupId,0,...rest) | closeItemWindowForFx, showToast, isQueuePersistentActiveV2120 | groups, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godAddQueueItemV2120 | src/script/00.js:6428 | gid, key | void; void; void | showToast, eligibleForItems, recordHistory, addItemToGroup, saveState, renderAll, renderItemWindow | groups, inventory, name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godClearQueueItemsV2120 | src/script/00.js:6440 | gid | void | recordHistory, saveState, renderAll, renderItemWindow | groups, name, inventory, itemEffect, booShield | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godAddItem | src/script/00.js:6448 | id, k | DOM／状态副作用；需按调用场景确认 | godAddQueueItemV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godAddItemV283 | src/script/00.js:6449 | id, k | DOM／状态副作用；需按调用场景确认 | godAddQueueItemV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| godClearItems | src/script/00.js:6450 | id | DOM／状态副作用；需按调用场景确认 | godClearQueueItemsV2120 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderItemWindow | src/script/00.js:6454 | 无参数 | void; <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} empty">     ; <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} ${active?'qu | _v2120RenderItemWindow, queueRoleTextV2120, queueUseStateV2120, isQueuePersistentActiveV2120, itemVisual, escapeHtml | groups, inventory, id, score, isLocked | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| enhanceItemCards | src/script/00.js:6507 | 无参数 | void; void | _v2120EnhanceItemCards, isQueuePersistentActiveV2120, queueRoleTextV2120, itemVisual, setTimeout | groups, id, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| handUseNewItem | src/script/00.js:6546 | 无参数 | void | showToast, closeHandRaise, openItemWindow | groups, id, inventory | 高 | NOT TESTED（单个实现；集成覆盖另列） |
 | ensureGroupNumbersV213 | src/script/01.js:11 | save=false | void; changed | saveState | groups, groupNo | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | groupNoTextV213 | src/script/01.js:28 | g | String(n).padStart(2,'0') | String | groupNo | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | desiredGroupsV213 | src/script/01.js:29 | 无参数 | ranking(); state.groups.slice().sort((a,b)=>(a.groupNo／／999999)-(b.groupNo／／999999)／／state.groups.indexOf(a)-st | ensureGroupNumbersV213, ranking | roundActive, evaluated, groups | 中 | NOT TESTED（单个实现；集成覆盖另列） |
@@ -460,8 +460,6 @@
 | handleSoundFileUpload | src/script/09.js:174 | event | result | setTimeout, renderItemFxSoundListV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | deleteFxTrack | src/script/09.js:181 | idbKey, fxKey | result | setTimeout, renderItemFxSoundListV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | exportFxBundleV2175 | src/script/10.js:6 | 无参数 | void; void; void | openPwdModal, initDB, themeAlert, showToast, resolve, setTimeout | isLocked | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderItemFxSoundListV26 | src/script/10.js:102 | 无参数 | void | _v2175RenderItemFxSoundListV26 |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| showSettingsV26 | src/script/10.js:127 | which, ...args | r | setTimeout, renderItemFxSoundListV26 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | getFxOutputV2176 | src/script/11.js:15 | 无参数 | masterGainNode; fxGainNodeV2176 |  | sfxVolume | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | updateSfxVolumeV2176 | src/script/11.js:26 | vol | DOM／状态副作用；需按调用场景确认 | parseFloat, getFxOutputV2176 | sfxVolume | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | installSfxVolumeSliderV2176 | src/script/11.js:47 | 无参数 | void |  | sfxVolume | 中 | NOT TESTED（单个实现；集成覆盖另列） |
@@ -593,8 +591,8 @@
 | applyDockHumorV2185 | src/script/39.js:52 | 无参数 | void | bindDockHumorV2185, byOnclick |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | renderLockState | src/script/39.js:101 | 无参数 | r | bindDockHumorV2185 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | polishVisibleCopyV2187 | src/script/41.js:5 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderAbout | src/script/41.js:41 | tab | _v2187RenderAbout.call(this,tab); void; void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| openPwdModal | src/script/41.js:77 | 无参数 | r |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderAbout | src/script/41.js:37 | tab | _v2187RenderAbout.call(this,tab); void; void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| openPwdModal | src/script/41.js:73 | 无参数 | r |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | legacyUseItem | src/script/42.js:30 | groupId, index, ...rest | _v2189UseItem.call(this,groupId,index,...rest); false; _v2189UseItem.call(this,groupId,index,...rest); true; true; false; true | showToast, eligibleForItems, consumeOneV218, Number, recordHistory, saveState, renderAll, showItemUseFx, attackOneFifthV218, applyItemScore | groups, inventory, roundActive, evaluated, itemUsedThisRound, name, itemEffect, id, itemStats | 高 | NOT TESTED（单个实现；集成覆盖另列） |
 | cleanVisibleCopyV21811 | src/script/43.js:2 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | renderAbout | src/script/43.js:18 | tab | r | cleanVisibleCopyV21811 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
@@ -647,44 +645,48 @@
 | normalizeEffect | src/core/reliability.js:98 | raw | null; Object.keys(out).length?out:null | count |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | calculateRoundScores | src/core/reliability.js:106 | s | s.groups.map(g=>{       let score=Number(g.score);       if(!Number.isSafeInteger(score))throw Error; score | Number, Error | score, selectedOpt, allIn | 高 | NOT TESTED（单个实现；集成覆盖另列） |
 | csvText | src/core/reliability.js:118 | text | /^[\s]*[=+@-]/.test(text)?"'"+text:text | String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| icon | src/ui/desktop.js:43 | name | <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] ／／ paths.spark}" |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| empty | src/ui/desktop.js:46 | title, text | <div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn | icon, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| persistPreferences | src/ui/desktop.js:49 | 无参数 | true; false | showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| applyPreferences | src/ui/desktop.js:61 | 无参数 | DOM／状态副作用；需按调用场景确认 | String, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| canAnimate | src/ui/desktop.js:71 | 无参数 | preferences.motion !== "off" &&       !(         preferences.systemMotion &&         matchMedia("(pr | matchMedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| animate | src/ui/desktop.js:80 | el, frames, options = {} | void; a | canAnimate |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| cancelAnimations | src/ui/desktop.js:91 | 无参数 | DOM／状态副作用；需按调用场景确认 | clearCardFx, clearAttackHitFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| visualEvent | src/ui/desktop.js:104 | type, detail = {} | void | canAnimate, $, String, animate |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| syncViewport | src/ui/desktop.js:132 | 无参数 | void | Number, getComputedStyle |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| viewChanged | src/ui/desktop.js:148 | name | void | $, String, cancelAnimations, animate, renderWelcome, selectSettings |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderWelcome | src/ui/desktop.js:197 | 无参数 | void; void; <button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/ | $, syncViewport, observeVisualState, canAnimate, Number, E, itemVisual, icon, empty, openItemWindow, requestAnimationFrame, renderDaily | groups, itemGlobal, id, name, score, color, inventory, itemEffect, booShield, booRoundsLeftV218, groupNo | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| updateArrows | src/ui/desktop.js:271 | 无参数 | void | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| observeVisualState | src/ui/desktop.js:281 | 无参数 | DOM／状态副作用；需按调用场景确认 | visualEvent | groups, inventory, itemEffect, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderDaily | src/ui/desktop.js:321 | 无参数 | void; void | $, getSettlementHistory, E, itemVisual, String, Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| historyKind | src/ui/desktop.js:373 | desc = "" | /清零／恢复／撤销／回溯／删除/.test(desc)       ? ["danger", "shield", "数据与恢复"]       : /道具／攻击／龟壳／蘑菇/.test(desc)   |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| inventory | src/ui/desktop.js:384 | items | items         .map((i) => ${ITEM_DEFS[i.key]?.name ／／ i.key} ×${i.charges ?? 1})         .join("、" |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderHistory | src/ui/desktop.js:391 | 无参数 | void; void; void; <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chi; void | $, empty, historyKind, icon, E, inventory, animate, Number, themeConfirm, revertToHistory | name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| renderArchives | src/ui/desktop.js:456 | 无参数 | void; <article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow | getSettlementHistory, Number, $, E, icon, empty, exportSingleSettlementCSV, deleteSettlementRecord, downloadJson | score, name, members, itemStats | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| downloadJson | src/ui/desktop.js:544 | value, name | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setupSettings | src/ui/desktop.js:566 | 无参数 | void; <div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>; void | $, icon, selectSettings, row, check, String, refreshSubjects, Number, persistPreferences, applyPreferences, renderDaily, downloadJson, themeConfirm |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| row | src/ui/desktop.js:615 | title, id, content | <div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div> |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| refreshSubjects | src/ui/desktop.js:728 | 无参数 | void | $, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| selectSettings | src/ui/desktop.js:748 | id | void | $, String |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setupDock | src/ui/desktop.js:767 | 无参数 | void | $, icon, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| refreshLockControl | src/ui/desktop.js:837 | button | void | icon, uiIconsV26 | isLocked | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setupModals | src/ui/desktop.js:864 | 无参数 | void; void; void; void | focusModal, canAnimate, stopConfetti, animate, queueMicrotask, cancelAnimations, scan |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| focusModal | src/ui/desktop.js:866 | top | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| scan | src/ui/desktop.js:887 | 无参数 | DOM／状态副作用；需按调用场景确认 | canAnimate, stopConfetti, animate, queueMicrotask, focusModal, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| cancelPickerPreparation | src/ui/desktop.js:1009 | 无参数 | DOM／状态副作用；需按调用场景确认 | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| isPickerCurrent | src/ui/desktop.js:1022 | generation | generation === pickerGeneration &&       $("#pickerModal").classList.contains("active") | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| togglePicker | src/ui/desktop.js:1028 | 无参数 | false; true; slotEngine.isSpinning; false | stopSlotSpin, $, toggleSlotSpin, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| pickerStopped | src/ui/desktop.js:1055 | 无参数 | void | $, animate, isPickerCurrent, complete |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| pickerChanged | src/ui/desktop.js:1088 | 无参数 | DOM／状态副作用；需按调用场景确认 | pickerTargetGroup, animate, $ | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| setupPicker | src/ui/desktop.js:1107 | 无参数 | DOM／状态副作用；需按调用场景确认 | $, pickerChanged |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
-| prepareSettlement | src/ui/desktop.js:1130 | 无参数 | DOM／状态副作用；需按调用场景确认 | $ |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| cancelSettlement | src/ui/desktop.js:1135 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| settleFromUI | src/ui/desktop.js:1138 | button | { ok: false, reason: "busy" }; { ok: false, reason: "cancelled" }; result | $, requestAnimationFrame, confirmFinalSettlement |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
-| init | src/ui/desktop.js:1173 | 无参数 | void; void; void | applyPreferences, syncViewport, icon, setupDock, $, applyUiIconsV26, setupSettings, setupPicker, setupModals, animate, canAnimate, renderArchives, viewChanged, renderWelcome, renderHistory, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| icon | src/ui/desktop.js:44 | name | <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] ／／ paths.spark}" |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| empty | src/ui/desktop.js:47 | title, text | <div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn | icon, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| persistPreferences | src/ui/desktop.js:50 | 无参数 | true; false | showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| applyPreferences | src/ui/desktop.js:62 | 无参数 | DOM／状态副作用；需按调用场景确认 | cancelSettingsMotion, String, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| canAnimate | src/ui/desktop.js:73 | 无参数 | preferences.motion !== "off" &&       !(         preferences.systemMotion &&         matchMedia("(pr | matchMedia |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| animate | src/ui/desktop.js:82 | el, frames, options = {} | void; a | canAnimate |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelAnimations | src/ui/desktop.js:93 | 无参数 | DOM／状态副作用；需按调用场景确认 | cancelSettingsMotion, clearCardFx, clearAttackHitFxV2116 |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| visualEvent | src/ui/desktop.js:107 | type, detail = {} | void | canAnimate, $, String, animate |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| syncViewport | src/ui/desktop.js:135 | 无参数 | void | Number, getComputedStyle |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| viewChanged | src/ui/desktop.js:151 | name | void | $, String, cancelAnimations, animate, renderWelcome, selectSettings |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderWelcome | src/ui/desktop.js:200 | 无参数 | void; void; <button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/ | $, syncViewport, observeVisualState, canAnimate, Number, E, itemVisual, icon, empty, openItemWindow, requestAnimationFrame, renderDaily | groups, itemGlobal, id, name, score, color, inventory, itemEffect, booShield, booRoundsLeftV218, groupNo | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| updateArrows | src/ui/desktop.js:274 | 无参数 | void | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| observeVisualState | src/ui/desktop.js:284 | 无参数 | DOM／状态副作用；需按调用场景确认 | visualEvent | groups, inventory, itemEffect, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderDaily | src/ui/desktop.js:324 | 无参数 | void; void | $, getSettlementHistory, E, itemVisual, String, Number |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| historyKind | src/ui/desktop.js:376 | desc = "" | /清零／恢复／撤销／回溯／删除/.test(desc)       ? ["danger", "shield", "数据与恢复"]       : /道具／攻击／龟壳／蘑菇/.test(desc)   |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| inventory | src/ui/desktop.js:387 | items | items         .map((i) => ${ITEM_DEFS[i.key]?.name ／／ i.key} ×${i.charges ?? 1})         .join("、" |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderHistory | src/ui/desktop.js:394 | 无参数 | void; void; void; <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chi; void | $, empty, historyKind, icon, E, inventory, animate, Number, themeConfirm, revertToHistory | name | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| renderArchives | src/ui/desktop.js:459 | 无参数 | void; <article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow | getSettlementHistory, Number, $, E, icon, empty, exportSingleSettlementCSV, deleteSettlementRecord, downloadJson | score, name, members, itemStats | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| downloadJson | src/ui/desktop.js:547 | value, name | DOM／状态副作用；需按调用场景确认 | setTimeout |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setupSettings | src/ui/desktop.js:584 | 无参数 | void; <div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>; void | $, icon, installCommunismModeSetting, installSfxVolumeSliderV2176, installClearItemsSettingV2172, selectSettings, row, check, String, refreshSubjects, Number, persistPreferences, applyPreferences, renderDaily, downloadJson, themeConfirm, organizeSettings |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| row | src/ui/desktop.js:623 | title, id, content | <div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div> |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| organizeSettings | src/ui/desktop.js:737 | sections, shell | box; void; void; void | E, group, $, marked, openPwdModal, themeConfirm | isLocked | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| group | src/ui/desktop.js:738 | parent, id, title, description, nodes, collapsed = false, danger = false | box | E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| refreshSubjects | src/ui/desktop.js:932 | 无参数 | void | $, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelSettingsMotion | src/ui/desktop.js:952 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| revealSettings | src/ui/desktop.js:959 | entering | void; void; void | cancelSettingsMotion, canAnimate, $, animate |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| selectSettings | src/ui/desktop.js:1000 | id, entering = false | void | $, String, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, revealSettings |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setupDock | src/ui/desktop.js:1027 | 无参数 | void | $, icon, E |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| refreshLockControl | src/ui/desktop.js:1097 | button | void | icon, uiIconsV26 | isLocked | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setupModals | src/ui/desktop.js:1124 | 无参数 | void; void; void; void | focusModal, canAnimate, stopConfetti, animate, queueMicrotask, cancelAnimations, scan |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| focusModal | src/ui/desktop.js:1126 | top | void |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| scan | src/ui/desktop.js:1147 | 无参数 | DOM／状态副作用；需按调用场景确认 | canAnimate, stopConfetti, animate, queueMicrotask, focusModal, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelPickerPreparation | src/ui/desktop.js:1269 | 无参数 | DOM／状态副作用；需按调用场景确认 | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| isPickerCurrent | src/ui/desktop.js:1282 | generation | generation === pickerGeneration &&       $("#pickerModal").classList.contains("active") | $ |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| togglePicker | src/ui/desktop.js:1288 | 无参数 | false; true; slotEngine.isSpinning; false | stopSlotSpin, $, toggleSlotSpin, showToast |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| pickerStopped | src/ui/desktop.js:1315 | 无参数 | void | $, animate, isPickerCurrent, complete |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| pickerChanged | src/ui/desktop.js:1348 | 无参数 | DOM／状态副作用；需按调用场景确认 | pickerTargetGroup, animate, $ | groups, id | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| setupPicker | src/ui/desktop.js:1367 | 无参数 | DOM／状态副作用；需按调用场景确认 | $, pickerChanged |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
+| prepareSettlement | src/ui/desktop.js:1390 | 无参数 | DOM／状态副作用；需按调用场景确认 | $ |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| cancelSettlement | src/ui/desktop.js:1395 | 无参数 | DOM／状态副作用；需按调用场景确认 |  |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| settleFromUI | src/ui/desktop.js:1398 | button | { ok: false, reason: "busy" }; { ok: false, reason: "cancelled" }; result | $, requestAnimationFrame, confirmFinalSettlement |  | 高 | NOT TESTED（单个实现；集成覆盖另列） |
+| init | src/ui/desktop.js:1433 | 无参数 | void; void; void | applyPreferences, syncViewport, matchMedia, canAnimate, cancelSettingsMotion, icon, setupDock, $, applyUiIconsV26, setupSettings, setupPicker, setupModals, animate, renderArchives, viewChanged, renderWelcome, renderHistory, cancelAnimations |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | dayIndex | src/ui/model.js:60 | d = new Date() | Math.floor(       Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,     ) |  |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | daily | src/ui/model.js:65 | list, date = new Date() | list.length       ? list[((dayIndex(date) % list.length) + list.length) % list.length]       : null | dayIndex |  | 中 | NOT TESTED（单个实现；集成覆盖另列） |
 | differences | src/ui/model.js:70 | before, after | [...new Set([...a.keys(), ...b.keys()])].map((id) => {       const x = a.get(id),         y = b.get(; {         id,         name: y?.name ／／ x?.name,         before: x?.score ?? null,         after: y?. | Number, rank | id | 中 | NOT TESTED（单个实现；集成覆盖另列） |

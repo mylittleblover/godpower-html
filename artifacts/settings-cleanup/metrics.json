@@ -1,0 +1,29 @@
+{
+  "baselineCommit": "e97933d81c8de792788f9d93a0a385813bb2d2cd",
+  "before": {
+    "sourceBytes": 852250,
+    "sourceLines": 20991,
+    "functionDefinitions": 812,
+    "duplicateNames": 87,
+    "extraDefinitions": 191,
+    "capturedWrapperAliases": 100,
+    "timerAndListenerCalls": 296,
+    "cssLeafRules": 1697,
+    "exactRepeatedCssBodies": 48,
+    "important": 1692,
+    "buildBytes": 7688029
+  },
+  "after": {
+    "sourceBytes": 860924,
+    "sourceLines": 21366,
+    "functionDefinitions": 815,
+    "duplicateNames": 87,
+    "extraDefinitions": 189,
+    "capturedWrapperAliases": 98,
+    "timerAndListenerCalls": 299,
+    "cssLeafRules": 1718,
+    "exactRepeatedCssBodies": 48,
+    "important": 1660,
+    "buildBytes": 7698829
+  }
+}

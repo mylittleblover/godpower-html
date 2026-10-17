@@ -1,5 +1,17 @@
 [
   {
+    "id": "communismModeToggle",
+    "type": "checkbox",
+    "text": "",
+    "handler": "setCommunismMode(this.checked)"
+  },
+  {
+    "id": "cfgSaveAllIn",
+    "type": "checkbox",
+    "text": "",
+    "handler": "toggleSaveAllIn(this.checked)"
+  },
+  {
     "id": "",
     "type": "file",
     "text": "",
@@ -18,12 +30,6 @@
     "handler": "changeWallpaperVeil(this.value)"
   },
   {
-    "id": "cfgSaveAllIn",
-    "type": "checkbox",
-    "text": "",
-    "handler": "toggleSaveAllIn(this.checked)"
-  },
-  {
     "id": "cfgResizerEnabled",
     "type": "checkbox",
     "text": "",
@@ -34,12 +40,6 @@
     "type": "select-one",
     "text": "\n        单列显示\n        多列自适应 (双列)\n      ",
     "handler": "updateColumnMode(this.value)"
-  },
-  {
-    "id": "communismModeToggle",
-    "type": "checkbox",
-    "text": "",
-    "handler": "setCommunismMode(this.checked)"
   },
   {
     "id": "",
@@ -58,6 +58,102 @@
     "type": "submit",
     "text": "＋",
     "handler": "zoomIn()"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_welcome')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_battle')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_history')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_archives')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('nav_settings')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_item')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_hand')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_picker')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_about')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_search')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_undo')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_lock')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_add')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomin')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomout')"
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "上传",
+    "handler": "chooseUiIconV26('dock_zoomreset')"
   },
   {
     "id": "uiPref-motion",
@@ -298,12 +394,6 @@
     "type": "submit",
     "text": "上传",
     "handler": "triggerUploadAudio('fx_roll_win')"
-  },
-  {
-    "id": "",
-    "type": "button",
-    "text": "\n      导出音效包 (.bin)\n    ",
-    "handler": "exportFxBundleV2175()"
   },
   {
     "id": "",
@@ -668,98 +758,20 @@
   {
     "id": "",
     "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('nav_welcome')"
+    "text": "导出全部自定义音频",
+    "handler": "exportAudioBundle()"
   },
   {
     "id": "",
     "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('nav_battle')"
+    "text": "仅导出自定义音效",
+    "handler": "exportFxBundleV2175()"
   },
   {
     "id": "",
     "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('nav_history')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('nav_archives')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('nav_settings')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_item')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_hand')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_picker')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_about')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_search')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_undo')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_lock')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_add')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_zoomin')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_zoomout')"
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "上传",
-    "handler": "chooseUiIconV26('dock_zoomreset')"
+    "text": "导入音频包",
+    "handler": "triggerImportAudioBundle()"
   },
   {
     "id": "",
@@ -1164,18 +1176,6 @@
     "handler": null
   },
   {
-    "id": "newPwdInput",
-    "type": "password",
-    "text": "",
-    "handler": null
-  },
-  {
-    "id": "",
-    "type": "submit",
-    "text": "更新",
-    "handler": "updateAdminPin()"
-  },
-  {
     "id": "",
     "type": "submit",
     "text": "导出备份",
@@ -1186,6 +1186,18 @@
     "type": "submit",
     "text": "恢复备份",
     "handler": "triggerImport()"
+  },
+  {
+    "id": "newPwdInput",
+    "type": "password",
+    "text": "",
+    "handler": null
+  },
+  {
+    "id": "",
+    "type": "submit",
+    "text": "更新",
+    "handler": "updateAdminPin()"
   },
   {
     "id": "",

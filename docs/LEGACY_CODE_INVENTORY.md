@@ -10,17 +10,17 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 
 |指标|基线|当前|
 |---|---:|---:|
-|sourceBytes|808989|852250|
-|sourceLines|19204|20991|
-|functionDefinitions|783|812|
+|sourceBytes|808989|860924|
+|sourceLines|19204|21366|
+|functionDefinitions|783|815|
 |duplicateNames|85|87|
-|extraDefinitions|194|191|
-|capturedWrapperAliases|111|100|
-|timerAndListenerCalls|265|296|
-|cssLeafRules|1529|1697|
+|extraDefinitions|194|189|
+|capturedWrapperAliases|111|98|
+|timerAndListenerCalls|265|299|
+|cssLeafRules|1529|1718|
 |exactRepeatedCssBodies|48|48|
-|important|1691|1692|
-|buildBytes|7635132|7688029|
+|important|1691|1660|
+|buildBytes|7635132|7698829|
 
 ## 已证明可替换／不可达的旧入口
 
@@ -41,6 +41,8 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/00.js:6372|applyItemScore|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
 |src/script/05.js:72|tryDefend|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
 |src/script/05.js:147|applyItemScore|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
+|src/script/10.js:102|renderItemFxSoundListV26|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
+|src/script/10.js:127|showSettingsV26|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
 |src/script/17.js:25|applyItemScore|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
 |src/script/31.js:189|applyItemScore|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
 |src/script/36.js:353|tryDefend|已被新实现取代／可安全删除|canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告|
@@ -323,300 +325,300 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/00.js:3036|closeSoundModal|declaration|需要进一步测试|switchView|
 |src/script/00.js:3040|syncSettingsControls|declaration|需要进一步测试|document.getElementById, Math.round, state.groups.map(g => ${g.name}: ${(g.members ／／ []).join(', ')}).join, state.groups.map, (g.members ／／ []).join|
 |src/script/00.js:3050|updateMasterVolume|declaration|需要进一步测试|parseFloat, document.getElementById, Math.round, masterGainNode.gain.setValueAtTime, saveState|
-|src/script/00.js:3059|renderBgmSlotList|declaration|需要进一步测试|document.getElementById, parseInt, Number, refreshSoundIdCache, checkSetCompleteness, hasSound, document.createElement, container.appendChild|
-|src/script/00.js:3113|renderFxSlotList|declaration|需要进一步测试|document.getElementById, FX_SOUND_SLOTS.forEach, document.createElement, fxContainer.appendChild|
-|src/script/00.js:3136|previewBgmTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.get, getAudioContext, ctx.decodeAudioData, req.result.arrayBuffer.slice, ctx.createBufferSource, src.connect, src.start|
-|src/script/00.js:3142|req.onsuccess|assignment|需要进一步测试|getAudioContext, ctx.decodeAudioData, req.result.arrayBuffer.slice, ctx.createBufferSource, src.connect, src.start|
-|src/script/00.js:3157|triggerUploadAudio|declaration|需要进一步测试|document.getElementById('soundFileInput').click, document.getElementById|
-|src/script/00.js:3162|handleSoundFileUpload|declaration|需要进一步测试|getAudioContext, ctx.decodeAudioData, arrayBuffer.slice, db.transaction, tx.objectStore, store.put, soundIdCache.add, currentUploadingSlot.startsWith, currentUploadingSlot.replace, showToast, renderBgmSlotList, renderFxSlotList, themeAlert, reader.readAsArrayBuffer|
-|src/script/00.js:3167|reader.onload|assignment|需要进一步测试|getAudioContext, ctx.decodeAudioData, arrayBuffer.slice, db.transaction, tx.objectStore, store.put, soundIdCache.add, currentUploadingSlot.startsWith, currentUploadingSlot.replace, showToast, renderBgmSlotList, renderFxSlotList, themeAlert|
-|src/script/00.js:3199|deleteBgmTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.delete, soundIdCache.delete, showToast, renderBgmSlotList|
-|src/script/00.js:3213|deleteFxTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.delete, soundIdCache.delete, showToast, renderFxSlotList|
-|src/script/00.js:3226|exportAudioBundle|declaration|需要进一步测试|showToast, db.transaction, tx.objectStore, store.getAll, resolve, themeAlert, fileIndex.push, audioBuffersToPack.push, new TextEncoder().encode, JSON.stringify, headerView.setUint8, headerView.setUint32, URL.createObjectURL, document.createElement, a.click, URL.revokeObjectURL|
-|src/script/00.js:3235|req.onsuccess|assignment|需要进一步测试|resolve|
-|src/script/00.js:3236|req.onerror|assignment|需要进一步测试|resolve|
-|src/script/00.js:3275|triggerImportAudioBundle|declaration|需要进一步测试|openPwdModal, document.getElementById('bundleFileInput').click, document.getElementById|
-|src/script/00.js:3280|handleBundleFilePicked|declaration|需要进一步测试|showToast, dataView.getUint8, themeAlert, dataView.getUint32, JSON.parse, new TextDecoder().decode, db.transaction, tx.objectStore, fileIndex.forEach, store.put, fullBuffer.slice, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, reader.readAsArrayBuffer|
-|src/script/00.js:3286|reader.onload|assignment|需要进一步测试|dataView.getUint8, themeAlert, dataView.getUint32, JSON.parse, new TextDecoder().decode, db.transaction, tx.objectStore, fileIndex.forEach, store.put, fullBuffer.slice, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, showToast|
-|src/script/00.js:3306|tx.oncomplete|assignment|需要进一步测试|refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, showToast|
-|src/script/00.js:3324|escapeHtml|declaration|需要进一步测试|String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace, String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace, String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace, String(str ?? '').replace(/&/g, "&amp;").replace, String(str ?? '').replace, String|
-|src/script/00.js:3338|ensureAudioUnlocked|declaration|需要进一步测试|Promise.resolve, getAudioContext().then(() => { audioUnlocked = true; }).catch, getAudioContext().then, getAudioContext|
-|src/script/00.js:3343|switchView|declaration|需要进一步测试|VIEW_NAMES.includes, ensureAudioUnlocked, DesktopUI.viewChanged, document.querySelectorAll('.view').forEach, document.querySelectorAll, v.classList.remove, document.getElementById, target.classList.add, document.querySelectorAll('.nav-tab').forEach, t.classList.toggle, renderWelcomePage, updateWelcomeTrackIfNeeded, renderHistoryList, renderSettlementHistoryList, syncSettingsControls, renderBgmSlotList, renderFxSlotList, renderBgmEngineConsole, menuFadeOut, renderAll, bgmStopAll, ensureAudioUnlocked().then, getMenuTrackKeyForView, menuStartOrSwitch|
-|src/script/00.js:3371|enterBattleFromWelcome|declaration|需要进一步测试|switchView|
-|src/script/00.js:3375|getMenuTrackKeyForView|declaration|需要进一步测试|getWelcomeTrackKey|
-|src/script/00.js:3383|getWelcomeTrackKey|declaration|需要进一步测试|state.groups.reduce, Math.max, Number, Math.min, String, Math.floor, Math.abs|
-|src/script/00.js:3393|startWelcomeClock|declaration|需要进一步测试|updateWelcomeClock, setInterval|
-|src/script/00.js:3399|updateWelcomeClock|declaration|需要进一步测试|updateHeaderStats, DesktopUI.renderWelcome, String(now.getHours()).padStart, String, now.getHours, String(now.getMinutes()).padStart, now.getMinutes, String(now.getSeconds()).padStart, now.getSeconds, document.getElementById, now.getFullYear, now.getMonth, now.getDate, now.getDay|
-|src/script/00.js:3418|renderWelcomePage|declaration|需要进一步测试|DesktopUI.renderWelcome, document.getElementById, [...state.groups].sort, Number, escapeHtml, getScore|
-|src/script/00.js:3424|getScore|binding|需要进一步测试|Number|
-|src/script/00.js:3489|saveMenuCfg|declaration|需要进一步测试|STORAGE.setJSON|
-|src/script/00.js:3492|midiToFreq|declaration|需要进一步测试|Math.pow|
-|src/script/00.js:3494|mulberry32|declaration|需要进一步测试|Math.imul|
-|src/script/00.js:3508|buildMenuPattern|declaration|需要进一步测试|Math.max, Number, mulberry32, key.split('').reduce, key.split, c.charCodeAt, new Array(totalSteps).fill, rnd, Math.floor|
-|src/script/00.js:3546|getNoiseBuffer|declaration|需要进一步测试|Math.floor, audioCtx.createBuffer, noiseBuffer.getChannelData, Math.random|
-|src/script/00.js:3580|menuSecPerBeat|declaration|需要进一步测试|Math.max, Number|
-|src/script/00.js:3582|menuLoopSpan|declaration|需要进一步测试|Math.max, Number, menuSecPerBeat|
-|src/script/00.js:3597|normalizeWelcomeLoopBuffer|declaration|需要进一步测试|/^welcome_[1-6]$/.test, menuLoopSpan, Math.min, menuSecPerBeat, Math.ceil, audioCtx.createBuffer, fixed.getChannelData(ch).set, fixed.getChannelData, buf.getChannelData|
-|src/script/00.js:3617|menuEnsureGraph|declaration|需要进一步测试|audioCtx.createGain, menuBgm.outGain.gain.setValueAtTime, menuBgm.outGain.connect|
-|src/script/00.js:3628|makeSynthMenuBuffer|declaration|需要进一步测试|Math.max, Number, Math.ceil, Math.floor, buildMenuPattern, Math.min, offline.createOscillator, offline.createGain, osc.frequency.setValueAtTime, midiToFreq, g.gain.setValueAtTime, g.gain.exponentialRampToValueAtTime, osc.connect, g.connect, osc.start, osc.stop, offline.createBuffer, buf.getChannelData, Math.random, offline.createBufferSource, offline.createBiquadFilter, src.connect, hp.connect, src.start, offline.startRendering|
-|src/script/00.js:3688|menuLoadBuffer|declaration|需要进一步测试|async () => {     let buf = null;     if (db) {       try {         const ab = await new Promise(res => {           const tx = db.transaction('sounds', 'readonly');           const req = tx.objectStore('sounds').get('bgm_menu_' + key);           req.onsuccess = () => res((req.result && req.result.arrayBuffer) ／／ null);           req.onerror = () => res(null);         });         if (ab && ab.byteLength > 0) {           buf = await audioCtx.decodeAudioData(ab.slice(0));           buf = normalizeWelcomeLoopBuffer(key, buf);           menuBgm.uploadedKeys.add(key);         }       } catch(e) {}     }     if (!buf) {       try { buf = await makeSynthMenuBuffer(key); } catch(e2) { buf = null; }       if (buf) menuBgm.uploadedKeys.delete(key);     }     if (buf) menuBgm.buffers[key] = buf;     return buf;   }, db.transaction, tx.objectStore('sounds').get, tx.objectStore, res, audioCtx.decodeAudioData, ab.slice, normalizeWelcomeLoopBuffer, menuBgm.uploadedKeys.add, makeSynthMenuBuffer, menuBgm.uploadedKeys.delete|
-|src/script/00.js:3698|req.onsuccess|assignment|需要进一步测试|res|
-|src/script/00.js:3699|req.onerror|assignment|需要进一步测试|res|
-|src/script/00.js:3719|menuLoopParams|declaration|需要进一步测试|menuLoopSpan, menuBgm.uploadedKeys.has, Math.min, Math.max|
-|src/script/00.js:3729|menuTrimFor|declaration|需要进一步测试|Number, Math.max, Math.min, Number.isFinite|
-|src/script/00.js:3735|menuPosForKey|declaration|需要进一步测试|menuLoopParams, Math.max, Math.min|
-|src/script/00.js:3744|menuVoiceGainAt|declaration|需要进一步测试||
-|src/script/00.js:3752|menuVoiceRamp|declaration|需要进一步测试|menuVoiceGainAt, g.cancelScheduledValues, g.setValueAtTime, g.linearRampToValueAtTime|
-|src/script/00.js:3762|menuSpawnVoice|declaration|需要进一步测试|menuLoopParams, audioCtx.createBufferSource, Math.min, Math.max, audioCtx.createGain, gain.gain.setValueAtTime, src.connect, gain.connect, menuPosForKey, src.disconnect, gain.disconnect, menuBgm.voices.indexOf, menuBgm.voices.splice, src.start, menuBgm.voices.push|
-|src/script/00.js:3775|src.onended|assignment|需要进一步测试|src.disconnect, gain.disconnect, menuBgm.voices.indexOf, menuBgm.voices.splice|
-|src/script/00.js:3787|menuRetireVoice|declaration|需要进一步测试|menuVoiceRamp, v.src.stop|
-|src/script/00.js:3799|menuSwitchNow|declaration|需要进一步测试|menuBgm.voices.find, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice, menuTrimFor, Math.abs, menuVoiceGainAt, menuVoiceRamp, menuSpawnVoice|
-|src/script/00.js:3822|menuStartOrSwitch|declaration|需要进一步测试|ensureAudioUnlocked().then, ensureAudioUnlocked, menuEnsureGraph, menuLoadBuffer, menuSwitchNow|
-|src/script/00.js:3840|menuFadeOut|declaration|需要进一步测试|menuPosForKey, Math.max, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice|
-|src/script/00.js:3854|menuStop|declaration|需要进一步测试|menuBgm.voices.slice().forEach, menuBgm.voices.slice, v.src.stop|
-|src/script/00.js:3867|menuResyncGrid|declaration|需要进一步测试|menuLoopParams, Math.min, Math.max, menuBgm.voices.find, Math.abs, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor|
-|src/script/00.js:3882|menuScheduleReload|declaration|需要进一步测试|clearTimeout, setTimeout, menuBgm.uploadedKeys.delete, menuLoadBuffer, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor|
-|src/script/00.js:3900|updateWelcomeTrackIfNeeded|declaration|需要进一步测试|getWelcomeTrackKey, menuStartOrSwitch|
-|src/script/00.js:3907|renderBgmEngineConsole|declaration|需要进一步测试|document.getElementById, MENU_TRACK_KEYS.map(k =>     '<div class="trim-row">' +       '<span class="trim-name">' + MENU_TRACK_META[k].name + '</span>' +       '<input type="range" min="0" max="2" step="0.05" value="' + menuCfg.gainTrims[k] + '" oninput="menuTrimChange(\'' + k + '\', this.value)">' +       '<span class="trim-val" id="trim-val-' + k + '">' + Number(menuCfg.gainTrims[k]).toFixed(2) + '</span>' +     '</div>').join, MENU_TRACK_KEYS.map, Number(menuCfg.gainTrims[k]).toFixed, Number|
-|src/script/00.js:3961|menuEnabledChange|declaration|需要进一步测试|saveMenuCfg, menuStop, menuStartOrSwitch, getMenuTrackKeyForView|
-|src/script/00.js:3966|menuBpmChange|declaration|需要进一步测试|Number, saveMenuCfg, document.getElementById, menuScheduleReload|
-|src/script/00.js:3971|menuMeterChange|declaration|需要进一步测试|Number, saveMenuCfg, menuResyncGrid|
-|src/script/00.js:3975|menuLoopChange|declaration|需要进一步测试|Number, saveMenuCfg, menuResyncGrid|
-|src/script/00.js:3979|menuTrimChange|declaration|需要进一步测试|Number, saveMenuCfg, menuBgm.voices.forEach, menuVoiceRamp, menuTrimFor, document.getElementById, Number(v).toFixed|
-|src/script/00.js:3986|battleBpmChange|declaration|需要进一步测试|Number, document.getElementById, saveMenuCfg|
-|src/script/00.js:3996|makeRollLoopBuffer|declaration|需要进一步测试|audioCtx.createBuffer, Math.floor, buf.getChannelData, Math.random|
-|src/script/00.js:4016|startRollLoop|declaration|需要进一步测试|makeRollLoopBuffer, audioCtx.createGain, rollLoopGain.connect, getFxOutputV2176, rollLoopGain.gain.setValueAtTime, rollLoopGain.gain.linearRampToValueAtTime, audioCtx.createBufferSource, rollLoopNode.connect, rollLoopNode.start|
-|src/script/00.js:4034|stopRollLoop|declaration|需要进一步测试|cb, rollLoopGain.gain.cancelScheduledValues, rollLoopGain.gain.setValueAtTime, Math.max, rollLoopGain.gain.linearRampToValueAtTime, setTimeout, rollLoopNode.stop|
-|src/script/00.js:4054|uiDbOpen|declaration|需要进一步测试|indexedDB.open, d.objectStoreNames.contains, d.createObjectStore, res|
-|src/script/00.js:4059|r.onupgradeneeded|assignment|需要进一步测试|d.objectStoreNames.contains, d.createObjectStore|
-|src/script/00.js:4063|r.onsuccess|assignment|需要进一步测试|res|
-|src/script/00.js:4064|r.onerror|assignment|需要进一步测试|res|
-|src/script/00.js:4069|uiDbReq|declaration|需要进一步测试|uiDbOpen, d.transaction, fn, tx.objectStore, res|
-|src/script/00.js:4076|req.onsuccess|assignment|需要进一步测试|res|
-|src/script/00.js:4077|req.onerror|assignment|需要进一步测试|res|
-|src/script/00.js:4083|getWallVeil|declaration|需要进一步测试|Number, STORAGE.get, Number.isFinite, Math.max, Math.min|
-|src/script/00.js:4087|applyWallpaperVeil|declaration|需要进一步测试|getWallVeil, root.style.setProperty, document.getElementById, Math.round|
-|src/script/00.js:4096|applyWallpaper|declaration|需要进一步测试|URL.revokeObjectURL, URL.createObjectURL, root.style.setProperty, root.style.removeProperty, document.getElementById, applyWallpaperVeil|
-|src/script/00.js:4109|compressWallpaper|declaration|需要进一步测试|createImageBitmap, URL.createObjectURL, URL.revokeObjectURL, res, rej, Math.min, Math.max, document.createElement, Math.round, canvas.getContext, ctx.fillRect, ctx.drawImage, img.close, canvas.toBlob|
-|src/script/00.js:4118|im.onload|assignment|需要进一步测试|URL.revokeObjectURL, res|
-|src/script/00.js:4119|im.onerror|assignment|需要进一步测试|URL.revokeObjectURL, rej|
-|src/script/00.js:4135|onWallpaperFile|declaration|需要进一步测试|/^image\//.test, showToast, compressWallpaper, uiDbReq, st.put, applyWallpaper, Math.round|
-|src/script/00.js:4151|resetWallpaper|declaration|需要进一步测试|uiDbReq, st.delete, applyWallpaper, showToast|
-|src/script/00.js:4156|changeWallpaperVeil|declaration|需要进一步测试|STORAGE.set, Number, applyWallpaperVeil|
-|src/script/00.js:4160|initWallpaper|declaration|需要进一步测试|uiDbReq, st.get, applyWallpaper|
-|src/script/00.js:4178|window.hideAudioHint|assignment|需要进一步测试|document.getElementById|
-|src/script/00.js:4182|window.tryAutoResumeAndPlay|assignment|需要进一步测试|getAudioContext().then(() => {       if (audioCtx && audioCtx.state === 'running' && menuCfg.enabled && bgmEngine.state === 'IDLE' && !menuBgm.active && currentView !== 'battle') {         menuStartOrSwitch(getMenuTrackKeyForView(currentView));         hideAudioHint();       }     }).catch, getAudioContext().then, getAudioContext, menuStartOrSwitch, getMenuTrackKeyForView, hideAudioHint|
-|src/script/00.js:4193|window.startResumeRetry|assignment|需要进一步测试|setInterval, clearInterval, hideAudioHint, document.getElementById, tryAutoResumeAndPlay|
-|src/script/00.js:4210|window.closeWelcomeModal|assignment|需要进一步测试|document.getElementById, m.classList.remove, hideAudioHint, startResumeRetry, tryAutoResumeAndPlay|
-|src/script/00.js:4219|unlockByGesture|binding|需要进一步测试|getAudioContext().then(() => {       hideAudioHint();       const wm = document.getElementById('welcomeModal');       if (wm && wm.classList.contains('active')) return;       startResumeRetry();       if (menuCfg.enabled && bgmEngine.state === 'IDLE' && currentView !== 'battle') {         if (!menuBgm.active) menuStartOrSwitch(getMenuTrackKeyForView(currentView));       }     }).catch, getAudioContext().then, getAudioContext, hideAudioHint, document.getElementById, wm.classList.contains, startResumeRetry, menuStartOrSwitch, getMenuTrackKeyForView|
-|src/script/00.js:4284|normalizeInventoryV21718|declaration|需要进一步测试|(Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter(it=>{       const key=it&&it.key;       if(!ITEM_DEFS[key] ／／ seen.has(key)) return false;       seen.add(key);       return true;     })     .map, (Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter, (Array.isArray(inventory)?inventory:[])     .slice, Array.isArray, seen.has, seen.add, Math.max, Number, Number.isFinite, Math.min, Math.trunc, Date.now, Object.keys|
-|src/script/00.js:4305|ensureItemState|declaration|需要进一步测试|state.groups.forEach, Array.isArray, normalizeInventoryV21718, Number.isFinite|
-|src/script/00.js:4317|ranking|declaration|需要进一步测试|state.groups.slice().sort, state.groups.slice, Number, state.groups.indexOf|
-|src/script/00.js:4318|rankIndex|declaration|需要进一步测试|ranking().findIndex, ranking|
-|src/script/00.js:4319|roundQuarter|declaration|需要进一步测试|Math.round, Number|
-|src/script/00.js:4320|roundThird|declaration|需要进一步测试|Math.round, Number|
-|src/script/00.js:4321|roundHalf|declaration|需要进一步测试|Math.round, Number|
-|src/script/00.js:4322|eligibleForItems|declaration|需要进一步测试|Number|
-|src/script/00.js:4323|consumeInventoryItem|declaration|需要进一步测试|g.inventory.splice|
-|src/script/00.js:4324|addItemToGroup|declaration|需要进一步测试|eligibleForItems, g.inventory.push, Date.now, Math.random|
-|src/script/00.js:4325|tinyDefenseToast|declaration|需要进一步测试|document.createElement, document.body.appendChild, setTimeout, d.remove|
-|src/script/00.js:4327|defenseCandidates|declaration|需要进一步测试|['star','mega','bullet'].includes, out.push, ITEM_DEFENSE_KEYS.has, ['green','triple_green','horn'].includes, out.sort|
-|src/script/00.js:4344|damageFraction|declaration|需要进一步测试|roundHalf, roundThird, roundQuarter, applyItemScore|
-|src/script/00.js:4345|boostFraction|declaration|需要进一步测试|eligibleForItems, roundQuarter, Math.round|
-|src/script/00.js:4347|itemDropWeights|declaration|需要进一步测试|put|
-|src/script/00.js:4352|put|binding|需要进一步测试||
-|src/script/00.js:4437|weightedPick|declaration|需要进一步测试|Object.entries(weights).filter, Object.entries, arr.reduce, Math.random|
-|src/script/00.js:4438|drawItemForGroup|declaration|需要进一步测试|eligibleForItems, ranking, r.findIndex, weightedPick, itemDropWeights|
-|src/script/00.js:4440|detectOvertakePunish|declaration|需要进一步测试|state.groups.find, ['star','mega'].includes, ranking().map, ranking, beforeOrder.indexOf, after.indexOf, beforeOrder.slice(afterIdx,beforeIdx).filter, beforeOrder.slice, passed.forEach, eligibleForItems, tryDefend, roundQuarter|
-|src/script/00.js:4446|legacyUseItem|declaration|需要进一步测试|ensureItemState, state.groups.find, closeItemWindowForFx, eligibleForItems, showToast, ranking, r.findIndex, r.map, recordHistory, state.groups.filter, other, damageFraction, Math.floor, Math.random, [r[ri-1],r[ri+1]].filter(Boolean).forEach, [r[ri-1],r[ri+1]].filter, [r[ci-1],r[ci],r[ci+1]].filter(Boolean).forEach, [r[ci-1],r[ci],r[ci+1]].filter, flashBomb, other().sort(()=>Math.random()-.5).slice, other().sort, pool.forEach, r.slice(0,ri+1).forEach, r.slice, boostFraction, r.slice(ri).forEach, ['star','mega','power'].includes, t.inventory.splice, consumeInventoryItem, g.inventory.push, saveState, renderAll, Date.now, startBlooperClock, r.slice(0,ri).forEach, applyLightningHitV2116, detectOvertakePunish, Math.max, Number, ['mega','power'].includes|
-|src/script/00.js:4452|other|binding|需要进一步测试|state.groups.filter, eligibleForItems|
-|src/script/00.js:4522|flashBomb|declaration|需要进一步测试|setTimeout, document.querySelector, c.classList.add, c.classList.remove|
-|src/script/00.js:4524|startBulletTimer|declaration|需要进一步测试|clearInterval, setInterval, ensureItemState, state.groups.forEach, state.groups.find, rankIndex, g.inventory.findIndex, g.inventory.splice, showToast, eligibleForItems, saveState, renderGrid, renderChart, renderDashboard|
-|src/script/00.js:4525|startBlooperClock|declaration|需要进一步测试|applyBlooperMask, Date.now, setTimeout|
-|src/script/00.js:4526|applyBlooperMask|declaration|需要进一步测试|Date.now, document.getElementById, v.classList.toggle, document.querySelectorAll('.row-score,.chart-score,.podium-score,.w-stat-num').forEach, document.querySelectorAll, el.classList.toggle|
-|src/script/00.js:4528|globalItemDraw|declaration|需要进一步测试|ensureItemState, state.groups.filter, eligibleForItems, showToast, recordHistory, document.getElementById, ov.classList.add, state.groups.map(g=><div class="item-draw-card ${eligible.includes(g)?'':'full'}" data-draw-id="${g.id}"><div class="roulette">${eligible.includes(g)?'❔':'🔒'}</div><div class="draw-name">${escapeHtml(g.name)}</div><div class="draw-result">${eligible.includes(g)?'抽取中…':'跳过'}</div></div>).join, state.groups.map, eligible.includes, escapeHtml, setInterval, eligible.forEach, Math.floor, Math.random, grid.querySelector, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, card.classList.add, card.querySelector, saveState, renderAll, ov.classList.remove|
-|src/script/00.js:4534|openItemWindow|declaration|需要进一步测试|ensureItemState, document.getElementById('itemModalBackdrop').classList.add, document.getElementById, renderItemWindow|
-|src/script/00.js:4535|closeItemWindow|declaration|需要进一步测试|document.getElementById('itemModalBackdrop').classList.remove, document.getElementById|
-|src/script/00.js:4536|switchItemTab|declaration|需要进一步测试|renderItemWindow|
-|src/script/00.js:4537|renderItemWindow|declaration|需要进一步测试|state.groups.find, closeItemWindow, ensureGroupNumbersV213, document.getElementById, document.querySelectorAll('[data-item-tab]').forEach, document.querySelectorAll, b.classList.toggle, Math.round, statusParts.push, String, Number, statusParts.join, escapeHtml, DEFAULT_COLORS.map((color,idx)=><button type="button" class="group-color-swatch-v21716 ${String(g.color).toUpperCase()===color.toUpperCase()?'selected':''}" style="--swatch:${color}" title="预设 ${idx+1} · ${color}" ${disabled} onclick="selectGroupPresetColorV21716(${g.id},'${color}')"><span>${String(g.color).toUpperCase()===color.toUpperCase()?'✓':''}</span></button>).join, DEFAULT_COLORS.map, String(g.color).toUpperCase, color.toUpperCase, g.color.toUpperCase, (g.members／／[]).join, eligibleForItems, [0,1,2].map(i=>{const it=g.inventory[i];if(!it)return '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div></div>';const d=ITEM_DEFS[it.key];return <div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div><div class="item-big-desc">${escapeHtml(d.desc)}</div><button class="btn btn-primary item-use" onclick="useItem(${g.id},${i})" ${canUse?'':'disabled'}>立即使用</button></div>}).join, [0,1,2].map, itemVisual|
-|src/script/00.js:4616|previewItemDetailColor|declaration|需要进一步测试|document.getElementById|
-|src/script/00.js:4617|saveItemDetailColor|declaration|需要进一步测试|renderItemWindow, /^#[0-9a-f]{6}$/i.test, updateGroupColor|
-|src/script/00.js:4623|saveItemGroupDetail|declaration|需要进一步测试|openPwdModal, state.groups.find, document.getElementById('groupDetailName')?.value.trim, document.getElementById, document.getElementById('groupDetailNumber')?.value.trim, showToast, /^\d+$/.test, Number, state.groups.some, Array.from, rawMembers.split(/[\n,，、]+/).map(s=>s.trim()).filter, rawMembers.split(/[\n,，、]+/).map, rawMembers.split, s.trim, JSON.stringify, recordHistory, saveState, renderAll, updatePickerPoolUI, renderItemWindow|
-|src/script/00.js:4640|deleteItemDetailGroup|declaration|需要进一步测试|openPwdModal, deleteGroup, state.groups.some, closeItemWindow, document.getElementById('itemWindow')?.classList.contains, document.getElementById, renderItemWindow|
-|src/script/00.js:4649|itemQuickScore|declaration|需要进一步测试|openPwdModal, applyScoreDelta, renderItemWindow|
-|src/script/00.js:4650|itemCustomScore|declaration|需要进一步测试|Number, document.getElementById, Number.isFinite, itemQuickScore, Math.round|
-|src/script/00.js:4652|enhanceItemCards|declaration|需要进一步测试|ensureItemState, state.groups.forEach, document.querySelector, c.classList.remove, g.inventory.find, c.classList.add, c.querySelector, document.createElement, [0,1,2].map(i=>{const it=g.inventory[i];return it?<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?<span class="charges">${it.charges}</span>:''}</div>:'<div class="item-slot empty">＋</div>'}).join, [0,1,2].map, itemVisual, head.parentNode.insertBefore, mb.classList.remove, ev.preventDefault, ev.stopPropagation, openItemWindow, applyBlooperMask|
-|src/script/00.js:4652|mb.onclick|assignment|需要进一步测试|ev.preventDefault, ev.stopPropagation, openItemWindow|
-|src/script/00.js:4653|renderGrid|assignment|需要进一步测试|_itemBaseRenderGrid, enhanceItemCards|
-|src/script/00.js:4655|legacyJudgeRound|assignment|需要进一步测试|ranking().map, ranking, state.groups.map, _itemBaseJudgeRound, answered.forEach, state.groups.find, eligibleForItems, r.findIndex, g.inventory.findIndex, g.inventory.splice, detectOvertakePunish, saveState, renderAll|
-|src/script/00.js:4668|ensureV2State|declaration|需要进一步测试|ensureItemState, STORAGE.getJSON|
-|src/script/00.js:4678|itemVisual|declaration|需要进一步测试|ensureV2State, Reliability.safeImage, escapeHtml|
-|src/script/00.js:4684|itemBoxVisualV2121|declaration|需要进一步测试||
-|src/script/00.js:4687|setPickerInfoTab|declaration|需要进一步测试|document.getElementById('pickerStatsBtn')?.classList.toggle, document.getElementById, document.getElementById('pickerHistoryBtn')?.classList.toggle, renderPickerInfo|
-|src/script/00.js:4688|renderPickerInfo|declaration|需要进一步测试|ensureV2State, document.getElementById, state.groups.reduce, arr.slice(-30).reverse().map(x=><div class="picker-log">${escapeHtml(x.text)}<br><small>${new Date(x.time).toLocaleTimeString()}</small></div>).join, arr.slice(-30).reverse().map, arr.slice(-30).reverse, arr.slice, escapeHtml, new Date(x.time).toLocaleTimeString|
-|src/script/00.js:4697|openPickerModal|assignment|需要进一步测试|ensureV2State, _v2OpenPicker, setPickerInfoTab, syncPickerScoreTarget|
-|src/script/00.js:4698|syncPickerScoreTarget|declaration|需要进一步测试|document.getElementById, escapeHtml|
-|src/script/00.js:4699|pickerTargetGroup|declaration|需要进一步测试||
-|src/script/00.js:4700|scorePickerTarget|declaration|需要进一步测试|pickerTargetGroup, showToast, applyScoreDelta, syncPickerScoreTarget|
-|src/script/00.js:4701|scorePickerCustom|declaration|需要进一步测试|Math.round, Number, document.getElementById, Number.isFinite, scorePickerTarget|
-|src/script/00.js:4702|stopSlotSpin|assignment|需要进一步测试|_v2StopSlot, ensureV2State, state.itemGlobal.pickerHistory.push, Date.now, state.itemGlobal.pickerHistory.shift, saveState, syncPickerScoreTarget, renderPickerInfo|
-|src/script/00.js:4705|openHandRaise|declaration|需要进一步测试|ensureV2State, document.getElementById('handRaiseBackdrop').classList.add, document.getElementById, renderHandRaise|
-|src/script/00.js:4706|closeHandRaise|declaration|需要进一步测试|document.getElementById('handRaiseBackdrop').classList.remove, document.getElementById|
-|src/script/00.js:4707|renderHandRaise|declaration|需要进一步测试|document.getElementById, state.groups.map(g=><button class="hand-group ${g.id===handRaiseGroupId?'selected':''}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>).join, state.groups.map, escapeHtml|
-|src/script/00.js:4708|selectHandGroup|declaration|需要进一步测试|renderHandRaise, document.querySelectorAll('.hand-group').forEach, document.querySelectorAll, b.classList.remove, state.groups.findIndex, arr[idx].classList.add|
-|src/script/00.js:4709|judgeHandRaise|declaration|需要进一步测试|ensureV2State, state.groups.find, showToast, recordHistory, state.itemGlobal.handRaiseHistory.push, Date.now, saveState, renderAll, document.getElementById|
-|src/script/00.js:4716|handQuickScore|declaration|需要进一步测试|applyScoreDelta|
-|src/script/00.js:4717|handDrawItem|declaration|需要进一步测试|state.groups.find, eligibleForItems, showToast, recordHistory, drawItemForGroup, addItemToGroup, saveState, renderAll|
-|src/script/00.js:4718|handUseItem|declaration|需要进一步测试|state.groups.find, showToast, closeHandRaise, openItemWindow|
-|src/script/00.js:4721|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, setInterval, overlays.get, ranking, r.findIndex, weightedPick, itemDropWeights, o.querySelector, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, o.classList.add, saveState, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, c.querySelector, renderAll|
-|src/script/00.js:4735|openItemEncyclopedia|declaration|需要进一步测试|switchView, setTimeout, installSettingsTabs, showSettingsV2|
-|src/script/00.js:4736|renderItemEncyclopedia|declaration|需要进一步测试|ensureV2State, document.getElementById, ITEM_KEYS.map(k=>{const d=ITEM_DEFS[k];return <div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d.name}</div><div class="ency-desc">${d.desc}</div></div><div class="ency-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div></div>}).join, ITEM_KEYS.map, itemVisual|
-|src/script/00.js:4740|chooseItemIcon|declaration|需要进一步测试|document.getElementById, document.getElementById('itemIconInput').click|
-|src/script/00.js:4741|handleItemIconUpload|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, rd.readAsDataURL|
-|src/script/00.js:4741|rd.onload|assignment|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast|
-|src/script/00.js:4742|resetItemIcon|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll|
-|src/script/00.js:4743|resetAllItemIcons|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll|
-|src/script/00.js:4744|exportItemIconPack|declaration|需要进一步测试|ensureV2State, JSON.stringify, document.createElement, URL.createObjectURL, a.click, setTimeout, URL.revokeObjectURL|
-|src/script/00.js:4745|importItemIconPack|declaration|需要进一步测试|JSON.parse, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert, rd.readAsText|
-|src/script/00.js:4745|rd.onload|assignment|需要进一步测试|JSON.parse, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert|
-|src/script/00.js:4748|installSettingsTabs|declaration|需要进一步测试|document.querySelector, document.getElementById, document.createElement, sc.prepend, sc.appendChild, renderItemEncyclopedia|
-|src/script/00.js:4754|showSettingsV2|declaration|需要进一步测试|installSettingsTabs, document.querySelectorAll('#settingsV2Tabs button').forEach, document.querySelectorAll, b.classList.toggle, document.querySelector, document.getElementById, [...sc.children].forEach, item.classList.toggle, renderItemEncyclopedia, sc.querySelectorAll, titles[0]?.scrollIntoView|
-|src/script/00.js:4763|openAbout|declaration|需要进一步测试|document.getElementById('aboutBackdrop').classList.add, document.getElementById, renderAbout|
-|src/script/00.js:4764|closeAbout|declaration|需要进一步测试|document.getElementById('aboutBackdrop').classList.remove, document.getElementById|
-|src/script/00.js:4765|renderAbout|declaration|需要进一步测试|document.querySelectorAll('[data-about]').forEach, document.querySelectorAll, b.classList.toggle, document.getElementById, ITEM_KEYS.map(k=><div class="guide-block"><b>${itemVisual(k)} ${ITEM_DEFS[k].name}</b><br>${ITEM_DEFS[k].desc}</div>).join, ITEM_KEYS.map, itemVisual|
-|src/script/00.js:4773|renderItemWindow|assignment|需要进一步测试|_v2RenderItemWindow, state.groups.find, document.getElementById, document.createElement, ITEM_KEYS.map(k=><button class="btn btn-sm" onclick="godAddItem(${g.id},'${k}')">${itemVisual(k)} ${ITEM_DEFS[k].name}</button>).join, ITEM_KEYS.map, itemVisual, body.appendChild|
-|src/script/00.js:4774|godAddItem|declaration|需要进一步测试|state.groups.find, showToast, recordHistory, g.inventory.push, Date.now, Math.random, saveState, renderAll, renderItemWindow|
-|src/script/00.js:4775|godClearItems|declaration|需要进一步测试|state.groups.find, recordHistory, saveState, renderAll, renderItemWindow|
-|src/script/00.js:4778|enhanceItemCards|assignment|需要进一步测试|_v2Enhance, ensureV2State, state.groups.forEach, document.querySelector, c.querySelectorAll('.item-slot').forEach, c.querySelectorAll, s.querySelector, itemVisual|
-|src/script/00.js:4779|renderItemWindow|assignment|需要进一步测试|_v2RenderItemWindowIcons, state.groups.find, document.querySelectorAll('#itemWindowBody .item-big-icon').forEach, document.querySelectorAll, itemVisual|
-|src/script/00.js:4782|legacyJudgeRound|assignment|需要进一步测试|_v2Judge, ensureV2State, saveState|
-|src/script/00.js:4787|switchView|assignment|需要进一步测试|_v2SwitchView, setTimeout|
-|src/script/00.js:4794|cancelHandItemDraw|declaration|需要进一步测试|clearInterval, clearTimeout, showToast|
-|src/script/00.js:4803|closeHandRaise|assignment|需要进一步测试|cancelHandItemDraw, _v21CloseHandRaise|
-|src/script/00.js:4806|selectHandGroup|assignment|需要进一步测试|showToast, _v21SelectHandGroup|
-|src/script/00.js:4812|judgeHandRaise|assignment|需要进一步测试|cancelHandItemDraw, _v21JudgeHandRaise, state.groups.find, [...document.querySelectorAll('#handRewardBox button')].find, document.querySelectorAll, b.textContent.includes, eligibleForItems|
-|src/script/00.js:4825|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, Date.now, document.getElementById, escapeHtml, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, Math.min, tick, setInterval, setTimeout, clearInterval, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, Math.max, live.inventory.filter(y=>y.key===k).map, live.inventory.filter|
-|src/script/00.js:4843|tick|binding|需要进一步测试|state.groups.find, ranking, r.findIndex, weightedPick, itemDropWeights, document.getElementById, itemVisual, Math.min, Date.now|
-|src/script/00.js:4880|finishHandItemReward|declaration|需要进一步测试|document.getElementById|
-|src/script/00.js:4886|handUseNewItem|declaration|需要进一步测试|state.groups.find, showToast, g.inventory.map(x=>x.key).lastIndexOf, g.inventory.map, closeHandRaise, openItemWindow, setTimeout, document.querySelectorAll, cards[idx].scrollIntoView|
-|src/script/00.js:4903|showItemUseFx|declaration|需要进一步测试||
-|src/script/00.js:4904|itemFxTargetText|declaration|需要进一步测试|ranking, r.findIndex, names.includes, names.push, ['red','triple_red'].includes, add, ['banana','triple_banana'].includes, r.slice(0,Math.max(0,i)).forEach, r.slice, Math.max, r.slice(i+1).forEach, ['coin','mushroom','triple_mushroom','star','mega','bullet','power'].includes, names.join|
-|src/script/00.js:4906|add|binding|需要进一步测试|names.includes, names.push|
-|src/script/00.js:4917|closeItemWindowForFx|declaration|需要进一步测试|closeItemWindow|
-|src/script/00.js:4922|legacyUseItem|assignment|需要进一步测试|state.groups.find, JSON.stringify, useItemBeforeVisualDispatch.call, closeItemWindowForFx, setTimeout, showItemUseFx, itemFxTargetText|
-|src/script/00.js:4940|normalizeItemIconFile|declaration|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL, reader.readAsDataURL|
-|src/script/00.js:4942|reader.onload|assignment|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL|
-|src/script/00.js:4944|img.onload|assignment|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL|
-|src/script/00.js:4954|img.onerror|assignment|需要进一步测试|done|
-|src/script/00.js:4959|handleItemIconUpload|assignment|需要进一步测试|normalizeItemIconFile, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast|
-|src/script/00.js:4969|updateCardRouletteVisual|declaration|需要进一步测试|o.querySelector, icon.classList.remove, itemVisual, icon.classList.add|
-|src/script/00.js:4981|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, ranking, r.findIndex, weightedPick, itemDropWeights, currentKey.set, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:4998|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, ranking, r.findIndex, weightedPick, itemDropWeights, currentKey.set, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:5035|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, Math.max|
-|src/script/00.js:5053|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, state.groups.find, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, cap.animate, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, escapeHtml, Math.max|
-|src/script/00.js:5085|cancelHandItemDraw|assignment|需要进一步测试|clearTimeout, showToast|
-|src/script/00.js:5111|battleCard|declaration|需要进一步测试|document.querySelector|
-|src/script/00.js:5112|clearCardFx|declaration|需要进一步测试|[...card.classList].filter(x=>x.startsWith('cfx-')／／['card-use-fx','card-hit-fx','card-defend-fx','card-heal-fx'].includes(x)).forEach, [...card.classList].filter, x.startsWith, ['card-use-fx','card-hit-fx','card-defend-fx','card-heal-fx'].includes, card.classList.remove, card.querySelectorAll('.card-fx-badge').forEach, card.querySelectorAll, x.remove, card.style.removeProperty|
-|src/script/00.js:5118|playCasterCardFx|declaration|需要进一步测试|DesktopUI.getPreferences, battleCard, clearCardFx, card.classList.add, document.createElement, itemVisual, escapeHtml, card.appendChild, setTimeout, card.classList.remove, b.remove|
-|src/script/00.js:5128|playTargetCardFx|declaration|需要进一步测试|DesktopUI.visualEvent, DesktopUI.getPreferences, battleCard, card.classList.remove, card.style.setProperty, card.classList.add, setTimeout, card.style.removeProperty|
-|src/script/00.js:5137|cardFxTargets|declaration|需要进一步测试|ranking, r.findIndex, ids.includes, ids.push, ['red_shell','triple_red','boo'].includes, add, ['banana','triple_banana'].includes, r.slice(0,Math.max(0,i)).forEach, r.slice, Math.max, r.slice(i+1).forEach|
-|src/script/00.js:5138|add|binding|需要进一步测试|ids.includes, ids.push|
-|src/script/00.js:5151|showItemUseFx|assignment|需要进一步测试|playCasterCardFx, cardFxTargets, ['coin_shell','question_block'].includes, targets.forEach, setTimeout, playTargetCardFx, console.warn, _v25ShowItemUseFx|
-|src/script/00.js:5186|removeBgmEngineeringConsoleV26|declaration|需要进一步测试|document.getElementById('bgmEngineConsole')?.remove, document.getElementById, document.querySelectorAll('#view-settings .setting-section-title').forEach, document.querySelectorAll, x.textContent.includes, x.remove|
-|src/script/00.js:5205|renderItemFxSoundListV26|declaration|需要进一步测试|document.getElementById, ITEM_FX_SOUND_SLOTS.map(s=>{    const custom=!!customFxBuffers[s.id]／／hasSound('fx_'+s.id);    return <div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom?'已载入自定义音频':s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom?<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>:''}</div></div>  }).join, ITEM_FX_SOUND_SLOTS.map, hasSound|
-|src/script/00.js:5212|itemSoundCategoryV26|declaration|需要进一步测试|['green','triple_green','red','triple_red','spiny','banana','triple_banana','horn','bomb','hammer','lightning'].includes, ['coin','coin_shell','question','mushroom','triple_mushroom'].includes|
-|src/script/00.js:5219|showItemUseFx|assignment|需要进一步测试|playSound, setTimeout, itemSoundCategoryV26, _v26ShowItemUseFx|
-|src/script/00.js:5221|tinyDefenseToast|assignment|需要进一步测试|playSound, _v26TinyDefense|
-|src/script/00.js:5222|startDrawSoundBedV26|declaration|需要进一步测试|playSound, setInterval, clearInterval, Math.max, setTimeout|
-|src/script/00.js:5227|globalItemDraw|assignment|需要进一步测试|startDrawSoundBedV26, _v26GlobalDraw|
-|src/script/00.js:5228|handDrawItem|assignment|需要进一步测试|startDrawSoundBedV26, _v26HandDraw|
-|src/script/00.js:5241|uiIconsV26|declaration|需要进一步测试|STORAGE.getJSON|
-|src/script/00.js:5242|applyUiIconsV26|declaration|需要进一步测试|uiIconsV26, UI_ICON_TARGETS.forEach, document.querySelector, Reliability.safeImage, document.createElement, template.content.querySelector('svg,.custom-ui-icon')?.remove, template.content.querySelector, template.innerHTML.trim, escapeHtml, el.setAttribute|
-|src/script/00.js:5258|chooseUiIconV26|declaration|需要进一步测试|document.getElementById, f.click|
-|src/script/00.js:5259|handleUiIconV26|declaration|需要进一步测试|normalizeItemIconFile, uiIconsV26, STORAGE.setJSON, applyUiIconsV26, renderUiIconManagerV26|
-|src/script/00.js:5263|resetUiIconV26|declaration|需要进一步测试|uiIconsV26, STORAGE.setJSON, applyUiIconsV26, renderUiIconManagerV26|
-|src/script/00.js:5264|renderUiIconManagerV26|declaration|需要进一步测试|document.getElementById, uiIconsV26, UI_ICON_TARGETS.map(([id,label,,fallback])=><div class="icon-custom-card"><div class="icon-preview">${m[id]?<img src="${m[id]}">:fallback}</div><div style="flex:1"><b>${label}</b><div style="font-size:11px;color:#64748b">支持 PNG / JPG / WebP</div></div><button class="btn btn-sm btn-primary" onclick="chooseUiIconV26('${id}')">上传</button>${m[id]?<button class="btn btn-sm" onclick="resetUiIconV26('${id}')">还原</button>:''}</div>).join, UI_ICON_TARGETS.map|
-|src/script/00.js:5270|rebuildSettingsV26|declaration|需要进一步测试|document.querySelector, document.getElementById, removeBgmEngineeringConsoleV26, document.getElementById('settingsV2Tabs')?.remove, document.getElementById('v2ItemPane')?.remove, document.createElement, Object.entries(panes).forEach, Object.entries, original.forEach, txt.includes, panes[mode].appendChild, sc.append, panes.function.appendChild, panes.items.appendChild, panes.sound.appendChild, document.body.appendChild, installCommunismModeSetting, renderUiIconManagerV26, renderItemEncyclopedia, renderItemFxSoundListV26, showSettingsV26|
-|src/script/00.js:5296|showSettingsV26|declaration|需要进一步测试|document.getElementById, DesktopUI.selectSettings, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, document.querySelectorAll('.settings-v26-pane').forEach, document.querySelectorAll, p.classList.toggle, document.querySelectorAll('#settingsV26Tabs button').forEach, b.classList.toggle, document.querySelector, installCommunismModeSetting, renderUiIconManagerV26|
-|src/script/00.js:5306|installSettingsTabs|assignment|需要进一步测试|rebuildSettingsV26|
-|src/script/00.js:5307|showSettingsV2|assignment|需要进一步测试|showSettingsV26|
-|src/script/00.js:5318|syncVisualViewportV27|declaration|需要进一步测试|document.documentElement.style.setProperty|
-|src/script/00.js:5335|repairPersistentItemsV28|declaration|需要进一步测试|ensureItemState, state.groups.forEach, normalizeInventoryV21718, saveState|
-|src/script/00.js:5345|programConfirmV28|declaration|需要进一步测试|document.getElementById('programConfirmV28')?.remove, document.getElementById, document.createElement, escapeHtml, escapeHtml(message).replace, document.body.appendChild, o.remove, resolve, o.querySelector, finish, o.addEventListener, document.removeEventListener, document.addEventListener|
-|src/script/00.js:5362|finish|binding|需要进一步测试|o.remove, resolve|
-|src/script/00.js:5363|o.querySelector('#pcCancelV28').onclick|assignment|需要进一步测试|finish|
-|src/script/00.js:5364|o.querySelector('#pcOkV28').onclick|assignment|需要进一步测试|finish|
-|src/script/00.js:5366|key|binding|需要进一步测试|document.removeEventListener, finish|
-|src/script/00.js:5372|setCorrectAns|assignment|需要进一步测试|playSound, renderControls, state.groups.filter, unanswered.map(g=>g.name).join, unanswered.map, programConfirmV28|
-|src/script/00.js:5402|heldItemKeysV281|declaration|需要进一步测试|(g?.inventory／／[]).map(it=>it?.key).filter, (g?.inventory／／[]).map|
-|src/script/00.js:5405|weightedPickNoRepeatV281|declaration|需要进一步测试|Object.entries(weights／／{}).forEach, Object.entries, Number, blocked.has, Object.keys, weightedPick|
-|src/script/00.js:5414|pickItemForGroupV281|declaration|需要进一步测试|ranking, Math.max, r.findIndex, itemDropWeights, heldItemKeysV281, weightedPickNoRepeatV281, weightedPick|
-|src/script/00.js:5429|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, pickItemForGroupV281, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:5446|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, pickItemForGroupV281, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:5488|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, pickItemForGroupV281, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll|
-|src/script/00.js:5504|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, state.groups.find, pickItemForGroupV281, itemVisual, cap.animate, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml|
-|src/script/00.js:5555|v282RandomOther|declaration|需要进一步测试|state.groups.filter, Number, Math.floor, Math.random|
-|src/script/00.js:5559|v282TakeFraction|declaration|需要进一步测试|Number, Math.round, Math.max, applyItemAttack|
-|src/script/00.js:5569|v282Consume|declaration|需要进一步测试|Math.max, Number, g.inventory.splice|
-|src/script/00.js:5577|legacyUseItem|assignment|需要进一步测试|state.groups.find, ['feather','fire_flower','ice_flower','boomerang_flower'].includes, _v282UseItem.call, Number, showToast, recordHistory, g.inventory.splice, saveState, renderAll, showItemUseFx, v282RandomOther, v282TakeFraction, v282Consume, ranking, r.findIndex, [r[p-1],r[p+1]].filter, targets.forEach, targets.map(x=>x.name).join, targets.map|
-|src/script/00.js:5619|roulettePreviewPickV282|declaration|需要进一步测试|Object.keys, Math.floor, Math.random|
-|src/script/00.js:5623|updateAllRoulettePreviewLogicV282|declaration|需要进一步测试|roulettePreviewPickV282|
-|src/script/00.js:5629|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, updateCardRouletteVisual, overlays.get, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:5645|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, updateCardRouletteVisual, overlays.get, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
-|src/script/00.js:5678|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, roulettePreviewPickV282, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll|
-|src/script/00.js:5692|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, roulettePreviewPickV282, itemVisual, cap.animate, requestAnimationFrame, state.groups.find, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml|
-|src/script/00.js:5723|legacyUseItem|assignment|需要进一步测试|state.groups.find, closeItemWindowForFx, Object.values(g.itemEffect).some, Object.values, saveState, renderAll, showToast, _v282UseItemWithIce.call|
-|src/script/00.js:5748|itemKeysV283|declaration|需要进一步测试|ITEM_ORDER_V283.filter|
-|src/script/00.js:5750|itemAdminButtonV283|declaration|需要进一步测试|itemVisual, escapeHtml|
-|src/script/00.js:5754|godAddItemV283|declaration|需要进一步测试|state.groups.find, showToast, Number, recordHistory, addItemToGroup, saveState, renderAll, renderGroupModalV283|
-|src/script/00.js:5763|renderGodItemManagerV283|declaration|需要进一步测试|state.groups.find, document.querySelectorAll, roots.find, x.closest, document.querySelector, document.createElement, tactical.appendChild, itemKeysV283().map(k=>itemAdminButtonV283(k,gid)).join, itemKeysV283().map, itemKeysV283, itemAdminButtonV283|
-|src/script/00.js:5776|patchVisibleGodManagerV283|declaration|需要进一步测试|document.querySelectorAll, all.find, /上帝模式.*强制道具管理/.test, document.createElement, title.insertAdjacentElement, itemKeysV283().map(k=>itemAdminButtonV283(k,gid)).join, itemKeysV283().map, itemKeysV283, itemAdminButtonV283|
-|src/script/00.js:5788|renderEncyclopediaV283|declaration|需要进一步测试|document.querySelectorAll, headings.find, /22\s*种道具百科／26\s*种道具百科/.test, candidates.indexOf, candidates.slice(start).filter, candidates.slice, x.matches, x.querySelector, cards.forEach, x.remove, itemKeysV283().forEach, itemKeysV283, document.createElement, itemVisual, escapeHtml, parent.appendChild, itemKeysV283().map(k=>{      const d=ITEM_DEFS[k];      return <div class="guide-block encyclopedia-item"><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc／／'')}</div>;    }).join, itemKeysV283().map|
-|src/script/00.js:5817|appendMissingEncyclopediaV283|declaration|需要进一步测试|document.querySelectorAll('h1,h2,h3').forEach, document.querySelectorAll, /22\s*种道具百科/.test, document.querySelector, [...about.querySelectorAll('h1,h2,h3')].find, about.querySelectorAll, /26\s*种道具百科/.test, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, (parent.innerText／／'').includes, document.createElement, itemVisual, escapeHtml, parent.appendChild|
-|src/script/00.js:5834|patchItemIconSettingsV283|declaration|需要进一步测试|document.querySelector, [...setting.querySelectorAll('*')].filter, setting.querySelectorAll, /道具.*图标／自定义道具/.test, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, txt.includes, document.createElement, itemVisual, escapeHtml, region.appendChild|
-|src/script/00.js:5852|renderGroupModalV283|declaration|需要进一步测试|setTimeout, patchVisibleGodManagerV283|
-|src/script/00.js:5857|openGroupModal|assignment|需要进一步测试|_v283OpenGroupModal.call, renderGroupModalV283|
-|src/script/00.js:5861|renderGroupModal|assignment|需要进一步测试|_v283RenderGroupModal.apply, renderGroupModalV283|
-|src/script/00.js:5866|openAboutModal|assignment|需要进一步测试|_v283OpenAbout.apply, setTimeout, appendMissingEncyclopediaV283|
-|src/script/00.js:5874|refresh26ItemInterfacesV284|declaration|需要进一步测试|Object.keys, document.querySelectorAll('.v283-added').forEach, document.querySelectorAll, x.remove, document.querySelectorAll('.setting-section-title,h1,h2,h3').forEach, /22\s*种道具百科/.test, (x.textContent／／'').replace, /22\s*种道具百科与图标管理/.test, renderItemEncyclopedia, document.getElementById('itemWindow')?.classList.contains, document.getElementById, renderItemWindow|
-|src/script/00.js:5892|appendMissingEncyclopediaV283|assignment|需要进一步测试||
-|src/script/00.js:5893|patchItemIconSettingsV283|assignment|需要进一步测试||
-|src/script/00.js:5896|patchVisibleGodManagerV283|assignment|需要进一步测试||
-|src/script/00.js:5897|renderGroupModalV283|assignment|需要进一步测试||
-|src/script/00.js:5903|renderAbout|assignment|需要进一步测试|_v284RenderAbout, document.getElementById, m.querySelectorAll('h1,h2,h3').forEach, m.querySelectorAll, h.textContent.replace, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, txt.includes, document.createElement, itemVisual, escapeHtml, m.appendChild|
-|src/script/00.js:5928|isCommunismMode|declaration|需要进一步测试|STORAGE.getJSON|
-|src/script/00.js:5931|setCommunismMode|declaration|需要进一步测试|STORAGE.setJSON, applyCommunismMode, showToast|
-|src/script/00.js:5936|applyCommunismMode|declaration|需要进一步测试|isCommunismMode, document.body.classList.toggle, document.querySelectorAll('button,[role="button"],.dock-btn,.nav-btn').forEach, document.querySelectorAll, (el.textContent／／'').trim, el.getAttribute, /道具抽取／抽取道具／道具百科／道具与图标/.test, /globalItemDraw／openItemEncyclopedia/.test, document.getElementById('itemWindow')?.classList.remove, document.getElementById, document.getElementById('itemBackdrop')?.classList.remove|
-|src/script/00.js:5961|globalItemDraw|assignment|需要进一步测试|isCommunismMode, showToast, _v291GlobalItemDraw.apply|
-|src/script/00.js:5966|legacyUseItem|assignment|需要进一步测试|isCommunismMode, showToast, _v291UseItem.apply|
-|src/script/00.js:5972|openItemWindow|assignment|需要进一步测试|isCommunismMode, showToast, _v291OpenItemWindow.apply|
-|src/script/00.js:5979|installCommunismModeSetting|declaration|需要进一步测试|document.getElementById, document.createElement, pane.prepend, card.querySelector, isCommunismMode|
-|src/script/00.js:6008|formatChartScoreV294|declaration|需要进一步测试|Number, Math.abs, String, Math.trunc, Math.round, v.toFixed(v>=10?1:2).replace, v.toFixed|
-|src/script/00.js:6035|activePersistentEffect|declaration|需要进一步测试||
-|src/script/00.js:6045|legacyUseItem|assignment|需要进一步测试|ensureItemState, state.groups.find, previousUseItemV299.call, activePersistentEffect, closeItemWindowForFx, showToast|
-|src/script/00.js:6086|cleanEmptyEffectV2113|declaration|需要进一步测试|Object.keys|
-|src/script/00.js:6094|consumeChargeV2113|declaration|需要进一步测试|Math.max, Number, g.inventory.splice|
-|src/script/00.js:6101|randomTargetV2113|declaration|需要进一步测试|state.groups.filter, eligibleForItems, Math.floor, Math.random|
-|src/script/00.js:6106|attackFractionV2113|declaration|需要进一步测试|eligibleForItems, Math.round, Math.max, Number, applyItemScore|
-|src/script/00.js:6113|legacyUseItem|assignment|需要进一步测试|state.groups.find, EXT.has, previousUseItemV2113.call, closeItemWindowForFx, isCommunismMode, showToast, eligibleForItems, cleanEmptyEffectV2113, saveState, renderAll, g.inventory.splice, randomTargetV2113, attackFractionV2113, consumeChargeV2113, ranking, r.findIndex, [r[p-1],r[p+1]].filter, targets.forEach, targets.map(x=>x.name).join, targets.map, recordHistory, Number, showItemUseFx|
-|src/script/00.js:6234|attackHitClassV2116|declaration|需要进一步测试|['green','triple_green'].includes, ['red','triple_red'].includes, ['banana','triple_banana'].includes|
-|src/script/00.js:6249|clearAttackHitFxV2116|declaration|需要进一步测试|[...card.classList].filter(x=>x.startsWith('hit-')).forEach, [...card.classList].filter, x.startsWith, card.classList.remove, card.style.removeProperty|
-|src/script/00.js:6257|playAttackTargetFxV2116|declaration|需要进一步测试|DesktopUI.visualEvent, DesktopUI.getPreferences, battleCard, clearAttackHitFxV2116, attackHitClassV2116, card.classList.add, card.style.setProperty, document.createElement, itemVisual, card.appendChild, setTimeout, card.classList.remove, badge.remove, card.style.removeProperty|
-|src/script/00.js:6290|tryDefendLightningV2116|declaration|需要进一步测试|Number, Math.max, tinyDefenseToast, setTimeout, playAttackTargetFxV2116, ['star','mega'].includes, ['mega','star'].includes, target.inventory.findIndex, target.inventory.splice|
-|src/script/00.js:6318|applyLightningHitV2116|declaration|需要进一步测试|eligibleForItems, tryDefendLightningV2116, Number, roundHalf, setTimeout, playAttackTargetFxV2116|
-|src/script/00.js:6342|showItemUseFx|assignment|需要进一步测试|setTimeout, playCasterCardFx, _v2116ShowItemUseFx.call|
-|src/script/00.js:6370|isQueuePersistentActiveV2120|declaration|需要进一步测试|['star','mega','power'].includes|
-|src/script/00.js:6376|queueRoleTextV2120|declaration|需要进一步测试||
-|src/script/00.js:6380|queueUseStateV2120|declaration|需要进一步测试|isQueuePersistentActiveV2120, eligibleForItems, Reliability.validateItem, isCommunismMode|
-|src/script/00.js:6395|legacyUseItem|assignment|需要进一步测试|state.groups.find, closeItemWindowForFx, showToast, isQueuePersistentActiveV2120, _v2120UseItem.call|
-|src/script/00.js:6425|godAddQueueItemV2120|declaration|需要进一步测试|state.groups.find, showToast, eligibleForItems, recordHistory, addItemToGroup, saveState, renderAll, renderItemWindow|
-|src/script/00.js:6437|godClearQueueItemsV2120|declaration|需要进一步测试|state.groups.find, recordHistory, saveState, renderAll, renderItemWindow|
-|src/script/00.js:6445|godAddItem|assignment|需要进一步测试|godAddQueueItemV2120|
-|src/script/00.js:6446|godAddItemV283|assignment|需要进一步测试|godAddQueueItemV2120|
-|src/script/00.js:6447|godClearItems|assignment|需要进一步测试|godClearQueueItemsV2120|
-|src/script/00.js:6451|renderItemWindow|assignment|需要进一步测试|_v2120RenderItemWindow, state.groups.find, document.getElementById, [0,1,2].map(i=>{     const it=g.inventory[i];     const role=queueRoleTextV2120(i);     if(!it){       return <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} empty">         <div class="queue-role-badge">${role}</div>         <div class="item-big-icon">＋</div>         <div class="item-big-name">空道具栏</div>         <div class="item-big-desc">${i===0?'新获得的第一个道具会进入这里':'主要道具释放后，次要道具会按顺序自动晋升'}</div>       </div>;     }     const d=ITEM_DEFS[it.key];     const st=queueUseStateV2120(g,i);     const active=isQueuePersistentActiveV2120(g,it);     return <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} ${active?'queue-persistent-active':''}">       <div class="queue-role-badge">${role}${active?' · 卡手中':''}</div>       <div class="item-big-icon">${itemVisual(it.key)}</div>       <div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div>       <div class="item-big-desc">${escapeHtml(d.desc)}</div>       ${i===0         ? <button class="btn btn-primary item-use queue-main-use" onclick="useItem(${g.id},0)" ${st.usable?'':'disabled'}>${st.label}</button>         : <button class="btn item-use queue-secondary-lock" disabled>${st.label}</button>}     </div>;   }).join, [0,1,2].map, queueRoleTextV2120, queueUseStateV2120, isQueuePersistentActiveV2120, itemVisual, escapeHtml, document.createElement, Object.keys(ITEM_DEFS).map(k=><button class="btn btn-sm" onclick="godAddQueueItemV2120(${g.id},'${k}')">${itemVisual(k)} ${escapeHtml(ITEM_DEFS[k].name)}</button>).join, Object.keys(ITEM_DEFS).map, Object.keys, body.appendChild|
-|src/script/00.js:6504|enhanceItemCards|assignment|需要进一步测试|_v2120EnhanceItemCards, state.groups.forEach, document.querySelector, card.classList.remove, card.classList.add, card.querySelectorAll, [0,1,2].forEach, isQueuePersistentActiveV2120, slot.classList.add, queueRoleTextV2120, itemVisual, queueMainVisualCacheV2120.get, slots[0].classList.add, setTimeout, slots[0]?.classList.remove, queueMainVisualCacheV2120.set|
-|src/script/00.js:6543|handUseNewItem|assignment|需要进一步测试|state.groups.find, showToast, closeHandRaise, openItemWindow|
+|src/script/00.js:3060|renderBgmSlotList|declaration|需要进一步测试|document.getElementById, parseInt, Number, refreshSoundIdCache, checkSetCompleteness, hasSound, document.createElement, container.appendChild|
+|src/script/00.js:3115|renderFxSlotList|declaration|需要进一步测试|document.getElementById, FX_SOUND_SLOTS.forEach, document.createElement, fxContainer.appendChild|
+|src/script/00.js:3138|previewBgmTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.get, getAudioContext, ctx.decodeAudioData, req.result.arrayBuffer.slice, ctx.createBufferSource, src.connect, src.start|
+|src/script/00.js:3144|req.onsuccess|assignment|需要进一步测试|getAudioContext, ctx.decodeAudioData, req.result.arrayBuffer.slice, ctx.createBufferSource, src.connect, src.start|
+|src/script/00.js:3159|triggerUploadAudio|declaration|需要进一步测试|document.getElementById('soundFileInput').click, document.getElementById|
+|src/script/00.js:3164|handleSoundFileUpload|declaration|需要进一步测试|getAudioContext, ctx.decodeAudioData, arrayBuffer.slice, db.transaction, tx.objectStore, store.put, soundIdCache.add, currentUploadingSlot.startsWith, currentUploadingSlot.replace, showToast, renderBgmSlotList, renderFxSlotList, themeAlert, reader.readAsArrayBuffer|
+|src/script/00.js:3169|reader.onload|assignment|需要进一步测试|getAudioContext, ctx.decodeAudioData, arrayBuffer.slice, db.transaction, tx.objectStore, store.put, soundIdCache.add, currentUploadingSlot.startsWith, currentUploadingSlot.replace, showToast, renderBgmSlotList, renderFxSlotList, themeAlert|
+|src/script/00.js:3201|deleteBgmTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.delete, soundIdCache.delete, showToast, renderBgmSlotList|
+|src/script/00.js:3215|deleteFxTrack|declaration|需要进一步测试|db.transaction, tx.objectStore, store.delete, soundIdCache.delete, showToast, renderFxSlotList|
+|src/script/00.js:3228|exportAudioBundle|declaration|需要进一步测试|showToast, db.transaction, tx.objectStore, store.getAll, resolve, themeAlert, fileIndex.push, audioBuffersToPack.push, new TextEncoder().encode, JSON.stringify, headerView.setUint8, headerView.setUint32, URL.createObjectURL, document.createElement, a.click, URL.revokeObjectURL|
+|src/script/00.js:3237|req.onsuccess|assignment|需要进一步测试|resolve|
+|src/script/00.js:3238|req.onerror|assignment|需要进一步测试|resolve|
+|src/script/00.js:3277|triggerImportAudioBundle|declaration|需要进一步测试|openPwdModal, document.getElementById('bundleFileInput').click, document.getElementById|
+|src/script/00.js:3282|handleBundleFilePicked|declaration|需要进一步测试|showToast, dataView.getUint8, themeAlert, dataView.getUint32, JSON.parse, new TextDecoder().decode, db.transaction, tx.objectStore, fileIndex.forEach, store.put, fullBuffer.slice, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, reader.readAsArrayBuffer|
+|src/script/00.js:3288|reader.onload|assignment|需要进一步测试|dataView.getUint8, themeAlert, dataView.getUint32, JSON.parse, new TextDecoder().decode, db.transaction, tx.objectStore, fileIndex.forEach, store.put, fullBuffer.slice, refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, showToast|
+|src/script/00.js:3308|tx.oncomplete|assignment|需要进一步测试|refreshSoundIdCache, loadFxSounds, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, showToast|
+|src/script/00.js:3327|escapeHtml|declaration|需要进一步测试|String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace, String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace, String(str ?? '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace, String(str ?? '').replace(/&/g, "&amp;").replace, String(str ?? '').replace, String|
+|src/script/00.js:3341|ensureAudioUnlocked|declaration|需要进一步测试|Promise.resolve, getAudioContext().then(() => { audioUnlocked = true; }).catch, getAudioContext().then, getAudioContext|
+|src/script/00.js:3346|switchView|declaration|需要进一步测试|VIEW_NAMES.includes, ensureAudioUnlocked, DesktopUI.viewChanged, document.querySelectorAll('.view').forEach, document.querySelectorAll, v.classList.remove, document.getElementById, target.classList.add, document.querySelectorAll('.nav-tab').forEach, t.classList.toggle, renderWelcomePage, updateWelcomeTrackIfNeeded, renderHistoryList, renderSettlementHistoryList, syncSettingsControls, renderBgmSlotList, renderFxSlotList, renderBgmEngineConsole, menuFadeOut, renderAll, bgmStopAll, ensureAudioUnlocked().then, getMenuTrackKeyForView, menuStartOrSwitch|
+|src/script/00.js:3374|enterBattleFromWelcome|declaration|需要进一步测试|switchView|
+|src/script/00.js:3378|getMenuTrackKeyForView|declaration|需要进一步测试|getWelcomeTrackKey|
+|src/script/00.js:3386|getWelcomeTrackKey|declaration|需要进一步测试|state.groups.reduce, Math.max, Number, Math.min, String, Math.floor, Math.abs|
+|src/script/00.js:3396|startWelcomeClock|declaration|需要进一步测试|updateWelcomeClock, setInterval|
+|src/script/00.js:3402|updateWelcomeClock|declaration|需要进一步测试|updateHeaderStats, DesktopUI.renderWelcome, String(now.getHours()).padStart, String, now.getHours, String(now.getMinutes()).padStart, now.getMinutes, String(now.getSeconds()).padStart, now.getSeconds, document.getElementById, now.getFullYear, now.getMonth, now.getDate, now.getDay|
+|src/script/00.js:3421|renderWelcomePage|declaration|需要进一步测试|DesktopUI.renderWelcome, document.getElementById, [...state.groups].sort, Number, escapeHtml, getScore|
+|src/script/00.js:3427|getScore|binding|需要进一步测试|Number|
+|src/script/00.js:3492|saveMenuCfg|declaration|需要进一步测试|STORAGE.setJSON|
+|src/script/00.js:3495|midiToFreq|declaration|需要进一步测试|Math.pow|
+|src/script/00.js:3497|mulberry32|declaration|需要进一步测试|Math.imul|
+|src/script/00.js:3511|buildMenuPattern|declaration|需要进一步测试|Math.max, Number, mulberry32, key.split('').reduce, key.split, c.charCodeAt, new Array(totalSteps).fill, rnd, Math.floor|
+|src/script/00.js:3549|getNoiseBuffer|declaration|需要进一步测试|Math.floor, audioCtx.createBuffer, noiseBuffer.getChannelData, Math.random|
+|src/script/00.js:3583|menuSecPerBeat|declaration|需要进一步测试|Math.max, Number|
+|src/script/00.js:3585|menuLoopSpan|declaration|需要进一步测试|Math.max, Number, menuSecPerBeat|
+|src/script/00.js:3600|normalizeWelcomeLoopBuffer|declaration|需要进一步测试|/^welcome_[1-6]$/.test, menuLoopSpan, Math.min, menuSecPerBeat, Math.ceil, audioCtx.createBuffer, fixed.getChannelData(ch).set, fixed.getChannelData, buf.getChannelData|
+|src/script/00.js:3620|menuEnsureGraph|declaration|需要进一步测试|audioCtx.createGain, menuBgm.outGain.gain.setValueAtTime, menuBgm.outGain.connect|
+|src/script/00.js:3631|makeSynthMenuBuffer|declaration|需要进一步测试|Math.max, Number, Math.ceil, Math.floor, buildMenuPattern, Math.min, offline.createOscillator, offline.createGain, osc.frequency.setValueAtTime, midiToFreq, g.gain.setValueAtTime, g.gain.exponentialRampToValueAtTime, osc.connect, g.connect, osc.start, osc.stop, offline.createBuffer, buf.getChannelData, Math.random, offline.createBufferSource, offline.createBiquadFilter, src.connect, hp.connect, src.start, offline.startRendering|
+|src/script/00.js:3691|menuLoadBuffer|declaration|需要进一步测试|async () => {     let buf = null;     if (db) {       try {         const ab = await new Promise(res => {           const tx = db.transaction('sounds', 'readonly');           const req = tx.objectStore('sounds').get('bgm_menu_' + key);           req.onsuccess = () => res((req.result && req.result.arrayBuffer) ／／ null);           req.onerror = () => res(null);         });         if (ab && ab.byteLength > 0) {           buf = await audioCtx.decodeAudioData(ab.slice(0));           buf = normalizeWelcomeLoopBuffer(key, buf);           menuBgm.uploadedKeys.add(key);         }       } catch(e) {}     }     if (!buf) {       try { buf = await makeSynthMenuBuffer(key); } catch(e2) { buf = null; }       if (buf) menuBgm.uploadedKeys.delete(key);     }     if (buf) menuBgm.buffers[key] = buf;     return buf;   }, db.transaction, tx.objectStore('sounds').get, tx.objectStore, res, audioCtx.decodeAudioData, ab.slice, normalizeWelcomeLoopBuffer, menuBgm.uploadedKeys.add, makeSynthMenuBuffer, menuBgm.uploadedKeys.delete|
+|src/script/00.js:3701|req.onsuccess|assignment|需要进一步测试|res|
+|src/script/00.js:3702|req.onerror|assignment|需要进一步测试|res|
+|src/script/00.js:3722|menuLoopParams|declaration|需要进一步测试|menuLoopSpan, menuBgm.uploadedKeys.has, Math.min, Math.max|
+|src/script/00.js:3732|menuTrimFor|declaration|需要进一步测试|Number, Math.max, Math.min, Number.isFinite|
+|src/script/00.js:3738|menuPosForKey|declaration|需要进一步测试|menuLoopParams, Math.max, Math.min|
+|src/script/00.js:3747|menuVoiceGainAt|declaration|需要进一步测试||
+|src/script/00.js:3755|menuVoiceRamp|declaration|需要进一步测试|menuVoiceGainAt, g.cancelScheduledValues, g.setValueAtTime, g.linearRampToValueAtTime|
+|src/script/00.js:3765|menuSpawnVoice|declaration|需要进一步测试|menuLoopParams, audioCtx.createBufferSource, Math.min, Math.max, audioCtx.createGain, gain.gain.setValueAtTime, src.connect, gain.connect, menuPosForKey, src.disconnect, gain.disconnect, menuBgm.voices.indexOf, menuBgm.voices.splice, src.start, menuBgm.voices.push|
+|src/script/00.js:3778|src.onended|assignment|需要进一步测试|src.disconnect, gain.disconnect, menuBgm.voices.indexOf, menuBgm.voices.splice|
+|src/script/00.js:3790|menuRetireVoice|declaration|需要进一步测试|menuVoiceRamp, v.src.stop|
+|src/script/00.js:3802|menuSwitchNow|declaration|需要进一步测试|menuBgm.voices.find, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice, menuTrimFor, Math.abs, menuVoiceGainAt, menuVoiceRamp, menuSpawnVoice|
+|src/script/00.js:3825|menuStartOrSwitch|declaration|需要进一步测试|ensureAudioUnlocked().then, ensureAudioUnlocked, menuEnsureGraph, menuLoadBuffer, menuSwitchNow|
+|src/script/00.js:3843|menuFadeOut|declaration|需要进一步测试|menuPosForKey, Math.max, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice|
+|src/script/00.js:3857|menuStop|declaration|需要进一步测试|menuBgm.voices.slice().forEach, menuBgm.voices.slice, v.src.stop|
+|src/script/00.js:3870|menuResyncGrid|declaration|需要进一步测试|menuLoopParams, Math.min, Math.max, menuBgm.voices.find, Math.abs, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor|
+|src/script/00.js:3885|menuScheduleReload|declaration|需要进一步测试|clearTimeout, setTimeout, menuBgm.uploadedKeys.delete, menuLoadBuffer, menuBgm.voices.slice().forEach, menuBgm.voices.slice, menuRetireVoice, menuVoiceRamp, menuSpawnVoice, menuTrimFor|
+|src/script/00.js:3903|updateWelcomeTrackIfNeeded|declaration|需要进一步测试|getWelcomeTrackKey, menuStartOrSwitch|
+|src/script/00.js:3910|renderBgmEngineConsole|declaration|需要进一步测试|document.getElementById, MENU_TRACK_KEYS.map(k =>     '<div class="trim-row">' +       '<span class="trim-name">' + MENU_TRACK_META[k].name + '</span>' +       '<input type="range" min="0" max="2" step="0.05" value="' + menuCfg.gainTrims[k] + '" oninput="menuTrimChange(\'' + k + '\', this.value)">' +       '<span class="trim-val" id="trim-val-' + k + '">' + Number(menuCfg.gainTrims[k]).toFixed(2) + '</span>' +     '</div>').join, MENU_TRACK_KEYS.map, Number(menuCfg.gainTrims[k]).toFixed, Number|
+|src/script/00.js:3964|menuEnabledChange|declaration|需要进一步测试|saveMenuCfg, menuStop, menuStartOrSwitch, getMenuTrackKeyForView|
+|src/script/00.js:3969|menuBpmChange|declaration|需要进一步测试|Number, saveMenuCfg, document.getElementById, menuScheduleReload|
+|src/script/00.js:3974|menuMeterChange|declaration|需要进一步测试|Number, saveMenuCfg, menuResyncGrid|
+|src/script/00.js:3978|menuLoopChange|declaration|需要进一步测试|Number, saveMenuCfg, menuResyncGrid|
+|src/script/00.js:3982|menuTrimChange|declaration|需要进一步测试|Number, saveMenuCfg, menuBgm.voices.forEach, menuVoiceRamp, menuTrimFor, document.getElementById, Number(v).toFixed|
+|src/script/00.js:3989|battleBpmChange|declaration|需要进一步测试|Number, document.getElementById, saveMenuCfg|
+|src/script/00.js:3999|makeRollLoopBuffer|declaration|需要进一步测试|audioCtx.createBuffer, Math.floor, buf.getChannelData, Math.random|
+|src/script/00.js:4019|startRollLoop|declaration|需要进一步测试|makeRollLoopBuffer, audioCtx.createGain, rollLoopGain.connect, getFxOutputV2176, rollLoopGain.gain.setValueAtTime, rollLoopGain.gain.linearRampToValueAtTime, audioCtx.createBufferSource, rollLoopNode.connect, rollLoopNode.start|
+|src/script/00.js:4037|stopRollLoop|declaration|需要进一步测试|cb, rollLoopGain.gain.cancelScheduledValues, rollLoopGain.gain.setValueAtTime, Math.max, rollLoopGain.gain.linearRampToValueAtTime, setTimeout, rollLoopNode.stop|
+|src/script/00.js:4057|uiDbOpen|declaration|需要进一步测试|indexedDB.open, d.objectStoreNames.contains, d.createObjectStore, res|
+|src/script/00.js:4062|r.onupgradeneeded|assignment|需要进一步测试|d.objectStoreNames.contains, d.createObjectStore|
+|src/script/00.js:4066|r.onsuccess|assignment|需要进一步测试|res|
+|src/script/00.js:4067|r.onerror|assignment|需要进一步测试|res|
+|src/script/00.js:4072|uiDbReq|declaration|需要进一步测试|uiDbOpen, d.transaction, fn, tx.objectStore, res|
+|src/script/00.js:4079|req.onsuccess|assignment|需要进一步测试|res|
+|src/script/00.js:4080|req.onerror|assignment|需要进一步测试|res|
+|src/script/00.js:4086|getWallVeil|declaration|需要进一步测试|Number, STORAGE.get, Number.isFinite, Math.max, Math.min|
+|src/script/00.js:4090|applyWallpaperVeil|declaration|需要进一步测试|getWallVeil, root.style.setProperty, document.getElementById, Math.round|
+|src/script/00.js:4099|applyWallpaper|declaration|需要进一步测试|URL.revokeObjectURL, URL.createObjectURL, root.style.setProperty, root.style.removeProperty, document.getElementById, applyWallpaperVeil|
+|src/script/00.js:4112|compressWallpaper|declaration|需要进一步测试|createImageBitmap, URL.createObjectURL, URL.revokeObjectURL, res, rej, Math.min, Math.max, document.createElement, Math.round, canvas.getContext, ctx.fillRect, ctx.drawImage, img.close, canvas.toBlob|
+|src/script/00.js:4121|im.onload|assignment|需要进一步测试|URL.revokeObjectURL, res|
+|src/script/00.js:4122|im.onerror|assignment|需要进一步测试|URL.revokeObjectURL, rej|
+|src/script/00.js:4138|onWallpaperFile|declaration|需要进一步测试|/^image\//.test, showToast, compressWallpaper, uiDbReq, st.put, applyWallpaper, Math.round|
+|src/script/00.js:4154|resetWallpaper|declaration|需要进一步测试|uiDbReq, st.delete, applyWallpaper, showToast|
+|src/script/00.js:4159|changeWallpaperVeil|declaration|需要进一步测试|STORAGE.set, Number, applyWallpaperVeil|
+|src/script/00.js:4163|initWallpaper|declaration|需要进一步测试|uiDbReq, st.get, applyWallpaper|
+|src/script/00.js:4181|window.hideAudioHint|assignment|需要进一步测试|document.getElementById|
+|src/script/00.js:4185|window.tryAutoResumeAndPlay|assignment|需要进一步测试|getAudioContext().then(() => {       if (audioCtx && audioCtx.state === 'running' && menuCfg.enabled && bgmEngine.state === 'IDLE' && !menuBgm.active && currentView !== 'battle') {         menuStartOrSwitch(getMenuTrackKeyForView(currentView));         hideAudioHint();       }     }).catch, getAudioContext().then, getAudioContext, menuStartOrSwitch, getMenuTrackKeyForView, hideAudioHint|
+|src/script/00.js:4196|window.startResumeRetry|assignment|需要进一步测试|setInterval, clearInterval, hideAudioHint, document.getElementById, tryAutoResumeAndPlay|
+|src/script/00.js:4213|window.closeWelcomeModal|assignment|需要进一步测试|document.getElementById, m.classList.remove, hideAudioHint, startResumeRetry, tryAutoResumeAndPlay|
+|src/script/00.js:4222|unlockByGesture|binding|需要进一步测试|getAudioContext().then(() => {       hideAudioHint();       const wm = document.getElementById('welcomeModal');       if (wm && wm.classList.contains('active')) return;       startResumeRetry();       if (menuCfg.enabled && bgmEngine.state === 'IDLE' && currentView !== 'battle') {         if (!menuBgm.active) menuStartOrSwitch(getMenuTrackKeyForView(currentView));       }     }).catch, getAudioContext().then, getAudioContext, hideAudioHint, document.getElementById, wm.classList.contains, startResumeRetry, menuStartOrSwitch, getMenuTrackKeyForView|
+|src/script/00.js:4287|normalizeInventoryV21718|declaration|需要进一步测试|(Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter(it=>{       const key=it&&it.key;       if(!ITEM_DEFS[key] ／／ seen.has(key)) return false;       seen.add(key);       return true;     })     .map, (Array.isArray(inventory)?inventory:[])     .slice(0,3)     .filter, (Array.isArray(inventory)?inventory:[])     .slice, Array.isArray, seen.has, seen.add, Math.max, Number, Number.isFinite, Math.min, Math.trunc, Date.now, Object.keys|
+|src/script/00.js:4308|ensureItemState|declaration|需要进一步测试|state.groups.forEach, Array.isArray, normalizeInventoryV21718, Number.isFinite|
+|src/script/00.js:4320|ranking|declaration|需要进一步测试|state.groups.slice().sort, state.groups.slice, Number, state.groups.indexOf|
+|src/script/00.js:4321|rankIndex|declaration|需要进一步测试|ranking().findIndex, ranking|
+|src/script/00.js:4322|roundQuarter|declaration|需要进一步测试|Math.round, Number|
+|src/script/00.js:4323|roundThird|declaration|需要进一步测试|Math.round, Number|
+|src/script/00.js:4324|roundHalf|declaration|需要进一步测试|Math.round, Number|
+|src/script/00.js:4325|eligibleForItems|declaration|需要进一步测试|Number|
+|src/script/00.js:4326|consumeInventoryItem|declaration|需要进一步测试|g.inventory.splice|
+|src/script/00.js:4327|addItemToGroup|declaration|需要进一步测试|eligibleForItems, g.inventory.push, Date.now, Math.random|
+|src/script/00.js:4328|tinyDefenseToast|declaration|需要进一步测试|document.createElement, document.body.appendChild, setTimeout, d.remove|
+|src/script/00.js:4330|defenseCandidates|declaration|需要进一步测试|['star','mega','bullet'].includes, out.push, ITEM_DEFENSE_KEYS.has, ['green','triple_green','horn'].includes, out.sort|
+|src/script/00.js:4347|damageFraction|declaration|需要进一步测试|roundHalf, roundThird, roundQuarter, applyItemScore|
+|src/script/00.js:4348|boostFraction|declaration|需要进一步测试|eligibleForItems, roundQuarter, Math.round|
+|src/script/00.js:4350|itemDropWeights|declaration|需要进一步测试|put|
+|src/script/00.js:4355|put|binding|需要进一步测试||
+|src/script/00.js:4440|weightedPick|declaration|需要进一步测试|Object.entries(weights).filter, Object.entries, arr.reduce, Math.random|
+|src/script/00.js:4441|drawItemForGroup|declaration|需要进一步测试|eligibleForItems, ranking, r.findIndex, weightedPick, itemDropWeights|
+|src/script/00.js:4443|detectOvertakePunish|declaration|需要进一步测试|state.groups.find, ['star','mega'].includes, ranking().map, ranking, beforeOrder.indexOf, after.indexOf, beforeOrder.slice(afterIdx,beforeIdx).filter, beforeOrder.slice, passed.forEach, eligibleForItems, tryDefend, roundQuarter|
+|src/script/00.js:4449|legacyUseItem|declaration|需要进一步测试|ensureItemState, state.groups.find, closeItemWindowForFx, eligibleForItems, showToast, ranking, r.findIndex, r.map, recordHistory, state.groups.filter, other, damageFraction, Math.floor, Math.random, [r[ri-1],r[ri+1]].filter(Boolean).forEach, [r[ri-1],r[ri+1]].filter, [r[ci-1],r[ci],r[ci+1]].filter(Boolean).forEach, [r[ci-1],r[ci],r[ci+1]].filter, flashBomb, other().sort(()=>Math.random()-.5).slice, other().sort, pool.forEach, r.slice(0,ri+1).forEach, r.slice, boostFraction, r.slice(ri).forEach, ['star','mega','power'].includes, t.inventory.splice, consumeInventoryItem, g.inventory.push, saveState, renderAll, Date.now, startBlooperClock, r.slice(0,ri).forEach, applyLightningHitV2116, detectOvertakePunish, Math.max, Number, ['mega','power'].includes|
+|src/script/00.js:4455|other|binding|需要进一步测试|state.groups.filter, eligibleForItems|
+|src/script/00.js:4525|flashBomb|declaration|需要进一步测试|setTimeout, document.querySelector, c.classList.add, c.classList.remove|
+|src/script/00.js:4527|startBulletTimer|declaration|需要进一步测试|clearInterval, setInterval, ensureItemState, state.groups.forEach, state.groups.find, rankIndex, g.inventory.findIndex, g.inventory.splice, showToast, eligibleForItems, saveState, renderGrid, renderChart, renderDashboard|
+|src/script/00.js:4528|startBlooperClock|declaration|需要进一步测试|applyBlooperMask, Date.now, setTimeout|
+|src/script/00.js:4529|applyBlooperMask|declaration|需要进一步测试|Date.now, document.getElementById, v.classList.toggle, document.querySelectorAll('.row-score,.chart-score,.podium-score,.w-stat-num').forEach, document.querySelectorAll, el.classList.toggle|
+|src/script/00.js:4531|globalItemDraw|declaration|需要进一步测试|ensureItemState, state.groups.filter, eligibleForItems, showToast, recordHistory, document.getElementById, ov.classList.add, state.groups.map(g=><div class="item-draw-card ${eligible.includes(g)?'':'full'}" data-draw-id="${g.id}"><div class="roulette">${eligible.includes(g)?'❔':'🔒'}</div><div class="draw-name">${escapeHtml(g.name)}</div><div class="draw-result">${eligible.includes(g)?'抽取中…':'跳过'}</div></div>).join, state.groups.map, eligible.includes, escapeHtml, setInterval, eligible.forEach, Math.floor, Math.random, grid.querySelector, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, card.classList.add, card.querySelector, saveState, renderAll, ov.classList.remove|
+|src/script/00.js:4537|openItemWindow|declaration|需要进一步测试|ensureItemState, document.getElementById('itemModalBackdrop').classList.add, document.getElementById, renderItemWindow|
+|src/script/00.js:4538|closeItemWindow|declaration|需要进一步测试|document.getElementById('itemModalBackdrop').classList.remove, document.getElementById|
+|src/script/00.js:4539|switchItemTab|declaration|需要进一步测试|renderItemWindow|
+|src/script/00.js:4540|renderItemWindow|declaration|需要进一步测试|state.groups.find, closeItemWindow, ensureGroupNumbersV213, document.getElementById, document.querySelectorAll('[data-item-tab]').forEach, document.querySelectorAll, b.classList.toggle, Math.round, statusParts.push, String, Number, statusParts.join, escapeHtml, DEFAULT_COLORS.map((color,idx)=><button type="button" class="group-color-swatch-v21716 ${String(g.color).toUpperCase()===color.toUpperCase()?'selected':''}" style="--swatch:${color}" title="预设 ${idx+1} · ${color}" ${disabled} onclick="selectGroupPresetColorV21716(${g.id},'${color}')"><span>${String(g.color).toUpperCase()===color.toUpperCase()?'✓':''}</span></button>).join, DEFAULT_COLORS.map, String(g.color).toUpperCase, color.toUpperCase, g.color.toUpperCase, (g.members／／[]).join, eligibleForItems, [0,1,2].map(i=>{const it=g.inventory[i];if(!it)return '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div></div>';const d=ITEM_DEFS[it.key];return <div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div><div class="item-big-desc">${escapeHtml(d.desc)}</div><button class="btn btn-primary item-use" onclick="useItem(${g.id},${i})" ${canUse?'':'disabled'}>立即使用</button></div>}).join, [0,1,2].map, itemVisual|
+|src/script/00.js:4619|previewItemDetailColor|declaration|需要进一步测试|document.getElementById|
+|src/script/00.js:4620|saveItemDetailColor|declaration|需要进一步测试|renderItemWindow, /^#[0-9a-f]{6}$/i.test, updateGroupColor|
+|src/script/00.js:4626|saveItemGroupDetail|declaration|需要进一步测试|openPwdModal, state.groups.find, document.getElementById('groupDetailName')?.value.trim, document.getElementById, document.getElementById('groupDetailNumber')?.value.trim, showToast, /^\d+$/.test, Number, state.groups.some, Array.from, rawMembers.split(/[\n,，、]+/).map(s=>s.trim()).filter, rawMembers.split(/[\n,，、]+/).map, rawMembers.split, s.trim, JSON.stringify, recordHistory, saveState, renderAll, updatePickerPoolUI, renderItemWindow|
+|src/script/00.js:4643|deleteItemDetailGroup|declaration|需要进一步测试|openPwdModal, deleteGroup, state.groups.some, closeItemWindow, document.getElementById('itemWindow')?.classList.contains, document.getElementById, renderItemWindow|
+|src/script/00.js:4652|itemQuickScore|declaration|需要进一步测试|openPwdModal, applyScoreDelta, renderItemWindow|
+|src/script/00.js:4653|itemCustomScore|declaration|需要进一步测试|Number, document.getElementById, Number.isFinite, itemQuickScore, Math.round|
+|src/script/00.js:4655|enhanceItemCards|declaration|需要进一步测试|ensureItemState, state.groups.forEach, document.querySelector, c.classList.remove, g.inventory.find, c.classList.add, c.querySelector, document.createElement, [0,1,2].map(i=>{const it=g.inventory[i];return it?<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?<span class="charges">${it.charges}</span>:''}</div>:'<div class="item-slot empty">＋</div>'}).join, [0,1,2].map, itemVisual, head.parentNode.insertBefore, mb.classList.remove, ev.preventDefault, ev.stopPropagation, openItemWindow, applyBlooperMask|
+|src/script/00.js:4655|mb.onclick|assignment|需要进一步测试|ev.preventDefault, ev.stopPropagation, openItemWindow|
+|src/script/00.js:4656|renderGrid|assignment|需要进一步测试|_itemBaseRenderGrid, enhanceItemCards|
+|src/script/00.js:4658|legacyJudgeRound|assignment|需要进一步测试|ranking().map, ranking, state.groups.map, _itemBaseJudgeRound, answered.forEach, state.groups.find, eligibleForItems, r.findIndex, g.inventory.findIndex, g.inventory.splice, detectOvertakePunish, saveState, renderAll|
+|src/script/00.js:4671|ensureV2State|declaration|需要进一步测试|ensureItemState, STORAGE.getJSON|
+|src/script/00.js:4681|itemVisual|declaration|需要进一步测试|ensureV2State, Reliability.safeImage, escapeHtml|
+|src/script/00.js:4687|itemBoxVisualV2121|declaration|需要进一步测试||
+|src/script/00.js:4690|setPickerInfoTab|declaration|需要进一步测试|document.getElementById('pickerStatsBtn')?.classList.toggle, document.getElementById, document.getElementById('pickerHistoryBtn')?.classList.toggle, renderPickerInfo|
+|src/script/00.js:4691|renderPickerInfo|declaration|需要进一步测试|ensureV2State, document.getElementById, state.groups.reduce, arr.slice(-30).reverse().map(x=><div class="picker-log">${escapeHtml(x.text)}<br><small>${new Date(x.time).toLocaleTimeString()}</small></div>).join, arr.slice(-30).reverse().map, arr.slice(-30).reverse, arr.slice, escapeHtml, new Date(x.time).toLocaleTimeString|
+|src/script/00.js:4700|openPickerModal|assignment|需要进一步测试|ensureV2State, _v2OpenPicker, setPickerInfoTab, syncPickerScoreTarget|
+|src/script/00.js:4701|syncPickerScoreTarget|declaration|需要进一步测试|document.getElementById, escapeHtml|
+|src/script/00.js:4702|pickerTargetGroup|declaration|需要进一步测试||
+|src/script/00.js:4703|scorePickerTarget|declaration|需要进一步测试|pickerTargetGroup, showToast, applyScoreDelta, syncPickerScoreTarget|
+|src/script/00.js:4704|scorePickerCustom|declaration|需要进一步测试|Math.round, Number, document.getElementById, Number.isFinite, scorePickerTarget|
+|src/script/00.js:4705|stopSlotSpin|assignment|需要进一步测试|_v2StopSlot, ensureV2State, state.itemGlobal.pickerHistory.push, Date.now, state.itemGlobal.pickerHistory.shift, saveState, syncPickerScoreTarget, renderPickerInfo|
+|src/script/00.js:4708|openHandRaise|declaration|需要进一步测试|ensureV2State, document.getElementById('handRaiseBackdrop').classList.add, document.getElementById, renderHandRaise|
+|src/script/00.js:4709|closeHandRaise|declaration|需要进一步测试|document.getElementById('handRaiseBackdrop').classList.remove, document.getElementById|
+|src/script/00.js:4710|renderHandRaise|declaration|需要进一步测试|document.getElementById, state.groups.map(g=><button class="hand-group ${g.id===handRaiseGroupId?'selected':''}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>).join, state.groups.map, escapeHtml|
+|src/script/00.js:4711|selectHandGroup|declaration|需要进一步测试|renderHandRaise, document.querySelectorAll('.hand-group').forEach, document.querySelectorAll, b.classList.remove, state.groups.findIndex, arr[idx].classList.add|
+|src/script/00.js:4712|judgeHandRaise|declaration|需要进一步测试|ensureV2State, state.groups.find, showToast, recordHistory, state.itemGlobal.handRaiseHistory.push, Date.now, saveState, renderAll, document.getElementById|
+|src/script/00.js:4719|handQuickScore|declaration|需要进一步测试|applyScoreDelta|
+|src/script/00.js:4720|handDrawItem|declaration|需要进一步测试|state.groups.find, eligibleForItems, showToast, recordHistory, drawItemForGroup, addItemToGroup, saveState, renderAll|
+|src/script/00.js:4721|handUseItem|declaration|需要进一步测试|state.groups.find, showToast, closeHandRaise, openItemWindow|
+|src/script/00.js:4724|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, setInterval, overlays.get, ranking, r.findIndex, weightedPick, itemDropWeights, o.querySelector, itemVisual, setTimeout, clearInterval, drawItemForGroup, addItemToGroup, o.classList.add, saveState, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, c.querySelector, renderAll|
+|src/script/00.js:4738|openItemEncyclopedia|declaration|需要进一步测试|switchView, setTimeout, installSettingsTabs, showSettingsV2|
+|src/script/00.js:4739|renderItemEncyclopedia|declaration|需要进一步测试|ensureV2State, document.getElementById, ITEM_KEYS.map(k=>{const d=ITEM_DEFS[k];return <div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d.name}</div><div class="ency-desc">${d.desc}</div></div><div class="ency-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div></div>}).join, ITEM_KEYS.map, itemVisual|
+|src/script/00.js:4743|chooseItemIcon|declaration|需要进一步测试|document.getElementById, document.getElementById('itemIconInput').click|
+|src/script/00.js:4744|handleItemIconUpload|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, rd.readAsDataURL|
+|src/script/00.js:4744|rd.onload|assignment|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast|
+|src/script/00.js:4745|resetItemIcon|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll|
+|src/script/00.js:4746|resetAllItemIcons|declaration|需要进一步测试|ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll|
+|src/script/00.js:4747|exportItemIconPack|declaration|需要进一步测试|ensureV2State, JSON.stringify, document.createElement, URL.createObjectURL, a.click, setTimeout, URL.revokeObjectURL|
+|src/script/00.js:4748|importItemIconPack|declaration|需要进一步测试|JSON.parse, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert, rd.readAsText|
+|src/script/00.js:4748|rd.onload|assignment|需要进一步测试|JSON.parse, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast, themeAlert|
+|src/script/00.js:4751|installSettingsTabs|declaration|需要进一步测试|document.querySelector, document.getElementById, document.createElement, sc.prepend, sc.appendChild, renderItemEncyclopedia|
+|src/script/00.js:4757|showSettingsV2|declaration|需要进一步测试|installSettingsTabs, document.querySelectorAll('#settingsV2Tabs button').forEach, document.querySelectorAll, b.classList.toggle, document.querySelector, document.getElementById, [...sc.children].forEach, item.classList.toggle, renderItemEncyclopedia, sc.querySelectorAll, titles[0]?.scrollIntoView|
+|src/script/00.js:4766|openAbout|declaration|需要进一步测试|document.getElementById('aboutBackdrop').classList.add, document.getElementById, renderAbout|
+|src/script/00.js:4767|closeAbout|declaration|需要进一步测试|document.getElementById('aboutBackdrop').classList.remove, document.getElementById|
+|src/script/00.js:4768|renderAbout|declaration|需要进一步测试|document.querySelectorAll('[data-about]').forEach, document.querySelectorAll, b.classList.toggle, document.getElementById, ITEM_KEYS.map(k=><div class="guide-block"><b>${itemVisual(k)} ${ITEM_DEFS[k].name}</b><br>${ITEM_DEFS[k].desc}</div>).join, ITEM_KEYS.map, itemVisual|
+|src/script/00.js:4776|renderItemWindow|assignment|需要进一步测试|_v2RenderItemWindow, state.groups.find, document.getElementById, document.createElement, ITEM_KEYS.map(k=><button class="btn btn-sm" onclick="godAddItem(${g.id},'${k}')">${itemVisual(k)} ${ITEM_DEFS[k].name}</button>).join, ITEM_KEYS.map, itemVisual, body.appendChild|
+|src/script/00.js:4777|godAddItem|declaration|需要进一步测试|state.groups.find, showToast, recordHistory, g.inventory.push, Date.now, Math.random, saveState, renderAll, renderItemWindow|
+|src/script/00.js:4778|godClearItems|declaration|需要进一步测试|state.groups.find, recordHistory, saveState, renderAll, renderItemWindow|
+|src/script/00.js:4781|enhanceItemCards|assignment|需要进一步测试|_v2Enhance, ensureV2State, state.groups.forEach, document.querySelector, c.querySelectorAll('.item-slot').forEach, c.querySelectorAll, s.querySelector, itemVisual|
+|src/script/00.js:4782|renderItemWindow|assignment|需要进一步测试|_v2RenderItemWindowIcons, state.groups.find, document.querySelectorAll('#itemWindowBody .item-big-icon').forEach, document.querySelectorAll, itemVisual|
+|src/script/00.js:4785|legacyJudgeRound|assignment|需要进一步测试|_v2Judge, ensureV2State, saveState|
+|src/script/00.js:4790|switchView|assignment|需要进一步测试|_v2SwitchView, setTimeout|
+|src/script/00.js:4797|cancelHandItemDraw|declaration|需要进一步测试|clearInterval, clearTimeout, showToast|
+|src/script/00.js:4806|closeHandRaise|assignment|需要进一步测试|cancelHandItemDraw, _v21CloseHandRaise|
+|src/script/00.js:4809|selectHandGroup|assignment|需要进一步测试|showToast, _v21SelectHandGroup|
+|src/script/00.js:4815|judgeHandRaise|assignment|需要进一步测试|cancelHandItemDraw, _v21JudgeHandRaise, state.groups.find, [...document.querySelectorAll('#handRewardBox button')].find, document.querySelectorAll, b.textContent.includes, eligibleForItems|
+|src/script/00.js:4828|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, Date.now, document.getElementById, escapeHtml, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, Math.min, tick, setInterval, setTimeout, clearInterval, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, Math.max, live.inventory.filter(y=>y.key===k).map, live.inventory.filter|
+|src/script/00.js:4846|tick|binding|需要进一步测试|state.groups.find, ranking, r.findIndex, weightedPick, itemDropWeights, document.getElementById, itemVisual, Math.min, Date.now|
+|src/script/00.js:4883|finishHandItemReward|declaration|需要进一步测试|document.getElementById|
+|src/script/00.js:4889|handUseNewItem|declaration|需要进一步测试|state.groups.find, showToast, g.inventory.map(x=>x.key).lastIndexOf, g.inventory.map, closeHandRaise, openItemWindow, setTimeout, document.querySelectorAll, cards[idx].scrollIntoView|
+|src/script/00.js:4906|showItemUseFx|declaration|需要进一步测试||
+|src/script/00.js:4907|itemFxTargetText|declaration|需要进一步测试|ranking, r.findIndex, names.includes, names.push, ['red','triple_red'].includes, add, ['banana','triple_banana'].includes, r.slice(0,Math.max(0,i)).forEach, r.slice, Math.max, r.slice(i+1).forEach, ['coin','mushroom','triple_mushroom','star','mega','bullet','power'].includes, names.join|
+|src/script/00.js:4909|add|binding|需要进一步测试|names.includes, names.push|
+|src/script/00.js:4920|closeItemWindowForFx|declaration|需要进一步测试|closeItemWindow|
+|src/script/00.js:4925|legacyUseItem|assignment|需要进一步测试|state.groups.find, JSON.stringify, useItemBeforeVisualDispatch.call, closeItemWindowForFx, setTimeout, showItemUseFx, itemFxTargetText|
+|src/script/00.js:4943|normalizeItemIconFile|declaration|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL, reader.readAsDataURL|
+|src/script/00.js:4945|reader.onload|assignment|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL|
+|src/script/00.js:4947|img.onload|assignment|需要进一步测试|document.createElement, canvas.getContext, ctx.clearRect, Math.min, Math.max, ctx.drawImage, done, canvas.toDataURL|
+|src/script/00.js:4957|img.onerror|assignment|需要进一步测试|done|
+|src/script/00.js:4962|handleItemIconUpload|assignment|需要进一步测试|normalizeItemIconFile, ensureV2State, STORAGE.setJSON, saveState, renderItemEncyclopedia, renderAll, showToast|
+|src/script/00.js:4972|updateCardRouletteVisual|declaration|需要进一步测试|o.querySelector, icon.classList.remove, itemVisual, icon.classList.add|
+|src/script/00.js:4984|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, ranking, r.findIndex, weightedPick, itemDropWeights, currentKey.set, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5001|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, ranking, r.findIndex, weightedPick, itemDropWeights, currentKey.set, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5038|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, Math.max|
+|src/script/00.js:5056|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, state.groups.find, ranking, r.findIndex, weightedPick, itemDropWeights, itemVisual, cap.animate, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, live.inventory.findIndex, escapeHtml, Math.max|
+|src/script/00.js:5088|cancelHandItemDraw|assignment|需要进一步测试|clearTimeout, showToast|
+|src/script/00.js:5114|battleCard|declaration|需要进一步测试|document.querySelector|
+|src/script/00.js:5115|clearCardFx|declaration|需要进一步测试|[...card.classList].filter(x=>x.startsWith('cfx-')／／['card-use-fx','card-hit-fx','card-defend-fx','card-heal-fx'].includes(x)).forEach, [...card.classList].filter, x.startsWith, ['card-use-fx','card-hit-fx','card-defend-fx','card-heal-fx'].includes, card.classList.remove, card.querySelectorAll('.card-fx-badge').forEach, card.querySelectorAll, x.remove, card.style.removeProperty|
+|src/script/00.js:5121|playCasterCardFx|declaration|需要进一步测试|DesktopUI.getPreferences, battleCard, clearCardFx, card.classList.add, document.createElement, itemVisual, escapeHtml, card.appendChild, setTimeout, card.classList.remove, b.remove|
+|src/script/00.js:5131|playTargetCardFx|declaration|需要进一步测试|DesktopUI.visualEvent, DesktopUI.getPreferences, battleCard, card.classList.remove, card.style.setProperty, card.classList.add, setTimeout, card.style.removeProperty|
+|src/script/00.js:5140|cardFxTargets|declaration|需要进一步测试|ranking, r.findIndex, ids.includes, ids.push, ['red_shell','triple_red','boo'].includes, add, ['banana','triple_banana'].includes, r.slice(0,Math.max(0,i)).forEach, r.slice, Math.max, r.slice(i+1).forEach|
+|src/script/00.js:5141|add|binding|需要进一步测试|ids.includes, ids.push|
+|src/script/00.js:5154|showItemUseFx|assignment|需要进一步测试|playCasterCardFx, cardFxTargets, ['coin_shell','question_block'].includes, targets.forEach, setTimeout, playTargetCardFx, console.warn, _v25ShowItemUseFx|
+|src/script/00.js:5189|removeBgmEngineeringConsoleV26|declaration|需要进一步测试|document.getElementById('bgmEngineConsole')?.remove, document.getElementById, document.querySelectorAll('#view-settings .setting-section-title').forEach, document.querySelectorAll, x.textContent.includes, x.remove|
+|src/script/00.js:5208|renderItemFxSoundListV26|declaration|需要进一步测试|document.getElementById, ITEM_FX_SOUND_SLOTS.map(s=>{    const custom=!!customFxBuffers[s.id]／／hasSound('fx_'+s.id);    return <div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom?'已载入自定义音频':s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom?<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>:''}</div></div>  }).join, ITEM_FX_SOUND_SLOTS.map, hasSound|
+|src/script/00.js:5215|itemSoundCategoryV26|declaration|需要进一步测试|['green','triple_green','red','triple_red','spiny','banana','triple_banana','horn','bomb','hammer','lightning'].includes, ['coin','coin_shell','question','mushroom','triple_mushroom'].includes|
+|src/script/00.js:5222|showItemUseFx|assignment|需要进一步测试|playSound, setTimeout, itemSoundCategoryV26, _v26ShowItemUseFx|
+|src/script/00.js:5224|tinyDefenseToast|assignment|需要进一步测试|playSound, _v26TinyDefense|
+|src/script/00.js:5225|startDrawSoundBedV26|declaration|需要进一步测试|playSound, setInterval, clearInterval, Math.max, setTimeout|
+|src/script/00.js:5230|globalItemDraw|assignment|需要进一步测试|startDrawSoundBedV26, _v26GlobalDraw|
+|src/script/00.js:5231|handDrawItem|assignment|需要进一步测试|startDrawSoundBedV26, _v26HandDraw|
+|src/script/00.js:5244|uiIconsV26|declaration|需要进一步测试|STORAGE.getJSON|
+|src/script/00.js:5245|applyUiIconsV26|declaration|需要进一步测试|uiIconsV26, UI_ICON_TARGETS.forEach, document.querySelector, Reliability.safeImage, document.createElement, template.content.querySelector('svg,.custom-ui-icon')?.remove, template.content.querySelector, template.innerHTML.trim, escapeHtml, el.setAttribute|
+|src/script/00.js:5261|chooseUiIconV26|declaration|需要进一步测试|document.getElementById, f.click|
+|src/script/00.js:5262|handleUiIconV26|declaration|需要进一步测试|normalizeItemIconFile, uiIconsV26, STORAGE.setJSON, applyUiIconsV26, renderUiIconManagerV26|
+|src/script/00.js:5266|resetUiIconV26|declaration|需要进一步测试|uiIconsV26, STORAGE.setJSON, applyUiIconsV26, renderUiIconManagerV26|
+|src/script/00.js:5267|renderUiIconManagerV26|declaration|需要进一步测试|document.getElementById, uiIconsV26, UI_ICON_TARGETS.map(([id,label,,fallback])=><div class="icon-custom-card"><div class="icon-preview">${m[id]?<img src="${m[id]}">:fallback}</div><div style="flex:1"><b>${label}</b><div style="font-size:11px;color:#64748b">支持 PNG / JPG / WebP</div></div><button class="btn btn-sm btn-primary" onclick="chooseUiIconV26('${id}')">上传</button>${m[id]?<button class="btn btn-sm" onclick="resetUiIconV26('${id}')">还原</button>:''}</div>).join, UI_ICON_TARGETS.map|
+|src/script/00.js:5273|rebuildSettingsV26|declaration|需要进一步测试|document.querySelector, document.getElementById, removeBgmEngineeringConsoleV26, document.getElementById('settingsV2Tabs')?.remove, document.getElementById('v2ItemPane')?.remove, document.createElement, Object.entries(panes).forEach, Object.entries, original.forEach, txt.includes, panes[mode].appendChild, sc.append, panes.function.appendChild, panes.items.appendChild, panes.sound.appendChild, document.body.appendChild, installCommunismModeSetting, renderUiIconManagerV26, renderItemEncyclopedia, renderItemFxSoundListV26, showSettingsV26|
+|src/script/00.js:5299|showSettingsV26|declaration|需要进一步测试|document.getElementById, DesktopUI.selectSettings, document.querySelectorAll('.settings-v26-pane').forEach, document.querySelectorAll, p.classList.toggle, document.querySelectorAll('#settingsV26Tabs button').forEach, b.classList.toggle, document.querySelector, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, installCommunismModeSetting, renderUiIconManagerV26|
+|src/script/00.js:5309|installSettingsTabs|assignment|需要进一步测试|rebuildSettingsV26|
+|src/script/00.js:5310|showSettingsV2|assignment|需要进一步测试|showSettingsV26|
+|src/script/00.js:5321|syncVisualViewportV27|declaration|需要进一步测试|document.documentElement.style.setProperty|
+|src/script/00.js:5338|repairPersistentItemsV28|declaration|需要进一步测试|ensureItemState, state.groups.forEach, normalizeInventoryV21718, saveState|
+|src/script/00.js:5348|programConfirmV28|declaration|需要进一步测试|document.getElementById('programConfirmV28')?.remove, document.getElementById, document.createElement, escapeHtml, escapeHtml(message).replace, document.body.appendChild, o.remove, resolve, o.querySelector, finish, o.addEventListener, document.removeEventListener, document.addEventListener|
+|src/script/00.js:5365|finish|binding|需要进一步测试|o.remove, resolve|
+|src/script/00.js:5366|o.querySelector('#pcCancelV28').onclick|assignment|需要进一步测试|finish|
+|src/script/00.js:5367|o.querySelector('#pcOkV28').onclick|assignment|需要进一步测试|finish|
+|src/script/00.js:5369|key|binding|需要进一步测试|document.removeEventListener, finish|
+|src/script/00.js:5375|setCorrectAns|assignment|需要进一步测试|playSound, renderControls, state.groups.filter, unanswered.map(g=>g.name).join, unanswered.map, programConfirmV28|
+|src/script/00.js:5405|heldItemKeysV281|declaration|需要进一步测试|(g?.inventory／／[]).map(it=>it?.key).filter, (g?.inventory／／[]).map|
+|src/script/00.js:5408|weightedPickNoRepeatV281|declaration|需要进一步测试|Object.entries(weights／／{}).forEach, Object.entries, Number, blocked.has, Object.keys, weightedPick|
+|src/script/00.js:5417|pickItemForGroupV281|declaration|需要进一步测试|ranking, Math.max, r.findIndex, itemDropWeights, heldItemKeysV281, weightedPickNoRepeatV281, weightedPick|
+|src/script/00.js:5432|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, pickItemForGroupV281, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5449|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, pickItemForGroupV281, updateCardRouletteVisual, overlays.get, requestAnimationFrame, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5491|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, pickItemForGroupV281, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll|
+|src/script/00.js:5507|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, state.groups.find, pickItemForGroupV281, itemVisual, cap.animate, requestAnimationFrame, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml|
+|src/script/00.js:5558|v282RandomOther|declaration|需要进一步测试|state.groups.filter, Number, Math.floor, Math.random|
+|src/script/00.js:5562|v282TakeFraction|declaration|需要进一步测试|Number, Math.round, Math.max, applyItemAttack|
+|src/script/00.js:5572|v282Consume|declaration|需要进一步测试|Math.max, Number, g.inventory.splice|
+|src/script/00.js:5580|legacyUseItem|assignment|需要进一步测试|state.groups.find, ['feather','fire_flower','ice_flower','boomerang_flower'].includes, _v282UseItem.call, Number, showToast, recordHistory, g.inventory.splice, saveState, renderAll, showItemUseFx, v282RandomOther, v282TakeFraction, v282Consume, ranking, r.findIndex, [r[p-1],r[p+1]].filter, targets.forEach, targets.map(x=>x.name).join, targets.map|
+|src/script/00.js:5622|roulettePreviewPickV282|declaration|需要进一步测试|Object.keys, Math.floor, Math.random|
+|src/script/00.js:5626|updateAllRoulettePreviewLogicV282|declaration|需要进一步测试|roulettePreviewPickV282|
+|src/script/00.js:5632|globalItemDraw|assignment|需要进一步测试|ensureV2State, state.groups.filter, eligibleForItems, showToast, document.getElementById('view-battle')?.classList.contains, document.getElementById, switchView, recordHistory, renderGrid, performance.now, eligible.forEach, document.querySelector, c.classList.add, document.createElement, c.appendChild, overlays.set, Math.min, Math.pow, lastUpdate.get, lastUpdate.set, updateCardRouletteVisual, overlays.get, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5648|frame|declaration|需要进一步测试|Math.min, Math.pow, eligible.forEach, lastUpdate.get, lastUpdate.set, updateCardRouletteVisual, overlays.get, roulettePreviewPickV282, requestAnimationFrame, pickItemForGroupV281, addItemToGroup, batchUsed.add, o.classList.add, o.querySelector, saveState, setTimeout, document.querySelector, c.querySelector, c.classList.remove, c.querySelector('.card-item-roulette')?.remove, renderAll|
+|src/script/00.js:5681|handDrawItem|assignment|需要进一步测试|ensureV2State, state.groups.find, eligibleForItems, showToast, performance.now, document.getElementById, escapeHtml, Math.min, Math.pow, roulettePreviewPickV282, itemVisual, cap.animate, requestAnimationFrame, cancelHandItemDraw, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll|
+|src/script/00.js:5695|frame|declaration|需要进一步测试|Math.min, Math.pow, document.getElementById, roulettePreviewPickV282, itemVisual, cap.animate, requestAnimationFrame, state.groups.find, eligibleForItems, cancelHandItemDraw, showToast, renderHandRaise, pickItemForGroupV281, recordHistory, addItemToGroup, saveState, renderAll, escapeHtml|
+|src/script/00.js:5726|legacyUseItem|assignment|需要进一步测试|state.groups.find, closeItemWindowForFx, Object.values(g.itemEffect).some, Object.values, saveState, renderAll, showToast, _v282UseItemWithIce.call|
+|src/script/00.js:5751|itemKeysV283|declaration|需要进一步测试|ITEM_ORDER_V283.filter|
+|src/script/00.js:5753|itemAdminButtonV283|declaration|需要进一步测试|itemVisual, escapeHtml|
+|src/script/00.js:5757|godAddItemV283|declaration|需要进一步测试|state.groups.find, showToast, Number, recordHistory, addItemToGroup, saveState, renderAll, renderGroupModalV283|
+|src/script/00.js:5766|renderGodItemManagerV283|declaration|需要进一步测试|state.groups.find, document.querySelectorAll, roots.find, x.closest, document.querySelector, document.createElement, tactical.appendChild, itemKeysV283().map(k=>itemAdminButtonV283(k,gid)).join, itemKeysV283().map, itemKeysV283, itemAdminButtonV283|
+|src/script/00.js:5779|patchVisibleGodManagerV283|declaration|需要进一步测试|document.querySelectorAll, all.find, /上帝模式.*强制道具管理/.test, document.createElement, title.insertAdjacentElement, itemKeysV283().map(k=>itemAdminButtonV283(k,gid)).join, itemKeysV283().map, itemKeysV283, itemAdminButtonV283|
+|src/script/00.js:5791|renderEncyclopediaV283|declaration|需要进一步测试|document.querySelectorAll, headings.find, /22\s*种道具百科／26\s*种道具百科/.test, candidates.indexOf, candidates.slice(start).filter, candidates.slice, x.matches, x.querySelector, cards.forEach, x.remove, itemKeysV283().forEach, itemKeysV283, document.createElement, itemVisual, escapeHtml, parent.appendChild, itemKeysV283().map(k=>{      const d=ITEM_DEFS[k];      return <div class="guide-block encyclopedia-item"><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc／／'')}</div>;    }).join, itemKeysV283().map|
+|src/script/00.js:5820|appendMissingEncyclopediaV283|declaration|需要进一步测试|document.querySelectorAll('h1,h2,h3').forEach, document.querySelectorAll, /22\s*种道具百科/.test, document.querySelector, [...about.querySelectorAll('h1,h2,h3')].find, about.querySelectorAll, /26\s*种道具百科/.test, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, (parent.innerText／／'').includes, document.createElement, itemVisual, escapeHtml, parent.appendChild|
+|src/script/00.js:5837|patchItemIconSettingsV283|declaration|需要进一步测试|document.querySelector, [...setting.querySelectorAll('*')].filter, setting.querySelectorAll, /道具.*图标／自定义道具/.test, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, txt.includes, document.createElement, itemVisual, escapeHtml, region.appendChild|
+|src/script/00.js:5855|renderGroupModalV283|declaration|需要进一步测试|setTimeout, patchVisibleGodManagerV283|
+|src/script/00.js:5860|openGroupModal|assignment|需要进一步测试|_v283OpenGroupModal.call, renderGroupModalV283|
+|src/script/00.js:5864|renderGroupModal|assignment|需要进一步测试|_v283RenderGroupModal.apply, renderGroupModalV283|
+|src/script/00.js:5869|openAboutModal|assignment|需要进一步测试|_v283OpenAbout.apply, setTimeout, appendMissingEncyclopediaV283|
+|src/script/00.js:5877|refresh26ItemInterfacesV284|declaration|需要进一步测试|Object.keys, document.querySelectorAll('.v283-added').forEach, document.querySelectorAll, x.remove, document.querySelectorAll('.setting-section-title,h1,h2,h3').forEach, /22\s*种道具百科/.test, (x.textContent／／'').replace, /22\s*种道具百科与图标管理/.test, renderItemEncyclopedia, document.getElementById('itemWindow')?.classList.contains, document.getElementById, renderItemWindow|
+|src/script/00.js:5895|appendMissingEncyclopediaV283|assignment|需要进一步测试||
+|src/script/00.js:5896|patchItemIconSettingsV283|assignment|需要进一步测试||
+|src/script/00.js:5899|patchVisibleGodManagerV283|assignment|需要进一步测试||
+|src/script/00.js:5900|renderGroupModalV283|assignment|需要进一步测试||
+|src/script/00.js:5906|renderAbout|assignment|需要进一步测试|_v284RenderAbout, document.getElementById, m.querySelectorAll('h1,h2,h3').forEach, m.querySelectorAll, h.textContent.replace, ['feather','fire_flower','ice_flower','boomerang_flower'].forEach, txt.includes, document.createElement, itemVisual, escapeHtml, m.appendChild|
+|src/script/00.js:5931|isCommunismMode|declaration|需要进一步测试|STORAGE.getJSON|
+|src/script/00.js:5934|setCommunismMode|declaration|需要进一步测试|STORAGE.setJSON, applyCommunismMode, showToast|
+|src/script/00.js:5939|applyCommunismMode|declaration|需要进一步测试|isCommunismMode, document.body.classList.toggle, document.querySelectorAll('button,[role="button"],.dock-btn,.nav-btn').forEach, document.querySelectorAll, (el.textContent／／'').trim, el.getAttribute, /道具抽取／抽取道具／道具百科／道具与图标/.test, /globalItemDraw／openItemEncyclopedia/.test, document.getElementById('itemWindow')?.classList.remove, document.getElementById, document.getElementById('itemBackdrop')?.classList.remove|
+|src/script/00.js:5964|globalItemDraw|assignment|需要进一步测试|isCommunismMode, showToast, _v291GlobalItemDraw.apply|
+|src/script/00.js:5969|legacyUseItem|assignment|需要进一步测试|isCommunismMode, showToast, _v291UseItem.apply|
+|src/script/00.js:5975|openItemWindow|assignment|需要进一步测试|isCommunismMode, showToast, _v291OpenItemWindow.apply|
+|src/script/00.js:5982|installCommunismModeSetting|declaration|需要进一步测试|document.getElementById, document.createElement, pane.prepend, card.querySelector, isCommunismMode|
+|src/script/00.js:6011|formatChartScoreV294|declaration|需要进一步测试|Number, Math.abs, String, Math.trunc, Math.round, v.toFixed(v>=10?1:2).replace, v.toFixed|
+|src/script/00.js:6038|activePersistentEffect|declaration|需要进一步测试||
+|src/script/00.js:6048|legacyUseItem|assignment|需要进一步测试|ensureItemState, state.groups.find, previousUseItemV299.call, activePersistentEffect, closeItemWindowForFx, showToast|
+|src/script/00.js:6089|cleanEmptyEffectV2113|declaration|需要进一步测试|Object.keys|
+|src/script/00.js:6097|consumeChargeV2113|declaration|需要进一步测试|Math.max, Number, g.inventory.splice|
+|src/script/00.js:6104|randomTargetV2113|declaration|需要进一步测试|state.groups.filter, eligibleForItems, Math.floor, Math.random|
+|src/script/00.js:6109|attackFractionV2113|declaration|需要进一步测试|eligibleForItems, Math.round, Math.max, Number, applyItemScore|
+|src/script/00.js:6116|legacyUseItem|assignment|需要进一步测试|state.groups.find, EXT.has, previousUseItemV2113.call, closeItemWindowForFx, isCommunismMode, showToast, eligibleForItems, cleanEmptyEffectV2113, saveState, renderAll, g.inventory.splice, randomTargetV2113, attackFractionV2113, consumeChargeV2113, ranking, r.findIndex, [r[p-1],r[p+1]].filter, targets.forEach, targets.map(x=>x.name).join, targets.map, recordHistory, Number, showItemUseFx|
+|src/script/00.js:6237|attackHitClassV2116|declaration|需要进一步测试|['green','triple_green'].includes, ['red','triple_red'].includes, ['banana','triple_banana'].includes|
+|src/script/00.js:6252|clearAttackHitFxV2116|declaration|需要进一步测试|[...card.classList].filter(x=>x.startsWith('hit-')).forEach, [...card.classList].filter, x.startsWith, card.classList.remove, card.style.removeProperty|
+|src/script/00.js:6260|playAttackTargetFxV2116|declaration|需要进一步测试|DesktopUI.visualEvent, DesktopUI.getPreferences, battleCard, clearAttackHitFxV2116, attackHitClassV2116, card.classList.add, card.style.setProperty, document.createElement, itemVisual, card.appendChild, setTimeout, card.classList.remove, badge.remove, card.style.removeProperty|
+|src/script/00.js:6293|tryDefendLightningV2116|declaration|需要进一步测试|Number, Math.max, tinyDefenseToast, setTimeout, playAttackTargetFxV2116, ['star','mega'].includes, ['mega','star'].includes, target.inventory.findIndex, target.inventory.splice|
+|src/script/00.js:6321|applyLightningHitV2116|declaration|需要进一步测试|eligibleForItems, tryDefendLightningV2116, Number, roundHalf, setTimeout, playAttackTargetFxV2116|
+|src/script/00.js:6345|showItemUseFx|assignment|需要进一步测试|setTimeout, playCasterCardFx, _v2116ShowItemUseFx.call|
+|src/script/00.js:6373|isQueuePersistentActiveV2120|declaration|需要进一步测试|['star','mega','power'].includes|
+|src/script/00.js:6379|queueRoleTextV2120|declaration|需要进一步测试||
+|src/script/00.js:6383|queueUseStateV2120|declaration|需要进一步测试|isQueuePersistentActiveV2120, eligibleForItems, Reliability.validateItem, isCommunismMode|
+|src/script/00.js:6398|legacyUseItem|assignment|需要进一步测试|state.groups.find, closeItemWindowForFx, showToast, isQueuePersistentActiveV2120, _v2120UseItem.call|
+|src/script/00.js:6428|godAddQueueItemV2120|declaration|需要进一步测试|state.groups.find, showToast, eligibleForItems, recordHistory, addItemToGroup, saveState, renderAll, renderItemWindow|
+|src/script/00.js:6440|godClearQueueItemsV2120|declaration|需要进一步测试|state.groups.find, recordHistory, saveState, renderAll, renderItemWindow|
+|src/script/00.js:6448|godAddItem|assignment|需要进一步测试|godAddQueueItemV2120|
+|src/script/00.js:6449|godAddItemV283|assignment|需要进一步测试|godAddQueueItemV2120|
+|src/script/00.js:6450|godClearItems|assignment|需要进一步测试|godClearQueueItemsV2120|
+|src/script/00.js:6454|renderItemWindow|assignment|需要进一步测试|_v2120RenderItemWindow, state.groups.find, document.getElementById, [0,1,2].map(i=>{     const it=g.inventory[i];     const role=queueRoleTextV2120(i);     if(!it){       return <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} empty">         <div class="queue-role-badge">${role}</div>         <div class="item-big-icon">＋</div>         <div class="item-big-name">空道具栏</div>         <div class="item-big-desc">${i===0?'新获得的第一个道具会进入这里':'主要道具释放后，次要道具会按顺序自动晋升'}</div>       </div>;     }     const d=ITEM_DEFS[it.key];     const st=queueUseStateV2120(g,i);     const active=isQueuePersistentActiveV2120(g,it);     return <div class="item-big queue-item-card ${i===0?'queue-main-card':'queue-secondary-card'} ${active?'queue-persistent-active':''}">       <div class="queue-role-badge">${role}${active?' · 卡手中':''}</div>       <div class="item-big-icon">${itemVisual(it.key)}</div>       <div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div>       <div class="item-big-desc">${escapeHtml(d.desc)}</div>       ${i===0         ? <button class="btn btn-primary item-use queue-main-use" onclick="useItem(${g.id},0)" ${st.usable?'':'disabled'}>${st.label}</button>         : <button class="btn item-use queue-secondary-lock" disabled>${st.label}</button>}     </div>;   }).join, [0,1,2].map, queueRoleTextV2120, queueUseStateV2120, isQueuePersistentActiveV2120, itemVisual, escapeHtml, document.createElement, Object.keys(ITEM_DEFS).map(k=><button class="btn btn-sm" onclick="godAddQueueItemV2120(${g.id},'${k}')">${itemVisual(k)} ${escapeHtml(ITEM_DEFS[k].name)}</button>).join, Object.keys(ITEM_DEFS).map, Object.keys, body.appendChild|
+|src/script/00.js:6507|enhanceItemCards|assignment|需要进一步测试|_v2120EnhanceItemCards, state.groups.forEach, document.querySelector, card.classList.remove, card.classList.add, card.querySelectorAll, [0,1,2].forEach, isQueuePersistentActiveV2120, slot.classList.add, queueRoleTextV2120, itemVisual, queueMainVisualCacheV2120.get, slots[0].classList.add, setTimeout, slots[0]?.classList.remove, queueMainVisualCacheV2120.set|
+|src/script/00.js:6546|handUseNewItem|assignment|需要进一步测试|state.groups.find, showToast, closeHandRaise, openItemWindow|
 |src/script/01.js:11|ensureGroupNumbersV213|declaration|需要进一步测试|state.groups.forEach, Number.parseInt, Number.isFinite, used.has, used.add, Math.max, saveState|
 |src/script/01.js:28|groupNoTextV213|declaration|需要进一步测试|Math.max, Number.parseInt, String(n).padStart, String|
 |src/script/01.js:29|desiredGroupsV213|declaration|需要进一步测试|ensureGroupNumbersV213, ranking, state.groups.slice().sort, state.groups.slice, state.groups.indexOf|
@@ -684,8 +686,6 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/10.js:6|exportFxBundleV2175|declaration|需要进一步测试|openPwdModal, initDB, themeAlert, showToast, db.transaction, tx.objectStore('sounds').getAll, tx.objectStore, resolve, allRecords       .filter(r=>r && typeof r.id==='string' && r.id.startsWith('fx_') && r.arrayBuffer instanceof ArrayBuffer)       .sort, allRecords       .filter, r.id.startsWith, a.id.localeCompare, fileIndex.push, buffers.push, new TextEncoder().encode, JSON.stringify, view.setUint8, view.setUint32, URL.createObjectURL, document.createElement, fxRecords.filter, document.body.appendChild, a.click, a.remove, setTimeout, URL.revokeObjectURL, console.error|
 |src/script/10.js:27|req.onsuccess|assignment|需要进一步测试|resolve|
 |src/script/10.js:28|req.onerror|assignment|需要进一步测试|resolve|
-|src/script/10.js:102|renderItemFxSoundListV26|assignment|需要进一步测试|_v2175RenderItemFxSoundListV26, document.getElementById, document.createElement, box.prepend|
-|src/script/10.js:127|showSettingsV26|assignment|需要进一步测试|_v2175ShowSettingsV26.call, setTimeout, renderItemFxSoundListV26|
 |src/script/11.js:15|getFxOutputV2176|declaration|需要进一步测试|audioCtx.createGain, fxGainNodeV2176.gain.setValueAtTime, fxGainNodeV2176.connect|
 |src/script/11.js:26|updateSfxVolumeV2176|declaration|需要进一步测试|Math.max, Math.min, parseFloat, document.getElementById, Math.round, getFxOutputV2176, node.gain.cancelScheduledValues, node.gain.setValueAtTime, STORAGE.set|
 |src/script/11.js:47|installSfxVolumeSliderV2176|declaration|需要进一步测试|document.getElementById, master?.closest, document.createElement, Math.round, masterRow.insertAdjacentElement, pane.prepend|
@@ -824,9 +824,9 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/39.js:76|byOnclick|binding|需要进一步测试|[...dock.querySelectorAll('button')].find, dock.querySelectorAll, (b.getAttribute('onclick')／／'').includes, b.getAttribute|
 |src/script/39.js:101|renderLockState|assignment|需要进一步测试|_v2185RenderLockState.apply, document.getElementById, bindDockHumorV2185|
 |src/script/41.js:5|polishVisibleCopyV2187|declaration|需要进一步测试|document.querySelector, document.querySelectorAll('.god-item-tools b,.queue-god-tools-v2120 b').forEach, document.querySelectorAll, /上帝模式/.test, document.querySelectorAll('.god-item-tools .btn-danger,.queue-god-tools-v2120 .btn-danger').forEach, /清空/.test|
-|src/script/41.js:41|renderAbout|assignment|需要进一步测试|_v2187RenderAbout.call, document.querySelectorAll('[data-about]').forEach, document.querySelectorAll, b.classList.toggle, document.getElementById|
-|src/script/41.js:77|openPwdModal|assignment|需要进一步测试|_v2187OpenPwdModal.apply, document.querySelector|
-|src/script/41.js:94|window[name]|assignment|需要进一步测试|fn.apply, setTimeout|
+|src/script/41.js:37|renderAbout|assignment|需要进一步测试|_v2187RenderAbout.call, document.querySelectorAll('[data-about]').forEach, document.querySelectorAll, b.classList.toggle, document.getElementById|
+|src/script/41.js:73|openPwdModal|assignment|需要进一步测试|_v2187OpenPwdModal.apply, document.querySelector|
+|src/script/41.js:90|window[name]|assignment|需要进一步测试|fn.apply, setTimeout|
 |src/script/42.js:30|legacyUseItem|assignment|需要进一步测试|state.groups.find, _v2189UseItem.call, showToast, state.groups.filter, eligibleForItems, allTargets.filter, consumeOneV218, Number, recordHistory, saveState, renderAll, showItemUseFx, Math.floor, Math.random, attackOneFifthV218, Math.round, Math.max, applyItemScore|
 |src/script/43.js:2|cleanVisibleCopyV21811|declaration|需要进一步测试|document.getElementById, document.createTreeWalker, walker.nextNode, nodes.push, nodes.forEach, n.nodeValue         .replace(/原来的\s*音乐设置已经退休[^。]*。?/g,'')         .replace(/原来的\s*旧版音乐参数面板已经退休[^。]*。?/g,'')         .replace(/旧版音乐参数面板/g,'音乐设置')         .replace, n.nodeValue         .replace(/原来的\s*音乐设置已经退休[^。]*。?/g,'')         .replace(/原来的\s*旧版音乐参数面板已经退休[^。]*。?/g,'')         .replace, n.nodeValue         .replace(/原来的\s*音乐设置已经退休[^。]*。?/g,'')         .replace, n.nodeValue         .replace|
 |src/script/43.js:18|renderAbout|assignment|需要进一步测试|_v21811RenderAbout.apply, cleanVisibleCopyV21811|
@@ -840,62 +840,67 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/45.js:120|effectTextV21813|declaration|需要进一步测试|out.push, Number, out.join|
 |src/script/45.js:133|exportSingleSettlementCSV|assignment|需要进一步测试|getSettlementHistory, lines.push, [     ['档案名称',record.title／／'课堂结算'],     ['归档日期',record.date／／''],     ['归档时间',record.time／／''],     ['第一名',record.champion／／''],     ['小组数量',record.totalGroups??groups.length],     ['全班总分',record.totalScore??groups.reduce((n,g)=>n+(Number(g.score)／／0),0)]   ].forEach, groups.reduce, Number, csvCellV21813, [     ['课堂作答总次数',answers],     ['答题轮次',Number(ig.pkTotal)／／0],     ['全局道具发放',Number(ig.totalDraws)／／0],     ['手动举手次数',Number(ig.handRaiseTotal)／／0],     ['随机点名记录数',(ig.pickerHistory／／[]).length],     ['手动举手记录数',(ig.handRaiseHistory／／[]).length],     ['撤销历史节点数',(snap.undoHistory／／[]).length]   ].forEach, [     '排名','小组名称','最终得分','组员名单',     '答对次数','答错次数','道具抽取次数','道具使用次数',     '持有道具','持续状态','幽灵防护剩余','本题已使用道具','三重道具续用键',     'All In','所选答案','结果文字'   ].map(csvCellV21813).join, [     '排名','小组名称','最终得分','组员名单',     '答对次数','答错次数','道具抽取次数','道具使用次数',     '持有道具','持续状态','幽灵防护剩余','本题已使用道具','三重道具续用键',     'All In','所选答案','结果文字'   ].map, [...groups].sort, ranked.forEach, [       r+1,g.name,Number(g.score)／／0,(g.members／／[]).join(' / '),       Number(g.itemStats?.correct)／／0,Number(g.itemStats?.wrong)／／0,       Number(g.itemStats?.draws)／／0,Number(g.itemStats?.used)／／0,       inventoryTextV21813(g.inventory),effectTextV21813(g),       Number(g.booRoundsLeftV218)／／0,g.itemUsedThisRound?'是':'否',       g.roundItemContinuationKeyV218／／'',       g.allIn?'是':'否',g.selectedOpt／／'',g.resultText／／''     ].map(csvCellV21813).join, [       r+1,g.name,Number(g.score)／／0,(g.members／／[]).join(' / '),       Number(g.itemStats?.correct)／／0,Number(g.itemStats?.wrong)／／0,       Number(g.itemStats?.draws)／／0,Number(g.itemStats?.used)／／0,       inventoryTextV21813(g.inventory),effectTextV21813(g),       Number(g.booRoundsLeftV218)／／0,g.itemUsedThisRound?'是':'否',       g.roundItemContinuationKeyV218／／'',       g.allIn?'是':'否',g.selectedOpt／／'',g.resultText／／''     ].map, (g.members／／[]).join, inventoryTextV21813, effectTextV21813, [     ['鱿鱿遮蔽截止时间',Number(ig.blooperUntil)／／0],     ['抽取节流状态',ig.drawThrottleV2179／／{}],     ['抽取轮次与冷却',ig.drawSessionThrottleV21710／／{}],     ['第一次手动举手特殊抽取是否待触发',snap.transient?.firstHandDrawPending?'是':'否'],     ['当前抽取会话',snap.transient?.activeDrawSession／／null],     ['当前是否正在抽取',snap.transient?.itemDrawBusy?'是':'否']   ].forEach, [     ['点名模式',snap.picker?.mode／／''],     ['已抽学生键',snap.picker?.pickedStudentKeys／／[]],     ['已抽小组 ID',snap.picker?.pickedGroupIds／／[]],     ['预选小组 ID',snap.picker?.preselectedGroupIds／／[]],     ['当前抽取结果',snap.transient?.slotEngine?.chosenResult／／null]   ].forEach, (ig.pickerHistory／／[]).forEach, [i+1,x.time?new Date(x.time).toLocaleString():'',x.text／／''].map(csvCellV21813).join, [i+1,x.time?new Date(x.time).toLocaleString():'',x.text／／''].map, new Date(x.time).toLocaleString, (ig.handRaiseHistory／／[]).forEach, groups.find, [       i+1,x.time?new Date(x.time).toLocaleString():'',x.groupId??'',       g?.name／／'',x.correct?'正确':'错误'     ].map(csvCellV21813).join, [       i+1,x.time?new Date(x.time).toLocaleString():'',x.groupId??'',       g?.name／／'',x.correct?'正确':'错误'     ].map, [     ['是否正在答题',rd.roundActive?'是':'否'],     ['是否已判定',rd.evaluated?'是':'否'],     ['正确答案',rd.correctAnswer／／rd.correctAns／／''],     ['回合编号',Number(rd.roundNo)／／0],     ['是否曾开始过比赛',rd.hasStartedOnce?'是':'否'],     ['上一轮 All In 状态',rd.lastRoundAllIn／／null],     ['当前举手小组 ID',snap.transient?.handRaiseGroupId??''],     ['当前举手抽道具小组 ID',snap.transient?.handItemDrawGroupId??''],     ['待定道具键',snap.transient?.handItemPendingKey??''],     ['道具抽取开始时间',snap.transient?.handItemDrawStartedAt??0],     ['当前道具详情小组 ID',snap.transient?.activeItemGroupId??'']   ].forEach, (snap.undoHistory／／[]).forEach, (h.groups／／[]).map, [       i+1,h.time／／'',h.desc／／'',groupSummary,h.picker／／null,h.itemGlobal／／null     ].map(csvCellV21813).join, [       i+1,h.time／／'',h.desc／／'',groupSummary,h.picker／／null,h.itemGlobal／／null     ].map, lines.join, URL.createObjectURL, document.createElement, (record.title／／'封神榜档案').replace, a.click, URL.revokeObjectURL, showToast|
 |src/ui/desktop.js:5|$|binding|需要进一步测试|document.querySelector|
-|src/ui/desktop.js:43|icon|declaration|需要进一步测试||
-|src/ui/desktop.js:46|empty|declaration|需要进一步测试|icon, E|
-|src/ui/desktop.js:49|persistPreferences|declaration|需要进一步测试|localStorage.setItem, JSON.stringify, showToast|
-|src/ui/desktop.js:61|applyPreferences|declaration|需要进一步测试|window.WelcomeV2?.preferencesChanged, String, cancelAnimations, document.getAnimations().forEach, document.getAnimations, a.cancel|
-|src/ui/desktop.js:71|canAnimate|declaration|需要进一步测试|matchMedia|
-|src/ui/desktop.js:80|animate|declaration|需要进一步测试|canAnimate, el.animate, animations.add, a.finished.catch(() => {}).finally, a.finished.catch, animations.delete|
-|src/ui/desktop.js:91|cancelAnimations|declaration|需要进一步测试|a.cancel, animations.clear, document.querySelectorAll("#groupList .group-row-card").forEach, document.querySelectorAll, clearCardFx, clearAttackHitFxV2116, document       .querySelectorAll(".card-fx-badge,.attack-hit-badge-v2116")       .forEach, document       .querySelectorAll, el.remove, document.querySelectorAll(".ui-fx-layer").forEach, x.remove|
-|src/ui/desktop.js:104|visualEvent|declaration|需要进一步测试|document.dispatchEvent, canAnimate, $, CSS.escape, String, [         "ITEM_HIT",         "ITEM_DEFENDED",         "ITEM_USE_START",         "ITEM_EFFECT_APPLIED",         "ITEM_QUEUE_PROMOTED",       ].includes, animate|
-|src/ui/desktop.js:132|syncViewport|declaration|需要进一步测试|Number, getComputedStyle, document.body.style.setProperty|
-|src/ui/desktop.js:148|viewChanged|declaration|需要进一步测试|window.WelcomeV2?.viewChanged, [...openStack].reverse, ["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes, m.close, $, document.querySelectorAll(".nav-tab").forEach, document.querySelectorAll, b.setAttribute, String, $(".ui-dock-menu")?.removeAttribute, $(".dock-humor-tip-v2185")?.classList.remove, cancelAnimations, animate, renderWelcome, selectSettings|
-|src/ui/desktop.js:197|renderWelcome|declaration|需要进一步测试|$, syncViewport, observeVisualState, canAnimate, document.getAnimations().forEach, document.getAnimations, a.cancel, [...groups].sort, Number, Date.now, JSON.stringify, groups.map, groups             .map((g) => {               const item = g.inventory?.[0],                 states = Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                       (["iceLock", "featherDodge"].includes(k) &&                         Number(v) > 0),                   )                   .map(                     ([k, v]) =>                       ({                         bullet: "炮弹追击",                         featherDodge: "羽毛闪避",                         star: "无敌星",                         mega: "巨大蘑菇",                         boo: "幽灵保护",                         ice: "冻结",                         power: "强力蘑菇",                         feather: "羽毛",                       })[k === "type" ? v : k] ／／                       (k === "iceLock" ? "冻结" : k),                   );               if (g.booShield > 0 ／／ g.booRoundsLeftV218 > 0)                 states.push("幽灵保护");               return <button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo ／／ groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name ／／ "未知道具" : "暂无主要道具")}</span></footer>${states.length ? <div class="ui-muted">${E(states.join(" · "))}</div> : ""}</button>;             })             .join, groups             .map, Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                       (["iceLock", "featherDodge"].includes(k) &&                         Number(v) > 0),                   )                   .map, Object.entries(g.itemEffect ／／ {})                   .filter, Object.entries, ["iceLock", "featherDodge"].includes, states.push, /^#[a-f\d]{3,8}$/i.test, E, groups.indexOf, sorted.findIndex, itemVisual, icon, states.join, empty, track         .querySelectorAll("[data-group]")         .forEach, track         .querySelectorAll, openItemWindow, requestAnimationFrame, renderDaily, window.WelcomeV2.render|
-|src/ui/desktop.js:262|el.onclick|assignment|需要进一步测试|openItemWindow, Number|
-|src/ui/desktop.js:271|updateArrows|declaration|需要进一步测试|$, t.classList.toggle|
-|src/ui/desktop.js:281|observeVisualState|declaration|需要进一步测试|JSON.stringify, visualSnapshot.get, visualEvent, g.inventory.at, next.set|
-|src/ui/desktop.js:321|renderDaily|declaration|需要进一步测试|$, getSettlementHistory, M.dayIndex, JSON.stringify, history.map, Object.keys, M.daily, bank.knowledge.filter, bank.challenges.filter, E, itemVisual, quiz.options.map((o, i) => <button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>).join, quiz.options.map, host.querySelectorAll("[data-quiz-answer]").forEach, host.querySelectorAll, b.parentElement             .querySelectorAll("button")             .forEach, b.parentElement             .querySelectorAll, x.setAttribute, String, host.querySelector, Number|
-|src/ui/desktop.js:361|b.onclick|assignment|需要进一步测试|b.parentElement             .querySelectorAll("button")             .forEach, b.parentElement             .querySelectorAll, x.setAttribute, String, host.querySelector, Number|
-|src/ui/desktop.js:373|historyKind|declaration|需要进一步测试|/清零／恢复／撤销／回溯／删除/.test, /道具／攻击／龟壳／蘑菇/.test, /题／回合／答题／结算/.test, /成员／小组／名单/.test|
-|src/ui/desktop.js:384|inventory|declaration|需要进一步测试|items         .map((i) => ${ITEM_DEFS[i.key]?.name ／／ i.key} ×${i.charges ?? 1})         .join, items         .map|
-|src/ui/desktop.js:391|renderHistory|declaration|需要进一步测试|$, empty, historyStack       .map((h, i) => {         const next = historyStack[i + 1] ／／ state,           diffs = M.differences(h, next),           [kind, glyph, label] = historyKind(h.desc),           changed = diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !==                 JSON.stringify(d.inventoryAfter) ／／               JSON.stringify(d.effectsBefore) !==                 JSON.stringify(d.effectsAfter),           );         return <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc ／／ "未命名操作")}</h3><span class="ui-muted">${E(h.time ／／ "未记录时间")} · ${E(changed.map((g) => g.name).join("、") ／／ "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>;       })       .reverse()       .join, historyStack       .map((h, i) => {         const next = historyStack[i + 1] ／／ state,           diffs = M.differences(h, next),           [kind, glyph, label] = historyKind(h.desc),           changed = diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !==                 JSON.stringify(d.inventoryAfter) ／／               JSON.stringify(d.effectsBefore) !==                 JSON.stringify(d.effectsAfter),           );         return <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc ／／ "未命名操作")}</h3><span class="ui-muted">${E(h.time ／／ "未记录时间")} · ${E(changed.map((g) => g.name).join("、") ／／ "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>;       })       .reverse, historyStack       .map, M.differences, historyKind, diffs.filter, JSON.stringify, icon, E, changed.map((g) => g.name).join, changed.map, diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join, diffs.map, inventory, host.querySelectorAll(".ui-history:nth-child(-n+8)").forEach, host.querySelectorAll, animate, host.querySelectorAll("[data-restore]").forEach, Number, themeConfirm, revertToHistory|
-|src/ui/desktop.js:440|b.onclick|assignment|需要进一步测试|Number, themeConfirm, revertToHistory|
-|src/ui/desktop.js:456|renderArchives|declaration|需要进一步测试|getSettlementHistory, records       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))       .filter, records       .flatMap, Array.isArray, g.score.trim, Number.isFinite, Number, Math.max, all.map, $, [       ["已归档届数", records.length],       [         "最近冠军",         records[0]?.champion ／／ records[0]?.groups?.[0]?.name ／／ "暂无",       ],       ["历史最高积分", best ?? "暂无"],       ["最近归档", records[0]?.time ／／ "暂无"],     ]       .map(         ([t, v]) =>           <div class="ui-panel"><span class="ui-muted">${t}</span><strong>${E(v)}</strong></div>,       )       .join, [       ["已归档届数", records.length],       [         "最近冠军",         records[0]?.champion ／／ records[0]?.groups?.[0]?.name ／／ "暂无",       ],       ["历史最高积分", best ?? "暂无"],       ["最近归档", records[0]?.time ／／ "暂无"],     ]       .map, E, records       .map((r, index) => ({ r, index }))       .filter, records       .map, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(" ")           .toLowerCase()           .includes, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(" ")           .toLowerCase, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join, (r.groups ／／ []).map, archiveSearch.toLowerCase, list.reverse, list.sort, list           .map(({ r, index }) => {             const groups = Array.isArray(r.groups) ? r.groups : [];             return <article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time ／／ "时间未记录")}</span><h3>${E(r.title ／／ "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion ／／ groups[0]?.name ／／ "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups               .slice(0, 3)               .map(                 (g, i) =>                   <div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name ／／ "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>,               )               .join(                 "",               )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => <tr><td>${i + 1}</td><td>${E(g.name ／／ "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members ／／ []).join("、") ／／ "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">导出完整 CSV</button><button class="btn" data-json="${index}">导出原始 JSON</button><button class="btn btn-danger" data-delete="${index}">删除档案</button></div></details></article>;           })           .join, list           .map, icon, groups               .slice(0, 3)               .map(                 (g, i) =>                   <div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name ／／ "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>,               )               .join, groups               .slice(0, 3)               .map, groups               .slice, groups.map((g, i) => <tr><td>${i + 1}</td><td>${E(g.name ／／ "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members ／／ []).join("、") ／／ "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>).join, groups.map, (g.members ／／ []).join, JSON.stringify, empty, host       .querySelectorAll("[data-csv]")       .forEach, host       .querySelectorAll, exportSingleSettlementCSV, host       .querySelectorAll("[data-delete]")       .forEach, deleteSettlementRecord, host       .querySelectorAll("[data-json]")       .forEach, downloadJson|
-|src/ui/desktop.js:528|b.onclick|assignment|需要进一步测试|exportSingleSettlementCSV, Number|
-|src/ui/desktop.js:534|b.onclick|assignment|需要进一步测试|deleteSettlementRecord, Number|
-|src/ui/desktop.js:540|b.onclick|assignment|需要进一步测试|downloadJson, Number|
-|src/ui/desktop.js:544|downloadJson|declaration|需要进一步测试|URL.createObjectURL, JSON.stringify, document.createElement, a.click, setTimeout, URL.revokeObjectURL|
-|src/ui/desktop.js:566|setupSettings|declaration|需要进一步测试|$, document.createElement, categories.map(([id, glyph, title]) => <button data-category="${id}">${icon(glyph)}${title}</button>).join, categories.map, icon, categories.map(([id, , title, desc]) => <section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${title}</h3><div class="ui-muted">${desc}</div></header></section>).join, Object.fromEntries, [...shell.querySelectorAll("[data-category-panel]")].map, shell.querySelectorAll, document.querySelectorAll, pane.id.replace, el.querySelector, /批量导入学生／学生名单/.test, /All In／顶部垫片／分栏／共产主义/.test, sections[dest].append, pane.classList.add, sections.rules.append, sections[originalId]?.append, $("#settingsV26Tabs")?.remove, sc.append, sc.classList.add, shell       .querySelectorAll("[data-category]")       .forEach, shell       .querySelectorAll, selectSettings, sections.appearance.insertAdjacentHTML, sections.motion.insertAdjacentHTML, row, check, sections.welcome.insertAdjacentHTML, [         ["knowledge", "每日知识卡片"],         ["itemTip", "每日道具小知识"],         ["honors", "历史荣誉"],         ["challenge", "每日课堂挑战"],         ["groupCruise", "小组卡片自动巡航（默认关闭）"],       ]         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))         .join, [         ["knowledge", "每日知识卡片"],         ["itemTip", "每日道具小知识"],         ["honors", "历史荣誉"],         ["challenge", "每日课堂挑战"],         ["groupCruise", "小组卡片自动巡航（默认关闭）"],       ]         .map, sections.data.insertAdjacentHTML, [...sections.data.querySelectorAll("button")].filter, sections.data.querySelectorAll, /resetAllScores／clear/.test, b.getAttribute, b.classList.remove, b.classList.add, String, refreshSubjects, JSON.stringify, shell.querySelectorAll("[data-pref]").forEach, Number, persistPreferences, applyPreferences, renderDaily, downloadJson, M.validateBank, JSON.parse, localStorage.setItem, themeConfirm, localStorage.removeItem|
-|src/ui/desktop.js:610|b.onclick|assignment|需要进一步测试|selectSettings|
-|src/ui/desktop.js:615|row|declaration|需要进一步测试||
-|src/ui/desktop.js:618|check|binding|需要进一步测试||
-|src/ui/desktop.js:676|el.onchange|assignment|需要进一步测试|Number, persistPreferences, applyPreferences, renderDaily|
-|src/ui/desktop.js:690|$("#uiExportBank").onclick|assignment|需要进一步测试|downloadJson|
-|src/ui/desktop.js:692|$("#uiSaveBank").onclick|assignment|需要进一步测试|M.validateBank, JSON.parse, $, localStorage.setItem, JSON.stringify, refreshSubjects, renderDaily|
-|src/ui/desktop.js:706|$("#uiResetBank").onclick|assignment|需要进一步测试|themeConfirm, localStorage.removeItem, $, JSON.stringify, refreshSubjects, renderDaily|
-|src/ui/desktop.js:728|refreshSubjects|declaration|需要进一步测试|$, bank.knowledge.map, bank.challenges.map, subjects       .map(         (s) =>           <option value="${E(s)}">${E({ politics: "政治", history: "历史", geography: "地理", english: "英语" }[s] ／／ s)}</option>,       )       .join, subjects       .map, E, subjects.includes|
-|src/ui/desktop.js:748|selectSettings|declaration|需要进一步测试|$, categories.some, document       .querySelectorAll("[data-category-panel]")       .forEach, document       .querySelectorAll, document       .querySelectorAll(".ui-settings-nav button")       .forEach, b.setAttribute, String|
-|src/ui/desktop.js:767|setupDock|declaration|需要进一步测试|$, document.createElement, b.getAttribute, /globalItemDraw／openHandRaise／openPickerModal／undoLast/.test, /globalItemDraw/.test, /openHandRaise/.test, /openPickerModal/.test, /undoLast/.test, UI_ICON_TARGETS.find, b.matches, b.setAttribute, icon, E, /zoom/.test, /Lock/.test, /addGroup／Search/.test, menu.append, right.append, final.setAttribute, document.addEventListener, e.target.closest, e.preventDefault, e.stopImmediatePropagation|
-|src/ui/desktop.js:837|refreshLockControl|declaration|需要进一步测试|icon, Reliability.safeImage, uiIconsV26, button.setAttribute|
-|src/ui/desktop.js:864|setupModals|declaration|需要进一步测试|top.el.getClientRects, top.el.contains, [         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find, top.el.querySelectorAll, el.getClientRects, target.focus, document.addEventListener, openStack.at, focusModal, Object.entries, document.getElementById, el.classList.contains, known.get, known.set, openStack.push, el.querySelector, dialog?.setAttribute, dialog.getAttribute, dialog.setAttribute, dialog.querySelector, canAnimate, stopConfetti, el.querySelectorAll(".podium-col").forEach, el.querySelectorAll, animate, queueMicrotask, openStack.find, openStack.filter, item.focus.focus, item.focus.closest, cancelAnimations, new MutationObserver(scan).observe, e.preventDefault, e.stopImmediatePropagation, top.close, [             ...top.el.querySelectorAll(               'button,input,select,textarea,a[href],[tabindex="0"]',             ),           ].filter, x.getClientRects, nodes.at, last.focus, first.focus, scan|
-|src/ui/desktop.js:866|focusModal|declaration|需要进一步测试|top.el.getClientRects, top.el.contains, [         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find, top.el.querySelectorAll, el.getClientRects, target.focus|
-|src/ui/desktop.js:887|scan|declaration|需要进一步测试|Object.entries, document.getElementById, el.classList.contains, known.get, known.set, openStack.push, el.querySelector, dialog?.setAttribute, dialog.getAttribute, dialog.setAttribute, dialog.querySelector, canAnimate, stopConfetti, el.querySelectorAll(".podium-col").forEach, el.querySelectorAll, animate, queueMicrotask, openStack.at, focusModal, openStack.find, openStack.filter, top.el.contains, item.focus.focus, item.focus.closest, cancelAnimations|
-|src/ui/desktop.js:1009|cancelPickerPreparation|declaration|需要进一步测试|$, button.removeAttribute, modal?.contains, a.cancel|
-|src/ui/desktop.js:1022|isPickerCurrent|declaration|需要进一步测试|$("#pickerModal").classList.contains, $|
-|src/ui/desktop.js:1028|togglePicker|declaration|需要进一步测试|stopSlotSpin, $, button.setAttribute, toggleSlotSpin, showToast, button.removeAttribute|
-|src/ui/desktop.js:1055|pickerStopped|declaration|需要进一步测试|$, modal.classList.contains, modal.querySelectorAll(".slot-reel-text").forEach, modal.querySelectorAll, animate, isPickerCurrent, last.finished.then, complete|
-|src/ui/desktop.js:1074|complete|binding|需要进一步测试|isPickerCurrent|
-|src/ui/desktop.js:1088|pickerChanged|declaration|需要进一步测试|pickerTargetGroup, state.groups.some, document       .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')       .forEach, document       .querySelectorAll, animate, $|
-|src/ui/desktop.js:1107|setupPicker|declaration|需要进一步测试|$, left.append, right.append, stats.removeAttribute, new MutationObserver(pickerChanged).observe, pickerChanged|
-|src/ui/desktop.js:1130|prepareSettlement|declaration|需要进一步测试|$|
-|src/ui/desktop.js:1135|cancelSettlement|declaration|需要进一步测试||
-|src/ui/desktop.js:1138|settleFromUI|declaration|需要进一步测试|button.setAttribute, $, requestAnimationFrame, $("#settlementNameModal").classList.contains, confirmFinalSettlement, button.removeAttribute|
-|src/ui/desktop.js:1173|init|declaration|需要进一步测试|JSON.parse, localStorage.getItem, Object.keys, ["full", "simple", "off"].includes, [0.75, 1, 1.5].includes, M.validateBank, console.warn, applyPreferences, syncViewport, window.addEventListener, document.querySelectorAll(".nav-tab").forEach, document.querySelectorAll, icon, b.setAttribute, setupDock, UI_ICON_TARGETS.forEach, $, applyUiIconsV26, setupSettings, setupPicker, setupModals, $("#settlementHistoryContainer").addEventListener, details.contains, a.cancel, details.querySelectorAll(".ui-podium>div").forEach, details.querySelectorAll, animate, t.addEventListener, Math.abs, Math.max, Math.min, e.preventDefault, t.scrollBy, canAnimate, new ResizeObserver(updateArrows).observe, renderArchives, viewChanged, renderWelcome, renderHistory, document         .querySelectorAll(           ".ui-welcome-head,.ui-group-card,.ui-daily-grid .ui-panel",         )         .forEach, document         .querySelectorAll, cancelAnimations|
-|src/ui/desktop.js:1255|$("#uiGroupPrev").onclick|assignment|需要进一步测试|t.scrollBy, canAnimate|
-|src/ui/desktop.js:1257|$("#uiGroupNext").onclick|assignment|需要进一步测试|t.scrollBy, canAnimate|
-|src/ui/desktop.js:1260|$("#uiArchiveSearch").oninput|assignment|需要进一步测试|renderArchives|
-|src/ui/desktop.js:1264|$("#uiArchiveSort").onchange|assignment|需要进一步测试|renderArchives|
-|src/ui/desktop.js:1297|$("#uiSkipWelcome").onclick|assignment|需要进一步测试|cancelAnimations|
+|src/ui/desktop.js:44|icon|declaration|需要进一步测试||
+|src/ui/desktop.js:47|empty|declaration|需要进一步测试|icon, E|
+|src/ui/desktop.js:50|persistPreferences|declaration|需要进一步测试|localStorage.setItem, JSON.stringify, showToast|
+|src/ui/desktop.js:62|applyPreferences|declaration|需要进一步测试|cancelSettingsMotion, window.WelcomeV2?.preferencesChanged, String, cancelAnimations, document.getAnimations().forEach, document.getAnimations, a.cancel|
+|src/ui/desktop.js:73|canAnimate|declaration|需要进一步测试|matchMedia|
+|src/ui/desktop.js:82|animate|declaration|需要进一步测试|canAnimate, el.animate, animations.add, a.finished.catch(() => {}).finally, a.finished.catch, animations.delete|
+|src/ui/desktop.js:93|cancelAnimations|declaration|需要进一步测试|cancelSettingsMotion, a.cancel, animations.clear, document.querySelectorAll("#groupList .group-row-card").forEach, document.querySelectorAll, clearCardFx, clearAttackHitFxV2116, document       .querySelectorAll(".card-fx-badge,.attack-hit-badge-v2116")       .forEach, document       .querySelectorAll, el.remove, document.querySelectorAll(".ui-fx-layer").forEach, x.remove|
+|src/ui/desktop.js:107|visualEvent|declaration|需要进一步测试|document.dispatchEvent, canAnimate, $, CSS.escape, String, [         "ITEM_HIT",         "ITEM_DEFENDED",         "ITEM_USE_START",         "ITEM_EFFECT_APPLIED",         "ITEM_QUEUE_PROMOTED",       ].includes, animate|
+|src/ui/desktop.js:135|syncViewport|declaration|需要进一步测试|Number, getComputedStyle, document.body.style.setProperty|
+|src/ui/desktop.js:151|viewChanged|declaration|需要进一步测试|window.WelcomeV2?.viewChanged, [...openStack].reverse, ["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes, m.close, $, document.querySelectorAll(".nav-tab").forEach, document.querySelectorAll, b.setAttribute, String, $(".ui-dock-menu")?.removeAttribute, $(".dock-humor-tip-v2185")?.classList.remove, cancelAnimations, animate, renderWelcome, selectSettings|
+|src/ui/desktop.js:200|renderWelcome|declaration|需要进一步测试|$, syncViewport, observeVisualState, canAnimate, document.getAnimations().forEach, document.getAnimations, a.cancel, [...groups].sort, Number, Date.now, JSON.stringify, groups.map, groups             .map((g) => {               const item = g.inventory?.[0],                 states = Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                       (["iceLock", "featherDodge"].includes(k) &&                         Number(v) > 0),                   )                   .map(                     ([k, v]) =>                       ({                         bullet: "炮弹追击",                         featherDodge: "羽毛闪避",                         star: "无敌星",                         mega: "巨大蘑菇",                         boo: "幽灵保护",                         ice: "冻结",                         power: "强力蘑菇",                         feather: "羽毛",                       })[k === "type" ? v : k] ／／                       (k === "iceLock" ? "冻结" : k),                   );               if (g.booShield > 0 ／／ g.booRoundsLeftV218 > 0)                 states.push("幽灵保护");               return <button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo ／／ groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name ／／ "未知道具" : "暂无主要道具")}</span></footer>${states.length ? <div class="ui-muted">${E(states.join(" · "))}</div> : ""}</button>;             })             .join, groups             .map, Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                       (["iceLock", "featherDodge"].includes(k) &&                         Number(v) > 0),                   )                   .map, Object.entries(g.itemEffect ／／ {})                   .filter, Object.entries, ["iceLock", "featherDodge"].includes, states.push, /^#[a-f\d]{3,8}$/i.test, E, groups.indexOf, sorted.findIndex, itemVisual, icon, states.join, empty, track         .querySelectorAll("[data-group]")         .forEach, track         .querySelectorAll, openItemWindow, requestAnimationFrame, renderDaily, window.WelcomeV2.render|
+|src/ui/desktop.js:265|el.onclick|assignment|需要进一步测试|openItemWindow, Number|
+|src/ui/desktop.js:274|updateArrows|declaration|需要进一步测试|$, t.classList.toggle|
+|src/ui/desktop.js:284|observeVisualState|declaration|需要进一步测试|JSON.stringify, visualSnapshot.get, visualEvent, g.inventory.at, next.set|
+|src/ui/desktop.js:324|renderDaily|declaration|需要进一步测试|$, getSettlementHistory, M.dayIndex, JSON.stringify, history.map, Object.keys, M.daily, bank.knowledge.filter, bank.challenges.filter, E, itemVisual, quiz.options.map((o, i) => <button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>).join, quiz.options.map, host.querySelectorAll("[data-quiz-answer]").forEach, host.querySelectorAll, b.parentElement             .querySelectorAll("button")             .forEach, b.parentElement             .querySelectorAll, x.setAttribute, String, host.querySelector, Number|
+|src/ui/desktop.js:364|b.onclick|assignment|需要进一步测试|b.parentElement             .querySelectorAll("button")             .forEach, b.parentElement             .querySelectorAll, x.setAttribute, String, host.querySelector, Number|
+|src/ui/desktop.js:376|historyKind|declaration|需要进一步测试|/清零／恢复／撤销／回溯／删除/.test, /道具／攻击／龟壳／蘑菇/.test, /题／回合／答题／结算/.test, /成员／小组／名单/.test|
+|src/ui/desktop.js:387|inventory|declaration|需要进一步测试|items         .map((i) => ${ITEM_DEFS[i.key]?.name ／／ i.key} ×${i.charges ?? 1})         .join, items         .map|
+|src/ui/desktop.js:394|renderHistory|declaration|需要进一步测试|$, empty, historyStack       .map((h, i) => {         const next = historyStack[i + 1] ／／ state,           diffs = M.differences(h, next),           [kind, glyph, label] = historyKind(h.desc),           changed = diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !==                 JSON.stringify(d.inventoryAfter) ／／               JSON.stringify(d.effectsBefore) !==                 JSON.stringify(d.effectsAfter),           );         return <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc ／／ "未命名操作")}</h3><span class="ui-muted">${E(h.time ／／ "未记录时间")} · ${E(changed.map((g) => g.name).join("、") ／／ "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>;       })       .reverse()       .join, historyStack       .map((h, i) => {         const next = historyStack[i + 1] ／／ state,           diffs = M.differences(h, next),           [kind, glyph, label] = historyKind(h.desc),           changed = diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !==                 JSON.stringify(d.inventoryAfter) ／／               JSON.stringify(d.effectsBefore) !==                 JSON.stringify(d.effectsAfter),           );         return <article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc ／／ "未命名操作")}</h3><span class="ui-muted">${E(h.time ／／ "未记录时间")} · ${E(changed.map((g) => g.name).join("、") ／／ "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>;       })       .reverse, historyStack       .map, M.differences, historyKind, diffs.filter, JSON.stringify, icon, E, changed.map((g) => g.name).join, changed.map, diffs.map((d) => <tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : (${d.delta > 0 ? "+" : ""}${d.delta})}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>).join, diffs.map, inventory, host.querySelectorAll(".ui-history:nth-child(-n+8)").forEach, host.querySelectorAll, animate, host.querySelectorAll("[data-restore]").forEach, Number, themeConfirm, revertToHistory|
+|src/ui/desktop.js:443|b.onclick|assignment|需要进一步测试|Number, themeConfirm, revertToHistory|
+|src/ui/desktop.js:459|renderArchives|declaration|需要进一步测试|getSettlementHistory, records       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))       .filter, records       .flatMap, Array.isArray, g.score.trim, Number.isFinite, Number, Math.max, all.map, $, [       ["已归档届数", records.length],       [         "最近冠军",         records[0]?.champion ／／ records[0]?.groups?.[0]?.name ／／ "暂无",       ],       ["历史最高积分", best ?? "暂无"],       ["最近归档", records[0]?.time ／／ "暂无"],     ]       .map(         ([t, v]) =>           <div class="ui-panel"><span class="ui-muted">${t}</span><strong>${E(v)}</strong></div>,       )       .join, [       ["已归档届数", records.length],       [         "最近冠军",         records[0]?.champion ／／ records[0]?.groups?.[0]?.name ／／ "暂无",       ],       ["历史最高积分", best ?? "暂无"],       ["最近归档", records[0]?.time ／／ "暂无"],     ]       .map, E, records       .map((r, index) => ({ r, index }))       .filter, records       .map, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(" ")           .toLowerCase()           .includes, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(" ")           .toLowerCase, [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join, (r.groups ／／ []).map, archiveSearch.toLowerCase, list.reverse, list.sort, list           .map(({ r, index }) => {             const groups = Array.isArray(r.groups) ? r.groups : [];             return <article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time ／／ "时间未记录")}</span><h3>${E(r.title ／／ "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion ／／ groups[0]?.name ／／ "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups               .slice(0, 3)               .map(                 (g, i) =>                   <div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name ／／ "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>,               )               .join(                 "",               )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => <tr><td>${i + 1}</td><td>${E(g.name ／／ "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members ／／ []).join("、") ／／ "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">导出完整 CSV</button><button class="btn" data-json="${index}">导出原始 JSON</button><button class="btn btn-danger" data-delete="${index}">删除档案</button></div></details></article>;           })           .join, list           .map, icon, groups               .slice(0, 3)               .map(                 (g, i) =>                   <div><span class="ui-chip">第 ${i + 1} 名${i === 0 ? " · 冠军" : ""}</span><strong>${E(g.name ／／ "未记录名称")}</strong><span>${E(g.score ?? "未记录")} 分</span></div>,               )               .join, groups               .slice(0, 3)               .map, groups               .slice, groups.map((g, i) => <tr><td>${i + 1}</td><td>${E(g.name ／／ "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members ／／ []).join("、") ／／ "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>).join, groups.map, (g.members ／／ []).join, JSON.stringify, empty, host       .querySelectorAll("[data-csv]")       .forEach, host       .querySelectorAll, exportSingleSettlementCSV, host       .querySelectorAll("[data-delete]")       .forEach, deleteSettlementRecord, host       .querySelectorAll("[data-json]")       .forEach, downloadJson|
+|src/ui/desktop.js:531|b.onclick|assignment|需要进一步测试|exportSingleSettlementCSV, Number|
+|src/ui/desktop.js:537|b.onclick|assignment|需要进一步测试|deleteSettlementRecord, Number|
+|src/ui/desktop.js:543|b.onclick|assignment|需要进一步测试|downloadJson, Number|
+|src/ui/desktop.js:547|downloadJson|declaration|需要进一步测试|URL.createObjectURL, JSON.stringify, document.createElement, a.click, setTimeout, URL.revokeObjectURL|
+|src/ui/desktop.js:584|setupSettings|declaration|需要进一步测试|$, document.createElement, categories.map(([id, glyph, title]) => <button data-category="${id}">${icon(glyph)}${title}</button>).join, categories.map, icon, categories.map(([id, , title, desc]) => <section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${title}</h3><div class="ui-muted">${desc}</div></header></section>).join, Object.fromEntries, [...shell.querySelectorAll("[data-category-panel]")].map, shell.querySelectorAll, installCommunismModeSetting, installSfxVolumeSliderV2176, installClearItemsSettingV2172, sc.querySelectorAll, pane.id.replace, (sections[id === "function" ? "rules" : id] ／／ sections.rules).append, pane.classList.add, sections[el.dataset.settingsCategory].append, sections.appearance.append, $("#settingsV26Tabs")?.remove, sc.append, sc.classList.add, shell       .querySelectorAll("[data-category]")       .forEach, shell       .querySelectorAll, selectSettings, sections.appearance.insertAdjacentHTML, sections.motion.insertAdjacentHTML, row, check, sections.welcome.insertAdjacentHTML, [         ["knowledge", "每日知识卡片"],         ["itemTip", "每日道具小知识"],         ["honors", "历史荣誉"],         ["challenge", "每日课堂挑战"],         ["groupCruise", "小组卡片自动巡航（默认关闭）"],       ]         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))         .join, [         ["knowledge", "每日知识卡片"],         ["itemTip", "每日道具小知识"],         ["honors", "历史荣誉"],         ["challenge", "每日课堂挑战"],         ["groupCruise", "小组卡片自动巡航（默认关闭）"],       ]         .map, sections.data.insertAdjacentHTML, [...sections.data.querySelectorAll("button")].filter, sections.data.querySelectorAll, /resetAllScores／clear/.test, b.getAttribute, b.classList.remove, b.classList.add, String, refreshSubjects, JSON.stringify, shell.querySelectorAll("[data-pref]").forEach, Number, persistPreferences, applyPreferences, renderDaily, downloadJson, M.validateBank, JSON.parse, localStorage.setItem, themeConfirm, localStorage.removeItem, organizeSettings|
+|src/ui/desktop.js:618|b.onclick|assignment|需要进一步测试|selectSettings|
+|src/ui/desktop.js:623|row|declaration|需要进一步测试||
+|src/ui/desktop.js:626|check|binding|需要进一步测试||
+|src/ui/desktop.js:684|el.onchange|assignment|需要进一步测试|Number, persistPreferences, applyPreferences, renderDaily|
+|src/ui/desktop.js:698|$("#uiExportBank").onclick|assignment|需要进一步测试|downloadJson|
+|src/ui/desktop.js:700|$("#uiSaveBank").onclick|assignment|需要进一步测试|M.validateBank, JSON.parse, $, localStorage.setItem, JSON.stringify, refreshSubjects, renderDaily|
+|src/ui/desktop.js:714|$("#uiResetBank").onclick|assignment|需要进一步测试|themeConfirm, localStorage.removeItem, $, JSON.stringify, refreshSubjects, renderDaily|
+|src/ui/desktop.js:737|organizeSettings|declaration|需要进一步测试|document.createElement, box.classList.add, E, nodes.filter(Boolean).forEach, nodes.filter, body.append, parent.append, shell.querySelectorAll, group, $, marked, $("#uiSettingsWallpaper .setting-section-title")?.remove, rosterTitle?.remove, sound.append, shell.addEventListener, event.target.closest, button?.getAttribute, event.preventDefault, event.stopImmediatePropagation, openPwdModal, themeConfirm, confirm[2]|
+|src/ui/desktop.js:738|group|declaration|需要进一步测试|document.createElement, box.classList.add, E, nodes.filter(Boolean).forEach, nodes.filter, body.append, parent.append|
+|src/ui/desktop.js:761|marked|binding|需要进一步测试|shell.querySelectorAll|
+|src/ui/desktop.js:932|refreshSubjects|declaration|需要进一步测试|$, bank.knowledge.map, bank.challenges.map, subjects       .map(         (s) =>           <option value="${E(s)}">${E({ politics: "政治", history: "历史", geography: "地理", english: "英语" }[s] ／／ s)}</option>,       )       .join, subjects       .map, E, subjects.includes|
+|src/ui/desktop.js:952|cancelSettingsMotion|declaration|需要进一步测试|animation.cancel, animations.delete, settingsAnimations.clear|
+|src/ui/desktop.js:959|revealSettings|declaration|需要进一步测试|cancelSettingsMotion, canAnimate, $, [...panel.children]       .flatMap((node) =>         node.matches(".settings-v26-pane") ? [...node.children] : [node],       )       .filter, [...panel.children]       .flatMap, node.matches, targets.forEach, animate, Math.min, settingsAnimations.add, animation.finished.then, settingsAnimations.delete|
+|src/ui/desktop.js:1000|selectSettings|declaration|需要进一步测试|$, categories.some, document       .querySelectorAll("[data-category-panel]")       .forEach, document       .querySelectorAll, document       .querySelectorAll(".ui-settings-nav button")       .forEach, b.setAttribute, String, renderBgmSlotList, renderFxSlotList, renderItemFxSoundListV26, renderItemEncyclopedia, revealSettings|
+|src/ui/desktop.js:1027|setupDock|declaration|需要进一步测试|$, document.createElement, b.getAttribute, /globalItemDraw／openHandRaise／openPickerModal／undoLast/.test, /globalItemDraw/.test, /openHandRaise/.test, /openPickerModal/.test, /undoLast/.test, UI_ICON_TARGETS.find, b.matches, b.setAttribute, icon, E, /zoom/.test, /Lock/.test, /addGroup／Search/.test, menu.append, right.append, final.setAttribute, document.addEventListener, e.target.closest, e.preventDefault, e.stopImmediatePropagation|
+|src/ui/desktop.js:1097|refreshLockControl|declaration|需要进一步测试|icon, Reliability.safeImage, uiIconsV26, button.setAttribute|
+|src/ui/desktop.js:1124|setupModals|declaration|需要进一步测试|top.el.getClientRects, top.el.contains, [         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find, top.el.querySelectorAll, el.getClientRects, target.focus, document.addEventListener, openStack.at, focusModal, Object.entries, document.getElementById, el.classList.contains, known.get, known.set, openStack.push, el.querySelector, dialog?.setAttribute, dialog.getAttribute, dialog.setAttribute, dialog.querySelector, canAnimate, stopConfetti, el.querySelectorAll(".podium-col").forEach, el.querySelectorAll, animate, queueMicrotask, openStack.find, openStack.filter, item.focus.focus, item.focus.closest, cancelAnimations, new MutationObserver(scan).observe, e.preventDefault, e.stopImmediatePropagation, top.close, [             ...top.el.querySelectorAll(               'button,input,select,textarea,a[href],[tabindex="0"]',             ),           ].filter, x.getClientRects, nodes.at, last.focus, first.focus, scan|
+|src/ui/desktop.js:1126|focusModal|declaration|需要进一步测试|top.el.getClientRects, top.el.contains, [         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find, top.el.querySelectorAll, el.getClientRects, target.focus|
+|src/ui/desktop.js:1147|scan|declaration|需要进一步测试|Object.entries, document.getElementById, el.classList.contains, known.get, known.set, openStack.push, el.querySelector, dialog?.setAttribute, dialog.getAttribute, dialog.setAttribute, dialog.querySelector, canAnimate, stopConfetti, el.querySelectorAll(".podium-col").forEach, el.querySelectorAll, animate, queueMicrotask, openStack.at, focusModal, openStack.find, openStack.filter, top.el.contains, item.focus.focus, item.focus.closest, cancelAnimations|
+|src/ui/desktop.js:1269|cancelPickerPreparation|declaration|需要进一步测试|$, button.removeAttribute, modal?.contains, a.cancel|
+|src/ui/desktop.js:1282|isPickerCurrent|declaration|需要进一步测试|$("#pickerModal").classList.contains, $|
+|src/ui/desktop.js:1288|togglePicker|declaration|需要进一步测试|stopSlotSpin, $, button.setAttribute, toggleSlotSpin, showToast, button.removeAttribute|
+|src/ui/desktop.js:1315|pickerStopped|declaration|需要进一步测试|$, modal.classList.contains, modal.querySelectorAll(".slot-reel-text").forEach, modal.querySelectorAll, animate, isPickerCurrent, last.finished.then, complete|
+|src/ui/desktop.js:1334|complete|binding|需要进一步测试|isPickerCurrent|
+|src/ui/desktop.js:1348|pickerChanged|declaration|需要进一步测试|pickerTargetGroup, state.groups.some, document       .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')       .forEach, document       .querySelectorAll, animate, $|
+|src/ui/desktop.js:1367|setupPicker|declaration|需要进一步测试|$, left.append, right.append, stats.removeAttribute, new MutationObserver(pickerChanged).observe, pickerChanged|
+|src/ui/desktop.js:1390|prepareSettlement|declaration|需要进一步测试|$|
+|src/ui/desktop.js:1395|cancelSettlement|declaration|需要进一步测试||
+|src/ui/desktop.js:1398|settleFromUI|declaration|需要进一步测试|button.setAttribute, $, requestAnimationFrame, $("#settlementNameModal").classList.contains, confirmFinalSettlement, button.removeAttribute|
+|src/ui/desktop.js:1433|init|declaration|需要进一步测试|JSON.parse, localStorage.getItem, Object.keys, ["full", "simple", "off"].includes, [0.75, 1, 1.5].includes, M.validateBank, console.warn, applyPreferences, syncViewport, window.addEventListener, matchMedia("(prefers-reduced-motion: reduce)").addEventListener, matchMedia, canAnimate, cancelSettingsMotion, document.addEventListener, document.querySelectorAll(".nav-tab").forEach, document.querySelectorAll, icon, b.setAttribute, setupDock, UI_ICON_TARGETS.forEach, $, applyUiIconsV26, setupSettings, setupPicker, setupModals, $("#settlementHistoryContainer").addEventListener, details.contains, a.cancel, details.querySelectorAll(".ui-podium>div").forEach, details.querySelectorAll, animate, t.addEventListener, Math.abs, Math.max, Math.min, e.preventDefault, t.scrollBy, new ResizeObserver(updateArrows).observe, renderArchives, viewChanged, renderWelcome, renderHistory, document         .querySelectorAll(           ".ui-welcome-head,.ui-group-card,.ui-daily-grid .ui-panel",         )         .forEach, document         .querySelectorAll, cancelAnimations|
+|src/ui/desktop.js:1528|$("#uiGroupPrev").onclick|assignment|需要进一步测试|t.scrollBy, canAnimate|
+|src/ui/desktop.js:1530|$("#uiGroupNext").onclick|assignment|需要进一步测试|t.scrollBy, canAnimate|
+|src/ui/desktop.js:1533|$("#uiArchiveSearch").oninput|assignment|需要进一步测试|renderArchives|
+|src/ui/desktop.js:1537|$("#uiArchiveSort").onchange|assignment|需要进一步测试|renderArchives|
+|src/ui/desktop.js:1570|$("#uiSkipWelcome").onclick|assignment|需要进一步测试|cancelAnimations|
 |src/ui/model.js:60|dayIndex|declaration|需要进一步测试|Math.floor, Date.UTC, d.getFullYear, d.getMonth, d.getDate|
 |src/ui/model.js:65|daily|declaration|需要进一步测试|dayIndex|
 |src/ui/model.js:70|differences|declaration|需要进一步测试|(before.groups ／／ []).map, (after.groups ／／ []).map, [...groups]           .sort((x, y) => Number(y.score) - Number(x.score))           .map, [...groups]           .sort, Number, rank, [...new Set([...a.keys(), ...b.keys()])].map, a.keys, b.keys, a.get, b.get, ra.get, rb.get|
@@ -952,39 +957,39 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 
 |位置|别名|捕获的旧入口|分类|
 |---|---|---|---|
-|src/script/00.js:4653|_itemBaseRenderGrid|renderGrid|需要进一步测试|
-|src/script/00.js:4655|_itemBaseJudgeRound|legacyJudgeRound|需要进一步测试|
-|src/script/00.js:4697|_v2OpenPicker|openPickerModal|需要进一步测试|
-|src/script/00.js:4702|_v2StopSlot|stopSlotSpin|需要进一步测试|
-|src/script/00.js:4773|_v2RenderItemWindow|renderItemWindow|需要进一步测试|
-|src/script/00.js:4778|_v2Enhance|enhanceItemCards|需要进一步测试|
-|src/script/00.js:4779|_v2RenderItemWindowIcons|renderItemWindow|需要进一步测试|
-|src/script/00.js:4782|_v2Judge|legacyJudgeRound|需要进一步测试|
-|src/script/00.js:4787|_v2SwitchView|switchView|需要进一步测试|
-|src/script/00.js:4802|_v21CloseHandRaise|closeHandRaise|需要进一步测试|
-|src/script/00.js:4805|_v21SelectHandGroup|selectHandGroup|需要进一步测试|
-|src/script/00.js:4811|_v21JudgeHandRaise|judgeHandRaise|需要进一步测试|
-|src/script/00.js:4921|useItemBeforeVisualDispatch|legacyUseItem|需要进一步测试|
-|src/script/00.js:5150|_v25ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:5218|_v26ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:5220|_v26TinyDefense|tinyDefenseToast|需要进一步测试|
-|src/script/00.js:5227|_v26GlobalDraw|globalItemDraw|需要进一步测试|
-|src/script/00.js:5228|_v26HandDraw|handDrawItem|需要进一步测试|
-|src/script/00.js:5576|_v282UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:5722|_v282UseItemWithIce|legacyUseItem|需要进一步测试|
-|src/script/00.js:5856|_v283OpenGroupModal|openGroupModal|需要进一步测试|
-|src/script/00.js:5860|_v283RenderGroupModal|renderGroupModal|需要进一步测试|
-|src/script/00.js:5902|_v284RenderAbout|renderAbout|需要进一步测试|
-|src/script/00.js:5960|_v291GlobalItemDraw|globalItemDraw|需要进一步测试|
-|src/script/00.js:5965|_v291UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:5971|_v291OpenItemWindow|openItemWindow|需要进一步测试|
-|src/script/00.js:6033|previousUseItemV299|legacyUseItem|需要进一步测试|
-|src/script/00.js:6083|previousUseItemV2113|legacyUseItem|需要进一步测试|
-|src/script/00.js:6341|_v2116ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:6394|_v2120UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:6450|_v2120RenderItemWindow|renderItemWindow|需要进一步测试|
-|src/script/00.js:6502|_v2120EnhanceItemCards|enhanceItemCards|需要进一步测试|
-|src/script/00.js:6542|_v2120HandUseNewItem|handUseNewItem|需要进一步测试|
+|src/script/00.js:4656|_itemBaseRenderGrid|renderGrid|需要进一步测试|
+|src/script/00.js:4658|_itemBaseJudgeRound|legacyJudgeRound|需要进一步测试|
+|src/script/00.js:4700|_v2OpenPicker|openPickerModal|需要进一步测试|
+|src/script/00.js:4705|_v2StopSlot|stopSlotSpin|需要进一步测试|
+|src/script/00.js:4776|_v2RenderItemWindow|renderItemWindow|需要进一步测试|
+|src/script/00.js:4781|_v2Enhance|enhanceItemCards|需要进一步测试|
+|src/script/00.js:4782|_v2RenderItemWindowIcons|renderItemWindow|需要进一步测试|
+|src/script/00.js:4785|_v2Judge|legacyJudgeRound|需要进一步测试|
+|src/script/00.js:4790|_v2SwitchView|switchView|需要进一步测试|
+|src/script/00.js:4805|_v21CloseHandRaise|closeHandRaise|需要进一步测试|
+|src/script/00.js:4808|_v21SelectHandGroup|selectHandGroup|需要进一步测试|
+|src/script/00.js:4814|_v21JudgeHandRaise|judgeHandRaise|需要进一步测试|
+|src/script/00.js:4924|useItemBeforeVisualDispatch|legacyUseItem|需要进一步测试|
+|src/script/00.js:5153|_v25ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:5221|_v26ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:5223|_v26TinyDefense|tinyDefenseToast|需要进一步测试|
+|src/script/00.js:5230|_v26GlobalDraw|globalItemDraw|需要进一步测试|
+|src/script/00.js:5231|_v26HandDraw|handDrawItem|需要进一步测试|
+|src/script/00.js:5579|_v282UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:5725|_v282UseItemWithIce|legacyUseItem|需要进一步测试|
+|src/script/00.js:5859|_v283OpenGroupModal|openGroupModal|需要进一步测试|
+|src/script/00.js:5863|_v283RenderGroupModal|renderGroupModal|需要进一步测试|
+|src/script/00.js:5905|_v284RenderAbout|renderAbout|需要进一步测试|
+|src/script/00.js:5963|_v291GlobalItemDraw|globalItemDraw|需要进一步测试|
+|src/script/00.js:5968|_v291UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:5974|_v291OpenItemWindow|openItemWindow|需要进一步测试|
+|src/script/00.js:6036|previousUseItemV299|legacyUseItem|需要进一步测试|
+|src/script/00.js:6086|previousUseItemV2113|legacyUseItem|需要进一步测试|
+|src/script/00.js:6344|_v2116ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:6397|_v2120UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:6453|_v2120RenderItemWindow|renderItemWindow|需要进一步测试|
+|src/script/00.js:6505|_v2120EnhanceItemCards|enhanceItemCards|需要进一步测试|
+|src/script/00.js:6545|_v2120HandUseNewItem|handUseNewItem|需要进一步测试|
 |src/script/01.js:177|_v213Batch|applySettingsBatchMembers|需要进一步测试|
 |src/script/01.js:188|_v213UseItem|legacyUseItem|需要进一步测试|
 |src/script/02.js:12|_v214RenderGrid|renderGrid|需要进一步测试|
@@ -1004,8 +1009,6 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/09.js:104|_v2174ShowItemUseFx|showItemUseFx|需要进一步测试|
 |src/script/09.js:173|_v2174HandleSoundFileUpload|handleSoundFileUpload|需要进一步测试|
 |src/script/09.js:180|_v2174DeleteFxTrack|deleteFxTrack|需要进一步测试|
-|src/script/10.js:101|_v2175RenderItemFxSoundListV26|renderItemFxSoundListV26|需要进一步测试|
-|src/script/10.js:126|_v2175ShowSettingsV26|showSettingsV26|需要进一步测试|
 |src/script/11.js:82|_v2176SyncSettingsControls|syncSettingsControls|需要进一步测试|
 |src/script/11.js:97|_v2176RebuildSettingsV26|rebuildSettingsV26|需要进一步测试|
 |src/script/11.js:106|_v2176ShowSettingsV26|showSettingsV26|需要进一步测试|
@@ -1048,8 +1051,8 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/37.js:111|_v2182AdminAddItem|adminAddItem|需要进一步测试|
 |src/script/38.js:63|_v2184RenderAbout|renderAbout|需要进一步测试|
 |src/script/39.js:100|_v2185RenderLockState|renderLockState|需要进一步测试|
-|src/script/41.js:40|_v2187RenderAbout|renderAbout|需要进一步测试|
-|src/script/41.js:76|_v2187OpenPwdModal|openPwdModal|需要进一步测试|
+|src/script/41.js:36|_v2187RenderAbout|renderAbout|需要进一步测试|
+|src/script/41.js:72|_v2187OpenPwdModal|openPwdModal|需要进一步测试|
 |src/script/42.js:29|_v2189UseItem|legacyUseItem|需要进一步测试|
 |src/script/43.js:17|_v21811RenderAbout|renderAbout|需要进一步测试|
 
@@ -1572,812 +1575,814 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/00.js:2997|g|state.groups.find(x => x.id === groupId)|需要进一步测试|
 |src/script/00.js:3009|updates|[]|需要进一步测试|
 |src/script/00.js:3046|summaryText|state.groups.map(g => ${g.name}: ${(g.members ／／ []).join(', ')}).join('\n')|需要进一步测试|
-|src/script/00.js:3060|container|document.getElementById('bgmListContainer')|需要进一步测试|
-|src/script/00.js:3062|setIdx|parseInt(document.getElementById('cfgSetSelector').value, 10)|需要进一步测试|
-|src/script/00.js:3063|isMenuSet|setIdx === 8|需要进一步测试|
-|src/script/00.js:3064|trackTypes|isMenuSet ? MENU_SET_TRACK_TYPES : SET_TRACK_TYPES|需要进一步测试|
-|src/script/00.js:3067|bpmDesc|document.getElementById('cfgSetBpmDesc')|需要进一步测试|
-|src/script/00.js:3072|effBpm|setIdx === 7 ? (Number(menuCfg.battleSet8Bpm) ／／ 135) : (Number(menuCfg.battleBaseBpm) ／／ 130)|需要进一步测试|
-|src/script/00.js:3078|{ isComplete, count }|await checkSetCompleteness(setIdx)|需要进一步测试|
-|src/script/00.js:3080|currentIdxAfter|parseInt(document.getElementById('cfgSetSelector').value, 10)|需要进一步测试|
-|src/script/00.js:3083|compLabel|document.getElementById('cfgSetCompleteness')|需要进一步测试|
-|src/script/00.js:3085|total|trackTypes.length|需要进一步测试|
-|src/script/00.js:3091|track||需要进一步测试|
-|src/script/00.js:3092|slotId|isMenuSet ? bgm_menu_${track.key} : bgm_set_${setIdx}_${track.key}|需要进一步测试|
-|src/script/00.js:3093|isLoaded|hasSound(slotId)|需要进一步测试|
-|src/script/00.js:3095|row|document.createElement('div')|需要进一步测试|
-|src/script/00.js:3114|fxContainer|document.getElementById('soundListContainer')|需要进一步测试|
-|src/script/00.js:3118|isCustom|!!customFxBuffers[slot.id]|需要进一步测试|
-|src/script/00.js:3119|row|document.createElement('div')|需要进一步测试|
-|src/script/00.js:3139|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
-|src/script/00.js:3140|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3141|req|store.get(slotId)|需要进一步测试|
-|src/script/00.js:3144|ctx|await getAudioContext()|需要进一步测试|
-|src/script/00.js:3146|decoded|await ctx.decodeAudioData(req.result.arrayBuffer.slice(0))|需要进一步测试|
-|src/script/00.js:3147|src|ctx.createBufferSource()|需要进一步测试|
-|src/script/00.js:3163|file|event.target.files[0]|需要进一步测试|
-|src/script/00.js:3166|reader|new FileReader()|需要进一步测试|
-|src/script/00.js:3168|arrayBuffer|e.target.result|需要进一步测试|
-|src/script/00.js:3170|ctx|await getAudioContext()|需要进一步测试|
-|src/script/00.js:3174|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
-|src/script/00.js:3175|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3181|fxKey|currentUploadingSlot.replace('fx_', '')|需要进一步测试|
-|src/script/00.js:3202|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
-|src/script/00.js:3203|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3216|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
-|src/script/00.js:3217|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3231|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
-|src/script/00.js:3232|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3233|allRecords|await new Promise(resolve => {       const req = store.getAll();       req.onsuccess = () => resolve(req.result ／／ []);       req.onerror = () => resolve([]);  |需要进一步测试|
-|src/script/00.js:3234|req|store.getAll()|需要进一步测试|
-|src/script/00.js:3244|currentOffset|0|需要进一步测试|
-|src/script/00.js:3245|fileIndex|[]|需要进一步测试|
-|src/script/00.js:3246|audioBuffersToPack|[]|需要进一步测试|
-|src/script/00.js:3248|record||需要进一步测试|
-|src/script/00.js:3249|ab|record.arrayBuffer|需要进一步测试|
-|src/script/00.js:3255|indexBytes|new TextEncoder().encode(JSON.stringify(fileIndex))|需要进一步测试|
-|src/script/00.js:3256|headerBuffer|new ArrayBuffer(8)|需要进一步测试|
-|src/script/00.js:3257|headerView|new DataView(headerBuffer)|需要进一步测试|
-|src/script/00.js:3262|bundleBlob|new Blob([headerBuffer, indexBytes, ...audioBuffersToPack], { type: 'application/octet-stream' })|需要进一步测试|
-|src/script/00.js:3263|downloadUrl|URL.createObjectURL(bundleBlob)|需要进一步测试|
-|src/script/00.js:3264|a|document.createElement('a')|需要进一步测试|
-|src/script/00.js:3281|file|event.target.files[0]|需要进一步测试|
-|src/script/00.js:3285|reader|new FileReader()|需要进一步测试|
-|src/script/00.js:3288|fullBuffer|e.target.result|需要进一步测试|
-|src/script/00.js:3289|dataView|new DataView(fullBuffer)|需要进一步测试|
-|src/script/00.js:3295|indexLength|dataView.getUint32(4, true)|需要进一步测试|
-|src/script/00.js:3296|fileIndex|JSON.parse(new TextDecoder().decode(new Uint8Array(fullBuffer, 8, indexLength)))|需要进一步测试|
-|src/script/00.js:3297|binaryStart|8 + indexLength|需要进一步测试|
-|src/script/00.js:3299|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
-|src/script/00.js:3300|store|tx.objectStore('sounds')|需要进一步测试|
-|src/script/00.js:3334|VIEW_NAMES|['welcome', 'battle', 'history', 'archives', 'settings']|需要进一步测试|
-|src/script/00.js:3335|currentView|'welcome'|需要进一步测试|
-|src/script/00.js:3336|audioUnlocked|false|需要进一步测试|
-|src/script/00.js:3350|target|document.getElementById('view-' + name)|需要进一步测试|
-|src/script/00.js:3365|menuKey|getMenuTrackKeyForView(name)|需要进一步测试|
-|src/script/00.js:3384|max|state.groups.reduce((m, g) => Math.max(m, Number(g.score) ／／ 0), 0)|需要进一步测试|
-|src/script/00.js:3385|digits|Math.max(1, Math.min(6, String(Math.floor(Math.abs(max))).length))|需要进一步测试|
-|src/script/00.js:3390|WEEKDAYS|['日', '一', '二', '三', '四', '五', '六']|需要进一步测试|
-|src/script/00.js:3391|welcomeClockTimer|null|需要进一步测试|
-|src/script/00.js:3402|now|new Date()|需要进一步测试|
-|src/script/00.js:3403|hh|String(now.getHours()).padStart(2, '0')|需要进一步测试|
-|src/script/00.js:3404|mm|String(now.getMinutes()).padStart(2, '0')|需要进一步测试|
-|src/script/00.js:3405|ss|String(now.getSeconds()).padStart(2, '0')|需要进一步测试|
-|src/script/00.js:3406|clock|document.getElementById('welcomeClock')|需要进一步测试|
-|src/script/00.js:3408|date|document.getElementById('welcomeDate')|需要进一步测试|
-|src/script/00.js:3410|greeting|document.getElementById('welcomeGreeting')|需要进一步测试|
-|src/script/00.js:3412|h|now.getHours()|需要进一步测试|
-|src/script/00.js:3413|part|h < 6 ? '夜深了' : h < 12 ? '早上好' : h < 14 ? '中午好' : h < 18 ? '下午好' : '晚上好'|需要进一步测试|
-|src/script/00.js:3420|wrap|document.getElementById('welcomePodiumDeck')|需要进一步测试|
-|src/script/00.js:3422|sorted|[...state.groups].sort((a, b) => (Number(b.score) ／／ 0) - (Number(a.score) ／／ 0))|需要进一步测试|
-|src/script/00.js:3423|top1|sorted[0]|需要进一步测试|
-|src/script/00.js:3423|top2|sorted[1]|需要进一步测试|
-|src/script/00.js:3423|top3|sorted[2]|需要进一步测试|
-|src/script/00.js:3424|getScore|(g) => g ? (Number(g.score) ／／ 0) : 0|需要进一步测试|
-|src/script/00.js:3446|MENU_TRACK_KEYS|['welcome_1', 'welcome_2', 'welcome_3', 'welcome_4', 'welcome_5', 'welcome_6', 'aux_history', 'aux_archives', 'aux_settings']|需要进一步测试|
-|src/script/00.js:3447|MENU_SET_TRACK_TYPES|[   { key: 'welcome_1', name: '欢迎·个位张力', desc: '最高分个位数时播放' },   { key: 'welcome_2', name: '欢迎·十位张力', desc: '最高分十位数时播放' },   { key: 'welcome_3', name: '欢迎·百位张力',|需要进一步测试|
-|src/script/00.js:3458|MENU_TRACK_META|{   welcome_1: { name: '欢迎·个位张力', tension: 1 },   welcome_2: { name: '欢迎·十位张力', tension: 2 },   welcome_3: { name: '欢迎·百位张力', tension: 3 },   welcome_4: { name:|需要进一步测试|
-|src/script/00.js:3469|MENU_AUDIO_DEFAULTS|{   enabled: true,   bpm: 130,   beatsPerBar: 4,   loopStartBeat: 1,   loopEndBeat: 33,   transitionLeadBeats: 1,   battleBaseBpm: 130,   battleSet8Bpm: 135,   |需要进一步测试|
-|src/script/00.js:3482|menuCfg|{ ...MENU_AUDIO_DEFAULTS, gainTrims: { ...MENU_AUDIO_DEFAULTS.gainTrims } }|需要进一步测试|
-|src/script/00.js:3484|saved|STORAGE.getJSON('politics_menu_audio_cfg', null)|需要进一步测试|
-|src/script/00.js:3495|a|seed >>> 0|需要进一步测试|
-|src/script/00.js:3498|t|Math.imul(a ^ a >>> 15, 1 ／ a)|需要进一步测试|
-|src/script/00.js:3504|SCALE_MAJOR|[0, 2, 4, 5, 7, 9, 11]|需要进一步测试|
-|src/script/00.js:3505|CHORD_PROG|[0, 0, 9, 9, 5, 5, 7, 7]|需要进一步测试|
-|src/script/00.js:3506|MENU_PATTERN_CACHE|{}|需要进一步测试|
-|src/script/00.js:3510|cacheKey|key + ':' + bars|需要进一步测试|
-|src/script/00.js:3512|meta|MENU_TRACK_META[key] ／／ { tension: 1 }|需要进一步测试|
-|src/script/00.js:3513|rnd|mulberry32(key.split('').reduce((s, c) => s + c.charCodeAt(0), 7))|需要进一步测试|
-|src/script/00.js:3514|stepsPerBar|16|需要进一步测试|
-|src/script/00.js:3515|totalSteps|bars * stepsPerBar|需要进一步测试|
-|src/script/00.js:3516|tension|meta.tension|需要进一步测试|
-|src/script/00.js:3517|density|meta.density !== undefined ? meta.density     : (tension >= 6 ? 0.66 : tension === 5 ? 0.56 : tension === 4 ? 0.46 : tension === 3 ? 0.36 : tension === 2 ? 0.26|需要进一步测试|
-|src/script/00.js:3519|hatLevel|meta.hat !== undefined ? meta.hat     : (tension >= 6 ? 0.85 : tension === 5 ? 0.7 : tension === 4 ? 0.55 : tension === 3 ? 0.4 : tension === 2 ? 0.25 : tension|需要进一步测试|
-|src/script/00.js:3521|leadOct|meta.leadOct !== undefined ? meta.leadOct     : (tension >= 5 ? 3 : tension >= 3 ? 2 : 1)|需要进一步测试|
-|src/script/00.js:3523|bass|new Array(totalSteps).fill(0)|需要进一步测试|
-|src/script/00.js:3524|lead|new Array(totalSteps).fill(null)|需要进一步测试|
-|src/script/00.js:3525|hat|new Array(totalSteps).fill(false)|需要进一步测试|
-|src/script/00.js:3526|bar|0|需要进一步测试|
-|src/script/00.js:3527|chordRoot|CHORD_PROG[bar % CHORD_PROG.length]|需要进一步测试|
-|src/script/00.js:3528|rootMidi|48 + chordRoot|需要进一步测试|
-|src/script/00.js:3529|step|0|需要进一步测试|
-|src/script/00.js:3530|gs|bar * stepsPerBar + step|需要进一步测试|
-|src/script/00.js:3534|deg|Math.floor(rnd() * SCALE_MAJOR.length)|需要进一步测试|
-|src/script/00.js:3535|oct|Math.floor(rnd() * 2)|需要进一步测试|
-|src/script/00.js:3545|noiseBuffer|null|需要进一步测试|
-|src/script/00.js:3549|len|Math.floor(audioCtx.sampleRate * 0.05)|需要进一步测试|
-|src/script/00.js:3551|data|noiseBuffer.getChannelData(0)|需要进一步测试|
-|src/script/00.js:3552|i|0|需要进一步测试|
-|src/script/00.js:3565|MENU_FADE_SEC|0.5|需要进一步测试|
-|src/script/00.js:3566|menuBgm|{   active: false,   currentKey: null,   pendingKey: null,   buffers: {},   uploadedKeys: new Set(),   outGain: null,   voices: [],   origin: 0,   pausedPos: nu|需要进一步测试|
-|src/script/00.js:3583|startBeat|Math.max(1, Number(menuCfg.loopStartBeat) ／／ 1)|需要进一步测试|
-|src/script/00.js:3584|endBeat|Math.max(startBeat + 4, Number(menuCfg.loopEndBeat) ／／ 33)|需要进一步测试|
-|src/script/00.js:3599|targetEnd|menuLoopSpan().endSec|需要进一步测试|
-|src/script/00.js:3600|missing|targetEnd - buf.duration|需要进一步测试|
-|src/script/00.js:3601|maxRepair|Math.min(0.35, menuSecPerBeat() * 0.75)|需要进一步测试|
-|src/script/00.js:3605|sampleRate|buf.sampleRate ／／ audioCtx.sampleRate|需要进一步测试|
-|src/script/00.js:3606|targetLength|Math.ceil(targetEnd * sampleRate) + 1|需要进一步测试|
-|src/script/00.js:3607|fixed|audioCtx.createBuffer(buf.numberOfChannels, targetLength, sampleRate)|需要进一步测试|
-|src/script/00.js:3608|ch|0|需要进一步测试|
-|src/script/00.js:3629|sr|audioCtx.sampleRate|需要进一步测试|
-|src/script/00.js:3630|bpm|Math.max(40, Number(menuCfg.bpm) ／／ 130)|需要进一步测试|
-|src/script/00.js:3631|beats|Math.max(4, (Number(menuCfg.loopEndBeat) ／／ 33) - (Number(menuCfg.loopStartBeat) ／／ 1))|需要进一步测试|
-|src/script/00.js:3632|bars|Math.max(8, Math.ceil(beats / 4))|需要进一步测试|
-|src/script/00.js:3633|totalSteps|bars * 16|需要进一步测试|
-|src/script/00.js:3634|stepSec|60 / bpm / 16|需要进一步测试|
-|src/script/00.js:3635|dur|totalSteps * stepSec|需要进一步测试|
-|src/script/00.js:3636|len|Math.max(1, Math.floor(sr * dur))|需要进一步测试|
-|src/script/00.js:3637|offline|new OfflineAudioContext(1, len, sr)|需要进一步测试|
-|src/script/00.js:3638|pat|buildMenuPattern(key, bars)|需要进一步测试|
-|src/script/00.js:3639|trim|Math.max(0, Math.min(3, Number(menuCfg.gainTrims[key]) ／／ 1))|需要进一步测试|
-|src/script/00.js:3640|step|0|需要进一步测试|
-|src/script/00.js:3641|time|step * stepSec|需要进一步测试|
-|src/script/00.js:3642|bassMidi|pat.bass[step]|需要进一步测试|
-|src/script/00.js:3643|leadMidi|pat.lead[step]|需要进一步测试|
-|src/script/00.js:3644|hatOn|pat.hat[step]|需要进一步测试|
-|src/script/00.js:3646|osc|offline.createOscillator()|需要进一步测试|
-|src/script/00.js:3647|g|offline.createGain()|需要进一步测试|
-|src/script/00.js:3657|osc|offline.createOscillator()|需要进一步测试|
-|src/script/00.js:3658|g|offline.createGain()|需要进一步测试|
-|src/script/00.js:3668|buf|offline.createBuffer(1, Math.floor(sr * 0.05), sr)|需要进一步测试|
-|src/script/00.js:3669|dd|buf.getChannelData(0)|需要进一步测试|
-|src/script/00.js:3670|i|0|需要进一步测试|
-|src/script/00.js:3671|src|offline.createBufferSource()|需要进一步测试|
-|src/script/00.js:3673|g|offline.createGain()|需要进一步测试|
-|src/script/00.js:3676|hp|offline.createBiquadFilter()|需要进一步测试|
-|src/script/00.js:3687|menuLoading|{}|需要进一步测试|
-|src/script/00.js:3691|p|(async () => {     let buf = null;     if (db) {       try {         const ab = await new Promise(res => {           const tx = db.transaction('sounds', 'readon|需要进一步测试|
-|src/script/00.js:3692|buf|null|需要进一步测试|
-|src/script/00.js:3695|ab|await new Promise(res => {           const tx = db.transaction('sounds', 'readonly');           const req = tx.objectStore('sounds').get('bgm_menu_' + key);    |需要进一步测试|
-|src/script/00.js:3696|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
-|src/script/00.js:3697|req|tx.objectStore('sounds').get('bgm_menu_' + key)|需要进一步测试|
-|src/script/00.js:3720|span|menuLoopSpan()|需要进一步测试|
-|src/script/00.js:3722|startSec|Math.min(span.startSec, Math.max(0, buf.duration - 0.05))|需要进一步测试|
-|src/script/00.js:3723|endSec|Math.min(span.endSec, buf.duration)|需要进一步测试|
-|src/script/00.js:3730|t|Number(menuCfg.gainTrims[key])|需要进一步测试|
-|src/script/00.js:3736|lp|menuLoopParams(buf, key)|需要进一步测试|
-|src/script/00.js:3737|elapsed|Math.max(0, t - menuBgm.origin)|需要进一步测试|
-|src/script/00.js:3739|dur|lp.endSec - lp.startSec|需要进一步测试|
-|src/script/00.js:3745|r|v.ramp|需要进一步测试|
-|src/script/00.js:3753|now|audioCtx.currentTime|需要进一步测试|
-|src/script/00.js:3754|cur|menuVoiceGainAt(v, now)|需要进一步测试|
-|src/script/00.js:3755|g|v.gain.gain|需要进一步测试|
-|src/script/00.js:3763|lp|menuLoopParams(buf, key)|需要进一步测试|
-|src/script/00.js:3764|src|audioCtx.createBufferSource()|需要进一步测试|
-|src/script/00.js:3769|gain|audioCtx.createGain()|需要进一步测试|
-|src/script/00.js:3773|offset|Math.min(menuPosForKey(key, buf, startAt), Math.max(0, buf.duration - 0.02))|需要进一步测试|
-|src/script/00.js:3774|v|{ key, src, gain, ramp: { v0: 0, v1: 0, t0: 0, t1: 0 }, stopping: false, loopStart: src.loopStart, loopEnd: src.loopEnd }|需要进一步测试|
-|src/script/00.js:3778|i|menuBgm.voices.indexOf(v)|需要进一步测试|
-|src/script/00.js:3789|dur|fadeSec == null ? MENU_FADE_SEC : fadeSec|需要进一步测试|
-|src/script/00.js:3800|now|audioCtx.currentTime|需要进一步测试|
-|src/script/00.js:3801|startAt|now + 0.03|需要进一步测试|
-|src/script/00.js:3811|live|menuBgm.voices.find(v => v.key === key && !v.stopping)|需要进一步测试|
-|src/script/00.js:3813|target|menuTrimFor(key)|需要进一步测试|
-|src/script/00.js:3825|token|++menuBgm.opToken|需要进一步测试|
-|src/script/00.js:3831|buf|await menuLoadBuffer(key)|需要进一步测试|
-|src/script/00.js:3844|endT|audioCtx.currentTime + MENU_FADE_SEC|需要进一步测试|
-|src/script/00.js:3845|cur|menuBgm.currentKey|需要进一步测试|
-|src/script/00.js:3846|buf|cur ? menuBgm.buffers[cur] : null|需要进一步测试|
-|src/script/00.js:3869|cur|menuBgm.currentKey|需要进一步测试|
-|src/script/00.js:3870|buf|cur ? menuBgm.buffers[cur] : null|需要进一步测试|
-|src/script/00.js:3872|lp|menuLoopParams(buf, cur)|需要进一步测试|
-|src/script/00.js:3873|ls|Math.min(lp.startSec, Math.max(0, buf.duration - 0.02))|需要进一步测试|
-|src/script/00.js:3874|le|Math.min(lp.endSec, buf.duration)|需要进一步测试|
-|src/script/00.js:3875|live|menuBgm.voices.find(v => v.key === cur && !v.stopping)|需要进一步测试|
-|src/script/00.js:3881|menuReloadTimer|null|需要进一步测试|
-|src/script/00.js:3886|key|menuBgm.currentKey|需要进一步测试|
-|src/script/00.js:3890|buf|await menuLoadBuffer(key)|需要进一步测试|
-|src/script/00.js:3894|startAt|audioCtx.currentTime + 0.03|需要进一步测试|
-|src/script/00.js:3902|key|getWelcomeTrackKey()|需要进一步测试|
-|src/script/00.js:3908|box|document.getElementById('bgmEngineConsole')|需要进一步测试|
-|src/script/00.js:3910|trimRows|MENU_TRACK_KEYS.map(k =>     '<div class="trim-row">' +       '<span class="trim-name">' + MENU_TRACK_META[k].name + '</span>' +       '<input type="range" min=|需要进一步测试|
-|src/script/00.js:3968|el|document.getElementById('cfgMenuBpmVal')|需要进一步测试|
-|src/script/00.js:3984|el|document.getElementById('trim-val-' + k)|需要进一步测试|
-|src/script/00.js:3987|el|document.getElementById('cfgBattleBaseBpmVal')|需要进一步测试|
-|src/script/00.js:3988|el|document.getElementById('cfgBattleSet8BpmVal')|需要进一步测试|
-|src/script/00.js:3993|rollLoopNode|null|需要进一步测试|
-|src/script/00.js:3994|rollLoopGain|null|需要进一步测试|
-|src/script/00.js:3998|sr|audioCtx.sampleRate|需要进一步测试|
-|src/script/00.js:3999|dur|0.5|需要进一步测试|
-|src/script/00.js:4000|buf|audioCtx.createBuffer(1, Math.floor(sr * dur), sr)|需要进一步测试|
-|src/script/00.js:4001|d|buf.getChannelData(0)|需要进一步测试|
-|src/script/00.js:4002|steps|8|需要进一步测试|
-|src/script/00.js:4003|i|0|需要进一步测试|
-|src/script/00.js:4004|t|i / sr|需要进一步测试|
-|src/script/00.js:4005|step|Math.floor(t / (dur / steps))|需要进一步测试|
-|src/script/00.js:4006|inStep|t - step * (dur / steps)|需要进一步测试|
-|src/script/00.js:4019|buffer|customFxBuffers['roll_loop'] ／／ makeRollLoopBuffer()|需要进一步测试|
-|src/script/00.js:4023|now|audioCtx.currentTime|需要进一步测试|
-|src/script/00.js:4037|now|audioCtx.currentTime|需要进一步测试|
-|src/script/00.js:4052|UI_DB_NAME|'PoliticsUiDB'|需要进一步测试|
-|src/script/00.js:4053|uiDbPromise|null|需要进一步测试|
-|src/script/00.js:4058|r|indexedDB.open(UI_DB_NAME, 1)|需要进一步测试|
-|src/script/00.js:4060|d|e.target.result|需要进一步测试|
-|src/script/00.js:4070|d|await uiDbOpen()|需要进一步测试|
-|src/script/00.js:4074|tx|d.transaction('kv', mode)|需要进一步测试|
-|src/script/00.js:4075|req|fn(tx.objectStore('kv'))|需要进一步测试|
-|src/script/00.js:4082|wallpaperUrl|null|需要进一步测试|
-|src/script/00.js:4084|v|Number(STORAGE.get('politics_wall_veil', 0.35))|需要进一步测试|
-|src/script/00.js:4088|root|document.documentElement|需要进一步测试|
-|src/script/00.js:4089|a|wallpaperUrl ? getWallVeil() : 0|需要进一步测试|
-|src/script/00.js:4091|label|document.getElementById('wallVeilLabel')|需要进一步测试|
-|src/script/00.js:4093|range|document.getElementById('cfgWallVeil')|需要进一步测试|
-|src/script/00.js:4097|root|document.documentElement|需要进一步测试|
-|src/script/00.js:4105|st|document.getElementById('wallpaperStatus')|需要进一步测试|
-|src/script/00.js:4110|MAX_EDGE|2560|需要进一步测试|
-|src/script/00.js:4111|img||需要进一步测试|
-|src/script/00.js:4116|url|URL.createObjectURL(file)|需要进一步测试|
-|src/script/00.js:4117|im|new Image()|需要进一步测试|
-|src/script/00.js:4123|w0|img.width|需要进一步测试|
-|src/script/00.js:4123|h0|img.height|需要进一步测试|
-|src/script/00.js:4124|scale|Math.min(1, MAX_EDGE / Math.max(w0, h0))|需要进一步测试|
-|src/script/00.js:4125|canvas|document.createElement('canvas')|需要进一步测试|
-|src/script/00.js:4128|ctx|canvas.getContext('2d')|需要进一步测试|
-|src/script/00.js:4136|file|input.files && input.files[0]|需要进一步测试|
-|src/script/00.js:4142|blob|await compressWallpaper(file)|需要进一步测试|
-|src/script/00.js:4144|saved|await uiDbReq('readwrite', st => st.put(blob, 'wallpaper'))|需要进一步测试|
-|src/script/00.js:4161|b|await uiDbReq('readonly', st => st.get('wallpaper'))|需要进一步测试|
-|src/script/00.js:4179|bar|document.getElementById('audioHintBar')|需要进一步测试|
-|src/script/00.js:4191|autoPlayRetries|0|需要进一步测试|
-|src/script/00.js:4192|resumeRetryTimer|null|需要进一步测试|
-|src/script/00.js:4203|bar|document.getElementById('audioHintBar')|需要进一步测试|
-|src/script/00.js:4211|m|document.getElementById('welcomeModal')|需要进一步测试|
-|src/script/00.js:4219|unlockByGesture|() => {     getAudioContext().then(() => {       hideAudioHint();       const wm = document.getElementById('welcomeModal');       if (wm && wm.classList.contain|需要进一步测试|
-|src/script/00.js:4222|wm|document.getElementById('welcomeModal')|需要进一步测试|
-|src/script/00.js:4246|ITEM_DEFS|{   green:{name:'绿龟壳',icon:'🟢',kind:'attack',def:'green',charges:1,desc:'随机攻击其他小组 -1/4；可抵挡常规攻击与刺龟壳。'},   triple_green:{name:'三重绿龟壳',icon:'🟢³',kind:'attack',de|需要进一步测试|
-|src/script/00.js:4277|ITEM_KEYS|Object.keys(ITEM_DEFS)|需要进一步测试|
-|src/script/00.js:4278|ITEM_DEFENSE_KEYS|new Set(['green','triple_green','red','triple_red','banana','triple_banana','horn'])|需要进一步测试|
-|src/script/00.js:4279|activeItemGroupId|null|需要进一步测试|
-|src/script/00.js:4279|activeItemTab|'detail'|需要进一步测试|
-|src/script/00.js:4279|itemDrawBusy|false|需要进一步测试|
-|src/script/00.js:4279|bulletTimer|null|需要进一步测试|
-|src/script/00.js:4285|seen|new Set()|需要进一步测试|
-|src/script/00.js:4289|key|it&&it.key|需要进一步测试|
-|src/script/00.js:4295|maxCharges|Math.max(1,Number(ITEM_DEFS[it.key]?.charges)／／1)|需要进一步测试|
-|src/script/00.js:4296|storedCharges|Number(it.charges)|需要进一步测试|
-|src/script/00.js:4297|charges|Number.isFinite(storedCharges)         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges|需要进一步测试|
-|src/script/00.js:4299|acquiredAt|Number(it.acquiredAt)／／Date.now()+i|需要进一步测试|
-|src/script/00.js:4323|it|g.inventory[index]|需要进一步测试|
-|src/script/00.js:4325|d|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4328|out|[]|需要进一步测试|
-|src/script/00.js:4332|it|g.inventory[0]|需要进一步测试|
-|src/script/00.js:4332|idx|0|需要进一步测试|
-|src/script/00.js:4344|loss|denom===2?roundHalf(target.score):denom===3?roundThird(target.score):roundQuarter(target.score)|需要进一步测试|
-|src/script/00.js:4345|add|denom===4?roundQuarter(target.score):Math.round(target.score/denom)|需要进一步测试|
-|src/script/00.js:4351|p|total<=1?1:(pos-1)/(total-1)|需要进一步测试|
-|src/script/00.js:4351|virtual|1+p*23|需要进一步测试|
-|src/script/00.js:4352|W|{}|需要进一步测试|
-|src/script/00.js:4352|put|(k,w)=>{W[k]=w}|需要进一步测试|
-|src/script/00.js:4437|arr|Object.entries(weights).filter(([,w])=>w>0)|需要进一步测试|
-|src/script/00.js:4437|sum|arr.reduce((a,[,w])=>a+w,0)|需要进一步测试|
-|src/script/00.js:4437|r|Math.random()*sum|需要进一步测试|
-|src/script/00.js:4437|[k,w]||需要进一步测试|
-|src/script/00.js:4438|r|ranking()|需要进一步测试|
-|src/script/00.js:4438|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
-|src/script/00.js:4441|actor|state.groups.find(g=>g.id===actorId)|需要进一步测试|
-|src/script/00.js:4442|after|ranking().map(g=>g.id)|需要进一步测试|
-|src/script/00.js:4442|beforeIdx|beforeOrder.indexOf(actorId)|需要进一步测试|
-|src/script/00.js:4442|afterIdx|after.indexOf(actorId)|需要进一步测试|
-|src/script/00.js:4443|passed|beforeOrder.slice(afterIdx,beforeIdx).filter(id=>id!==actorId)|需要进一步测试|
-|src/script/00.js:4444|t|state.groups.find(g=>g.id===id)|需要进一步测试|
-|src/script/00.js:4447|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:4449|it|g.inventory[index]|需要进一步测试|
-|src/script/00.js:4449|key|it.key|需要进一步测试|
-|src/script/00.js:4449|d|ITEM_DEFS[key]|需要进一步测试|
-|src/script/00.js:4449|r|ranking()|需要进一步测试|
-|src/script/00.js:4449|ri|r.findIndex(x=>x.id===g.id)|需要进一步测试|
-|src/script/00.js:4449|before|r.map(x=>x.id)|需要进一步测试|
-|src/script/00.js:4451|used|true|需要进一步测试|
-|src/script/00.js:4452|other|()=>state.groups.filter(x=>x.id!==g.id&&eligibleForItems(x))|需要进一步测试|
-|src/script/00.js:4453|pool|other()|需要进一步测试|
-|src/script/00.js:4454|t|r[ri-1]|需要进一步测试|
-|src/script/00.js:4455|t|r[0]|需要进一步测试|
-|src/script/00.js:4456|t|r[ri+1]|需要进一步测试|
-|src/script/00.js:4458|pool|other()|需要进一步测试|
-|src/script/00.js:4458|center|pool[Math.floor(Math.random()*pool.length)]|需要进一步测试|
-|src/script/00.js:4458|ci|r.findIndex(x=>x.id===center.id)|需要进一步测试|
-|src/script/00.js:4459|pool|other().sort(()=>Math.random()-.5).slice(0,3)|需要进一步测试|
-|src/script/00.js:4465|t|r[ri-1]|需要进一步测试|
-|src/script/00.js:4470|stealIndex|t.inventory.length-1|需要进一步测试|
-|src/script/00.js:4477|stolen|t.inventory.splice(stealIndex,1)[0]|需要进一步测试|
-|src/script/00.js:4508|target|r[Math.max(0,ri-3)]|需要进一步测试|
-|src/script/00.js:4522|c|document.querySelector(.group-row-card[data-group-id="${id}"])|需要进一步测试|
-|src/script/00.js:4524|any|false|需要进一步测试|
-|src/script/00.js:4524|t|state.groups.find(x=>x.id===g.itemEffect.targetId)|需要进一步测试|
-|src/script/00.js:4524|ix|g.inventory.findIndex(x=>x.key==='bullet')|需要进一步测试|
-|src/script/00.js:4526|on|(state.itemGlobal?.blooperUntil／／0)>Date.now()|需要进一步测试|
-|src/script/00.js:4526|v|document.getElementById('squidVeil')|需要进一步测试|
-|src/script/00.js:4529|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
-|src/script/00.js:4529|ov|document.getElementById('itemDrawOverlay')|需要进一步测试|
-|src/script/00.js:4529|grid|document.getElementById('itemDrawGrid')|需要进一步测试|
-|src/script/00.js:4530|timer|setInterval(()=>{eligible.forEach(g=>{const k=ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)],c=grid.querySelector([data-draw-id="${g.id}"] .roulette);i|需要进一步测试|
-|src/script/00.js:4530|k|ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)]|需要进一步测试|
-|src/script/00.js:4530|c|grid.querySelector([data-draw-id="${g.id}"] .roulette)|需要进一步测试|
-|src/script/00.js:4531|key|drawItemForGroup(g)|需要进一步测试|
-|src/script/00.js:4531|card|grid.querySelector([data-draw-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4538|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
-|src/script/00.js:4542|body|document.getElementById('itemWindowBody')|需要进一步测试|
-|src/script/00.js:4542|locked|!!state.isLocked|需要进一步测试|
-|src/script/00.js:4542|disabled|locked?'disabled':''|需要进一步测试|
-|src/script/00.js:4544|st|g.itemStats／／{}|需要进一步测试|
-|src/script/00.js:4544|total|(st.correct／／0)+(st.wrong／／0)|需要进一步测试|
-|src/script/00.js:4544|rate|total?Math.round((st.correct／／0)/total*100):0|需要进一步测试|
-|src/script/00.js:4545|statusParts|[]|需要进一步测试|
-|src/script/00.js:4547|type|g.itemEffect.type|需要进一步测试|
-|src/script/00.js:4549|def|ITEM_DEFS[type]|需要进一步测试|
-|src/script/00.js:4570|status|statusParts.length?statusParts.join(' · '):'无'|需要进一步测试|
-|src/script/00.js:4610|canUse|!locked&&eligibleForItems(g)|需要进一步测试|
-|src/script/00.js:4611|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:4611|d|ITEM_DEFS[it.key]|需要进一步测试|
-|src/script/00.js:4616|el|document.getElementById('groupDetailColorPreview')|需要进一步测试|
-|src/script/00.js:4625|g|state.groups.find(x=>x.id===id)|需要进一步测试|
-|src/script/00.js:4626|name|document.getElementById('groupDetailName')?.value.trim()／／''|需要进一步测试|
-|src/script/00.js:4627|rawNo|document.getElementById('groupDetailNumber')?.value.trim()／／''|需要进一步测试|
-|src/script/00.js:4630|groupNo|Number(rawNo)|需要进一步测试|
-|src/script/00.js:4632|rawMembers|document.getElementById('groupDetailMembers')?.value／／''|需要进一步测试|
-|src/script/00.js:4633|members|Array.from(new Set(rawMembers.split(/[\n,，、]+/).map(s=>s.trim()).filter(Boolean)))|需要进一步测试|
-|src/script/00.js:4634|changed|g.name!==name／／Number(g.groupNo)!==groupNo／／JSON.stringify(g.members／／[])!==JSON.stringify(members)|需要进一步测试|
-|src/script/00.js:4650|n|Number(document.getElementById('itemCustomScore').value)|需要进一步测试|
-|src/script/00.js:4652|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4652|firstDef|g.inventory.find(it=>ITEM_DEFS[it.key]?.def)|需要进一步测试|
-|src/script/00.js:4652|head|c.querySelector('.card-header-row')|需要进一步测试|
-|src/script/00.js:4652|slots|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4652|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:4652|mb|c.querySelector('.more-btn')|需要进一步测试|
-|src/script/00.js:4653|_itemBaseRenderGrid|renderGrid|需要进一步测试|
-|src/script/00.js:4655|_itemBaseJudgeRound|legacyJudgeRound|需要进一步测试|
-|src/script/00.js:4655|before|ranking().map(g=>g.id)|需要进一步测试|
-|src/script/00.js:4655|answered|state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}))|需要进一步测试|
-|src/script/00.js:4655|g|state.groups.find(q=>q.id===x.id)|需要进一步测试|
-|src/script/00.js:4655|r|ranking()|需要进一步测试|
-|src/script/00.js:4655|i|r.findIndex(q=>q.id===g.id)|需要进一步测试|
-|src/script/00.js:4655|ix|g.inventory.findIndex(it=>it.key==='power')|需要进一步测试|
-|src/script/00.js:4658|savedItemGlobal|STORAGE.getJSON('politics_item_global',null)|需要进一步测试|
-|src/script/00.js:4667|pickerInfoTab|'history'|需要进一步测试|
-|src/script/00.js:4667|handRaiseGroupId|null|需要进一步测试|
-|src/script/00.js:4667|pendingItemIconKey|null|需要进一步测试|
-|src/script/00.js:4676|BUILTIN_ITEM_ICONS_V2121|{"green":"@@RESOURCE:asset-000.txt@@","triple_green":"@@RESOURCE:asset-001.txt@@","red":"@@RESOURCE:asset-002.txt@@","triple_red":"@@RESOURCE:asset-003.txt@@","|需要进一步测试|
-|src/script/00.js:4677|BUILTIN_ITEM_BOX_V2121|"@@RESOURCE:asset-026.txt@@"|需要进一步测试|
-|src/script/00.js:4680|d|ITEM_DEFS[key]|需要进一步测试|
-|src/script/00.js:4680|custom|state.itemGlobal.customIcons[key]|需要进一步测试|
-|src/script/00.js:4680|builtin|BUILTIN_ITEM_ICONS_V2121[key]|需要进一步测试|
-|src/script/00.js:4681|src|Reliability.safeImage(custom)／／builtin|需要进一步测试|
-|src/script/00.js:4689|box|document.getElementById('pickerInfoBox')|需要进一步测试|
-|src/script/00.js:4691|a|state.groups.reduce((n,g)=>n+(g.itemStats?.correct／／0)+(g.itemStats?.wrong／／0),0)|需要进一步测试|
-|src/script/00.js:4694|arr|state.itemGlobal.pickerHistory／／[]|需要进一步测试|
-|src/script/00.js:4697|_v2OpenPicker|openPickerModal|需要进一步测试|
-|src/script/00.js:4698|el|document.getElementById('pickerScoreTarget')|需要进一步测试|
-|src/script/00.js:4698|w|slotEngine.chosenResult|需要进一步测试|
-|src/script/00.js:4698|g|state.picker.mode==='group'?w:w.group|需要进一步测试|
-|src/script/00.js:4699|w|slotEngine.chosenResult|需要进一步测试|
-|src/script/00.js:4700|g|pickerTargetGroup()|需要进一步测试|
-|src/script/00.js:4701|n|Math.round(Number(document.getElementById('pickerCustomScore')?.value))|需要进一步测试|
-|src/script/00.js:4702|_v2StopSlot|stopSlotSpin|需要进一步测试|
+|src/script/00.js:3059|bgmSlotRenderGeneration|0|需要进一步测试|
+|src/script/00.js:3061|container|document.getElementById('bgmListContainer')|需要进一步测试|
+|src/script/00.js:3063|generation|++bgmSlotRenderGeneration|需要进一步测试|
+|src/script/00.js:3064|setIdx|parseInt(document.getElementById('cfgSetSelector').value, 10)|需要进一步测试|
+|src/script/00.js:3065|isMenuSet|setIdx === 8|需要进一步测试|
+|src/script/00.js:3066|trackTypes|isMenuSet ? MENU_SET_TRACK_TYPES : SET_TRACK_TYPES|需要进一步测试|
+|src/script/00.js:3069|bpmDesc|document.getElementById('cfgSetBpmDesc')|需要进一步测试|
+|src/script/00.js:3074|effBpm|setIdx === 7 ? (Number(menuCfg.battleSet8Bpm) ／／ 135) : (Number(menuCfg.battleBaseBpm) ／／ 130)|需要进一步测试|
+|src/script/00.js:3080|{ isComplete, count }|await checkSetCompleteness(setIdx)|需要进一步测试|
+|src/script/00.js:3082|currentIdxAfter|parseInt(document.getElementById('cfgSetSelector').value, 10)|需要进一步测试|
+|src/script/00.js:3085|compLabel|document.getElementById('cfgSetCompleteness')|需要进一步测试|
+|src/script/00.js:3087|total|trackTypes.length|需要进一步测试|
+|src/script/00.js:3093|track||需要进一步测试|
+|src/script/00.js:3094|slotId|isMenuSet ? bgm_menu_${track.key} : bgm_set_${setIdx}_${track.key}|需要进一步测试|
+|src/script/00.js:3095|isLoaded|hasSound(slotId)|需要进一步测试|
+|src/script/00.js:3097|row|document.createElement('div')|需要进一步测试|
+|src/script/00.js:3116|fxContainer|document.getElementById('soundListContainer')|需要进一步测试|
+|src/script/00.js:3120|isCustom|!!customFxBuffers[slot.id]|需要进一步测试|
+|src/script/00.js:3121|row|document.createElement('div')|需要进一步测试|
+|src/script/00.js:3141|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
+|src/script/00.js:3142|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3143|req|store.get(slotId)|需要进一步测试|
+|src/script/00.js:3146|ctx|await getAudioContext()|需要进一步测试|
+|src/script/00.js:3148|decoded|await ctx.decodeAudioData(req.result.arrayBuffer.slice(0))|需要进一步测试|
+|src/script/00.js:3149|src|ctx.createBufferSource()|需要进一步测试|
+|src/script/00.js:3165|file|event.target.files[0]|需要进一步测试|
+|src/script/00.js:3168|reader|new FileReader()|需要进一步测试|
+|src/script/00.js:3170|arrayBuffer|e.target.result|需要进一步测试|
+|src/script/00.js:3172|ctx|await getAudioContext()|需要进一步测试|
+|src/script/00.js:3176|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
+|src/script/00.js:3177|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3183|fxKey|currentUploadingSlot.replace('fx_', '')|需要进一步测试|
+|src/script/00.js:3204|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
+|src/script/00.js:3205|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3218|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
+|src/script/00.js:3219|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3233|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
+|src/script/00.js:3234|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3235|allRecords|await new Promise(resolve => {       const req = store.getAll();       req.onsuccess = () => resolve(req.result ／／ []);       req.onerror = () => resolve([]);  |需要进一步测试|
+|src/script/00.js:3236|req|store.getAll()|需要进一步测试|
+|src/script/00.js:3246|currentOffset|0|需要进一步测试|
+|src/script/00.js:3247|fileIndex|[]|需要进一步测试|
+|src/script/00.js:3248|audioBuffersToPack|[]|需要进一步测试|
+|src/script/00.js:3250|record||需要进一步测试|
+|src/script/00.js:3251|ab|record.arrayBuffer|需要进一步测试|
+|src/script/00.js:3257|indexBytes|new TextEncoder().encode(JSON.stringify(fileIndex))|需要进一步测试|
+|src/script/00.js:3258|headerBuffer|new ArrayBuffer(8)|需要进一步测试|
+|src/script/00.js:3259|headerView|new DataView(headerBuffer)|需要进一步测试|
+|src/script/00.js:3264|bundleBlob|new Blob([headerBuffer, indexBytes, ...audioBuffersToPack], { type: 'application/octet-stream' })|需要进一步测试|
+|src/script/00.js:3265|downloadUrl|URL.createObjectURL(bundleBlob)|需要进一步测试|
+|src/script/00.js:3266|a|document.createElement('a')|需要进一步测试|
+|src/script/00.js:3283|file|event.target.files[0]|需要进一步测试|
+|src/script/00.js:3287|reader|new FileReader()|需要进一步测试|
+|src/script/00.js:3290|fullBuffer|e.target.result|需要进一步测试|
+|src/script/00.js:3291|dataView|new DataView(fullBuffer)|需要进一步测试|
+|src/script/00.js:3297|indexLength|dataView.getUint32(4, true)|需要进一步测试|
+|src/script/00.js:3298|fileIndex|JSON.parse(new TextDecoder().decode(new Uint8Array(fullBuffer, 8, indexLength)))|需要进一步测试|
+|src/script/00.js:3299|binaryStart|8 + indexLength|需要进一步测试|
+|src/script/00.js:3301|tx|db.transaction('sounds', 'readwrite')|需要进一步测试|
+|src/script/00.js:3302|store|tx.objectStore('sounds')|需要进一步测试|
+|src/script/00.js:3337|VIEW_NAMES|['welcome', 'battle', 'history', 'archives', 'settings']|需要进一步测试|
+|src/script/00.js:3338|currentView|'welcome'|需要进一步测试|
+|src/script/00.js:3339|audioUnlocked|false|需要进一步测试|
+|src/script/00.js:3353|target|document.getElementById('view-' + name)|需要进一步测试|
+|src/script/00.js:3368|menuKey|getMenuTrackKeyForView(name)|需要进一步测试|
+|src/script/00.js:3387|max|state.groups.reduce((m, g) => Math.max(m, Number(g.score) ／／ 0), 0)|需要进一步测试|
+|src/script/00.js:3388|digits|Math.max(1, Math.min(6, String(Math.floor(Math.abs(max))).length))|需要进一步测试|
+|src/script/00.js:3393|WEEKDAYS|['日', '一', '二', '三', '四', '五', '六']|需要进一步测试|
+|src/script/00.js:3394|welcomeClockTimer|null|需要进一步测试|
+|src/script/00.js:3405|now|new Date()|需要进一步测试|
+|src/script/00.js:3406|hh|String(now.getHours()).padStart(2, '0')|需要进一步测试|
+|src/script/00.js:3407|mm|String(now.getMinutes()).padStart(2, '0')|需要进一步测试|
+|src/script/00.js:3408|ss|String(now.getSeconds()).padStart(2, '0')|需要进一步测试|
+|src/script/00.js:3409|clock|document.getElementById('welcomeClock')|需要进一步测试|
+|src/script/00.js:3411|date|document.getElementById('welcomeDate')|需要进一步测试|
+|src/script/00.js:3413|greeting|document.getElementById('welcomeGreeting')|需要进一步测试|
+|src/script/00.js:3415|h|now.getHours()|需要进一步测试|
+|src/script/00.js:3416|part|h < 6 ? '夜深了' : h < 12 ? '早上好' : h < 14 ? '中午好' : h < 18 ? '下午好' : '晚上好'|需要进一步测试|
+|src/script/00.js:3423|wrap|document.getElementById('welcomePodiumDeck')|需要进一步测试|
+|src/script/00.js:3425|sorted|[...state.groups].sort((a, b) => (Number(b.score) ／／ 0) - (Number(a.score) ／／ 0))|需要进一步测试|
+|src/script/00.js:3426|top1|sorted[0]|需要进一步测试|
+|src/script/00.js:3426|top2|sorted[1]|需要进一步测试|
+|src/script/00.js:3426|top3|sorted[2]|需要进一步测试|
+|src/script/00.js:3427|getScore|(g) => g ? (Number(g.score) ／／ 0) : 0|需要进一步测试|
+|src/script/00.js:3449|MENU_TRACK_KEYS|['welcome_1', 'welcome_2', 'welcome_3', 'welcome_4', 'welcome_5', 'welcome_6', 'aux_history', 'aux_archives', 'aux_settings']|需要进一步测试|
+|src/script/00.js:3450|MENU_SET_TRACK_TYPES|[   { key: 'welcome_1', name: '欢迎·个位张力', desc: '最高分个位数时播放' },   { key: 'welcome_2', name: '欢迎·十位张力', desc: '最高分十位数时播放' },   { key: 'welcome_3', name: '欢迎·百位张力',|需要进一步测试|
+|src/script/00.js:3461|MENU_TRACK_META|{   welcome_1: { name: '欢迎·个位张力', tension: 1 },   welcome_2: { name: '欢迎·十位张力', tension: 2 },   welcome_3: { name: '欢迎·百位张力', tension: 3 },   welcome_4: { name:|需要进一步测试|
+|src/script/00.js:3472|MENU_AUDIO_DEFAULTS|{   enabled: true,   bpm: 130,   beatsPerBar: 4,   loopStartBeat: 1,   loopEndBeat: 33,   transitionLeadBeats: 1,   battleBaseBpm: 130,   battleSet8Bpm: 135,   |需要进一步测试|
+|src/script/00.js:3485|menuCfg|{ ...MENU_AUDIO_DEFAULTS, gainTrims: { ...MENU_AUDIO_DEFAULTS.gainTrims } }|需要进一步测试|
+|src/script/00.js:3487|saved|STORAGE.getJSON('politics_menu_audio_cfg', null)|需要进一步测试|
+|src/script/00.js:3498|a|seed >>> 0|需要进一步测试|
+|src/script/00.js:3501|t|Math.imul(a ^ a >>> 15, 1 ／ a)|需要进一步测试|
+|src/script/00.js:3507|SCALE_MAJOR|[0, 2, 4, 5, 7, 9, 11]|需要进一步测试|
+|src/script/00.js:3508|CHORD_PROG|[0, 0, 9, 9, 5, 5, 7, 7]|需要进一步测试|
+|src/script/00.js:3509|MENU_PATTERN_CACHE|{}|需要进一步测试|
+|src/script/00.js:3513|cacheKey|key + ':' + bars|需要进一步测试|
+|src/script/00.js:3515|meta|MENU_TRACK_META[key] ／／ { tension: 1 }|需要进一步测试|
+|src/script/00.js:3516|rnd|mulberry32(key.split('').reduce((s, c) => s + c.charCodeAt(0), 7))|需要进一步测试|
+|src/script/00.js:3517|stepsPerBar|16|需要进一步测试|
+|src/script/00.js:3518|totalSteps|bars * stepsPerBar|需要进一步测试|
+|src/script/00.js:3519|tension|meta.tension|需要进一步测试|
+|src/script/00.js:3520|density|meta.density !== undefined ? meta.density     : (tension >= 6 ? 0.66 : tension === 5 ? 0.56 : tension === 4 ? 0.46 : tension === 3 ? 0.36 : tension === 2 ? 0.26|需要进一步测试|
+|src/script/00.js:3522|hatLevel|meta.hat !== undefined ? meta.hat     : (tension >= 6 ? 0.85 : tension === 5 ? 0.7 : tension === 4 ? 0.55 : tension === 3 ? 0.4 : tension === 2 ? 0.25 : tension|需要进一步测试|
+|src/script/00.js:3524|leadOct|meta.leadOct !== undefined ? meta.leadOct     : (tension >= 5 ? 3 : tension >= 3 ? 2 : 1)|需要进一步测试|
+|src/script/00.js:3526|bass|new Array(totalSteps).fill(0)|需要进一步测试|
+|src/script/00.js:3527|lead|new Array(totalSteps).fill(null)|需要进一步测试|
+|src/script/00.js:3528|hat|new Array(totalSteps).fill(false)|需要进一步测试|
+|src/script/00.js:3529|bar|0|需要进一步测试|
+|src/script/00.js:3530|chordRoot|CHORD_PROG[bar % CHORD_PROG.length]|需要进一步测试|
+|src/script/00.js:3531|rootMidi|48 + chordRoot|需要进一步测试|
+|src/script/00.js:3532|step|0|需要进一步测试|
+|src/script/00.js:3533|gs|bar * stepsPerBar + step|需要进一步测试|
+|src/script/00.js:3537|deg|Math.floor(rnd() * SCALE_MAJOR.length)|需要进一步测试|
+|src/script/00.js:3538|oct|Math.floor(rnd() * 2)|需要进一步测试|
+|src/script/00.js:3548|noiseBuffer|null|需要进一步测试|
+|src/script/00.js:3552|len|Math.floor(audioCtx.sampleRate * 0.05)|需要进一步测试|
+|src/script/00.js:3554|data|noiseBuffer.getChannelData(0)|需要进一步测试|
+|src/script/00.js:3555|i|0|需要进一步测试|
+|src/script/00.js:3568|MENU_FADE_SEC|0.5|需要进一步测试|
+|src/script/00.js:3569|menuBgm|{   active: false,   currentKey: null,   pendingKey: null,   buffers: {},   uploadedKeys: new Set(),   outGain: null,   voices: [],   origin: 0,   pausedPos: nu|需要进一步测试|
+|src/script/00.js:3586|startBeat|Math.max(1, Number(menuCfg.loopStartBeat) ／／ 1)|需要进一步测试|
+|src/script/00.js:3587|endBeat|Math.max(startBeat + 4, Number(menuCfg.loopEndBeat) ／／ 33)|需要进一步测试|
+|src/script/00.js:3602|targetEnd|menuLoopSpan().endSec|需要进一步测试|
+|src/script/00.js:3603|missing|targetEnd - buf.duration|需要进一步测试|
+|src/script/00.js:3604|maxRepair|Math.min(0.35, menuSecPerBeat() * 0.75)|需要进一步测试|
+|src/script/00.js:3608|sampleRate|buf.sampleRate ／／ audioCtx.sampleRate|需要进一步测试|
+|src/script/00.js:3609|targetLength|Math.ceil(targetEnd * sampleRate) + 1|需要进一步测试|
+|src/script/00.js:3610|fixed|audioCtx.createBuffer(buf.numberOfChannels, targetLength, sampleRate)|需要进一步测试|
+|src/script/00.js:3611|ch|0|需要进一步测试|
+|src/script/00.js:3632|sr|audioCtx.sampleRate|需要进一步测试|
+|src/script/00.js:3633|bpm|Math.max(40, Number(menuCfg.bpm) ／／ 130)|需要进一步测试|
+|src/script/00.js:3634|beats|Math.max(4, (Number(menuCfg.loopEndBeat) ／／ 33) - (Number(menuCfg.loopStartBeat) ／／ 1))|需要进一步测试|
+|src/script/00.js:3635|bars|Math.max(8, Math.ceil(beats / 4))|需要进一步测试|
+|src/script/00.js:3636|totalSteps|bars * 16|需要进一步测试|
+|src/script/00.js:3637|stepSec|60 / bpm / 16|需要进一步测试|
+|src/script/00.js:3638|dur|totalSteps * stepSec|需要进一步测试|
+|src/script/00.js:3639|len|Math.max(1, Math.floor(sr * dur))|需要进一步测试|
+|src/script/00.js:3640|offline|new OfflineAudioContext(1, len, sr)|需要进一步测试|
+|src/script/00.js:3641|pat|buildMenuPattern(key, bars)|需要进一步测试|
+|src/script/00.js:3642|trim|Math.max(0, Math.min(3, Number(menuCfg.gainTrims[key]) ／／ 1))|需要进一步测试|
+|src/script/00.js:3643|step|0|需要进一步测试|
+|src/script/00.js:3644|time|step * stepSec|需要进一步测试|
+|src/script/00.js:3645|bassMidi|pat.bass[step]|需要进一步测试|
+|src/script/00.js:3646|leadMidi|pat.lead[step]|需要进一步测试|
+|src/script/00.js:3647|hatOn|pat.hat[step]|需要进一步测试|
+|src/script/00.js:3649|osc|offline.createOscillator()|需要进一步测试|
+|src/script/00.js:3650|g|offline.createGain()|需要进一步测试|
+|src/script/00.js:3660|osc|offline.createOscillator()|需要进一步测试|
+|src/script/00.js:3661|g|offline.createGain()|需要进一步测试|
+|src/script/00.js:3671|buf|offline.createBuffer(1, Math.floor(sr * 0.05), sr)|需要进一步测试|
+|src/script/00.js:3672|dd|buf.getChannelData(0)|需要进一步测试|
+|src/script/00.js:3673|i|0|需要进一步测试|
+|src/script/00.js:3674|src|offline.createBufferSource()|需要进一步测试|
+|src/script/00.js:3676|g|offline.createGain()|需要进一步测试|
+|src/script/00.js:3679|hp|offline.createBiquadFilter()|需要进一步测试|
+|src/script/00.js:3690|menuLoading|{}|需要进一步测试|
+|src/script/00.js:3694|p|(async () => {     let buf = null;     if (db) {       try {         const ab = await new Promise(res => {           const tx = db.transaction('sounds', 'readon|需要进一步测试|
+|src/script/00.js:3695|buf|null|需要进一步测试|
+|src/script/00.js:3698|ab|await new Promise(res => {           const tx = db.transaction('sounds', 'readonly');           const req = tx.objectStore('sounds').get('bgm_menu_' + key);    |需要进一步测试|
+|src/script/00.js:3699|tx|db.transaction('sounds', 'readonly')|需要进一步测试|
+|src/script/00.js:3700|req|tx.objectStore('sounds').get('bgm_menu_' + key)|需要进一步测试|
+|src/script/00.js:3723|span|menuLoopSpan()|需要进一步测试|
+|src/script/00.js:3725|startSec|Math.min(span.startSec, Math.max(0, buf.duration - 0.05))|需要进一步测试|
+|src/script/00.js:3726|endSec|Math.min(span.endSec, buf.duration)|需要进一步测试|
+|src/script/00.js:3733|t|Number(menuCfg.gainTrims[key])|需要进一步测试|
+|src/script/00.js:3739|lp|menuLoopParams(buf, key)|需要进一步测试|
+|src/script/00.js:3740|elapsed|Math.max(0, t - menuBgm.origin)|需要进一步测试|
+|src/script/00.js:3742|dur|lp.endSec - lp.startSec|需要进一步测试|
+|src/script/00.js:3748|r|v.ramp|需要进一步测试|
+|src/script/00.js:3756|now|audioCtx.currentTime|需要进一步测试|
+|src/script/00.js:3757|cur|menuVoiceGainAt(v, now)|需要进一步测试|
+|src/script/00.js:3758|g|v.gain.gain|需要进一步测试|
+|src/script/00.js:3766|lp|menuLoopParams(buf, key)|需要进一步测试|
+|src/script/00.js:3767|src|audioCtx.createBufferSource()|需要进一步测试|
+|src/script/00.js:3772|gain|audioCtx.createGain()|需要进一步测试|
+|src/script/00.js:3776|offset|Math.min(menuPosForKey(key, buf, startAt), Math.max(0, buf.duration - 0.02))|需要进一步测试|
+|src/script/00.js:3777|v|{ key, src, gain, ramp: { v0: 0, v1: 0, t0: 0, t1: 0 }, stopping: false, loopStart: src.loopStart, loopEnd: src.loopEnd }|需要进一步测试|
+|src/script/00.js:3781|i|menuBgm.voices.indexOf(v)|需要进一步测试|
+|src/script/00.js:3792|dur|fadeSec == null ? MENU_FADE_SEC : fadeSec|需要进一步测试|
+|src/script/00.js:3803|now|audioCtx.currentTime|需要进一步测试|
+|src/script/00.js:3804|startAt|now + 0.03|需要进一步测试|
+|src/script/00.js:3814|live|menuBgm.voices.find(v => v.key === key && !v.stopping)|需要进一步测试|
+|src/script/00.js:3816|target|menuTrimFor(key)|需要进一步测试|
+|src/script/00.js:3828|token|++menuBgm.opToken|需要进一步测试|
+|src/script/00.js:3834|buf|await menuLoadBuffer(key)|需要进一步测试|
+|src/script/00.js:3847|endT|audioCtx.currentTime + MENU_FADE_SEC|需要进一步测试|
+|src/script/00.js:3848|cur|menuBgm.currentKey|需要进一步测试|
+|src/script/00.js:3849|buf|cur ? menuBgm.buffers[cur] : null|需要进一步测试|
+|src/script/00.js:3872|cur|menuBgm.currentKey|需要进一步测试|
+|src/script/00.js:3873|buf|cur ? menuBgm.buffers[cur] : null|需要进一步测试|
+|src/script/00.js:3875|lp|menuLoopParams(buf, cur)|需要进一步测试|
+|src/script/00.js:3876|ls|Math.min(lp.startSec, Math.max(0, buf.duration - 0.02))|需要进一步测试|
+|src/script/00.js:3877|le|Math.min(lp.endSec, buf.duration)|需要进一步测试|
+|src/script/00.js:3878|live|menuBgm.voices.find(v => v.key === cur && !v.stopping)|需要进一步测试|
+|src/script/00.js:3884|menuReloadTimer|null|需要进一步测试|
+|src/script/00.js:3889|key|menuBgm.currentKey|需要进一步测试|
+|src/script/00.js:3893|buf|await menuLoadBuffer(key)|需要进一步测试|
+|src/script/00.js:3897|startAt|audioCtx.currentTime + 0.03|需要进一步测试|
+|src/script/00.js:3905|key|getWelcomeTrackKey()|需要进一步测试|
+|src/script/00.js:3911|box|document.getElementById('bgmEngineConsole')|需要进一步测试|
+|src/script/00.js:3913|trimRows|MENU_TRACK_KEYS.map(k =>     '<div class="trim-row">' +       '<span class="trim-name">' + MENU_TRACK_META[k].name + '</span>' +       '<input type="range" min=|需要进一步测试|
+|src/script/00.js:3971|el|document.getElementById('cfgMenuBpmVal')|需要进一步测试|
+|src/script/00.js:3987|el|document.getElementById('trim-val-' + k)|需要进一步测试|
+|src/script/00.js:3990|el|document.getElementById('cfgBattleBaseBpmVal')|需要进一步测试|
+|src/script/00.js:3991|el|document.getElementById('cfgBattleSet8BpmVal')|需要进一步测试|
+|src/script/00.js:3996|rollLoopNode|null|需要进一步测试|
+|src/script/00.js:3997|rollLoopGain|null|需要进一步测试|
+|src/script/00.js:4001|sr|audioCtx.sampleRate|需要进一步测试|
+|src/script/00.js:4002|dur|0.5|需要进一步测试|
+|src/script/00.js:4003|buf|audioCtx.createBuffer(1, Math.floor(sr * dur), sr)|需要进一步测试|
+|src/script/00.js:4004|d|buf.getChannelData(0)|需要进一步测试|
+|src/script/00.js:4005|steps|8|需要进一步测试|
+|src/script/00.js:4006|i|0|需要进一步测试|
+|src/script/00.js:4007|t|i / sr|需要进一步测试|
+|src/script/00.js:4008|step|Math.floor(t / (dur / steps))|需要进一步测试|
+|src/script/00.js:4009|inStep|t - step * (dur / steps)|需要进一步测试|
+|src/script/00.js:4022|buffer|customFxBuffers['roll_loop'] ／／ makeRollLoopBuffer()|需要进一步测试|
+|src/script/00.js:4026|now|audioCtx.currentTime|需要进一步测试|
+|src/script/00.js:4040|now|audioCtx.currentTime|需要进一步测试|
+|src/script/00.js:4055|UI_DB_NAME|'PoliticsUiDB'|需要进一步测试|
+|src/script/00.js:4056|uiDbPromise|null|需要进一步测试|
+|src/script/00.js:4061|r|indexedDB.open(UI_DB_NAME, 1)|需要进一步测试|
+|src/script/00.js:4063|d|e.target.result|需要进一步测试|
+|src/script/00.js:4073|d|await uiDbOpen()|需要进一步测试|
+|src/script/00.js:4077|tx|d.transaction('kv', mode)|需要进一步测试|
+|src/script/00.js:4078|req|fn(tx.objectStore('kv'))|需要进一步测试|
+|src/script/00.js:4085|wallpaperUrl|null|需要进一步测试|
+|src/script/00.js:4087|v|Number(STORAGE.get('politics_wall_veil', 0.35))|需要进一步测试|
+|src/script/00.js:4091|root|document.documentElement|需要进一步测试|
+|src/script/00.js:4092|a|wallpaperUrl ? getWallVeil() : 0|需要进一步测试|
+|src/script/00.js:4094|label|document.getElementById('wallVeilLabel')|需要进一步测试|
+|src/script/00.js:4096|range|document.getElementById('cfgWallVeil')|需要进一步测试|
+|src/script/00.js:4100|root|document.documentElement|需要进一步测试|
+|src/script/00.js:4108|st|document.getElementById('wallpaperStatus')|需要进一步测试|
+|src/script/00.js:4113|MAX_EDGE|2560|需要进一步测试|
+|src/script/00.js:4114|img||需要进一步测试|
+|src/script/00.js:4119|url|URL.createObjectURL(file)|需要进一步测试|
+|src/script/00.js:4120|im|new Image()|需要进一步测试|
+|src/script/00.js:4126|w0|img.width|需要进一步测试|
+|src/script/00.js:4126|h0|img.height|需要进一步测试|
+|src/script/00.js:4127|scale|Math.min(1, MAX_EDGE / Math.max(w0, h0))|需要进一步测试|
+|src/script/00.js:4128|canvas|document.createElement('canvas')|需要进一步测试|
+|src/script/00.js:4131|ctx|canvas.getContext('2d')|需要进一步测试|
+|src/script/00.js:4139|file|input.files && input.files[0]|需要进一步测试|
+|src/script/00.js:4145|blob|await compressWallpaper(file)|需要进一步测试|
+|src/script/00.js:4147|saved|await uiDbReq('readwrite', st => st.put(blob, 'wallpaper'))|需要进一步测试|
+|src/script/00.js:4164|b|await uiDbReq('readonly', st => st.get('wallpaper'))|需要进一步测试|
+|src/script/00.js:4182|bar|document.getElementById('audioHintBar')|需要进一步测试|
+|src/script/00.js:4194|autoPlayRetries|0|需要进一步测试|
+|src/script/00.js:4195|resumeRetryTimer|null|需要进一步测试|
+|src/script/00.js:4206|bar|document.getElementById('audioHintBar')|需要进一步测试|
+|src/script/00.js:4214|m|document.getElementById('welcomeModal')|需要进一步测试|
+|src/script/00.js:4222|unlockByGesture|() => {     getAudioContext().then(() => {       hideAudioHint();       const wm = document.getElementById('welcomeModal');       if (wm && wm.classList.contain|需要进一步测试|
+|src/script/00.js:4225|wm|document.getElementById('welcomeModal')|需要进一步测试|
+|src/script/00.js:4249|ITEM_DEFS|{   green:{name:'绿龟壳',icon:'🟢',kind:'attack',def:'green',charges:1,desc:'随机攻击其他小组 -1/4；可抵挡常规攻击与刺龟壳。'},   triple_green:{name:'三重绿龟壳',icon:'🟢³',kind:'attack',de|需要进一步测试|
+|src/script/00.js:4280|ITEM_KEYS|Object.keys(ITEM_DEFS)|需要进一步测试|
+|src/script/00.js:4281|ITEM_DEFENSE_KEYS|new Set(['green','triple_green','red','triple_red','banana','triple_banana','horn'])|需要进一步测试|
+|src/script/00.js:4282|activeItemGroupId|null|需要进一步测试|
+|src/script/00.js:4282|activeItemTab|'detail'|需要进一步测试|
+|src/script/00.js:4282|itemDrawBusy|false|需要进一步测试|
+|src/script/00.js:4282|bulletTimer|null|需要进一步测试|
+|src/script/00.js:4288|seen|new Set()|需要进一步测试|
+|src/script/00.js:4292|key|it&&it.key|需要进一步测试|
+|src/script/00.js:4298|maxCharges|Math.max(1,Number(ITEM_DEFS[it.key]?.charges)／／1)|需要进一步测试|
+|src/script/00.js:4299|storedCharges|Number(it.charges)|需要进一步测试|
+|src/script/00.js:4300|charges|Number.isFinite(storedCharges)         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges|需要进一步测试|
+|src/script/00.js:4302|acquiredAt|Number(it.acquiredAt)／／Date.now()+i|需要进一步测试|
+|src/script/00.js:4326|it|g.inventory[index]|需要进一步测试|
+|src/script/00.js:4328|d|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4331|out|[]|需要进一步测试|
+|src/script/00.js:4335|it|g.inventory[0]|需要进一步测试|
+|src/script/00.js:4335|idx|0|需要进一步测试|
+|src/script/00.js:4347|loss|denom===2?roundHalf(target.score):denom===3?roundThird(target.score):roundQuarter(target.score)|需要进一步测试|
+|src/script/00.js:4348|add|denom===4?roundQuarter(target.score):Math.round(target.score/denom)|需要进一步测试|
+|src/script/00.js:4354|p|total<=1?1:(pos-1)/(total-1)|需要进一步测试|
+|src/script/00.js:4354|virtual|1+p*23|需要进一步测试|
+|src/script/00.js:4355|W|{}|需要进一步测试|
+|src/script/00.js:4355|put|(k,w)=>{W[k]=w}|需要进一步测试|
+|src/script/00.js:4440|arr|Object.entries(weights).filter(([,w])=>w>0)|需要进一步测试|
+|src/script/00.js:4440|sum|arr.reduce((a,[,w])=>a+w,0)|需要进一步测试|
+|src/script/00.js:4440|r|Math.random()*sum|需要进一步测试|
+|src/script/00.js:4440|[k,w]||需要进一步测试|
+|src/script/00.js:4441|r|ranking()|需要进一步测试|
+|src/script/00.js:4441|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
+|src/script/00.js:4444|actor|state.groups.find(g=>g.id===actorId)|需要进一步测试|
+|src/script/00.js:4445|after|ranking().map(g=>g.id)|需要进一步测试|
+|src/script/00.js:4445|beforeIdx|beforeOrder.indexOf(actorId)|需要进一步测试|
+|src/script/00.js:4445|afterIdx|after.indexOf(actorId)|需要进一步测试|
+|src/script/00.js:4446|passed|beforeOrder.slice(afterIdx,beforeIdx).filter(id=>id!==actorId)|需要进一步测试|
+|src/script/00.js:4447|t|state.groups.find(g=>g.id===id)|需要进一步测试|
+|src/script/00.js:4450|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:4452|it|g.inventory[index]|需要进一步测试|
+|src/script/00.js:4452|key|it.key|需要进一步测试|
+|src/script/00.js:4452|d|ITEM_DEFS[key]|需要进一步测试|
+|src/script/00.js:4452|r|ranking()|需要进一步测试|
+|src/script/00.js:4452|ri|r.findIndex(x=>x.id===g.id)|需要进一步测试|
+|src/script/00.js:4452|before|r.map(x=>x.id)|需要进一步测试|
+|src/script/00.js:4454|used|true|需要进一步测试|
+|src/script/00.js:4455|other|()=>state.groups.filter(x=>x.id!==g.id&&eligibleForItems(x))|需要进一步测试|
+|src/script/00.js:4456|pool|other()|需要进一步测试|
+|src/script/00.js:4457|t|r[ri-1]|需要进一步测试|
+|src/script/00.js:4458|t|r[0]|需要进一步测试|
+|src/script/00.js:4459|t|r[ri+1]|需要进一步测试|
+|src/script/00.js:4461|pool|other()|需要进一步测试|
+|src/script/00.js:4461|center|pool[Math.floor(Math.random()*pool.length)]|需要进一步测试|
+|src/script/00.js:4461|ci|r.findIndex(x=>x.id===center.id)|需要进一步测试|
+|src/script/00.js:4462|pool|other().sort(()=>Math.random()-.5).slice(0,3)|需要进一步测试|
+|src/script/00.js:4468|t|r[ri-1]|需要进一步测试|
+|src/script/00.js:4473|stealIndex|t.inventory.length-1|需要进一步测试|
+|src/script/00.js:4480|stolen|t.inventory.splice(stealIndex,1)[0]|需要进一步测试|
+|src/script/00.js:4511|target|r[Math.max(0,ri-3)]|需要进一步测试|
+|src/script/00.js:4525|c|document.querySelector(.group-row-card[data-group-id="${id}"])|需要进一步测试|
+|src/script/00.js:4527|any|false|需要进一步测试|
+|src/script/00.js:4527|t|state.groups.find(x=>x.id===g.itemEffect.targetId)|需要进一步测试|
+|src/script/00.js:4527|ix|g.inventory.findIndex(x=>x.key==='bullet')|需要进一步测试|
+|src/script/00.js:4529|on|(state.itemGlobal?.blooperUntil／／0)>Date.now()|需要进一步测试|
+|src/script/00.js:4529|v|document.getElementById('squidVeil')|需要进一步测试|
+|src/script/00.js:4532|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
+|src/script/00.js:4532|ov|document.getElementById('itemDrawOverlay')|需要进一步测试|
+|src/script/00.js:4532|grid|document.getElementById('itemDrawGrid')|需要进一步测试|
+|src/script/00.js:4533|timer|setInterval(()=>{eligible.forEach(g=>{const k=ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)],c=grid.querySelector([data-draw-id="${g.id}"] .roulette);i|需要进一步测试|
+|src/script/00.js:4533|k|ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)]|需要进一步测试|
+|src/script/00.js:4533|c|grid.querySelector([data-draw-id="${g.id}"] .roulette)|需要进一步测试|
+|src/script/00.js:4534|key|drawItemForGroup(g)|需要进一步测试|
+|src/script/00.js:4534|card|grid.querySelector([data-draw-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:4541|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
+|src/script/00.js:4545|body|document.getElementById('itemWindowBody')|需要进一步测试|
+|src/script/00.js:4545|locked|!!state.isLocked|需要进一步测试|
+|src/script/00.js:4545|disabled|locked?'disabled':''|需要进一步测试|
+|src/script/00.js:4547|st|g.itemStats／／{}|需要进一步测试|
+|src/script/00.js:4547|total|(st.correct／／0)+(st.wrong／／0)|需要进一步测试|
+|src/script/00.js:4547|rate|total?Math.round((st.correct／／0)/total*100):0|需要进一步测试|
+|src/script/00.js:4548|statusParts|[]|需要进一步测试|
+|src/script/00.js:4550|type|g.itemEffect.type|需要进一步测试|
+|src/script/00.js:4552|def|ITEM_DEFS[type]|需要进一步测试|
+|src/script/00.js:4573|status|statusParts.length?statusParts.join(' · '):'无'|需要进一步测试|
+|src/script/00.js:4613|canUse|!locked&&eligibleForItems(g)|需要进一步测试|
+|src/script/00.js:4614|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:4614|d|ITEM_DEFS[it.key]|需要进一步测试|
+|src/script/00.js:4619|el|document.getElementById('groupDetailColorPreview')|需要进一步测试|
+|src/script/00.js:4628|g|state.groups.find(x=>x.id===id)|需要进一步测试|
+|src/script/00.js:4629|name|document.getElementById('groupDetailName')?.value.trim()／／''|需要进一步测试|
+|src/script/00.js:4630|rawNo|document.getElementById('groupDetailNumber')?.value.trim()／／''|需要进一步测试|
+|src/script/00.js:4633|groupNo|Number(rawNo)|需要进一步测试|
+|src/script/00.js:4635|rawMembers|document.getElementById('groupDetailMembers')?.value／／''|需要进一步测试|
+|src/script/00.js:4636|members|Array.from(new Set(rawMembers.split(/[\n,，、]+/).map(s=>s.trim()).filter(Boolean)))|需要进一步测试|
+|src/script/00.js:4637|changed|g.name!==name／／Number(g.groupNo)!==groupNo／／JSON.stringify(g.members／／[])!==JSON.stringify(members)|需要进一步测试|
+|src/script/00.js:4653|n|Number(document.getElementById('itemCustomScore').value)|需要进一步测试|
+|src/script/00.js:4655|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:4655|firstDef|g.inventory.find(it=>ITEM_DEFS[it.key]?.def)|需要进一步测试|
+|src/script/00.js:4655|head|c.querySelector('.card-header-row')|需要进一步测试|
+|src/script/00.js:4655|slots|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4655|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:4655|mb|c.querySelector('.more-btn')|需要进一步测试|
+|src/script/00.js:4656|_itemBaseRenderGrid|renderGrid|需要进一步测试|
+|src/script/00.js:4658|_itemBaseJudgeRound|legacyJudgeRound|需要进一步测试|
+|src/script/00.js:4658|before|ranking().map(g=>g.id)|需要进一步测试|
+|src/script/00.js:4658|answered|state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}))|需要进一步测试|
+|src/script/00.js:4658|g|state.groups.find(q=>q.id===x.id)|需要进一步测试|
+|src/script/00.js:4658|r|ranking()|需要进一步测试|
+|src/script/00.js:4658|i|r.findIndex(q=>q.id===g.id)|需要进一步测试|
+|src/script/00.js:4658|ix|g.inventory.findIndex(it=>it.key==='power')|需要进一步测试|
+|src/script/00.js:4661|savedItemGlobal|STORAGE.getJSON('politics_item_global',null)|需要进一步测试|
+|src/script/00.js:4670|pickerInfoTab|'history'|需要进一步测试|
+|src/script/00.js:4670|handRaiseGroupId|null|需要进一步测试|
+|src/script/00.js:4670|pendingItemIconKey|null|需要进一步测试|
+|src/script/00.js:4679|BUILTIN_ITEM_ICONS_V2121|{"green":"@@RESOURCE:asset-000.txt@@","triple_green":"@@RESOURCE:asset-001.txt@@","red":"@@RESOURCE:asset-002.txt@@","triple_red":"@@RESOURCE:asset-003.txt@@","|需要进一步测试|
+|src/script/00.js:4680|BUILTIN_ITEM_BOX_V2121|"@@RESOURCE:asset-026.txt@@"|需要进一步测试|
+|src/script/00.js:4683|d|ITEM_DEFS[key]|需要进一步测试|
+|src/script/00.js:4683|custom|state.itemGlobal.customIcons[key]|需要进一步测试|
+|src/script/00.js:4683|builtin|BUILTIN_ITEM_ICONS_V2121[key]|需要进一步测试|
+|src/script/00.js:4684|src|Reliability.safeImage(custom)／／builtin|需要进一步测试|
+|src/script/00.js:4692|box|document.getElementById('pickerInfoBox')|需要进一步测试|
+|src/script/00.js:4694|a|state.groups.reduce((n,g)=>n+(g.itemStats?.correct／／0)+(g.itemStats?.wrong／／0),0)|需要进一步测试|
+|src/script/00.js:4697|arr|state.itemGlobal.pickerHistory／／[]|需要进一步测试|
+|src/script/00.js:4700|_v2OpenPicker|openPickerModal|需要进一步测试|
+|src/script/00.js:4701|el|document.getElementById('pickerScoreTarget')|需要进一步测试|
+|src/script/00.js:4701|w|slotEngine.chosenResult|需要进一步测试|
+|src/script/00.js:4701|g|state.picker.mode==='group'?w:w.group|需要进一步测试|
 |src/script/00.js:4702|w|slotEngine.chosenResult|需要进一步测试|
-|src/script/00.js:4702|g|state.picker.mode==='group'?w:w.group|需要进一步测试|
-|src/script/00.js:4702|text|state.picker.mode==='group'?抽中 ${g.name}:抽中 ${w.memberName}（${g.name}）|需要进一步测试|
-|src/script/00.js:4707|box|document.getElementById('handGroupGrid')|需要进一步测试|
-|src/script/00.js:4708|arr|[...document.querySelectorAll('.hand-group')]|需要进一步测试|
-|src/script/00.js:4708|idx|state.groups.findIndex(g=>g.id===id)|需要进一步测试|
-|src/script/00.js:4710|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:4713|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:4717|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:4717|k|drawItemForGroup(g)|需要进一步测试|
-|src/script/00.js:4718|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:4722|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
-|src/script/00.js:4726|overlays|new Map()|需要进一步测试|
-|src/script/00.js:4727|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4727|o|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4728|timer|setInterval(()=>eligible.forEach(g=>{const o=overlays.get(g.id);if(!o)return;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const k=weightedPick(itemDropWe|需要进一步测试|
-|src/script/00.js:4728|o|overlays.get(g.id)|需要进一步测试|
-|src/script/00.js:4728|r|ranking()|需要进一步测试|
-|src/script/00.js:4728|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
-|src/script/00.js:4728|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:4729|k|drawItemForGroup(g)|需要进一步测试|
-|src/script/00.js:4729|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:4703|g|pickerTargetGroup()|需要进一步测试|
+|src/script/00.js:4704|n|Math.round(Number(document.getElementById('pickerCustomScore')?.value))|需要进一步测试|
+|src/script/00.js:4705|_v2StopSlot|stopSlotSpin|需要进一步测试|
+|src/script/00.js:4705|w|slotEngine.chosenResult|需要进一步测试|
+|src/script/00.js:4705|g|state.picker.mode==='group'?w:w.group|需要进一步测试|
+|src/script/00.js:4705|text|state.picker.mode==='group'?抽中 ${g.name}:抽中 ${w.memberName}（${g.name}）|需要进一步测试|
+|src/script/00.js:4710|box|document.getElementById('handGroupGrid')|需要进一步测试|
+|src/script/00.js:4711|arr|[...document.querySelectorAll('.hand-group')]|需要进一步测试|
+|src/script/00.js:4711|idx|state.groups.findIndex(g=>g.id===id)|需要进一步测试|
+|src/script/00.js:4713|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:4716|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:4720|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:4720|k|drawItemForGroup(g)|需要进一步测试|
+|src/script/00.js:4721|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:4725|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
+|src/script/00.js:4729|overlays|new Map()|需要进一步测试|
 |src/script/00.js:4730|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4737|box|document.getElementById('v2ItemEncyclopedia')|需要进一步测试|
-|src/script/00.js:4738|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:4741|f|e.target.files?.[0]|需要进一步测试|
-|src/script/00.js:4741|rd|new FileReader()|需要进一步测试|
-|src/script/00.js:4744|blob|new Blob([JSON.stringify({version:1,icons:state.itemGlobal.customIcons},null,2)],{type:'application/json'})|需要进一步测试|
-|src/script/00.js:4744|a|document.createElement('a')|需要进一步测试|
-|src/script/00.js:4745|f|e.target.files?.[0]|需要进一步测试|
-|src/script/00.js:4745|rd|new FileReader()|需要进一步测试|
-|src/script/00.js:4745|x|JSON.parse(rd.result)|需要进一步测试|
-|src/script/00.js:4749|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
-|src/script/00.js:4750|tabs|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4751|item|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4756|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
-|src/script/00.js:4756|item|document.getElementById('v2ItemPane')|需要进一步测试|
-|src/script/00.js:4759|titles|[...sc.querySelectorAll('.setting-section-title')]|需要进一步测试|
-|src/script/00.js:4766|m|document.getElementById('aboutMain')|需要进一步测试|
-|src/script/00.js:4773|_v2RenderItemWindow|renderItemWindow|需要进一步测试|
-|src/script/00.js:4773|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
-|src/script/00.js:4773|body|document.getElementById('itemWindowBody')|需要进一步测试|
-|src/script/00.js:4773|d|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4774|g|state.groups.find(x=>x.id===id)|需要进一步测试|
-|src/script/00.js:4775|g|state.groups.find(x=>x.id===id)|需要进一步测试|
-|src/script/00.js:4778|_v2Enhance|enhanceItemCards|需要进一步测试|
-|src/script/00.js:4778|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4778|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:4778|charge|s.querySelector('.charges')?.outerHTML／／''|需要进一步测试|
-|src/script/00.js:4779|_v2RenderItemWindowIcons|renderItemWindow|需要进一步测试|
-|src/script/00.js:4779|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
-|src/script/00.js:4779|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:4782|_v2Judge|legacyJudgeRound|需要进一步测试|
-|src/script/00.js:4782|was|state.roundActive&&!state.evaluated|需要进一步测试|
-|src/script/00.js:4787|_v2SwitchView|switchView|需要进一步测试|
-|src/script/00.js:4792|handItemDrawTimer|null|需要进一步测试|
-|src/script/00.js:4792|handItemDrawFinishTimer|null|需要进一步测试|
-|src/script/00.js:4792|handItemDrawGroupId|null|需要进一步测试|
-|src/script/00.js:4792|handItemPendingKey|null|需要进一步测试|
-|src/script/00.js:4792|handItemDrawStartedAt|0|需要进一步测试|
-|src/script/00.js:4797|wasPending|handItemDrawGroupId!=null && handItemPendingKey==null|需要进一步测试|
-|src/script/00.js:4802|_v21CloseHandRaise|closeHandRaise|需要进一步测试|
-|src/script/00.js:4805|_v21SelectHandGroup|selectHandGroup|需要进一步测试|
-|src/script/00.js:4811|_v21JudgeHandRaise|judgeHandRaise|需要进一步测试|
-|src/script/00.js:4816|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:4817|btn|[...document.querySelectorAll('#handRewardBox button')].find(b=>b.textContent.includes('抽取道具'))|需要进一步测试|
-|src/script/00.js:4827|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:4834|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:4843|tick|()=>{     const live=state.groups.find(x=>x.id===handItemDrawGroupId); if(!live)return;     const r=ranking(),pos=r.findIndex(x=>x.id===live.id)+1;     const k=|需要进一步测试|
-|src/script/00.js:4844|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:4845|r|ranking()|需要进一步测试|
-|src/script/00.js:4845|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
-|src/script/00.js:4846|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:4847|cap|document.getElementById('handItemCapsule')|需要进一步测试|
-|src/script/00.js:4847|name|document.getElementById('handItemDrawName')|需要进一步测试|
-|src/script/00.js:4847|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
-|src/script/00.js:4856|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:4858|r|ranking()|需要进一步测试|
-|src/script/00.js:4858|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
-|src/script/00.js:4859|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:4866|slot|live.inventory.findIndex(x=>x.key===k && x.acquiredAt===Math.max(...live.inventory.filter(y=>y.key===k).map(y=>y.acquiredAt)))|需要进一步测试|
-|src/script/00.js:4867|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:4882|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:4887|gid|handItemDrawGroupId|需要进一步测试|
-|src/script/00.js:4887|k|handItemPendingKey|需要进一步测试|
-|src/script/00.js:4888|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
-|src/script/00.js:4890|idx|g.inventory.map(x=>x.key).lastIndexOf(k)|需要进一步测试|
-|src/script/00.js:4896|cards|[...document.querySelectorAll('#itemWindowBody .item-card')]|需要进一步测试|
-|src/script/00.js:4905|r|ranking()|需要进一步测试|
-|src/script/00.js:4905|i|r.findIndex(g=>g.id===gid)|需要进一步测试|
-|src/script/00.js:4905|names|[]|需要进一步测试|
-|src/script/00.js:4906|add|x=>{if(x&&x.id!==gid&&!names.includes(x.name))names.push(x.name)}|需要进一步测试|
-|src/script/00.js:4921|useItemBeforeVisualDispatch|legacyUseItem|需要进一步测试|
-|src/script/00.js:4923|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:4923|before|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:4923|key|before?.key|需要进一步测试|
-|src/script/00.js:4924|beforeSnapshot|JSON.stringify({inventory:g?.inventory／／[],effect:g?.itemEffect／／null,score:g?.score})|需要进一步测试|
-|src/script/00.js:4925|result|useItemBeforeVisualDispatch.call(this,groupId,index,...rest)|需要进一步测试|
-|src/script/00.js:4926|g2|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:4927|afterSnapshot|JSON.stringify({inventory:g2?.inventory／／[],effect:g2?.itemEffect／／null,score:g2?.score})|需要进一步测试|
-|src/script/00.js:4941|reader|new FileReader()|需要进一步测试|
-|src/script/00.js:4943|img|new Image()|需要进一步测试|
-|src/script/00.js:4945|size|384|需要进一步测试|
-|src/script/00.js:4945|canvas|document.createElement('canvas')|需要进一步测试|
-|src/script/00.js:4946|ctx|canvas.getContext('2d')|需要进一步测试|
-|src/script/00.js:4947|pad|34|需要进一步测试|
-|src/script/00.js:4947|max|size-pad*2|需要进一步测试|
-|src/script/00.js:4948|scale|Math.min(max/img.naturalWidth,max/img.naturalHeight,1.8)|需要进一步测试|
-|src/script/00.js:4949|w|Math.max(1,img.naturalWidth*scale)|需要进一步测试|
-|src/script/00.js:4949|h|Math.max(1,img.naturalHeight*scale)|需要进一步测试|
-|src/script/00.js:4960|f|e.target.files?.[0]|需要进一步测试|
-|src/script/00.js:4971|icon|o.querySelector('.r-icon')|需要进一步测试|
-|src/script/00.js:4971|name|o.querySelector('.r-name')|需要进一步测试|
-|src/script/00.js:4983|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
-|src/script/00.js:4988|overlays|new Map()|需要进一步测试|
-|src/script/00.js:4988|start|performance.now()|需要进一步测试|
-|src/script/00.js:4988|total|3600|需要进一步测试|
-|src/script/00.js:4990|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:4992|o|document.createElement('div')|需要进一步测试|
-|src/script/00.js:4997|lastUpdate|new Map()|需要进一步测试|
-|src/script/00.js:4997|currentKey|new Map()|需要进一步测试|
-|src/script/00.js:4999|t|Math.min(1,(now-start)/total)|需要进一步测试|
-|src/script/00.js:5001|interval|80 + 280*Math.pow(t,2.25)|需要进一步测试|
-|src/script/00.js:5003|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
-|src/script/00.js:5006|r|ranking()|需要进一步测试|
-|src/script/00.js:5006|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
-|src/script/00.js:5007|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:5014|r|ranking()|需要进一步测试|
-|src/script/00.js:5014|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
-|src/script/00.js:5015|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:5016|o|overlays.get(g.id)|需要进一步测试|
-|src/script/00.js:5019|hint|o.querySelector('.r-hint')|需要进一步测试|
-|src/script/00.js:5025|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:5026|o|c.querySelector('.card-item-roulette')|需要进一步测试|
-|src/script/00.js:5036|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:5042|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:5051|last|0|需要进一步测试|
-|src/script/00.js:5051|raf|0|需要进一步测试|
-|src/script/00.js:5051|total|3600|需要进一步测试|
-|src/script/00.js:5055|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
-|src/script/00.js:5055|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
-|src/script/00.js:5056|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
-|src/script/00.js:5058|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:5059|r|ranking()|需要进一步测试|
-|src/script/00.js:5059|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
-|src/script/00.js:5059|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:5060|cap|document.getElementById('handItemCapsule')|需要进一步测试|
-|src/script/00.js:5060|name|document.getElementById('handItemDrawName')|需要进一步测试|
-|src/script/00.js:5066|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:5068|r|ranking()|需要进一步测试|
-|src/script/00.js:5068|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
-|src/script/00.js:5068|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
-|src/script/00.js:5072|slot|live.inventory.findIndex(x=>x===live.inventory[live.inventory.length-1])|需要进一步测试|
-|src/script/00.js:5087|wasPending|handItemDrawGroupId!=null&&handItemPendingKey==null|需要进一步测试|
-|src/script/00.js:5094|CARD_ITEM_FX_CLASS|{  green_shell:'cfx-green',triple_green:'cfx-green',  red_shell:'cfx-red',triple_red:'cfx-red',  spiny_shell:'cfx-spiny',  banana:'cfx-banana',triple_banana:'cf|需要进一步测试|
-|src/script/00.js:5106|CARD_HIT_COLOR|{  green_shell:'#22c55e',triple_green:'#22c55e',red_shell:'#ef4444',triple_red:'#ef4444',  spiny_shell:'#3b82f6',banana:'#eab308',triple_banana:'#eab308',super_|需要进一步测试|
-|src/script/00.js:5120|card|battleCard(gid)|需要进一步测试|
-|src/script/00.js:5120|d|ITEM_DEFS[key]|需要进一步测试|
-|src/script/00.js:5123|b|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5130|card|battleCard(id)|需要进一步测试|
-|src/script/00.js:5138|r|ranking()|需要进一步测试|
-|src/script/00.js:5138|i|r.findIndex(g=>g.id===gid)|需要进一步测试|
-|src/script/00.js:5138|ids|[]|需要进一步测试|
-|src/script/00.js:5138|add|g=>{if(g&&g.id!==gid&&!ids.includes(g.id))ids.push(g.id)}|需要进一步测试|
-|src/script/00.js:5150|_v25ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:5155|targets|cardFxTargets(key,casterId)|需要进一步测试|
-|src/script/00.js:5156|beneficial|['coin_shell','question_block'].includes(key)|需要进一步测试|
-|src/script/00.js:5167|V26_HISTORY_KEY|'politics_history_stack_v26'|需要进一步测试|
-|src/script/00.js:5170|hs|STORAGE.getJSON(V26_HISTORY_KEY,[])|需要进一步测试|
-|src/script/00.js:5194|ITEM_FX_SOUND_SLOTS|[  {id:'item_draw_start',name:'道具抽取·启动',desc:'开始轮盘时'},  {id:'item_draw_tick',name:'道具抽取·滚动刻度',desc:'轮盘滚动过程中'},  {id:'item_draw_reveal',name:'道具抽取·定格',desc:'最终道具|需要进一步测试|
-|src/script/00.js:5206|box|document.getElementById('itemFxSoundListV26')|需要进一步测试|
-|src/script/00.js:5208|custom|!!customFxBuffers[s.id]／／hasSound('fx_'+s.id)|需要进一步测试|
-|src/script/00.js:5218|_v26ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:5220|_v26TinyDefense|tinyDefenseToast|需要进一步测试|
-|src/script/00.js:5223|n|0|需要进一步测试|
-|src/script/00.js:5224|timer|setInterval(()=>{if(n++<13)playSound('item_draw_tick');else clearInterval(timer)},Math.max(150,ms/15))|需要进一步测试|
-|src/script/00.js:5227|_v26GlobalDraw|globalItemDraw|需要进一步测试|
-|src/script/00.js:5228|_v26HandDraw|handDrawItem|需要进一步测试|
-|src/script/00.js:5231|UI_ICON_TARGETS|[  ['nav_welcome','欢迎','[data-view="welcome"]','🏠'],['nav_battle','比赛','[data-view="battle"]','⚔️'],  ['nav_history','历史','[data-view="history"]','📜'],['nav_a|需要进一步测试|
-|src/script/00.js:5240|pendingUiIconV26|null|需要进一步测试|
-|src/script/00.js:5243|map|uiIconsV26()|需要进一步测试|
-|src/script/00.js:5245|el|document.querySelector(sel)|需要进一步测试|
-|src/script/00.js:5247|data|Reliability.safeImage(map[id])|需要进一步测试|
-|src/script/00.js:5249|template|document.createElement('template')|需要进一步测试|
-|src/script/00.js:5251|text|template.innerHTML.trim()／／escapeHtml(label)|需要进一步测试|
-|src/script/00.js:5258|f|document.getElementById('uiIconInputV26')|需要进一步测试|
-|src/script/00.js:5260|f|e.target.files?.[0]|需要进一步测试|
-|src/script/00.js:5261|m|uiIconsV26()|需要进一步测试|
-|src/script/00.js:5263|m|uiIconsV26()|需要进一步测试|
-|src/script/00.js:5265|box|document.getElementById('uiIconManagerV26')|需要进一步测试|
-|src/script/00.js:5265|m|uiIconsV26()|需要进一步测试|
-|src/script/00.js:5271|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
-|src/script/00.js:5276|original|[...sc.children]|需要进一步测试|
-|src/script/00.js:5277|panes|{function:document.createElement('div'),sound:document.createElement('div'),data:document.createElement('div'),items:document.createElement('div')}|需要进一步测试|
-|src/script/00.js:5279|mode|'function'|需要进一步测试|
-|src/script/00.js:5281|txt|el.textContent／／''|需要进一步测试|
-|src/script/00.js:5286|tabs|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5290|ui|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5291|item|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5292|fx|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5293|hidden|document.createElement('input')|需要进一步测试|
-|src/script/00.js:5300|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
-|src/script/00.js:5311|sub|document.querySelector('#view-settings .fullview-sub')|需要进一步测试|
-|src/script/00.js:5319|h|(window.visualViewport&&window.visualViewport.height)／／window.innerHeight|需要进一步测试|
-|src/script/00.js:5344|programConfirmResolveV28|null|需要进一步测试|
-|src/script/00.js:5349|o|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5362|finish|v=>{if(!o.isConnected)return;o.remove();programConfirmResolveV28=null;resolve(v)}|需要进一步测试|
-|src/script/00.js:5366|key|e=>{if(!o.isConnected){document.removeEventListener('keydown',key);return}if(e.key==='Escape'){document.removeEventListener('keydown',key);finish(false)}else if|需要进一步测试|
-|src/script/00.js:5377|unanswered|state.groups.filter(g=>g.selectedOpt==='')|需要进一步测试|
-|src/script/00.js:5379|names|unanswered.map(g=>g.name).join('、')|需要进一步测试|
-|src/script/00.js:5380|ok|await programConfirmV28(       仍有 ${unanswered.length} 个小组尚未完成作答：${names}\n现在选定正确答案后，未作答小组将保持“未作答”状态。,       {title:'作答尚未完成',cancelText:'返回检查',okText:继续选择 ${|需要进一步测试|
-|src/script/00.js:5406|filtered|{}|需要进一步测试|
-|src/script/00.js:5408|n|Number(w)／／0|需要进一步测试|
-|src/script/00.js:5415|r|ranking()|需要进一步测试|
-|src/script/00.js:5415|pos|Math.max(1,r.findIndex(x=>x.id===g.id)+1)|需要进一步测试|
-|src/script/00.js:5416|weights|itemDropWeights(pos,r.length)|需要进一步测试|
-|src/script/00.js:5417|held|heldItemKeysV281(g)|需要进一步测试|
-|src/script/00.js:5420|k|weightedPickNoRepeatV281(weights,new Set([...batchUsed,...held]))|需要进一步测试|
-|src/script/00.js:5431|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
-|src/script/00.js:5436|overlays|new Map()|需要进一步测试|
-|src/script/00.js:5436|start|performance.now()|需要进一步测试|
-|src/script/00.js:5436|total|3600|需要进一步测试|
-|src/script/00.js:5438|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:5440|o|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5445|lastUpdate|new Map()|需要进一步测试|
-|src/script/00.js:5447|t|Math.min(1,(now-start)/total)|需要进一步测试|
-|src/script/00.js:5447|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
-|src/script/00.js:5449|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
-|src/script/00.js:5452|k|pickItemForGroupV281(g,new Set())|需要进一步测试|
-|src/script/00.js:5458|batchUsed|new Set()|需要进一步测试|
-|src/script/00.js:5460|k|pickItemForGroupV281(g,batchUsed)|需要进一步测试|
-|src/script/00.js:5464|o|overlays.get(g.id)|需要进一步测试|
-|src/script/00.js:5467|hint|o.querySelector('.r-hint')|需要进一步测试|
-|src/script/00.js:5474|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:5476|o|c.querySelector('.card-item-roulette')|需要进一步测试|
-|src/script/00.js:5489|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:5495|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:5503|last|0|需要进一步测试|
-|src/script/00.js:5503|total|3600|需要进一步测试|
-|src/script/00.js:5506|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
-|src/script/00.js:5506|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
-|src/script/00.js:5507|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
-|src/script/00.js:5509|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:5510|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
-|src/script/00.js:5511|cap|document.getElementById('handItemCapsule')|需要进一步测试|
-|src/script/00.js:5511|name|document.getElementById('handItemDrawName')|需要进一步测试|
-|src/script/00.js:5518|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:5520|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
-|src/script/00.js:5524|slot|live.inventory.length-1|需要进一步测试|
-|src/script/00.js:5556|arr|state.groups.filter(g=>g.id!==caster.id && Number(g.score)>=0)|需要进一步测试|
-|src/script/00.js:5561|amount|Math.round(Math.max(0,Number(target.score)／／0)*frac)|需要进一步测试|
-|src/script/00.js:5570|it|g.inventory[index]|需要进一步测试|
-|src/script/00.js:5576|_v282UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:5578|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:5578|it|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:5578|key|it?.key|需要进一步测试|
-|src/script/00.js:5590|t|v282RandomOther(g)|需要进一步测试|
-|src/script/00.js:5595|t|v282RandomOther(g)|需要进一步测试|
-|src/script/00.js:5602|r|ranking()|需要进一步测试|
-|src/script/00.js:5602|p|r.findIndex(x=>x.id===g.id)|需要进一步测试|
-|src/script/00.js:5602|targets|[r[p-1],r[p+1]].filter(x=>x&&Number(x.score)>=0)|需要进一步测试|
-|src/script/00.js:5620|keys|Object.keys(ITEM_DEFS)|需要进一步测试|
-|src/script/00.js:5631|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
-|src/script/00.js:5636|overlays|new Map()|需要进一步测试|
-|src/script/00.js:5636|start|performance.now()|需要进一步测试|
-|src/script/00.js:5636|total|3600|需要进一步测试|
-|src/script/00.js:5638|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:5640|o|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5644|lastUpdate|new Map()|需要进一步测试|
-|src/script/00.js:5646|t|Math.min(1,(now-start)/total)|需要进一步测试|
-|src/script/00.js:5646|interval|72+300*Math.pow(t,2.35)|需要进一步测试|
-|src/script/00.js:5648|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
-|src/script/00.js:5656|batchUsed|new Set()|需要进一步测试|
-|src/script/00.js:5658|k|pickItemForGroupV281(g,batchUsed)|需要进一步测试|
-|src/script/00.js:5661|o|overlays.get(g.id)|需要进一步测试|
-|src/script/00.js:5662|h|o.querySelector('.r-hint')|需要进一步测试|
-|src/script/00.js:5668|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:5669|o|c.querySelector('.card-item-roulette')|需要进一步测试|
-|src/script/00.js:5679|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
-|src/script/00.js:5684|box|document.getElementById('handRewardBox')|需要进一步测试|
-|src/script/00.js:5691|last|0|需要进一步测试|
-|src/script/00.js:5691|total|3600|需要进一步测试|
-|src/script/00.js:5694|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
-|src/script/00.js:5694|interval|72+300*Math.pow(t,2.35)|需要进一步测试|
-|src/script/00.js:5695|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
-|src/script/00.js:5697|k|roulettePreviewPickV282()|需要进一步测试|
-|src/script/00.js:5698|cap|document.getElementById('handItemCapsule')|需要进一步测试|
-|src/script/00.js:5698|name|document.getElementById('handItemDrawName')|需要进一步测试|
-|src/script/00.js:5704|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
-|src/script/00.js:5706|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
-|src/script/00.js:5710|slot|live.inventory.length-1|需要进一步测试|
-|src/script/00.js:5722|_v282UseItemWithIce|legacyUseItem|需要进一步测试|
-|src/script/00.js:5724|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:5738|ITEM_ORDER_V283|[  'green','triple_green','red','triple_red','spiny',  'banana','triple_banana','horn','bobomb','hammer',  'coin','coin_shell','question','mushroom','triple_mus|需要进一步测试|
-|src/script/00.js:5751|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5755|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
-|src/script/00.js:5764|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
-|src/script/00.js:5765|roots|[...document.querySelectorAll('.god-item-manager,.item-god-manager,.god-item-grid')]|需要进一步测试|
-|src/script/00.js:5766|root|roots.find(x=>x.closest('.modal,.group-modal,.vista-window'))／／roots[0]|需要进一步测试|
-|src/script/00.js:5768|tactical|document.querySelector('.group-modal .tactical-tab-content,.group-modal [data-tab-content="items"],#groupModal .tactical-items')|需要进一步测试|
-|src/script/00.js:5777|all|[...document.querySelectorAll('body *')]|需要进一步测试|
-|src/script/00.js:5778|title|all.find(el=>el.children.length===0 && /上帝模式.*强制道具管理/.test(el.textContent／／''))|需要进一步测试|
-|src/script/00.js:5780|box|title.nextElementSibling|需要进一步测试|
-|src/script/00.js:5789|headings|[...document.querySelectorAll('h1,h2,h3,.about-title,.section-title')]|需要进一步测试|
-|src/script/00.js:5790|h|headings.find(x=>/22\s*种道具百科／26\s*种道具百科/.test(x.textContent／／''))|需要进一步测试|
-|src/script/00.js:5793|host|h.nextElementSibling|需要进一步测试|
-|src/script/00.js:5796|parent|h.parentElement|需要进一步测试|
-|src/script/00.js:5797|candidates|[...parent.children]|需要进一步测试|
-|src/script/00.js:5798|start|candidates.indexOf(h)+1|需要进一步测试|
-|src/script/00.js:5799|cards|candidates.slice(start).filter(x=>x.matches?.('.guide-block,.item-guide-card,.about-item-card,.encyclopedia-item') ／／ x.querySelector?.('b,strong'))|需要进一步测试|
-|src/script/00.js:5803|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5803|card|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5810|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5819|existingText|document.body.innerText／／''|需要进一步测试|
-|src/script/00.js:5820|about|document.querySelector('#aboutModal,.about-modal,#aboutWindow,.about-window')／／document.body|需要进一步测试|
-|src/script/00.js:5821|title|[...about.querySelectorAll('h1,h2,h3')].find(x=>/26\s*种道具百科/.test(x.textContent／／''))|需要进一步测试|
-|src/script/00.js:5823|parent|title.parentElement|需要进一步测试|
-|src/script/00.js:5825|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5827|card|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5835|setting|document.querySelector('#view-settings')／／document|需要进一步测试|
-|src/script/00.js:5836|labels|[...setting.querySelectorAll('*')].filter(x=>x.children.length===0 && /道具.*图标／自定义道具/.test(x.textContent／／''))|需要进一步测试|
-|src/script/00.js:5837|anchor|labels[0]|需要进一步测试|
-|src/script/00.js:5839|region|anchor.parentElement?.parentElement／／anchor.parentElement|需要进一步测试|
-|src/script/00.js:5841|txt|region.innerText／／''|需要进一步测试|
-|src/script/00.js:5843|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5844|row|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5856|_v283OpenGroupModal|openGroupModal|需要进一步测试|
-|src/script/00.js:5857|r|_v283OpenGroupModal.call(this,gid,...a)|需要进一步测试|
-|src/script/00.js:5860|_v283RenderGroupModal|renderGroupModal|需要进一步测试|
-|src/script/00.js:5861|r|_v283RenderGroupModal.apply(this,a)|需要进一步测试|
-|src/script/00.js:5861|gid|state.activeModalGroupId／／activeEditingGroupId|需要进一步测试|
-|src/script/00.js:5865|_v283OpenAbout|typeof openAboutModal==='function'?openAboutModal:null|需要进一步测试|
-|src/script/00.js:5866|r|_v283OpenAbout.apply(this,a)|需要进一步测试|
-|src/script/00.js:5902|_v284RenderAbout|renderAbout|需要进一步测试|
-|src/script/00.js:5904|r|_v284RenderAbout(tab)|需要进一步测试|
-|src/script/00.js:5906|m|document.getElementById('aboutMain')|需要进一步测试|
-|src/script/00.js:5909|txt|m.innerText／／''|需要进一步测试|
-|src/script/00.js:5911|d|ITEM_DEFS[k]|需要进一步测试|
-|src/script/00.js:5913|el|document.createElement('div')|需要进一步测试|
-|src/script/00.js:5927|COMMUNISM_MODE_KEY|'politics_communism_mode'|需要进一步测试|
-|src/script/00.js:5937|on|isCommunismMode()|需要进一步测试|
-|src/script/00.js:5942|t|(el.textContent／／'').trim()|需要进一步测试|
-|src/script/00.js:5943|oc|el.getAttribute('onclick')／／''|需要进一步测试|
-|src/script/00.js:5944|itemOnly|/道具抽取／抽取道具／道具百科／道具与图标/.test(t) ／／       /globalItemDraw／openItemEncyclopedia/.test(oc)|需要进一步测试|
-|src/script/00.js:5960|_v291GlobalItemDraw|globalItemDraw|需要进一步测试|
-|src/script/00.js:5965|_v291UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:5971|_v291OpenItemWindow|openItemWindow|需要进一步测试|
-|src/script/00.js:5980|card|document.getElementById('communismModeSetting')|需要进一步测试|
-|src/script/00.js:5981|pane|document.getElementById('settingsV26_function')|需要进一步测试|
-|src/script/00.js:5998|cb|card.querySelector('#communismModeToggle')|需要进一步测试|
-|src/script/00.js:6009|n|Number(value)／／0|需要进一步测试|
-|src/script/00.js:6010|abs|Math.abs(n)|需要进一步测试|
-|src/script/00.js:6013|sign|n<0?'-':''|需要进一步测试|
-|src/script/00.js:6014|a|Math.abs(n)|需要进一步测试|
-|src/script/00.js:6016|v|a/100000000|需要进一步测试|
-|src/script/00.js:6019|v|a/10000|需要进一步测试|
-|src/script/00.js:6033|previousUseItemV299|legacyUseItem|需要进一步测试|
-|src/script/00.js:6036|type|g?.itemEffect?.type|需要进一步测试|
-|src/script/00.js:6038|def|ITEM_DEFS[type]|需要进一步测试|
-|src/script/00.js:6048|g|state.groups.find(x => x.id === groupId)|需要进一步测试|
-|src/script/00.js:6049|it|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:6050|nextKey|it?.key|需要进一步测试|
-|src/script/00.js:6051|nextDef|nextKey ? ITEM_DEFS[nextKey] : null|需要进一步测试|
-|src/script/00.js:6058|active|activePersistentEffect(g)|需要进一步测试|
-|src/script/00.js:6083|previousUseItemV2113|legacyUseItem|需要进一步测试|
-|src/script/00.js:6084|EXT|new Set(['feather','fire_flower','ice_flower','boomerang_flower'])|需要进一步测试|
-|src/script/00.js:6088|k||需要进一步测试|
-|src/script/00.js:6095|it|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:6102|pool|state.groups.filter(x=>x.id!==g.id && eligibleForItems(x))|需要进一步测试|
-|src/script/00.js:6108|amount|Math.round(Math.max(0,Number(target.score)／／0)/denom)|需要进一步测试|
-|src/script/00.js:6114|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:6115|it|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:6116|key|it?.key|需要进一步测试|
-|src/script/00.js:6141|used|false|需要进一步测试|
-|src/script/00.js:6141|targetText|''|需要进一步测试|
-|src/script/00.js:6151|t|randomTargetV2113(g)|需要进一步测试|
-|src/script/00.js:6160|t|randomTargetV2113(g)|需要进一步测试|
-|src/script/00.js:6162|result|attackFractionV2113(g,t,10,key)|需要进一步测试|
-|src/script/00.js:6173|r|ranking()|需要进一步测试|
-|src/script/00.js:6173|p|r.findIndex(x=>x.id===g.id)|需要进一步测试|
-|src/script/00.js:6174|targets|[r[p-1],r[p+1]].filter(x=>x && eligibleForItems(x))|需要进一步测试|
-|src/script/00.js:6259|card|battleCard(groupId)|需要进一步测试|
-|src/script/00.js:6264|cls|attackHitClassV2116(key)|需要进一步测试|
-|src/script/00.js:6270|badge|document.createElement('div')|需要进一步测试|
-|src/script/00.js:6272|d|ITEM_DEFS[key]|需要进一步测试|
-|src/script/00.js:6299|type|target?.itemEffect?.type|需要进一步测试|
-|src/script/00.js:6302|name|ITEM_DEFS[type]?.name／／'持续状态'|需要进一步测试|
-|src/script/00.js:6307|ix|target.inventory.findIndex(x=>x.key===type)|需要进一步测试|
-|src/script/00.js:6323|before|Number(target.score)／／0|需要进一步测试|
-|src/script/00.js:6341|_v2116ShowItemUseFx|showItemUseFx|需要进一步测试|
-|src/script/00.js:6353|sample|itemDropWeights(12,24)|需要进一步测试|
-|src/script/00.js:6354|missing|Object.keys(ITEM_DEFS).filter(k=>!(k in sample))|需要进一步测试|
-|src/script/00.js:6371|main|it／／g?.inventory?.[0]|需要进一步测试|
-|src/script/00.js:6381|it|g?.inventory?.[index]|需要进一步测试|
-|src/script/00.js:6387|reason|Reliability.validateItem(state,g,index,isCommunismMode())|需要进一步测试|
-|src/script/00.js:6394|_v2120UseItem|legacyUseItem|需要进一步测试|
-|src/script/00.js:6396|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
-|src/script/00.js:6401|main|g.inventory?.[0]|需要进一步测试|
-|src/script/00.js:6408|main|g.inventory?.[0]|需要进一步测试|
-|src/script/00.js:6426|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
-|src/script/00.js:6433|role|g.inventory.length===1?'主要道具':'次要道具'|需要进一步测试|
-|src/script/00.js:6438|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
-|src/script/00.js:6450|_v2120RenderItemWindow|renderItemWindow|需要进一步测试|
-|src/script/00.js:6453|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
-|src/script/00.js:6454|body|document.getElementById('itemWindowBody')|需要进一步测试|
-|src/script/00.js:6457|cards|[0,1,2].map(i=>{     const it=g.inventory[i];     const role=queueRoleTextV2120(i);     if(!it){       return <div class="item-big queue-item-card ${i===0?'que|需要进一步测试|
-|src/script/00.js:6458|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:6459|role|queueRoleTextV2120(i)|需要进一步测试|
-|src/script/00.js:6468|d|ITEM_DEFS[it.key]|需要进一步测试|
-|src/script/00.js:6469|st|queueUseStateV2120(g,i)|需要进一步测试|
-|src/script/00.js:6470|active|isQueuePersistentActiveV2120(g,it)|需要进一步测试|
-|src/script/00.js:6490|admin|document.createElement('div')|需要进一步测试|
-|src/script/00.js:6502|_v2120EnhanceItemCards|enhanceItemCards|需要进一步测试|
-|src/script/00.js:6503|queueMainVisualCacheV2120|new Map()|需要进一步测试|
-|src/script/00.js:6507|card|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
-|src/script/00.js:6512|main|g.inventory?.[0]|需要进一步测试|
-|src/script/00.js:6515|slots|[...card.querySelectorAll('.item-slot')]|需要进一步测试|
-|src/script/00.js:6517|slot|slots[i]|需要进一步测试|
-|src/script/00.js:6518|it|g.inventory[i]|需要进一步测试|
-|src/script/00.js:6521|active|isQueuePersistentActiveV2120(g,it)|需要进一步测试|
-|src/script/00.js:6531|currentMain|main?${main.key}:${main.acquiredAt／／0}:''|需要进一步测试|
-|src/script/00.js:6532|prev|queueMainVisualCacheV2120.get(g.id)|需要进一步测试|
-|src/script/00.js:6542|_v2120HandUseNewItem|handUseNewItem|需要进一步测试|
-|src/script/00.js:6544|gid|handItemDrawGroupId|需要进一步测试|
-|src/script/00.js:6545|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:4730|o|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4731|timer|setInterval(()=>eligible.forEach(g=>{const o=overlays.get(g.id);if(!o)return;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const k=weightedPick(itemDropWe|需要进一步测试|
+|src/script/00.js:4731|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:4731|r|ranking()|需要进一步测试|
+|src/script/00.js:4731|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
+|src/script/00.js:4731|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:4732|k|drawItemForGroup(g)|需要进一步测试|
+|src/script/00.js:4732|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:4733|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:4740|box|document.getElementById('v2ItemEncyclopedia')|需要进一步测试|
+|src/script/00.js:4741|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:4744|f|e.target.files?.[0]|需要进一步测试|
+|src/script/00.js:4744|rd|new FileReader()|需要进一步测试|
+|src/script/00.js:4747|blob|new Blob([JSON.stringify({version:1,icons:state.itemGlobal.customIcons},null,2)],{type:'application/json'})|需要进一步测试|
+|src/script/00.js:4747|a|document.createElement('a')|需要进一步测试|
+|src/script/00.js:4748|f|e.target.files?.[0]|需要进一步测试|
+|src/script/00.js:4748|rd|new FileReader()|需要进一步测试|
+|src/script/00.js:4748|x|JSON.parse(rd.result)|需要进一步测试|
+|src/script/00.js:4752|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
+|src/script/00.js:4753|tabs|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4754|item|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4759|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
+|src/script/00.js:4759|item|document.getElementById('v2ItemPane')|需要进一步测试|
+|src/script/00.js:4762|titles|[...sc.querySelectorAll('.setting-section-title')]|需要进一步测试|
+|src/script/00.js:4769|m|document.getElementById('aboutMain')|需要进一步测试|
+|src/script/00.js:4776|_v2RenderItemWindow|renderItemWindow|需要进一步测试|
+|src/script/00.js:4776|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
+|src/script/00.js:4776|body|document.getElementById('itemWindowBody')|需要进一步测试|
+|src/script/00.js:4776|d|document.createElement('div')|需要进一步测试|
+|src/script/00.js:4777|g|state.groups.find(x=>x.id===id)|需要进一步测试|
+|src/script/00.js:4778|g|state.groups.find(x=>x.id===id)|需要进一步测试|
+|src/script/00.js:4781|_v2Enhance|enhanceItemCards|需要进一步测试|
+|src/script/00.js:4781|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:4781|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:4781|charge|s.querySelector('.charges')?.outerHTML／／''|需要进一步测试|
+|src/script/00.js:4782|_v2RenderItemWindowIcons|renderItemWindow|需要进一步测试|
+|src/script/00.js:4782|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
+|src/script/00.js:4782|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:4785|_v2Judge|legacyJudgeRound|需要进一步测试|
+|src/script/00.js:4785|was|state.roundActive&&!state.evaluated|需要进一步测试|
+|src/script/00.js:4790|_v2SwitchView|switchView|需要进一步测试|
+|src/script/00.js:4795|handItemDrawTimer|null|需要进一步测试|
+|src/script/00.js:4795|handItemDrawFinishTimer|null|需要进一步测试|
+|src/script/00.js:4795|handItemDrawGroupId|null|需要进一步测试|
+|src/script/00.js:4795|handItemPendingKey|null|需要进一步测试|
+|src/script/00.js:4795|handItemDrawStartedAt|0|需要进一步测试|
+|src/script/00.js:4800|wasPending|handItemDrawGroupId!=null && handItemPendingKey==null|需要进一步测试|
+|src/script/00.js:4805|_v21CloseHandRaise|closeHandRaise|需要进一步测试|
+|src/script/00.js:4808|_v21SelectHandGroup|selectHandGroup|需要进一步测试|
+|src/script/00.js:4814|_v21JudgeHandRaise|judgeHandRaise|需要进一步测试|
+|src/script/00.js:4819|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:4820|btn|[...document.querySelectorAll('#handRewardBox button')].find(b=>b.textContent.includes('抽取道具'))|需要进一步测试|
+|src/script/00.js:4830|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:4837|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:4846|tick|()=>{     const live=state.groups.find(x=>x.id===handItemDrawGroupId); if(!live)return;     const r=ranking(),pos=r.findIndex(x=>x.id===live.id)+1;     const k=|需要进一步测试|
+|src/script/00.js:4847|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:4848|r|ranking()|需要进一步测试|
+|src/script/00.js:4848|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
+|src/script/00.js:4849|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:4850|cap|document.getElementById('handItemCapsule')|需要进一步测试|
+|src/script/00.js:4850|name|document.getElementById('handItemDrawName')|需要进一步测试|
+|src/script/00.js:4850|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
+|src/script/00.js:4859|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:4861|r|ranking()|需要进一步测试|
+|src/script/00.js:4861|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
+|src/script/00.js:4862|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:4869|slot|live.inventory.findIndex(x=>x.key===k && x.acquiredAt===Math.max(...live.inventory.filter(y=>y.key===k).map(y=>y.acquiredAt)))|需要进一步测试|
+|src/script/00.js:4870|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:4885|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:4890|gid|handItemDrawGroupId|需要进一步测试|
+|src/script/00.js:4890|k|handItemPendingKey|需要进一步测试|
+|src/script/00.js:4891|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:4893|idx|g.inventory.map(x=>x.key).lastIndexOf(k)|需要进一步测试|
+|src/script/00.js:4899|cards|[...document.querySelectorAll('#itemWindowBody .item-card')]|需要进一步测试|
+|src/script/00.js:4908|r|ranking()|需要进一步测试|
+|src/script/00.js:4908|i|r.findIndex(g=>g.id===gid)|需要进一步测试|
+|src/script/00.js:4908|names|[]|需要进一步测试|
+|src/script/00.js:4909|add|x=>{if(x&&x.id!==gid&&!names.includes(x.name))names.push(x.name)}|需要进一步测试|
+|src/script/00.js:4924|useItemBeforeVisualDispatch|legacyUseItem|需要进一步测试|
+|src/script/00.js:4926|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:4926|before|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:4926|key|before?.key|需要进一步测试|
+|src/script/00.js:4927|beforeSnapshot|JSON.stringify({inventory:g?.inventory／／[],effect:g?.itemEffect／／null,score:g?.score})|需要进一步测试|
+|src/script/00.js:4928|result|useItemBeforeVisualDispatch.call(this,groupId,index,...rest)|需要进一步测试|
+|src/script/00.js:4929|g2|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:4930|afterSnapshot|JSON.stringify({inventory:g2?.inventory／／[],effect:g2?.itemEffect／／null,score:g2?.score})|需要进一步测试|
+|src/script/00.js:4944|reader|new FileReader()|需要进一步测试|
+|src/script/00.js:4946|img|new Image()|需要进一步测试|
+|src/script/00.js:4948|size|384|需要进一步测试|
+|src/script/00.js:4948|canvas|document.createElement('canvas')|需要进一步测试|
+|src/script/00.js:4949|ctx|canvas.getContext('2d')|需要进一步测试|
+|src/script/00.js:4950|pad|34|需要进一步测试|
+|src/script/00.js:4950|max|size-pad*2|需要进一步测试|
+|src/script/00.js:4951|scale|Math.min(max/img.naturalWidth,max/img.naturalHeight,1.8)|需要进一步测试|
+|src/script/00.js:4952|w|Math.max(1,img.naturalWidth*scale)|需要进一步测试|
+|src/script/00.js:4952|h|Math.max(1,img.naturalHeight*scale)|需要进一步测试|
+|src/script/00.js:4963|f|e.target.files?.[0]|需要进一步测试|
+|src/script/00.js:4974|icon|o.querySelector('.r-icon')|需要进一步测试|
+|src/script/00.js:4974|name|o.querySelector('.r-name')|需要进一步测试|
+|src/script/00.js:4986|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
+|src/script/00.js:4991|overlays|new Map()|需要进一步测试|
+|src/script/00.js:4991|start|performance.now()|需要进一步测试|
+|src/script/00.js:4991|total|3600|需要进一步测试|
+|src/script/00.js:4993|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:4995|o|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5000|lastUpdate|new Map()|需要进一步测试|
+|src/script/00.js:5000|currentKey|new Map()|需要进一步测试|
+|src/script/00.js:5002|t|Math.min(1,(now-start)/total)|需要进一步测试|
+|src/script/00.js:5004|interval|80 + 280*Math.pow(t,2.25)|需要进一步测试|
+|src/script/00.js:5006|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
+|src/script/00.js:5009|r|ranking()|需要进一步测试|
+|src/script/00.js:5009|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
+|src/script/00.js:5010|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:5017|r|ranking()|需要进一步测试|
+|src/script/00.js:5017|pos|r.findIndex(x=>x.id===g.id)+1|需要进一步测试|
+|src/script/00.js:5018|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:5019|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:5022|hint|o.querySelector('.r-hint')|需要进一步测试|
+|src/script/00.js:5028|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:5029|o|c.querySelector('.card-item-roulette')|需要进一步测试|
+|src/script/00.js:5039|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:5045|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:5054|last|0|需要进一步测试|
+|src/script/00.js:5054|raf|0|需要进一步测试|
+|src/script/00.js:5054|total|3600|需要进一步测试|
+|src/script/00.js:5058|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
+|src/script/00.js:5058|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
+|src/script/00.js:5059|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
+|src/script/00.js:5061|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:5062|r|ranking()|需要进一步测试|
+|src/script/00.js:5062|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
+|src/script/00.js:5062|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:5063|cap|document.getElementById('handItemCapsule')|需要进一步测试|
+|src/script/00.js:5063|name|document.getElementById('handItemDrawName')|需要进一步测试|
+|src/script/00.js:5069|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:5071|r|ranking()|需要进一步测试|
+|src/script/00.js:5071|pos|r.findIndex(x=>x.id===live.id)+1|需要进一步测试|
+|src/script/00.js:5071|k|weightedPick(itemDropWeights(pos,r.length))|需要进一步测试|
+|src/script/00.js:5075|slot|live.inventory.findIndex(x=>x===live.inventory[live.inventory.length-1])|需要进一步测试|
+|src/script/00.js:5090|wasPending|handItemDrawGroupId!=null&&handItemPendingKey==null|需要进一步测试|
+|src/script/00.js:5097|CARD_ITEM_FX_CLASS|{  green_shell:'cfx-green',triple_green:'cfx-green',  red_shell:'cfx-red',triple_red:'cfx-red',  spiny_shell:'cfx-spiny',  banana:'cfx-banana',triple_banana:'cf|需要进一步测试|
+|src/script/00.js:5109|CARD_HIT_COLOR|{  green_shell:'#22c55e',triple_green:'#22c55e',red_shell:'#ef4444',triple_red:'#ef4444',  spiny_shell:'#3b82f6',banana:'#eab308',triple_banana:'#eab308',super_|需要进一步测试|
+|src/script/00.js:5123|card|battleCard(gid)|需要进一步测试|
+|src/script/00.js:5123|d|ITEM_DEFS[key]|需要进一步测试|
+|src/script/00.js:5126|b|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5133|card|battleCard(id)|需要进一步测试|
+|src/script/00.js:5141|r|ranking()|需要进一步测试|
+|src/script/00.js:5141|i|r.findIndex(g=>g.id===gid)|需要进一步测试|
+|src/script/00.js:5141|ids|[]|需要进一步测试|
+|src/script/00.js:5141|add|g=>{if(g&&g.id!==gid&&!ids.includes(g.id))ids.push(g.id)}|需要进一步测试|
+|src/script/00.js:5153|_v25ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:5158|targets|cardFxTargets(key,casterId)|需要进一步测试|
+|src/script/00.js:5159|beneficial|['coin_shell','question_block'].includes(key)|需要进一步测试|
+|src/script/00.js:5170|V26_HISTORY_KEY|'politics_history_stack_v26'|需要进一步测试|
+|src/script/00.js:5173|hs|STORAGE.getJSON(V26_HISTORY_KEY,[])|需要进一步测试|
+|src/script/00.js:5197|ITEM_FX_SOUND_SLOTS|[  {id:'item_draw_start',name:'道具抽取·启动',desc:'开始轮盘时'},  {id:'item_draw_tick',name:'道具抽取·滚动刻度',desc:'轮盘滚动过程中'},  {id:'item_draw_reveal',name:'道具抽取·定格',desc:'最终道具|需要进一步测试|
+|src/script/00.js:5209|box|document.getElementById('itemFxSoundListV26')|需要进一步测试|
+|src/script/00.js:5211|custom|!!customFxBuffers[s.id]／／hasSound('fx_'+s.id)|需要进一步测试|
+|src/script/00.js:5221|_v26ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:5223|_v26TinyDefense|tinyDefenseToast|需要进一步测试|
+|src/script/00.js:5226|n|0|需要进一步测试|
+|src/script/00.js:5227|timer|setInterval(()=>{if(n++<13)playSound('item_draw_tick');else clearInterval(timer)},Math.max(150,ms/15))|需要进一步测试|
+|src/script/00.js:5230|_v26GlobalDraw|globalItemDraw|需要进一步测试|
+|src/script/00.js:5231|_v26HandDraw|handDrawItem|需要进一步测试|
+|src/script/00.js:5234|UI_ICON_TARGETS|[  ['nav_welcome','欢迎','[data-view="welcome"]','🏠'],['nav_battle','比赛','[data-view="battle"]','⚔️'],  ['nav_history','历史','[data-view="history"]','📜'],['nav_a|需要进一步测试|
+|src/script/00.js:5243|pendingUiIconV26|null|需要进一步测试|
+|src/script/00.js:5246|map|uiIconsV26()|需要进一步测试|
+|src/script/00.js:5248|el|document.querySelector(sel)|需要进一步测试|
+|src/script/00.js:5250|data|Reliability.safeImage(map[id])|需要进一步测试|
+|src/script/00.js:5252|template|document.createElement('template')|需要进一步测试|
+|src/script/00.js:5254|text|template.innerHTML.trim()／／escapeHtml(label)|需要进一步测试|
+|src/script/00.js:5261|f|document.getElementById('uiIconInputV26')|需要进一步测试|
+|src/script/00.js:5263|f|e.target.files?.[0]|需要进一步测试|
+|src/script/00.js:5264|m|uiIconsV26()|需要进一步测试|
+|src/script/00.js:5266|m|uiIconsV26()|需要进一步测试|
+|src/script/00.js:5268|box|document.getElementById('uiIconManagerV26')|需要进一步测试|
+|src/script/00.js:5268|m|uiIconsV26()|需要进一步测试|
+|src/script/00.js:5274|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
+|src/script/00.js:5279|original|[...sc.children]|需要进一步测试|
+|src/script/00.js:5280|panes|{function:document.createElement('div'),sound:document.createElement('div'),data:document.createElement('div'),items:document.createElement('div')}|需要进一步测试|
+|src/script/00.js:5282|mode|'function'|需要进一步测试|
+|src/script/00.js:5284|txt|el.textContent／／''|需要进一步测试|
+|src/script/00.js:5289|tabs|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5293|ui|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5294|item|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5295|fx|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5296|hidden|document.createElement('input')|需要进一步测试|
+|src/script/00.js:5303|sc|document.querySelector('#view-settings .settings-scroll')|需要进一步测试|
+|src/script/00.js:5314|sub|document.querySelector('#view-settings .fullview-sub')|需要进一步测试|
+|src/script/00.js:5322|h|(window.visualViewport&&window.visualViewport.height)／／window.innerHeight|需要进一步测试|
+|src/script/00.js:5347|programConfirmResolveV28|null|需要进一步测试|
+|src/script/00.js:5352|o|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5365|finish|v=>{if(!o.isConnected)return;o.remove();programConfirmResolveV28=null;resolve(v)}|需要进一步测试|
+|src/script/00.js:5369|key|e=>{if(!o.isConnected){document.removeEventListener('keydown',key);return}if(e.key==='Escape'){document.removeEventListener('keydown',key);finish(false)}else if|需要进一步测试|
+|src/script/00.js:5380|unanswered|state.groups.filter(g=>g.selectedOpt==='')|需要进一步测试|
+|src/script/00.js:5382|names|unanswered.map(g=>g.name).join('、')|需要进一步测试|
+|src/script/00.js:5383|ok|await programConfirmV28(       仍有 ${unanswered.length} 个小组尚未完成作答：${names}\n现在选定正确答案后，未作答小组将保持“未作答”状态。,       {title:'作答尚未完成',cancelText:'返回检查',okText:继续选择 ${|需要进一步测试|
+|src/script/00.js:5409|filtered|{}|需要进一步测试|
+|src/script/00.js:5411|n|Number(w)／／0|需要进一步测试|
+|src/script/00.js:5418|r|ranking()|需要进一步测试|
+|src/script/00.js:5418|pos|Math.max(1,r.findIndex(x=>x.id===g.id)+1)|需要进一步测试|
+|src/script/00.js:5419|weights|itemDropWeights(pos,r.length)|需要进一步测试|
+|src/script/00.js:5420|held|heldItemKeysV281(g)|需要进一步测试|
+|src/script/00.js:5423|k|weightedPickNoRepeatV281(weights,new Set([...batchUsed,...held]))|需要进一步测试|
+|src/script/00.js:5434|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
+|src/script/00.js:5439|overlays|new Map()|需要进一步测试|
+|src/script/00.js:5439|start|performance.now()|需要进一步测试|
+|src/script/00.js:5439|total|3600|需要进一步测试|
+|src/script/00.js:5441|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:5443|o|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5448|lastUpdate|new Map()|需要进一步测试|
+|src/script/00.js:5450|t|Math.min(1,(now-start)/total)|需要进一步测试|
+|src/script/00.js:5450|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
+|src/script/00.js:5452|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
+|src/script/00.js:5455|k|pickItemForGroupV281(g,new Set())|需要进一步测试|
+|src/script/00.js:5461|batchUsed|new Set()|需要进一步测试|
+|src/script/00.js:5463|k|pickItemForGroupV281(g,batchUsed)|需要进一步测试|
+|src/script/00.js:5467|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:5470|hint|o.querySelector('.r-hint')|需要进一步测试|
+|src/script/00.js:5477|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:5479|o|c.querySelector('.card-item-roulette')|需要进一步测试|
+|src/script/00.js:5492|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:5498|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:5506|last|0|需要进一步测试|
+|src/script/00.js:5506|total|3600|需要进一步测试|
+|src/script/00.js:5509|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
+|src/script/00.js:5509|interval|80+280*Math.pow(t,2.25)|需要进一步测试|
+|src/script/00.js:5510|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
+|src/script/00.js:5512|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:5513|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
+|src/script/00.js:5514|cap|document.getElementById('handItemCapsule')|需要进一步测试|
+|src/script/00.js:5514|name|document.getElementById('handItemDrawName')|需要进一步测试|
+|src/script/00.js:5521|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:5523|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
+|src/script/00.js:5527|slot|live.inventory.length-1|需要进一步测试|
+|src/script/00.js:5559|arr|state.groups.filter(g=>g.id!==caster.id && Number(g.score)>=0)|需要进一步测试|
+|src/script/00.js:5564|amount|Math.round(Math.max(0,Number(target.score)／／0)*frac)|需要进一步测试|
+|src/script/00.js:5573|it|g.inventory[index]|需要进一步测试|
+|src/script/00.js:5579|_v282UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:5581|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:5581|it|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:5581|key|it?.key|需要进一步测试|
+|src/script/00.js:5593|t|v282RandomOther(g)|需要进一步测试|
+|src/script/00.js:5598|t|v282RandomOther(g)|需要进一步测试|
+|src/script/00.js:5605|r|ranking()|需要进一步测试|
+|src/script/00.js:5605|p|r.findIndex(x=>x.id===g.id)|需要进一步测试|
+|src/script/00.js:5605|targets|[r[p-1],r[p+1]].filter(x=>x&&Number(x.score)>=0)|需要进一步测试|
+|src/script/00.js:5623|keys|Object.keys(ITEM_DEFS)|需要进一步测试|
+|src/script/00.js:5634|eligible|state.groups.filter(g=>eligibleForItems(g)&&g.inventory.length<3)|需要进一步测试|
+|src/script/00.js:5639|overlays|new Map()|需要进一步测试|
+|src/script/00.js:5639|start|performance.now()|需要进一步测试|
+|src/script/00.js:5639|total|3600|需要进一步测试|
+|src/script/00.js:5641|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:5643|o|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5647|lastUpdate|new Map()|需要进一步测试|
+|src/script/00.js:5649|t|Math.min(1,(now-start)/total)|需要进一步测试|
+|src/script/00.js:5649|interval|72+300*Math.pow(t,2.35)|需要进一步测试|
+|src/script/00.js:5651|prev|lastUpdate.get(g.id)／／0|需要进一步测试|
+|src/script/00.js:5659|batchUsed|new Set()|需要进一步测试|
+|src/script/00.js:5661|k|pickItemForGroupV281(g,batchUsed)|需要进一步测试|
+|src/script/00.js:5664|o|overlays.get(g.id)|需要进一步测试|
+|src/script/00.js:5665|h|o.querySelector('.r-hint')|需要进一步测试|
+|src/script/00.js:5671|c|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:5672|o|c.querySelector('.card-item-roulette')|需要进一步测试|
+|src/script/00.js:5682|g|state.groups.find(x=>x.id===handRaiseGroupId)|需要进一步测试|
+|src/script/00.js:5687|box|document.getElementById('handRewardBox')|需要进一步测试|
+|src/script/00.js:5694|last|0|需要进一步测试|
+|src/script/00.js:5694|total|3600|需要进一步测试|
+|src/script/00.js:5697|t|Math.min(1,(now-handItemDrawStartedAt)/total)|需要进一步测试|
+|src/script/00.js:5697|interval|72+300*Math.pow(t,2.35)|需要进一步测试|
+|src/script/00.js:5698|bar|document.getElementById('handItemProgressBar')|需要进一步测试|
+|src/script/00.js:5700|k|roulettePreviewPickV282()|需要进一步测试|
+|src/script/00.js:5701|cap|document.getElementById('handItemCapsule')|需要进一步测试|
+|src/script/00.js:5701|name|document.getElementById('handItemDrawName')|需要进一步测试|
+|src/script/00.js:5707|live|state.groups.find(x=>x.id===handItemDrawGroupId)|需要进一步测试|
+|src/script/00.js:5709|k|pickItemForGroupV281(live,new Set())|需要进一步测试|
+|src/script/00.js:5713|slot|live.inventory.length-1|需要进一步测试|
+|src/script/00.js:5725|_v282UseItemWithIce|legacyUseItem|需要进一步测试|
+|src/script/00.js:5727|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:5741|ITEM_ORDER_V283|[  'green','triple_green','red','triple_red','spiny',  'banana','triple_banana','horn','bobomb','hammer',  'coin','coin_shell','question','mushroom','triple_mus|需要进一步测试|
+|src/script/00.js:5754|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5758|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:5767|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:5768|roots|[...document.querySelectorAll('.god-item-manager,.item-god-manager,.god-item-grid')]|需要进一步测试|
+|src/script/00.js:5769|root|roots.find(x=>x.closest('.modal,.group-modal,.vista-window'))／／roots[0]|需要进一步测试|
+|src/script/00.js:5771|tactical|document.querySelector('.group-modal .tactical-tab-content,.group-modal [data-tab-content="items"],#groupModal .tactical-items')|需要进一步测试|
+|src/script/00.js:5780|all|[...document.querySelectorAll('body *')]|需要进一步测试|
+|src/script/00.js:5781|title|all.find(el=>el.children.length===0 && /上帝模式.*强制道具管理/.test(el.textContent／／''))|需要进一步测试|
+|src/script/00.js:5783|box|title.nextElementSibling|需要进一步测试|
+|src/script/00.js:5792|headings|[...document.querySelectorAll('h1,h2,h3,.about-title,.section-title')]|需要进一步测试|
+|src/script/00.js:5793|h|headings.find(x=>/22\s*种道具百科／26\s*种道具百科/.test(x.textContent／／''))|需要进一步测试|
+|src/script/00.js:5796|host|h.nextElementSibling|需要进一步测试|
+|src/script/00.js:5799|parent|h.parentElement|需要进一步测试|
+|src/script/00.js:5800|candidates|[...parent.children]|需要进一步测试|
+|src/script/00.js:5801|start|candidates.indexOf(h)+1|需要进一步测试|
+|src/script/00.js:5802|cards|candidates.slice(start).filter(x=>x.matches?.('.guide-block,.item-guide-card,.about-item-card,.encyclopedia-item') ／／ x.querySelector?.('b,strong'))|需要进一步测试|
+|src/script/00.js:5806|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5806|card|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5813|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5822|existingText|document.body.innerText／／''|需要进一步测试|
+|src/script/00.js:5823|about|document.querySelector('#aboutModal,.about-modal,#aboutWindow,.about-window')／／document.body|需要进一步测试|
+|src/script/00.js:5824|title|[...about.querySelectorAll('h1,h2,h3')].find(x=>/26\s*种道具百科/.test(x.textContent／／''))|需要进一步测试|
+|src/script/00.js:5826|parent|title.parentElement|需要进一步测试|
+|src/script/00.js:5828|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5830|card|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5838|setting|document.querySelector('#view-settings')／／document|需要进一步测试|
+|src/script/00.js:5839|labels|[...setting.querySelectorAll('*')].filter(x=>x.children.length===0 && /道具.*图标／自定义道具/.test(x.textContent／／''))|需要进一步测试|
+|src/script/00.js:5840|anchor|labels[0]|需要进一步测试|
+|src/script/00.js:5842|region|anchor.parentElement?.parentElement／／anchor.parentElement|需要进一步测试|
+|src/script/00.js:5844|txt|region.innerText／／''|需要进一步测试|
+|src/script/00.js:5846|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5847|row|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5859|_v283OpenGroupModal|openGroupModal|需要进一步测试|
+|src/script/00.js:5860|r|_v283OpenGroupModal.call(this,gid,...a)|需要进一步测试|
+|src/script/00.js:5863|_v283RenderGroupModal|renderGroupModal|需要进一步测试|
+|src/script/00.js:5864|r|_v283RenderGroupModal.apply(this,a)|需要进一步测试|
+|src/script/00.js:5864|gid|state.activeModalGroupId／／activeEditingGroupId|需要进一步测试|
+|src/script/00.js:5868|_v283OpenAbout|typeof openAboutModal==='function'?openAboutModal:null|需要进一步测试|
+|src/script/00.js:5869|r|_v283OpenAbout.apply(this,a)|需要进一步测试|
+|src/script/00.js:5905|_v284RenderAbout|renderAbout|需要进一步测试|
+|src/script/00.js:5907|r|_v284RenderAbout(tab)|需要进一步测试|
+|src/script/00.js:5909|m|document.getElementById('aboutMain')|需要进一步测试|
+|src/script/00.js:5912|txt|m.innerText／／''|需要进一步测试|
+|src/script/00.js:5914|d|ITEM_DEFS[k]|需要进一步测试|
+|src/script/00.js:5916|el|document.createElement('div')|需要进一步测试|
+|src/script/00.js:5930|COMMUNISM_MODE_KEY|'politics_communism_mode'|需要进一步测试|
+|src/script/00.js:5940|on|isCommunismMode()|需要进一步测试|
+|src/script/00.js:5945|t|(el.textContent／／'').trim()|需要进一步测试|
+|src/script/00.js:5946|oc|el.getAttribute('onclick')／／''|需要进一步测试|
+|src/script/00.js:5947|itemOnly|/道具抽取／抽取道具／道具百科／道具与图标/.test(t) ／／       /globalItemDraw／openItemEncyclopedia/.test(oc)|需要进一步测试|
+|src/script/00.js:5963|_v291GlobalItemDraw|globalItemDraw|需要进一步测试|
+|src/script/00.js:5968|_v291UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:5974|_v291OpenItemWindow|openItemWindow|需要进一步测试|
+|src/script/00.js:5983|card|document.getElementById('communismModeSetting')|需要进一步测试|
+|src/script/00.js:5984|pane|document.getElementById('settingsV26_function')|需要进一步测试|
+|src/script/00.js:6001|cb|card.querySelector('#communismModeToggle')|需要进一步测试|
+|src/script/00.js:6012|n|Number(value)／／0|需要进一步测试|
+|src/script/00.js:6013|abs|Math.abs(n)|需要进一步测试|
+|src/script/00.js:6016|sign|n<0?'-':''|需要进一步测试|
+|src/script/00.js:6017|a|Math.abs(n)|需要进一步测试|
+|src/script/00.js:6019|v|a/100000000|需要进一步测试|
+|src/script/00.js:6022|v|a/10000|需要进一步测试|
+|src/script/00.js:6036|previousUseItemV299|legacyUseItem|需要进一步测试|
+|src/script/00.js:6039|type|g?.itemEffect?.type|需要进一步测试|
+|src/script/00.js:6041|def|ITEM_DEFS[type]|需要进一步测试|
+|src/script/00.js:6051|g|state.groups.find(x => x.id === groupId)|需要进一步测试|
+|src/script/00.js:6052|it|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:6053|nextKey|it?.key|需要进一步测试|
+|src/script/00.js:6054|nextDef|nextKey ? ITEM_DEFS[nextKey] : null|需要进一步测试|
+|src/script/00.js:6061|active|activePersistentEffect(g)|需要进一步测试|
+|src/script/00.js:6086|previousUseItemV2113|legacyUseItem|需要进一步测试|
+|src/script/00.js:6087|EXT|new Set(['feather','fire_flower','ice_flower','boomerang_flower'])|需要进一步测试|
+|src/script/00.js:6091|k||需要进一步测试|
+|src/script/00.js:6098|it|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:6105|pool|state.groups.filter(x=>x.id!==g.id && eligibleForItems(x))|需要进一步测试|
+|src/script/00.js:6111|amount|Math.round(Math.max(0,Number(target.score)／／0)/denom)|需要进一步测试|
+|src/script/00.js:6117|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:6118|it|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:6119|key|it?.key|需要进一步测试|
+|src/script/00.js:6144|used|false|需要进一步测试|
+|src/script/00.js:6144|targetText|''|需要进一步测试|
+|src/script/00.js:6154|t|randomTargetV2113(g)|需要进一步测试|
+|src/script/00.js:6163|t|randomTargetV2113(g)|需要进一步测试|
+|src/script/00.js:6165|result|attackFractionV2113(g,t,10,key)|需要进一步测试|
+|src/script/00.js:6176|r|ranking()|需要进一步测试|
+|src/script/00.js:6176|p|r.findIndex(x=>x.id===g.id)|需要进一步测试|
+|src/script/00.js:6177|targets|[r[p-1],r[p+1]].filter(x=>x && eligibleForItems(x))|需要进一步测试|
+|src/script/00.js:6262|card|battleCard(groupId)|需要进一步测试|
+|src/script/00.js:6267|cls|attackHitClassV2116(key)|需要进一步测试|
+|src/script/00.js:6273|badge|document.createElement('div')|需要进一步测试|
+|src/script/00.js:6275|d|ITEM_DEFS[key]|需要进一步测试|
+|src/script/00.js:6302|type|target?.itemEffect?.type|需要进一步测试|
+|src/script/00.js:6305|name|ITEM_DEFS[type]?.name／／'持续状态'|需要进一步测试|
+|src/script/00.js:6310|ix|target.inventory.findIndex(x=>x.key===type)|需要进一步测试|
+|src/script/00.js:6326|before|Number(target.score)／／0|需要进一步测试|
+|src/script/00.js:6344|_v2116ShowItemUseFx|showItemUseFx|需要进一步测试|
+|src/script/00.js:6356|sample|itemDropWeights(12,24)|需要进一步测试|
+|src/script/00.js:6357|missing|Object.keys(ITEM_DEFS).filter(k=>!(k in sample))|需要进一步测试|
+|src/script/00.js:6374|main|it／／g?.inventory?.[0]|需要进一步测试|
+|src/script/00.js:6384|it|g?.inventory?.[index]|需要进一步测试|
+|src/script/00.js:6390|reason|Reliability.validateItem(state,g,index,isCommunismMode())|需要进一步测试|
+|src/script/00.js:6397|_v2120UseItem|legacyUseItem|需要进一步测试|
+|src/script/00.js:6399|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
+|src/script/00.js:6404|main|g.inventory?.[0]|需要进一步测试|
+|src/script/00.js:6411|main|g.inventory?.[0]|需要进一步测试|
+|src/script/00.js:6429|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:6436|role|g.inventory.length===1?'主要道具':'次要道具'|需要进一步测试|
+|src/script/00.js:6441|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
+|src/script/00.js:6453|_v2120RenderItemWindow|renderItemWindow|需要进一步测试|
+|src/script/00.js:6456|g|state.groups.find(x=>x.id===activeItemGroupId)|需要进一步测试|
+|src/script/00.js:6457|body|document.getElementById('itemWindowBody')|需要进一步测试|
+|src/script/00.js:6460|cards|[0,1,2].map(i=>{     const it=g.inventory[i];     const role=queueRoleTextV2120(i);     if(!it){       return <div class="item-big queue-item-card ${i===0?'que|需要进一步测试|
+|src/script/00.js:6461|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:6462|role|queueRoleTextV2120(i)|需要进一步测试|
+|src/script/00.js:6471|d|ITEM_DEFS[it.key]|需要进一步测试|
+|src/script/00.js:6472|st|queueUseStateV2120(g,i)|需要进一步测试|
+|src/script/00.js:6473|active|isQueuePersistentActiveV2120(g,it)|需要进一步测试|
+|src/script/00.js:6493|admin|document.createElement('div')|需要进一步测试|
+|src/script/00.js:6505|_v2120EnhanceItemCards|enhanceItemCards|需要进一步测试|
+|src/script/00.js:6506|queueMainVisualCacheV2120|new Map()|需要进一步测试|
+|src/script/00.js:6510|card|document.querySelector(.group-row-card[data-group-id="${g.id}"])|需要进一步测试|
+|src/script/00.js:6515|main|g.inventory?.[0]|需要进一步测试|
+|src/script/00.js:6518|slots|[...card.querySelectorAll('.item-slot')]|需要进一步测试|
+|src/script/00.js:6520|slot|slots[i]|需要进一步测试|
+|src/script/00.js:6521|it|g.inventory[i]|需要进一步测试|
+|src/script/00.js:6524|active|isQueuePersistentActiveV2120(g,it)|需要进一步测试|
+|src/script/00.js:6534|currentMain|main?${main.key}:${main.acquiredAt／／0}:''|需要进一步测试|
+|src/script/00.js:6535|prev|queueMainVisualCacheV2120.get(g.id)|需要进一步测试|
+|src/script/00.js:6545|_v2120HandUseNewItem|handUseNewItem|需要进一步测试|
+|src/script/00.js:6547|gid|handItemDrawGroupId|需要进一步测试|
+|src/script/00.js:6548|g|state.groups.find(x=>x.id===gid)|需要进一步测试|
 |src/script/01.js:4|v213ForceRankSort|false|需要进一步测试|
 |src/script/01.js:5|v213ItemSortBusy|false|需要进一步测试|
 |src/script/01.js:6|v213SkipNextReorderAnimation|false|需要进一步测试|
@@ -2593,11 +2598,6 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/10.js:81|url|URL.createObjectURL(blob)|需要进一步测试|
 |src/script/10.js:82|a|document.createElement('a')|需要进一步测试|
 |src/script/10.js:85|itemFxCount|fxRecords.filter(r=>r.id.startsWith('fx_item_')).length|需要进一步测试|
-|src/script/10.js:101|_v2175RenderItemFxSoundListV26|renderItemFxSoundListV26|需要进一步测试|
-|src/script/10.js:105|box|document.getElementById('itemFxSoundListV26')|需要进一步测试|
-|src/script/10.js:108|bar|document.createElement('div')|需要进一步测试|
-|src/script/10.js:126|_v2175ShowSettingsV26|showSettingsV26|需要进一步测试|
-|src/script/10.js:128|r|_v2175ShowSettingsV26.call(this,which,...args)|需要进一步测试|
 |src/script/11.js:13|fxGainNodeV2176|null|需要进一步测试|
 |src/script/11.js:29|label|document.getElementById('sfxVolLabelV2176')|需要进一步测试|
 |src/script/11.js:33|node|getFxOutputV2176()|需要进一步测试|
@@ -3048,20 +3048,18 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/41.js:7|qp|document.querySelector('#quickPersonBackdropV218 .quick-person-head-v218 b')|需要进一步测试|
 |src/script/41.js:11|aboutInfo|document.querySelector('#aboutBackdrop [data-about="info"]')|需要进一步测试|
 |src/script/41.js:12|aboutGuide|document.querySelector('#aboutBackdrop [data-about="guide"]')|需要进一步测试|
-|src/script/41.js:17|sh|document.querySelector('#view-settings .fullview-header h2')|需要进一步测试|
-|src/script/41.js:18|ss|document.querySelector('#view-settings .fullview-sub')|需要进一步测试|
-|src/script/41.js:31|pickerTitle|document.querySelector('#pickerModal .picker-left-v2 h3')|需要进一步测试|
-|src/script/41.js:33|handTitle|document.querySelector('#handRaiseBackdrop .classroom-head b')|需要进一步测试|
-|src/script/41.js:35|memberTitle|document.querySelector('#memberSearchBackdrop .member-search-title')|需要进一步测试|
-|src/script/41.js:40|_v2187RenderAbout|renderAbout|需要进一步测试|
-|src/script/41.js:44|m|document.getElementById('aboutMain')|需要进一步测试|
-|src/script/41.js:76|_v2187OpenPwdModal|openPwdModal|需要进一步测试|
-|src/script/41.js:78|r|_v2187OpenPwdModal.apply(this,arguments)|需要进一步测试|
-|src/script/41.js:79|h|document.querySelector('#pwdModal h3')|需要进一步测试|
-|src/script/41.js:80|p|document.querySelector('#pwdModal p')|需要进一步测试|
-|src/script/41.js:81|ok|document.querySelector('#pwdModal .btn-primary')|需要进一步测试|
-|src/script/41.js:92|fn|window[name]|需要进一步测试|
-|src/script/41.js:95|r|fn.apply(this,args)|需要进一步测试|
+|src/script/41.js:27|pickerTitle|document.querySelector('#pickerModal .picker-left-v2 h3')|需要进一步测试|
+|src/script/41.js:29|handTitle|document.querySelector('#handRaiseBackdrop .classroom-head b')|需要进一步测试|
+|src/script/41.js:31|memberTitle|document.querySelector('#memberSearchBackdrop .member-search-title')|需要进一步测试|
+|src/script/41.js:36|_v2187RenderAbout|renderAbout|需要进一步测试|
+|src/script/41.js:40|m|document.getElementById('aboutMain')|需要进一步测试|
+|src/script/41.js:72|_v2187OpenPwdModal|openPwdModal|需要进一步测试|
+|src/script/41.js:74|r|_v2187OpenPwdModal.apply(this,arguments)|需要进一步测试|
+|src/script/41.js:75|h|document.querySelector('#pwdModal h3')|需要进一步测试|
+|src/script/41.js:76|p|document.querySelector('#pwdModal p')|需要进一步测试|
+|src/script/41.js:77|ok|document.querySelector('#pwdModal .btn-primary')|需要进一步测试|
+|src/script/41.js:88|fn|window[name]|需要进一步测试|
+|src/script/41.js:91|r|fn.apply(this,args)|需要进一步测试|
 |src/script/42.js:29|_v2189UseItem|legacyUseItem|需要进一步测试|
 |src/script/42.js:31|g|state.groups.find(x=>x.id===groupId)|需要进一步测试|
 |src/script/42.js:32|it|g?.inventory?.[index]|需要进一步测试|
@@ -3113,151 +3111,172 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/ui/desktop.js:24|archiveSort|"new"|需要进一步测试|
 |src/ui/desktop.js:25|lastWelcome|""|需要进一步测试|
 |src/ui/desktop.js:26|animations|new Set()|需要进一步测试|
-|src/ui/desktop.js:27|paths|{     home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",     battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",     history: "M3 12a9 9 0 1 0 3-7M3 3v6h6m3-2v5l3 2",     ar|需要进一步测试|
-|src/ui/desktop.js:82|a|el.animate(frames, {       duration: 240 / preferences.speed,       easing: "cubic-bezier(.2,.8,.2,1)",       ...options,     })|需要进一步测试|
-|src/ui/desktop.js:92|a||需要进一步测试|
-|src/ui/desktop.js:110|id|detail.groupId|需要进一步测试|
-|src/ui/desktop.js:111|card|id != null           ? $(#groupList [data-group-id="${CSS.escape(String(id))}"])           : null|需要进一步测试|
-|src/ui/desktop.js:131|viewportSignature|""|需要进一步测试|
-|src/ui/desktop.js:133|zoom|Number(getComputedStyle(document.body).zoom) ／／ 1|需要进一步测试|
-|src/ui/desktop.js:134|value|${innerWidth}/${innerHeight}/${zoom}|需要进一步测试|
-|src/ui/desktop.js:146|historyEntryPending|false|需要进一步测试|
-|src/ui/desktop.js:147|archiveEntryPending|false|需要进一步测试|
-|src/ui/desktop.js:151|m||需要进一步测试|
-|src/ui/desktop.js:160|dock|$(".bottom-dock")|需要进一步测试|
-|src/ui/desktop.js:177|host|$(#view-${name})|需要进一步测试|
-|src/ui/desktop.js:178|shift|preferences.motion === "full"           ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ／／             "0 0"           : "0 0"|需要进一步测试|
-|src/ui/desktop.js:199|track|$("#uiGroupTrack")|需要进一步测试|
-|src/ui/desktop.js:204|groups|state.groups ／／ []|需要进一步测试|
-|src/ui/desktop.js:205|sorted|[...groups].sort((a, b) => Number(b.score) - Number(a.score))|需要进一步测试|
-|src/ui/desktop.js:206|mask|Number(state.itemGlobal?.blooperUntil ／／ 0) > Date.now()|需要进一步测试|
-|src/ui/desktop.js:207|signature|JSON.stringify(         groups.map((g) => [           g.id,           g.name,           g.score,           g.color,           g.inventory,           g.itemEffec|需要进一步测试|
-|src/ui/desktop.js:222|x|track.scrollLeft|需要进一步测试|
-|src/ui/desktop.js:226|item|g.inventory?.[0]|需要进一步测试|
-|src/ui/desktop.js:227|states|Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                    |需要进一步测试|
-|src/ui/desktop.js:272|t|$("#uiGroupTrack")|需要进一步测试|
-|src/ui/desktop.js:274|overflow|t.scrollWidth > t.clientWidth + 2|需要进一步测试|
-|src/ui/desktop.js:280|visualSnapshot|new Map()|需要进一步测试|
-|src/ui/desktop.js:282|next|new Map()|需要进一步测试|
-|src/ui/desktop.js:283|g||需要进一步测试|
-|src/ui/desktop.js:284|current|{         main: g.inventory?.[0]?.key ／／ "",         inventory: JSON.stringify(g.inventory ／／ []),         effect: JSON.stringify(g.itemEffect ／／ null),        |需要进一步测试|
-|src/ui/desktop.js:290|prior|visualSnapshot.get(g.id)|需要进一步测试|
-|src/ui/desktop.js:320|dailySignature|""|需要进一步测试|
-|src/ui/desktop.js:322|host|$("#uiDailyGrid")|需要进一步测试|
-|src/ui/desktop.js:324|history|getSettlementHistory()|需要进一步测试|
-|src/ui/desktop.js:325|signature|M.dayIndex() +         JSON.stringify([           preferences.knowledge,           preferences.itemTip,           preferences.honors,           preferences.chal|需要进一步测试|
-|src/ui/desktop.js:338|knowledge|M.daily(         bank.knowledge.filter((x) => x.subject === preferences.subject),       )|需要进一步测试|
-|src/ui/desktop.js:341|quiz|M.daily(         bank.challenges.filter((x) => x.subject === preferences.subject),       )|需要进一步测试|
-|src/ui/desktop.js:344|keys|Object.keys(ITEM_DEFS)|需要进一步测试|
-|src/ui/desktop.js:345|key|M.daily(keys)|需要进一步测试|
-|src/ui/desktop.js:346|item|ITEM_DEFS[key]|需要进一步测试|
-|src/ui/desktop.js:347|last|history[0]|需要进一步测试|
-|src/ui/desktop.js:348|winner|last?.groups?.[0]|需要进一步测试|
-|src/ui/desktop.js:349|html|""|需要进一步测试|
-|src/ui/desktop.js:393|host|$("#historyListView")|需要进一步测试|
-|src/ui/desktop.js:408|next|historyStack[i + 1] ／／ state|需要进一步测试|
-|src/ui/desktop.js:409|diffs|M.differences(h, next)|需要进一步测试|
-|src/ui/desktop.js:410|[kind, glyph, label]|historyKind(h.desc)|需要进一步测试|
-|src/ui/desktop.js:411|changed|diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !=|需要进一步测试|
-|src/ui/desktop.js:441|index|Number(b.dataset.restore)|需要进一步测试|
-|src/ui/desktop.js:442|target|historyStack[index]|需要进一步测试|
-|src/ui/desktop.js:444|ok|await themeConfirm(             恢复到 ${target.time ／／ "未记录时间"}「${target.desc ／／ "未命名操作"}」之前？将恢复小组、积分、道具、持续状态与快照包含的回合字段，并丢弃此节点及其后 ${historyStack.length - index -|需要进一步测试|
-|src/ui/desktop.js:458|records|getSettlementHistory()|需要进一步测试|
-|src/ui/desktop.js:459|all|records       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))       .filter(         (g) =>           (typeof g.score === "number" ／／             (ty|需要进一步测试|
-|src/ui/desktop.js:467|best|all.length       ? Math.max(...all.map((g) => Number(g.score)))       : null|需要进一步测试|
-|src/ui/desktop.js:484|host|$("#settlementHistoryContainer")|需要进一步测试|
-|src/ui/desktop.js:486|list|records       .map((r, index) => ({ r, index }))       .filter(({ r }) =>         [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(|需要进一步测试|
-|src/ui/desktop.js:506|groups|Array.isArray(r.groups) ? r.groups : []|需要进一步测试|
-|src/ui/desktop.js:545|url|URL.createObjectURL(         new Blob([JSON.stringify(value, null, 2)], {           type: "application/json",         }),       )|需要进一步测试|
-|src/ui/desktop.js:550|a|document.createElement("a")|需要进一步测试|
-|src/ui/desktop.js:556|categories|[     ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],     ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],     ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"]|需要进一步测试|
-|src/ui/desktop.js:567|sc|$("#view-settings .settings-scroll")|需要进一步测试|
-|src/ui/desktop.js:569|shell|document.createElement("div")|需要进一步测试|
-|src/ui/desktop.js:573|sections|Object.fromEntries(       [...shell.querySelectorAll("[data-category-panel]")].map((p) => [         p.dataset.categoryPanel,         p,       ]),     )|需要进一步测试|
-|src/ui/desktop.js:579|pane||需要进一步测试|
-|src/ui/desktop.js:580|originalId|pane.id.replace("settingsV26_", "")|需要进一步测试|
-|src/ui/desktop.js:582|dest|"appearance"|需要进一步测试|
-|src/ui/desktop.js:583|el||需要进一步测试|
-|src/ui/desktop.js:584|txt|el.textContent ／／ ""|需要进一步测试|
-|src/ui/desktop.js:618|check|(key) =>       <input id="uiPref-${key}" data-pref="${key}" type="checkbox" ${preferences[key] ? "checked" : ""}>|需要进一步测试|
-|src/ui/desktop.js:663|danger|[...sections.data.querySelectorAll("button")].filter((b) =>       /resetAllScores／clear/.test(b.getAttribute("onclick") ／／ ""),     )|需要进一步测试|
-|src/ui/desktop.js:666|b||需要进一步测试|
-|src/ui/desktop.js:670|key||需要进一步测试|
-|src/ui/desktop.js:677|key|el.dataset.pref|需要进一步测试|
-|src/ui/desktop.js:694|next|M.validateBank(JSON.parse($("#uiBankEditor").value))|需要进一步测试|
-|src/ui/desktop.js:729|el|$("#uiPref-subject")|需要进一步测试|
-|src/ui/desktop.js:731|subjects|[       ...new Set([         "politics",         ...bank.knowledge.map((x) => x.subject),         ...bank.challenges.map((x) => x.subject),       ]),     ]|需要进一步测试|
-|src/ui/desktop.js:750|aliases|{ function: "rules" }|需要进一步测试|
-|src/ui/desktop.js:768|right|$(".dock-right")|需要进一步测试|
-|src/ui/desktop.js:769|details|document.createElement("details")|需要进一步测试|
-|src/ui/desktop.js:773|menu|details.lastElementChild|需要进一步测试|
-|src/ui/desktop.js:774|b||需要进一步测试|
-|src/ui/desktop.js:775|action|b.getAttribute("onclick") ／／ ""|需要进一步测试|
-|src/ui/desktop.js:776|keep|/globalItemDraw／openHandRaise／openPickerModal／undoLast/.test(         action,       )|需要进一步测试|
-|src/ui/desktop.js:779|label|/globalItemDraw/.test(action)         ? "道具"         : /openHandRaise/.test(action)           ? "举手"           : /openPickerModal/.test(action)             ? "点|需要进一步测试|
-|src/ui/desktop.js:820|final|$("#btnFinalSettlement")|需要进一步测试|
-|src/ui/desktop.js:839|label|state.isLocked ? "解锁管理口令" : "管理已解锁"|需要进一步测试|
-|src/ui/desktop.js:840|original|icon("shield") + <span>${label}</span>|需要进一步测试|
-|src/ui/desktop.js:842|image|Reliability.safeImage(uiIconsV26().dock_lock)|需要进一步测试|
-|src/ui/desktop.js:848|modalClosers|{     welcomeModal: () => closeWelcomeModal(),     scoreModalBackdrop: () => closeScoreModal(),     pwdModal: () => closePwdModal(),     memberSearchBackdrop: (|需要进一步测试|
-|src/ui/desktop.js:863|openStack|[]|需要进一步测试|
-|src/ui/desktop.js:865|known|new Map()|需要进一步测试|
-|src/ui/desktop.js:872|target|[         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find((el) => !el.disabled &|需要进一步测试|
-|src/ui/desktop.js:882|top|openStack.at(-1)|需要进一步测试|
-|src/ui/desktop.js:888|[id, close]||需要进一步测试|
-|src/ui/desktop.js:889|el|document.getElementById(id)|需要进一步测试|
-|src/ui/desktop.js:891|visible|el.classList.contains("active") ／／           el.classList.contains("show") ／／           el.style.display === "flex"|需要进一步测试|
-|src/ui/desktop.js:896|focus|document.activeElement|需要进一步测试|
-|src/ui/desktop.js:899|dialog|el.firstElementChild?.tagName === "CANVAS"               ? el.querySelector(".grand-card")               : el.firstElementChild|需要进一步测试|
-|src/ui/desktop.js:934|top|openStack.at(-1)|需要进一步测试|
-|src/ui/desktop.js:939|item|openStack.find((x) => x.id === id)|需要进一步测试|
-|src/ui/desktop.js:942|top|openStack.at(-1)|需要进一步测试|
-|src/ui/desktop.js:964|top|openStack.at(-1)|需要进一步测试|
-|src/ui/desktop.js:973|nodes|[             ...top.el.querySelectorAll(               'button,input,select,textarea,a[href],[tabindex="0"]',             ),           ].filter(             (x|需要进一步测试|
-|src/ui/desktop.js:984|first|nodes[0]|需要进一步测试|
-|src/ui/desktop.js:985|last|nodes.at(-1)|需要进一步测试|
-|src/ui/desktop.js:1007|pickerGeneration|0|需要进一步测试|
-|src/ui/desktop.js:1008|pickerPreparing|false|需要进一步测试|
-|src/ui/desktop.js:1012|button|$("#btnSlotTrigger")|需要进一步测试|
-|src/ui/desktop.js:1018|modal|$("#pickerModal")|需要进一步测试|
-|src/ui/desktop.js:1019|a||需要进一步测试|
-|src/ui/desktop.js:1034|generation|++pickerGeneration|需要进一步测试|
-|src/ui/desktop.js:1036|button|$("#btnSlotTrigger")|需要进一步测试|
-|src/ui/desktop.js:1056|win|slotEngine.chosenResult|需要进一步测试|
-|src/ui/desktop.js:1057|generation|pickerGeneration|需要进一步测试|
-|src/ui/desktop.js:1058|modal|$("#pickerModal")|需要进一步测试|
-|src/ui/desktop.js:1059|badge|$("#slotSubBadge")|需要进一步测试|
-|src/ui/desktop.js:1061|label|badge.textContent|需要进一步测试|
-|src/ui/desktop.js:1062|frames|[       { translate: "0 -12px", opacity: 0.65 },       { translate: "0 3px", opacity: 0.9, offset: 0.75 },       { translate: "0 0", opacity: 1 },     ]|需要进一步测试|
-|src/ui/desktop.js:1067|last||需要进一步测试|
-|src/ui/desktop.js:1074|complete|() => {       if (         isPickerCurrent(generation) &&         slotEngine.chosenResult === win &&         !slotEngine.isSpinning       )         badge.textCo|需要进一步测试|
-|src/ui/desktop.js:1089|target|pickerTargetGroup()|需要进一步测试|
-|src/ui/desktop.js:1090|valid|!!target &&       state.groups.some((g) => g.id === target.id) &&       !slotEngine.isSpinning|需要进一步测试|
-|src/ui/desktop.js:1108|left|$(".picker-left-v2")|需要进一步测试|
-|src/ui/desktop.js:1109|right|$(".picker-right-v2")|需要进一步测试|
-|src/ui/desktop.js:1110|options|$(".slot-options-row")|需要进一步测试|
-|src/ui/desktop.js:1112|tabs|$(".picker-info-tabs")|需要进一步测试|
-|src/ui/desktop.js:1113|info|$("#pickerInfoBox")|需要进一步测试|
-|src/ui/desktop.js:1115|stats|$("#pickerStatsBtn")|需要进一步测试|
-|src/ui/desktop.js:1120|target|$("#pickerScoreTarget")|需要进一步测试|
-|src/ui/desktop.js:1128|settlementBusy|false|需要进一步测试|
-|src/ui/desktop.js:1129|settlementGeneration|0|需要进一步测试|
-|src/ui/desktop.js:1132|status|$("#uiSettlementStatus")|需要进一步测试|
-|src/ui/desktop.js:1140|generation|settlementGeneration|需要进一步测试|
-|src/ui/desktop.js:1144|text|button.textContent|需要进一步测试|
-|src/ui/desktop.js:1146|status|$("#uiSettlementStatus")|需要进一步测试|
-|src/ui/desktop.js:1160|result|confirmFinalSettlement()|需要进一步测试|
-|src/ui/desktop.js:1175|value|JSON.parse(         localStorage.getItem("godpower_ui_preferences_v1") ／／ "{}",       )|需要进一步测试|
-|src/ui/desktop.js:1178|key||需要进一步测试|
-|src/ui/desktop.js:1185|saved|localStorage.getItem("godpower_ui_bank_v1")|需要进一步测试|
-|src/ui/desktop.js:1195|text|["欢迎", "比赛", "历史", "档案", "设置"][i]|需要进一步测试|
-|src/ui/desktop.js:1203|el|$(selector)|需要进一步测试|
-|src/ui/desktop.js:1213|details|event.target|需要进一步测试|
-|src/ui/desktop.js:1216|a||需要进一步测试|
-|src/ui/desktop.js:1233|t|$("#uiGroupTrack")|需要进一步测试|
-|src/ui/desktop.js:1244|next|Math.max(           0,           Math.min(t.scrollWidth - t.clientWidth, t.scrollLeft + e.deltaY),         )|需要进一步测试|
-|src/ui/desktop.js:1324|control|$("#uiPref-groupCruise")|需要进一步测试|
-|src/ui/desktop.js:1326|saved|persistPreferences()|需要进一步测试|
+|src/ui/desktop.js:27|settingsAnimations|new Set()|需要进一步测试|
+|src/ui/desktop.js:28|paths|{     home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",     battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",     history: "M3 12a9 9 0 1 0 3-7M3 3v6h6m3-2v5l3 2",     ar|需要进一步测试|
+|src/ui/desktop.js:84|a|el.animate(frames, {       duration: 240 / preferences.speed,       easing: "cubic-bezier(.2,.8,.2,1)",       ...options,     })|需要进一步测试|
+|src/ui/desktop.js:95|a||需要进一步测试|
+|src/ui/desktop.js:113|id|detail.groupId|需要进一步测试|
+|src/ui/desktop.js:114|card|id != null           ? $(#groupList [data-group-id="${CSS.escape(String(id))}"])           : null|需要进一步测试|
+|src/ui/desktop.js:134|viewportSignature|""|需要进一步测试|
+|src/ui/desktop.js:136|zoom|Number(getComputedStyle(document.body).zoom) ／／ 1|需要进一步测试|
+|src/ui/desktop.js:137|value|${innerWidth}/${innerHeight}/${zoom}|需要进一步测试|
+|src/ui/desktop.js:149|historyEntryPending|false|需要进一步测试|
+|src/ui/desktop.js:150|archiveEntryPending|false|需要进一步测试|
+|src/ui/desktop.js:154|m||需要进一步测试|
+|src/ui/desktop.js:163|dock|$(".bottom-dock")|需要进一步测试|
+|src/ui/desktop.js:180|host|$(#view-${name})|需要进一步测试|
+|src/ui/desktop.js:181|shift|preferences.motion === "full"           ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ／／             "0 0"           : "0 0"|需要进一步测试|
+|src/ui/desktop.js:202|track|$("#uiGroupTrack")|需要进一步测试|
+|src/ui/desktop.js:207|groups|state.groups ／／ []|需要进一步测试|
+|src/ui/desktop.js:208|sorted|[...groups].sort((a, b) => Number(b.score) - Number(a.score))|需要进一步测试|
+|src/ui/desktop.js:209|mask|Number(state.itemGlobal?.blooperUntil ／／ 0) > Date.now()|需要进一步测试|
+|src/ui/desktop.js:210|signature|JSON.stringify(         groups.map((g) => [           g.id,           g.name,           g.score,           g.color,           g.inventory,           g.itemEffec|需要进一步测试|
+|src/ui/desktop.js:225|x|track.scrollLeft|需要进一步测试|
+|src/ui/desktop.js:229|item|g.inventory?.[0]|需要进一步测试|
+|src/ui/desktop.js:230|states|Object.entries(g.itemEffect ／／ {})                   .filter(                     ([k, v]) =>                       (k === "type" && !!v) ／／                    |需要进一步测试|
+|src/ui/desktop.js:275|t|$("#uiGroupTrack")|需要进一步测试|
+|src/ui/desktop.js:277|overflow|t.scrollWidth > t.clientWidth + 2|需要进一步测试|
+|src/ui/desktop.js:283|visualSnapshot|new Map()|需要进一步测试|
+|src/ui/desktop.js:285|next|new Map()|需要进一步测试|
+|src/ui/desktop.js:286|g||需要进一步测试|
+|src/ui/desktop.js:287|current|{         main: g.inventory?.[0]?.key ／／ "",         inventory: JSON.stringify(g.inventory ／／ []),         effect: JSON.stringify(g.itemEffect ／／ null),        |需要进一步测试|
+|src/ui/desktop.js:293|prior|visualSnapshot.get(g.id)|需要进一步测试|
+|src/ui/desktop.js:323|dailySignature|""|需要进一步测试|
+|src/ui/desktop.js:325|host|$("#uiDailyGrid")|需要进一步测试|
+|src/ui/desktop.js:327|history|getSettlementHistory()|需要进一步测试|
+|src/ui/desktop.js:328|signature|M.dayIndex() +         JSON.stringify([           preferences.knowledge,           preferences.itemTip,           preferences.honors,           preferences.chal|需要进一步测试|
+|src/ui/desktop.js:341|knowledge|M.daily(         bank.knowledge.filter((x) => x.subject === preferences.subject),       )|需要进一步测试|
+|src/ui/desktop.js:344|quiz|M.daily(         bank.challenges.filter((x) => x.subject === preferences.subject),       )|需要进一步测试|
+|src/ui/desktop.js:347|keys|Object.keys(ITEM_DEFS)|需要进一步测试|
+|src/ui/desktop.js:348|key|M.daily(keys)|需要进一步测试|
+|src/ui/desktop.js:349|item|ITEM_DEFS[key]|需要进一步测试|
+|src/ui/desktop.js:350|last|history[0]|需要进一步测试|
+|src/ui/desktop.js:351|winner|last?.groups?.[0]|需要进一步测试|
+|src/ui/desktop.js:352|html|""|需要进一步测试|
+|src/ui/desktop.js:396|host|$("#historyListView")|需要进一步测试|
+|src/ui/desktop.js:411|next|historyStack[i + 1] ／／ state|需要进一步测试|
+|src/ui/desktop.js:412|diffs|M.differences(h, next)|需要进一步测试|
+|src/ui/desktop.js:413|[kind, glyph, label]|historyKind(h.desc)|需要进一步测试|
+|src/ui/desktop.js:414|changed|diffs.filter(             (d) =>               d.delta ／／               d.added ／／               d.removed ／／               JSON.stringify(d.inventoryBefore) !=|需要进一步测试|
+|src/ui/desktop.js:444|index|Number(b.dataset.restore)|需要进一步测试|
+|src/ui/desktop.js:445|target|historyStack[index]|需要进一步测试|
+|src/ui/desktop.js:447|ok|await themeConfirm(             恢复到 ${target.time ／／ "未记录时间"}「${target.desc ／／ "未命名操作"}」之前？将恢复小组、积分、道具、持续状态与快照包含的回合字段，并丢弃此节点及其后 ${historyStack.length - index -|需要进一步测试|
+|src/ui/desktop.js:461|records|getSettlementHistory()|需要进一步测试|
+|src/ui/desktop.js:462|all|records       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))       .filter(         (g) =>           (typeof g.score === "number" ／／             (ty|需要进一步测试|
+|src/ui/desktop.js:470|best|all.length       ? Math.max(...all.map((g) => Number(g.score)))       : null|需要进一步测试|
+|src/ui/desktop.js:487|host|$("#settlementHistoryContainer")|需要进一步测试|
+|src/ui/desktop.js:489|list|records       .map((r, index) => ({ r, index }))       .filter(({ r }) =>         [r.title, r.champion, ...(r.groups ／／ []).map((g) => g.name)]           .join(|需要进一步测试|
+|src/ui/desktop.js:509|groups|Array.isArray(r.groups) ? r.groups : []|需要进一步测试|
+|src/ui/desktop.js:548|url|URL.createObjectURL(         new Blob([JSON.stringify(value, null, 2)], {           type: "application/json",         }),       )|需要进一步测试|
+|src/ui/desktop.js:553|a|document.createElement("a")|需要进一步测试|
+|src/ui/desktop.js:559|categories|[     ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],     ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],     ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"]|需要进一步测试|
+|src/ui/desktop.js:585|sc|$("#view-settings .settings-scroll")|需要进一步测试|
+|src/ui/desktop.js:587|shell|document.createElement("div")|需要进一步测试|
+|src/ui/desktop.js:591|sections|Object.fromEntries(       [...shell.querySelectorAll("[data-category-panel]")].map((p) => [         p.dataset.categoryPanel,         p,       ]),     )|需要进一步测试|
+|src/ui/desktop.js:601|classified|[...sc.querySelectorAll("[data-settings-category]")]|需要进一步测试|
+|src/ui/desktop.js:602|pane||需要进一步测试|
+|src/ui/desktop.js:603|id|pane.id.replace("settingsV26_", "")|需要进一步测试|
+|src/ui/desktop.js:609|el||需要进一步测试|
+|src/ui/desktop.js:611|buttonIcons|$("#uiIconManagerV26")?.parentElement|需要进一步测试|
+|src/ui/desktop.js:626|check|(key) =>       <input id="uiPref-${key}" data-pref="${key}" type="checkbox" ${preferences[key] ? "checked" : ""}>|需要进一步测试|
+|src/ui/desktop.js:671|danger|[...sections.data.querySelectorAll("button")].filter((b) =>       /resetAllScores／clear/.test(b.getAttribute("onclick") ／／ ""),     )|需要进一步测试|
+|src/ui/desktop.js:674|b||需要进一步测试|
+|src/ui/desktop.js:678|key||需要进一步测试|
+|src/ui/desktop.js:685|key|el.dataset.pref|需要进一步测试|
+|src/ui/desktop.js:702|next|M.validateBank(JSON.parse($("#uiBankEditor").value))|需要进一步测试|
+|src/ui/desktop.js:747|box|document.createElement(collapsed ? "details" : "div")|需要进一步测试|
+|src/ui/desktop.js:756|body|box.lastElementChild|需要进一步测试|
+|src/ui/desktop.js:761|marked|(name) => [       ...shell.querySelectorAll([data-settings-group="${name}"]),     ]|需要进一步测试|
+|src/ui/desktop.js:787|icons|$("#uiIconManagerV26")?.parentElement|需要进一步测试|
+|src/ui/desktop.js:804|rosterTitle|$(       "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",     )|需要进一步测试|
+|src/ui/desktop.js:808|sound|$("#settingsV26_sound")|需要进一步测试|
+|src/ui/desktop.js:832|itemSounds|$("#itemFxSoundListV26")?.parentElement|需要进一步测试|
+|src/ui/desktop.js:844|itemLibrary|$("#settingsV26_items")|需要进一步测试|
+|src/ui/desktop.js:853|editor|$("#uiBankEditor")|需要进一步测试|
+|src/ui/desktop.js:854|bankNodes|[       editor.previousElementSibling.previousElementSibling,       editor.previousElementSibling,       editor,       editor.nextElementSibling,       $("#uiBa|需要进一步测试|
+|src/ui/desktop.js:869|data|$("#settingsV26_data")|需要进一步测试|
+|src/ui/desktop.js:897|button|event.target.closest("button")|需要进一步测试|
+|src/ui/desktop.js:898|action|button?.getAttribute("onclick")|需要进一步测试|
+|src/ui/desktop.js:899|confirm|{           "applySettingsBatchMembers()": [             "重建小组与名单",             "将按文本重建全部小组。未列出的组会移除，改名可能建立新组。请先导出课堂备份。确认应用？",             applySettingsBatchMem|需要进一步测试|
+|src/ui/desktop.js:933|el|$("#uiPref-subject")|需要进一步测试|
+|src/ui/desktop.js:935|subjects|[       ...new Set([         "politics",         ...bank.knowledge.map((x) => x.subject),         ...bank.challenges.map((x) => x.subject),       ]),     ]|需要进一步测试|
+|src/ui/desktop.js:953|animation||需要进一步测试|
+|src/ui/desktop.js:963|panel|$([data-category-panel="${activeSettings}"])|需要进一步测试|
+|src/ui/desktop.js:965|content|[...panel.children]       .flatMap((node) =>         node.matches(".settings-v26-pane") ? [...node.children] : [node],       )       .filter((node) => !node.hid|需要进一步测试|
+|src/ui/desktop.js:970|targets|entering       ? [$(".ui-settings-header"), $(".ui-settings-nav"), ...content]       : content|需要进一步测试|
+|src/ui/desktop.js:973|simple|preferences.motion === "simple"|需要进一步测试|
+|src/ui/desktop.js:975|animation|animate(         node,         [           {             opacity: simple ? 0.6 : 0,             translate: simple ? "0 -4px" : "0 -12px",           },          |需要进一步测试|
+|src/ui/desktop.js:1002|aliases|{ function: "rules" }|需要进一步测试|
+|src/ui/desktop.js:1028|right|$(".dock-right")|需要进一步测试|
+|src/ui/desktop.js:1029|details|document.createElement("details")|需要进一步测试|
+|src/ui/desktop.js:1033|menu|details.lastElementChild|需要进一步测试|
+|src/ui/desktop.js:1034|b||需要进一步测试|
+|src/ui/desktop.js:1035|action|b.getAttribute("onclick") ／／ ""|需要进一步测试|
+|src/ui/desktop.js:1036|keep|/globalItemDraw／openHandRaise／openPickerModal／undoLast/.test(         action,       )|需要进一步测试|
+|src/ui/desktop.js:1039|label|/globalItemDraw/.test(action)         ? "道具"         : /openHandRaise/.test(action)           ? "举手"           : /openPickerModal/.test(action)             ? "点|需要进一步测试|
+|src/ui/desktop.js:1080|final|$("#btnFinalSettlement")|需要进一步测试|
+|src/ui/desktop.js:1099|label|state.isLocked ? "解锁管理口令" : "管理已解锁"|需要进一步测试|
+|src/ui/desktop.js:1100|original|icon("shield") + <span>${label}</span>|需要进一步测试|
+|src/ui/desktop.js:1102|image|Reliability.safeImage(uiIconsV26().dock_lock)|需要进一步测试|
+|src/ui/desktop.js:1108|modalClosers|{     welcomeModal: () => closeWelcomeModal(),     scoreModalBackdrop: () => closeScoreModal(),     pwdModal: () => closePwdModal(),     memberSearchBackdrop: (|需要进一步测试|
+|src/ui/desktop.js:1123|openStack|[]|需要进一步测试|
+|src/ui/desktop.js:1125|known|new Map()|需要进一步测试|
+|src/ui/desktop.js:1132|target|[         ...top.el.querySelectorAll(           'input:not([type=hidden]),button,select,textarea,[tabindex="0"]',         ),       ].find((el) => !el.disabled &|需要进一步测试|
+|src/ui/desktop.js:1142|top|openStack.at(-1)|需要进一步测试|
+|src/ui/desktop.js:1148|[id, close]||需要进一步测试|
+|src/ui/desktop.js:1149|el|document.getElementById(id)|需要进一步测试|
+|src/ui/desktop.js:1151|visible|el.classList.contains("active") ／／           el.classList.contains("show") ／／           el.style.display === "flex"|需要进一步测试|
+|src/ui/desktop.js:1156|focus|document.activeElement|需要进一步测试|
+|src/ui/desktop.js:1159|dialog|el.firstElementChild?.tagName === "CANVAS"               ? el.querySelector(".grand-card")               : el.firstElementChild|需要进一步测试|
+|src/ui/desktop.js:1194|top|openStack.at(-1)|需要进一步测试|
+|src/ui/desktop.js:1199|item|openStack.find((x) => x.id === id)|需要进一步测试|
+|src/ui/desktop.js:1202|top|openStack.at(-1)|需要进一步测试|
+|src/ui/desktop.js:1224|top|openStack.at(-1)|需要进一步测试|
+|src/ui/desktop.js:1233|nodes|[             ...top.el.querySelectorAll(               'button,input,select,textarea,a[href],[tabindex="0"]',             ),           ].filter(             (x|需要进一步测试|
+|src/ui/desktop.js:1244|first|nodes[0]|需要进一步测试|
+|src/ui/desktop.js:1245|last|nodes.at(-1)|需要进一步测试|
+|src/ui/desktop.js:1267|pickerGeneration|0|需要进一步测试|
+|src/ui/desktop.js:1268|pickerPreparing|false|需要进一步测试|
+|src/ui/desktop.js:1272|button|$("#btnSlotTrigger")|需要进一步测试|
+|src/ui/desktop.js:1278|modal|$("#pickerModal")|需要进一步测试|
+|src/ui/desktop.js:1279|a||需要进一步测试|
+|src/ui/desktop.js:1294|generation|++pickerGeneration|需要进一步测试|
+|src/ui/desktop.js:1296|button|$("#btnSlotTrigger")|需要进一步测试|
+|src/ui/desktop.js:1316|win|slotEngine.chosenResult|需要进一步测试|
+|src/ui/desktop.js:1317|generation|pickerGeneration|需要进一步测试|
+|src/ui/desktop.js:1318|modal|$("#pickerModal")|需要进一步测试|
+|src/ui/desktop.js:1319|badge|$("#slotSubBadge")|需要进一步测试|
+|src/ui/desktop.js:1321|label|badge.textContent|需要进一步测试|
+|src/ui/desktop.js:1322|frames|[       { translate: "0 -12px", opacity: 0.65 },       { translate: "0 3px", opacity: 0.9, offset: 0.75 },       { translate: "0 0", opacity: 1 },     ]|需要进一步测试|
+|src/ui/desktop.js:1327|last||需要进一步测试|
+|src/ui/desktop.js:1334|complete|() => {       if (         isPickerCurrent(generation) &&         slotEngine.chosenResult === win &&         !slotEngine.isSpinning       )         badge.textCo|需要进一步测试|
+|src/ui/desktop.js:1349|target|pickerTargetGroup()|需要进一步测试|
+|src/ui/desktop.js:1350|valid|!!target &&       state.groups.some((g) => g.id === target.id) &&       !slotEngine.isSpinning|需要进一步测试|
+|src/ui/desktop.js:1368|left|$(".picker-left-v2")|需要进一步测试|
+|src/ui/desktop.js:1369|right|$(".picker-right-v2")|需要进一步测试|
+|src/ui/desktop.js:1370|options|$(".slot-options-row")|需要进一步测试|
+|src/ui/desktop.js:1372|tabs|$(".picker-info-tabs")|需要进一步测试|
+|src/ui/desktop.js:1373|info|$("#pickerInfoBox")|需要进一步测试|
+|src/ui/desktop.js:1375|stats|$("#pickerStatsBtn")|需要进一步测试|
+|src/ui/desktop.js:1380|target|$("#pickerScoreTarget")|需要进一步测试|
+|src/ui/desktop.js:1388|settlementBusy|false|需要进一步测试|
+|src/ui/desktop.js:1389|settlementGeneration|0|需要进一步测试|
+|src/ui/desktop.js:1392|status|$("#uiSettlementStatus")|需要进一步测试|
+|src/ui/desktop.js:1400|generation|settlementGeneration|需要进一步测试|
+|src/ui/desktop.js:1404|text|button.textContent|需要进一步测试|
+|src/ui/desktop.js:1406|status|$("#uiSettlementStatus")|需要进一步测试|
+|src/ui/desktop.js:1420|result|confirmFinalSettlement()|需要进一步测试|
+|src/ui/desktop.js:1435|value|JSON.parse(         localStorage.getItem("godpower_ui_preferences_v1") ／／ "{}",       )|需要进一步测试|
+|src/ui/desktop.js:1438|key||需要进一步测试|
+|src/ui/desktop.js:1445|saved|localStorage.getItem("godpower_ui_bank_v1")|需要进一步测试|
+|src/ui/desktop.js:1468|text|["欢迎", "比赛", "历史", "档案", "设置"][i]|需要进一步测试|
+|src/ui/desktop.js:1476|el|$(selector)|需要进一步测试|
+|src/ui/desktop.js:1486|details|event.target|需要进一步测试|
+|src/ui/desktop.js:1489|a||需要进一步测试|
+|src/ui/desktop.js:1506|t|$("#uiGroupTrack")|需要进一步测试|
+|src/ui/desktop.js:1517|next|Math.max(           0,           Math.min(t.scrollWidth - t.clientWidth, t.scrollLeft + e.deltaY),         )|需要进一步测试|
+|src/ui/desktop.js:1597|control|$("#uiPref-groupCruise")|需要进一步测试|
+|src/ui/desktop.js:1599|saved|persistPreferences()|需要进一步测试|
 |src/ui/model.js:3|examples|{     knowledge: [       {         id: "politics-rule-law",         subject: "politics",         title: "权利与义务",         module: "政治 · 法治观念",         summary: "|需要进一步测试|
 |src/ui/model.js:71|a|new Map((before.groups ／／ []).map((g) => [g.id, g]))|需要进一步测试|
 |src/ui/model.js:72|b|new Map((after.groups ／／ []).map((g) => [g.id, g]))|需要进一步测试|
@@ -3428,108 +3447,108 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/00.js:2827|clearInterval|slotEngine.timerGroup|需要进一步测试|
 |src/script/00.js:2828|clearInterval|slotEngine.timerStudent|需要进一步测试|
 |src/script/00.js:2927|setTimeout|()=>URL.revokeObjectURL(url); 1000|需要进一步测试|
-|src/script/00.js:3396|setInterval|updateWelcomeClock; 1000|需要进一步测试|
-|src/script/00.js:3883|clearTimeout|menuReloadTimer|需要进一步测试|
-|src/script/00.js:3884|setTimeout|async () => {     menuReloadTimer = null;     const key = menuBgm.currentKey;     if (!key ／／ !menuBgm.active) return;     delete menuBgm.buffers[key];     menuBgm.uploadedKeys.del; 250|需要进一步测试|
-|src/script/00.js:4042|setTimeout|() => {     try { rollLoopNode.stop(); } catch(e) {}     rollLoopNode = null;     rollLoopGain = null;     if (cb) cb();   }; 160|需要进一步测试|
-|src/script/00.js:4164|window.addEventListener|'DOMContentLoaded'; initWallpaper|需要进一步测试|
-|src/script/00.js:4166|window.addEventListener|'DOMContentLoaded'; () => {   if (state.zoomLevel !== 1.0) {     document.body.style.zoom = state.zoomLevel;   }   initResizerDrag();   renderAll();   renderWelcomePage();   startWelcomeClock();    //|需要进一步测试|
-|src/script/00.js:4195|setInterval|() => {       if (audioCtx && audioCtx.state === 'running') {         clearInterval(resumeRetryTimer); resumeRetryTimer = null;         hideAudioHint();         return;       }    ; 1000|需要进一步测试|
-|src/script/00.js:4197|clearInterval|resumeRetryTimer|需要进一步测试|
-|src/script/00.js:4206|clearInterval|resumeRetryTimer|需要进一步测试|
-|src/script/00.js:4231|window.addEventListener|ev; unlockByGesture; { once: true, passive: true }|需要进一步测试|
-|src/script/00.js:4325|setTimeout|()=>d.remove(); 1900|需要进一步测试|
-|src/script/00.js:4522|setTimeout|()=>{const c=document.querySelector(.group-row-card[data-group-id="${id}"]);if(c){c.classList.add('effect-bomb');setTimeout(()=>c.classList.remove('effect-bomb'),900)}}; 30|需要进一步测试|
-|src/script/00.js:4522|setTimeout|()=>c.classList.remove('effect-bomb'); 900|需要进一步测试|
-|src/script/00.js:4524|clearInterval|bulletTimer|需要进一步测试|
-|src/script/00.js:4524|setInterval|()=>{let any=false;ensureItemState();state.groups.forEach(g=>{if(!g.itemEffect／／g.itemEffect.type!=='bullet')return;any=true;const t=state.groups.find(x=>x.id===g.itemEffect.target; 350|需要进一步测试|
-|src/script/00.js:4524|clearInterval|bulletTimer|需要进一步测试|
-|src/script/00.js:4525|setTimeout|startBlooperClock; 500|需要进一步测试|
-|src/script/00.js:4530|setInterval|()=>{eligible.forEach(g=>{const k=ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)],c=grid.querySelector([data-draw-id="${g.id}"] .roulette);if(c)c.innerHTML=itemVisual(k)})}; 90|需要进一步测试|
-|src/script/00.js:4531|setTimeout|()=>{clearInterval(timer);eligible.forEach(g=>{const key=drawItemForGroup(g);if(key)addItemToGroup(g,key);const card=grid.querySelector([data-draw-id="${g.id}"]);if(card&&key){ca; 3000|需要进一步测试|
-|src/script/00.js:4531|clearInterval|timer|需要进一步测试|
-|src/script/00.js:4531|setTimeout|()=>{ov.classList.remove('active');itemDrawBusy=false}; 3000|需要进一步测试|
-|src/script/00.js:4663|window.addEventListener|'DOMContentLoaded'; ()=>{ensureItemState();renderAll();startBulletTimer();startBlooperClock()}|需要进一步测试|
-|src/script/00.js:4728|setInterval|()=>eligible.forEach(g=>{const o=overlays.get(g.id);if(!o)return;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const k=weightedPick(itemDropWeights(pos,r.length));o.querySele; 85|需要进一步测试|
-|src/script/00.js:4729|setTimeout|()=>{clearInterval(timer);eligible.forEach(g=>{const k=drawItemForGroup(g),o=overlays.get(g.id);if(k)addItemToGroup(g,k);if(o&&k){o.classList.add('reveal');o.querySelector('.r-icon; 3000|需要进一步测试|
-|src/script/00.js:4729|clearInterval|timer|需要进一步测试|
-|src/script/00.js:4730|setTimeout|()=>{eligible.forEach(g=>{const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);if(c){c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roul; 3000|需要进一步测试|
-|src/script/00.js:4735|setTimeout|()=>{installSettingsTabs();showSettingsV2('items')}; 0|需要进一步测试|
-|src/script/00.js:4744|setTimeout|()=>URL.revokeObjectURL(a.href); 1000|需要进一步测试|
-|src/script/00.js:4785|document.getElementById('aboutBackdrop')?.addEventListener|'click'; e=>{if(e.target.id==='aboutBackdrop')closeAbout()}|需要进一步测试|
-|src/script/00.js:4786|document.getElementById('handRaiseBackdrop')?.addEventListener|'click'; e=>{if(e.target.id==='handRaiseBackdrop')closeHandRaise()}|需要进一步测试|
-|src/script/00.js:4787|setTimeout|installSettingsTabs; 0|需要进一步测试|
-|src/script/00.js:4788|window.addEventListener|'DOMContentLoaded'; ()=>{ensureV2State();installSettingsTabs();renderPickerInfo()}|需要进一步测试|
-|src/script/00.js:4795|clearInterval|handItemDrawTimer|需要进一步测试|
-|src/script/00.js:4796|clearTimeout|handItemDrawFinishTimer|需要进一步测试|
-|src/script/00.js:4852|setInterval|tick; 82|需要进一步测试|
-|src/script/00.js:4854|setTimeout|()=>{     clearInterval(handItemDrawTimer);handItemDrawTimer=null;handItemDrawFinishTimer=null;     const live=state.groups.find(x=>x.id===handItemDrawGroupId);     if(!live／／!elig; 3000|需要进一步测试|
-|src/script/00.js:4855|clearInterval|handItemDrawTimer|需要进一步测试|
-|src/script/00.js:4895|setTimeout|()=>{     const cards=[...document.querySelectorAll('#itemWindowBody .item-card')];     if(cards[idx]){cards[idx].style.outline='3px solid #38bdf8';cards[idx].scrollIntoView({block; 80|需要进一步测试|
-|src/script/00.js:4930|setTimeout|()=>showItemUseFx(key,groupId,itemFxTargetText(key,groupId)); 40|需要进一步测试|
-|src/script/00.js:5011|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5023|setTimeout|()=>{       eligible.forEach(g=>{         const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);         if(c){const o=c.querySelector('.card-item-roulette');i; 3000|需要进一步测试|
-|src/script/00.js:5026|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
-|src/script/00.js:5028|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
-|src/script/00.js:5031|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5064|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5081|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5086|clearTimeout|handItemDrawFinishTimer|需要进一步测试|
-|src/script/00.js:5126|setTimeout|()=>{card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]／／'cfx-rise');b.remove()}; 1850|需要进一步测试|
-|src/script/00.js:5135|setTimeout|()=>{card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');card.style.removeProperty('--hitc')}; 1600|需要进一步测试|
-|src/script/00.js:5157|setTimeout|()=>playTargetCardFx(id,key,beneficial?'heal':'hit'); 120+n*70|需要进一步测试|
-|src/script/00.js:5175|window.addEventListener|'pagehide'; ()=>{try{saveState();persistHistoryV26()}catch(e){}}|需要进一步测试|
-|src/script/00.js:5176|document.addEventListener|'visibilitychange'; ()=>{if(document.visibilityState==='hidden'){try{saveState();persistHistoryV26()}catch(e){}}}|需要进一步测试|
-|src/script/00.js:5219|setTimeout|()=>playSound(itemSoundCategoryV26(k)); 55|需要进一步测试|
-|src/script/00.js:5224|setInterval|()=>{if(n++<13)playSound('item_draw_tick');else clearInterval(timer)}; Math.max(150,ms/15)|需要进一步测试|
-|src/script/00.js:5224|clearInterval|timer|需要进一步测试|
-|src/script/00.js:5225|setTimeout|()=>{clearInterval(timer);playSound('item_draw_reveal')}; ms|需要进一步测试|
-|src/script/00.js:5225|clearInterval|timer|需要进一步测试|
-|src/script/00.js:5310|window.addEventListener|'DOMContentLoaded'; ()=>{  const sub=document.querySelector('#view-settings .fullview-sub');if(sub)sub.textContent='功能、音效与音乐、道具图标、学生名单及数据管理。';  rebuildSettingsV26();applyUiIconsV26();  setTimeout(()=>|需要进一步测试|
-|src/script/00.js:5313|setTimeout|()=>{renderItemFxSoundListV26();persistHistoryV26();saveState()}; 400|需要进一步测试|
-|src/script/00.js:5323|window.addEventListener|'resize'; syncVisualViewportV27; {passive:true}|需要进一步测试|
-|src/script/00.js:5324|window.addEventListener|'orientationchange'; ()=>setTimeout(syncVisualViewportV27,80); {passive:true}|需要进一步测试|
-|src/script/00.js:5324|setTimeout|syncVisualViewportV27; 80|需要进一步测试|
-|src/script/00.js:5326|window.visualViewport.addEventListener|'resize'; syncVisualViewportV27; {passive:true}|需要进一步测试|
-|src/script/00.js:5327|window.visualViewport.addEventListener|'scroll'; syncVisualViewportV27; {passive:true}|需要进一步测试|
-|src/script/00.js:5365|o.addEventListener|'click'; e=>{if(e.target===o)finish(false)}|需要进一步测试|
-|src/script/00.js:5366|document.removeEventListener|'keydown'; key|需要进一步测试|
-|src/script/00.js:5366|document.removeEventListener|'keydown'; key|需要进一步测试|
-|src/script/00.js:5366|document.removeEventListener|'keydown'; key|需要进一步测试|
-|src/script/00.js:5367|document.addEventListener|'keydown'; key|需要进一步测试|
-|src/script/00.js:5390|window.addEventListener|'beforeunload'; ()=>{try{saveState();persistHistoryV26()}catch(e){}}|需要进一步测试|
-|src/script/00.js:5391|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(repairPersistentItemsV28,0)|需要进一步测试|
-|src/script/00.js:5391|setTimeout|repairPersistentItemsV28; 0|需要进一步测试|
-|src/script/00.js:5456|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5472|setTimeout|()=>{       eligible.forEach(g=>{         const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);         if(c){           const o=c.querySelector('.card-item-r; 3000|需要进一步测试|
-|src/script/00.js:5478|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
-|src/script/00.js:5481|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
-|src/script/00.js:5484|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5515|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5532|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5654|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5666|setTimeout|()=>{      eligible.forEach(g=>{        const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);        if(c){const o=c.querySelector('.card-item-roulette');if(o; 3000|需要进一步测试|
-|src/script/00.js:5669|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
-|src/script/00.js:5671|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
-|src/script/00.js:5674|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5702|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5718|requestAnimationFrame|frame|需要进一步测试|
-|src/script/00.js:5853|setTimeout|()=>patchVisibleGodManagerV283(gid); 0|需要进一步测试|
-|src/script/00.js:5866|setTimeout|()=>{appendMissingEncyclopediaV283()}; 0|需要进一步测试|
-|src/script/00.js:5867|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{  appendMissingEncyclopediaV283();  patchItemIconSettingsV283(); },80)|需要进一步测试|
-|src/script/00.js:5867|setTimeout|()=>{  appendMissingEncyclopediaV283();  patchItemIconSettingsV283(); }; 80|需要进一步测试|
-|src/script/00.js:5899|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(refresh26ItemInterfacesV284,120)|需要进一步测试|
-|src/script/00.js:5899|setTimeout|refresh26ItemInterfacesV284; 120|需要进一步测试|
-|src/script/00.js:6001|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{   installCommunismModeSetting();   applyCommunismMode(); },160)|需要进一步测试|
-|src/script/00.js:6001|setTimeout|()=>{   installCommunismModeSetting();   applyCommunismMode(); }; 160|需要进一步测试|
-|src/script/00.js:6276|setTimeout|()=>{     card.classList.remove(cls,'card-defend-fx');     badge.remove();     card.style.removeProperty('--hitc');   }; 1750|需要进一步测试|
-|src/script/00.js:6295|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',true); 120|需要进一步测试|
-|src/script/00.js:6314|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',true); 120|需要进一步测试|
-|src/script/00.js:6335|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',false); 120|需要进一步测试|
-|src/script/00.js:6344|setTimeout|()=>playCasterCardFx(key,casterId); 30|需要进一步测试|
-|src/script/00.js:6535|setTimeout|()=>slots[0]?.classList.remove('queue-promoted'); 1150|需要进一步测试|
-|src/script/00.js:6554|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{   try{renderAll()}catch(e){} },220)|需要进一步测试|
-|src/script/00.js:6554|setTimeout|()=>{   try{renderAll()}catch(e){} }; 220|需要进一步测试|
+|src/script/00.js:3399|setInterval|updateWelcomeClock; 1000|需要进一步测试|
+|src/script/00.js:3886|clearTimeout|menuReloadTimer|需要进一步测试|
+|src/script/00.js:3887|setTimeout|async () => {     menuReloadTimer = null;     const key = menuBgm.currentKey;     if (!key ／／ !menuBgm.active) return;     delete menuBgm.buffers[key];     menuBgm.uploadedKeys.del; 250|需要进一步测试|
+|src/script/00.js:4045|setTimeout|() => {     try { rollLoopNode.stop(); } catch(e) {}     rollLoopNode = null;     rollLoopGain = null;     if (cb) cb();   }; 160|需要进一步测试|
+|src/script/00.js:4167|window.addEventListener|'DOMContentLoaded'; initWallpaper|需要进一步测试|
+|src/script/00.js:4169|window.addEventListener|'DOMContentLoaded'; () => {   if (state.zoomLevel !== 1.0) {     document.body.style.zoom = state.zoomLevel;   }   initResizerDrag();   renderAll();   renderWelcomePage();   startWelcomeClock();    //|需要进一步测试|
+|src/script/00.js:4198|setInterval|() => {       if (audioCtx && audioCtx.state === 'running') {         clearInterval(resumeRetryTimer); resumeRetryTimer = null;         hideAudioHint();         return;       }    ; 1000|需要进一步测试|
+|src/script/00.js:4200|clearInterval|resumeRetryTimer|需要进一步测试|
+|src/script/00.js:4209|clearInterval|resumeRetryTimer|需要进一步测试|
+|src/script/00.js:4234|window.addEventListener|ev; unlockByGesture; { once: true, passive: true }|需要进一步测试|
+|src/script/00.js:4328|setTimeout|()=>d.remove(); 1900|需要进一步测试|
+|src/script/00.js:4525|setTimeout|()=>{const c=document.querySelector(.group-row-card[data-group-id="${id}"]);if(c){c.classList.add('effect-bomb');setTimeout(()=>c.classList.remove('effect-bomb'),900)}}; 30|需要进一步测试|
+|src/script/00.js:4525|setTimeout|()=>c.classList.remove('effect-bomb'); 900|需要进一步测试|
+|src/script/00.js:4527|clearInterval|bulletTimer|需要进一步测试|
+|src/script/00.js:4527|setInterval|()=>{let any=false;ensureItemState();state.groups.forEach(g=>{if(!g.itemEffect／／g.itemEffect.type!=='bullet')return;any=true;const t=state.groups.find(x=>x.id===g.itemEffect.target; 350|需要进一步测试|
+|src/script/00.js:4527|clearInterval|bulletTimer|需要进一步测试|
+|src/script/00.js:4528|setTimeout|startBlooperClock; 500|需要进一步测试|
+|src/script/00.js:4533|setInterval|()=>{eligible.forEach(g=>{const k=ITEM_KEYS[Math.floor(Math.random()*ITEM_KEYS.length)],c=grid.querySelector([data-draw-id="${g.id}"] .roulette);if(c)c.innerHTML=itemVisual(k)})}; 90|需要进一步测试|
+|src/script/00.js:4534|setTimeout|()=>{clearInterval(timer);eligible.forEach(g=>{const key=drawItemForGroup(g);if(key)addItemToGroup(g,key);const card=grid.querySelector([data-draw-id="${g.id}"]);if(card&&key){ca; 3000|需要进一步测试|
+|src/script/00.js:4534|clearInterval|timer|需要进一步测试|
+|src/script/00.js:4534|setTimeout|()=>{ov.classList.remove('active');itemDrawBusy=false}; 3000|需要进一步测试|
+|src/script/00.js:4666|window.addEventListener|'DOMContentLoaded'; ()=>{ensureItemState();renderAll();startBulletTimer();startBlooperClock()}|需要进一步测试|
+|src/script/00.js:4731|setInterval|()=>eligible.forEach(g=>{const o=overlays.get(g.id);if(!o)return;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const k=weightedPick(itemDropWeights(pos,r.length));o.querySele; 85|需要进一步测试|
+|src/script/00.js:4732|setTimeout|()=>{clearInterval(timer);eligible.forEach(g=>{const k=drawItemForGroup(g),o=overlays.get(g.id);if(k)addItemToGroup(g,k);if(o&&k){o.classList.add('reveal');o.querySelector('.r-icon; 3000|需要进一步测试|
+|src/script/00.js:4732|clearInterval|timer|需要进一步测试|
+|src/script/00.js:4733|setTimeout|()=>{eligible.forEach(g=>{const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);if(c){c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roul; 3000|需要进一步测试|
+|src/script/00.js:4738|setTimeout|()=>{installSettingsTabs();showSettingsV2('items')}; 0|需要进一步测试|
+|src/script/00.js:4747|setTimeout|()=>URL.revokeObjectURL(a.href); 1000|需要进一步测试|
+|src/script/00.js:4788|document.getElementById('aboutBackdrop')?.addEventListener|'click'; e=>{if(e.target.id==='aboutBackdrop')closeAbout()}|需要进一步测试|
+|src/script/00.js:4789|document.getElementById('handRaiseBackdrop')?.addEventListener|'click'; e=>{if(e.target.id==='handRaiseBackdrop')closeHandRaise()}|需要进一步测试|
+|src/script/00.js:4790|setTimeout|installSettingsTabs; 0|需要进一步测试|
+|src/script/00.js:4791|window.addEventListener|'DOMContentLoaded'; ()=>{ensureV2State();installSettingsTabs();renderPickerInfo()}|需要进一步测试|
+|src/script/00.js:4798|clearInterval|handItemDrawTimer|需要进一步测试|
+|src/script/00.js:4799|clearTimeout|handItemDrawFinishTimer|需要进一步测试|
+|src/script/00.js:4855|setInterval|tick; 82|需要进一步测试|
+|src/script/00.js:4857|setTimeout|()=>{     clearInterval(handItemDrawTimer);handItemDrawTimer=null;handItemDrawFinishTimer=null;     const live=state.groups.find(x=>x.id===handItemDrawGroupId);     if(!live／／!elig; 3000|需要进一步测试|
+|src/script/00.js:4858|clearInterval|handItemDrawTimer|需要进一步测试|
+|src/script/00.js:4898|setTimeout|()=>{     const cards=[...document.querySelectorAll('#itemWindowBody .item-card')];     if(cards[idx]){cards[idx].style.outline='3px solid #38bdf8';cards[idx].scrollIntoView({block; 80|需要进一步测试|
+|src/script/00.js:4933|setTimeout|()=>showItemUseFx(key,groupId,itemFxTargetText(key,groupId)); 40|需要进一步测试|
+|src/script/00.js:5014|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5026|setTimeout|()=>{       eligible.forEach(g=>{         const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);         if(c){const o=c.querySelector('.card-item-roulette');i; 3000|需要进一步测试|
+|src/script/00.js:5029|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
+|src/script/00.js:5031|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
+|src/script/00.js:5034|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5067|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5084|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5089|clearTimeout|handItemDrawFinishTimer|需要进一步测试|
+|src/script/00.js:5129|setTimeout|()=>{card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]／／'cfx-rise');b.remove()}; 1850|需要进一步测试|
+|src/script/00.js:5138|setTimeout|()=>{card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');card.style.removeProperty('--hitc')}; 1600|需要进一步测试|
+|src/script/00.js:5160|setTimeout|()=>playTargetCardFx(id,key,beneficial?'heal':'hit'); 120+n*70|需要进一步测试|
+|src/script/00.js:5178|window.addEventListener|'pagehide'; ()=>{try{saveState();persistHistoryV26()}catch(e){}}|需要进一步测试|
+|src/script/00.js:5179|document.addEventListener|'visibilitychange'; ()=>{if(document.visibilityState==='hidden'){try{saveState();persistHistoryV26()}catch(e){}}}|需要进一步测试|
+|src/script/00.js:5222|setTimeout|()=>playSound(itemSoundCategoryV26(k)); 55|需要进一步测试|
+|src/script/00.js:5227|setInterval|()=>{if(n++<13)playSound('item_draw_tick');else clearInterval(timer)}; Math.max(150,ms/15)|需要进一步测试|
+|src/script/00.js:5227|clearInterval|timer|需要进一步测试|
+|src/script/00.js:5228|setTimeout|()=>{clearInterval(timer);playSound('item_draw_reveal')}; ms|需要进一步测试|
+|src/script/00.js:5228|clearInterval|timer|需要进一步测试|
+|src/script/00.js:5313|window.addEventListener|'DOMContentLoaded'; ()=>{  const sub=document.querySelector('#view-settings .fullview-sub');if(sub)sub.textContent='功能、音效与音乐、道具图标、学生名单及数据管理。';  rebuildSettingsV26();applyUiIconsV26();  setTimeout(()=>|需要进一步测试|
+|src/script/00.js:5316|setTimeout|()=>{renderItemFxSoundListV26();persistHistoryV26();saveState()}; 400|需要进一步测试|
+|src/script/00.js:5326|window.addEventListener|'resize'; syncVisualViewportV27; {passive:true}|需要进一步测试|
+|src/script/00.js:5327|window.addEventListener|'orientationchange'; ()=>setTimeout(syncVisualViewportV27,80); {passive:true}|需要进一步测试|
+|src/script/00.js:5327|setTimeout|syncVisualViewportV27; 80|需要进一步测试|
+|src/script/00.js:5329|window.visualViewport.addEventListener|'resize'; syncVisualViewportV27; {passive:true}|需要进一步测试|
+|src/script/00.js:5330|window.visualViewport.addEventListener|'scroll'; syncVisualViewportV27; {passive:true}|需要进一步测试|
+|src/script/00.js:5368|o.addEventListener|'click'; e=>{if(e.target===o)finish(false)}|需要进一步测试|
+|src/script/00.js:5369|document.removeEventListener|'keydown'; key|需要进一步测试|
+|src/script/00.js:5369|document.removeEventListener|'keydown'; key|需要进一步测试|
+|src/script/00.js:5369|document.removeEventListener|'keydown'; key|需要进一步测试|
+|src/script/00.js:5370|document.addEventListener|'keydown'; key|需要进一步测试|
+|src/script/00.js:5393|window.addEventListener|'beforeunload'; ()=>{try{saveState();persistHistoryV26()}catch(e){}}|需要进一步测试|
+|src/script/00.js:5394|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(repairPersistentItemsV28,0)|需要进一步测试|
+|src/script/00.js:5394|setTimeout|repairPersistentItemsV28; 0|需要进一步测试|
+|src/script/00.js:5459|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5475|setTimeout|()=>{       eligible.forEach(g=>{         const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);         if(c){           const o=c.querySelector('.card-item-r; 3000|需要进一步测试|
+|src/script/00.js:5481|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
+|src/script/00.js:5484|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
+|src/script/00.js:5487|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5518|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5535|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5657|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5669|setTimeout|()=>{      eligible.forEach(g=>{        const c=document.querySelector(.group-row-card[data-group-id="${g.id}"]);        if(c){const o=c.querySelector('.card-item-roulette');if(o; 3000|需要进一步测试|
+|src/script/00.js:5672|setTimeout|()=>{c.classList.remove('item-draw-spinning');c.querySelector('.card-item-roulette')?.remove()}; 430|需要进一步测试|
+|src/script/00.js:5674|setTimeout|()=>{itemDrawBusy=false;renderAll()}; 470|需要进一步测试|
+|src/script/00.js:5677|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5705|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5721|requestAnimationFrame|frame|需要进一步测试|
+|src/script/00.js:5856|setTimeout|()=>patchVisibleGodManagerV283(gid); 0|需要进一步测试|
+|src/script/00.js:5869|setTimeout|()=>{appendMissingEncyclopediaV283()}; 0|需要进一步测试|
+|src/script/00.js:5870|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{  appendMissingEncyclopediaV283();  patchItemIconSettingsV283(); },80)|需要进一步测试|
+|src/script/00.js:5870|setTimeout|()=>{  appendMissingEncyclopediaV283();  patchItemIconSettingsV283(); }; 80|需要进一步测试|
+|src/script/00.js:5902|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(refresh26ItemInterfacesV284,120)|需要进一步测试|
+|src/script/00.js:5902|setTimeout|refresh26ItemInterfacesV284; 120|需要进一步测试|
+|src/script/00.js:6004|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{   installCommunismModeSetting();   applyCommunismMode(); },160)|需要进一步测试|
+|src/script/00.js:6004|setTimeout|()=>{   installCommunismModeSetting();   applyCommunismMode(); }; 160|需要进一步测试|
+|src/script/00.js:6279|setTimeout|()=>{     card.classList.remove(cls,'card-defend-fx');     badge.remove();     card.style.removeProperty('--hitc');   }; 1750|需要进一步测试|
+|src/script/00.js:6298|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',true); 120|需要进一步测试|
+|src/script/00.js:6317|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',true); 120|需要进一步测试|
+|src/script/00.js:6338|setTimeout|()=>playAttackTargetFxV2116(target.id,'lightning',false); 120|需要进一步测试|
+|src/script/00.js:6347|setTimeout|()=>playCasterCardFx(key,casterId); 30|需要进一步测试|
+|src/script/00.js:6538|setTimeout|()=>slots[0]?.classList.remove('queue-promoted'); 1150|需要进一步测试|
+|src/script/00.js:6557|window.addEventListener|'DOMContentLoaded'; ()=>setTimeout(()=>{   try{renderAll()}catch(e){} },220)|需要进一步测试|
+|src/script/00.js:6557|setTimeout|()=>{   try{renderAll()}catch(e){} }; 220|需要进一步测试|
 |src/script/01.js:156|requestAnimationFrame|()=>requestAnimationFrame(()=>moved.forEach(card=>{       card.style.setProperty(         'transition',         transform ${V213_CARD_REORDER_MS}ms cubic-bezier(.2,.8,.2,1),box-sh|需要进一步测试|
 |src/script/01.js:156|requestAnimationFrame|()=>moved.forEach(card=>{       card.style.setProperty(         'transition',         transform ${V213_CARD_REORDER_MS}ms cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color|需要进一步测试|
 |src/script/01.js:164|setTimeout|()=>{         /* 在“0 位移”状态下无动画清理内联 transform，避免清理动作被识别成第二段动画。 */         card.style.setProperty('transition','none','important');         card.style.removeProperty('transform');   ; V213_CARD_REORDER_SETTLE_MS|需要进一步测试|
@@ -3574,7 +3593,6 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/09.js:176|setTimeout|()=>{try{renderItemFxSoundListV26()}catch(e){}}; 180|需要进一步测试|
 |src/script/09.js:183|setTimeout|()=>{try{renderItemFxSoundListV26()}catch(e){}}; 120|需要进一步测试|
 |src/script/10.js:92|setTimeout|()=>URL.revokeObjectURL(url); 1000|需要进一步测试|
-|src/script/10.js:130|setTimeout|()=>{try{renderItemFxSoundListV26()}catch(e){}}; 0|需要进一步测试|
 |src/script/11.js:100|setTimeout|installSfxVolumeSliderV2176; 0|需要进一步测试|
 |src/script/11.js:109|setTimeout|installSfxVolumeSliderV2176; 0|需要进一步测试|
 |src/script/11.js:116|document.addEventListener|'DOMContentLoaded'; ()=>setTimeout(installSfxVolumeSliderV2176,450); {once:true}|需要进一步测试|
@@ -3642,21 +3660,25 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/script/39.js:49|el.addEventListener|'mouseleave'; ()=>ensureDockHumorTipV2185().classList.remove('show')|需要进一步测试|
 |src/script/39.js:94|setTimeout|applyDockHumorV2185; 0|需要进一步测试|
 |src/script/39.js:95|setTimeout|applyDockHumorV2185; 250|需要进一步测试|
-|src/script/41.js:96|setTimeout|polishVisibleCopyV2187; 0|需要进一步测试|
-|src/script/41.js:101|window.addEventListener|'DOMContentLoaded'; ()=>{   polishVisibleCopyV2187();   setTimeout(polishVisibleCopyV2187,120); }|需要进一步测试|
-|src/script/41.js:103|setTimeout|polishVisibleCopyV2187; 120|需要进一步测试|
-|src/ui/desktop.js:266|requestAnimationFrame|updateArrows|需要进一步测试|
-|src/ui/desktop.js:554|setTimeout|() => URL.revokeObjectURL(url); 1000|需要进一步测试|
-|src/ui/desktop.js:824|document.addEventListener|"click"; (e) => {         if (e.target.closest(".bottom-dock") && currentView !== "battle") {           e.preventDefault();           e.stopImmediatePropagation();           return;        ; true|需要进一步测试|
-|src/ui/desktop.js:879|document.addEventListener|"focusin"; (event) => {         const top = openStack.at(-1);         if (top && !top.el.contains(event.target)) focusModal(top);       }; true|需要进一步测试|
-|src/ui/desktop.js:961|document.addEventListener|"keydown"; (e) => {         const top = openStack.at(-1);         if (!top) return;         if (e.key === "Escape") {           e.preventDefault();           e.stopImmediatePropagation();    ; true|需要进一步测试|
-|src/ui/desktop.js:1150|requestAnimationFrame|() => requestAnimationFrame(resolve)|需要进一步测试|
-|src/ui/desktop.js:1150|requestAnimationFrame|resolve|需要进一步测试|
-|src/ui/desktop.js:1192|window.addEventListener|"resize"; syncViewport|需要进一步测试|
-|src/ui/desktop.js:1210|$("#settlementHistoryContainer").addEventListener|"toggle"; (event) => {         const details = event.target;         if (details.tagName !== "DETAILS") return;         if (!details.open) {           for (const a of animations)            ; true|需要进一步测试|
-|src/ui/desktop.js:1234|t.addEventListener|"scroll"; updateArrows; { passive: true }|需要进一步测试|
-|src/ui/desktop.js:1235|t.addEventListener|"wheel"; (e) => {         if (           t.scrollWidth <= t.clientWidth + 2 ／／           Math.abs(e.deltaX) > Math.abs(e.deltaY) ／／           e.ctrlKey         )           return;         c; { passive: false }|需要进一步测试|
-|src/ui/desktop.js:1333|window.addEventListener|"DOMContentLoaded"; DesktopUI.init; { once: true }|需要进一步测试|
+|src/script/41.js:92|setTimeout|polishVisibleCopyV2187; 0|需要进一步测试|
+|src/script/41.js:97|window.addEventListener|'DOMContentLoaded'; ()=>{   polishVisibleCopyV2187();   setTimeout(polishVisibleCopyV2187,120); }|需要进一步测试|
+|src/script/41.js:99|setTimeout|polishVisibleCopyV2187; 120|需要进一步测试|
+|src/ui/desktop.js:269|requestAnimationFrame|updateArrows|需要进一步测试|
+|src/ui/desktop.js:557|setTimeout|() => URL.revokeObjectURL(url); 1000|需要进一步测试|
+|src/ui/desktop.js:894|shell.addEventListener|"click"; async (event) => {         const button = event.target.closest("button");         const action = button?.getAttribute("onclick");         const confirm = {           "applySettings; true|需要进一步测试|
+|src/ui/desktop.js:1084|document.addEventListener|"click"; (e) => {         if (e.target.closest(".bottom-dock") && currentView !== "battle") {           e.preventDefault();           e.stopImmediatePropagation();           return;        ; true|需要进一步测试|
+|src/ui/desktop.js:1139|document.addEventListener|"focusin"; (event) => {         const top = openStack.at(-1);         if (top && !top.el.contains(event.target)) focusModal(top);       }; true|需要进一步测试|
+|src/ui/desktop.js:1221|document.addEventListener|"keydown"; (e) => {         const top = openStack.at(-1);         if (!top) return;         if (e.key === "Escape") {           e.preventDefault();           e.stopImmediatePropagation();    ; true|需要进一步测试|
+|src/ui/desktop.js:1410|requestAnimationFrame|() => requestAnimationFrame(resolve)|需要进一步测试|
+|src/ui/desktop.js:1410|requestAnimationFrame|resolve|需要进一步测试|
+|src/ui/desktop.js:1452|window.addEventListener|"resize"; syncViewport|需要进一步测试|
+|src/ui/desktop.js:1453|matchMedia("(prefers-reduced-motion: reduce)").addEventListener|"change"; () => {         if (!canAnimate()) cancelSettingsMotion();       }|需要进一步测试|
+|src/ui/desktop.js:1459|document.addEventListener|"visibilitychange"; () => {       if (document.hidden) cancelSettingsMotion();     }|需要进一步测试|
+|src/ui/desktop.js:1462|document.addEventListener|"keydown"; (event) => {       if (event.key === "Escape" && currentView === "settings")         cancelSettingsMotion();     }|需要进一步测试|
+|src/ui/desktop.js:1483|$("#settlementHistoryContainer").addEventListener|"toggle"; (event) => {         const details = event.target;         if (details.tagName !== "DETAILS") return;         if (!details.open) {           for (const a of animations)            ; true|需要进一步测试|
+|src/ui/desktop.js:1507|t.addEventListener|"scroll"; updateArrows; { passive: true }|需要进一步测试|
+|src/ui/desktop.js:1508|t.addEventListener|"wheel"; (e) => {         if (           t.scrollWidth <= t.clientWidth + 2 ／／           Math.abs(e.deltaX) > Math.abs(e.deltaY) ／／           e.ctrlKey         )           return;         c; { passive: false }|需要进一步测试|
+|src/ui/desktop.js:1607|window.addEventListener|"DOMContentLoaded"; DesktopUI.init; { once: true }|需要进一步测试|
 |src/ui/welcome-v2.js:130|clearTimeout|cruiseTimer|需要进一步测试|
 |src/ui/welcome-v2.js:163|setTimeout|() => {         cruiseTimer = null;         if (!cruiseAllowed()) return;         const track = $("uiGroupTrack"),           edge = track.scrollWidth - track.clientWidth;         c; Math.max(3800, pauseUntil - Date.now())|需要进一步测试|
 |src/ui/welcome-v2.js:185|track.addEventListener|"pointerenter"; () => {       trackHovered = true;       syncCruise();     }|需要进一步测试|
@@ -4653,7 +4675,7 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/style/02.css:68|body.modern-flat-v217 .item-draw-board|需要进一步测试|
 |src/style/02.css:69|body.modern-flat-v217 .about-main, body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody|需要进一步测试|
 |src/style/02.css:73|body.modern-flat-v217:has(.modal-overlay.active),body.modern-flat-v217:has(.score-modal-backdrop.active), body.modern-flat-v217:has(.item-modal-backdrop.active),body.modern-flat-v217:has(.classroom-backdrop.active), body.modern-flat-v217:has(.about-backdrop.active),body.modern-flat-v217:has(.member-search-backdrop.active)|需要进一步测试|
-|src/style/02.css:76|/* 卡片、面板和弹窗 */ body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container, body.modern-flat-v217 .quick-batch-bar,body.modern-flat-v217 .fullview-header, body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll, body.modern-flat-v217 .welcome-card,body.modern-flat-v217 .history-card, body.modern-flat-v217 .archive-card,body.modern-flat-v217 .setting-card, body.modern-flat-v217 .setting-item,body.modern-flat-v217 .setting-row, body.modern-flat-v217 .guide-block,body.modern-flat-v217 .ency-card, body.modern-flat-v217 .ency-v213-card,body.modern-flat-v217 .sound-setting-card, body.modern-flat-v217 .icon-setting-card,body.modern-flat-v217 .trim-row, body.modern-flat-v217 .history-item,body.modern-flat-v217 .hist-card, body.modern-flat-v217 .setting-section,body.modern-flat-v217 .settings-card, body.modern-flat-v217 .stat-card,body.modern-flat-v217 .sound-row, body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card|需要进一步测试|
+|src/style/02.css:76|/* 卡片、面板和弹窗 */ body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container, body.modern-flat-v217 .quick-batch-bar,body.modern-flat-v217 .fullview-header, body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll:not(.ui-settings-host), body.modern-flat-v217 .welcome-card,body.modern-flat-v217 .history-card, body.modern-flat-v217 .archive-card,body.modern-flat-v217 .setting-card, body.modern-flat-v217 .setting-item,body.modern-flat-v217 .setting-row, body.modern-flat-v217 .guide-block,body.modern-flat-v217 .ency-card, body.modern-flat-v217 .ency-v213-card,body.modern-flat-v217 .sound-setting-card, body.modern-flat-v217 .icon-setting-card,body.modern-flat-v217 .trim-row, body.modern-flat-v217 .history-item,body.modern-flat-v217 .hist-card, body.modern-flat-v217 .setting-section,body.modern-flat-v217 .settings-card, body.modern-flat-v217 .stat-card,body.modern-flat-v217 .sound-row, body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card|需要进一步测试|
 |src/style/02.css:94|body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):not(.card-defend-fx):not(.card-heal-fx)|需要进一步测试|
 |src/style/02.css:99|body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover|需要进一步测试|
 |src/style/02.css:100|body.modern-flat-v217 .modal-box,body.modern-flat-v217 .score-modal-card, body.modern-flat-v217 .member-search-card,body.modern-flat-v217 .vista-window, body.modern-flat-v217 .item-window,body.modern-flat-v217 .picker-window, body.modern-flat-v217 .picker-modal,body.modern-flat-v217 .about-window, body.modern-flat-v217 .classroom-window,body.modern-flat-v217 .hand-window, body.modern-flat-v217 .item-draw-board,body.modern-flat-v217 .welcome-modal-card|需要进一步测试|
@@ -4919,57 +4941,46 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/style/15.css:169|/* 设置页：标签固定，当前面板独立滚动。 */ body.modern-flat-v217:has(#view-settings.active)|需要进一步测试|
 |src/style/15.css:177|body.modern-flat-v217 #view-settings.active|需要进一步测试|
 |src/style/15.css:184|body.modern-flat-v217 #view-settings .settings-scroll|需要进一步测试|
-|src/style/15.css:192|/* 设置页字重层级：标题最重，字段名中等，解释文字使用正常字重。 */ body.modern-flat-v217 #view-settings .fullview-header h2, body.modern-flat-v217 #view-settings .setting-section-title|需要进一步测试|
-|src/style/15.css:195|body.modern-flat-v217 #view-settings .settings-v26-tabs button, body.modern-flat-v217 #view-settings .setting-label, body.modern-flat-v217 #view-settings .sound-name, body.modern-flat-v217 #view-settings .ency-v213-name, body.modern-flat-v217 #view-settings .icon-custom-card b, body.modern-flat-v217 #view-settings .engine-row>label|需要进一步测试|
-|src/style/15.css:201|body.modern-flat-v217 #view-settings .fullview-sub, body.modern-flat-v217 #view-settings .setting-note, body.modern-flat-v217 #view-settings .sound-tag, body.modern-flat-v217 #view-settings .ency-v213-desc, body.modern-flat-v217 #view-settings .v2172-clear-items-copy span, body.modern-flat-v217 #view-settings .v2174-audio-head span|需要进一步测试|
-|src/style/15.css:207|body.modern-flat-v217 #view-settings .setting-section-title, body.modern-flat-v217 #view-settings .settings-v26-pane>div>div:first-child|需要进一步测试|
-|src/style/15.css:213|body.modern-flat-v217 #view-settings .setting-item, body.modern-flat-v217 #view-settings .sound-row, body.modern-flat-v217 #view-settings .engine-row|需要进一步测试|
-|src/style/15.css:225|body.modern-flat-v217 #view-settings .setting-label, body.modern-flat-v217 #view-settings .sound-name, body.modern-flat-v217 #view-settings .engine-row>label|需要进一步测试|
-|src/style/15.css:228|body.modern-flat-v217 #view-settings .setting-note, body.modern-flat-v217 #view-settings .sound-tag, body.modern-flat-v217 #view-settings .v2172-clear-items-copy span|需要进一步测试|
-|src/style/15.css:231|body.modern-flat-v217 #settingsV26_data .setting-item>div|需要进一步测试|
-|src/style/15.css:241|body.modern-flat-v217 #settingsV26_data #newPwdInput|需要进一步测试|
-|src/style/15.css:242|body.modern-flat-v217 #settingsV26_data .setting-item>div>.btn|需要进一步测试|
-|src/style/15.css:243|body.modern-flat-v217 #settingsV26_data .v2172-clear-items-row|需要进一步测试|
-|src/style/15.css:244|/* 道具管理固定为宽卡；禁止图标和按钮把中文说明压成单字列。 */ body.modern-flat-v217 #settingsV26_items .item-ency-grid|需要进一步测试|
-|src/style/15.css:253|body.modern-flat-v217 #settingsV26_items .ency-v213-card|需要进一步测试|
-|src/style/15.css:267|body.modern-flat-v217 #settingsV26_items .ency-v213-info|需要进一步测试|
-|src/style/15.css:268|body.modern-flat-v217 #settingsV26_items .ency-v213-name, body.modern-flat-v217 #settingsV26_items .ency-v213-desc|需要进一步测试|
-|src/style/15.css:275|body.modern-flat-v217 #settingsV26_items .ency-v213-name|需要进一步测试|
-|src/style/15.css:276|body.modern-flat-v217 #settingsV26_items .ency-v213-desc|需要进一步测试|
-|src/style/15.css:277|body.modern-flat-v217 #settingsV26_items .ency-v213-actions|需要进一步测试|
-|src/style/15.css:286|/* 自定义按钮图标：宽屏多列，中屏双列，窄屏单列。 */ body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
-|src/style/15.css:294|body.modern-flat-v217 #view-settings .icon-custom-card|需要进一步测试|
-|src/style/15.css:302|body.modern-flat-v217 #view-settings .icon-custom-card>div:nth-child(2)|需要进一步测试|
-|src/style/15.css:303|/* 手动举手的小组选择器复用“预选小组”的紧凑胶囊语言。 */ body.modern-flat-v217 #handGroupGrid.hand-grid|需要进一步测试|
-|src/style/15.css:311|body.modern-flat-v217 #handGroupGrid .hand-group|需要进一步测试|
-|src/style/15.css:329|body.modern-flat-v217 #handGroupGrid .hand-group small|需要进一步测试|
-|src/style/15.css:330|body.modern-flat-v217 #handGroupGrid .hand-group:not(.selected):hover|需要进一步测试|
-|src/style/15.css:331|body.modern-flat-v217 #handGroupGrid .hand-group.selected|需要进一步测试|
-|src/style/15.css:336|body.modern-flat-v217 #handGroupGrid .hand-group.selected small|需要进一步测试|
-|src/style/15.css:337|/* 档案页承接原点名窗口中的课堂累计统计。 */ body.modern-flat-v217 .archive-class-stats|需要进一步测试|
-|src/style/15.css:340|body.modern-flat-v217 .archive-stats-head|需要进一步测试|
-|src/style/15.css:341|body.modern-flat-v217 .archive-stats-head h3|需要进一步测试|
-|src/style/15.css:342|body.modern-flat-v217 .archive-stats-head span|需要进一步测试|
-|src/style/15.css:343|body.modern-flat-v217 .archive-stats-grid|需要进一步测试|
-|src/style/15.css:344|body.modern-flat-v217 .archive-stat-card|需要进一步测试|
-|src/style/15.css:345|body.modern-flat-v217 .archive-stat-card b|需要进一步测试|
-|src/style/15.css:346|body.modern-flat-v217 .archive-stat-card b small|需要进一步测试|
-|src/style/15.css:347|body.modern-flat-v217 .archive-stat-card span|需要进一步测试|
-|src/style/15.css:350|body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
-|src/style/15.css:353|body.modern-flat-v217 .welcome-modal-card|需要进一步测试|
-|src/style/15.css:354|body.modern-flat-v217 .about-window,   body.modern-flat-v217 .item-window|需要进一步测试|
-|src/style/15.css:356|body.modern-flat-v217 .about-side,   body.modern-flat-v217 .item-side|需要进一步测试|
-|src/style/15.css:358|body.modern-flat-v217 .about-side button,   body.modern-flat-v217 .item-side button|需要进一步测试|
-|src/style/15.css:360|body.modern-flat-v217 .item-side-title|需要进一步测试|
-|src/style/15.css:361|body.modern-flat-v217 .item-main|需要进一步测试|
-|src/style/15.css:362|body.modern-flat-v217 #itemWindowBody|需要进一步测试|
-|src/style/15.css:363|body.modern-flat-v217 .about-main|需要进一步测试|
-|src/style/15.css:364|body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
-|src/style/15.css:365|body.modern-flat-v217 #settingsV26_items .ency-v213-card|需要进一步测试|
-|src/style/15.css:366|body.modern-flat-v217 #settingsV26_items .ency-v213-actions|需要进一步测试|
-|src/style/15.css:367|body.modern-flat-v217 #settingsV26_data .setting-item|需要进一步测试|
-|src/style/15.css:368|body.modern-flat-v217 #settingsV26_data .setting-item>div|需要进一步测试|
-|src/style/15.css:369|body.modern-flat-v217 .archive-stats-grid|需要进一步测试|
+|src/style/15.css:192|/* 设置组件的文字、分组和表单样式统一归 ui/desktop.css。 */  /* 道具管理固定为宽卡；禁止图标和按钮把中文说明压成单字列。 */ body.modern-flat-v217 #settingsV26_items .item-ency-grid|需要进一步测试|
+|src/style/15.css:202|body.modern-flat-v217 #settingsV26_items .ency-v213-card|需要进一步测试|
+|src/style/15.css:216|body.modern-flat-v217 #settingsV26_items .ency-v213-info|需要进一步测试|
+|src/style/15.css:217|body.modern-flat-v217 #settingsV26_items .ency-v213-name, body.modern-flat-v217 #settingsV26_items .ency-v213-desc|需要进一步测试|
+|src/style/15.css:224|body.modern-flat-v217 #settingsV26_items .ency-v213-name|需要进一步测试|
+|src/style/15.css:225|body.modern-flat-v217 #settingsV26_items .ency-v213-desc|需要进一步测试|
+|src/style/15.css:226|body.modern-flat-v217 #settingsV26_items .ency-v213-actions|需要进一步测试|
+|src/style/15.css:235|/* 自定义按钮图标：宽屏多列，中屏双列，窄屏单列。 */ body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
+|src/style/15.css:243|body.modern-flat-v217 #view-settings .icon-custom-card|需要进一步测试|
+|src/style/15.css:251|body.modern-flat-v217 #view-settings .icon-custom-card>div:nth-child(2)|需要进一步测试|
+|src/style/15.css:252|/* 手动举手的小组选择器复用“预选小组”的紧凑胶囊语言。 */ body.modern-flat-v217 #handGroupGrid.hand-grid|需要进一步测试|
+|src/style/15.css:260|body.modern-flat-v217 #handGroupGrid .hand-group|需要进一步测试|
+|src/style/15.css:278|body.modern-flat-v217 #handGroupGrid .hand-group small|需要进一步测试|
+|src/style/15.css:279|body.modern-flat-v217 #handGroupGrid .hand-group:not(.selected):hover|需要进一步测试|
+|src/style/15.css:280|body.modern-flat-v217 #handGroupGrid .hand-group.selected|需要进一步测试|
+|src/style/15.css:285|body.modern-flat-v217 #handGroupGrid .hand-group.selected small|需要进一步测试|
+|src/style/15.css:286|/* 档案页承接原点名窗口中的课堂累计统计。 */ body.modern-flat-v217 .archive-class-stats|需要进一步测试|
+|src/style/15.css:289|body.modern-flat-v217 .archive-stats-head|需要进一步测试|
+|src/style/15.css:290|body.modern-flat-v217 .archive-stats-head h3|需要进一步测试|
+|src/style/15.css:291|body.modern-flat-v217 .archive-stats-head span|需要进一步测试|
+|src/style/15.css:292|body.modern-flat-v217 .archive-stats-grid|需要进一步测试|
+|src/style/15.css:293|body.modern-flat-v217 .archive-stat-card|需要进一步测试|
+|src/style/15.css:294|body.modern-flat-v217 .archive-stat-card b|需要进一步测试|
+|src/style/15.css:295|body.modern-flat-v217 .archive-stat-card b small|需要进一步测试|
+|src/style/15.css:296|body.modern-flat-v217 .archive-stat-card span|需要进一步测试|
+|src/style/15.css:299|body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
+|src/style/15.css:302|body.modern-flat-v217 .welcome-modal-card|需要进一步测试|
+|src/style/15.css:303|body.modern-flat-v217 .about-window,   body.modern-flat-v217 .item-window|需要进一步测试|
+|src/style/15.css:305|body.modern-flat-v217 .about-side,   body.modern-flat-v217 .item-side|需要进一步测试|
+|src/style/15.css:307|body.modern-flat-v217 .about-side button,   body.modern-flat-v217 .item-side button|需要进一步测试|
+|src/style/15.css:309|body.modern-flat-v217 .item-side-title|需要进一步测试|
+|src/style/15.css:310|body.modern-flat-v217 .item-main|需要进一步测试|
+|src/style/15.css:311|body.modern-flat-v217 #itemWindowBody|需要进一步测试|
+|src/style/15.css:312|body.modern-flat-v217 .about-main|需要进一步测试|
+|src/style/15.css:313|body.modern-flat-v217 #view-settings .icon-custom-grid|需要进一步测试|
+|src/style/15.css:314|body.modern-flat-v217 #settingsV26_items .ency-v213-card|需要进一步测试|
+|src/style/15.css:315|body.modern-flat-v217 #settingsV26_items .ency-v213-actions|需要进一步测试|
+|src/style/15.css:316|body.modern-flat-v217 #settingsV26_data .setting-item|需要进一步测试|
+|src/style/15.css:317|body.modern-flat-v217 #settingsV26_data .setting-item>div|需要进一步测试|
+|src/style/15.css:318|body.modern-flat-v217 .archive-stats-grid|需要进一步测试|
 |src/style/16.css:1|/* ===== V2.17.21：比赛页顶部当前排名预览 ===== */ body.modern-flat-v217 .battle-rank-dock-v21721|需要进一步测试|
 |src/style/16.css:7|body.modern-flat-v217 .battle-rank-preview-v21721|需要进一步测试|
 |src/style/16.css:17|body.modern-flat-v217 .battle-rank-preview-head-v21721|需要进一步测试|
@@ -5157,73 +5168,105 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/ui/desktop.css:487|.ui-settings-nav button[aria-current="true"]|需要进一步测试|
 |src/ui/desktop.css:492|.ui-settings-body|需要进一步测试|
 |src/ui/desktop.css:498|.ui-settings-category|需要进一步测试|
-|src/ui/desktop.css:505|.ui-settings-category[hidden]|需要进一步测试|
-|src/ui/desktop.css:508|.ui-settings-title|需要进一步测试|
-|src/ui/desktop.css:513|.ui-settings-title h3|需要进一步测试|
+|src/ui/desktop.css:503|.ui-settings-category[hidden]|需要进一步测试|
+|src/ui/desktop.css:506|.ui-settings-title|需要进一步测试|
+|src/ui/desktop.css:511|.ui-settings-title h3|需要进一步测试|
 |src/ui/desktop.css:516|.ui-settings-row|需要进一步测试|
 |src/ui/desktop.css:524|.ui-settings-row label|需要进一步测试|
 |src/ui/desktop.css:528|.ui-settings-row input[type="checkbox"]|需要进一步测试|
 |src/ui/desktop.css:533|.ui-settings-row select|需要进一步测试|
 |src/ui/desktop.css:536|.ui-settings-category .setting-item, .ui-settings-category .setting-row|需要进一步测试|
-|src/ui/desktop.css:541|.ui-bank-editor|需要进一步测试|
-|src/ui/desktop.css:550|.ui-danger-zone|需要进一步测试|
-|src/ui/desktop.css:555|.ui-danger-zone .ui-muted|需要进一步测试|
-|src/ui/desktop.css:558|.ui-dock-menu|需要进一步测试|
-|src/ui/desktop.css:562|.ui-dock-menu summary|需要进一步测试|
-|src/ui/desktop.css:572|.ui-dock-menu-body|需要进一步测试|
-|src/ui/desktop.css:588|.ui-dock-menu:not([open]) .ui-dock-menu-body|需要进一步测试|
-|src/ui/desktop.css:591|.ui-dock-menu-body .icon-btn|需要进一步测试|
-|src/ui/desktop.css:599|.ui-toast|需要进一步测试|
-|src/ui/desktop.css:609|.ui-toast::backdrop|需要进一步测试|
-|src/ui/desktop.css:613|.ui-modal-close|需要进一步测试|
-|src/ui/desktop.css:625|body[data-motion="off"] *, body[data-motion="off"] *::before, body[data-motion="off"] *::after|需要进一步测试|
-|src/ui/desktop.css:633|body[data-motion="simple"] .persistent-aura-v213, body[data-item-fx="off"] .persistent-aura-v213|需要进一步测试|
-|src/ui/desktop.css:637|body[data-item-fx="off"] .card-fx-layer, body[data-item-fx="off"] .item-use-banner-v216|需要进一步测试|
-|src/ui/desktop.css:642|body[data-system-motion="true"] *,   body[data-system-motion="true"] *::before,   body[data-system-motion="true"] *::after|需要进一步测试|
-|src/ui/desktop.css:652|.ui-page|需要进一步测试|
-|src/ui/desktop.css:655|.ui-daily-grid|需要进一步测试|
-|src/ui/desktop.css:658|.ui-settings-shell|需要进一步测试|
-|src/ui/desktop.css:661|.ui-welcome-head h1|需要进一步测试|
-|src/ui/desktop.css:665|body.modern-flat-v217[data-current-view]:not([data-current-view="battle"])|需要进一步测试|
-|src/ui/desktop.css:669|.nav-tab|需要进一步测试|
-|src/ui/desktop.css:677|.ui-settings-host|需要进一步测试|
-|src/ui/desktop.css:680|.ui-settings-category .settings-v26-pane|需要进一步测试|
-|src/ui/desktop.css:684|#view-history, #view-archives, #view-settings|需要进一步测试|
-|src/ui/desktop.css:689|.picker-layout-v2|需要进一步测试|
-|src/ui/desktop.css:694|.picker-left-v2, .picker-right-v2|需要进一步测试|
-|src/ui/desktop.css:701|.picker-center-v2|需要进一步测试|
-|src/ui/desktop.css:708|.picker-left-v2 .slot-options-row|需要进一步测试|
-|src/ui/desktop.css:714|.picker-vtab|需要进一步测试|
-|src/ui/desktop.css:720|.picker-vtab.active|需要进一步测试|
-|src/ui/desktop.css:724|#pickerInfoBox|需要进一步测试|
-|src/ui/desktop.css:729|.slot-reel-text|需要进一步测试|
-|src/ui/desktop.css:732|.slot-reel-frame|需要进一步测试|
-|src/ui/desktop.css:735|#slotResultPanel.show #resultHeadline|需要进一步测试|
-|src/ui/desktop.css:739|.picker-right-v2 .picker-info-tabs|需要进一步测试|
-|src/ui/desktop.css:742|.ui-settings-category #bgmListContainer|需要进一步测试|
-|src/ui/desktop.css:746|.ui-settings-category .setting-section-title|需要进一步测试|
-|src/ui/desktop.css:749|.ui-settings-category #uiIconManagerV26 img, .item-big-icon img, .ency-v213-icon img, .ency-icon img|需要进一步测试|
-|src/ui/desktop.css:759|.item-big-icon|需要进一步测试|
-|src/ui/desktop.css:767|.item-big-desc|需要进一步测试|
-|src/ui/desktop.css:770|.queue-main-card|需要进一步测试|
-|src/ui/desktop.css:773|.queue-secondary-card|需要进一步测试|
-|src/ui/desktop.css:776|.queue-item-card|需要进一步测试|
-|src/ui/desktop.css:779|.queue-role-badge|需要进一步测试|
-|src/ui/desktop.css:782|.queue-main-card .queue-role-badge|需要进一步测试|
-|src/ui/desktop.css:785|.ui-settings-row input:disabled, .ui-settings-row select:disabled|需要进一步测试|
-|src/ui/desktop.css:790|.ui-page button:disabled|需要进一步测试|
-|src/ui/desktop.css:794|.ui-page button:focus-visible, .ui-settings-shell button:focus-visible, select:focus-visible, summary:focus-visible|需要进一步测试|
-|src/ui/desktop.css:802|.app-topnav .header-stats|需要进一步测试|
-|src/ui/desktop.css:805|.picker-layout-v2|需要进一步测试|
-|src/ui/desktop.css:808|.picker-left-v2,   .picker-right-v2,   .picker-center-v2|需要进一步测试|
-|src/ui/desktop.css:814|.ui-settings-category .settings-v26-pane|需要进一步测试|
-|src/ui/desktop.css:820|.ui-settings-category .settings-v26-pane:not(.active)|需要进一步测试|
-|src/ui/desktop.css:823|.ui-settings-body .ui-settings-category .setting-item|需要进一步测试|
-|src/ui/desktop.css:827|.ui-settings-category .ui-danger-zone|需要进一步测试|
-|src/ui/desktop.css:832|.ui-podium:has(> div:nth-child(3)) > div:first-child|需要进一步测试|
-|src/ui/desktop.css:837|.ui-podium:has(> div:nth-child(3)) > div:nth-child(2)|需要进一步测试|
-|src/ui/desktop.css:841|.ui-podium:has(> div:nth-child(3)) > div:nth-child(3)|需要进一步测试|
-|src/ui/desktop.css:845|.ui-podium:not(:has(> div:nth-child(2)))|需要进一步测试|
+|src/ui/desktop.css:541|#view-settings|需要进一步测试|
+|src/ui/desktop.css:544|.ui-settings-header|需要进一步测试|
+|src/ui/desktop.css:557|.ui-settings-eyebrow|需要进一步测试|
+|src/ui/desktop.css:565|.ui-settings-header h2|需要进一步测试|
+|src/ui/desktop.css:571|.ui-settings-header h2 small|需要进一步测试|
+|src/ui/desktop.css:577|.ui-settings-header p|需要进一步测试|
+|src/ui/desktop.css:582|.ui-settings-status|需要进一步测试|
+|src/ui/desktop.css:593|.ui-settings-status span:first-child|需要进一步测试|
+|src/ui/desktop.css:597|.ui-settings-group, .ui-settings-disclosure|需要进一步测试|
+|src/ui/desktop.css:605|.ui-settings-group|需要进一步测试|
+|src/ui/desktop.css:608|.ui-settings-group h4|需要进一步测试|
+|src/ui/desktop.css:613|.ui-settings-group > .ui-muted|需要进一步测试|
+|src/ui/desktop.css:618|.ui-settings-disclosure > summary|需要进一步测试|
+|src/ui/desktop.css:627|.ui-settings-disclosure > summary::-webkit-details-marker|需要进一步测试|
+|src/ui/desktop.css:630|.ui-settings-disclosure > summary b|需要进一步测试|
+|src/ui/desktop.css:635|.ui-settings-disclosure > summary span|需要进一步测试|
+|src/ui/desktop.css:641|.ui-settings-disclosure > summary::after|需要进一步测试|
+|src/ui/desktop.css:652|.ui-settings-disclosure[open] > summary::after|需要进一步测试|
+|src/ui/desktop.css:655|.ui-settings-disclosure > summary:hover|需要进一步测试|
+|src/ui/desktop.css:658|.ui-settings-disclosure > summary:focus-visible|需要进一步测试|
+|src/ui/desktop.css:662|.ui-settings-detail-body|需要进一步测试|
+|src/ui/desktop.css:665|.ui-settings-detail-body > .ui-muted|需要进一步测试|
+|src/ui/desktop.css:669|.ui-settings-category .setting-item, .ui-settings-category .sound-row|需要进一步测试|
+|src/ui/desktop.css:676|.ui-settings-category .setting-label, .ui-settings-category .sound-name|需要进一步测试|
+|src/ui/desktop.css:681|.ui-settings-category .sound-tag|需要进一步测试|
+|src/ui/desktop.css:685|.ui-settings-category input[type="range"]|需要进一步测试|
+|src/ui/desktop.css:688|.ui-settings-category .ui-danger-zone|需要进一步测试|
+|src/ui/desktop.css:692|.ui-settings-category .ui-danger-zone > summary b|需要进一步测试|
+|src/ui/desktop.css:695|.ui-settings-category .ui-snapshot-note|需要进一步测试|
+|src/ui/desktop.css:700|#uiSettingsLock .setting-item > div, #uiSettingsBackup .setting-item > div|需要进一步测试|
+|src/ui/desktop.css:707|#uiSettingsLock #newPwdInput|需要进一步测试|
+|src/ui/desktop.css:713|#settingsV26_sound,   #uiSettingsVolume > div,   #uiSettingsWallpaper > div,   #uiSettingsLayout > div,   #uiSettingsRules > div|需要进一步测试|
+|src/ui/desktop.css:723|#settingsV26_sound > .ui-settings-group,   #settingsV26_sound > details[open]|需要进一步测试|
+|src/ui/desktop.css:727|#settingsV26_sound > .ui-settings-group,   #settingsV26_sound > .ui-settings-disclosure|需要进一步测试|
+|src/ui/desktop.css:731|#uiSettingsLayout .ui-settings-row|需要进一步测试|
+|src/ui/desktop.css:735|.ui-bank-editor|需要进一步测试|
+|src/ui/desktop.css:744|.ui-danger-zone|需要进一步测试|
+|src/ui/desktop.css:749|.ui-danger-zone .ui-muted|需要进一步测试|
+|src/ui/desktop.css:752|.ui-dock-menu|需要进一步测试|
+|src/ui/desktop.css:756|.ui-dock-menu summary|需要进一步测试|
+|src/ui/desktop.css:766|.ui-dock-menu-body|需要进一步测试|
+|src/ui/desktop.css:782|.ui-dock-menu:not([open]) .ui-dock-menu-body|需要进一步测试|
+|src/ui/desktop.css:785|.ui-dock-menu-body .icon-btn|需要进一步测试|
+|src/ui/desktop.css:793|.ui-toast|需要进一步测试|
+|src/ui/desktop.css:803|.ui-toast::backdrop|需要进一步测试|
+|src/ui/desktop.css:807|.ui-modal-close|需要进一步测试|
+|src/ui/desktop.css:819|body[data-motion="off"] *, body[data-motion="off"] *::before, body[data-motion="off"] *::after|需要进一步测试|
+|src/ui/desktop.css:827|body[data-motion="simple"] .persistent-aura-v213, body[data-item-fx="off"] .persistent-aura-v213|需要进一步测试|
+|src/ui/desktop.css:831|body[data-item-fx="off"] .card-fx-layer, body[data-item-fx="off"] .item-use-banner-v216|需要进一步测试|
+|src/ui/desktop.css:836|body[data-system-motion="true"] *,   body[data-system-motion="true"] *::before,   body[data-system-motion="true"] *::after|需要进一步测试|
+|src/ui/desktop.css:846|.ui-page|需要进一步测试|
+|src/ui/desktop.css:849|.ui-daily-grid|需要进一步测试|
+|src/ui/desktop.css:852|.ui-settings-shell|需要进一步测试|
+|src/ui/desktop.css:855|.ui-welcome-head h1|需要进一步测试|
+|src/ui/desktop.css:859|body.modern-flat-v217[data-current-view]:not([data-current-view="battle"])|需要进一步测试|
+|src/ui/desktop.css:863|.nav-tab|需要进一步测试|
+|src/ui/desktop.css:871|.ui-settings-host|需要进一步测试|
+|src/ui/desktop.css:877|.ui-settings-category .settings-v26-pane|需要进一步测试|
+|src/ui/desktop.css:883|#view-history, #view-archives, #view-settings|需要进一步测试|
+|src/ui/desktop.css:888|.picker-layout-v2|需要进一步测试|
+|src/ui/desktop.css:893|.picker-left-v2, .picker-right-v2|需要进一步测试|
+|src/ui/desktop.css:900|.picker-center-v2|需要进一步测试|
+|src/ui/desktop.css:907|.picker-left-v2 .slot-options-row|需要进一步测试|
+|src/ui/desktop.css:913|.picker-vtab|需要进一步测试|
+|src/ui/desktop.css:919|.picker-vtab.active|需要进一步测试|
+|src/ui/desktop.css:923|#pickerInfoBox|需要进一步测试|
+|src/ui/desktop.css:928|.slot-reel-text|需要进一步测试|
+|src/ui/desktop.css:931|.slot-reel-frame|需要进一步测试|
+|src/ui/desktop.css:934|#slotResultPanel.show #resultHeadline|需要进一步测试|
+|src/ui/desktop.css:938|.picker-right-v2 .picker-info-tabs|需要进一步测试|
+|src/ui/desktop.css:941|.ui-settings-category #bgmListContainer|需要进一步测试|
+|src/ui/desktop.css:945|.ui-settings-category .setting-section-title|需要进一步测试|
+|src/ui/desktop.css:948|.ui-settings-category #uiIconManagerV26 img, .item-big-icon img, .ency-v213-icon img, .ency-icon img|需要进一步测试|
+|src/ui/desktop.css:958|.item-big-icon|需要进一步测试|
+|src/ui/desktop.css:966|.item-big-desc|需要进一步测试|
+|src/ui/desktop.css:969|.queue-main-card|需要进一步测试|
+|src/ui/desktop.css:972|.queue-secondary-card|需要进一步测试|
+|src/ui/desktop.css:975|.queue-item-card|需要进一步测试|
+|src/ui/desktop.css:978|.queue-role-badge|需要进一步测试|
+|src/ui/desktop.css:981|.queue-main-card .queue-role-badge|需要进一步测试|
+|src/ui/desktop.css:984|.ui-settings-row input:disabled, .ui-settings-row select:disabled|需要进一步测试|
+|src/ui/desktop.css:989|.ui-page button:disabled|需要进一步测试|
+|src/ui/desktop.css:993|.ui-page button:focus-visible, .ui-settings-shell button:focus-visible, select:focus-visible, summary:focus-visible|需要进一步测试|
+|src/ui/desktop.css:1001|.app-topnav .header-stats|需要进一步测试|
+|src/ui/desktop.css:1004|.picker-layout-v2|需要进一步测试|
+|src/ui/desktop.css:1007|.picker-left-v2,   .picker-right-v2,   .picker-center-v2|需要进一步测试|
+|src/ui/desktop.css:1013|.ui-settings-body .ui-settings-category .setting-item|需要进一步测试|
+|src/ui/desktop.css:1018|.ui-podium:has(> div:nth-child(3)) > div:first-child|需要进一步测试|
+|src/ui/desktop.css:1023|.ui-podium:has(> div:nth-child(3)) > div:nth-child(2)|需要进一步测试|
+|src/ui/desktop.css:1027|.ui-podium:has(> div:nth-child(3)) > div:nth-child(3)|需要进一步测试|
+|src/ui/desktop.css:1031|.ui-podium:not(:has(> div:nth-child(2)))|需要进一步测试|
 |src/ui/welcome-v2.css:1|/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */ .header-banner.app-topnav|需要进一步测试|
 |src/ui/welcome-v2.css:8|.header-banner.app-topnav .header-title|需要进一步测试|
 |src/ui/welcome-v2.css:16|.gp-brand-mount|需要进一步测试|

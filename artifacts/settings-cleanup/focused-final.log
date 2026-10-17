@@ -1,0 +1,53 @@
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440
+FAIL Every original control and action survives exactly once; categories use explicit ownership Expected values to be strictly equal:
+
+2 !== 0
+
+FAIL Moved layout, rules, real wallpaper and veil save and restore without changing groups locator.uncheck: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#communismModeToggle')[22m
+[2m    - locator resolved to <input type="checkbox" id="communismModeToggle" onchange="setCommunismMode(this.checked)"/>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <span class="v292-switch-track">…</span> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <span class="v292-switch-track">…</span> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    55 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is visible, enabled and stable[22m
+[2m       - scrolling into view if needed[22m
+[2m       - done scrolling[22m
+[2m       - <span class="v292-switch-track">…</span> intercepts pointer events[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+PASS Daily volume uses original live setters and persists across reload
+PASS All nine music choices and all 30 item sound editors remain available after repeated navigation
+PASS Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command
+PASS Danger tools stay collapsed; cancel score and item clearing preserves all data
+PASS All item icons retained; reset-all has confirmation and preserves custom image on cancel
+PASS Local bank maintenance is secondary, validates edits and exports real saved content
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.waitForEvent: Target page, context or browser has been closed
+=========================== logs ===========================
+waiting for event "download"
+============================================================
+    at /workspace/godpower-html/tests/e2e/settings-cleanup.mjs:498:23
+    at async test (/workspace/godpower-html/tests/e2e/settings-cleanup.mjs:34:22)
+    at async file:///workspace/godpower-html/tests/e2e/settings-cleanup.mjs:491:3
+
+Node.js v24.19.0

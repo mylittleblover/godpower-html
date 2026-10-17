@@ -1,0 +1,6 @@
+
+> godpower-html@2.19.0 test:settings
+> node tests/e2e/settings-cleanup.mjs
+
+PASS Aligned full-width settings at all desktop sizes and 80/100/125 percent application zoom
+{ pass: 1, fail: 0, errors: [] }

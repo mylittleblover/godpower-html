@@ -10,7 +10,8 @@ npm run audit
 
 源码与图片自动内联为单文件。27 个原版内置资源逐字保留。Chromium 是当前用户指定的验收浏览器；Playwright 默认 `/usr/bin/chromium`，可用 `CHROMIUM_PATH` 指定其他已安装 Chromium。
 
-- [最新欢迎页补齐与验收](docs/reports/WELCOME_V2_COMPLETION.md)
+- [设置页功能清查与新UI验收](docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md)
+- [欢迎页补齐与验收](docs/reports/WELCOME_V2_COMPLETION.md)
 - [历次验收报告](docs/reports/ACCEPTANCE_REPORT.md)
 - [架构审查](docs/audit/ARCHITECTURE_AUDIT.md)
 - [功能清单](docs/audit/FEATURE_INVENTORY.md)

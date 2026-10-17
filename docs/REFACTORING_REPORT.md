@@ -142,3 +142,8 @@ BATTLE_14_GROUPS_BASELINE：最新起点源码与当前源码分别在相同Chro
 本轮未删除未证明安全的遗留业务代码。WelcomeV2 使用单一生命周期所有者替换该分支的新首页实现；顶部统计与首页共用纯 standings 模型，模型提前加载且无业务状态写入。原品牌SVG、比赛规则和14组几何保持不变。完整结果见 docs/reports/WELCOME_V2_COMPLETION.md。
 
 最新静态规模已重新生成于 artifacts/refactor/legacy-inventory.json 和 docs/LEGACY_CODE_INVENTORY.md；其 before 为原治理基线079df31，不应误读为本轮674e12f的前后差异。指标只作观察，未以删代码数量衡量成功。
+
+
+## 设置页清查与新UI补齐（e97933d 起点）
+
+当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。

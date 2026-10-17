@@ -1,5 +1,5 @@
 {
-  "sha256": "0b5896a01f47845fc47186dfb36ab2eeb5e0ac693e31e0192e7d6e073a1aa93a",
+  "sha256": "1316dab003e14cc7e1df22e8a7435dfeb226fae8f723333d1819312cc7f4d719",
   "results": [
     {
       "name": "HTTP document continues offline: five page navigation and actual correct-answer scoring",
@@ -30,19 +30,11 @@
     {
       "type": "verbose",
       "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
-    },
-    {
-      "type": "warning",
-      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
-    },
-    {
-      "type": "warning",
-      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
     }
   ],
   "pageErrors": [],
   "network": [
-    "http://127.0.0.1:42265/"
+    "http://127.0.0.1:33811/"
   ],
   "offlineMethod": "HTTP loaded document then context.setOffline(true); initial file:// is separately BLOCKED"
 }
