@@ -68,11 +68,12 @@
 <style id="v2180PlanStyle">@@SOURCE:style/20.css@@</style>
 
 <style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
+<style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
 </head>
 <body class="modern-flat-v217">
 
 <div class="header-banner app-topnav">
-  <div class="header-title">上帝的力量 <small>V2.19.0</small></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V2.19.0</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -83,23 +84,87 @@
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
 </div>
 
+<div class="gp-intro active" id="gpIntro" role="dialog" aria-modal="true" aria-label="滑动解锁进入上帝的力量">
+  <div class="gp-intro-backdrop"></div>
+  <div class="gp-intro-stage">
+    <div class="gp-intro-logo" id="gpIntroLogo">@@SOURCE:ui/brand.svg@@</div>
+    <h2 class="gp-intro-title" id="gpIntroTitle">上帝的力量</h2>
+    <p class="gp-intro-caption">KNOWLEDGE IS POWER</p>
+    <div class="gp-slider" id="gpSlideTrack" role="slider" tabindex="0" aria-label="向右滑动解锁" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="gp-slider-fill" id="gpSlideFill"></div>
+      <span class="gp-slider-hint">向右滑动，开启课堂 →</span>
+      <span class="gp-slider-knob" id="gpSlideKnob" aria-hidden="true">›</span>
+    </div>
+    <button id="gpIntroSkip" class="gp-intro-skip" type="button">跳过动画，进入首页</button>
+  </div>
+</div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
   <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
 </div>
 <div id="view-welcome" class="view active">
-  <main class="ui-page" style="width:100%;box-sizing:border-box">
-    <header class="ui-welcome-head">
-      <div><div class="ui-eyebrow">课堂竞技 · 每一次参与都有力量</div><h1>上帝的力量</h1><h2 id="welcomeGreeting">欢迎回到课堂</h2><p class="ui-muted">让知识成为力量，让每个小组都有登场时刻。</p></div>
-      <div class="ui-welcome-time"><div id="welcomeClock" class="ui-clock">--:--:--</div><div id="welcomeDate" class="ui-muted"></div><button class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛 →</button><br><button id="uiSkipWelcome" class="btn btn-sm" style="margin-top:8px">跳过入场动画</button></div>
-    </header>
-    <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
-    <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
-    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount" class="w-stat-num"></b></div><div>总积分 <b id="wTotalScore" class="w-stat-num"></b></div><div>最高分 <b id="wMaxScore" class="w-stat-num"></b></div><div>领先 <b id="wLeaderName" class="w-stat-num"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg" class="w-stat-num"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+  <main class="ui-page gp-home" aria-label="上帝的力量首页">
+    <section class="gp-hero gp-reveal" aria-label="欢迎与快捷操作">
+      <div class="gp-hero-copy">
+        <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
+        <h1>课堂竞技，<em>一目了然。</em></h1>
+        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <div class="gp-actions">
+          <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
+          <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>
+        </div>
+      </div>
+      <aside class="gp-hero-status" aria-label="当前课堂信息">
+        <div class="gp-status-top"><span>今日课堂</span><span class="gp-live-pill">● 已就绪</span></div>
+        <div class="gp-hero-clock" id="welcomeClock">--:--:--</div>
+        <div class="gp-hero-date" id="welcomeDate">正在读取日期</div>
+        <div class="gp-status-separator"></div>
+        <div class="gp-status-foot">参赛小组 <strong id="gpHeroCount">0 组</strong></div>
+      </aside>
+    </section>
+
+    <section class="gp-kpis gp-reveal" aria-label="班级概览">
+      <article class="gp-kpi"><div><span>参赛小组</span><strong id="wGroupCount">0</strong><small>个小组在这里集结</small></div><span class="gp-kpi-icon">◈</span></article>
+      <article class="gp-kpi"><div><span>班级总积分</span><strong id="wTotalScore">0</strong><small>累计课堂竞技积分</small></div><span class="gp-kpi-icon gp-gold">✦</span></article>
+      <article class="gp-kpi"><div><span>最高小组积分</span><strong id="wMaxScore">0</strong><small>当前小组最佳成绩</small></div><span class="gp-kpi-icon gp-blue">↑</span></article>
+      <article class="gp-kpi"><div><span>当前领跑</span><strong id="wLeaderName">暂无</strong><small>积分排名实时计算</small></div><span class="gp-kpi-icon gp-purple">★</span></article>
+    </section>
+
+    <div class="gp-section-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>赛场实时总览</h2><small>LIVE DASHBOARD</small></div><span>当前比分与最近操作，打开首页即刻可见</span></div>
+    <section class="gp-main-grid gp-reveal" aria-label="实时竞技数据">
+      <article class="gp-panel gp-rank-panel">
+        <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
+        <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
+        <div class="gp-rank-list" id="gpRankList" aria-live="polite"></div>
+        <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
+      </article>
+      <article class="gp-panel gp-feed-panel">
+        <div class="gp-panel-title"><div><strong>最近赛场动态</strong><small>真实课堂操作记录</small></div><span class="gp-panel-tag gp-soft-tag">实时同步</span></div>
+        <div class="gp-match-status"><span class="gp-status-orb"></span><div><strong id="gpRoundTitle">赛场准备就绪</strong><small id="gpRoundDetail">等待开始新一轮课堂竞技</small></div><button type="button" onclick="switchView('battle')">前往赛场 ↗</button></div>
+        <div class="gp-feed-list" id="gpFeedList"></div>
+        <div class="gp-panel-footer"><span>操作快照可在历史页面查看</span><button type="button" onclick="switchView('history')">完整历史 →</button></div>
+      </article>
+    </section>
+
+    <section class="gp-group-section gp-reveal" aria-label="小组积分自动巡航">
+      <div class="gp-group-head"><div><h2>小组竞技场</h2><span class="gp-group-live">自动巡航</span><p>紧凑展示小组分数 · 悬停或拖动可暂停 · 点击卡片查看详情</p></div>
+        <div class="ui-scroll-buttons"><button id="uiGroupPrev" type="button" aria-label="向左浏览小组">←</button><button id="uiGroupNext" type="button" aria-label="向右浏览小组">→</button></div>
+      </div>
+      <div id="uiGroupTrack" class="ui-group-track gp-compact-track"></div>
+    </section>
+
+    <div class="gp-section-heading gp-bottom-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>今日精选</h2><small>DAILY DISCOVERIES</small></div><span>一点知识，一点灵感，留给课堂的闲暇时光</span></div>
+    <section id="uiDailyGrid" class="ui-daily-grid gp-daily-grid gp-reveal" aria-label="每日课堂内容"></section>
+    <section class="gp-existing-metrics" aria-label="现有统计数据" hidden>
+      <div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div>
+      <div id="chartWrapper"></div><div id="podiumDeck"></div><div id="welcomePodiumDeck"></div>
+    </section>
+    <button id="uiSkipWelcome" type="button" hidden>取消装饰动效</button>
+    <div class="gp-footnote">上帝的力量 · 让每一次参与都有力量</div>
   </main>
 </div>
-
 
 <div id="view-battle" class="view">
 <div class="main-viewport battle-main-v216">
@@ -149,23 +214,6 @@
   </div>
 </div>
 
-<div id="welcomeModal" class="welcome-modal">
-  <div class="welcome-modal-card">
-    <div class="welcome-modal-head">
-      <div class="welcome-modal-title">上帝（马克思）的力量</div>
-      <div class="welcome-modal-sub">欢迎进入课堂。规则很多，但至少按钮会自己发光。</div>
-    </div>
-    <div class="welcome-modal-pages">
-      <div class="wmp-item"><span class="wmp-tag" style="background:#F97316;">欢迎</span><span>班级总态势 · 领奖台排名</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#0F766E;">比赛</span><span>课堂对抗 PK · All In 机制</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#16A34A;">历史</span><span>积分变动时间轴 · 精准回滚</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#0891B2;">档案</span><span>月度结算 · 优胜榜 · CSV 导出</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#607773;">设置</span><span>音效与音乐 · 名单导入 · 数据备份</span></div>
-    </div>
-    <button class="btn btn-primary welcome-modal-btn" onclick="closeWelcomeModal()">开始折腾</button>
-    <div class="welcome-modal-hint">放心，第一次通常只是看看，第二次才会开始疯狂加功能。</div>
-  </div>
-</div>
 <div id="audioHintBar" class="audio-hint-bar" style="display:none;">点击任意位置开启课堂音乐</div>
 
 <div id="itemModalBackdrop" class="item-modal-backdrop" onclick="closeItemWindow()">
@@ -720,5 +768,6 @@
 <script>@@SOURCE:core/classroom.js@@</script>
 <script>@@SOURCE:ui/model.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
+<script>@@SOURCE:ui/welcome-v2.js@@</script>
 </body>
 </html>

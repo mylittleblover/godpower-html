@@ -262,6 +262,7 @@ const DesktopUI = (() => {
     }
     requestAnimationFrame(updateArrows);
     renderDaily();
+    if (window.WelcomeV2 && typeof window.WelcomeV2.render === "function") window.WelcomeV2.render();
   }
   function updateArrows() {
     const t = $("#uiGroupTrack");

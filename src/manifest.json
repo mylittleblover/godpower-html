@@ -111,6 +111,11 @@
       "attributes": " id=\"desktop-design-system\""
     },
     {
+      "type": "style",
+      "path": "ui/welcome-v2.css",
+      "attributes": " id=\"gp-home-redesign\""
+    },
+    {
       "type": "script",
       "path": "core/reliability.js",
       "attributes": ""
@@ -388,6 +393,11 @@
     {
       "type": "script",
       "path": "ui/desktop.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/welcome-v2.js",
       "attributes": ""
     }
   ],

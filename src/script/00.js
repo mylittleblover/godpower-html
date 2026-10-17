@@ -4175,10 +4175,8 @@ window.addEventListener('DOMContentLoaded', () => {
   renderWelcomePage();
   startWelcomeClock();
 
-  // ===== 欢迎弹窗与音频启动 =====
-  // 欢迎弹窗：每次打开页面时显示；点击「进入课堂」关闭后播放欢迎配乐（点击即解锁手势）
-  const welcomeModalEl = document.getElementById('welcomeModal');
-  if (welcomeModalEl) welcomeModalEl.classList.add('active');
+  // ===== 滑动解锁入场与音频启动 =====
+  // 欢迎弹窗已被独立的 SVG 入场动画替代；首次解锁手势由 WelcomeV2 处理。
 
   window.hideAudioHint = () => {
     const bar = document.getElementById('audioHintBar');
