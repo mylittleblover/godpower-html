@@ -349,53 +349,12 @@ if(typeof queueUseStateV2120==='function'){
 }
 
 /* 幽灵 3 题内无限防御，不因攻击消耗。 */
-const _v218TryDefend=tryDefend;
-tryDefend=function(g,attackType){
-  if(Number(g?.booRoundsLeftV218||0)>0 && Number(g?.booShield||0)>0){
-    tinyDefenseToast(`对方持有防御：害羞幽灵保护（剩余 ${g.booRoundsLeftV218} 次答题）`);
-    return true;
-  }
-  /* 刺龟壳喇叭“选择承受”时不得被旧逻辑自动消耗。 */
-  if(attackType==='spiny' && g?.__spinyHornDeclinedV218 && g.inventory?.[0]?.key==='horn'){
-    return false;
-  }
-  return _v218TryDefend.call(this,g,attackType);
-};
+
+
 
 /* 超级喇叭防刺龟壳改为确认弹窗，机制参考蘑菇。 */
-const _v218ApplyItemScore=applyItemScore;
-applyItemScore=function(target,delta,sourceId,attackType='normal'){
-  const main=target?.inventory?.[0];
-  if(
-    delta<0 && attackType==='spiny' && target &&
-    main?.key==='horn' &&
-    !target.__spinyHornDecisionPendingV218 &&
-    !target.__spinyHornDeclinedV218
-  ){
-    target.__spinyHornDecisionPendingV218=true;
-    const decision=Reliability.captureDefenseDecision(state,target,'horn');
-    const prompt=themeConfirm(
-      `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 超级喇叭 抵消本次攻击？`,
-      {title:'刺龟壳来袭',confirmText:'使用超级喇叭',cancelText:'承受攻击'}
-    );
-    deferClassroomDefense(prompt,useIt=>{
-      target.__spinyHornDecisionPendingV218=false;
-      if(useIt){
-        consumeInventoryItem(target,0,1);
-        tinyDefenseToast(`${target.name} 使用超级喇叭成功击碎刺龟壳`);
-        return;
-      }
-      target.__spinyHornDeclinedV218=true;
-      try{_v218ApplyItemScore.call(this,target,delta,sourceId,attackType)}
-      finally{
-        delete target.__spinyHornDeclinedV218;
-      }
-    },()=>Reliability.isDefenseDecisionCurrent(state,decision));
-    Promise.resolve(prompt).then(()=>{target.__spinyHornDecisionPendingV218=false},()=>{target.__spinyHornDecisionPendingV218=false});
-    return {changed:false,blocked:'pending-horn-defense'};
-  }
-  return _v218ApplyItemScore.call(this,target,delta,sourceId,attackType);
-};
+
+
 
 /* ---------- 5. 答题次数型状态 ---------- */
 const _v218JudgeRound=legacyJudgeRound;

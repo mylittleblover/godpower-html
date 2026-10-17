@@ -4392,39 +4392,8 @@ function defenseCandidates(g,attackType){
   out.sort((a,b)=>{if(a.type==='effect')return -1;if(b.type==='effect')return 1;if(a.type==='boo')return -1;if(b.type==='boo')return 1;return (a.at||0)-(b.at||0)});
   return out;
 }
-function tryDefend(g,attackType){
-  if(!eligibleForItems(g))return true;
 
-  // V2.11.3：羽毛的“下一次外部攻击闪避”真正接入统一防御入口。
-  // 羽毛优先于其他自动防御，触发后只移除 featherDodge，不破坏巨大蘑菇等并存状态。
-  if(g.itemEffect && Number(g.itemEffect.featherDodge||0)>0){
-    g.itemEffect.featherDodge=Math.max(0,Number(g.itemEffect.featherDodge||0)-1);
-    if(g.itemEffect.featherDodge<=0) delete g.itemEffect.featherDodge;
-    if(Object.keys(g.itemEffect).length===0) g.itemEffect=null;
-    tinyDefenseToast(`${g.name} 使用羽毛跃起，闪避了本次攻击`);
-    return true;
-  }
-  if(g.itemEffect&&g.itemEffect.type==='bullet'){tinyDefenseToast(`${g.name} 的炮弹刺客处于绝对防御`);return true}
-  const auto=defenseCandidates(g,attackType)[0];
-  if(auto){
-    tinyDefenseToast(`对方持有防御：${auto.type==='boo'?'害羞幽灵保护':(ITEM_DEFS[auto.key]?.name||'持续状态')}`);
-    if(auto.type==='effect'){
-      if(auto.key!=='bullet'){g.itemEffect.hitsLeft=Math.max(0,(g.itemEffect.hitsLeft||0)-1);if(g.itemEffect.hitsLeft<=0){if(['mega','star'].includes(auto.key)){const ix=g.inventory.findIndex(x=>x.key===auto.key);if(ix>=0)g.inventory.splice(ix,1)}g.itemEffect=null}}
-    } else if(auto.type==='boo') g.booShield=Math.max(0,g.booShield-1);
-    else consumeInventoryItem(g,auto.idx,1);
-    return true;
-  }
-  if(attackType==='spiny'){
-    const mi=(g.inventory[0]&&['mushroom','triple_mushroom'].includes(g.inventory[0].key))?0:-1;
-    if(mi===0 && !g.__spinyMushroomDeclinedV21727){return true}
-  }
-  return false;
-}
-function applyItemScore(target,delta,sourceId,attackType='normal'){
-  if(!target||!eligibleForItems(target))return {changed:false,blocked:'negative'};
-  if(delta<0&&tryDefend(target,attackType))return {changed:false,blocked:'defense'};
-  const before=target.score;target.score=Math.round((Number(target.score)||0)+delta);target.displayScore=target.score;return {changed:before!==target.score,before,after:target.score};
-}
+
 function damageFraction(target,denom,sourceId,type='normal'){const loss=denom===2?roundHalf(target.score):denom===3?roundThird(target.score):roundQuarter(target.score);return applyItemScore(target,-loss,sourceId,type)}
 function boostFraction(target,denom=4){if(!eligibleForItems(target))return false;const add=denom===4?roundQuarter(target.score):Math.round(target.score/denom);target.score+=add;target.displayScore=target.score;return true}
 
@@ -5250,7 +5219,7 @@ showItemUseFx=function(key,casterId=null,targetText=''){
 /* 1. 道具与历史跨关闭保存 */
 const V26_HISTORY_KEY='politics_history_stack_v26';
 function persistHistoryV26(){
-  if(window.itemCommandActive||window.classroomRecordingCommand)return;
+  if(window.itemCommandActive||window.classroomRecordingCommand||(window.classroomReady && classroomCommands.isPending()))return;
   try{STORAGE.setJSON(V26_HISTORY_KEY,historyStack.slice(-MAX_HISTORY))}catch(e){}
 }
 try{
@@ -6369,17 +6338,8 @@ function playAttackTargetFxV2116(groupId,key,defended=false){
 
 /* 用统一积分攻击入口捕获“真正命中 / 被普通防御挡下”的结果。
    setTimeout 放到 renderAll 之后执行，避免卡片刚加动画就被重绘掉。 */
-const _v2116ApplyItemScore=applyItemScore;
-applyItemScore=function(target,delta,sourceId,attackType='normal'){
-  const result=_v2116ApplyItemScore.call(this,target,delta,sourceId,attackType);
-  if(delta<0 && target){
-    const visualKey = attackType==='spiny' ? 'spiny' : attackType;
-    if(ITEM_DEFS[visualKey]){
-      setTimeout(()=>playAttackTargetFxV2116(target.id,visualKey,result?.blocked==='defense'),110);
-    }
-  }
-  return result;
-};
+
+
 
 /* 闪电专用防御：绝不经过普通龟壳、香蕉、喇叭或羽毛。
    只有害羞幽灵保护，以及正在生效的无敌星 / 巨大蘑菇可以挡住。 */

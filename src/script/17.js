@@ -21,13 +21,8 @@ let attackRenderFlushingV21713 = false;
 let pendingRenderArgsV21713 = null;
 
 /* 所有经过 applyItemScore 的负向攻击，都需要“先受击，再重排”。 */
-const _v21713ApplyItemScore = applyItemScore;
-applyItemScore = function(target,delta,sourceId,attackType='normal'){
-  if(delta < 0 && target && eligibleForItems(target)){
-    attackRenderGateV21713 = true;
-  }
-  return _v21713ApplyItemScore.call(this,target,delta,sourceId,attackType);
-};
+
+
 
 /* 闪电有自己的直接扣分入口，不经过 applyItemScore，也纳入同一时序。 */
 const _v21713ApplyLightningHit = applyLightningHitV2116;

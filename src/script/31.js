@@ -5,6 +5,8 @@ function scheduleScoreEffect(fn,delay){
 }
 function cancelItemScoreAnimations(){
   scoreAnimationEpoch++;
+  clearTimeout(attackRenderTimerV21713);
+  attackRenderTimerV21713=null;attackRenderGateV21713=false;pendingRenderArgsV21713=null;
   clearTimeout(queueItemScoreChangesV21732._timer);
   pendingItemScoreAnimationsV21732.length=0;
   itemScoreDisplayHoldV21732.clear();
@@ -185,24 +187,8 @@ legacyUseItem=function(groupId,index,...rest){
 };
 
 /* 异步攻击兜底，例如刺龟壳确认后才真正扣分。 */
-const _v21732ApplyItemScore=applyItemScore;
-applyItemScore=function(target,delta,sourceId,attackType='normal'){
-  const before=target?Number(target.score)||0:null;
-  const result=_v21732ApplyItemScore.call(this,target,delta,sourceId,attackType);
 
-  if(
-    itemScoreBatchDepthV21732===0 &&
-    target &&
-    result?.changed &&
-    before!==null &&
-    Number(target.score)!==before
-  ){
-    queueItemScoreChangesV21732(
-      new Map([[String(target.id),before]])
-    );
-  }
-  return result;
-};
+
 
 /* 关键：旧逻辑在道具动画期间可能多次 renderGrid，并把 displayScore 又写成真实 score。
    每次刷新前重新套用视觉冻结值，确保新分数不会提前露出来。 */
