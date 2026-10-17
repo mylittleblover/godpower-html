@@ -62,3 +62,8 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 日序号不是持久化字段，由本地年月日生成；当天索引对分类筛选后的数组取模。题库或分类变更可以改变当日展示；同一题库与配置下刷新稳定。
 
 历史 UI 差异只读取 groups 中的 score/inventory/itemEffect/booShield/booRoundsLeftV218 与回合字段。未知字段在完整原始档案 JSON 中保留；UI 不进行猜测补全、改写旧排名或数据迁移。
+
+
+## 未决防御命令（2026-10-17）
+
+没有新增持久化 schema 或迁移存档字段。待决操作只驻留内存，主存档和旧历史镜像暂缓写入；导出返回操作前完整快照。确认完成才保存整体结果，等待中刷新读回最后完整课堂，相当于取消未完成攻击。合法且已规范化的库存对象保留身份，以兼容防御令牌；非法字段、charges和acquiredAt仍按既有规则规范化。旧存档仍通过原 validateBackup/normalizeAllGroups 读取。

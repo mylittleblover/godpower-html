@@ -1,0 +1,25 @@
+# 遗留治理最新测试矩阵
+
+完整证据、条件与限制见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md)。历史矩阵保留在 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md)。
+
+|测试类型／场景|实际通过数|结果|证据|
+|---|---:|---|---|
+|Node 原生单元／集成及架构守卫|87|PASS|artifacts/refactor/final-verify.log|
+|核心业务 Chromium|117|PASS|artifacts/browser-results.json|
+|26 道具精确结果|26|PASS|artifacts/rule-oracles.json|
+|真实作答／持久化|3|PASS|artifacts/scoring-persistence-results.json|
+|桌面 UI|31|PASS|artifacts/desktop-ui/results.json|
+|桌面交互|21|PASS|artifacts/desktop-ui/interactions.json|
+|弹窗矩阵|99|PASS|artifacts/desktop-ui/modal-matrix.json|
+|原 V2.18.15 的14组布局比较|3|PASS|artifacts/desktop-ui/battle-14-comparison.json|
+|离线文档及归档冒烟|4|PASS|artifacts/desktop-ui/release-smoke.json|
+|异步防御完整命令／真实按钮|30|PASS|artifacts/refactor/defense-command.json|
+|新旧业务差分（隔离渲染和音效）|464|PASS|artifacts/refactor/legacy-differential.json|
+|最新开发源码的14组布局比较|3|PASS|artifacts/refactor/layout/battle-14-comparison.json|
+|新旧20/50/100回合观测|6|PASS|artifacts/refactor/performance-comparison.json|
+|原防御令牌保护|10|PASS|artifacts/refactor/final-verify.log|
+|批量学生赋分／原子撤销／溢出|1|PASS|artifacts/refactor/final-verify.log|
+|Chromium file://直接打开|0|BLOCKED|企业策略 ERR_BLOCKED_BY_ADMINISTRATOR；未规避策略|
+|浏览器原生工具栏80%–125%缩放|0|NOT TESTED|本轮缩放矩阵仅为应用现有CSS zoom|
+|真实音轨节奏、过门和听感|0|NOT TESTED|本轮保留系统，模拟音频及初始化检查不能代替听辨|
+|全部任意用户配置／小时级浸泡|0|NOT TESTED|20/50/100回合是短时观测|

@@ -1,0 +1,16 @@
+✔ synchronous command persists once and records once (1.443692ms)
+✔ pending defense never persists a partial command; finish records one operation (5.48911ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (1.605174ms)
+✔ new command cancels pending operation before its own snapshot (2.858214ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.337745ms)
+✔ multiple asynchronous effects commit only when all decisions finish (3.203202ms)
+✔ invalid or overflowing commands never persist (0.306173ms)
+✔ stale defense cancels entire command (1.068114ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.455012

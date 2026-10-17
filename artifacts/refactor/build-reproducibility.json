@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "first": {
+    "file": "dist/godpower.html",
+    "bytes": 7637234,
+    "sha256": "021710b54f475eafae5d4a39d5f58324a0dde4c34cab081fce149916f40b194b"
+  },
+  "second": {
+    "file": "dist/godpower.html",
+    "bytes": 7637234,
+    "sha256": "021710b54f475eafae5d4a39d5f58324a0dde4c34cab081fce149916f40b194b"
+  }
+}

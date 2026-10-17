@@ -1,0 +1,7 @@
+REPRODUCED mushroom {
+  partialWritten: true,
+  attacker: null,
+  defender: 'mushroom',
+  score: 220
+}
+REPRODUCED horn { partialWritten: true, attacker: null, defender: 'horn', score: 220 }

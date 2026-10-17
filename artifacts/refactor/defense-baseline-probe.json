@@ -1,0 +1,22 @@
+{
+  "baseline": "079df316a999ced4f598a3c3d0495786f9f8d0e8",
+  "buildBytes": 7635132,
+  "results": [
+    {
+      "key": "mushroom",
+      "status": "REPRODUCED",
+      "partialWritten": true,
+      "attacker": null,
+      "defender": "mushroom",
+      "score": 220
+    },
+    {
+      "key": "horn",
+      "status": "REPRODUCED",
+      "partialWritten": true,
+      "attacker": null,
+      "defender": "horn",
+      "score": 220
+    }
+  ]
+}

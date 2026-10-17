@@ -1,0 +1,141 @@
+{
+  "results": [
+    {
+      "key": "mushroom",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "import",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reload",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "import",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reload",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "import",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "reload",
+      "status": "FAIL",
+      "error": "page.reload: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"domcontentloaded\"\u001b[22m\n\u001b[2m    - navigated to \"http://127.0.0.1:46397/\"\u001b[22m\n\n    at /workspace/godpower-html/tests/e2e/defense-command.mjs:45:37"
+    }
+  ],
+  "pageErrors": []
+}

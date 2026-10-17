@@ -198,3 +198,8 @@ P=PASS；N=NOT TESTED；A=NOT APPLICABLE。组合场景不能由单次正常使�
 - chromium file：BLOCKED；page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html/dist/godpower.html
 Call log:
 [2m  - navigating to "file:///workspace/godpower-html/dist/godpower.html", waiting until "domcontentloaded"[22m
+
+
+## 2026-10-17 遗留治理最新验收
+
+原报告作为历史证据保留。本轮以 `079df31` 最新分支为起点，完成公开防御命令事务、攻击防御单入口与历史模块收拢。最新实际结果见 `docs/REFACTORING_REPORT.md`、`docs/TEST_MATRIX.md` 和 `artifacts/refactor/acceptance-matrix.json`；旧报告的 GP-010 OPEN 与旧测试数量不代表当前结果。

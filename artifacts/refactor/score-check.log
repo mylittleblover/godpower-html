@@ -1,0 +1,5 @@
+
+> godpower-html@2.19.0 check
+> node scripts/check.mjs
+
+52 script blocks parse; all 27 original embedded resources preserved
