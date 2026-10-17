@@ -106,6 +106,26 @@
       "attributes": " id=\"v2180PlanStyle\""
     },
     {
+      "type": "style",
+      "path": "ui/desktop.css",
+      "attributes": " id=\"desktop-design-system\""
+    },
+    {
+      "type": "script",
+      "path": "core/reliability.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/history.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/item-score.js",
+      "attributes": ""
+    },
+    {
       "type": "script",
       "path": "script/00.js",
       "attributes": ""
@@ -349,6 +369,26 @@
       "type": "script",
       "path": "script/45.js",
       "attributes": " id=\"v21813FullSettlementArchive\""
+    },
+    {
+      "type": "script",
+      "path": "core/commands.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/classroom.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/model.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/desktop.js",
+      "attributes": ""
     }
   ],
   "resources": [

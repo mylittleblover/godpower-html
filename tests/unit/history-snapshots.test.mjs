@@ -1,6 +1,67 @@
-import test from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';import {readFileSync} from 'node:fs';
-const scope=vm.createContext({});vm.runInContext(readFileSync('src/core/history.js','utf8')+';globalThis.api=HistorySnapshots',scope);const capture=scope.api.capture;
-function fixture(){return {groups:[{id:1,score:20,inventory:[{key:'green',charges:1}]}],picker:{pickedGroupIds:[1]},itemGlobal:{totalDraws:1},resizerHeight:120,correctAns:'A',evaluated:false,roundActive:true,hasStartedOnce:true,lastRoundAllIn:null,masterVolume:.5}}
-test('snapshot retains exactly the legacy undo domain including global items',()=>{const s=fixture(),h=capture(s,'attack','12:30');assert.deepEqual(Object.keys(h).sort(),['desc','time','groups','picker','resizerHeight','correctAns','evaluated','roundActive','hasStartedOnce','lastRoundAllIn','itemGlobal'].sort());assert.equal(h.groups[0].score,20);assert.equal(h.correctAns,'A');assert.equal(h.itemGlobal.totalDraws,1);assert.equal(h.masterVolume,undefined)});
-test('later score, inventory, picker and global mutations cannot change a snapshot',()=>{const s=fixture(),h=capture(s,'before','12:30');s.groups[0].score=0;s.groups[0].inventory[0].charges=0;s.picker.pickedGroupIds.push(2);s.itemGlobal.totalDraws=4;assert.equal(h.groups[0].score,20);assert.equal(h.groups[0].inventory[0].charges,1);assert.equal(h.picker.pickedGroupIds.length,1);assert.equal(h.itemGlobal.totalDraws,1)});
-test('snapshot creation never mutates source state',()=>{const s=fixture(),before=JSON.stringify(s);capture(s,'test','now');assert.equal(JSON.stringify(s),before)});
+import test from "node:test";
+import assert from "node:assert/strict";
+import vm from "node:vm";
+import { readFileSync } from "node:fs";
+const scope = vm.createContext({});
+vm.runInContext(
+  readFileSync("src/core/history.js", "utf8") +
+    ";globalThis.api=HistorySnapshots",
+  scope,
+);
+const capture = scope.api.capture;
+function fixture() {
+  return {
+    groups: [{ id: 1, score: 20, inventory: [{ key: "green", charges: 1 }] }],
+    picker: { pickedGroupIds: [1] },
+    itemGlobal: { totalDraws: 1 },
+    resizerHeight: 120,
+    correctAns: "A",
+    evaluated: false,
+    roundActive: true,
+    hasStartedOnce: true,
+    lastRoundAllIn: null,
+    masterVolume: 0.5,
+  };
+}
+test("snapshot retains exactly the legacy undo domain including global items", () => {
+  const s = fixture(),
+    h = capture(s, "attack", "12:30");
+  assert.deepEqual(
+    Object.keys(h).sort(),
+    [
+      "desc",
+      "time",
+      "groups",
+      "picker",
+      "resizerHeight",
+      "correctAns",
+      "evaluated",
+      "roundActive",
+      "hasStartedOnce",
+      "lastRoundAllIn",
+      "itemGlobal",
+    ].sort(),
+  );
+  assert.equal(h.groups[0].score, 20);
+  assert.equal(h.correctAns, "A");
+  assert.equal(h.itemGlobal.totalDraws, 1);
+  assert.equal(h.masterVolume, undefined);
+});
+test("later score, inventory, picker and global mutations cannot change a snapshot", () => {
+  const s = fixture(),
+    h = capture(s, "before", "12:30");
+  s.groups[0].score = 0;
+  s.groups[0].inventory[0].charges = 0;
+  s.picker.pickedGroupIds.push(2);
+  s.itemGlobal.totalDraws = 4;
+  assert.equal(h.groups[0].score, 20);
+  assert.equal(h.groups[0].inventory[0].charges, 1);
+  assert.equal(h.picker.pickedGroupIds.length, 1);
+  assert.equal(h.itemGlobal.totalDraws, 1);
+});
+test("snapshot creation never mutates source state", () => {
+  const s = fixture(),
+    before = JSON.stringify(s);
+  capture(s, "test", "now");
+  assert.equal(JSON.stringify(s), before);
+});

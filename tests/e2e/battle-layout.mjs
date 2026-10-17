@@ -3,13 +3,17 @@ import { execFileSync } from "node:child_process";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { createServer } from "node:http";
 import { launch, setup } from "../fixtures/browser.mjs";
+import { sourceAt } from "../fixtures/source-at.mjs";
 import { battle14, measure14 } from "../fixtures/battle14.mjs";
-const baselineCommit = "378f2d23d180802171a8e7d237fe1fb631ee3318",
-  before = execFileSync(
-    "git",
-    ["show", baselineCommit + ":dist/godpower.html"],
-    { maxBuffer: 16e6 },
-  ),
+const artifactRoot = process.env.BATTLE_ARTIFACT_DIR;
+const baselineCommit =
+    process.env.BATTLE_BASELINE_COMMIT ||
+    "378f2d23d180802171a8e7d237fe1fb631ee3318",
+  before = process.env.BATTLE_BASELINE_COMMIT
+    ? Buffer.from(sourceAt(baselineCommit))
+    : execFileSync("git", ["show", baselineCommit + ":dist/godpower.html"], {
+        maxBuffer: 16e6,
+      }),
   after = await readFile("dist/godpower.html");
 const server = createServer((q, s) =>
   s.end(q.url.startsWith("/before") ? before : after),
@@ -18,6 +22,10 @@ await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const browser = await launch(),
   results = [];
 await mkdir("artifacts/desktop-ui", { recursive: true });
+if (artifactRoot) {
+  await mkdir(`${artifactRoot}/before`, { recursive: true });
+  await mkdir(`${artifactRoot}/after`, { recursive: true });
+}
 try {
   for (const [width, height, zoom] of [
     [1366, 768, 0.8],
@@ -35,7 +43,9 @@ try {
       await p.waitForTimeout(850);
       measurements[version] = await p.evaluate(measure14);
       await p.screenshot({
-        path: `artifacts/${version === "before" ? "ui-baseline" : "desktop-ui"}/battle-14-${width}.png`,
+        path: artifactRoot
+          ? `${artifactRoot}/${version}/battle-14-${width}.png`
+          : `artifacts/${version === "before" ? "ui-baseline" : "desktop-ui"}/battle-14-${width}.png`,
         fullPage: true,
       });
       await p.close();
@@ -98,7 +108,9 @@ try {
   await browser.close();
   server.close();
   await writeFile(
-    "artifacts/desktop-ui/battle-14-comparison.json",
+    artifactRoot
+      ? `${artifactRoot}/battle-14-comparison.json`
+      : "artifacts/desktop-ui/battle-14-comparison.json",
     JSON.stringify(results, null, 2),
   );
 }
