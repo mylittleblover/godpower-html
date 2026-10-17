@@ -5889,6 +5889,60 @@ const CLASSROOM_STORAGE={
   setItem(key,value){localStorage.setItem(key,value)}
 };
 </script>
+<script>/* One snapshot owner, retaining V2 pre-operation snapshots and legacy keys. */
+const HistorySnapshots={
+  capture(s,desc,time){
+    const copy=value=>JSON.parse(JSON.stringify(value));
+    return {desc,time,groups:copy(s.groups),picker:copy(s.picker),resizerHeight:s.resizerHeight,
+      correctAns:s.correctAns,evaluated:s.evaluated,roundActive:s.roundActive,hasStartedOnce:s.hasStartedOnce,
+      lastRoundAllIn:s.lastRoundAllIn,itemGlobal:copy(s.itemGlobal)};
+  }
+};
+function recordHistory(actionDesc){
+  if(window.itemCommandActive)return;
+  if(window.classroomReady && !window.classroomRecordingCommand)Reliability.invalidateDefenseDecisions();
+  const snapshot=HistorySnapshots.capture(state,actionDesc,new Date().toLocaleTimeString());
+  historyStack.push(snapshot);
+  if(historyStack.length>MAX_HISTORY)historyStack.shift();
+  persistHistoryV26();
+}
+function persistHistoryV26(){
+  if(window.itemCommandActive||window.classroomRecordingCommand||(window.classroomReady && classroomCommands.isPending()))return;
+  const ok=STORAGE.setJSON(V26_HISTORY_KEY,historyStack.slice(-MAX_HISTORY));
+  if(!ok)console.warn('旧版历史兼容副本保存失败，主存档结果另行报告');
+  return {ok};
+}
+function restoreStateFromSnapshot(snapshot) {
+  Reliability.invalidateDefenseDecisions();
+  cancelScoreAnimationAndSync();
+  if(snapshot.itemGlobal)state.itemGlobal=clone(snapshot.itemGlobal);
+  state.groups = normalizeAllGroups(snapshot.groups);
+  state.groups.forEach(g => { g.displayScore = g.score; });
+  state.correctAns = snapshot.correctAns;
+  state.evaluated = snapshot.evaluated;
+  state.roundActive = snapshot.roundActive;
+  state.hasStartedOnce = snapshot.hasStartedOnce;
+  state.lastRoundAllIn = snapshot.lastRoundAllIn;
+  if (snapshot.picker) state.picker = clone(snapshot.picker);
+  if (Number.isFinite(snapshot.resizerHeight)) state.resizerHeight = snapshot.resizerHeight;
+  saveState();
+  renderAll();
+  // Preserve original restore adapter's item timers and final render ordering.
+  ensureItemState();
+  if(snapshot.itemGlobal)state.itemGlobal=clone(snapshot.itemGlobal);
+  startBulletTimer();startBlooperClock();renderAll();
+}
+function undoLast(){
+  if(state.isLocked)openPwdModal();
+  else if(window.classroomReady && classroomCommands.isPending())Reliability.invalidateDefenseDecisions();
+  else if(!historyStack.length)showToast('暂无更早的历史记录');
+  else{
+    const prev=historyStack.pop();restoreStateFromSnapshot(prev);playSound('rewind');
+    showToast(`已恢复到历史节点：${prev.desc}`);
+  }
+  persistHistoryV26();saveState();
+}
+</script>
 <script>/* Single attack/defense entry. Migrated from 00/05/17/31/36 without changing
    damage fractions, defense priority or inventory consumption. */
 function tryDefend(g,attackType){
@@ -6571,59 +6625,11 @@ function getTrackCurrentBeat() {
   return currentSecInTrack / secPerBeat;
 }
 
-function recordHistory(actionDesc) {
-  if(window.itemCommandActive)return;
-  if(window.classroomReady && !window.classroomRecordingCommand)Reliability.invalidateDefenseDecisions();
-  try {
-    const snapshot = {
-      desc: actionDesc,
-      time: new Date().toLocaleTimeString(),
-      groups: clone(state.groups),
-      picker: clone(state.picker),
-      resizerHeight: state.resizerHeight,
-      correctAns: state.correctAns,
-      evaluated: state.evaluated,
-      roundActive: state.roundActive,
-      hasStartedOnce: state.hasStartedOnce,
-      lastRoundAllIn: state.lastRoundAllIn
-    };
-    historyStack.push(snapshot);
-    if (historyStack.length > MAX_HISTORY) historyStack.shift();
-  } catch(e) {}
-}
 
-function restoreStateFromSnapshot(snapshot) {
-  Reliability.invalidateDefenseDecisions();
-  cancelScoreAnimationAndSync();
-  if(snapshot.itemGlobal)state.itemGlobal=clone(snapshot.itemGlobal);
-  state.groups = normalizeAllGroups(snapshot.groups);
-  state.groups.forEach(g => { g.displayScore = g.score; });
-  state.correctAns = snapshot.correctAns;
-  state.evaluated = snapshot.evaluated;
-  state.roundActive = snapshot.roundActive;
-  state.hasStartedOnce = snapshot.hasStartedOnce;
-  state.lastRoundAllIn = snapshot.lastRoundAllIn;
-  if (snapshot.picker) state.picker = clone(snapshot.picker);
-  if (Number.isFinite(snapshot.resizerHeight)) state.resizerHeight = snapshot.resizerHeight;
-  saveState();
-  renderAll();
-}
 
-function undoLast() {
-  if(window.classroomReady && classroomCommands.isPending()){Reliability.invalidateDefenseDecisions();return;}
-  if (state.isLocked) {
-    openPwdModal();
-    return;
-  }
-  if (historyStack.length === 0) {
-    showToast('暂无更早的历史记录');
-    return;
-  }
-  const prev = historyStack.pop();
-  restoreStateFromSnapshot(prev);
-  playSound('rewind');
-  showToast(`已恢复到历史节点：${prev.desc}`);
-}
+
+
+
 
 function openHistoryModal() {
   switchView('history');
@@ -10754,8 +10760,8 @@ const _itemBaseJudgeRound=legacyJudgeRound;legacyJudgeRound=function(){if(!state
 
 const savedItemGlobal=STORAGE.getJSON('politics_item_global',null);if(savedItemGlobal)state.itemGlobal={...state.itemGlobal,...savedItemGlobal};
 
-const _itemBaseRestore=restoreStateFromSnapshot;restoreStateFromSnapshot=function(snapshot){_itemBaseRestore(snapshot);ensureItemState();if(snapshot.itemGlobal)state.itemGlobal=clone(snapshot.itemGlobal);startBulletTimer();startBlooperClock();renderAll()};
-const _itemBaseRecord=recordHistory;recordHistory=function(desc){if(window.itemCommandActive)return;_itemBaseRecord(desc);const last=historyStack[historyStack.length-1];if(last)last.itemGlobal=clone(state.itemGlobal)};
+
+
 
 window.addEventListener('DOMContentLoaded',()=>{ensureItemState();renderAll();startBulletTimer();startBlooperClock()});
 
@@ -11262,20 +11268,17 @@ showItemUseFx=function(key,casterId=null,targetText=''){
 
 /* 1. 道具与历史跨关闭保存 */
 const V26_HISTORY_KEY='politics_history_stack_v26';
-function persistHistoryV26(){
-  if(window.itemCommandActive||window.classroomRecordingCommand||(window.classroomReady && classroomCommands.isPending()))return;
-  try{STORAGE.setJSON(V26_HISTORY_KEY,historyStack.slice(-MAX_HISTORY))}catch(e){}
-}
+
 try{
   const hs=STORAGE.getJSON(V26_HISTORY_KEY,[]);
   if(Array.isArray(hs)&&hs.length) historyStack=hs.slice(-MAX_HISTORY);
 }catch(e){}
-const _v26RecordHistory=recordHistory;
-recordHistory=function(desc){if(window.itemCommandActive)return;_v26RecordHistory(desc);persistHistoryV26()}
+
+
 window.addEventListener('pagehide',()=>{try{saveState();persistHistoryV26()}catch(e){}});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){try{saveState();persistHistoryV26()}catch(e){}}});
-const _v26Undo=undoLast;undoLast=function(){const r=_v26Undo();persistHistoryV26();saveState();return r}
-if(typeof rollbackToHistory==='function'){const _v26Rollback=rollbackToHistory;rollbackToHistory=function(i){const r=_v26Rollback(i);persistHistoryV26();saveState();return r}}
+
+
 
 /* 2. 菜单音乐参数按样本固定，移除工程台 */
 Object.assign(menuCfg,{
