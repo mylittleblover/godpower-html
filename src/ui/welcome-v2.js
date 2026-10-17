@@ -155,6 +155,7 @@
     track.addEventListener("pointerdown", function (ev) {
       if (introBusy || !ev.isPrimary) return;
       activePointer = ev.pointerId;
+      track.classList.add("dragging");
       track.setPointerCapture(ev.pointerId);
       fromEvent(ev);
     });
@@ -165,11 +166,12 @@
     var release = function (ev) {
       if (ev.pointerId !== activePointer) return;
       activePointer = null;
+      track.classList.remove("dragging");
       if (Number(track.getAttribute("aria-valuenow")) >= 83) finish(false);
       else drawSlide(0);
     };
     track.addEventListener("pointerup", release);
-    track.addEventListener("pointercancel", function (ev) { if (ev.pointerId === activePointer) {activePointer = null;drawSlide(0);} });
+    track.addEventListener("pointercancel", function (ev) { if (ev.pointerId === activePointer) {activePointer = null;track.classList.remove("dragging");drawSlide(0);} });
     track.addEventListener("keydown", function (ev) {
       if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
         ev.preventDefault(); drawSlide(slidePx + (ev.key === "ArrowRight" ? 30 : -30));
