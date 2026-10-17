@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { launch, setup } from "../fixtures/browser.mjs";
+import { launch, setup, dismissStartup } from "../fixtures/browser.mjs";
 const html = await readFile("dist/godpower.html");
 const server = createServer((q, s) => {
   s.setHeader("Content-Type", "text/html;charset=utf-8");
@@ -292,7 +292,7 @@ try {
     await navigation;
     await session.detach();
     await p.waitForTimeout(300);
-    await p.evaluate(() => closeWelcomeModal());
+    await dismissStartup(p);
     assert.equal(
       await p.locator('.nav-tab[data-view="welcome"] .custom-ui-icon').count(),
       1,

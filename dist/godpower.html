@@ -5308,11 +5308,1010 @@ summary:focus-visible {
   grid-template-columns: 1fr;
 }
 </style>
+<style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
+.header-banner.app-topnav {
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid #e4eeeb;
+  box-shadow: 0 2px 14px #0b49470b;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.header-banner.app-topnav .header-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+  font-weight: 850;
+  letter-spacing: 0.1px;
+}
+.gp-brand-mount {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+.gp-brand-mount svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  aspect-ratio: 1;
+}
+.header-banner.app-topnav .nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.header-banner.app-topnav .nav-tab {
+  border-radius: 9px;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    box-shadow 0.18s;
+  white-space: nowrap;
+}
+.header-banner.app-topnav .nav-tab.active {
+  background: #e4f4ef;
+  color: #08776b;
+}
+#view-welcome {
+  background: #f5f8f7;
+  color: #183634;
+}
+#view-welcome .gp-home {
+  width: 100%;
+  max-width: 1480px;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 24px clamp(20px, 3.8vw, 54px) 28px;
+}
+#view-welcome .gp-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 26px;
+  min-height: 226px;
+  padding: 32px 38px;
+  border-radius: 21px;
+  background: linear-gradient(112deg, #084c4c 0%, #0d6862 58%, #087b6c 100%);
+  box-shadow: 0 14px 40px #04504721;
+  color: #fff;
+}
+#view-welcome .gp-hero::before,
+#view-welcome .gp-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+#view-welcome .gp-hero::before {
+  width: 390px;
+  height: 390px;
+  right: 13%;
+  top: -310px;
+  border: 80px solid #8fffe211;
+}
+#view-welcome .gp-hero::after {
+  width: 360px;
+  height: 360px;
+  right: -165px;
+  bottom: -280px;
+  background: radial-gradient(circle, #6effd83f, transparent 70%);
+}
+#view-welcome .gp-hero-copy {
+  min-width: 0;
+  max-width: 720px;
+}
+#view-welcome .gp-eyebrow {
+  color: #a5edde;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  font-weight: 850;
+}
+#view-welcome .gp-hero h1 {
+  margin: 15px 0 10px;
+  line-height: 1.27;
+  letter-spacing: -0.6px;
+  font-size: clamp(26px, 3vw, 39px);
+  font-weight: 850;
+  color: #fff;
+}
+#view-welcome .gp-hero h1 em {
+  font-style: normal;
+  color: #acffdf;
+}
+#view-welcome .gp-greeting {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 750;
+  color: #f6fffc;
+  margin: 0 0 4px;
+}
+#view-welcome .gp-hero-description {
+  font-size: 12px;
+  line-height: 1.75;
+  color: #c8e5df;
+  margin: 0;
+}
+#view-welcome .gp-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+#view-welcome .gp-button-primary,
+#view-welcome .gp-button-outline {
+  border-radius: 11px;
+  padding: 11px 17px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  min-height: 39px;
+}
+#view-welcome .gp-button-primary {
+  background: #defff2;
+  color: #075a54;
+  border: 1px solid #defff2;
+  box-shadow: 0 4px 15px #003a341d;
+}
+#view-welcome .gp-button-primary:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+#view-welcome .gp-button-outline {
+  background: #ffffff13;
+  color: #e4fff7;
+  border: 1px solid #ffffff40;
+}
+#view-welcome .gp-button-outline:hover {
+  background: #ffffff25;
+}
+#view-welcome .gp-hero-status {
+  width: 238px;
+  flex: none;
+  border-radius: 16px;
+  padding: 19px 20px;
+  background: #ffffff12;
+  border: 1px solid #ffffff30;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+#view-welcome .gp-status-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 760;
+  color: #d4eee9;
+}
+#view-welcome .gp-live-pill {
+  background: #ffffff23;
+  border-radius: 99px;
+  padding: 4px 8px;
+  color: #c3ffdd;
+  font-size: 10px;
+}
+#view-welcome .gp-hero-clock {
+  font-size: 33px;
+  font-weight: 850;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 14px;
+}
+#view-welcome .gp-hero-date {
+  color: #d0ece5;
+  font-size: 11px;
+  margin-top: 3px;
+}
+#view-welcome .gp-status-separator {
+  height: 1px;
+  background: #ffffff36;
+  margin: 16px 0 12px;
+}
+#view-welcome .gp-status-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #d9f1ec;
+}
+#view-welcome .gp-status-foot strong {
+  color: #fff;
+}
+#view-welcome .gp-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+#view-welcome .gp-kpi {
+  min-width: 0;
+  border: 1px solid #e6eeeb;
+  border-radius: 15px;
+  padding: 17px 19px;
+  background: #fff;
+  box-shadow: 0 5px 22px #133f3609;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+#view-welcome .gp-kpi > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+#view-welcome .gp-kpi span:first-child {
+  font-size: 11px;
+  color: #82958f;
+  font-weight: 750;
+}
+#view-welcome .gp-kpi strong {
+  font-size: 26px;
+  line-height: 1.45;
+  letter-spacing: -0.4px;
+  font-weight: 850;
+  color: #21433b;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#view-welcome .gp-kpi small {
+  font-size: 10px;
+  color: #98aaa4;
+}
+#view-welcome .gp-kpi-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 13px;
+  background: #e9f7f3;
+  color: #148978;
+  font-size: 21px;
+  font-weight: 800;
+}
+#view-welcome .gp-kpi-icon.gp-gold {
+  background: #fff5e5;
+  color: #cf993a;
+}
+#view-welcome .gp-kpi-icon.gp-blue {
+  background: #eef3ff;
+  color: #7198ce;
+}
+#view-welcome .gp-kpi-icon.gp-purple {
+  background: #f3efff;
+  color: #9476bd;
+}
+#view-welcome .gp-section-heading {
+  margin: 27px 0 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+}
+#view-welcome .gp-section-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+#view-welcome .gp-section-heading h2 {
+  font-size: 18px;
+  color: #20423b;
+  font-weight: 860;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+#view-welcome .gp-section-heading small {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: #afbfba;
+}
+#view-welcome .gp-section-heading > span {
+  font-size: 11px;
+  color: #8b9e97;
+}
+#view-welcome .gp-heading-bar {
+  height: 22px;
+  width: 4px;
+  border-radius: 8px;
+  background: #128a7b;
+}
+#view-welcome .gp-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(290px, 0.98fr);
+  gap: 16px;
+  align-items: start;
+}
+#view-welcome .gp-panel {
+  min-width: 0;
+  border-radius: 17px;
+  border: 1px solid #e4ede9;
+  background: #fff;
+  box-shadow: 0 5px 24px #133f3608;
+  overflow: hidden;
+}
+#view-welcome .gp-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px 21px 15px;
+}
+#view-welcome .gp-panel-title > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#view-welcome .gp-panel-title strong {
+  font-size: 15px;
+  color: #24463e;
+  font-weight: 840;
+}
+#view-welcome .gp-panel-title small {
+  font-size: 10px;
+  color: #9eafaa;
+}
+#view-welcome .gp-panel-tag {
+  background: #e8f7f0;
+  color: #108875;
+  font-size: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+#view-welcome .gp-panel-tag.gp-soft-tag {
+  letter-spacing: normal;
+}
+#view-welcome .gp-rank-head,
+#view-welcome .gp-rank-row {
+  display: grid;
+  grid-template-columns: 38px minmax(82px, 1.2fr) minmax(75px, 1fr) minmax(
+      50px,
+      0.5fr
+    ) 54px;
+  gap: 8px;
+  align-items: center;
+  padding: 0 20px;
+}
+#view-welcome .gp-rank-head {
+  font-size: 10px;
+  background: #f7faf8;
+  min-height: 29px;
+  color: #a4b4af;
+  font-weight: 750;
+}
+#view-welcome .gp-rank-row {
+  min-height: 47px;
+  border-bottom: 1px solid #eff4f1;
+  transition: background 0.15s;
+}
+#view-welcome .gp-rank-row:hover {
+  background: #f7fbf9;
+}
+#view-welcome .gp-rank-index {
+  font-size: 13px;
+  font-weight: 850;
+  color: #91a49e;
+}
+#view-welcome .gp-rank-index.gp-medal {
+  background: #fff2d9;
+  color: #b78d31;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+}
+#view-welcome .gp-rank-index.gp-second {
+  background: #edf2f8;
+  color: #6c8095;
+}
+#view-welcome .gp-rank-index.gp-third {
+  background: #fff0e8;
+  color: #b8805e;
+}
+#view-welcome .gp-rank-name {
+  font-size: 12px;
+  font-weight: 770;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#view-welcome .gp-rank-bar {
+  background: #ecf3ef;
+  border-radius: 8px;
+  height: 7px;
+  overflow: hidden;
+}
+#view-welcome .gp-rank-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #47c1a7, #168c79);
+}
+#view-welcome .gp-rank-points {
+  font-size: 12px;
+  font-weight: 850;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+#view-welcome .gp-rank-state {
+  font-size: 10px;
+  color: #398c76;
+  text-align: center;
+  background: #ebf8f1;
+  padding: 5px 3px;
+  border-radius: 6px;
+  font-weight: 750;
+}
+#view-welcome .gp-rank-empty {
+  padding: 28px;
+  color: #90a39e;
+  font-size: 13px;
+}
+#view-welcome .gp-panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  color: #94a9a3;
+  font-size: 10px;
+}
+#view-welcome .gp-panel-footer button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: #118576;
+  font-size: 11px;
+  font-weight: 800;
+}
+#view-welcome .gp-match-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #eef8f4;
+  border-radius: 13px;
+  padding: 15px;
+  margin: 0 18px 6px;
+}
+#view-welcome .gp-status-orb {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  background: #39be96;
+  box-shadow: 0 0 0 4px #39be9627;
+  border-radius: 50%;
+}
+#view-welcome .gp-match-status > div {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+#view-welcome .gp-match-status strong {
+  font-size: 12px;
+  color: #246553;
+}
+#view-welcome .gp-match-status small {
+  font-size: 10px;
+  color: #779b8c;
+}
+#view-welcome .gp-match-status button {
+  flex: none;
+  background: white;
+  border: 1px solid #d3e8df;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 10px;
+  color: #168675;
+  cursor: pointer;
+}
+#view-welcome .gp-feed-list {
+  padding: 4px 20px 12px;
+  min-height: 190px;
+}
+#view-welcome .gp-feed-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eff4f1;
+}
+#view-welcome .gp-feed-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #eaf6f1;
+  color: #178779;
+  font-weight: 850;
+}
+#view-welcome .gp-feed-copy {
+  flex: 1;
+  min-width: 0;
+}
+#view-welcome .gp-feed-copy strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 780;
+  color: #31544a;
+}
+#view-welcome .gp-feed-copy p {
+  font-size: 10px;
+  color: #94aaa2;
+  margin: 4px 0 0;
+  line-height: 1.6;
+}
+#view-welcome .gp-feed-time {
+  font-size: 10px;
+  color: #afbeb8;
+  white-space: nowrap;
+}
+#view-welcome .gp-group-section {
+  background: #fff;
+  border: 1px solid #e4ede9;
+  box-shadow: 0 5px 24px #133f3608;
+  border-radius: 17px;
+  margin-top: 17px;
+  padding: 17px 0 19px;
+  overflow: hidden;
+}
+#view-welcome .gp-group-head {
+  padding: 0 20px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#view-welcome .gp-group-head h2 {
+  display: inline;
+  font-size: 15px;
+  color: #20443b;
+  font-weight: 840;
+}
+#view-welcome .gp-group-live {
+  display: inline-block;
+  margin-left: 8px;
+  background: #e9f8f2;
+  color: #168b78;
+  border-radius: 7px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 830;
+}
+#view-welcome .gp-group-head p {
+  font-size: 11px;
+  color: #91a79f;
+  margin: 6px 0 0;
+}
+#view-welcome .gp-compact-track {
+  gap: 11px;
+  padding: 0 20px 6px;
+  scroll-snap-type: x proximity;
+}
+#view-welcome .gp-compact-track .ui-group-card {
+  flex: 0 0 203px;
+  min-height: 115px;
+  border: 1px solid #e4ede9;
+  border-radius: 13px;
+  border-top: 2px solid var(--group-color);
+  padding: 13px 15px;
+  background: linear-gradient(135deg, #fff, #fbfefd);
+  box-shadow: none;
+}
+#view-welcome .gp-compact-track .ui-group-card:hover {
+  border-color: #96d6c7;
+  box-shadow: 0 8px 16px #07746114;
+}
+#view-welcome .gp-compact-track .ui-group-title {
+  font-size: 14px;
+  min-height: 0;
+  margin: 10px 0 4px;
+  line-height: 1.45;
+}
+#view-welcome .gp-compact-track .ui-group-score {
+  font-size: 23px;
+}
+#view-welcome .gp-compact-track .ui-muted {
+  font-size: 10px;
+  line-height: 1.4;
+}
+#view-welcome .gp-compact-track .ui-chip {
+  font-size: 10px;
+  padding: 4px 6px;
+}
+#view-welcome .gp-compact-track footer {
+  margin-top: 9px;
+  padding-top: 7px;
+  gap: 5px;
+  font-size: 10px;
+}
+#view-welcome .gp-compact-track footer img {
+  width: 18px;
+  height: 18px;
+}
+#view-welcome .gp-bottom-heading {
+  margin-top: 28px;
+}
+#view-welcome .gp-daily-grid {
+  margin-top: 0;
+  gap: 14px;
+}
+#view-welcome .gp-daily-grid .ui-panel {
+  border-color: #e4ede9;
+  box-shadow: 0 5px 24px #133f3608;
+  padding: 19px;
+  border-radius: 16px;
+  min-height: 194px;
+}
+#view-welcome .gp-daily-grid .ui-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: #148775;
+  margin: 0;
+}
+#view-welcome .gp-daily-grid h3 {
+  font-size: 14px;
+  line-height: 1.55;
+}
+#view-welcome .gp-daily-grid p {
+  font-size: 11px;
+  line-height: 1.65;
+}
+#view-welcome .gp-footnote {
+  text-align: center;
+  margin: 24px 0 0;
+  font-size: 11px;
+  color: #a0b3ac;
+}
+#view-welcome .gp-existing-metrics[hidden] {
+  display: none !important;
+}
+/* Startup overlay is an independent gate, not a page tab or modal card. */
+.gp-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+.gp-intro[hidden] {
+  display: none;
+}
+.gp-intro.active {
+  visibility: visible;
+  pointer-events: auto;
+}
+.gp-intro-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 36%,
+    #fff 0%,
+    #eff8f4 65%,
+    #e6f0ec 100%
+  );
+  opacity: 1;
+  transition: opacity 0.55s;
+}
+.gp-intro-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(420px, calc(100vw - 32px));
+  text-align: center;
+  transform: translateY(-20px);
+}
+.gp-intro-logo {
+  width: 94px;
+  height: 94px;
+  opacity: 0;
+  transform: translateY(9px) scale(0.93);
+  transition:
+    opacity 0.7s ease,
+    transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  z-index: 2;
+}
+.gp-intro-logo svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  overflow: visible; /* SVG owns its own rounded geometry; never animate border-radius */
+}
+.gp-intro-title {
+  color: #154a42;
+  font-size: clamp(27px, 5vw, 38px);
+  line-height: 1.24;
+  letter-spacing: 0.065em;
+  white-space: nowrap;
+  font-weight: 900;
+  margin: 19px 0 5px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s 0.35s,
+    transform 0.6s 0.35s;
+}
+.gp-intro-caption {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  font-weight: 850;
+  color: #88ada1;
+  opacity: 0;
+  transition: opacity 0.5s 0.63s;
+}
+.gp-intro.ready .gp-intro-logo,
+.gp-intro.ready .gp-intro-title {
+  opacity: 1;
+  transform: none;
+}
+.gp-intro.ready .gp-intro-caption {
+  opacity: 1;
+}
+.gp-slider {
+  margin-top: 25px;
+  width: min(350px, calc(100vw - 54px));
+  position: relative;
+  border: 1px solid #d4e8df;
+  border-radius: 17px;
+  height: 58px;
+  background: white;
+  box-shadow: 0 6px 28px #155d4b19;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s 0.86s,
+    transform 0.6s 0.86s;
+}
+.gp-intro.ready .gp-slider {
+  opacity: 1;
+  transform: none;
+}
+.gp-slider:active {
+  cursor: grabbing;
+}
+.gp-slider-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background: linear-gradient(90deg, #daf8ef, #eafff8);
+  pointer-events: none;
+}
+.gp-slider-hint {
+  font-size: 12px;
+  color: #91aaa0;
+  font-weight: 760;
+  pointer-events: none;
+  z-index: 1;
+}
+.gp-slider-knob {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #0e7e70;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 29px;
+  line-height: 1;
+  z-index: 2;
+  box-shadow: 0 4px 12px #0f80693b;
+  transform: translateX(var(--gp-slide, 0px));
+  will-change: transform;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.gp-slider-fill {
+  transition: width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.gp-slider.dragging .gp-slider-knob,
+.gp-slider.dragging .gp-slider-fill {
+  transition: none;
+}
+.gp-intro-skip {
+  margin-top: 18px;
+  font-size: 11px;
+  border: none;
+  background: transparent;
+  color: #94ada3;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.6s 1s;
+}
+.gp-intro.ready .gp-intro-skip {
+  opacity: 1;
+}
+.gp-intro.departing .gp-intro-backdrop {
+  opacity: 0;
+}
+.gp-intro.departing .gp-slider,
+.gp-intro.departing .gp-intro-caption,
+.gp-intro.departing .gp-intro-skip {
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+.gp-intro:focus-within .gp-slider:focus-visible {
+  outline: 3px solid #35b69a;
+  outline-offset: 3px;
+}
+body.gp-intro-active {
+  overflow: hidden;
+}
+body.gp-intro-active .app-topnav {
+  visibility: hidden;
+}
+body.gp-intro-reveal .app-topnav {
+  visibility: visible;
+  animation: gp-nav-reveal 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+body.gp-intro-reveal #view-welcome .gp-reveal {
+  animation: gp-content-reveal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+body.gp-intro-reveal #view-welcome .gp-kpis {
+  animation-delay: 0.12s;
+}
+body.gp-intro-reveal #view-welcome .gp-section-heading {
+  animation-delay: 0.2s;
+}
+body.gp-intro-reveal #view-welcome .gp-main-grid {
+  animation-delay: 0.25s;
+}
+body.gp-intro-reveal #view-welcome .gp-group-section {
+  animation-delay: 0.32s;
+}
+body.gp-intro-reveal #view-welcome .gp-daily-grid {
+  animation-delay: 0.38s;
+}
+@keyframes gp-nav-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes gp-content-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(13px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1100px) {
+  #view-welcome .gp-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #view-welcome .gp-main-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #view-welcome .gp-hero {
+    padding: 28px;
+  }
+}
+@media (max-width: 700px) {
+  #view-welcome .gp-home {
+    padding: 16px 13px 24px;
+  }
+  #view-welcome .gp-hero {
+    border-radius: 17px;
+    padding: 24px 20px;
+    display: block;
+  }
+  #view-welcome .gp-hero-status {
+    margin-top: 17px;
+    width: auto;
+  }
+  #view-welcome .gp-section-heading > span,
+  #view-welcome .gp-section-heading small {
+    display: none;
+  }
+  #view-welcome .gp-kpi {
+    padding: 14px;
+  }
+  #view-welcome .gp-kpi strong {
+    font-size: 22px;
+  }
+  #view-welcome .gp-daily-grid {
+    grid-template-columns: 1fr;
+  }
+  #view-welcome .gp-rank-head,
+  #view-welcome .gp-rank-row {
+    grid-template-columns: 30px minmax(55px, 1fr) 60px 48px;
+    gap: 5px;
+    padding: 0 10px;
+  }
+  #view-welcome .gp-rank-head span:nth-child(3),
+  #view-welcome .gp-rank-bar {
+    display: none;
+  }
+  #view-welcome .gp-rank-row {
+    min-height: 43px;
+  }
+  #view-welcome .gp-rank-name {
+    font-size: 11px;
+  }
+  #view-welcome .gp-group-head p {
+    max-width: 250px;
+  }
+  #view-welcome .gp-panel-title {
+    padding: 16px 12px;
+  }
+  #view-welcome .gp-group-head {
+    padding: 0 12px 14px;
+  }
+  #view-welcome .gp-feed-list {
+    padding: 4px 12px;
+  }
+  #view-welcome .gp-match-status {
+    margin: 0 12px 6px;
+  }
+}
+body[data-welcome-motion="off"] .gp-intro *,
+body[data-welcome-motion="off"].gp-intro-reveal .app-topnav,
+body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
+  transition: none;
+  animation: none;
+}
+#gpCruiseToggle {
+  width: auto;
+  min-width: 106px;
+  white-space: nowrap;
+  font-size: 11px;
+}
+#view-welcome .gp-rank-points {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+#view-welcome .gp-kpi .gp-kpi-number {
+  font-size: clamp(14px, 1.5vw, 26px);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  line-height: 1.35;
+}
+</style>
 </head>
 <body class="modern-flat-v217">
 
 <div class="header-banner app-topnav">
-  <div class="header-title">上帝的力量 <small>V2.19.0</small></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V2.19.0</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -5323,23 +6322,180 @@ summary:focus-visible {
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
 </div>
 
+<div class="gp-intro active" id="gpIntro" role="dialog" aria-modal="true" aria-label="滑动解锁进入上帝的力量">
+  <div class="gp-intro-backdrop"></div>
+  <div class="gp-intro-stage">
+    <div class="gp-intro-logo" id="gpIntroLogo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">上帝的力量 · 应用图标</title>
+  <desc id="desc">深蓝色圆角方形背景、金色圣光光环、红色五角星和一张以马克思蓬松头发与大胡子为灵感绘制的极简肖像。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101A35"/>
+      <stop offset=".55" stop-color="#20234A"/>
+      <stop offset="1" stop-color="#31234C"/>
+    </linearGradient>
+    <radialGradient id="aura" cx="50%" cy="41%" r="49%">
+      <stop offset="0" stop-color="#F4C66A" stop-opacity=".20"/>
+      <stop offset=".66" stop-color="#F4C66A" stop-opacity=".055"/>
+      <stop offset="1" stop-color="#F4C66A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2=".95" y2="1">
+      <stop offset="0" stop-color="#FFF0AD"/>
+      <stop offset=".53" stop-color="#F9C65F"/>
+      <stop offset="1" stop-color="#D9973A"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF5E8"/>
+      <stop offset=".53" stop-color="#E5E4E8"/>
+      <stop offset="1" stop-color="#B7BFD4"/>
+    </linearGradient>
+    <linearGradient id="beard" x1="0" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#FDF4E7"/>
+      <stop offset=".63" stop-color="#E4E5EE"/>
+      <stop offset="1" stop-color="#BCC8D9"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#F8D9BD"/>
+      <stop offset="1" stop-color="#D4A88F"/>
+    </linearGradient>
+    <clipPath id="tile"><rect x="12" y="12" width="488" height="488" rx="112"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#tile)">
+    <rect x="12" y="12" width="488" height="488" fill="url(#bg)"/>
+    <circle cx="256" cy="208" r="229" fill="url(#aura)"/>
+
+    <!-- Saintly radiance: abstract reference to God -->
+    <circle cx="256" cy="220" r="154" fill="none" stroke="url(#ring)" stroke-width="19"/>
+    <circle cx="256" cy="220" r="137" fill="none" stroke="#FFE5A0" stroke-opacity=".24" stroke-width="2"/>
+    <g fill="#FFD47A">
+      <path d="M256 29l8 16-8 15-8-15z"/>
+      <path d="M99 84l17 5 3 17-17-5z" transform="rotate(-9 108 94)"/>
+      <path d="M413 84l-17 5-3 17 17-5z" transform="rotate(9 404 94)"/>
+      <path d="M55 210l15 8-15 8-15-8z"/>
+      <path d="M457 210l15 8-15 8-15-8z"/>
+    </g>
+
+    <!-- Lightning: the power in the title -->
+    <path d="M107 305 86 343h20l-8 36 40-51h-23l11-23z" fill="#FFD47A"/>
+
+    <!-- Bust and garment -->
+    <path d="M75 510c12-67 57-97 111-113 29-9 57-12 70-12s41 3 70 12c54 16 99 46 111 113Z" fill="#10162E"/>
+    <path d="M156 417c31-14 63-21 100-21 38 0 70 7 101 21l29 93H126z" fill="#2C305A"/>
+    <path d="M188 405l68 61 68-61-25-14h-86z" fill="#17203B"/>
+    <path d="M188 404l68 60-31 46h-75zM324 404l-68 60 31 46h75z" fill="#3F416B"/>
+
+    <!-- The unmistakable broad, frizzy Marx hair silhouette -->
+    <path d="M153 294c-25-7-38-28-33-54-20-12-20-44-2-59-7-24 9-48 32-52 10-26 36-39 59-29 22-21 54-19 73-9 27-12 59 2 69 27 28 3 45 29 40 56 19 17 18 49-4 65 3 25-14 48-39 55l-14-38-169 1z" fill="#A6ADBE"/>
+    <path d="M148 282c-25-13-24-33-17-48-18-22-5-43 12-51-4-25 16-43 38-40 7-30 37-36 56-24 22-19 57-20 81-4 25-6 48 14 47 39 26 6 35 33 18 51 12 25-3 51-28 59l-15-30-178 5z" fill="url(#hair)"/>
+    <!-- Hair waves / tufts -->
+    <g fill="none" stroke="#9BA6BB" stroke-linecap="round" opacity=".65">
+      <path d="M146 222c-11-17-3-33 13-37M155 186c2-22 24-32 40-26M184 148c14-21 37-19 47-11M250 132c24-12 50-5 58 12M332 141c21 6 27 24 20 39M364 188c14 13 13 28 1 41" stroke-width="6"/>
+      <path d="M151 260c-14-14-13-26-2-40M348 264c14-14 16-28 9-41" stroke-width="5"/>
+    </g>
+
+    <!-- Face -->
+    <path d="M177 204c13-26 42-43 77-43 37 0 68 15 83 43l6 77c-3 37-31 67-58 83h-61c-29-17-54-47-58-83z" fill="url(#skin)"/>
+    <path d="M176 255c-10-13-22-7-21 10 2 17 10 28 24 30zM339 254c12-12 23-6 20 12-3 18-12 26-24 29z" fill="#D4A78B"/>
+    <!-- Heavy recognizable brow and thoughtful eyes -->
+    <path d="M193 243c14-10 31-11 45-4M277 238c15-7 32-6 46 4" fill="none" stroke="#566078" stroke-width="10" stroke-linecap="round"/>
+    <path d="M199 259c12-6 23-6 33 0M280 259c12-6 24-6 34 1" fill="none" stroke="#273149" stroke-width="6" stroke-linecap="round"/>
+    <path d="M253 252l-9 35c7 7 17 7 25 1" fill="none" stroke="#B77F72" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Huge flowing moustache / beard are signature Marx silhouette -->
+    <path d="M194 281c-27 11-33 33-27 60-15 22-8 43 10 57-1 28 19 42 42 40 12 20 28 31 37 37 12-9 27-19 38-37 27 1 44-16 43-42 21-14 24-39 11-57 4-31-9-52-32-59l-32 15-29 4-28-5z" fill="url(#beard)"/>
+    <!-- Coarse beard silhouette points and motion -->
+    <path d="M179 352c-18 25-11 42 11 54l-6-27M334 348c19 23 12 43-9 56l3-28" fill="#D2D8E6"/>
+    <path d="M204 319c-6 22 9 39 16 46 0 21 10 42 18 54M306 319c7 22-9 39-16 46 0 23-10 44-19 56" fill="none" stroke="#B9C3D4" stroke-width="8" stroke-linecap="round" opacity=".7"/>
+    <path d="M232 373c-7 28 4 57 24 80 19-24 32-50 25-79" fill="none" stroke="#CBD1DF" stroke-width="8" stroke-linecap="round"/>
+    <!-- White moustache wings -->
+    <path d="M251 303c-14-10-22-16-40-15-17-1-29 12-36 24 16-8 27-1 37 6 20 12 36 4 44-7z" fill="#FFF9F0"/>
+    <path d="M261 303c14-10 22-16 40-15 17-1 29 12 36 24-16-8-27-1-37 6-20 12-36 4-44-7z" fill="#E3E6ED"/>
+    <path d="M240 334c10 5 21 5 31 0" fill="none" stroke="#B7ACAE" stroke-opacity=".65" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Red five-point star anchors the Marxist reference -->
+    <circle cx="256" cy="89" r="36" fill="#1D2444" stroke="#F9C969" stroke-width="5"/>
+    <path d="M256 65l7.1 15 16.5 2.1-12.1 11.4 3.1 16.4-14.6-8-14.6 8 3.1-16.4-12.1-11.4 16.5-2.1z" fill="#F06464"/>
+  </g>
+  <rect x="13" y="13" width="486" height="486" rx="111" fill="none" stroke="#FFF7DF" stroke-opacity=".13" stroke-width="2"/>
+</svg></div>
+    <h2 class="gp-intro-title" id="gpIntroTitle">上帝的力量</h2>
+    <p class="gp-intro-caption">KNOWLEDGE IS POWER</p>
+    <div class="gp-slider" id="gpSlideTrack" role="slider" tabindex="0" aria-label="向右滑动解锁" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="gp-slider-fill" id="gpSlideFill"></div>
+      <span class="gp-slider-hint">向右滑动，开启课堂 →</span>
+      <span class="gp-slider-knob" id="gpSlideKnob" aria-hidden="true">›</span>
+    </div>
+    <button id="gpIntroSkip" class="gp-intro-skip" type="button">跳过动画，进入首页</button>
+  </div>
+</div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
   <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
 </div>
 <div id="view-welcome" class="view active">
-  <main class="ui-page" style="width:100%;box-sizing:border-box">
-    <header class="ui-welcome-head">
-      <div><div class="ui-eyebrow">课堂竞技 · 每一次参与都有力量</div><h1>上帝的力量</h1><h2 id="welcomeGreeting">欢迎回到课堂</h2><p class="ui-muted">让知识成为力量，让每个小组都有登场时刻。</p></div>
-      <div class="ui-welcome-time"><div id="welcomeClock" class="ui-clock">--:--:--</div><div id="welcomeDate" class="ui-muted"></div><button class="welcome-enter-btn" onclick="enterBattleFromWelcome()">进入比赛 →</button><br><button id="uiSkipWelcome" class="btn btn-sm" style="margin-top:8px">跳过入场动画</button></div>
-    </header>
-    <section aria-label="实时小组积分"><div class="ui-section-title"><div><h2>小组竞技场</h2><p class="ui-muted">实时积分与排名 · 点击卡片查看小组详情</p></div><div class="ui-scroll-buttons"><button id="uiGroupPrev" aria-label="向左浏览小组">←</button><button id="uiGroupNext" aria-label="向右浏览小组">→</button></div></div><div id="uiGroupTrack" class="ui-group-track"></div></section>
-    <section id="uiDailyGrid" class="ui-daily-grid" aria-label="每日课堂内容"></section>
-    <details class="ui-panel" style="margin-top:24px"><summary>班级总态势与实时排名图表</summary><div class="welcome-stat-grid" style="margin-top:16px"><div>小组数 <b id="wGroupCount" class="w-stat-num"></b></div><div>总积分 <b id="wTotalScore" class="w-stat-num"></b></div><div>最高分 <b id="wMaxScore" class="w-stat-num"></b></div><div>领先 <b id="wLeaderName" class="w-stat-num"></b></div><div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg" class="w-stat-num"></div></div><div id="chartWrapper" class="chart-wrapper"></div><div id="podiumDeck" class="podium-deck"></div><div id="welcomePodiumDeck" hidden></div></details>
+  <main class="ui-page gp-home" aria-label="上帝的力量首页">
+    <section class="gp-hero gp-reveal" aria-label="欢迎与快捷操作">
+      <div class="gp-hero-copy">
+        <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
+        <h1>课堂竞技，<em>一目了然。</em></h1>
+        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <div class="gp-actions">
+          <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
+          <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>
+        </div>
+      </div>
+      <aside class="gp-hero-status" aria-label="当前课堂信息">
+        <div class="gp-status-top"><span>今日课堂</span><span class="gp-live-pill">● 已就绪</span></div>
+        <div class="gp-hero-clock" id="welcomeClock">--:--:--</div>
+        <div class="gp-hero-date" id="welcomeDate">正在读取日期</div>
+        <div class="gp-status-separator"></div>
+        <div class="gp-status-foot">参赛小组 <strong id="gpHeroCount">0 组</strong></div>
+      </aside>
+    </section>
+
+    <section class="gp-kpis gp-reveal" aria-label="班级概览">
+      <article class="gp-kpi"><div><span>参赛小组</span><strong id="wGroupCount" class="w-stat-num">0</strong><small>个小组在这里集结</small></div><span class="gp-kpi-icon">◈</span></article>
+      <article class="gp-kpi"><div><span>班级总积分</span><strong id="wTotalScore" class="w-stat-num gp-kpi-number">0</strong><small>累计课堂竞技积分</small></div><span class="gp-kpi-icon gp-gold">✦</span></article>
+      <article class="gp-kpi"><div><span>最高小组积分</span><strong id="wMaxScore" class="w-stat-num gp-kpi-number">0</strong><small>当前小组最佳成绩</small></div><span class="gp-kpi-icon gp-blue">↑</span></article>
+      <article class="gp-kpi"><div><span>当前领跑</span><strong id="wLeaderName" class="w-stat-num">暂无</strong><small>积分排名实时计算</small></div><span class="gp-kpi-icon gp-purple">★</span></article>
+    </section>
+
+    <div class="gp-section-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>赛场实时总览</h2><small>LIVE DASHBOARD</small></div><span>当前比分与最近操作，打开首页即刻可见</span></div>
+    <section class="gp-main-grid gp-reveal" aria-label="实时竞技数据">
+      <article class="gp-panel gp-rank-panel">
+        <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
+        <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
+        <div class="gp-rank-list" id="gpRankList" role="list" aria-label="实时小组排名" aria-live="polite"></div>
+        <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
+      </article>
+      <article class="gp-panel gp-feed-panel">
+        <div class="gp-panel-title"><div><strong>最近赛场动态</strong><small>真实课堂操作记录</small></div><span class="gp-panel-tag gp-soft-tag">实时同步</span></div>
+        <div class="gp-match-status"><span class="gp-status-orb"></span><div><strong id="gpRoundTitle">赛场准备就绪</strong><small id="gpRoundDetail">等待开始新一轮课堂竞技</small></div><button type="button" onclick="switchView('battle')">前往赛场 ↗</button></div>
+        <div class="gp-feed-list" id="gpFeedList"></div>
+        <div class="gp-panel-footer"><span>操作快照可在历史页面查看</span><button type="button" onclick="switchView('history')">完整历史 →</button></div>
+      </article>
+    </section>
+
+    <section class="gp-group-section gp-reveal" aria-label="小组积分浏览">
+      <div class="gp-group-head"><div><h2>小组竞技场</h2><span class="gp-group-live" id="gpCruiseStatus">手动浏览</span><p>默认手动浏览 · 可开启自动巡航 · 点击卡片查看详情</p></div>
+        <div class="ui-scroll-buttons"><button id="gpCruiseToggle" type="button" aria-pressed="false">开启自动巡航</button><button id="uiGroupPrev" type="button" aria-label="向左浏览小组">←</button><button id="uiGroupNext" type="button" aria-label="向右浏览小组">→</button></div>
+      </div>
+      <div id="uiGroupTrack" class="ui-group-track gp-compact-track"></div>
+    </section>
+
+    <div class="gp-section-heading gp-bottom-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>今日精选</h2><small>DAILY DISCOVERIES</small></div><span>一点知识，一点灵感，留给课堂的闲暇时光</span></div>
+    <section id="uiDailyGrid" class="ui-daily-grid gp-daily-grid gp-reveal" aria-label="每日课堂内容"></section>
+    <section class="gp-existing-metrics" aria-label="现有统计数据" hidden>
+      <div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div>
+      <div id="chartWrapper"></div><div id="podiumDeck"></div><div id="welcomePodiumDeck"></div>
+    </section>
+    <button id="uiSkipWelcome" type="button" hidden>取消装饰动效</button>
+    <div class="gp-footnote">上帝的力量 · 让每一次参与都有力量</div>
   </main>
 </div>
-
 
 <div id="view-battle" class="view">
 <div class="main-viewport battle-main-v216">
@@ -5389,23 +6545,6 @@ summary:focus-visible {
   </div>
 </div>
 
-<div id="welcomeModal" class="welcome-modal">
-  <div class="welcome-modal-card">
-    <div class="welcome-modal-head">
-      <div class="welcome-modal-title">上帝（马克思）的力量</div>
-      <div class="welcome-modal-sub">欢迎进入课堂。规则很多，但至少按钮会自己发光。</div>
-    </div>
-    <div class="welcome-modal-pages">
-      <div class="wmp-item"><span class="wmp-tag" style="background:#F97316;">欢迎</span><span>班级总态势 · 领奖台排名</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#0F766E;">比赛</span><span>课堂对抗 PK · All In 机制</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#16A34A;">历史</span><span>积分变动时间轴 · 精准回滚</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#0891B2;">档案</span><span>月度结算 · 优胜榜 · CSV 导出</span></div>
-      <div class="wmp-item"><span class="wmp-tag" style="background:#607773;">设置</span><span>音效与音乐 · 名单导入 · 数据备份</span></div>
-    </div>
-    <button class="btn btn-primary welcome-modal-btn" onclick="closeWelcomeModal()">开始折腾</button>
-    <div class="welcome-modal-hint">放心，第一次通常只是看看，第二次才会开始疯狂加功能。</div>
-  </div>
-</div>
 <div id="audioHintBar" class="audio-hint-bar" style="display:none;">点击任意位置开启课堂音乐</div>
 
 <div id="itemModalBackdrop" class="item-modal-backdrop" onclick="closeItemWindow()">
@@ -5761,7 +6900,178 @@ summary:focus-visible {
 <div id="toast" class="toast ui-toast" popover="manual" role="status" aria-live="polite" aria-atomic="true"></div>
 
 
-  <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
+  <script>/* Pure presentation models. No classroom state mutations or network access. */
+(function (root) {
+  const examples = {
+    knowledge: [
+      {
+        id: "politics-rule-law",
+        subject: "politics",
+        title: "权利与义务",
+        module: "政治 · 法治观念",
+        summary: "公民依法享有权利，也应依法履行义务。行使权利有边界。",
+        mistake: "把“享有权利”理解成可以损害他人的合法权利。",
+        detail:
+          "结合课堂案例，区分个人权利与公共利益。这里是教学示例，不是教材原文。",
+        source: "示例数据；依据《中华人民共和国宪法》第三十三条、第五十一条。",
+      },
+      {
+        id: "politics-constitution",
+        subject: "politics",
+        title: "宪法的地位",
+        module: "政治 · 宪法与法治",
+        summary: "宪法是国家的根本法，具有最高的法律效力。",
+        mistake: "把宪法与普通法律的法律效力混为一谈。",
+        detail:
+          "普通法律不得同宪法相抵触。可以用法律体系中的层级关系帮助理解。",
+        source: "示例数据；依据《中华人民共和国宪法》序言。",
+      },
+    ],
+    challenges: [
+      {
+        id: "politics-q1",
+        subject: "politics",
+        title: "下列哪项表述正确？",
+        options: [
+          "行使权利不受任何限制",
+          "宪法是国家的根本法",
+          "义务可以任意放弃",
+          "普通法律可以与宪法相抵触",
+        ],
+        answer: 1,
+        explanation: "宪法是国家的根本法，具有最高的法律效力。",
+        source: "示例数据；依据《中华人民共和国宪法》序言。",
+      },
+      {
+        id: "politics-q2",
+        subject: "politics",
+        title: "公民行使自由和权利时，应当怎样做？",
+        options: [
+          "同时尊重他人的合法权利",
+          "只考虑个人意愿",
+          "不必考虑公共利益",
+          "可以违反法律",
+        ],
+        answer: 0,
+        explanation:
+          "行使自由和权利不得损害国家、社会、集体的利益和其他公民的合法自由和权利。",
+        source: "示例数据；依据《中华人民共和国宪法》第五十一条。",
+      },
+    ],
+  };
+  function dayIndex(d = new Date()) {
+    return Math.floor(
+      Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
+    );
+  }
+  function daily(list, date = new Date()) {
+    return list.length
+      ? list[((dayIndex(date) % list.length) + list.length) % list.length]
+      : null;
+  }
+  function differences(before, after) {
+    const a = new Map((before.groups || []).map((g) => [g.id, g])),
+      b = new Map((after.groups || []).map((g) => [g.id, g]));
+    const rank = (groups) =>
+      new Map(
+        [...groups]
+          .sort((x, y) => Number(y.score) - Number(x.score))
+          .map((g, i) => [g.id, i + 1]),
+      );
+    const ra = rank(before.groups || []),
+      rb = rank(after.groups || []);
+    return [...new Set([...a.keys(), ...b.keys()])].map((id) => {
+      const x = a.get(id),
+        y = b.get(id);
+      return {
+        id,
+        name: y?.name || x?.name,
+        before: x?.score ?? null,
+        after: y?.score ?? null,
+        delta: x && y ? Number(y.score) - Number(x.score) : null,
+        rankBefore: ra.get(id),
+        rankAfter: rb.get(id),
+        inventoryBefore: x?.inventory || [],
+        inventoryAfter: y?.inventory || [],
+        effectsBefore: {
+          ...(x?.itemEffect || {}),
+          booShield: x?.booShield || 0,
+          booRoundsLeftV218: x?.booRoundsLeftV218 || 0,
+        },
+        effectsAfter: {
+          ...(y?.itemEffect || {}),
+          booShield: y?.booShield || 0,
+          booRoundsLeftV218: y?.booRoundsLeftV218 || 0,
+        },
+        added: !x,
+        removed: !y,
+      };
+    });
+  }
+  function validateBank(value) {
+    if (
+      !value ||
+      !Array.isArray(value.knowledge) ||
+      !Array.isArray(value.challenges) ||
+      value.knowledge.length + value.challenges.length > 500
+    )
+      throw Error("题库须包含 knowledge、challenges 数组，合计最多 500 条");
+    for (const row of [...value.knowledge, ...value.challenges]) {
+      if (
+        !row ||
+        typeof row.id !== "string" ||
+        typeof row.title !== "string" ||
+        !row.title.trim() ||
+        typeof row.subject !== "string" ||
+        typeof row.source !== "string" ||
+        !row.source.trim()
+      )
+        throw Error("每项须含 id、title、subject 和 source 来源");
+      if (
+        Object.values(row).some(
+          (v) => typeof v === "string" && v.length > 10000,
+        )
+      )
+        throw Error("单字段不能超过 10000 字符");
+    }
+    for (const q of value.challenges) {
+      if (
+        !Array.isArray(q.options) ||
+        q.options.length !== 4 ||
+        q.options.some((x) => typeof x !== "string") ||
+        !Number.isInteger(q.answer) ||
+        q.answer < 0 ||
+        q.answer > 3 ||
+        typeof q.explanation !== "string"
+      )
+        throw Error("题目须有四个文本选项、0–3 正确答案及 explanation 解析");
+    }
+    return value;
+  }
+  // Input order comes from the canonical ranking(); this model never sorts or mutates it.
+  function standings(ordered) {
+    const scores = ordered.map((g) => Number(g.score) || 0);
+    const total = scores.every(Number.isSafeInteger)
+      ? scores.reduce((sum, value) => sum + BigInt(value), 0n).toString()
+      : String(scores.reduce((sum, value) => sum + value, 0));
+    return {
+      count: ordered.length,
+      total,
+      highest: scores[0] ?? 0,
+      leader: ordered[0]?.name ?? "—",
+    };
+  }
+  root.GodpowerUIModel = {
+    examples,
+    standings,
+    dayIndex,
+    daily,
+    differences,
+    validateBank,
+  };
+})(globalThis);
+</script>
+<script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
   const schemaVersion = 1;
   const stateKey = 'godpower_state_v1';
@@ -8516,10 +9826,12 @@ function updateQuickBatchBar() {
 function updateHeaderStats() {
   const banner = document.getElementById('topHeaderStats');
   if (!banner) return;
-  const totalScore = state.groups.reduce((s, g) => s + g.score, 0);
-  const maxScore = Math.max(...state.groups.map(g => g.score), 0);
-  const leader = state.groups.find(g => g.score === maxScore && maxScore > 0);
-  banner.innerHTML = `小组总数: <b>${state.groups.length}</b> 组 | 总积分: <b>${totalScore}</b> | 当前领先: <b style="color:#0284c7;">${leader ? escapeHtml(leader.name) : '暂无'}</b>`;
+  const summary = GodpowerUIModel.standings(ranking());
+  const mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+  const html = `小组总数: <b>${summary.count}</b> 组 | 总积分: <b>${mask?'???':summary.total}</b> | 当前领先: <b style="color:#0284c7;">${mask?'已遮蔽':summary.count?escapeHtml(summary.leader):'暂无'}</b>`;
+  if(banner.innerHTML!==html)banner.innerHTML=html;
+  banner.title=banner.textContent;
+
 }
 
 /* 核心改进：条形图保持 DOM 元素稳定，支持宽度平滑递增与排位平滑滑动互换 */
@@ -9603,6 +10915,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
+  updateHeaderStats();
   if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
@@ -9643,14 +10956,8 @@ function renderWelcomePage() {
       <span class="podium-name" style="color:#172033;">${top3 ? escapeHtml(top3.name) : '-'}</span>
       <span class="podium-score" style="color:${top3 ? top3.color : '#94a3b8'};">${getScore(top3)}分</span>
     </div>`;
-  const total = state.groups.reduce((s, g) => s + (Number(g.score) || 0), 0);
-  const max = state.groups.reduce((m, g) => Math.max(m, Number(g.score) || 0), 0);
-  const leader = state.groups.find(g => (Number(g.score) || 0) === max && max > 0);
-  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = String(v); };
-  setText('wGroupCount', state.groups.length);
-  setText('wTotalScore', total);
-  setText('wMaxScore', max);
-  setText('wLeaderName', leader ? leader.name : '—');
+  // Visible welcome statistics are owned by WelcomeV2.render().
+
 }
 
 /* ---------- 菜单同拍音频池配置 ---------- */
@@ -10383,10 +11690,8 @@ window.addEventListener('DOMContentLoaded', () => {
   renderWelcomePage();
   startWelcomeClock();
 
-  // ===== 欢迎弹窗与音频启动 =====
-  // 欢迎弹窗：每次打开页面时显示；点击「进入课堂」关闭后播放欢迎配乐（点击即解锁手势）
-  const welcomeModalEl = document.getElementById('welcomeModal');
-  if (welcomeModalEl) welcomeModalEl.classList.add('active');
+  // ===== 滑动解锁入场与音频启动 =====
+  // 欢迎弹窗已被独立的 SVG 入场动画替代；首次解锁手势由 WelcomeV2 处理。
 
   window.hideAudioHint = () => {
     const bar = document.getElementById('audioHintBar');
@@ -18549,163 +19854,6 @@ if(classroomDock&&typeof ResizeObserver==='function'){
   new ResizeObserver(()=>document.body.style.setProperty('--dock-height',classroomDock.getBoundingClientRect().height+'px')).observe(classroomDock);
 }
 </script>
-<script>/* Pure presentation models. No classroom state mutations or network access. */
-(function (root) {
-  const examples = {
-    knowledge: [
-      {
-        id: "politics-rule-law",
-        subject: "politics",
-        title: "权利与义务",
-        module: "政治 · 法治观念",
-        summary: "公民依法享有权利，也应依法履行义务。行使权利有边界。",
-        mistake: "把“享有权利”理解成可以损害他人的合法权利。",
-        detail:
-          "结合课堂案例，区分个人权利与公共利益。这里是教学示例，不是教材原文。",
-        source: "示例数据；依据《中华人民共和国宪法》第三十三条、第五十一条。",
-      },
-      {
-        id: "politics-constitution",
-        subject: "politics",
-        title: "宪法的地位",
-        module: "政治 · 宪法与法治",
-        summary: "宪法是国家的根本法，具有最高的法律效力。",
-        mistake: "把宪法与普通法律的法律效力混为一谈。",
-        detail:
-          "普通法律不得同宪法相抵触。可以用法律体系中的层级关系帮助理解。",
-        source: "示例数据；依据《中华人民共和国宪法》序言。",
-      },
-    ],
-    challenges: [
-      {
-        id: "politics-q1",
-        subject: "politics",
-        title: "下列哪项表述正确？",
-        options: [
-          "行使权利不受任何限制",
-          "宪法是国家的根本法",
-          "义务可以任意放弃",
-          "普通法律可以与宪法相抵触",
-        ],
-        answer: 1,
-        explanation: "宪法是国家的根本法，具有最高的法律效力。",
-        source: "示例数据；依据《中华人民共和国宪法》序言。",
-      },
-      {
-        id: "politics-q2",
-        subject: "politics",
-        title: "公民行使自由和权利时，应当怎样做？",
-        options: [
-          "同时尊重他人的合法权利",
-          "只考虑个人意愿",
-          "不必考虑公共利益",
-          "可以违反法律",
-        ],
-        answer: 0,
-        explanation:
-          "行使自由和权利不得损害国家、社会、集体的利益和其他公民的合法自由和权利。",
-        source: "示例数据；依据《中华人民共和国宪法》第五十一条。",
-      },
-    ],
-  };
-  function dayIndex(d = new Date()) {
-    return Math.floor(
-      Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
-    );
-  }
-  function daily(list, date = new Date()) {
-    return list.length
-      ? list[((dayIndex(date) % list.length) + list.length) % list.length]
-      : null;
-  }
-  function differences(before, after) {
-    const a = new Map((before.groups || []).map((g) => [g.id, g])),
-      b = new Map((after.groups || []).map((g) => [g.id, g]));
-    const rank = (groups) =>
-      new Map(
-        [...groups]
-          .sort((x, y) => Number(y.score) - Number(x.score))
-          .map((g, i) => [g.id, i + 1]),
-      );
-    const ra = rank(before.groups || []),
-      rb = rank(after.groups || []);
-    return [...new Set([...a.keys(), ...b.keys()])].map((id) => {
-      const x = a.get(id),
-        y = b.get(id);
-      return {
-        id,
-        name: y?.name || x?.name,
-        before: x?.score ?? null,
-        after: y?.score ?? null,
-        delta: x && y ? Number(y.score) - Number(x.score) : null,
-        rankBefore: ra.get(id),
-        rankAfter: rb.get(id),
-        inventoryBefore: x?.inventory || [],
-        inventoryAfter: y?.inventory || [],
-        effectsBefore: {
-          ...(x?.itemEffect || {}),
-          booShield: x?.booShield || 0,
-          booRoundsLeftV218: x?.booRoundsLeftV218 || 0,
-        },
-        effectsAfter: {
-          ...(y?.itemEffect || {}),
-          booShield: y?.booShield || 0,
-          booRoundsLeftV218: y?.booRoundsLeftV218 || 0,
-        },
-        added: !x,
-        removed: !y,
-      };
-    });
-  }
-  function validateBank(value) {
-    if (
-      !value ||
-      !Array.isArray(value.knowledge) ||
-      !Array.isArray(value.challenges) ||
-      value.knowledge.length + value.challenges.length > 500
-    )
-      throw Error("题库须包含 knowledge、challenges 数组，合计最多 500 条");
-    for (const row of [...value.knowledge, ...value.challenges]) {
-      if (
-        !row ||
-        typeof row.id !== "string" ||
-        typeof row.title !== "string" ||
-        !row.title.trim() ||
-        typeof row.subject !== "string" ||
-        typeof row.source !== "string" ||
-        !row.source.trim()
-      )
-        throw Error("每项须含 id、title、subject 和 source 来源");
-      if (
-        Object.values(row).some(
-          (v) => typeof v === "string" && v.length > 10000,
-        )
-      )
-        throw Error("单字段不能超过 10000 字符");
-    }
-    for (const q of value.challenges) {
-      if (
-        !Array.isArray(q.options) ||
-        q.options.length !== 4 ||
-        q.options.some((x) => typeof x !== "string") ||
-        !Number.isInteger(q.answer) ||
-        q.answer < 0 ||
-        q.answer > 3 ||
-        typeof q.explanation !== "string"
-      )
-        throw Error("题目须有四个文本选项、0–3 正确答案及 explanation 解析");
-    }
-    return value;
-  }
-  root.GodpowerUIModel = {
-    examples,
-    dayIndex,
-    daily,
-    differences,
-    validateBank,
-  };
-})(globalThis);
-</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -18722,6 +19870,7 @@ const DesktopUI = (() => {
       honors: true,
       challenge: true,
       subject: "politics",
+      groupCruise: false,
     };
   let preferences = { ...defaults },
     bank = M.examples,
@@ -18767,6 +19916,7 @@ const DesktopUI = (() => {
   }
   function applyPreferences() {
     document.body.dataset.motion = preferences.motion;
+    window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
     document.body.dataset.systemMotion = String(preferences.systemMotion);
     if (preferences.motion === "off") {
@@ -18853,6 +20003,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
         !["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes(
@@ -18970,6 +20121,8 @@ const DesktopUI = (() => {
     }
     requestAnimationFrame(updateArrows);
     renderDaily();
+    if (window.WelcomeV2 && typeof window.WelcomeV2.render === "function")
+      window.WelcomeV2.render();
   }
   function updateArrows() {
     const t = $("#uiGroupTrack");
@@ -19027,7 +20180,13 @@ const DesktopUI = (() => {
     const history = getSettlementHistory(),
       signature =
         M.dayIndex() +
-        JSON.stringify(preferences) +
+        JSON.stringify([
+          preferences.knowledge,
+          preferences.itemTip,
+          preferences.honors,
+          preferences.challenge,
+          preferences.subject,
+        ]) +
         JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
         Object.keys(ITEM_DEFS).length;
     if (signature === dailySignature) return;
@@ -19342,6 +20501,7 @@ const DesktopUI = (() => {
         ["itemTip", "每日道具小知识"],
         ["honors", "历史荣誉"],
         ["challenge", "每日课堂挑战"],
+        ["groupCruise", "小组卡片自动巡航（默认关闭）"],
       ]
         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
         .join("") +
@@ -20015,10 +21175,603 @@ const DesktopUI = (() => {
     cancelAnimations,
     icon,
     getPreferences: () => ({ ...preferences }),
+    setGroupCruise: (enabled) => {
+      preferences.groupCruise = !!enabled;
+      const control = $("#uiPref-groupCruise");
+      if (control) control.checked = preferences.groupCruise;
+      const saved = persistPreferences();
+      applyPreferences();
+      return saved;
+    },
     getAnimationCount: () => animations.size,
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
+</script>
+<script>/* Homepage-only composition and cancellable entrance. Business state is read-only. */
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let started = false,
+    introOpened = false,
+    introBusy = false,
+    introFinished = false,
+    slidePx = 0;
+  let activePointer = null,
+    settleEntrance = null,
+    focusBeforeIntro = null;
+  let frame = null,
+    cruiseTimer = null,
+    pauseUntil = 0;
+  let trackHovered = false,
+    trackFocused = false,
+    draggingTrack = false;
+  let rankSignature = "",
+    feedSignature = "";
+  const background = new Map(),
+    animations = new Set();
+  const esc = (value) =>
+    String(value ?? "").replace(
+      /[&<>"']/g,
+      (ch) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[ch],
+    );
+  const preferences = () =>
+    (typeof DesktopUI !== "undefined" ? DesktopUI.getPreferences() : null) || {
+      motion: "full",
+      speed: 1,
+      systemMotion: true,
+      pageMotion: true,
+      groupCruise: false,
+    };
+  const canAnimate = () =>
+    preferences().motion !== "off" &&
+    !(preferences().systemMotion && reduceMotion.matches);
+  const realGroups = () => (Array.isArray(state.groups) ? state.groups : []);
+  const score = (g) => Number(g.score) || 0;
+  function setText(id, value) {
+    const el = $(id),
+      text = String(value);
+    if (el && el.textContent !== text) el.textContent = text;
+  }
+  function render() {
+    if (!$("gpRankList")) return;
+    const groups = realGroups(),
+      mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+    // Use the established stable ranking, never invent an id-based tie-break.
+    const ordered = ranking(),
+      ranked = mask ? groups : ordered;
+    const summary = GodpowerUIModel.standings(ordered);
+    setText("wGroupCount", summary.count);
+    setText("wTotalScore", mask ? "???" : summary.total);
+    setText("wMaxScore", mask ? "???" : summary.highest);
+    setText("wLeaderName", mask ? "已遮蔽" : summary.leader);
+    for (const id of ["wTotalScore", "wMaxScore", "wLeaderName"])
+      $(id).title = $(id).textContent;
+    const signature = JSON.stringify([
+      mask,
+      ranked.map((g) => [g.id, g.name, g.score]),
+    ]);
+    setText("gpHeroCount", groups.length + " 组");
+    setText(
+      "gpRankNote",
+      mask
+        ? "积分与名次暂时遮蔽"
+        : groups.length
+          ? `共 ${groups.length} 组 · 积分从高到低`
+          : "尚未添加小组",
+    );
+    if (signature !== rankSignature) {
+      rankSignature = signature;
+      const max = Math.max(1, ...ranked.map(score));
+      $("gpRankList").innerHTML = ranked.length
+        ? ranked
+            .map((g, i) => {
+              const medal = mask
+                ? ""
+                : i === 0
+                  ? " gp-medal"
+                  : i === 1
+                    ? " gp-medal gp-second"
+                    : i === 2
+                      ? " gp-medal gp-third"
+                      : "";
+              const pct = mask
+                ? 0
+                : Math.max(0, Math.min(100, (score(g) / max) * 100));
+              return `<div class="gp-rank-row" role="listitem"><span class="gp-rank-index${medal}">${mask ? "—" : i + 1}</span><span class="gp-rank-name" title="${esc(g.name)}">${esc(g.name)}</span><span class="gp-rank-bar" aria-hidden="true"><i style="width:${pct.toFixed(2)}%"></i></span><span class="gp-rank-points">${mask ? "???" : esc(g.score)}</span><span class="gp-rank-state">${mask ? "已遮蔽" : i === 0 ? "领跑" : "参赛中"}</span></div>`;
+            })
+            .join("")
+        : '<div class="gp-rank-empty">还没有小组。请在设置或比赛页面添加小组。</div>';
+    }
+    const phases = {
+      NOT_STARTED: ["赛场准备就绪", "随时可以前往比赛页面开始新回合"],
+      FINISHED: ["本场比赛已结束", "可查看档案或准备下一届比赛"],
+      SETTLED: ["本题已结算", "积分已更新，可前往赛场进入下一题"],
+      ANSWER_SELECTED: ["正确答案已选定", "等待教师判定结算 · 尚未完成本题"],
+      ANSWERING: ["新一轮比赛进行中", "当前回合正在进行 · 分数实时更新"],
+    };
+    const phase = phases[Reliability.phase(state)];
+    setText("gpRoundTitle", phase[0]);
+    setText("gpRoundDetail", phase[1]);
+    const recent = historyStack.slice(-4).reverse(),
+      nextFeed = JSON.stringify(recent.map((h) => [h.desc, h.time]));
+    if (nextFeed !== feedSignature) {
+      feedSignature = nextFeed;
+      $("gpFeedList").innerHTML = recent.length
+        ? recent
+            .map(
+              (h) =>
+                `<div class="gp-feed-row"><span class="gp-feed-icon">↗</span><div class="gp-feed-copy"><strong>${esc(h.desc || "课堂操作")}</strong><p>操作记录已保留，可在历史页面查看快照</p></div><span class="gp-feed-time">${esc(h.time || "")}</span></div>`,
+            )
+            .join("")
+        : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
+    }
+    syncCruise();
+  }
+  function stopCruise() {
+    clearTimeout(cruiseTimer);
+    cruiseTimer = null;
+  }
+  function cruiseAllowed() {
+    const track = $("uiGroupTrack");
+    return !!(
+      started &&
+      preferences().groupCruise &&
+      canAnimate() &&
+      introFinished &&
+      !document.hidden &&
+      currentView === "welcome" &&
+      !trackHovered &&
+      !trackFocused &&
+      !draggingTrack &&
+      track &&
+      track.scrollWidth > track.clientWidth + 6
+    );
+  }
+  function syncCruise() {
+    if (!started) return;
+    const enabled = !!preferences().groupCruise;
+    setText("gpCruiseToggle", enabled ? "暂停自动巡航" : "开启自动巡航");
+    $("gpCruiseToggle").setAttribute("aria-pressed", String(enabled));
+    setText(
+      "gpCruiseStatus",
+      enabled ? (cruiseAllowed() ? "自动巡航" : "巡航暂停") : "手动浏览",
+    );
+    if (!cruiseAllowed()) {
+      stopCruise();
+      return;
+    }
+    if (cruiseTimer !== null) return;
+    cruiseTimer = setTimeout(
+      () => {
+        cruiseTimer = null;
+        if (!cruiseAllowed()) return;
+        const track = $("uiGroupTrack"),
+          edge = track.scrollWidth - track.clientWidth;
+        const first = track.querySelector(".ui-group-card"),
+          step = (first?.offsetWidth || 203) + 11;
+        track.scrollTo({
+          left:
+            track.scrollLeft >= edge - 2
+              ? 0
+              : Math.min(edge, track.scrollLeft + step),
+          behavior: "smooth",
+        });
+        syncCruise();
+      },
+      Math.max(3800, pauseUntil - Date.now()),
+    );
+  }
+  function setupCruise() {
+    const track = $("uiGroupTrack");
+    track.addEventListener("pointerenter", () => {
+      trackHovered = true;
+      syncCruise();
+    });
+    track.addEventListener("pointerleave", () => {
+      trackHovered = false;
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    track.addEventListener("focusin", () => {
+      trackFocused = true;
+      syncCruise();
+    });
+    track.addEventListener("focusout", (e) => {
+      trackFocused = track.contains(e.relatedTarget);
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    track.addEventListener("pointerdown", () => {
+      draggingTrack = true;
+      syncCruise();
+    });
+    window.addEventListener("pointerup", () => {
+      draggingTrack = false;
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    window.addEventListener("pointercancel", () => {
+      draggingTrack = false;
+      syncCruise();
+    });
+    for (const id of ["uiGroupPrev", "uiGroupNext"])
+      $(id).addEventListener("click", () => {
+        pauseUntil = Date.now() + 5000;
+        stopCruise();
+        syncCruise();
+      });
+    $("gpCruiseToggle").addEventListener("click", () =>
+      DesktopUI.setGroupCruise(!preferences().groupCruise),
+    );
+    new ResizeObserver(syncCruise).observe(track);
+  }
+  function isolateBackground() {
+    for (const el of document.body.children) {
+      if (
+        el.id === "gpIntro" ||
+        el.id === "toast" ||
+        ["SCRIPT", "STYLE", "LINK"].includes(el.tagName)
+      )
+        continue;
+      background.set(el, el.inert);
+      el.inert = true;
+    }
+  }
+  function releaseBackground() {
+    for (const [el, inert] of background) el.inert = inert;
+    background.clear();
+  }
+  function activeIntro() {
+    return started && introOpened && !$("gpIntro").hidden;
+  }
+  function focusIntro() {
+    if (activeIntro())
+      $(introBusy ? "gpIntroSkip" : "gpSlideTrack").focus({
+        preventScroll: true,
+      });
+  }
+  function showIntro(replay) {
+    if (introBusy) return;
+    const modal = [
+      ...document.querySelectorAll('[role="dialog"][aria-modal="true"]'),
+    ].find(
+      (el) =>
+        el.id !== "gpIntro" &&
+        el.getClientRects().length &&
+        getComputedStyle(el).visibility !== "hidden",
+    );
+    if (modal && replay) {
+      showToast("请先关闭当前弹窗，再重播入场动画");
+      return;
+    }
+    const overlay = $("gpIntro"),
+      logo = $("gpIntroLogo"),
+      svg = $("gpBrandMount").querySelector("svg");
+    if (svg) logo.appendChild(svg);
+    if (!background.size) {
+      focusBeforeIntro = document.activeElement;
+      isolateBackground();
+    }
+    logo.removeAttribute("style");
+    $("gpIntroTitle").removeAttribute("style");
+    overlay.hidden = false;
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.classList.remove("departing", "ready");
+    overlay.classList.add("active");
+    introOpened = true;
+    introFinished = false;
+    resetPointer();
+    drawSlide(0);
+    document.body.classList.add("gp-intro-active");
+    document.body.classList.remove("gp-intro-reveal");
+    stopCruise();
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      frame = null;
+      overlay.classList.add("ready");
+    });
+    if (!canAnimate()) finish(true);
+    else focusIntro();
+  }
+  function drawSlide(px) {
+    const track = $("gpSlideTrack"),
+      max = Math.max(1, track.clientWidth - 56);
+    slidePx = Math.min(Math.max(0, px), max);
+    track.style.setProperty("--gp-slide", slidePx + "px");
+    $("gpSlideFill").style.width = slidePx + 54 + "px";
+    track.setAttribute("aria-valuenow", Math.round((slidePx / max) * 100));
+  }
+  function resetPointer() {
+    const track = $("gpSlideTrack"),
+      pointer = activePointer;
+    activePointer = null;
+    track.classList.remove("dragging");
+    if (pointer !== null && track.hasPointerCapture(pointer))
+      track.releasePointerCapture(pointer);
+  }
+  function finish(skip) {
+    if (introBusy) {
+      if (skip) settleEntrance?.();
+      return;
+    }
+    if (introFinished) return;
+    introBusy = true;
+    resetPointer();
+    cancelAnimationFrame(frame);
+    frame = null;
+    const overlay = $("gpIntro"),
+      logo = $("gpIntroLogo"),
+      title = $("gpIntroTitle"),
+      mount = $("gpBrandMount"),
+      svg = logo.querySelector("svg");
+    const label = document.querySelector(".gp-brand-label");
+    document.body.classList.remove("gp-intro-active");
+    const animate = !skip && canAnimate() && logo.animate;
+    if (animate && preferences().pageMotion)
+      document.body.classList.add("gp-intro-reveal");
+    overlay.classList.add("departing");
+    overlay.setAttribute("aria-busy", "true");
+    $("gpSlideTrack").setAttribute("aria-disabled", "true");
+    // Resume inside the actual unlock gesture, before waiting for animation completion.
+    window.startResumeRetry?.();
+    window.tryAutoResumeAndPlay?.();
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      settleEntrance = null;
+      for (const animation of animations) animation.cancel();
+      animations.clear();
+      if (svg) mount.appendChild(svg);
+      logo.removeAttribute("style");
+      title.removeAttribute("style");
+      overlay.classList.remove("active", "ready", "departing");
+      overlay.hidden = true;
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.removeAttribute("aria-busy");
+      $("gpSlideTrack").removeAttribute("aria-disabled");
+      introBusy = false;
+      introFinished = true;
+      releaseBackground();
+      const prior = focusBeforeIntro;
+      const target =
+        prior &&
+        prior !== document.body &&
+        prior.isConnected &&
+        prior.getClientRects().length &&
+        !prior.closest("[inert]") &&
+        (!prior.closest(".view") ||
+          prior.closest(".view").id === "view-" + currentView)
+          ? prior
+          : currentView === "welcome"
+            ? document.querySelector(".welcome-enter-btn")
+            : document.querySelector(`.nav-tab[data-view="${currentView}"]`);
+      target?.focus({ preventScroll: true });
+      syncCruise();
+    };
+    settleEntrance = settle;
+    if (!animate) {
+      settle();
+      return;
+    }
+    // Early unlock may interrupt the initial scale/fade; measure a stable box.
+    for (const el of [logo, title]) {
+      el.style.transition = "none";
+      el.style.transform = "none";
+      el.style.opacity = "1";
+    }
+    const a = logo.getBoundingClientRect(),
+      b = mount.getBoundingClientRect(),
+      t = title.getBoundingClientRect(),
+      v = label.getBoundingClientRect();
+    const zoom = Number(getComputedStyle(document.body).zoom) || 1;
+    const options = {
+      duration:
+        (preferences().motion === "simple" ? 260 : 840) / preferences().speed,
+      easing: "cubic-bezier(.22,.8,.22,1)",
+      fill: "forwards",
+    };
+    const movement = (from, to) =>
+      `translate(${(to.left + to.width / 2 - from.left - from.width / 2) / zoom}px,${(to.top + to.height / 2 - from.top - from.height / 2) / zoom}px)`;
+    try {
+      animations.add(
+        logo.animate(
+          [
+            { transform: "translate(0,0) scale(1)", opacity: 1 },
+            {
+              transform: movement(a, b) + ` scale(${b.width / a.width})`,
+              opacity: 1,
+            },
+          ],
+          options,
+        ),
+      );
+      animations.add(
+        title.animate(
+          [
+            { transform: "translate(0,0) scale(1)", opacity: 1 },
+            {
+              transform:
+                movement(t, v) + ` scale(${Math.min(1, v.height / t.height)})`,
+              opacity: 0,
+            },
+          ],
+          options,
+        ),
+      );
+      Promise.all(
+        [...animations].map((animation) =>
+          animation.finished.then(
+            () => true,
+            () => false,
+          ),
+        ),
+      ).then(settle);
+    } catch (error) {
+      console.warn("入场动画未完成，已进入首页", error);
+      settle();
+    }
+  }
+  function setupSlider() {
+    const track = $("gpSlideTrack");
+    const fromEvent = (event) => {
+      const box = track.getBoundingClientRect();
+      drawSlide(
+        (event.clientX - box.left) / (box.width / track.offsetWidth) - 28,
+      );
+    };
+    track.addEventListener("pointerdown", (event) => {
+      if (introBusy || !event.isPrimary || event.button !== 0) return;
+      activePointer = event.pointerId;
+      track.classList.add("dragging");
+      track.setPointerCapture(event.pointerId);
+      fromEvent(event);
+    });
+    track.addEventListener("pointermove", (event) => {
+      if (event.pointerId === activePointer) fromEvent(event);
+    });
+    track.addEventListener("pointerup", (event) => {
+      if (event.pointerId !== activePointer) return;
+      resetPointer();
+      if (Number(track.getAttribute("aria-valuenow")) >= 83) finish(false);
+      else drawSlide(0);
+    });
+    const cancel = (event) => {
+      if (event.pointerId === activePointer) {
+        resetPointer();
+        drawSlide(0);
+      }
+    };
+    track.addEventListener("pointercancel", cancel);
+    track.addEventListener("lostpointercapture", cancel);
+    track.addEventListener("keydown", (event) => {
+      if (introBusy) return;
+      if (
+        ["ArrowRight", "ArrowLeft", "End", "Home", "Enter", " "].includes(
+          event.key,
+        )
+      )
+        event.preventDefault();
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft")
+        drawSlide(slidePx + (event.key === "ArrowRight" ? 30 : -30));
+      else if (event.key === "End") drawSlide(track.clientWidth - 56);
+      else if (event.key === "Home") drawSlide(0);
+      else if (
+        (event.key === "Enter" || event.key === " ") &&
+        Number(track.getAttribute("aria-valuenow")) >= 83
+      )
+        finish(false);
+    });
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        if (!activeIntro()) return;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          finish(true);
+        }
+        if (event.key === "Tab") {
+          event.preventDefault();
+          const controls = introBusy
+            ? [$("gpIntroSkip")]
+            : [track, $("gpIntroSkip")];
+          const at = controls.indexOf(document.activeElement);
+          controls[
+            (at + (event.shiftKey ? -1 : 1) + controls.length) % controls.length
+          ].focus();
+        }
+      },
+      true,
+    );
+    document.addEventListener(
+      "focusin",
+      (event) => {
+        if (activeIntro() && !$("gpIntro").contains(event.target)) focusIntro();
+      },
+      true,
+    );
+  }
+  function preferencesChanged() {
+    document.body.dataset.welcomeMotion = canAnimate()
+      ? preferences().motion
+      : "off";
+    if (!started) return;
+    if (!canAnimate() && activeIntro()) finish(true);
+    syncCruise();
+  }
+  function viewChanged(name) {
+    if (!started) return;
+    if (name !== "welcome" && activeIntro()) finish(true);
+    if (name !== "welcome") stopCruise();
+    else syncCruise();
+  }
+  function init() {
+    if (started) return;
+    started = true;
+    const logo = $("gpIntroLogo").querySelector("svg"),
+      favicon = document.querySelector('link[rel="icon"]');
+    if (logo && favicon)
+      favicon.href = "data:image/svg+xml," + encodeURIComponent(logo.outerHTML);
+    setupSlider();
+    setupCruise();
+    preferencesChanged();
+    $("gpIntroSkip").addEventListener("click", () => finish(true));
+    $("gpReplayIntro").addEventListener("click", () => showIntro(true));
+    reduceMotion.addEventListener("change", preferencesChanged);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && introBusy) settleEntrance?.();
+      syncCruise();
+    });
+    window.addEventListener("blur", () => {
+      if (activePointer !== null) {
+        resetPointer();
+        drawSlide(0);
+      }
+      draggingTrack = false;
+      syncCruise();
+    });
+    window.addEventListener("resize", () => {
+      if (introBusy) settleEntrance?.();
+      else if (activeIntro()) {
+        resetPointer();
+        drawSlide(0);
+      }
+      syncCruise();
+    });
+    window.addEventListener("pagehide", () => {
+      stopCruise();
+      settleEntrance?.();
+    });
+    window.addEventListener("pageshow", syncCruise);
+    showIntro(false);
+    render();
+  }
+  window.WelcomeV2 = {
+    render,
+    replay: () => showIntro(true),
+    viewChanged,
+    preferencesChanged,
+    getStatus: () => ({
+      introFinished,
+      introBusy,
+      animations: animations.size,
+      cruiseTimerActive: cruiseTimer !== null,
+      backgroundLocks: background.size,
+    }),
+  };
+  if (document.readyState === "loading")
+    window.addEventListener("DOMContentLoaded", init, { once: true });
+  else init();
+})();
 </script>
 </body>
 </html>

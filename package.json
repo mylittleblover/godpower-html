@@ -17,7 +17,7 @@
     "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs",
     "test:refactor": "node tests/e2e/defense-command.mjs && node tests/e2e/legacy-differential.mjs && node tests/e2e/refactor-layout.mjs && node tests/e2e/refactor-performance.mjs",
     "audit:legacy": "node scripts/legacy-inventory.mjs",
-    "test:welcome": "node tests/e2e/welcome-v2.mjs"
+    "test:welcome": "node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { createServer } from "node:http";
-import { launch, setup } from "../fixtures/browser.mjs";
+import { launch, setup, dismissStartup } from "../fixtures/browser.mjs";
 const html = await readFile("dist/godpower.html");
 const server = createServer((q, s) => {
   s.setHeader("Content-Type", "text/html;charset=utf-8");
@@ -144,7 +144,7 @@ try {
       before,
     );
     await p.reload({ waitUntil: "domcontentloaded", timeout: 90000 });
-    await p.evaluate(() => closeWelcomeModal());
+    await dismissStartup(p);
     await p.waitForTimeout(700);
     assert.equal(await p.locator("#uiDailyGrid").textContent(), content);
   });
@@ -251,9 +251,9 @@ try {
     await p.locator("#uiPref-motion").selectOption("simple");
     await p.locator("#uiPref-speed").selectOption("1.5");
     await p.reload({ waitUntil: "domcontentloaded", timeout: 90000 });
-    await p.evaluate(() => closeWelcomeModal());
+    await dismissStartup(p);
     await p.waitForTimeout(700);
-    await p.evaluate(() => closeWelcomeModal());
+    await dismissStartup(p);
     assert.equal(
       await p.evaluate(() => DesktopUI.getPreferences().motion),
       "simple",

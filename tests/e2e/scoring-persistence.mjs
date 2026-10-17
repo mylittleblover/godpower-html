@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
 import {readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
-import {launch} from '../fixtures/browser.mjs';
+import {launch,dismissStartup} from '../fixtures/browser.mjs';
 const compare=process.argv.includes('--compare-before');
 const current=await readFile('dist/godpower.html','utf8');
 const old=compare?execFileSync('git',['show','bc42a43:dist/godpower.html'],{maxBuffer:16*1024*1024}).toString():null;
@@ -14,7 +14,7 @@ async function run(version,failure){
  if(failure==='startup-denied')await context.addInitScript(()=>{Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('storage denied','SecurityError')}})});
  await p.goto(`http://127.0.0.1:${server.address().port}/${version}`,{waitUntil:'domcontentloaded'});
  if(failure==='startup-denied'){await p.waitForTimeout(1200);await p.evaluate(()=>closeThemeDialogV21727())}
- await p.locator('button[onclick="closeWelcomeModal()"]').click();
+ await dismissStartup(p);
  await p.locator('button[onclick="enterBattleFromWelcome()"]').click();
  await p.locator('#btnMainAction').click();await p.waitForFunction(()=>state.roundActive);
  if(failure==='quota')await p.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='godpower_state_v1')throw new DOMException('test full','QuotaExceededError');return original.call(this,k,v)};window.restoreTestStorage=()=>Storage.prototype.setItem=original});
