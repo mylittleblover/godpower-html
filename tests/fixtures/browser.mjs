@@ -1,8 +1,13 @@
+import {existsSync} from 'node:fs';
 import {chromium,firefox,webkit} from 'playwright';
 export async function launch(kind='chromium'){
  const driver={chromium,firefox,webkit}[kind];
  const opts={headless:true};
- if(kind==='chromium')Object.assign(opts,{executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
+ if(kind==='chromium'){
+   const browserPath=process.env.CHROMIUM_PATH||(process.platform==='linux'&&existsSync('/usr/bin/chromium')?'/usr/bin/chromium':null);
+   if(browserPath)opts.executablePath=browserPath;
+   if(process.platform==='linux'&&typeof process.getuid==='function'&&process.getuid()===0)opts.args=['--no-sandbox'];
+ }
  return driver.launch(opts);
 }
 export async function setup(page,n=4){

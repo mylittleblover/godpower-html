@@ -167,23 +167,30 @@ function toggleQuickPersonV218(key){
   renderQuickPersonListV218();
 }
 function applyQuickPersonScoreV218(points){
+  if(state.isLocked){openPwdModal();return false}
   points=Number(points);
-  if(!Number.isFinite(points)||points===0){showToast('请输入有效分值');return}
-  const all=allStudentsV218();
-  const selected=all.filter(s=>qpStateV218.selected.has(s.key));
-  if(!selected.length){showToast('请先选择学生');return}
-  const groupCounts=new Map();
-  selected.forEach(s=>groupCounts.set(s.group.id,(groupCounts.get(s.group.id)||0)+1));
-  const parts=[];
-  groupCounts.forEach((count,gid)=>{
-    const g=state.groups.find(x=>x.id===gid);if(!g)return;
-    const delta=points*count;
-    applyScoreDelta(gid,delta);
-    parts.push(`${g.name} ${delta>=0?'+':''}${delta}`);
+  if(!Number.isSafeInteger(points)||points===0){showToast('请输入非零整数分值');return false}
+  const selected=allStudentsV218().filter(s=>qpStateV218.selected.has(s.key));
+  if(!selected.length){showToast('请先选择学生');return false}
+  const counts=new Map();
+  selected.forEach(s=>counts.set(s.group.id,(counts.get(s.group.id)||0)+1));
+  let updates;
+  try{updates=Reliability.planBatchScoreChanges(state.groups,[...counts],points)}
+  catch(error){showToast(error.message);return false}
+  const description='快速按人加分：'+selected.length+' 人 · '+updates.map(u=>{
+    const name=state.groups.find(g=>g.id===u.id)?.name||'小组';
+    return name+' '+(u.delta>=0?'+':'')+u.delta;
+  }).join('，');
+  cancelScoreAnimationAndSync();
+  const ok=runClassroomCommand(description,()=>{
+    for(const u of updates)state.groups.find(g=>g.id===u.id).score=u.score;
+    return true;
   });
-  recordHistory(`快速按人加分：${selected.length} 人 · ${parts.join('，')}`);
-  saveState();renderAll();
-  showToast(`已为 ${selected.length} 名学生完成加分`);
+  if(!ok)return false;
+  animateScores(updates.map(u=>({groupId:u.id,start:u.old,target:u.score})));
+  playSound(points>0?'score_add':'score_sub');
+  showToast('已为 '+selected.length+' 名学生完成加分');
+  return true;
 }
 function applyQuickPersonCustomV218(){
   const v=Number(document.getElementById('qpCustomScoreV218')?.value);

@@ -76,6 +76,19 @@ const Reliability = (() => {
       s.evaluated===d.evaluated&&s.hasStartedOnce===d.hasStartedOnce&&
       s.correctAns===d.correctAns&&s.itemGlobal?.pkTotal===d.settlements;
   }
+
+  function planBatchScoreChanges(groups,groupCounts,points){
+    if(!Number.isSafeInteger(points)||points===0)throw Error('分值必须为非零安全整数');
+    if(!Array.isArray(groups)||!Array.isArray(groupCounts))throw Error('小组列表无效');
+    const groupMap=new Map(groups.map(g=>[g.id,g]));
+    return groupCounts.map(([id,count])=>{
+      const g=groupMap.get(id);
+      if(!g||!Number.isSafeInteger(count)||count<1)throw Error('批量计分对象无效');
+      const old=Number(g.score),delta=points*count,score=old+delta;
+      if(!Number.isSafeInteger(old)||!Number.isSafeInteger(delta)||!Number.isSafeInteger(score))throw Error('批量计分超出安全整数范围');
+      return {id,old,delta,score};
+    });
+  }
   function safeImage(value) {
     return typeof value==='string' && /^data:image\/(?:png|jpe?g|webp|gif);base64,[a-zA-Z0-9+/=\s]+$/.test(value) ? value : '';
   }
@@ -102,7 +115,7 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent};
+  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,planBatchScoreChanges};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is
