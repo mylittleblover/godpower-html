@@ -126,10 +126,10 @@
     </section>
 
     <section class="gp-kpis gp-reveal" aria-label="班级概览">
-      <article class="gp-kpi"><div><span>参赛小组</span><strong id="wGroupCount">0</strong><small>个小组在这里集结</small></div><span class="gp-kpi-icon">◈</span></article>
-      <article class="gp-kpi"><div><span>班级总积分</span><strong id="wTotalScore">0</strong><small>累计课堂竞技积分</small></div><span class="gp-kpi-icon gp-gold">✦</span></article>
-      <article class="gp-kpi"><div><span>最高小组积分</span><strong id="wMaxScore">0</strong><small>当前小组最佳成绩</small></div><span class="gp-kpi-icon gp-blue">↑</span></article>
-      <article class="gp-kpi"><div><span>当前领跑</span><strong id="wLeaderName">暂无</strong><small>积分排名实时计算</small></div><span class="gp-kpi-icon gp-purple">★</span></article>
+      <article class="gp-kpi"><div><span>参赛小组</span><strong id="wGroupCount" class="w-stat-num">0</strong><small>个小组在这里集结</small></div><span class="gp-kpi-icon">◈</span></article>
+      <article class="gp-kpi"><div><span>班级总积分</span><strong id="wTotalScore" class="w-stat-num gp-kpi-number">0</strong><small>累计课堂竞技积分</small></div><span class="gp-kpi-icon gp-gold">✦</span></article>
+      <article class="gp-kpi"><div><span>最高小组积分</span><strong id="wMaxScore" class="w-stat-num gp-kpi-number">0</strong><small>当前小组最佳成绩</small></div><span class="gp-kpi-icon gp-blue">↑</span></article>
+      <article class="gp-kpi"><div><span>当前领跑</span><strong id="wLeaderName" class="w-stat-num">暂无</strong><small>积分排名实时计算</small></div><span class="gp-kpi-icon gp-purple">★</span></article>
     </section>
 
     <div class="gp-section-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>赛场实时总览</h2><small>LIVE DASHBOARD</small></div><span>当前比分与最近操作，打开首页即刻可见</span></div>
@@ -137,7 +137,7 @@
       <article class="gp-panel gp-rank-panel">
         <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
         <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
-        <div class="gp-rank-list" id="gpRankList" aria-live="polite"></div>
+        <div class="gp-rank-list" id="gpRankList" role="list" aria-label="实时小组排名" aria-live="polite"></div>
         <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
       </article>
       <article class="gp-panel gp-feed-panel">
@@ -148,9 +148,9 @@
       </article>
     </section>
 
-    <section class="gp-group-section gp-reveal" aria-label="小组积分自动巡航">
-      <div class="gp-group-head"><div><h2>小组竞技场</h2><span class="gp-group-live">自动巡航</span><p>紧凑展示小组分数 · 悬停或拖动可暂停 · 点击卡片查看详情</p></div>
-        <div class="ui-scroll-buttons"><button id="uiGroupPrev" type="button" aria-label="向左浏览小组">←</button><button id="uiGroupNext" type="button" aria-label="向右浏览小组">→</button></div>
+    <section class="gp-group-section gp-reveal" aria-label="小组积分浏览">
+      <div class="gp-group-head"><div><h2>小组竞技场</h2><span class="gp-group-live" id="gpCruiseStatus">手动浏览</span><p>默认手动浏览 · 可开启自动巡航 · 点击卡片查看详情</p></div>
+        <div class="ui-scroll-buttons"><button id="gpCruiseToggle" type="button" aria-pressed="false">开启自动巡航</button><button id="uiGroupPrev" type="button" aria-label="向左浏览小组">←</button><button id="uiGroupNext" type="button" aria-label="向右浏览小组">→</button></div>
       </div>
       <div id="uiGroupTrack" class="ui-group-track gp-compact-track"></div>
     </section>
@@ -569,7 +569,8 @@
 <div id="toast" class="toast ui-toast" popover="manual" role="status" aria-live="polite" aria-atomic="true"></div>
 
 
-  <script>@@SOURCE:core/reliability.js@@</script>
+  <script>@@SOURCE:ui/model.js@@</script>
+<script>@@SOURCE:core/reliability.js@@</script>
 <script>@@SOURCE:core/history.js@@</script>
 <script>@@SOURCE:core/item-score.js@@</script>
 <script>@@SOURCE:script/00.js@@</script>
@@ -766,7 +767,6 @@
 
 <script>@@SOURCE:core/commands.js@@</script>
 <script>@@SOURCE:core/classroom.js@@</script>
-<script>@@SOURCE:ui/model.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
 </body>

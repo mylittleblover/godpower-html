@@ -2308,10 +2308,12 @@ function updateQuickBatchBar() {
 function updateHeaderStats() {
   const banner = document.getElementById('topHeaderStats');
   if (!banner) return;
-  const totalScore = state.groups.reduce((s, g) => s + g.score, 0);
-  const maxScore = Math.max(...state.groups.map(g => g.score), 0);
-  const leader = state.groups.find(g => g.score === maxScore && maxScore > 0);
-  banner.innerHTML = `小组总数: <b>${state.groups.length}</b> 组 | 总积分: <b>${totalScore}</b> | 当前领先: <b style="color:#0284c7;">${leader ? escapeHtml(leader.name) : '暂无'}</b>`;
+  const summary = GodpowerUIModel.standings(ranking());
+  const mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+  const html = `小组总数: <b>${summary.count}</b> 组 | 总积分: <b>${mask?'???':summary.total}</b> | 当前领先: <b style="color:#0284c7;">${mask?'已遮蔽':summary.count?escapeHtml(summary.leader):'暂无'}</b>`;
+  if(banner.innerHTML!==html)banner.innerHTML=html;
+  banner.title=banner.textContent;
+
 }
 
 /* 核心改进：条形图保持 DOM 元素稳定，支持宽度平滑递增与排位平滑滑动互换 */
@@ -3395,6 +3397,7 @@ function startWelcomeClock() {
 }
 
 function updateWelcomeClock() {
+  updateHeaderStats();
   if(typeof DesktopUI!=='undefined')DesktopUI.renderWelcome();
   const now = new Date();
   const hh = String(now.getHours()).padStart(2, '0');
@@ -3435,14 +3438,8 @@ function renderWelcomePage() {
       <span class="podium-name" style="color:#172033;">${top3 ? escapeHtml(top3.name) : '-'}</span>
       <span class="podium-score" style="color:${top3 ? top3.color : '#94a3b8'};">${getScore(top3)}分</span>
     </div>`;
-  const total = state.groups.reduce((s, g) => s + (Number(g.score) || 0), 0);
-  const max = state.groups.reduce((m, g) => Math.max(m, Number(g.score) || 0), 0);
-  const leader = state.groups.find(g => (Number(g.score) || 0) === max && max > 0);
-  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = String(v); };
-  setText('wGroupCount', state.groups.length);
-  setText('wTotalScore', total);
-  setText('wMaxScore', max);
-  setText('wLeaderName', leader ? leader.name : '—');
+  // Visible welcome statistics are owned by WelcomeV2.render().
+
 }
 
 /* ---------- 菜单同拍音频池配置 ---------- */

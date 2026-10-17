@@ -14,6 +14,7 @@ const DesktopUI = (() => {
       honors: true,
       challenge: true,
       subject: "politics",
+      groupCruise: false,
     };
   let preferences = { ...defaults },
     bank = M.examples,
@@ -59,6 +60,7 @@ const DesktopUI = (() => {
   }
   function applyPreferences() {
     document.body.dataset.motion = preferences.motion;
+    window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
     document.body.dataset.systemMotion = String(preferences.systemMotion);
     if (preferences.motion === "off") {
@@ -145,6 +147,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
         !["themeDialogV21727", "grandModalOverlay", "welcomeModal"].includes(
@@ -262,7 +265,8 @@ const DesktopUI = (() => {
     }
     requestAnimationFrame(updateArrows);
     renderDaily();
-    if (window.WelcomeV2 && typeof window.WelcomeV2.render === "function") window.WelcomeV2.render();
+    if (window.WelcomeV2 && typeof window.WelcomeV2.render === "function")
+      window.WelcomeV2.render();
   }
   function updateArrows() {
     const t = $("#uiGroupTrack");
@@ -320,7 +324,13 @@ const DesktopUI = (() => {
     const history = getSettlementHistory(),
       signature =
         M.dayIndex() +
-        JSON.stringify(preferences) +
+        JSON.stringify([
+          preferences.knowledge,
+          preferences.itemTip,
+          preferences.honors,
+          preferences.challenge,
+          preferences.subject,
+        ]) +
         JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
         Object.keys(ITEM_DEFS).length;
     if (signature === dailySignature) return;
@@ -635,6 +645,7 @@ const DesktopUI = (() => {
         ["itemTip", "每日道具小知识"],
         ["honors", "历史荣誉"],
         ["challenge", "每日课堂挑战"],
+        ["groupCruise", "小组卡片自动巡航（默认关闭）"],
       ]
         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
         .join("") +
@@ -1308,6 +1319,14 @@ const DesktopUI = (() => {
     cancelAnimations,
     icon,
     getPreferences: () => ({ ...preferences }),
+    setGroupCruise: (enabled) => {
+      preferences.groupCruise = !!enabled;
+      const control = $("#uiPref-groupCruise");
+      if (control) control.checked = preferences.groupCruise;
+      const saved = persistPreferences();
+      applyPreferences();
+      return saved;
+    },
     getAnimationCount: () => animations.size,
   };
 })();

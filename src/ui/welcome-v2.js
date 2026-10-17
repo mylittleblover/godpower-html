@@ -1,203 +1,584 @@
-
-/* Homepage-only binding layer. Source of truth remains the existing classroom state. */
+/* Homepage-only composition and cancellable entrance. Business state is read-only. */
 (function () {
   "use strict";
-  var $ = function (id) { return document.getElementById(id); };
-  var started = false, introBusy = false, introFinished = false, slidePx = 0;
-  var carouselTimer = null, pauseUntil = 0, draggingTrack = false;
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var esc = function (value) {
-    return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
-    });
-  };
-  function realGroups() { return typeof state !== "undefined" && Array.isArray(state.groups) ? state.groups : []; }
-  function score(g) { return Number(g.score) || 0; }
-  function scoreMasked() {
-    return typeof state !== "undefined" && Number(state.itemGlobal && state.itemGlobal.blooperUntil || 0) > Date.now();
+  const $ = (id) => document.getElementById(id);
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let started = false,
+    introOpened = false,
+    introBusy = false,
+    introFinished = false,
+    slidePx = 0;
+  let activePointer = null,
+    settleEntrance = null,
+    focusBeforeIntro = null;
+  let frame = null,
+    cruiseTimer = null,
+    pauseUntil = 0;
+  let trackHovered = false,
+    trackFocused = false,
+    draggingTrack = false;
+  let rankSignature = "",
+    feedSignature = "";
+  const background = new Map(),
+    animations = new Set();
+  const esc = (value) =>
+    String(value ?? "").replace(
+      /[&<>"']/g,
+      (ch) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[ch],
+    );
+  const preferences = () =>
+    (typeof DesktopUI !== "undefined" ? DesktopUI.getPreferences() : null) || {
+      motion: "full",
+      speed: 1,
+      systemMotion: true,
+      pageMotion: true,
+      groupCruise: false,
+    };
+  const canAnimate = () =>
+    preferences().motion !== "off" &&
+    !(preferences().systemMotion && reduceMotion.matches);
+  const realGroups = () => (Array.isArray(state.groups) ? state.groups : []);
+  const score = (g) => Number(g.score) || 0;
+  function setText(id, value) {
+    const el = $(id),
+      text = String(value);
+    if (el && el.textContent !== text) el.textContent = text;
   }
   function render() {
     if (!$("gpRankList")) return;
-    var groups = realGroups(), mask = scoreMasked();
-    var ranked = groups.slice().sort(function (a, b) { return score(b) - score(a) || Number(a.id) - Number(b.id); });
-    var max = Math.max(1, ...ranked.map(score));
-    $("gpHeroCount").textContent = groups.length + " 组";
-    $("gpRankNote").textContent = groups.length ? ("共 " + groups.length + " 组 · 积分从高到低") : "尚未添加小组";
-    $("gpRankList").innerHTML = ranked.length ? ranked.map(function (g, i) {
-      var med = i === 0 ? " gp-medal" : i === 1 ? " gp-medal gp-second" : i === 2 ? " gp-medal gp-third" : "";
-      var pct = Math.max(0, Math.min(100, score(g) / max * 100));
-      return '<div class="gp-rank-row">' +
-        '<span class="gp-rank-index' + med + '">' + (i+1) + '</span>' +
-        '<span class="gp-rank-name" title="' + esc(g.name) + '">' + esc(g.name) + '</span>' +
-        '<span class="gp-rank-bar"><i style="width:' + (mask ? 0 : pct.toFixed(2)) + '%"></i></span>' +
-        '<span class="gp-rank-points">' + (mask ? "???" : esc(g.score)) + '</span>' +
-        '<span class="gp-rank-state">' + (i === 0 && !mask ? "领跑" : "参赛中") + '</span></div>';
-    }).join("") : '<div class="gp-rank-empty">还没有小组。请在设置或比赛页面添加小组。</div>';
-    var playing = typeof state !== "undefined" && !!state.roundActive;
-    $("gpRoundTitle").textContent = playing ? "新一轮比赛进行中" : "赛场准备就绪";
-    $("gpRoundDetail").textContent = playing ? "当前回合正在进行 · 分数实时更新" : "随时可以前往比赛页面开始新回合";
-    var history = typeof historyStack !== "undefined" && Array.isArray(historyStack) ? historyStack : [];
-    var recent = history.slice(-4).reverse();
-    $("gpFeedList").innerHTML = recent.length ? recent.map(function (entry) {
-      var desc = esc(entry.desc || "课堂操作"), when = esc(entry.time || "");
-      return '<div class="gp-feed-row"><span class="gp-feed-icon">↗</span>' +
-        '<div class="gp-feed-copy"><strong>' + desc + '</strong><p>操作记录已保留，可在历史页面查看快照</p></div>' +
-        '<span class="gp-feed-time">' + when + '</span></div>';
-    }).join("") : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
+    const groups = realGroups(),
+      mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+    // Use the established stable ranking, never invent an id-based tie-break.
+    const ordered = ranking(),
+      ranked = mask ? groups : ordered;
+    const summary = GodpowerUIModel.standings(ordered);
+    setText("wGroupCount", summary.count);
+    setText("wTotalScore", mask ? "???" : summary.total);
+    setText("wMaxScore", mask ? "???" : summary.highest);
+    setText("wLeaderName", mask ? "已遮蔽" : summary.leader);
+    for (const id of ["wTotalScore", "wMaxScore", "wLeaderName"])
+      $(id).title = $(id).textContent;
+    const signature = JSON.stringify([
+      mask,
+      ranked.map((g) => [g.id, g.name, g.score]),
+    ]);
+    setText("gpHeroCount", groups.length + " 组");
+    setText(
+      "gpRankNote",
+      mask
+        ? "积分与名次暂时遮蔽"
+        : groups.length
+          ? `共 ${groups.length} 组 · 积分从高到低`
+          : "尚未添加小组",
+    );
+    if (signature !== rankSignature) {
+      rankSignature = signature;
+      const max = Math.max(1, ...ranked.map(score));
+      $("gpRankList").innerHTML = ranked.length
+        ? ranked
+            .map((g, i) => {
+              const medal = mask
+                ? ""
+                : i === 0
+                  ? " gp-medal"
+                  : i === 1
+                    ? " gp-medal gp-second"
+                    : i === 2
+                      ? " gp-medal gp-third"
+                      : "";
+              const pct = mask
+                ? 0
+                : Math.max(0, Math.min(100, (score(g) / max) * 100));
+              return `<div class="gp-rank-row" role="listitem"><span class="gp-rank-index${medal}">${mask ? "—" : i + 1}</span><span class="gp-rank-name" title="${esc(g.name)}">${esc(g.name)}</span><span class="gp-rank-bar" aria-hidden="true"><i style="width:${pct.toFixed(2)}%"></i></span><span class="gp-rank-points">${mask ? "???" : esc(g.score)}</span><span class="gp-rank-state">${mask ? "已遮蔽" : i === 0 ? "领跑" : "参赛中"}</span></div>`;
+            })
+            .join("")
+        : '<div class="gp-rank-empty">还没有小组。请在设置或比赛页面添加小组。</div>';
+    }
+    const phases = {
+      NOT_STARTED: ["赛场准备就绪", "随时可以前往比赛页面开始新回合"],
+      FINISHED: ["本场比赛已结束", "可查看档案或准备下一届比赛"],
+      SETTLED: ["本题已结算", "积分已更新，可前往赛场进入下一题"],
+      ANSWER_SELECTED: ["正确答案已选定", "等待教师判定结算 · 尚未完成本题"],
+      ANSWERING: ["新一轮比赛进行中", "当前回合正在进行 · 分数实时更新"],
+    };
+    const phase = phases[Reliability.phase(state)];
+    setText("gpRoundTitle", phase[0]);
+    setText("gpRoundDetail", phase[1]);
+    const recent = historyStack.slice(-4).reverse(),
+      nextFeed = JSON.stringify(recent.map((h) => [h.desc, h.time]));
+    if (nextFeed !== feedSignature) {
+      feedSignature = nextFeed;
+      $("gpFeedList").innerHTML = recent.length
+        ? recent
+            .map(
+              (h) =>
+                `<div class="gp-feed-row"><span class="gp-feed-icon">↗</span><div class="gp-feed-copy"><strong>${esc(h.desc || "课堂操作")}</strong><p>操作记录已保留，可在历史页面查看快照</p></div><span class="gp-feed-time">${esc(h.time || "")}</span></div>`,
+            )
+            .join("")
+        : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
+    }
+    syncCruise();
   }
-  function autoGroups() {
-    var track = $("uiGroupTrack");
-    if (!track || carouselTimer) return;
-    track.addEventListener("pointerenter", function () { pauseUntil = Infinity; });
-    track.addEventListener("pointerleave", function () { pauseUntil = Date.now() + 2300; });
-    track.addEventListener("focusin", function () { pauseUntil = Infinity; });
-    track.addEventListener("focusout", function () { pauseUntil = Date.now() + 2300; });
-    track.addEventListener("pointerdown", function () { draggingTrack = true; pauseUntil = Date.now() + 5500; });
-    window.addEventListener("pointerup", function () { draggingTrack = false; });
-    ["uiGroupPrev","uiGroupNext"].forEach(function (id) {
-      var b = $(id);
-      if (b) b.addEventListener("click", function () { pauseUntil = Date.now() + 5000; });
+  function stopCruise() {
+    clearTimeout(cruiseTimer);
+    cruiseTimer = null;
+  }
+  function cruiseAllowed() {
+    const track = $("uiGroupTrack");
+    return !!(
+      started &&
+      preferences().groupCruise &&
+      canAnimate() &&
+      introFinished &&
+      !document.hidden &&
+      currentView === "welcome" &&
+      !trackHovered &&
+      !trackFocused &&
+      !draggingTrack &&
+      track &&
+      track.scrollWidth > track.clientWidth + 6
+    );
+  }
+  function syncCruise() {
+    if (!started) return;
+    const enabled = !!preferences().groupCruise;
+    setText("gpCruiseToggle", enabled ? "暂停自动巡航" : "开启自动巡航");
+    $("gpCruiseToggle").setAttribute("aria-pressed", String(enabled));
+    setText(
+      "gpCruiseStatus",
+      enabled ? (cruiseAllowed() ? "自动巡航" : "巡航暂停") : "手动浏览",
+    );
+    if (!cruiseAllowed()) {
+      stopCruise();
+      return;
+    }
+    if (cruiseTimer !== null) return;
+    cruiseTimer = setTimeout(
+      () => {
+        cruiseTimer = null;
+        if (!cruiseAllowed()) return;
+        const track = $("uiGroupTrack"),
+          edge = track.scrollWidth - track.clientWidth;
+        const first = track.querySelector(".ui-group-card"),
+          step = (first?.offsetWidth || 203) + 11;
+        track.scrollTo({
+          left:
+            track.scrollLeft >= edge - 2
+              ? 0
+              : Math.min(edge, track.scrollLeft + step),
+          behavior: "smooth",
+        });
+        syncCruise();
+      },
+      Math.max(3800, pauseUntil - Date.now()),
+    );
+  }
+  function setupCruise() {
+    const track = $("uiGroupTrack");
+    track.addEventListener("pointerenter", () => {
+      trackHovered = true;
+      syncCruise();
     });
-    carouselTimer = setInterval(function () {
-      if (document.hidden || draggingTrack || reduceMotion.matches || !introFinished ||
-          typeof currentView !== "undefined" && currentView !== "welcome" ||
-          Date.now() < pauseUntil || pauseUntil === Infinity ||
-          track.scrollWidth <= track.clientWidth + 6) return;
-      var step = 214;
-      var edge = track.scrollWidth - track.clientWidth;
-      var next = track.scrollLeft + step;
-      if (next >= edge - 4) next = 0;
-      track.scrollTo({left:next,behavior:"smooth"});
-    }, 3800);
+    track.addEventListener("pointerleave", () => {
+      trackHovered = false;
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    track.addEventListener("focusin", () => {
+      trackFocused = true;
+      syncCruise();
+    });
+    track.addEventListener("focusout", (e) => {
+      trackFocused = track.contains(e.relatedTarget);
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    track.addEventListener("pointerdown", () => {
+      draggingTrack = true;
+      syncCruise();
+    });
+    window.addEventListener("pointerup", () => {
+      draggingTrack = false;
+      pauseUntil = Date.now() + 2300;
+      syncCruise();
+    });
+    window.addEventListener("pointercancel", () => {
+      draggingTrack = false;
+      syncCruise();
+    });
+    for (const id of ["uiGroupPrev", "uiGroupNext"])
+      $(id).addEventListener("click", () => {
+        pauseUntil = Date.now() + 5000;
+        stopCruise();
+        syncCruise();
+      });
+    $("gpCruiseToggle").addEventListener("click", () =>
+      DesktopUI.setGroupCruise(!preferences().groupCruise),
+    );
+    new ResizeObserver(syncCruise).observe(track);
+  }
+  function isolateBackground() {
+    for (const el of document.body.children) {
+      if (
+        el.id === "gpIntro" ||
+        el.id === "toast" ||
+        ["SCRIPT", "STYLE", "LINK"].includes(el.tagName)
+      )
+        continue;
+      background.set(el, el.inert);
+      el.inert = true;
+    }
+  }
+  function releaseBackground() {
+    for (const [el, inert] of background) el.inert = inert;
+    background.clear();
+  }
+  function activeIntro() {
+    return started && introOpened && !$("gpIntro").hidden;
+  }
+  function focusIntro() {
+    if (activeIntro())
+      $(introBusy ? "gpIntroSkip" : "gpSlideTrack").focus({
+        preventScroll: true,
+      });
   }
   function showIntro(replay) {
-    if (!$("gpIntro") || introBusy) return;
-    var overlay = $("gpIntro"), logo = $("gpIntroLogo"), mount = $("gpBrandMount");
-    var svg = mount.querySelector("svg");
+    if (introBusy) return;
+    const modal = [
+      ...document.querySelectorAll('[role="dialog"][aria-modal="true"]'),
+    ].find(
+      (el) =>
+        el.id !== "gpIntro" &&
+        el.getClientRects().length &&
+        getComputedStyle(el).visibility !== "hidden",
+    );
+    if (modal && replay) {
+      showToast("请先关闭当前弹窗，再重播入场动画");
+      return;
+    }
+    const overlay = $("gpIntro"),
+      logo = $("gpIntroLogo"),
+      svg = $("gpBrandMount").querySelector("svg");
     if (svg) logo.appendChild(svg);
+    if (!background.size) {
+      focusBeforeIntro = document.activeElement;
+      isolateBackground();
+    }
     logo.removeAttribute("style");
     $("gpIntroTitle").removeAttribute("style");
     overlay.hidden = false;
-    overlay.classList.remove("departing","ready");
+    overlay.setAttribute("aria-hidden", "false");
+    overlay.classList.remove("departing", "ready");
     overlay.classList.add("active");
-    introFinished = false; slidePx = 0; drawSlide(0);
+    introOpened = true;
+    introFinished = false;
+    resetPointer();
+    drawSlide(0);
     document.body.classList.add("gp-intro-active");
     document.body.classList.remove("gp-intro-reveal");
-    var header = document.querySelector(".app-topnav");
-    if (header) header.inert = true;
-    var page = $("view-welcome");
-    if (page) page.inert = true;
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () { overlay.classList.add("ready"); });
+    stopCruise();
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => {
+      frame = null;
+      overlay.classList.add("ready");
     });
-    if (!replay && reduceMotion.matches) setTimeout(function () { finish(true); }, 100);
+    if (!canAnimate()) finish(true);
+    else focusIntro();
   }
   function drawSlide(px) {
-    var track = $("gpSlideTrack");
-    if (!track) return;
-    var max = Math.max(1, track.clientWidth - 56);
+    const track = $("gpSlideTrack"),
+      max = Math.max(1, track.clientWidth - 56);
     slidePx = Math.min(Math.max(0, px), max);
     track.style.setProperty("--gp-slide", slidePx + "px");
-    $("gpSlideFill").style.width = (slidePx + 54) + "px";
-    track.setAttribute("aria-valuenow", Math.round(slidePx/max*100));
+    $("gpSlideFill").style.width = slidePx + 54 + "px";
+    track.setAttribute("aria-valuenow", Math.round((slidePx / max) * 100));
+  }
+  function resetPointer() {
+    const track = $("gpSlideTrack"),
+      pointer = activePointer;
+    activePointer = null;
+    track.classList.remove("dragging");
+    if (pointer !== null && track.hasPointerCapture(pointer))
+      track.releasePointerCapture(pointer);
   }
   function finish(skip) {
-    if (introBusy || introFinished) return;
-    introBusy = true;
-    var overlay = $("gpIntro"), logo = $("gpIntroLogo"), title = $("gpIntroTitle");
-    var mount = $("gpBrandMount"), label = document.querySelector(".gp-brand-label");
-    var svg = logo.querySelector("svg");
-    document.body.classList.remove("gp-intro-active");
-    document.body.classList.add("gp-intro-reveal");
-    var header = document.querySelector(".app-topnav");
-    if (header) header.inert = false;
-    var page = $("view-welcome");
-    if (page) page.inert = false;
-    overlay.classList.add("departing");
-    function settle() {
-      if (svg) mount.appendChild(svg);
-      logo.removeAttribute("style"); title.removeAttribute("style");
-      overlay.classList.remove("active","ready","departing");
-      overlay.hidden = true;
-      introBusy = false; introFinished = true;
-      if (typeof window.startResumeRetry === "function") window.startResumeRetry();
-      if (typeof window.tryAutoResumeAndPlay === "function") window.tryAutoResumeAndPlay();
+    if (introBusy) {
+      if (skip) settleEntrance?.();
+      return;
     }
-    if (skip || reduceMotion.matches || !logo.animate || !mount || !label) {
+    if (introFinished) return;
+    introBusy = true;
+    resetPointer();
+    cancelAnimationFrame(frame);
+    frame = null;
+    const overlay = $("gpIntro"),
+      logo = $("gpIntroLogo"),
+      title = $("gpIntroTitle"),
+      mount = $("gpBrandMount"),
+      svg = logo.querySelector("svg");
+    const label = document.querySelector(".gp-brand-label");
+    document.body.classList.remove("gp-intro-active");
+    const animate = !skip && canAnimate() && logo.animate;
+    if (animate && preferences().pageMotion)
+      document.body.classList.add("gp-intro-reveal");
+    overlay.classList.add("departing");
+    overlay.setAttribute("aria-busy", "true");
+    $("gpSlideTrack").setAttribute("aria-disabled", "true");
+    // Resume inside the actual unlock gesture, before waiting for animation completion.
+    window.startResumeRetry?.();
+    window.tryAutoResumeAndPlay?.();
+    let settled = false;
+    const settle = () => {
+      if (settled) return;
+      settled = true;
+      settleEntrance = null;
+      for (const animation of animations) animation.cancel();
+      animations.clear();
+      if (svg) mount.appendChild(svg);
+      logo.removeAttribute("style");
+      title.removeAttribute("style");
+      overlay.classList.remove("active", "ready", "departing");
+      overlay.hidden = true;
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.removeAttribute("aria-busy");
+      $("gpSlideTrack").removeAttribute("aria-disabled");
+      introBusy = false;
+      introFinished = true;
+      releaseBackground();
+      const prior = focusBeforeIntro;
+      const target =
+        prior &&
+        prior !== document.body &&
+        prior.isConnected &&
+        prior.getClientRects().length &&
+        !prior.closest("[inert]") &&
+        (!prior.closest(".view") ||
+          prior.closest(".view").id === "view-" + currentView)
+          ? prior
+          : currentView === "welcome"
+            ? document.querySelector(".welcome-enter-btn")
+            : document.querySelector(`.nav-tab[data-view="${currentView}"]`);
+      target?.focus({ preventScroll: true });
+      syncCruise();
+    };
+    settleEntrance = settle;
+    if (!animate) {
       settle();
       return;
     }
-    // FLIP: animate the SVG as a single aspect-locked object. Never interpolate border-radius.
-    var a = logo.getBoundingClientRect(), b = mount.getBoundingClientRect();
-    var t = title.getBoundingClientRect(), v = label.getBoundingClientRect();
-    var dx = b.left + b.width/2 - a.left - a.width/2;
-    var dy = b.top + b.height/2 - a.top - a.height/2;
-    var tx = v.left + v.width/2 - t.left - t.width/2;
-    var ty = v.top + v.height/2 - t.top - t.height/2;
-    var duration = 840, ease = "cubic-bezier(.22,.8,.22,1)";
-    var animations = [
-      logo.animate([{transform:"translate(0px,0px) scale(1)",opacity:1},{transform:"translate(" + dx + "px," + dy + "px) scale(" + b.width/a.width + ")",opacity:1}],{duration:duration,easing:ease,fill:"forwards"}),
-      title.animate([{transform:"translate(0px,0px) scale(1)",opacity:1},{transform:"translate(" + tx + "px," + ty + "px) scale(" + Math.min(1,v.height/t.height) + ")",opacity:0}],{duration:duration,easing:ease,fill:"forwards"})
-    ];
-    Promise.all(animations.map(function (ani) {return ani.finished.catch(function () {}); })).then(function () {
-      animations.forEach(function (ani) { ani.cancel(); });
-      settle();
-    });
-  }
-  function initSlider() {
-    var track = $("gpSlideTrack");
-    var activePointer = null;
-    if (!track) return;
-    var fromEvent = function (event) {
-      var box = track.getBoundingClientRect();
-      drawSlide(event.clientX - box.left - 28);
+    // Early unlock may interrupt the initial scale/fade; measure a stable box.
+    for (const el of [logo, title]) {
+      el.style.transition = "none";
+      el.style.transform = "none";
+      el.style.opacity = "1";
+    }
+    const a = logo.getBoundingClientRect(),
+      b = mount.getBoundingClientRect(),
+      t = title.getBoundingClientRect(),
+      v = label.getBoundingClientRect();
+    const zoom = Number(getComputedStyle(document.body).zoom) || 1;
+    const options = {
+      duration:
+        (preferences().motion === "simple" ? 260 : 840) / preferences().speed,
+      easing: "cubic-bezier(.22,.8,.22,1)",
+      fill: "forwards",
     };
-    track.addEventListener("pointerdown", function (ev) {
-      if (introBusy || !ev.isPrimary) return;
-      activePointer = ev.pointerId;
+    const movement = (from, to) =>
+      `translate(${(to.left + to.width / 2 - from.left - from.width / 2) / zoom}px,${(to.top + to.height / 2 - from.top - from.height / 2) / zoom}px)`;
+    try {
+      animations.add(
+        logo.animate(
+          [
+            { transform: "translate(0,0) scale(1)", opacity: 1 },
+            {
+              transform: movement(a, b) + ` scale(${b.width / a.width})`,
+              opacity: 1,
+            },
+          ],
+          options,
+        ),
+      );
+      animations.add(
+        title.animate(
+          [
+            { transform: "translate(0,0) scale(1)", opacity: 1 },
+            {
+              transform:
+                movement(t, v) + ` scale(${Math.min(1, v.height / t.height)})`,
+              opacity: 0,
+            },
+          ],
+          options,
+        ),
+      );
+      Promise.all(
+        [...animations].map((animation) =>
+          animation.finished.then(
+            () => true,
+            () => false,
+          ),
+        ),
+      ).then(settle);
+    } catch (error) {
+      console.warn("入场动画未完成，已进入首页", error);
+      settle();
+    }
+  }
+  function setupSlider() {
+    const track = $("gpSlideTrack");
+    const fromEvent = (event) => {
+      const box = track.getBoundingClientRect();
+      drawSlide(
+        (event.clientX - box.left) / (box.width / track.offsetWidth) - 28,
+      );
+    };
+    track.addEventListener("pointerdown", (event) => {
+      if (introBusy || !event.isPrimary || event.button !== 0) return;
+      activePointer = event.pointerId;
       track.classList.add("dragging");
-      track.setPointerCapture(ev.pointerId);
-      fromEvent(ev);
+      track.setPointerCapture(event.pointerId);
+      fromEvent(event);
     });
-    track.addEventListener("pointermove", function (ev) {
-      if (ev.pointerId !== activePointer) return;
-      fromEvent(ev);
+    track.addEventListener("pointermove", (event) => {
+      if (event.pointerId === activePointer) fromEvent(event);
     });
-    var release = function (ev) {
-      if (ev.pointerId !== activePointer) return;
-      activePointer = null;
-      track.classList.remove("dragging");
+    track.addEventListener("pointerup", (event) => {
+      if (event.pointerId !== activePointer) return;
+      resetPointer();
       if (Number(track.getAttribute("aria-valuenow")) >= 83) finish(false);
       else drawSlide(0);
-    };
-    track.addEventListener("pointerup", release);
-    track.addEventListener("pointercancel", function (ev) { if (ev.pointerId === activePointer) {activePointer = null;track.classList.remove("dragging");drawSlide(0);} });
-    track.addEventListener("keydown", function (ev) {
-      if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
-        ev.preventDefault(); drawSlide(slidePx + (ev.key === "ArrowRight" ? 30 : -30));
-      } else if (ev.key === "End") {
-        ev.preventDefault(); drawSlide(track.clientWidth - 56);
-      } else if (ev.key === "Home") {ev.preventDefault(); drawSlide(0);}
-      else if ((ev.key === "Enter" || ev.key === " ") && Number(track.getAttribute("aria-valuenow")) >= 83) {
-        ev.preventDefault(); finish(false);
-      }
     });
+    const cancel = (event) => {
+      if (event.pointerId === activePointer) {
+        resetPointer();
+        drawSlide(0);
+      }
+    };
+    track.addEventListener("pointercancel", cancel);
+    track.addEventListener("lostpointercapture", cancel);
+    track.addEventListener("keydown", (event) => {
+      if (introBusy) return;
+      if (
+        ["ArrowRight", "ArrowLeft", "End", "Home", "Enter", " "].includes(
+          event.key,
+        )
+      )
+        event.preventDefault();
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft")
+        drawSlide(slidePx + (event.key === "ArrowRight" ? 30 : -30));
+      else if (event.key === "End") drawSlide(track.clientWidth - 56);
+      else if (event.key === "Home") drawSlide(0);
+      else if (
+        (event.key === "Enter" || event.key === " ") &&
+        Number(track.getAttribute("aria-valuenow")) >= 83
+      )
+        finish(false);
+    });
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        if (!activeIntro()) return;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          finish(true);
+        }
+        if (event.key === "Tab") {
+          event.preventDefault();
+          const controls = introBusy
+            ? [$("gpIntroSkip")]
+            : [track, $("gpIntroSkip")];
+          const at = controls.indexOf(document.activeElement);
+          controls[
+            (at + (event.shiftKey ? -1 : 1) + controls.length) % controls.length
+          ].focus();
+        }
+      },
+      true,
+    );
+    document.addEventListener(
+      "focusin",
+      (event) => {
+        if (activeIntro() && !$("gpIntro").contains(event.target)) focusIntro();
+      },
+      true,
+    );
+  }
+  function preferencesChanged() {
+    document.body.dataset.welcomeMotion = canAnimate()
+      ? preferences().motion
+      : "off";
+    if (!started) return;
+    if (!canAnimate() && activeIntro()) finish(true);
+    syncCruise();
+  }
+  function viewChanged(name) {
+    if (!started) return;
+    if (name !== "welcome" && activeIntro()) finish(true);
+    if (name !== "welcome") stopCruise();
+    else syncCruise();
   }
   function init() {
     if (started) return;
     started = true;
-    var logo = $("gpIntroLogo") && $("gpIntroLogo").querySelector("svg");
-    if (logo) {
-      var favicon = document.querySelector('link[rel="icon"]');
-      if (favicon) favicon.href = "data:image/svg+xml," + encodeURIComponent(logo.outerHTML);
-    }
-    initSlider(); autoGroups();
-    $("gpIntroSkip").addEventListener("click", function () { finish(true); });
-    $("gpReplayIntro").addEventListener("click", function () { showIntro(true); });
+    const logo = $("gpIntroLogo").querySelector("svg"),
+      favicon = document.querySelector('link[rel="icon"]');
+    if (logo && favicon)
+      favicon.href = "data:image/svg+xml," + encodeURIComponent(logo.outerHTML);
+    setupSlider();
+    setupCruise();
+    preferencesChanged();
+    $("gpIntroSkip").addEventListener("click", () => finish(true));
+    $("gpReplayIntro").addEventListener("click", () => showIntro(true));
+    reduceMotion.addEventListener("change", preferencesChanged);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && introBusy) settleEntrance?.();
+      syncCruise();
+    });
+    window.addEventListener("blur", () => {
+      if (activePointer !== null) {
+        resetPointer();
+        drawSlide(0);
+      }
+      draggingTrack = false;
+      syncCruise();
+    });
+    window.addEventListener("resize", () => {
+      if (introBusy) settleEntrance?.();
+      else if (activeIntro()) {
+        resetPointer();
+        drawSlide(0);
+      }
+      syncCruise();
+    });
+    window.addEventListener("pagehide", () => {
+      stopCruise();
+      settleEntrance?.();
+    });
+    window.addEventListener("pageshow", syncCruise);
     showIntro(false);
     render();
   }
-  window.WelcomeV2 = {render:render, replay:function(){showIntro(true);}, getStatus:function(){return {introFinished:introFinished, introBusy:introBusy};}};
-  if (document.readyState === "loading") window.addEventListener("DOMContentLoaded",init,{once:true});
+  window.WelcomeV2 = {
+    render,
+    replay: () => showIntro(true),
+    viewChanged,
+    preferencesChanged,
+    getStatus: () => ({
+      introFinished,
+      introBusy,
+      animations: animations.size,
+      cruiseTimerActive: cruiseTimer !== null,
+      backgroundLocks: background.size,
+    }),
+  };
+  if (document.readyState === "loading")
+    window.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();

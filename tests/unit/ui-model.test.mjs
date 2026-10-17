@@ -88,3 +88,32 @@ test("history differences use real snapshots without mutations", () => {
   assert.equal(diff[2].added, true);
   assert.equal(JSON.stringify([a, b]), saved);
 });
+
+test("standings preserves canonical tie order and negative leader", () => {
+  const groups = [
+      { id: 9, name: "先加入", score: -10 },
+      { id: 2, name: "后加入", score: -10 },
+    ],
+    before = JSON.stringify(groups);
+  const result = M.standings(groups);
+  assert.equal(result.highest, -10);
+  assert.equal(result.leader, "先加入");
+  assert.equal(result.total, "-20");
+  assert.equal(JSON.stringify(groups), before);
+});
+test("standings aggregate is exact beyond individual safe-integer sum", () => {
+  const result = M.standings([
+    { score: Number.MAX_SAFE_INTEGER },
+    { score: Number.MAX_SAFE_INTEGER },
+    { score: 1 },
+  ]);
+  assert.equal(result.total, "18014398509481983");
+  assert.equal(result.count, 3);
+});
+test("empty standings is a safe display model", () => {
+  const result = M.standings([]);
+  assert.equal(result.total, "0");
+  assert.equal(result.highest, 0);
+  assert.equal(result.count, 0);
+  assert.equal(result.leader, "—");
+});

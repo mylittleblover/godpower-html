@@ -117,6 +117,11 @@
     },
     {
       "type": "script",
+      "path": "ui/model.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/reliability.js",
       "attributes": ""
     },
@@ -383,11 +388,6 @@
     {
       "type": "script",
       "path": "core/classroom.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/model.js",
       "attributes": ""
     },
     {

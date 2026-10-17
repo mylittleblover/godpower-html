@@ -146,8 +146,22 @@
     }
     return value;
   }
+  // Input order comes from the canonical ranking(); this model never sorts or mutates it.
+  function standings(ordered) {
+    const scores = ordered.map((g) => Number(g.score) || 0);
+    const total = scores.every(Number.isSafeInteger)
+      ? scores.reduce((sum, value) => sum + BigInt(value), 0n).toString()
+      : String(scores.reduce((sum, value) => sum + value, 0));
+    return {
+      count: ordered.length,
+      total,
+      highest: scores[0] ?? 0,
+      leader: ordered[0]?.name ?? "—",
+    };
+  }
   root.GodpowerUIModel = {
     examples,
+    standings,
     dayIndex,
     daily,
     differences,
