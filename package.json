@@ -7,7 +7,7 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
-    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs",
+    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs",
     "verify": "npm run build && npm run check && npm test && npm run test:e2e && npm run test:ui",
     "audit": "node scripts/audit.mjs",
     "test:visual": "node tests/e2e/visual.mjs",

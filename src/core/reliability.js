@@ -58,6 +58,24 @@ const Reliability = (() => {
     if(['star','mega','power'].includes(g.itemEffect?.type)&&g.itemEffect.type===key)return '主要道具持续状态尚未结束';
     return null;
   }
+  // Stale asynchronous defense dialogs must never modify a different round or item.
+  let defenseDecisionEpoch=0;
+  function invalidateDefenseDecisions(){return ++defenseDecisionEpoch}
+  function captureDefenseDecision(s,target,key){
+    const item=target?.inventory?.[0];
+    if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;
+    return {epoch:defenseDecisionEpoch,state:s,groups:s.groups,target,targetId:target.id,item,key,
+      phase:phase(s),round:s.round,roundActive:s.roundActive,evaluated:s.evaluated,
+      hasStartedOnce:s.hasStartedOnce,correctAns:s.correctAns,settlements:s.itemGlobal?.pkTotal};
+  }
+  function isDefenseDecisionCurrent(s,d){
+    if(!s||!d||d.epoch!==defenseDecisionEpoch||s!==d.state||s.groups!==d.groups||
+       !Array.isArray(s.groups)||s.groups.find(g=>g.id===d.targetId)!==d.target||
+       d.target.inventory?.[0]!==d.item||d.item.key!==d.key||phase(s)!==d.phase)return false;
+    return Object.is(s.round,d.round)&&s.roundActive===d.roundActive&&
+      s.evaluated===d.evaluated&&s.hasStartedOnce===d.hasStartedOnce&&
+      s.correctAns===d.correctAns&&s.itemGlobal?.pkTotal===d.settlements;
+  }
   function safeImage(value) {
     return typeof value==='string' && /^data:image\/(?:png|jpe?g|webp|gif);base64,[a-zA-Z0-9+/=\s]+$/.test(value) ? value : '';
   }
@@ -84,7 +102,7 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores};
+  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is

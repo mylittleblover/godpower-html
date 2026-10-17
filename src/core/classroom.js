@@ -74,6 +74,7 @@ function showClassroomSaveWarning(error){
 }
 function runClassroomCommand(description,operation,options={retainOnPersistenceFailure:true}){
   if(window.itemCommandActive)return false;
+  Reliability.invalidateDefenseDecisions();
   const before=clone(state),oldHistory=clone(historyStack);
   window.classroomRecordingCommand=true;
   try{recordHistory(description)}finally{window.classroomRecordingCommand=false}

@@ -366,11 +366,12 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
     !target.__spinyHornDeclinedV218
   ){
     target.__spinyHornDecisionPendingV218=true;
+    const decision=Reliability.captureDefenseDecision(state,target,'horn');
     themeConfirm(
       `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 超级喇叭 抵消本次攻击？`,
       {title:'刺龟壳来袭',confirmText:'使用超级喇叭',cancelText:'承受攻击'}
     ).then(useIt=>{
-      target.__spinyHornDecisionPendingV218=false;
+      if(!Reliability.isDefenseDecisionCurrent(state,decision))return;
       if(useIt){
         consumeInventoryItem(target,0,1);
         tinyDefenseToast(`${target.name} 使用超级喇叭成功击碎刺龟壳`);
@@ -382,6 +383,8 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
         delete target.__spinyHornDeclinedV218;
         saveState();renderAll();
       }
+    }).catch(error=>console.warn('刺龟壳喇叭防御确认失败',error)).finally(()=>{
+      target.__spinyHornDecisionPendingV218=false;
     });
     return {changed:false,blocked:'pending-horn-defense'};
   }
@@ -641,21 +644,6 @@ if(typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715!=='undefined'){
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.ice_flower='拥有 3 次冰之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/5，并冻结其主动道具使用。';
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.boomerang_flower='拥有 3 次回旋镖攻击次数；每次攻击当前排名紧邻自己的上方和下方小组，各扣除其当前积分的 1/5。';
 }
-
-/* ---------- 9. 小组状态文字补充冰冻 / 幽灵剩余次数 ---------- */
-const _v218RenderItemWindow=renderItemWindow;
-renderItemWindow=function(){
-  const r=_v218RenderItemWindow.apply(this,arguments);
-  const g=state.groups.find(x=>x.id===activeItemGroupId);
-  if(!g)return r;
-  /* 状态文本由旧版生成，这里只修正可能出现的“鱿鱿”文字。 */
-  document.querySelectorAll('#itemWindowBody *').forEach(el=>{
-    if(el.childNodes.length===1&&el.firstChild?.nodeType===3&&el.textContent.includes('鱿鱿')){
-      el.textContent=el.textContent.replaceAll('鱿鱿','鱿鱿');
-    }
-  });
-  return r;
-};
 
 /* 初始化 / 兼容旧存档 */
 state.groups.forEach(g=>{
