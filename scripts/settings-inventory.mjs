@@ -82,6 +82,7 @@ try {
     "data",
   ]) {
     await page.locator(`[data-category="${id}"]`).click();
+    await page.waitForFunction(() => !DesktopUI.getSettingsMotionCount || DesktopUI.getSettingsMotionCount() === 0);
     await page.screenshot({ path: `${output}/${id}.png` });
   }
   await writeFile(
