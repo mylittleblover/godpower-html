@@ -155,12 +155,13 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
       if(canMushroomDodge && !target.__spinyMushroomDeclinedV21727 && !target.__spinyDecisionPendingV21727){
         target.__spinyDecisionPendingV21727=true;
         const itemName=ITEM_DEFS[main.key]?.name||'蘑菇';
+        const decision=Reliability.captureDefenseDecision(state,target,main.key);
 
         themeConfirm(
           `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${itemName} 抵消本次攻击？`,
           {title:'刺龟壳来袭', confirmText:'使用蘑菇闪避', cancelText:'承受攻击'}
         ).then(useIt=>{
-          target.__spinyDecisionPendingV21727=false;
+          if(!Reliability.isDefenseDecisionCurrent(state,decision))return;
 
           if(useIt){
             consumeInventoryItem(target,0,1);
@@ -176,6 +177,8 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
             delete target.__spinyMushroomDeclinedV21727;
             try{saveState();renderAll()}catch(e){}
           }
+        }).catch(error=>console.warn('刺龟壳蘑菇防御确认失败',error)).finally(()=>{
+          target.__spinyDecisionPendingV21727=false;
         });
 
         /* 当前攻击暂缓，等待主题弹窗选择。 */

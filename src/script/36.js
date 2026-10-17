@@ -167,23 +167,30 @@ function toggleQuickPersonV218(key){
   renderQuickPersonListV218();
 }
 function applyQuickPersonScoreV218(points){
+  if(state.isLocked){openPwdModal();return false}
   points=Number(points);
-  if(!Number.isFinite(points)||points===0){showToast('请输入有效分值');return}
-  const all=allStudentsV218();
-  const selected=all.filter(s=>qpStateV218.selected.has(s.key));
-  if(!selected.length){showToast('请先选择学生');return}
-  const groupCounts=new Map();
-  selected.forEach(s=>groupCounts.set(s.group.id,(groupCounts.get(s.group.id)||0)+1));
-  const parts=[];
-  groupCounts.forEach((count,gid)=>{
-    const g=state.groups.find(x=>x.id===gid);if(!g)return;
-    const delta=points*count;
-    applyScoreDelta(gid,delta);
-    parts.push(`${g.name} ${delta>=0?'+':''}${delta}`);
+  if(!Number.isSafeInteger(points)||points===0){showToast('请输入非零整数分值');return false}
+  const selected=allStudentsV218().filter(s=>qpStateV218.selected.has(s.key));
+  if(!selected.length){showToast('请先选择学生');return false}
+  const counts=new Map();
+  selected.forEach(s=>counts.set(s.group.id,(counts.get(s.group.id)||0)+1));
+  let updates;
+  try{updates=Reliability.planBatchScoreChanges(state.groups,[...counts],points)}
+  catch(error){showToast(error.message);return false}
+  const description='快速按人加分：'+selected.length+' 人 · '+updates.map(u=>{
+    const name=state.groups.find(g=>g.id===u.id)?.name||'小组';
+    return name+' '+(u.delta>=0?'+':'')+u.delta;
+  }).join('，');
+  cancelScoreAnimationAndSync();
+  const ok=runClassroomCommand(description,()=>{
+    for(const u of updates)state.groups.find(g=>g.id===u.id).score=u.score;
+    return true;
   });
-  recordHistory(`快速按人加分：${selected.length} 人 · ${parts.join('，')}`);
-  saveState();renderAll();
-  showToast(`已为 ${selected.length} 名学生完成加分`);
+  if(!ok)return false;
+  animateScores(updates.map(u=>({groupId:u.id,start:u.old,target:u.score})));
+  playSound(points>0?'score_add':'score_sub');
+  showToast('已为 '+selected.length+' 名学生完成加分');
+  return true;
 }
 function applyQuickPersonCustomV218(){
   const v=Number(document.getElementById('qpCustomScoreV218')?.value);
@@ -366,11 +373,12 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
     !target.__spinyHornDeclinedV218
   ){
     target.__spinyHornDecisionPendingV218=true;
+    const decision=Reliability.captureDefenseDecision(state,target,'horn');
     themeConfirm(
       `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 超级喇叭 抵消本次攻击？`,
       {title:'刺龟壳来袭',confirmText:'使用超级喇叭',cancelText:'承受攻击'}
     ).then(useIt=>{
-      target.__spinyHornDecisionPendingV218=false;
+      if(!Reliability.isDefenseDecisionCurrent(state,decision))return;
       if(useIt){
         consumeInventoryItem(target,0,1);
         tinyDefenseToast(`${target.name} 使用超级喇叭成功击碎刺龟壳`);
@@ -382,6 +390,8 @@ applyItemScore=function(target,delta,sourceId,attackType='normal'){
         delete target.__spinyHornDeclinedV218;
         saveState();renderAll();
       }
+    }).catch(error=>console.warn('刺龟壳喇叭防御确认失败',error)).finally(()=>{
+      target.__spinyHornDecisionPendingV218=false;
     });
     return {changed:false,blocked:'pending-horn-defense'};
   }
@@ -641,21 +651,6 @@ if(typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715!=='undefined'){
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.ice_flower='拥有 3 次冰之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/5，并冻结其主动道具使用。';
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.boomerang_flower='拥有 3 次回旋镖攻击次数；每次攻击当前排名紧邻自己的上方和下方小组，各扣除其当前积分的 1/5。';
 }
-
-/* ---------- 9. 小组状态文字补充冰冻 / 幽灵剩余次数 ---------- */
-const _v218RenderItemWindow=renderItemWindow;
-renderItemWindow=function(){
-  const r=_v218RenderItemWindow.apply(this,arguments);
-  const g=state.groups.find(x=>x.id===activeItemGroupId);
-  if(!g)return r;
-  /* 状态文本由旧版生成，这里只修正可能出现的“鱿鱿”文字。 */
-  document.querySelectorAll('#itemWindowBody *').forEach(el=>{
-    if(el.childNodes.length===1&&el.firstChild?.nodeType===3&&el.textContent.includes('鱿鱿')){
-      el.textContent=el.textContent.replaceAll('鱿鱿','鱿鱿');
-    }
-  });
-  return r;
-};
 
 /* 初始化 / 兼容旧存档 */
 state.groups.forEach(g=>{
