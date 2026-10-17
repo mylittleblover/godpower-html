@@ -1,0 +1,15 @@
+{
+  "first": {
+    "file": "dist/godpower.html",
+    "bytes": 7688029,
+    "sha256": "0b5896a01f47845fc47186dfb36ab2eeb5e0ac693e31e0192e7d6e073a1aa93a"
+  },
+  "second": {
+    "file": "dist/godpower.html",
+    "bytes": 7688029,
+    "sha256": "0b5896a01f47845fc47186dfb36ab2eeb5e0ac693e31e0192e7d6e073a1aa93a"
+  },
+  "identicalDistFiles": true,
+  "originalBrandSvgInlined": true,
+  "integrityLog": "artifacts/welcome-completion/final-build-check.log"
+}

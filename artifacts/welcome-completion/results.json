@@ -1,0 +1,300 @@
+{
+  "baseline": "674e12f",
+  "sha256": "0b5896a01f47845fc47186dfb36ab2eeb5e0ac693e31e0192e7d6e073a1aa93a",
+  "browser": "154.0.8037.57",
+  "zoomMethod": "application CSS zoom, not native browser zoom",
+  "results": [
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 0.8",
+      "status": "PASS",
+      "evidence": {
+        "width": 1366,
+        "height": 768,
+        "zoom": 0.8,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "dashboard": {
+          "width": 1366,
+          "scroll": 1366,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1",
+      "status": "PASS",
+      "evidence": {
+        "width": 1366,
+        "height": 768,
+        "zoom": 1,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "dashboard": {
+          "width": 1366,
+          "scroll": 1366,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1.25",
+      "status": "PASS",
+      "evidence": {
+        "width": 1366,
+        "height": 768,
+        "zoom": 1.25,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 768
+        },
+        "dashboard": {
+          "width": 1366,
+          "scroll": 1366,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 0.8",
+      "status": "PASS",
+      "evidence": {
+        "width": 1920,
+        "height": 1080,
+        "zoom": 0.8,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "dashboard": {
+          "width": 1920,
+          "scroll": 1920,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1",
+      "status": "PASS",
+      "evidence": {
+        "width": 1920,
+        "height": 1080,
+        "zoom": 1,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "dashboard": {
+          "width": 1920,
+          "scroll": 1920,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1.25",
+      "status": "PASS",
+      "evidence": {
+        "width": 1920,
+        "height": 1080,
+        "zoom": 1.25,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "dashboard": {
+          "width": 1920,
+          "scroll": 1920,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 0.8",
+      "status": "PASS",
+      "evidence": {
+        "width": 2560,
+        "height": 1440,
+        "zoom": 0.8,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 1440
+        },
+        "dashboard": {
+          "width": 2560,
+          "scroll": 2560,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1",
+      "status": "PASS",
+      "evidence": {
+        "width": 2560,
+        "height": 1440,
+        "zoom": 1,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 1440
+        },
+        "dashboard": {
+          "width": 2560,
+          "scroll": 2560,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1.25",
+      "status": "PASS",
+      "evidence": {
+        "width": 2560,
+        "height": 1440,
+        "zoom": 1.25,
+        "endpoint": {
+          "dx": 0,
+          "dy": 0,
+          "width": 0
+        },
+        "overlay": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 1440
+        },
+        "dashboard": {
+          "width": 2560,
+          "scroll": 2560,
+          "rows": 14,
+          "groups": 14
+        }
+      }
+    },
+    {
+      "name": "Keyboard full entrance, partial reset, repeated replay and view-switch interruption",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: motion-off",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: system-reduce",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: system-optout",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: simple",
+      "status": "PASS"
+    },
+    {
+      "name": "Live motion disable and resize cancel entrance without lingering focus/inert locks",
+      "status": "PASS"
+    },
+    {
+      "name": "Stable tie ranking, negative/large exact statistics, phase and live mutation consistency",
+      "status": "PASS"
+    },
+    {
+      "name": "Squid masks scores, ranks, ordering and KPI values, then restores exact state",
+      "status": "PASS"
+    },
+    {
+      "name": "Unchanged clock ticks preserve rank/feed nodes and reading position; new state updates them",
+      "status": "PASS"
+    },
+    {
+      "name": "Cruise is opt-in, pauses for reading and stops off-page/reduced motion; preference saves",
+      "status": "PASS"
+    },
+    {
+      "name": "Welcome dashboard, SVG replay and quiz continue offline without external requests",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "artifacts/welcome-completion/screenshots/intro-1366.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-1366.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-1366.png",
+    "artifacts/welcome-completion/screenshots/intro-1920.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-1920.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-1920.png",
+    "artifacts/welcome-completion/screenshots/intro-2560.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-2560.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-2560.png",
+    "artifacts/welcome-completion/screenshots/statistics-large-negative-xss.png",
+    "artifacts/welcome-completion/screenshots/squid-masked.png"
+  ]
+}

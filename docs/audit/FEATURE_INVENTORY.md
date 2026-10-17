@@ -83,3 +83,14 @@ SOURCE_CATALOG.md列出所有命名函数及覆盖定义、输入、返回、副
 |点名与道具视觉生命周期|原业务结果驱动 UI；关闭取消异步展示|原业务结构|中；三模式、异步关闭、道具状态注入|
 
 实际结果及未测范围以 `docs/reports/DESKTOP_UI_ACCEPTANCE.md` 和 `artifacts/desktop-ui/acceptance-matrix.json` 为准。
+
+
+## 最新欢迎页入口补充（674e12f 起点）
+
+| 功能 | 源码 | 触发／输入 | 预期输出与依赖 | 持久化 | 风险 | 测试与证据 |
+|---|---|---|---|---|---|---|
+| SVG入场与滑动解锁 | src/ui/welcome-v2.js | 首次打开／replay；pointer、键盘 | 原SVG飞入顶栏；背景锁和焦点恢复；中断清理 | 无 | 中 | tests/e2e/welcome-v2-completion.mjs；三视口×三应用缩放 |
+| 手动浏览与可选巡航 | src/ui/welcome-v2.js；src/ui/desktop.js | 显式按钮或设置开关 | 默认手动，开启后仅welcome可见且非交互时移动 | godpower_ui_preferences_v1.groupCruise，默认false | 低 | 实际滚动、悬停暂停、刷新恢复、题目解析不丢失 |
+| 统一顶部统计 | src/ui/model.js；src/script/00.js | renderAll、时钟、墨汁到期 | 与首页共享只读模型；同分、负分、大整数及墨汁遮蔽正确 | 无新增业务字段 | 中 | Node summary 3项；浏览器大整数、负分、墨汁及到期 |
+
+新增项的最终状态统一见 docs/reports/WELCOME_V2_COMPLETION.md；其余历史覆盖缺口仍然有效。

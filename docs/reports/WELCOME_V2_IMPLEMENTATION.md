@@ -21,7 +21,9 @@ npm run test:ui
 
 检查完成后使用 `dist/index.html`（托管）或 `dist/godpower.html`（离线）启动。两份文件应由同一条构建命令生成。
 
-## 已知交付限制
+## 原分支交付限制（674e12f历史记录）
+
+以下描述为原分支当时状态。当前补齐工作与真实验收结果以 [WELCOME_V2_COMPLETION.md](WELCOME_V2_COMPLETION.md) 为准。
 
 GitHub 连接对约 7.6 MB 的单文件内容写入发生 HTTP/2 请求体错误，因此本分支暂只提交了可重建的 `src/**` 源码、资源文件、manifest 与 UI 浏览器验收脚本。**仓库里的旧 `dist/index.html` 和 `dist/godpower.html` 还没有重新生成**，直接下载这两份旧文件不会看到此次改版。必须在本地执行 `npm run build` 后再用新产物验收与分发。
 

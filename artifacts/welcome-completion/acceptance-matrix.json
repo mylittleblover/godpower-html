@@ -1,0 +1,102 @@
+{
+  "sourceCommit": "97e4b4c69e701ad22309efaeaae6d9b7764b3231",
+  "sha256": "0b5896a01f47845fc47186dfb36ab2eeb5e0ac693e31e0192e7d6e073a1aa93a",
+  "nodeTests": 90,
+  "chromiumScenarios": 842,
+  "results": [
+    {
+      "name": "核心业务",
+      "pass": 117,
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "name": "26道具精确结果",
+      "pass": 26,
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "name": "真实判题和保存失败",
+      "pass": 3,
+      "evidence": "artifacts/scoring-persistence-results.json"
+    },
+    {
+      "name": "桌面五页UI",
+      "pass": 31,
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "name": "补充交互和保存恢复",
+      "pass": 21,
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "name": "弹窗矩阵",
+      "pass": 99,
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "name": "V2.18.15布局比较",
+      "pass": 3,
+      "evidence": "artifacts/desktop-ui/battle-14-comparison.json"
+    },
+    {
+      "name": "离线发行冒烟",
+      "pass": 4,
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "name": "首页及入场专项",
+      "pass": 20,
+      "evidence": "artifacts/welcome-completion/results.json"
+    },
+    {
+      "name": "最新674e12f布局比较",
+      "pass": 3,
+      "evidence": "artifacts/welcome-completion/layout/battle-14-comparison.json"
+    },
+    {
+      "name": "异步防御命令",
+      "pass": 30,
+      "evidence": "artifacts/refactor/defense-command.json"
+    },
+    {
+      "name": "固定时钟/随机数业务差分（渲染/音效隔离）",
+      "pass": 464,
+      "evidence": "artifacts/refactor/legacy-differential.json"
+    },
+    {
+      "name": "079df31布局比较",
+      "pass": 3,
+      "evidence": "artifacts/refactor/layout/battle-14-comparison.json"
+    },
+    {
+      "name": "20/50/100回合前后观测",
+      "pass": 6,
+      "evidence": "artifacts/refactor/performance-comparison.json"
+    },
+    {
+      "name": "防御令牌兼容保护",
+      "pass": 10,
+      "evidence": "artifacts/welcome-completion/final-verify.log"
+    },
+    {
+      "name": "批量赋分和原子撤销",
+      "pass": 1,
+      "evidence": "artifacts/welcome-completion/final-verify.log"
+    },
+    {
+      "name": "原首页启动/导航回归",
+      "pass": 1,
+      "evidence": "artifacts/welcome-completion/final-verify.log"
+    }
+  ],
+  "blocked": [
+    "file protocol"
+  ],
+  "notTested": [
+    "native browser zoom",
+    "user actual 14-group configuration",
+    "manual audio listening",
+    "hours soak"
+  ]
+}

@@ -1,0 +1,4 @@
+src/ui/model.js 276ms
+src/ui/welcome-v2.js 307ms (unchanged)
+tests/unit/ui-model.test.mjs 86ms
+tests/e2e/welcome-v2-completion.mjs 429ms

@@ -57,3 +57,8 @@ npm锁定依赖；构建仅内联静态源码与原资源，无CDN／API／本�
 ## 2026-10-17 遗留治理最新验收
 
 原报告作为历史证据保留。本轮以 `079df31` 最新分支为起点，完成公开防御命令事务、攻击防御单入口与历史模块收拢。最新实际结果见 `docs/REFACTORING_REPORT.md`、`docs/TEST_MATRIX.md` 和 `artifacts/refactor/acceptance-matrix.json`；旧报告的 GP-010 OPEN 与旧测试数量不代表当前结果。
+
+
+## 最新欢迎分支验收（674e12f 起点）
+
+最新实际结果见 `docs/reports/WELCOME_V2_COMPLETION.md` 和 `artifacts/welcome-completion/acceptance-matrix.json`。旧版报告保留为历史证据，不能用其中的旧dist状态和旧测试数量代替本轮结果。

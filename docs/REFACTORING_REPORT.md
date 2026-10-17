@@ -135,3 +135,10 @@ BATTLE_14_GROUPS_BASELINE：最新起点源码与当前源码分别在相同Chro
 交付源码、锁文件、构建脚本、`dist/godpower.html`、完整遗留索引、测试、截图和维护文档；所有改动为独立可回滚提交，不覆盖真实课堂数据，不强推。按既有授权继续同步原私有Sites，权限不变；发布结果以最终工具回执为准。
 
 下一阶段优先领取：GP-016损坏主存档恢复、GP-017补齐道具交互组合、GP-011分批迁移legacyUseItem、GP-012比赛状态机、GP-013/RF-003资源作用域、RF-001渲染入口收敛、RF-002按组件验证CSS去重、GP-015完整资源备份、RF-005在允许file协议的环境验收。每项均有具体来源、依赖和验收标准，见 MAINTENANCE_BACKLOG.md。
+
+
+## 最新欢迎分支补齐（674e12f 起点）
+
+本轮未删除未证明安全的遗留业务代码。WelcomeV2 使用单一生命周期所有者替换该分支的新首页实现；顶部统计与首页共用纯 standings 模型，模型提前加载且无业务状态写入。原品牌SVG、比赛规则和14组几何保持不变。完整结果见 docs/reports/WELCOME_V2_COMPLETION.md。
+
+最新静态规模已重新生成于 artifacts/refactor/legacy-inventory.json 和 docs/LEGACY_CODE_INVENTORY.md；其 before 为原治理基线079df31，不应误读为本轮674e12f的前后差异。指标只作观察，未以删代码数量衡量成功。

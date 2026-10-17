@@ -1,6 +1,6 @@
 # 上帝的力量 HTML
 
-课堂竞技系统，基于原始 V2.18.13 的 V2.18.15 可靠性整顿候选版。直接打开 `dist/godpower.html`，支持离线资源；课堂数据按浏览器和文件／站点来源保存，迁移前请导出备份。
+课堂竞技系统，当前源码版本 V2.19.0，沿用 V2.18.13 的课堂规则与旧数据兼容。直接打开 `dist/godpower.html`，支持离线资源；课堂数据按浏览器和文件／站点来源保存，迁移前请导出备份。
 
 ```sh
 npm ci
@@ -10,7 +10,8 @@ npm run audit
 
 源码与图片自动内联为单文件。27 个原版内置资源逐字保留。Chromium 是当前用户指定的验收浏览器；Playwright 默认 `/usr/bin/chromium`，可用 `CHROMIUM_PATH` 指定其他已安装 Chromium。
 
-- [验收报告](docs/reports/ACCEPTANCE_REPORT.md)
+- [最新欢迎页补齐与验收](docs/reports/WELCOME_V2_COMPLETION.md)
+- [历次验收报告](docs/reports/ACCEPTANCE_REPORT.md)
 - [架构审查](docs/audit/ARCHITECTURE_AUDIT.md)
 - [功能清单](docs/audit/FEATURE_INVENTORY.md)
 - [维护任务](docs/MAINTENANCE_BACKLOG.md)
@@ -19,7 +20,7 @@ npm run audit
 
 不使用运行时 CDN 或服务器依赖；仓库提供手动触发的 GitHub Actions 配置，本次未运行远端 CI。不进行 CircleCI 操作。
 
-当前仍有旧规则适配链、异步防御和人工音频／UI 验收缺口，详见报告，不表示全部功能组合已经验收。
+当前仍有旧规则／表现适配链、真实课堂布局配置、原生浏览器缩放和人工音频验收缺口，详见维护列表，不表示全部功能组合已经验收。
 
 ## iOS 测试与保存受限环境
 

@@ -1,7 +1,7 @@
 {
   "summary": {
-    "definitions": 683,
-    "uniqueFunctions": 530,
+    "definitions": 702,
+    "uniqueFunctions": 546,
     "redefinitions": {
       "exportSingleSettlementCSV": 2,
       "playSound": 3,
@@ -72,7 +72,10 @@
       "sessionRestrictedWeightsV21710": 2,
       "commitSessionDrawV21710": 2,
       "refreshDrawCooldownInfoV21710": 2,
-      "renderBattleRankPreviewV21721": 2
+      "renderBattleRankPreviewV21721": 2,
+      "finish": 2,
+      "viewChanged": 2,
+      "init": 2
     },
     "storageKeys": [
       "godpower_state_v1",
@@ -273,7 +276,6 @@
       "closeQuickPersonScoreV218()",
       "closeScoreModal()",
       "closeSettlementNameModal()",
-      "closeWelcomeModal()",
       "deleteBgmTrack(",
       "deleteFxTrack(",
       "deleteGroup(${g.id})",
@@ -2232,11 +2234,12 @@
       "line": 2308,
       "params": [],
       "calls": [
+        "ranking",
+        "Number",
         "escapeHtml"
       ],
       "stateFields": [
-        "groups",
-        "score"
+        "itemGlobal"
       ],
       "returns": [
         "void"
@@ -2245,7 +2248,7 @@
     {
       "name": "renderChart",
       "file": "src/script/00.js",
-      "line": 2318,
+      "line": 2320,
       "params": [],
       "calls": [
         "escapeHtml",
@@ -2267,7 +2270,7 @@
     {
       "name": "renderDashboard",
       "file": "src/script/00.js",
-      "line": 2386,
+      "line": 2388,
       "params": [],
       "calls": [
         "escapeHtml",
@@ -2288,7 +2291,7 @@
     {
       "name": "renderLockStatus",
       "file": "src/script/00.js",
-      "line": 2430,
+      "line": 2432,
       "params": [],
       "calls": [],
       "stateFields": [
@@ -2301,7 +2304,7 @@
     {
       "name": "renderControls",
       "file": "src/script/00.js",
-      "line": 2456,
+      "line": 2458,
       "params": [],
       "calls": [
         "updateQuickBatchBar"
@@ -2316,7 +2319,7 @@
     {
       "name": "renderGrid",
       "file": "src/script/00.js",
-      "line": 2502,
+      "line": 2504,
       "params": [],
       "calls": [
         "String",
@@ -2349,7 +2352,7 @@
     {
       "name": "openPickerModal",
       "file": "src/script/00.js",
-      "line": 2592,
+      "line": 2594,
       "params": [],
       "calls": [
         "updatePickerView",
@@ -2364,7 +2367,7 @@
     {
       "name": "closePickerModal",
       "file": "src/script/00.js",
-      "line": 2601,
+      "line": 2603,
       "params": [],
       "calls": [
         "stopSlotSpin"
@@ -2375,7 +2378,7 @@
     {
       "name": "setPickerMode",
       "file": "src/script/00.js",
-      "line": 2608,
+      "line": 2610,
       "params": [
         "mode"
       ],
@@ -2394,7 +2397,7 @@
     {
       "name": "updatePickerView",
       "file": "src/script/00.js",
-      "line": 2621,
+      "line": 2623,
       "params": [],
       "calls": [
         "renderTwoTierChips"
@@ -2407,7 +2410,7 @@
     {
       "name": "renderTwoTierChips",
       "file": "src/script/00.js",
-      "line": 2638,
+      "line": 2640,
       "params": [],
       "calls": [
         "escapeHtml"
@@ -2428,7 +2431,7 @@
     {
       "name": "toggleGroupPreselect",
       "file": "src/script/00.js",
-      "line": 2650,
+      "line": 2652,
       "params": [
         "gid"
       ],
@@ -2448,7 +2451,7 @@
     {
       "name": "resetSlotDisplay",
       "file": "src/script/00.js",
-      "line": 2663,
+      "line": 2665,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -2457,7 +2460,7 @@
     {
       "name": "toggleAntiRepeat",
       "file": "src/script/00.js",
-      "line": 2674,
+      "line": 2676,
       "params": [
         "checked"
       ],
@@ -2473,7 +2476,7 @@
     {
       "name": "resetPickerPool",
       "file": "src/script/00.js",
-      "line": 2680,
+      "line": 2682,
       "params": [],
       "calls": [
         "saveState",
@@ -2488,7 +2491,7 @@
     {
       "name": "getAvailablePool",
       "file": "src/script/00.js",
-      "line": 2688,
+      "line": 2690,
       "params": [],
       "calls": [],
       "stateFields": [
@@ -2509,7 +2512,7 @@
     {
       "name": "updatePickerPoolUI",
       "file": "src/script/00.js",
-      "line": 2740,
+      "line": 2742,
       "params": [],
       "calls": [
         "getAvailablePool"
@@ -2522,7 +2525,7 @@
     {
       "name": "toggleSlotSpin",
       "file": "src/script/00.js",
-      "line": 2751,
+      "line": 2753,
       "params": [],
       "calls": [
         "startSlotSpin",
@@ -2537,7 +2540,7 @@
     {
       "name": "startSlotSpin",
       "file": "src/script/00.js",
-      "line": 2756,
+      "line": 2758,
       "params": [],
       "calls": [
         "getAvailablePool",
@@ -2560,7 +2563,7 @@
     {
       "name": "stopSlotSpin",
       "file": "src/script/00.js",
-      "line": 2822,
+      "line": 2824,
       "params": [],
       "calls": [
         "clearInterval",
@@ -2581,7 +2584,7 @@
     {
       "name": "rewardPickedStudent",
       "file": "src/script/00.js",
-      "line": 2865,
+      "line": 2867,
       "params": [
         "points"
       ],
@@ -2608,7 +2611,7 @@
     {
       "name": "openBatchImportModal",
       "file": "src/script/00.js",
-      "line": 2884,
+      "line": 2886,
       "params": [],
       "calls": [
         "openPwdModal"
@@ -2626,7 +2629,7 @@
     {
       "name": "closeBatchImportModal",
       "file": "src/script/00.js",
-      "line": 2891,
+      "line": 2893,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -2635,7 +2638,7 @@
     {
       "name": "applyBatchImport",
       "file": "src/script/00.js",
-      "line": 2895,
+      "line": 2897,
       "params": [],
       "calls": [
         "closeBatchImportModal",
@@ -2655,7 +2658,7 @@
     {
       "name": "exportData",
       "file": "src/script/00.js",
-      "line": 2922,
+      "line": 2924,
       "params": [],
       "calls": [
         "buildClassroomBackup",
@@ -2667,7 +2670,7 @@
     {
       "name": "triggerImport",
       "file": "src/script/00.js",
-      "line": 2928,
+      "line": 2930,
       "params": [],
       "calls": [
         "openPwdModal"
@@ -2682,7 +2685,7 @@
     {
       "name": "handleFileImport",
       "file": "src/script/00.js",
-      "line": 2933,
+      "line": 2935,
       "params": [
         "event"
       ],
@@ -2700,7 +2703,7 @@
     {
       "name": "addGroup",
       "file": "src/script/00.js",
-      "line": 2948,
+      "line": 2950,
       "params": [],
       "calls": [
         "openPwdModal",
@@ -2720,7 +2723,7 @@
     {
       "name": "deleteGroup",
       "file": "src/script/00.js",
-      "line": 2971,
+      "line": 2973,
       "params": [
         "groupId"
       ],
@@ -2742,7 +2745,7 @@
     {
       "name": "updateGroupName",
       "file": "src/script/00.js",
-      "line": 2982,
+      "line": 2984,
       "params": [
         "groupId",
         "newName"
@@ -2766,7 +2769,7 @@
     {
       "name": "updateGroupColor",
       "file": "src/script/00.js",
-      "line": 2993,
+      "line": 2995,
       "params": [
         "groupId",
         "newColor"
@@ -2788,7 +2791,7 @@
     {
       "name": "resetAllScores",
       "file": "src/script/00.js",
-      "line": 3002,
+      "line": 3004,
       "params": [],
       "calls": [
         "cancelScoreAnimationAndSync",
@@ -2815,7 +2818,7 @@
     {
       "name": "openSoundSettings",
       "file": "src/script/00.js",
-      "line": 3021,
+      "line": 3023,
       "params": [],
       "calls": [
         "themeAlert",
@@ -2836,7 +2839,7 @@
     {
       "name": "closeSoundModal",
       "file": "src/script/00.js",
-      "line": 3034,
+      "line": 3036,
       "params": [],
       "calls": [
         "switchView"
@@ -2847,7 +2850,7 @@
     {
       "name": "syncSettingsControls",
       "file": "src/script/00.js",
-      "line": 3038,
+      "line": 3040,
       "params": [],
       "calls": [],
       "stateFields": [
@@ -2864,7 +2867,7 @@
     {
       "name": "updateMasterVolume",
       "file": "src/script/00.js",
-      "line": 3048,
+      "line": 3050,
       "params": [
         "vol"
       ],
@@ -2880,7 +2883,7 @@
     {
       "name": "renderBgmSlotList",
       "file": "src/script/00.js",
-      "line": 3057,
+      "line": 3059,
       "params": [],
       "calls": [
         "parseInt",
@@ -2898,7 +2901,7 @@
     {
       "name": "renderFxSlotList",
       "file": "src/script/00.js",
-      "line": 3111,
+      "line": 3113,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -2909,7 +2912,7 @@
     {
       "name": "previewBgmTrack",
       "file": "src/script/00.js",
-      "line": 3134,
+      "line": 3136,
       "params": [
         "slotId"
       ],
@@ -2924,7 +2927,7 @@
     {
       "name": "triggerUploadAudio",
       "file": "src/script/00.js",
-      "line": 3155,
+      "line": 3157,
       "params": [
         "slotId"
       ],
@@ -2935,7 +2938,7 @@
     {
       "name": "handleSoundFileUpload",
       "file": "src/script/00.js",
-      "line": 3160,
+      "line": 3162,
       "params": [
         "event"
       ],
@@ -2954,7 +2957,7 @@
     {
       "name": "deleteBgmTrack",
       "file": "src/script/00.js",
-      "line": 3197,
+      "line": 3199,
       "params": [
         "slotId"
       ],
@@ -2970,7 +2973,7 @@
     {
       "name": "deleteFxTrack",
       "file": "src/script/00.js",
-      "line": 3211,
+      "line": 3213,
       "params": [
         "idbKey",
         "fxKey"
@@ -2987,7 +2990,7 @@
     {
       "name": "exportAudioBundle",
       "file": "src/script/00.js",
-      "line": 3224,
+      "line": 3226,
       "params": [],
       "calls": [
         "showToast",
@@ -3003,7 +3006,7 @@
     {
       "name": "triggerImportAudioBundle",
       "file": "src/script/00.js",
-      "line": 3273,
+      "line": 3275,
       "params": [],
       "calls": [
         "openPwdModal"
@@ -3018,7 +3021,7 @@
     {
       "name": "handleBundleFilePicked",
       "file": "src/script/00.js",
-      "line": 3278,
+      "line": 3280,
       "params": [
         "event"
       ],
@@ -3039,7 +3042,7 @@
     {
       "name": "escapeHtml",
       "file": "src/script/00.js",
-      "line": 3322,
+      "line": 3324,
       "params": [
         "str"
       ],
@@ -3054,7 +3057,7 @@
     {
       "name": "ensureAudioUnlocked",
       "file": "src/script/00.js",
-      "line": 3336,
+      "line": 3338,
       "params": [],
       "calls": [
         "getAudioContext"
@@ -3068,7 +3071,7 @@
     {
       "name": "switchView",
       "file": "src/script/00.js",
-      "line": 3341,
+      "line": 3343,
       "params": [
         "name"
       ],
@@ -3094,7 +3097,7 @@
     {
       "name": "enterBattleFromWelcome",
       "file": "src/script/00.js",
-      "line": 3369,
+      "line": 3371,
       "params": [],
       "calls": [
         "switchView"
@@ -3105,7 +3108,7 @@
     {
       "name": "getMenuTrackKeyForView",
       "file": "src/script/00.js",
-      "line": 3373,
+      "line": 3375,
       "params": [
         "name"
       ],
@@ -3124,7 +3127,7 @@
     {
       "name": "getWelcomeTrackKey",
       "file": "src/script/00.js",
-      "line": 3381,
+      "line": 3383,
       "params": [],
       "calls": [
         "Number",
@@ -3141,7 +3144,7 @@
     {
       "name": "startWelcomeClock",
       "file": "src/script/00.js",
-      "line": 3391,
+      "line": 3393,
       "params": [],
       "calls": [
         "updateWelcomeClock",
@@ -3155,9 +3158,10 @@
     {
       "name": "updateWelcomeClock",
       "file": "src/script/00.js",
-      "line": 3397,
+      "line": 3399,
       "params": [],
       "calls": [
+        "updateHeaderStats",
         "String"
       ],
       "stateFields": [],
@@ -3166,14 +3170,12 @@
     {
       "name": "renderWelcomePage",
       "file": "src/script/00.js",
-      "line": 3415,
+      "line": 3418,
       "params": [],
       "calls": [
         "Number",
         "escapeHtml",
-        "getScore",
-        "String",
-        "setText"
+        "getScore"
       ],
       "stateFields": [
         "groups",
@@ -3186,7 +3188,7 @@
     {
       "name": "saveMenuCfg",
       "file": "src/script/00.js",
-      "line": 3492,
+      "line": 3489,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -3195,7 +3197,7 @@
     {
       "name": "midiToFreq",
       "file": "src/script/00.js",
-      "line": 3495,
+      "line": 3492,
       "params": [
         "m"
       ],
@@ -3208,7 +3210,7 @@
     {
       "name": "mulberry32",
       "file": "src/script/00.js",
-      "line": 3497,
+      "line": 3494,
       "params": [
         "seed"
       ],
@@ -3222,7 +3224,7 @@
     {
       "name": "buildMenuPattern",
       "file": "src/script/00.js",
-      "line": 3511,
+      "line": 3508,
       "params": [
         "key",
         "bars"
@@ -3241,7 +3243,7 @@
     {
       "name": "getNoiseBuffer",
       "file": "src/script/00.js",
-      "line": 3549,
+      "line": 3546,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -3254,7 +3256,7 @@
     {
       "name": "menuSecPerBeat",
       "file": "src/script/00.js",
-      "line": 3583,
+      "line": 3580,
       "params": [],
       "calls": [
         "Number"
@@ -3267,7 +3269,7 @@
     {
       "name": "menuLoopSpan",
       "file": "src/script/00.js",
-      "line": 3585,
+      "line": 3582,
       "params": [],
       "calls": [
         "Number",
@@ -3281,7 +3283,7 @@
     {
       "name": "normalizeWelcomeLoopBuffer",
       "file": "src/script/00.js",
-      "line": 3600,
+      "line": 3597,
       "params": [
         "key",
         "buf"
@@ -3301,7 +3303,7 @@
     {
       "name": "menuEnsureGraph",
       "file": "src/script/00.js",
-      "line": 3620,
+      "line": 3617,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -3313,7 +3315,7 @@
     {
       "name": "makeSynthMenuBuffer",
       "file": "src/script/00.js",
-      "line": 3631,
+      "line": 3628,
       "params": [
         "key"
       ],
@@ -3333,7 +3335,7 @@
     {
       "name": "menuLoadBuffer",
       "file": "src/script/00.js",
-      "line": 3691,
+      "line": 3688,
       "params": [
         "key"
       ],
@@ -3353,7 +3355,7 @@
     {
       "name": "menuLoopParams",
       "file": "src/script/00.js",
-      "line": 3722,
+      "line": 3719,
       "params": [
         "buf",
         "key"
@@ -3370,7 +3372,7 @@
     {
       "name": "menuTrimFor",
       "file": "src/script/00.js",
-      "line": 3732,
+      "line": 3729,
       "params": [
         "key"
       ],
@@ -3385,7 +3387,7 @@
     {
       "name": "menuPosForKey",
       "file": "src/script/00.js",
-      "line": 3738,
+      "line": 3735,
       "params": [
         "key",
         "buf",
@@ -3404,7 +3406,7 @@
     {
       "name": "menuVoiceGainAt",
       "file": "src/script/00.js",
-      "line": 3747,
+      "line": 3744,
       "params": [
         "v",
         "t"
@@ -3420,7 +3422,7 @@
     {
       "name": "menuVoiceRamp",
       "file": "src/script/00.js",
-      "line": 3755,
+      "line": 3752,
       "params": [
         "v",
         "target",
@@ -3439,7 +3441,7 @@
     {
       "name": "menuSpawnVoice",
       "file": "src/script/00.js",
-      "line": 3765,
+      "line": 3762,
       "params": [
         "key",
         "buf",
@@ -3457,7 +3459,7 @@
     {
       "name": "menuRetireVoice",
       "file": "src/script/00.js",
-      "line": 3790,
+      "line": 3787,
       "params": [
         "v",
         "fadeSec"
@@ -3473,7 +3475,7 @@
     {
       "name": "menuSwitchNow",
       "file": "src/script/00.js",
-      "line": 3802,
+      "line": 3799,
       "params": [
         "key",
         "buf"
@@ -3491,7 +3493,7 @@
     {
       "name": "menuStartOrSwitch",
       "file": "src/script/00.js",
-      "line": 3825,
+      "line": 3822,
       "params": [
         "key"
       ],
@@ -3514,7 +3516,7 @@
     {
       "name": "menuFadeOut",
       "file": "src/script/00.js",
-      "line": 3843,
+      "line": 3840,
       "params": [],
       "calls": [
         "menuPosForKey",
@@ -3528,7 +3530,7 @@
     {
       "name": "menuStop",
       "file": "src/script/00.js",
-      "line": 3857,
+      "line": 3854,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -3537,7 +3539,7 @@
     {
       "name": "menuResyncGrid",
       "file": "src/script/00.js",
-      "line": 3870,
+      "line": 3867,
       "params": [],
       "calls": [
         "menuLoopParams",
@@ -3556,7 +3558,7 @@
     {
       "name": "menuScheduleReload",
       "file": "src/script/00.js",
-      "line": 3885,
+      "line": 3882,
       "params": [],
       "calls": [
         "clearTimeout",
@@ -3576,7 +3578,7 @@
     {
       "name": "updateWelcomeTrackIfNeeded",
       "file": "src/script/00.js",
-      "line": 3903,
+      "line": 3900,
       "params": [],
       "calls": [
         "getWelcomeTrackKey",
@@ -3590,7 +3592,7 @@
     {
       "name": "renderBgmEngineConsole",
       "file": "src/script/00.js",
-      "line": 3910,
+      "line": 3907,
       "params": [],
       "calls": [
         "Number"
@@ -3603,7 +3605,7 @@
     {
       "name": "menuEnabledChange",
       "file": "src/script/00.js",
-      "line": 3964,
+      "line": 3961,
       "params": [
         "v"
       ],
@@ -3619,7 +3621,7 @@
     {
       "name": "menuBpmChange",
       "file": "src/script/00.js",
-      "line": 3969,
+      "line": 3966,
       "params": [
         "v"
       ],
@@ -3634,7 +3636,7 @@
     {
       "name": "menuMeterChange",
       "file": "src/script/00.js",
-      "line": 3974,
+      "line": 3971,
       "params": [
         "v"
       ],
@@ -3649,7 +3651,7 @@
     {
       "name": "menuLoopChange",
       "file": "src/script/00.js",
-      "line": 3978,
+      "line": 3975,
       "params": [
         "field",
         "v"
@@ -3665,7 +3667,7 @@
     {
       "name": "menuTrimChange",
       "file": "src/script/00.js",
-      "line": 3982,
+      "line": 3979,
       "params": [
         "k",
         "v"
@@ -3682,7 +3684,7 @@
     {
       "name": "battleBpmChange",
       "file": "src/script/00.js",
-      "line": 3989,
+      "line": 3986,
       "params": [
         "which",
         "v"
@@ -3697,7 +3699,7 @@
     {
       "name": "makeRollLoopBuffer",
       "file": "src/script/00.js",
-      "line": 3999,
+      "line": 3996,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -3709,7 +3711,7 @@
     {
       "name": "startRollLoop",
       "file": "src/script/00.js",
-      "line": 4019,
+      "line": 4016,
       "params": [],
       "calls": [
         "makeRollLoopBuffer",
@@ -3724,7 +3726,7 @@
     {
       "name": "stopRollLoop",
       "file": "src/script/00.js",
-      "line": 4037,
+      "line": 4034,
       "params": [
         "cb"
       ],
@@ -3740,7 +3742,7 @@
     {
       "name": "uiDbOpen",
       "file": "src/script/00.js",
-      "line": 4057,
+      "line": 4054,
       "params": [],
       "calls": [
         "res"
@@ -3754,7 +3756,7 @@
     {
       "name": "uiDbReq",
       "file": "src/script/00.js",
-      "line": 4072,
+      "line": 4069,
       "params": [
         "mode",
         "fn"
@@ -3773,7 +3775,7 @@
     {
       "name": "getWallVeil",
       "file": "src/script/00.js",
-      "line": 4086,
+      "line": 4083,
       "params": [],
       "calls": [
         "Number"
@@ -3786,7 +3788,7 @@
     {
       "name": "applyWallpaperVeil",
       "file": "src/script/00.js",
-      "line": 4090,
+      "line": 4087,
       "params": [],
       "calls": [
         "getWallVeil"
@@ -3797,7 +3799,7 @@
     {
       "name": "applyWallpaper",
       "file": "src/script/00.js",
-      "line": 4099,
+      "line": 4096,
       "params": [
         "blob"
       ],
@@ -3810,7 +3812,7 @@
     {
       "name": "compressWallpaper",
       "file": "src/script/00.js",
-      "line": 4112,
+      "line": 4109,
       "params": [
         "file"
       ],
@@ -3827,7 +3829,7 @@
     {
       "name": "onWallpaperFile",
       "file": "src/script/00.js",
-      "line": 4138,
+      "line": 4135,
       "params": [
         "input"
       ],
@@ -3846,7 +3848,7 @@
     {
       "name": "resetWallpaper",
       "file": "src/script/00.js",
-      "line": 4154,
+      "line": 4151,
       "params": [],
       "calls": [
         "uiDbReq",
@@ -3859,7 +3861,7 @@
     {
       "name": "changeWallpaperVeil",
       "file": "src/script/00.js",
-      "line": 4159,
+      "line": 4156,
       "params": [
         "v"
       ],
@@ -3873,7 +3875,7 @@
     {
       "name": "initWallpaper",
       "file": "src/script/00.js",
-      "line": 4163,
+      "line": 4160,
       "params": [],
       "calls": [
         "uiDbReq",
@@ -3885,7 +3887,7 @@
     {
       "name": "normalizeInventoryV21718",
       "file": "src/script/00.js",
-      "line": 4289,
+      "line": 4284,
       "params": [
         "inventory"
       ],
@@ -3904,7 +3906,7 @@
     {
       "name": "ensureItemState",
       "file": "src/script/00.js",
-      "line": 4310,
+      "line": 4305,
       "params": [],
       "calls": [
         "normalizeInventoryV21718"
@@ -3922,7 +3924,7 @@
     {
       "name": "ranking",
       "file": "src/script/00.js",
-      "line": 4322,
+      "line": 4317,
       "params": [],
       "calls": [
         "Number"
@@ -3937,7 +3939,7 @@
     {
       "name": "rankIndex",
       "file": "src/script/00.js",
-      "line": 4323,
+      "line": 4318,
       "params": [
         "id"
       ],
@@ -3954,7 +3956,7 @@
     {
       "name": "roundQuarter",
       "file": "src/script/00.js",
-      "line": 4324,
+      "line": 4319,
       "params": [
         "v"
       ],
@@ -3969,7 +3971,7 @@
     {
       "name": "roundThird",
       "file": "src/script/00.js",
-      "line": 4325,
+      "line": 4320,
       "params": [
         "v"
       ],
@@ -3984,7 +3986,7 @@
     {
       "name": "roundHalf",
       "file": "src/script/00.js",
-      "line": 4326,
+      "line": 4321,
       "params": [
         "v"
       ],
@@ -3999,7 +4001,7 @@
     {
       "name": "eligibleForItems",
       "file": "src/script/00.js",
-      "line": 4327,
+      "line": 4322,
       "params": [
         "g"
       ],
@@ -4016,7 +4018,7 @@
     {
       "name": "consumeInventoryItem",
       "file": "src/script/00.js",
-      "line": 4328,
+      "line": 4323,
       "params": [
         "g",
         "index",
@@ -4033,7 +4035,7 @@
     {
       "name": "addItemToGroup",
       "file": "src/script/00.js",
-      "line": 4329,
+      "line": 4324,
       "params": [
         "g",
         "key"
@@ -4054,7 +4056,7 @@
     {
       "name": "tinyDefenseToast",
       "file": "src/script/00.js",
-      "line": 4330,
+      "line": 4325,
       "params": [
         "msg"
       ],
@@ -4067,7 +4069,7 @@
     {
       "name": "defenseCandidates",
       "file": "src/script/00.js",
-      "line": 4332,
+      "line": 4327,
       "params": [
         "g",
         "attackType"
@@ -4090,7 +4092,7 @@
     {
       "name": "damageFraction",
       "file": "src/script/00.js",
-      "line": 4349,
+      "line": 4344,
       "params": [
         "target",
         "denom",
@@ -4111,7 +4113,7 @@
     {
       "name": "boostFraction",
       "file": "src/script/00.js",
-      "line": 4350,
+      "line": 4345,
       "params": [
         "target",
         "denom=4"
@@ -4129,7 +4131,7 @@
     {
       "name": "itemDropWeights",
       "file": "src/script/00.js",
-      "line": 4352,
+      "line": 4347,
       "params": [
         "pos",
         "total"
@@ -4145,7 +4147,7 @@
     {
       "name": "weightedPick",
       "file": "src/script/00.js",
-      "line": 4442,
+      "line": 4437,
       "params": [
         "weights"
       ],
@@ -4159,7 +4161,7 @@
     {
       "name": "drawItemForGroup",
       "file": "src/script/00.js",
-      "line": 4443,
+      "line": 4438,
       "params": [
         "g"
       ],
@@ -4181,7 +4183,7 @@
     {
       "name": "detectOvertakePunish",
       "file": "src/script/00.js",
-      "line": 4445,
+      "line": 4440,
       "params": [
         "actorId",
         "beforeOrder"
@@ -4204,7 +4206,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 4451,
+      "line": 4446,
       "params": [
         "groupId",
         "index"
@@ -4253,7 +4255,7 @@
     {
       "name": "flashBomb",
       "file": "src/script/00.js",
-      "line": 4527,
+      "line": 4522,
       "params": [
         "id"
       ],
@@ -4266,7 +4268,7 @@
     {
       "name": "startBulletTimer",
       "file": "src/script/00.js",
-      "line": 4529,
+      "line": 4524,
       "params": [],
       "calls": [
         "clearInterval",
@@ -4297,7 +4299,7 @@
     {
       "name": "startBlooperClock",
       "file": "src/script/00.js",
-      "line": 4530,
+      "line": 4525,
       "params": [],
       "calls": [
         "applyBlooperMask",
@@ -4311,7 +4313,7 @@
     {
       "name": "applyBlooperMask",
       "file": "src/script/00.js",
-      "line": 4531,
+      "line": 4526,
       "params": [],
       "calls": [],
       "stateFields": [
@@ -4322,7 +4324,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 4533,
+      "line": 4528,
       "params": [],
       "calls": [
         "ensureItemState",
@@ -4353,7 +4355,7 @@
     {
       "name": "openItemWindow",
       "file": "src/script/00.js",
-      "line": 4539,
+      "line": 4534,
       "params": [
         "groupId",
         "tab='detail'"
@@ -4368,7 +4370,7 @@
     {
       "name": "closeItemWindow",
       "file": "src/script/00.js",
-      "line": 4540,
+      "line": 4535,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -4377,7 +4379,7 @@
     {
       "name": "switchItemTab",
       "file": "src/script/00.js",
-      "line": 4541,
+      "line": 4536,
       "params": [
         "tab"
       ],
@@ -4390,7 +4392,7 @@
     {
       "name": "renderItemWindow",
       "file": "src/script/00.js",
-      "line": 4542,
+      "line": 4537,
       "params": [],
       "calls": [
         "closeItemWindow",
@@ -4424,7 +4426,7 @@
     {
       "name": "previewItemDetailColor",
       "file": "src/script/00.js",
-      "line": 4621,
+      "line": 4616,
       "params": [
         "value"
       ],
@@ -4435,7 +4437,7 @@
     {
       "name": "saveItemDetailColor",
       "file": "src/script/00.js",
-      "line": 4622,
+      "line": 4617,
       "params": [
         "id",
         "value"
@@ -4455,7 +4457,7 @@
     {
       "name": "saveItemGroupDetail",
       "file": "src/script/00.js",
-      "line": 4628,
+      "line": 4623,
       "params": [
         "id"
       ],
@@ -4487,7 +4489,7 @@
     {
       "name": "deleteItemDetailGroup",
       "file": "src/script/00.js",
-      "line": 4645,
+      "line": 4640,
       "params": [
         "id"
       ],
@@ -4509,7 +4511,7 @@
     {
       "name": "itemQuickScore",
       "file": "src/script/00.js",
-      "line": 4654,
+      "line": 4649,
       "params": [
         "id",
         "d"
@@ -4529,7 +4531,7 @@
     {
       "name": "itemCustomScore",
       "file": "src/script/00.js",
-      "line": 4655,
+      "line": 4650,
       "params": [
         "id"
       ],
@@ -4545,7 +4547,7 @@
     {
       "name": "enhanceItemCards",
       "file": "src/script/00.js",
-      "line": 4657,
+      "line": 4652,
       "params": [],
       "calls": [
         "ensureItemState",
@@ -4568,7 +4570,7 @@
     {
       "name": "renderGrid",
       "file": "src/script/00.js",
-      "line": 4658,
+      "line": 4653,
       "params": [],
       "calls": [
         "_itemBaseRenderGrid",
@@ -4580,7 +4582,7 @@
     {
       "name": "legacyJudgeRound",
       "file": "src/script/00.js",
-      "line": 4660,
+      "line": 4655,
       "params": [],
       "calls": [
         "ranking",
@@ -4611,7 +4613,7 @@
     {
       "name": "ensureV2State",
       "file": "src/script/00.js",
-      "line": 4673,
+      "line": 4668,
       "params": [],
       "calls": [
         "ensureItemState"
@@ -4624,7 +4626,7 @@
     {
       "name": "itemVisual",
       "file": "src/script/00.js",
-      "line": 4683,
+      "line": 4678,
       "params": [
         "key",
         "cls=''"
@@ -4643,7 +4645,7 @@
     {
       "name": "itemBoxVisualV2121",
       "file": "src/script/00.js",
-      "line": 4689,
+      "line": 4684,
       "params": [
         "cls=''"
       ],
@@ -4656,7 +4658,7 @@
     {
       "name": "setPickerInfoTab",
       "file": "src/script/00.js",
-      "line": 4692,
+      "line": 4687,
       "params": [
         "tab"
       ],
@@ -4669,7 +4671,7 @@
     {
       "name": "renderPickerInfo",
       "file": "src/script/00.js",
-      "line": 4693,
+      "line": 4688,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -4687,7 +4689,7 @@
     {
       "name": "openPickerModal",
       "file": "src/script/00.js",
-      "line": 4702,
+      "line": 4697,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -4701,7 +4703,7 @@
     {
       "name": "syncPickerScoreTarget",
       "file": "src/script/00.js",
-      "line": 4703,
+      "line": 4698,
       "params": [],
       "calls": [
         "escapeHtml"
@@ -4719,7 +4721,7 @@
     {
       "name": "pickerTargetGroup",
       "file": "src/script/00.js",
-      "line": 4704,
+      "line": 4699,
       "params": [],
       "calls": [],
       "stateFields": [
@@ -4733,7 +4735,7 @@
     {
       "name": "scorePickerTarget",
       "file": "src/script/00.js",
-      "line": 4705,
+      "line": 4700,
       "params": [
         "n"
       ],
@@ -4753,7 +4755,7 @@
     {
       "name": "scorePickerCustom",
       "file": "src/script/00.js",
-      "line": 4706,
+      "line": 4701,
       "params": [],
       "calls": [
         "Number",
@@ -4767,7 +4769,7 @@
     {
       "name": "stopSlotSpin",
       "file": "src/script/00.js",
-      "line": 4707,
+      "line": 4702,
       "params": [],
       "calls": [
         "_v2StopSlot",
@@ -4786,7 +4788,7 @@
     {
       "name": "openHandRaise",
       "file": "src/script/00.js",
-      "line": 4710,
+      "line": 4705,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -4798,7 +4800,7 @@
     {
       "name": "closeHandRaise",
       "file": "src/script/00.js",
-      "line": 4711,
+      "line": 4706,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -4807,7 +4809,7 @@
     {
       "name": "renderHandRaise",
       "file": "src/script/00.js",
-      "line": 4712,
+      "line": 4707,
       "params": [],
       "calls": [
         "escapeHtml"
@@ -4825,7 +4827,7 @@
     {
       "name": "selectHandGroup",
       "file": "src/script/00.js",
-      "line": 4713,
+      "line": 4708,
       "params": [
         "id"
       ],
@@ -4841,7 +4843,7 @@
     {
       "name": "judgeHandRaise",
       "file": "src/script/00.js",
-      "line": 4714,
+      "line": 4709,
       "params": [
         "correct"
       ],
@@ -4867,7 +4869,7 @@
     {
       "name": "handQuickScore",
       "file": "src/script/00.js",
-      "line": 4721,
+      "line": 4716,
       "params": [
         "n"
       ],
@@ -4880,7 +4882,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 4722,
+      "line": 4717,
       "params": [],
       "calls": [
         "eligibleForItems",
@@ -4904,7 +4906,7 @@
     {
       "name": "handUseItem",
       "file": "src/script/00.js",
-      "line": 4723,
+      "line": 4718,
       "params": [],
       "calls": [
         "showToast",
@@ -4923,7 +4925,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 4726,
+      "line": 4721,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -4959,7 +4961,7 @@
     {
       "name": "openItemEncyclopedia",
       "file": "src/script/00.js",
-      "line": 4740,
+      "line": 4735,
       "params": [],
       "calls": [
         "switchView",
@@ -4973,7 +4975,7 @@
     {
       "name": "renderItemEncyclopedia",
       "file": "src/script/00.js",
-      "line": 4741,
+      "line": 4736,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -4988,7 +4990,7 @@
     {
       "name": "chooseItemIcon",
       "file": "src/script/00.js",
-      "line": 4745,
+      "line": 4740,
       "params": [
         "k"
       ],
@@ -4999,7 +5001,7 @@
     {
       "name": "handleItemIconUpload",
       "file": "src/script/00.js",
-      "line": 4746,
+      "line": 4741,
       "params": [
         "e"
       ],
@@ -5020,7 +5022,7 @@
     {
       "name": "resetItemIcon",
       "file": "src/script/00.js",
-      "line": 4747,
+      "line": 4742,
       "params": [
         "k"
       ],
@@ -5038,7 +5040,7 @@
     {
       "name": "resetAllItemIcons",
       "file": "src/script/00.js",
-      "line": 4748,
+      "line": 4743,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -5054,7 +5056,7 @@
     {
       "name": "exportItemIconPack",
       "file": "src/script/00.js",
-      "line": 4749,
+      "line": 4744,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -5068,7 +5070,7 @@
     {
       "name": "importItemIconPack",
       "file": "src/script/00.js",
-      "line": 4750,
+      "line": 4745,
       "params": [
         "e"
       ],
@@ -5090,7 +5092,7 @@
     {
       "name": "installSettingsTabs",
       "file": "src/script/00.js",
-      "line": 4753,
+      "line": 4748,
       "params": [],
       "calls": [
         "renderItemEncyclopedia"
@@ -5103,7 +5105,7 @@
     {
       "name": "showSettingsV2",
       "file": "src/script/00.js",
-      "line": 4759,
+      "line": 4754,
       "params": [
         "which"
       ],
@@ -5117,7 +5119,7 @@
     {
       "name": "openAbout",
       "file": "src/script/00.js",
-      "line": 4768,
+      "line": 4763,
       "params": [],
       "calls": [
         "renderAbout"
@@ -5128,7 +5130,7 @@
     {
       "name": "closeAbout",
       "file": "src/script/00.js",
-      "line": 4769,
+      "line": 4764,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -5137,7 +5139,7 @@
     {
       "name": "renderAbout",
       "file": "src/script/00.js",
-      "line": 4770,
+      "line": 4765,
       "params": [
         "tab"
       ],
@@ -5150,7 +5152,7 @@
     {
       "name": "renderItemWindow",
       "file": "src/script/00.js",
-      "line": 4778,
+      "line": 4773,
       "params": [],
       "calls": [
         "_v2RenderItemWindow",
@@ -5168,7 +5170,7 @@
     {
       "name": "godAddItem",
       "file": "src/script/00.js",
-      "line": 4779,
+      "line": 4774,
       "params": [
         "id",
         "k"
@@ -5193,7 +5195,7 @@
     {
       "name": "godClearItems",
       "file": "src/script/00.js",
-      "line": 4780,
+      "line": 4775,
       "params": [
         "id"
       ],
@@ -5217,7 +5219,7 @@
     {
       "name": "enhanceItemCards",
       "file": "src/script/00.js",
-      "line": 4783,
+      "line": 4778,
       "params": [],
       "calls": [
         "_v2Enhance",
@@ -5237,7 +5239,7 @@
     {
       "name": "renderItemWindow",
       "file": "src/script/00.js",
-      "line": 4784,
+      "line": 4779,
       "params": [],
       "calls": [
         "_v2RenderItemWindowIcons",
@@ -5254,7 +5256,7 @@
     {
       "name": "legacyJudgeRound",
       "file": "src/script/00.js",
-      "line": 4787,
+      "line": 4782,
       "params": [],
       "calls": [
         "_v2Judge",
@@ -5271,7 +5273,7 @@
     {
       "name": "switchView",
       "file": "src/script/00.js",
-      "line": 4792,
+      "line": 4787,
       "params": [
         "name"
       ],
@@ -5285,7 +5287,7 @@
     {
       "name": "cancelHandItemDraw",
       "file": "src/script/00.js",
-      "line": 4799,
+      "line": 4794,
       "params": [
         "silent=false"
       ],
@@ -5300,7 +5302,7 @@
     {
       "name": "closeHandRaise",
       "file": "src/script/00.js",
-      "line": 4808,
+      "line": 4803,
       "params": [],
       "calls": [
         "cancelHandItemDraw",
@@ -5312,7 +5314,7 @@
     {
       "name": "selectHandGroup",
       "file": "src/script/00.js",
-      "line": 4811,
+      "line": 4806,
       "params": [
         "id"
       ],
@@ -5328,7 +5330,7 @@
     {
       "name": "judgeHandRaise",
       "file": "src/script/00.js",
-      "line": 4817,
+      "line": 4812,
       "params": [
         "correct"
       ],
@@ -5347,7 +5349,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 4830,
+      "line": 4825,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -5389,7 +5391,7 @@
     {
       "name": "finishHandItemReward",
       "file": "src/script/00.js",
-      "line": 4885,
+      "line": 4880,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -5398,7 +5400,7 @@
     {
       "name": "handUseNewItem",
       "file": "src/script/00.js",
-      "line": 4891,
+      "line": 4886,
       "params": [],
       "calls": [
         "showToast",
@@ -5419,7 +5421,7 @@
     {
       "name": "showItemUseFx",
       "file": "src/script/00.js",
-      "line": 4908,
+      "line": 4903,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -5428,7 +5430,7 @@
     {
       "name": "itemFxTargetText",
       "file": "src/script/00.js",
-      "line": 4909,
+      "line": 4904,
       "params": [
         "key",
         "gid"
@@ -5448,7 +5450,7 @@
     {
       "name": "closeItemWindowForFx",
       "file": "src/script/00.js",
-      "line": 4922,
+      "line": 4917,
       "params": [],
       "calls": [
         "closeItemWindow"
@@ -5459,7 +5461,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 4927,
+      "line": 4922,
       "params": [
         "groupId",
         "index",
@@ -5484,7 +5486,7 @@
     {
       "name": "normalizeItemIconFile",
       "file": "src/script/00.js",
-      "line": 4945,
+      "line": 4940,
       "params": [
         "file",
         "done"
@@ -5498,7 +5500,7 @@
     {
       "name": "handleItemIconUpload",
       "file": "src/script/00.js",
-      "line": 4964,
+      "line": 4959,
       "params": [
         "e"
       ],
@@ -5520,7 +5522,7 @@
     {
       "name": "updateCardRouletteVisual",
       "file": "src/script/00.js",
-      "line": 4974,
+      "line": 4969,
       "params": [
         "o",
         "key"
@@ -5536,7 +5538,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 4986,
+      "line": 4981,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -5571,7 +5573,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5003,
+      "line": 4998,
       "params": [
         "now"
       ],
@@ -5597,7 +5599,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 5040,
+      "line": 5035,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -5638,7 +5640,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5058,
+      "line": 5053,
       "params": [
         "now"
       ],
@@ -5673,7 +5675,7 @@
     {
       "name": "cancelHandItemDraw",
       "file": "src/script/00.js",
-      "line": 5090,
+      "line": 5085,
       "params": [
         "silent=false"
       ],
@@ -5687,7 +5689,7 @@
     {
       "name": "battleCard",
       "file": "src/script/00.js",
-      "line": 5116,
+      "line": 5111,
       "params": [
         "id"
       ],
@@ -5700,7 +5702,7 @@
     {
       "name": "clearCardFx",
       "file": "src/script/00.js",
-      "line": 5117,
+      "line": 5112,
       "params": [
         "card"
       ],
@@ -5713,7 +5715,7 @@
     {
       "name": "playCasterCardFx",
       "file": "src/script/00.js",
-      "line": 5123,
+      "line": 5118,
       "params": [
         "key",
         "gid"
@@ -5734,7 +5736,7 @@
     {
       "name": "playTargetCardFx",
       "file": "src/script/00.js",
-      "line": 5133,
+      "line": 5128,
       "params": [
         "id",
         "key",
@@ -5753,7 +5755,7 @@
     {
       "name": "cardFxTargets",
       "file": "src/script/00.js",
-      "line": 5142,
+      "line": 5137,
       "params": [
         "key",
         "gid"
@@ -5772,7 +5774,7 @@
     {
       "name": "showItemUseFx",
       "file": "src/script/00.js",
-      "line": 5156,
+      "line": 5151,
       "params": [
         "key",
         "casterId=null",
@@ -5793,7 +5795,7 @@
     {
       "name": "removeBgmEngineeringConsoleV26",
       "file": "src/script/00.js",
-      "line": 5191,
+      "line": 5186,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -5802,7 +5804,7 @@
     {
       "name": "renderItemFxSoundListV26",
       "file": "src/script/00.js",
-      "line": 5210,
+      "line": 5205,
       "params": [],
       "calls": [
         "hasSound"
@@ -5816,7 +5818,7 @@
     {
       "name": "itemSoundCategoryV26",
       "file": "src/script/00.js",
-      "line": 5217,
+      "line": 5212,
       "params": [
         "k"
       ],
@@ -5832,7 +5834,7 @@
     {
       "name": "showItemUseFx",
       "file": "src/script/00.js",
-      "line": 5224,
+      "line": 5219,
       "params": [
         "k",
         "g",
@@ -5852,7 +5854,7 @@
     {
       "name": "tinyDefenseToast",
       "file": "src/script/00.js",
-      "line": 5226,
+      "line": 5221,
       "params": [
         "m"
       ],
@@ -5868,7 +5870,7 @@
     {
       "name": "startDrawSoundBedV26",
       "file": "src/script/00.js",
-      "line": 5227,
+      "line": 5222,
       "params": [
         "ms=3600"
       ],
@@ -5884,7 +5886,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 5232,
+      "line": 5227,
       "params": [],
       "calls": [
         "startDrawSoundBedV26",
@@ -5898,7 +5900,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 5233,
+      "line": 5228,
       "params": [],
       "calls": [
         "startDrawSoundBedV26",
@@ -5912,7 +5914,7 @@
     {
       "name": "uiIconsV26",
       "file": "src/script/00.js",
-      "line": 5246,
+      "line": 5241,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -5923,7 +5925,7 @@
     {
       "name": "applyUiIconsV26",
       "file": "src/script/00.js",
-      "line": 5247,
+      "line": 5242,
       "params": [],
       "calls": [
         "uiIconsV26",
@@ -5937,7 +5939,7 @@
     {
       "name": "chooseUiIconV26",
       "file": "src/script/00.js",
-      "line": 5263,
+      "line": 5258,
       "params": [
         "id"
       ],
@@ -5948,7 +5950,7 @@
     {
       "name": "handleUiIconV26",
       "file": "src/script/00.js",
-      "line": 5264,
+      "line": 5259,
       "params": [
         "e"
       ],
@@ -5966,7 +5968,7 @@
     {
       "name": "resetUiIconV26",
       "file": "src/script/00.js",
-      "line": 5268,
+      "line": 5263,
       "params": [
         "id"
       ],
@@ -5981,7 +5983,7 @@
     {
       "name": "renderUiIconManagerV26",
       "file": "src/script/00.js",
-      "line": 5269,
+      "line": 5264,
       "params": [],
       "calls": [
         "uiIconsV26"
@@ -5994,7 +5996,7 @@
     {
       "name": "rebuildSettingsV26",
       "file": "src/script/00.js",
-      "line": 5275,
+      "line": 5270,
       "params": [],
       "calls": [
         "removeBgmEngineeringConsoleV26",
@@ -6012,7 +6014,7 @@
     {
       "name": "showSettingsV26",
       "file": "src/script/00.js",
-      "line": 5301,
+      "line": 5296,
       "params": [
         "which"
       ],
@@ -6032,7 +6034,7 @@
     {
       "name": "installSettingsTabs",
       "file": "src/script/00.js",
-      "line": 5311,
+      "line": 5306,
       "params": [],
       "calls": [
         "rebuildSettingsV26"
@@ -6043,7 +6045,7 @@
     {
       "name": "showSettingsV2",
       "file": "src/script/00.js",
-      "line": 5312,
+      "line": 5307,
       "params": [
         "which"
       ],
@@ -6056,7 +6058,7 @@
     {
       "name": "syncVisualViewportV27",
       "file": "src/script/00.js",
-      "line": 5323,
+      "line": 5318,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6065,7 +6067,7 @@
     {
       "name": "repairPersistentItemsV28",
       "file": "src/script/00.js",
-      "line": 5340,
+      "line": 5335,
       "params": [],
       "calls": [
         "ensureItemState",
@@ -6081,7 +6083,7 @@
     {
       "name": "programConfirmV28",
       "file": "src/script/00.js",
-      "line": 5350,
+      "line": 5345,
       "params": [
         "message",
         "opts={}"
@@ -6101,7 +6103,7 @@
     {
       "name": "setCorrectAns",
       "file": "src/script/00.js",
-      "line": 5377,
+      "line": 5372,
       "params": [
         "opt"
       ],
@@ -6126,7 +6128,7 @@
     {
       "name": "heldItemKeysV281",
       "file": "src/script/00.js",
-      "line": 5407,
+      "line": 5402,
       "params": [
         "g"
       ],
@@ -6141,7 +6143,7 @@
     {
       "name": "weightedPickNoRepeatV281",
       "file": "src/script/00.js",
-      "line": 5410,
+      "line": 5405,
       "params": [
         "weights",
         "blocked=new Set()"
@@ -6159,7 +6161,7 @@
     {
       "name": "pickItemForGroupV281",
       "file": "src/script/00.js",
-      "line": 5419,
+      "line": 5414,
       "params": [
         "g",
         "batchUsed=new Set()"
@@ -6181,7 +6183,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 5434,
+      "line": 5429,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -6214,7 +6216,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5451,
+      "line": 5446,
       "params": [
         "now"
       ],
@@ -6238,7 +6240,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 5493,
+      "line": 5488,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -6277,7 +6279,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5509,
+      "line": 5504,
       "params": [
         "now"
       ],
@@ -6310,7 +6312,7 @@
     {
       "name": "v282RandomOther",
       "file": "src/script/00.js",
-      "line": 5560,
+      "line": 5555,
       "params": [
         "caster"
       ],
@@ -6329,7 +6331,7 @@
     {
       "name": "v282TakeFraction",
       "file": "src/script/00.js",
-      "line": 5564,
+      "line": 5559,
       "params": [
         "target",
         "frac",
@@ -6351,7 +6353,7 @@
     {
       "name": "v282Consume",
       "file": "src/script/00.js",
-      "line": 5574,
+      "line": 5569,
       "params": [
         "g",
         "index"
@@ -6369,7 +6371,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 5582,
+      "line": 5577,
       "params": [
         "groupId",
         "index",
@@ -6410,7 +6412,7 @@
     {
       "name": "roulettePreviewPickV282",
       "file": "src/script/00.js",
-      "line": 5624,
+      "line": 5619,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6421,7 +6423,7 @@
     {
       "name": "updateAllRoulettePreviewLogicV282",
       "file": "src/script/00.js",
-      "line": 5628,
+      "line": 5623,
       "params": [],
       "calls": [
         "roulettePreviewPickV282"
@@ -6434,7 +6436,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 5634,
+      "line": 5629,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -6468,7 +6470,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5650,
+      "line": 5645,
       "params": [
         "now"
       ],
@@ -6493,7 +6495,7 @@
     {
       "name": "handDrawItem",
       "file": "src/script/00.js",
-      "line": 5683,
+      "line": 5678,
       "params": [],
       "calls": [
         "ensureV2State",
@@ -6532,7 +6534,7 @@
     {
       "name": "frame",
       "file": "src/script/00.js",
-      "line": 5697,
+      "line": 5692,
       "params": [
         "now"
       ],
@@ -6565,7 +6567,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 5728,
+      "line": 5723,
       "params": [
         "groupId",
         "index",
@@ -6590,7 +6592,7 @@
     {
       "name": "itemKeysV283",
       "file": "src/script/00.js",
-      "line": 5753,
+      "line": 5748,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6601,7 +6603,7 @@
     {
       "name": "itemAdminButtonV283",
       "file": "src/script/00.js",
-      "line": 5755,
+      "line": 5750,
       "params": [
         "k",
         "gid"
@@ -6618,7 +6620,7 @@
     {
       "name": "godAddItemV283",
       "file": "src/script/00.js",
-      "line": 5759,
+      "line": 5754,
       "params": [
         "gid",
         "key"
@@ -6647,7 +6649,7 @@
     {
       "name": "renderGodItemManagerV283",
       "file": "src/script/00.js",
-      "line": 5768,
+      "line": 5763,
       "params": [
         "gid"
       ],
@@ -6666,7 +6668,7 @@
     {
       "name": "patchVisibleGodManagerV283",
       "file": "src/script/00.js",
-      "line": 5781,
+      "line": 5776,
       "params": [
         "gid"
       ],
@@ -6682,7 +6684,7 @@
     {
       "name": "renderEncyclopediaV283",
       "file": "src/script/00.js",
-      "line": 5793,
+      "line": 5788,
       "params": [],
       "calls": [
         "itemKeysV283",
@@ -6699,7 +6701,7 @@
     {
       "name": "appendMissingEncyclopediaV283",
       "file": "src/script/00.js",
-      "line": 5822,
+      "line": 5817,
       "params": [],
       "calls": [
         "itemVisual",
@@ -6714,7 +6716,7 @@
     {
       "name": "patchItemIconSettingsV283",
       "file": "src/script/00.js",
-      "line": 5839,
+      "line": 5834,
       "params": [],
       "calls": [
         "itemVisual",
@@ -6730,7 +6732,7 @@
     {
       "name": "renderGroupModalV283",
       "file": "src/script/00.js",
-      "line": 5857,
+      "line": 5852,
       "params": [
         "gid"
       ],
@@ -6744,7 +6746,7 @@
     {
       "name": "openGroupModal",
       "file": "src/script/00.js",
-      "line": 5862,
+      "line": 5857,
       "params": [
         "gid",
         "...a"
@@ -6760,7 +6762,7 @@
     {
       "name": "renderGroupModal",
       "file": "src/script/00.js",
-      "line": 5866,
+      "line": 5861,
       "params": [
         "...a"
       ],
@@ -6777,7 +6779,7 @@
     {
       "name": "openAboutModal",
       "file": "src/script/00.js",
-      "line": 5871,
+      "line": 5866,
       "params": [
         "...a"
       ],
@@ -6793,7 +6795,7 @@
     {
       "name": "refresh26ItemInterfacesV284",
       "file": "src/script/00.js",
-      "line": 5879,
+      "line": 5874,
       "params": [],
       "calls": [
         "renderItemEncyclopedia",
@@ -6805,7 +6807,7 @@
     {
       "name": "appendMissingEncyclopediaV283",
       "file": "src/script/00.js",
-      "line": 5897,
+      "line": 5892,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6814,7 +6816,7 @@
     {
       "name": "patchItemIconSettingsV283",
       "file": "src/script/00.js",
-      "line": 5898,
+      "line": 5893,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6823,7 +6825,7 @@
     {
       "name": "patchVisibleGodManagerV283",
       "file": "src/script/00.js",
-      "line": 5901,
+      "line": 5896,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6832,7 +6834,7 @@
     {
       "name": "renderGroupModalV283",
       "file": "src/script/00.js",
-      "line": 5902,
+      "line": 5897,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6841,7 +6843,7 @@
     {
       "name": "renderAbout",
       "file": "src/script/00.js",
-      "line": 5908,
+      "line": 5903,
       "params": [
         "tab"
       ],
@@ -6859,7 +6861,7 @@
     {
       "name": "isCommunismMode",
       "file": "src/script/00.js",
-      "line": 5933,
+      "line": 5928,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -6870,7 +6872,7 @@
     {
       "name": "setCommunismMode",
       "file": "src/script/00.js",
-      "line": 5936,
+      "line": 5931,
       "params": [
         "enabled"
       ],
@@ -6884,7 +6886,7 @@
     {
       "name": "applyCommunismMode",
       "file": "src/script/00.js",
-      "line": 5941,
+      "line": 5936,
       "params": [],
       "calls": [
         "isCommunismMode"
@@ -6895,7 +6897,7 @@
     {
       "name": "globalItemDraw",
       "file": "src/script/00.js",
-      "line": 5966,
+      "line": 5961,
       "params": [
         "...a"
       ],
@@ -6912,7 +6914,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 5971,
+      "line": 5966,
       "params": [
         "...a"
       ],
@@ -6929,7 +6931,7 @@
     {
       "name": "openItemWindow",
       "file": "src/script/00.js",
-      "line": 5977,
+      "line": 5972,
       "params": [
         "...a"
       ],
@@ -6946,7 +6948,7 @@
     {
       "name": "installCommunismModeSetting",
       "file": "src/script/00.js",
-      "line": 5984,
+      "line": 5979,
       "params": [],
       "calls": [
         "isCommunismMode"
@@ -6959,7 +6961,7 @@
     {
       "name": "formatChartScoreV294",
       "file": "src/script/00.js",
-      "line": 6013,
+      "line": 6008,
       "params": [
         "value"
       ],
@@ -6977,7 +6979,7 @@
     {
       "name": "activePersistentEffect",
       "file": "src/script/00.js",
-      "line": 6040,
+      "line": 6035,
       "params": [
         "g"
       ],
@@ -6994,7 +6996,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 6050,
+      "line": 6045,
       "params": [
         "groupId",
         "index",
@@ -7019,7 +7021,7 @@
     {
       "name": "cleanEmptyEffectV2113",
       "file": "src/script/00.js",
-      "line": 6091,
+      "line": 6086,
       "params": [
         "g"
       ],
@@ -7034,7 +7036,7 @@
     {
       "name": "consumeChargeV2113",
       "file": "src/script/00.js",
-      "line": 6099,
+      "line": 6094,
       "params": [
         "g",
         "index"
@@ -7052,7 +7054,7 @@
     {
       "name": "randomTargetV2113",
       "file": "src/script/00.js",
-      "line": 6106,
+      "line": 6101,
       "params": [
         "g"
       ],
@@ -7070,7 +7072,7 @@
     {
       "name": "attackFractionV2113",
       "file": "src/script/00.js",
-      "line": 6111,
+      "line": 6106,
       "params": [
         "caster",
         "target",
@@ -7092,7 +7094,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 6118,
+      "line": 6113,
       "params": [
         "groupId",
         "index",
@@ -7137,7 +7139,7 @@
     {
       "name": "attackHitClassV2116",
       "file": "src/script/00.js",
-      "line": 6239,
+      "line": 6234,
       "params": [
         "key"
       ],
@@ -7161,7 +7163,7 @@
     {
       "name": "clearAttackHitFxV2116",
       "file": "src/script/00.js",
-      "line": 6254,
+      "line": 6249,
       "params": [
         "card"
       ],
@@ -7174,7 +7176,7 @@
     {
       "name": "playAttackTargetFxV2116",
       "file": "src/script/00.js",
-      "line": 6262,
+      "line": 6257,
       "params": [
         "groupId",
         "key",
@@ -7196,7 +7198,7 @@
     {
       "name": "tryDefendLightningV2116",
       "file": "src/script/00.js",
-      "line": 6295,
+      "line": 6290,
       "params": [
         "target"
       ],
@@ -7216,7 +7218,7 @@
     {
       "name": "applyLightningHitV2116",
       "file": "src/script/00.js",
-      "line": 6323,
+      "line": 6318,
       "params": [
         "caster",
         "target"
@@ -7239,7 +7241,7 @@
     {
       "name": "showItemUseFx",
       "file": "src/script/00.js",
-      "line": 6347,
+      "line": 6342,
       "params": [
         "key",
         "casterId=null",
@@ -7257,7 +7259,7 @@
     {
       "name": "isQueuePersistentActiveV2120",
       "file": "src/script/00.js",
-      "line": 6375,
+      "line": 6370,
       "params": [
         "g",
         "it=null"
@@ -7275,7 +7277,7 @@
     {
       "name": "queueRoleTextV2120",
       "file": "src/script/00.js",
-      "line": 6381,
+      "line": 6376,
       "params": [
         "index"
       ],
@@ -7288,7 +7290,7 @@
     {
       "name": "queueUseStateV2120",
       "file": "src/script/00.js",
-      "line": 6385,
+      "line": 6380,
       "params": [
         "g",
         "index"
@@ -7317,7 +7319,7 @@
     {
       "name": "legacyUseItem",
       "file": "src/script/00.js",
-      "line": 6400,
+      "line": 6395,
       "params": [
         "groupId",
         "index",
@@ -7343,7 +7345,7 @@
     {
       "name": "godAddQueueItemV2120",
       "file": "src/script/00.js",
-      "line": 6430,
+      "line": 6425,
       "params": [
         "gid",
         "key"
@@ -7371,7 +7373,7 @@
     {
       "name": "godClearQueueItemsV2120",
       "file": "src/script/00.js",
-      "line": 6442,
+      "line": 6437,
       "params": [
         "gid"
       ],
@@ -7395,7 +7397,7 @@
     {
       "name": "godAddItem",
       "file": "src/script/00.js",
-      "line": 6450,
+      "line": 6445,
       "params": [
         "id",
         "k"
@@ -7409,7 +7411,7 @@
     {
       "name": "godAddItemV283",
       "file": "src/script/00.js",
-      "line": 6451,
+      "line": 6446,
       "params": [
         "id",
         "k"
@@ -7423,7 +7425,7 @@
     {
       "name": "godClearItems",
       "file": "src/script/00.js",
-      "line": 6452,
+      "line": 6447,
       "params": [
         "id"
       ],
@@ -7436,7 +7438,7 @@
     {
       "name": "renderItemWindow",
       "file": "src/script/00.js",
-      "line": 6456,
+      "line": 6451,
       "params": [],
       "calls": [
         "_v2120RenderItemWindow",
@@ -7462,7 +7464,7 @@
     {
       "name": "enhanceItemCards",
       "file": "src/script/00.js",
-      "line": 6509,
+      "line": 6504,
       "params": [],
       "calls": [
         "_v2120EnhanceItemCards",
@@ -7484,7 +7486,7 @@
     {
       "name": "handUseNewItem",
       "file": "src/script/00.js",
-      "line": 6548,
+      "line": 6543,
       "params": [],
       "calls": [
         "showToast",
@@ -12140,7 +12142,7 @@
     {
       "name": "icon",
       "file": "src/ui/desktop.js",
-      "line": 42,
+      "line": 43,
       "params": [
         "name"
       ],
@@ -12153,7 +12155,7 @@
     {
       "name": "empty",
       "file": "src/ui/desktop.js",
-      "line": 45,
+      "line": 46,
       "params": [
         "title",
         "text"
@@ -12170,7 +12172,7 @@
     {
       "name": "persistPreferences",
       "file": "src/ui/desktop.js",
-      "line": 48,
+      "line": 49,
       "params": [],
       "calls": [
         "showToast"
@@ -12184,7 +12186,7 @@
     {
       "name": "applyPreferences",
       "file": "src/ui/desktop.js",
-      "line": 60,
+      "line": 61,
       "params": [],
       "calls": [
         "String",
@@ -12196,7 +12198,7 @@
     {
       "name": "canAnimate",
       "file": "src/ui/desktop.js",
-      "line": 69,
+      "line": 71,
       "params": [],
       "calls": [
         "matchMedia"
@@ -12209,7 +12211,7 @@
     {
       "name": "animate",
       "file": "src/ui/desktop.js",
-      "line": 78,
+      "line": 80,
       "params": [
         "el",
         "frames",
@@ -12227,7 +12229,7 @@
     {
       "name": "cancelAnimations",
       "file": "src/ui/desktop.js",
-      "line": 89,
+      "line": 91,
       "params": [],
       "calls": [
         "clearCardFx",
@@ -12239,7 +12241,7 @@
     {
       "name": "visualEvent",
       "file": "src/ui/desktop.js",
-      "line": 102,
+      "line": 104,
       "params": [
         "type",
         "detail = {}"
@@ -12258,7 +12260,7 @@
     {
       "name": "syncViewport",
       "file": "src/ui/desktop.js",
-      "line": 130,
+      "line": 132,
       "params": [],
       "calls": [
         "Number",
@@ -12272,7 +12274,7 @@
     {
       "name": "viewChanged",
       "file": "src/ui/desktop.js",
-      "line": 146,
+      "line": 148,
       "params": [
         "name"
       ],
@@ -12292,7 +12294,7 @@
     {
       "name": "renderWelcome",
       "file": "src/ui/desktop.js",
-      "line": 194,
+      "line": 197,
       "params": [],
       "calls": [
         "$",
@@ -12330,7 +12332,7 @@
     {
       "name": "updateArrows",
       "file": "src/ui/desktop.js",
-      "line": 266,
+      "line": 271,
       "params": [],
       "calls": [
         "$"
@@ -12343,7 +12345,7 @@
     {
       "name": "observeVisualState",
       "file": "src/ui/desktop.js",
-      "line": 276,
+      "line": 281,
       "params": [],
       "calls": [
         "visualEvent"
@@ -12359,7 +12361,7 @@
     {
       "name": "renderDaily",
       "file": "src/ui/desktop.js",
-      "line": 316,
+      "line": 321,
       "params": [],
       "calls": [
         "$",
@@ -12378,7 +12380,7 @@
     {
       "name": "historyKind",
       "file": "src/ui/desktop.js",
-      "line": 362,
+      "line": 373,
       "params": [
         "desc = \"\""
       ],
@@ -12391,7 +12393,7 @@
     {
       "name": "inventory",
       "file": "src/ui/desktop.js",
-      "line": 373,
+      "line": 384,
       "params": [
         "items"
       ],
@@ -12404,7 +12406,7 @@
     {
       "name": "renderHistory",
       "file": "src/ui/desktop.js",
-      "line": 380,
+      "line": 391,
       "params": [],
       "calls": [
         "$",
@@ -12432,7 +12434,7 @@
     {
       "name": "renderArchives",
       "file": "src/ui/desktop.js",
-      "line": 445,
+      "line": 456,
       "params": [],
       "calls": [
         "getSettlementHistory",
@@ -12459,7 +12461,7 @@
     {
       "name": "downloadJson",
       "file": "src/ui/desktop.js",
-      "line": 533,
+      "line": 544,
       "params": [
         "value",
         "name"
@@ -12473,7 +12475,7 @@
     {
       "name": "setupSettings",
       "file": "src/ui/desktop.js",
-      "line": 555,
+      "line": 566,
       "params": [],
       "calls": [
         "$",
@@ -12500,7 +12502,7 @@
     {
       "name": "row",
       "file": "src/ui/desktop.js",
-      "line": 604,
+      "line": 615,
       "params": [
         "title",
         "id",
@@ -12515,7 +12517,7 @@
     {
       "name": "refreshSubjects",
       "file": "src/ui/desktop.js",
-      "line": 716,
+      "line": 728,
       "params": [],
       "calls": [
         "$",
@@ -12529,7 +12531,7 @@
     {
       "name": "selectSettings",
       "file": "src/ui/desktop.js",
-      "line": 736,
+      "line": 748,
       "params": [
         "id"
       ],
@@ -12545,7 +12547,7 @@
     {
       "name": "setupDock",
       "file": "src/ui/desktop.js",
-      "line": 755,
+      "line": 767,
       "params": [],
       "calls": [
         "$",
@@ -12560,7 +12562,7 @@
     {
       "name": "refreshLockControl",
       "file": "src/ui/desktop.js",
-      "line": 825,
+      "line": 837,
       "params": [
         "button"
       ],
@@ -12578,7 +12580,7 @@
     {
       "name": "setupModals",
       "file": "src/ui/desktop.js",
-      "line": 852,
+      "line": 864,
       "params": [],
       "calls": [
         "focusModal",
@@ -12600,7 +12602,7 @@
     {
       "name": "focusModal",
       "file": "src/ui/desktop.js",
-      "line": 854,
+      "line": 866,
       "params": [
         "top"
       ],
@@ -12613,7 +12615,7 @@
     {
       "name": "scan",
       "file": "src/ui/desktop.js",
-      "line": 875,
+      "line": 887,
       "params": [],
       "calls": [
         "canAnimate",
@@ -12629,7 +12631,7 @@
     {
       "name": "cancelPickerPreparation",
       "file": "src/ui/desktop.js",
-      "line": 997,
+      "line": 1009,
       "params": [],
       "calls": [
         "$"
@@ -12640,7 +12642,7 @@
     {
       "name": "isPickerCurrent",
       "file": "src/ui/desktop.js",
-      "line": 1010,
+      "line": 1022,
       "params": [
         "generation"
       ],
@@ -12655,7 +12657,7 @@
     {
       "name": "togglePicker",
       "file": "src/ui/desktop.js",
-      "line": 1016,
+      "line": 1028,
       "params": [],
       "calls": [
         "stopSlotSpin",
@@ -12674,7 +12676,7 @@
     {
       "name": "pickerStopped",
       "file": "src/ui/desktop.js",
-      "line": 1043,
+      "line": 1055,
       "params": [],
       "calls": [
         "$",
@@ -12690,7 +12692,7 @@
     {
       "name": "pickerChanged",
       "file": "src/ui/desktop.js",
-      "line": 1076,
+      "line": 1088,
       "params": [],
       "calls": [
         "pickerTargetGroup",
@@ -12706,7 +12708,7 @@
     {
       "name": "setupPicker",
       "file": "src/ui/desktop.js",
-      "line": 1095,
+      "line": 1107,
       "params": [],
       "calls": [
         "$",
@@ -12718,7 +12720,7 @@
     {
       "name": "prepareSettlement",
       "file": "src/ui/desktop.js",
-      "line": 1118,
+      "line": 1130,
       "params": [],
       "calls": [
         "$"
@@ -12729,7 +12731,7 @@
     {
       "name": "cancelSettlement",
       "file": "src/ui/desktop.js",
-      "line": 1123,
+      "line": 1135,
       "params": [],
       "calls": [],
       "stateFields": [],
@@ -12738,7 +12740,7 @@
     {
       "name": "settleFromUI",
       "file": "src/ui/desktop.js",
-      "line": 1126,
+      "line": 1138,
       "params": [
         "button"
       ],
@@ -12757,7 +12759,7 @@
     {
       "name": "init",
       "file": "src/ui/desktop.js",
-      "line": 1161,
+      "line": 1173,
       "params": [],
       "calls": [
         "applyPreferences",
@@ -12846,6 +12848,336 @@
       "stateFields": [],
       "returns": [
         "value"
+      ]
+    },
+    {
+      "name": "standings",
+      "file": "src/ui/model.js",
+      "line": 150,
+      "params": [
+        "ordered"
+      ],
+      "calls": [
+        "Number",
+        "BigInt",
+        "String"
+      ],
+      "stateFields": [
+        "score"
+      ],
+      "returns": [
+        "{\n      count: ordered.length,\n      total,\n      highest: scores[0] ?? 0,\n      leader: ordered[0]?"
+      ]
+    },
+    {
+      "name": "setText",
+      "file": "src/ui/welcome-v2.js",
+      "line": 49,
+      "params": [
+        "id",
+        "value"
+      ],
+      "calls": [
+        "$",
+        "String"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "render",
+      "file": "src/ui/welcome-v2.js",
+      "line": 54,
+      "params": [],
+      "calls": [
+        "$",
+        "realGroups",
+        "Number",
+        "ranking",
+        "setText",
+        "score",
+        "esc",
+        "syncCruise"
+      ],
+      "stateFields": [
+        "itemGlobal",
+        "id",
+        "name",
+        "score"
+      ],
+      "returns": [
+        "void",
+        "`<div class=\"gp-rank-row\" role=\"listitem\"><span class=\"gp-rank-index${medal}\">${mask ? \"—\" : i + 1}<"
+      ]
+    },
+    {
+      "name": "stopCruise",
+      "file": "src/ui/welcome-v2.js",
+      "line": 129,
+      "params": [],
+      "calls": [
+        "clearTimeout"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "cruiseAllowed",
+      "file": "src/ui/welcome-v2.js",
+      "line": 133,
+      "params": [],
+      "calls": [
+        "$",
+        "preferences",
+        "canAnimate"
+      ],
+      "stateFields": [],
+      "returns": [
+        "!!(\n      started &&\n      preferences().groupCruise &&\n      canAnimate() &&\n      introFinished &&"
+      ]
+    },
+    {
+      "name": "syncCruise",
+      "file": "src/ui/welcome-v2.js",
+      "line": 149,
+      "params": [],
+      "calls": [
+        "preferences",
+        "setText",
+        "$",
+        "String",
+        "cruiseAllowed",
+        "stopCruise",
+        "setTimeout",
+        "syncCruise"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void",
+        "void",
+        "void",
+        "void"
+      ]
+    },
+    {
+      "name": "setupCruise",
+      "file": "src/ui/welcome-v2.js",
+      "line": 183,
+      "params": [],
+      "calls": [
+        "$",
+        "syncCruise",
+        "stopCruise",
+        "preferences"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "isolateBackground",
+      "file": "src/ui/welcome-v2.js",
+      "line": 227,
+      "params": [],
+      "calls": [],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "releaseBackground",
+      "file": "src/ui/welcome-v2.js",
+      "line": 239,
+      "params": [],
+      "calls": [],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "activeIntro",
+      "file": "src/ui/welcome-v2.js",
+      "line": 243,
+      "params": [],
+      "calls": [
+        "$"
+      ],
+      "stateFields": [],
+      "returns": [
+        "started && introOpened && !$(\"gpIntro\").hidden"
+      ]
+    },
+    {
+      "name": "focusIntro",
+      "file": "src/ui/welcome-v2.js",
+      "line": 246,
+      "params": [],
+      "calls": [
+        "activeIntro",
+        "$"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "showIntro",
+      "file": "src/ui/welcome-v2.js",
+      "line": 252,
+      "params": [
+        "replay"
+      ],
+      "calls": [
+        "getComputedStyle",
+        "showToast",
+        "$",
+        "isolateBackground",
+        "resetPointer",
+        "drawSlide",
+        "stopCruise",
+        "cancelAnimationFrame",
+        "requestAnimationFrame",
+        "canAnimate",
+        "finish",
+        "focusIntro"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void",
+        "void"
+      ]
+    },
+    {
+      "name": "drawSlide",
+      "file": "src/ui/welcome-v2.js",
+      "line": 295,
+      "params": [
+        "px"
+      ],
+      "calls": [
+        "$"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "resetPointer",
+      "file": "src/ui/welcome-v2.js",
+      "line": 303,
+      "params": [],
+      "calls": [
+        "$"
+      ],
+      "stateFields": [],
+      "returns": []
+    },
+    {
+      "name": "finish",
+      "file": "src/ui/welcome-v2.js",
+      "line": 311,
+      "params": [
+        "skip"
+      ],
+      "calls": [
+        "settleEntrance",
+        "resetPointer",
+        "cancelAnimationFrame",
+        "$",
+        "canAnimate",
+        "preferences",
+        "releaseBackground",
+        "syncCruise",
+        "settle",
+        "Number",
+        "getComputedStyle",
+        "movement"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void",
+        "void",
+        "void",
+        "void"
+      ]
+    },
+    {
+      "name": "setupSlider",
+      "file": "src/ui/welcome-v2.js",
+      "line": 434,
+      "params": [],
+      "calls": [
+        "$",
+        "drawSlide",
+        "fromEvent",
+        "resetPointer",
+        "Number",
+        "finish",
+        "activeIntro",
+        "focusIntro"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void",
+        "void",
+        "void",
+        "void"
+      ]
+    },
+    {
+      "name": "preferencesChanged",
+      "file": "src/ui/welcome-v2.js",
+      "line": 513,
+      "params": [],
+      "calls": [
+        "canAnimate",
+        "preferences",
+        "activeIntro",
+        "finish",
+        "syncCruise"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void"
+      ]
+    },
+    {
+      "name": "viewChanged",
+      "file": "src/ui/welcome-v2.js",
+      "line": 521,
+      "params": [
+        "name"
+      ],
+      "calls": [
+        "activeIntro",
+        "finish",
+        "stopCruise",
+        "syncCruise"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void"
+      ]
+    },
+    {
+      "name": "init",
+      "file": "src/ui/welcome-v2.js",
+      "line": 527,
+      "params": [],
+      "calls": [
+        "$",
+        "encodeURIComponent",
+        "setupSlider",
+        "setupCruise",
+        "preferencesChanged",
+        "finish",
+        "showIntro",
+        "settleEntrance",
+        "syncCruise",
+        "resetPointer",
+        "drawSlide",
+        "activeIntro",
+        "stopCruise",
+        "render"
+      ],
+      "stateFields": [],
+      "returns": [
+        "void"
       ]
     }
   ]

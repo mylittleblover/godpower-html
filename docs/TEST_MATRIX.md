@@ -23,3 +23,8 @@
 |浏览器原生工具栏80%–125%缩放|0|NOT TESTED|本轮缩放矩阵仅为应用现有CSS zoom|
 |真实音轨节奏、过门和听感|0|NOT TESTED|本轮保留系统，模拟音频及初始化检查不能代替听辨|
 |全部任意用户配置／小时级浸泡|0|NOT TESTED|20/50/100回合是短时观测|
+
+
+## 最新欢迎分支验收（674e12f 起点）
+
+最新实际结果见 `docs/reports/WELCOME_V2_COMPLETION.md` 和 `artifacts/welcome-completion/acceptance-matrix.json`。旧版报告保留为历史证据，不能用其中的旧dist状态和旧测试数量代替本轮结果。

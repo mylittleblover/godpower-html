@@ -89,3 +89,10 @@ Toast 使用 `popover="manual"` 进入浏览器 top layer，角色为 status、�
 构建仍将资源、CSS、脚本内联到 `dist/godpower.html` 和 `dist/index.html`。不增加运行时 CDN/API。Sites 复用 `.openai/hosting.json` 绑定，保持私有受众，推送精确提交后打包部署。禁止记录 Git 临时凭据。
 
 本轮禁止任何 CircleCI 操作；远端 CI 不自动触发，保留现有手动 GitHub Actions。
+
+
+## 欢迎V2补充
+
+品牌SVG在入场和顶栏之间移动同一DOM节点；不复制并插入相同clipPath ID。FLIP坐标按现有应用缩放转换，入场初始缩放被快速解锁打断时先稳定再测量。动效由统一UI偏好控制，减少动态效果跟随开关保持有效；滑块不是安全认证。背景焦点和inert必须成对保存／恢复，退出及快速切页必须走同一个清理函数。
+
+排名复用原ranking及并列顺序；遮蔽时不用积分排列，隐藏条形、名次和分数。极大积分统计允许换行并提供完整标题，不省略数字。巡航默认关闭，显式开启后仍在阅读及离页时暂停；纯时钟tick不重建排名／动态节点。

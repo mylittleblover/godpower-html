@@ -67,3 +67,7 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 ## 未决防御命令（2026-10-17）
 
 没有新增持久化 schema 或迁移存档字段。待决操作只驻留内存，主存档和旧历史镜像暂缓写入；导出返回操作前完整快照。确认完成才保存整体结果，等待中刷新读回最后完整课堂，相当于取消未完成攻击。合法且已规范化的库存对象保留身份，以兼容防御令牌；非法字段、charges和acquiredAt仍按既有规则规范化。旧存档仍通过原 validateBackup/normalizeAllGroups 读取。
+
+## 欢迎页UI偏好增量
+
+`godpower_ui_preferences_v1.groupCruise`：boolean，默认 false，立即保存。旧偏好缺失此字段时使用false；非法类型被忽略。不增加业务schema版本，不改任何课堂存储键。动画速度、完整／简洁／关闭、跟随系统减少动态效果沿用同一既有UI偏好。欢迎统计的BigInt只存在于计算局部并输出十进制字符串，分数持久化仍为原安全整数Number。

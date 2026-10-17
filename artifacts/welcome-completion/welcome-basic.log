@@ -1,0 +1,5 @@
+
+> godpower-html@2.19.0 test:welcome
+> node tests/e2e/welcome-v2.mjs
+
+PASS welcome-V2 entrance, preserved navigation and 14 group dashboard

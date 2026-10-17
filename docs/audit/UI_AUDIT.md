@@ -69,3 +69,8 @@ reference-baseline/ 与 reference-fixed/ 保存相同四组数据、相同1920×
 | settings | 0.013358% | 预期版本标签变化；仍需人工逐像素确认，非自动PASS |
 
 字体／环境：Linux Chromium系统字体，非课堂实际投影字体；跨设备字体差异未测试。缩放、hover所有控件、全部disabled控件、对比度计算和焦点陷阱未穷举，见GP-018。
+
+
+## 最新欢迎分支验收（674e12f 起点）
+
+最新实际结果见 `docs/reports/WELCOME_V2_COMPLETION.md` 和 `artifacts/welcome-completion/acceptance-matrix.json`。旧版报告保留为历史证据，不能用其中的旧dist状态和旧测试数量代替本轮结果。

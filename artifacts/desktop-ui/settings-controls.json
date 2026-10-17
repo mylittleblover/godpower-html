@@ -1128,6 +1128,12 @@
     "handler": null
   },
   {
+    "id": "uiPref-groupCruise",
+    "type": "checkbox",
+    "text": "",
+    "handler": null
+  },
+  {
     "id": "uiPref-subject",
     "type": "select-one",
     "text": "政治",
