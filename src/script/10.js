@@ -97,38 +97,5 @@ async function exportFxBundleV2175(){
   }
 }
 
-/* 在 26 道具独立音效区域顶部增加独立 BIN 导出按钮。 */
-const _v2175RenderItemFxSoundListV26=renderItemFxSoundListV26;
-renderItemFxSoundListV26=function(){
-  _v2175RenderItemFxSoundListV26();
-
-  const box=document.getElementById('itemFxSoundListV26');
-  if(!box || document.getElementById('v2175FxBundleToolbar'))return;
-
-  const bar=document.createElement('div');
-  bar.id='v2175FxBundleToolbar';
-  bar.className='v2175-fx-bundle-toolbar';
-  bar.innerHTML=`
-    <div class="v2175-fx-bundle-copy">
-      <b>音效 BIN 包</b>
-      <span>仅打包已上传的音效，包括 26 种独立道具音效；可用现有“导入音频包”直接恢复。</span>
-    </div>
-    <button type="button" class="btn btn-sm btn-warning" onclick="exportFxBundleV2175()">
-      导出音效包 (.bin)
-    </button>
-  `;
-
-  box.prepend(bar);
-};
-
-/* 设置页打开时补上工具栏。 */
-if(typeof showSettingsV26==='function'){
-  const _v2175ShowSettingsV26=showSettingsV26;
-  showSettingsV26=function(which,...args){
-    const r=_v2175ShowSettingsV26.call(this,which,...args);
-    if(which==='audio'){
-      setTimeout(()=>{try{renderItemFxSoundListV26()}catch(e){}},0);
-    }
-    return r;
-  };
-}
+/* 音效包维护入口由 DesktopUI 设置页统一持有。
+   exportFxBundleV2175 保留原 BGMP 格式和权限行为，不再包装渲染器追加重复工具栏。 */

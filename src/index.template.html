@@ -442,22 +442,20 @@
 </div>
 <input id="itemIconInput" type="file" accept="image/*" style="display:none" onchange="handleItemIconUpload(event)">
 <input id="itemPackInput" type="file" accept=".json,application/json" style="display:none" onchange="importItemIconPack(event)">
-<!-- 设置面板（全屏视图） -->
+<!-- 设置面板（全屏视图）：文案与结构由本模板持有 -->
 <div id="view-settings" class="view">
-  <div class="fullview-header">
+  <header class="ui-settings-header">
     <div>
-      <h2>⚙️ 后台杂物间</h2>
-      <div class="fullview-sub">音效与音乐、学生名单、界面外观和数据备份都塞在这里。按钮很多，但至少没有工程台了。</div>
+      <span class="ui-settings-eyebrow">YOUR CLASSROOM · YOUR WAY</span>
+      <h2>设置控制中心 <small>后台杂物间</small></h2>
+      <p>把课堂调成顺手的样子。常用偏好直接调整，资源维护按需展开。</p>
     </div>
-    <div class="settings-toolbar">
-      <button class="btn btn-sm btn-warning" onclick="exportAudioBundle()">打包导出音频 (.bin)</button>
-      <button class="btn btn-sm btn-primary" onclick="triggerImportAudioBundle()">导入音频包</button>
-    </div>
-  </div>
+    <div class="ui-settings-status"><span>● 偏好即时保存</span><span>离线可用 · 数据留在本机</span></div>
+  </header>
   <div class="settings-scroll">
 
-    <div class="setting-section-title">🖼️ 界面壁纸</div>
-    <div class="setting-item">
+    <div class="setting-section-title" data-settings-category="appearance" data-settings-group="wallpaper">🖼️ 界面壁纸</div>
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
       <span class="setting-label">自定义壁纸（图片会自动压缩后保存在本机）</span>
       <div class="wall-actions">
         <span class="wall-status" id="wallpaperStatus">当前：内置极光</span>
@@ -465,21 +463,21 @@
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="resetWallpaper()">恢复极光</button>
       </div>
     </div>
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
       <span class="setting-label">自定义壁纸的浅色遮罩（保证文字在投影上清晰，<span id="wallVeilLabel">35%</span>）</span>
       <input type="range" id="cfgWallVeil" min="0" max="0.8" step="0.05" style="width: 160px;" oninput="changeWallpaperVeil(this.value)">
     </div>
 
-    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="students" data-settings-group="roster">
       小组成员文本快速导入 (支持自定义组数、组名及成员)
     </div>
-    <div class="setting-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+    <div class="setting-item" style="flex-direction: column; align-items: stretch; gap: 8px;" data-settings-category="students" data-settings-group="roster">
       <span class="setting-label" style="color: #64748b; font-size: 13px;">格式说明：每行一组，格式为“组名: 成员1, 成员2...”</span>
       <textarea id="settingsBatchMemberText" rows="6" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 8px; font-size: 13px; font-family: monospace; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
       <button class="btn btn-primary btn-sm" onclick="applySettingsBatchMembers()" style="align-self: flex-end;">应用并重建小组</button>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="rules" data-settings-group="rules">
       <span class="setting-label">跨局保留上一轮 All In 状态</span>
       <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
         <input type="checkbox" id="cfgSaveAllIn" onchange="toggleSaveAllIn(this.checked)">
@@ -487,7 +485,7 @@
       </label>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
       <span class="setting-label">启用大屏操作高度垫片（可上下拖拽间隔）</span>
       <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
         <input type="checkbox" id="cfgResizerEnabled" onchange="toggleResizerEnabled(this.checked)">
@@ -495,7 +493,7 @@
       </label>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
       <span class="setting-label">小组列表显示模式</span>
       <select id="cfgColumnMode" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="updateColumnMode(this.value)">
         <option value="single">单列显示</option>
@@ -503,20 +501,20 @@
       </select>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="sound" data-settings-group="volume">
       <span class="setting-label">主音量大小 (<span id="volLabel">85%</span>)</span>
       <input type="range" id="cfgMasterVolume" min="0" max="1" step="0.05" style="width: 160px;" oninput="updateMasterVolume(this.value)">
     </div>
 
-    <div class="setting-item">
-      <span class="setting-label">曲目工程规范 (前7套130，第8套135)</span>
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">音乐节拍与循环说明</span>
       <div style="font-size:13px; color:#64748b; font-weight:700;" id="cfgSetBpmDesc">
         BPM 130 · 4/4 拍 · 循环: 第 9 拍 至 第 184 拍 (无尾音)
       </div>
     </div>
 
-    <div class="setting-item">
-      <span class="setting-label">选择要维护的音乐套数 (共 8 套)</span>
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">要维护的音乐套（8 套比赛配乐 + 菜单配乐）</span>
       <select id="cfgSetSelector" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="renderBgmSlotList()">
         <option value="0">曲目套 1</option>
         <option value="1">曲目套 2</option>
@@ -530,36 +528,49 @@
       </select>
     </div>
 
-    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between;">
-      <span>当前套数音频槽位 (传满 10 轨进入洗牌池)</span>
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between;" data-settings-category="sound" data-settings-group="music">
+      <span>当前音乐套音轨（菜单套与比赛套使用各自完整性规则）</span>
       <span id="cfgSetCompleteness" style="color:#0284c7;">检测中...</span>
     </div>
 
-    <div id="bgmListContainer"></div>
-<div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
+    <div id="bgmListContainer" data-settings-category="sound" data-settings-group="music"></div>
+<div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="sound" data-settings-group="basefx">
       基础操作与欢庆音效配置 (支持自定义上传)
     </div>
-    <div id="soundListContainer"></div>
+    <div id="soundListContainer" data-settings-category="sound" data-settings-group="basefx"></div>
 
-    <div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
-      安全与管理
-    </div>
-    <div class="setting-item">
-      <span class="setting-label">更换神谕口令</span>
+
+    <div class="setting-item" data-settings-category="data" data-settings-group="lock">
+      <span class="setting-label">更换神谕口令（本机防误操作）</span>
       <div style="display: flex; gap: 8px;">
-        <input type="password" id="newPwdInput" placeholder="新密码" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px; background:#f8fafc; color:#1e293b;">
+        <input type="password" id="newPwdInput" autocomplete="new-password" minlength="3" placeholder="至少 3 位口令" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px; background:#f8fafc; color:#1e293b;">
         <button class="btn btn-primary btn-sm" onclick="updateAdminPin()">更新</button>
       </div>
     </div>
-    <div class="setting-item">
-      <span class="setting-label">时光机与保险箱</span>
+    <div class="setting-item" data-settings-category="data" data-settings-group="backup">
+      <span class="setting-label">课堂数据备份与恢复</span>
       <div style="display: flex; gap: 8px;">
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="exportData()">导出备份</button>
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="triggerImport()">恢复备份</button>
-        <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
       </div>
     </div>
 
+    <div class="setting-item" data-settings-category="data" data-settings-group="danger">
+      <span class="setting-label">将全部小组积分重置为 0（不会生成封神榜档案）</span>
+      <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
+    </div>
+    <details id="uiAudioTransfer" class="ui-settings-disclosure" data-settings-category="sound">
+      <summary><b>音频包迁移与备份</b><span>低频维护 · BIN 文件</span></summary>
+      <div class="ui-settings-detail-body">
+        <p class="ui-muted">只在换设备或恢复自定义音频时使用。全量包包含已上传的音乐和音效；仅音效包不包含音乐，默认合成音不会导出。两种包均使用同一个导入入口，不修改课堂积分。</p>
+        <div class="ui-toolbar">
+          <button class="btn btn-sm" onclick="exportAudioBundle()">导出全部自定义音频</button>
+          <button class="btn btn-sm" onclick="exportFxBundleV2175()">仅导出自定义音效</button>
+          <button class="btn btn-sm" onclick="triggerImportAudioBundle()">导入音频包</button>
+        </div>
+        <p class="ui-muted">导入会替换包中同名的本机音频槽，建议先导出备份。</p>
+      </div>
+    </details>
   </div>
 </div>
 

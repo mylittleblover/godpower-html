@@ -13,11 +13,7 @@ function polishVisibleCopyV2187(){
   if(aboutInfo)aboutInfo.textContent='这玩意儿是什么';
   if(aboutGuide)aboutGuide.textContent='别乱按指南';
 
-  /* 设置标题和副标题 */
-  const sh=document.querySelector('#view-settings .fullview-header h2');
-  const ss=document.querySelector('#view-settings .fullview-sub');
-  if(sh)sh.textContent='⚙️ 后台杂物间';
-  if(ss)ss.textContent='音效、音乐、名单、外观、备份和密码都堆在这里。音乐相关设置保持精简，不需要把课堂软件搞得像核电站控制室。';
+  /* 设置页文案由统一模板持有，避免定时修辞覆盖组件。 */
 
   /* 上帝模式管理区 */
   document.querySelectorAll('.god-item-tools b,.queue-god-tools-v2120 b').forEach(el=>{

@@ -2583,7 +2583,7 @@ body.modern-flat-v217:has(.about-backdrop.active),body.modern-flat-v217:has(.mem
 /* 卡片、面板和弹窗 */
 body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container,
 body.modern-flat-v217 .quick-batch-bar,body.modern-flat-v217 .fullview-header,
-body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll,
+body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll:not(.ui-settings-host),
 body.modern-flat-v217 .welcome-card,body.modern-flat-v217 .history-card,
 body.modern-flat-v217 .archive-card,body.modern-flat-v217 .setting-card,
 body.modern-flat-v217 .setting-item,body.modern-flat-v217 .setting-row,
@@ -3897,60 +3897,9 @@ body.modern-flat-v217 #view-settings .settings-scroll{
   min-width:0!important;
   min-height:0!important;
   overflow:hidden!important;
-  padding:0 18px 18px!important;
+  padding:0 0 18px!important;
 }
-/* 设置页字重层级：标题最重，字段名中等，解释文字使用正常字重。 */
-body.modern-flat-v217 #view-settings .fullview-header h2,
-body.modern-flat-v217 #view-settings .setting-section-title{font-weight:850!important}
-body.modern-flat-v217 #view-settings .settings-v26-tabs button,
-body.modern-flat-v217 #view-settings .setting-label,
-body.modern-flat-v217 #view-settings .sound-name,
-body.modern-flat-v217 #view-settings .ency-v213-name,
-body.modern-flat-v217 #view-settings .icon-custom-card b,
-body.modern-flat-v217 #view-settings .engine-row>label{font-weight:650!important}
-body.modern-flat-v217 #view-settings .fullview-sub,
-body.modern-flat-v217 #view-settings .setting-note,
-body.modern-flat-v217 #view-settings .sound-tag,
-body.modern-flat-v217 #view-settings .ency-v213-desc,
-body.modern-flat-v217 #view-settings .v2172-clear-items-copy span,
-body.modern-flat-v217 #view-settings .v2174-audio-head span{font-weight:400!important}
-body.modern-flat-v217 #view-settings .setting-section-title,
-body.modern-flat-v217 #view-settings .settings-v26-pane>div>div:first-child{
-  color:var(--ui-text)!important;
-  border-bottom:1px solid var(--ui-border)!important;
-  text-shadow:none!important;
-}
-body.modern-flat-v217 #view-settings .setting-item,
-body.modern-flat-v217 #view-settings .sound-row,
-body.modern-flat-v217 #view-settings .engine-row{
-  min-width:0!important;
-  margin:8px 0!important;
-  padding:12px 14px!important;
-  gap:12px!important;
-  background:#fff!important;
-  border:1px solid var(--ui-border)!important;
-  border-radius:10px!important;
-  box-shadow:none!important;
-}
-body.modern-flat-v217 #view-settings .setting-label,
-body.modern-flat-v217 #view-settings .sound-name,
-body.modern-flat-v217 #view-settings .engine-row>label{color:var(--ui-text)!important}
-body.modern-flat-v217 #view-settings .setting-note,
-body.modern-flat-v217 #view-settings .sound-tag,
-body.modern-flat-v217 #view-settings .v2172-clear-items-copy span{color:var(--ui-muted)!important}
-body.modern-flat-v217 #settingsV26_data .setting-item>div{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:flex-end!important;
-  gap:8px!important;
-  flex-wrap:wrap!important;
-  flex:0 1 380px!important;
-  width:min(100%,380px)!important;
-  min-width:0!important;
-}
-body.modern-flat-v217 #settingsV26_data #newPwdInput{flex:1 1 180px!important;width:auto!important;min-width:140px!important;padding:9px 10px!important;border-radius:8px!important}
-body.modern-flat-v217 #settingsV26_data .setting-item>div>.btn{flex:0 0 auto!important}
-body.modern-flat-v217 #settingsV26_data .v2172-clear-items-row{margin-top:8px!important;box-shadow:none!important}
+/* 设置组件的文字、分组和表单样式统一归 ui/desktop.css。 */
 
 /* 道具管理固定为宽卡；禁止图标和按钮把中文说明压成单字列。 */
 body.modern-flat-v217 #settingsV26_items .item-ency-grid{
@@ -4918,7 +4867,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   height: auto;
   min-height: 0;
   flex: 1;
-  max-width: 1700px;
+  max-width: none;
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -4955,25 +4904,25 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   overflow: auto;
   overscroll-behavior: contain;
   min-width: 0;
-  padding: 0 16px 36px 0;
+  padding: 0 0 24px;
 }
 .ui-settings-category {
-  background: var(--ui-panel);
-  border: 1px solid var(--ui-border);
-  border-radius: 16px;
-  padding: 24px;
-  max-width: 1150px;
+  background: transparent;
+  padding: 0;
+  max-width: none;
 }
 .ui-settings-category[hidden] {
   display: none;
 }
 .ui-settings-title {
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--ui-border);
+  margin: 4px 0 20px;
+  padding: 4px 0 4px 16px;
+  border-left: 4px solid var(--ui-primary);
 }
 .ui-settings-title h3 {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  font-size: 23px;
+  color: var(--ui-text);
 }
 .ui-settings-row {
   display: flex;
@@ -4999,6 +4948,200 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 .ui-settings-category .setting-row {
   max-width: 100%;
   box-sizing: border-box;
+}
+#view-settings {
+  max-width: none;
+}
+.ui-settings-header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 32px;
+  margin: 0 0 20px;
+  color: #fff;
+  background: linear-gradient(115deg, #0b5352, #138878);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+.ui-settings-eyebrow {
+  display: block;
+  color: #bee8df;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+}
+.ui-settings-header h2 {
+  color: #fff;
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+}
+.ui-settings-header h2 small {
+  margin-left: 12px;
+  color: #c1e8e1;
+  font-size: 14px;
+  font-weight: 500;
+}
+.ui-settings-header p {
+  margin: 9px 0 0;
+  color: #d6eee8;
+  font-size: 13px;
+}
+.ui-settings-status {
+  display: grid;
+  gap: 9px;
+  flex: none;
+  padding: 15px 20px;
+  background: #ffffff12;
+  border: 1px solid #ffffff25;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: #d6eee8;
+}
+.ui-settings-status span:first-child {
+  color: #fff;
+  font-weight: 700;
+}
+.ui-settings-group,
+.ui-settings-disclosure {
+  margin-bottom: 16px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+  box-shadow: var(--shadow-card);
+}
+.ui-settings-group {
+  padding: 20px 24px;
+}
+.ui-settings-group h4 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--ui-text);
+}
+.ui-settings-group > .ui-muted {
+  margin: 0 0 16px;
+  line-height: 1.7;
+  font-size: 13px;
+}
+.ui-settings-disclosure > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  gap: 6px 16px;
+  padding: 19px 24px;
+  cursor: pointer;
+  list-style: none;
+  border-radius: inherit;
+}
+.ui-settings-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.ui-settings-disclosure > summary b {
+  grid-column: 1;
+  font-size: 15px;
+  color: var(--ui-text);
+}
+.ui-settings-disclosure > summary span {
+  grid-column: 1;
+  font-size: 12px;
+  color: var(--ui-muted);
+  line-height: 1.6;
+}
+.ui-settings-disclosure > summary::after {
+  content: "+";
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  text-align: center;
+  font-size: 22px;
+  color: var(--ui-primary);
+  background: var(--ui-soft);
+  border-radius: 8px;
+}
+.ui-settings-disclosure[open] > summary::after {
+  content: "−";
+}
+.ui-settings-disclosure > summary:hover {
+  background: var(--ui-soft);
+}
+.ui-settings-disclosure > summary:focus-visible {
+  outline: 3px solid var(--ui-focus, #15998866);
+  outline-offset: 3px;
+}
+.ui-settings-detail-body {
+  padding: 0 24px 20px;
+}
+.ui-settings-detail-body > .ui-muted {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ui-settings-category .setting-item,
+.ui-settings-category .sound-row {
+  min-width: 0;
+  margin: 8px 0;
+  padding: 12px 14px;
+  gap: 12px;
+}
+.ui-settings-category .setting-label,
+.ui-settings-category .sound-name {
+  color: var(--ui-text);
+  font-weight: 600;
+}
+.ui-settings-category .sound-tag {
+  color: var(--ui-muted);
+  font-size: 12px;
+}
+.ui-settings-category input[type="range"] {
+  accent-color: var(--ui-primary);
+}
+.ui-settings-category .ui-danger-zone {
+  border-color: #edb4ab;
+  background: #fff7f5;
+}
+.ui-settings-category .ui-danger-zone > summary b {
+  color: #a43d30;
+}
+.ui-settings-category .ui-snapshot-note {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+#uiSettingsLock .setting-item > div,
+#uiSettingsBackup .setting-item > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+#uiSettingsLock #newPwdInput {
+  width: 160px;
+  max-width: 100%;
+  padding: 8px;
+}
+@media (min-width: 1200px) {
+  #settingsV26_sound,
+  #uiSettingsVolume > div,
+  #uiSettingsWallpaper > div,
+  #uiSettingsLayout > div,
+  #uiSettingsRules > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+  #settingsV26_sound > .ui-settings-group,
+  #settingsV26_sound > details[open] {
+    grid-column: 1 / -1;
+  }
+  #settingsV26_sound > .ui-settings-group,
+  #settingsV26_sound > .ui-settings-disclosure {
+    margin-bottom: 0;
+  }
+  #uiSettingsLayout .ui-settings-row {
+    margin: 8px 0;
+  }
 }
 .ui-bank-editor {
   width: 100%;
@@ -5138,10 +5281,15 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
 }
 .ui-settings-host {
   box-sizing: border-box;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 .ui-settings-category .settings-v26-pane {
   padding: 0;
   overflow: visible;
+  display: block;
+  max-height: none;
 }
 #view-history,
 #view-archives,
@@ -5274,22 +5422,9 @@ summary:focus-visible {
   }
 }
 
-.ui-settings-category .settings-v26-pane {
-  display: block;
-  max-height: none;
-  overflow: visible;
-}
-.ui-settings-category .settings-v26-pane:not(.active) {
-  display: block;
-}
 .ui-settings-body .ui-settings-category .setting-item {
   gap: 16px;
   flex-wrap: wrap;
-}
-.ui-settings-category .ui-danger-zone {
-  background: #fff7f7;
-  border-radius: 12px;
-  padding: 18px;
 }
 
 .ui-podium:has(> div:nth-child(3)) > div:first-child {
@@ -6773,22 +6908,20 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 </div>
 <input id="itemIconInput" type="file" accept="image/*" style="display:none" onchange="handleItemIconUpload(event)">
 <input id="itemPackInput" type="file" accept=".json,application/json" style="display:none" onchange="importItemIconPack(event)">
-<!-- 设置面板（全屏视图） -->
+<!-- 设置面板（全屏视图）：文案与结构由本模板持有 -->
 <div id="view-settings" class="view">
-  <div class="fullview-header">
+  <header class="ui-settings-header">
     <div>
-      <h2>⚙️ 后台杂物间</h2>
-      <div class="fullview-sub">音效与音乐、学生名单、界面外观和数据备份都塞在这里。按钮很多，但至少没有工程台了。</div>
+      <span class="ui-settings-eyebrow">YOUR CLASSROOM · YOUR WAY</span>
+      <h2>设置控制中心 <small>后台杂物间</small></h2>
+      <p>把课堂调成顺手的样子。常用偏好直接调整，资源维护按需展开。</p>
     </div>
-    <div class="settings-toolbar">
-      <button class="btn btn-sm btn-warning" onclick="exportAudioBundle()">打包导出音频 (.bin)</button>
-      <button class="btn btn-sm btn-primary" onclick="triggerImportAudioBundle()">导入音频包</button>
-    </div>
-  </div>
+    <div class="ui-settings-status"><span>● 偏好即时保存</span><span>离线可用 · 数据留在本机</span></div>
+  </header>
   <div class="settings-scroll">
 
-    <div class="setting-section-title">🖼️ 界面壁纸</div>
-    <div class="setting-item">
+    <div class="setting-section-title" data-settings-category="appearance" data-settings-group="wallpaper">🖼️ 界面壁纸</div>
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
       <span class="setting-label">自定义壁纸（图片会自动压缩后保存在本机）</span>
       <div class="wall-actions">
         <span class="wall-status" id="wallpaperStatus">当前：内置极光</span>
@@ -6796,21 +6929,21 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="resetWallpaper()">恢复极光</button>
       </div>
     </div>
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
       <span class="setting-label">自定义壁纸的浅色遮罩（保证文字在投影上清晰，<span id="wallVeilLabel">35%</span>）</span>
       <input type="range" id="cfgWallVeil" min="0" max="0.8" step="0.05" style="width: 160px;" oninput="changeWallpaperVeil(this.value)">
     </div>
 
-    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="students" data-settings-group="roster">
       小组成员文本快速导入 (支持自定义组数、组名及成员)
     </div>
-    <div class="setting-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+    <div class="setting-item" style="flex-direction: column; align-items: stretch; gap: 8px;" data-settings-category="students" data-settings-group="roster">
       <span class="setting-label" style="color: #64748b; font-size: 13px;">格式说明：每行一组，格式为“组名: 成员1, 成员2...”</span>
       <textarea id="settingsBatchMemberText" rows="6" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 8px; font-size: 13px; font-family: monospace; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
       <button class="btn btn-primary btn-sm" onclick="applySettingsBatchMembers()" style="align-self: flex-end;">应用并重建小组</button>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="rules" data-settings-group="rules">
       <span class="setting-label">跨局保留上一轮 All In 状态</span>
       <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
         <input type="checkbox" id="cfgSaveAllIn" onchange="toggleSaveAllIn(this.checked)">
@@ -6818,7 +6951,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       </label>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
       <span class="setting-label">启用大屏操作高度垫片（可上下拖拽间隔）</span>
       <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
         <input type="checkbox" id="cfgResizerEnabled" onchange="toggleResizerEnabled(this.checked)">
@@ -6826,7 +6959,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       </label>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
       <span class="setting-label">小组列表显示模式</span>
       <select id="cfgColumnMode" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="updateColumnMode(this.value)">
         <option value="single">单列显示</option>
@@ -6834,20 +6967,20 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       </select>
     </div>
 
-    <div class="setting-item">
+    <div class="setting-item" data-settings-category="sound" data-settings-group="volume">
       <span class="setting-label">主音量大小 (<span id="volLabel">85%</span>)</span>
       <input type="range" id="cfgMasterVolume" min="0" max="1" step="0.05" style="width: 160px;" oninput="updateMasterVolume(this.value)">
     </div>
 
-    <div class="setting-item">
-      <span class="setting-label">曲目工程规范 (前7套130，第8套135)</span>
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">音乐节拍与循环说明</span>
       <div style="font-size:13px; color:#64748b; font-weight:700;" id="cfgSetBpmDesc">
         BPM 130 · 4/4 拍 · 循环: 第 9 拍 至 第 184 拍 (无尾音)
       </div>
     </div>
 
-    <div class="setting-item">
-      <span class="setting-label">选择要维护的音乐套数 (共 8 套)</span>
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">要维护的音乐套（8 套比赛配乐 + 菜单配乐）</span>
       <select id="cfgSetSelector" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="renderBgmSlotList()">
         <option value="0">曲目套 1</option>
         <option value="1">曲目套 2</option>
@@ -6861,36 +6994,49 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       </select>
     </div>
 
-    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between;">
-      <span>当前套数音频槽位 (传满 10 轨进入洗牌池)</span>
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between;" data-settings-category="sound" data-settings-group="music">
+      <span>当前音乐套音轨（菜单套与比赛套使用各自完整性规则）</span>
       <span id="cfgSetCompleteness" style="color:#0284c7;">检测中...</span>
     </div>
 
-    <div id="bgmListContainer"></div>
-<div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
+    <div id="bgmListContainer" data-settings-category="sound" data-settings-group="music"></div>
+<div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="sound" data-settings-group="basefx">
       基础操作与欢庆音效配置 (支持自定义上传)
     </div>
-    <div id="soundListContainer"></div>
+    <div id="soundListContainer" data-settings-category="sound" data-settings-group="basefx"></div>
 
-    <div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">
-      安全与管理
-    </div>
-    <div class="setting-item">
-      <span class="setting-label">更换神谕口令</span>
+
+    <div class="setting-item" data-settings-category="data" data-settings-group="lock">
+      <span class="setting-label">更换神谕口令（本机防误操作）</span>
       <div style="display: flex; gap: 8px;">
-        <input type="password" id="newPwdInput" placeholder="新密码" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px; background:#f8fafc; color:#1e293b;">
+        <input type="password" id="newPwdInput" autocomplete="new-password" minlength="3" placeholder="至少 3 位口令" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px; background:#f8fafc; color:#1e293b;">
         <button class="btn btn-primary btn-sm" onclick="updateAdminPin()">更新</button>
       </div>
     </div>
-    <div class="setting-item">
-      <span class="setting-label">时光机与保险箱</span>
+    <div class="setting-item" data-settings-category="data" data-settings-group="backup">
+      <span class="setting-label">课堂数据备份与恢复</span>
       <div style="display: flex; gap: 8px;">
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="exportData()">导出备份</button>
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="triggerImport()">恢复备份</button>
-        <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
       </div>
     </div>
 
+    <div class="setting-item" data-settings-category="data" data-settings-group="danger">
+      <span class="setting-label">将全部小组积分重置为 0（不会生成封神榜档案）</span>
+      <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
+    </div>
+    <details id="uiAudioTransfer" class="ui-settings-disclosure" data-settings-category="sound">
+      <summary><b>音频包迁移与备份</b><span>低频维护 · BIN 文件</span></summary>
+      <div class="ui-settings-detail-body">
+        <p class="ui-muted">只在换设备或恢复自定义音频时使用。全量包包含已上传的音乐和音效；仅音效包不包含音乐，默认合成音不会导出。两种包均使用同一个导入入口，不修改课堂积分。</p>
+        <div class="ui-toolbar">
+          <button class="btn btn-sm" onclick="exportAudioBundle()">导出全部自定义音频</button>
+          <button class="btn btn-sm" onclick="exportFxBundleV2175()">仅导出自定义音效</button>
+          <button class="btn btn-sm" onclick="triggerImportAudioBundle()">导入音频包</button>
+        </div>
+        <p class="ui-muted">导入会替换包中同名的本机音频槽，建议先导出备份。</p>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -10574,9 +10720,11 @@ function updateMasterVolume(vol) {
   saveState();
 }
 
+let bgmSlotRenderGeneration = 0;
 async function renderBgmSlotList() {
   const container = document.getElementById('bgmListContainer');
   if (!container) return;
+  const generation = ++bgmSlotRenderGeneration;
   const setIdx = parseInt(document.getElementById('cfgSetSelector').value, 10);
   const isMenuSet = setIdx === 8;
   const trackTypes = isMenuSet ? MENU_SET_TRACK_TYPES : SET_TRACK_TYPES;
@@ -10596,7 +10744,7 @@ async function renderBgmSlotList() {
   const { isComplete, count } = await checkSetCompleteness(setIdx);
 
   const currentIdxAfter = parseInt(document.getElementById('cfgSetSelector').value, 10);
-  if (currentIdxAfter !== setIdx) return;
+  if (generation !== bgmSlotRenderGeneration || currentIdxAfter !== setIdx) return;
 
   const compLabel = document.getElementById('cfgSetCompleteness');
   if (compLabel) {
@@ -10829,6 +10977,7 @@ function handleBundleFilePicked(event) {
         await loadFxSounds();
         renderBgmSlotList();
         renderFxSlotList();
+        renderItemFxSoundListV26();
         showToast('音频包导入成功');
       };
     } catch(err) {
@@ -12812,7 +12961,7 @@ function rebuildSettingsV26(){
  installCommunismModeSetting();renderUiIconManagerV26();renderItemEncyclopedia();renderItemFxSoundListV26();showSettingsV26('function');
 }
 function showSettingsV26(which){
- if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);if(which==='sound'){renderBgmSlotList();renderFxSlotList();renderItemFxSoundListV26()}if(which==='items')renderItemEncyclopedia();return;}
+ if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);return;}
  document.querySelectorAll('.settings-v26-pane').forEach(p=>p.classList.toggle('active',p.id==='settingsV26_'+which));
  document.querySelectorAll('#settingsV26Tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v26===which));
  const sc=document.querySelector('#view-settings .settings-scroll');if(sc)sc.scrollTop=0;
@@ -15664,41 +15813,8 @@ async function exportFxBundleV2175(){
   }
 }
 
-/* 在 26 道具独立音效区域顶部增加独立 BIN 导出按钮。 */
-const _v2175RenderItemFxSoundListV26=renderItemFxSoundListV26;
-renderItemFxSoundListV26=function(){
-  _v2175RenderItemFxSoundListV26();
-
-  const box=document.getElementById('itemFxSoundListV26');
-  if(!box || document.getElementById('v2175FxBundleToolbar'))return;
-
-  const bar=document.createElement('div');
-  bar.id='v2175FxBundleToolbar';
-  bar.className='v2175-fx-bundle-toolbar';
-  bar.innerHTML=`
-    <div class="v2175-fx-bundle-copy">
-      <b>音效 BIN 包</b>
-      <span>仅打包已上传的音效，包括 26 种独立道具音效；可用现有“导入音频包”直接恢复。</span>
-    </div>
-    <button type="button" class="btn btn-sm btn-warning" onclick="exportFxBundleV2175()">
-      导出音效包 (.bin)
-    </button>
-  `;
-
-  box.prepend(bar);
-};
-
-/* 设置页打开时补上工具栏。 */
-if(typeof showSettingsV26==='function'){
-  const _v2175ShowSettingsV26=showSettingsV26;
-  showSettingsV26=function(which,...args){
-    const r=_v2175ShowSettingsV26.call(this,which,...args);
-    if(which==='audio'){
-      setTimeout(()=>{try{renderItemFxSoundListV26()}catch(e){}},0);
-    }
-    return r;
-  };
-}
+/* 音效包维护入口由 DesktopUI 设置页统一持有。
+   exportFxBundleV2175 保留原 BGMP 格式和权限行为，不再包装渲染器追加重复工具栏。 */
 </script>
 
 
@@ -18939,11 +19055,7 @@ function polishVisibleCopyV2187(){
   if(aboutInfo)aboutInfo.textContent='这玩意儿是什么';
   if(aboutGuide)aboutGuide.textContent='别乱按指南';
 
-  /* 设置标题和副标题 */
-  const sh=document.querySelector('#view-settings .fullview-header h2');
-  const ss=document.querySelector('#view-settings .fullview-sub');
-  if(sh)sh.textContent='⚙️ 后台杂物间';
-  if(ss)ss.textContent='音效、音乐、名单、外观、备份和密码都堆在这里。音乐相关设置保持精简，不需要把课堂软件搞得像核电站控制室。';
+  /* 设置页文案由统一模板持有，避免定时修辞覆盖组件。 */
 
   /* 上帝模式管理区 */
   document.querySelectorAll('.god-item-tools b,.queue-god-tools-v2120 b').forEach(el=>{
@@ -19879,7 +19991,8 @@ const DesktopUI = (() => {
     archiveSearch = "",
     archiveSort = "new",
     lastWelcome = "",
-    animations = new Set();
+    animations = new Set(),
+    settingsAnimations = new Set();
   const paths = {
     home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
     battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",
@@ -19915,6 +20028,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    cancelSettingsMotion();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
@@ -19945,6 +20059,7 @@ const DesktopUI = (() => {
     return a;
   }
   function cancelAnimations() {
+    cancelSettingsMotion();
     for (const a of animations) a.cancel();
     animations.clear();
     document.querySelectorAll("#groupList .group-row-card").forEach((card) => {
@@ -20029,7 +20144,7 @@ const DesktopUI = (() => {
     cancelAnimations();
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
-    if (preferences.pageMotion) {
+    if (preferences.pageMotion && name !== "settings") {
       const host = $(`#view-${name}`);
       const shift =
         preferences.motion === "full"
@@ -20048,7 +20163,7 @@ const DesktopUI = (() => {
       );
     }
     if (name === "welcome") renderWelcome();
-    if (name === "settings") selectSettings(activeSettings);
+    if (name === "settings") selectSettings(activeSettings, true);
   }
   function renderWelcome() {
     if (!ready) return;
@@ -20413,9 +20528,24 @@ const DesktopUI = (() => {
     ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
     ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
     ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
-    ["sound", "sound", "音效与音乐", "原有音乐套数、音轨、循环与资源管理"],
-    ["items", "gift", "道具与图标", "实际道具定义与自定义图像"],
-    ["students", "users", "学生与小组管理", "原有名单导入与课堂数据管理"],
+    [
+      "sound",
+      "sound",
+      "音效与音乐",
+      "日常音量在上方，音乐、音效和迁移维护按需展开",
+    ],
+    [
+      "items",
+      "gift",
+      "道具与图标",
+      "规则说明与专属图像维护；导航按钮图标已归入外观分类",
+    ],
+    [
+      "students",
+      "users",
+      "学生与小组管理",
+      "查看并维护整班小组名单，重建前会再次确认",
+    ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
   ];
@@ -20432,32 +20562,22 @@ const DesktopUI = (() => {
         p,
       ]),
     );
-    for (const pane of document.querySelectorAll(".settings-v26-pane")) {
-      const originalId = pane.id.replace("settingsV26_", "");
-      if (originalId === "function") {
-        let dest = "appearance";
-        for (const el of [...pane.children]) {
-          const txt = el.textContent || "";
-          if (
-            el.querySelector("#settingsBatchMemberText") ||
-            /批量导入学生|学生名单/.test(txt)
-          )
-            dest = "students";
-          if (
-            el.querySelector("#cfgSaveAllIn") ||
-            /All In|顶部垫片|分栏|共产主义/.test(txt)
-          )
-            dest = "rules";
-          if (el.querySelector("#uiIconManagerV26")) dest = "items";
-          sections[dest].append(el);
-        }
-        pane.classList.add("active");
-        sections.rules.append(pane);
-      } else {
-        sections[originalId]?.append(pane);
-        pane.classList.add("active");
-      }
+    // Complete delayed legacy UI installers before moving their existing nodes.
+    installCommunismModeSetting();
+    installSfxVolumeSliderV2176();
+    installClearItemsSettingV2172();
+    const classified = [...sc.querySelectorAll("[data-settings-category]")];
+    for (const pane of sc.querySelectorAll(".settings-v26-pane")) {
+      const id = pane.id.replace("settingsV26_", "");
+      (sections[id === "function" ? "rules" : id] || sections.rules).append(
+        pane,
+      );
+      pane.classList.add("active");
     }
+    for (const el of classified)
+      sections[el.dataset.settingsCategory].append(el);
+    const buttonIcons = $("#uiIconManagerV26")?.parentElement;
+    if (buttonIcons) sections.appearance.append(buttonIcons);
     $("#settingsV26Tabs")?.remove();
     sc.append(shell);
     sc.classList.add("ui-settings-host");
@@ -20466,7 +20586,7 @@ const DesktopUI = (() => {
       .forEach((b) => (b.onclick = () => selectSettings(b.dataset.category)));
     sections.appearance.insertAdjacentHTML(
       "beforeend",
-      '<div class="ui-settings-row"><label for="uiZoom">比赛视图缩放（原有设置）</label><div><button class="btn btn-sm" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" onclick="zoomIn()">＋</button></div></div>',
+      '<div class="ui-settings-row" data-settings-group="layout"><span id="uiSettingsZoomLabel">比赛视图缩放</span><div role="group" aria-labelledby="uiSettingsZoomLabel"><button class="btn btn-sm" aria-label="缩小视图" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" aria-label="放大视图" onclick="zoomIn()">＋</button></div></div>',
     );
     function row(title, id, content) {
       return `<div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>`;
@@ -20514,7 +20634,7 @@ const DesktopUI = (() => {
     );
     sections.data.insertAdjacentHTML(
       "afterbegin",
-      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。操作前建议导出备份。</div>',
+      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。课堂备份不包含自定义音频；音频包请到“音效与音乐”中的迁移区单独导出。</div>',
     );
     const danger = [...sections.data.querySelectorAll("button")].filter((b) =>
       /resetAllScores|clear/.test(b.getAttribute("onclick") || ""),
@@ -20579,7 +20699,203 @@ const DesktopUI = (() => {
         $("#uiBankStatus").textContent = "恢复失败：" + e.message;
       }
     };
+    organizeSettings(sections, shell);
     selectSettings(activeSettings);
+  }
+  function organizeSettings(sections, shell) {
+    function group(
+      parent,
+      id,
+      title,
+      description,
+      nodes,
+      collapsed = false,
+      danger = false,
+    ) {
+      const box = document.createElement(collapsed ? "details" : "div");
+      box.id = id;
+      box.className = collapsed
+        ? "ui-settings-disclosure"
+        : "ui-settings-group";
+      if (danger) box.classList.add("ui-danger-zone");
+      box.innerHTML = collapsed
+        ? `<summary><b>${E(title)}</b><span>${E(description)}</span></summary><div class="ui-settings-detail-body"></div>`
+        : `<h4>${E(title)}</h4><p class="ui-muted">${E(description)}</p><div></div>`;
+      const body = box.lastElementChild;
+      nodes.filter(Boolean).forEach((node) => body.append(node));
+      parent.append(box);
+      return box;
+    }
+    const marked = (name) => [
+      ...shell.querySelectorAll(`[data-settings-group="${name}"]`),
+    ];
+    group(
+      sections.rules,
+      "uiSettingsRules",
+      "课堂行为",
+      "沿用原道具开关与 All In 保留规则，修改后即时保存。",
+      [$("#settingsV26_function"), ...marked("rules")],
+    );
+    group(
+      sections.appearance,
+      "uiSettingsWallpaper",
+      "界面壁纸",
+      "图片与浅色遮罩保存在本机。",
+      marked("wallpaper"),
+    );
+    // The standalone legacy heading duplicated the new group title.
+    $("#uiSettingsWallpaper .setting-section-title")?.remove();
+    group(
+      sections.appearance,
+      "uiSettingsLayout",
+      "比赛显示与空间",
+      "沿用原分栏、缩放与可拖拽高度垫片，不改变比赛页尺寸。",
+      marked("layout"),
+    );
+    const icons = $("#uiIconManagerV26")?.parentElement;
+    if (icons)
+      group(
+        sections.appearance,
+        "uiSettingsButtonIcons",
+        "按钮图标自定义",
+        "低频维护 · 导航与课堂工具图标",
+        [icons],
+        true,
+      );
+    group(
+      sections.students,
+      "uiSettingsRoster",
+      "小组与成员名单",
+      "按组名匹配已有小组；未列出的组不保留，重命名可能建立新组。请先备份后应用。",
+      marked("roster"),
+    );
+    const rosterTitle = $(
+      "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",
+    );
+    rosterTitle?.remove();
+    const sound = $("#settingsV26_sound");
+    group(
+      sound,
+      "uiSettingsVolume",
+      "日常音量",
+      "主音量控制全部声音，音效音量在主音量基础上单独调整。",
+      [...marked("volume"), $("#sfxVolumeRowV2176")],
+    );
+    group(
+      sound,
+      "uiSettingsMusic",
+      "音乐套与音轨",
+      "维护 8 套比赛配乐或菜单配乐 · 展开后选择音乐套",
+      marked("music"),
+      true,
+    );
+    group(
+      sound,
+      "uiSettingsBaseFx",
+      "基础操作与欢庆音效",
+      "试听、上传及还原各个基础音效",
+      marked("basefx"),
+      true,
+    );
+    const itemSounds = $("#itemFxSoundListV26")?.parentElement;
+    if (itemSounds)
+      group(
+        sound,
+        "uiSettingsItemFx",
+        "道具音效",
+        "4 个公共事件 + 26 种道具独立发动音效",
+        [itemSounds],
+        true,
+      );
+    // Keep transfer at the end and never promote it into the global header.
+    sound.append($("#uiAudioTransfer"));
+    const itemLibrary = $("#settingsV26_items");
+    group(
+      sections.items,
+      "uiSettingsItemLibrary",
+      "道具百科与自定义图片",
+      "26 种实际道具 · 图标包与单项图片维护",
+      [itemLibrary],
+      true,
+    );
+    const editor = $("#uiBankEditor");
+    const bankNodes = [
+      editor.previousElementSibling.previousElementSibling,
+      editor.previousElementSibling,
+      editor,
+      editor.nextElementSibling,
+      $("#uiBankStatus"),
+    ];
+    group(
+      sections.welcome,
+      "uiSettingsBank",
+      "本地题库维护",
+      "低频维护 · 编辑、导出或恢复内置示例",
+      bankNodes,
+      true,
+    );
+    const data = $("#settingsV26_data");
+    group(
+      data,
+      "uiSettingsBackup",
+      "课堂数据备份",
+      "换设备或执行危险操作前，先导出课堂 JSON 备份。",
+      marked("backup"),
+    );
+    group(
+      data,
+      "uiSettingsLock",
+      "管理口令",
+      "仅用于本机防误操作。",
+      marked("lock"),
+    );
+    group(
+      data,
+      "uiSettingsDanger",
+      "危险操作",
+      "积分清零与道具清空 · 操作前请备份",
+      [...marked("danger"), $("#clearAllItemsV2172")],
+      true,
+      true,
+    );
+    // Two UI-only destructive shortcuts lacked a confirmation. Preserve their commands.
+    shell.addEventListener(
+      "click",
+      async (event) => {
+        const button = event.target.closest("button");
+        const action = button?.getAttribute("onclick");
+        const confirm = {
+          "applySettingsBatchMembers()": [
+            "重建小组与名单",
+            "将按文本重建全部小组。未列出的组会移除，改名可能建立新组。请先导出课堂备份。确认应用？",
+            applySettingsBatchMembers,
+          ],
+          "resetAllItemIcons()": [
+            "恢复全部道具图片",
+            "将移除所有自定义道具图片并恢复默认图片。建议先导出图标包。确认恢复？",
+            resetAllItemIcons,
+          ],
+        }[action];
+        if (!confirm) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (button.disabled) return;
+        if (state.isLocked) {
+          openPwdModal();
+          return;
+        }
+        button.disabled = true;
+        try {
+          if (
+            await themeConfirm(confirm[1], { title: confirm[0], danger: true })
+          )
+            confirm[2]();
+        } finally {
+          button.disabled = false;
+        }
+      },
+      true,
+    );
   }
   function refreshSubjects() {
     const el = $("#uiPref-subject");
@@ -20601,7 +20917,55 @@ const DesktopUI = (() => {
       preferences.subject = "politics";
     el.value = preferences.subject;
   }
-  function selectSettings(id) {
+  function cancelSettingsMotion() {
+    for (const animation of settingsAnimations) {
+      animation.cancel();
+      animations.delete(animation);
+    }
+    settingsAnimations.clear();
+  }
+  function revealSettings(entering) {
+    cancelSettingsMotion();
+    if (currentView !== "settings" || !preferences.pageMotion || !canAnimate())
+      return;
+    const panel = $(`[data-category-panel="${activeSettings}"]`);
+    if (!panel) return;
+    const content = [...panel.children]
+      .flatMap((node) =>
+        node.matches(".settings-v26-pane") ? [...node.children] : [node],
+      )
+      .filter((node) => !node.hidden);
+    const targets = entering
+      ? [$(".ui-settings-header"), $(".ui-settings-nav"), ...content]
+      : content;
+    const simple = preferences.motion === "simple";
+    targets.forEach((node, i) => {
+      const animation = animate(
+        node,
+        [
+          {
+            opacity: simple ? 0.6 : 0,
+            translate: simple ? "0 -4px" : "0 -12px",
+          },
+          { opacity: 1, translate: "0 0" },
+        ],
+        {
+          duration: (simple ? 140 : 260) / preferences.speed,
+          delay:
+            Math.min(i * (simple ? 15 : 50), simple ? 60 : 280) /
+            preferences.speed,
+          fill: "backwards",
+        },
+      );
+      if (!animation) return;
+      settingsAnimations.add(animation);
+      animation.finished.then(
+        () => settingsAnimations.delete(animation),
+        () => settingsAnimations.delete(animation),
+      );
+    });
+  }
+  function selectSettings(id, entering = false) {
     if (!$("#uiSettingsShell")) return;
     const aliases = { function: "rules" };
     activeSettings = aliases[id] || id;
@@ -20619,6 +20983,14 @@ const DesktopUI = (() => {
         ),
       );
     $(".ui-settings-body").scrollTop = 0;
+    // Category entry owns refresh; compatibility navigation delegates here once.
+    if (activeSettings === "sound") {
+      renderBgmSlotList();
+      renderFxSlotList();
+      renderItemFxSoundListV26();
+    }
+    if (activeSettings === "items") renderItemEncyclopedia();
+    revealSettings(entering);
   }
   function setupDock() {
     const right = $(".dock-right");
@@ -21046,6 +21418,19 @@ const DesktopUI = (() => {
     applyPreferences();
     syncViewport();
     window.addEventListener("resize", syncViewport);
+    matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+      "change",
+      () => {
+        if (!canAnimate()) cancelSettingsMotion();
+      },
+    );
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelSettingsMotion();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && currentView === "settings")
+        cancelSettingsMotion();
+    });
     ready = true;
     document.querySelectorAll(".nav-tab").forEach((b, i) => {
       const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
@@ -21184,6 +21569,7 @@ const DesktopUI = (() => {
       return saved;
     },
     getAnimationCount: () => animations.size,
+    getSettingsMotionCount: () => settingsAnimations.size,
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });

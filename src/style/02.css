@@ -78,7 +78,7 @@ body.modern-flat-v217:has(.about-backdrop.active),body.modern-flat-v217:has(.mem
 /* 卡片、面板和弹窗 */
 body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container,
 body.modern-flat-v217 .quick-batch-bar,body.modern-flat-v217 .fullview-header,
-body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll,
+body.modern-flat-v217 .fullview-body,body.modern-flat-v217 .settings-scroll:not(.ui-settings-host),
 body.modern-flat-v217 .welcome-card,body.modern-flat-v217 .history-card,
 body.modern-flat-v217 .archive-card,body.modern-flat-v217 .setting-card,
 body.modern-flat-v217 .setting-item,body.modern-flat-v217 .setting-row,

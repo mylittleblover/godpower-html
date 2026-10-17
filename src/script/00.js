@@ -3056,9 +3056,11 @@ function updateMasterVolume(vol) {
   saveState();
 }
 
+let bgmSlotRenderGeneration = 0;
 async function renderBgmSlotList() {
   const container = document.getElementById('bgmListContainer');
   if (!container) return;
+  const generation = ++bgmSlotRenderGeneration;
   const setIdx = parseInt(document.getElementById('cfgSetSelector').value, 10);
   const isMenuSet = setIdx === 8;
   const trackTypes = isMenuSet ? MENU_SET_TRACK_TYPES : SET_TRACK_TYPES;
@@ -3078,7 +3080,7 @@ async function renderBgmSlotList() {
   const { isComplete, count } = await checkSetCompleteness(setIdx);
 
   const currentIdxAfter = parseInt(document.getElementById('cfgSetSelector').value, 10);
-  if (currentIdxAfter !== setIdx) return;
+  if (generation !== bgmSlotRenderGeneration || currentIdxAfter !== setIdx) return;
 
   const compLabel = document.getElementById('cfgSetCompleteness');
   if (compLabel) {
@@ -3311,6 +3313,7 @@ function handleBundleFilePicked(event) {
         await loadFxSounds();
         renderBgmSlotList();
         renderFxSlotList();
+        renderItemFxSoundListV26();
         showToast('音频包导入成功');
       };
     } catch(err) {
@@ -5294,7 +5297,7 @@ function rebuildSettingsV26(){
  installCommunismModeSetting();renderUiIconManagerV26();renderItemEncyclopedia();renderItemFxSoundListV26();showSettingsV26('function');
 }
 function showSettingsV26(which){
- if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);if(which==='sound'){renderBgmSlotList();renderFxSlotList();renderItemFxSoundListV26()}if(which==='items')renderItemEncyclopedia();return;}
+ if(document.getElementById('uiSettingsShell')){DesktopUI.selectSettings(which);return;}
  document.querySelectorAll('.settings-v26-pane').forEach(p=>p.classList.toggle('active',p.id==='settingsV26_'+which));
  document.querySelectorAll('#settingsV26Tabs button').forEach(b=>b.classList.toggle('active',b.dataset.v26===which));
  const sc=document.querySelector('#view-settings .settings-scroll');if(sc)sc.scrollTop=0;

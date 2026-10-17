@@ -267,6 +267,7 @@ try {
   await test("Local bank rejects malformed JSON without changing saved content; category toggle works", async () => {
     await p.evaluate(() => switchView("settings"));
     await p.locator('[data-category="welcome"]').click();
+    await p.locator("#uiSettingsBank > summary").click();
     await p.locator("#uiBankEditor").fill("{invalid");
     await p.locator("#uiSaveBank").click();
     assert.match(await p.locator("#uiBankStatus").textContent(), /未保存/);
@@ -396,7 +397,9 @@ try {
     }
     await p.evaluate(() => switchView("welcome"));
     assert.ok((await p.evaluate(() => DesktopUI.getAnimationCount())) <= 1);
-    await p.waitForTimeout(300);
+    await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0, null, {
+      timeout: 5000,
+    });
     assert.equal(await p.evaluate(() => DesktopUI.getAnimationCount()), 0);
     return { itemDefinitions: keys };
   });

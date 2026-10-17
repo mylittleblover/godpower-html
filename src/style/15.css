@@ -188,60 +188,9 @@ body.modern-flat-v217 #view-settings .settings-scroll{
   min-width:0!important;
   min-height:0!important;
   overflow:hidden!important;
-  padding:0 18px 18px!important;
+  padding:0 0 18px!important;
 }
-/* 设置页字重层级：标题最重，字段名中等，解释文字使用正常字重。 */
-body.modern-flat-v217 #view-settings .fullview-header h2,
-body.modern-flat-v217 #view-settings .setting-section-title{font-weight:850!important}
-body.modern-flat-v217 #view-settings .settings-v26-tabs button,
-body.modern-flat-v217 #view-settings .setting-label,
-body.modern-flat-v217 #view-settings .sound-name,
-body.modern-flat-v217 #view-settings .ency-v213-name,
-body.modern-flat-v217 #view-settings .icon-custom-card b,
-body.modern-flat-v217 #view-settings .engine-row>label{font-weight:650!important}
-body.modern-flat-v217 #view-settings .fullview-sub,
-body.modern-flat-v217 #view-settings .setting-note,
-body.modern-flat-v217 #view-settings .sound-tag,
-body.modern-flat-v217 #view-settings .ency-v213-desc,
-body.modern-flat-v217 #view-settings .v2172-clear-items-copy span,
-body.modern-flat-v217 #view-settings .v2174-audio-head span{font-weight:400!important}
-body.modern-flat-v217 #view-settings .setting-section-title,
-body.modern-flat-v217 #view-settings .settings-v26-pane>div>div:first-child{
-  color:var(--ui-text)!important;
-  border-bottom:1px solid var(--ui-border)!important;
-  text-shadow:none!important;
-}
-body.modern-flat-v217 #view-settings .setting-item,
-body.modern-flat-v217 #view-settings .sound-row,
-body.modern-flat-v217 #view-settings .engine-row{
-  min-width:0!important;
-  margin:8px 0!important;
-  padding:12px 14px!important;
-  gap:12px!important;
-  background:#fff!important;
-  border:1px solid var(--ui-border)!important;
-  border-radius:10px!important;
-  box-shadow:none!important;
-}
-body.modern-flat-v217 #view-settings .setting-label,
-body.modern-flat-v217 #view-settings .sound-name,
-body.modern-flat-v217 #view-settings .engine-row>label{color:var(--ui-text)!important}
-body.modern-flat-v217 #view-settings .setting-note,
-body.modern-flat-v217 #view-settings .sound-tag,
-body.modern-flat-v217 #view-settings .v2172-clear-items-copy span{color:var(--ui-muted)!important}
-body.modern-flat-v217 #settingsV26_data .setting-item>div{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:flex-end!important;
-  gap:8px!important;
-  flex-wrap:wrap!important;
-  flex:0 1 380px!important;
-  width:min(100%,380px)!important;
-  min-width:0!important;
-}
-body.modern-flat-v217 #settingsV26_data #newPwdInput{flex:1 1 180px!important;width:auto!important;min-width:140px!important;padding:9px 10px!important;border-radius:8px!important}
-body.modern-flat-v217 #settingsV26_data .setting-item>div>.btn{flex:0 0 auto!important}
-body.modern-flat-v217 #settingsV26_data .v2172-clear-items-row{margin-top:8px!important;box-shadow:none!important}
+/* 设置组件的文字、分组和表单样式统一归 ui/desktop.css。 */
 
 /* 道具管理固定为宽卡；禁止图标和按钮把中文说明压成单字列。 */
 body.modern-flat-v217 #settingsV26_items .item-ency-grid{

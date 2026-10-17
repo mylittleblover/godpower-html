@@ -23,7 +23,8 @@ const DesktopUI = (() => {
     archiveSearch = "",
     archiveSort = "new",
     lastWelcome = "",
-    animations = new Set();
+    animations = new Set(),
+    settingsAnimations = new Set();
   const paths = {
     home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
     battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",
@@ -59,6 +60,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    cancelSettingsMotion();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
@@ -89,6 +91,7 @@ const DesktopUI = (() => {
     return a;
   }
   function cancelAnimations() {
+    cancelSettingsMotion();
     for (const a of animations) a.cancel();
     animations.clear();
     document.querySelectorAll("#groupList .group-row-card").forEach((card) => {
@@ -173,7 +176,7 @@ const DesktopUI = (() => {
     cancelAnimations();
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
-    if (preferences.pageMotion) {
+    if (preferences.pageMotion && name !== "settings") {
       const host = $(`#view-${name}`);
       const shift =
         preferences.motion === "full"
@@ -192,7 +195,7 @@ const DesktopUI = (() => {
       );
     }
     if (name === "welcome") renderWelcome();
-    if (name === "settings") selectSettings(activeSettings);
+    if (name === "settings") selectSettings(activeSettings, true);
   }
   function renderWelcome() {
     if (!ready) return;
@@ -557,9 +560,24 @@ const DesktopUI = (() => {
     ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
     ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
     ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
-    ["sound", "sound", "音效与音乐", "原有音乐套数、音轨、循环与资源管理"],
-    ["items", "gift", "道具与图标", "实际道具定义与自定义图像"],
-    ["students", "users", "学生与小组管理", "原有名单导入与课堂数据管理"],
+    [
+      "sound",
+      "sound",
+      "音效与音乐",
+      "日常音量在上方，音乐、音效和迁移维护按需展开",
+    ],
+    [
+      "items",
+      "gift",
+      "道具与图标",
+      "规则说明与专属图像维护；导航按钮图标已归入外观分类",
+    ],
+    [
+      "students",
+      "users",
+      "学生与小组管理",
+      "查看并维护整班小组名单，重建前会再次确认",
+    ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
   ];
@@ -576,32 +594,22 @@ const DesktopUI = (() => {
         p,
       ]),
     );
-    for (const pane of document.querySelectorAll(".settings-v26-pane")) {
-      const originalId = pane.id.replace("settingsV26_", "");
-      if (originalId === "function") {
-        let dest = "appearance";
-        for (const el of [...pane.children]) {
-          const txt = el.textContent || "";
-          if (
-            el.querySelector("#settingsBatchMemberText") ||
-            /批量导入学生|学生名单/.test(txt)
-          )
-            dest = "students";
-          if (
-            el.querySelector("#cfgSaveAllIn") ||
-            /All In|顶部垫片|分栏|共产主义/.test(txt)
-          )
-            dest = "rules";
-          if (el.querySelector("#uiIconManagerV26")) dest = "items";
-          sections[dest].append(el);
-        }
-        pane.classList.add("active");
-        sections.rules.append(pane);
-      } else {
-        sections[originalId]?.append(pane);
-        pane.classList.add("active");
-      }
+    // Complete delayed legacy UI installers before moving their existing nodes.
+    installCommunismModeSetting();
+    installSfxVolumeSliderV2176();
+    installClearItemsSettingV2172();
+    const classified = [...sc.querySelectorAll("[data-settings-category]")];
+    for (const pane of sc.querySelectorAll(".settings-v26-pane")) {
+      const id = pane.id.replace("settingsV26_", "");
+      (sections[id === "function" ? "rules" : id] || sections.rules).append(
+        pane,
+      );
+      pane.classList.add("active");
     }
+    for (const el of classified)
+      sections[el.dataset.settingsCategory].append(el);
+    const buttonIcons = $("#uiIconManagerV26")?.parentElement;
+    if (buttonIcons) sections.appearance.append(buttonIcons);
     $("#settingsV26Tabs")?.remove();
     sc.append(shell);
     sc.classList.add("ui-settings-host");
@@ -610,7 +618,7 @@ const DesktopUI = (() => {
       .forEach((b) => (b.onclick = () => selectSettings(b.dataset.category)));
     sections.appearance.insertAdjacentHTML(
       "beforeend",
-      '<div class="ui-settings-row"><label for="uiZoom">比赛视图缩放（原有设置）</label><div><button class="btn btn-sm" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" onclick="zoomIn()">＋</button></div></div>',
+      '<div class="ui-settings-row" data-settings-group="layout"><span id="uiSettingsZoomLabel">比赛视图缩放</span><div role="group" aria-labelledby="uiSettingsZoomLabel"><button class="btn btn-sm" aria-label="缩小视图" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" aria-label="放大视图" onclick="zoomIn()">＋</button></div></div>',
     );
     function row(title, id, content) {
       return `<div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>`;
@@ -658,7 +666,7 @@ const DesktopUI = (() => {
     );
     sections.data.insertAdjacentHTML(
       "afterbegin",
-      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。操作前建议导出备份。</div>',
+      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。课堂备份不包含自定义音频；音频包请到“音效与音乐”中的迁移区单独导出。</div>',
     );
     const danger = [...sections.data.querySelectorAll("button")].filter((b) =>
       /resetAllScores|clear/.test(b.getAttribute("onclick") || ""),
@@ -723,7 +731,203 @@ const DesktopUI = (() => {
         $("#uiBankStatus").textContent = "恢复失败：" + e.message;
       }
     };
+    organizeSettings(sections, shell);
     selectSettings(activeSettings);
+  }
+  function organizeSettings(sections, shell) {
+    function group(
+      parent,
+      id,
+      title,
+      description,
+      nodes,
+      collapsed = false,
+      danger = false,
+    ) {
+      const box = document.createElement(collapsed ? "details" : "div");
+      box.id = id;
+      box.className = collapsed
+        ? "ui-settings-disclosure"
+        : "ui-settings-group";
+      if (danger) box.classList.add("ui-danger-zone");
+      box.innerHTML = collapsed
+        ? `<summary><b>${E(title)}</b><span>${E(description)}</span></summary><div class="ui-settings-detail-body"></div>`
+        : `<h4>${E(title)}</h4><p class="ui-muted">${E(description)}</p><div></div>`;
+      const body = box.lastElementChild;
+      nodes.filter(Boolean).forEach((node) => body.append(node));
+      parent.append(box);
+      return box;
+    }
+    const marked = (name) => [
+      ...shell.querySelectorAll(`[data-settings-group="${name}"]`),
+    ];
+    group(
+      sections.rules,
+      "uiSettingsRules",
+      "课堂行为",
+      "沿用原道具开关与 All In 保留规则，修改后即时保存。",
+      [$("#settingsV26_function"), ...marked("rules")],
+    );
+    group(
+      sections.appearance,
+      "uiSettingsWallpaper",
+      "界面壁纸",
+      "图片与浅色遮罩保存在本机。",
+      marked("wallpaper"),
+    );
+    // The standalone legacy heading duplicated the new group title.
+    $("#uiSettingsWallpaper .setting-section-title")?.remove();
+    group(
+      sections.appearance,
+      "uiSettingsLayout",
+      "比赛显示与空间",
+      "沿用原分栏、缩放与可拖拽高度垫片，不改变比赛页尺寸。",
+      marked("layout"),
+    );
+    const icons = $("#uiIconManagerV26")?.parentElement;
+    if (icons)
+      group(
+        sections.appearance,
+        "uiSettingsButtonIcons",
+        "按钮图标自定义",
+        "低频维护 · 导航与课堂工具图标",
+        [icons],
+        true,
+      );
+    group(
+      sections.students,
+      "uiSettingsRoster",
+      "小组与成员名单",
+      "按组名匹配已有小组；未列出的组不保留，重命名可能建立新组。请先备份后应用。",
+      marked("roster"),
+    );
+    const rosterTitle = $(
+      "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",
+    );
+    rosterTitle?.remove();
+    const sound = $("#settingsV26_sound");
+    group(
+      sound,
+      "uiSettingsVolume",
+      "日常音量",
+      "主音量控制全部声音，音效音量在主音量基础上单独调整。",
+      [...marked("volume"), $("#sfxVolumeRowV2176")],
+    );
+    group(
+      sound,
+      "uiSettingsMusic",
+      "音乐套与音轨",
+      "维护 8 套比赛配乐或菜单配乐 · 展开后选择音乐套",
+      marked("music"),
+      true,
+    );
+    group(
+      sound,
+      "uiSettingsBaseFx",
+      "基础操作与欢庆音效",
+      "试听、上传及还原各个基础音效",
+      marked("basefx"),
+      true,
+    );
+    const itemSounds = $("#itemFxSoundListV26")?.parentElement;
+    if (itemSounds)
+      group(
+        sound,
+        "uiSettingsItemFx",
+        "道具音效",
+        "4 个公共事件 + 26 种道具独立发动音效",
+        [itemSounds],
+        true,
+      );
+    // Keep transfer at the end and never promote it into the global header.
+    sound.append($("#uiAudioTransfer"));
+    const itemLibrary = $("#settingsV26_items");
+    group(
+      sections.items,
+      "uiSettingsItemLibrary",
+      "道具百科与自定义图片",
+      "26 种实际道具 · 图标包与单项图片维护",
+      [itemLibrary],
+      true,
+    );
+    const editor = $("#uiBankEditor");
+    const bankNodes = [
+      editor.previousElementSibling.previousElementSibling,
+      editor.previousElementSibling,
+      editor,
+      editor.nextElementSibling,
+      $("#uiBankStatus"),
+    ];
+    group(
+      sections.welcome,
+      "uiSettingsBank",
+      "本地题库维护",
+      "低频维护 · 编辑、导出或恢复内置示例",
+      bankNodes,
+      true,
+    );
+    const data = $("#settingsV26_data");
+    group(
+      data,
+      "uiSettingsBackup",
+      "课堂数据备份",
+      "换设备或执行危险操作前，先导出课堂 JSON 备份。",
+      marked("backup"),
+    );
+    group(
+      data,
+      "uiSettingsLock",
+      "管理口令",
+      "仅用于本机防误操作。",
+      marked("lock"),
+    );
+    group(
+      data,
+      "uiSettingsDanger",
+      "危险操作",
+      "积分清零与道具清空 · 操作前请备份",
+      [...marked("danger"), $("#clearAllItemsV2172")],
+      true,
+      true,
+    );
+    // Two UI-only destructive shortcuts lacked a confirmation. Preserve their commands.
+    shell.addEventListener(
+      "click",
+      async (event) => {
+        const button = event.target.closest("button");
+        const action = button?.getAttribute("onclick");
+        const confirm = {
+          "applySettingsBatchMembers()": [
+            "重建小组与名单",
+            "将按文本重建全部小组。未列出的组会移除，改名可能建立新组。请先导出课堂备份。确认应用？",
+            applySettingsBatchMembers,
+          ],
+          "resetAllItemIcons()": [
+            "恢复全部道具图片",
+            "将移除所有自定义道具图片并恢复默认图片。建议先导出图标包。确认恢复？",
+            resetAllItemIcons,
+          ],
+        }[action];
+        if (!confirm) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (button.disabled) return;
+        if (state.isLocked) {
+          openPwdModal();
+          return;
+        }
+        button.disabled = true;
+        try {
+          if (
+            await themeConfirm(confirm[1], { title: confirm[0], danger: true })
+          )
+            confirm[2]();
+        } finally {
+          button.disabled = false;
+        }
+      },
+      true,
+    );
   }
   function refreshSubjects() {
     const el = $("#uiPref-subject");
@@ -745,7 +949,55 @@ const DesktopUI = (() => {
       preferences.subject = "politics";
     el.value = preferences.subject;
   }
-  function selectSettings(id) {
+  function cancelSettingsMotion() {
+    for (const animation of settingsAnimations) {
+      animation.cancel();
+      animations.delete(animation);
+    }
+    settingsAnimations.clear();
+  }
+  function revealSettings(entering) {
+    cancelSettingsMotion();
+    if (currentView !== "settings" || !preferences.pageMotion || !canAnimate())
+      return;
+    const panel = $(`[data-category-panel="${activeSettings}"]`);
+    if (!panel) return;
+    const content = [...panel.children]
+      .flatMap((node) =>
+        node.matches(".settings-v26-pane") ? [...node.children] : [node],
+      )
+      .filter((node) => !node.hidden);
+    const targets = entering
+      ? [$(".ui-settings-header"), $(".ui-settings-nav"), ...content]
+      : content;
+    const simple = preferences.motion === "simple";
+    targets.forEach((node, i) => {
+      const animation = animate(
+        node,
+        [
+          {
+            opacity: simple ? 0.6 : 0,
+            translate: simple ? "0 -4px" : "0 -12px",
+          },
+          { opacity: 1, translate: "0 0" },
+        ],
+        {
+          duration: (simple ? 140 : 260) / preferences.speed,
+          delay:
+            Math.min(i * (simple ? 15 : 50), simple ? 60 : 280) /
+            preferences.speed,
+          fill: "backwards",
+        },
+      );
+      if (!animation) return;
+      settingsAnimations.add(animation);
+      animation.finished.then(
+        () => settingsAnimations.delete(animation),
+        () => settingsAnimations.delete(animation),
+      );
+    });
+  }
+  function selectSettings(id, entering = false) {
     if (!$("#uiSettingsShell")) return;
     const aliases = { function: "rules" };
     activeSettings = aliases[id] || id;
@@ -763,6 +1015,14 @@ const DesktopUI = (() => {
         ),
       );
     $(".ui-settings-body").scrollTop = 0;
+    // Category entry owns refresh; compatibility navigation delegates here once.
+    if (activeSettings === "sound") {
+      renderBgmSlotList();
+      renderFxSlotList();
+      renderItemFxSoundListV26();
+    }
+    if (activeSettings === "items") renderItemEncyclopedia();
+    revealSettings(entering);
   }
   function setupDock() {
     const right = $(".dock-right");
@@ -1190,6 +1450,19 @@ const DesktopUI = (() => {
     applyPreferences();
     syncViewport();
     window.addEventListener("resize", syncViewport);
+    matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+      "change",
+      () => {
+        if (!canAnimate()) cancelSettingsMotion();
+      },
+    );
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelSettingsMotion();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && currentView === "settings")
+        cancelSettingsMotion();
+    });
     ready = true;
     document.querySelectorAll(".nav-tab").forEach((b, i) => {
       const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
@@ -1328,6 +1601,7 @@ const DesktopUI = (() => {
       return saved;
     },
     getAnimationCount: () => animations.size,
+    getSettingsMotionCount: () => settingsAnimations.size,
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
