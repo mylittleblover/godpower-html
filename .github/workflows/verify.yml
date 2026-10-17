@@ -1,12 +1,6 @@
-name: HTML verification
+name: Manual HTML verification
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - refactor/v219-defense-lifecycle
-  pull_request:
-    branches:
-      - feat/desktop-ui-system
 jobs:
   verify:
     runs-on: ubuntu-latest
