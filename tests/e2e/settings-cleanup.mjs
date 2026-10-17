@@ -651,7 +651,7 @@ try {
       assert.equal(await p.evaluate(() => state.adminPin), "test-pin-2026");
       const [download] = await Promise.all([
         p.waitForEvent("download"),
-        p.locator('button[onclick="exportData()"]').click(),
+        p.locator('#uiSettingsBackup button[onclick="exportData()"]').click(),
       ]);
       await download.saveAs(`${root}/classroom.json`);
       const backup = JSON.parse(await readFile(`${root}/classroom.json`));
@@ -737,7 +737,7 @@ try {
       await row
         .locator('button[onclick^="deleteFxTrack"]')
         .waitFor({ state: "visible", timeout: 4000 });
-      assert.match(await row.textContent(), /自定义/);
+      assert.equal((await row.locator(".sound-tag").textContent()).trim(), "已载入独立音频");
       return {
         wavBytes: wav.length,
         exportFiles: ["audio-all.bin", "audio-fx.bin"],
