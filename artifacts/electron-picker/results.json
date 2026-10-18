@@ -14,5 +14,9 @@
   {
     "scenario": "anti-repeat, two-tier subset, duplicate start, async cancellation",
     "status": "PASS"
+  },
+  {
+    "scenario": "replacement rejects stale target; import/undo cancel transient picker",
+    "status": "PASS"
   }
 ]
