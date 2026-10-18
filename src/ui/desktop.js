@@ -60,6 +60,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    settleDisclosures();
     cancelSettingsMotion();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
@@ -90,7 +91,11 @@ const DesktopUI = (() => {
     a.finished.catch(() => {}).finally(() => animations.delete(a));
     return a;
   }
+  let pageMotionFrame = null;
   function cancelAnimations() {
+    if (pageMotionFrame !== null) cancelAnimationFrame(pageMotionFrame);
+    pageMotionFrame = null;
+    settleDisclosures();
     cancelSettingsMotion();
     for (const a of animations) a.cancel();
     animations.clear();
@@ -177,22 +182,40 @@ const DesktopUI = (() => {
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
     if (preferences.pageMotion && name !== "settings") {
-      const host = $(`#view-${name}`);
-      const shift =
-        preferences.motion === "full"
-          ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ||
-            "0 0"
-          : "0 0";
-      animate(
-        host,
-        [
-          { opacity: 0.5, translate: shift },
-          { opacity: 1, translate: "0 0" },
-        ],
-        {
-          duration: 160 / preferences.speed,
-        },
-      );
+      pageMotionFrame = requestAnimationFrame(() => {
+        pageMotionFrame = null;
+        if (currentView !== name || !preferences.pageMotion) return;
+        const selectors = {
+          welcome:
+            ".gp-hero,.gp-kpis,.gp-main-grid,.gp-group-section,.gp-daily-grid",
+          battle:
+            "#heightResizerDock,#groupList .group-row-card,#quickBatchBar",
+          history: ".ui-collection-header",
+          archives:
+            ".ui-collection-header,#archiveClassStats,.ui-archive-filter",
+        };
+        const host = $(`#view-${name}`);
+        const targets = [
+          ...host.querySelectorAll(selectors[name] || ":scope"),
+        ].slice(0, 18);
+        targets.forEach((el, i) =>
+          animate(
+            el,
+            [
+              {
+                opacity: 0,
+                translate: preferences.motion === "full" ? "0 -10px" : "0 -3px",
+              },
+              { opacity: 1, translate: "0 0" },
+            ],
+            {
+              delay: Math.min(i * 35, 210) / preferences.speed,
+              duration: 260 / preferences.speed,
+              fill: "backwards",
+            },
+          ),
+        );
+      });
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);
@@ -421,7 +444,7 @@ const DesktopUI = (() => {
               JSON.stringify(d.effectsBefore) !==
                 JSON.stringify(d.effectsAfter),
           );
-        return `<article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
+        return `<article class="ui-panel ui-history" data-kind="${kind}" style="--record-index:'${String(i + 1).padStart(2, "0")}'"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
       })
       .reverse()
       .join("");
@@ -431,10 +454,14 @@ const DesktopUI = (() => {
         animate(
           el,
           [
-            { opacity: 0, translate: "0 5px" },
+            { opacity: 0, translate: "0 -8px" },
             { opacity: 1, translate: "0 0" },
           ],
-          { delay: i * 20, duration: 160 },
+          {
+            delay: 60 + i * 35,
+            duration: 220 / preferences.speed,
+            fill: "backwards",
+          },
         ),
       );
     }
@@ -507,7 +534,7 @@ const DesktopUI = (() => {
       ? list
           .map(({ r, index }) => {
             const groups = Array.isArray(r.groups) ? r.groups : [];
-            return `<article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
+            return `<article class="ui-panel ui-archive-card"><details><summary class="ui-archive-summary"><span class="ui-archive-emblem" aria-hidden="true">${icon("archive")}</span><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
               .slice(0, 3)
               .map(
                 (g, i) =>
@@ -524,6 +551,27 @@ const DesktopUI = (() => {
             ? "试试其他比赛或小组名称。"
             : "正式结算成功后，这里会保存比赛排名、成员及归档数据。",
         );
+    if (archiveEntryPending) {
+      archiveEntryPending = false;
+      if (preferences.pageMotion) {
+        host
+          .querySelectorAll(".ui-archive-card:nth-child(-n+8),.ui-empty")
+          .forEach((el, i) =>
+            animate(
+              el,
+              [
+                { opacity: 0, translate: "0 -8px" },
+                { opacity: 1, translate: "0 0" },
+              ],
+              {
+                delay: 60 + i * 35,
+                duration: 220 / preferences.speed,
+                fill: "backwards",
+              },
+            ),
+          );
+      }
+    }
     host
       .querySelectorAll("[data-csv]")
       .forEach(
@@ -1105,6 +1153,61 @@ const DesktopUI = (() => {
       : original;
     button.setAttribute("aria-label", label);
   }
+  const disclosureMotions = new Map();
+  function settleDisclosure(details) {
+    const entry = disclosureMotions.get(details);
+    if (!entry) return;
+    disclosureMotions.delete(details);
+    entry.animation?.cancel();
+    details.style.overflow = entry.overflow;
+    details.open = entry.open;
+  }
+  function settleDisclosures() {
+    for (const details of disclosureMotions.keys()) settleDisclosure(details);
+  }
+  function setupDisclosures() {
+    document.addEventListener("click", (event) => {
+      const summary = event.target.closest("summary");
+      const details = summary?.parentElement;
+      if (
+        !details ||
+        details.tagName !== "DETAILS" ||
+        details.classList.contains("ui-dock-menu")
+      )
+        return;
+      if (event.target.closest("a,button,input,select,textarea")) return;
+      if (!canAnimate()) return;
+      event.preventDefault();
+      const nextOpen = !(disclosureMotions.get(details)?.open ?? details.open);
+      const from = details.getBoundingClientRect().height;
+      settleDisclosure(details);
+      const overflow = details.style.overflow;
+      details.open = false;
+      const collapsed = details.getBoundingClientRect().height;
+      details.open = true;
+      const expanded = details.getBoundingClientRect().height;
+      details.style.overflow = "clip";
+      const entry = { open: nextOpen, overflow, animation: null };
+      disclosureMotions.set(details, entry);
+      entry.animation = animate(
+        details,
+        [
+          { height: from + "px" },
+          { height: (nextOpen ? expanded : collapsed) + "px" },
+        ],
+        {
+          duration:
+            (preferences.motion === "simple" ? 140 : 280) / preferences.speed,
+          easing: "cubic-bezier(.16,1,.3,1)",
+        },
+      );
+      const finish = () => {
+        if (disclosureMotions.get(details) === entry) settleDisclosure(details);
+      };
+      if (entry.animation) entry.animation.finished.then(finish, finish);
+      else finish();
+    });
+  }
   const modalClosers = {
     welcomeModal: () => closeWelcomeModal(),
     scoreModalBackdrop: () => closeScoreModal(),
@@ -1152,6 +1255,29 @@ const DesktopUI = (() => {
           el.classList.contains("active") ||
           el.classList.contains("show") ||
           el.style.display === "flex";
+        if (visible) {
+          const surface =
+            el.querySelector(".ui-function-surface") || el.firstElementChild;
+          if (surface) {
+            for (const old of surface.querySelectorAll(
+              'button[onclick*="close"]',
+            )) {
+              if (!/取消|跳过|返回课堂/.test(old.textContent))
+                old.hidden = true;
+            }
+            if (!surface.querySelector(":scope > [data-ui-window-close]")) {
+              const button = document.createElement("button");
+              button.type = "button";
+              button.className = "item-close ui-window-close";
+              button.dataset.uiWindowClose = "true";
+              button.setAttribute("aria-label", "关闭窗口");
+              button.title = "关闭窗口（Esc）";
+              button.textContent = "×";
+              button.onclick = close;
+              surface.append(button);
+            }
+          }
+        }
         if (visible && !known.get(id)) {
           const focus = document.activeElement;
           known.set(id, true);
@@ -1172,7 +1298,37 @@ const DesktopUI = (() => {
               dialog.querySelector("h3,h2,[class*=title]")?.textContent ||
                 "课堂操作窗口",
             );
+          dialog?.classList.add("ui-function-surface");
           el.dataset.uiModalOpen = "true";
+          if (dialog && id !== "grandModalOverlay" && preferences.pageMotion) {
+            const zoom = Number(getComputedStyle(document.body).zoom) || 1;
+            const travel = Math.min(
+              preferences.motion === "full" ? 42 : 8,
+              Math.max(
+                0,
+                (innerHeight - dialog.getBoundingClientRect().bottom) / zoom -
+                  4,
+              ),
+            );
+            animate(
+              dialog,
+              [
+                {
+                  opacity: 0,
+                  translate: `0 ${travel}px`,
+                  scale: preferences.motion === "full" ? ".97" : "1",
+                },
+                { opacity: 1, translate: "0 0", scale: "1" },
+              ],
+              {
+                duration:
+                  (preferences.motion === "full" ? 420 : 160) /
+                  preferences.speed,
+                easing: "cubic-bezier(.16,1,.3,1)",
+                fill: "backwards",
+              },
+            );
+          }
           if (id === "grandModalOverlay") {
             if (!canAnimate()) stopConfetti();
             el.querySelectorAll(".podium-col").forEach((col, i) =>
@@ -1215,6 +1371,7 @@ const DesktopUI = (() => {
     }
     new MutationObserver(scan).observe(document.body, {
       subtree: true,
+      childList: true,
       attributes: true,
       attributeFilter: ["class", "style"],
     });
@@ -1265,10 +1422,18 @@ const DesktopUI = (() => {
     scan();
   }
   let pickerGeneration = 0,
-    pickerPreparing = false;
+    pickerPreparing = false,
+    pickerRevealing = false;
+  const pickerReelRestores = [];
+  function clearPickerReveal() {
+    pickerRevealing = false;
+    $("#pickerModal")?.removeAttribute("data-picker-reveal");
+    for (const restore of pickerReelRestores.splice(0)) restore();
+  }
   function cancelPickerPreparation() {
     pickerGeneration++;
     pickerPreparing = false;
+    clearPickerReveal();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;
@@ -1286,7 +1451,7 @@ const DesktopUI = (() => {
     );
   }
   async function togglePicker() {
-    if (pickerPreparing) return false;
+    if (pickerPreparing || pickerRevealing) return false;
     if (slotEngine.isSpinning) {
       stopSlotSpin();
       return true;
@@ -1314,43 +1479,93 @@ const DesktopUI = (() => {
   }
   function pickerStopped() {
     const win = slotEngine.chosenResult,
-      generation = pickerGeneration,
-      modal = $("#pickerModal"),
-      badge = $("#slotSubBadge");
+      generation = pickerGeneration;
+    const modal = $("#pickerModal"),
+      badge = $("#slotSubBadge"),
+      button = $("#btnSlotTrigger");
     if (!win || !modal.classList.contains("active")) return;
+    clearPickerReveal();
     const label = badge.textContent;
-    const frames = [
-      { translate: "0 -12px", opacity: 0.65 },
-      { translate: "0 3px", opacity: 0.9, offset: 0.75 },
-      { translate: "0 0", opacity: 1 },
-    ];
-    let last;
-    modal.querySelectorAll(".slot-reel-text").forEach((el) => {
-      last = animate(el, frames, {
-        duration: preferences.motion === "simple" ? 160 : 380,
-        easing: "cubic-bezier(.15,.8,.25,1)",
-      });
-    });
     const complete = () => {
       if (
-        isPickerCurrent(generation) &&
-        slotEngine.chosenResult === win &&
-        !slotEngine.isSpinning
+        !isPickerCurrent(generation) ||
+        slotEngine.chosenResult !== win ||
+        slotEngine.isSpinning
       )
-        badge.textContent = label + " · 抽取完成";
+        return;
+      clearPickerReveal();
+      button.disabled = false;
+      button.textContent = "开始抽签";
+      button.removeAttribute("aria-busy");
+      badge.textContent = label + " · 抽取完成";
+      pickerChanged();
     };
-    if (last)
-      last.finished.then(complete, () => {
-        /* Presentation cancelled; business result is retained. */
+    if (!canAnimate()) {
+      complete();
+      return;
+    }
+    pickerRevealing = true;
+    modal.dataset.pickerReveal = "pending";
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "减速中…";
+    badge.textContent = "正在减速，结果即将揭晓…";
+    pickerChanged();
+    const pending = [];
+    modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
+      if (!frame.getClientRects().length) return;
+      const actual = frame.querySelector(".slot-reel-text"),
+        finalLabel = actual.textContent;
+      const candidates =
+        frame.id === "reelFrameGroup"
+          ? state.groups.map((g) => g.name)
+          : state.groups.flatMap((g) =>
+              (g.members || []).map((m) => String(m)),
+            );
+      const height = frame.clientHeight;
+      const strip = document.createElement("div");
+      strip.className = "ui-slot-deceleration";
+      strip.setAttribute("aria-hidden", "true");
+      // Display-only cycle: never consume or replace the business RNG.
+      for (let i = 0; i < 10; i++) {
+        const row = document.createElement("span");
+        row.textContent =
+          i === 9
+            ? finalLabel
+            : candidates[i % Math.max(1, candidates.length)] || finalLabel;
+        row.style.height = height + "px";
+        strip.append(row);
+      }
+      const visibility = actual.style.visibility;
+      actual.style.visibility = "hidden";
+      frame.append(strip);
+      pickerReelRestores.push(() => {
+        strip.remove();
+        actual.style.visibility = visibility;
       });
-    else complete();
+      const a = animate(
+        strip,
+        [
+          { transform: "translateY(0)" },
+          { transform: `translateY(-${height * 9}px)` },
+        ],
+        {
+          duration: 1000,
+          easing: "cubic-bezier(.12,.78,.15,1)",
+          fill: "forwards",
+        },
+      );
+      if (a) pending.push(a.finished.catch(() => {}));
+    });
+    Promise.all(pending).then(complete);
   }
   function pickerChanged() {
     const target = pickerTargetGroup();
     const valid =
       !!target &&
       state.groups.some((g) => g.id === target.id) &&
-      !slotEngine.isSpinning;
+      !slotEngine.isSpinning &&
+      !pickerRevealing;
     document
       .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')
       .forEach((b) => (b.disabled = !valid));
@@ -1453,11 +1668,11 @@ const DesktopUI = (() => {
     matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
       "change",
       () => {
-        if (!canAnimate()) cancelSettingsMotion();
+        if (!canAnimate()) cancelAnimations();
       },
     );
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) cancelSettingsMotion();
+      if (document.hidden) cancelAnimations();
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && currentView === "settings")
@@ -1480,6 +1695,7 @@ const DesktopUI = (() => {
     setupSettings();
     setupPicker();
     setupModals();
+    setupDisclosures();
     $("#settlementHistoryContainer").addEventListener(
       "toggle",
       (event) => {
@@ -1602,6 +1818,8 @@ const DesktopUI = (() => {
     },
     getAnimationCount: () => animations.size,
     getSettingsMotionCount: () => settingsAnimations.size,
+    getDisclosureMotionCount: () => disclosureMotions.size,
+    isPickerRevealing: () => pickerRevealing,
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });

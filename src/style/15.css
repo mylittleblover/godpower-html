@@ -116,7 +116,7 @@ body.modern-flat-v217 .v2170-ency-head{
   margin:0 0 16px!important;
 }
 body.modern-flat-v217 .v214-about-head h2,
-body.modern-flat-v217 .v2170-ency-head h2{margin:0!important;color:var(--ui-text)!important;line-height:1.25!important}
+body.modern-flat-v217 .v2170-ency-head h2{margin:0!important;color:var(--window-head-text,var(--ui-text))!important;line-height:1.25!important}
 body.modern-flat-v217 .about-main .guide-block{
   margin:0 0 10px!important;
   padding:13px 14px!important;
@@ -150,7 +150,8 @@ body.modern-flat-v217 .item-main-head{
   flex:0 0 auto!important;
   margin:0!important;
   padding:18px 20px 14px!important;
-  background:#fff!important;
+  background:var(--window-head-bg,#fff)!important;
+  color:var(--window-head-text,var(--ui-text));
   border-bottom:1px solid var(--ui-border)!important;
   z-index:2;
 }

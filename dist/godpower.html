@@ -2536,14 +2536,14 @@ body.modern-flat-v217 #groupList{min-width:0;max-width:100%;overflow-x:hidden;ov
 body.modern-flat-v217 .app-topnav{
   position:sticky!important;top:0!important;z-index:800!important;display:grid!important;
   grid-template-columns:minmax(190px,1fr) auto minmax(100px,1fr);align-items:center!important;
-  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
-  border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:none!important;
+  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--chrome-bg,var(--ui-panel))!important;background-image:none!important;
+  border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:var(--chrome-shadow,none)!important;
 }
 body.modern-flat-v217 .app-topnav .header-title{justify-self:start!important;color:var(--ui-text)!important}
 body.modern-flat-v217 .app-topnav .header-title small,body.modern-flat-v217 .app-topnav .header-stats{color:var(--ui-muted)!important}
 body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important}
 body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right;display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-body.modern-flat-v217 .bottom-dock{background:var(--ui-panel)!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:0 -2px 8px rgba(23,48,45,.06)!important}
+body.modern-flat-v217 .bottom-dock{background:var(--chrome-bg,var(--ui-panel))!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:var(--chrome-shadow,0 -2px 8px rgba(23,48,45,.06))!important}
 @media(min-width:701px){
   body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:clip;overflow-y:visible;height:67px;box-sizing:border-box}
   body.modern-flat-v217 .dock-left{gap:6px!important;min-width:0!important;flex-shrink:1!important}
@@ -2570,7 +2570,7 @@ body.modern-flat-v217 .item-draw-board{
   width:min(920px,calc(100vw - 48px))!important;height:auto!important;max-height:82dvh!important;overflow:hidden!important;
 }
 body.modern-flat-v217 .item-window{display:grid!important;grid-template-columns:180px minmax(0,1fr)!important}
-body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain}
+body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(var(--ui-viewport-height,100dvh) - 64px);overflow:hidden;overscroll-behavior:contain}
 body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
 body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
@@ -2598,9 +2598,9 @@ body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card{
   border-radius:10px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important;
 }
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):not(.card-defend-fx):not(.card-heal-fx){
-  background:var(--ui-panel)!important;background-image:none!important;border-top:1px solid var(--ui-border)!important;
+  background:var(--battle-card-bg,var(--ui-panel))!important;background-image:none!important;border-top:1px solid var(--ui-border)!important;
   border-right:1px solid var(--ui-border)!important;border-bottom:1px solid var(--ui-border)!important;
-  border-left:4px solid var(--group-color,#78958F)!important;border-radius:10px!important;box-shadow:var(--ui-shadow)!important;
+  border-left:4px solid var(--group-color,#78958F)!important;border-radius:var(--battle-card-radius,10px)!important;box-shadow:var(--battle-card-shadow,var(--ui-shadow))!important;
 }
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover{box-shadow:0 3px 10px rgba(23,48,45,.11)!important;transform:none}
 body.modern-flat-v217 .modal-box,body.modern-flat-v217 .score-modal-card,
@@ -2610,13 +2610,13 @@ body.modern-flat-v217 .picker-modal,body.modern-flat-v217 .about-window,
 body.modern-flat-v217 .classroom-window,body.modern-flat-v217 .hand-window,
 body.modern-flat-v217 .item-draw-board,body.modern-flat-v217 .welcome-modal-card{
   background:var(--ui-panel)!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;
-  outline:0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(23,48,45,.14)!important;
+  outline:0!important;border-radius:var(--window-radius,12px)!important;box-shadow:var(--window-shadow,0 8px 24px rgba(23,48,45,.14))!important;
 }
 body.modern-flat-v217 .modal-overlay,body.modern-flat-v217 .score-modal-backdrop,
 body.modern-flat-v217 .member-search-backdrop,body.modern-flat-v217 .welcome-modal,
 body.modern-flat-v217 .item-modal-backdrop,body.modern-flat-v217 .item-draw-overlay,
 body.modern-flat-v217 .classroom-backdrop,body.modern-flat-v217 .about-backdrop{
-  background:rgba(23,48,45,.42)!important;
+  background:var(--window-overlay,rgba(23,48,45,.42))!important;
 }
 body.modern-flat-v217 .item-side,body.modern-flat-v217 .about-side,
 body.modern-flat-v217 .picker-left-v2,body.modern-flat-v217 .picker-center-v2,
@@ -2625,7 +2625,7 @@ body.modern-flat-v217 .about-head,body.modern-flat-v217 .settings-v2-tabs,
 body.modern-flat-v217 .settings-v26-tabs,body.modern-flat-v217 .item-sidebar,
 body.modern-flat-v217 .item-tabs,body.modern-flat-v217 .about-tabs,
 body.modern-flat-v217 .window-titlebar{
-  background:var(--ui-soft-2)!important;background-image:none!important;border-color:var(--ui-border)!important;box-shadow:none!important;
+  background:var(--window-side-bg,var(--ui-soft-2))!important;background-image:none!important;border-color:var(--ui-border)!important;box-shadow:none!important;
 }
 
 /* 按钮和交互状态 */
@@ -2635,8 +2635,8 @@ body.modern-flat-v217 .allin-toggle-btn,body.modern-flat-v217 .item-tab,
 body.modern-flat-v217 .picker-vtab,body.modern-flat-v217 .picker-info-tabs button,
 body.modern-flat-v217 .settings-v2-tabs button,body.modern-flat-v217 .settings-v26-tabs button,
 body.modern-flat-v217 .item-global-btn,body.modern-flat-v217 .hand-group{
-  background:var(--ui-soft-2)!important;background-image:none!important;color:var(--ui-text)!important;
-  border:1px solid var(--ui-border-strong)!important;border-radius:8px!important;
+  background:var(--control-bg,var(--ui-soft-2))!important;background-image:none!important;color:var(--control-text,var(--ui-text))!important;
+  border:1px solid var(--control-border,var(--ui-border-strong))!important;border-radius:var(--control-radius,8px)!important;
   box-shadow:none!important;text-shadow:none!important;filter:none!important;
 }
 body.modern-flat-v217 .btn:not(.btn-primary):not(.btn-success):not(.btn-warning):not(.btn-danger):not(:disabled):hover,
@@ -2648,7 +2648,7 @@ body.modern-flat-v217 .nav-tab.active,body.modern-flat-v217 .btn-primary,
 body.modern-flat-v217 .item-tab.active,body.modern-flat-v217 .picker-vtab.active,
 body.modern-flat-v217 .picker-info-tabs button.active,body.modern-flat-v217 .settings-v2-tabs button.active,
 body.modern-flat-v217 .settings-v26-tabs button.active,body.modern-flat-v217 .ans-btn.selected{
-  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-primary)!important;box-shadow:none!important;
+  background:var(--control-active-bg,var(--ui-primary))!important;background-image:none!important;color:var(--control-active-text,#fff)!important;border-color:var(--control-active-border,var(--ui-primary))!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .ans-btn{width:40px!important;height:40px!important;border-radius:8px!important}
 body.modern-flat-v217 .btn-success{background:var(--ui-success)!important;color:#fff!important;border-color:var(--ui-success)!important}
@@ -2665,7 +2665,7 @@ body.modern-flat-v217 .locked-disabled,body.modern-flat-v217 .round-disabled{
 
 /* 主操作：青绿；结算与重要提醒：珊瑚 */
 body.modern-flat-v217 #btnMainAction,body.modern-flat-v217 .welcome-enter-btn{
-  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border:1px solid var(--ui-primary)!important;border-radius:8px!important;box-shadow:none!important;text-shadow:none!important;
+  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border:1px solid var(--ui-primary)!important;border-radius:var(--control-radius,8px)!important;box-shadow:none!important;text-shadow:none!important;
 }
 body.modern-flat-v217 #btnMainAction:hover,body.modern-flat-v217 .welcome-enter-btn:hover{background:var(--ui-primary-hover)!important;transform:none!important}
 body.modern-flat-v217 #btnNextRound:not(.locked-disabled){background:var(--ui-success)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-success)!important}
@@ -2709,8 +2709,8 @@ body.modern-flat-v217 .chart-bar{background-image:none!important;box-shadow:none
 body.modern-flat-v217 .welcome-clock{color:var(--ui-primary)!important;text-shadow:none!important}
 
 /* 程序确认弹窗：替换最后一处 Vista 标题栏与警告球 */
-body.modern-flat-v217 .program-confirm-overlay{background:rgba(23,48,45,.42)!important;animation:pcFadeIn .16s ease-out both}
-body.modern-flat-v217 .program-confirm-window{background:#fff!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;outline:0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(23,48,45,.14)!important}
+body.modern-flat-v217 .program-confirm-overlay{background:var(--window-overlay,rgba(23,48,45,.42))!important;animation:pcFadeIn .16s ease-out both}
+body.modern-flat-v217 .program-confirm-window{background:#fff!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;outline:0!important;border-radius:var(--window-radius,12px)!important;box-shadow:var(--window-shadow,0 8px 24px rgba(23,48,45,.14))!important}
 body.modern-flat-v217 .program-confirm-titlebar{background:var(--ui-soft)!important;background-image:none!important;color:var(--ui-text)!important;border-bottom:1px solid var(--ui-border)!important;text-shadow:none!important}
 body.modern-flat-v217 .program-confirm-icon{background:#FFEDD5!important;background-image:none!important;color:#C2410C!important;border:1px solid #FDBA74!important;border-radius:10px!important;box-shadow:none!important}
 body.modern-flat-v217 .program-confirm-text{color:var(--ui-text)!important}
@@ -3825,7 +3825,7 @@ body.modern-flat-v217 .v2170-ency-head{
   margin:0 0 16px!important;
 }
 body.modern-flat-v217 .v214-about-head h2,
-body.modern-flat-v217 .v2170-ency-head h2{margin:0!important;color:var(--ui-text)!important;line-height:1.25!important}
+body.modern-flat-v217 .v2170-ency-head h2{margin:0!important;color:var(--window-head-text,var(--ui-text))!important;line-height:1.25!important}
 body.modern-flat-v217 .about-main .guide-block{
   margin:0 0 10px!important;
   padding:13px 14px!important;
@@ -3859,7 +3859,8 @@ body.modern-flat-v217 .item-main-head{
   flex:0 0 auto!important;
   margin:0!important;
   padding:18px 20px 14px!important;
-  background:#fff!important;
+  background:var(--window-head-bg,#fff)!important;
+  color:var(--window-head-text,var(--ui-text));
   border-bottom:1px solid var(--ui-border)!important;
   z-index:2;
 }
@@ -5443,15 +5444,23 @@ summary:focus-visible {
   grid-template-columns: 1fr;
 }
 </style>
-<style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
-.header-banner.app-topnav {
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom: 1px solid #e4eeeb;
-  box-shadow: 0 2px 14px #0b49470b;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+<style id="application-surfaces">/* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
+:root {
+  --surface-ink: #183e39;
+  --surface-muted: #6b827b;
+  --surface-line: #dfeae5;
+  --surface-soft: #f2f8f5;
+  --surface-hero: linear-gradient(112deg, #084c4c, #0d6862 58%, #087b6c);
+  --window-radius: 20px;
+  --window-shadow: 0 24px 80px #063b3426, 0 4px 16px #063b3412;
+  --window-overlay: #153e3759;
+  --window-side-bg: #f1f8f5;
 }
-.header-banner.app-topnav .header-title {
+.header-banner.app-topnav {
+  --chrome-bg: #fff;
+  --chrome-shadow: 0 3px 18px #114c3f08;
+}
+.app-topnav .header-title {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -5459,6 +5468,629 @@ summary:focus-visible {
   font-weight: 850;
   letter-spacing: 0.1px;
 }
+.app-topnav .nav-tab {
+  --control-bg: transparent;
+  --control-border: transparent;
+  --control-radius: 11px;
+  --control-active-bg: #e4f4ec;
+  --control-active-text: #086b5a;
+  --control-active-border: #c9e7d8;
+  position: relative;
+  transition:
+    background var(--motion-fast),
+    color var(--motion-fast);
+  white-space: nowrap;
+}
+.app-topnav .nav-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  width: 14px;
+  height: 2px;
+  background: #13816d;
+  border-radius: 4px;
+}
+.app-topnav .header-stats {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+.bottom-dock {
+  --chrome-bg: #fff;
+  --chrome-shadow: 0 -6px 26px #164d3e0c;
+  --control-bg: #f5f9f6;
+  --control-border: #dce8e1;
+  --control-radius: 11px;
+}
+.ui-dock-answers {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid #d9e7df;
+  border-radius: 12px;
+  background: #f2f8f4;
+  flex-shrink: 0;
+}
+.bottom-dock .status-badge {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.bottom-dock .dock-right {
+  border-left: 1px solid #deebe3;
+  padding-left: 10px;
+}
+.bottom-dock .ui-dock-menu summary {
+  background: #f2f7f4;
+  border-color: #dce8e0;
+  border-radius: 10px;
+  color: #3e675b;
+}
+.ui-dock-menu-body {
+  border-color: var(--surface-line);
+  border-radius: 16px;
+  box-shadow: var(--window-shadow);
+}
+/* Card paint only: no dimensions, padding, line-height, transforms, or font-size. */
+#groupList {
+  --battle-card-bg: #fff;
+  --battle-card-radius: 14px;
+  --battle-card-shadow: 0 4px 16px #174b3a08;
+  --control-bg: #f4f8f5;
+  --control-border: #d6e5db;
+  --control-radius: 9px;
+}
+#groupList .name-input {
+  color: var(--surface-ink);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+#groupList .row-score {
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+#groupList .member-count-tag {
+  color: #527165;
+  background: #f0f6f2;
+  border-color: #dce7df;
+}
+#groupList .item-slot {
+  border-radius: 9px;
+}
+#groupList .more-btn {
+  color: #3d7261;
+}
+#groupList .opt-btn.active:not(.correct):not(.wrong) {
+  outline: 2px solid #a3d3bf;
+  outline-offset: 1px;
+}
+#groupList .allin-toggle-btn.active {
+  outline: 2px solid #ffcfb5;
+  outline-offset: 1px;
+}
+/* The same palette, with content-specific structures retained for each window. */
+.ui-function-surface,
+.item-draw-board,
+.program-confirm-window {
+  --window-head-bg: var(--surface-hero);
+  --window-head-text: #fff;
+  --control-bg: #f3f8f4;
+  --control-border: #d9e7de;
+  --control-radius: 10px;
+  color: var(--surface-ink);
+}
+.ui-function-surface
+  :is(
+    input:not([type="checkbox"]):not([type="range"]):not([type="color"]),
+    textarea,
+    select
+  ) {
+  border-color: #cddfd4;
+  border-radius: 10px;
+  accent-color: #13816c;
+}
+.ui-function-surface
+  :is(
+    h2,
+    h3,
+    .score-modal-title,
+    .member-search-title,
+    .theme-dialog-title-v21727
+  ) {
+  letter-spacing: -0.02em;
+}
+.ui-function-surface > :is(h3, .score-modal-title, .member-search-title) {
+  padding-top: 10px;
+  border-top: 3px solid #13816b;
+}
+.ui-function-surface
+  :is(.item-main-head, .classroom-head, .quick-person-head-v218) {
+  background: var(--surface-hero);
+  color: #fff;
+}
+.ui-function-surface :is(.classroom-head, .quick-person-head-v218) .btn {
+  --control-bg: #fff;
+  --control-text: #185547;
+}
+.ui-function-surface :is(.item-side-title, .about-side-title) {
+  color: #145c4c;
+  letter-spacing: 0.04em;
+}
+.ui-function-surface :is(.item-tab, .about-side button) {
+  transition:
+    background var(--motion-fast),
+    color var(--motion-fast);
+}
+.ui-function-surface .picker-left-v2 {
+  border-right: 1px solid var(--surface-line);
+}
+.ui-function-surface .picker-right-v2 {
+  border-left: 1px solid var(--surface-line);
+}
+.ui-function-surface .picker-center-v2 {
+  --window-side-bg: #fff;
+}
+.ui-function-surface .slot-reel-frame {
+  border-color: #c9e3d5;
+  background: #f2f9f4;
+  border-radius: 18px;
+}
+.ui-function-surface .queue-item-card {
+  border-radius: 14px;
+}
+.ui-function-surface .queue-role-badge {
+  letter-spacing: 0.03em;
+}
+.ui-function-surface .theme-dialog-icon-v21727 {
+  background: #e2f3e9;
+  border-radius: 12px;
+}
+.theme-dialog-card-v21727,
+.quick-person-card-v218,
+.grand-card {
+  border-color: var(--surface-line);
+  border-radius: var(--window-radius);
+  box-shadow: var(--window-shadow);
+}
+.theme-dialog-v21727,
+.quick-person-backdrop-v218 {
+  background: var(--window-overlay);
+}
+/* Collection pages share the welcome hero, not a generic white fullview box. */
+body[data-current-view="history"],
+body[data-current-view="archives"] {
+  height: var(--ui-viewport-height, 100dvh);
+  min-height: 0;
+  overflow-y: hidden;
+}
+#view-history,
+#view-archives {
+  height: calc(var(--ui-viewport-height, 100dvh) - var(--nav-height));
+  min-height: 0;
+  flex: 0 0 auto;
+  padding: 24px;
+  color: var(--surface-ink);
+}
+.ui-collection-header {
+  --control-active-bg: #fff;
+  --control-active-text: #12624f;
+  --control-active-border: #fff;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 26px 32px;
+  margin-bottom: 22px;
+  background: var(--surface-hero);
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px #074d3b12;
+}
+.ui-collection-header h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+.ui-collection-header h2 small {
+  color: #c6e7db;
+  font-size: 14px;
+  margin-left: 12px;
+  font-weight: 500;
+}
+.ui-collection-header .ui-collection-sub,
+.ui-collection-header .ui-record-count {
+  color: #d0eadf;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+.ui-collection-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 2px 2px 24px;
+}
+#view-history .ui-timeline {
+  max-width: none;
+  margin-left: 23px;
+  border-color: #d6e6dc;
+  gap: 16px;
+}
+.ui-history {
+  border-color: var(--surface-line);
+  box-shadow: 0 4px 18px #174b3a06;
+}
+.ui-history::before {
+  box-shadow: 0 0 0 3px #e5f1e9;
+}
+.ui-history summary > div {
+  min-width: 0;
+}
+.ui-history summary > .ui-chip {
+  flex-shrink: 0;
+}
+.ui-history::after {
+  content: var(--record-index);
+  position: absolute;
+  right: 24px;
+  bottom: 12px;
+  font-size: 11px;
+  color: #6a877c;
+  pointer-events: none;
+}
+.ui-history details[open] {
+  padding-bottom: 12px;
+}
+.ui-archive-card {
+  border-color: var(--surface-line);
+  box-shadow: 0 4px 18px #174b3a06;
+}
+.ui-archive-summary > div {
+  flex: 1;
+  min-width: 0;
+}
+.ui-archive-emblem {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #eaf5ed;
+  color: #19755a;
+  flex: none;
+}
+.ui-archive-emblem .ui-icon {
+  width: 27px;
+  height: 27px;
+}
+#view-archives .ui-overview .ui-panel {
+  border-color: var(--surface-line);
+  border-radius: 16px;
+  background: #fff;
+}
+#view-archives .ui-overview strong {
+  color: #15594a;
+  font-variant-numeric: tabular-nums;
+}
+.ui-podium > div:first-child {
+  background: #e8f5eb;
+  border-color: #b4d8c3;
+  box-shadow: inset 0 3px #188466;
+}
+.ui-podium > div:nth-child(2) {
+  background: #f1f5f4;
+  box-shadow: inset 0 3px #a7bcb2;
+}
+.ui-podium > div:nth-child(3) {
+  background: #fff5ed;
+  box-shadow: inset 0 3px #e7b99c;
+}
+.ui-collection-body .ui-empty {
+  border-color: #d7e6db;
+  background: #fff;
+}
+body.modern-flat-v217 {
+  --ui-accent: #f2836d;
+  --ui-accent-hover: #dd6c57;
+}
+.ui-function-surface .classroom-head {
+  --window-side-bg: #0d6862;
+}
+.ui-function-surface .quick-person-head-v218 b,
+.ui-function-surface .item-main-head h3 {
+  color: #fff;
+}
+.ui-function-surface :is(.v214-about-head, .v2170-ency-head) {
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--surface-hero);
+  --window-head-text: #fff;
+}
+
+/* Archive discovery and empty-state actions use the same content rhythm as home. */
+.ui-archive-filter {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto auto;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  background: #fff;
+  border: 1px solid var(--surface-line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+}
+.ui-archive-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 14px;
+  border: 1px solid #d6e6dc;
+  border-radius: 11px;
+  background: #f4f9f6;
+  color: #618779;
+}
+.ui-archive-search:focus-within {
+  outline: 3px solid #16816a30;
+  border-color: #16816a;
+}
+.ui-archive-search input {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  border: 0;
+  border-radius: 8px;
+  outline-offset: -3px;
+  background: transparent;
+  color: var(--surface-ink);
+  font: inherit;
+  font-size: 14px;
+}
+.ui-archive-search input::placeholder {
+  color: #739184;
+}
+.ui-archive-sort {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ui-archive-sort label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b827b;
+  white-space: nowrap;
+}
+.ui-archive-sort select {
+  min-width: 180px;
+  height: 44px;
+  padding: 0 36px 0 14px;
+  border: 1px solid #d6e6dc;
+  border-radius: 11px;
+  background: #f4f9f6;
+  color: #315c4c;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.ui-archive-filter .ui-record-count {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eaf5ee;
+  color: #41705c;
+  white-space: nowrap;
+}
+#view-archives .ui-empty {
+  padding: 48px 32px;
+}
+#view-archives .ui-empty h3 {
+  margin: 0 0 14px;
+}
+#view-archives .ui-empty p {
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+#view-archives .ui-empty .btn {
+  margin-top: 24px;
+  padding: 11px 28px;
+  border-radius: 11px;
+}
+/* One motion owner per window; shared WAAPI lifecycle replaces old root entrances. */
+.ui-function-surface {
+  position: relative;
+  animation: none;
+}
+.ui-function-surface button[hidden] {
+  display: none;
+}
+.ui-function-surface .ui-window-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #213e35;
+  font: 22px/1 sans-serif;
+  cursor: pointer;
+  transition:
+    background 160ms,
+    color 160ms;
+}
+.ui-function-surface .ui-window-close:hover {
+  background: #fce1d8;
+  color: #a74431;
+}
+.ui-function-surface > :is(h3, .score-modal-title, .member-search-title),
+.ui-function-surface .theme-dialog-head-v21727,
+.ui-function-surface .quick-person-head-v218,
+.ui-function-surface .classroom-head,
+.ui-function-surface .v214-about-head,
+.ui-function-surface .v2170-ency-head {
+  padding-right: 52px;
+}
+.ui-function-surface .picker-right-v2 > b {
+  display: block;
+  padding-right: 26px;
+}
+.ui-slot-stage {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 520 / 410;
+  margin: 8px auto;
+}
+.ui-slot-cabinet {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ui-slot-stage .slot-machine-case {
+  position: absolute;
+  inset: 32% 20% 33% 10%;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+}
+.ui-slot-stage .slot-reel-frame {
+  height: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #f1f9f2;
+}
+.ui-slot-stage .slot-reel-text {
+  height: 100%;
+  padding: 8px;
+  text-align: center;
+  font-size: clamp(17px, 1.9vw, 28px);
+  color: #155b47;
+  overflow-wrap: anywhere;
+  flex-wrap: wrap;
+}
+.ui-slot-stage #btnSlotTrigger {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  width: 14%;
+  height: 60%;
+  min-width: 44px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #496e5c;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
+}
+.ui-slot-stage #btnSlotTrigger::before {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 58%;
+  top: 8%;
+  left: calc(50% - 5px);
+  border-radius: 5px;
+  background: #86a79b;
+  transform-origin: center bottom;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ui-slot-stage #btnSlotTrigger::after {
+  content: "";
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 0;
+  left: calc(50% - 17px);
+  border: 4px solid #ffe2d6;
+  border-radius: 50%;
+  background: #ee866d;
+  box-shadow: 0 4px 9px #bd5c4730;
+  transition: translate 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ui-slot-stage #btnSlotTrigger.stop::before,
+.ui-slot-stage #btnSlotTrigger:active::before {
+  transform: rotate(-22deg);
+}
+.ui-slot-stage #btnSlotTrigger.stop::after,
+.ui-slot-stage #btnSlotTrigger:active::after {
+  translate: -24px 24px;
+}
+.ui-slot-stage #btnSlotTrigger:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.ui-slot-hint {
+  margin: 10px 0 14px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #678271;
+}
+.ui-slot-deceleration {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  pointer-events: none;
+}
+.ui-slot-deceleration span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #155b47;
+  font-size: clamp(17px, 1.9vw, 28px);
+  font-weight: 850;
+  text-align: center;
+  overflow-wrap: anywhere;
+  background: #f1f9f2;
+}
+#pickerModal[data-picker-reveal="pending"] .slot-result-panel,
+#pickerModal[data-picker-reveal="pending"] .picker-target,
+#pickerModal[data-picker-reveal="pending"] #pickerInfoBox {
+  visibility: hidden;
+}
+
+/* Bound the cabinet and all three scroll panes to the scaled desktop viewport. */
+#pickerModal .picker-layout-v2 {
+  height: min(620px, calc(var(--ui-viewport-height, 100dvh) - 64px));
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
+}
+#pickerModal :is(.picker-left-v2, .picker-center-v2, .picker-right-v2) {
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+#pickerModal .picker-center-v2 {
+  justify-content: flex-start;
+}
+#pickerModal .ui-slot-stage {
+  flex-shrink: 0;
+}
+</style>
+<style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
 .gp-brand-mount {
   width: 32px;
   height: 32px;
@@ -5473,23 +6105,6 @@ summary:focus-visible {
   height: 100%;
   overflow: visible;
   aspect-ratio: 1;
-}
-.header-banner.app-topnav .nav-tabs {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.header-banner.app-topnav .nav-tab {
-  border-radius: 9px;
-  transition:
-    background 0.18s,
-    color 0.18s,
-    box-shadow 0.18s;
-  white-space: nowrap;
-}
-.header-banner.app-topnav .nav-tab.active {
-  background: #e4f4ef;
-  color: #08776b;
 }
 #view-welcome {
   background: #f5f8f7;
@@ -5809,10 +6424,9 @@ summary:focus-visible {
 #view-welcome .gp-rank-head,
 #view-welcome .gp-rank-row {
   display: grid;
-  grid-template-columns: 38px minmax(82px, 1.2fr) minmax(75px, 1fr) minmax(
-      50px,
-      0.5fr
-    ) 54px;
+  grid-template-columns:
+    38px minmax(82px, 1.2fr) minmax(75px, 1fr) minmax(50px, 0.5fr)
+    54px;
   gap: 8px;
   align-items: center;
   padding: 0 20px;
@@ -6310,7 +6924,6 @@ body.gp-intro-active .app-topnav {
 }
 body.gp-intro-reveal .app-topnav {
   visibility: visible;
-  animation: gp-nav-reveal 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 body.gp-intro-reveal #view-welcome .gp-reveal {
   animation: gp-content-reveal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -6665,7 +7278,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 
 
 <div id="memberSearchBackdrop" class="member-search-backdrop" onclick="closeMemberSearchModal()">
-  <div class="member-search-card" onclick="event.stopPropagation()">
+  <div class="member-search-card ui-function-surface" onclick="event.stopPropagation()">
     <div class="member-search-title">😎 人肉搜索（文明版）</div>
     <div class="member-search-subtitle">输入姓名或学号。放心，只查课堂名单，不顺着网线考古。</div>
     <div class="member-search-input-row">
@@ -6683,7 +7296,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 <div id="audioHintBar" class="audio-hint-bar" style="display:none;">点击任意位置开启课堂音乐</div>
 
 <div id="itemModalBackdrop" class="item-modal-backdrop" onclick="closeItemWindow()">
-  <div class="item-window" onclick="event.stopPropagation()">
+  <div class="item-window ui-function-surface" onclick="event.stopPropagation()">
     <aside class="item-side"><div class="item-side-title">小组后台</div>
       <button class="item-tab active" data-item-tab="detail" onclick="switchItemTab('detail')">📋 小组档案</button>
       <button class="item-tab" data-item-tab="items" onclick="switchItemTab('items')">🎁 道具仓库</button>
@@ -6698,7 +7311,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 <div class="bottom-dock">
   <div class="dock-left">
     <div id="roundStatusBadge" class="status-badge">答题未开始</div>
-    <div style="display:flex; align-items:center; gap:6px; background:#f8fafc; padding: 4px 10px; border-radius:8px; border:1px solid #cbd5e1; flex-shrink: 0;">
+    <div class="ui-dock-answers" role="group" aria-label="本题正确答案">
       <span style="font-size:13px; color:#64748b; font-weight:700;">正解:</span>
       <button class="ans-btn" onclick="setCorrectAns('A')">A</button>
       <button class="ans-btn" onclick="setCorrectAns('B')">B</button>
@@ -6729,7 +7342,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 <!-- 最终结算盛大全屏表彰卡 -->
 <div id="grandModalOverlay" class="grand-modal-overlay">
   <canvas id="confettiCanvas"></canvas>
-  <div class="grand-card">
+  <div class="grand-card ui-function-surface">
     <div class="ui-eyebrow">完整归档已保存 · 课堂竞技荣誉</div>
     <div class="grand-trophy">🏆</div>
     <div class="grand-title" id="grandModalTitle">封神榜正式开奖</div>
@@ -6744,7 +7357,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 
 <!-- 最终结算强制日期命名确认弹窗 -->
 <div id="settlementNameModal" class="modal-overlay">
-  <div class="modal-box">
+  <div class="modal-box ui-function-surface">
     <h3 style="color:#b45309; display:flex; align-items:center; gap:8px;">🏆 封神榜封存确认</h3>
     <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
@@ -6760,25 +7373,25 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 
 <!-- 结算档案处弹窗 -->
 <div id="view-archives" class="view">
-  <div class="fullview-header">
+  <div class="ui-collection-header">
     <div>
-      <h2>封神榜 · 课堂历届竞技档案馆</h2>
-      <div class="fullview-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
+      <span class="ui-settings-eyebrow">CLASSROOM ARCHIVE · 历届荣誉</span><h2>封神榜 · 课堂历届竞技档案馆</h2>
+      <div class="ui-collection-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
     </div>
     <div class="settings-toolbar">
       <button class="btn btn-sm btn-primary" onclick="exportLatestSettlementCSV()">导出最近完整档案 (.csv)</button>
     </div>
   </div>
-  <div class="fullview-body">
+  <div class="ui-collection-body">
     <section id="archiveClassStats" class="archive-class-stats" aria-label="课堂累计统计"></section>
-    <div class="ui-toolbar"><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select><span id="uiArchiveCount" class="ui-record-count"></span></div>
+    <div class="ui-archive-filter" aria-label="查找与整理档案"><label class="ui-archive-search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5" stroke-linecap="round"/></svg><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"></label><div class="ui-archive-sort"><label for="uiArchiveSort">排列方式</label><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select></div><span id="uiArchiveCount" class="ui-record-count"></span></div>
     <div id="settlementHistoryContainer" class="history-list archives-list"></div>
   </div>
 </div>
 
 <!-- 独立加减分与赋分大弹窗 -->
 <div id="scoreModalBackdrop" class="score-modal-backdrop" onclick="closeScoreModal()">
-  <div class="score-modal-card" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
+  <div class="score-modal-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
     <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
@@ -6800,7 +7413,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 
 <!-- 模态弹窗区 -->
 <div id="pwdModal" class="modal-overlay">
-  <div class="modal-box">
+  <div class="modal-box ui-function-surface">
     <h3>🔒 神迹认证处</h3>
     <p style="font-size: 13px; color: #64748b;">想改现实之前，先证明你确实有权限。密码可在设置里修改；这只是防手滑，不是五角大楼门禁。</p>
     <input type="password" id="pwdInput" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
@@ -6812,22 +7425,22 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 </div>
 
 <div id="view-history" class="view">
-  <div class="fullview-header">
+  <div class="ui-collection-header">
     <div>
-      <h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
-      <div class="fullview-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
+      <span class="ui-settings-eyebrow">CLASSROOM JOURNAL · 操作与回溯</span><h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <div class="ui-collection-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
     </div>
     <div class="settings-toolbar">
       <button class="btn btn-sm btn-danger" onclick="clearHistoryStack()">清空记录</button>
     </div>
   </div>
-  <div class="fullview-body">
+  <div class="ui-collection-body">
     <div id="historyListView" class="history-timeline"></div>
   </div>
 </div>
 
 <div id="pickerModal" class="modal-overlay">
-  <div class="modal-box slot-modal" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
+  <div class="modal-box slot-modal ui-function-surface" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
     <div class="picker-layout-v2">
       <aside class="picker-left-v2">
         <h3 style="margin:0 0 13px">🎰 天选之人</h3>
@@ -6845,9 +7458,26 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
           <div style="font-size:12px;color:#475569;font-weight:700;margin-bottom:6px">预选小组（可多选）</div>
           <div id="twoTierGroupChips" class="two-tier-chips"></div>
         </div>
-        <div class="slot-machine-case">
-          <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
-          <div class="slot-reel-frame" id="reelFrameStudent"><div class="slot-reel-text" id="reelTextStudent">待开奖</div></div>
+        <div class="ui-slot-stage">
+          <svg class="ui-slot-cabinet" viewBox="0 0 520 410" role="img" aria-label="课堂幸运老虎机">
+            <defs><linearGradient id="slotCabinet" x2="0" y2="1"><stop stop-color="#168574"/><stop offset="1" stop-color="#07574e"/></linearGradient></defs>
+            <rect x="28" y="24" width="426" height="350" rx="40" fill="#0b463f" opacity=".10"/>
+            <rect x="20" y="14" width="426" height="350" rx="36" fill="url(#slotCabinet)"/>
+            <rect x="41" y="35" width="384" height="71" rx="20" fill="#e3f4e9"/>
+            <text x="233" y="65" text-anchor="middle" fill="#12634f" font-size="12" font-family="sans-serif" letter-spacing="4">CLASSROOM LUCKY DRAW</text>
+            <text x="233" y="91" text-anchor="middle" fill="#12634f" font-size="20" font-family="sans-serif" font-weight="800">今天，谁是天选之人？</text>
+            <rect x="41" y="123" width="384" height="163" rx="22" fill="#074d44" stroke="#62b89a" stroke-width="2"/>
+            <path d="M76 311h314" stroke="#5dab92" stroke-width="3" stroke-linecap="round"/>
+            <rect x="153" y="324" width="160" height="13" rx="6" fill="#064b41"/>
+            <circle cx="69" cy="65" r="5" fill="#f4a28c"/><circle cx="397" cy="65" r="5" fill="#f4a28c"/>
+            <path d="M447 191h23" stroke="#87aaa0" stroke-width="14" stroke-linecap="round"/>
+            <rect x="9" y="363" width="448" height="23" rx="11" fill="#164d42"/>
+          </svg>
+          <div class="slot-machine-case">
+            <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
+            <div class="slot-reel-frame" id="reelFrameStudent"><div class="slot-reel-text" id="reelTextStudent">待开奖</div></div>
+          </div>
+          <button type="button" id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()" title="拉动拉杆开始；再次拉动停止（支持回车与空格）">开始抽签</button>
         </div>
         <div class="slot-sub-badge" id="slotSubBadge" style="color:#64748b;font-size:12px">就绪</div>
         <div class="slot-options-row">
@@ -6855,7 +7485,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
           <span id="poolStatusText" style="color:#64748b">剩余: 0</span>
           <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b" onclick="resetPickerPool()">重置</button>
         </div>
-        <div style="margin:10px 0"><button id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()">开始抽签</button></div>
+        <p class="ui-slot-hint">拉动右侧拉杆开始，再次拉动让命运慢慢停下。</p>
         <div id="slotResultPanel" class="slot-result-panel"><div id="resultHeadline" style="font-size:16px;font-weight:800;color:#0284c7">等待抽签</div></div>
         <div style="text-align:center;margin-top:12px"><button class="btn" style="background:#e2e8f0;color:#1e293b" onclick="closePickerModal()">退出</button></div>
       </main>
@@ -6875,7 +7505,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 </div>
 
 <div id="batchImportModal" class="modal-overlay">
-  <div class="modal-box large">
+  <div class="modal-box large ui-function-surface">
     <h3>📋 一口气塞进全班名单</h3>
     <textarea id="batchTextarea" rows="8" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 14px; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
     <div class="modal-actions">
@@ -6886,7 +7516,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 </div>
 
 <div id="handRaiseBackdrop" class="classroom-backdrop">
-  <div class="classroom-window">
+  <div class="classroom-window ui-function-surface">
     <div class="classroom-head"><b>✋ 举手办案处</b><button class="btn btn-sm" onclick="closeHandRaise()">关闭</button></div>
     <div class="classroom-body">
       <div style="color:#64748b;margin-bottom:10px">先认领是哪组举的手，再决定答得对不对。答对有奖励，答错至少留下了一次勇敢的统计记录。</div>
@@ -6897,7 +7527,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   </div>
 </div>
 <div id="aboutBackdrop" class="about-backdrop">
-  <div class="about-window">
+  <div class="about-window ui-function-surface">
     <aside class="about-side">
       <button class="active" data-about="info" onclick="renderAbout('info')">这玩意儿是什么</button>
       <button data-about="items" onclick="renderAbout('items')">道具百科</button>
@@ -17515,7 +18145,7 @@ renderGrid=function(...args){
 
 <!-- V2.17.27 统一主题弹窗 -->
 <div id="themeDialogV21727" class="theme-dialog-v21727" aria-hidden="true">
-  <div class="theme-dialog-card-v21727" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
+  <div class="theme-dialog-card-v21727 ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
     <div class="theme-dialog-head-v21727">
       <div id="themeDialogIconV21727" class="theme-dialog-icon-v21727">ℹ️</div>
       <div id="themeDialogTitleV21727" class="theme-dialog-title-v21727">提示</div>
@@ -18011,7 +18641,7 @@ tinyDefenseToast=function(msg){
 
 
 <div id="quickPersonBackdropV218" class="quick-person-backdrop-v218" onclick="if(event.target===this)closeQuickPersonScoreV218()">
-  <div class="quick-person-card-v218">
+  <div class="quick-person-card-v218 ui-function-surface">
     <div class="quick-person-head-v218">
       <b>🤑 快速按人加分</b>
       <button class="btn" onclick="closeQuickPersonScoreV218()">关闭</button>
@@ -20028,6 +20658,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    settleDisclosures();
     cancelSettingsMotion();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
@@ -20058,7 +20689,11 @@ const DesktopUI = (() => {
     a.finished.catch(() => {}).finally(() => animations.delete(a));
     return a;
   }
+  let pageMotionFrame = null;
   function cancelAnimations() {
+    if (pageMotionFrame !== null) cancelAnimationFrame(pageMotionFrame);
+    pageMotionFrame = null;
+    settleDisclosures();
     cancelSettingsMotion();
     for (const a of animations) a.cancel();
     animations.clear();
@@ -20145,22 +20780,40 @@ const DesktopUI = (() => {
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
     if (preferences.pageMotion && name !== "settings") {
-      const host = $(`#view-${name}`);
-      const shift =
-        preferences.motion === "full"
-          ? { history: "0 6px", archives: "0 8px", settings: "8px 0" }[name] ||
-            "0 0"
-          : "0 0";
-      animate(
-        host,
-        [
-          { opacity: 0.5, translate: shift },
-          { opacity: 1, translate: "0 0" },
-        ],
-        {
-          duration: 160 / preferences.speed,
-        },
-      );
+      pageMotionFrame = requestAnimationFrame(() => {
+        pageMotionFrame = null;
+        if (currentView !== name || !preferences.pageMotion) return;
+        const selectors = {
+          welcome:
+            ".gp-hero,.gp-kpis,.gp-main-grid,.gp-group-section,.gp-daily-grid",
+          battle:
+            "#heightResizerDock,#groupList .group-row-card,#quickBatchBar",
+          history: ".ui-collection-header",
+          archives:
+            ".ui-collection-header,#archiveClassStats,.ui-archive-filter",
+        };
+        const host = $(`#view-${name}`);
+        const targets = [
+          ...host.querySelectorAll(selectors[name] || ":scope"),
+        ].slice(0, 18);
+        targets.forEach((el, i) =>
+          animate(
+            el,
+            [
+              {
+                opacity: 0,
+                translate: preferences.motion === "full" ? "0 -10px" : "0 -3px",
+              },
+              { opacity: 1, translate: "0 0" },
+            ],
+            {
+              delay: Math.min(i * 35, 210) / preferences.speed,
+              duration: 260 / preferences.speed,
+              fill: "backwards",
+            },
+          ),
+        );
+      });
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);
@@ -20389,7 +21042,7 @@ const DesktopUI = (() => {
               JSON.stringify(d.effectsBefore) !==
                 JSON.stringify(d.effectsAfter),
           );
-        return `<article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
+        return `<article class="ui-panel ui-history" data-kind="${kind}" style="--record-index:'${String(i + 1).padStart(2, "0")}'"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
       })
       .reverse()
       .join("");
@@ -20399,10 +21052,14 @@ const DesktopUI = (() => {
         animate(
           el,
           [
-            { opacity: 0, translate: "0 5px" },
+            { opacity: 0, translate: "0 -8px" },
             { opacity: 1, translate: "0 0" },
           ],
-          { delay: i * 20, duration: 160 },
+          {
+            delay: 60 + i * 35,
+            duration: 220 / preferences.speed,
+            fill: "backwards",
+          },
         ),
       );
     }
@@ -20475,7 +21132,7 @@ const DesktopUI = (() => {
       ? list
           .map(({ r, index }) => {
             const groups = Array.isArray(r.groups) ? r.groups : [];
-            return `<article class="ui-panel"><details><summary class="ui-archive-summary"><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
+            return `<article class="ui-panel ui-archive-card"><details><summary class="ui-archive-summary"><span class="ui-archive-emblem" aria-hidden="true">${icon("archive")}</span><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
               .slice(0, 3)
               .map(
                 (g, i) =>
@@ -20492,6 +21149,27 @@ const DesktopUI = (() => {
             ? "试试其他比赛或小组名称。"
             : "正式结算成功后，这里会保存比赛排名、成员及归档数据。",
         );
+    if (archiveEntryPending) {
+      archiveEntryPending = false;
+      if (preferences.pageMotion) {
+        host
+          .querySelectorAll(".ui-archive-card:nth-child(-n+8),.ui-empty")
+          .forEach((el, i) =>
+            animate(
+              el,
+              [
+                { opacity: 0, translate: "0 -8px" },
+                { opacity: 1, translate: "0 0" },
+              ],
+              {
+                delay: 60 + i * 35,
+                duration: 220 / preferences.speed,
+                fill: "backwards",
+              },
+            ),
+          );
+      }
+    }
     host
       .querySelectorAll("[data-csv]")
       .forEach(
@@ -21073,6 +21751,61 @@ const DesktopUI = (() => {
       : original;
     button.setAttribute("aria-label", label);
   }
+  const disclosureMotions = new Map();
+  function settleDisclosure(details) {
+    const entry = disclosureMotions.get(details);
+    if (!entry) return;
+    disclosureMotions.delete(details);
+    entry.animation?.cancel();
+    details.style.overflow = entry.overflow;
+    details.open = entry.open;
+  }
+  function settleDisclosures() {
+    for (const details of disclosureMotions.keys()) settleDisclosure(details);
+  }
+  function setupDisclosures() {
+    document.addEventListener("click", (event) => {
+      const summary = event.target.closest("summary");
+      const details = summary?.parentElement;
+      if (
+        !details ||
+        details.tagName !== "DETAILS" ||
+        details.classList.contains("ui-dock-menu")
+      )
+        return;
+      if (event.target.closest("a,button,input,select,textarea")) return;
+      if (!canAnimate()) return;
+      event.preventDefault();
+      const nextOpen = !(disclosureMotions.get(details)?.open ?? details.open);
+      const from = details.getBoundingClientRect().height;
+      settleDisclosure(details);
+      const overflow = details.style.overflow;
+      details.open = false;
+      const collapsed = details.getBoundingClientRect().height;
+      details.open = true;
+      const expanded = details.getBoundingClientRect().height;
+      details.style.overflow = "clip";
+      const entry = { open: nextOpen, overflow, animation: null };
+      disclosureMotions.set(details, entry);
+      entry.animation = animate(
+        details,
+        [
+          { height: from + "px" },
+          { height: (nextOpen ? expanded : collapsed) + "px" },
+        ],
+        {
+          duration:
+            (preferences.motion === "simple" ? 140 : 280) / preferences.speed,
+          easing: "cubic-bezier(.16,1,.3,1)",
+        },
+      );
+      const finish = () => {
+        if (disclosureMotions.get(details) === entry) settleDisclosure(details);
+      };
+      if (entry.animation) entry.animation.finished.then(finish, finish);
+      else finish();
+    });
+  }
   const modalClosers = {
     welcomeModal: () => closeWelcomeModal(),
     scoreModalBackdrop: () => closeScoreModal(),
@@ -21120,6 +21853,29 @@ const DesktopUI = (() => {
           el.classList.contains("active") ||
           el.classList.contains("show") ||
           el.style.display === "flex";
+        if (visible) {
+          const surface =
+            el.querySelector(".ui-function-surface") || el.firstElementChild;
+          if (surface) {
+            for (const old of surface.querySelectorAll(
+              'button[onclick*="close"]',
+            )) {
+              if (!/取消|跳过|返回课堂/.test(old.textContent))
+                old.hidden = true;
+            }
+            if (!surface.querySelector(":scope > [data-ui-window-close]")) {
+              const button = document.createElement("button");
+              button.type = "button";
+              button.className = "item-close ui-window-close";
+              button.dataset.uiWindowClose = "true";
+              button.setAttribute("aria-label", "关闭窗口");
+              button.title = "关闭窗口（Esc）";
+              button.textContent = "×";
+              button.onclick = close;
+              surface.append(button);
+            }
+          }
+        }
         if (visible && !known.get(id)) {
           const focus = document.activeElement;
           known.set(id, true);
@@ -21140,7 +21896,37 @@ const DesktopUI = (() => {
               dialog.querySelector("h3,h2,[class*=title]")?.textContent ||
                 "课堂操作窗口",
             );
+          dialog?.classList.add("ui-function-surface");
           el.dataset.uiModalOpen = "true";
+          if (dialog && id !== "grandModalOverlay" && preferences.pageMotion) {
+            const zoom = Number(getComputedStyle(document.body).zoom) || 1;
+            const travel = Math.min(
+              preferences.motion === "full" ? 42 : 8,
+              Math.max(
+                0,
+                (innerHeight - dialog.getBoundingClientRect().bottom) / zoom -
+                  4,
+              ),
+            );
+            animate(
+              dialog,
+              [
+                {
+                  opacity: 0,
+                  translate: `0 ${travel}px`,
+                  scale: preferences.motion === "full" ? ".97" : "1",
+                },
+                { opacity: 1, translate: "0 0", scale: "1" },
+              ],
+              {
+                duration:
+                  (preferences.motion === "full" ? 420 : 160) /
+                  preferences.speed,
+                easing: "cubic-bezier(.16,1,.3,1)",
+                fill: "backwards",
+              },
+            );
+          }
           if (id === "grandModalOverlay") {
             if (!canAnimate()) stopConfetti();
             el.querySelectorAll(".podium-col").forEach((col, i) =>
@@ -21183,6 +21969,7 @@ const DesktopUI = (() => {
     }
     new MutationObserver(scan).observe(document.body, {
       subtree: true,
+      childList: true,
       attributes: true,
       attributeFilter: ["class", "style"],
     });
@@ -21233,10 +22020,18 @@ const DesktopUI = (() => {
     scan();
   }
   let pickerGeneration = 0,
-    pickerPreparing = false;
+    pickerPreparing = false,
+    pickerRevealing = false;
+  const pickerReelRestores = [];
+  function clearPickerReveal() {
+    pickerRevealing = false;
+    $("#pickerModal")?.removeAttribute("data-picker-reveal");
+    for (const restore of pickerReelRestores.splice(0)) restore();
+  }
   function cancelPickerPreparation() {
     pickerGeneration++;
     pickerPreparing = false;
+    clearPickerReveal();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;
@@ -21254,7 +22049,7 @@ const DesktopUI = (() => {
     );
   }
   async function togglePicker() {
-    if (pickerPreparing) return false;
+    if (pickerPreparing || pickerRevealing) return false;
     if (slotEngine.isSpinning) {
       stopSlotSpin();
       return true;
@@ -21282,43 +22077,93 @@ const DesktopUI = (() => {
   }
   function pickerStopped() {
     const win = slotEngine.chosenResult,
-      generation = pickerGeneration,
-      modal = $("#pickerModal"),
-      badge = $("#slotSubBadge");
+      generation = pickerGeneration;
+    const modal = $("#pickerModal"),
+      badge = $("#slotSubBadge"),
+      button = $("#btnSlotTrigger");
     if (!win || !modal.classList.contains("active")) return;
+    clearPickerReveal();
     const label = badge.textContent;
-    const frames = [
-      { translate: "0 -12px", opacity: 0.65 },
-      { translate: "0 3px", opacity: 0.9, offset: 0.75 },
-      { translate: "0 0", opacity: 1 },
-    ];
-    let last;
-    modal.querySelectorAll(".slot-reel-text").forEach((el) => {
-      last = animate(el, frames, {
-        duration: preferences.motion === "simple" ? 160 : 380,
-        easing: "cubic-bezier(.15,.8,.25,1)",
-      });
-    });
     const complete = () => {
       if (
-        isPickerCurrent(generation) &&
-        slotEngine.chosenResult === win &&
-        !slotEngine.isSpinning
+        !isPickerCurrent(generation) ||
+        slotEngine.chosenResult !== win ||
+        slotEngine.isSpinning
       )
-        badge.textContent = label + " · 抽取完成";
+        return;
+      clearPickerReveal();
+      button.disabled = false;
+      button.textContent = "开始抽签";
+      button.removeAttribute("aria-busy");
+      badge.textContent = label + " · 抽取完成";
+      pickerChanged();
     };
-    if (last)
-      last.finished.then(complete, () => {
-        /* Presentation cancelled; business result is retained. */
+    if (!canAnimate()) {
+      complete();
+      return;
+    }
+    pickerRevealing = true;
+    modal.dataset.pickerReveal = "pending";
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "减速中…";
+    badge.textContent = "正在减速，结果即将揭晓…";
+    pickerChanged();
+    const pending = [];
+    modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
+      if (!frame.getClientRects().length) return;
+      const actual = frame.querySelector(".slot-reel-text"),
+        finalLabel = actual.textContent;
+      const candidates =
+        frame.id === "reelFrameGroup"
+          ? state.groups.map((g) => g.name)
+          : state.groups.flatMap((g) =>
+              (g.members || []).map((m) => String(m)),
+            );
+      const height = frame.clientHeight;
+      const strip = document.createElement("div");
+      strip.className = "ui-slot-deceleration";
+      strip.setAttribute("aria-hidden", "true");
+      // Display-only cycle: never consume or replace the business RNG.
+      for (let i = 0; i < 10; i++) {
+        const row = document.createElement("span");
+        row.textContent =
+          i === 9
+            ? finalLabel
+            : candidates[i % Math.max(1, candidates.length)] || finalLabel;
+        row.style.height = height + "px";
+        strip.append(row);
+      }
+      const visibility = actual.style.visibility;
+      actual.style.visibility = "hidden";
+      frame.append(strip);
+      pickerReelRestores.push(() => {
+        strip.remove();
+        actual.style.visibility = visibility;
       });
-    else complete();
+      const a = animate(
+        strip,
+        [
+          { transform: "translateY(0)" },
+          { transform: `translateY(-${height * 9}px)` },
+        ],
+        {
+          duration: 1000,
+          easing: "cubic-bezier(.12,.78,.15,1)",
+          fill: "forwards",
+        },
+      );
+      if (a) pending.push(a.finished.catch(() => {}));
+    });
+    Promise.all(pending).then(complete);
   }
   function pickerChanged() {
     const target = pickerTargetGroup();
     const valid =
       !!target &&
       state.groups.some((g) => g.id === target.id) &&
-      !slotEngine.isSpinning;
+      !slotEngine.isSpinning &&
+      !pickerRevealing;
     document
       .querySelectorAll('#pickerModal button[onclick^="scorePicker"]')
       .forEach((b) => (b.disabled = !valid));
@@ -21421,11 +22266,11 @@ const DesktopUI = (() => {
     matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
       "change",
       () => {
-        if (!canAnimate()) cancelSettingsMotion();
+        if (!canAnimate()) cancelAnimations();
       },
     );
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) cancelSettingsMotion();
+      if (document.hidden) cancelAnimations();
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && currentView === "settings")
@@ -21448,6 +22293,7 @@ const DesktopUI = (() => {
     setupSettings();
     setupPicker();
     setupModals();
+    setupDisclosures();
     $("#settlementHistoryContainer").addEventListener(
       "toggle",
       (event) => {
@@ -21570,6 +22416,8 @@ const DesktopUI = (() => {
     },
     getAnimationCount: () => animations.size,
     getSettingsMotionCount: () => settingsAnimations.size,
+    getDisclosureMotionCount: () => disclosureMotions.size,
+    isPickerRevealing: () => pickerRevealing,
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
@@ -21969,6 +22817,34 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
     const movement = (from, to) =>
       `translate(${(to.left + to.width / 2 - from.left - from.width / 2) / zoom}px,${(to.top + to.height / 2 - from.top - from.height / 2) / zoom}px)`;
     try {
+      if (preferences().pageMotion) {
+        document
+          .querySelectorAll(".app-topnav .nav-tab")
+          .forEach((tab, index) => {
+            animations.add(
+              tab.animate(
+                [
+                  {
+                    opacity: 0,
+                    translate:
+                      preferences().motion === "simple" ? "0 -5px" : "0 -22px",
+                  },
+                  { opacity: 1, translate: "0 0" },
+                ],
+                {
+                  duration:
+                    (preferences().motion === "simple" ? 180 : 340) /
+                    preferences().speed,
+                  delay:
+                    ((preferences().motion === "simple" ? 25 : 75) * index) /
+                    preferences().speed,
+                  easing: "cubic-bezier(.2,.8,.2,1)",
+                  fill: "backwards",
+                },
+              ),
+            );
+          });
+      }
       animations.add(
         logo.animate(
           [

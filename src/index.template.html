@@ -68,6 +68,7 @@
 <style id="v2180PlanStyle">@@SOURCE:style/20.css@@</style>
 
 <style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
+<style id="application-surfaces">@@SOURCE:ui/application-surfaces.css@@</style>
 <style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
 </head>
 <body class="modern-flat-v217">
@@ -199,7 +200,7 @@
 
 
 <div id="memberSearchBackdrop" class="member-search-backdrop" onclick="closeMemberSearchModal()">
-  <div class="member-search-card" onclick="event.stopPropagation()">
+  <div class="member-search-card ui-function-surface" onclick="event.stopPropagation()">
     <div class="member-search-title">😎 人肉搜索（文明版）</div>
     <div class="member-search-subtitle">输入姓名或学号。放心，只查课堂名单，不顺着网线考古。</div>
     <div class="member-search-input-row">
@@ -217,7 +218,7 @@
 <div id="audioHintBar" class="audio-hint-bar" style="display:none;">点击任意位置开启课堂音乐</div>
 
 <div id="itemModalBackdrop" class="item-modal-backdrop" onclick="closeItemWindow()">
-  <div class="item-window" onclick="event.stopPropagation()">
+  <div class="item-window ui-function-surface" onclick="event.stopPropagation()">
     <aside class="item-side"><div class="item-side-title">小组后台</div>
       <button class="item-tab active" data-item-tab="detail" onclick="switchItemTab('detail')">📋 小组档案</button>
       <button class="item-tab" data-item-tab="items" onclick="switchItemTab('items')">🎁 道具仓库</button>
@@ -232,7 +233,7 @@
 <div class="bottom-dock">
   <div class="dock-left">
     <div id="roundStatusBadge" class="status-badge">答题未开始</div>
-    <div style="display:flex; align-items:center; gap:6px; background:#f8fafc; padding: 4px 10px; border-radius:8px; border:1px solid #cbd5e1; flex-shrink: 0;">
+    <div class="ui-dock-answers" role="group" aria-label="本题正确答案">
       <span style="font-size:13px; color:#64748b; font-weight:700;">正解:</span>
       <button class="ans-btn" onclick="setCorrectAns('A')">A</button>
       <button class="ans-btn" onclick="setCorrectAns('B')">B</button>
@@ -263,7 +264,7 @@
 <!-- 最终结算盛大全屏表彰卡 -->
 <div id="grandModalOverlay" class="grand-modal-overlay">
   <canvas id="confettiCanvas"></canvas>
-  <div class="grand-card">
+  <div class="grand-card ui-function-surface">
     <div class="ui-eyebrow">完整归档已保存 · 课堂竞技荣誉</div>
     <div class="grand-trophy">🏆</div>
     <div class="grand-title" id="grandModalTitle">封神榜正式开奖</div>
@@ -278,7 +279,7 @@
 
 <!-- 最终结算强制日期命名确认弹窗 -->
 <div id="settlementNameModal" class="modal-overlay">
-  <div class="modal-box">
+  <div class="modal-box ui-function-surface">
     <h3 style="color:#b45309; display:flex; align-items:center; gap:8px;">🏆 封神榜封存确认</h3>
     <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
@@ -294,25 +295,25 @@
 
 <!-- 结算档案处弹窗 -->
 <div id="view-archives" class="view">
-  <div class="fullview-header">
+  <div class="ui-collection-header">
     <div>
-      <h2>封神榜 · 课堂历届竞技档案馆</h2>
-      <div class="fullview-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
+      <span class="ui-settings-eyebrow">CLASSROOM ARCHIVE · 历届荣誉</span><h2>封神榜 · 课堂历届竞技档案馆</h2>
+      <div class="ui-collection-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
     </div>
     <div class="settings-toolbar">
       <button class="btn btn-sm btn-primary" onclick="exportLatestSettlementCSV()">导出最近完整档案 (.csv)</button>
     </div>
   </div>
-  <div class="fullview-body">
+  <div class="ui-collection-body">
     <section id="archiveClassStats" class="archive-class-stats" aria-label="课堂累计统计"></section>
-    <div class="ui-toolbar"><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select><span id="uiArchiveCount" class="ui-record-count"></span></div>
+    <div class="ui-archive-filter" aria-label="查找与整理档案"><label class="ui-archive-search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5" stroke-linecap="round"/></svg><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"></label><div class="ui-archive-sort"><label for="uiArchiveSort">排列方式</label><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select></div><span id="uiArchiveCount" class="ui-record-count"></span></div>
     <div id="settlementHistoryContainer" class="history-list archives-list"></div>
   </div>
 </div>
 
 <!-- 独立加减分与赋分大弹窗 -->
 <div id="scoreModalBackdrop" class="score-modal-backdrop" onclick="closeScoreModal()">
-  <div class="score-modal-card" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
+  <div class="score-modal-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
     <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
@@ -334,7 +335,7 @@
 
 <!-- 模态弹窗区 -->
 <div id="pwdModal" class="modal-overlay">
-  <div class="modal-box">
+  <div class="modal-box ui-function-surface">
     <h3>🔒 神迹认证处</h3>
     <p style="font-size: 13px; color: #64748b;">想改现实之前，先证明你确实有权限。密码可在设置里修改；这只是防手滑，不是五角大楼门禁。</p>
     <input type="password" id="pwdInput" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
@@ -346,22 +347,22 @@
 </div>
 
 <div id="view-history" class="view">
-  <div class="fullview-header">
+  <div class="ui-collection-header">
     <div>
-      <h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
-      <div class="fullview-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
+      <span class="ui-settings-eyebrow">CLASSROOM JOURNAL · 操作与回溯</span><h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <div class="ui-collection-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
     </div>
     <div class="settings-toolbar">
       <button class="btn btn-sm btn-danger" onclick="clearHistoryStack()">清空记录</button>
     </div>
   </div>
-  <div class="fullview-body">
+  <div class="ui-collection-body">
     <div id="historyListView" class="history-timeline"></div>
   </div>
 </div>
 
 <div id="pickerModal" class="modal-overlay">
-  <div class="modal-box slot-modal" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
+  <div class="modal-box slot-modal ui-function-surface" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
     <div class="picker-layout-v2">
       <aside class="picker-left-v2">
         <h3 style="margin:0 0 13px">🎰 天选之人</h3>
@@ -379,9 +380,26 @@
           <div style="font-size:12px;color:#475569;font-weight:700;margin-bottom:6px">预选小组（可多选）</div>
           <div id="twoTierGroupChips" class="two-tier-chips"></div>
         </div>
-        <div class="slot-machine-case">
-          <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
-          <div class="slot-reel-frame" id="reelFrameStudent"><div class="slot-reel-text" id="reelTextStudent">待开奖</div></div>
+        <div class="ui-slot-stage">
+          <svg class="ui-slot-cabinet" viewBox="0 0 520 410" role="img" aria-label="课堂幸运老虎机">
+            <defs><linearGradient id="slotCabinet" x2="0" y2="1"><stop stop-color="#168574"/><stop offset="1" stop-color="#07574e"/></linearGradient></defs>
+            <rect x="28" y="24" width="426" height="350" rx="40" fill="#0b463f" opacity=".10"/>
+            <rect x="20" y="14" width="426" height="350" rx="36" fill="url(#slotCabinet)"/>
+            <rect x="41" y="35" width="384" height="71" rx="20" fill="#e3f4e9"/>
+            <text x="233" y="65" text-anchor="middle" fill="#12634f" font-size="12" font-family="sans-serif" letter-spacing="4">CLASSROOM LUCKY DRAW</text>
+            <text x="233" y="91" text-anchor="middle" fill="#12634f" font-size="20" font-family="sans-serif" font-weight="800">今天，谁是天选之人？</text>
+            <rect x="41" y="123" width="384" height="163" rx="22" fill="#074d44" stroke="#62b89a" stroke-width="2"/>
+            <path d="M76 311h314" stroke="#5dab92" stroke-width="3" stroke-linecap="round"/>
+            <rect x="153" y="324" width="160" height="13" rx="6" fill="#064b41"/>
+            <circle cx="69" cy="65" r="5" fill="#f4a28c"/><circle cx="397" cy="65" r="5" fill="#f4a28c"/>
+            <path d="M447 191h23" stroke="#87aaa0" stroke-width="14" stroke-linecap="round"/>
+            <rect x="9" y="363" width="448" height="23" rx="11" fill="#164d42"/>
+          </svg>
+          <div class="slot-machine-case">
+            <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
+            <div class="slot-reel-frame" id="reelFrameStudent"><div class="slot-reel-text" id="reelTextStudent">待开奖</div></div>
+          </div>
+          <button type="button" id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()" title="拉动拉杆开始；再次拉动停止（支持回车与空格）">开始抽签</button>
         </div>
         <div class="slot-sub-badge" id="slotSubBadge" style="color:#64748b;font-size:12px">就绪</div>
         <div class="slot-options-row">
@@ -389,7 +407,7 @@
           <span id="poolStatusText" style="color:#64748b">剩余: 0</span>
           <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b" onclick="resetPickerPool()">重置</button>
         </div>
-        <div style="margin:10px 0"><button id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()">开始抽签</button></div>
+        <p class="ui-slot-hint">拉动右侧拉杆开始，再次拉动让命运慢慢停下。</p>
         <div id="slotResultPanel" class="slot-result-panel"><div id="resultHeadline" style="font-size:16px;font-weight:800;color:#0284c7">等待抽签</div></div>
         <div style="text-align:center;margin-top:12px"><button class="btn" style="background:#e2e8f0;color:#1e293b" onclick="closePickerModal()">退出</button></div>
       </main>
@@ -409,7 +427,7 @@
 </div>
 
 <div id="batchImportModal" class="modal-overlay">
-  <div class="modal-box large">
+  <div class="modal-box large ui-function-surface">
     <h3>📋 一口气塞进全班名单</h3>
     <textarea id="batchTextarea" rows="8" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 14px; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
     <div class="modal-actions">
@@ -420,7 +438,7 @@
 </div>
 
 <div id="handRaiseBackdrop" class="classroom-backdrop">
-  <div class="classroom-window">
+  <div class="classroom-window ui-function-surface">
     <div class="classroom-head"><b>✋ 举手办案处</b><button class="btn btn-sm" onclick="closeHandRaise()">关闭</button></div>
     <div class="classroom-body">
       <div style="color:#64748b;margin-bottom:10px">先认领是哪组举的手，再决定答得对不对。答对有奖励，答错至少留下了一次勇敢的统计记录。</div>
@@ -431,7 +449,7 @@
   </div>
 </div>
 <div id="aboutBackdrop" class="about-backdrop">
-  <div class="about-window">
+  <div class="about-window ui-function-surface">
     <aside class="about-side">
       <button class="active" data-about="info" onclick="renderAbout('info')">这玩意儿是什么</button>
       <button data-about="items" onclick="renderAbout('items')">道具百科</button>
@@ -671,7 +689,7 @@
 
 <!-- V2.17.27 统一主题弹窗 -->
 <div id="themeDialogV21727" class="theme-dialog-v21727" aria-hidden="true">
-  <div class="theme-dialog-card-v21727" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
+  <div class="theme-dialog-card-v21727 ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
     <div class="theme-dialog-head-v21727">
       <div id="themeDialogIconV21727" class="theme-dialog-icon-v21727">ℹ️</div>
       <div id="themeDialogTitleV21727" class="theme-dialog-title-v21727">提示</div>
@@ -701,7 +719,7 @@
 
 
 <div id="quickPersonBackdropV218" class="quick-person-backdrop-v218" onclick="if(event.target===this)closeQuickPersonScoreV218()">
-  <div class="quick-person-card-v218">
+  <div class="quick-person-card-v218 ui-function-surface">
     <div class="quick-person-head-v218">
       <b>🤑 快速按人加分</b>
       <button class="btn" onclick="closeQuickPersonScoreV218()">关闭</button>

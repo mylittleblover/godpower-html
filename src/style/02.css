@@ -31,14 +31,14 @@ body.modern-flat-v217 #groupList{min-width:0;max-width:100%;overflow-x:hidden;ov
 body.modern-flat-v217 .app-topnav{
   position:sticky!important;top:0!important;z-index:800!important;display:grid!important;
   grid-template-columns:minmax(190px,1fr) auto minmax(100px,1fr);align-items:center!important;
-  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--ui-panel)!important;background-image:none!important;
-  border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:none!important;
+  height:59px;box-sizing:border-box;gap:14px!important;padding:10px 20px!important;background:var(--chrome-bg,var(--ui-panel))!important;background-image:none!important;
+  border:0!important;border-bottom:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:var(--chrome-shadow,none)!important;
 }
 body.modern-flat-v217 .app-topnav .header-title{justify-self:start!important;color:var(--ui-text)!important}
 body.modern-flat-v217 .app-topnav .header-title small,body.modern-flat-v217 .app-topnav .header-stats{color:var(--ui-muted)!important}
 body.modern-flat-v217 .app-topnav .nav-tabs{justify-self:center!important;display:flex!important;gap:6px!important;flex-wrap:nowrap!important}
 body.modern-flat-v217 .app-topnav .header-stats{justify-self:end;text-align:right;display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-body.modern-flat-v217 .bottom-dock{background:var(--ui-panel)!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:0 -2px 8px rgba(23,48,45,.06)!important}
+body.modern-flat-v217 .bottom-dock{background:var(--chrome-bg,var(--ui-panel))!important;background-image:none!important;border:0!important;border-top:1px solid var(--ui-border)!important;border-radius:0!important;box-shadow:var(--chrome-shadow,0 -2px 8px rgba(23,48,45,.06))!important}
 @media(min-width:701px){
   body.modern-flat-v217 .bottom-dock{padding:8px 12px!important;gap:8px!important;overflow-x:clip;overflow-y:visible;height:67px;box-sizing:border-box}
   body.modern-flat-v217 .dock-left{gap:6px!important;min-width:0!important;flex-shrink:1!important}
@@ -65,7 +65,7 @@ body.modern-flat-v217 .item-draw-board{
   width:min(920px,calc(100vw - 48px))!important;height:auto!important;max-height:82dvh!important;overflow:hidden!important;
 }
 body.modern-flat-v217 .item-window{display:grid!important;grid-template-columns:180px minmax(0,1fr)!important}
-body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain}
+body.modern-flat-v217 #pickerModal .modal-box{width:min(var(--modal-lg),calc(100vw - 48px));max-height:calc(var(--ui-viewport-height,100dvh) - 64px);overflow:hidden;overscroll-behavior:contain}
 body.modern-flat-v217 .item-draw-board{overflow:auto!important;overscroll-behavior:contain!important}
 body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
@@ -93,9 +93,9 @@ body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card{
   border-radius:10px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important;
 }
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):not(.card-defend-fx):not(.card-heal-fx){
-  background:var(--ui-panel)!important;background-image:none!important;border-top:1px solid var(--ui-border)!important;
+  background:var(--battle-card-bg,var(--ui-panel))!important;background-image:none!important;border-top:1px solid var(--ui-border)!important;
   border-right:1px solid var(--ui-border)!important;border-bottom:1px solid var(--ui-border)!important;
-  border-left:4px solid var(--group-color,#78958F)!important;border-radius:10px!important;box-shadow:var(--ui-shadow)!important;
+  border-left:4px solid var(--group-color,#78958F)!important;border-radius:var(--battle-card-radius,10px)!important;box-shadow:var(--battle-card-shadow,var(--ui-shadow))!important;
 }
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover{box-shadow:0 3px 10px rgba(23,48,45,.11)!important;transform:none}
 body.modern-flat-v217 .modal-box,body.modern-flat-v217 .score-modal-card,
@@ -105,13 +105,13 @@ body.modern-flat-v217 .picker-modal,body.modern-flat-v217 .about-window,
 body.modern-flat-v217 .classroom-window,body.modern-flat-v217 .hand-window,
 body.modern-flat-v217 .item-draw-board,body.modern-flat-v217 .welcome-modal-card{
   background:var(--ui-panel)!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;
-  outline:0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(23,48,45,.14)!important;
+  outline:0!important;border-radius:var(--window-radius,12px)!important;box-shadow:var(--window-shadow,0 8px 24px rgba(23,48,45,.14))!important;
 }
 body.modern-flat-v217 .modal-overlay,body.modern-flat-v217 .score-modal-backdrop,
 body.modern-flat-v217 .member-search-backdrop,body.modern-flat-v217 .welcome-modal,
 body.modern-flat-v217 .item-modal-backdrop,body.modern-flat-v217 .item-draw-overlay,
 body.modern-flat-v217 .classroom-backdrop,body.modern-flat-v217 .about-backdrop{
-  background:rgba(23,48,45,.42)!important;
+  background:var(--window-overlay,rgba(23,48,45,.42))!important;
 }
 body.modern-flat-v217 .item-side,body.modern-flat-v217 .about-side,
 body.modern-flat-v217 .picker-left-v2,body.modern-flat-v217 .picker-center-v2,
@@ -120,7 +120,7 @@ body.modern-flat-v217 .about-head,body.modern-flat-v217 .settings-v2-tabs,
 body.modern-flat-v217 .settings-v26-tabs,body.modern-flat-v217 .item-sidebar,
 body.modern-flat-v217 .item-tabs,body.modern-flat-v217 .about-tabs,
 body.modern-flat-v217 .window-titlebar{
-  background:var(--ui-soft-2)!important;background-image:none!important;border-color:var(--ui-border)!important;box-shadow:none!important;
+  background:var(--window-side-bg,var(--ui-soft-2))!important;background-image:none!important;border-color:var(--ui-border)!important;box-shadow:none!important;
 }
 
 /* 按钮和交互状态 */
@@ -130,8 +130,8 @@ body.modern-flat-v217 .allin-toggle-btn,body.modern-flat-v217 .item-tab,
 body.modern-flat-v217 .picker-vtab,body.modern-flat-v217 .picker-info-tabs button,
 body.modern-flat-v217 .settings-v2-tabs button,body.modern-flat-v217 .settings-v26-tabs button,
 body.modern-flat-v217 .item-global-btn,body.modern-flat-v217 .hand-group{
-  background:var(--ui-soft-2)!important;background-image:none!important;color:var(--ui-text)!important;
-  border:1px solid var(--ui-border-strong)!important;border-radius:8px!important;
+  background:var(--control-bg,var(--ui-soft-2))!important;background-image:none!important;color:var(--control-text,var(--ui-text))!important;
+  border:1px solid var(--control-border,var(--ui-border-strong))!important;border-radius:var(--control-radius,8px)!important;
   box-shadow:none!important;text-shadow:none!important;filter:none!important;
 }
 body.modern-flat-v217 .btn:not(.btn-primary):not(.btn-success):not(.btn-warning):not(.btn-danger):not(:disabled):hover,
@@ -143,7 +143,7 @@ body.modern-flat-v217 .nav-tab.active,body.modern-flat-v217 .btn-primary,
 body.modern-flat-v217 .item-tab.active,body.modern-flat-v217 .picker-vtab.active,
 body.modern-flat-v217 .picker-info-tabs button.active,body.modern-flat-v217 .settings-v2-tabs button.active,
 body.modern-flat-v217 .settings-v26-tabs button.active,body.modern-flat-v217 .ans-btn.selected{
-  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-primary)!important;box-shadow:none!important;
+  background:var(--control-active-bg,var(--ui-primary))!important;background-image:none!important;color:var(--control-active-text,#fff)!important;border-color:var(--control-active-border,var(--ui-primary))!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .ans-btn{width:40px!important;height:40px!important;border-radius:8px!important}
 body.modern-flat-v217 .btn-success{background:var(--ui-success)!important;color:#fff!important;border-color:var(--ui-success)!important}
@@ -160,7 +160,7 @@ body.modern-flat-v217 .locked-disabled,body.modern-flat-v217 .round-disabled{
 
 /* 主操作：青绿；结算与重要提醒：珊瑚 */
 body.modern-flat-v217 #btnMainAction,body.modern-flat-v217 .welcome-enter-btn{
-  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border:1px solid var(--ui-primary)!important;border-radius:8px!important;box-shadow:none!important;text-shadow:none!important;
+  background:var(--ui-primary)!important;background-image:none!important;color:#fff!important;border:1px solid var(--ui-primary)!important;border-radius:var(--control-radius,8px)!important;box-shadow:none!important;text-shadow:none!important;
 }
 body.modern-flat-v217 #btnMainAction:hover,body.modern-flat-v217 .welcome-enter-btn:hover{background:var(--ui-primary-hover)!important;transform:none!important}
 body.modern-flat-v217 #btnNextRound:not(.locked-disabled){background:var(--ui-success)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-success)!important}
@@ -204,8 +204,8 @@ body.modern-flat-v217 .chart-bar{background-image:none!important;box-shadow:none
 body.modern-flat-v217 .welcome-clock{color:var(--ui-primary)!important;text-shadow:none!important}
 
 /* 程序确认弹窗：替换最后一处 Vista 标题栏与警告球 */
-body.modern-flat-v217 .program-confirm-overlay{background:rgba(23,48,45,.42)!important;animation:pcFadeIn .16s ease-out both}
-body.modern-flat-v217 .program-confirm-window{background:#fff!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;outline:0!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(23,48,45,.14)!important}
+body.modern-flat-v217 .program-confirm-overlay{background:var(--window-overlay,rgba(23,48,45,.42))!important;animation:pcFadeIn .16s ease-out both}
+body.modern-flat-v217 .program-confirm-window{background:#fff!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;outline:0!important;border-radius:var(--window-radius,12px)!important;box-shadow:var(--window-shadow,0 8px 24px rgba(23,48,45,.14))!important}
 body.modern-flat-v217 .program-confirm-titlebar{background:var(--ui-soft)!important;background-image:none!important;color:var(--ui-text)!important;border-bottom:1px solid var(--ui-border)!important;text-shadow:none!important}
 body.modern-flat-v217 .program-confirm-icon{background:#FFEDD5!important;background-image:none!important;color:#C2410C!important;border:1px solid #FDBA74!important;border-radius:10px!important;box-shadow:none!important}
 body.modern-flat-v217 .program-confirm-text{color:var(--ui-text)!important}

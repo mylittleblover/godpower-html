@@ -112,6 +112,11 @@
     },
     {
       "type": "style",
+      "path": "ui/application-surfaces.css",
+      "attributes": " id=\"application-surfaces\""
+    },
+    {
+      "type": "style",
       "path": "ui/welcome-v2.css",
       "attributes": " id=\"gp-home-redesign\""
     },

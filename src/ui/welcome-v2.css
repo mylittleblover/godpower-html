@@ -1,19 +1,4 @@
 /* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
-.header-banner.app-topnav {
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom: 1px solid #e4eeeb;
-  box-shadow: 0 2px 14px #0b49470b;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-.header-banner.app-topnav .header-title {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  white-space: nowrap;
-  font-weight: 850;
-  letter-spacing: 0.1px;
-}
 .gp-brand-mount {
   width: 32px;
   height: 32px;
@@ -28,23 +13,6 @@
   height: 100%;
   overflow: visible;
   aspect-ratio: 1;
-}
-.header-banner.app-topnav .nav-tabs {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.header-banner.app-topnav .nav-tab {
-  border-radius: 9px;
-  transition:
-    background 0.18s,
-    color 0.18s,
-    box-shadow 0.18s;
-  white-space: nowrap;
-}
-.header-banner.app-topnav .nav-tab.active {
-  background: #e4f4ef;
-  color: #08776b;
 }
 #view-welcome {
   background: #f5f8f7;
@@ -364,10 +332,9 @@
 #view-welcome .gp-rank-head,
 #view-welcome .gp-rank-row {
   display: grid;
-  grid-template-columns: 38px minmax(82px, 1.2fr) minmax(75px, 1fr) minmax(
-      50px,
-      0.5fr
-    ) 54px;
+  grid-template-columns:
+    38px minmax(82px, 1.2fr) minmax(75px, 1fr) minmax(50px, 0.5fr)
+    54px;
   gap: 8px;
   align-items: center;
   padding: 0 20px;
@@ -865,7 +832,6 @@ body.gp-intro-active .app-topnav {
 }
 body.gp-intro-reveal .app-topnav {
   visibility: visible;
-  animation: gp-nav-reveal 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 body.gp-intro-reveal #view-welcome .gp-reveal {
   animation: gp-content-reveal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;

@@ -393,6 +393,34 @@
     const movement = (from, to) =>
       `translate(${(to.left + to.width / 2 - from.left - from.width / 2) / zoom}px,${(to.top + to.height / 2 - from.top - from.height / 2) / zoom}px)`;
     try {
+      if (preferences().pageMotion) {
+        document
+          .querySelectorAll(".app-topnav .nav-tab")
+          .forEach((tab, index) => {
+            animations.add(
+              tab.animate(
+                [
+                  {
+                    opacity: 0,
+                    translate:
+                      preferences().motion === "simple" ? "0 -5px" : "0 -22px",
+                  },
+                  { opacity: 1, translate: "0 0" },
+                ],
+                {
+                  duration:
+                    (preferences().motion === "simple" ? 180 : 340) /
+                    preferences().speed,
+                  delay:
+                    ((preferences().motion === "simple" ? 25 : 75) * index) /
+                    preferences().speed,
+                  easing: "cubic-bezier(.2,.8,.2,1)",
+                  fill: "backwards",
+                },
+              ),
+            );
+          });
+      }
       animations.add(
         logo.animate(
           [
