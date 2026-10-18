@@ -99,3 +99,9 @@ Web Audio／IndexedDB 音频库、菜单 BGM、思考／战斗／结算轨、节
 WelcomeV2 拥有按时间驱动的连续巡航与有限展示副本；DesktopUI 仍只读取业务状态渲染首页。`groupCruiseVersion=2` 仅属于界面偏好，首次采用新连续巡航默认值，以后保留用户关闭选择。卡片展示副本不写入小组数据。
 
 既有窗口开关函数显式调用 showClassroomWindow / hideClassroomWindow，交由 DesktopUI 的关闭任务 Map 管理取消、结束、inert 与动画。业务清理仍立即执行，UI 隐藏推迟到退出结束。没有新增同名函数覆盖或修改道具/计分引擎。详见 [UI 规范](ui/WELCOME_FEEDBACK.md)。
+
+### 统一赋分与展示层
+
+`ui/classroom-feedback.js` / `.css` 持有六槽配置、快捷按钮标记、全屏演出及连续转轮。DesktopUI 初始化后显式调用 init，已有命令调用展示接口；模块不选择赢家、不改分、不记录业务历史。DesktopUI 的 pickerStopped 连接实时转轮与减速条，完成后通知展示真实结果。界面状态通过 generation、单一演出、受控定时器和有限转轮 Map 清理。
+
+公共点击声音沿用已有 `ui_click` 槽和原 FX → masterGain 音频链，不建立新音频引擎。旧 playSound 入口只加事件去重和音量适配。音效清单由 scripts/audio-inventory.mjs 从源码调用与浏览器实际槽位证据生成。详见 ui/CLASSROOM_FEEDBACK.md。

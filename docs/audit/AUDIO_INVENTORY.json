@@ -1,0 +1,516 @@
+{
+  "activeSlotCount": 41,
+  "active": [
+    {
+      "id": "score_add",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "score_sub",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "pk_correct",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "allin_win",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "allin_lose",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "big_win",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "rewind",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_click",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "roll_tick",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "roll_loop",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "roll_win",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_draw_start",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_draw_tick",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_draw_reveal",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_defend",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_green",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_triple_green",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_red",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_triple_red",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_spiny",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_banana",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_triple_banana",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_horn",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_bomb",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_hammer",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_coin",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_coin_shell",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_question",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_mushroom",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_triple_mushroom",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_boo",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_blooper",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_lightning",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_star",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_mega",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_bullet",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_power",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_feather",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_fire_flower",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_ice_flower",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "item_boomerang_flower",
+      "played": true,
+      "listed": true
+    }
+  ],
+  "legacySuppressed": [
+    "item_use",
+    "item_attack",
+    "item_buff",
+    "item_status",
+    "item_steal"
+  ],
+  "unknownLiteralCalls": [],
+  "literalCalls": [
+    {
+      "file": "src/core/history.js",
+      "line": 77,
+      "slot": "rewind",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 297,
+      "slot": "big_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 298,
+      "slot": "roll_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 584,
+      "slot": "rewind",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 1655,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 1730,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 1835,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 1850,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2028,
+      "slot": "big_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2031,
+      "slot": "big_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2032,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2033,
+      "slot": "score_sub",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2070,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2084,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2095,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2117,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2131,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2224,
+      "slot": "big_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2229,
+      "slot": "allin_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2230,
+      "slot": "allin_lose",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2231,
+      "slot": "pk_correct",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2852,
+      "slot": "roll_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2897,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2985,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 3035,
+      "slot": "allin_lose",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5231,
+      "slot": "item_use",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5233,
+      "slot": "item_defend",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5235,
+      "slot": "item_draw_start",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5236,
+      "slot": "item_draw_tick",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5237,
+      "slot": "item_draw_reveal",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5390,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5401,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/03.js",
+      "line": 40,
+      "slot": "item_use",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/04.js",
+      "line": 189,
+      "slot": "item_draw_start",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/04.js",
+      "line": 193,
+      "slot": "item_draw_tick",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/04.js",
+      "line": 198,
+      "slot": "item_draw_reveal",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/06.js",
+      "line": 78,
+      "slot": "item_draw_reveal",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/13.js",
+      "line": 12,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/35.js",
+      "line": 34,
+      "slot": "item_use",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/35.js",
+      "line": 40,
+      "slot": "item_use",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/35.js",
+      "line": 82,
+      "slot": "item_defend",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/ui/classroom-feedback.js",
+      "line": 312,
+      "slot": "ui_click",
+      "expression": "Literal"
+    }
+  ],
+  "dynamicCalls": [
+    {
+      "file": "src/script/00.js",
+      "line": 5231,
+      "slot": null,
+      "expression": "CallExpression"
+    },
+    {
+      "file": "src/script/03.js",
+      "line": 41,
+      "slot": null,
+      "expression": "CallExpression"
+    },
+    {
+      "file": "src/script/06.js",
+      "line": 58,
+      "slot": null,
+      "expression": "Identifier"
+    },
+    {
+      "file": "src/script/09.js",
+      "line": 108,
+      "slot": null,
+      "expression": "TemplateLiteral"
+    },
+    {
+      "file": "src/script/35.js",
+      "line": 34,
+      "slot": null,
+      "expression": "CallExpression"
+    },
+    {
+      "file": "src/script/35.js",
+      "line": 42,
+      "slot": null,
+      "expression": "CallExpression"
+    },
+    {
+      "file": "src/script/36.js",
+      "line": 191,
+      "slot": null,
+      "expression": "ConditionalExpression"
+    }
+  ]
+}

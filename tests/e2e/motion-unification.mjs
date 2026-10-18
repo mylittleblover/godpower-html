@@ -185,7 +185,9 @@ try {
       await p.locator("#btnSlotTrigger").click();
       await p.waitForFunction(() => slotEngine.isSpinning);
       if (mode !== "group")
-        await p.waitForSelector("#reelTextStudent .student-no-inline-v218");
+        await p.waitForSelector(
+          "#reelFrameStudent .cf-live-reel .student-no-inline-v218",
+        );
       const picked = await p.evaluate(() =>
         JSON.stringify(slotEngine.chosenResult),
       );

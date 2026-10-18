@@ -13,11 +13,12 @@
     "test:visual": "node tests/e2e/visual.mjs",
     "report": "python3 scripts/report.py",
     "test:file": "node tests/e2e/file.mjs",
-    "test:ui": "node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs && node tests/e2e/release-smoke.mjs && npm run test:welcome && npm run test:settings && npm run test:surfaces && npm run test:feedback",
+    "test:ui": "node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs && node tests/e2e/release-smoke.mjs && npm run test:welcome && npm run test:settings && npm run test:surfaces && npm run test:feedback && npm run test:classroom-feedback",
     "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs",
     "test:refactor": "node tests/e2e/defense-command.mjs && node tests/e2e/legacy-differential.mjs && node tests/e2e/refactor-layout.mjs && node tests/e2e/refactor-performance.mjs",
     "audit:legacy": "node scripts/legacy-inventory.mjs",
     "test:welcome": "node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs",
+    "test:classroom-feedback": "node tests/e2e/classroom-feedback.mjs && node tests/e2e/audio-customization.mjs && node tests/e2e/classroom-feedback-layout.mjs && node tests/e2e/classroom-feedback-restore.mjs && node tests/e2e/settings-behavior-alignment.mjs",
     "test:feedback": "node tests/e2e/welcome-feedback.mjs",
     "test:settings": "node tests/e2e/settings-cleanup.mjs",
     "test:surfaces": "node tests/e2e/visual-unification.mjs && node tests/e2e/archive-controls.mjs && node tests/e2e/motion-unification.mjs && node tests/e2e/warning-dialogs.mjs && node tests/e2e/admin-dialog.mjs"

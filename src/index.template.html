@@ -69,6 +69,7 @@
 
 <style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
 <style id="application-surfaces">@@SOURCE:ui/application-surfaces.css@@</style>
+<style id="classroom-feedback-style">@@SOURCE:ui/classroom-feedback.css@@</style>
 <style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
 </head>
 <body class="modern-flat-v217">
@@ -96,8 +97,8 @@
       <span class="gp-slider-hint">向右滑动，开启课堂 →</span>
       <span class="gp-slider-knob" id="gpSlideKnob" aria-hidden="true">›</span>
     </div>
-    <button id="gpIntroSkip" class="gp-intro-skip" type="button">跳过动画，进入首页</button>
   </div>
+  <button id="gpIntroSkip" class="gp-intro-skip ui-cinematic-skip" type="button">跳过动画，进入首页</button>
 </div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
@@ -272,9 +273,10 @@
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">查看完整档案 · 去档案馆翻案</button>
-      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
+
     </div>
   </div>
+  <button class="btn ui-cinematic-skip" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
 </div>
 
 <!-- 最终结算强制日期命名确认弹窗 -->
@@ -316,6 +318,7 @@
   <div class="score-modal-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
+    <div data-score-slots="modal" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
     <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
     <div class="score-modal-error" id="scoreModalError"></div>
     <div class="score-modal-actions">
@@ -414,12 +417,7 @@
       <aside class="picker-right-v2">
         <b style="font-size:17px">⚡ 当场发钱</b>
         <div id="pickerScoreTarget" class="picker-target">抽中学生或小组后，可直接给所属小组赋分。</div>
-        <div class="picker-score-grid">
-          <button class="btn btn-success" onclick="scorePickerTarget(1)">+1</button>
-          <button class="btn btn-success" onclick="scorePickerTarget(2)">+2</button>
-          <button class="btn btn-success" onclick="scorePickerTarget(5)">+5</button>
-          <button class="btn btn-danger" onclick="scorePickerTarget(-5)">-5</button>
-        </div>
+        <div class="picker-score-grid" data-score-slots="picker" role="group" aria-label="六个快捷赋分槽位"></div>
         <div style="display:flex;gap:6px;margin-top:8px"><input id="pickerCustomScore" type="number" placeholder="自由分值" style="min-width:0;width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px"><button class="btn btn-primary" onclick="scorePickerCustom()">应用</button></div>
       </aside>
     </div>
@@ -495,11 +493,11 @@
       <button class="btn btn-primary btn-sm" onclick="applySettingsBatchMembers()" style="align-self: flex-end;">应用并重建小组</button>
     </div>
 
-    <div class="setting-item" data-settings-category="rules" data-settings-group="rules">
-      <span class="setting-label">跨局保留上一轮 All In 状态</span>
-      <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
-        <input type="checkbox" id="cfgSaveAllIn" onchange="toggleSaveAllIn(this.checked)">
-        <span>默认保留</span>
+    <div class="setting-item ui-rule-card" data-settings-category="rules" data-settings-group="rules">
+      <div class="ui-rule-copy"><label class="ui-rule-title" for="cfgSaveAllIn">跨局保留上一轮 All In 状态</label><p class="setting-note" id="saveAllInDescription">控制跨回合时是否保留 All In 选择，修改后立即保存。</p></div>
+      <label class="v292-switch" title="跨局保留 All In">
+        <input type="checkbox" id="cfgSaveAllIn" aria-describedby="saveAllInDescription" onchange="toggleSaveAllIn(this.checked)">
+        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
       </label>
     </div>
 
@@ -747,9 +745,7 @@
     <div class="quick-person-actions-v218">
       <div id="qpSelectedCountV218" class="qp-selected-count-v218">已选择 0 人</div>
       <div class="qp-score-actions-v218">
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(1)">+1</button>
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(2)">+2</button>
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(5)">+5</button>
+        <div data-score-slots="person" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
         <input id="qpCustomScoreV218" type="number" class="qp-input-v218" placeholder="自定义" style="width:105px">
         <button class="btn btn-primary" onclick="applyQuickPersonCustomV218()">应用</button>
       </div>
@@ -796,6 +792,7 @@
 
 <script>@@SOURCE:core/commands.js@@</script>
 <script>@@SOURCE:core/classroom.js@@</script>
+<script>@@SOURCE:ui/classroom-feedback.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
 </body>

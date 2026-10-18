@@ -5122,11 +5122,71 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   padding: 8px;
 }
 @media (min-width: 1200px) {
+  #uiSettingsRules > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+/* Classroom behaviour uses one card and one switch component. */
+#uiSettingsRules #settingsV26_function {
+  display: contents;
+}
+#uiSettingsRules > div {
+  align-items: stretch;
+}
+#uiSettingsRules .ui-rule-card {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 18px;
+  padding: 18px;
+  margin: 0;
+  min-height: 138px;
+  height: 100%;
+}
+.ui-rule-copy {
+  flex: 1;
+  min-width: 0;
+}
+.ui-rule-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--ui-text);
+  margin-bottom: 8px;
+}
+.ui-rule-copy .setting-note {
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.7;
+}
+.ui-rule-card .v292-switch {
+  margin-top: 0;
+}
+.v292-switch input:focus-visible + .v292-switch-track {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 4px;
+}
+/* Siblings of animated surfaces stay anchored to the viewport. */
+.ui-cinematic-skip {
+  position: fixed;
+  right: 28px;
+  bottom: 24px;
+  z-index: 5;
+  margin: 0;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  color: #fff;
+  background: #123d35;
+  border: 1px solid #ffffff60;
+  cursor: pointer;
+}
+@media (min-width: 1200px) {
   #settingsV26_sound,
   #uiSettingsVolume > div,
   #uiSettingsWallpaper > div,
-  #uiSettingsLayout > div,
-  #uiSettingsRules > div {
+  #uiSettingsLayout > div {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
@@ -6186,6 +6246,236 @@ body[data-motion="off"] {
   }
 }
 </style>
+<style id="classroom-feedback-style">/* Shared score controls retain the footprint of each existing window. */
+.cf-score-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.cf-score-slots .btn {
+  min-width: 0;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.cf-slot-editor {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.cf-slot-editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+.cf-slot-editor input {
+  min-width: 0;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+}
+.cf-slot-editor input[aria-invalid="true"] {
+  border-color: #c33445;
+  outline: 2px solid #c3344520;
+}
+.cf-settings {
+  margin-top: 20px;
+}
+.item-score-panel > .cf-score-slots {
+  grid-column: 1/-1;
+}
+.hand-rewards > .cf-score-slots {
+  flex-basis: 100%;
+}
+.qp-score-actions-v218 > .cf-score-slots {
+  width: 300px;
+}
+#classroomShowcase {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+#classroomShowcase::backdrop {
+  background: rgb(2 13 20 / 0.88);
+  backdrop-filter: blur(7px);
+}
+#classroomShowcase .cf-show-surface {
+  --cf-accent: #66f0b0;
+  --cf-glow: #23c47b;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background: radial-gradient(ellipse at center, #123a3233, transparent 65%);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+}
+#classroomShowcase[data-kind="negative"] .cf-show-surface {
+  --cf-accent: #ff8b97;
+  --cf-glow: #ef435e;
+}
+#classroomShowcase[data-kind="pick"] .cf-show-surface {
+  --cf-accent: #9bf6df;
+  --cf-glow: #35bfb0;
+}
+.cf-show-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 18px;
+  padding: 40px 80px;
+  width: min(1200px, 95vw);
+}
+#classroomShowcase .cf-show-title {
+  color: #fff;
+  font-size: clamp(42px, 7vw, 112px);
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 55px color-mix(in srgb, var(--cf-glow) 55%, transparent);
+}
+.cf-show-eyebrow {
+  color: var(--cf-accent);
+  letter-spacing: 0.18em;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+}
+.cf-show-subtitle {
+  color: #d9e9e5;
+  font-size: 22px;
+  margin: 0;
+}
+.cf-show-value {
+  color: var(--cf-accent);
+  font-size: clamp(36px, 6vw, 92px);
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+#classroomShowcase > .ui-cinematic-skip {
+  color: #eafaf4;
+  background: #ffffff16;
+  border: 1px solid #ffffff45;
+  padding: 12px 22px;
+}
+.cf-show-orbit {
+  position: absolute;
+  width: min(65vw, 850px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--cf-accent) 32%, transparent);
+  box-shadow:
+    0 0 110px #34bda51a,
+    inset 0 0 100px #34bda510;
+  pointer-events: none;
+  animation: cf-orbit 1.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cf-show-orbit::before,
+.cf-show-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed color-mix(in srgb, var(--cf-accent) 35%, transparent);
+  border-radius: 50%;
+}
+.cf-show-orbit::after {
+  inset: -15%;
+  border-style: solid;
+  opacity: 0.35;
+}
+.cf-show-particles {
+  position: absolute;
+  inset: 50%;
+  pointer-events: none;
+}
+.cf-show-particles i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cf-accent);
+  box-shadow: 0 0 14px var(--cf-glow);
+  animation: cf-spark 1.8s cubic-bezier(0.12, 0.65, 0.3, 1) var(--delay) both;
+}
+#classroomShowcase[data-effect-style="burst"] .cf-show-particles i {
+  width: 5px;
+  height: 18px;
+  border-radius: 2px;
+}
+#classroomShowcase[data-effect-style="burst"] .cf-show-orbit {
+  border-width: 5px;
+  border-style: dotted;
+}
+.cf-show-copy {
+  animation: cf-name 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+#classroomShowcase.cf-simple .cf-show-orbit {
+  display: none;
+}
+#classroomShowcase.cf-simple .cf-show-copy {
+  animation: none;
+}
+@keyframes cf-orbit {
+  from {
+    transform: scale(0.4) rotate(-35deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes cf-spark {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--px), var(--py)) scale(0.4);
+    opacity: 0;
+  }
+}
+@keyframes cf-name {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-system-motion="true"] #classroomShowcase * {
+    animation: none;
+  }
+}
+</style>
 <style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
 .gp-brand-mount {
   width: 32px;
@@ -7033,7 +7323,6 @@ body[data-motion="off"] {
   transition: none;
 }
 .gp-intro-skip {
-  margin-top: 18px;
   font-size: 11px;
   border: none;
   background: transparent;
@@ -7315,8 +7604,8 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       <span class="gp-slider-hint">向右滑动，开启课堂 →</span>
       <span class="gp-slider-knob" id="gpSlideKnob" aria-hidden="true">›</span>
     </div>
-    <button id="gpIntroSkip" class="gp-intro-skip" type="button">跳过动画，进入首页</button>
   </div>
+  <button id="gpIntroSkip" class="gp-intro-skip ui-cinematic-skip" type="button">跳过动画，进入首页</button>
 </div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
@@ -7491,9 +7780,10 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
     <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
     <div style="display: flex; justify-content: center; gap: 10px;">
       <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">查看完整档案 · 去档案馆翻案</button>
-      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
+
     </div>
   </div>
+  <button class="btn ui-cinematic-skip" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
 </div>
 
 <!-- 最终结算强制日期命名确认弹窗 -->
@@ -7535,6 +7825,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   <div class="score-modal-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
+    <div data-score-slots="modal" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
     <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
     <div class="score-modal-error" id="scoreModalError"></div>
     <div class="score-modal-actions">
@@ -7633,12 +7924,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       <aside class="picker-right-v2">
         <b style="font-size:17px">⚡ 当场发钱</b>
         <div id="pickerScoreTarget" class="picker-target">抽中学生或小组后，可直接给所属小组赋分。</div>
-        <div class="picker-score-grid">
-          <button class="btn btn-success" onclick="scorePickerTarget(1)">+1</button>
-          <button class="btn btn-success" onclick="scorePickerTarget(2)">+2</button>
-          <button class="btn btn-success" onclick="scorePickerTarget(5)">+5</button>
-          <button class="btn btn-danger" onclick="scorePickerTarget(-5)">-5</button>
-        </div>
+        <div class="picker-score-grid" data-score-slots="picker" role="group" aria-label="六个快捷赋分槽位"></div>
         <div style="display:flex;gap:6px;margin-top:8px"><input id="pickerCustomScore" type="number" placeholder="自由分值" style="min-width:0;width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px"><button class="btn btn-primary" onclick="scorePickerCustom()">应用</button></div>
       </aside>
     </div>
@@ -7714,11 +8000,11 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       <button class="btn btn-primary btn-sm" onclick="applySettingsBatchMembers()" style="align-self: flex-end;">应用并重建小组</button>
     </div>
 
-    <div class="setting-item" data-settings-category="rules" data-settings-group="rules">
-      <span class="setting-label">跨局保留上一轮 All In 状态</span>
-      <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
-        <input type="checkbox" id="cfgSaveAllIn" onchange="toggleSaveAllIn(this.checked)">
-        <span>默认保留</span>
+    <div class="setting-item ui-rule-card" data-settings-category="rules" data-settings-group="rules">
+      <div class="ui-rule-copy"><label class="ui-rule-title" for="cfgSaveAllIn">跨局保留上一轮 All In 状态</label><p class="setting-note" id="saveAllInDescription">控制跨回合时是否保留 All In 选择，修改后立即保存。</p></div>
+      <label class="v292-switch" title="跨局保留 All In">
+        <input type="checkbox" id="cfgSaveAllIn" aria-describedby="saveAllInDescription" onchange="toggleSaveAllIn(this.checked)">
+        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
       </label>
     </div>
 
@@ -9418,7 +9704,7 @@ function playChiptuneSynth(slotId) {
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(1200, now);
-        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.setValueAtTime(0.1 * (typeof ClassroomFeedback!=='undefined'?ClassroomFeedback.getOptions().clickVolume:1), now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
         osc.connect(gain); gain.connect(getFxOutputV2176());
         osc.start(now); osc.stop(now + 0.03);
@@ -9461,13 +9747,16 @@ async function playSound(slotId) {
     }
 
     await getAudioContext();
+    if(slotId==='ui_click' && !fxSoundsLoaded)await loadFxSounds();
     if (customFxBuffers[slotId]) {
       const source = audioCtx.createBufferSource();
       source.buffer = customFxBuffers[slotId];
-      source.connect(getFxOutputV2176());
+      if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined'){
+        const gain=audioCtx.createGain();gain.gain.value=ClassroomFeedback.getOptions().clickVolume;source.connect(gain);gain.connect(getFxOutputV2176());ClassroomFeedback.ownClickVoice(source,gain);
+      }else source.connect(getFxOutputV2176());
       source.start(0);
     } else {
-      playChiptuneSynth(slotId);
+      playChiptuneSynth(slotId==='roll_loop'?'roll_tick':slotId);
     }
   } catch (_) {}
 }
@@ -10467,6 +10756,7 @@ function applyScoreDelta(groupId, delta) {
 
   saveState();
   animateScores([{ groupId, start: oldScore, target: targetScore }]);
+  ClassroomFeedback.score(g.name,actualDelta);
   showToast(clipped
     ? `${g.name} 扣 ${-actualDelta} 分（输入 ${delta}，已截断至 0 分）`
     : `${g.name} 积分更新：${delta > 0 ? '+' : ''}${delta}`);
@@ -11266,6 +11556,7 @@ async function startSlotSpin() {
       reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
     }, 50);
   }
+  ClassroomFeedback.startLive();
 }
 
 function stopSlotSpin() {
@@ -11609,38 +11900,30 @@ function triggerUploadAudio(slotId) {
 }
 
 function handleSoundFileUpload(event) {
-  const file = event.target.files[0];
-  if (!file || !currentUploadingSlot) return;
-
-  const reader = new FileReader();
-  reader.onload = async function(e) {
-    const arrayBuffer = e.target.result;
-    try {
-      const ctx = await getAudioContext();
-      await ctx.decodeAudioData(arrayBuffer.slice(0));
-
-      if (db) {
-        const tx = db.transaction('sounds', 'readwrite');
-        const store = tx.objectStore('sounds');
-        store.put({ id: currentUploadingSlot, arrayBuffer: arrayBuffer });
-        soundIdCache.add(currentUploadingSlot);
-      }
-
-      if (currentUploadingSlot.startsWith('fx_')) {
-        const fxKey = currentUploadingSlot.replace('fx_', '');
-        customFxBuffers[fxKey] = await ctx.decodeAudioData(arrayBuffer.slice(0));
-      }
-
-      bgmEngine.preloadedSet = null;
-      bgmShufflePool = [];
-
-      showToast('音频已保存');
-      renderBgmSlotList();
-      renderFxSlotList();
-    } catch (err) {
-      themeAlert('解析失败，请确保格式为 MP3/WAV');
-    }
-    event.target.value = '';
+  const file=event.target.files[0],slotId=currentUploadingSlot;
+  if(!file||!slotId)return;
+  const reader=new FileReader();
+  reader.onerror=()=>showToast('音频文件读取失败，原音频保留');
+  reader.onload=async function(e){
+    let decoded;
+    try{const ctx=await getAudioContext();decoded=await ctx.decodeAudioData(e.target.result.slice(0));}
+    catch(error){themeAlert('解析失败，请确保格式为 MP3/WAV');event.target.value='';return;}
+    const fxKey=slotId.startsWith('fx_')?slotId.slice(3):null;
+    if(fxKey)customFxBuffers[fxKey]=decoded;
+    let saved=false;
+    try{
+      if(!db)throw Error('浏览器音频存储不可用');
+      await new Promise((resolve,reject)=>{
+        const tx=db.transaction('sounds','readwrite');
+        tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||Error('音频保存失败'));tx.onabort=()=>reject(tx.error||Error('音频保存中止'));
+        tx.objectStore('sounds').put({id:slotId,arrayBuffer:e.target.result});
+      });
+      soundIdCache.add(slotId);saved=true;
+    }catch(error){showToast(fxKey?'音效仅在本页生效，未保存：'+error.message:'音频未保存，原已保存文件保留：'+error.message);}
+    bgmEngine.preloadedSet=null;bgmShufflePool=[];
+    if(saved)showToast('音频已保存');
+    renderBgmSlotList();renderFxSlotList();
+    event.target.value='';
   };
   reader.readAsArrayBuffer(file);
 }
@@ -13060,7 +13343,7 @@ function renderItemWindow(){
     const canUse=!locked&&eligibleForItems(g);
     body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能使用道具。</div>':''}<div class="item-inventory-grid">${[0,1,2].map(i=>{const it=g.inventory[i];if(!it)return '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div></div>';const d=ITEM_DEFS[it.key];return `<div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div><div class="item-big-desc">${escapeHtml(d.desc)}</div><button class="btn btn-primary item-use" onclick="useItem(${g.id},${i})" ${canUse?'':'disabled'}>立即使用</button></div>`}).join('')}</div>${g.score<0?'<div style="margin-top:12px;color:#dc2626;font-weight:800;">负分保护生效：禁止使用或受到任何道具影响。</div>':''}`;
   }else{
-    body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能调整积分。</div>':''}<div class="item-score-panel"><button class="btn btn-success" onclick="itemQuickScore(${g.id},1)" ${disabled}>+1</button><button class="btn btn-success" onclick="itemQuickScore(${g.id},2)" ${disabled}>+2</button><button class="btn btn-success" onclick="itemQuickScore(${g.id},5)" ${disabled}>+5</button><button class="btn btn-danger" onclick="itemQuickScore(${g.id},-1)" ${disabled}>-1</button><button class="btn btn-danger" onclick="itemQuickScore(${g.id},-2)" ${disabled}>-2</button><input id="itemCustomScore" type="number" placeholder="自由增减" ${disabled}><button class="btn btn-primary" onclick="itemCustomScore(${g.id})" ${disabled}>应用</button></div>`;
+    body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能调整积分。</div>':''}<div class="item-score-panel">${ClassroomFeedback.slotMarkup('group',g.id,locked)}<input id="itemCustomScore" type="number" placeholder="自由增减" ${disabled}><button class="btn btn-primary" onclick="itemCustomScore(${g.id})" ${disabled}>应用</button></div>`;
   }
 }
 function previewItemDetailColor(value){const el=document.getElementById('groupDetailColorPreview');if(el)el.style.background=value}
@@ -13161,7 +13444,7 @@ function judgeHandRaise(correct){
   recordHistory(`${g.name} 手动举手：${correct?'正确':'错误'}`);g.itemStats.correct+=(correct?1:0);g.itemStats.wrong+=(correct?0:1);state.itemGlobal.handRaiseTotal++;state.itemGlobal.handRaiseHistory.push({time:Date.now(),groupId:g.id,correct});
   saveState();renderAll();
   const box=document.getElementById('handRewardBox');if(!correct){box.innerHTML='<div class="hand-rewards"><b>已记录错误，本次不发放奖励。</b></div>';return}
-  box.innerHTML=`<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b><button class="btn btn-success" onclick="handQuickScore(1)">+1</button><button class="btn btn-success" onclick="handQuickScore(2)">+2</button><button class="btn btn-success" onclick="handQuickScore(5)">+5</button><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
+  box.innerHTML=`<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b>${ClassroomFeedback.slotMarkup('hand')}<div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
 }
 function handQuickScore(n){if(handRaiseGroupId!=null)applyScoreDelta(handRaiseGroupId,n)}
 function handDrawItem(){const g=state.groups.find(x=>x.id===handRaiseGroupId);if(!g)return;if(!eligibleForItems(g)||g.inventory.length>=3){showToast('该组当前不能抽取道具');return}recordHistory(`${g.name} 举手奖励抽取道具`);const k=drawItemForGroup(g);if(k&&addItemToGroup(g,k)){saveState();renderAll();showToast(`${g.name} 获得 ${ITEM_DEFS[k].name}`)}}
@@ -13654,7 +13937,7 @@ const ITEM_FX_SOUND_SLOTS=[
 ];
 function renderItemFxSoundListV26(){
  const box=document.getElementById('itemFxSoundListV26');if(!box)return;
- box.innerHTML=ITEM_FX_SOUND_SLOTS.map(s=>{
+ box.innerHTML=ITEM_FX_SOUND_SLOTS.filter(s=>!GENERIC_ITEM_USE_SOUNDS_V2174.has(s.id)).map(s=>{
    const custom=!!customFxBuffers[s.id]||hasSound('fx_'+s.id);
    return `<div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom?'已载入自定义音频':s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>`:''}</div></div>`
  }).join('');
@@ -14436,9 +14719,9 @@ function installCommunismModeSetting(){
   if(!card){
     card=document.createElement('div');
     card.id='communismModeSetting';
-    card.className='setting-card setting-row communism-mode-card';
-    card.innerHTML=`<div class="communism-mode-copy">
-        <div class="communism-mode-title">☭ 共产主义模式</div>
+    card.className='setting-card setting-row ui-rule-card';
+    card.innerHTML=`<div class="ui-rule-copy">
+        <label class="ui-rule-title" for="communismModeToggle">☭ 共产主义模式</label>
         <div class="setting-note">道具功能总开关。关闭后，道具槽、道具抽取、道具管理、道具百科和相关入口都会隐藏；已有道具不会被删除。</div>
       </div>
       <label class="v292-switch" title="共产主义模式">
@@ -16379,6 +16662,7 @@ function playPerItemFallbackV2174(key){
    3. 旧的“发动通用/攻击/强化/状态/偷取”不再叠加播放。 */
 const _v2174PlaySound = playSound;
 playSound = async function(slotId){
+  if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined' && !ClassroomFeedback.allowClickSound())return;
   if(GENERIC_ITEM_USE_SOUNDS_V2174.has(slotId)){
     return;
   }
@@ -18826,9 +19110,7 @@ tinyDefenseToast=function(msg){
     <div class="quick-person-actions-v218">
       <div id="qpSelectedCountV218" class="qp-selected-count-v218">已选择 0 人</div>
       <div class="qp-score-actions-v218">
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(1)">+1</button>
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(2)">+2</button>
-        <button class="btn btn-success" onclick="applyQuickPersonScoreV218(5)">+5</button>
+        <div data-score-slots="person" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
         <input id="qpCustomScoreV218" type="number" class="qp-input-v218" placeholder="自定义" style="width:105px">
         <button class="btn btn-primary" onclick="applyQuickPersonCustomV218()">应用</button>
       </div>
@@ -19032,6 +19314,7 @@ function applyQuickPersonScoreV218(points){
   if(!ok)return false;
   animateScores(updates.map(u=>({groupId:u.id,start:u.old,target:u.score})));
   playSound(points>0?'score_add':'score_sub');
+  ClassroomFeedback.score(selected.length+' 名学生',updates.reduce((sum,u)=>sum+u.delta,0));
   showToast('已为 '+selected.length+' 名学生完成加分');
   return true;
 }
@@ -19352,9 +19635,8 @@ function renderHandRewardControlsV218(){
   const drawDisabled=!eligibleForItems(g)||g.inventory.length>=3;
   box.innerHTML=`<div class="hand-rewards">
     <b style="width:100%">回答正确 · 选择奖励</b>
-    <button class="btn btn-success" onclick="handQuickScore(1)">+1</button>
-    <button class="btn btn-success" onclick="handQuickScore(2)">+2</button>
-    <button class="btn btn-success" onclick="handQuickScore(5)">+5</button>
+    ${ClassroomFeedback.slotMarkup('hand')}
+    <div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div>
     <button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled?'disabled':''}>🎁 抽取道具</button>
     <button class="btn btn-warning" onclick="handUseOneV218()" ${!main?'disabled':''}>${main?`使用 1 次：${escapeHtml(ITEM_DEFS[main.key]?.name||'道具')}`:'无主要道具'}</button>
     ${triple?`<button class="btn btn-danger" onclick="handUseAllTripleV218()">连发剩余 ${main.charges} 次</button>`:''}
@@ -20753,6 +21035,469 @@ if(classroomDock&&typeof ResizeObserver==='function'){
   new ResizeObserver(()=>document.body.style.setProperty('--dock-height',classroomDock.getBoundingClientRect().height+'px')).observe(classroomDock);
 }
 </script>
+<script>/* Shared free-score controls and display-only cinematics. Never choose winners or mutate scores. */
+const ClassroomFeedback = (() => {
+  "use strict";
+  const KEY = "godpower_score_feedback_v1",
+    defaults = {
+      schemaVersion: 1,
+      slots: [1, 2, 5, -1, -2, -5],
+      pickEffects: true,
+      scoreEffects: true,
+      style: "aurora",
+      duration: 1800,
+      clickEnabled: true,
+      clickVolume: 0.45,
+    };
+  let options = { ...defaults, slots: [...defaults.slots] },
+    timer = null,
+    generation = 0,
+    initialized = false;
+  const liveReels = new Map();
+  function validate(raw) {
+    if (!raw || typeof raw !== "object") throw Error("设置格式无效");
+    const slots = raw.slots ?? defaults.slots;
+    if (
+      !Array.isArray(slots) ||
+      slots.length !== 6 ||
+      slots.some((x) => !Number.isSafeInteger(x) || x === 0)
+    )
+      throw Error("六个槽位必须全部填写非零安全整数");
+    return {
+      schemaVersion: 1,
+      slots: [...slots],
+      pickEffects:
+        typeof raw.pickEffects === "boolean" ? raw.pickEffects : true,
+      scoreEffects:
+        typeof raw.scoreEffects === "boolean" ? raw.scoreEffects : true,
+      style: ["aurora", "burst"].includes(raw.style) ? raw.style : "aurora",
+      duration: [1200, 1800, 2600, 3600].includes(raw.duration)
+        ? raw.duration
+        : 1800,
+      clickEnabled:
+        typeof raw.clickEnabled === "boolean" ? raw.clickEnabled : true,
+      clickVolume: Number.isFinite(raw.clickVolume)
+        ? Math.max(0, Math.min(1, raw.clickVolume))
+        : 0.45,
+    };
+  }
+  function setOptions(next, { persist = true } = {}) {
+    const value = validate({ ...options, ...next });
+    options = value;
+    if (persist)
+      try {
+        localStorage.setItem(KEY, JSON.stringify(value));
+      } catch (e) {
+        showToast("快捷赋分与特效设置仅在本页生效：" + e.name);
+      }
+    refreshSlots();
+    syncSettings();
+    if (!value.clickEnabled || !value.clickVolume) stopClickVoice();
+    if (!value.scoreEffects && !value.pickEffects) cancel();
+    return getOptions();
+  }
+  function getOptions() {
+    return { ...options, slots: [...options.slots] };
+  }
+  function allowed() {
+    const p = DesktopUI.getPreferences();
+    return (
+      p.motion !== "off" &&
+      !(
+        p.systemMotion && matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+    );
+  }
+  function slotMarkup(kind, id = "", disabled = false) {
+    const commands = {
+      picker: (n) => `scorePickerTarget(${n})`,
+      hand: (n) => `handQuickScore(${n})`,
+      group: (n) => `itemQuickScore(${Number(id)},${n})`,
+      modal: (n) => `submitModalScore(${n})`,
+      person: (n) => `applyQuickPersonScoreV218(${n})`,
+    };
+    if (!commands[kind]) throw Error("未知赋分入口");
+    return `<div class="cf-score-slots" data-score-slots="${kind}" data-score-group="${Number(id) || 0}" role="group" aria-label="六个快捷赋分槽位">${options.slots.map((n, i) => `<button type="button" class="btn ${n > 0 ? "btn-success" : "btn-danger"}" data-score-slot="${i}" onclick="${commands[kind](n)}" ${disabled ? "disabled" : ""}>${n > 0 ? "+" : "−"}${Math.abs(n)}</button>`).join("")}</div>`;
+  }
+  function refreshSlots() {
+    for (const host of document.querySelectorAll("[data-score-slots]")) {
+      host.classList.add("cf-score-slots");
+      const kind = host.dataset.scoreSlots,
+        id = host.dataset.scoreGroup;
+      const disabled = kind === "group" && state.isLocked;
+      const temp = document.createElement("div");
+      temp.innerHTML = slotMarkup(kind, id, disabled);
+      host.replaceChildren(...temp.firstElementChild.childNodes);
+    }
+    if (typeof DesktopUI !== "undefined") DesktopUI.pickerChanged();
+  }
+  function customHand() {
+    const input = document.getElementById("handCustomScore");
+    const n = Number(input?.value);
+    if (!input?.value.trim() || !Number.isSafeInteger(n) || n === 0) {
+      showToast("请输入非零整数分值");
+      return false;
+    }
+    handQuickScore(n);
+    return true;
+  }
+  function dialog() {
+    return document.getElementById("classroomShowcase");
+  }
+  function cancel() {
+    generation++;
+    clearTimeout(timer);
+    timer = null;
+    const root = dialog();
+    if (root) {
+      DesktopUI.cancelWindowClose(root);
+      root.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      root.close();
+      root.classList.remove("active");
+      root.querySelector(".cf-show-particles")?.replaceChildren();
+    }
+  }
+  function dismiss() {
+    clearTimeout(timer);
+    timer = null;
+    generation++;
+    const root = dialog();
+    if (root?.open)
+      hideClassroomWindow(root, () => {
+        root.close();
+        root.classList.remove("active");
+        root.querySelector(".cf-show-particles")?.replaceChildren();
+      });
+  }
+  function show({ type, title, subtitle, value }) {
+    if (
+      !allowed() ||
+      (type === "pick" ? !options.pickEffects : !options.scoreEffects)
+    )
+      return;
+    cancel();
+    const root = dialog();
+    if (!root) return;
+    const serial = generation;
+    root.dataset.kind = type;
+    root.dataset.effectStyle = options.style;
+    root.querySelector(".cf-show-eyebrow").textContent =
+      type === "pick"
+        ? "课堂幸运时刻"
+        : type === "positive"
+          ? "精彩表现 · 积分增加"
+          : "调整状态 · 积分扣除";
+    root.querySelector(".cf-show-title").textContent = title;
+    root.querySelector(".cf-show-subtitle").textContent = subtitle || "";
+    root.querySelector(".cf-show-value").textContent = value || "";
+    const particles = root.querySelector(".cf-show-particles");
+    const simple = DesktopUI.getPreferences().motion === "simple";
+    if (!simple)
+      for (let i = 0; i < 24; i++) {
+        const dot = document.createElement("i");
+        const angle = (i / 24) * Math.PI * 2;
+        dot.style.setProperty("--px", `${Math.cos(angle) * 42}vw`);
+        dot.style.setProperty("--py", `${Math.sin(angle) * 42}vh`);
+        dot.style.setProperty("--delay", `${(i % 6) * 35}ms`);
+        particles.append(dot);
+      }
+    root.classList.toggle("cf-simple", simple);
+    root.style.zoom = String(
+      1 / (Number(getComputedStyle(document.body).zoom) || 1),
+    );
+    root.showModal();
+    const toast = document.getElementById("toast");
+    if (toast?.matches(":popover-open")) {
+      toast.hidePopover();
+      toast.showPopover();
+    }
+    root.classList.add("active");
+    timer = setTimeout(() => {
+      if (serial === generation) dismiss();
+    }, options.duration);
+  }
+  function score(name, delta) {
+    if (!Number.isSafeInteger(delta) || !delta) return;
+    show({
+      type: delta > 0 ? "positive" : "negative",
+      title: name,
+      subtitle: "实际积分调整",
+      value: (delta > 0 ? "+" : "−") + Math.abs(delta),
+    });
+  }
+  function picked(win, mode) {
+    if (!win) return;
+    const group = mode === "group" ? win : win.group;
+    const student = mode === "group" ? null : parseStudentV218(win.memberName);
+    show({
+      type: "pick",
+      title: student?.name || group?.name || win.memberName,
+      subtitle:
+        mode === "group"
+          ? "本次抽中小组"
+          : `${group?.name || ""}${student?.number != null ? " · 学号 " + student.number : ""}`,
+      value: mode === "group" ? "LUCKY TEAM" : "就是你",
+    });
+  }
+  function syncSettings() {
+    document.querySelectorAll("[data-cf-slot]").forEach((e, i) => {
+      if (document.activeElement !== e) e.value = options.slots[i];
+    });
+    document.querySelectorAll("[data-cf-option]").forEach((e) => {
+      const v = options[e.dataset.cfOption];
+      if (e.type === "checkbox") e.checked = v;
+      else e.value = v;
+    });
+  }
+  function settings() {
+    document
+      .querySelector('[data-category-panel="rules"]')
+      .insertAdjacentHTML(
+        "beforeend",
+        `<section class="ui-panel cf-settings"><h3>六个快捷赋分槽位</h3><p class="ui-muted">抽取、举手、小组、独立赋分和按人赋分共用。修改后立即保存；各窗口保留手动输入。</p><div class="cf-slot-editor">${options.slots.map((n, i) => `<label>槽位 ${i + 1}<input type="number" step="1" data-cf-slot="${i}" aria-label="快捷赋分槽位 ${i + 1}" value="${n}"></label>`).join("")}</div><p id="cfSlotStatus" role="status" class="ui-muted">填写非零整数，正数加分，负数扣分。</p></section>`,
+      );
+    document
+      .querySelector('[data-category-panel="motion"]')
+      .insertAdjacentHTML(
+        "beforeend",
+        `<section class="ui-panel cf-settings"><h3>全屏课堂特效</h3><div class="ui-settings-row"><label for="cfPickEffects">抽中姓名全屏揭晓</label><input id="cfPickEffects" data-cf-option="pickEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfScoreEffects">自由加减分全屏反馈</label><input id="cfScoreEffects" data-cf-option="scoreEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfEffectStyle">视觉风格</label><select id="cfEffectStyle" data-cf-option="style"><option value="aurora">极光聚焦 · 光环与流光</option><option value="burst">星火绽放 · 放射粒子</option></select></div><div class="ui-settings-row"><label for="cfEffectDuration">自动收起时间</label><select id="cfEffectDuration" data-cf-option="duration"><option value="1200">1.2 秒</option><option value="1800">1.8 秒</option><option value="2600">2.6 秒</option><option value="3600">3.6 秒</option></select></div><p class="ui-muted">点击“继续课堂”或按 Escape 跳过。关闭非必要动效或系统减少动态效果时，不播放全屏演出；实际抽取、加分和扣分照常完成。</p></section>`,
+      );
+    document
+      .querySelector('[data-category-panel="sound"]')
+      .insertAdjacentHTML(
+        "afterbegin",
+        `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方“基础交互音效”中的“按钮点选”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
+      );
+    document.querySelectorAll("[data-cf-slot]").forEach((e) =>
+      e.addEventListener("change", () => {
+        const values = [...document.querySelectorAll("[data-cf-slot]")].map(
+          (x) => (x.value.trim() === "" ? NaN : Number(x.value)),
+        );
+        try {
+          setOptions({ slots: values });
+          document.getElementById("cfSlotStatus").textContent =
+            "六个槽位已更新，所有赋分窗口同步生效。";
+          e.removeAttribute("aria-invalid");
+        } catch (error) {
+          e.setAttribute("aria-invalid", "true");
+          document.getElementById("cfSlotStatus").textContent = error.message;
+        }
+      }),
+    );
+    document.querySelectorAll("[data-cf-option]").forEach((e) =>
+      e.addEventListener("change", () => {
+        setOptions({
+          [e.dataset.cfOption]:
+            e.type === "checkbox"
+              ? e.checked
+              : ["duration", "clickVolume"].includes(e.dataset.cfOption)
+                ? Number(e.value)
+                : e.value,
+        });
+        cancel();
+      }),
+    );
+    syncSettings();
+  }
+  let clickEvent = null,
+    clickClaimed = false,
+    clickCleanup = null;
+  function allowClickSound() {
+    if (!options.clickEnabled || !options.clickVolume) return false;
+    if (clickEvent) {
+      if (clickClaimed) return false;
+      clickClaimed = true;
+    }
+    return true;
+  }
+  let clickVoice = null;
+  function stopClickVoice() {
+    if (!clickVoice) return;
+    try {
+      clickVoice.source.stop();
+    } catch {}
+    clickVoice.source.disconnect();
+    clickVoice.gain.disconnect();
+    clickVoice = null;
+  }
+  function ownClickVoice(source, gain) {
+    stopClickVoice();
+    const voice = { source, gain };
+    clickVoice = voice;
+    source.onended = () => {
+      source.disconnect();
+      gain.disconnect();
+      if (clickVoice === voice) clickVoice = null;
+    };
+  }
+  function bindButtonSound() {
+    document.addEventListener(
+      "click",
+      (e) => {
+        const button = e.target.closest?.(
+          "button,summary,[role=button],input[type=button],input[type=submit]",
+        );
+        if (!button || button.disabled || button.closest("[inert]")) return;
+        stopClickVoice();
+        clickEvent = e;
+        clickClaimed = false;
+        clearTimeout(clickCleanup);
+        clickCleanup = setTimeout(() => {
+          clickEvent = null;
+          clickCleanup = null;
+        }, 0);
+        void playSound("ui_click");
+      },
+      true,
+    );
+  }
+  function init() {
+    if (initialized) return;
+    initialized = true;
+    try {
+      const saved = localStorage.getItem(KEY);
+      if (saved) options = validate(JSON.parse(saved));
+    } catch (e) {
+      console.warn("快捷赋分与特效设置使用默认值：", e.name);
+    }
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
+    );
+    bindButtonSound();
+    Reliability.onDefenseInvalidation(cancel);
+    dialog().addEventListener("cancel", (e) => {
+      e.preventDefault();
+      dismiss();
+    });
+    settings();
+    refreshSlots();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cancel();
+        stopClickVoice();
+        clearLive();
+      }
+    });
+    matchMedia("(prefers-reduced-motion: reduce)").addEventListener(
+      "change",
+      () => {
+        if (!allowed()) {
+          cancel();
+          clearLive();
+        }
+      },
+    );
+  }
+  function candidates(frame) {
+    const pre = state.picker.preselectedGroupIds || [];
+    const groups =
+      state.picker.mode === "two_tier"
+        ? state.groups.filter(
+            (g) => g.members?.length && (!pre.length || pre.includes(g.id)),
+          )
+        : state.groups;
+    return frame.id === "reelFrameGroup"
+      ? groups.map((g) => ({ group: g, raw: g.name }))
+      : groups.flatMap((g) =>
+          (g.members || []).map((raw) => ({ group: g, raw })),
+        );
+  }
+  function rowMarkup(candidate, isGroup) {
+    return isGroup
+      ? escapeHtml(candidate?.raw || "待开奖")
+      : studentLabelHTMLV218(candidate?.raw || "待开奖", candidate?.group);
+  }
+  function clearLive() {
+    for (const [frame, live] of liveReels) {
+      live.animation.cancel();
+      live.strip.remove();
+      live.actual.style.visibility = live.visibility;
+    }
+    liveReels.clear();
+  }
+  function startLive() {
+    clearLive();
+    if (!allowed()) return;
+    document
+      .querySelectorAll("#pickerModal .slot-reel-frame")
+      .forEach((frame) => {
+        if (!frame.getClientRects().length) return;
+        const rows = candidates(frame);
+        if (!rows.length) return;
+        const actual = frame.querySelector(".slot-reel-text"),
+          height = frame.clientHeight,
+          strip = document.createElement("div");
+        strip.className = "ui-slot-deceleration cf-live-reel";
+        strip.setAttribute("aria-hidden", "true");
+        for (const candidate of [...rows, rows[0]]) {
+          const row = document.createElement("span");
+          row.style.height = height + "px";
+          row.innerHTML = rowMarkup(candidate, frame.id === "reelFrameGroup");
+          strip.append(row);
+        }
+        const visibility = actual.style.visibility;
+        actual.style.visibility = "hidden";
+        frame.append(strip);
+        const animation = strip.animate(
+          [
+            { transform: "translateY(0)" },
+            { transform: `translateY(-${height * rows.length}px)` },
+          ],
+          {
+            duration: 100 * rows.length,
+            iterations: Infinity,
+            easing: "linear",
+          },
+        );
+        liveReels.set(frame, {
+          animation,
+          strip,
+          actual,
+          visibility,
+          rows,
+          height,
+        });
+      });
+  }
+  function takeLive(frame) {
+    const live = liveReels.get(frame);
+    if (!live) return null;
+    const phase =
+      ((Number(live.animation.currentTime) || 0) / 100) % live.rows.length;
+    return {
+      index: Math.floor(phase),
+      fraction: phase % 1,
+      rows: live.rows,
+      visibility: live.visibility,
+    };
+  }
+  return {
+    init,
+    allowClickSound,
+    ownClickVoice,
+    getOptions,
+    setOptions,
+    validate,
+    slotMarkup,
+    refreshSlots,
+    customHand,
+    score,
+    picked,
+    dismiss,
+    cancel,
+    startLive,
+    clearLive,
+    takeLive,
+    rowMarkup,
+    status: () => ({
+      open: !!dialog()?.open,
+      timer: timer !== null,
+      liveReels: liveReels.size,
+    }),
+  };
+})();
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -20818,6 +21563,7 @@ const DesktopUI = (() => {
   function applyPreferences() {
     settleDisclosures();
     cancelSettingsMotion();
+    ClassroomFeedback.cancel();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
@@ -20911,6 +21657,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    ClassroomFeedback.cancel();
     window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
@@ -21966,6 +22713,7 @@ const DesktopUI = (() => {
     });
   }
   const modalClosers = {
+    classroomShowcase: () => ClassroomFeedback.dismiss(),
     programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),
     welcomeModal: () => closeWelcomeModal(),
     scoreModalBackdrop: () => closeScoreModal(),
@@ -22099,6 +22847,7 @@ const DesktopUI = (() => {
           forgetModal(id);
         if (!el) continue;
         const visible =
+          el.open ||
           el.classList.contains("active") ||
           el.classList.contains("show") ||
           el.style.display === "flex" ||
@@ -22273,6 +23022,8 @@ const DesktopUI = (() => {
     pickerGeneration++;
     pickerPreparing = false;
     clearPickerReveal();
+    ClassroomFeedback.clearLive();
+    ClassroomFeedback.cancel();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;
@@ -22338,8 +23089,10 @@ const DesktopUI = (() => {
       button.removeAttribute("aria-busy");
       badge.textContent = label + " · 抽取完成";
       pickerChanged();
+      ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {
+      ClassroomFeedback.clearLive();
       complete();
       return;
     }
@@ -22350,11 +23103,13 @@ const DesktopUI = (() => {
     button.textContent = "减速中…";
     badge.textContent = "正在减速，结果即将揭晓…";
     pickerChanged();
-    const pending = [];
+    const pending = [],
+      pendingActual = [];
     modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
       if (!frame.getClientRects().length) return;
       const actual = frame.querySelector(".slot-reel-text");
       const isGroup = frame.id === "reelFrameGroup";
+      const live = ClassroomFeedback.takeLive(frame);
       const candidates = isGroup
         ? state.groups.map((g) => ({ raw: g.name, group: g }))
         : state.groups.flatMap((g) =>
@@ -22365,10 +23120,12 @@ const DesktopUI = (() => {
       strip.className = "ui-slot-deceleration";
       strip.setAttribute("aria-hidden", "true");
       // Display-only cycle: never consume or replace the business RNG.
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 7; i++) {
         const row = document.createElement("span");
-        const candidate = candidates[i % Math.max(1, candidates.length)];
-        if (i === 9 || !candidate) {
+        const list = live?.rows || candidates;
+        const candidate =
+          list[((live?.index || 0) + i) % Math.max(1, list.length)];
+        if (i === 6 || !candidate) {
           for (const node of actual.childNodes)
             row.append(node.cloneNode(true));
         } else if (isGroup) {
@@ -22380,7 +23137,8 @@ const DesktopUI = (() => {
         row.style.height = height + "px";
         strip.append(row);
       }
-      const visibility = actual.style.visibility;
+      const visibility = live ? live.visibility : actual.style.visibility;
+      pendingActual.push(actual);
       actual.style.visibility = "hidden";
       frame.append(strip);
       pickerReelRestores.push(() => {
@@ -22390,17 +23148,20 @@ const DesktopUI = (() => {
       const a = animate(
         strip,
         [
-          { transform: "translateY(0)" },
-          { transform: `translateY(-${height * 9}px)` },
+          { transform: `translateY(-${(live?.fraction || 0) * height}px)` },
+          { transform: `translateY(-${height * 6}px)` },
         ],
         {
           duration: 1000,
-          easing: "cubic-bezier(.12,.78,.15,1)",
+          easing: "cubic-bezier(.2,.4,.3,1)",
           fill: "forwards",
         },
       );
       if (a) pending.push(a.finished.catch(() => {}));
     });
+    ClassroomFeedback.clearLive();
+    // clearLive restores the legacy name; keep it hidden behind the settling strip.
+    pendingActual.forEach((e) => (e.style.visibility = "hidden"));
     Promise.all(pending).then(complete);
   }
   function pickerChanged() {
@@ -22543,6 +23304,7 @@ const DesktopUI = (() => {
     setupSettings();
     setupPicker();
     setupModals();
+    ClassroomFeedback.init();
     setupDisclosures();
     $("#settlementHistoryContainer").addEventListener(
       "toggle",

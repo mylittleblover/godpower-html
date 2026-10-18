@@ -63,6 +63,7 @@ const DesktopUI = (() => {
   function applyPreferences() {
     settleDisclosures();
     cancelSettingsMotion();
+    ClassroomFeedback.cancel();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
@@ -156,6 +157,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    ClassroomFeedback.cancel();
     window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
@@ -1211,6 +1213,7 @@ const DesktopUI = (() => {
     });
   }
   const modalClosers = {
+    classroomShowcase: () => ClassroomFeedback.dismiss(),
     programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),
     welcomeModal: () => closeWelcomeModal(),
     scoreModalBackdrop: () => closeScoreModal(),
@@ -1344,6 +1347,7 @@ const DesktopUI = (() => {
           forgetModal(id);
         if (!el) continue;
         const visible =
+          el.open ||
           el.classList.contains("active") ||
           el.classList.contains("show") ||
           el.style.display === "flex" ||
@@ -1518,6 +1522,8 @@ const DesktopUI = (() => {
     pickerGeneration++;
     pickerPreparing = false;
     clearPickerReveal();
+    ClassroomFeedback.clearLive();
+    ClassroomFeedback.cancel();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;
@@ -1583,8 +1589,10 @@ const DesktopUI = (() => {
       button.removeAttribute("aria-busy");
       badge.textContent = label + " · 抽取完成";
       pickerChanged();
+      ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {
+      ClassroomFeedback.clearLive();
       complete();
       return;
     }
@@ -1595,11 +1603,13 @@ const DesktopUI = (() => {
     button.textContent = "减速中…";
     badge.textContent = "正在减速，结果即将揭晓…";
     pickerChanged();
-    const pending = [];
+    const pending = [],
+      pendingActual = [];
     modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
       if (!frame.getClientRects().length) return;
       const actual = frame.querySelector(".slot-reel-text");
       const isGroup = frame.id === "reelFrameGroup";
+      const live = ClassroomFeedback.takeLive(frame);
       const candidates = isGroup
         ? state.groups.map((g) => ({ raw: g.name, group: g }))
         : state.groups.flatMap((g) =>
@@ -1610,10 +1620,12 @@ const DesktopUI = (() => {
       strip.className = "ui-slot-deceleration";
       strip.setAttribute("aria-hidden", "true");
       // Display-only cycle: never consume or replace the business RNG.
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 7; i++) {
         const row = document.createElement("span");
-        const candidate = candidates[i % Math.max(1, candidates.length)];
-        if (i === 9 || !candidate) {
+        const list = live?.rows || candidates;
+        const candidate =
+          list[((live?.index || 0) + i) % Math.max(1, list.length)];
+        if (i === 6 || !candidate) {
           for (const node of actual.childNodes)
             row.append(node.cloneNode(true));
         } else if (isGroup) {
@@ -1625,7 +1637,8 @@ const DesktopUI = (() => {
         row.style.height = height + "px";
         strip.append(row);
       }
-      const visibility = actual.style.visibility;
+      const visibility = live ? live.visibility : actual.style.visibility;
+      pendingActual.push(actual);
       actual.style.visibility = "hidden";
       frame.append(strip);
       pickerReelRestores.push(() => {
@@ -1635,17 +1648,20 @@ const DesktopUI = (() => {
       const a = animate(
         strip,
         [
-          { transform: "translateY(0)" },
-          { transform: `translateY(-${height * 9}px)` },
+          { transform: `translateY(-${(live?.fraction || 0) * height}px)` },
+          { transform: `translateY(-${height * 6}px)` },
         ],
         {
           duration: 1000,
-          easing: "cubic-bezier(.12,.78,.15,1)",
+          easing: "cubic-bezier(.2,.4,.3,1)",
           fill: "forwards",
         },
       );
       if (a) pending.push(a.finished.catch(() => {}));
     });
+    ClassroomFeedback.clearLive();
+    // clearLive restores the legacy name; keep it hidden behind the settling strip.
+    pendingActual.forEach((e) => (e.style.visibility = "hidden"));
     Promise.all(pending).then(complete);
   }
   function pickerChanged() {
@@ -1788,6 +1804,7 @@ const DesktopUI = (() => {
     setupSettings();
     setupPicker();
     setupModals();
+    ClassroomFeedback.init();
     setupDisclosures();
     $("#settlementHistoryContainer").addEventListener(
       "toggle",

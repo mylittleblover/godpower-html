@@ -711,11 +711,71 @@
   padding: 8px;
 }
 @media (min-width: 1200px) {
+  #uiSettingsRules > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+/* Classroom behaviour uses one card and one switch component. */
+#uiSettingsRules #settingsV26_function {
+  display: contents;
+}
+#uiSettingsRules > div {
+  align-items: stretch;
+}
+#uiSettingsRules .ui-rule-card {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 18px;
+  padding: 18px;
+  margin: 0;
+  min-height: 138px;
+  height: 100%;
+}
+.ui-rule-copy {
+  flex: 1;
+  min-width: 0;
+}
+.ui-rule-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--ui-text);
+  margin-bottom: 8px;
+}
+.ui-rule-copy .setting-note {
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.7;
+}
+.ui-rule-card .v292-switch {
+  margin-top: 0;
+}
+.v292-switch input:focus-visible + .v292-switch-track {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 4px;
+}
+/* Siblings of animated surfaces stay anchored to the viewport. */
+.ui-cinematic-skip {
+  position: fixed;
+  right: 28px;
+  bottom: 24px;
+  z-index: 5;
+  margin: 0;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  color: #fff;
+  background: #123d35;
+  border: 1px solid #ffffff60;
+  cursor: pointer;
+}
+@media (min-width: 1200px) {
   #settingsV26_sound,
   #uiSettingsVolume > div,
   #uiSettingsWallpaper > div,
-  #uiSettingsLayout > div,
-  #uiSettingsRules > div {
+  #uiSettingsLayout > div {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;

@@ -76,3 +76,20 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 ## 设置页整理兼容声明
 
 本轮设置UI清理没有新增或迁移存储键，原All In、分栏、垫片、壁纸、音量、口令及UI偏好仍由既有处理器即时保存。题库仍需验证并保存。原生details展开状态不持久化，刷新默认收起。BGMP音频包、课堂JSON与图片包格式保持原兼容；数据备份不包含自定义音频，界面引导到独立音频迁移区。
+
+## 快捷赋分与全屏反馈界面偏好
+
+独立 localStorage 键 `godpower_score_feedback_v1`，不改变原课堂/历史 Schema 与旧存档迁移。
+
+| 字段 | 类型/默认 | 校验 |
+| --- | --- | --- |
+| schemaVersion | number / 1 | 当前界面格式 |
+| slots | number[6] / [1,2,5,-1,-2,-5] | 恰好六个非零安全整数 |
+| pickEffects | boolean / true | 抽中演出开关 |
+| scoreEffects | boolean / true | 自由赋分演出开关 |
+| style | string / aurora | aurora 或 burst |
+| duration | number / 1800 | 1200、1800、2600、3600ms |
+| clickEnabled | boolean / true | 公共按钮点击音 |
+| clickVolume | number / .45 | 有限数且限制在 0–1 |
+
+缺失偏好使用默认，损坏 JSON 不修改课堂数据。界面偏好与已有 DesktopUI 偏好一样独立于课堂备份；自定义音频仍通过原音频包/BIN 迁移。音频槽、IndexedDB sounds 记录键 `fx_<slot>` 和打包格式不变。

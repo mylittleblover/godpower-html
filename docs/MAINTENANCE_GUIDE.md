@@ -68,3 +68,9 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
 修改 `ui/application-surfaces.css` 后，运行 `npm run test:surfaces`，涉及模态结构时追加窗口尺寸矩阵，涉及比赛表面时与基线 `f2b39e6` 做14组尺寸对比。新窗口必须接入现有模态关闭/焦点与动画取消机制；导航启动动画仍由 WelcomeV2 统一所有。历史/档案页不可恢复成随记录数无限撑高页面的外层滚动。验收证据必须标注产物SHA和应用缩放方式。
 
 本轮新增 warning-dialogs 与 admin-dialog 测试。遇到输入框回车后弹出新窗口，必须验证事件默认动作不会立即激活新窗口按钮；验证视觉层级与焦点栈一致。动态移除或同ID替换窗口必须取消旧待决操作并恢复焦点。动画等待必须包含排队中的requestAnimationFrame，最终断言仍为严格零残留。
+
+### 课堂反馈组件回归
+
+修改六槽赋分、抽取转轮、全屏演出、按钮声音或课堂行为设置时，执行 `npm run build && npm run check && npm test && npm run test:classroom-feedback`。音效调用改动后再执行 `node scripts/audio-inventory.mjs`，不能仅凭扫描结果声称每个道具场景已真实操作。新增跳过演出的按钮复用 ui-cinematic-skip，作为动画表面的兄弟节点，固定在页面右下角；不要将其放入中心标题或会 transform 的内容容器。
+
+课堂行为的两个开关使用 ui-rule-card 和 v292-switch。保留动态 pane 所有者、旧 ID、原 onchange 和持久化字段，测试等高、标题与开关对齐、键盘操作及重载。不要通过改比赛卡片或底栏尺寸补偿设置页问题。

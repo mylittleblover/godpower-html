@@ -1,0 +1,229 @@
+/* Shared score controls retain the footprint of each existing window. */
+.cf-score-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.cf-score-slots .btn {
+  min-width: 0;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.cf-slot-editor {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.cf-slot-editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+.cf-slot-editor input {
+  min-width: 0;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+}
+.cf-slot-editor input[aria-invalid="true"] {
+  border-color: #c33445;
+  outline: 2px solid #c3344520;
+}
+.cf-settings {
+  margin-top: 20px;
+}
+.item-score-panel > .cf-score-slots {
+  grid-column: 1/-1;
+}
+.hand-rewards > .cf-score-slots {
+  flex-basis: 100%;
+}
+.qp-score-actions-v218 > .cf-score-slots {
+  width: 300px;
+}
+#classroomShowcase {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+}
+#classroomShowcase::backdrop {
+  background: rgb(2 13 20 / 0.88);
+  backdrop-filter: blur(7px);
+}
+#classroomShowcase .cf-show-surface {
+  --cf-accent: #66f0b0;
+  --cf-glow: #23c47b;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  background: radial-gradient(ellipse at center, #123a3233, transparent 65%);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+}
+#classroomShowcase[data-kind="negative"] .cf-show-surface {
+  --cf-accent: #ff8b97;
+  --cf-glow: #ef435e;
+}
+#classroomShowcase[data-kind="pick"] .cf-show-surface {
+  --cf-accent: #9bf6df;
+  --cf-glow: #35bfb0;
+}
+.cf-show-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 18px;
+  padding: 40px 80px;
+  width: min(1200px, 95vw);
+}
+#classroomShowcase .cf-show-title {
+  color: #fff;
+  font-size: clamp(42px, 7vw, 112px);
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 55px color-mix(in srgb, var(--cf-glow) 55%, transparent);
+}
+.cf-show-eyebrow {
+  color: var(--cf-accent);
+  letter-spacing: 0.18em;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+}
+.cf-show-subtitle {
+  color: #d9e9e5;
+  font-size: 22px;
+  margin: 0;
+}
+.cf-show-value {
+  color: var(--cf-accent);
+  font-size: clamp(36px, 6vw, 92px);
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+#classroomShowcase > .ui-cinematic-skip {
+  color: #eafaf4;
+  background: #ffffff16;
+  border: 1px solid #ffffff45;
+  padding: 12px 22px;
+}
+.cf-show-orbit {
+  position: absolute;
+  width: min(65vw, 850px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--cf-accent) 32%, transparent);
+  box-shadow:
+    0 0 110px #34bda51a,
+    inset 0 0 100px #34bda510;
+  pointer-events: none;
+  animation: cf-orbit 1.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cf-show-orbit::before,
+.cf-show-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed color-mix(in srgb, var(--cf-accent) 35%, transparent);
+  border-radius: 50%;
+}
+.cf-show-orbit::after {
+  inset: -15%;
+  border-style: solid;
+  opacity: 0.35;
+}
+.cf-show-particles {
+  position: absolute;
+  inset: 50%;
+  pointer-events: none;
+}
+.cf-show-particles i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cf-accent);
+  box-shadow: 0 0 14px var(--cf-glow);
+  animation: cf-spark 1.8s cubic-bezier(0.12, 0.65, 0.3, 1) var(--delay) both;
+}
+#classroomShowcase[data-effect-style="burst"] .cf-show-particles i {
+  width: 5px;
+  height: 18px;
+  border-radius: 2px;
+}
+#classroomShowcase[data-effect-style="burst"] .cf-show-orbit {
+  border-width: 5px;
+  border-style: dotted;
+}
+.cf-show-copy {
+  animation: cf-name 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+#classroomShowcase.cf-simple .cf-show-orbit {
+  display: none;
+}
+#classroomShowcase.cf-simple .cf-show-copy {
+  animation: none;
+}
+@keyframes cf-orbit {
+  from {
+    transform: scale(0.4) rotate(-35deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes cf-spark {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--px), var(--py)) scale(0.4);
+    opacity: 0;
+  }
+}
+@keyframes cf-name {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-system-motion="true"] #classroomShowcase * {
+    animation: none;
+  }
+}

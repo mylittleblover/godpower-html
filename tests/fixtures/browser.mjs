@@ -34,7 +34,16 @@ export async function dismissStartup(page) {
 export async function setup(page, n = 4) {
   await dismissStartup(page);
   await page.evaluate((n) => {
+    // Finish the prior test's active spin before replacing its chosen result/state.
+    if (slotEngine.isSpinning) closePickerModal();
     closeWelcomeModal();
+    if (typeof ClassroomFeedback !== "undefined") {
+      ClassroomFeedback.cancel();
+      ClassroomFeedback.setOptions(
+        { pickEffects: false, scoreEffects: false },
+        { persist: false },
+      );
+    }
     state.isLocked = false;
     state.soundEnabled = false;
     setCommunismMode(true);

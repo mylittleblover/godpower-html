@@ -983,7 +983,7 @@ function playChiptuneSynth(slotId) {
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(1200, now);
-        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.setValueAtTime(0.1 * (typeof ClassroomFeedback!=='undefined'?ClassroomFeedback.getOptions().clickVolume:1), now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
         osc.connect(gain); gain.connect(getFxOutputV2176());
         osc.start(now); osc.stop(now + 0.03);
@@ -1026,13 +1026,16 @@ async function playSound(slotId) {
     }
 
     await getAudioContext();
+    if(slotId==='ui_click' && !fxSoundsLoaded)await loadFxSounds();
     if (customFxBuffers[slotId]) {
       const source = audioCtx.createBufferSource();
       source.buffer = customFxBuffers[slotId];
-      source.connect(getFxOutputV2176());
+      if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined'){
+        const gain=audioCtx.createGain();gain.gain.value=ClassroomFeedback.getOptions().clickVolume;source.connect(gain);gain.connect(getFxOutputV2176());ClassroomFeedback.ownClickVoice(source,gain);
+      }else source.connect(getFxOutputV2176());
       source.start(0);
     } else {
-      playChiptuneSynth(slotId);
+      playChiptuneSynth(slotId==='roll_loop'?'roll_tick':slotId);
     }
   } catch (_) {}
 }
@@ -2032,6 +2035,7 @@ function applyScoreDelta(groupId, delta) {
 
   saveState();
   animateScores([{ groupId, start: oldScore, target: targetScore }]);
+  ClassroomFeedback.score(g.name,actualDelta);
   showToast(clipped
     ? `${g.name} 扣 ${-actualDelta} 分（输入 ${delta}，已截断至 0 分）`
     : `${g.name} 积分更新：${delta > 0 ? '+' : ''}${delta}`);
@@ -2831,6 +2835,7 @@ async function startSlotSpin() {
       reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
     }, 50);
   }
+  ClassroomFeedback.startLive();
 }
 
 function stopSlotSpin() {
@@ -3174,38 +3179,30 @@ function triggerUploadAudio(slotId) {
 }
 
 function handleSoundFileUpload(event) {
-  const file = event.target.files[0];
-  if (!file || !currentUploadingSlot) return;
-
-  const reader = new FileReader();
-  reader.onload = async function(e) {
-    const arrayBuffer = e.target.result;
-    try {
-      const ctx = await getAudioContext();
-      await ctx.decodeAudioData(arrayBuffer.slice(0));
-
-      if (db) {
-        const tx = db.transaction('sounds', 'readwrite');
-        const store = tx.objectStore('sounds');
-        store.put({ id: currentUploadingSlot, arrayBuffer: arrayBuffer });
-        soundIdCache.add(currentUploadingSlot);
-      }
-
-      if (currentUploadingSlot.startsWith('fx_')) {
-        const fxKey = currentUploadingSlot.replace('fx_', '');
-        customFxBuffers[fxKey] = await ctx.decodeAudioData(arrayBuffer.slice(0));
-      }
-
-      bgmEngine.preloadedSet = null;
-      bgmShufflePool = [];
-
-      showToast('音频已保存');
-      renderBgmSlotList();
-      renderFxSlotList();
-    } catch (err) {
-      themeAlert('解析失败，请确保格式为 MP3/WAV');
-    }
-    event.target.value = '';
+  const file=event.target.files[0],slotId=currentUploadingSlot;
+  if(!file||!slotId)return;
+  const reader=new FileReader();
+  reader.onerror=()=>showToast('音频文件读取失败，原音频保留');
+  reader.onload=async function(e){
+    let decoded;
+    try{const ctx=await getAudioContext();decoded=await ctx.decodeAudioData(e.target.result.slice(0));}
+    catch(error){themeAlert('解析失败，请确保格式为 MP3/WAV');event.target.value='';return;}
+    const fxKey=slotId.startsWith('fx_')?slotId.slice(3):null;
+    if(fxKey)customFxBuffers[fxKey]=decoded;
+    let saved=false;
+    try{
+      if(!db)throw Error('浏览器音频存储不可用');
+      await new Promise((resolve,reject)=>{
+        const tx=db.transaction('sounds','readwrite');
+        tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||Error('音频保存失败'));tx.onabort=()=>reject(tx.error||Error('音频保存中止'));
+        tx.objectStore('sounds').put({id:slotId,arrayBuffer:e.target.result});
+      });
+      soundIdCache.add(slotId);saved=true;
+    }catch(error){showToast(fxKey?'音效仅在本页生效，未保存：'+error.message:'音频未保存，原已保存文件保留：'+error.message);}
+    bgmEngine.preloadedSet=null;bgmShufflePool=[];
+    if(saved)showToast('音频已保存');
+    renderBgmSlotList();renderFxSlotList();
+    event.target.value='';
   };
   reader.readAsArrayBuffer(file);
 }
@@ -4625,7 +4622,7 @@ function renderItemWindow(){
     const canUse=!locked&&eligibleForItems(g);
     body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能使用道具。</div>':''}<div class="item-inventory-grid">${[0,1,2].map(i=>{const it=g.inventory[i];if(!it)return '<div class="item-big empty"><div class="item-big-icon">＋</div><div class="item-big-name">空道具槽</div></div>';const d=ITEM_DEFS[it.key];return `<div class="item-big"><div class="item-big-icon">${itemVisual(it.key)}</div><div class="item-big-name">${escapeHtml(d.name)}${it.charges>1?' ×'+it.charges:''}</div><div class="item-big-desc">${escapeHtml(d.desc)}</div><button class="btn btn-primary item-use" onclick="useItem(${g.id},${i})" ${canUse?'':'disabled'}>立即使用</button></div>`}).join('')}</div>${g.score<0?'<div style="margin-top:12px;color:#dc2626;font-weight:800;">负分保护生效：禁止使用或受到任何道具影响。</div>':''}`;
   }else{
-    body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能调整积分。</div>':''}<div class="item-score-panel"><button class="btn btn-success" onclick="itemQuickScore(${g.id},1)" ${disabled}>+1</button><button class="btn btn-success" onclick="itemQuickScore(${g.id},2)" ${disabled}>+2</button><button class="btn btn-success" onclick="itemQuickScore(${g.id},5)" ${disabled}>+5</button><button class="btn btn-danger" onclick="itemQuickScore(${g.id},-1)" ${disabled}>-1</button><button class="btn btn-danger" onclick="itemQuickScore(${g.id},-2)" ${disabled}>-2</button><input id="itemCustomScore" type="number" placeholder="自由增减" ${disabled}><button class="btn btn-primary" onclick="itemCustomScore(${g.id})" ${disabled}>应用</button></div>`;
+    body.innerHTML=`${locked?'<div class="group-detail-lock">🔒 解锁后才能调整积分。</div>':''}<div class="item-score-panel">${ClassroomFeedback.slotMarkup('group',g.id,locked)}<input id="itemCustomScore" type="number" placeholder="自由增减" ${disabled}><button class="btn btn-primary" onclick="itemCustomScore(${g.id})" ${disabled}>应用</button></div>`;
   }
 }
 function previewItemDetailColor(value){const el=document.getElementById('groupDetailColorPreview');if(el)el.style.background=value}
@@ -4726,7 +4723,7 @@ function judgeHandRaise(correct){
   recordHistory(`${g.name} 手动举手：${correct?'正确':'错误'}`);g.itemStats.correct+=(correct?1:0);g.itemStats.wrong+=(correct?0:1);state.itemGlobal.handRaiseTotal++;state.itemGlobal.handRaiseHistory.push({time:Date.now(),groupId:g.id,correct});
   saveState();renderAll();
   const box=document.getElementById('handRewardBox');if(!correct){box.innerHTML='<div class="hand-rewards"><b>已记录错误，本次不发放奖励。</b></div>';return}
-  box.innerHTML=`<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b><button class="btn btn-success" onclick="handQuickScore(1)">+1</button><button class="btn btn-success" onclick="handQuickScore(2)">+2</button><button class="btn btn-success" onclick="handQuickScore(5)">+5</button><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
+  box.innerHTML=`<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b>${ClassroomFeedback.slotMarkup('hand')}<div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
 }
 function handQuickScore(n){if(handRaiseGroupId!=null)applyScoreDelta(handRaiseGroupId,n)}
 function handDrawItem(){const g=state.groups.find(x=>x.id===handRaiseGroupId);if(!g)return;if(!eligibleForItems(g)||g.inventory.length>=3){showToast('该组当前不能抽取道具');return}recordHistory(`${g.name} 举手奖励抽取道具`);const k=drawItemForGroup(g);if(k&&addItemToGroup(g,k)){saveState();renderAll();showToast(`${g.name} 获得 ${ITEM_DEFS[k].name}`)}}
@@ -5219,7 +5216,7 @@ const ITEM_FX_SOUND_SLOTS=[
 ];
 function renderItemFxSoundListV26(){
  const box=document.getElementById('itemFxSoundListV26');if(!box)return;
- box.innerHTML=ITEM_FX_SOUND_SLOTS.map(s=>{
+ box.innerHTML=ITEM_FX_SOUND_SLOTS.filter(s=>!GENERIC_ITEM_USE_SOUNDS_V2174.has(s.id)).map(s=>{
    const custom=!!customFxBuffers[s.id]||hasSound('fx_'+s.id);
    return `<div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom?'已载入自定义音频':s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>`:''}</div></div>`
  }).join('');
@@ -6001,9 +5998,9 @@ function installCommunismModeSetting(){
   if(!card){
     card=document.createElement('div');
     card.id='communismModeSetting';
-    card.className='setting-card setting-row communism-mode-card';
-    card.innerHTML=`<div class="communism-mode-copy">
-        <div class="communism-mode-title">☭ 共产主义模式</div>
+    card.className='setting-card setting-row ui-rule-card';
+    card.innerHTML=`<div class="ui-rule-copy">
+        <label class="ui-rule-title" for="communismModeToggle">☭ 共产主义模式</label>
         <div class="setting-note">道具功能总开关。关闭后，道具槽、道具抽取、道具管理、道具百科和相关入口都会隐藏；已有道具不会被删除。</div>
       </div>
       <label class="v292-switch" title="共产主义模式">

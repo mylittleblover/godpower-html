@@ -189,6 +189,7 @@ function applyQuickPersonScoreV218(points){
   if(!ok)return false;
   animateScores(updates.map(u=>({groupId:u.id,start:u.old,target:u.score})));
   playSound(points>0?'score_add':'score_sub');
+  ClassroomFeedback.score(selected.length+' 名学生',updates.reduce((sum,u)=>sum+u.delta,0));
   showToast('已为 '+selected.length+' 名学生完成加分');
   return true;
 }
@@ -509,9 +510,8 @@ function renderHandRewardControlsV218(){
   const drawDisabled=!eligibleForItems(g)||g.inventory.length>=3;
   box.innerHTML=`<div class="hand-rewards">
     <b style="width:100%">回答正确 · 选择奖励</b>
-    <button class="btn btn-success" onclick="handQuickScore(1)">+1</button>
-    <button class="btn btn-success" onclick="handQuickScore(2)">+2</button>
-    <button class="btn btn-success" onclick="handQuickScore(5)">+5</button>
+    ${ClassroomFeedback.slotMarkup('hand')}
+    <div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div>
     <button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled?'disabled':''}>🎁 抽取道具</button>
     <button class="btn btn-warning" onclick="handUseOneV218()" ${!main?'disabled':''}>${main?`使用 1 次：${escapeHtml(ITEM_DEFS[main.key]?.name||'道具')}`:'无主要道具'}</button>
     ${triple?`<button class="btn btn-danger" onclick="handUseAllTripleV218()">连发剩余 ${main.charges} 次</button>`:''}
