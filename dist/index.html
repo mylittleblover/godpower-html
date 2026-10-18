@@ -24769,6 +24769,10 @@ window.GodpowerPicker = (() => {
   };
   desktop.onExecute(async ({ id, action, payload }) => {
     if (!completed.has(id)) {
+      // Remote controls use the same configurable sound slots as the classroom buttons.
+      const buttonSound = action === 'score' ? (payload.delta > 0 ? 'positive' : 'negative') :
+        {start:'pick_start',stop:'pick_stop',cancel:'cancel',resetPool:'danger',mode:'settings',antiRepeat:'settings',preselect:'settings'}[action];
+      if (buttonSound) void playSound('ui_button_' + buttonSound);
       const promise = GodpowerPicker.command(action, payload).catch(error => ({ ok: false, error: error.message }));
       completed.set(id, promise);
       if (completed.size > 256) completed.delete(completed.keys().next().value);

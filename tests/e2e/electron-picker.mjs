@@ -68,6 +68,23 @@ try {
   return {spinning:slotEngine.isSpinning,phase:GodpowerPicker.getSnapshot().phase};
  });assert.deepEqual(asyncCancel,{spinning:false,phase:'idle'});
  results.push({scenario:'anti-repeat, two-tier subset, duplicate start, async cancellation',status:'PASS'});
+
+ const replaced=await page.evaluate(async()=>{
+  await GodpowerPicker.command('start');await GodpowerPicker.command('stop');
+  await new Promise(r=>setTimeout(r,1150));
+  const id=GodpowerPicker.getSnapshot().result.id;
+  state.groups=normalizeAllGroups(JSON.parse(JSON.stringify(state.groups)));
+  return {result:GodpowerPicker.getSnapshot().result,score:await GodpowerPicker.command('score',{resultId:id,delta:1})};
+ });assert.equal(replaced.result,null);assert.equal(replaced.score.ok,false);
+ const importCancel=await page.evaluate(async()=>{
+  await GodpowerPicker.command('start');const backup=buildClassroomBackup();
+  const result=importClassroomData(backup);return {ok:result.ok,phase:GodpowerPicker.getSnapshot().phase,spinning:slotEngine.isSpinning};
+ });assert.deepEqual(importCancel,{ok:true,phase:'idle',spinning:false});
+ await page.evaluate(()=>GodpowerPicker.command('start'));await page.evaluate(()=>GodpowerPicker.command('stop'));
+ await page.waitForFunction(()=>GodpowerPicker.getSnapshot().phase==='revealed');
+ const undo=await page.evaluate(async()=>{const r=GodpowerPicker.getSnapshot().result;await GodpowerPicker.command('score',{resultId:r.id,delta:2});undoLast();return {phase:GodpowerPicker.getSnapshot().phase,score:state.groups.find(g=>g.id===r.groupId).score,expected:r.score}});
+ assert.equal(undo.phase,'idle');assert.equal(undo.score,undo.expected);
+ results.push({scenario:'replacement rejects stale target; import/undo cancel transient picker',status:'PASS'});
  await mkdir('artifacts/electron-picker',{recursive:true});
  await writeFile('artifacts/electron-picker/results.json',JSON.stringify(results,null,2));
  console.log('PASS three modes, hidden result, exactly-once stop/history, stale score, scoring, cancellation');
