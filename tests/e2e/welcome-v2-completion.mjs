@@ -448,7 +448,7 @@ try {
       await c.close();
     }
   });
-  await test("Cruise is opt-in, pauses for reading and stops off-page/reduced motion; preference saves", async () => {
+  await test("Cruise defaults to continuous, pauses for reading and stops off-page/reduced motion; preference saves", async () => {
     const { c, p } = await open();
     try {
       await skip(p);
@@ -456,14 +456,19 @@ try {
       await p.evaluate(() => switchView("welcome"));
       assert.equal(
         await p.locator("#gpCruiseToggle").getAttribute("aria-pressed"),
-        "false",
+        "true",
       );
       assert.equal(
         await p.evaluate(() => WelcomeV2.getStatus().cruiseTimerActive),
-        false,
+        true,
       );
       await p.locator('[data-quiz-answer="0"]').click();
       const explanation = await p.locator(".ui-quiz-result").textContent();
+      await p.locator("#gpCruiseToggle").click();
+      assert.equal(
+        await p.evaluate(() => DesktopUI.getPreferences().groupCruise),
+        false,
+      );
       await p.locator("#gpCruiseToggle").click();
       await p.evaluate(() => updateWelcomeClock());
       assert.equal(

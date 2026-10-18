@@ -14,7 +14,8 @@ const DesktopUI = (() => {
       honors: true,
       challenge: true,
       subject: "politics",
-      groupCruise: false,
+      groupCruise: true,
+      groupCruiseVersion: 2,
     };
   let preferences = { ...defaults },
     bank = M.examples,
@@ -374,14 +375,15 @@ const DesktopUI = (() => {
       winner = last?.groups?.[0];
     let html = "";
     if (preferences.knowledge)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
     if (preferences.itemTip)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
+      html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
     if (preferences.honors)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
+      html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
     if (preferences.challenge)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
+    host.dataset.cardCount = host.querySelectorAll("article").length;
     host.querySelectorAll("[data-quiz-answer]").forEach(
       (b) =>
         (b.onclick = () => {
@@ -701,7 +703,7 @@ const DesktopUI = (() => {
         ["itemTip", "每日道具小知识"],
         ["honors", "历史荣誉"],
         ["challenge", "每日课堂挑战"],
-        ["groupCruise", "小组卡片自动巡航（默认关闭）"],
+        ["groupCruise", "小组卡片连续巡航（默认开启）"],
       ]
         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
         .join("") +
@@ -1224,6 +1226,66 @@ const DesktopUI = (() => {
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
   };
+  // Exit animations have one owner and one completion. No scoring or random decisions here.
+  const closingWindows = new Map();
+  function finishWindowClose(root) {
+    const pending = closingWindows.get(root);
+    if (!pending) return;
+    closingWindows.delete(root);
+    pending.animation?.cancel();
+    root.inert = pending.inert;
+    delete root.dataset.uiClosing;
+    pending.finish();
+  }
+  function cancelWindowClose(root) {
+    const pending = closingWindows.get(root);
+    if (!pending) return;
+    closingWindows.delete(root);
+    pending.animation?.cancel();
+    root.inert = pending.inert;
+    delete root.dataset.uiClosing;
+  }
+  function dismissWindow(root, finish) {
+    if (closingWindows.has(root)) return;
+    const surface = root.querySelector(".ui-function-surface");
+    if (
+      !surface ||
+      !root.getClientRects().length ||
+      !canAnimate() ||
+      !preferences.pageMotion
+    ) {
+      finish();
+      return;
+    }
+    // Stop only this window's entrance; other windows keep their own lifecycle.
+    surface.getAnimations().forEach((a) => a.cancel());
+    const pending = { finish, inert: root.inert, animation: null };
+    closingWindows.set(root, pending);
+    root.inert = true;
+    root.dataset.uiClosing = "true";
+    pending.animation = animate(
+      surface,
+      [
+        { opacity: 1, translate: "0 0", scale: "1" },
+        {
+          opacity: 0,
+          translate: preferences.motion === "full" ? "0 64px" : "0 10px",
+          scale: preferences.motion === "full" ? ".97" : "1",
+        },
+      ],
+      {
+        duration:
+          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
+        easing: "cubic-bezier(.55,.05,.85,.35)",
+        fill: "forwards",
+      },
+    );
+    pending.animation.finished
+      .catch(() => {})
+      .finally(() => {
+        if (closingWindows.get(root) === pending) finishWindowClose(root);
+      });
+  }
   let openStack = [],
     modalLayer = 300000;
   function setupModals() {
@@ -1681,6 +1743,10 @@ const DesktopUI = (() => {
         if (typeof value[key] === typeof defaults[key])
           preferences[key] = value[key];
       }
+      // Older releases saved the old default false without recording an explicit choice.
+      // Start the new continuous mode once; subsequent explicit opt-outs remain saved.
+      if (value.groupCruiseVersion !== 2) preferences.groupCruise = true;
+      preferences.groupCruiseVersion = 2;
       if (!["full", "simple", "off"].includes(preferences.motion))
         preferences.motion = "full";
       if (![0.75, 1, 1.5].includes(preferences.speed)) preferences.speed = 1;
@@ -1814,6 +1880,10 @@ const DesktopUI = (() => {
   }
   return {
     init,
+    dismissWindow,
+    cancelWindowClose,
+    finishWindowClose,
+    getClosingWindowCount: () => closingWindows.size,
     settleFromUI,
     prepareSettlement,
     cancelSettlement,

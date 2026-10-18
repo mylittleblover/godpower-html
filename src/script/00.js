@@ -1,3 +1,15 @@
+/* Shared UI-only visibility adapter. Business cleanup stays in its original command. */
+function showClassroomWindow(root) {
+  if (!root) return;
+  if (typeof DesktopUI !== 'undefined') DesktopUI.cancelWindowClose(root);
+  root.classList.add('active');
+}
+function hideClassroomWindow(root, finish) {
+  if (!root) return;
+  const commit = finish || (() => root.classList.remove('active'));
+  if (typeof DesktopUI !== 'undefined') DesktopUI.dismissWindow(root, commit);
+  else commit();
+}
 
 
 const DEFAULT_COLORS = ['#E5484D', '#2F7DD1', '#3A9D5D', '#F08C1A', '#8E44AD', '#18A6B8', '#4F64D8', '#D84A83', '#D95D39', '#159E91', '#6FA52E', '#A05BE5', '#C58B14', '#D94F70', '#2589BD', '#6F6BB2'];
@@ -233,13 +245,13 @@ function triggerFinalSettlement() {
   const input = document.getElementById('settlementNameInput');
   if (input) input.value = defaultTitle;
   if(typeof DesktopUI!=='undefined')DesktopUI.prepareSettlement();
-  document.getElementById('settlementNameModal').classList.add('active');
+  showClassroomWindow(document.getElementById('settlementNameModal'));
   setTimeout(() => { if (input) { input.focus(); input.select(); } }, 60);
 }
 
 function closeSettlementNameModal() {
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelSettlement();
-  document.getElementById('settlementNameModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('settlementNameModal'));
 }
 
 function confirmFinalSettlement() {
@@ -307,7 +319,7 @@ function confirmFinalSettlement() {
       </div>
     `;
   }
-  document.getElementById('grandModalOverlay').classList.add('active');
+  showClassroomWindow(document.getElementById('grandModalOverlay'));
   initConfetti();
 
   resetCompetitionDataAfterSettlementV21812();
@@ -374,7 +386,7 @@ function stopConfetti() {
 }
 
 function closeGrandSettlementModal() {
-  document.getElementById('grandModalOverlay').classList.remove('active');
+  hideClassroomWindow(document.getElementById('grandModalOverlay'));
   stopConfetti();
 }
 
@@ -1539,12 +1551,12 @@ function toggleLock() {
 
 function openPwdModal() {
   document.getElementById('pwdInput').value = '';
-  document.getElementById('pwdModal').classList.add('active');
+  showClassroomWindow(document.getElementById('pwdModal'));
   setTimeout(() => document.getElementById('pwdInput').focus(), 80);
 }
 
 function closePwdModal() {
-  document.getElementById('pwdModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('pwdModal'));
 }
 
 function handlePwdKey(event) {
@@ -1872,12 +1884,12 @@ function openScoreModal(groupId, event) {
   inputEl.classList.remove('invalid');
   const errEl = document.getElementById('scoreModalError');
   if (errEl) errEl.innerText = '';
-  document.getElementById('scoreModalBackdrop').classList.add('active');
+  showClassroomWindow(document.getElementById('scoreModalBackdrop'));
   setTimeout(() => document.getElementById('modalCustomInput').focus(), 50);
 }
 
 function closeScoreModal() {
-  document.getElementById('scoreModalBackdrop').classList.remove('active');
+  hideClassroomWindow(document.getElementById('scoreModalBackdrop'));
   state.activeModalGroupId = null;
 }
 
@@ -2229,7 +2241,7 @@ function openMemberSearchModal() {
 
 function closeMemberSearchModal() {
   const backdrop = document.getElementById('memberSearchBackdrop');
-  if (backdrop) backdrop.classList.remove('active');
+  if (backdrop) hideClassroomWindow(backdrop);
 }
 
 function handleMemberSearchKey(event) {
@@ -2592,9 +2604,9 @@ function renderGrid() {
 }
 
 function openPickerModal() {
-  if(document.getElementById('pickerModal').classList.contains('active'))return;
+  if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
-  document.getElementById('pickerModal').classList.add('active');
+  showClassroomWindow(document.getElementById('pickerModal'));
   updatePickerView();
   updatePickerPoolUI();
   resetSlotDisplay();
@@ -2603,7 +2615,7 @@ function openPickerModal() {
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
-  document.getElementById('pickerModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('pickerModal'));
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
@@ -2887,11 +2899,11 @@ function openBatchImportModal() {
   if (state.isLocked) { openPwdModal(); return; }
   const sample = state.groups.map(g => `${g.name}: ${g.members.join(', ')}`).join('\n');
   document.getElementById('batchTextarea').value = sample;
-  document.getElementById('batchImportModal').classList.add('active');
+  showClassroomWindow(document.getElementById('batchImportModal'));
 }
 
 function closeBatchImportModal() {
-  document.getElementById('batchImportModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('batchImportModal'));
 }
 
 function applyBatchImport() {
@@ -4212,7 +4224,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   window.closeWelcomeModal = () => {
     const m = document.getElementById('welcomeModal');
-    if (m) m.classList.remove('active');
+    if (m) hideClassroomWindow(m);
     hideAudioHint();
     startResumeRetry();
     tryAutoResumeAndPlay();
@@ -4534,8 +4546,8 @@ function globalItemDraw(){
   setTimeout(()=>{clearInterval(timer);eligible.forEach(g=>{const key=drawItemForGroup(g);if(key)addItemToGroup(g,key);const card=grid.querySelector(`[data-draw-id="${g.id}"]`);if(card&&key){card.classList.add('reveal');card.querySelector('.roulette').innerHTML=itemVisual(key);card.querySelector('.draw-result').textContent=ITEM_DEFS[key].name}});saveState();renderAll();setTimeout(()=>{ov.classList.remove('active');itemDrawBusy=false},3000)},3000)
 }
 
-function openItemWindow(groupId,tab='detail'){ensureItemState();activeItemGroupId=groupId;activeItemTab=tab;document.getElementById('itemModalBackdrop').classList.add('active');renderItemWindow()}
-function closeItemWindow(){document.getElementById('itemModalBackdrop').classList.remove('active');activeItemGroupId=null}
+function openItemWindow(groupId,tab='detail'){ensureItemState();activeItemGroupId=groupId;activeItemTab=tab;showClassroomWindow(document.getElementById('itemModalBackdrop'));renderItemWindow()}
+function closeItemWindow(){hideClassroomWindow(document.getElementById('itemModalBackdrop'));activeItemGroupId=null}
 function switchItemTab(tab){activeItemTab=tab;renderItemWindow()}
 function renderItemWindow(){
   const g=state.groups.find(x=>x.id===activeItemGroupId);if(!g)return closeItemWindow();
@@ -4705,8 +4717,8 @@ function scorePickerCustom(){const n=Math.round(Number(document.getElementById('
 const _v2StopSlot=stopSlotSpin;stopSlotSpin=function(){_v2StopSlot();ensureV2State();const w=slotEngine.chosenResult;if(w){const g=state.picker.mode==='group'?w:w.group;const text=state.picker.mode==='group'?`抽中 ${g.name}`:`抽中 ${w.memberName}（${g.name}）`;state.itemGlobal.pickerHistory.push({time:Date.now(),text});if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();saveState()}syncPickerScoreTarget();renderPickerInfo()}
 
 /* 手动举手 */
-function openHandRaise(){ensureV2State();handRaiseGroupId=null;document.getElementById('handRaiseBackdrop').classList.add('active');renderHandRaise()}
-function closeHandRaise(){document.getElementById('handRaiseBackdrop').classList.remove('active')}
+function openHandRaise(){ensureV2State();handRaiseGroupId=null;showClassroomWindow(document.getElementById('handRaiseBackdrop'));renderHandRaise()}
+function closeHandRaise(){hideClassroomWindow(document.getElementById('handRaiseBackdrop'))}
 function renderHandRaise(){const box=document.getElementById('handGroupGrid');if(!box)return;box.innerHTML=state.groups.map(g=>`<button class="hand-group ${g.id===handRaiseGroupId?'selected':''}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>`).join('');document.getElementById('handRewardBox').innerHTML=''}
 function selectHandGroup(id){handRaiseGroupId=id;renderHandRaise();document.querySelectorAll('.hand-group').forEach(b=>b.classList.remove('selected'));const arr=[...document.querySelectorAll('.hand-group')],idx=state.groups.findIndex(g=>g.id===id);if(arr[idx])arr[idx].classList.add('selected')}
 function judgeHandRaise(correct){
@@ -4763,8 +4775,8 @@ function showSettingsV2(which){
 }
 
 /* About */
-function openAbout(){document.getElementById('aboutBackdrop').classList.add('active');renderAbout('info')}
-function closeAbout(){document.getElementById('aboutBackdrop').classList.remove('active')}
+function openAbout(){showClassroomWindow(document.getElementById('aboutBackdrop'));renderAbout('info')}
+function closeAbout(){hideClassroomWindow(document.getElementById('aboutBackdrop'))}
 function renderAbout(tab){
   document.querySelectorAll('[data-about]').forEach(b=>b.classList.toggle('active',b.dataset.about===tab));const m=document.getElementById('aboutMain');
   if(tab==='info')m.innerHTML=`<h2>上帝（马克思）的力量</h2><div class="guide-block"><b>课堂积分与道具系统 V2</b><br>包含课堂积分、随机点名、手动举手、26 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">普通教学模式限制高风险编辑；解锁后可进行管理操作。道具的负分保护、三重耐久和持续状态仍遵循比赛规则。</div><button class="btn" onclick="closeAbout()">关闭</button>`;
@@ -5347,7 +5359,9 @@ function repairPersistentItemsV28(){
 let programConfirmResolveV28=null;
 function programConfirmV28(message,opts={}){
   return new Promise(resolve=>{
-    document.getElementById('programConfirmV28')?.querySelector('#pcCancelV28')?.click();
+    const previous = document.getElementById('programConfirmV28');
+    previous?.querySelector('#pcCancelV28')?.click();
+    if(previous && typeof DesktopUI !== 'undefined') DesktopUI.finishWindowClose(previous);
     programConfirmResolveV28=resolve;
     const o=document.createElement('div');o.id='programConfirmV28';o.className='program-confirm-overlay';
     o.innerHTML=`<div class="program-confirm-window ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="pcTitleV28">
@@ -5362,7 +5376,8 @@ function programConfirmV28(message,opts={}){
       </div>
     </div>`;
     document.body.appendChild(o);
-    const finish=v=>{if(!o.isConnected)return;document.removeEventListener('keydown',key);o.remove();programConfirmResolveV28=null;resolve(v)};
+    let settled=false;
+    const finish=v=>{if(settled||!o.isConnected)return;settled=true;document.removeEventListener('keydown',key);hideClassroomWindow(o,()=>o.remove());programConfirmResolveV28=null;resolve(v)};
     o.querySelector('#pcCancelV28').onclick=()=>finish(false);
     o.querySelector('#pcOkV28').onclick=()=>finish(true);
     o.addEventListener('click',e=>{if(e.target===o)finish(false)});

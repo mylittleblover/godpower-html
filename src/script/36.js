@@ -113,9 +113,9 @@ function openQuickPersonScoreV218(){
   qpStateV218.selected.clear();qpStateV218.bands.clear();qpStateV218.groups.clear();qpStateV218.letters.clear();
   const q=document.getElementById('qpSearchV218');if(q)q.value='';
   renderQuickPersonFiltersV218();renderQuickPersonListV218();
-  document.getElementById('quickPersonBackdropV218')?.classList.add('active');
+  showClassroomWindow(document.getElementById('quickPersonBackdropV218'));
 }
-function closeQuickPersonScoreV218(){document.getElementById('quickPersonBackdropV218')?.classList.remove('active')}
+function closeQuickPersonScoreV218(){hideClassroomWindow(document.getElementById('quickPersonBackdropV218'))}
 function toggleQPSetV218(type,val){
   const set=qpStateV218[type];
   set.has(val)?set.delete(val):set.add(val);

@@ -91,6 +91,7 @@ try {
       );
       await p.screenshot({ path: `artifacts/desktop-ui/modal-${id}.png` });
       await p.keyboard.press("Escape");
+      await root.waitFor({ state: "hidden" });
       assert.equal(await root.isVisible(), false);
     });
   await test("Score input rejects invalid integer without changing state and accepts signed score", async () => {
@@ -192,6 +193,7 @@ try {
       () => !document.querySelector("#settlementNameModal [aria-busy=true]"),
     );
     assert.equal(await p.evaluate(() => JSON.stringify(state.groups)), before);
+    await p.locator("#grandModalOverlay").waitFor({ state: "hidden" });
     assert.equal(await p.locator("#grandModalOverlay").isVisible(), false);
     await p.evaluate(() => {
       Storage.prototype.setItem = window.uiOriginalSetItem;
@@ -211,6 +213,7 @@ try {
     );
     await p.screenshot({ path: "artifacts/desktop-ui/settlement-success.png" });
     await p.keyboard.press("Escape");
+    await p.locator("#grandModalOverlay").waitFor({ state: "hidden" });
     assert.equal(await p.locator("#grandModalOverlay").isVisible(), false);
     assert.equal(await p.evaluate(() => getSettlementHistory().length), 1);
   });

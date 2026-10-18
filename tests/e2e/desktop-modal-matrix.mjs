@@ -88,6 +88,7 @@ try {
           row.error = e.message;
         }
         await p.keyboard.press("Escape");
+        await p.locator("#" + id).waitFor({ state: "hidden" });
         results.push(row);
         console.log(row.status, id, width, zoom, row.error || "");
       }

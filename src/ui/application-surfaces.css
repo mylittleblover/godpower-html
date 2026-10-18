@@ -128,6 +128,7 @@
 .program-confirm-window {
   --window-head-bg: var(--surface-hero);
   --window-head-text: #fff;
+  --window-head-subtext: #e0f6ee;
   --control-bg: #f3f8f4;
   --control-border: #d9e7de;
   --control-radius: 10px;
@@ -362,6 +363,7 @@ body.modern-flat-v217 {
   border-radius: 14px;
   background: var(--surface-hero);
   --window-head-text: #fff;
+  --window-head-subtext: #e0f6ee;
 }
 
 /* Archive discovery and empty-state actions use the same content rhythm as home. */

@@ -5,7 +5,7 @@ let themeDialogResolveV21727=null;
 function closeThemeDialogV21727(result=false){
   const root=document.getElementById('themeDialogV21727');
   if(!root)return;
-  root.classList.remove('active');
+  hideClassroomWindow(root);
   root.setAttribute('aria-hidden','true');
   const resolve=themeDialogResolveV21727;
   themeDialogResolveV21727=null;
@@ -63,7 +63,7 @@ function openThemeDialogV21727(message,opts={}){
       setTimeout(()=>ok.focus(),30);
     }
 
-    root.classList.add('active');
+    showClassroomWindow(root);
     root.setAttribute('aria-hidden','false');
   });
 }

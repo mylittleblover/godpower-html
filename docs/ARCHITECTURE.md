@@ -93,3 +93,9 @@ Web Audio／IndexedDB 音频库、菜单 BGM、思考／战斗／结算轨、节
 `ui/application-surfaces.css` 统一顶栏、底栏、比赛卡片外观、窗口及历史/档案页，详见 [规范](ui/APPLICATION_SURFACES.md)。旧几何所有者通过声明中的组件变量接收外观，没有新增全局包装函数。`WelcomeV2` 在原入场动画集合中加入五个导航标签，`DesktopUI` 在现有模态焦点扫描中管理普通窗口入场，并消费档案页的单次进入标志；无新增计时器，无业务状态写入。历史/档案采用换算视口高度和单一正文滚动，比赛几何不变。
 
 模态焦点栈现同时拥有视觉层级：打开分配递增层级，关闭/卸载恢复原值和焦点，动态programConfirmV28也接入同一生命周期。口令回车仅提交一次，防止默认点击新错误提示。details采用一个委托监听与可取消高度动画，页面计数包含待启动requestAnimationFrame；老虎机减速覆盖层是纯展示，不接管原抽取和防重复记账。
+
+### 首页连续巡航与窗口退出（本轮 UI 反馈）
+
+WelcomeV2 拥有按时间驱动的连续巡航与有限展示副本；DesktopUI 仍只读取业务状态渲染首页。`groupCruiseVersion=2` 仅属于界面偏好，首次采用新连续巡航默认值，以后保留用户关闭选择。卡片展示副本不写入小组数据。
+
+既有窗口开关函数显式调用 showClassroomWindow / hideClassroomWindow，交由 DesktopUI 的关闭任务 Map 管理取消、结束、inert 与动画。业务清理仍立即执行，UI 隐藏推迟到退出结束。没有新增同名函数覆盖或修改道具/计分引擎。详见 [UI 规范](ui/WELCOME_FEEDBACK.md)。

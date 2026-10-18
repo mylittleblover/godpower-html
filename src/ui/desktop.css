@@ -149,7 +149,7 @@
 .ui-group-track.ui-few {
   justify-content: center;
 }
-.ui-group-card {
+:is(.ui-group-card, .ui-group-repeat) {
   flex: 0 0 270px;
   min-width: 0;
   scroll-snap-align: start;
@@ -165,11 +165,11 @@
     box-shadow var(--motion-fast),
     translate var(--motion-fast);
 }
-.ui-group-card:hover {
+:is(.ui-group-card, .ui-group-repeat):hover {
   box-shadow: var(--shadow-float);
   translate: 0 -3px;
 }
-.ui-group-card .ui-group-title {
+:is(.ui-group-card, .ui-group-repeat) .ui-group-title {
   display: block;
   font-size: 18px;
   font-weight: 800;
@@ -184,7 +184,7 @@
   letter-spacing: -1px;
   overflow-wrap: anywhere;
 }
-.ui-group-card footer {
+:is(.ui-group-card, .ui-group-repeat) footer {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -193,7 +193,7 @@
   padding-top: 12px;
   font-size: 13px;
 }
-.ui-group-card footer img {
+:is(.ui-group-card, .ui-group-repeat) footer img {
   width: 30px;
   height: 30px;
   object-fit: contain;

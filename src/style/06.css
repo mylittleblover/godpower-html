@@ -9,11 +9,11 @@
 }
 #aboutMain .v2170-ency-head h2{
   margin:0!important;
-  color:var(--ui-text,#17302D)!important;
+  color:var(--window-head-text,var(--ui-text,#17302D))!important;
 }
 #aboutMain .v2170-ency-sub{
   margin-top:4px!important;
-  color:var(--ui-muted,#607773)!important;
+  color:var(--window-head-subtext,var(--ui-muted,#607773))!important;
   font-size:12px!important;
 }
 #aboutMain .v2170-ency-list{

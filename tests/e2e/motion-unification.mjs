@@ -122,6 +122,7 @@ try {
         "50%",
       );
       await close.click();
+      await p.locator("#" + id).waitFor({ state: "hidden" });
       assert.equal(await p.locator("#" + id).isVisible(), false);
       await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
       return probe;
@@ -299,9 +300,11 @@ try {
       void themeConfirm("测试取消", { danger: true });
     });
     await p.locator("#themeDialogV21727 [data-ui-window-close]").click();
+    await p.locator("#themeDialogV21727").waitFor({ state: "hidden" });
     assert.equal(await p.locator("#themeDialogV21727").isVisible(), false);
     await p.evaluate(() => confirmFinalSettlement());
     await p.locator("#grandModalOverlay [data-ui-window-close]").click();
+    await p.locator("#grandModalOverlay").waitFor({ state: "hidden" });
     assert.equal(await p.locator("#grandModalOverlay").isVisible(), false);
     assert.ok(await p.evaluate(() => getSettlementHistory().length > 0));
   });

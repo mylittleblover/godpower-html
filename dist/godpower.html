@@ -3153,11 +3153,11 @@ body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette.rev
 }
 #aboutMain .v2170-ency-head h2{
   margin:0!important;
-  color:var(--ui-text,#17302D)!important;
+  color:var(--window-head-text,var(--ui-text,#17302D))!important;
 }
 #aboutMain .v2170-ency-sub{
   margin-top:4px!important;
-  color:var(--ui-muted,#607773)!important;
+  color:var(--window-head-subtext,var(--ui-muted,#607773))!important;
   font-size:12px!important;
 }
 #aboutMain .v2170-ency-list{
@@ -4560,7 +4560,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 .ui-group-track.ui-few {
   justify-content: center;
 }
-.ui-group-card {
+:is(.ui-group-card, .ui-group-repeat) {
   flex: 0 0 270px;
   min-width: 0;
   scroll-snap-align: start;
@@ -4576,11 +4576,11 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
     box-shadow var(--motion-fast),
     translate var(--motion-fast);
 }
-.ui-group-card:hover {
+:is(.ui-group-card, .ui-group-repeat):hover {
   box-shadow: var(--shadow-float);
   translate: 0 -3px;
 }
-.ui-group-card .ui-group-title {
+:is(.ui-group-card, .ui-group-repeat) .ui-group-title {
   display: block;
   font-size: 18px;
   font-weight: 800;
@@ -4595,7 +4595,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   letter-spacing: -1px;
   overflow-wrap: anywhere;
 }
-.ui-group-card footer {
+:is(.ui-group-card, .ui-group-repeat) footer {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -4604,7 +4604,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   padding-top: 12px;
   font-size: 13px;
 }
-.ui-group-card footer img {
+:is(.ui-group-card, .ui-group-repeat) footer img {
   width: 30px;
   height: 30px;
   object-fit: contain;
@@ -5574,6 +5574,7 @@ summary:focus-visible {
 .program-confirm-window {
   --window-head-bg: var(--surface-hero);
   --window-head-text: #fff;
+  --window-head-subtext: #e0f6ee;
   --control-bg: #f3f8f4;
   --control-border: #d9e7de;
   --control-radius: 10px;
@@ -5808,6 +5809,7 @@ body.modern-flat-v217 {
   border-radius: 14px;
   background: var(--surface-hero);
   --window-head-text: #fff;
+  --window-head-subtext: #e0f6ee;
 }
 
 /* Archive discovery and empty-state actions use the same content rhythm as home. */
@@ -6744,9 +6746,10 @@ body[data-motion="off"] {
 #view-welcome .gp-compact-track {
   gap: 11px;
   padding: 0 20px 6px;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
 }
-#view-welcome .gp-compact-track .ui-group-card {
+#view-welcome .gp-compact-track :is(.ui-group-card, .ui-group-repeat) {
   flex: 0 0 203px;
   min-height: 115px;
   border: 1px solid #e4ede9;
@@ -6756,7 +6759,7 @@ body[data-motion="off"] {
   background: linear-gradient(135deg, #fff, #fbfefd);
   box-shadow: none;
 }
-#view-welcome .gp-compact-track .ui-group-card:hover {
+#view-welcome .gp-compact-track :is(.ui-group-card, .ui-group-repeat):hover {
   border-color: #96d6c7;
   box-shadow: 0 8px 16px #07746114;
 }
@@ -6792,14 +6795,59 @@ body[data-motion="off"] {
 }
 #view-welcome .gp-daily-grid {
   margin-top: 0;
-  gap: 14px;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+#view-welcome .gp-daily-grid[data-card-count="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+#view-welcome .gp-daily-item {
+  position: relative;
+}
+#view-welcome .gp-daily-item .ui-item-tip-icon {
+  position: absolute;
+  top: 44px;
+  right: 20px;
+  margin: 0;
+  width: 48px;
+  height: 48px;
+}
+#view-welcome .gp-daily-item h3 {
+  padding-right: 65px;
+}
+#view-welcome .gp-daily-grid details {
+  margin-top: auto;
+  padding-top: 12px;
+}
+#view-welcome .gp-daily-grid .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+#view-welcome .gp-daily-grid .ui-quiz-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+#view-welcome .gp-daily-grid .ui-quiz-options button {
+  text-align: left;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+#view-welcome .gp-daily-honors h3 {
+  font-size: 22px;
+}
+#view-welcome .gp-daily-challenge .ui-source {
+  margin-top: auto;
+  padding-top: 10px;
 }
 #view-welcome .gp-daily-grid .ui-panel {
   border-color: #e4ede9;
   box-shadow: 0 5px 24px #133f3608;
   padding: 19px;
   border-radius: 16px;
-  min-height: 194px;
+  min-height: 254px;
 }
 #view-welcome .gp-daily-grid .ui-eyebrow {
   font-size: 10px;
@@ -6808,12 +6856,12 @@ body[data-motion="off"] {
   margin: 0;
 }
 #view-welcome .gp-daily-grid h3 {
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.55;
 }
 #view-welcome .gp-daily-grid p {
-  font-size: 11px;
-  line-height: 1.65;
+  font-size: 13px;
+  line-height: 1.75;
 }
 #view-welcome .gp-footnote {
   text-align: center;
@@ -7142,11 +7190,10 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
 }
 
 #view-welcome .gp-kpi .gp-kpi-number {
-  font-size: clamp(14px, 1.5vw, 26px);
   white-space: normal;
   overflow-wrap: anywhere;
   text-overflow: clip;
-  line-height: 1.35;
+  line-height: 1.45;
 }
 </style>
 </head>
@@ -8386,7 +8433,19 @@ function applyItemScore(target, delta, sourceId, attackType = "normal") {
   return applyItemScoreAfterHorn(target, delta, sourceId, attackType);
 }
 </script>
-<script>
+<script>/* Shared UI-only visibility adapter. Business cleanup stays in its original command. */
+function showClassroomWindow(root) {
+  if (!root) return;
+  if (typeof DesktopUI !== 'undefined') DesktopUI.cancelWindowClose(root);
+  root.classList.add('active');
+}
+function hideClassroomWindow(root, finish) {
+  if (!root) return;
+  const commit = finish || (() => root.classList.remove('active'));
+  if (typeof DesktopUI !== 'undefined') DesktopUI.dismissWindow(root, commit);
+  else commit();
+}
+
 
 const DEFAULT_COLORS = ['#E5484D', '#2F7DD1', '#3A9D5D', '#F08C1A', '#8E44AD', '#18A6B8', '#4F64D8', '#D84A83', '#D95D39', '#159E91', '#6FA52E', '#A05BE5', '#C58B14', '#D94F70', '#2589BD', '#6F6BB2'];
 
@@ -8621,13 +8680,13 @@ function triggerFinalSettlement() {
   const input = document.getElementById('settlementNameInput');
   if (input) input.value = defaultTitle;
   if(typeof DesktopUI!=='undefined')DesktopUI.prepareSettlement();
-  document.getElementById('settlementNameModal').classList.add('active');
+  showClassroomWindow(document.getElementById('settlementNameModal'));
   setTimeout(() => { if (input) { input.focus(); input.select(); } }, 60);
 }
 
 function closeSettlementNameModal() {
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelSettlement();
-  document.getElementById('settlementNameModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('settlementNameModal'));
 }
 
 function confirmFinalSettlement() {
@@ -8695,7 +8754,7 @@ function confirmFinalSettlement() {
       </div>
     `;
   }
-  document.getElementById('grandModalOverlay').classList.add('active');
+  showClassroomWindow(document.getElementById('grandModalOverlay'));
   initConfetti();
 
   resetCompetitionDataAfterSettlementV21812();
@@ -8762,7 +8821,7 @@ function stopConfetti() {
 }
 
 function closeGrandSettlementModal() {
-  document.getElementById('grandModalOverlay').classList.remove('active');
+  hideClassroomWindow(document.getElementById('grandModalOverlay'));
   stopConfetti();
 }
 
@@ -9927,12 +9986,12 @@ function toggleLock() {
 
 function openPwdModal() {
   document.getElementById('pwdInput').value = '';
-  document.getElementById('pwdModal').classList.add('active');
+  showClassroomWindow(document.getElementById('pwdModal'));
   setTimeout(() => document.getElementById('pwdInput').focus(), 80);
 }
 
 function closePwdModal() {
-  document.getElementById('pwdModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('pwdModal'));
 }
 
 function handlePwdKey(event) {
@@ -10260,12 +10319,12 @@ function openScoreModal(groupId, event) {
   inputEl.classList.remove('invalid');
   const errEl = document.getElementById('scoreModalError');
   if (errEl) errEl.innerText = '';
-  document.getElementById('scoreModalBackdrop').classList.add('active');
+  showClassroomWindow(document.getElementById('scoreModalBackdrop'));
   setTimeout(() => document.getElementById('modalCustomInput').focus(), 50);
 }
 
 function closeScoreModal() {
-  document.getElementById('scoreModalBackdrop').classList.remove('active');
+  hideClassroomWindow(document.getElementById('scoreModalBackdrop'));
   state.activeModalGroupId = null;
 }
 
@@ -10617,7 +10676,7 @@ function openMemberSearchModal() {
 
 function closeMemberSearchModal() {
   const backdrop = document.getElementById('memberSearchBackdrop');
-  if (backdrop) backdrop.classList.remove('active');
+  if (backdrop) hideClassroomWindow(backdrop);
 }
 
 function handleMemberSearchKey(event) {
@@ -10980,9 +11039,9 @@ function renderGrid() {
 }
 
 function openPickerModal() {
-  if(document.getElementById('pickerModal').classList.contains('active'))return;
+  if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
-  document.getElementById('pickerModal').classList.add('active');
+  showClassroomWindow(document.getElementById('pickerModal'));
   updatePickerView();
   updatePickerPoolUI();
   resetSlotDisplay();
@@ -10991,7 +11050,7 @@ function openPickerModal() {
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
-  document.getElementById('pickerModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('pickerModal'));
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
@@ -11275,11 +11334,11 @@ function openBatchImportModal() {
   if (state.isLocked) { openPwdModal(); return; }
   const sample = state.groups.map(g => `${g.name}: ${g.members.join(', ')}`).join('\n');
   document.getElementById('batchTextarea').value = sample;
-  document.getElementById('batchImportModal').classList.add('active');
+  showClassroomWindow(document.getElementById('batchImportModal'));
 }
 
 function closeBatchImportModal() {
-  document.getElementById('batchImportModal').classList.remove('active');
+  hideClassroomWindow(document.getElementById('batchImportModal'));
 }
 
 function applyBatchImport() {
@@ -12600,7 +12659,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   window.closeWelcomeModal = () => {
     const m = document.getElementById('welcomeModal');
-    if (m) m.classList.remove('active');
+    if (m) hideClassroomWindow(m);
     hideAudioHint();
     startResumeRetry();
     tryAutoResumeAndPlay();
@@ -12922,8 +12981,8 @@ function globalItemDraw(){
   setTimeout(()=>{clearInterval(timer);eligible.forEach(g=>{const key=drawItemForGroup(g);if(key)addItemToGroup(g,key);const card=grid.querySelector(`[data-draw-id="${g.id}"]`);if(card&&key){card.classList.add('reveal');card.querySelector('.roulette').innerHTML=itemVisual(key);card.querySelector('.draw-result').textContent=ITEM_DEFS[key].name}});saveState();renderAll();setTimeout(()=>{ov.classList.remove('active');itemDrawBusy=false},3000)},3000)
 }
 
-function openItemWindow(groupId,tab='detail'){ensureItemState();activeItemGroupId=groupId;activeItemTab=tab;document.getElementById('itemModalBackdrop').classList.add('active');renderItemWindow()}
-function closeItemWindow(){document.getElementById('itemModalBackdrop').classList.remove('active');activeItemGroupId=null}
+function openItemWindow(groupId,tab='detail'){ensureItemState();activeItemGroupId=groupId;activeItemTab=tab;showClassroomWindow(document.getElementById('itemModalBackdrop'));renderItemWindow()}
+function closeItemWindow(){hideClassroomWindow(document.getElementById('itemModalBackdrop'));activeItemGroupId=null}
 function switchItemTab(tab){activeItemTab=tab;renderItemWindow()}
 function renderItemWindow(){
   const g=state.groups.find(x=>x.id===activeItemGroupId);if(!g)return closeItemWindow();
@@ -13093,8 +13152,8 @@ function scorePickerCustom(){const n=Math.round(Number(document.getElementById('
 const _v2StopSlot=stopSlotSpin;stopSlotSpin=function(){_v2StopSlot();ensureV2State();const w=slotEngine.chosenResult;if(w){const g=state.picker.mode==='group'?w:w.group;const text=state.picker.mode==='group'?`抽中 ${g.name}`:`抽中 ${w.memberName}（${g.name}）`;state.itemGlobal.pickerHistory.push({time:Date.now(),text});if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();saveState()}syncPickerScoreTarget();renderPickerInfo()}
 
 /* 手动举手 */
-function openHandRaise(){ensureV2State();handRaiseGroupId=null;document.getElementById('handRaiseBackdrop').classList.add('active');renderHandRaise()}
-function closeHandRaise(){document.getElementById('handRaiseBackdrop').classList.remove('active')}
+function openHandRaise(){ensureV2State();handRaiseGroupId=null;showClassroomWindow(document.getElementById('handRaiseBackdrop'));renderHandRaise()}
+function closeHandRaise(){hideClassroomWindow(document.getElementById('handRaiseBackdrop'))}
 function renderHandRaise(){const box=document.getElementById('handGroupGrid');if(!box)return;box.innerHTML=state.groups.map(g=>`<button class="hand-group ${g.id===handRaiseGroupId?'selected':''}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>`).join('');document.getElementById('handRewardBox').innerHTML=''}
 function selectHandGroup(id){handRaiseGroupId=id;renderHandRaise();document.querySelectorAll('.hand-group').forEach(b=>b.classList.remove('selected'));const arr=[...document.querySelectorAll('.hand-group')],idx=state.groups.findIndex(g=>g.id===id);if(arr[idx])arr[idx].classList.add('selected')}
 function judgeHandRaise(correct){
@@ -13151,8 +13210,8 @@ function showSettingsV2(which){
 }
 
 /* About */
-function openAbout(){document.getElementById('aboutBackdrop').classList.add('active');renderAbout('info')}
-function closeAbout(){document.getElementById('aboutBackdrop').classList.remove('active')}
+function openAbout(){showClassroomWindow(document.getElementById('aboutBackdrop'));renderAbout('info')}
+function closeAbout(){hideClassroomWindow(document.getElementById('aboutBackdrop'))}
 function renderAbout(tab){
   document.querySelectorAll('[data-about]').forEach(b=>b.classList.toggle('active',b.dataset.about===tab));const m=document.getElementById('aboutMain');
   if(tab==='info')m.innerHTML=`<h2>上帝（马克思）的力量</h2><div class="guide-block"><b>课堂积分与道具系统 V2</b><br>包含课堂积分、随机点名、手动举手、26 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">普通教学模式限制高风险编辑；解锁后可进行管理操作。道具的负分保护、三重耐久和持续状态仍遵循比赛规则。</div><button class="btn" onclick="closeAbout()">关闭</button>`;
@@ -13735,7 +13794,9 @@ function repairPersistentItemsV28(){
 let programConfirmResolveV28=null;
 function programConfirmV28(message,opts={}){
   return new Promise(resolve=>{
-    document.getElementById('programConfirmV28')?.querySelector('#pcCancelV28')?.click();
+    const previous = document.getElementById('programConfirmV28');
+    previous?.querySelector('#pcCancelV28')?.click();
+    if(previous && typeof DesktopUI !== 'undefined') DesktopUI.finishWindowClose(previous);
     programConfirmResolveV28=resolve;
     const o=document.createElement('div');o.id='programConfirmV28';o.className='program-confirm-overlay';
     o.innerHTML=`<div class="program-confirm-window ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="pcTitleV28">
@@ -13750,7 +13811,8 @@ function programConfirmV28(message,opts={}){
       </div>
     </div>`;
     document.body.appendChild(o);
-    const finish=v=>{if(!o.isConnected)return;document.removeEventListener('keydown',key);o.remove();programConfirmResolveV28=null;resolve(v)};
+    let settled=false;
+    const finish=v=>{if(settled||!o.isConnected)return;settled=true;document.removeEventListener('keydown',key);hideClassroomWindow(o,()=>o.remove());programConfirmResolveV28=null;resolve(v)};
     o.querySelector('#pcCancelV28').onclick=()=>finish(false);
     o.querySelector('#pcOkV28').onclick=()=>finish(true);
     o.addEventListener('click',e=>{if(e.target===o)finish(false)});
@@ -18257,7 +18319,7 @@ let themeDialogResolveV21727=null;
 function closeThemeDialogV21727(result=false){
   const root=document.getElementById('themeDialogV21727');
   if(!root)return;
-  root.classList.remove('active');
+  hideClassroomWindow(root);
   root.setAttribute('aria-hidden','true');
   const resolve=themeDialogResolveV21727;
   themeDialogResolveV21727=null;
@@ -18315,7 +18377,7 @@ function openThemeDialogV21727(message,opts={}){
       setTimeout(()=>ok.focus(),30);
     }
 
-    root.classList.add('active');
+    showClassroomWindow(root);
     root.setAttribute('aria-hidden','false');
   });
 }
@@ -18894,9 +18956,9 @@ function openQuickPersonScoreV218(){
   qpStateV218.selected.clear();qpStateV218.bands.clear();qpStateV218.groups.clear();qpStateV218.letters.clear();
   const q=document.getElementById('qpSearchV218');if(q)q.value='';
   renderQuickPersonFiltersV218();renderQuickPersonListV218();
-  document.getElementById('quickPersonBackdropV218')?.classList.add('active');
+  showClassroomWindow(document.getElementById('quickPersonBackdropV218'));
 }
-function closeQuickPersonScoreV218(){document.getElementById('quickPersonBackdropV218')?.classList.remove('active')}
+function closeQuickPersonScoreV218(){hideClassroomWindow(document.getElementById('quickPersonBackdropV218'))}
 function toggleQPSetV218(type,val){
   const set=qpStateV218[type];
   set.has(val)?set.delete(val):set.add(val);
@@ -20707,7 +20769,8 @@ const DesktopUI = (() => {
       honors: true,
       challenge: true,
       subject: "politics",
-      groupCruise: false,
+      groupCruise: true,
+      groupCruiseVersion: 2,
     };
   let preferences = { ...defaults },
     bank = M.examples,
@@ -21067,14 +21130,15 @@ const DesktopUI = (() => {
       winner = last?.groups?.[0];
     let html = "";
     if (preferences.knowledge)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
     if (preferences.itemTip)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
+      html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
     if (preferences.honors)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
+      html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
     if (preferences.challenge)
-      html += `<article class="ui-panel"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
+    host.dataset.cardCount = host.querySelectorAll("article").length;
     host.querySelectorAll("[data-quiz-answer]").forEach(
       (b) =>
         (b.onclick = () => {
@@ -21394,7 +21458,7 @@ const DesktopUI = (() => {
         ["itemTip", "每日道具小知识"],
         ["honors", "历史荣誉"],
         ["challenge", "每日课堂挑战"],
-        ["groupCruise", "小组卡片自动巡航（默认关闭）"],
+        ["groupCruise", "小组卡片连续巡航（默认开启）"],
       ]
         .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
         .join("") +
@@ -21917,6 +21981,66 @@ const DesktopUI = (() => {
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
   };
+  // Exit animations have one owner and one completion. No scoring or random decisions here.
+  const closingWindows = new Map();
+  function finishWindowClose(root) {
+    const pending = closingWindows.get(root);
+    if (!pending) return;
+    closingWindows.delete(root);
+    pending.animation?.cancel();
+    root.inert = pending.inert;
+    delete root.dataset.uiClosing;
+    pending.finish();
+  }
+  function cancelWindowClose(root) {
+    const pending = closingWindows.get(root);
+    if (!pending) return;
+    closingWindows.delete(root);
+    pending.animation?.cancel();
+    root.inert = pending.inert;
+    delete root.dataset.uiClosing;
+  }
+  function dismissWindow(root, finish) {
+    if (closingWindows.has(root)) return;
+    const surface = root.querySelector(".ui-function-surface");
+    if (
+      !surface ||
+      !root.getClientRects().length ||
+      !canAnimate() ||
+      !preferences.pageMotion
+    ) {
+      finish();
+      return;
+    }
+    // Stop only this window's entrance; other windows keep their own lifecycle.
+    surface.getAnimations().forEach((a) => a.cancel());
+    const pending = { finish, inert: root.inert, animation: null };
+    closingWindows.set(root, pending);
+    root.inert = true;
+    root.dataset.uiClosing = "true";
+    pending.animation = animate(
+      surface,
+      [
+        { opacity: 1, translate: "0 0", scale: "1" },
+        {
+          opacity: 0,
+          translate: preferences.motion === "full" ? "0 64px" : "0 10px",
+          scale: preferences.motion === "full" ? ".97" : "1",
+        },
+      ],
+      {
+        duration:
+          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
+        easing: "cubic-bezier(.55,.05,.85,.35)",
+        fill: "forwards",
+      },
+    );
+    pending.animation.finished
+      .catch(() => {})
+      .finally(() => {
+        if (closingWindows.get(root) === pending) finishWindowClose(root);
+      });
+  }
   let openStack = [],
     modalLayer = 300000;
   function setupModals() {
@@ -22374,6 +22498,10 @@ const DesktopUI = (() => {
         if (typeof value[key] === typeof defaults[key])
           preferences[key] = value[key];
       }
+      // Older releases saved the old default false without recording an explicit choice.
+      // Start the new continuous mode once; subsequent explicit opt-outs remain saved.
+      if (value.groupCruiseVersion !== 2) preferences.groupCruise = true;
+      preferences.groupCruiseVersion = 2;
       if (!["full", "simple", "off"].includes(preferences.motion))
         preferences.motion = "full";
       if (![0.75, 1, 1.5].includes(preferences.speed)) preferences.speed = 1;
@@ -22507,6 +22635,10 @@ const DesktopUI = (() => {
   }
   return {
     init,
+    dismissWindow,
+    cancelWindowClose,
+    finishWindowClose,
+    getClosingWindowCount: () => closingWindows.size,
     settleFromUI,
     prepareSettlement,
     cancelSettlement,
@@ -22560,6 +22692,8 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
     focusBeforeIntro = null;
   let frame = null,
     cruiseTimer = null,
+    cruiseTime = null,
+    cruisePosition = null,
     pauseUntil = 0;
   let trackHovered = false,
     trackFocused = false,
@@ -22586,7 +22720,7 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
       speed: 1,
       systemMotion: true,
       pageMotion: true,
-      groupCruise: false,
+      groupCruise: true,
     };
   const canAnimate = () =>
     preferences().motion !== "off" &&
@@ -22671,11 +22805,14 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
             .join("")
         : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
     }
+    syncRepeats();
     syncCruise();
   }
   function stopCruise() {
-    clearTimeout(cruiseTimer);
+    cancelAnimationFrame(cruiseTimer);
     cruiseTimer = null;
+    cruiseTime = null;
+    cruisePosition = null;
   }
   function cruiseAllowed() {
     const track = $("uiGroupTrack");
@@ -22695,6 +22832,7 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
   }
   function syncCruise() {
     if (!started) return;
+    syncRepeats();
     const enabled = !!preferences().groupCruise;
     setText("gpCruiseToggle", enabled ? "暂停自动巡航" : "开启自动巡航");
     $("gpCruiseToggle").setAttribute("aria-pressed", String(enabled));
@@ -22707,26 +22845,73 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
       return;
     }
     if (cruiseTimer !== null) return;
-    cruiseTimer = setTimeout(
-      () => {
-        cruiseTimer = null;
-        if (!cruiseAllowed()) return;
-        const track = $("uiGroupTrack"),
-          edge = track.scrollWidth - track.clientWidth;
-        const first = track.querySelector(".ui-group-card"),
-          step = (first?.offsetWidth || 203) + 11;
-        track.scrollTo({
-          left:
-            track.scrollLeft >= edge - 2
-              ? 0
-              : Math.min(edge, track.scrollLeft + step),
-          behavior: "smooth",
+    const track = $("uiGroupTrack");
+    function tick(now) {
+      cruiseTimer = null;
+      if (!cruiseAllowed()) {
+        stopCruise();
+        return;
+      }
+      const first = track.querySelector(".ui-group-card"),
+        repeat = track.querySelector(".ui-group-repeat"),
+        period = repeat && first ? repeat.offsetLeft - first.offsetLeft : 0;
+      if (Date.now() >= pauseUntil && period > 0) {
+        if (
+          cruisePosition === null ||
+          Math.abs(track.scrollLeft - cruisePosition) > 2
+        )
+          cruisePosition = track.scrollLeft;
+        const elapsed =
+          cruiseTime === null ? 0 : Math.min(50, now - cruiseTime);
+        cruisePosition = (cruisePosition + elapsed * 0.028) % period;
+        track.scrollLeft = cruisePosition;
+      }
+      cruiseTime = now;
+      cruiseTimer = requestAnimationFrame(tick);
+    }
+    cruiseTimer = requestAnimationFrame(tick);
+  }
+  function syncRepeats() {
+    const track = $("uiGroupTrack");
+    const originals = [...track.querySelectorAll(".ui-group-card")];
+    const first = originals[0],
+      last = originals.at(-1);
+    const baseWidth =
+      first && last
+        ? last.offsetLeft + last.offsetWidth - first.offsetLeft + 40
+        : 0;
+    const needed =
+      preferences().groupCruise &&
+      canAnimate() &&
+      baseWidth > track.clientWidth + 6;
+    const copies = [...track.querySelectorAll(".ui-group-repeat")];
+    if (
+      !needed ||
+      copies.length !== originals.length ||
+      copies.some(
+        (copy, i) => copy.dataset.copySignature !== originals[i]?.outerHTML,
+      )
+    ) {
+      copies.forEach((copy) => copy.remove());
+      if (needed)
+        originals.forEach((original) => {
+          const copy = original.cloneNode(true);
+          copy.classList.replace("ui-group-card", "ui-group-repeat");
+          copy.removeAttribute("data-group");
+          copy.dataset.copySignature = original.outerHTML;
+          copy.setAttribute("aria-hidden", "true");
+          copy.tabIndex = -1;
+          copy.onpointerdown = (e) => e.preventDefault();
+          copy.onclick = original.onclick;
+          track.append(copy);
         });
-        syncCruise();
-      },
-      Math.max(3800, pauseUntil - Date.now()),
+    }
+    track.classList.toggle(
+      "ui-few",
+      !needed && baseWidth <= track.clientWidth + 6,
     );
   }
+
   function setupCruise() {
     const track = $("uiGroupTrack");
     track.addEventListener("pointerenter", () => {

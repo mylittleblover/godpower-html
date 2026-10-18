@@ -13,6 +13,8 @@
     focusBeforeIntro = null;
   let frame = null,
     cruiseTimer = null,
+    cruiseTime = null,
+    cruisePosition = null,
     pauseUntil = 0;
   let trackHovered = false,
     trackFocused = false,
@@ -39,7 +41,7 @@
       speed: 1,
       systemMotion: true,
       pageMotion: true,
-      groupCruise: false,
+      groupCruise: true,
     };
   const canAnimate = () =>
     preferences().motion !== "off" &&
@@ -124,11 +126,14 @@
             .join("")
         : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
     }
+    syncRepeats();
     syncCruise();
   }
   function stopCruise() {
-    clearTimeout(cruiseTimer);
+    cancelAnimationFrame(cruiseTimer);
     cruiseTimer = null;
+    cruiseTime = null;
+    cruisePosition = null;
   }
   function cruiseAllowed() {
     const track = $("uiGroupTrack");
@@ -148,6 +153,7 @@
   }
   function syncCruise() {
     if (!started) return;
+    syncRepeats();
     const enabled = !!preferences().groupCruise;
     setText("gpCruiseToggle", enabled ? "暂停自动巡航" : "开启自动巡航");
     $("gpCruiseToggle").setAttribute("aria-pressed", String(enabled));
@@ -160,26 +166,73 @@
       return;
     }
     if (cruiseTimer !== null) return;
-    cruiseTimer = setTimeout(
-      () => {
-        cruiseTimer = null;
-        if (!cruiseAllowed()) return;
-        const track = $("uiGroupTrack"),
-          edge = track.scrollWidth - track.clientWidth;
-        const first = track.querySelector(".ui-group-card"),
-          step = (first?.offsetWidth || 203) + 11;
-        track.scrollTo({
-          left:
-            track.scrollLeft >= edge - 2
-              ? 0
-              : Math.min(edge, track.scrollLeft + step),
-          behavior: "smooth",
+    const track = $("uiGroupTrack");
+    function tick(now) {
+      cruiseTimer = null;
+      if (!cruiseAllowed()) {
+        stopCruise();
+        return;
+      }
+      const first = track.querySelector(".ui-group-card"),
+        repeat = track.querySelector(".ui-group-repeat"),
+        period = repeat && first ? repeat.offsetLeft - first.offsetLeft : 0;
+      if (Date.now() >= pauseUntil && period > 0) {
+        if (
+          cruisePosition === null ||
+          Math.abs(track.scrollLeft - cruisePosition) > 2
+        )
+          cruisePosition = track.scrollLeft;
+        const elapsed =
+          cruiseTime === null ? 0 : Math.min(50, now - cruiseTime);
+        cruisePosition = (cruisePosition + elapsed * 0.028) % period;
+        track.scrollLeft = cruisePosition;
+      }
+      cruiseTime = now;
+      cruiseTimer = requestAnimationFrame(tick);
+    }
+    cruiseTimer = requestAnimationFrame(tick);
+  }
+  function syncRepeats() {
+    const track = $("uiGroupTrack");
+    const originals = [...track.querySelectorAll(".ui-group-card")];
+    const first = originals[0],
+      last = originals.at(-1);
+    const baseWidth =
+      first && last
+        ? last.offsetLeft + last.offsetWidth - first.offsetLeft + 40
+        : 0;
+    const needed =
+      preferences().groupCruise &&
+      canAnimate() &&
+      baseWidth > track.clientWidth + 6;
+    const copies = [...track.querySelectorAll(".ui-group-repeat")];
+    if (
+      !needed ||
+      copies.length !== originals.length ||
+      copies.some(
+        (copy, i) => copy.dataset.copySignature !== originals[i]?.outerHTML,
+      )
+    ) {
+      copies.forEach((copy) => copy.remove());
+      if (needed)
+        originals.forEach((original) => {
+          const copy = original.cloneNode(true);
+          copy.classList.replace("ui-group-card", "ui-group-repeat");
+          copy.removeAttribute("data-group");
+          copy.dataset.copySignature = original.outerHTML;
+          copy.setAttribute("aria-hidden", "true");
+          copy.tabIndex = -1;
+          copy.onpointerdown = (e) => e.preventDefault();
+          copy.onclick = original.onclick;
+          track.append(copy);
         });
-        syncCruise();
-      },
-      Math.max(3800, pauseUntil - Date.now()),
+    }
+    track.classList.toggle(
+      "ui-few",
+      !needed && baseWidth <= track.clientWidth + 6,
     );
   }
+
   function setupCruise() {
     const track = $("uiGroupTrack");
     track.addEventListener("pointerenter", () => {
