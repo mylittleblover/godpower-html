@@ -25020,11 +25020,15 @@ window.GodpowerPicker = (() => {
     if (message.type === "input" || message.type === "change") {
       if (
         !Number.isSafeInteger(message.inputSeq) ||
-        message.inputSeq <= (acks.get(message.token) || 0)
+        (acks.get(message.token)?.session === message.session &&
+          message.inputSeq <= acks.get(message.token).seq)
       )
         return;
       el.value = message.value;
-      acks.set(message.token, message.inputSeq);
+      acks.set(message.token, {
+        seq: message.inputSeq,
+        session: message.session,
+      });
       el.dispatchEvent(new Event(message.type, { bubbles: true }));
     } else if (message.type === "click")
       el.dispatchEvent(
