@@ -1,0 +1,662 @@
+[
+  {
+    "original": "artifacts/browser-results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/browser-results.json",
+    "sha256": "40db7e8b6966fde0438fb386bb32742e595f931af8b19b40e2e3ddbc4a11a481"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-podium-details-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/archives-podium-details-1920.png",
+    "sha256": "ece86fad38e23fe3aac79f516b975dc2d50aa8bad860dc9317d4c92efaeb505e"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-blooper.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-blooper.png",
+    "sha256": "850aad6e9f9ba949cfe5419d26b9050dbb0d7551c7e409a09aaee610eb25bc0b"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-bomb.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-bomb.png",
+    "sha256": "6beeb4e8cf33086935b817e0467795214a2724922d7c096386747382ee3f51b3"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-boo.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-boo.png",
+    "sha256": "5572344d99db1556288d5b20535ed1dfa4334b020beb6ee0c4c4bc20d709e275"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-boomerang_flower.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-boomerang_flower.png",
+    "sha256": "798f56f12fbc4c47ffbcfab9315ef1eae6ffa3e91f4dafd11124c858513f5460"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-fire_flower.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-fire_flower.png",
+    "sha256": "41203798a3e0a77a463ecb553fa9230a7ba6fd91e4262ca1c319a69d645ba0b4"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-green.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-green.png",
+    "sha256": "f6019bb2da661f31203e064ef5f259e6808b30f261fdd44ed6aa6c1eaca06cab"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-ice_flower.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-ice_flower.png",
+    "sha256": "48f088b6b9a65c1ba3e57040ff653f2dae5071da16e34cb60b363b18044d70ef"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-lightning.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-lightning.png",
+    "sha256": "9bdce8fd83fe7029bdd90c797ea208b593ce60dde6d2bb5654a573ccde1d0458"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-mega.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-mega.png",
+    "sha256": "b96246e115af034a9a667455da9731df557b331ffc9d9223d6fd32fa55786f64"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-star.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/item-star.png",
+    "sha256": "b55aa3ce2195b28ef166d8cb8ad93baa4cfa64441d4913c151b970c96ec43b54"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-aboutBackdrop.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-aboutBackdrop.png",
+    "sha256": "d444b93d47def9c99f0cb370fada03bd402695c567885a9858227662a22ed073"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-batchImportModal.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-batchImportModal.png",
+    "sha256": "52277ac8ffb4f31ef054fa5d585ed721be9f7f67342acbaa7a26d2f4a9cc5cf2"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-handRaiseBackdrop.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-handRaiseBackdrop.png",
+    "sha256": "d3b84da900ce6de6f87254e8fd12a802a4b24b953b538e2a95eee2d4cd0f0878"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-itemModalBackdrop.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-itemModalBackdrop.png",
+    "sha256": "50134159cedb5442e72882421376d780d37ced14e6971afaf83d44e5be680b96"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-memberSearchBackdrop.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-memberSearchBackdrop.png",
+    "sha256": "c86398a0f5bb113dfae06ce807d9f75c22ff5e07c71d4eca8054aa2b66c5e190"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-pickerModal.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-pickerModal.png",
+    "sha256": "131ff5262ed9e4add5504e66dbe22a73d8b7d783d9188614149f7f570d4efcd0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-pwdModal.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-pwdModal.png",
+    "sha256": "99dfdb2cd70ed2fdd76921323e1009b57e6aefb43431938cf4fd0aa4ed859968"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-quickPersonBackdropV218.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-quickPersonBackdropV218.png",
+    "sha256": "56c5b2890e0b597352be0e505632ae0fcadff0711bf3bf9dae2a656348a729ff"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-scoreModalBackdrop.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-scoreModalBackdrop.png",
+    "sha256": "bbaf1bb96c23d83467ed71fc511cf21718132456d6649f5443497426b09ff5f8"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-settlementNameModal.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/modal-settlementNameModal.png",
+    "sha256": "5460d40092b0d3b305c4c5e015ac557d504f0a7100a882e4e44ef5bc2b193256"
+  },
+  {
+    "original": "artifacts/desktop-ui/offline-archive.csv",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/offline-archive.csv",
+    "sha256": "03c6b8f9240490d6391c7e668f79a6e1efd1b85af60a17160d830d615720c215"
+  },
+  {
+    "original": "artifacts/desktop-ui/release-smoke.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/release-smoke.json",
+    "sha256": "cc5bc5657a4133de8a82138d0f0405c3ba9c189f2c37c4e8b35ada62abfa6846"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-appearance.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-appearance.png",
+    "sha256": "be5f649ca71fbbdd1b7d960646be3d60b26695d553467da963c681eb78642bf8"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-data.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-data.png",
+    "sha256": "b10b57be66c3a5d1b6a1342db349f53c7e7f33b1ff80a75b4e585c2be493e54b"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-items.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-items.png",
+    "sha256": "5c5ffe38b9741f07f7672cc1f23bd5af538ae455eb4c51d3f1ab669779f99665"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-motion.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-motion.png",
+    "sha256": "94ecf97ebb3074b445827a802c8f7b16715f0df5a19bd7dbd0aa381f495ebc6b"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-rules.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-rules.png",
+    "sha256": "3bd6eac816a3a5a41b1f802f024fbb64bd27a247b9024e1e2c81c85f144ddcdd"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-sound.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-sound.png",
+    "sha256": "8cd9c3c29be491b94f2d555061052f119171bbdbda4516d9cd838dba25d0401b"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-students.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-students.png",
+    "sha256": "b928735fc7a0b4f3db16a87a53ee0e6f34d31a6af33b8ddeaa846bb87a66412e"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-welcome.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settings-min-welcome.png",
+    "sha256": "9c5b33fd910b058b44616fca4d8157bcbaa6af402e12bfeb6067d35153188279"
+  },
+  {
+    "original": "artifacts/desktop-ui/settlement-success.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/desktop-ui/settlement-success.png",
+    "sha256": "3b898f4a624bf69b8aa4c976252ccd20408199300329b10170333376659b5a70"
+  },
+  {
+    "original": "artifacts/export-backup.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/export-backup.json",
+    "sha256": "4f42462aa3b005e42f352809ae9aa4e37be2244f03a7591eb912161e3be1bec6"
+  },
+  {
+    "original": "artifacts/export-settlement.csv",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/export-settlement.csv",
+    "sha256": "bf83935d5c90234b74d463b257a35a9b20fa0fed5f9690b08732b944e7ad07e5"
+  },
+  {
+    "original": "artifacts/performance-chromium.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/performance-chromium.json",
+    "sha256": "a8b1f5c718bfa1842a177fb355b44e47b676946d692a8e9cb91ef6a23648dcea"
+  },
+  {
+    "original": "artifacts/rule-oracles.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/rule-oracles.json",
+    "sha256": "2c0a62eae0ca6f76cde904a3ed01d1cc623ae9bc0e6af826b5c98265d31ca815"
+  },
+  {
+    "original": "artifacts/scoring-quota-export.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/scoring-quota-export.json",
+    "sha256": "8cdd09c90ba3fbcb3a76d13ed067e978c1e546b096d106d4aa56c454194a5a10"
+  },
+  {
+    "original": "artifacts/scoring-startup-denied-export.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/scoring-startup-denied-export.json",
+    "sha256": "06156998f6550af7ab84c13a3e598c93252279ef8af2a53ae60c4f8ba95864b7"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1366x768.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/archives-1366x768.png",
+    "sha256": "bf53797d79b1e814af2c9fde4620d45fa93a6128df2e1b4418b6a9e2fbc05ffc"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1920x1080.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/archives-1920x1080.png",
+    "sha256": "8cba157d40131517902eb5499043f2699f2d64faa90ed2166b8d607616bd7fae"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-2560x1440.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/archives-2560x1440.png",
+    "sha256": "481a8fb5a9bcc4f916bb8ed5611a7596e168d5953f9cb78644359b4565506f6a"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1366x768.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/battle-1366x768.png",
+    "sha256": "7f69ca4cd6248610cbbdff14adead1cbde094906b763fd48ffa5d78b7f10401a"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1920x1080.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/battle-1920x1080.png",
+    "sha256": "1ee391792cb8e7edeb04e7cfd1dd1fce3399066daa50a7d3e95aa9ba0329e0c2"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-2560x1440.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/battle-2560x1440.png",
+    "sha256": "c03bdf2ece7cd620b903323b8cfdc39519be39210ece9bea8a0f8032991a9e91"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1366x768.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/history-1366x768.png",
+    "sha256": "1edde13ebb5b677bad1774724c8c2aecae4bcc5ba832c956eebfb4d8821215eb"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1920x1080.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/history-1920x1080.png",
+    "sha256": "9948a6192b6ec0a27b0f3922fc2a2586098bb5e341e5074622058a86a5572a6c"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-2560x1440.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/history-2560x1440.png",
+    "sha256": "7084b28e292e2898772c7f8f984c0530e11e1bc2a11da01308c80f3ab6389076"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/item-encyclopedia.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/item-encyclopedia.png",
+    "sha256": "b6508bfd73697c50cbb09b878409fdfa13542793e49db25089eeb1d5c6f751ad"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/keyboard-hover.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/keyboard-hover.png",
+    "sha256": "1c882636192b9ffe3a2352a05389a1c81ae44d90db97576aeca0b23af309e4c1"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-about.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-about.png",
+    "sha256": "35ce14d559f8b6f2300b522783abecfe4ed11bf9a577478eece18e781846f765"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-hand.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-hand.png",
+    "sha256": "98500d5624a59935ad4af1d2f1e1f3bb7ea8db4d569e15fdc25e09cddb6689d8"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-item-window.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-item-window.png",
+    "sha256": "9d2bb08ad0cb3969d124ab6bf86a80df1d0b6974c7786476a3e78b0c3b1edaa9"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-member-search.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-member-search.png",
+    "sha256": "1837e85943598368f2aed73fbc7039a972e2d208064639955f2751c2fe41b809"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-picker.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-picker.png",
+    "sha256": "fd784938723fa182d3d94413643c5cee401d90c244ba21a0982e22701303f892"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-settlement-name.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/modal-settlement-name.png",
+    "sha256": "2f9c8dd5e5dcaee37610c5be67b2f6f8408330f1f5c8bea59cd6afc6800f616d"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/scoring-unsaved-warning.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/scoring-unsaved-warning.png",
+    "sha256": "13fd4ac8bd3e588324f00ba56d8e97568e48b04b1367a21ba8709352e176ed2d"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1366x768.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/settings-1366x768.png",
+    "sha256": "ec3f08a57058a7bdd3f735e69dfe295a511777591ac90c70d19a4eaed9f445ed"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1920x1080.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/settings-1920x1080.png",
+    "sha256": "237cb0c3e7064269c0adaca0bfb03939934ee1b52bf13030af5fe29333ce0f12"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-2560x1440.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/settings-2560x1440.png",
+    "sha256": "9f54f51b24ece8715515c7a4a5574dfd43727e27424f1c77a03b30304ce64283"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/special-states.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/special-states.png",
+    "sha256": "fb676ac324a683c75606ef3171ba701b933e2148744c1e50e6fe73832839198d"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1366x768.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/welcome-1366x768.png",
+    "sha256": "4f1ac8695e83c9b7438f288160d5bd490c8626f5067edfb0b494fa50273ff176"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "sha256": "fe2b0d73204536fc52c2e2a025e752a1dafb9db3e881e97523db755edc4af0ee"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "sha256": "3bdbb50da34f818b811ee20837a7af09a361f61faabb37d062a0c7fbf6746414"
+  },
+  {
+    "original": "artifacts/visual-unification/admin/password-error-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/admin/password-error-1366.png",
+    "sha256": "32909535b699fda035967235d0a69361b88cfbdbbc32e5ea259a8545e6bd80af"
+  },
+  {
+    "original": "artifacts/visual-unification/admin/password-error-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/admin/password-error-2560.png",
+    "sha256": "ab5ebffde19c26c9dca7f7085d93d8b64679a503e1e8698acc4a4be6b7d3ca91"
+  },
+  {
+    "original": "artifacts/visual-unification/admin/results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/admin/results.json",
+    "sha256": "b2f86f40b32778250e9ecbaf836c92aca5ebd78b758db9b8f967bb3caea6ece9"
+  },
+  {
+    "original": "artifacts/visual-unification/archive-controls.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/archive-controls.json",
+    "sha256": "c63689740116f0d7b1d9d2c4ce69094cd9f2dddf7c773c1f5b6d767af9418820"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/compact-cabinet-1366.png",
+    "sha256": "fee57cc1485d39d79ff4cc24ba6a5e62906637e0fe5b40da94bc335b26205846"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/compact-cabinet-1920.png",
+    "sha256": "2bfa45d3c2bc31621ab3a23c7ef04ce7f9c09993c2de20de9803dc92707e596e"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/compact-cabinet-2560.png",
+    "sha256": "fedb955f6d46a00a74b1dcd3bf396a07dd125b9aa6ad494ac5c111b4786e0e50"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/results.json",
+    "sha256": "cff8daae5fcac2ee601b2968250620e24d110d40060b6eaa57696af47a0fb192"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-group.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/slot-group.png",
+    "sha256": "0719aedf5afed012b66d2e17a60882f532680a72512d029dcf05371602684af4"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-individual.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/slot-individual.png",
+    "sha256": "67ee0126dc890d7e1df6291681d9607d73cdad9c061c2821109d07e2fe8c2eee"
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-two_tier.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/motion/slot-two_tier.png",
+    "sha256": "8e94fe64acf67aa42da265803d476d483375cc4fbf16f5b343a17a480056c4d0"
+  },
+  {
+    "original": "artifacts/visual-unification/results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/results.json",
+    "sha256": "5b2b36894779982b32e361fcc84c189b4b4f32e8fbeeb214ce0aa54e6d1fa290"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/about-guide.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/about-guide.png",
+    "sha256": "c974222b6e03d7e17c6c409ec059e09ee702736ce3b702915d013d3a9aa08dc7"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/about-info.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/about-info.png",
+    "sha256": "ef6632aab9e71b2bd184e8fbf6a619a8b892a2b710ae0e3339268457e88b36e2"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/about-items.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/about-items.png",
+    "sha256": "68be94d3e57ecb185cea1c8d8141f8837e20f5fdf3140e56aae6fb2468c88648"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1366-0.8.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1366-0.8.png",
+    "sha256": "dddcb18bc878c33104145faff49a980d2c2aa394b69831fad73822d64456e83a"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1366-1.25.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1366-1.25.png",
+    "sha256": "4f9b94f1ce35cfd9530658f5776497e2259f62aa4844a7e05f531736d9e3c960"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1366-1.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1366-1.png",
+    "sha256": "31a57b18d3bda0d1bc60185a96cc3572c908ea8119219d04e8a0ff093c9d3fd7"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1920-0.8.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1920-0.8.png",
+    "sha256": "2ea78b8d21c37ea3232e0f8559affd36ee4f12dac76d69be7b069d4fb823c386"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1920-1.25.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1920-1.25.png",
+    "sha256": "1c72385a3f7f804b143eebd1153844d22664b16a83752d0656a0d9132898dab6"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-1920-1.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-1920-1.png",
+    "sha256": "3481a3dd3a9d65ca66684a9fa919ac4f0eef00004e6936b767df9eb550324efa"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-2560-1.25.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-2560-1.25.png",
+    "sha256": "0fa55a3802b99fa9f779e0a1c60b13c3b45ba8eb6136241c28aa0ac85bc9fe98"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archive-controls-2560-1.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archive-controls-2560-1.png",
+    "sha256": "cb45db48445139abfbc315981f768faf06834e23cefcbc243e4b66177dfbf636"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-0-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-0-1366.png",
+    "sha256": "6bf108b4d371f3c353475a1ed8d8222dd49091c6f859a6981559451b91c72664"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-1-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-1-1366.png",
+    "sha256": "ba7f9605a67daea198aa0b1ff6fd6daa653d9a192065269c730f4fcb6d54cdb4"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-1-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-1-1920.png",
+    "sha256": "5f70ef4ad1504d478b6f0572c29c9286048a5e2068834ca81b15e9d978bd113a"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-1-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-1-2560.png",
+    "sha256": "f8e9e8ceebcbcfc3178dec6d4df3907214e382cf101c02e38f4677cd2d6e8359"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-24-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-24-1366.png",
+    "sha256": "9e196df879b24f8ec04f6875fa6425535fc3de9385d8c9ad1430381df49cefe0"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-24-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-24-1920.png",
+    "sha256": "66bcdac287b8b760fde6845832923d5090fe0e5292e7cba34b005ebeb6b87962"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/archives-24-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/archives-24-2560.png",
+    "sha256": "03dfd7fbadde4c6b0b12976e210f8ffe1f40495ee4b55f0f4e1bf9b2f09f1e32"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/battle-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/battle-1920.png",
+    "sha256": "57fdd9fde2fcee8c9c40e61b6981da1668751dad8173869a4b267208bb383ac0"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/battle-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/battle-2560.png",
+    "sha256": "6d52ac07911cdba17875e8de3930065111950cc2abf74d3afaf35f76dfa4a63a"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/confirmation.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/confirmation.png",
+    "sha256": "18d9b7fc51becb15fcb423e69b0eedde0ffb12d7fc5bb5682286935d2ad2214f"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/group-window-detail.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/group-window-detail.png",
+    "sha256": "ac7ab4d573ad522561fa72fc60161674aedb667606aa8032040c49272d864305"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/group-window-items.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/group-window-items.png",
+    "sha256": "2cc5088a679cea0a19150da506cd9c735c1b97cd7aa8060e278f75f04fadaaf6"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/group-window-score.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/group-window-score.png",
+    "sha256": "ea3fb2e91533d48fcd7c41783285f5333bd40ff32f696c4435bc81ad9e05b434"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-0-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-0-2560.png",
+    "sha256": "73190fa68bb1c4b4ccf1f2af55e9274cfe939fce4ba0ef6f8219141ceb44ede2"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-1-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-1-1920.png",
+    "sha256": "1a3d9e8893de016c0ef227d1e599085b3e987046b7efbf802c61af770f8148a3"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-1-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-1-2560.png",
+    "sha256": "9d1415f8be8a74ee985c3acb5fdc59ac1569aa3d21113cc5566b25a955843778"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/picker-Grp.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/picker-Grp.png",
+    "sha256": "62b7e628cf94dcd5fe5fb0af4c0a825ca37c1562af3d88f9927aed305022f9f5"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/picker-Ind.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/picker-Ind.png",
+    "sha256": "9cdd71ec3e89e13adf91bc2846e3210b60e5cd22c952d09c2dbcab9ef4e30a7c"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/picker-Two.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/picker-Two.png",
+    "sha256": "c8fe4e7790ecce179b6683add90ca9a653abb8a8c53e889ea9c9b56279a6dd13"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/startup-tabs.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/startup-tabs.png",
+    "sha256": "8bad703c4621724d072ad12532e3cc5becfd400382d3076e6735a194c9a37f1e"
+  },
+  {
+    "original": "artifacts/visual-unification/warnings/results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/warnings/results.json",
+    "sha256": "1d414bfcd13e121b0a3d2e8cc0a63e56db94c5da51510ec3741653e70e97bf0d"
+  },
+  {
+    "original": "artifacts/visual-unification/warnings/unfinished-1920-1.25.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/warnings/unfinished-1920-1.25.png",
+    "sha256": "151b330ca3570644a7632357919928e3abc278d0a0cb4423c7b777a39ab4a5b5"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/after/battle-14-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/after/battle-14-1366.png",
+    "sha256": "0c7cf49f51f93ec6dca307a41e34277615c64d6b78efab57ac652b65f85632b1"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/after/battle-14-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/after/battle-14-1920.png",
+    "sha256": "cfc4ea4a5e4b0e97e73d7882311823acf77a14b8357563b66161e7f12b86f18b"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/after/battle-14-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/after/battle-14-2560.png",
+    "sha256": "b005f7e8be10287e78eb311205725dcee20c17a18b46ff709a9760e88ee508f5"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/battle-14-comparison.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/battle-14-comparison.json",
+    "sha256": "fa80d37f3bca71b5ec82567f421cc129315304403d025be2f9ea5375aa226c74"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/before/battle-14-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/before/battle-14-1366.png",
+    "sha256": "60d3dcaafe197ba14a2d057ef2444e30341d732eabeedb4a45da7cd4276b36af"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/before/battle-14-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/before/battle-14-1920.png",
+    "sha256": "f2a3cfb24206107e674976e1362c854f3a7cca417d05953af4634a464e567dfd"
+  },
+  {
+    "original": "artifacts/welcome-completion/layout/before/battle-14-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/layout/before/battle-14-2560.png",
+    "sha256": "6c7d80bb4bd48162603cc954f7dd20a9661a0f150ed3a0029f4940a7fc24f81f"
+  },
+  {
+    "original": "artifacts/welcome-completion/results.json",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/results.json",
+    "sha256": "6752a3b457940a5a8532e8b4bf1b177b48e29c34d1735aeb82a46bda5afdc180"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/dashboard-14-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/dashboard-14-1366.png",
+    "sha256": "d5fb456d27f32714cb205230e309b52735eaf2a64b58509d88fb5d0dc52d6228"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/dashboard-14-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/dashboard-14-1920.png",
+    "sha256": "9cc4a82a3b137bd3671bc31b7748937c9bfd7f62f5c19c78f713267ab4eb78de"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/dashboard-14-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/dashboard-14-2560.png",
+    "sha256": "690b50c887926a23da65e9aaf76b0995baafedca4522e6a740989a5de43bc1eb"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/flip-endpoint-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/flip-endpoint-1366.png",
+    "sha256": "e4cd0e0ed9f48e5c4aadeb04ea099afc63437bdcf0fcfe25933d93c60ad945c7"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/flip-endpoint-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/flip-endpoint-1920.png",
+    "sha256": "b82492a07957a548abee518989c5ff80cd05ca8f24fdb68effe01f841cdbba07"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/flip-endpoint-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/flip-endpoint-2560.png",
+    "sha256": "0dc344455f22ad8a87f4df2901741609ec273d636c3128beae4bfce15d14b3bc"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/intro-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/intro-1366.png",
+    "sha256": "5fd18747b2fc36e508557857220e09bed48953f34b093e996518dc94c65a31f3"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/intro-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/intro-1920.png",
+    "sha256": "e905fa6b2a7f15502fd3ff166eecb461c3eeb542fc5cc9398f5a282108bc865a"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/intro-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/intro-2560.png",
+    "sha256": "4d3e540f27314c485ed0eb49d216b33032fca4b9e25f9bda69522aec3f33f94e"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/squid-masked.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/squid-masked.png",
+    "sha256": "9f6f42d0ef2d03bedd6a5de009ff25c429cc4d99bfd10b1b72ddd04a61abe5ba"
+  },
+  {
+    "original": "artifacts/welcome-completion/screenshots/statistics-large-negative-xss.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/welcome-completion/screenshots/statistics-large-negative-xss.png",
+    "sha256": "5cfb19922923683d0743d161bf6294891c1c9906f7b0e408093c6a66c720585c"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-1-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-1-1366.png",
+    "sha256": "5d05ae3fbb46e3daea40d941b428f2785f4f77a5148cbad8a9cf76dbeee3af17"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-40-1366.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-40-1366.png",
+    "sha256": "bcbc49414bef1d76cd4e50ae982eec3862fb3231b6d2338a6eea5d5b11723319"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-40-1920.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-40-1920.png",
+    "sha256": "9a64e01a537e08d60d4f6d51f422c61105648a0f2ea9cdfd47cff6003c0c66c5"
+  },
+  {
+    "original": "artifacts/visual-unification/screenshots/history-40-2560.png",
+    "captured": "artifacts/welcome-feedback/captured/artifacts/visual-unification/screenshots/history-40-2560.png",
+    "sha256": "8a4eacec5938e9b8fb8b4a7bfcaad858eca67ebe7217f1a7e9dc3d0f559b736e"
+  }
+]

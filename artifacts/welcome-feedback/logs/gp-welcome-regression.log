@@ -1,0 +1,29 @@
+
+> godpower-html@2.19.0 test:welcome
+> node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs
+
+PASS welcome-V2 entrance, preserved navigation and 14 group dashboard
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1.25
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1.25
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1.25
+PASS Keyboard full entrance, partial reset, repeated replay and view-switch interruption
+PASS Motion preferences: motion-off
+PASS Motion preferences: system-reduce
+PASS Motion preferences: system-optout
+PASS Motion preferences: simple
+PASS Live motion disable and resize cancel entrance without lingering focus/inert locks
+PASS Stable tie ranking, negative/large exact statistics, phase and live mutation consistency
+PASS Squid masks scores, ranks, ordering and KPI values, then restores exact state
+PASS Unchanged clock ticks preserve rank/feed nodes and reading position; new state updates them
+PASS Cruise defaults to continuous, pauses for reading and stops off-page/reduced motion; preference saves
+PASS Welcome dashboard, SVG replay and quiz continue offline without external requests
+{ pass: 20, fail: 0, errors: [] }
+1366 PASS
+1920 PASS
+2560 PASS

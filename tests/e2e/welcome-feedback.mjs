@@ -241,6 +241,17 @@ try {
     });
   await p.setViewportSize({ width: 1920, height: 1080 });
   await setup(p);
+  // Freeze exit WAAPI only while inspecting it; real clicks can take >280ms
+  // under concurrent browser load. Resume and require real completion below.
+  await p.evaluate(() => {
+    window.feedbackAnimate = Element.prototype.animate;
+    Element.prototype.animate = function (frames, options) {
+      const a = window.feedbackAnimate.call(this, frames, options);
+      if (Array.isArray(frames) && frames.at(-1)?.translate === "0 64px")
+        a.pause();
+      return a;
+    };
+  });
   const modals = [
     ["scoreModalBackdrop", "openScoreModal", 1],
     ["memberSearchBackdrop", "openMemberSearchModal"],
@@ -289,11 +300,20 @@ try {
       );
       if (id === "pickerModal")
         await p.screenshot({ path: `${root}/picker-exit.png` });
+      await p.locator("#" + id).evaluate((e) =>
+        e
+          .querySelector(".ui-function-surface")
+          .getAnimations()
+          .forEach((a) => a.play()),
+      );
       await p.waitForSelector("#" + id, { state: "hidden" });
       await p.waitForFunction(() => DesktopUI.getClosingWindowCount() === 0);
       assert.equal(await p.locator("#" + id).evaluate((e) => e.inert), false);
       return motion;
     });
+  await p.evaluate(() => {
+    Element.prototype.animate = window.feedbackAnimate;
+  });
   await test("Dynamic warning closes with exit and repeated confirmation cannot fire twice", async () => {
     await p.evaluate(() => {
       window.confirmResult = [];

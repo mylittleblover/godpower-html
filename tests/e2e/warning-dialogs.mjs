@@ -65,6 +65,7 @@ try {
           await p.locator("#programConfirmV28 [data-ui-window-close]").click();
           await p.evaluate(() => warningPromise);
           assert.equal(await p.evaluate(() => state.correctAns), "");
+          await p.locator("#programConfirmV28").waitFor({ state: "detached" });
           assert.equal(await p.locator("#programConfirmV28").count(), 0);
           await p.evaluate(() => {
             window.warningPromise = setCorrectAns("B");
@@ -107,6 +108,9 @@ try {
               await p.evaluate(() => state.correctAns),
               kind === "enter" ? "A" : "",
             );
+            await p
+              .locator("#programConfirmV28")
+              .waitFor({ state: "detached" });
             assert.equal(await p.locator("#programConfirmV28").count(), 0);
             await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
             row.status = "PASS";

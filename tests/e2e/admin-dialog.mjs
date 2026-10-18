@@ -73,6 +73,7 @@ try {
       await p.locator("#pwdInput").fill("test-pin-42");
       await p.keyboard.press("Enter");
       await p.waitForFunction(() => !state.isLocked);
+      await p.locator("#pwdModal").waitFor({ state: "hidden" });
       assert.equal(await p.locator("#pwdModal").isVisible(), false);
       assert.equal(
         await p.evaluate(() => JSON.stringify(state.groups)),
@@ -84,6 +85,7 @@ try {
       });
       await p.keyboard.press("Escape");
       assert.equal(await p.evaluate(() => state.isLocked), true);
+      await p.locator("#pwdModal").waitFor({ state: "hidden" });
       assert.equal(await p.locator("#pwdModal").isVisible(), false);
       await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
       row.status = "PASS";

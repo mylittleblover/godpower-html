@@ -1,0 +1,36 @@
+{
+  "sha256": "8bcb012d308187f51d0118760bd727d0e9ee3442a6ec6d6d8d4aa04165a669c6",
+  "results": [
+    {
+      "width": 1366,
+      "height": 768,
+      "layers": {
+        "password": 300001,
+        "error": 300002
+      },
+      "screenshot": "artifacts/visual-unification/admin/password-error-1366.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "layers": {
+        "password": 300001,
+        "error": 300002
+      },
+      "screenshot": "artifacts/visual-unification/admin/password-error-1920.png",
+      "status": "PASS"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "layers": {
+        "password": 300001,
+        "error": 300002
+      },
+      "screenshot": "artifacts/visual-unification/admin/password-error-2560.png",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

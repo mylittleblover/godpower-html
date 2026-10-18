@@ -299,6 +299,7 @@ try {
       );
       const screenshot = await shot(p, "confirmation");
       await p.keyboard.press("Escape");
+      await p.locator("#themeDialogV21727").waitFor({ state: "hidden" });
       assert.equal(await p.locator("#itemModalBackdrop").isVisible(), true);
       await p.keyboard.press("Escape");
       await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);

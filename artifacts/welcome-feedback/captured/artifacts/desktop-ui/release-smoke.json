@@ -1,0 +1,40 @@
+{
+  "sha256": "8bcb012d308187f51d0118760bd727d0e9ee3442a6ec6d6d8d4aa04165a669c6",
+  "results": [
+    {
+      "name": "HTTP document continues offline: five page navigation and actual correct-answer scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "Offline representative major modal lifecycle has no console errors",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual archived four-group podium centers champion, preserves ties, full names and CSV offline",
+      "status": "PASS"
+    },
+    {
+      "name": "Representative release has no uncaught errors, console.error or external runtime requests",
+      "status": "PASS"
+    }
+  ],
+  "consoleLogs": [
+    {
+      "type": "warning",
+      "text": "道具权重池缺失： [spiny, coin, lightning, star, bullet]"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
+    }
+  ],
+  "pageErrors": [],
+  "network": [
+    "http://127.0.0.1:34269/"
+  ],
+  "offlineMethod": "HTTP loaded document then context.setOffline(true); initial file:// is separately BLOCKED"
+}
