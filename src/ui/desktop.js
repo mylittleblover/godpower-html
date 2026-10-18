@@ -1209,6 +1209,7 @@ const DesktopUI = (() => {
     });
   }
   const modalClosers = {
+    programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),
     welcomeModal: () => closeWelcomeModal(),
     scoreModalBackdrop: () => closeScoreModal(),
     pwdModal: () => closePwdModal(),
@@ -1247,14 +1248,37 @@ const DesktopUI = (() => {
       },
       true,
     );
+    function forgetModal(id) {
+      known.set(id, false);
+      const item = openStack.find((x) => x.id === id);
+      openStack = openStack.filter((x) => x.id !== id);
+      if (item?.el) delete item.el.dataset.uiModalOpen;
+      const top = openStack.at(-1);
+      if (top) {
+        if (item?.focus?.isConnected && top.el.contains(item.focus))
+          item.focus.focus({ preventScroll: true });
+        else focusModal(top);
+      } else if (
+        item?.focus?.isConnected &&
+        !item.focus.closest(".view:not(.active)")
+      )
+        item.focus.focus({ preventScroll: true });
+      cancelAnimations();
+    }
     function scan() {
       for (const [id, close] of Object.entries(modalClosers)) {
         const el = document.getElementById(id);
+        if (
+          known.get(id) &&
+          openStack.find((item) => item.id === id)?.el !== el
+        )
+          forgetModal(id);
         if (!el) continue;
         const visible =
           el.classList.contains("active") ||
           el.classList.contains("show") ||
-          el.style.display === "flex";
+          el.style.display === "flex" ||
+          (id === "programConfirmV28" && el.getClientRects().length > 0);
         if (visible) {
           const surface =
             el.querySelector(".ui-function-surface") || el.firstElementChild;
@@ -1351,21 +1375,7 @@ const DesktopUI = (() => {
             if (top?.el === el) focusModal(top);
           });
         } else if (!visible && known.get(id)) {
-          known.set(id, false);
-          const item = openStack.find((x) => x.id === id);
-          openStack = openStack.filter((x) => x.id !== id);
-          delete el.dataset.uiModalOpen;
-          const top = openStack.at(-1);
-          if (top) {
-            if (item?.focus?.isConnected && top.el.contains(item.focus))
-              item.focus.focus({ preventScroll: true });
-            else focusModal(top);
-          } else if (
-            item?.focus?.isConnected &&
-            !item.focus.closest(".view:not(.active)")
-          )
-            item.focus.focus({ preventScroll: true });
-          cancelAnimations();
+          forgetModal(id);
         }
       }
     }

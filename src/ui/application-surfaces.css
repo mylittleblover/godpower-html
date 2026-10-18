@@ -643,3 +643,73 @@ body.modern-flat-v217 {
 #pickerModal .ui-slot-stage {
   flex-shrink: 0;
 }
+/* Incomplete-answer warning is an active legacy dialog, now on the same lifecycle. */
+.program-confirm-window {
+  --notice-width: 560px;
+  --notice-head-bg: #fff3ec;
+  --notice-head-text: #914d36;
+  --notice-icon-bg: #fff1e9;
+  --notice-icon-text: #bd6246;
+  --notice-icon-border: #f5d1be;
+  display: flex;
+  flex-direction: column;
+}
+.program-confirm-window .program-confirm-titlebar {
+  flex: none;
+  padding: 22px 60px 20px 24px;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+.program-confirm-titlebar::before {
+  content: "课堂提醒 · 请确认";
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #b2775e;
+}
+.program-confirm-window .program-confirm-body {
+  min-height: 0;
+  padding: 24px;
+  gap: 16px;
+}
+.program-confirm-window .program-confirm-icon {
+  flex-basis: 40px;
+  width: 40px;
+  height: 40px;
+}
+.program-confirm-window .program-confirm-text {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.program-confirm-window .program-confirm-actions {
+  flex: none;
+  gap: 12px;
+  padding: 18px 24px 22px;
+}
+.theme-dialog-card-v21727 .theme-dialog-head-v21727 {
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.theme-dialog-card-v21727 .theme-dialog-title-v21727 {
+  font-size: 20px;
+  line-height: 1.45;
+}
+.theme-dialog-card-v21727 .theme-dialog-body-v21727 {
+  padding: 0 2px;
+  line-height: 1.85;
+}
+.theme-dialog-card-v21727 .theme-dialog-actions-v21727 {
+  padding-top: 18px;
+  margin-top: 22px;
+  border-top: 1px solid var(--surface-line);
+  gap: 12px;
+}
+#themeDialogV21727[data-ui-notice="danger"] .theme-dialog-icon-v21727 {
+  background: #fff0e9;
+  color: #ba543c;
+}

@@ -29,6 +29,7 @@ function openThemeDialogV21727(message,opts={}){
     prev(false);
   }
 
+  root.dataset.uiNotice=opts.danger?'danger':(opts.confirm?'confirm':'info');
   title.textContent=opts.title||'提示';
   body.textContent=String(message??'');
   icon.textContent=opts.danger?'⚠️':(opts.icon||'ℹ️');

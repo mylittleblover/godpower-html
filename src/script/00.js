@@ -5347,10 +5347,10 @@ function repairPersistentItemsV28(){
 let programConfirmResolveV28=null;
 function programConfirmV28(message,opts={}){
   return new Promise(resolve=>{
-    document.getElementById('programConfirmV28')?.remove();
+    document.getElementById('programConfirmV28')?.querySelector('#pcCancelV28')?.click();
     programConfirmResolveV28=resolve;
     const o=document.createElement('div');o.id='programConfirmV28';o.className='program-confirm-overlay';
-    o.innerHTML=`<div class="program-confirm-window" role="dialog" aria-modal="true" aria-labelledby="pcTitleV28">
+    o.innerHTML=`<div class="program-confirm-window ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="pcTitleV28">
       <div class="program-confirm-titlebar" id="pcTitleV28">${escapeHtml(opts.title||'课堂程序提示')}</div>
       <div class="program-confirm-body">
         <div class="program-confirm-icon">!</div>
@@ -5362,7 +5362,7 @@ function programConfirmV28(message,opts={}){
       </div>
     </div>`;
     document.body.appendChild(o);
-    const finish=v=>{if(!o.isConnected)return;o.remove();programConfirmResolveV28=null;resolve(v)};
+    const finish=v=>{if(!o.isConnected)return;document.removeEventListener('keydown',key);o.remove();programConfirmResolveV28=null;resolve(v)};
     o.querySelector('#pcCancelV28').onclick=()=>finish(false);
     o.querySelector('#pcOkV28').onclick=()=>finish(true);
     o.addEventListener('click',e=>{if(e.target===o)finish(false)});
