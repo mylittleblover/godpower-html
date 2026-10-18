@@ -1,0 +1,36 @@
+PASS mushroom accept
+PASS mushroom decline
+PASS mushroom undo
+PASS mushroom round
+PASS mushroom new-command
+FAIL mushroom import Expected values to be strictly equal:
+
+100 !== 999
+
+PASS mushroom reject
+PASS mushroom quota
+PASS mushroom reload
+PASS triple_mushroom accept
+PASS triple_mushroom decline
+PASS triple_mushroom undo
+PASS triple_mushroom round
+PASS triple_mushroom new-command
+FAIL triple_mushroom import Expected values to be strictly equal:
+
+100 !== 999
+
+PASS triple_mushroom reject
+PASS triple_mushroom quota
+PASS triple_mushroom reload
+PASS horn accept
+PASS horn decline
+PASS horn undo
+PASS horn round
+PASS horn new-command
+FAIL horn import Expected values to be strictly equal:
+
+100 !== 999
+
+PASS horn reject
+PASS horn quota
+PASS horn reload

@@ -87,3 +87,8 @@ reference-baseline/ 与 reference-fixed/ 保存相同四组数据、相同1920×
 ## 比赛连贯动画增补
 
 本轮修复抽取遮层突现与骤停、揭晓后槽位闪现、分数幽灵颜色丢失及缩放跳位，重做道具反馈的进入/停留/淡出和持续光环。按钮音效按意图独立并细分设置分类。实际 Chromium 专项、14 组对比、阶段证据和未测试边界集中记录在 docs/reports/BATTLE_MOTION_ACCEPTANCE.md；不能据此把原有尚未验收的其他 UI 项一律改为 PASS。
+
+
+## 2026-10-18 职责分离回归
+
+本轮未更改CSS或卡片模板行为。真实Chromium在1366×768、1920×1080、2560×1440比较14组布局，全部PASS；最新前后截图位于artifacts/structure/layout-final/{before,after}。查看过1920比赛截图：14组均在底栏以上，长名截断保留title，大/负积分及主次道具可见。五页与主要窗口截图来自本轮core流程，保存在structure/captured/artifacts/screenshots/chromium。动画8项、交互21项实际通过；不以截图生成代替功能测试。用户教室实际配置、原生缩放、听感未验。详见STRUCTURE_REFACTOR_ACCEPTANCE。

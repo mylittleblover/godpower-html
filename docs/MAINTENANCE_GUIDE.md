@@ -78,3 +78,13 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
 ### 比赛动画维护
 
 遵循 `docs/ui/BATTLE_MOTION.md`。新增反馈接入 BattleMotion，不能在卡片根节点叠加 transform 或由动画计算业务结果。取消效果时确认已提交的视觉快照；用回归证明后续新事件仍能播放。新按钮先复用 ActionSounds 稳定意图槽，必要时扩展元数据及分类测试，避免根据按钮文案随机命名存储键。
+
+## 单一所有者与本轮回归入口
+
+- `renderAll/renderGrid` 只能在 `src/ui/render.js` 声明；卡片DOM在 `ui/battle-grid.js`，业务判定留在core/旧规则适配器。`canonical-entrypoints` 会拒绝再次覆盖这些入口。
+- 生命周期订阅使用 `Reliability.onDefenseInvalidation(handler)`；返回解除订阅函数。UI不能替换命令取消。当前通知同步、按注册顺序执行，异常会向上传播；未来引入可能抛错的订阅前先设计异常隔离和回归。
+- 删除脚本前检查AST及捕获调用链，迁移有效行为，再移除模板块并运行 `node scripts/sync-source-manifest.mjs`。`empty-source-blocks` 防止重新加入无执行内容的脚本。
+- 全仓库清单可指定本轮基线与证据目录，避免覆盖历史报告：
+  `LEGACY_BASELINE=9e1be3c LEGACY_ARTIFACT_DIR=artifacts/structure LEGACY_DOCUMENT=docs/LEGACY_CODE_INVENTORY.md npm run audit:legacy`。
+- 本轮验收入口见 `docs/reports/STRUCTURE_REFACTOR_ACCEPTANCE.md`。性能/业务差分脚本支持 `REFACTOR_BASELINE`；14组比较使用 `BATTLE_BASELINE_COMMIT`、`BATTLE_ARTIFACT_DIR`。
+- 旧测试脚本默认会写原artifacts路径。新任务要将实际新产物保存至独立目录，再仅恢复该任务覆盖的历史证据，保留SHA和索引；不要把历史PASS当成本轮结果。

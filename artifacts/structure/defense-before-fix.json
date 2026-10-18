@@ -1,0 +1,158 @@
+{
+  "results": [
+    {
+      "key": "mushroom",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n100 !== 999\n\n    at file:///workspace/godpower-structure/tests/e2e/defense-command.mjs:150:45"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reload",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n100 !== 999\n\n    at file:///workspace/godpower-structure/tests/e2e/defense-command.mjs:150:45"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reload",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "accept",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "decline",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "undo",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "round",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "new-command",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n100 !== 999\n\n    at file:///workspace/godpower-structure/tests/e2e/defense-command.mjs:150:45"
+    },
+    {
+      "key": "horn",
+      "scenario": "reject",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "quota",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "reload",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "real-dialog-accept",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "real-dialog-decline",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "scenario": "real-dialog-accept",
+      "status": "PASS"
+    }
+  ],
+  "pageErrors": []
+}

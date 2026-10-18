@@ -8611,9 +8611,20 @@ const Reliability = (() => {
     return null;
   }
   // Stale asynchronous defense dialogs must never modify a different round or item.
-  let defenseDecisionEpoch=0, defenseInvalidationHandler=null;
-  function onDefenseInvalidation(handler){defenseInvalidationHandler=handler;}
-  function invalidateDefenseDecisions(){++defenseDecisionEpoch;defenseInvalidationHandler?.();return defenseDecisionEpoch}
+  let defenseDecisionEpoch=0;
+  const defenseInvalidationHandlers=new Set();
+  function onDefenseInvalidation(handler){
+    if(typeof handler!=='function')throw new TypeError('Defense invalidation requires a function');
+    defenseInvalidationHandlers.add(handler);
+    return ()=>defenseInvalidationHandlers.delete(handler);
+  }
+  function invalidateDefenseDecisions(){
+    ++defenseDecisionEpoch;
+    // A visual subscriber must never replace command cancellation. Snapshot the
+    // listeners so subscriptions added during notification start next time.
+    for(const handler of [...defenseInvalidationHandlers])handler();
+    return defenseDecisionEpoch;
+  }
   function captureDefenseDecision(s,target,key){
     const item=target?.inventory?.[0];
     if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;
@@ -11408,17 +11419,7 @@ function searchMemberGroups() {
   }).join('');
 }
 
-function renderAll() {
-  renderLockStatus();
-  renderControls();
-  renderGrid();
-  updateHeaderStats();
-  renderChart();
-  renderDashboard();
-  updateResizerUI();
-  renderWelcomePage();
-  updateWelcomeTrackIfNeeded();
-}
+
 
 function updateQuickBatchBar() {
   const bar = document.getElementById('quickBatchBar');
@@ -11626,95 +11627,7 @@ function renderControls() {
   updateQuickBatchBar();
 }
 
-function renderGrid() {
-  const grid = document.getElementById('groupList');
-  if (!grid) return;
-  // 严格同步等宽规则
-  grid.style.gridTemplateColumns = state.columnMode === 'single' ? '1fr' : 'repeat(auto-fill, minmax(380px, 1fr))';
-  grid.dataset.columnMode = state.columnMode;
-  grid.innerHTML = '';
 
-  state.groups.forEach(g => {
-    const rowCard = document.createElement('div');
-    rowCard.className = `group-row-card ${g.animState || ''}`;
-    rowCard.setAttribute('data-group-id', g.id);
-    rowCard.style.borderLeftColor = g.color;
-
-    const roundClass = (state.roundActive && !state.evaluated) ? '' : 'round-disabled';
-
-    const optionsHtml = ['A', 'B', 'C', 'D'].map(opt => {
-      let cls = 'opt-btn';
-      if (g.selectedOpt === opt) cls += ' active';
-      if (state.evaluated && g.selectedOpt === opt) {
-        cls += ' flip-reveal';
-        if (opt === state.correctAns) cls += ' correct';
-        else cls += ' wrong';
-      }
-      return `<button class="${cls} ${roundClass}" onclick="selectGroupOpt(${g.id}, '${opt}')" ${state.evaluated ? 'disabled' : ''}>${opt}</button>`;
-    }).join('');
-
-    let scoreDisplayHtml = '';
-    const rawScoreVal = g.displayScore !== undefined ? g.displayScore : g.score;
-    const scoreDigits = String(rawScoreVal).length;
-    let scoreFontSize = '29px';
-    if (scoreDigits >= 18) scoreFontSize = '13px';
-    else if (scoreDigits >= 14) scoreFontSize = '15px';
-    else if (scoreDigits >= 11) scoreFontSize = '18px';
-    else if (scoreDigits >= 8) scoreFontSize = '21px';
-    else if (scoreDigits >= 7) scoreFontSize = '23px';
-    else if (scoreDigits >= 6) scoreFontSize = '25px';
-
-    if (state.editingScoreId === g.id) {
-      scoreDisplayHtml = `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event, ${g.id})">`;
-    } else {
-      const editCls = state.isLocked ? '' : 'editable';
-      scoreDisplayHtml = `<span class="row-score ${editCls}" id="score-val-${g.id}" style="color: ${g.color}; font-size: ${scoreFontSize};" onclick="startDirectScoreEdit(${g.id})">${rawScoreVal}分</span>`;
-    }
-
-    const lockAttr = state.isLocked ? 'locked-disabled' : '';
-    const allInBtnClass = g.allIn ? 'allin-toggle-btn active' : 'allin-toggle-btn';
-    const allInBtnText = g.allIn ? '🔥 ALL IN' : 'All In';
-
-    rowCard.innerHTML = `
-      <div class="milestone-banner-overlay">分数位数增加！</div>
-      <div class="card-header-row">
-        <div class="header-name-col">
-          <input class="name-input ${lockAttr}" value="${escapeHtml(g.name)}" ${state.isLocked ? 'readonly' : ''} 
-            oninput="updateGroupName(${g.id}, this.value)" 
-            onchange="updateGroupName(${g.id}, this.value)" 
-            title="${escapeHtml(g.name)}">
-        </div>
-        <div class="header-meta-col">
-          <span class="member-count-tag" onclick="openItemWindow(${g.id},'detail')" title="打开小组详情">
-            成员(${g.members ? g.members.length : 0})
-          </span>
-          <input type="color" class="color-picker ${lockAttr}" value="${g.color}" ${state.isLocked ? 'disabled' : ''} onchange="updateGroupColor(${g.id}, this.value)" title="选择颜色">
-          <button class="del-btn ${lockAttr}" onclick="deleteGroup(${g.id})" title="删除小组">×</button>
-        </div>
-      </div>
-
-      <div class="card-action-row">
-        <div class="action-score-col">
-          ${scoreDisplayHtml}
-        </div>
-
-        <div class="action-controls-col">
-          <div class="opt-group">${optionsHtml}</div>
-          <button class="${allInBtnClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? 'disabled' : ''}>${allInBtnText}</button>
-          <div class="result-msg-box">${g.resultText ? `<span class="result-msg">${escapeHtml(g.resultText)}</span>` : ''}</div>
-          
-          <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
-        </div>
-      </div>
-    `;
-    grid.appendChild(rowCard);
-
-    if (state.editingScoreId === g.id) {
-      const input = document.getElementById(`input-score-${g.id}`);
-      if (input) { input.focus(); input.select(); }
-    }
-  });
-}
 
 function openPickerModal() {
   if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
@@ -13769,7 +13682,7 @@ function itemQuickScore(id,d){if(state.isLocked){openPwdModal();return}applyScor
 function itemCustomScore(id){const n=Number(document.getElementById('itemCustomScore').value);if(!Number.isFinite(n)||n===0)return;itemQuickScore(id,Math.round(n))}
 
 function enhanceItemCards(){ensureItemState();state.groups.forEach(g=>{const c=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);if(!c)return;c.classList.remove('item-def-green','item-def-red','item-def-yellow','item-def-orange','effect-star','effect-mega','effect-power','effect-bullet','effect-boo','effect-ice');const firstDef=g.inventory.find(it=>ITEM_DEFS[it.key]?.def);if(firstDef)c.classList.add('item-def-'+ITEM_DEFS[firstDef.key].def);if(g.itemEffect?.type)c.classList.add('effect-'+g.itemEffect.type);if(g.itemEffect?.iceLock)c.classList.add('effect-ice');if(g.booShield>0)c.classList.add('effect-boo');const head=c.querySelector('.card-header-row');if(head&&!c.querySelector('.item-slots')){const slots=document.createElement('div');slots.className='item-slots';slots.innerHTML=[0,1,2].map(i=>{const it=g.inventory[i];return it?`<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?`<span class="charges">${it.charges}</span>`:''}</div>`:'<div class="item-slot empty">＋</div>'}).join('');head.parentNode.insertBefore(slots,head.nextSibling)}const mb=c.querySelector('.more-btn');if(mb){mb.classList.remove('locked-disabled');mb.title='小组详情 / 道具 / 基础赋分';mb.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openItemWindow(g.id)}}});applyBlooperMask()}
-const _itemBaseRenderGrid=renderGrid;renderGrid=function(){_itemBaseRenderGrid();enhanceItemCards()};
+
 
 const _itemBaseJudgeRound=legacyJudgeRound;legacyJudgeRound=function(){if(!state.roundActive||state.evaluated||!state.correctAns)return false;const before=ranking().map(g=>g.id),answered=state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}));_itemBaseJudgeRound();answered.forEach(x=>{const g=state.groups.find(q=>q.id===x.id);if(!g||!x.answered)return;if(x.correct)g.itemStats.correct++;else g.itemStats.wrong++;if(g.itemEffect&&g.itemEffect.type==='power'){g.itemEffect.roundsLeft--;if(x.correct&&eligibleForItems(g)){const r=ranking(),i=r.findIndex(q=>q.id===g.id);if(i>0){g.score=r[i-1].score+1;g.displayScore=g.score}}if(g.itemEffect&&g.itemEffect.roundsLeft<=0){const ix=g.inventory.findIndex(it=>it.key==='power');if(ix>=0)g.inventory.splice(ix,1);g.itemEffect=null}}detectOvertakePunish(g.id,before)});saveState();renderAll()};
 
@@ -15728,130 +15641,7 @@ renderItemEncyclopedia=function(){
 };
 
 /* 全新的紧凑小组卡片。保留旧卡片尺寸，但只在正面放最常用信息。 */
-renderGrid=function(){
-  const grid=document.getElementById('groupList');if(!grid)return;
-  ensureGroupNumbersV213(true);
-  const animateReorder=!v213SkipNextReorderAnimation&&!v213SuppressReorderAnimation;
-  v213SkipNextReorderAnimation=false;
 
-  /* V2.17.22：记录旧 DOM 顺序。
-     FLIP 只服务于“排名顺序 ↔ 编号顺序”这种真正的重排，
-     不再把道具使用造成的行高变化误判成卡片位移动画。 */
-  const oldOrderIds=[...grid.querySelectorAll('.group-row-card[data-group-id]')]
-    .map(c=>String(c.dataset.groupId));
-
-  const oldRects=new Map();
-  if(animateReorder)grid.querySelectorAll('.group-row-card[data-group-id]').forEach(c=>{
-    const rect=c.getBoundingClientRect();
-    /* 页面隐藏时会留下 0×0 的无效坐标，不能拿来做进入比赛页的 FLIP 起点。 */
-    if(rect.width>1&&rect.height>1)oldRects.set(String(c.dataset.groupId),rect);
-  });
-  grid.style.gridTemplateColumns=state.columnMode==='single'?'1fr':'repeat(auto-fill, minmax(380px, 1fr))';
-  grid.dataset.columnMode=state.columnMode;
-  grid.innerHTML='';
-
-  const ordered=desiredGroupsV213();
-  const newOrderIds=ordered.map(g=>String(g.id));
-  const orderActuallyChanged=
-    animateReorder &&
-    oldOrderIds.length===newOrderIds.length &&
-    oldOrderIds.some((id,i)=>id!==newOrderIds[i]);
-
-  /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
-     答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
-  const rankReorderAnimationV21723=orderActuallyChanged;
-
-  ordered.forEach(g=>{
-    const rowCard=document.createElement('div');
-    rowCard.className=`group-row-card v213-card ${g.animState||''}`;
-    rowCard.dataset.groupId=g.id;rowCard.style.borderLeftColor=g.color;rowCard.style.setProperty('--group-color',g.color);rowCard.style.setProperty('--group-contrast',readableTextOnColor(g.color));
-    const roundClass=(state.roundActive&&!state.evaluated)?'':'round-disabled';
-    const optionsHtml=['A','B','C','D'].map(opt=>{
-      let cls='opt-btn';if(g.selectedOpt===opt)cls+=' active';
-      if(state.evaluated&&g.selectedOpt===opt){cls+=' flip-reveal '+(opt===state.correctAns?'correct':'wrong')}
-      return `<button class="${cls} ${roundClass}" onclick="selectGroupOpt(${g.id},'${opt}')" ${state.evaluated?'disabled':''}>${opt}</button>`;
-    }).join('');
-
-    const rawScore=g.displayScore!==undefined?g.displayScore:g.score;
-    const editCls=state.isLocked?'':'editable';
-    const scoreHtml=state.editingScoreId===g.id
-      ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-      : `<span class="row-score ${editCls}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
-    const allInClass=g.allIn?'allin-toggle-btn active':'allin-toggle-btn';
-    const allInText=g.allIn?'🔥 ALL IN':'ALL IN';
-    const lockAttr=state.isLocked?'locked-disabled':'';
-
-    const slotsHtml=[0,1,2].map((i)=>{
-      const it=g.inventory?.[i];
-      return it?`<div class="item-slot ${i===0?'queue-main-slot':'queue-secondary-slot'}" title="${escapeHtml(ITEM_DEFS[it.key]?.name||'道具')}">${itemVisual(it.key)}${it.charges>1?`<span class="charges">${it.charges}</span>`:''}</div>`:`<div class="item-slot ${i===0?'queue-main-slot':'queue-secondary-slot'} empty">＋</div>`;
-    }).join('');
-
-    rowCard.innerHTML=`
-      <div class="milestone-banner-overlay">分数位数增加！</div>
-      <div class="card-header-row">
-        <div class="v213-number" title="小组编号">${groupNoTextV213(g)}</div>
-        <div class="v213-name-wrap"><div class="v213-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="v213-name-sub">小组名称 · 当前按${currentCardSortLabelV213()}排列</div></div>
-        <div class="item-slots">${slotsHtml}</div>
-        <div class="v213-score-wrap">${scoreHtml}</div>
-        <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
-      </div>
-      <div class="card-action-row"><div class="v213-result">${g.resultText?escapeHtml(g.resultText):`主要道具可直接点击使用`}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated?'disabled':''}>${allInText}</button></div></div>`;
-    grid.appendChild(rowCard);
-  });
-
-  /* 复用既有队列/防御/持续状态逻辑，但把三点菜单控制权拿回来。 */
-  try{enhanceItemCards()}catch(e){console.warn('enhance item cards',e)}
-  ordered.forEach(g=>{
-    const card=grid.querySelector(`.group-row-card[data-group-id="${g.id}"]`);if(!card)return;
-    const main=card.querySelector('.queue-main-slot');
-    if(main){main.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();if(g.inventory?.[0])useItem(g.id,0);else showToast('当前没有主要道具')}}
-    const more=card.querySelector('.more-btn');if(more){more.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openItemWindow(g.id,'detail')}}
-    card.querySelectorAll('.persistent-aura-v213').forEach(x=>x.remove());
-    let aura='';if(g.itemEffect?.type==='star')aura='star';else if(g.itemEffect?.type==='mega')aura='mega';else if(g.itemEffect?.type==='power')aura='power';else if(g.itemEffect?.iceLock)aura='ice';
-    if(aura){const a=document.createElement('div');a.className=`persistent-aura-v213 aura-${aura}`;card.appendChild(a)}
-    if(typeof BattleMotion!=='undefined')BattleMotion.restore(card,g.id);
-  });
-
-  if(state.editingScoreId!=null){const input=document.getElementById(`input-score-${state.editingScoreId}`);if(input){input.focus();input.select()}}
-
-  /* FLIP：旧位置 → 新位置。
-     V2.17.20：恢复稳定的 transform FLIP，只把时长改为 0.75s。
-     Codex 版本改成 CSS individual translate 后，和多次 renderGrid / 清理时序组合会
-     出现跳动、回弹或直接没有位移动画。 */
-  const moved=[];
-  if(rankReorderAnimationV21723 || (orderActuallyChanged&&v213ForceRankSort)) grid.querySelectorAll('.group-row-card[data-group-id]').forEach(card=>{
-    const old=oldRects.get(String(card.dataset.groupId));if(!old)return;
-    const now=card.getBoundingClientRect();
-    const dx=old.left-now.left,dy=old.top-now.top;
-    if(Math.abs(dx)<1&&Math.abs(dy)<1)return;
-
-    /* 先瞬间放回旧位置。最终主题存在 !important transition，所以这里也用 important。 */
-    card.style.setProperty('transition','none','important');
-    card.style.transform=`translate(${dx}px,${dy}px)`;
-    moved.push(card);
-  });
-
-  if(moved.length){
-    /* 提交起点，再隔两帧启动动画，避免浏览器把起点/终点合并。 */
-    moved.forEach(card=>void card.offsetWidth);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>moved.forEach(card=>{
-      card.style.setProperty(
-        'transition',
-        `transform ${V213_CARD_REORDER_MS}ms cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .35s ease`,
-        'important'
-      );
-      card.style.transform='translate(0px,0px)';
-
-      setTimeout(()=>{
-        /* 在“0 位移”状态下无动画清理内联 transform，避免清理动作被识别成第二段动画。 */
-        card.style.setProperty('transition','none','important');
-        card.style.removeProperty('transform');
-        void card.offsetWidth;
-        requestAnimationFrame(()=>card.style.removeProperty('transition'));
-      },V213_CARD_REORDER_SETTLE_MS);
-    })));
-  }
-};
 
 /* 导入名单时尽量保留已经手动设置的小组编号。 */
 if(typeof applySettingsBatchMembers==='function'){
@@ -15902,21 +15692,8 @@ function rankOfGroupV214(id){
 }
 
 /* 在 V2.13 卡片的固定布局上补充实时排名，不增加卡片总体高度。 */
-const _v214RenderGrid=renderGrid;
-renderGrid=function(){
-  const result=_v214RenderGrid.apply(this,arguments);
-  const ranks=new Map(ranking().map((g,i)=>[g.id,i+1]));
-  document.querySelectorAll('.group-row-card.v213-card[data-group-id]').forEach(card=>{
-    const id=Number(card.dataset.groupId),wrap=card.querySelector('.v213-name-wrap');
-    if(!wrap)return;
-    let badge=wrap.querySelector('.v214-rank-badge');
-    if(!badge){badge=document.createElement('span');badge.className='v214-rank-badge';wrap.appendChild(badge)}
-    badge.textContent=`第${ranks.get(id)||'-'}名`;
-    const sub=wrap.querySelector('.v213-name-sub');
-    if(sub)sub.textContent=`当前按${currentCardSortLabelV213()}排列`;
-  });
-  return result;
-};
+
+
 
 /* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */
 renderAbout=function(tab){
@@ -16004,15 +15781,6 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
     switchView=function(name){
       const r=oldSwitchV216.call(this,name);
       if(name==='welcome') requestAnimationFrame(renderWelcomeAllV216);
-      return r;
-    };
-  }
-  if(typeof renderAll==='function'){
-    const oldRenderAllV216=renderAll;
-    renderAll=function(...args){
-      const r=oldRenderAllV216.apply(this,args);
-      /* chartWrapper/podiumDeck 已经搬到欢迎页，仍需持续更新。 */
-      try{renderWelcomeAllV216()}catch(e){}
       return r;
     };
   }
@@ -17510,34 +17278,8 @@ queueUseStateV2120=function(g,index){
 
 /* 卡片上的 All In 也直接禁用，而不是非得让用户点击之后才发现。
    顺便给主要道具小格一个视觉锁定状态。 */
-const _v2177RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const result=_v2177RenderGrid.apply(this,args);
 
-  if(state.roundActive && !state.evaluated){
-    state.groups.forEach(g=>{
-      if(!g.itemUsedThisRound)return;
 
-      const card=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
-      if(!card)return;
-
-      const allIn=card.querySelector('.allin-toggle-btn');
-      if(allIn){
-        allIn.disabled=true;
-        allIn.classList.add('v2177-round-locked');
-        allIn.title='本题已经使用过道具，不能再 All In';
-      }
-
-      const main=card.querySelector('.v213-main-item');
-      if(main){
-        main.classList.add('v2177-round-item-locked');
-        main.title='本题已经使用过一次道具';
-      }
-    });
-  }
-
-  return result;
-};
 
 /* 兼容旧存档：如果不是答题阶段，不应把上一题的锁永久带到下一次比赛。 */
 try{
@@ -18360,49 +18102,13 @@ applyLightningHitV2116 = function(caster,target){
 /* renderAll 最终守门：
    攻击发生后第一次 renderAll 不立即重建卡片，先让旧位置上的 hit FX 出现。
    同一批多目标攻击只合并成一次延迟刷新，不会每个目标各拖 340ms。 */
-const _v21713RenderAll = renderAll;
-renderAll = function(...args){
-  if(attackRenderFlushingV21713){
-    return _v21713RenderAll.apply(this,args);
-  }
 
-  if(attackRenderGateV21713){
-    attackRenderGateV21713 = false;
-    pendingRenderArgsV21713 = args;
 
-    if(attackRenderTimerV21713){
-      clearTimeout(attackRenderTimerV21713);
-    }
-
-    attackRenderTimerV21713 = setTimeout(()=>{
-      attackRenderTimerV21713 = null;
-      attackRenderFlushingV21713 = true;
-      try{
-        _v21713RenderAll.apply(this,pendingRenderArgsV21713 || []);
-      }finally{
-        pendingRenderArgsV21713 = null;
-        attackRenderFlushingV21713 = false;
-      }
-    },ATTACK_REORDER_DELAY_V21713);
-
-    return;
-  }
-
-  return _v21713RenderAll.apply(this,args);
-};
 
 /* 如果攻击动画期间又触发了纯 renderGrid（例如某些卡片排序包装），
    也暂缓到攻击反馈之后，避免它从侧门把卡片提前排走。 */
-const _v21713RenderGrid = renderGrid;
-renderGrid = function(...args){
-  if(
-    !attackRenderFlushingV21713 &&
-    (attackRenderGateV21713 || attackRenderTimerV21713)
-  ){
-    return;
-  }
-  return _v21713RenderGrid.apply(this,args);
-};
+
+
 </script>
 
 
@@ -18692,12 +18398,8 @@ function renderBattleRankPreviewV21721(){
 }
 
 /* 排名预览跟随所有卡片刷新实时更新。 */
-const _v21721RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const result=_v21721RenderGrid.apply(this,args);
-  try{renderBattleRankPreviewV21721()}catch(e){}
-  return result;
-};
+
+
 
 /* 进入比赛页时也立刻刷新，避免第一次看到旧排名。 */
 const _v21721SwitchView=typeof switchView==='function' ? switchView : null;
@@ -18720,29 +18422,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     }catch(e){}
   },80);
 });
-</script>
-
-
-<script id="v21722RankPreviewAndStableCards">
-/* ===== V2.17.22 =====
-   - 桌面排名预览固定 8 列，16 组显示为 2 行，优先展示完整小组名；
-   - 小组卡片 FLIP 仅在 DOM 排序真正改变时播放；
-   - 道具使用导致的库存/状态/卡片高度变化不再产生“从下往上”的位移动画。 */
-</script>
-
-
-<script id="v21723RankReorderRestore">
-/* ===== V2.17.23：恢复非答题阶段的 0.75s 排名位移 =====
-   答题中：卡片固定编号，不因道具产生布局位移。
-   非答题阶段：卡片按排名排列，名次改变时使用完整 0.75s FLIP。 */
-
-const _v21723RenderGrid = renderGrid;
-renderGrid = function(...args){
-  if(!(state.roundActive&&!state.evaluated)){
-    v213SuppressReorderAnimation=false;
-  }
-  return _v21723RenderGrid.apply(this,args);
-};
 </script>
 
 
@@ -18785,17 +18464,8 @@ desiredGroupsV213 = desiredGroupsV21724;
 
 /* 状态切换必须允许真正的排序动画。
    仅“答题中使用道具”继续由 useItem 包装临时抑制。 */
-const _v21724RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const inAnswering=!!(state.roundActive&&!state.evaluated);
 
-  /* 非答题阶段绝不能继承道具使用留下的 suppress 状态。 */
-  if(!inAnswering){
-    v213SuppressReorderAnimation=false;
-  }
 
-  return _v21724RenderGrid.apply(this,args);
-};
 
 /* V2.17.26：
    不再给 startRound / judgeRound / nextRound / forceEndRound 额外补第二次 renderGrid。
@@ -18875,27 +18545,6 @@ function animateCardsFromSnapshotV21725(oldRects){
     },790);
   }));
 }
-</script>
-
-
-<script id="v21726RoundFlipDomGuard">
-/* ===== V2.17.26：防止状态切换 FLIP 被二次 renderGrid 销毁 ===== */
-const _v21726RenderGrid=renderGrid;
-let pendingRenderGridV21726=false;
-
-renderGrid=function(...args){
-  if(roundStateFlipBusyV21726){
-    if(!pendingRenderGridV21726){
-      pendingRenderGridV21726=true;
-      setTimeout(()=>{
-        pendingRenderGridV21726=false;
-        _v21726RenderGrid.apply(this,args);
-      },810);
-    }
-    return;
-  }
-  return _v21726RenderGrid.apply(this,args);
-};
 </script>
 
 
@@ -19169,12 +18818,11 @@ legacyUseItem=function(groupId,index,...rest){
 
 /* 关键：旧逻辑在道具动画期间可能多次 renderGrid，并把 displayScore 又写成真实 score。
    每次刷新前重新套用视觉冻结值，确保新分数不会提前露出来。 */
-const _v21732RenderGrid=renderGrid;
-renderGrid=function(...args){
-  applyHeldDisplayScoresV21732();
-  const result=_v21732RenderGrid.apply(this,args);
-  applyHeldDisplayScoresV21732();
 
+
+
+/* Restore visual score holds after a grid refresh, including an active roll. */
+function restoreHeldScoreElementsV21732(){
   itemScoreDisplayHoldV21732.forEach((old,key)=>{
     const el=getScoreElementV21732(key);
     if(el && !el.classList.contains('score-roll-host-v21730')){
@@ -19183,9 +18831,7 @@ renderGrid=function(...args){
       if(session&&g)mountScoreRollV21732(el,g,session);else el.textContent=`${old}分`;
     }
   });
-
-  return result;
-};
+}
 </script>
 
 
@@ -19242,13 +18888,6 @@ window.addEventListener('DOMContentLoaded',()=>{
     }catch(e){}
   },100);
 });
-</script>
-
-
-<script id="v21733ScoreRollVisibilityFix">
-/* ===== V2.17.33 =====
-   修复分数滚动时幽灵数字继承父元素 transparent，导致动画实际执行但不可见的问题。
-   现在旧分数会真正向上离场，新分数会从下方滚入，结束后再提交新的 displayScore。 */
 </script>
 
 
@@ -21046,6 +20685,317 @@ exportSingleSettlementCSV=function(index){
 };
 </script>
 
+<script>/* Card DOM and decoration only. Rules and refresh scheduling have separate owners. */
+function renderBattleGridCards() {
+  const grid = document.getElementById("groupList");
+  if (!grid) return;
+  ensureGroupNumbersV213(true);
+  const animateReorder =
+    !v213SkipNextReorderAnimation && !v213SuppressReorderAnimation;
+  v213SkipNextReorderAnimation = false;
+
+  /* V2.17.22：记录旧 DOM 顺序。
+     FLIP 只服务于“排名顺序 ↔ 编号顺序”这种真正的重排，
+     不再把道具使用造成的行高变化误判成卡片位移动画。 */
+  const oldOrderIds = [
+    ...grid.querySelectorAll(".group-row-card[data-group-id]"),
+  ].map((c) => String(c.dataset.groupId));
+
+  const oldRects = new Map();
+  if (animateReorder)
+    grid.querySelectorAll(".group-row-card[data-group-id]").forEach((c) => {
+      const rect = c.getBoundingClientRect();
+      /* 页面隐藏时会留下 0×0 的无效坐标，不能拿来做进入比赛页的 FLIP 起点。 */
+      if (rect.width > 1 && rect.height > 1)
+        oldRects.set(String(c.dataset.groupId), rect);
+    });
+  grid.style.gridTemplateColumns =
+    state.columnMode === "single"
+      ? "1fr"
+      : "repeat(auto-fill, minmax(380px, 1fr))";
+  grid.dataset.columnMode = state.columnMode;
+  grid.innerHTML = "";
+
+  const ordered = desiredGroupsV213();
+  const newOrderIds = ordered.map((g) => String(g.id));
+  const orderActuallyChanged =
+    animateReorder &&
+    oldOrderIds.length === newOrderIds.length &&
+    oldOrderIds.some((id, i) => id !== newOrderIds[i]);
+
+  /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
+     答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
+  const rankReorderAnimationV21723 = orderActuallyChanged;
+
+  ordered.forEach((g) => {
+    const rowCard = document.createElement("div");
+    rowCard.className = `group-row-card v213-card ${g.animState || ""}`;
+    rowCard.dataset.groupId = g.id;
+    rowCard.style.borderLeftColor = g.color;
+    rowCard.style.setProperty("--group-color", g.color);
+    rowCard.style.setProperty("--group-contrast", readableTextOnColor(g.color));
+    const roundClass =
+      state.roundActive && !state.evaluated ? "" : "round-disabled";
+    const optionsHtml = ["A", "B", "C", "D"]
+      .map((opt) => {
+        let cls = "opt-btn";
+        if (g.selectedOpt === opt) cls += " active";
+        if (state.evaluated && g.selectedOpt === opt) {
+          cls +=
+            " flip-reveal " + (opt === state.correctAns ? "correct" : "wrong");
+        }
+        return `<button class="${cls} ${roundClass}" onclick="selectGroupOpt(${g.id},'${opt}')" ${state.evaluated ? "disabled" : ""}>${opt}</button>`;
+      })
+      .join("");
+
+    const rawScore = g.displayScore !== undefined ? g.displayScore : g.score;
+    const editCls = state.isLocked ? "" : "editable";
+    const scoreHtml =
+      state.editingScoreId === g.id
+        ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
+        : `<span class="row-score ${editCls}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
+    const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
+    const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
+    const lockAttr = state.isLocked ? "locked-disabled" : "";
+
+    const slotsHtml = [0, 1, 2]
+      .map((i) => {
+        const it = g.inventory?.[i];
+        return it
+          ? `<div class="item-slot ${i === 0 ? "queue-main-slot" : "queue-secondary-slot"}" title="${escapeHtml(ITEM_DEFS[it.key]?.name || "道具")}">${itemVisual(it.key)}${it.charges > 1 ? `<span class="charges">${it.charges}</span>` : ""}</div>`
+          : `<div class="item-slot ${i === 0 ? "queue-main-slot" : "queue-secondary-slot"} empty">＋</div>`;
+      })
+      .join("");
+
+    rowCard.innerHTML = `
+      <div class="milestone-banner-overlay">分数位数增加！</div>
+      <div class="card-header-row">
+        <div class="v213-number" title="小组编号">${groupNoTextV213(g)}</div>
+        <div class="v213-name-wrap"><div class="v213-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="v213-name-sub">小组名称 · 当前按${currentCardSortLabelV213()}排列</div></div>
+        <div class="item-slots">${slotsHtml}</div>
+        <div class="v213-score-wrap">${scoreHtml}</div>
+        <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
+      </div>
+      <div class="card-action-row"><div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : `主要道具可直接点击使用`}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
+    grid.appendChild(rowCard);
+  });
+
+  /* 复用既有队列/防御/持续状态逻辑，但把三点菜单控制权拿回来。 */
+  try {
+    enhanceItemCards();
+  } catch (e) {
+    console.warn("enhance item cards", e);
+  }
+  ordered.forEach((g) => {
+    const card = grid.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
+    if (!card) return;
+    const main = card.querySelector(".queue-main-slot");
+    if (main) {
+      main.onclick = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (g.inventory?.[0]) useItem(g.id, 0);
+        else showToast("当前没有主要道具");
+      };
+    }
+    const more = card.querySelector(".more-btn");
+    if (more) {
+      more.onclick = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        openItemWindow(g.id, "detail");
+      };
+    }
+    card.querySelectorAll(".persistent-aura-v213").forEach((x) => x.remove());
+    let aura = "";
+    if (g.itemEffect?.type === "star") aura = "star";
+    else if (g.itemEffect?.type === "mega") aura = "mega";
+    else if (g.itemEffect?.type === "power") aura = "power";
+    else if (g.itemEffect?.iceLock) aura = "ice";
+    if (aura) {
+      const a = document.createElement("div");
+      a.className = `persistent-aura-v213 aura-${aura}`;
+      card.appendChild(a);
+    }
+    if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
+  });
+
+  if (state.editingScoreId != null) {
+    const input = document.getElementById(
+      `input-score-${state.editingScoreId}`,
+    );
+    if (input) {
+      input.focus();
+      input.select();
+    }
+  }
+
+  /* FLIP：旧位置 → 新位置。
+     V2.17.20：恢复稳定的 transform FLIP，只把时长改为 0.75s。
+     Codex 版本改成 CSS individual translate 后，和多次 renderGrid / 清理时序组合会
+     出现跳动、回弹或直接没有位移动画。 */
+  const moved = [];
+  if (rankReorderAnimationV21723 || (orderActuallyChanged && v213ForceRankSort))
+    grid.querySelectorAll(".group-row-card[data-group-id]").forEach((card) => {
+      const old = oldRects.get(String(card.dataset.groupId));
+      if (!old) return;
+      const now = card.getBoundingClientRect();
+      const dx = old.left - now.left,
+        dy = old.top - now.top;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+
+      /* 先瞬间放回旧位置。最终主题存在 !important transition，所以这里也用 important。 */
+      card.style.setProperty("transition", "none", "important");
+      card.style.transform = `translate(${dx}px,${dy}px)`;
+      moved.push(card);
+    });
+
+  if (moved.length) {
+    /* 提交起点，再隔两帧启动动画，避免浏览器把起点/终点合并。 */
+    moved.forEach((card) => void card.offsetWidth);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() =>
+        moved.forEach((card) => {
+          card.style.setProperty(
+            "transition",
+            `transform ${V213_CARD_REORDER_MS}ms cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .35s ease`,
+            "important",
+          );
+          card.style.transform = "translate(0px,0px)";
+
+          setTimeout(() => {
+            /* 在“0 位移”状态下无动画清理内联 transform，避免清理动作被识别成第二段动画。 */
+            card.style.setProperty("transition", "none", "important");
+            card.style.removeProperty("transform");
+            void card.offsetWidth;
+            requestAnimationFrame(() =>
+              card.style.removeProperty("transition"),
+            );
+          }, V213_CARD_REORDER_SETTLE_MS);
+        }),
+      ),
+    );
+  }
+}
+
+function decorateBattleRanks() {
+  const ranks = new Map(ranking().map((g, i) => [g.id, i + 1]));
+  document
+    .querySelectorAll(".group-row-card.v213-card[data-group-id]")
+    .forEach((card) => {
+      const id = Number(card.dataset.groupId),
+        wrap = card.querySelector(".v213-name-wrap");
+      if (!wrap) return;
+      let badge = wrap.querySelector(".v214-rank-badge");
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "v214-rank-badge";
+        wrap.appendChild(badge);
+      }
+      badge.textContent = `第${ranks.get(id) || "-"}名`;
+      const sub = wrap.querySelector(".v213-name-sub");
+      if (sub) sub.textContent = `当前按${currentCardSortLabelV213()}排列`;
+    });
+}
+
+function decorateRoundItemLocks() {
+  if (state.roundActive && !state.evaluated) {
+    state.groups.forEach((g) => {
+      if (!g.itemUsedThisRound) return;
+
+      const card = document.querySelector(
+        `.group-row-card[data-group-id="${g.id}"]`,
+      );
+      if (!card) return;
+
+      const allIn = card.querySelector(".allin-toggle-btn");
+      if (allIn) {
+        allIn.disabled = true;
+        allIn.classList.add("v2177-round-locked");
+        allIn.title = "本题已经使用过道具，不能再 All In";
+      }
+
+      const main = card.querySelector(".v213-main-item");
+      if (main) {
+        main.classList.add("v2177-round-item-locked");
+        main.title = "本题已经使用过一次道具";
+      }
+    });
+  }
+}
+</script>
+<script>/* Single refresh owner. This module never calculates scores or item outcomes. */
+let pendingRenderGridV21726 = false;
+
+function renderAll() {
+  if (!attackRenderFlushingV21713 && attackRenderGateV21713) {
+    attackRenderGateV21713 = false;
+    clearTimeout(attackRenderTimerV21713);
+    attackRenderTimerV21713 = setTimeout(() => {
+      attackRenderTimerV21713 = null;
+      attackRenderFlushingV21713 = true;
+      try {
+        refreshPages();
+      } finally {
+        pendingRenderArgsV21713 = null;
+        attackRenderFlushingV21713 = false;
+      }
+    }, ATTACK_REORDER_DELAY_V21713);
+    return;
+  }
+  refreshPages();
+}
+
+function refreshPages() {
+  renderLockStatus();
+  renderControls();
+  renderGrid();
+  updateHeaderStats();
+  renderChart();
+  renderDashboard();
+  updateResizerUI();
+  renderWelcomePage();
+  updateWelcomeTrackIfNeeded();
+}
+
+function renderGrid() {
+  applyHeldDisplayScoresV21732();
+  if (roundStateFlipBusyV21726) {
+    if (!pendingRenderGridV21726) {
+      pendingRenderGridV21726 = true;
+      setTimeout(() => {
+        pendingRenderGridV21726 = false;
+        // Match the original FLIP callback: don't restart the outer score phase.
+        refreshBattleGrid();
+      }, 810);
+    }
+  } else {
+    refreshBattleGrid();
+  }
+  applyHeldDisplayScoresV21732();
+  restoreHeldScoreElementsV21732();
+}
+
+function refreshBattleGrid() {
+  if (!(state.roundActive && !state.evaluated)) {
+    v213SuppressReorderAnimation = false;
+  }
+  const attackPending =
+    !attackRenderFlushingV21713 &&
+    (attackRenderGateV21713 || attackRenderTimerV21713);
+  if (!attackPending) {
+    renderBattleGridCards();
+    decorateBattleRanks();
+    decorateRoundItemLocks();
+  }
+  // Rankings still update while the original attack position is held.
+  try {
+    renderBattleRankPreviewV21721();
+  } catch (error) {
+    console.warn("Battle rank preview could not refresh", error);
+  }
+}
+</script>
 <script>/* Dependency-injected command lifecycle. No DOM, storage or game rules here. */
 const CommandLifecycle = (() => {
   function create(host) {

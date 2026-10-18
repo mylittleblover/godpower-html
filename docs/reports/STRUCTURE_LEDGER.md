@@ -9,3 +9,8 @@
 - Finding P1: 最新基线与本轮均复现防御待决时导入成功后被旧事务恢复（999→100）。根因Reliability单一失效回调被classroom-feedback覆盖；扩展独立修复，保留原断言。
 - 防御根因修复：Reliability使用Set订阅，返回解除订阅函数，通知时取快照；命令取消和动画清理同时生效。新测试观察到旧实现仅调用visual而失败，修复后111项Node通过。
 - 沿用原defense-command导入999分断言，未降低预期；baseline probe保存旧版与重构版均失败的证据。
+
+- Final: 独立review无确认新增缺陷，卡片函数AST与最新基线相同；独立Chromium horn待决导入后保持999。历史产物已归入structure/captured并恢复原路径。
+- Final: 111 Node、117核心、26道具、30异步命令、464业务差分、8动画、21交互、15课堂反馈、4离线HTTP、3保存、3布局、6连续回合全部PASS；file协议BLOCKED。
+- Final: minor (deferred): 订阅异常仍同步传播、810ms计时器未统一取消、遗留CSS/音频/道具链；见STR-003/004及GP系列，不推断未复现缺陷。
+- Task 1/2/3: complete；实际命令及数据见artifacts/structure/acceptance.json与STRUCTURE_REFACTOR_ACCEPTANCE.md。

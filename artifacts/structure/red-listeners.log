@@ -1,0 +1,41 @@
+✔ current defense belongs to exact main item (1.873199ms)
+✔ new command invalidates pending confirmation (0.176883ms)
+✔ replaced item invalidates confirmation (0.179031ms)
+✔ restore/import invalidates former target (0.143642ms)
+✔ phase/answer/round/settlement changes invalidate confirmation (0.232626ms)
+✖ defense invalidation notifies command and visual owners independently (1.444319ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 83.565177
+
+✖ failing tests:
+
+test at tests/unit/defense-lifecycle.test.mjs:11:1
+✖ defense invalidation notifies command and visual owners independently (1.444319ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   'command',
+      'visual'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/defense-lifecycle.test.mjs:17:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'visual' ],
+    expected: [ 'command', 'visual' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

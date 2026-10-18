@@ -1,3 +1,27 @@
+# 当前专项矩阵（2026-10-18）
+
+本轮真实结果：[渲染/生命周期治理验收](../reports/STRUCTURE_REFACTOR_ACCEPTANCE.md)，机器矩阵artifacts/structure/acceptance.json。旧表格保留为历史，不能当作本轮全部界面的覆盖声明。
+
+|功能×场景|类型|状态|数量|
+|---|---|---|---:|
+|Node单元/集成/架构守卫|Node或Chromium专项（见报告命令）|PASS|111|
+|核心业务Chromium|Node或Chromium专项（见报告命令）|PASS|117|
+|26道具精确结果|Node或Chromium专项（见报告命令）|PASS|26|
+|异步防御完整命令|Node或Chromium专项（见报告命令）|PASS|30|
+|新旧业务差分|Node或Chromium专项（见报告命令）|PASS|464|
+|比赛动画/独立按钮声音|Node或Chromium专项（见报告命令）|PASS|8|
+|断网HTTP/归档/弹窗|Node或Chromium专项（见报告命令）|PASS|4|
+|真实作答和存储失败|Node或Chromium专项（见报告命令）|PASS|3|
+|桌面交互/结算拒绝清零|Node或Chromium专项（见报告命令）|PASS|21|
+|赋分/抽选/音效配置|Node或Chromium专项（见报告命令）|PASS|15|
+|20/50/100连续回合|Node或Chromium专项（见报告命令）|PASS|6|
+|最新基线14组布局|Node或Chromium专项（见报告命令）|PASS|3|
+|单文件file直接打开|Chromium|BLOCKED|0|
+|原生浏览器缩放、真实音乐听感、小时级浸泡|实际设备|NOT TESTED|0|
+|CircleCI|按用户要求|NOT RUN|0|
+
+---
+
 > 最新桌面 UI 交付：见 `docs/reports/DESKTOP_UI_ACCEPTANCE.md`、`docs/ui/DESIGN_SYSTEM.md` 和 `artifacts/desktop-ui/acceptance-matrix.json`。以下原始审查结论保留为历史记录。
 
 # 功能 × 场景 × 类型 × 结果

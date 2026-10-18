@@ -1,0 +1,795 @@
+{
+  "date": "2026-10-18T07:20:22.514Z",
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "name": "denied browser storage getter reports failure without throwing",
+      "status": "PASS",
+      "ms": 2707
+    },
+    {
+      "name": "failed item cannot persist a phantom undo snapshot",
+      "status": "PASS",
+      "ms": 327
+    },
+    {
+      "name": "item save failure retains session result with explicit unsaved warning",
+      "status": "PASS",
+      "ms": 378
+    },
+    {
+      "name": "archive failure never clears scores, inventory or history",
+      "status": "PASS",
+      "ms": 912
+    },
+    {
+      "name": "archive success captures full state before reset",
+      "status": "PASS",
+      "ms": 464
+    },
+    {
+      "name": "successful archive plus failed classroom write restores classroom",
+      "status": "PASS",
+      "ms": 399
+    },
+    {
+      "name": "fire flower damage, All In cancellation and exact undo",
+      "status": "PASS",
+      "ms": 500
+    },
+    {
+      "name": "fire and ice obey queue, disabled mode, negative scores and round lock",
+      "status": "PASS",
+      "ms": 1798
+    },
+    {
+      "name": "frozen flower attempt unfreezes without consuming, locks All In, undo restores ice",
+      "status": "PASS",
+      "ms": 448
+    },
+    {
+      "name": "ice skips already frozen targets and consumes when all frozen",
+      "status": "PASS",
+      "ms": 792
+    },
+    {
+      "name": "normalization preserves group numbers, ghost duration and continuation",
+      "status": "PASS",
+      "ms": 578
+    },
+    {
+      "name": "malformed imports leave live state intact",
+      "status": "PASS",
+      "ms": 424
+    },
+    {
+      "name": "legacy backup import and versioned complete backup roundtrip",
+      "status": "PASS",
+      "ms": 377
+    },
+    {
+      "name": "failed import persistence rolls back",
+      "status": "PASS",
+      "ms": 291
+    },
+    {
+      "name": "group name HTML injection is rendered as text",
+      "status": "PASS",
+      "ms": 305
+    },
+    {
+      "name": "all A/B/C/D scoring and duplicate judge idempotence",
+      "status": "PASS",
+      "ms": 889
+    },
+    {
+      "name": "item:green: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 194
+    },
+    {
+      "name": "item:green: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 379
+    },
+    {
+      "name": "item:green: secondary slot rejected",
+      "status": "PASS",
+      "ms": 417
+    },
+    {
+      "name": "item:triple_green: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 208
+    },
+    {
+      "name": "item:triple_green: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 395
+    },
+    {
+      "name": "item:triple_green: secondary slot rejected",
+      "status": "PASS",
+      "ms": 281
+    },
+    {
+      "name": "item:red: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 319
+    },
+    {
+      "name": "item:red: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 408
+    },
+    {
+      "name": "item:red: secondary slot rejected",
+      "status": "PASS",
+      "ms": 304
+    },
+    {
+      "name": "item:triple_red: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 196
+    },
+    {
+      "name": "item:triple_red: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 361
+    },
+    {
+      "name": "item:triple_red: secondary slot rejected",
+      "status": "PASS",
+      "ms": 305
+    },
+    {
+      "name": "item:spiny: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 223
+    },
+    {
+      "name": "item:spiny: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 388
+    },
+    {
+      "name": "item:spiny: secondary slot rejected",
+      "status": "PASS",
+      "ms": 515
+    },
+    {
+      "name": "item:banana: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 219
+    },
+    {
+      "name": "item:banana: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 448
+    },
+    {
+      "name": "item:banana: secondary slot rejected",
+      "status": "PASS",
+      "ms": 434
+    },
+    {
+      "name": "item:triple_banana: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 259
+    },
+    {
+      "name": "item:triple_banana: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 424
+    },
+    {
+      "name": "item:triple_banana: secondary slot rejected",
+      "status": "PASS",
+      "ms": 436
+    },
+    {
+      "name": "item:horn: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 281
+    },
+    {
+      "name": "item:horn: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 501
+    },
+    {
+      "name": "item:horn: secondary slot rejected",
+      "status": "PASS",
+      "ms": 700
+    },
+    {
+      "name": "item:bomb: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 365
+    },
+    {
+      "name": "item:bomb: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 899
+    },
+    {
+      "name": "item:bomb: secondary slot rejected",
+      "status": "PASS",
+      "ms": 1009
+    },
+    {
+      "name": "item:hammer: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 492
+    },
+    {
+      "name": "item:hammer: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 1007
+    },
+    {
+      "name": "item:hammer: secondary slot rejected",
+      "status": "PASS",
+      "ms": 800
+    },
+    {
+      "name": "item:coin: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 232
+    },
+    {
+      "name": "item:coin: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 569
+    },
+    {
+      "name": "item:coin: secondary slot rejected",
+      "status": "PASS",
+      "ms": 400
+    },
+    {
+      "name": "item:coin_shell: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 340
+    },
+    {
+      "name": "item:coin_shell: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 602
+    },
+    {
+      "name": "item:coin_shell: secondary slot rejected",
+      "status": "PASS",
+      "ms": 456
+    },
+    {
+      "name": "item:question: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 326
+    },
+    {
+      "name": "item:question: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 875
+    },
+    {
+      "name": "item:question: secondary slot rejected",
+      "status": "PASS",
+      "ms": 545
+    },
+    {
+      "name": "item:mushroom: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 371
+    },
+    {
+      "name": "item:mushroom: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 875
+    },
+    {
+      "name": "item:mushroom: secondary slot rejected",
+      "status": "PASS",
+      "ms": 517
+    },
+    {
+      "name": "item:triple_mushroom: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 300
+    },
+    {
+      "name": "item:triple_mushroom: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 886
+    },
+    {
+      "name": "item:triple_mushroom: secondary slot rejected",
+      "status": "PASS",
+      "ms": 394
+    },
+    {
+      "name": "item:boo: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 226
+    },
+    {
+      "name": "item:boo: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 680
+    },
+    {
+      "name": "item:boo: secondary slot rejected",
+      "status": "PASS",
+      "ms": 327
+    },
+    {
+      "name": "item:blooper: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 262
+    },
+    {
+      "name": "item:blooper: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 508
+    },
+    {
+      "name": "item:blooper: secondary slot rejected",
+      "status": "PASS",
+      "ms": 332
+    },
+    {
+      "name": "item:lightning: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 384
+    },
+    {
+      "name": "item:lightning: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 607
+    },
+    {
+      "name": "item:lightning: secondary slot rejected",
+      "status": "PASS",
+      "ms": 182
+    },
+    {
+      "name": "item:star: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 112
+    },
+    {
+      "name": "item:star: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 300
+    },
+    {
+      "name": "item:star: secondary slot rejected",
+      "status": "PASS",
+      "ms": 174
+    },
+    {
+      "name": "item:mega: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 98
+    },
+    {
+      "name": "item:mega: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 220
+    },
+    {
+      "name": "item:mega: secondary slot rejected",
+      "status": "PASS",
+      "ms": 182
+    },
+    {
+      "name": "item:bullet: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 58
+    },
+    {
+      "name": "item:bullet: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 262
+    },
+    {
+      "name": "item:bullet: secondary slot rejected",
+      "status": "PASS",
+      "ms": 123
+    },
+    {
+      "name": "item:power: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 89
+    },
+    {
+      "name": "item:power: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 277
+    },
+    {
+      "name": "item:power: secondary slot rejected",
+      "status": "PASS",
+      "ms": 134
+    },
+    {
+      "name": "item:feather: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 88
+    },
+    {
+      "name": "item:feather: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 224
+    },
+    {
+      "name": "item:feather: secondary slot rejected",
+      "status": "PASS",
+      "ms": 171
+    },
+    {
+      "name": "item:fire_flower: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 90
+    },
+    {
+      "name": "item:fire_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 226
+    },
+    {
+      "name": "item:fire_flower: secondary slot rejected",
+      "status": "PASS",
+      "ms": 176
+    },
+    {
+      "name": "item:ice_flower: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 106
+    },
+    {
+      "name": "item:ice_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 280
+    },
+    {
+      "name": "item:ice_flower: secondary slot rejected",
+      "status": "PASS",
+      "ms": 135
+    },
+    {
+      "name": "item:boomerang_flower: negative/mode/round/freeze/reload guards",
+      "status": "PASS",
+      "ms": 117
+    },
+    {
+      "name": "item:boomerang_flower: acquire/use/consume/undo",
+      "status": "PASS",
+      "ms": 555
+    },
+    {
+      "name": "item:boomerang_flower: secondary slot rejected",
+      "status": "PASS",
+      "ms": 335
+    },
+    {
+      "name": "triple item may finish same stack but next item cannot bypass round lock",
+      "status": "PASS",
+      "ms": 375
+    },
+    {
+      "name": "main passive defense consumed before target score loss",
+      "status": "PASS",
+      "ms": 251
+    },
+    {
+      "name": "50/100 rounds: correct scores, capped history and stable DOM",
+      "status": "PASS",
+      "ms": 9869
+    },
+    {
+      "name": "reload restores round and persistent state",
+      "status": "PASS",
+      "ms": 4977
+    },
+    {
+      "name": "custom icon payload cannot add executable HTML attributes",
+      "status": "PASS",
+      "ms": 1429
+    },
+    {
+      "name": "unsafe item result rolls back score and inventory atomically",
+      "status": "PASS",
+      "ms": 400
+    },
+    {
+      "name": "denied next round cannot clear used-item lock",
+      "status": "PASS",
+      "ms": 896
+    },
+    {
+      "name": "unsafe All In scores reject whole settlement before mutation",
+      "status": "PASS",
+      "ms": 276
+    },
+    {
+      "name": "all-correct/all-wrong and unchanged no-answer groups",
+      "status": "PASS",
+      "ms": 1103
+    },
+    {
+      "name": "real answer click, deselect, keyboard focus and hover",
+      "status": "PASS",
+      "ms": 2005
+    },
+    {
+      "name": "manual score, negative score, 7-digit score, ranking and undo",
+      "status": "PASS",
+      "ms": 417
+    },
+    {
+      "name": "members, group rename, add and delete undo",
+      "status": "PASS",
+      "ms": 388
+    },
+    {
+      "name": "picker modes, anti-repeat exhaustion and actual spin stop",
+      "status": "PASS",
+      "ms": 1989
+    },
+    {
+      "name": "hand raise correct/wrong statistics and reward undo",
+      "status": "PASS",
+      "ms": 635
+    },
+    {
+      "name": "normal next round and force end undo",
+      "status": "PASS",
+      "ms": 582
+    },
+    {
+      "name": "all items with 1 groups remain valid",
+      "status": "PASS",
+      "ms": 1382
+    },
+    {
+      "name": "all items with 2 groups remain valid",
+      "status": "PASS",
+      "ms": 4883
+    },
+    {
+      "name": "all items with 4 groups remain valid",
+      "status": "PASS",
+      "ms": 4353
+    },
+    {
+      "name": "all items with 8 groups remain valid",
+      "status": "PASS",
+      "ms": 4638
+    },
+    {
+      "name": "download JSON and full archive CSV contain real payloads",
+      "status": "PASS",
+      "ms": 8026
+    },
+    {
+      "name": "audio context first gesture, mute, volume and invalid decode",
+      "status": "PASS",
+      "ms": 108
+    },
+    {
+      "name": "modal/page repetition has bounded DOM after animations settle",
+      "status": "PASS",
+      "ms": 3491
+    },
+    {
+      "name": "item description sync cannot destroy batch actions",
+      "status": "PASS",
+      "ms": 1628
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ui": [
+    {
+      "view": "welcome",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/welcome-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 23
+    },
+    {
+      "view": "battle",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/battle-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 46
+    },
+    {
+      "view": "history",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/history-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 7
+    },
+    {
+      "view": "archives",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/archives-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 15
+    },
+    {
+      "view": "settings",
+      "width": 1366,
+      "height": 768,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/settings-1366x768.png",
+      "scrollWidth": 1366,
+      "viewport": 1366,
+      "visibleButtons": 13
+    },
+    {
+      "view": "welcome",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/welcome-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 23
+    },
+    {
+      "view": "battle",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/battle-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 46
+    },
+    {
+      "view": "history",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/history-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 7
+    },
+    {
+      "view": "archives",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/archives-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 15
+    },
+    {
+      "view": "settings",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/settings-1920x1080.png",
+      "scrollWidth": 1920,
+      "viewport": 1920,
+      "visibleButtons": 13
+    },
+    {
+      "view": "welcome",
+      "width": 2560,
+      "height": 1440,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/welcome-2560x1440.png",
+      "scrollWidth": 2560,
+      "viewport": 2560,
+      "visibleButtons": 23
+    },
+    {
+      "view": "battle",
+      "width": 2560,
+      "height": 1440,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/battle-2560x1440.png",
+      "scrollWidth": 2560,
+      "viewport": 2560,
+      "visibleButtons": 46
+    },
+    {
+      "view": "history",
+      "width": 2560,
+      "height": 1440,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/history-2560x1440.png",
+      "scrollWidth": 2560,
+      "viewport": 2560,
+      "visibleButtons": 7
+    },
+    {
+      "view": "archives",
+      "width": 2560,
+      "height": 1440,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/archives-2560x1440.png",
+      "scrollWidth": 2560,
+      "viewport": 2560,
+      "visibleButtons": 15
+    },
+    {
+      "view": "settings",
+      "width": 2560,
+      "height": 1440,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/settings-2560x1440.png",
+      "scrollWidth": 2560,
+      "viewport": 2560,
+      "visibleButtons": 13
+    },
+    {
+      "view": "picker",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-picker.png"
+    },
+    {
+      "view": "hand",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-hand.png"
+    },
+    {
+      "view": "about",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-about.png"
+    },
+    {
+      "view": "member-search",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-member-search.png"
+    },
+    {
+      "view": "item-window",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-item-window.png"
+    },
+    {
+      "view": "settlement-name",
+      "width": 1920,
+      "height": 1080,
+      "status": "PASS",
+      "screenshot": "artifacts/screenshots/chromium/modal-settlement-name.png"
+    }
+  ],
+  "compatibility": [
+    {
+      "browser": "chromium",
+      "protocol": "file",
+      "status": "BLOCKED",
+      "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-structure/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-structure/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ]
+}
