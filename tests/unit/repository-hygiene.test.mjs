@@ -46,6 +46,11 @@ test("checks source and resource references without a fixed legacy block count",
     "src/resources/asset-000.txt",
   ]);
   assert.deepEqual(manifestIssues(template, manifest, paths), []);
+  // Original assets can be referenced by an embedded source block, not the template.
+  assert.deepEqual(
+    manifestIssues(template.replace("@@RESOURCE:asset-000.txt@@", ""), manifest, paths),
+    [],
+  );
   paths.delete("src/script/01.js");
   assert.match(
     manifestIssues(template, manifest, paths).join("\n"),
