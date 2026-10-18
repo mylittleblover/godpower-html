@@ -202,6 +202,7 @@ let db = null;
 let customFxBuffers = {};
 let customFxVariants = Object.create(null);
 let currentUploadingAppend = false;
+let currentUploadingGeneration = 0;
 let activeSetBuffers = {};
 let currentUploadingSlot = null;
 let activeEditingGroupId = null;
@@ -3114,11 +3115,11 @@ async function previewBgmTrack(slotId) {
 }
 
 function triggerUploadAudio(slotId,append=false) {
-  currentUploadingSlot=slotId;currentUploadingAppend=append&&slotId.startsWith('fx_');
+  currentUploadingGeneration++;currentUploadingSlot=slotId;currentUploadingAppend=append&&slotId.startsWith('fx_');
   const input=document.getElementById('soundFileInput');input.multiple=slotId.startsWith('fx_');input.click();
 }
 function handleSoundFileUpload(event) {
-  const files=Array.from(event.target.files||[]),slotId=currentUploadingSlot,append=currentUploadingAppend;
+  const files=Array.from(event.target.files||[]),slotId=currentUploadingSlot,append=currentUploadingAppend,uploadGeneration=currentUploadingGeneration;
   if(!files.length||!slotId)return;
   const fxKey=slotId.startsWith('fx_')?slotId.slice(3):null;
   // First file replaces the primary unless explicitly appending; additional files are candidates.
@@ -3146,7 +3147,7 @@ function handleSoundFileUpload(event) {
       if(saved)showToast(candidate?'候选音效已追加，播放时随机选择':'音频已保存');
       renderBgmSlotList();renderFxSlotList();renderItemFxSoundListV26();resolve(saved);
     };reader.readAsArrayBuffer(file);
-  }))).finally(()=>{event.target.value='';currentUploadingAppend=false;});
+  }))).finally(()=>{if(uploadGeneration===currentUploadingGeneration){event.target.value='';currentUploadingAppend=false;}});
 }
 
 function deleteBgmTrack(slotId) {

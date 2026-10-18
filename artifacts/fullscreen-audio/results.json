@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "slot": "fullscreen_pick",
+      "status": "PASS",
+      "detail": {
+        "bounds": [
+          0,
+          1
+        ],
+        "played": 1,
+        "belongs": true
+      }
+    },
+    {
+      "slot": "fullscreen_score_add",
+      "status": "PASS",
+      "detail": {
+        "bounds": [
+          0,
+          1
+        ],
+        "played": 1,
+        "belongs": true
+      }
+    },
+    {
+      "slot": "fullscreen_score_sub",
+      "status": "PASS",
+      "detail": {
+        "bounds": [
+          0,
+          1
+        ],
+        "played": 1,
+        "belongs": true
+      }
+    }
+  ],
+  "reload": "PASS",
+  "errors": []
+}

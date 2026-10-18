@@ -1,38 +1,75 @@
 /* Transport only. Standalone HTML has no desktop bridge and keeps all existing behavior. */
 (() => {
   const desktop = window.godpowerDesktop;
-  if (!desktop || desktop.role !== 'main') return;
+  if (!desktop || desktop.role !== "main") return;
   const completed = new Map();
-  let last = '', timer, soundedReveal = null;
+  let last = "",
+    timer,
+    soundedReveal = null;
   const publish = () => {
-    const snapshot = GodpowerPicker.getSnapshot(), json = JSON.stringify(snapshot);
-    if(snapshot.phase==='revealed' && snapshot.result?.id!==soundedReveal){
-      soundedReveal=snapshot.result?.id;
-      if(snapshot.effects.enabled && GodpowerPicker.isExternalPresentation())void playSound('fullscreen_pick');
+    const snapshot = GodpowerPicker.getSnapshot(),
+      json = JSON.stringify(snapshot);
+    if (
+      snapshot.phase === "revealed" &&
+      snapshot.result?.id !== soundedReveal
+    ) {
+      soundedReveal = snapshot.result?.id;
+      if (snapshot.effects.enabled && GodpowerPicker.isExternalPresentation())
+        void playSound("fullscreen_pick");
     }
-    if (json !== last) { last = json; desktop.publish(snapshot); }
+    if (json !== last) {
+      last = json;
+      desktop.publish(snapshot);
+    }
   };
   desktop.onExecute(async ({ id, action, payload }) => {
     if (!completed.has(id)) {
       // Remote controls use the same configurable sound slots as the classroom buttons.
-      const buttonSound = action === 'score' ? (payload.delta > 0 ? 'positive' : 'negative') :
-        {start:'pick_start',stop:'pick_stop',cancel:'cancel',resetPool:'danger',mode:'settings',antiRepeat:'settings',preselect:'settings'}[action];
-      if (buttonSound) void playSound('ui_button_' + buttonSound);
-      const promise = GodpowerPicker.command(action, payload).catch(error => ({ ok: false, error: error.message }));
+      const buttonSound =
+        action === "score"
+          ? payload.delta > 0
+            ? "positive"
+            : "negative"
+          : {
+              start: "pick_start",
+              stop: "pick_stop",
+              cancel: "cancel",
+              resetPool: "danger",
+              mode: "settings",
+              antiRepeat: "settings",
+              preselect: "settings",
+            }[action];
+      if (buttonSound) void playSound("ui_button_" + buttonSound);
+      const promise = GodpowerPicker.command(action, payload).catch(
+        (error) => ({ ok: false, error: error.message }),
+      );
       completed.set(id, promise);
       if (completed.size > 256) completed.delete(completed.keys().next().value);
     }
     const result = await completed.get(id);
-    publish(); desktop.reply({ id, result });
+    publish();
+    desktop.reply({ id, result });
   });
-  desktop.onShellState(shell => GodpowerPicker.setExternalPresentation(shell.effectsEnabled));
-  window.addEventListener('DOMContentLoaded', () => {
-    const button = document.createElement('button');
-    button.type = 'button'; button.className = 'btn btn-primary'; button.textContent = '独立点名悬浮窗';
-    button.addEventListener('click', () => desktop.openPicker());
-    document.querySelector('#pickerModal .picker-left-v2')?.append(button);
-    GodpowerPicker.subscribe(publish);
-    timer = setInterval(publish, 120); publish(); desktop.ready();
-  }, { once: true });
-  window.addEventListener('beforeunload', () => clearInterval(timer), { once: true });
+  desktop.onShellState((shell) =>
+    GodpowerPicker.setExternalPresentation(shell.effectsEnabled),
+  );
+  window.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn btn-primary";
+      button.textContent = "独立点名悬浮窗";
+      button.addEventListener("click", () => desktop.openPicker());
+      document.querySelector("#pickerModal .picker-left-v2")?.append(button);
+      GodpowerPicker.subscribe(publish);
+      timer = setInterval(publish, 120);
+      publish();
+      desktop.ready();
+    },
+    { once: true },
+  );
+  window.addEventListener("beforeunload", () => clearInterval(timer), {
+    once: true,
+  });
 })();
