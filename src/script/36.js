@@ -281,7 +281,7 @@ legacyUseItem=function(groupId,index,...rest){
     if(!above || !above.inventory?.length){
       consumeOneV218(g,index);
       if(!g.inventory.some(x=>x.key==='mushroom') && g.inventory.length<3){
-        g.inventory.push({key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
+        g.inventory.push(globalThis.ItemModules?ItemModules.inventory('mushroom'):{key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
       }
       g.booShield=1;g.booRoundsLeftV218=3;
       return finishOwnItemUseV218(g,key,index,!above?'没有上方排名 · 自动获得蘑菇':'上方无道具 · 自动获得蘑菇');
@@ -340,6 +340,7 @@ legacyUseItem=function(groupId,index,...rest){
 if(typeof queueUseStateV2120==='function'){
   const _v218QueueState=queueUseStateV2120;
   queueUseStateV2120=function(g,index){
+    if(g?.inventory?.[index]?.key&&globalThis.ItemModules&&!ItemModules.canUse(g.inventory[index].key))return {usable:false,label:'设置中已关闭主动使用'};
     if(index===0 && state.roundActive&&!state.evaluated && g?.itemUsedThisRound &&
        TRIPLE_KEYS_V218.has(g.inventory?.[0]?.key) &&
        g.roundItemContinuationKeyV218===g.inventory?.[0]?.key){
@@ -421,38 +422,12 @@ itemDropWeights=function(pos,total){
     W.horn=0;
   }
   if(pos===1 && suppressFirstHornV218)W.horn=0;
-  return W;
+  return globalThis.ItemModules ? ItemModules.drawWeights(W) : W;
 };
 
 const _v218PickItem=pickItemForGroupV281;
 pickItemForGroupV281=function(g,batchUsed=new Set()){
-  const inHand=handItemDrawGroupId===g?.id;
-
-  /* 每次页面/课堂会话第一次手动举手抽取：九种道具等概率，仍禁止本组重复。 */
-  if(inHand && firstHandDrawPendingV218){
-    const held=new Set((g.inventory||[]).map(x=>x.key));
-    const pool=FIRST_HAND_POOL_V218.filter(k=>ITEM_DEFS[k]&&!held.has(k));
-    firstHandDrawPendingV218=false;
-    if(pool.length){
-      const k=pool[Math.floor(Math.random()*pool.length)];
-      try{commitSessionDrawV21710(g,k)}catch(e){}
-      return k;
-    }
-  }
-
-  const pos=rankIndex(g.id)+1,total=state.groups.length;
-  if(pos===1){
-    /* 第一名超级喇叭最终概率精确 10%；未抽中时本次排除喇叭，避免叠加旧权重。 */
-    const held=new Set((g.inventory||[]).map(x=>x.key));
-    if(!held.has('horn') && Math.random()<0.10){
-      try{commitSessionDrawV21710(g,'horn')}catch(e){}
-      return 'horn';
-    }
-    suppressFirstHornV218=true;
-    try{return _v218PickItem.call(this,g,batchUsed)}
-    finally{suppressFirstHornV218=false}
-  }
-  return _v218PickItem.call(this,g,batchUsed);
+  return ItemDrawBlocks.pick(g,batchUsed);
 };
 
 /* ---------- 7. 手动举手：不关闭菜单；三重可单发 / 连发；中央效果结算 ---------- */

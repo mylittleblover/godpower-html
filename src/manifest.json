@@ -127,12 +127,22 @@
     },
     {
       "type": "style",
+      "path": "ui/item-modules.css",
+      "attributes": ""
+    },
+    {
+      "type": "style",
       "path": "ui/welcome-v2.css",
       "attributes": " id=\"gp-home-redesign\""
     },
     {
       "type": "script",
       "path": "ui/model.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/item-module-model.js",
       "attributes": ""
     },
     {
@@ -392,6 +402,26 @@
     },
     {
       "type": "script",
+      "path": "items/catalog.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/item-modules.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "items/operation.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "items/draw.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/commands.js",
       "attributes": ""
     },
@@ -408,6 +438,11 @@
     {
       "type": "script",
       "path": "ui/battle-motion.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/item-modules.js",
       "attributes": ""
     },
     {

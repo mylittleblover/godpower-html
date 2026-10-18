@@ -157,11 +157,17 @@ function requestSpinyDefense(target, key, continueAttack) {
   };
 }
 
-function commitItemScore(target, delta, sourceId, attackType) {
+function commitItemScore(
+  target,
+  delta,
+  sourceId,
+  attackType,
+  isAttack = delta < 0,
+) {
   let result;
   if (!target || !eligibleForItems(target))
     result = { changed: false, blocked: "negative" };
-  else if (delta < 0 && tryDefend(target, attackType))
+  else if (isAttack && tryDefend(target, attackType))
     result = { changed: false, blocked: "defense" };
   else {
     const before = target.score;
@@ -169,7 +175,7 @@ function commitItemScore(target, delta, sourceId, attackType) {
     target.displayScore = target.score;
     result = { changed: before !== target.score, before, after: target.score };
   }
-  if (delta < 0 && target && ITEM_DEFS[attackType]) {
+  if (isAttack && target && ITEM_DEFS[attackType]) {
     const liveState = state;
     scheduleScoreEffect(() => {
       if (state === liveState && state.groups.includes(target))
@@ -183,12 +189,18 @@ function commitItemScore(target, delta, sourceId, attackType) {
   return result;
 }
 
-function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
+function applyItemScoreAfterHorn(
+  target,
+  delta,
+  sourceId,
+  attackType,
+  isAttack = delta < 0,
+) {
   const before = target ? Number(target.score) || 0 : null;
-  if (delta < 0 && target && eligibleForItems(target))
+  if (isAttack && target && eligibleForItems(target))
     attackRenderGateV21713 = true;
   let result;
-  if (delta < 0 && target && attackType === "spiny") {
+  if (isAttack && target && attackType === "spiny") {
     destroyPrimaryBasicDefenseV2170(target, sourceId, "刺龟壳");
     const main = target.inventory?.[0];
     if (
@@ -198,13 +210,14 @@ function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
       !target.__spinyDecisionPendingV21727
     ) {
       result = requestSpinyDefense(target, main.key, () =>
-        commitItemScore(target, delta, sourceId, attackType),
+        commitItemScore(target, delta, sourceId, attackType, isAttack),
       );
     }
-  } else if (delta < 0 && target && attackType === "boomerang_flower") {
+  } else if (isAttack && target && attackType === "boomerang_flower") {
     destroyPrimaryBasicDefenseV2170(target, sourceId, "回旋镖");
   }
-  result = result || commitItemScore(target, delta, sourceId, attackType);
+  result =
+    result || commitItemScore(target, delta, sourceId, attackType, isAttack);
   if (
     itemScoreBatchDepthV21732 === 0 &&
     target &&
@@ -218,16 +231,18 @@ function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
 }
 
 function applyItemScore(target, delta, sourceId, attackType = "normal") {
+  const isAttack = delta < 0;
+  if (globalThis.ItemModules) delta = ItemModules.scoreDelta(attackType, delta);
   if (
-    delta < 0 &&
+    isAttack &&
     attackType === "spiny" &&
     target?.inventory?.[0]?.key === "horn" &&
     !target.__spinyHornDecisionPendingV218 &&
     !target.__spinyHornDeclinedV218
   ) {
     return requestSpinyDefense(target, "horn", () =>
-      applyItemScoreAfterHorn(target, delta, sourceId, attackType),
+      applyItemScoreAfterHorn(target, delta, sourceId, attackType, isAttack),
     );
   }
-  return applyItemScoreAfterHorn(target, delta, sourceId, attackType);
+  return applyItemScoreAfterHorn(target, delta, sourceId, attackType, isAttack);
 }

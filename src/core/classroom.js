@@ -123,6 +123,7 @@ function useItem(groupId,index){
   closeItemWindowForFx();
   if(reason){showToast(reason);return false}
   const key=g.inventory[index].key;
+  if(!ItemModules.canUse(key)){showToast('该道具的主动使用积木已关闭');return false;}
   return runClassroomCommand(`${g.name} 使用道具：${ITEM_DEFS[key]?.name||key}`,()=>{
     ensureV2State();
     const beforeValue=itemCommandSnapshot();
@@ -133,7 +134,7 @@ function useItem(groupId,index){
       showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
       return true;
     }
-    const result=legacyUseItem(groupId,index);
+    const result=ItemModules.execute(key,()=>ItemOperationBlocks.run(key,g,index));
     if(result===false||itemCommandSnapshot()===beforeValue)return false;
     markItemUsedThisRoundV2177(groupId);
     return true;

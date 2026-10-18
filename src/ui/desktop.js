@@ -340,6 +340,8 @@ const DesktopUI = (() => {
     visualSnapshot = next;
   }
   let dailySignature = "";
+  const dailyOffsets = { knowledge: 0, challenges: 0 };
+  let quizAttempt = { key: "", answer: null, correct: false };
   function renderDaily() {
     const host = $("#uiDailyGrid");
     if (!host) return;
@@ -352,6 +354,8 @@ const DesktopUI = (() => {
           preferences.honors,
           preferences.challenge,
           preferences.subject,
+          dailyOffsets.knowledge,
+          dailyOffsets.challenges,
         ]) +
         JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
         Object.keys(ITEM_DEFS).length;
@@ -359,32 +363,61 @@ const DesktopUI = (() => {
     dailySignature = signature;
     const knowledge = M.daily(
         bank.knowledge.filter((x) => x.subject === preferences.subject),
+        new Date(),
+        dailyOffsets.knowledge,
       ),
       quiz = M.daily(
         bank.challenges.filter((x) => x.subject === preferences.subject),
+        new Date(),
+        dailyOffsets.challenges,
       ),
       keys = Object.keys(ITEM_DEFS),
       key = M.daily(keys),
       item = ITEM_DEFS[key],
       last = history[0],
       winner = last?.groups?.[0];
+    const quizKey = [
+      M.dayIndex(),
+      preferences.subject,
+      dailyOffsets.challenges,
+      quiz?.id,
+    ].join(":");
+    if (quizAttempt.key !== quizKey)
+      quizAttempt = { key: quizKey, answer: null, correct: false };
     let html = "";
     if (preferences.knowledge)
-      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details><button class="btn btn-sm" id="uiNextKnowledge">下一条知识</button>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
     if (preferences.itemTip)
       html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
     if (preferences.honors)
       html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
     if (preferences.challenge)
-      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div><button class="btn btn-sm" id="uiNextChallenge" disabled>答对后下一题</button>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
     host.dataset.cardCount = host.querySelectorAll("article").length;
+    for (const [selector, kind] of [
+      ["#uiNextKnowledge", "knowledge"],
+      ["#uiNextChallenge", "challenges"],
+    ]) {
+      const next = host.querySelector(selector);
+      if (next)
+        next.onclick = () => {
+          dailyOffsets[kind]++;
+          renderDaily();
+        };
+    }
     host.querySelectorAll("[data-quiz-answer]").forEach(
       (b) =>
         (b.onclick = () => {
           b.parentElement
             .querySelectorAll("button")
             .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          quizAttempt.answer = Number(b.dataset.quizAnswer);
+          quizAttempt.correct ||= quizAttempt.answer === quiz.answer;
+          if (quizAttempt.correct) {
+            host.querySelector("#uiNextChallenge").disabled = false;
+            host.querySelector("#uiNextChallenge").textContent = "下一题";
+          }
           host.querySelector(".ui-quiz-result").textContent =
             (Number(b.dataset.quizAnswer) === quiz.answer
               ? "回答正确。"
@@ -392,7 +425,12 @@ const DesktopUI = (() => {
             quiz.explanation;
         }),
     );
+    if (quizAttempt.answer !== null)
+      host
+        .querySelector(`[data-quiz-answer="${quizAttempt.answer}"]`)
+        ?.onclick();
   }
+
   function historyKind(desc = "") {
     return /清零|恢复|撤销|回溯|删除/.test(desc)
       ? ["danger", "shield", "数据与恢复"]
@@ -746,12 +784,7 @@ const DesktopUI = (() => {
       downloadJson(bank, "欢迎页审核题库.json");
     $("#uiSaveBank").onclick = () => {
       try {
-        const next = M.validateBank(JSON.parse($("#uiBankEditor").value));
-        localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
-        bank = next;
-        dailySignature = "";
-        refreshSubjects();
-        renderDaily();
+        saveContentBank(JSON.parse($("#uiBankEditor").value));
         $("#uiBankStatus").textContent = "验证成功，题库已保存。";
       } catch (e) {
         $("#uiBankStatus").textContent =
@@ -769,6 +802,8 @@ const DesktopUI = (() => {
       try {
         localStorage.removeItem("godpower_ui_bank_v1");
         bank = M.examples;
+        dailyOffsets.knowledge = dailyOffsets.challenges = 0;
+        renderBankEditor();
         $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
         dailySignature = "";
         refreshSubjects();
@@ -779,7 +814,136 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
+    const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
+    const structured = document.createElement("div");
+    structured.id = "uiStructuredBank";
+    bankBody.prepend(structured);
+    renderBankEditor();
     selectSettings(activeSettings);
+  }
+  function saveContentBank(candidate) {
+    const next = M.validateBank(candidate);
+    localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
+    bank = next;
+    dailyOffsets.knowledge = dailyOffsets.challenges = 0;
+    dailySignature = "";
+    $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+    refreshSubjects();
+    renderDaily();
+    renderBankEditor();
+  }
+  function renderBankEditor() {
+    const host = $("#uiStructuredBank");
+    if (!host) return;
+    host.innerHTML = `<p class="ui-muted">知识 ${bank.knowledge.length} 条 · 挑战 ${bank.challenges.length} 条，合计最多 500 条。保存后立即生效，不影响课堂积分。</p><div class="ui-toolbar"><button class="btn" data-bank-add="knowledge">添加知识</button><button class="btn" data-bank-add="challenges">添加挑战</button><label class="btn" for="uiBankFile">导入 JSON 文件</label><input id="uiBankFile" type="file" accept=".json,application/json" aria-label="导入题库 JSON 文件"></div><div id="uiBankForm"></div>${["knowledge", "challenges"].map((kind) => `<section><h4>${kind === "knowledge" ? "知识卡片" : "课堂挑战"}</h4>${bank[kind].length ? bank[kind].map((row, index) => `<div class="ui-settings-row"><div><b>${E(row.title)}</b><p class="ui-muted">${E(row.subject)} · ${E(row.id)}</p></div><div class="ui-toolbar"><button class="btn btn-sm" data-bank-edit="${kind}" data-index="${index}">编辑</button><button class="btn btn-sm btn-danger" data-bank-delete="${kind}" data-index="${index}">删除</button></div></div>`).join("") : '<p class="ui-muted">暂无内容，点击上方按钮添加。</p>'}</section>`).join("")}`;
+    host
+      .querySelectorAll("[data-bank-add]")
+      .forEach(
+        (button) =>
+          (button.onclick = () => editBankRow(button.dataset.bankAdd)),
+      );
+    host
+      .querySelectorAll("[data-bank-edit]")
+      .forEach(
+        (button) =>
+          (button.onclick = () =>
+            editBankRow(button.dataset.bankEdit, Number(button.dataset.index))),
+      );
+    host.querySelectorAll("[data-bank-delete]").forEach(
+      (button) =>
+        (button.onclick = async () => {
+          const kind = button.dataset.bankDelete,
+            index = Number(button.dataset.index),
+            row = bank[kind][index];
+          if (
+            !(await themeConfirm("删除“" + row.title + "”？", {
+              title: "删除题库内容",
+              danger: true,
+            }))
+          )
+            return;
+          try {
+            const next = JSON.parse(JSON.stringify(bank));
+            // Resolve by id after confirmation in case another edit changed ordering.
+            next[kind] = next[kind].filter((value) => value.id !== row.id);
+            saveContentBank(next);
+            $("#uiBankStatus").textContent = "内容已删除。";
+          } catch (error) {
+            $("#uiBankStatus").textContent = "删除失败：" + error.message;
+          }
+        }),
+    );
+    $("#uiBankFile").onchange = async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        if (file.size > 16 * 1024 * 1024) throw Error("文件不能超过 16 MB");
+        saveContentBank(JSON.parse(await file.text()));
+        $("#uiBankStatus").textContent = "文件已验证并导入。";
+      } catch (error) {
+        $("#uiBankStatus").textContent =
+          "未导入，现有题库保持原样：" + error.message;
+        event.target.value = "";
+      }
+    };
+  }
+  function editBankRow(kind, index = -1) {
+    const row =
+      index < 0
+        ? {
+            id: "",
+            subject: preferences.subject,
+            title: "",
+            source: "",
+            options: ["", "", "", ""],
+            answer: 0,
+          }
+        : bank[kind][index];
+    const fields =
+      kind === "knowledge"
+        ? [
+            ["id", "唯一 ID"],
+            ["subject", "学科"],
+            ["title", "知识标题"],
+            ["module", "模块"],
+            ["summary", "知识摘要"],
+            ["mistake", "易错点"],
+            ["detail", "详细解释"],
+            ["source", "来源"],
+          ]
+        : [
+            ["id", "唯一 ID"],
+            ["subject", "学科"],
+            ["title", "题目"],
+            ["source", "来源"],
+            ["explanation", "答案解析"],
+          ];
+    const host = $("#uiBankForm");
+    host.innerHTML = `<form class="ui-panel" id="uiBankRowForm"><h4>${index < 0 ? "添加" : "编辑"}${kind === "knowledge" ? "知识" : "挑战"}</h4>${fields.map(([key, label]) => `<label class="ui-settings-row" for="uiBankField-${key}"><span>${label}</span><textarea class="ui-bank-field" style="width:65%;min-height:44px;resize:vertical" id="uiBankField-${key}" name="${key}" maxlength="10000" ${["id", "subject", "title", "source"].includes(key) ? "required" : ""}>${E(row[key] || "")}</textarea></label>`).join("")}${kind === "challenges" ? row.options.map((value, i) => `<label class="ui-settings-row" for="uiBankOption-${i}"><span>选项 ${"ABCD"[i]}</span><input id="uiBankOption-${i}" name="option${i}" value="${E(value)}" maxlength="10000" required></label>`).join("") + `<label class="ui-settings-row" for="uiBankAnswer"><span>正确答案</span><select id="uiBankAnswer" name="answer">${[0, 1, 2, 3].map((i) => `<option value="${i}" ${row.answer === i ? "selected" : ""}>${"ABCD"[i]}</option>`).join("")}</select></label>` : ""}<div class="ui-toolbar"><button class="btn btn-primary" type="submit">保存内容</button><button class="btn" type="button" id="uiBankCancel">取消</button></div><p id="uiBankFormStatus" role="status"></p></form>`;
+    $("#uiBankCancel").onclick = () => host.replaceChildren();
+    $("#uiBankRowForm").onsubmit = (event) => {
+      event.preventDefault();
+      try {
+        const data = new FormData(event.target),
+          edited = { ...row };
+        fields.forEach(([key]) => (edited[key] = String(data.get(key)).trim()));
+        if (kind === "challenges") {
+          edited.options = [0, 1, 2, 3].map((i) =>
+            String(data.get("option" + i)).trim(),
+          );
+          edited.answer = Number(data.get("answer"));
+        }
+        const next = JSON.parse(JSON.stringify(bank));
+        if (index < 0) next[kind].push(edited);
+        else next[kind][index] = edited;
+        saveContentBank(next);
+        $("#uiBankStatus").textContent = "内容已保存。";
+      } catch (error) {
+        $("#uiBankFormStatus").textContent = "未保存：" + error.message;
+      }
+    };
+    $("#uiBankField-title").focus();
   }
   function organizeSettings(sections, shell) {
     function group(

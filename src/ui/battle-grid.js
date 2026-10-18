@@ -46,7 +46,9 @@ function renderBattleGridCards() {
     rowCard.dataset.groupId = g.id;
     rowCard.style.borderLeftColor = g.color;
     rowCard.style.setProperty("--group-color", g.color);
-    rowCard.style.setProperty("--group-contrast", readableTextOnColor(g.color));
+    const badge = GodpowerUIModel.badgeColors(g.color);
+    rowCard.style.setProperty("--group-contrast", badge.foreground);
+    rowCard.style.setProperty("--group-badge-color", badge.background);
     const roundClass =
       state.roundActive && !state.evaluated ? "" : "round-disabled";
     const optionsHtml = ["A", "B", "C", "D"]

@@ -4248,13 +4248,14 @@ function normalizeInventoryV21718(inventory){
       return true;
     })
     .map((it,i)=>{
-      const maxCharges=Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
+      const configuredCharges=Number.isInteger(it.configuredCharges)&&it.configuredCharges>=1&&it.configuredCharges<=99?it.configuredCharges:null;
+      const maxCharges=configuredCharges||Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
       const storedCharges=Number(it.charges);
       const charges=Number.isFinite(storedCharges)
         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
       const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
-      if(Object.keys(it).length===3 && it.charges===charges && it.acquiredAt===acquiredAt)return it;
-      return {key:it.key,charges,acquiredAt};
+      if(Object.keys(it).length===(configuredCharges?4:3) && it.charges===charges && it.acquiredAt===acquiredAt)return it;
+      return {key:it.key,charges,acquiredAt,...(configuredCharges?{configuredCharges}:{})};
     });
 }
 
@@ -4277,7 +4278,7 @@ function roundThird(v){return Math.round((Number(v)||0)/3)}
 function roundHalf(v){return Math.round((Number(v)||0)/2)}
 function eligibleForItems(g){return g && Number(g.score)>=0}
 function consumeInventoryItem(g,index,amount=1){const it=g.inventory[index];if(!it)return;it.charges-=amount;if(it.charges<=0)g.inventory.splice(index,1)}
-function addItemToGroup(g,key){if(!g||!ITEM_DEFS[key]||g.inventory.length>=3||!eligibleForItems(g))return false;g.inventory.push({key,charges:ITEM_DEFS[key].charges,acquiredAt:Date.now()+Math.random()});g.itemStats.draws++;state.itemGlobal.totalDraws++;return true}
+function addItemToGroup(g,key){if(!g||!ITEM_DEFS[key]||g.inventory.length>=3||!eligibleForItems(g))return false;g.inventory.push(globalThis.ItemModules?ItemModules.inventory(key):{key,charges:ITEM_DEFS[key].charges,acquiredAt:Date.now()+Math.random()});g.itemStats.draws++;state.itemGlobal.totalDraws++;return true}
 function tinyDefenseToast(msg){const d=document.createElement('div');d.className='item-defense-toast';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),1900)}
 
 function defenseCandidates(g,attackType){
@@ -4298,7 +4299,7 @@ function defenseCandidates(g,attackType){
 
 
 function damageFraction(target,denom,sourceId,type='normal'){const loss=denom===2?roundHalf(target.score):denom===3?roundThird(target.score):roundQuarter(target.score);return applyItemScore(target,-loss,sourceId,type)}
-function boostFraction(target,denom=4){if(!eligibleForItems(target))return false;const add=denom===4?roundQuarter(target.score):Math.round(target.score/denom);target.score+=add;target.displayScore=target.score;return true}
+function boostFraction(target,denom=4){if(!eligibleForItems(target))return false;const base=denom===4?roundQuarter(target.score):Math.round(target.score/denom);const add=globalThis.ItemModules?ItemModules.scoreDelta(null,base):base;target.score+=add;target.displayScore=target.score;return true}
 
 function itemDropWeights(pos,total){
   // V2.11.9：26 种道具全部正式接入排名权重池。
@@ -4391,7 +4392,7 @@ function itemDropWeights(pos,total){
   return W;
 }
 function weightedPick(weights){const arr=Object.entries(weights).filter(([,w])=>w>0);let sum=arr.reduce((a,[,w])=>a+w,0),r=Math.random()*sum;for(const [k,w] of arr){r-=w;if(r<=0)return k}return arr[0]?.[0]||'coin'}
-function drawItemForGroup(g){if(!eligibleForItems(g)||g.inventory.length>=3)return null;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;return weightedPick(itemDropWeights(pos,r.length))}
+function drawItemForGroup(g){if(!eligibleForItems(g)||g.inventory.length>=3)return null;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const weights=itemDropWeights(pos,r.length);return Object.values(weights).some(w=>w>0)?weightedPick(weights):null}
 
 function detectOvertakePunish(actorId,beforeOrder){
   const actor=state.groups.find(g=>g.id===actorId);if(!actor||!actor.itemEffect||!['star','mega'].includes(actor.itemEffect.type))return;
@@ -4413,7 +4414,7 @@ function legacyUseItem(groupId,index){
   else if(key==='horn'){[r[ri-1],r[ri+1]].filter(Boolean).forEach(t=>damageFraction(t,4,g.id,key))}
   else if(key==='bomb'){const pool=other();if(!pool.length)used=false;else{const center=pool[Math.floor(Math.random()*pool.length)],ci=r.findIndex(x=>x.id===center.id);[r[ci-1],r[ci],r[ci+1]].filter(Boolean).forEach(t=>{if(t.id!==g.id){damageFraction(t,4,g.id,key);flashBomb(t.id)}})}}
   else if(key==='hammer'){const pool=other().sort(()=>Math.random()-.5).slice(0,3);if(!pool.length)used=false;else pool.forEach(t=>damageFraction(t,4,g.id,key))}
-  else if(key==='coin'){g.score+=2;g.displayScore=g.score}
+  else if(key==='coin'){g.score+=globalThis.ItemModules?ItemModules.scoreDelta('coin',2):2;g.displayScore=g.score}
   else if(key==='coin_shell'){r.slice(0,ri+1).forEach(t=>boostFraction(t,4))}
   else if(key==='question'){r.slice(ri).forEach(t=>boostFraction(t,4))}
   else if(key==='mushroom'||key==='triple_mushroom'){boostFraction(g,4)}
@@ -4687,7 +4688,7 @@ globalItemDraw=function(){
 }
 
 /* 道具图鉴与自定义图标 */
-function openItemEncyclopedia(){switchView('settings');setTimeout(()=>{installSettingsTabs();showSettingsV2('items')},0)}
+function openItemEncyclopedia(){openAbout();renderAbout('items')}
 function renderItemEncyclopedia(){
   ensureV2State();const box=document.getElementById('v2ItemEncyclopedia');if(!box)return;
   box.innerHTML=`<div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" onclick="exportItemIconPack()">导出图标包</button><button class="btn btn-primary btn-sm" onclick="document.getElementById('itemPackInput').click()">导入图标包</button><button class="btn btn-sm" onclick="resetAllItemIcons()">恢复全部默认图标</button></div><div class="item-ency-grid">${ITEM_KEYS.map(k=>{const d=ITEM_DEFS[k];return `<div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d.name}</div><div class="ency-desc">${d.desc}</div></div><div class="ency-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div></div>`}).join('')}</div>`;
@@ -4726,7 +4727,7 @@ function renderAbout(tab){
 
 /* God mode 道具管理 */
 const _v2RenderItemWindow=renderItemWindow;renderItemWindow=function(){_v2RenderItemWindow();const g=state.groups.find(x=>x.id===activeItemGroupId),body=document.getElementById('itemWindowBody');if(!g||!body||state.isLocked||activeItemTab!=='items')return;const d=document.createElement('div');d.className='god-item-tools';d.innerHTML=`<b>🔓 上帝模式 · 现实编辑器</b><div class="god-item-grid" style="margin-top:8px">${ITEM_KEYS.map(k=>`<button class="btn btn-sm" onclick="godAddItem(${g.id},'${k}')">${itemVisual(k)} ${ITEM_DEFS[k].name}</button>`).join('')}</div><button class="btn btn-sm btn-danger" style="margin-top:8px" onclick="godClearItems(${g.id})">🧹 把道具桌面掀干净</button>`;body.appendChild(d)}
-function godAddItem(id,k){const g=state.groups.find(x=>x.id===id);if(!g)return;if(g.inventory.length>=3){showToast('三个槽位都坐满了，先请走一个再塞新的。');return}recordHistory(`${g.name} 上帝模式追加 ${ITEM_DEFS[k].name}`);g.inventory.push({key:k,charges:ITEM_DEFS[k].charges,acquiredAt:Date.now()+Math.random()});saveState();renderAll();renderItemWindow()}
+function godAddItem(id,k){const g=state.groups.find(x=>x.id===id);if(!g)return;if(g.inventory.length>=3){showToast('三个槽位都坐满了，先请走一个再塞新的。');return}recordHistory(`${g.name} 上帝模式追加 ${ITEM_DEFS[k].name}`);g.inventory.push(globalThis.ItemModules?ItemModules.inventory(k):{key:k,charges:ITEM_DEFS[k].charges,acquiredAt:Date.now()+Math.random()});saveState();renderAll();renderItemWindow()}
 function godClearItems(id){const g=state.groups.find(x=>x.id===id);if(!g)return;recordHistory(`${g.name} 上帝模式清空道具`);g.inventory=[];g.itemEffect=null;g.booShield=0;saveState();renderAll();renderItemWindow()}
 
 /* 自定义图标也进入卡片和战术窗口 */
@@ -6279,7 +6280,7 @@ function applyLightningHitV2116(caster,target){
   if(tryDefendLightningV2116(target)) return false;
 
   const before=Number(target.score)||0;
-  target.score=before-roundHalf(before);
+  target.score=before-(globalThis.ItemModules?ItemModules.scoreDelta('lightning',roundHalf(before)):roundHalf(before));
   target.displayScore=target.score;
 
   // 被劈中后所有背包道具直接消失。

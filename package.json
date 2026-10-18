@@ -27,7 +27,9 @@
     "format:core": "prettier --check src/core/action-sounds.js src/core/commands.js src/core/history.js src/core/item-score.js",
     "format:check": "npm run format:ui && npm run format:core",
     "test:design": "node tests/e2e/design-regressions.mjs && node tests/e2e/design-review.mjs",
-    "test:fullscreen-audio": "node tests/e2e/fullscreen-audio.mjs"
+    "test:fullscreen-audio": "node tests/e2e/fullscreen-audio.mjs",
+    "test:item-modules": "node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs",
+    "test:content": "node tests/e2e/welcome-content-editor.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

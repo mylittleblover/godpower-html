@@ -187,7 +187,7 @@ body.modern-flat-v217 #v2ItemEncyclopedia .ency-card{background:#fff!important;b
 body.modern-flat-v217 .ency-v213-icon-disc{background:var(--ui-soft)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-draw-stage{background:var(--ui-soft-2)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-capsule{background:var(--ui-soft)!important;background-image:none!important;border:2px solid var(--ui-primary)!important;box-shadow:none!important}
-body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-color,#607773)!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
+body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-badge-color,var(--group-color,#607773))!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name,body.modern-flat-v217 .dashboard-card-title,
 body.modern-flat-v217 .welcome-card-title,body.modern-flat-v217 .setting-section-title{color:var(--ui-text)!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name-sub,body.modern-flat-v217 .fullview-sub,

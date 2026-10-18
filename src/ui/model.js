@@ -62,9 +62,12 @@
       Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
     );
   }
-  function daily(list, date = new Date()) {
+  function daily(list, date = new Date(), offset = 0) {
     return list.length
-      ? list[((dayIndex(date) % list.length) + list.length) % list.length]
+      ? list[
+          (((dayIndex(date) + offset) % list.length) + list.length) %
+            list.length
+        ]
       : null;
   }
   function differences(before, after) {
@@ -114,17 +117,25 @@
       value.knowledge.length + value.challenges.length > 500
     )
       throw Error("题库须包含 knowledge、challenges 数组，合计最多 500 条");
+    const ids = new Set();
     for (const row of [...value.knowledge, ...value.challenges]) {
       if (
         !row ||
         typeof row.id !== "string" ||
+        !row.id.trim() ||
         typeof row.title !== "string" ||
         !row.title.trim() ||
         typeof row.subject !== "string" ||
+        !row.subject.trim() ||
         typeof row.source !== "string" ||
         !row.source.trim()
       )
         throw Error("每项须含 id、title、subject 和 source 来源");
+      if (ids.has(row.id.trim())) throw Error("题库 id 不可重复：" + row.id);
+      ids.add(row.id.trim());
+      for (const field of ["module", "summary", "mistake", "detail"])
+        if (field in row && typeof row[field] !== "string")
+          throw Error(field + " 必须是文本");
       if (
         Object.values(row).some(
           (v) => typeof v === "string" && v.length > 10000,
@@ -136,7 +147,9 @@
       if (
         !Array.isArray(q.options) ||
         q.options.length !== 4 ||
-        q.options.some((x) => typeof x !== "string") ||
+        q.options.some(
+          (x) => typeof x !== "string" || !x.trim() || x.length > 10000,
+        ) ||
         !Number.isInteger(q.answer) ||
         q.answer < 0 ||
         q.answer > 3 ||
@@ -159,8 +172,38 @@
       leader: ordered[0]?.name ?? "—",
     };
   }
+  // Badge-only shade: keep group colors in state intact and prefer white on saturated hues.
+  function badgeColors(color) {
+    let raw = String(color || "").replace(/^#/, "");
+    if (raw.length === 3)
+      raw = raw
+        .split("")
+        .map((v) => v + v)
+        .join("");
+    if (!/^[a-f0-9]{6}$/i.test(raw))
+      return { background: "#607773", foreground: "#FFFFFF" };
+    const rgb = raw.match(/../g).map((v) => parseInt(v, 16));
+    const luminance = (values) =>
+      values
+        .map((v) => v / 255)
+        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+    const saturated = Math.max(...rgb) - Math.min(...rgb) >= 40;
+    let shade = [...rgb];
+    if (saturated || luminance(rgb) < 0.18) {
+      while (1.05 / (luminance(shade) + 0.05) < 4.5)
+        shade = shade.map((v) => Math.floor(v * 0.97));
+      return {
+        background:
+          "#" + shade.map((v) => v.toString(16).padStart(2, "0")).join(""),
+        foreground: "#FFFFFF",
+      };
+    }
+    return { background: "#" + raw, foreground: "#17302D" };
+  }
   root.GodpowerUIModel = {
     examples,
+    badgeColors,
     standings,
     dayIndex,
     daily,

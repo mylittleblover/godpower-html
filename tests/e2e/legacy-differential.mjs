@@ -17,7 +17,10 @@ const pages = {};
 const outputs = {};
 try {
   for (const version of ["before", "after"]) {
-    const page = await browser.newPage();
+    const page = await browser.newPage({
+      viewport: { width: 1920, height: 1080 },
+      deviceScaleFactor: 1,
+    });
     pages[version] = page;
     await page.goto(`http://127.0.0.1:${server.address().port}/${version}`, {
       waitUntil: "domcontentloaded",

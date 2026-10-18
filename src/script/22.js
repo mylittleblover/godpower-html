@@ -9,9 +9,10 @@ function repairFlowerChargesV21719(){
     g.inventory.forEach(it=>{
       if(!keys.has(it?.key)) return;
       const n=Number(it.charges);
+      const limit=Number.isInteger(it.configuredCharges)&&it.configuredCharges>=1&&it.configuredCharges<=99?it.configuredCharges:3;
       const fixed=Number.isFinite(n)
-        ? Math.max(1,Math.min(3,Math.trunc(n)))
-        : 3;
+        ? Math.max(1,Math.min(limit,Math.trunc(n)))
+        : limit;
       if(it.charges!==fixed){
         it.charges=fixed;
         changed=true;

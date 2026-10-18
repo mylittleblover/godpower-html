@@ -2694,7 +2694,7 @@ body.modern-flat-v217 #v2ItemEncyclopedia .ency-card{background:#fff!important;b
 body.modern-flat-v217 .ency-v213-icon-disc{background:var(--ui-soft)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-draw-stage{background:var(--ui-soft-2)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-capsule{background:var(--ui-soft)!important;background-image:none!important;border:2px solid var(--ui-primary)!important;box-shadow:none!important}
-body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-color,#607773)!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
+body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-badge-color,var(--group-color,#607773))!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name,body.modern-flat-v217 .dashboard-card-title,
 body.modern-flat-v217 .welcome-card-title,body.modern-flat-v217 .setting-section-title{color:var(--ui-text)!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name-sub,body.modern-flat-v217 .fullview-sub,
@@ -6772,6 +6772,260 @@ body[data-motion="simple"] .bm-layer::before {
   opacity: 0.12;
 }
 </style>
+<style>/* Scoped to the modular item editor in settings. */
+.im-settings {
+  color: var(--ui-text);
+  padding: 8px 0;
+}
+.im-heading h3 {
+  margin: 0 0 6px;
+  font-size: 21px;
+}
+.im-heading p {
+  margin: 0;
+}
+.im-muted,
+.im-count {
+  color: var(--ui-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.im-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.im-status {
+  min-height: 22px;
+  margin: 12px 0 18px;
+  color: var(--ui-primary);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.im-status.im-error {
+  color: #b42318;
+}
+.im-layout {
+  display: grid;
+  grid-template-columns: 235px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.im-sidebar {
+  min-width: 0;
+}
+.im-search {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  color: var(--ui-text);
+  background: var(--ui-panel);
+}
+.im-count {
+  margin: 8px 2px;
+}
+.im-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding: 2px 6px 4px 2px;
+  scrollbar-color: var(--ui-border-strong) transparent;
+}
+.im-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 2px 8px;
+  padding: 11px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  text-align: left;
+  cursor: pointer;
+}
+.im-item.is-selected {
+  border-color: var(--ui-primary);
+  background: color-mix(in srgb, var(--ui-primary) 9%, var(--ui-panel));
+}
+.im-item:hover {
+  border-color: var(--ui-primary);
+}
+.im-item-icon {
+  grid-row: span 2;
+  align-self: center;
+  font-size: 23px;
+}
+.im-item-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+.im-item-state {
+  color: var(--ui-muted);
+  font-size: 11px;
+}
+.im-editor {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+}
+.im-editor-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.im-editor-icon {
+  font-size: 36px;
+}
+.im-editor-header h3 {
+  margin: 3px 0 0;
+  font-size: 21px;
+}
+.im-editor-header .btn {
+  margin-left: auto;
+  white-space: nowrap;
+}
+.im-kind {
+  color: var(--ui-muted);
+  font-size: 12px;
+}
+.im-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--ui-border) 40%, transparent);
+}
+.im-tab {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ui-muted);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.im-tab[aria-selected="true"] {
+  background: var(--ui-panel);
+  color: var(--ui-primary);
+  box-shadow: var(--shadow-card);
+  border-color: var(--ui-border);
+}
+.im-pipeline-note {
+  margin: 14px 0;
+  font-size: 12px;
+  color: var(--ui-muted);
+  line-height: 1.6;
+}
+.im-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.im-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+}
+.im-block-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.im-block-number {
+  color: var(--ui-primary);
+  font-size: 11px;
+  font-weight: 700;
+}
+.im-block strong {
+  font-size: 15px;
+}
+.im-block small {
+  display: block;
+}
+.im-block input[type="number"] {
+  flex: 0 0 85px;
+  width: 85px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: 7px;
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  font-size: 16px;
+}
+.im-block .v292-switch {
+  flex-shrink: 0;
+}
+.im-settings input[aria-invalid="true"] {
+  outline: 2px solid #b42318;
+  outline-offset: 2px;
+}
+.im-settings :is(button, input, summary):focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+.im-reference {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ui-border);
+  font-size: 13px;
+}
+.im-reference summary {
+  cursor: pointer;
+  color: var(--ui-primary);
+}
+.im-reference p {
+  margin-bottom: 0;
+}
+.im-empty {
+  padding: 12px;
+}
+@media (max-width: 820px) {
+  .im-layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .im-editor {
+    padding: 14px;
+  }
+  .im-block {
+    padding: 12px;
+  }
+}
+
+.im-item-icon,
+.im-editor-icon {
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+}
+.im-settings .im-item-image {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.im-editor-icon .im-item-image {
+  width: 40px;
+  height: 40px;
+}
+</style>
 <style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
 .gp-brand-mount {
   width: 32px;
@@ -8476,9 +8730,12 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000,
     );
   }
-  function daily(list, date = new Date()) {
+  function daily(list, date = new Date(), offset = 0) {
     return list.length
-      ? list[((dayIndex(date) % list.length) + list.length) % list.length]
+      ? list[
+          (((dayIndex(date) + offset) % list.length) + list.length) %
+            list.length
+        ]
       : null;
   }
   function differences(before, after) {
@@ -8528,17 +8785,25 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       value.knowledge.length + value.challenges.length > 500
     )
       throw Error("题库须包含 knowledge、challenges 数组，合计最多 500 条");
+    const ids = new Set();
     for (const row of [...value.knowledge, ...value.challenges]) {
       if (
         !row ||
         typeof row.id !== "string" ||
+        !row.id.trim() ||
         typeof row.title !== "string" ||
         !row.title.trim() ||
         typeof row.subject !== "string" ||
+        !row.subject.trim() ||
         typeof row.source !== "string" ||
         !row.source.trim()
       )
         throw Error("每项须含 id、title、subject 和 source 来源");
+      if (ids.has(row.id.trim())) throw Error("题库 id 不可重复：" + row.id);
+      ids.add(row.id.trim());
+      for (const field of ["module", "summary", "mistake", "detail"])
+        if (field in row && typeof row[field] !== "string")
+          throw Error(field + " 必须是文本");
       if (
         Object.values(row).some(
           (v) => typeof v === "string" && v.length > 10000,
@@ -8550,7 +8815,9 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       if (
         !Array.isArray(q.options) ||
         q.options.length !== 4 ||
-        q.options.some((x) => typeof x !== "string") ||
+        q.options.some(
+          (x) => typeof x !== "string" || !x.trim() || x.length > 10000,
+        ) ||
         !Number.isInteger(q.answer) ||
         q.answer < 0 ||
         q.answer > 3 ||
@@ -8573,14 +8840,249 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       leader: ordered[0]?.name ?? "—",
     };
   }
+  // Badge-only shade: keep group colors in state intact and prefer white on saturated hues.
+  function badgeColors(color) {
+    let raw = String(color || "").replace(/^#/, "");
+    if (raw.length === 3)
+      raw = raw
+        .split("")
+        .map((v) => v + v)
+        .join("");
+    if (!/^[a-f0-9]{6}$/i.test(raw))
+      return { background: "#607773", foreground: "#FFFFFF" };
+    const rgb = raw.match(/../g).map((v) => parseInt(v, 16));
+    const luminance = (values) =>
+      values
+        .map((v) => v / 255)
+        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+    const saturated = Math.max(...rgb) - Math.min(...rgb) >= 40;
+    let shade = [...rgb];
+    if (saturated || luminance(rgb) < 0.18) {
+      while (1.05 / (luminance(shade) + 0.05) < 4.5)
+        shade = shade.map((v) => Math.floor(v * 0.97));
+      return {
+        background:
+          "#" + shade.map((v) => v.toString(16).padStart(2, "0")).join(""),
+        foreground: "#FFFFFF",
+      };
+    }
+    return { background: "#" + raw, foreground: "#17302D" };
+  }
   root.GodpowerUIModel = {
     examples,
+    badgeColors,
     standings,
     dayIndex,
     daily,
     differences,
     validateBank,
   };
+})(globalThis);
+</script>
+<script>/* Typed item blocks: pure policy, no DOM or classroom mutations. */
+(function (root) {
+  "use strict";
+  const KEY = "godpower_item_modules_v1";
+  const SCORE_KEYS = new Set([
+    "green",
+    "triple_green",
+    "red",
+    "triple_red",
+    "spiny",
+    "banana",
+    "triple_banana",
+    "horn",
+    "bomb",
+    "hammer",
+    "coin",
+    "coin_shell",
+    "question",
+    "mushroom",
+    "triple_mushroom",
+    "lightning",
+    "fire_flower",
+    "ice_flower",
+    "boomerang_flower",
+  ]);
+  const copy = (value) => JSON.parse(JSON.stringify(value));
+  function create(definitions, storage = null, notify = () => {}) {
+    const keys = Object.keys(definitions);
+    const defaults = () => ({
+      schemaVersion: 1,
+      items: Object.fromEntries(
+        keys.map((key) => [
+          key,
+          {
+            draw: {
+              enabled: true,
+              weight: 1,
+              charges: definitions[key].charges || 1,
+            },
+            operation: { enabled: true, scoreMultiplier: 1, feedback: true },
+          },
+        ]),
+      ),
+    });
+    function validate(raw) {
+      if (
+        !raw ||
+        raw.schemaVersion !== 1 ||
+        !raw.items ||
+        typeof raw.items !== "object" ||
+        Array.isArray(raw.items)
+      )
+        throw Error("道具配置版本或结构无效");
+      if (
+        Object.keys(raw).some((k) => !["schemaVersion", "items"].includes(k)) ||
+        Object.keys(raw.items).some((k) => !keys.includes(k))
+      )
+        throw Error("配置包含未识别的道具或字段");
+      const result = defaults();
+      for (const key of keys) {
+        const item = raw.items[key];
+        if (
+          !item ||
+          Object.keys(item).some((k) => !["draw", "operation"].includes(k))
+        )
+          throw Error("缺少道具配置：" + key);
+        const d = item.draw,
+          o = item.operation;
+        if (
+          !d ||
+          !o ||
+          Object.keys(d).some(
+            (k) => !["enabled", "weight", "charges"].includes(k),
+          ) ||
+          Object.keys(o).some(
+            (k) => !["enabled", "scoreMultiplier", "feedback"].includes(k),
+          )
+        )
+          throw Error("道具积木字段无效：" + key);
+        if (
+          typeof d.enabled !== "boolean" ||
+          typeof o.enabled !== "boolean" ||
+          typeof o.feedback !== "boolean"
+        )
+          throw Error("开关必须是布尔值：" + key);
+        if (
+          typeof d.weight !== "number" ||
+          !Number.isFinite(d.weight) ||
+          d.weight < 0 ||
+          d.weight > 100
+        )
+          throw Error("权重倍率须为0–100：" + key);
+        if (
+          !Number.isInteger(d.charges) ||
+          d.charges < 1 ||
+          d.charges > 99 ||
+          (["mega", "power", "boo"].includes(key) &&
+            d.charges !== definitions[key].charges)
+        )
+          throw Error("新道具次数须为1–99：" + key);
+        if (
+          typeof o.scoreMultiplier !== "number" ||
+          !Number.isFinite(o.scoreMultiplier) ||
+          o.scoreMultiplier < 0 ||
+          o.scoreMultiplier > 10 ||
+          (!SCORE_KEYS.has(key) && o.scoreMultiplier !== 1)
+        )
+          throw Error("积分倍率不支持或超出0–10范围：" + key);
+        result.items[key] = { draw: { ...d }, operation: { ...o } };
+      }
+      return result;
+    }
+    let config = defaults(),
+      activeKey = null,
+      loadError = null;
+    if (storage)
+      try {
+        const text = storage.getItem(KEY);
+        if (text !== null) config = validate(JSON.parse(text));
+      } catch (e) {
+        loadError = String(e.message || e);
+      }
+    const forKey = (key) => config.items[key];
+    function update(raw) {
+      const next = validate(raw);
+      if (storage) storage.setItem(KEY, JSON.stringify(next));
+      config = next;
+      notify();
+      return copy(config);
+    }
+    function scoreDelta(key, delta) {
+      const factor = forKey(key || activeKey)?.operation.scoreMultiplier ?? 1;
+      if (!Number.isFinite(delta)) throw Error("道具积分变化必须是有限数值");
+      const next =
+        factor === 1
+          ? delta
+          : Math.sign(delta) * Math.round(Math.abs(delta) * factor);
+      if (!Number.isSafeInteger(next)) throw Error("道具积分变化超出安全整数");
+      return next;
+    }
+    return {
+      defaults,
+      validate,
+      update,
+      configuration: () => copy(config),
+      loadError,
+      catalog: () =>
+        keys.map((key) => ({
+          key,
+          name: definitions[key].name,
+          kind: definitions[key].kind,
+          blocks: {
+            draw: [
+              "availability",
+              "weight",
+              ...(["mega", "power", "boo"].includes(key) ? [] : ["charges"]),
+            ],
+            operation: [
+              "availability",
+              ...(SCORE_KEYS.has(key) ? ["score"] : []),
+              "feedback",
+            ],
+          },
+        })),
+      drawWeights: (weights) =>
+        Object.fromEntries(
+          Object.entries(weights).map(([key, value]) => [
+            key,
+            forKey(key)?.draw.enabled
+              ? Math.max(0, Number(value) || 0) * forKey(key).draw.weight
+              : 0,
+          ]),
+        ),
+      canUse: (key) => forKey(key)?.operation.enabled === true,
+      feedback: (key) => forKey(key)?.operation.feedback !== false,
+      charges: (key) =>
+        forKey(key)?.draw.charges || definitions[key]?.charges || 1,
+      inventory(key, acquiredAt = Date.now() + Math.random()) {
+        if (!forKey(key)) throw Error("未识别的道具");
+        const charges = forKey(key).draw.charges;
+        return {
+          key,
+          charges,
+          acquiredAt,
+          ...(charges !== definitions[key].charges
+            ? { configuredCharges: charges }
+            : {}),
+        };
+      },
+      scoreDelta,
+      execute(key, operation) {
+        if (!forKey(key)?.operation.enabled) return false;
+        const prev = activeKey;
+        activeKey = key;
+        try {
+          return operation();
+        } finally {
+          activeKey = prev;
+        }
+      },
+    };
+  }
+  root.ItemModuleModel = { create, storageKey: KEY };
 })(globalThis);
 </script>
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
@@ -8965,11 +9467,17 @@ function requestSpinyDefense(target, key, continueAttack) {
   };
 }
 
-function commitItemScore(target, delta, sourceId, attackType) {
+function commitItemScore(
+  target,
+  delta,
+  sourceId,
+  attackType,
+  isAttack = delta < 0,
+) {
   let result;
   if (!target || !eligibleForItems(target))
     result = { changed: false, blocked: "negative" };
-  else if (delta < 0 && tryDefend(target, attackType))
+  else if (isAttack && tryDefend(target, attackType))
     result = { changed: false, blocked: "defense" };
   else {
     const before = target.score;
@@ -8977,7 +9485,7 @@ function commitItemScore(target, delta, sourceId, attackType) {
     target.displayScore = target.score;
     result = { changed: before !== target.score, before, after: target.score };
   }
-  if (delta < 0 && target && ITEM_DEFS[attackType]) {
+  if (isAttack && target && ITEM_DEFS[attackType]) {
     const liveState = state;
     scheduleScoreEffect(() => {
       if (state === liveState && state.groups.includes(target))
@@ -8991,12 +9499,18 @@ function commitItemScore(target, delta, sourceId, attackType) {
   return result;
 }
 
-function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
+function applyItemScoreAfterHorn(
+  target,
+  delta,
+  sourceId,
+  attackType,
+  isAttack = delta < 0,
+) {
   const before = target ? Number(target.score) || 0 : null;
-  if (delta < 0 && target && eligibleForItems(target))
+  if (isAttack && target && eligibleForItems(target))
     attackRenderGateV21713 = true;
   let result;
-  if (delta < 0 && target && attackType === "spiny") {
+  if (isAttack && target && attackType === "spiny") {
     destroyPrimaryBasicDefenseV2170(target, sourceId, "刺龟壳");
     const main = target.inventory?.[0];
     if (
@@ -9006,13 +9520,14 @@ function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
       !target.__spinyDecisionPendingV21727
     ) {
       result = requestSpinyDefense(target, main.key, () =>
-        commitItemScore(target, delta, sourceId, attackType),
+        commitItemScore(target, delta, sourceId, attackType, isAttack),
       );
     }
-  } else if (delta < 0 && target && attackType === "boomerang_flower") {
+  } else if (isAttack && target && attackType === "boomerang_flower") {
     destroyPrimaryBasicDefenseV2170(target, sourceId, "回旋镖");
   }
-  result = result || commitItemScore(target, delta, sourceId, attackType);
+  result =
+    result || commitItemScore(target, delta, sourceId, attackType, isAttack);
   if (
     itemScoreBatchDepthV21732 === 0 &&
     target &&
@@ -9026,18 +9541,20 @@ function applyItemScoreAfterHorn(target, delta, sourceId, attackType) {
 }
 
 function applyItemScore(target, delta, sourceId, attackType = "normal") {
+  const isAttack = delta < 0;
+  if (globalThis.ItemModules) delta = ItemModules.scoreDelta(attackType, delta);
   if (
-    delta < 0 &&
+    isAttack &&
     attackType === "spiny" &&
     target?.inventory?.[0]?.key === "horn" &&
     !target.__spinyHornDecisionPendingV218 &&
     !target.__spinyHornDeclinedV218
   ) {
     return requestSpinyDefense(target, "horn", () =>
-      applyItemScoreAfterHorn(target, delta, sourceId, attackType),
+      applyItemScoreAfterHorn(target, delta, sourceId, attackType, isAttack),
     );
   }
-  return applyItemScoreAfterHorn(target, delta, sourceId, attackType);
+  return applyItemScoreAfterHorn(target, delta, sourceId, attackType, isAttack);
 }
 </script>
 <script>/* Stable sound identities describe intent, never business outcomes. */
@@ -13377,13 +13894,14 @@ function normalizeInventoryV21718(inventory){
       return true;
     })
     .map((it,i)=>{
-      const maxCharges=Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
+      const configuredCharges=Number.isInteger(it.configuredCharges)&&it.configuredCharges>=1&&it.configuredCharges<=99?it.configuredCharges:null;
+      const maxCharges=configuredCharges||Math.max(1,Number(ITEM_DEFS[it.key]?.charges)||1);
       const storedCharges=Number(it.charges);
       const charges=Number.isFinite(storedCharges)
         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
       const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
-      if(Object.keys(it).length===3 && it.charges===charges && it.acquiredAt===acquiredAt)return it;
-      return {key:it.key,charges,acquiredAt};
+      if(Object.keys(it).length===(configuredCharges?4:3) && it.charges===charges && it.acquiredAt===acquiredAt)return it;
+      return {key:it.key,charges,acquiredAt,...(configuredCharges?{configuredCharges}:{})};
     });
 }
 
@@ -13406,7 +13924,7 @@ function roundThird(v){return Math.round((Number(v)||0)/3)}
 function roundHalf(v){return Math.round((Number(v)||0)/2)}
 function eligibleForItems(g){return g && Number(g.score)>=0}
 function consumeInventoryItem(g,index,amount=1){const it=g.inventory[index];if(!it)return;it.charges-=amount;if(it.charges<=0)g.inventory.splice(index,1)}
-function addItemToGroup(g,key){if(!g||!ITEM_DEFS[key]||g.inventory.length>=3||!eligibleForItems(g))return false;g.inventory.push({key,charges:ITEM_DEFS[key].charges,acquiredAt:Date.now()+Math.random()});g.itemStats.draws++;state.itemGlobal.totalDraws++;return true}
+function addItemToGroup(g,key){if(!g||!ITEM_DEFS[key]||g.inventory.length>=3||!eligibleForItems(g))return false;g.inventory.push(globalThis.ItemModules?ItemModules.inventory(key):{key,charges:ITEM_DEFS[key].charges,acquiredAt:Date.now()+Math.random()});g.itemStats.draws++;state.itemGlobal.totalDraws++;return true}
 function tinyDefenseToast(msg){const d=document.createElement('div');d.className='item-defense-toast';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),1900)}
 
 function defenseCandidates(g,attackType){
@@ -13427,7 +13945,7 @@ function defenseCandidates(g,attackType){
 
 
 function damageFraction(target,denom,sourceId,type='normal'){const loss=denom===2?roundHalf(target.score):denom===3?roundThird(target.score):roundQuarter(target.score);return applyItemScore(target,-loss,sourceId,type)}
-function boostFraction(target,denom=4){if(!eligibleForItems(target))return false;const add=denom===4?roundQuarter(target.score):Math.round(target.score/denom);target.score+=add;target.displayScore=target.score;return true}
+function boostFraction(target,denom=4){if(!eligibleForItems(target))return false;const base=denom===4?roundQuarter(target.score):Math.round(target.score/denom);const add=globalThis.ItemModules?ItemModules.scoreDelta(null,base):base;target.score+=add;target.displayScore=target.score;return true}
 
 function itemDropWeights(pos,total){
   // V2.11.9：26 种道具全部正式接入排名权重池。
@@ -13520,7 +14038,7 @@ function itemDropWeights(pos,total){
   return W;
 }
 function weightedPick(weights){const arr=Object.entries(weights).filter(([,w])=>w>0);let sum=arr.reduce((a,[,w])=>a+w,0),r=Math.random()*sum;for(const [k,w] of arr){r-=w;if(r<=0)return k}return arr[0]?.[0]||'coin'}
-function drawItemForGroup(g){if(!eligibleForItems(g)||g.inventory.length>=3)return null;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;return weightedPick(itemDropWeights(pos,r.length))}
+function drawItemForGroup(g){if(!eligibleForItems(g)||g.inventory.length>=3)return null;const r=ranking(),pos=r.findIndex(x=>x.id===g.id)+1;const weights=itemDropWeights(pos,r.length);return Object.values(weights).some(w=>w>0)?weightedPick(weights):null}
 
 function detectOvertakePunish(actorId,beforeOrder){
   const actor=state.groups.find(g=>g.id===actorId);if(!actor||!actor.itemEffect||!['star','mega'].includes(actor.itemEffect.type))return;
@@ -13542,7 +14060,7 @@ function legacyUseItem(groupId,index){
   else if(key==='horn'){[r[ri-1],r[ri+1]].filter(Boolean).forEach(t=>damageFraction(t,4,g.id,key))}
   else if(key==='bomb'){const pool=other();if(!pool.length)used=false;else{const center=pool[Math.floor(Math.random()*pool.length)],ci=r.findIndex(x=>x.id===center.id);[r[ci-1],r[ci],r[ci+1]].filter(Boolean).forEach(t=>{if(t.id!==g.id){damageFraction(t,4,g.id,key);flashBomb(t.id)}})}}
   else if(key==='hammer'){const pool=other().sort(()=>Math.random()-.5).slice(0,3);if(!pool.length)used=false;else pool.forEach(t=>damageFraction(t,4,g.id,key))}
-  else if(key==='coin'){g.score+=2;g.displayScore=g.score}
+  else if(key==='coin'){g.score+=globalThis.ItemModules?ItemModules.scoreDelta('coin',2):2;g.displayScore=g.score}
   else if(key==='coin_shell'){r.slice(0,ri+1).forEach(t=>boostFraction(t,4))}
   else if(key==='question'){r.slice(ri).forEach(t=>boostFraction(t,4))}
   else if(key==='mushroom'||key==='triple_mushroom'){boostFraction(g,4)}
@@ -13816,7 +14334,7 @@ globalItemDraw=function(){
 }
 
 /* 道具图鉴与自定义图标 */
-function openItemEncyclopedia(){switchView('settings');setTimeout(()=>{installSettingsTabs();showSettingsV2('items')},0)}
+function openItemEncyclopedia(){openAbout();renderAbout('items')}
 function renderItemEncyclopedia(){
   ensureV2State();const box=document.getElementById('v2ItemEncyclopedia');if(!box)return;
   box.innerHTML=`<div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" onclick="exportItemIconPack()">导出图标包</button><button class="btn btn-primary btn-sm" onclick="document.getElementById('itemPackInput').click()">导入图标包</button><button class="btn btn-sm" onclick="resetAllItemIcons()">恢复全部默认图标</button></div><div class="item-ency-grid">${ITEM_KEYS.map(k=>{const d=ITEM_DEFS[k];return `<div class="ency-card"><div class="ency-icon">${itemVisual(k)}</div><div><div class="ency-name">${d.name}</div><div class="ency-desc">${d.desc}</div></div><div class="ency-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div></div>`}).join('')}</div>`;
@@ -13855,7 +14373,7 @@ function renderAbout(tab){
 
 /* God mode 道具管理 */
 const _v2RenderItemWindow=renderItemWindow;renderItemWindow=function(){_v2RenderItemWindow();const g=state.groups.find(x=>x.id===activeItemGroupId),body=document.getElementById('itemWindowBody');if(!g||!body||state.isLocked||activeItemTab!=='items')return;const d=document.createElement('div');d.className='god-item-tools';d.innerHTML=`<b>🔓 上帝模式 · 现实编辑器</b><div class="god-item-grid" style="margin-top:8px">${ITEM_KEYS.map(k=>`<button class="btn btn-sm" onclick="godAddItem(${g.id},'${k}')">${itemVisual(k)} ${ITEM_DEFS[k].name}</button>`).join('')}</div><button class="btn btn-sm btn-danger" style="margin-top:8px" onclick="godClearItems(${g.id})">🧹 把道具桌面掀干净</button>`;body.appendChild(d)}
-function godAddItem(id,k){const g=state.groups.find(x=>x.id===id);if(!g)return;if(g.inventory.length>=3){showToast('三个槽位都坐满了，先请走一个再塞新的。');return}recordHistory(`${g.name} 上帝模式追加 ${ITEM_DEFS[k].name}`);g.inventory.push({key:k,charges:ITEM_DEFS[k].charges,acquiredAt:Date.now()+Math.random()});saveState();renderAll();renderItemWindow()}
+function godAddItem(id,k){const g=state.groups.find(x=>x.id===id);if(!g)return;if(g.inventory.length>=3){showToast('三个槽位都坐满了，先请走一个再塞新的。');return}recordHistory(`${g.name} 上帝模式追加 ${ITEM_DEFS[k].name}`);g.inventory.push(globalThis.ItemModules?ItemModules.inventory(k):{key:k,charges:ITEM_DEFS[k].charges,acquiredAt:Date.now()+Math.random()});saveState();renderAll();renderItemWindow()}
 function godClearItems(id){const g=state.groups.find(x=>x.id===id);if(!g)return;recordHistory(`${g.name} 上帝模式清空道具`);g.inventory=[];g.itemEffect=null;g.booShield=0;saveState();renderAll();renderItemWindow()}
 
 /* 自定义图标也进入卡片和战术窗口 */
@@ -15408,7 +15926,7 @@ function applyLightningHitV2116(caster,target){
   if(tryDefendLightningV2116(target)) return false;
 
   const before=Number(target.score)||0;
-  target.score=before-roundHalf(before);
+  target.score=before-(globalThis.ItemModules?ItemModules.scoreDelta('lightning',roundHalf(before)):roundHalf(before));
   target.displayScore=target.score;
 
   // 被劈中后所有背包道具直接消失。
@@ -18386,9 +18904,10 @@ function repairFlowerChargesV21719(){
     g.inventory.forEach(it=>{
       if(!keys.has(it?.key)) return;
       const n=Number(it.charges);
+      const limit=Number.isInteger(it.configuredCharges)&&it.configuredCharges>=1&&it.configuredCharges<=99?it.configuredCharges:3;
       const fixed=Number.isFinite(n)
-        ? Math.max(1,Math.min(3,Math.trunc(n)))
-        : 3;
+        ? Math.max(1,Math.min(limit,Math.trunc(n)))
+        : limit;
       if(it.charges!==fixed){
         it.charges=fixed;
         changed=true;
@@ -18996,7 +19515,7 @@ const _v21735ShowItemUseFx=showItemUseFx;
 showItemUseFx=function(key,casterId=null,targetText=''){
   /* 保留 V2.17.7 等外层逻辑，但绕过旧版 banner 的 DOM 输出。
      这里重新实现最终视觉，同时保留音效和卡片特效。 */
-  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent('ITEM_USE_START',{groupId:casterId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'){playSound('item_use');if(typeof itemSoundCategoryV26==='function')setTimeout(()=>playSound(itemSoundCategoryV26(key)),55);return;}}
+  if(typeof DesktopUI!=='undefined'){if(!globalThis.ItemModules||ItemModules.feedback(key))DesktopUI.visualEvent('ITEM_USE_START',{groupId:casterId,key});if((globalThis.ItemModules&&!ItemModules.feedback(key))||!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'){playSound('item_use');if(typeof itemSoundCategoryV26==='function')setTimeout(()=>playSound(itemSoundCategoryV26(key)),55);return;}}
   const d=ITEM_DEFS?.[key];
   if(!d)return;
 
@@ -19389,7 +19908,7 @@ legacyUseItem=function(groupId,index,...rest){
     if(!above || !above.inventory?.length){
       consumeOneV218(g,index);
       if(!g.inventory.some(x=>x.key==='mushroom') && g.inventory.length<3){
-        g.inventory.push({key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
+        g.inventory.push(globalThis.ItemModules?ItemModules.inventory('mushroom'):{key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
       }
       g.booShield=1;g.booRoundsLeftV218=3;
       return finishOwnItemUseV218(g,key,index,!above?'没有上方排名 · 自动获得蘑菇':'上方无道具 · 自动获得蘑菇');
@@ -19448,6 +19967,7 @@ legacyUseItem=function(groupId,index,...rest){
 if(typeof queueUseStateV2120==='function'){
   const _v218QueueState=queueUseStateV2120;
   queueUseStateV2120=function(g,index){
+    if(g?.inventory?.[index]?.key&&globalThis.ItemModules&&!ItemModules.canUse(g.inventory[index].key))return {usable:false,label:'设置中已关闭主动使用'};
     if(index===0 && state.roundActive&&!state.evaluated && g?.itemUsedThisRound &&
        TRIPLE_KEYS_V218.has(g.inventory?.[0]?.key) &&
        g.roundItemContinuationKeyV218===g.inventory?.[0]?.key){
@@ -19529,38 +20049,12 @@ itemDropWeights=function(pos,total){
     W.horn=0;
   }
   if(pos===1 && suppressFirstHornV218)W.horn=0;
-  return W;
+  return globalThis.ItemModules ? ItemModules.drawWeights(W) : W;
 };
 
 const _v218PickItem=pickItemForGroupV281;
 pickItemForGroupV281=function(g,batchUsed=new Set()){
-  const inHand=handItemDrawGroupId===g?.id;
-
-  /* 每次页面/课堂会话第一次手动举手抽取：九种道具等概率，仍禁止本组重复。 */
-  if(inHand && firstHandDrawPendingV218){
-    const held=new Set((g.inventory||[]).map(x=>x.key));
-    const pool=FIRST_HAND_POOL_V218.filter(k=>ITEM_DEFS[k]&&!held.has(k));
-    firstHandDrawPendingV218=false;
-    if(pool.length){
-      const k=pool[Math.floor(Math.random()*pool.length)];
-      try{commitSessionDrawV21710(g,k)}catch(e){}
-      return k;
-    }
-  }
-
-  const pos=rankIndex(g.id)+1,total=state.groups.length;
-  if(pos===1){
-    /* 第一名超级喇叭最终概率精确 10%；未抽中时本次排除喇叭，避免叠加旧权重。 */
-    const held=new Set((g.inventory||[]).map(x=>x.key));
-    if(!held.has('horn') && Math.random()<0.10){
-      try{commitSessionDrawV21710(g,'horn')}catch(e){}
-      return 'horn';
-    }
-    suppressFirstHornV218=true;
-    try{return _v218PickItem.call(this,g,batchUsed)}
-    finally{suppressFirstHornV218=false}
-  }
-  return _v218PickItem.call(this,g,batchUsed);
+  return ItemDrawBlocks.pick(g,batchUsed);
 };
 
 /* ---------- 7. 手动举手：不关闭菜单；三重可单发 / 连发；中央效果结算 ---------- */
@@ -20785,7 +21279,9 @@ function renderBattleGridCards() {
     rowCard.dataset.groupId = g.id;
     rowCard.style.borderLeftColor = g.color;
     rowCard.style.setProperty("--group-color", g.color);
-    rowCard.style.setProperty("--group-contrast", readableTextOnColor(g.color));
+    const badge = GodpowerUIModel.badgeColors(g.color);
+    rowCard.style.setProperty("--group-contrast", badge.foreground);
+    rowCard.style.setProperty("--group-badge-color", badge.background);
     const roundClass =
       state.roundActive && !state.evaluated ? "" : "round-disabled";
     const optionsHtml = ["A", "B", "C", "D"]
@@ -21048,6 +21544,389 @@ function refreshBattleGrid() {
   }
 }
 </script>
+<script>/* Each item is an independent composition of target/effect/consumption blocks. */
+globalThis.ItemBlueprints = Object.freeze({
+  green: { target: "randomOther", effect: "fraction", denominator: 4 },
+  triple_green: {
+    target: "randomOther",
+    effect: "fraction",
+    denominator: 4,
+    continuation: true,
+  },
+  red: {
+    target: "above",
+    effect: "fraction",
+    denominator: 3,
+    allowEmpty: true,
+  },
+  triple_red: {
+    target: "above",
+    effect: "fraction",
+    denominator: 3,
+    allowEmpty: true,
+    continuation: true,
+  },
+  spiny: { target: "leader", effect: "fraction", denominator: 2 },
+  banana: { target: "below", effect: "fraction", denominator: 4 },
+  triple_banana: {
+    target: "below",
+    effect: "fraction",
+    denominator: 4,
+    continuation: true,
+  },
+  horn: {
+    target: "adjacent",
+    effect: "fraction",
+    denominator: 4,
+    allowEmpty: true,
+  },
+  bomb: { target: "blast", effect: "fraction", denominator: 4 },
+  hammer: {
+    punishOvertake: false,
+    target: "randomAhead",
+    effect: "fraction",
+    denominator: 4,
+  },
+  coin: { target: "self", effect: "flat", amount: 2 },
+  coin_shell: { target: "aheadInclusive", effect: "boost", denominator: 4 },
+  question: { target: "behindInclusive", effect: "boost", denominator: 4 },
+  mushroom: { target: "self", effect: "boost", denominator: 4 },
+  triple_mushroom: {
+    target: "self",
+    effect: "boost",
+    denominator: 4,
+    continuation: true,
+  },
+  boo: {
+    punishOvertake: false,
+    target: "above",
+    effect: "steal",
+    allowEmpty: true,
+  },
+  blooper: { target: "self", effect: "mask", milliseconds: 120000 },
+  lightning: { target: "allAhead", effect: "lightning", allowEmpty: true },
+  star: { target: "self", effect: "status", type: "star", hits: 3 },
+  mega: {
+    target: "self",
+    effect: "status",
+    type: "mega",
+    hits: 3,
+    retain: true,
+  },
+  bullet: { target: "threeAhead", effect: "overtake" },
+  power: {
+    target: "self",
+    effect: "status",
+    type: "power",
+    rounds: 3,
+    retain: true,
+  },
+  feather: {
+    punishOvertake: false,
+    target: "self",
+    effect: "dodge",
+  },
+  fire_flower: {
+    punishOvertake: false,
+    target: "randomOther",
+    effect: "fraction",
+    denominator: 4,
+  },
+  ice_flower: {
+    punishOvertake: false,
+    target: "randomUnfrozen",
+    effect: "freeze",
+    denominator: 5,
+    rounds: 3,
+    allowEmpty: true,
+  },
+  boomerang_flower: {
+    punishOvertake: false,
+    target: "adjacent",
+    effect: "fraction",
+    denominator: 5,
+  },
+});
+</script>
+<script>/* One runtime owns all item policies; existing executors remain rule adapters. */
+globalThis.ItemModules = ItemModuleModel.create(
+  ITEM_DEFS,
+  {
+    getItem: (key) => localStorage.getItem(key),
+    setItem: (key, value) => localStorage.setItem(key, value),
+  },
+  () => {
+    queueMicrotask(() => {
+      if (window.classroomReady) renderAll();
+    });
+  },
+);
+if (ItemModules.loadError)
+  console.warn(
+    "道具积木配置无法读取，当前会话使用默认配置；原数据未覆盖：",
+    ItemModules.loadError,
+  );
+</script>
+<script>/* Operation pipeline. Draw policy has no access to this executor. */
+const ItemOperationBlocks = (() => {
+  const randomOne = (pool) =>
+    pool.length ? [pool[Math.floor(Math.random() * pool.length)]] : [];
+  const targets = {
+    self: (c) => [c.group],
+    randomOther: (c) => randomOne(c.others),
+    above: (c) => [c.ranking[c.position - 1]].filter(Boolean),
+    below: (c) => [c.ranking[c.position + 1]].filter(Boolean),
+    leader: (c) => (c.ranking[0]?.id !== c.group.id ? [c.ranking[0]] : []),
+    adjacent: (c) =>
+      [c.ranking[c.position - 1], c.ranking[c.position + 1]].filter(Boolean),
+    aheadInclusive: (c) => c.ranking.slice(0, c.position + 1),
+    behindInclusive: (c) => c.ranking.slice(c.position),
+    allAhead: (c) => c.ranking.slice(0, c.position),
+    threeAhead: (c) => [c.ranking[Math.max(0, c.position - 3)]].filter(Boolean),
+    randomAhead: (c) =>
+      c.ranking
+        .slice(0, c.position)
+        .filter(eligibleForItems)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3),
+    randomUnfrozen: (c) =>
+      randomOne(c.others.filter((t) => !t.itemEffect?.iceLock)),
+    blast: (c) => {
+      const [center] = randomOne(c.others);
+      if (!center) return [];
+      const i = c.ranking.indexOf(center);
+      return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
+        (t) => t && t.id !== c.group.id,
+      );
+    },
+  };
+  const effects = {
+    fraction(c) {
+      for (const target of c.targets) {
+        if (c.blueprint.denominator === 5) {
+          const amount = Math.round(Math.max(0, Number(target.score) || 0) / 5);
+          if (amount > 0) applyItemScore(target, -amount, c.group.id, c.key);
+        } else
+          damageFraction(target, c.blueprint.denominator, c.group.id, c.key);
+        if (c.key === "bomb") flashBomb(target.id);
+      }
+      return true;
+    },
+    boost(c) {
+      c.targets.forEach((t) => boostFraction(t, c.blueprint.denominator));
+      return true;
+    },
+    flat(c) {
+      c.group.score += ItemModules.scoreDelta(c.key, c.blueprint.amount);
+      c.group.displayScore = c.group.score;
+      return true;
+    },
+    freeze(c) {
+      for (const t of c.targets) {
+        const amount = Math.round(
+          Math.max(0, Number(t.score) || 0) / c.blueprint.denominator,
+        );
+        const result =
+          amount > 0
+            ? applyItemScore(t, -amount, c.group.id, c.key)
+            : { changed: false };
+        if (!result.blocked)
+          t.itemEffect = {
+            ...(t.itemEffect || {}),
+            iceLock: 1,
+            iceRoundsLeftV218: c.blueprint.rounds,
+          };
+      }
+      return true;
+    },
+    mask(c) {
+      state.itemGlobal.blooperUntil = Date.now() + c.blueprint.milliseconds;
+      startBlooperClock();
+      return true;
+    },
+    lightning(c) {
+      c.targets.forEach((t) => applyLightningHitV2116(c.group, t));
+      return true;
+    },
+    status(c) {
+      if (c.group.itemEffect) {
+        showToast("已有持续型状态，当前不能激活新的持续道具");
+        return false;
+      }
+      c.group.itemEffect = {
+        type: c.blueprint.type,
+        ...(c.blueprint.hits
+          ? { hitsLeft: c.blueprint.hits }
+          : { roundsLeft: c.blueprint.rounds }),
+        startedAt: Date.now(),
+      };
+      return true;
+    },
+    dodge(c) {
+      c.group.itemEffect = { ...(c.group.itemEffect || {}), featherDodge: 1 };
+      return true;
+    },
+    overtake(c) {
+      c.group.score = Number(c.targets[0].score) + 1;
+      c.group.displayScore = c.group.score;
+      c.group.itemEffect = null;
+      return true;
+    },
+    steal(c) {
+      const above = c.targets[0];
+      if (!above || !above.inventory?.length) {
+        consumeInventoryItem(c.group, c.index, 1);
+        c.consumed = true;
+        if (
+          !c.group.inventory.some((it) => it.key === "mushroom") &&
+          c.group.inventory.length < 3
+        )
+          c.group.inventory.push(ItemModules.inventory("mushroom"));
+      } else {
+        const ix = above.inventory.length - 1;
+        if (
+          ix === 0 &&
+          above.itemEffect?.type === above.inventory[0]?.key &&
+          ["star", "mega", "power"].includes(above.itemEffect.type)
+        ) {
+          // Compatibility: an occupied persistent slot cannot be stolen; the old
+          // handler still grants timed protection without consuming boo or used stats.
+          c.group.booShield = 1;
+          c.group.booRoundsLeftV218 = 3;
+          c.consumed = true;
+          c.noStats = true;
+          return true;
+        }
+        const stolen = above.inventory.splice(ix, 1)[0];
+        consumeInventoryItem(c.group, c.index, 1);
+        c.consumed = true;
+        c.group.inventory.push(stolen);
+      }
+      c.group.booShield = 1;
+      c.group.booRoundsLeftV218 = 3;
+      return true;
+    },
+  };
+  function run(key, group, index) {
+    const blueprint = ItemBlueprints[key];
+    if (!blueprint) throw Error("道具模块未注册：" + key);
+    const ordered = ranking(),
+      position = ordered.findIndex((g) => g.id === group.id);
+    const context = {
+      key,
+      group,
+      index,
+      blueprint,
+      ranking: ordered,
+      position,
+      others: state.groups.filter(
+        (g) => g.id !== group.id && eligibleForItems(g),
+      ),
+      consumed: false,
+    };
+    context.targets =
+      targets[blueprint.target](context).filter(eligibleForItems);
+    if (!context.targets.length && !blueprint.allowEmpty) {
+      showToast("当前没有可用目标");
+      return false;
+    }
+    const before = snapshotScoresV21732();
+    itemScoreBatchDepthV21732++;
+    try {
+      if (effects[blueprint.effect](context) === false) return false;
+      if (!context.consumed && !blueprint.retain)
+        consumeInventoryItem(group, index, 1);
+      group.itemStats = group.itemStats || {};
+      if (!context.noStats)
+        group.itemStats.used = (Number(group.itemStats.used) || 0) + 1;
+      if (
+        blueprint.continuation &&
+        group.inventory?.[0]?.key === key &&
+        group.inventory[0].charges > 0
+      )
+        group.roundItemContinuationKeyV218 = key;
+      else if (blueprint.continuation)
+        delete group.roundItemContinuationKeyV218;
+      if (blueprint.punishOvertake !== false)
+        detectOvertakePunish(
+          group.id,
+          ordered.map((g) => g.id),
+        );
+      showItemUseFx(
+        key,
+        group.id,
+        context.targets.length
+          ? "目标：" + context.targets.map((g) => g.name).join("、")
+          : "没有可用目标 · 本次已消耗",
+      );
+      showToast(`${group.name} 使用了 ${ITEM_DEFS[key].name}`);
+      return true;
+    } finally {
+      itemScoreBatchDepthV21732 = Math.max(0, itemScoreBatchDepthV21732 - 1);
+      queueItemScoreChangesV21732(before);
+    }
+  }
+  return { run, blueprints: () => ItemBlueprints };
+})();
+</script>
+<script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
+const ItemDrawBlocks = (() => {
+  function pick(group, batchUsed = new Set()) {
+    const config = ItemModules.configuration().items;
+    const held = heldItemKeysV281(group);
+    if (handItemDrawGroupId === group?.id && firstHandDrawPendingV218) {
+      const pool = FIRST_HAND_POOL_V218.filter(
+        (key) =>
+          ITEM_DEFS[key] &&
+          !held.has(key) &&
+          config[key].draw.enabled &&
+          config[key].draw.weight > 0,
+      );
+      firstHandDrawPendingV218 = false;
+      if (pool.length) {
+        const equal = pool.every(
+          (key) => config[key].draw.weight === config[pool[0]].draw.weight,
+        );
+        const key = equal
+          ? pool[Math.floor(Math.random() * pool.length)]
+          : weightedPick(
+              Object.fromEntries(
+                pool.map((key) => [key, config[key].draw.weight]),
+              ),
+            );
+        commitSessionDrawV21710(group, key);
+        return key;
+      }
+    }
+    const leader = rankIndex(group.id) === 0;
+    if (leader && !held.has("horn")) {
+      const weight = config.horn.draw.enabled ? config.horn.draw.weight : 0;
+      const chance = weight ? (0.1 * weight) / (0.9 + 0.1 * weight) : 0;
+      if (Math.random() < chance) {
+        commitSessionDrawV21710(group, "horn");
+        return "horn";
+      }
+    }
+    const before = suppressFirstHornV218;
+    if (leader) suppressFirstHornV218 = true;
+    let weights;
+    try {
+      weights = sessionRestrictedWeightsV21710(group);
+    } finally {
+      suppressFirstHornV218 = before;
+    }
+    let key = weightedPickNoRepeatV281(
+      weights,
+      new Set([...batchUsed, ...held]),
+    );
+    if (!key) key = weightedPickNoRepeatV281(weights, held);
+    if (!key) return null;
+    commitSessionDrawV21710(group, key);
+    return key;
+  }
+  return { pick };
+})();
+</script>
 <script>/* Dependency-injected command lifecycle. No DOM, storage or game rules here. */
 const CommandLifecycle = (() => {
   function create(host) {
@@ -21284,6 +22163,7 @@ function useItem(groupId,index){
   closeItemWindowForFx();
   if(reason){showToast(reason);return false}
   const key=g.inventory[index].key;
+  if(!ItemModules.canUse(key)){showToast('该道具的主动使用积木已关闭');return false;}
   return runClassroomCommand(`${g.name} 使用道具：${ITEM_DEFS[key]?.name||key}`,()=>{
     ensureV2State();
     const beforeValue=itemCommandSnapshot();
@@ -21294,7 +22174,7 @@ function useItem(groupId,index){
       showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
       return true;
     }
-    const result=legacyUseItem(groupId,index);
+    const result=ItemModules.execute(key,()=>ItemOperationBlocks.run(key,g,index));
     if(result===false||itemCommandSnapshot()===beforeValue)return false;
     markItemUsedThisRoundV2177(groupId);
     return true;
@@ -22064,6 +22944,462 @@ const BattleMotion = (() => {
   };
 })();
 </script>
+<script>/* Per-item settings editor. The ItemModules core owns validation and persistence. */
+const ItemModuleSettings = (() => {
+  "use strict";
+  const mounts = new WeakMap();
+  const kinds = {
+    attack: "攻击",
+    boost: "增益",
+    tactic: "战术",
+    status: "持续状态",
+    instant: "即时",
+  };
+  function node(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text !== undefined) el.textContent = text;
+    return el;
+  }
+  function itemIcon(item, className) {
+    const wrapper = node("span", className);
+    if (typeof itemVisual === "function")
+      wrapper.innerHTML = itemVisual(item.key, "im-item-image");
+    else wrapper.textContent = item.icon || "✦";
+    return wrapper;
+  }
+  function button(text, action, className = "btn btn-sm") {
+    const el = node("button", className, text);
+    el.type = "button";
+    el.addEventListener("click", action);
+    return el;
+  }
+  function mount(host) {
+    if (!host || typeof ItemModules === "undefined") return;
+    const existing = mounts.get(host);
+    if (existing) {
+      existing.refresh();
+      return;
+    }
+    const catalog = ItemModules.catalog();
+    let selected = catalog[0]?.key,
+      pipeline = "draw",
+      query = "",
+      busy = false;
+    const shell = node("section", "im-settings"),
+      title = node("div", "im-heading"),
+      actions = node("div", "im-actions"),
+      status = node("p", "im-status", "每个道具独立保存，修改后立即生效。"),
+      layout = node("div", "im-layout"),
+      sidebar = node("div", "im-sidebar"),
+      search = node("input", "im-search"),
+      count = node("p", "im-count"),
+      list = node("div", "im-list"),
+      editor = node("div", "im-editor"),
+      file = node("input");
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    title.append(
+      node("h3", "", "道具模块工作台"),
+      node("p", "im-muted", "逐个配置抽取与操作，两条流程分别控制。"),
+    );
+    search.type = "search";
+    search.placeholder = "搜索道具名称或类型";
+    search.setAttribute("aria-label", "搜索道具");
+    search.addEventListener("input", () => {
+      query = search.value.trim().toLowerCase();
+      renderList();
+    });
+    file.type = "file";
+    file.accept = ".json,application/json";
+    file.hidden = true;
+    file.addEventListener("change", async () => {
+      const picked = file.files?.[0];
+      if (!picked || busy) return;
+      busy = true;
+      try {
+        if (picked.size > 1024 * 1024) throw Error("配置文件不能超过 1 MB");
+        const imported = JSON.parse(await picked.text());
+        ItemModules.update(imported);
+        refresh();
+        announce("已导入全部道具模块配置。");
+      } catch (e) {
+        announce("导入失败，原配置保持不变：" + e.message, true);
+      } finally {
+        busy = false;
+        file.value = "";
+      }
+    });
+    actions.append(
+      button("导出配置", () => {
+        try {
+          const blob = new Blob(
+            [JSON.stringify(ItemModules.configuration(), null, 2)],
+            { type: "application/json" },
+          );
+          const url = URL.createObjectURL(blob),
+            link = node("a");
+          link.href = url;
+          link.download = "godpower-item-modules.json";
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          announce("已导出当前道具配置。");
+        } catch (e) {
+          announce("导出失败：" + e.message, true);
+        }
+      }),
+      button("导入配置", () => {
+        if (!busy) file.click();
+      }),
+      button("恢复全部默认", async () => {
+        if (busy) return;
+        busy = true;
+        try {
+          if (
+            !(await confirmReset(
+              "恢复全部道具的抽取和操作默认设置？建议先导出当前配置。",
+            ))
+          )
+            return;
+          ItemModules.update(ItemModules.defaults());
+          refresh();
+          announce("已恢复全部道具的默认设置。");
+        } catch (e) {
+          announce("恢复失败：" + e.message, true);
+        } finally {
+          busy = false;
+        }
+      }),
+    );
+    sidebar.append(search, count, list);
+    layout.append(sidebar, editor);
+    shell.append(title, actions, status, layout, file);
+    const categoryTitle = host.querySelector(".ui-settings-title");
+    if (categoryTitle) categoryTitle.insertAdjacentElement("afterend", shell);
+    else host.append(shell);
+    function announce(message, error = false) {
+      status.textContent = message;
+      status.classList.toggle("im-error", error);
+    }
+    function metadata(item = {}) {
+      const defs = typeof ITEM_DEFS !== "undefined" ? ITEM_DEFS : {};
+      return { ...item, ...defs[item.key], key: item.key };
+    }
+    function renderList() {
+      const config = ItemModules.configuration();
+      const filtered = catalog
+        .map(metadata)
+        .filter((item) =>
+          [item.name, item.key, kinds[item.kind] || item.kind]
+            .join(" ")
+            .toLowerCase()
+            .includes(query),
+        );
+      count.textContent = `显示 ${filtered.length} / ${catalog.length} 种道具`;
+      list.replaceChildren();
+      for (const item of filtered) {
+        const row = button(
+          "",
+          () => {
+            selected = item.key;
+            refresh();
+          },
+          "im-item",
+        );
+        row.dataset.itemKey = item.key;
+        row.classList.toggle("is-selected", item.key === selected);
+        row.setAttribute("aria-pressed", String(item.key === selected));
+        const enabled = config.items[item.key];
+        row.append(
+          itemIcon(item, "im-item-icon"),
+          node("span", "im-item-name", item.name),
+          node(
+            "small",
+            "im-item-state",
+            `抽取${enabled.draw.enabled ? "开" : "关"} · 操作${enabled.operation.enabled ? "开" : "关"}`,
+          ),
+        );
+        list.append(row);
+      }
+      if (!filtered.length)
+        list.append(
+          node("p", "im-muted im-empty", "没有匹配的道具，请更换关键词。"),
+        );
+    }
+    function saveField(field, value, input) {
+      try {
+        const next = ItemModules.configuration();
+        next.items[selected][pipeline][field] = value;
+        ItemModules.update(next);
+        input.removeAttribute("aria-invalid");
+        renderList();
+        announce(
+          `已保存${metadata(catalog.find((item) => item.key === selected)).name}的${pipeline === "draw" ? "抽取" : "操作"}设置。`,
+        );
+      } catch (e) {
+        if (input.type === "checkbox")
+          input.checked =
+            ItemModules.configuration().items[selected][pipeline][field];
+        input.setAttribute("aria-invalid", "true");
+        announce("保存失败：" + e.message, true);
+      }
+    }
+    function fieldBlock(index, label, help, field, settings, numeric) {
+      const block = node("label", "im-block"),
+        text = node("span", "im-block-copy"),
+        input = node("input");
+      text.append(
+        node("span", "im-block-number", `模块 ${index}`),
+        node("strong", "", label),
+        node("small", "im-muted", help),
+      );
+      input.name = `${selected}.${pipeline}.${field}`;
+      input.setAttribute("aria-label", label);
+      if (numeric) {
+        input.type = "number";
+        input.min = String(numeric.min);
+        input.max = String(numeric.max);
+        input.step = String(numeric.step);
+        input.value = String(settings[field]);
+        input.addEventListener("change", () => {
+          if (input.value.trim() === "" || !input.checkValidity()) {
+            input.setAttribute("aria-invalid", "true");
+            announce(
+              `${label}须为 ${numeric.min}–${numeric.max} 范围内的${numeric.step === 1 ? "整数" : "数值"}。`,
+              true,
+            );
+            return;
+          }
+          saveField(field, Number(input.value), input);
+        });
+      } else {
+        input.type = "checkbox";
+        input.checked = settings[field];
+        input.addEventListener("change", () =>
+          saveField(field, input.checked, input),
+        );
+      }
+      if (numeric) block.append(text, input);
+      else {
+        const toggle = node("span", "v292-switch");
+        const track = node("span", "v292-switch-track");
+        track.setAttribute("aria-hidden", "true");
+        track.append(node("span", "v292-switch-knob"));
+        toggle.append(input, track);
+        block.append(text, toggle);
+      }
+      return block;
+    }
+    function renderEditor() {
+      const item = metadata(catalog.find((entry) => entry.key === selected));
+      if (!item.key) {
+        editor.replaceChildren(node("p", "im-muted", "暂无可配置道具。"));
+        return;
+      }
+      const settings = ItemModules.configuration().items[selected][pipeline],
+        header = node("div", "im-editor-header"),
+        details = node("div"),
+        tabs = node("div", "im-tabs"),
+        panel = node("div", "im-blocks");
+      details.append(
+        node("span", "im-kind", kinds[item.kind] || item.kind || "道具"),
+        node("h3", "", item.name),
+      );
+      header.append(
+        itemIcon(item, "im-editor-icon"),
+        details,
+        button("恢复此道具", async () => {
+          if (busy) return;
+          const key = selected;
+          busy = true;
+          try {
+            if (
+              !(await confirmReset(
+                `恢复「${item.name}」的抽取和操作默认设置？`,
+              ))
+            )
+              return;
+            const next = ItemModules.configuration();
+            next.items[key] = ItemModules.defaults().items[key];
+            ItemModules.update(next);
+            refresh();
+            announce(`已恢复${item.name}的默认设置。`);
+          } catch (e) {
+            announce("恢复失败：" + e.message, true);
+          } finally {
+            busy = false;
+          }
+        }),
+      );
+      tabs.setAttribute("role", "tablist");
+      tabs.setAttribute("aria-label", "道具流程");
+      for (const [key, label] of [
+        ["draw", "抽取流程"],
+        ["operation", "操作流程"],
+      ]) {
+        const tab = button(
+          label,
+          () => {
+            pipeline = key;
+            renderEditor();
+            editor.querySelector('[aria-selected="true"]').focus();
+          },
+          "im-tab",
+        );
+        tab.id = `im-tab-${key}`;
+        tab.setAttribute("role", "tab");
+        tab.setAttribute("aria-selected", String(pipeline === key));
+        tab.setAttribute("aria-controls", "im-pipeline-panel");
+        tab.tabIndex = pipeline === key ? 0 : -1;
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+            return;
+          event.preventDefault();
+          pipeline =
+            event.key === "Home"
+              ? "draw"
+              : event.key === "End"
+                ? "operation"
+                : pipeline === "draw"
+                  ? "operation"
+                  : "draw";
+          renderEditor();
+          editor.querySelector('[aria-selected="true"]').focus();
+        });
+        tabs.append(tab);
+      }
+      panel.id = "im-pipeline-panel";
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", `im-tab-${pipeline}`);
+      if (pipeline === "draw") {
+        panel.append(
+          fieldBlock(
+            1,
+            "允许抽取",
+            "关闭后，此道具不参与随机抽取。已有道具的操作设置独立生效。",
+            "enabled",
+            settings,
+          ),
+          fieldBlock(
+            2,
+            "抽取权重倍率",
+            "默认 1；范围 0–100。0 表示不参与抽取；原有排名与冷却等限制仍然生效。",
+            "weight",
+            settings,
+            { min: 0, max: 100, step: "any" },
+          ),
+          ...(item.blocks?.draw?.includes("charges")
+            ? [
+                fieldBlock(
+                  3,
+                  "新获得道具的次数",
+                  "范围 1–99，仅影响之后新获得的道具，不修改当前道具栏。",
+                  "charges",
+                  settings,
+                  { min: 1, max: 99, step: 1 },
+                ),
+              ]
+            : []),
+        );
+      } else {
+        panel.append(
+          fieldBlock(
+            1,
+            "主动使用",
+            "关闭后禁止主动使用；已有道具的被动防御保留。队列、冻结和模式等原有使用条件仍生效。",
+            "enabled",
+            settings,
+          ),
+          ...(item.blocks?.operation?.includes("score")
+            ? [
+                fieldBlock(
+                  2,
+                  "积分效果倍率",
+                  "默认 1；范围 0–10。仅调整此道具产生的积分效果，不改变状态持续时间与目标规则。",
+                  "scoreMultiplier",
+                  settings,
+                  { min: 0, max: 10, step: "any" },
+                ),
+              ]
+            : []),
+          fieldBlock(
+            3,
+            "发动演出",
+            "控制此道具发动时的动画；不控制音效与持续光环，仍遵循全局动效设置。",
+            "feedback",
+            settings,
+          ),
+        );
+      }
+      const reference = node("details", "im-reference");
+      reference.append(
+        node("summary", "", "查看实际道具说明"),
+        node(
+          "p",
+          "im-muted",
+          item.desc || "此道具的使用条件以当前规则引擎为准。",
+        ),
+      );
+      editor.replaceChildren(
+        header,
+        tabs,
+        node(
+          "p",
+          "im-pipeline-note",
+          pipeline === "draw"
+            ? "进入抽取池 → 权重倍率 → 新获得次数"
+            : item.blocks?.operation?.includes("score")
+              ? "主动使用 → 积分效果 → 发动演出"
+              : "主动使用 → 发动演出",
+        ),
+        panel,
+        reference,
+      );
+      const prefs =
+        typeof DesktopUI !== "undefined" ? DesktopUI.getPreferences() : {};
+      if (
+        prefs.motion !== "off" &&
+        !(
+          prefs.systemMotion &&
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+      )
+        panel.animate(
+          [
+            { opacity: 0, translate: "0 12px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          {
+            duration: 220 / (prefs.speed || 1),
+            easing: "cubic-bezier(.16,1,.3,1)",
+          },
+        );
+    }
+    function refresh() {
+      renderList();
+      renderEditor();
+    }
+    mounts.set(host, { refresh });
+    refresh();
+    if (ItemModules.loadError)
+      announce(
+        "原配置无法读取，当前使用默认值；原存储未覆盖：" +
+          ItemModules.loadError,
+        true,
+      );
+  }
+  async function confirmReset(message) {
+    if (typeof themeConfirm === "function")
+      return themeConfirm(message, { title: "恢复道具默认设置", danger: true });
+    return window.confirm(message);
+  }
+  return { mount };
+})();
+
+globalThis.ItemModuleSettings = ItemModuleSettings;
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -22406,6 +23742,8 @@ const DesktopUI = (() => {
     visualSnapshot = next;
   }
   let dailySignature = "";
+  const dailyOffsets = { knowledge: 0, challenges: 0 };
+  let quizAttempt = { key: "", answer: null, correct: false };
   function renderDaily() {
     const host = $("#uiDailyGrid");
     if (!host) return;
@@ -22418,6 +23756,8 @@ const DesktopUI = (() => {
           preferences.honors,
           preferences.challenge,
           preferences.subject,
+          dailyOffsets.knowledge,
+          dailyOffsets.challenges,
         ]) +
         JSON.stringify(history.map((x) => [x.title, x.champion, x.time])) +
         Object.keys(ITEM_DEFS).length;
@@ -22425,32 +23765,61 @@ const DesktopUI = (() => {
     dailySignature = signature;
     const knowledge = M.daily(
         bank.knowledge.filter((x) => x.subject === preferences.subject),
+        new Date(),
+        dailyOffsets.knowledge,
       ),
       quiz = M.daily(
         bank.challenges.filter((x) => x.subject === preferences.subject),
+        new Date(),
+        dailyOffsets.challenges,
       ),
       keys = Object.keys(ITEM_DEFS),
       key = M.daily(keys),
       item = ITEM_DEFS[key],
       last = history[0],
       winner = last?.groups?.[0];
+    const quizKey = [
+      M.dayIndex(),
+      preferences.subject,
+      dailyOffsets.challenges,
+      quiz?.id,
+    ].join(":");
+    if (quizAttempt.key !== quizKey)
+      quizAttempt = { key: quizKey, answer: null, correct: false };
     let html = "";
     if (preferences.knowledge)
-      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details><button class="btn btn-sm" id="uiNextKnowledge">下一条知识</button>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
     if (preferences.itemTip)
       html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
     if (preferences.honors)
       html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
     if (preferences.challenge)
-      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div><button class="btn btn-sm" id="uiNextChallenge" disabled>答对后下一题</button>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
     host.dataset.cardCount = host.querySelectorAll("article").length;
+    for (const [selector, kind] of [
+      ["#uiNextKnowledge", "knowledge"],
+      ["#uiNextChallenge", "challenges"],
+    ]) {
+      const next = host.querySelector(selector);
+      if (next)
+        next.onclick = () => {
+          dailyOffsets[kind]++;
+          renderDaily();
+        };
+    }
     host.querySelectorAll("[data-quiz-answer]").forEach(
       (b) =>
         (b.onclick = () => {
           b.parentElement
             .querySelectorAll("button")
             .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+          quizAttempt.answer = Number(b.dataset.quizAnswer);
+          quizAttempt.correct ||= quizAttempt.answer === quiz.answer;
+          if (quizAttempt.correct) {
+            host.querySelector("#uiNextChallenge").disabled = false;
+            host.querySelector("#uiNextChallenge").textContent = "下一题";
+          }
           host.querySelector(".ui-quiz-result").textContent =
             (Number(b.dataset.quizAnswer) === quiz.answer
               ? "回答正确。"
@@ -22458,7 +23827,12 @@ const DesktopUI = (() => {
             quiz.explanation;
         }),
     );
+    if (quizAttempt.answer !== null)
+      host
+        .querySelector(`[data-quiz-answer="${quizAttempt.answer}"]`)
+        ?.onclick();
   }
+
   function historyKind(desc = "") {
     return /清零|恢复|撤销|回溯|删除/.test(desc)
       ? ["danger", "shield", "数据与恢复"]
@@ -22812,12 +24186,7 @@ const DesktopUI = (() => {
       downloadJson(bank, "欢迎页审核题库.json");
     $("#uiSaveBank").onclick = () => {
       try {
-        const next = M.validateBank(JSON.parse($("#uiBankEditor").value));
-        localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
-        bank = next;
-        dailySignature = "";
-        refreshSubjects();
-        renderDaily();
+        saveContentBank(JSON.parse($("#uiBankEditor").value));
         $("#uiBankStatus").textContent = "验证成功，题库已保存。";
       } catch (e) {
         $("#uiBankStatus").textContent =
@@ -22835,6 +24204,8 @@ const DesktopUI = (() => {
       try {
         localStorage.removeItem("godpower_ui_bank_v1");
         bank = M.examples;
+        dailyOffsets.knowledge = dailyOffsets.challenges = 0;
+        renderBankEditor();
         $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
         dailySignature = "";
         refreshSubjects();
@@ -22845,7 +24216,136 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
+    const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
+    const structured = document.createElement("div");
+    structured.id = "uiStructuredBank";
+    bankBody.prepend(structured);
+    renderBankEditor();
     selectSettings(activeSettings);
+  }
+  function saveContentBank(candidate) {
+    const next = M.validateBank(candidate);
+    localStorage.setItem("godpower_ui_bank_v1", JSON.stringify(next));
+    bank = next;
+    dailyOffsets.knowledge = dailyOffsets.challenges = 0;
+    dailySignature = "";
+    $("#uiBankEditor").value = JSON.stringify(bank, null, 2);
+    refreshSubjects();
+    renderDaily();
+    renderBankEditor();
+  }
+  function renderBankEditor() {
+    const host = $("#uiStructuredBank");
+    if (!host) return;
+    host.innerHTML = `<p class="ui-muted">知识 ${bank.knowledge.length} 条 · 挑战 ${bank.challenges.length} 条，合计最多 500 条。保存后立即生效，不影响课堂积分。</p><div class="ui-toolbar"><button class="btn" data-bank-add="knowledge">添加知识</button><button class="btn" data-bank-add="challenges">添加挑战</button><label class="btn" for="uiBankFile">导入 JSON 文件</label><input id="uiBankFile" type="file" accept=".json,application/json" aria-label="导入题库 JSON 文件"></div><div id="uiBankForm"></div>${["knowledge", "challenges"].map((kind) => `<section><h4>${kind === "knowledge" ? "知识卡片" : "课堂挑战"}</h4>${bank[kind].length ? bank[kind].map((row, index) => `<div class="ui-settings-row"><div><b>${E(row.title)}</b><p class="ui-muted">${E(row.subject)} · ${E(row.id)}</p></div><div class="ui-toolbar"><button class="btn btn-sm" data-bank-edit="${kind}" data-index="${index}">编辑</button><button class="btn btn-sm btn-danger" data-bank-delete="${kind}" data-index="${index}">删除</button></div></div>`).join("") : '<p class="ui-muted">暂无内容，点击上方按钮添加。</p>'}</section>`).join("")}`;
+    host
+      .querySelectorAll("[data-bank-add]")
+      .forEach(
+        (button) =>
+          (button.onclick = () => editBankRow(button.dataset.bankAdd)),
+      );
+    host
+      .querySelectorAll("[data-bank-edit]")
+      .forEach(
+        (button) =>
+          (button.onclick = () =>
+            editBankRow(button.dataset.bankEdit, Number(button.dataset.index))),
+      );
+    host.querySelectorAll("[data-bank-delete]").forEach(
+      (button) =>
+        (button.onclick = async () => {
+          const kind = button.dataset.bankDelete,
+            index = Number(button.dataset.index),
+            row = bank[kind][index];
+          if (
+            !(await themeConfirm("删除“" + row.title + "”？", {
+              title: "删除题库内容",
+              danger: true,
+            }))
+          )
+            return;
+          try {
+            const next = JSON.parse(JSON.stringify(bank));
+            // Resolve by id after confirmation in case another edit changed ordering.
+            next[kind] = next[kind].filter((value) => value.id !== row.id);
+            saveContentBank(next);
+            $("#uiBankStatus").textContent = "内容已删除。";
+          } catch (error) {
+            $("#uiBankStatus").textContent = "删除失败：" + error.message;
+          }
+        }),
+    );
+    $("#uiBankFile").onchange = async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        if (file.size > 16 * 1024 * 1024) throw Error("文件不能超过 16 MB");
+        saveContentBank(JSON.parse(await file.text()));
+        $("#uiBankStatus").textContent = "文件已验证并导入。";
+      } catch (error) {
+        $("#uiBankStatus").textContent =
+          "未导入，现有题库保持原样：" + error.message;
+        event.target.value = "";
+      }
+    };
+  }
+  function editBankRow(kind, index = -1) {
+    const row =
+      index < 0
+        ? {
+            id: "",
+            subject: preferences.subject,
+            title: "",
+            source: "",
+            options: ["", "", "", ""],
+            answer: 0,
+          }
+        : bank[kind][index];
+    const fields =
+      kind === "knowledge"
+        ? [
+            ["id", "唯一 ID"],
+            ["subject", "学科"],
+            ["title", "知识标题"],
+            ["module", "模块"],
+            ["summary", "知识摘要"],
+            ["mistake", "易错点"],
+            ["detail", "详细解释"],
+            ["source", "来源"],
+          ]
+        : [
+            ["id", "唯一 ID"],
+            ["subject", "学科"],
+            ["title", "题目"],
+            ["source", "来源"],
+            ["explanation", "答案解析"],
+          ];
+    const host = $("#uiBankForm");
+    host.innerHTML = `<form class="ui-panel" id="uiBankRowForm"><h4>${index < 0 ? "添加" : "编辑"}${kind === "knowledge" ? "知识" : "挑战"}</h4>${fields.map(([key, label]) => `<label class="ui-settings-row" for="uiBankField-${key}"><span>${label}</span><textarea class="ui-bank-field" style="width:65%;min-height:44px;resize:vertical" id="uiBankField-${key}" name="${key}" maxlength="10000" ${["id", "subject", "title", "source"].includes(key) ? "required" : ""}>${E(row[key] || "")}</textarea></label>`).join("")}${kind === "challenges" ? row.options.map((value, i) => `<label class="ui-settings-row" for="uiBankOption-${i}"><span>选项 ${"ABCD"[i]}</span><input id="uiBankOption-${i}" name="option${i}" value="${E(value)}" maxlength="10000" required></label>`).join("") + `<label class="ui-settings-row" for="uiBankAnswer"><span>正确答案</span><select id="uiBankAnswer" name="answer">${[0, 1, 2, 3].map((i) => `<option value="${i}" ${row.answer === i ? "selected" : ""}>${"ABCD"[i]}</option>`).join("")}</select></label>` : ""}<div class="ui-toolbar"><button class="btn btn-primary" type="submit">保存内容</button><button class="btn" type="button" id="uiBankCancel">取消</button></div><p id="uiBankFormStatus" role="status"></p></form>`;
+    $("#uiBankCancel").onclick = () => host.replaceChildren();
+    $("#uiBankRowForm").onsubmit = (event) => {
+      event.preventDefault();
+      try {
+        const data = new FormData(event.target),
+          edited = { ...row };
+        fields.forEach(([key]) => (edited[key] = String(data.get(key)).trim()));
+        if (kind === "challenges") {
+          edited.options = [0, 1, 2, 3].map((i) =>
+            String(data.get("option" + i)).trim(),
+          );
+          edited.answer = Number(data.get("answer"));
+        }
+        const next = JSON.parse(JSON.stringify(bank));
+        if (index < 0) next[kind].push(edited);
+        else next[kind][index] = edited;
+        saveContentBank(next);
+        $("#uiBankStatus").textContent = "内容已保存。";
+      } catch (error) {
+        $("#uiBankFormStatus").textContent = "未保存：" + error.message;
+      }
+    };
+    $("#uiBankField-title").focus();
   }
   function organizeSettings(sections, shell) {
     function group(

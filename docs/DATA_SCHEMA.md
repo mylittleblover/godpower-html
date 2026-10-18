@@ -101,3 +101,11 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 ### 分功能按钮声音
 
 22 个新操作键 `fx_ui_button_<action>` 使用原 sounds 表主记录与 `::variant::<UUID>` 候选格式，不升级数据库或改变 BIN。缺少新键时回退原 `fx_ui_click` 自定义声音，再回退合成音；不复制旧资源。动画会话、绘制遮层及分数幽灵节点不持久化，不进入课堂存档。
+
+## 道具积木配置 schemaVersion 1
+
+独立存储键 `godpower_item_modules_v1`，结构 `{schemaVersion:1,items:{[道具key]:{draw:{enabled:boolean,weight:number,charges:integer},operation:{enabled:boolean,scoreMultiplier:number,feedback:boolean}}}}`。26道具都需提供；未知键/字段与未知版本拒绝。weight范围0–100，charges范围1–99（mega/power/boo固定原值），scoreMultiplier范围0–10（不适用道具固定1）。导入先校验再写入，写入成功后才替换内存配置。
+
+新获得且自定义次数的库存可附带 `configuredCharges:1..99`，作为该件库存的次数上限，防止后来调整配置或旧花类修复逻辑截断存量。原无该字段库存继续使用原次数上限。此字段随库存快照、课堂备份和撤销保存，不更改旧存档读取方式。
+
+欢迎页题库仍使用 `godpower_ui_bank_v1` 的 `knowledge`/`challenges` 数组，合计至多500条，单文本字段/选项至多10000字符。ID不可空且全库唯一，学科、标题、来源不可空；选项四项不可空，答案0–3。浏览器文件导入与高级JSON编辑使用同一验证和保存入口。首页手动游标属于会话UI状态，不进入课堂积分存档；刷新后回到自然日默认内容。

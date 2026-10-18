@@ -117,3 +117,38 @@ test("empty standings is a safe display model", () => {
   assert.equal(result.count, 0);
   assert.equal(result.leader, "—");
 });
+
+test("daily offsets are independent of dates and wrap without mutating content", () => {
+  const date = new Date(2026, 9, 16),
+    list = ["a", "b", "c"];
+  assert.equal(M.daily(list, date, 1), list[(M.dayIndex(date) + 1) % 3]);
+  assert.equal(M.daily(list, date, 0), M.daily(list, date));
+  assert.equal(M.daily(list, date, 4), M.daily(list, date, 1));
+});
+for (const mutate of [
+  (b) => b.knowledge.push({ ...b.knowledge[0] }),
+  (b) => (b.knowledge[0].id = " "),
+  (b) => (b.knowledge[0].summary = 10),
+  (b) => (b.knowledge[0].subject = " "),
+  (b) => (b.challenges[0].options[0] = " "),
+  (b) => (b.challenges[0].options[0] = "a".repeat(10001)),
+  (b) => (b.challenges[0].source = " "),
+  (b) =>
+    b.challenges.push(
+      ...Array.from({ length: 500 }, (_, i) => ({
+        ...b.challenges[0],
+        id: "extra" + i,
+      })),
+    ),
+])
+  test(
+    "bank rejects malformed fields and duplicates atomically: " +
+      mutate.toString(),
+    () => {
+      const candidate = JSON.parse(JSON.stringify(M.examples));
+      mutate(candidate);
+      const before = JSON.stringify(candidate);
+      assert.throws(() => M.validateBank(candidate));
+      assert.equal(JSON.stringify(candidate), before);
+    },
+  );

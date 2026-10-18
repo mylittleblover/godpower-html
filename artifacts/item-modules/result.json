@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "viewport": "1920x1080 1x",
+  "checks": [
+    "26 independent configs",
+    "two pipeline settings",
+    "weight save",
+    "coin multiplier",
+    "fire multiplier",
+    "configured charges preserved",
+    "disabled use no state/history change",
+    "all disabled pools empty",
+    "reload persistence"
+  ],
+  "errors": []
+}

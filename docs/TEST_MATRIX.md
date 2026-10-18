@@ -33,3 +33,20 @@
 ## 设置页清查与新UI补齐（e97933d 起点）
 
 当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。
+
+
+## 道具积木与首页内容增量（2026-10-18）
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| 配置、原子保存、UI模型与对比度 | npm test，131项 | PASS |
+| 26道具基础效果 | tests/e2e/rules.mjs | PASS 26 |
+| 默认道具×防御对照 | REFACTOR_BASELINE=d2b1bc9 node tests/e2e/legacy-differential.mjs | PASS 464 |
+| 默认抽取有种子对照 | tests/e2e/item-draw-compatibility.mjs | PASS 448 |
+| 异步防御生命周期 | tests/e2e/defense-command.mjs | PASS 27 |
+| 自定义积木与独立流程 | tests/e2e/item-modules.mjs | PASS |
+| 内容编辑/文件/独立游标/百科 | tests/e2e/welcome-content-editor.mjs | PASS |
+| 14组DOM与截图 | artifacts/item-modules/layout | PASS，1920×1080/1× |
+| 单文件构建/语法/嵌入资源/格式 | npm run build/check/format:check | PASS |
+| file://离线直接打开 | artifacts/item-modules/file-offline.json | BLOCKED：管理策略 |
+| Windows真机/投影/听感 | 无设备证据 | NOT TESTED |

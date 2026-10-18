@@ -145,3 +145,11 @@ WelcomeV2 拥有按时间驱动的连续巡航与有限展示副本；DesktopUI 
 ## 设计整改的所有权（2026-10-18）
 
 主题语义变量归src/style/02.css；首页布局归src/ui/welcome-v2.css；窗口公共表面归application-surfaces.css；六快捷槽与反馈设置归classroom-feedback；窗口动画生命周期归DesktopUI。关闭从当前视觉值开始，遮罩与面板同周期清理，动画不决定业务结果。学号前景色仅由readableTextOnColor负责，不改用户小组颜色。没有新增业务规则包装层或存档字段。
+
+## 道具模块与首页内容（2026-10-18）
+
+公共 `useItem` 经过 Reliability 和 CommandLifecycle，调用 ItemModules 的主动使用配置，再由 `items/catalog.js` 的26条蓝图交给 `items/operation.js`；操作结束后仍由统一事务记录、保存并刷新。目标、效果、消耗、续用和反馈职责分离。攻击是否发生与最终积分数值分离，因此0倍率不会绕过防御。
+
+随机抽取由 `items/draw.js` 独立执行，复用原排名/唯一性/冷却服务，并在独立配置开关与倍率后进行防重复选择和冷却提交。首轮举手与榜首10%喇叭的默认行为保留，修改喇叭倍率只调整其受归一化的专项概率。
+
+`core/item-module-model.js` 不依赖 DOM；运行时存储和通知在 `core/item-modules.js`。设置工作台在 `ui/item-modules.js/css`，不覆盖原设置内容。知识/题库业务模型在 `ui/model.js`，编辑及首页独立游标在 `ui/desktop.js`。旧补丁执行链保留作兼容参照，公共道具操作已不经过该链。

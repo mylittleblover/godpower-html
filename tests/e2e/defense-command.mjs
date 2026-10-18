@@ -9,7 +9,10 @@ const server = createServer(async (_, res) => {
 });
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const browser = await launch();
-const page = await browser.newPage();
+const page = await browser.newPage({
+  viewport: { width: 1920, height: 1080 },
+  deviceScaleFactor: 1,
+});
 const results = [],
   pageErrors = [];
 page.on("pageerror", (e) => pageErrors.push(e.message));
