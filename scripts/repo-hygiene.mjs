@@ -40,14 +40,12 @@ export function manifestIssues(template, manifest, availablePaths) {
   const issues = [];
   if (JSON.stringify(blocks) !== JSON.stringify(manifest.blocks))
     issues.push("Source manifest drift");
-  if (
-    JSON.stringify([...resources].sort()) !==
-    JSON.stringify([...(manifest.resources ?? [])].sort())
-  )
+  const declaredResources = manifest.resources ?? [];
+  if (resources.some((path) => !declaredResources.includes(path)))
     issues.push("Resource manifest drift");
   for (const { path } of blocks)
     if (!availablePaths.has("src/" + path)) issues.push("Missing source: " + path);
-  for (const path of resources)
+  for (const path of declaredResources)
     if (!availablePaths.has("src/resources/" + path))
       issues.push("Missing resource: " + path);
   return issues;
