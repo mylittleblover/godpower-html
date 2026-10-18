@@ -1,0 +1,334 @@
+{
+  "sha256": "fb805cd1c5c07de0ccce88488c34b44eee711f3cb9223d62eefbaa440e74b500",
+  "results": [
+    {
+      "name": "Shared six slots across all five scoring windows and persistent setting edit",
+      "status": "PASS",
+      "evidence": {
+        "schemaVersion": 1,
+        "slots": [
+          7,
+          6,
+          9,
+          -3,
+          -6,
+          -9
+        ],
+        "pickEffects": false,
+        "scoreEffects": false,
+        "style": "aurora",
+        "duration": 1800,
+        "clickEnabled": true,
+        "clickVolume": 0.45
+      }
+    },
+    {
+      "name": "Slot invalid input cannot replace saved values",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual group slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual modal slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual hand slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Manual hand score and invalid/locked commands: effects only on successful change",
+      "status": "PASS"
+    },
+    {
+      "name": "Slot individual: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "PASS",
+      "evidence": {
+        "chosen": "{\"group\":{\"id\":2,\"name\":\"测试 2 组\",\"color\":\"#2F7DD1\",\"score\":140,\"displayScore\":140,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"02 同学\",\"2 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":2,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false},\"memberName\":\"02 同学\",\"key\":\"2__02 同学\"}",
+        "transforms": [
+          "matrix(1, 0, 0, 1, 0, -0.08232)"
+        ],
+        "history": 0
+      }
+    },
+    {
+      "name": "Slot group: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "PASS",
+      "evidence": {
+        "chosen": "{\"id\":3,\"name\":\"测试 3 组\",\"color\":\"#2F7DD1\",\"score\":180,\"displayScore\":180,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"03 同学\",\"3 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":3,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false}",
+        "transforms": [
+          "matrix(1, 0, 0, 1, 0, -212.384)"
+        ],
+        "history": 0
+      }
+    },
+    {
+      "name": "Slot two_tier: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "PASS",
+      "evidence": {
+        "chosen": "{\"group\":{\"id\":1,\"name\":\"测试 1 组\",\"color\":\"#2F7DD1\",\"score\":100,\"displayScore\":100,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"01 同学\",\"1 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":1,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false},\"memberName\":\"1 甲\",\"key\":\"1__1 甲\"}",
+        "transforms": [
+          "matrix(1, 0, 0, 1, 0, 0)",
+          "matrix(1, 0, 0, 1, 0, 0)"
+        ],
+        "history": 0
+      }
+    },
+    {
+      "name": "Effect off, reduced motion and page/undo interruptions clean overlays",
+      "status": "PASS"
+    },
+    {
+      "name": "Settings and full-screen bounds 1366",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 1366,
+        "height": 768
+      }
+    },
+    {
+      "name": "Settings and full-screen bounds 1920",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "name": "Settings and full-screen bounds 2560",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    {
+      "name": "Every active sound slot has custom upload wiring and uploaded samples are played",
+      "status": "PASS",
+      "evidence": [
+        {
+          "id": "score_add",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "score_sub",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "pk_correct",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "allin_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "allin_lose",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "big_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "rewind",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "ui_click",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_tick",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_loop",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_start",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_tick",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_reveal",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_defend",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_green",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_green",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_red",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_red",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_spiny",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_banana",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_banana",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_horn",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_bomb",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_hammer",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_coin",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_coin_shell",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_question",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_mushroom",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_mushroom",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_boo",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_blooper",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_lightning",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_star",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_mega",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_bullet",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_power",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_feather",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_fire_flower",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_ice_flower",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_boomerang_flower",
+          "played": true,
+          "listed": true
+        }
+      ]
+    },
+    {
+      "name": "Global pointer and keyboard clicks use custom click sound once; disable suppresses it",
+      "status": "PASS",
+      "evidence": {
+        "first": 1,
+        "after": 1
+      }
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,35 @@
+
+> godpower-html@2.19.0 test:classroom-feedback
+> node tests/e2e/classroom-feedback.mjs && node tests/e2e/audio-customization.mjs && node tests/e2e/multiple-audio.mjs && node tests/e2e/classroom-feedback-layout.mjs && node tests/e2e/classroom-feedback-restore.mjs && node tests/e2e/settings-behavior-alignment.mjs
+
+PASS Shared six slots across all five scoring windows and persistent setting edit
+PASS Slot invalid input cannot replace saved values
+PASS Actual group slot scores once; green/red full-screen and undo
+PASS Actual modal slot scores once; green/red full-screen and undo
+PASS Actual hand slot scores once; green/red full-screen and undo
+PASS Manual hand score and invalid/locked commands: effects only on successful change
+PASS Slot individual: actual vertical motion, continuous handoff and unchanged winner
+PASS Slot group: actual vertical motion, continuous handoff and unchanged winner
+PASS Slot two_tier: actual vertical motion, continuous handoff and unchanged winner
+PASS Effect off, reduced motion and page/undo interruptions clean overlays
+PASS Settings and full-screen bounds 1366
+PASS Settings and full-screen bounds 1920
+PASS Settings and full-screen bounds 2560
+PASS Every active sound slot has custom upload wiring and uploaded samples are played
+PASS Global pointer and keyboard clicks use custom click sound once; disable suppresses it
+PASS Real WAV input uploads to custom button click slot and persists in IndexedDB
+PASS Actual mouse and keyboard clicks each play one uploaded sample; opt-out and master mute work
+PASS Concurrent file reads cannot cross-write another sound slot
+PASS Storage abort keeps old uploaded audio on disk and explicitly warns unsaved
+PASS Corrupt audio preserves existing decoded custom slot
+PASS Default loop preview produces a fallback sound when no upload exists
+PASS Multiple WAV upload keeps legacy primary and appends two persistent candidates
+PASS Actual playback randomly selects exactly one sample without consuming game Math.random
+PASS Real reload restores primary, candidate count and filenames
+PASS Audio BIN export and import preserve all choices and old primary format
+PASS Per-item and looping sounds share selection; removing one candidate preserves others
+PASS Failed restore transaction retains the primary and remaining candidate
+[{"width":1366,"height":768,"zoom":0.8,"rect":{"x":0,"y":0,"width":1366,"height":768}},{"width":1366,"height":768,"zoom":1,"rect":{"x":0,"y":0,"width":1366,"height":768}},{"width":1366,"height":768,"zoom":1.25,"rect":{"x":0,"y":0,"width":1366,"height":768}},{"width":1920,"height":1080,"zoom":0.8,"rect":{"x":0,"y":0,"width":1920,"height":1080}},{"width":1920,"height":1080,"zoom":1,"rect":{"x":0,"y":0,"width":1920,"height":1080}},{"width":1920,"height":1080,"zoom":1.25,"rect":{"x":0,"y":0,"width":1920,"height":1080}},{"width":2560,"height":1440,"zoom":0.8,"rect":{"x":0,"y":0,"width":2560,"height":1440}},{"width":2560,"height":1440,"zoom":1,"rect":{"x":0,"y":0,"width":2560,"height":1440}},{"width":2560,"height":1440,"zoom":1.25,"rect":{"x":0,"y":0,"width":2560,"height":1440}}]
+PASS reload preferences
+PASS corrupt preference isolation
+PASS 9 desktop/zoom alignment and skip checks; keyboard toggle; no page errors

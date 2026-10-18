@@ -1,0 +1,7 @@
+src/ui/welcome-v2.js 123ms
+src/ui/welcome-v2.css 115ms
+src/ui/desktop.js 148ms
+tests/e2e/welcome-v2-completion.mjs 51ms
+tests/e2e/welcome-v2-baseline.mjs 10ms
+tests/e2e/welcome-v2-layout.mjs 2ms
+tests/fixtures/browser.mjs 8ms

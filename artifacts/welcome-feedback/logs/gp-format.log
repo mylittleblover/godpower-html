@@ -1,0 +1,10 @@
+src/ui/desktop.js 806ms
+src/ui/desktop.css 223ms (unchanged)
+src/ui/welcome-v2.js 53ms
+src/ui/welcome-v2.css 87ms
+src/ui/application-surfaces.css 61ms (unchanged)
+tests/e2e/welcome-feedback.mjs 35ms
+tests/e2e/motion-unification.mjs 24ms
+tests/e2e/desktop-interactions.mjs 31ms
+tests/e2e/desktop-modal-matrix.mjs 10ms
+tests/e2e/welcome-v2-completion.mjs 36ms

@@ -1,0 +1,37 @@
+✖ production template contains no empty legacy scripts (1524.496226ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2658.304052
+
+✖ failing tests:
+
+test at tests/unit/empty-source-blocks.test.mjs:5:1
+✖ production template contains no empty legacy scripts (1524.496226ms)
+  AssertionError [ERR_ASSERTION]: Remove empty source blocks and synchronize the manifest
+  + actual - expected
+  
+  + [
+  +   '25.js',
+  +   '26.js',
+  +   '29.js',
+  +   '33.js'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/empty-source-blocks.test.mjs:8:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ '25.js', '26.js', '29.js', '33.js' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

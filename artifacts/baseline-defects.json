@@ -1,0 +1,61 @@
+[
+  {
+    "name": "archive quota failure",
+    "actual": {
+      "scores": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "archive": null
+    }
+  },
+  {
+    "name": "secondary flower bypass",
+    "actual": {
+      "scores": [
+        100,
+        140,
+        180,
+        165
+      ],
+      "inventory": [
+        {
+          "key": "coin",
+          "charges": 1,
+          "acquiredAt": 1792163111612
+        },
+        {
+          "key": "fire_flower",
+          "charges": 2,
+          "acquiredAt": 1792163111613
+        }
+      ]
+    }
+  },
+  {
+    "name": "flower undo and All In",
+    "actual": {
+      "allInAfterUse": true,
+      "undoRestores": false
+    }
+  },
+  {
+    "name": "new fields normalization",
+    "actual": {}
+  },
+  {
+    "name": "repeated settlement statistics",
+    "actual": {
+      "before": 1,
+      "after": 2
+    }
+  },
+  {
+    "name": "group name injection",
+    "actual": {
+      "injectedImages": 1
+    }
+  }
+]

@@ -1,0 +1,24 @@
+
+> godpower-html@2.19.0 test:surfaces
+> node tests/e2e/visual-unification.mjs
+
+FAIL Startup: five actual tab animations descend with increasing delays; skip cancels and restores controls Expected values to be strictly equal:
+
+0 !== 5
+
+PASS Startup motion-off creates no tab animation and leaves all tabs usable
+{ pass: 1, fail: 1, errors: [] }
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.goto: Timeout 15000ms exceeded.
+Call log:
+[2m  - navigating to "http://127.0.0.1:42513/", waiting until "domcontentloaded"[22m
+
+    at open (/workspace/godpower-html/tests/e2e/visual-unification.mjs:36:11)
+    at async file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:107:22 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

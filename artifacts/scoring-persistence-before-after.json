@@ -1,0 +1,169 @@
+{
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "version": "before",
+      "failure": "quota",
+      "actual": {
+        "scores": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "display": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "correct": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "evaluated": false,
+        "history": 0,
+        "warning": false,
+        "toast": "操作未完成，已回滚，请导出备份：test full"
+      },
+      "errors": [],
+      "status": "REPRODUCED"
+    },
+    {
+      "version": "before",
+      "failure": "startup-denied",
+      "actual": {
+        "scores": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "display": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "correct": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "evaluated": false,
+        "history": 0,
+        "warning": false,
+        "toast": "操作未完成，已回滚，请导出备份：需要先恢复主存档"
+      },
+      "errors": [],
+      "status": "REPRODUCED"
+    },
+    {
+      "version": "after",
+      "failure": "none",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": false,
+        "toast": "未检测到战斗音频：已静音启动（0.05s 跳过加载）",
+        "result": {
+          "ok": true,
+          "persisted": true
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "version": "after",
+      "failure": "quota",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": true,
+        "toast": "更改仅保存在本页。关闭或刷新前请导出备份。",
+        "result": {
+          "ok": true,
+          "persisted": false,
+          "error": "test full"
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "version": "after",
+      "failure": "startup-denied",
+      "actual": {
+        "scores": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "display": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "correct": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "evaluated": true,
+        "history": 1,
+        "warning": true,
+        "toast": "未检测到战斗音频：已静音启动（0.05s 跳过加载）",
+        "result": {
+          "ok": true,
+          "persisted": false,
+          "error": "storage denied"
+        }
+      },
+      "errors": [],
+      "status": "PASS"
+    }
+  ]
+}

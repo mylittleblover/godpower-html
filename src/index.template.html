@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上帝的力量 V2.19.0</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
+
+  <style>@@SOURCE:style/00.css@@</style>
+<style>@@SOURCE:style/01.css@@</style>
+
+
+
+
+<style id="modernFlatV217Style">@@SOURCE:style/02.css@@</style>
+
+
+<style id="v2161Fixes">@@SOURCE:style/03.css@@</style>
+
+
+<style id="v2162DrawAndMaskFix">@@SOURCE:style/04.css@@</style>
+
+
+<style id="v2163RoulettePositionFix">@@SOURCE:style/05.css@@</style>
+
+
+<style id="v2170EncyclopediaStyle">@@SOURCE:style/06.css@@</style>
+
+
+<style id="v2172ItemDataStyle">@@SOURCE:style/07.css@@</style>
+
+
+<style id="v2174PerItemSoundStyle">@@SOURCE:style/08.css@@</style>
+
+
+<style id="v2175FxBinStyle">@@SOURCE:style/09.css@@</style>
+
+
+<style id="v2177RoundItemUseLimitStyle">@@SOURCE:style/10.css@@</style>
+
+
+<style id="v2179CooldownStyle">@@SOURCE:style/11.css@@</style>
+
+
+<style id="v21712FastItemFlowStyle">@@SOURCE:style/12.css@@</style>
+
+
+<style id="v21714QuickBarBottomStyle">@@SOURCE:style/13.css@@</style>
+
+
+<style id="v21716GroupPaletteStyle">@@SOURCE:style/14.css@@</style>
+
+<style id="v21719FlatUiConsistencyFix">@@SOURCE:style/15.css@@</style>
+
+
+<style id="v21721BattleRankPreviewStyle">@@SOURCE:style/16.css@@</style>
+
+
+<style id="v21727ThemeDialogStyle">@@SOURCE:style/17.css@@</style>
+
+
+<style id="v21730ItemScoreFxStyle">@@SOURCE:style/18.css@@</style>
+
+
+<style id="v21735TopNoticeStackStyle">@@SOURCE:style/19.css@@</style>
+
+
+<style id="v2180PlanStyle">@@SOURCE:style/20.css@@</style>
+
+<style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
+<style id="application-surfaces">@@SOURCE:ui/application-surfaces.css@@</style>
+<style id="classroom-feedback-style">@@SOURCE:ui/classroom-feedback.css@@</style>
+<style id="battle-motion-style">@@SOURCE:ui/battle-motion.css@@</style>
+<style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
+</head>
+<body class="modern-flat-v217">
+
+<div class="header-banner app-topnav">
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V2.19.0</small></span></div>
+  <div class="nav-tabs" role="tablist">
+    <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
+    <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
+    <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
+    <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
+    <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
+  </div>
+  <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
+</div>
+
+<div class="gp-intro active" id="gpIntro" role="dialog" aria-modal="true" aria-label="滑动解锁进入上帝的力量">
+  <div class="gp-intro-backdrop"></div>
+  <div class="gp-intro-stage">
+    <div class="gp-intro-logo" id="gpIntroLogo">@@SOURCE:ui/brand.svg@@</div>
+    <h2 class="gp-intro-title" id="gpIntroTitle">上帝的力量</h2>
+    <p class="gp-intro-caption">KNOWLEDGE IS POWER</p>
+    <div class="gp-slider" id="gpSlideTrack" role="slider" tabindex="0" aria-label="向右滑动解锁" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="gp-slider-fill" id="gpSlideFill"></div>
+      <span class="gp-slider-hint">向右滑动，开启课堂 →</span>
+      <span class="gp-slider-knob" id="gpSlideKnob" aria-hidden="true">›</span>
+    </div>
+  </div>
+  <button id="gpIntroSkip" class="gp-intro-skip ui-cinematic-skip" type="button">跳过动画，进入首页</button>
+</div>
+<!-- ===== 视图：欢迎界面 ===== -->
+<div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
+  <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
+  <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
+</div>
+<div id="view-welcome" class="view active">
+  <main class="ui-page gp-home" aria-label="上帝的力量首页">
+    <section class="gp-hero gp-reveal" aria-label="欢迎与快捷操作">
+      <div class="gp-hero-copy">
+        <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
+        <h1>课堂竞技，<em>一目了然。</em></h1>
+        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <div class="gp-actions">
+          <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
+          <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>
+        </div>
+      </div>
+      <aside class="gp-hero-status" aria-label="当前课堂信息">
+        <div class="gp-status-top"><span>今日课堂</span><span class="gp-live-pill">● 已就绪</span></div>
+        <div class="gp-hero-clock" id="welcomeClock">--:--:--</div>
+        <div class="gp-hero-date" id="welcomeDate">正在读取日期</div>
+        <div class="gp-status-separator"></div>
+        <div class="gp-status-foot">参赛小组 <strong id="gpHeroCount">0 组</strong></div>
+      </aside>
+    </section>
+
+    <section class="gp-kpis gp-reveal" aria-label="班级概览">
+      <article class="gp-kpi"><div><span>参赛小组</span><strong id="wGroupCount" class="w-stat-num">0</strong><small>个小组在这里集结</small></div><span class="gp-kpi-icon">◈</span></article>
+      <article class="gp-kpi"><div><span>班级总积分</span><strong id="wTotalScore" class="w-stat-num gp-kpi-number">0</strong><small>累计课堂竞技积分</small></div><span class="gp-kpi-icon gp-gold">✦</span></article>
+      <article class="gp-kpi"><div><span>最高小组积分</span><strong id="wMaxScore" class="w-stat-num gp-kpi-number">0</strong><small>当前小组最佳成绩</small></div><span class="gp-kpi-icon gp-blue">↑</span></article>
+      <article class="gp-kpi"><div><span>当前领跑</span><strong id="wLeaderName" class="w-stat-num">暂无</strong><small>积分排名实时计算</small></div><span class="gp-kpi-icon gp-purple">★</span></article>
+    </section>
+
+    <div class="gp-section-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>赛场实时总览</h2><small>LIVE DASHBOARD</small></div><span>当前比分与最近操作，打开首页即刻可见</span></div>
+    <section class="gp-main-grid gp-reveal" aria-label="实时竞技数据">
+      <article class="gp-panel gp-rank-panel">
+        <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
+        <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
+        <div class="gp-rank-list" id="gpRankList" tabindex="0" role="list" aria-label="实时小组排名" aria-live="polite"></div>
+        <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
+      </article>
+      <article class="gp-panel gp-feed-panel">
+        <div class="gp-panel-title"><div><strong>最近赛场动态</strong><small>真实课堂操作记录</small></div><span class="gp-panel-tag gp-soft-tag">实时同步</span></div>
+        <div class="gp-match-status"><span class="gp-status-orb"></span><div><strong id="gpRoundTitle">赛场准备就绪</strong><small id="gpRoundDetail">等待开始新一轮课堂竞技</small></div><button type="button" onclick="switchView('battle')">前往赛场 ↗</button></div>
+        <div class="gp-feed-list" id="gpFeedList"></div>
+        <div class="gp-panel-footer"><span>操作快照可在历史页面查看</span><button type="button" onclick="switchView('history')">完整历史 →</button></div>
+      </article>
+    </section>
+
+    <section class="gp-group-section gp-reveal" aria-label="小组积分浏览">
+      <div class="gp-group-head"><div><h2>小组竞技场</h2><span class="gp-group-live" id="gpCruiseStatus">手动浏览</span><p>默认手动浏览 · 可开启自动巡航 · 点击卡片查看详情</p></div>
+        <div class="ui-scroll-buttons"><button id="gpCruiseToggle" type="button" aria-pressed="false">开启自动巡航</button><button id="uiGroupPrev" type="button" aria-label="向左浏览小组">←</button><button id="uiGroupNext" type="button" aria-label="向右浏览小组">→</button></div>
+      </div>
+      <div id="uiGroupTrack" class="ui-group-track gp-compact-track"></div>
+    </section>
+
+    <div class="gp-section-heading gp-bottom-heading gp-reveal"><div><span class="gp-heading-bar"></span><h2>今日精选</h2><small>DAILY DISCOVERIES</small></div><span>一点知识，一点灵感，留给课堂的闲暇时光</span></div>
+    <section id="uiDailyGrid" class="ui-daily-grid gp-daily-grid gp-reveal" aria-label="每日课堂内容"></section>
+    <section class="gp-existing-metrics" aria-label="现有统计数据" hidden>
+      <div id="metricAnswered"></div><div id="metricAllIn"></div><div id="metricAvg"></div>
+      <div id="chartWrapper"></div><div id="podiumDeck"></div><div id="welcomePodiumDeck"></div>
+    </section>
+    <button id="uiSkipWelcome" type="button" hidden>取消装饰动效</button>
+    <div class="gp-footnote">上帝的力量 · 让每一次参与都有力量</div>
+  </main>
+</div>
+
+<div id="view-battle" class="view">
+<div class="main-viewport battle-main-v216">
+  <div id="heightResizerDock" class="height-resizer-dock battle-rank-dock-v21721" style="display: none; height: 120px;">
+    <div class="battle-rank-preview-v21721">
+      <div class="battle-rank-preview-head-v21721">
+        <span class="battle-rank-preview-title-v21721">🏁 当前排名</span>
+        <span class="battle-rank-preview-note-v21721">卡片保持按编号排列</span>
+      </div>
+      <div id="battleRankPreviewGridV21721" class="battle-rank-preview-grid-v21721"></div>
+    </div>
+    <div class="resizer-handle" id="resizerHandle" title="按住上下拖拽调整排名预览高度">
+      <span>上下拖拽调整排名预览高度 (大屏友好)</span>
+    </div>
+  </div>
+
+  <div id="groupList" class="group-list"></div>
+
+  <!-- 快速操作栏：V2.17.14 移到小组卡片下方 -->
+  <div id="quickBatchBar" class="quick-batch-bar quick-batch-bar-bottom-v21714">
+    <div class="batch-bar-title">⚡ 批量偷懒区</div>
+    <div class="batch-buttons-group">
+      <button class="batch-opt-btn" onclick="batchSelectOption('A')">全员选 A</button>
+      <button class="batch-opt-btn" onclick="batchSelectOption('B')">全员选 B</button>
+      <button class="batch-opt-btn" onclick="batchSelectOption('C')">全员选 C</button>
+      <button class="batch-opt-btn" onclick="batchSelectOption('D')">全员选 D</button>
+      <button class="batch-allin-btn" id="batchAllInToggleBtn" onclick="batchToggleAllIn()">全员 All In 开关</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div id="memberSearchBackdrop" class="member-search-backdrop" onclick="closeMemberSearchModal()">
+  <div class="member-search-card ui-function-surface" onclick="event.stopPropagation()">
+    <div class="member-search-title">😎 人肉搜索（文明版）</div>
+    <div class="member-search-subtitle">输入姓名或学号。放心，只查课堂名单，不顺着网线考古。</div>
+    <div class="member-search-input-row">
+      <input type="text" id="memberSearchInput" class="member-search-input"
+        placeholder="输入姓名或学号" autocomplete="off"
+        oninput="searchMemberGroups()" onkeydown="handleMemberSearchKey(event)">
+      <button type="button" class="btn btn-primary" onclick="searchMemberGroups()">查询</button>
+    </div>
+    <div id="memberSearchResults" class="member-search-results">
+      <div class="member-search-empty">输点姓名或学号吧，读心术模块还没获批。</div>
+    </div>
+  </div>
+</div>
+
+<div id="audioHintBar" class="audio-hint-bar" style="display:none;">点击任意位置开启课堂音乐</div>
+
+<div id="itemModalBackdrop" class="item-modal-backdrop" onclick="closeItemWindow()">
+  <div class="item-window ui-function-surface" onclick="event.stopPropagation()">
+    <aside class="item-side"><div class="item-side-title">小组后台</div>
+      <button class="item-tab active" data-item-tab="detail" onclick="switchItemTab('detail')">📋 小组档案</button>
+      <button class="item-tab" data-item-tab="items" onclick="switchItemTab('items')">🎁 道具仓库</button>
+      <button class="item-tab" data-item-tab="score" onclick="switchItemTab('score')">➕ 直接改分</button>
+    </aside>
+    <main class="item-main"><div class="item-main-head"><h3 id="itemWindowTitle">小组</h3><button class="item-close" onclick="closeItemWindow()">×</button></div><div id="itemWindowBody"></div></main>
+  </div>
+</div>
+</div>
+<div id="squidVeil" class="squid-veil"></div>
+
+<div class="bottom-dock">
+  <div class="dock-left">
+    <div id="roundStatusBadge" class="status-badge">答题未开始</div>
+    <div class="ui-dock-answers" role="group" aria-label="本题正确答案">
+      <span style="font-size:13px; color:#64748b; font-weight:700;">正解:</span>
+      <button class="ans-btn" onclick="setCorrectAns('A')">A</button>
+      <button class="ans-btn" onclick="setCorrectAns('B')">B</button>
+      <button class="ans-btn" onclick="setCorrectAns('C')">C</button>
+      <button class="ans-btn" onclick="setCorrectAns('D')">D</button>
+    </div>
+    <button id="btnMainAction" class="btn btn-primary" onclick="handleMainAction()">开始答题</button>
+    <button id="btnNextRound" class="btn btn-success locked-disabled" onclick="nextRound()">下一题</button>
+    <button id="btnForceEnd" class="btn btn-warning locked-disabled" onclick="forceEndRound()">强制结束</button>
+    <button id="btnFinalSettlement" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: 800; border: 1px solid #b45309;" onclick="triggerFinalSettlement()">🏆 封神榜</button>
+  </div>
+
+  <div class="dock-right">
+    <button class="icon-btn item-global-btn" onclick="globalItemDraw()" title="全局道具抽取">🎁</button>
+    <button class="icon-btn" onclick="openHandRaise()" title="举手办案处">✋</button>
+    <button class="icon-btn" onclick="openPickerModal()" title="天选之人">🎰</button>
+    <button class="icon-btn" onclick="openAbout()" title="规则与冷知识">ⓘ</button>
+    <button class="icon-btn" onclick="openMemberSearchModal()" title="人肉搜索（文明版）">😎</button>
+    <button class="icon-btn" id="btnUndo" onclick="undoLast()" title="撤销上一步">↩️</button>
+    <button class="icon-btn" id="lockBtn" onclick="toggleLock()" title="上帝模式">🔒</button>
+    <button class="icon-btn" onclick="addGroup()" title="增加小组">➕</button>
+    <button class="icon-btn zoom-in" onclick="zoomIn()" title="放大视图 (绿色)">🔍⁺</button>
+    <button class="icon-btn zoom-out" onclick="zoomOut()" title="缩小视图 (红色)">🔍⁻</button>
+    <button class="icon-btn zoom-reset" onclick="zoomReset()" title="复位默认比例 (黄色)">🔍↺</button>
+  </div>
+</div>
+
+<!-- 最终结算盛大全屏表彰卡 -->
+<div id="grandModalOverlay" class="grand-modal-overlay">
+  <canvas id="confettiCanvas"></canvas>
+  <div class="grand-card ui-function-surface">
+    <div class="ui-eyebrow">完整归档已保存 · 课堂竞技荣誉</div>
+    <div class="grand-trophy">🏆</div>
+    <div class="grand-title" id="grandModalTitle">封神榜正式开奖</div>
+    <p style="color:#64748b; font-size:14px; margin-bottom: 16px;" id="grandModalSubTitle">完整档案与最终排名已封存，当前课堂已按原规则初始化。新一届的荣誉，等待下一次登场。</p>
+    <div class="podium-deck" id="grandPodiumDeck" style="margin-bottom: 20px;"></div>
+    <div style="display: flex; justify-content: center; gap: 10px;">
+      <button class="btn btn-primary" onclick="switchView('archives'); closeGrandSettlementModal();">查看完整档案 · 去档案馆翻案</button>
+
+    </div>
+  </div>
+  <button class="btn ui-cinematic-skip" onclick="closeGrandSettlementModal()">跳过庆祝，返回课堂</button>
+</div>
+
+<!-- 最终结算强制日期命名确认弹窗 -->
+<div id="settlementNameModal" class="modal-overlay">
+  <div class="modal-box ui-function-surface">
+    <h3 style="color:#b45309; display:flex; align-items:center; gap:8px;">🏆 封神榜封存确认</h3>
+    <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
+      这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
+    </p>
+    <p id="uiSettlementStatus" class="ui-muted" role="status">先完整归档，保存成功后才会清零。</p>
+    <input type="text" id="settlementNameInput" aria-label="档案名称" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
+    <div class="modal-actions">
+      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeSettlementNameModal()">取消</button>
+      <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="DesktopUI.settleFromUI(this)">封存并清零</button>
+    </div>
+  </div>
+</div>
+
+<!-- 结算档案处弹窗 -->
+<div id="view-archives" class="view">
+  <div class="ui-collection-header">
+    <div>
+      <span class="ui-settings-eyebrow">CLASSROOM ARCHIVE · 历届荣誉</span><h2>封神榜 · 课堂历届竞技档案馆</h2>
+      <div class="ui-collection-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
+    </div>
+    <div class="settings-toolbar">
+      <button class="btn btn-sm btn-primary" onclick="exportLatestSettlementCSV()">导出最近完整档案 (.csv)</button>
+    </div>
+  </div>
+  <div class="ui-collection-body">
+    <section id="archiveClassStats" class="archive-class-stats" aria-label="课堂累计统计"></section>
+    <div class="ui-archive-filter" aria-label="查找与整理档案"><label class="ui-archive-search"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5" stroke-linecap="round"/></svg><input id="uiArchiveSearch" type="search" aria-label="搜索比赛、冠军或小组" placeholder="搜索比赛、冠军或小组"></label><div class="ui-archive-sort"><label for="uiArchiveSort">排列方式</label><select id="uiArchiveSort" aria-label="档案排序"><option value="new">原始顺序 · 最近优先</option><option value="old">较早归档优先</option><option value="score">冠军积分优先</option></select></div><span id="uiArchiveCount" class="ui-record-count"></span></div>
+    <div id="settlementHistoryContainer" class="history-list archives-list"></div>
+  </div>
+</div>
+
+<!-- 独立加减分与赋分大弹窗 -->
+<div id="scoreModalBackdrop" class="score-modal-backdrop" onclick="closeScoreModal()">
+  <div class="score-modal-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle" onclick="event.stopPropagation()">
+    <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
+    <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
+    <div data-score-slots="modal" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
+    <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" aria-label="自定义整数分值" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
+    <div class="score-modal-error" id="scoreModalError"></div>
+    <div class="score-modal-actions">
+      <button class="btn score-modal-cancel" onclick="closeScoreModal()">取消</button>
+      <button class="btn btn-primary" onclick="submitModalCustomScore()">确定赋分</button>
+    </div>
+  </div>
+</div>
+
+<!-- 初始化加载进度条遮罩层 -->
+<div id="initProgressOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:16px; color:#fff;">
+  <div id="initProgressText" style="font-size:20px; font-weight:bold;">正在初始化...</div>
+  <div style="width:300px; background:#475569; border-radius:8px; height:14px; overflow:hidden; border:1px solid #94a3b8;">
+    <div id="initProgressFill" style="width:0%; height:100%; background:#0284c7; transition:width 0.2s ease;"></div>
+  </div>
+</div>
+
+<!-- 模态弹窗区 -->
+<div id="pwdModal" class="modal-overlay">
+  <div class="modal-box ui-function-surface">
+    <h3>🔒 神迹认证处</h3>
+    <p style="font-size: 13px; color: #64748b;">想改现实之前，先证明你确实有权限。密码可在设置里修改；这只是防手滑，不是五角大楼门禁。</p>
+    <input type="password" id="pwdInput" aria-label="管理口令" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
+    <div class="modal-actions">
+      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closePwdModal()">取消</button>
+      <button class="btn btn-primary" onclick="submitPassword()">批准神迹</button>
+    </div>
+  </div>
+</div>
+
+<div id="view-history" class="view">
+  <div class="ui-collection-header">
+    <div>
+      <span class="ui-settings-eyebrow">CLASSROOM JOURNAL · 操作与回溯</span><h2>后悔药仓库 <small>操作历史与回溯</small></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <div class="ui-collection-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
+    </div>
+    <div class="settings-toolbar">
+      <button class="btn btn-sm btn-danger" onclick="clearHistoryStack()">清空记录</button>
+    </div>
+  </div>
+  <div class="ui-collection-body">
+    <div id="historyListView" class="history-timeline"></div>
+  </div>
+</div>
+
+<div id="pickerModal" class="modal-overlay">
+  <div class="modal-box slot-modal ui-function-surface" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
+    <div class="picker-layout-v2">
+      <aside class="picker-left-v2">
+        <h3 style="margin:0 0 13px">🎰 天选之人</h3>
+        <button class="picker-vtab active" id="btnModeInd" onclick="setPickerMode('individual')">👤 全班命运混抽</button>
+        <button class="picker-vtab" id="btnModeGrp" onclick="setPickerMode('group')">👥 小组集体听天由命</button>
+        <button class="picker-vtab" id="btnModeTwo" onclick="setPickerMode('two_tier')">🔗 先抽组再抓人</button>
+        <div class="picker-info-tabs">
+          <button id="pickerStatsBtn" hidden aria-hidden="true" tabindex="-1" onclick="setPickerInfoTab('stats')">统计</button>
+          <button id="pickerHistoryBtn" class="active" onclick="setPickerInfoTab('history')">最近抽签</button>
+        </div>
+        <div id="pickerInfoBox"></div>
+      </aside>
+      <main class="picker-center-v2">
+        <div id="twoTierGroupSelect" class="two-tier-group-select" style="display:none;margin:8px 0 12px">
+          <div style="font-size:12px;color:#475569;font-weight:700;margin-bottom:6px">预选小组（可多选）</div>
+          <div id="twoTierGroupChips" class="two-tier-chips"></div>
+        </div>
+        <div class="ui-slot-stage">
+          <svg class="ui-slot-cabinet" viewBox="0 0 520 350" role="img" aria-label="课堂幸运老虎机">
+            <defs><linearGradient id="slotCabinet" x2="0" y2="1"><stop stop-color="#168574"/><stop offset="1" stop-color="#07574e"/></linearGradient></defs>
+            <rect x="28" y="24" width="426" height="290" rx="40" fill="#0b463f" opacity=".10"/>
+            <rect x="20" y="14" width="426" height="290" rx="36" fill="url(#slotCabinet)"/>
+            <rect x="41" y="35" width="384" height="71" rx="20" fill="#e3f4e9"/>
+            <text x="233" y="65" text-anchor="middle" fill="#12634f" font-size="12" font-family="sans-serif" letter-spacing="4">CLASSROOM LUCKY DRAW</text>
+            <text x="233" y="91" text-anchor="middle" fill="#12634f" font-size="20" font-family="sans-serif" font-weight="800">今天，谁是天选之人？</text>
+            <rect x="41" y="123" width="384" height="103" rx="22" fill="#074d44" stroke="#62b89a" stroke-width="2"/>
+            <path d="M76 251h314" stroke="#5dab92" stroke-width="3" stroke-linecap="round"/>
+            <rect x="153" y="264" width="160" height="13" rx="6" fill="#064b41"/>
+            <circle cx="69" cy="65" r="5" fill="#f4a28c"/><circle cx="397" cy="65" r="5" fill="#f4a28c"/>
+            <path d="M447 161h23" stroke="#87aaa0" stroke-width="14" stroke-linecap="round"/>
+            <rect x="9" y="303" width="448" height="23" rx="11" fill="#164d42"/>
+          </svg>
+          <div class="slot-machine-case">
+            <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
+            <div class="slot-reel-frame" id="reelFrameStudent"><div class="slot-reel-text" id="reelTextStudent">待开奖</div></div>
+          </div>
+          <button type="button" id="btnSlotTrigger" class="btn-slot-action start" onclick="DesktopUI.togglePicker()" title="拉动拉杆开始；再次拉动停止（支持回车与空格）">开始抽签</button>
+        </div>
+        <div class="slot-sub-badge" id="slotSubBadge" style="color:#64748b;font-size:12px">就绪</div>
+        <div class="slot-options-row">
+          <label style="cursor:pointer;display:flex;align-items:center;gap:4px"><input type="checkbox" id="chkAntiRepeat" checked onchange="toggleAntiRepeat(this.checked)"><span>防重复</span></label>
+          <span id="poolStatusText" style="color:#64748b">剩余: 0</span>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b" onclick="resetPickerPool()">重置</button>
+        </div>
+        <p class="ui-slot-hint">拉动右侧拉杆开始，再次拉动让命运慢慢停下。</p>
+        <div id="slotResultPanel" class="slot-result-panel"><div id="resultHeadline" style="font-size:16px;font-weight:800;color:#0284c7">等待抽签</div></div>
+        <div style="text-align:center;margin-top:12px"><button class="btn" style="background:#e2e8f0;color:#1e293b" onclick="closePickerModal()">退出</button></div>
+      </main>
+      <aside class="picker-right-v2">
+        <b style="font-size:17px">⚡ 当场发钱</b>
+        <div id="pickerScoreTarget" class="picker-target">抽中学生或小组后，可直接给所属小组赋分。</div>
+        <div class="picker-score-grid" data-score-slots="picker" role="group" aria-label="六个快捷赋分槽位"></div>
+        <div style="display:flex;gap:6px;margin-top:8px"><input id="pickerCustomScore" type="number" placeholder="自由分值" style="min-width:0;width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:8px"><button class="btn btn-primary" onclick="scorePickerCustom()">应用</button></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<div id="batchImportModal" class="modal-overlay">
+  <div class="modal-box large ui-function-surface">
+    <h3>📋 一口气塞进全班名单</h3>
+    <textarea id="batchTextarea" rows="8" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 12px; font-family: monospace; font-size: 14px; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
+    <div class="modal-actions">
+      <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeBatchImportModal()">取消</button>
+      <button class="btn btn-primary" onclick="applyBatchImport()">开箱整理</button>
+    </div>
+  </div>
+</div>
+
+<div id="handRaiseBackdrop" class="classroom-backdrop">
+  <div class="classroom-window ui-function-surface">
+    <div class="classroom-head"><b>✋ 举手办案处</b><button class="btn btn-sm" onclick="closeHandRaise()">关闭</button></div>
+    <div class="classroom-body">
+      <div style="color:#64748b;margin-bottom:10px">先认领是哪组举的手，再决定答得对不对。答对有奖励，答错至少留下了一次勇敢的统计记录。</div>
+      <div id="handGroupGrid" class="hand-grid"></div>
+      <div class="hand-actions"><button class="btn btn-success" onclick="judgeHandRaise(true)">✓ 正确</button><button class="btn btn-danger" onclick="judgeHandRaise(false)">✕ 错误</button></div>
+      <div id="handRewardBox"></div>
+    </div>
+  </div>
+</div>
+<div id="aboutBackdrop" class="about-backdrop">
+  <div class="about-window ui-function-surface">
+    <aside class="about-side">
+      <button class="active" data-about="info" onclick="renderAbout('info')">这玩意儿是什么</button>
+      <button data-about="items" onclick="renderAbout('items')">道具百科</button>
+      <button data-about="guide" onclick="renderAbout('guide')">别乱按指南</button>
+    </aside>
+    <main id="aboutMain" class="about-main"></main>
+  </div>
+</div>
+<input id="itemIconInput" type="file" accept="image/*" style="display:none" onchange="handleItemIconUpload(event)">
+<input id="itemPackInput" type="file" accept=".json,application/json" style="display:none" onchange="importItemIconPack(event)">
+<!-- 设置面板（全屏视图）：文案与结构由本模板持有 -->
+<div id="view-settings" class="view">
+  <header class="ui-settings-header">
+    <div>
+      <span class="ui-settings-eyebrow">YOUR CLASSROOM · YOUR WAY</span>
+      <h2>设置控制中心 <small>后台杂物间</small></h2>
+      <p>把课堂调成顺手的样子。常用偏好直接调整，资源维护按需展开。</p>
+    </div>
+    <div class="ui-settings-status"><span>● 偏好即时保存</span><span>离线可用 · 数据留在本机</span></div>
+  </header>
+  <div class="settings-scroll">
+
+    <div class="setting-section-title" data-settings-category="appearance" data-settings-group="wallpaper">🖼️ 界面壁纸</div>
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
+      <span class="setting-label">自定义壁纸（图片会自动压缩后保存在本机）</span>
+      <div class="wall-actions">
+        <span class="wall-status" id="wallpaperStatus">当前：内置极光</span>
+        <label class="btn btn-sm btn-primary wall-file-btn">选择图片<input type="file" accept="image/*" onchange="onWallpaperFile(this)"></label>
+        <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="resetWallpaper()">恢复极光</button>
+      </div>
+    </div>
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="wallpaper">
+      <span class="setting-label">自定义壁纸的浅色遮罩（保证文字在投影上清晰，<span id="wallVeilLabel">35%</span>）</span>
+      <input type="range" id="cfgWallVeil" min="0" max="0.8" step="0.05" style="width: 160px;" oninput="changeWallpaperVeil(this.value)">
+    </div>
+
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="students" data-settings-group="roster">
+      小组成员文本快速导入 (支持自定义组数、组名及成员)
+    </div>
+    <div class="setting-item" style="flex-direction: column; align-items: stretch; gap: 8px;" data-settings-category="students" data-settings-group="roster">
+      <span class="setting-label" style="color: #64748b; font-size: 13px;">格式说明：每行一组，格式为“组名: 成员1, 成员2...”</span>
+      <textarea id="settingsBatchMemberText" rows="6" style="width: 100%; border: 2px solid #cbd5e1; border-radius: 8px; padding: 8px; font-size: 13px; font-family: monospace; background:#f8fafc; color:#1e293b; outline: none;"></textarea>
+      <button class="btn btn-primary btn-sm" onclick="applySettingsBatchMembers()" style="align-self: flex-end;">应用并重建小组</button>
+    </div>
+
+    <div class="setting-item ui-rule-card" data-settings-category="rules" data-settings-group="rules">
+      <div class="ui-rule-copy"><label class="ui-rule-title" for="cfgSaveAllIn">跨局保留上一轮 All In 状态</label><p class="setting-note" id="saveAllInDescription">控制跨回合时是否保留 All In 选择，修改后立即保存。</p></div>
+      <label class="v292-switch" title="跨局保留 All In">
+        <input type="checkbox" id="cfgSaveAllIn" aria-describedby="saveAllInDescription" onchange="toggleSaveAllIn(this.checked)">
+        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
+      </label>
+    </div>
+
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
+      <span class="setting-label">启用大屏操作高度垫片（可上下拖拽间隔）</span>
+      <label style="cursor: pointer; display: flex; align-items: center; gap: 6px;">
+        <input type="checkbox" id="cfgResizerEnabled" onchange="toggleResizerEnabled(this.checked)">
+        <span>启用垫片</span>
+      </label>
+    </div>
+
+    <div class="setting-item" data-settings-category="appearance" data-settings-group="layout">
+      <span class="setting-label">小组列表显示模式</span>
+      <select id="cfgColumnMode" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="updateColumnMode(this.value)">
+        <option value="single">单列显示</option>
+        <option value="double">多列自适应 (双列)</option>
+      </select>
+    </div>
+
+    <div class="setting-item" data-settings-category="sound" data-settings-group="volume">
+      <span class="setting-label">主音量大小 (<span id="volLabel">85%</span>)</span>
+      <input type="range" id="cfgMasterVolume" min="0" max="1" step="0.05" style="width: 160px;" oninput="updateMasterVolume(this.value)">
+    </div>
+
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">音乐节拍与循环说明</span>
+      <div style="font-size:13px; color:#64748b; font-weight:700;" id="cfgSetBpmDesc">
+        BPM 130 · 4/4 拍 · 循环: 第 9 拍 至 第 184 拍 (无尾音)
+      </div>
+    </div>
+
+    <div class="setting-item" data-settings-category="sound" data-settings-group="music">
+      <span class="setting-label">要维护的音乐套（8 套比赛配乐 + 菜单配乐）</span>
+      <select id="cfgSetSelector" style="padding:4px 8px; font-weight:700; background:#f8fafc; color:#1e293b; border:1px solid #cbd5e1;" onchange="renderBgmSlotList()">
+        <option value="0">曲目套 1</option>
+        <option value="1">曲目套 2</option>
+        <option value="2">曲目套 3</option>
+        <option value="3">曲目套 4</option>
+        <option value="4">曲目套 5</option>
+        <option value="5">曲目套 6</option>
+        <option value="6">曲目套 7</option>
+        <option value="7">曲目套 8</option>
+        <option value="8">菜单配乐套 (四页面无缝)</option>
+      </select>
+    </div>
+
+    <div style="margin-top: 12px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; display:flex; justify-content:space-between;" data-settings-category="sound" data-settings-group="music">
+      <span>当前音乐套音轨（菜单套与比赛套使用各自完整性规则）</span>
+      <span id="cfgSetCompleteness" style="color:#0284c7;">检测中...</span>
+    </div>
+
+    <div id="bgmListContainer" data-settings-category="sound" data-settings-group="music"></div>
+<div style="margin-top: 16px; font-weight: 700; font-size: 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;" data-settings-category="sound" data-settings-group="basefx">
+      基础操作与欢庆音效配置 (支持自定义上传)
+    </div>
+    <div id="soundListContainer" data-settings-category="sound" data-settings-group="basefx"></div>
+
+
+    <div class="setting-item" data-settings-category="data" data-settings-group="lock">
+      <span class="setting-label">更换神谕口令（本机防误操作）</span>
+      <div style="display: flex; gap: 8px;">
+        <input type="password" id="newPwdInput" autocomplete="new-password" minlength="3" placeholder="至少 3 位口令" style="padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px; background:#f8fafc; color:#1e293b;">
+        <button class="btn btn-primary btn-sm" onclick="updateAdminPin()">更新</button>
+      </div>
+    </div>
+    <div class="setting-item" data-settings-category="data" data-settings-group="backup">
+      <span class="setting-label">课堂数据备份与恢复</span>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="exportData()">导出备份</button>
+        <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="triggerImport()">恢复备份</button>
+      </div>
+    </div>
+
+    <div class="setting-item" data-settings-category="data" data-settings-group="danger">
+      <span class="setting-label">将全部小组积分重置为 0（不会生成封神榜档案）</span>
+      <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
+    </div>
+    <details id="uiAudioTransfer" class="ui-settings-disclosure" data-settings-category="sound">
+      <summary><b>音频包迁移与备份</b><span>低频维护 · BIN 文件</span></summary>
+      <div class="ui-settings-detail-body">
+        <p class="ui-muted">只在换设备或恢复自定义音频时使用。全量包包含已上传的音乐和音效；仅音效包不包含音乐，默认合成音不会导出。两种包均使用同一个导入入口，不修改课堂积分。</p>
+        <div class="ui-toolbar">
+          <button class="btn btn-sm" onclick="exportAudioBundle()">导出全部自定义音频</button>
+          <button class="btn btn-sm" onclick="exportFxBundleV2175()">仅导出自定义音效</button>
+          <button class="btn btn-sm" onclick="triggerImportAudioBundle()">导入音频包</button>
+        </div>
+        <p class="ui-muted">导入会替换包中同名的本机音频槽，建议先导出备份。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<input type="file" id="soundFileInput" style="display: none;" accept="audio/*" onchange="handleSoundFileUpload(event)">
+<input type="file" id="bundleFileInput" style="display: none;" accept=".bin" onchange="handleBundleFilePicked(event)">
+<input type="file" id="importFileInput" style="display: none;" accept=".json" onchange="handleFileImport(event)">
+<div id="toast" class="toast ui-toast" popover="manual" role="status" aria-live="polite" aria-atomic="true"></div>
+
+
+  <script>@@SOURCE:ui/model.js@@</script>
+<script>@@SOURCE:core/reliability.js@@</script>
+<script>@@SOURCE:core/history.js@@</script>
+<script>@@SOURCE:core/item-score.js@@</script>
+<script>@@SOURCE:core/action-sounds.js@@</script>
+<script>@@SOURCE:script/00.js@@</script>
+<script>@@SOURCE:script/01.js@@</script>
+<script>@@SOURCE:script/02.js@@</script>
+
+<script>@@SOURCE:script/03.js@@</script>
+
+
+<script id="v2164PowerAndItemAudioFix">@@SOURCE:script/04.js@@</script>
+
+
+<script id="v2170DefenseChainAndEncyclopedia">@@SOURCE:script/05.js@@</script>
+
+
+<script id="v2171DrawAudioStopFix">@@SOURCE:script/06.js@@</script>
+
+
+<script id="v2172ItemWeightsAndClear">@@SOURCE:script/07.js@@</script>
+
+
+<script id="v2173ItemWeightTuning">@@SOURCE:script/08.js@@</script>
+
+
+<script id="v2174PerItemSounds">@@SOURCE:script/09.js@@</script>
+
+
+<script id="v2175FxBinExport">@@SOURCE:script/10.js@@</script>
+
+
+<script id="v2176SfxVolume">@@SOURCE:script/11.js@@</script>
+
+
+<script id="v2177RoundItemUseLimit">@@SOURCE:script/12.js@@</script>
+
+
+<script id="v2178BatchAllInLimitFix">@@SOURCE:script/13.js@@</script>
+
+
+<script id="v2179ItemDrawCooldownRules">@@SOURCE:script/14.js@@</script>
+
+
+<script id="v21710GlobalDrawSessionCooldownFix">@@SOURCE:script/15.js@@</script>
+
+
+<script id="v21712FastItemFlow">@@SOURCE:script/16.js@@</script>
+
+
+<script id="v21713AttackFxOrdering">@@SOURCE:script/17.js@@</script>
+
+
+<script id="v21715EncyclopediaEffectOnly">@@SOURCE:script/18.js@@</script>
+
+
+<script id="v21716GroupPaletteLogic">@@SOURCE:script/19.js@@</script>
+
+
+<script id="v21717SpinyCooldown">@@SOURCE:script/20.js@@</script>
+
+
+<script id="v21718NoDuplicateInventory">@@SOURCE:script/21.js@@</script>
+
+
+<script id="v21719FlowerPersistenceGuard">@@SOURCE:script/22.js@@</script>
+
+
+<script id="v21720CardReorderRepair">@@SOURCE:script/23.js@@</script>
+
+
+<script id="v21721BattleRankPreviewLogic">@@SOURCE:script/24.js@@</script>
+
+
+<script id="v21724SortingContractFix">@@SOURCE:script/27.js@@</script>
+
+
+<script id="v21725RoundStateFlip">@@SOURCE:script/28.js@@</script>
+
+
+<!-- V2.17.27 统一主题弹窗 -->
+<div id="themeDialogV21727" class="theme-dialog-v21727" aria-hidden="true">
+  <div class="theme-dialog-card-v21727 ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
+    <div class="theme-dialog-head-v21727">
+      <div id="themeDialogIconV21727" class="theme-dialog-icon-v21727">ℹ️</div>
+      <div id="themeDialogTitleV21727" class="theme-dialog-title-v21727">提示</div>
+    </div>
+    <div id="themeDialogBodyV21727" class="theme-dialog-body-v21727"></div>
+    <div id="themeDialogActionsV21727" class="theme-dialog-actions-v21727"></div>
+  </div>
+</div>
+
+
+<script id="v21727ThemeDialogLogic">@@SOURCE:script/30.js@@</script>
+
+
+<script id="v21732ItemScoreAnimation">@@SOURCE:script/31.js@@</script>
+
+
+<script id="v21731ItemStatusRepair">@@SOURCE:script/32.js@@</script>
+
+
+<script id="v21734NoticeDurationSync">@@SOURCE:script/34.js@@</script>
+
+
+<script id="v21735DefenseNoticeStack">@@SOURCE:script/35.js@@</script>
+
+
+<div id="quickPersonBackdropV218" class="quick-person-backdrop-v218" onclick="if(event.target===this)closeQuickPersonScoreV218()">
+  <div class="quick-person-card-v218 ui-function-surface">
+    <div class="quick-person-head-v218">
+      <b>🤑 快速按人加分</b>
+      <button class="btn" onclick="closeQuickPersonScoreV218()">关闭</button>
+    </div>
+    <div class="quick-person-filters-v218">
+      <div class="qp-row-v218">
+        <span>搜索</span>
+        <input id="qpSearchV218" class="qp-input-v218" placeholder="姓名或学号" oninput="renderQuickPersonListV218()">
+        <span class="qp-search-hint-v218">支持直接输入学号</span>
+      </div>
+      <div class="qp-row-v218">
+        <span>学号段</span>
+        <div id="qpNumberBandsV218"></div>
+      </div>
+      <div class="qp-row-v218">
+        <span>小组</span>
+        <div id="qpGroupFiltersV218"></div>
+      </div>
+      <div class="qp-row-v218">
+        <span>姓名首字母</span>
+        <div id="qpLetterFiltersV218"></div>
+      </div>
+    </div>
+    <div id="quickPersonListV218" class="quick-person-list-v218"></div>
+    <div class="quick-person-actions-v218">
+      <div id="qpSelectedCountV218" class="qp-selected-count-v218">已选择 0 人</div>
+      <div class="qp-score-actions-v218">
+        <div data-score-slots="person" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
+        <input id="qpCustomScoreV218" type="number" class="qp-input-v218" placeholder="自定义" style="width:105px">
+        <button class="btn btn-primary" onclick="applyQuickPersonCustomV218()">应用</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="handEffectOverlayV218" class="hand-effect-overlay-v218">
+  <div id="handEffectCardV218" class="hand-effect-card-v218"></div>
+</div>
+
+
+<script id="v2180HandwrittenPlanLogic">@@SOURCE:script/36.js@@</script>
+
+
+<style id="v2182GroupItemSyncStyle">@@SOURCE:style/21.css@@</style>
+<script id="v2182GroupItemSync">@@SOURCE:script/37.js@@</script>
+
+
+<script id="v2184FunnyEncyclopediaCopy">@@SOURCE:script/38.js@@</script>
+
+
+<style id="v2185DockHumorStyle">@@SOURCE:style/22.css@@</style>
+
+<script id="v2185DockHumor">@@SOURCE:script/39.js@@</script>
+
+
+<script id="v2186OpenFixMarker">@@SOURCE:script/40.js@@</script>
+
+<style id="v2187CopyPolishStyle">@@SOURCE:style/23.css@@</style>
+<script id="v2187CopyAuditAndHumor">@@SOURCE:script/41.js@@</script>
+
+
+<script id="v2189FlowerBalancePatch">@@SOURCE:script/42.js@@</script>
+
+
+<script id="v21811VisibleCopyGuard">@@SOURCE:script/43.js@@</script>
+
+
+<script id="v21812SettlementFullReset">@@SOURCE:script/44.js@@</script>
+
+
+<script id="v21813FullSettlementArchive">@@SOURCE:script/45.js@@</script>
+
+<script>@@SOURCE:ui/battle-grid.js@@</script>
+<script>@@SOURCE:ui/render.js@@</script>
+<script>@@SOURCE:core/commands.js@@</script>
+<script>@@SOURCE:core/classroom.js@@</script>
+<script>@@SOURCE:ui/classroom-feedback.js@@</script>
+<script>@@SOURCE:ui/battle-motion.js@@</script>
+<script>@@SOURCE:ui/desktop.js@@</script>
+<script>@@SOURCE:ui/welcome-v2.js@@</script>
+</body>
+</html>

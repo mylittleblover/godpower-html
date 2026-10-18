@@ -1,0 +1,57 @@
+
+> godpower-html@2.19.0 test:settings
+> node tests/e2e/settings-cleanup.mjs
+
+PASS Settings entry and category staggered motion, rapid switching, Escape and reduced-motion cleanup
+FAIL Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768 locator.click: Target page, context or browser has been closed
+FAIL Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080 browserContext.newPage: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-5Fa14B --remote-debugging-pipe --no-startup-window
+<launched> pid=38437
+[pid=38437][err] [38437:38465:1017/164611.561871:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=38437][err] [38437:38465:1017/164611.561956:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38465:1017/164611.561984:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=38437][err] [38437:38465:1017/164611.561999:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=38437][err] [38437:38465:1017/164611.562005:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38465:1017/164612.061568:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.176830:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38437:1017/164612.176953:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38465:1017/164612.181083:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38465:1017/164612.181107:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.232858:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38465:1017/164612.233600:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.265599:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38437:1017/164612.265641:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38437:1017/164612.266601:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38465:1017/164612.267008:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=38437][err] [38437:38465:1017/164612.267044:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=38437][err] [38437:38465:1017/164612.267054:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.274715:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
+[pid=38437][err] [38437:38437:1017/164612.274782:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38465:1017/164612.281818:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.293169:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38465:1017/164612.339401:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=38437][err] [38437:38437:1017/164612.355032:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+[pid=38437][err] [38437:38466:1017/164623.347018:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=38437][err] [38437:38466:1017/164623.347054:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=38437][err] [38437:38466:1017/164623.347209:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+[pid=38437][err] [38437:38466:1017/164623.365348:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+[pid=38437][err] [38437:38466:1017/164623.377119:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+[pid=38437][err] [38437:38466:1017/164644.192192:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=38437][err] [38437:38466:1017/164644.192218:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=38437][err] [38437:38466:1017/164646.345131:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[pid=38437] <gracefully close start>
+FAIL Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440 browser.newContext: Target page, context or browser has been closed
+FAIL Aligned full-width settings at all desktop sizes and 80/100/125 percent application zoom browser.newContext: Target page, context or browser has been closed
+FAIL Every original control and action survives exactly once; categories use explicit ownership browser.newContext: Target page, context or browser has been closed
+FAIL Moved layout, rules, real wallpaper and veil save and restore without changing groups browser.newContext: Target page, context or browser has been closed
+FAIL Daily volume uses original live setters and persists across reload browser.newContext: Target page, context or browser has been closed
+FAIL All nine music choices and all 30 item sound editors remain available after repeated navigation browser.newContext: Target page, context or browser has been closed
+FAIL Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command browser.newContext: Target page, context or browser has been closed
+FAIL Danger tools stay collapsed; cancel score and item clearing preserves all data browser.newContext: Target page, context or browser has been closed
+FAIL All item icons retained; reset-all has confirmation and preserves custom image on cancel browser.newContext: Target page, context or browser has been closed
+FAIL Local bank maintenance is secondary, validates edits and exports real saved content browser.newContext: Target page, context or browser has been closed
+FAIL Data backup and local management PIN keep existing behavior after moving controls browser.newContext: Target page, context or browser has been closed
+FAIL Moved audio actions: real WAV upload, both BGMP exports, import into isolated storage and refreshed item status browser.newContext: Target page, context or browser has been closed
+{ pass: 1, fail: 14, errors: [] }

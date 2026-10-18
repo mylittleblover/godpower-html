@@ -1,0 +1,295 @@
+
+> godpower-html@2.18.14 test:e2e
+> node tests/e2e/run.mjs
+
+PASS archive failure never clears scores, inventory or history
+FAIL archive success captures full state before reset page.evaluate: ReferenceError: closeGrandModal is not defined
+    at eval (eval at evaluate (:290:30), <anonymous>:1:214)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+FAIL successful archive plus failed classroom write restores classroom page.evaluate: ReferenceError: closeGrandModal is not defined
+    at eval (eval at evaluate (:290:30), <anonymous>:1:290)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+FAIL fire flower damage, All In cancellation and exact undo Expected values to be strictly equal:
+
+false !== true
+
+FAIL fire and ice obey queue, disabled mode, negative scores and round lock {"key":"fire_flower","condition":"secondary","result":false,"unchanged":false}
+
+false !== true
+
+PASS frozen flower attempt unfreezes without consuming, locks All In, undo restores ice
+PASS ice skips already frozen targets and consumes when all frozen
+PASS normalization preserves group numbers, ghost duration and continuation
+PASS malformed imports leave live state intact
+PASS legacy backup import and versioned complete backup roundtrip
+PASS failed import persistence rolls back
+PASS group name HTML injection is rendered as text
+PASS all A/B/C/D scoring and duplicate judge idempotence
+PASS item:green: acquire/use/consume/undo
+FAIL item:green: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:triple_green: acquire/use/consume/undo
+FAIL item:triple_green: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:red: acquire/use/consume/undo
+FAIL item:red: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:triple_red: acquire/use/consume/undo
+FAIL item:triple_red: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:spiny: acquire/use/consume/undo
+FAIL item:spiny: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:banana: acquire/use/consume/undo
+FAIL item:banana: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:triple_banana: acquire/use/consume/undo
+FAIL item:triple_banana: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:horn: acquire/use/consume/undo
+FAIL item:horn: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:bomb: acquire/use/consume/undo
+FAIL item:bomb: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:hammer: acquire/use/consume/undo
+FAIL item:hammer: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:coin: acquire/use/consume/undo
+FAIL item:coin: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:coin_shell: acquire/use/consume/undo
+FAIL item:coin_shell: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:question: acquire/use/consume/undo
+FAIL item:question: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:mushroom: acquire/use/consume/undo
+FAIL item:mushroom: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:triple_mushroom: acquire/use/consume/undo
+FAIL item:triple_mushroom: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:boo: acquire/use/consume/undo
+FAIL item:boo: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:blooper: acquire/use/consume/undo
+FAIL item:blooper: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:lightning: acquire/use/consume/undo
+FAIL item:lightning: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:star: acquire/use/consume/undo
+FAIL item:star: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:mega: acquire/use/consume/undo
+FAIL item:mega: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:bullet: acquire/use/consume/undo
+FAIL item:bullet: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:power: acquire/use/consume/undo
+FAIL item:power: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:feather: acquire/use/consume/undo
+FAIL item:feather: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:fire_flower: acquire/use/consume/undo
+FAIL item:fire_flower: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:ice_flower: acquire/use/consume/undo
+FAIL item:ice_flower: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS item:boomerang_flower: acquire/use/consume/undo
+FAIL item:boomerang_flower: secondary slot rejected Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    result: false,
++   same: false
+-   same: true
+  }
+
+PASS triple item may finish same stack but next item cannot bypass round lock
+PASS main passive defense consumed before target score loss
+PASS 50/100 rounds: correct scores, capped history and stable DOM
+PASS reload restores round and persistent state
+PASS custom icon payload cannot add executable HTML attributes
+{"pass":40,"fail":30,"errors":[],"compatibility":[{"browser":"chromium","protocol":"file","status":"BLOCKED","error":"page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-html/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n"},{"browser":"firefox","protocol":"http","status":"BLOCKED","error":"browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/firefox-1495/firefox/firefox\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝"},{"browser":"webkit","protocol":"http","status":"BLOCKED","error":"browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/webkit-2215/pw_run.sh\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝"}]}

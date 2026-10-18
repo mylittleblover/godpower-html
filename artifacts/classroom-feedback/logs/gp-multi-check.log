@@ -1,0 +1,6 @@
+
+> godpower-html@2.19.0 check
+> node scripts/check.mjs
+
+55 script blocks parse; all 27 original embedded resources preserved
+83 source blocks match the manifest and template

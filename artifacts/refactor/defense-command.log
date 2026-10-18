@@ -1,0 +1,108 @@
+FAIL mushroom accept Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom decline Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom undo Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom round Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom new-command Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom import Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom reject Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom quota Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom reload Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom accept Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom decline Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom undo Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom round Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom new-command Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom import Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom reject Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom quota Expected values to be strictly equal:
+
+false !== true
+
+FAIL triple_mushroom reload Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn accept Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn decline Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn undo Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn round Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn new-command Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn import Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn reject Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn quota Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn reload Expected values to be strictly equal:
+
+false !== true
+

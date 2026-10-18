@@ -1,0 +1,738 @@
+{
+  "sha256": "975ccae4ff1b47379cc82764f575227b0effbb0f7659af909f1ffdb0dbb6f24f",
+  "results": [
+    {
+      "name": "Encyclopedia title and subtitle contrast meet 4.5:1",
+      "status": "PASS",
+      "evidence": {
+        "bg": "linear-gradient(112deg, rgb(8, 76, 76), rgb(13, 104, 98) 58%, rgb(8, 123, 108))",
+        "title": "rgb(255, 255, 255)",
+        "sub": "rgb(224, 246, 238)",
+        "minimumRatio": 4.577868183691997
+      }
+    },
+    {
+      "name": "Continuous default cruise advances in every sample and wraps without a blank edge",
+      "status": "PASS",
+      "evidence": {
+        "samples": [
+          72,
+          79,
+          89,
+          94,
+          99,
+          105,
+          109,
+          114
+        ],
+        "period": 3424,
+        "after": 10
+      }
+    },
+    {
+      "name": "Carousel 0 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Carousel 1 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Carousel 2 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Carousel 4 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Carousel 8 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Carousel 16 groups: bounded clones, actual data and reduced motion",
+      "status": "PASS"
+    },
+    {
+      "name": "Dashboard 1366: equal KPI fonts, uniform cards, quiz and disclosure",
+      "status": "PASS",
+      "evidence": {
+        "fonts": [
+          "26px",
+          "26px",
+          "26px",
+          "26px"
+        ],
+        "cards": [
+          {
+            "class": "ui-panel gp-daily-knowledge",
+            "x": 51.90625,
+            "y": 1157.375,
+            "right": 675,
+            "bottom": 1411.375,
+            "width": 623.09375,
+            "height": 254,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-item",
+            "x": 691,
+            "y": 1157.375,
+            "right": 1314.09375,
+            "bottom": 1411.375,
+            "width": 623.09375,
+            "height": 254,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-honors",
+            "x": 51.90625,
+            "y": 1427.375,
+            "right": 675,
+            "bottom": 1681.375,
+            "width": 623.09375,
+            "height": 254,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-challenge",
+            "x": 691,
+            "y": 1427.375,
+            "right": 1314.09375,
+            "bottom": 1681.375,
+            "width": 623.09375,
+            "height": 254,
+            "overflow": false
+          }
+        ],
+        "viewport": 1366,
+        "page": 1366
+      }
+    },
+    {
+      "name": "Dashboard 1920: equal KPI fonts, uniform cards, quiz and disclosure",
+      "status": "PASS",
+      "evidence": {
+        "fonts": [
+          "26px",
+          "26px",
+          "26px",
+          "26px"
+        ],
+        "cards": [
+          {
+            "class": "ui-panel gp-daily-knowledge",
+            "x": 274,
+            "y": 1414.6875,
+            "right": 952,
+            "bottom": 1680.15625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-item",
+            "x": 968,
+            "y": 1414.6875,
+            "right": 1646,
+            "bottom": 1680.15625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-honors",
+            "x": 274,
+            "y": 1696.15625,
+            "right": 952,
+            "bottom": 1961.625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-challenge",
+            "x": 968,
+            "y": 1696.15625,
+            "right": 1646,
+            "bottom": 1961.625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          }
+        ],
+        "viewport": 1920,
+        "page": 1920
+      }
+    },
+    {
+      "name": "Dashboard 2560: equal KPI fonts, uniform cards, quiz and disclosure",
+      "status": "PASS",
+      "evidence": {
+        "fonts": [
+          "26px",
+          "26px",
+          "26px",
+          "26px"
+        ],
+        "cards": [
+          {
+            "class": "ui-panel gp-daily-knowledge",
+            "x": 594,
+            "y": 1414.6875,
+            "right": 1272,
+            "bottom": 1680.15625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-item",
+            "x": 1288,
+            "y": 1414.6875,
+            "right": 1966,
+            "bottom": 1680.15625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-honors",
+            "x": 594,
+            "y": 1696.15625,
+            "right": 1272,
+            "bottom": 1961.625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          },
+          {
+            "class": "ui-panel gp-daily-challenge",
+            "x": 1288,
+            "y": 1696.15625,
+            "right": 1966,
+            "bottom": 1961.625,
+            "width": 678,
+            "height": 265.46875,
+            "overflow": false
+          }
+        ],
+        "viewport": 2560,
+        "page": 2560
+      }
+    },
+    {
+      "name": "Window scoreModalBackdrop: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window memberSearchBackdrop: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window pwdModal: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window settlementNameModal: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window pickerModal: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window itemModalBackdrop: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window handRaiseBackdrop: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window aboutBackdrop: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window batchImportModal: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window quickPersonBackdropV218: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window themeDialogV21727: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Window grandModalOverlay: nonlinear downward exit, inert controls and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "inert": true,
+        "closing": "true",
+        "animation": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "scale": "none",
+                "translate": "none",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "scale": "0.97",
+                "translate": "0px 64px",
+                "computedOffset": 1
+              }
+            ],
+            "timing": {
+              "delay": 0,
+              "direction": "normal",
+              "duration": 280,
+              "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+              "endDelay": 0,
+              "fill": "forwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Dynamic warning closes with exit and repeated confirmation cannot fire twice",
+      "status": "PASS"
+    },
+    {
+      "name": "Rapid reopen cancels stale close; reduced motion closes immediately",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

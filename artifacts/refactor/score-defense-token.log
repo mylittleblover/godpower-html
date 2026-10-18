@@ -1,0 +1,10 @@
+PASS mushroom accepted
+PASS mushroom declined
+PASS mushroom stale-command
+PASS mushroom stale-state
+PASS mushroom changed-item
+PASS horn accepted
+PASS horn declined
+PASS horn stale-command
+PASS horn stale-state
+PASS horn changed-item

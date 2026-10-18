@@ -1,0 +1,20 @@
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440
+FAIL Every original control and action survives exactly once; categories use explicit ownership triggerUploadAudio('bgm_set_0_intro_normal')
+
+0 !== 1
+
+FAIL Daily volume uses original live setters and persists across reload page.reload: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+PASS All nine music choices and all 30 item sound editors remain available after repeated navigation
+PASS Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command
+PASS Danger tools stay collapsed; cancel score and item clearing preserves all data
+PASS All item icons retained; reset-all has confirmation and preserves custom image on cancel
+FAIL Moved audio actions: real WAV upload, both BGMP exports, import into isolated storage and refreshed item status locator.waitFor: Timeout 4000ms exceeded.
+Call log:
+[2m  - waiting for locator('#itemFxSoundListV26 .sound-row').filter({ has: locator('button[onclick="triggerUploadAudio(\'fx_item_coin\')"]') }).locator('button[onclick^="deleteFxTrack"]') to be visible[22m
+
+{ pass: 7, fail: 3, errors: [] }

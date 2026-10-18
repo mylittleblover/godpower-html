@@ -1,0 +1,14 @@
+PASS unfinished 1366 0.8
+PASS unfinished 1366 1
+PASS unfinished 1366 1.25
+PASS unfinished 1920 0.8
+PASS unfinished 1920 1
+PASS unfinished 1920 1.25
+PASS replace
+PASS escape
+PASS enter
+PASS view-change
+PASS unfinished 2560 0.8
+PASS unfinished 2560 1
+PASS unfinished 2560 1.25
+{ pass: 13, fail: 0, errors: [] }

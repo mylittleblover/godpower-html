@@ -1,0 +1,503 @@
+{
+  "sha256": "80cb31fdb9cbc501b0af938a2b4c3cd8b5552e741f1f78cfaa0ccb1313f4cf80",
+  "results": [
+    {
+      "name": "Startup: five actual tab animations descend with increasing delays; skip cancels and restores controls",
+      "status": "PASS",
+      "evidence": {
+        "animations": [
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "translate": "0px -22px",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "translate": "0px",
+                "computedOffset": 1
+              }
+            ],
+            "delay": 0
+          },
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "translate": "0px -22px",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "translate": "0px",
+                "computedOffset": 1
+              }
+            ],
+            "delay": 75
+          },
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "translate": "0px -22px",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "translate": "0px",
+                "computedOffset": 1
+              }
+            ],
+            "delay": 150
+          },
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "translate": "0px -22px",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "translate": "0px",
+                "computedOffset": 1
+              }
+            ],
+            "delay": 225
+          },
+          {
+            "frames": [
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "0",
+                "translate": "0px -22px",
+                "computedOffset": 0
+              },
+              {
+                "offset": null,
+                "easing": "linear",
+                "composite": "auto",
+                "opacity": "1",
+                "translate": "0px",
+                "computedOffset": 1
+              }
+            ],
+            "delay": 300
+          }
+        ],
+        "screenshot": "artifacts/visual-unification/screenshots/startup-tabs.png"
+      }
+    },
+    {
+      "name": "Startup motion-off creates no tab animation and leaves all tabs usable",
+      "status": "PASS"
+    },
+    {
+      "name": "History 0 snapshots 1366: visible diff, view-only state preservation, scroll",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/history-0-1366.png",
+        "bounds": {
+          "x": 24,
+          "y": 282.1875,
+          "width": 1318,
+          "height": 424.8125
+        }
+      }
+    },
+    {
+      "name": "History 1 snapshots 1366: visible diff, view-only state preservation, scroll",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)\n\n    at file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:154:18\n    at async test (file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:19:52)\n    at async file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:125:9"
+    },
+    {
+      "name": "History 40 snapshots 1366: visible diff, view-only state preservation, scroll",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)\n\n    at file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:154:18\n    at async test (file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:19:52)\n    at async file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:125:9"
+    },
+    {
+      "name": "Archives 0 records 1366: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-0-1366.png"
+      }
+    },
+    {
+      "name": "Archives 1 records 1366: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-1-1366.png"
+      }
+    },
+    {
+      "name": "Archives 24 records 1366: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-24-1366.png"
+      }
+    },
+    {
+      "name": "Chrome 1366: dock exclusivity, card selection, dimensions, function surface tokens",
+      "status": "PASS",
+      "evidence": {
+        "sizes": [
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          },
+          {
+            "height": 107,
+            "width": 437
+          }
+        ],
+        "nav": {
+          "height": 59,
+          "width": 1366
+        },
+        "screenshot": "artifacts/visual-unification/screenshots/battle-1366.png"
+      }
+    },
+    {
+      "name": "History 0 snapshots 1920: visible diff, view-only state preservation, scroll",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/history-0-1920.png",
+        "bounds": {
+          "x": 24,
+          "y": 282.1875,
+          "width": 1872,
+          "height": 736.8125
+        }
+      }
+    },
+    {
+      "name": "History 1 snapshots 1920: visible diff, view-only state preservation, scroll",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/history-1-1920.png",
+        "bounds": {
+          "x": 24,
+          "y": 282.1875,
+          "width": 1872,
+          "height": 741.6875
+        }
+      }
+    },
+    {
+      "name": "History 40 snapshots 1920: visible diff, view-only state preservation, scroll",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)\n\n    at file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:154:18\n    at async test (file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:19:52)\n    at async file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:125:9"
+    },
+    {
+      "name": "Archives 0 records 1920: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-0-1920.png"
+      }
+    },
+    {
+      "name": "Archives 1 records 1920: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-1-1920.png"
+      }
+    },
+    {
+      "name": "Archives 24 records 1920: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-24-1920.png"
+      }
+    },
+    {
+      "name": "Chrome 1920: dock exclusivity, card selection, dimensions, function surface tokens",
+      "status": "PASS",
+      "evidence": {
+        "sizes": [
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          },
+          {
+            "height": 107,
+            "width": 463
+          }
+        ],
+        "nav": {
+          "height": 59,
+          "width": 1920
+        },
+        "screenshot": "artifacts/visual-unification/screenshots/battle-1920.png"
+      }
+    },
+    {
+      "name": "History 0 snapshots 2560: visible diff, view-only state preservation, scroll",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/history-0-2560.png",
+        "bounds": {
+          "x": 24,
+          "y": 282.1875,
+          "width": 2512,
+          "height": 1096.8125
+        }
+      }
+    },
+    {
+      "name": "History 1 snapshots 2560: visible diff, view-only state preservation, scroll",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/history-1-2560.png",
+        "bounds": {
+          "x": 24,
+          "y": 282.1875,
+          "width": 2512,
+          "height": 1096.8125
+        }
+      }
+    },
+    {
+      "name": "History 40 snapshots 2560: visible diff, view-only state preservation, scroll",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)\n\n    at file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:154:18\n    at async test (file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:19:52)\n    at async file:///workspace/godpower-html/tests/e2e/visual-unification.mjs:125:9"
+    },
+    {
+      "name": "Archives 0 records 2560: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-0-2560.png"
+      }
+    },
+    {
+      "name": "Archives 1 records 2560: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-1-2560.png"
+      }
+    },
+    {
+      "name": "Archives 24 records 2560: real stats, old fields, search, details",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/archives-24-2560.png"
+      }
+    },
+    {
+      "name": "Chrome 2560: dock exclusivity, card selection, dimensions, function surface tokens",
+      "status": "PASS",
+      "evidence": {
+        "sizes": [
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          },
+          {
+            "height": 107,
+            "width": 411
+          }
+        ],
+        "nav": {
+          "height": 59,
+          "width": 2560
+        },
+        "screenshot": "artifacts/visual-unification/screenshots/battle-2560.png"
+      }
+    },
+    {
+      "name": "Every group window tab, every about tab, and all picker modes share surfaces without state mutations",
+      "status": "PASS",
+      "evidence": {
+        "screens": [
+          "artifacts/visual-unification/screenshots/group-window-detail.png",
+          "artifacts/visual-unification/screenshots/group-window-items.png",
+          "artifacts/visual-unification/screenshots/group-window-score.png",
+          "artifacts/visual-unification/screenshots/about-info.png",
+          "artifacts/visual-unification/screenshots/about-guide.png",
+          "artifacts/visual-unification/screenshots/about-items.png",
+          "artifacts/visual-unification/screenshots/picker-Ind.png",
+          "artifacts/visual-unification/screenshots/picker-Grp.png",
+          "artifacts/visual-unification/screenshots/picker-Two.png"
+        ]
+      }
+    },
+    {
+      "name": "Confirmation window nested above a function window: toast, focus, Escape and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "screenshot": "artifacts/visual-unification/screenshots/confirmation.png"
+      }
+    }
+  ],
+  "errors": []
+}

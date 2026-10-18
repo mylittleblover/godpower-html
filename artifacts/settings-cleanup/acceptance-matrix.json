@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "f3567026acfb74ef63dc619097e3cf05505b892d",
+  "sha256": "1316dab003e14cc7e1df22e8a7435dfeb226fae8f723333d1819312cc7f4d719",
+  "node": 90,
+  "finalChromiumUiScenarios": 43,
+  "results": [
+    {
+      "name": "设置专项（含八分类×三分辨率、九种应用缩放、动画及音频往返）",
+      "pass": 15,
+      "evidence": "artifacts/settings-cleanup/results.json"
+    },
+    {
+      "name": "补充交互",
+      "pass": 21,
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "name": "发行断网冒烟",
+      "pass": 4,
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "name": "e97933d 比赛14组对照",
+      "pass": 3,
+      "evidence": "artifacts/settings-cleanup/layout/battle-14-comparison.json"
+    }
+  ],
+  "coreStageScenarios": 157,
+  "desktopStageScenarios": 31,
+  "coreStageLog": "artifacts/settings-cleanup/core-final.log",
+  "fullVerifyRerun": false,
+  "limitations": [
+    "file protocol enterprise policy",
+    "native browser zoom",
+    "manual audio listening",
+    "all uploader file combinations",
+    "long soak"
+  ]
+}

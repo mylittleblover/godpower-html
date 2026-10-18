@@ -1,0 +1,7 @@
+
+> godpower-html@2.19.0 test:settings
+> node tests/e2e/settings-cleanup.mjs
+
+PASS Settings entry and category staggered motion, rapid switching, Escape and reduced-motion cleanup
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768
+FAIL Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080 browserContext.newPage: Target page, context or browser has been closed

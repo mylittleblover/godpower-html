@@ -1,0 +1,114 @@
+{
+  "baseline": "9e1be3c25ab01388906f5115bd8b1f89fd2d360c",
+  "sourceCommit": "843c0ddf6f3592c03c5c2a32b25e206b37ab7ee1",
+  "html": {
+    "bytes": 7774957,
+    "sha256": "09944d8a15dda2b949e499e362d4c4de742fbf715d8ce001ce619667467460db",
+    "identicalOutputs": true
+  },
+  "suites": [
+    {
+      "name": "Node单元/集成/架构守卫",
+      "passed": 111,
+      "status": "PASS",
+      "evidence": "artifacts/structure/green-unit.log"
+    },
+    {
+      "name": "核心业务Chromium",
+      "passed": 117,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/browser-results.json"
+    },
+    {
+      "name": "26道具精确结果",
+      "passed": 26,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/rule-oracles.json"
+    },
+    {
+      "name": "异步防御完整命令",
+      "passed": 30,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/refactor/defense-command.json"
+    },
+    {
+      "name": "新旧业务差分",
+      "passed": 464,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/refactor/legacy-differential.json"
+    },
+    {
+      "name": "比赛动画/独立按钮声音",
+      "passed": 8,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/battle-motion/results.json"
+    },
+    {
+      "name": "断网HTTP/归档/弹窗",
+      "passed": 4,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "name": "真实作答和存储失败",
+      "passed": 3,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/scoring-persistence-results.json"
+    },
+    {
+      "name": "桌面交互/结算拒绝清零",
+      "passed": 21,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "name": "赋分/抽选/音效配置",
+      "passed": 15,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/classroom-feedback/results.json"
+    },
+    {
+      "name": "20/50/100连续回合",
+      "passed": 6,
+      "status": "PASS",
+      "evidence": "artifacts/structure/captured/artifacts/refactor/performance-comparison.json"
+    },
+    {
+      "name": "最新基线14组布局",
+      "passed": 3,
+      "status": "PASS",
+      "evidence": "artifacts/structure/layout-final/battle-14-comparison.json"
+    }
+  ],
+  "fileProtocol": "BLOCKED: ERR_BLOCKED_BY_ADMINISTRATOR",
+  "circleci": "NOT RUN per user instruction",
+  "independentReview": "No confirmed new code defect; preserved historical evidence after capturing new outputs",
+  "metrics": {
+    "before": {
+      "sourceBytes": 939511,
+      "sourceLines": 23827,
+      "functionDefinitions": 875,
+      "duplicateNames": 94,
+      "extraDefinitions": 203,
+      "capturedWrapperAliases": 98,
+      "timerAndListenerCalls": 316,
+      "cssLeafRules": 1940,
+      "exactRepeatedCssBodies": 48,
+      "important": 1660,
+      "buildBytes": 7779851
+    },
+    "after": {
+      "sourceBytes": 934791,
+      "sourceLines": 23785,
+      "functionDefinitions": 869,
+      "duplicateNames": 92,
+      "extraDefinitions": 191,
+      "capturedWrapperAliases": 87,
+      "timerAndListenerCalls": 316,
+      "cssLeafRules": 1940,
+      "exactRepeatedCssBodies": 48,
+      "important": 1660,
+      "buildBytes": 7774957
+    }
+  }
+}

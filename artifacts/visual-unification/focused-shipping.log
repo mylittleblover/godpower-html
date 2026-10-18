@@ -1,0 +1,42 @@
+
+> godpower-html@2.19.0 test:surfaces
+> node tests/e2e/visual-unification.mjs
+
+PASS Startup: five actual tab animations descend with increasing delays; skip cancels and restores controls
+PASS Startup motion-off creates no tab animation and leaves all tabs usable
+PASS History 0 snapshots 1366: visible diff, view-only state preservation, scroll
+FAIL History 1 snapshots 1366: visible diff, view-only state preservation, scroll The expression evaluated to a falsy value:
+
+  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)
+
+FAIL History 40 snapshots 1366: visible diff, view-only state preservation, scroll The expression evaluated to a falsy value:
+
+  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)
+
+PASS Archives 0 records 1366: real stats, old fields, search, details
+PASS Archives 1 records 1366: real stats, old fields, search, details
+PASS Archives 24 records 1366: real stats, old fields, search, details
+PASS Chrome 1366: dock exclusivity, card selection, dimensions, function surface tokens
+PASS History 0 snapshots 1920: visible diff, view-only state preservation, scroll
+PASS History 1 snapshots 1920: visible diff, view-only state preservation, scroll
+FAIL History 40 snapshots 1920: visible diff, view-only state preservation, scroll The expression evaluated to a falsy value:
+
+  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)
+
+PASS Archives 0 records 1920: real stats, old fields, search, details
+PASS Archives 1 records 1920: real stats, old fields, search, details
+PASS Archives 24 records 1920: real stats, old fields, search, details
+PASS Chrome 1920: dock exclusivity, card selection, dimensions, function surface tokens
+PASS History 0 snapshots 2560: visible diff, view-only state preservation, scroll
+PASS History 1 snapshots 2560: visible diff, view-only state preservation, scroll
+FAIL History 40 snapshots 2560: visible diff, view-only state preservation, scroll The expression evaluated to a falsy value:
+
+  assert.ok(bounds.y >= 0 && bounds.y + bounds.height <= height + 1)
+
+PASS Archives 0 records 2560: real stats, old fields, search, details
+PASS Archives 1 records 2560: real stats, old fields, search, details
+PASS Archives 24 records 2560: real stats, old fields, search, details
+PASS Chrome 2560: dock exclusivity, card selection, dimensions, function surface tokens
+PASS Every group window tab, every about tab, and all picker modes share surfaces without state mutations
+PASS Confirmation window nested above a function window: toast, focus, Escape and cleanup
+{ pass: 21, fail: 4, errors: [] }

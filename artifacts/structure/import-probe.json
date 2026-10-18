@@ -1,0 +1,18 @@
+[
+  {
+    "ver": "old",
+    "imported": {
+      "ok": true
+    },
+    "score": 100,
+    "errors": []
+  },
+  {
+    "ver": "new",
+    "imported": {
+      "ok": true
+    },
+    "score": 100,
+    "errors": []
+  }
+]

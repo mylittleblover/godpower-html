@@ -1,0 +1,59 @@
+✖ renderAll has exactly one canonical definition and no override assignment (1.450017ms)
+✖ renderGrid has exactly one canonical definition and no override assignment (0.552881ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.155485ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.077772ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.06479ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.072168ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.086758ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.048546ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.071135ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 7
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 238.151247
+
+✖ failing tests:
+
+test at tests/unit/canonical-entrypoints.test.mjs:41:3
+✖ renderAll has exactly one canonical definition and no override assignment (1.450017ms)
+  AssertionError [ERR_ASSERTION]: [{"file":"src/script/00.js","type":"FunctionDeclaration"},{"file":"src/script/03.js","type":"AssignmentExpression"},{"file":"src/script/17.js","type":"AssignmentExpression"}]
+  
+  3 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/canonical-entrypoints.test.mjs:42:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/canonical-entrypoints.test.mjs:41:3
+✖ renderGrid has exactly one canonical definition and no override assignment (0.552881ms)
+  AssertionError [ERR_ASSERTION]: [{"file":"src/script/00.js","type":"FunctionDeclaration"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/01.js","type":"AssignmentExpression"},{"file":"src/script/02.js","type":"AssignmentExpression"},{"file":"src/script/12.js","type":"AssignmentExpression"},{"file":"src/script/17.js","type":"AssignmentExpression"},{"file":"src/script/24.js","type":"AssignmentExpression"},{"file":"src/script/26.js","type":"AssignmentExpression"},{"file":"src/script/27.js","type":"AssignmentExpression"},{"file":"src/script/29.js","type":"AssignmentExpression"},{"file":"src/script/31.js","type":"AssignmentExpression"}]
+  
+  11 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/canonical-entrypoints.test.mjs:42:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,35 @@
+PASS UI boot and five-page dock isolation (including programmatic stale-button clicks)
+PASS Toast stays in native top layer above functional and confirmation modals
+PASS Welcome 0 real groups, long names and large scores
+PASS Welcome 1 real groups, long names and large scores
+PASS Welcome 2 real groups, long names and large scores
+PASS Welcome 4 real groups, long names and large scores
+PASS Welcome 8 real groups, long names and large scores
+PASS Welcome 16 real groups, long names and large scores
+PASS Daily quiz answer/explanation match; formal state remains unchanged
+PASS History 0 snapshots and genuine score/inventory differences
+PASS History 1 snapshots and genuine score/inventory differences
+PASS History 40 snapshots and genuine score/inventory differences
+PASS History restore retains exact original pre-action semantics
+PASS All eight setting categories expose preserved controls; preferences persist
+PASS Local bank rejects malformed JSON without changing saved content; category toggle works
+PASS Archives 0 events, original ties/order and incomplete legacy fields
+PASS Archives 1 events, original ties/order and incomplete legacy fields
+PASS Archives 24 events, original ties/order and incomplete legacy fields
+PASS Picker all three modes, stop results and exact target reward
+FAIL All actual item definitions render main/secondary queues, real descriptions and visual event cleanup The expression evaluated to a falsy value:
+
+  assert.ok((await p.evaluate(() => DesktopUI.getAnimationCount())) <= 1)
+
+PASS Modal keyboard focus, nested Escape and reopen/close cleanup
+PASS Desktop 1366x768 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 1366x768 app zoom 1 five pages bounds/navigation
+PASS Desktop 1366x768 app zoom 1.25 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 1 five pages bounds/navigation
+PASS Desktop 1920x1080 app zoom 1.25 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 0.8 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 1 five pages bounds/navigation
+PASS Desktop 2560x1440 app zoom 1.25 five pages bounds/navigation
+PASS No uncaught browser errors across complete desktop acceptance
+{"pass":30,"fail":1}

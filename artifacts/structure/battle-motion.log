@@ -1,0 +1,12 @@
+
+> godpower-html@2.19.0 test:battle-motion
+> node tests/e2e/battle-motion.mjs
+
+PASS All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up
+PASS Score rolls preserve group color and right anchor at all application zooms and redraw mid-roll
+PASS Real global draw fades in, preserves the same overlay across renders, holds result and fades out
+PASS Hand reward draw also enters smoothly and still awards exactly one item
+PASS Persistent auras do not transform cards, and cancellation/reduced motion leave no effect sessions
+PASS Rapid score updates and undo cancel stale visual commits
+PASS Skipping acknowledges committed visual state without suppressing the next operation
+PASS Independent button slots are categorized, customizable and same-event click sound stays singular

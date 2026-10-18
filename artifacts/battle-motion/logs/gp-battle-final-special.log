@@ -1,0 +1,13 @@
+PASS All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up
+PASS Score rolls preserve group color and right anchor at all application zooms and redraw mid-roll
+FAIL Real global draw fades in, preserves the same overlay across renders, holds result and fades out page.waitForFunction: TypeError: Cannot read properties of null (reading 'getAnimations')
+    at eval (eval at predicate (eval at evaluate (:290:30)), <anonymous>:2:56)
+    at predicate (eval at evaluate (:290:30), <anonymous>:7:23)
+    at next (eval at evaluate (:290:30), <anonymous>:29:29)
+    at eval (eval at evaluate (:290:30), <anonymous>:42:9)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+PASS Persistent auras do not transform cards, and cancellation/reduced motion leave no effect sessions
+PASS Rapid score updates and undo cancel stale visual commits
+PASS Skipping acknowledges committed visual state without suppressing the next operation
+PASS Independent button slots are categorized, customizable and same-event click sound stays singular

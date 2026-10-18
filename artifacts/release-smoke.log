@@ -1,0 +1,15 @@
+PASS HTTP document continues offline: five page navigation and actual correct-answer scoring
+PASS Offline representative major modal lifecycle has no console errors
+PASS Actual archived four-group podium centers champion, preserves ties, full names and CSV offline
+FAIL Representative release has no uncaught errors, console.error or external runtime requests Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   {
++     text: 'Failed to load resource: net::ERR_INTERNET_DISCONNECTED',
++     type: 'error'
++   }
++ ]
+- []
+
+{ pass: 3, fail: 1 }

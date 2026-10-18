@@ -1,0 +1,83 @@
+FAIL Startup: five actual tab animations descend with increasing delays; skip cancels and restores controls Expected values to be strictly equal:
+
+0 !== 5
+
+PASS Startup motion-off creates no tab animation and leaves all tabs usable
+FAIL History 0 snapshots 1366: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '后悔药还没开封每次操作前的快照会留在这里。查看记录不会改变当前比赛。进入比赛' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 1 snapshots 1366: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 05:' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 40 snapshots 1366: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 395' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+PASS Archives 0 records 1366: real stats, old fields, search, details
+PASS Archives 1 records 1366: real stats, old fields, search, details
+PASS Archives 24 records 1366: real stats, old fields, search, details
+PASS Chrome 1366: dock exclusivity, card selection, dimensions, function surface tokens
+FAIL History 0 snapshots 1920: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '后悔药还没开封每次操作前的快照会留在这里。查看记录不会改变当前比赛。进入比赛' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 1 snapshots 1920: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 05:' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 40 snapshots 1920: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 395' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+PASS Archives 0 records 1920: real stats, old fields, search, details
+PASS Archives 1 records 1920: real stats, old fields, search, details
+PASS Archives 24 records 1920: real stats, old fields, search, details
+PASS Chrome 1920: dock exclusivity, card selection, dimensions, function surface tokens
+FAIL History 0 snapshots 2560: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '后悔药还没开封每次操作前的快照会留在这里。查看记录不会改变当前比赛。进入比赛' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 1 snapshots 2560: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 05:' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+FAIL History 40 snapshots 2560: visible diff, view-only state preservation, scroll locator.boundingBox: Error: strict mode violation: locator('.ui-collection-body') resolved to 2 elements:
+    1) <div class="ui-collection-body">…</div> aka getByText('已归档届数0最近冠军暂无历史最高积分暂无最近归档暂无 原始顺序 · 最近优先较早归档优先冠军积分优先显示 0 / 0')
+    2) <div class="ui-collection-body">…</div> aka locator('div').filter({ hasText: '小组管理测试积分变化 · 很长的操作说明及小组名称 395' }).nth(1)
+
+Call log:
+[2m  - waiting for locator('.ui-collection-body')[22m
+
+PASS Archives 0 records 2560: real stats, old fields, search, details
+PASS Archives 1 records 2560: real stats, old fields, search, details
+PASS Archives 24 records 2560: real stats, old fields, search, details
+PASS Chrome 2560: dock exclusivity, card selection, dimensions, function surface tokens
+PASS Every group window tab, every about tab, and all picker modes share surfaces without state mutations
+PASS Confirmation window nested above a function window: toast, focus, Escape and cleanup
+{ pass: 15, fail: 10, errors: [] }

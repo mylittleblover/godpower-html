@@ -1,0 +1,2 @@
+PASS reload preferences
+PASS corrupt preference isolation

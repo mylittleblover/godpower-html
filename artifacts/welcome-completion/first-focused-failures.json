@@ -1,0 +1,107 @@
+{
+  "baseline": "674e12f",
+  "sha256": "97887435c4fd3ca026d5c2594b173ab5419ed110a28dd86e34c3eeefd55eafeb",
+  "browser": "154.0.8037.57",
+  "zoomMethod": "application CSS zoom, not native browser zoom",
+  "results": [
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 0.8",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1.25",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 0.8",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1.25",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 0.8",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1",
+      "status": "PASS"
+    },
+    {
+      "name": "Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1.25",
+      "status": "PASS"
+    },
+    {
+      "name": "Keyboard full entrance, partial reset, repeated replay and view-switch interruption",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: motion-off",
+      "status": "FAIL",
+      "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at /workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:57:28\n    at async test (/workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:14:34)\n    at async file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:55:246"
+    },
+    {
+      "name": "Motion preferences: system-reduce",
+      "status": "PASS"
+    },
+    {
+      "name": "Motion preferences: system-optout",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:58:15\n    at async test (file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:14:34)\n    at async file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:55:246"
+    },
+    {
+      "name": "Motion preferences: simple",
+      "status": "PASS"
+    },
+    {
+      "name": "Live motion disable and resize cancel entrance without lingering focus/inert locks",
+      "status": "PASS"
+    },
+    {
+      "name": "Stable tie ranking, negative/large exact statistics, phase and live mutation consistency",
+      "status": "PASS"
+    },
+    {
+      "name": "Squid masks scores, ranks, ordering and KPI values, then restores exact state",
+      "status": "PASS"
+    },
+    {
+      "name": "Unchanged clock ticks preserve rank/feed nodes and reading position; new state updates them",
+      "status": "PASS"
+    },
+    {
+      "name": "Cruise is opt-in, pauses for reading and stops off-page/reduced motion; preference saves",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:87:133\n    at async test (file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:14:34)\n    at async file:///workspace/godpower-html/tests/e2e/welcome-v2-completion.mjs:85:1"
+    },
+    {
+      "name": "Welcome dashboard, SVG replay and quiz continue offline without external requests",
+      "status": "PASS"
+    }
+  ],
+  "errors": [
+    "Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found."
+  ],
+  "screenshots": [
+    "artifacts/welcome-completion/screenshots/intro-1366.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-1366.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-1366.png",
+    "artifacts/welcome-completion/screenshots/intro-1920.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-1920.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-1920.png",
+    "artifacts/welcome-completion/screenshots/intro-2560.png",
+    "artifacts/welcome-completion/screenshots/flip-endpoint-2560.png",
+    "artifacts/welcome-completion/screenshots/dashboard-14-2560.png",
+    "artifacts/welcome-completion/screenshots/statistics-large-negative-xss.png",
+    "artifacts/welcome-completion/screenshots/squid-masked.png"
+  ]
+}

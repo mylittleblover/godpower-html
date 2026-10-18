@@ -1,0 +1,5 @@
+PASS All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up
+PASS Score rolls preserve group color and right anchor at all application zooms and redraw mid-roll
+PASS Real global draw fades in, preserves the same overlay across renders, holds result and fades out
+PASS Persistent auras do not transform cards, and cancellation/reduced motion leave no effect sessions
+PASS Independent button slots are categorized, customizable and same-event click sound stays singular

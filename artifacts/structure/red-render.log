@@ -1,0 +1,141 @@
+✖ render ownership module exists (1.373616ms)
+✖ full refresh renders each page once in the established order (0.931423ms)
+✖ attack keeps old cards until 340ms and coalesces targets (2.672718ms)
+✖ attack callback resets flushing even when renderer throws (0.733819ms)
+✖ FLIP merges grid requests at 810ms and preserves held-score outer phase (2.361431ms)
+✖ attack gate also applies to delayed FLIP callback (0.676368ms)
+✖ only non-answering refresh clears item reorder suppression (0.601535ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 129.624612
+
+✖ failing tests:
+
+test at tests/unit/render-ownership.test.mjs:24:1
+✖ render ownership module exists (1.373616ms)
+  AssertionError [ERR_ASSERTION]: single rendering owner missing
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:24:50)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/unit/render-ownership.test.mjs:25:1
+✖ full refresh renders each page once in the established order (0.931423ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:26:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }
+
+test at tests/unit/render-ownership.test.mjs:34:1
+✖ attack keeps old cards until 340ms and coalesces targets (2.672718ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:35:31)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }
+
+test at tests/unit/render-ownership.test.mjs:46:1
+✖ attack callback resets flushing even when renderer throws (0.733819ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:47:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }
+
+test at tests/unit/render-ownership.test.mjs:51:1
+✖ FLIP merges grid requests at 810ms and preserves held-score outer phase (2.361431ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:52:31)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }
+
+test at tests/unit/render-ownership.test.mjs:60:1
+✖ attack gate also applies to delayed FLIP callback (0.676368ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:61:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }
+
+test at tests/unit/render-ownership.test.mjs:65:1
+✖ only non-answering refresh clears item reorder suppression (0.601535ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/render.js'
+      at readFileSync (node:fs:484:20)
+      at harness (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:21:19)
+      at TestContext.<anonymous> (file:///workspace/godpower-structure/tests/unit/render-ownership.test.mjs:66:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/render.js'
+  }

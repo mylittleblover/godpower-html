@@ -1,0 +1,13 @@
+import {readFile} from 'node:fs/promises';import {parse} from 'acorn';
+const s=await readFile('dist/godpower.html','utf8');let count=0;
+for(const m of s.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)){parse(m[1],{ecmaVersion:'latest',allowReturnOutsideFunction:false});count++}
+const baseline=await readFile('baseline/V2.18.13.html','utf8');
+const resources=x=>[...x.matchAll(/data:[a-zA-Z0-9.+/-]+(?:;[a-zA-Z0-9=.+-]+)*;base64,[a-zA-Z0-9+/=\s]+/g)].map(m=>m[0]);
+if(JSON.stringify(resources(s))!==JSON.stringify(resources(baseline)))throw Error('Embedded resources changed');
+if(/<(?:script|link)[^>]+(?:src|href)=["']https?:/i.test(s))throw Error('External runtime dependency');
+console.log(`${count} script blocks parse; all ${resources(s).length} original embedded resources preserved`);
+const template=await readFile('src/index.template.html','utf8');
+const expectedBlocks=[...template.matchAll(/<(script|style)\b([^>]*)>\s*@@SOURCE:([^@]+)@@\s*<\/\1>/g)].map(([,type,attributes,path])=>({type,path,attributes}));
+const manifest=JSON.parse(await readFile('src/manifest.json','utf8'));
+if(JSON.stringify(manifest.blocks)!==JSON.stringify(expectedBlocks))throw Error('Source manifest drift; run node scripts/sync-source-manifest.mjs');
+console.log(`${expectedBlocks.length} source blocks match the manifest and template`);

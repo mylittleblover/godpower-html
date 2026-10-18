@@ -1,0 +1,5 @@
+
+> godpower-html@2.19.0 build
+> node scripts/build.mjs
+
+{"file":"dist/godpower.html","bytes":7758011,"sha256":"e2ad850024229c3f956c5639acdc024917bcd5b512922a5421d6bc01fa02da2b"}

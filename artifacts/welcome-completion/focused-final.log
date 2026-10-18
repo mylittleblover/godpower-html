@@ -1,0 +1,21 @@
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1366x768 app zoom 1.25
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 1920x1080 app zoom 1.25
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 0.8
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1
+PASS Entrance geometry, actual pointer unlock and SVG FLIP 2560x1440 app zoom 1.25
+PASS Keyboard full entrance, partial reset, repeated replay and view-switch interruption
+FAIL Motion preferences: motion-off page.waitForFunction: Target page, context or browser has been closed
+FAIL Motion preferences: system-reduce browser.newContext: Target page, context or browser has been closed
+FAIL Motion preferences: system-optout browser.newContext: Target page, context or browser has been closed
+FAIL Motion preferences: simple browser.newContext: Target page, context or browser has been closed
+FAIL Live motion disable and resize cancel entrance without lingering focus/inert locks browser.newContext: Target page, context or browser has been closed
+FAIL Stable tie ranking, negative/large exact statistics, phase and live mutation consistency browser.newContext: Target page, context or browser has been closed
+FAIL Squid masks scores, ranks, ordering and KPI values, then restores exact state browser.newContext: Target page, context or browser has been closed
+FAIL Unchanged clock ticks preserve rank/feed nodes and reading position; new state updates them browser.newContext: Target page, context or browser has been closed
+FAIL Cruise is opt-in, pauses for reading and stops off-page/reduced motion; preference saves browser.newContext: Target page, context or browser has been closed
+FAIL Welcome dashboard, SVG replay and quiz continue offline without external requests browser.newContext: Target page, context or browser has been closed
+{ pass: 10, fail: 10, errors: [] }

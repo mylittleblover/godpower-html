@@ -1,0 +1,4 @@
+PASS admin 1366
+PASS admin 1920
+PASS admin 2560
+{ pass: 3, fail: 0, errors: [] }

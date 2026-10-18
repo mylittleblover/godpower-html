@@ -1,0 +1,60 @@
+{
+  "sha256": "fb805cd1c5c07de0ccce88488c34b44eee711f3cb9223d62eefbaa440e74b500",
+  "results": [
+    {
+      "name": "Multiple WAV upload keeps legacy primary and appends two persistent candidates",
+      "status": "PASS",
+      "evidence": {
+        "primary": true,
+        "candidates": [
+          "second.wav",
+          "<img src=x onerror=alert(1)>.wav"
+        ]
+      }
+    },
+    {
+      "name": "Actual playback randomly selects exactly one sample without consuming game Math.random",
+      "status": "PASS",
+      "evidence": {
+        "deterministic": [
+          0,
+          1,
+          2
+        ],
+        "selected": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "Real reload restores primary, candidate count and filenames",
+      "status": "PASS"
+    },
+    {
+      "name": "Audio BIN export and import preserve all choices and old primary format",
+      "status": "PASS",
+      "evidence": {
+        "records": 3
+      }
+    },
+    {
+      "name": "Per-item and looping sounds share selection; removing one candidate preserves others",
+      "status": "PASS",
+      "evidence": {
+        "perItem": 26,
+        "loop": 1,
+        "remaining": 2
+      }
+    },
+    {
+      "name": "Failed restore transaction retains the primary and remaining candidate",
+      "status": "PASS",
+      "evidence": {
+        "records": 2
+      }
+    }
+  ],
+  "errors": []
+}

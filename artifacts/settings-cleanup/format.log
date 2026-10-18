@@ -1,0 +1,4 @@
+src/ui/desktop.js 241ms (unchanged)
+src/ui/desktop.css 107ms (unchanged)
+tests/e2e/settings-cleanup.mjs 69ms
+scripts/settings-inventory.mjs 13ms

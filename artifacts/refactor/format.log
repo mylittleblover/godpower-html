@@ -1,0 +1,14 @@
+src/core/commands.js 81ms
+src/core/item-score.js 47ms
+src/core/history.js 13ms
+tests/unit/command-lifecycle.test.mjs 18ms
+tests/unit/history-snapshots.test.mjs 9ms
+tests/unit/canonical-entrypoints.test.mjs 5ms
+tests/e2e/defense-command.mjs 27ms
+tests/e2e/legacy-differential.mjs 33ms
+tests/e2e/defense-baseline-probe.mjs 7ms
+tests/e2e/refactor-layout.mjs 1ms
+tests/e2e/refactor-performance.mjs 12ms
+tests/e2e/battle-layout.mjs 16ms
+tests/fixtures/source-at.mjs 3ms
+scripts/legacy-inventory.mjs 21ms

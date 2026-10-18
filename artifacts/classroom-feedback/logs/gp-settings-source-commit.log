@@ -1,0 +1,14 @@
+[feat/shared-score-slots-cinematic-feedback 42acc4a] feat: unify classroom scoring feedback and customizable audio [skip ci]
+ 29 files changed, 4335 insertions(+), 215 deletions(-)
+ create mode 100644 docs/audit/AUDIO_AUDIT.md
+ create mode 100644 docs/audit/AUDIO_INVENTORY.json
+ create mode 100644 docs/ui/CLASSROOM_FEEDBACK.md
+ create mode 100644 scripts/audio-inventory.mjs
+ create mode 100644 src/ui/classroom-feedback.css
+ create mode 100644 src/ui/classroom-feedback.js
+ create mode 100644 tests/e2e/audio-customization.mjs
+ create mode 100644 tests/e2e/classroom-feedback-layout.mjs
+ create mode 100644 tests/e2e/classroom-feedback-restore.mjs
+ create mode 100644 tests/e2e/classroom-feedback.mjs
+ create mode 100644 tests/e2e/settings-behavior-alignment.mjs
+ create mode 100644 tests/unit/classroom-feedback.test.mjs

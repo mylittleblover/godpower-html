@@ -1,0 +1,6 @@
+
+> godpower-html@2.19.0 format:ui
+> prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs
+
+Checking formatting...
+All matched files use Prettier code style!

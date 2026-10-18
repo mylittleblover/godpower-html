@@ -1,0 +1,100 @@
+{
+  "sourceCommit": "5dd70ca8aeecd1e3a0582f48d5529f2a4809d57c",
+  "sha256": "021710b54f475eafae5d4a39d5f58324a0dde4c34cab081fce149916f40b194b",
+  "nodeTests": 87,
+  "results": [
+    {
+      "feature": "核心业务 Chromium",
+      "count": 117,
+      "status": "PASS",
+      "evidence": "artifacts/browser-results.json"
+    },
+    {
+      "feature": "26 道具精确结果",
+      "count": 26,
+      "status": "PASS",
+      "evidence": "artifacts/rule-oracles.json"
+    },
+    {
+      "feature": "真实作答／持久化",
+      "count": 3,
+      "status": "PASS",
+      "evidence": "artifacts/scoring-persistence-results.json"
+    },
+    {
+      "feature": "桌面 UI",
+      "count": 31,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/results.json"
+    },
+    {
+      "feature": "桌面交互",
+      "count": 21,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/interactions.json"
+    },
+    {
+      "feature": "弹窗矩阵",
+      "count": 99,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/modal-matrix.json"
+    },
+    {
+      "feature": "原 V2.18.15 的14组布局比较",
+      "count": 3,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/battle-14-comparison.json"
+    },
+    {
+      "feature": "离线文档及归档冒烟",
+      "count": 4,
+      "status": "PASS",
+      "evidence": "artifacts/desktop-ui/release-smoke.json"
+    },
+    {
+      "feature": "异步防御完整命令／真实按钮",
+      "count": 30,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/defense-command.json"
+    },
+    {
+      "feature": "新旧业务差分（隔离渲染和音效）",
+      "count": 464,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/legacy-differential.json"
+    },
+    {
+      "feature": "最新开发源码的14组布局比较",
+      "count": 3,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/layout/battle-14-comparison.json"
+    },
+    {
+      "feature": "新旧20/50/100回合观测",
+      "count": 6,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/performance-comparison.json"
+    },
+    {
+      "feature": "原防御令牌保护",
+      "count": 10,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/final-verify.log"
+    },
+    {
+      "feature": "批量学生赋分／原子撤销／溢出",
+      "count": 1,
+      "status": "PASS",
+      "evidence": "artifacts/refactor/final-verify.log"
+    }
+  ],
+  "blocked": [
+    "file protocol"
+  ],
+  "notTested": [
+    "native browser zoom",
+    "manual audio listening",
+    "hours soak",
+    "all arbitrary configurations"
+  ]
+}

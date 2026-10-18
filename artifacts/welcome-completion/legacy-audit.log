@@ -1,0 +1,5 @@
+
+> godpower-html@2.19.0 audit:legacy
+> node scripts/legacy-inventory.mjs
+
+{"before":{"sourceBytes":808989,"sourceLines":19204,"functionDefinitions":783,"duplicateNames":85,"extraDefinitions":194,"capturedWrapperAliases":111,"timerAndListenerCalls":265,"cssLeafRules":1529,"exactRepeatedCssBodies":48,"important":1691,"buildBytes":7635132},"after":{"sourceBytes":852250,"sourceLines":20991,"functionDefinitions":812,"duplicateNames":87,"extraDefinitions":191,"capturedWrapperAliases":100,"timerAndListenerCalls":296,"cssLeafRules":1697,"exactRepeatedCssBodies":48,"important":1692,"buildBytes":7688029}}

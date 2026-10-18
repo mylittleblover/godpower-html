@@ -1,0 +1,28 @@
+PASS Encyclopedia title and subtitle contrast meet 4.5:1
+PASS Continuous default cruise advances in every sample and wraps without a blank edge
+PASS Carousel 0 groups: bounded clones, actual data and reduced motion
+PASS Carousel 1 groups: bounded clones, actual data and reduced motion
+PASS Carousel 2 groups: bounded clones, actual data and reduced motion
+PASS Carousel 4 groups: bounded clones, actual data and reduced motion
+PASS Carousel 8 groups: bounded clones, actual data and reduced motion
+PASS Carousel 16 groups: bounded clones, actual data and reduced motion
+PASS Dashboard 1366: equal KPI fonts, uniform cards, quiz and disclosure
+PASS Dashboard 1920: equal KPI fonts, uniform cards, quiz and disclosure
+PASS Dashboard 2560: equal KPI fonts, uniform cards, quiz and disclosure
+PASS Window scoreModalBackdrop: nonlinear downward exit, inert controls and cleanup
+PASS Window memberSearchBackdrop: nonlinear downward exit, inert controls and cleanup
+PASS Window pwdModal: nonlinear downward exit, inert controls and cleanup
+PASS Window settlementNameModal: nonlinear downward exit, inert controls and cleanup
+PASS Window pickerModal: nonlinear downward exit, inert controls and cleanup
+PASS Window itemModalBackdrop: nonlinear downward exit, inert controls and cleanup
+PASS Window handRaiseBackdrop: nonlinear downward exit, inert controls and cleanup
+PASS Window aboutBackdrop: nonlinear downward exit, inert controls and cleanup
+FAIL Window batchImportModal: nonlinear downward exit, inert controls and cleanup Expected values to be strictly equal:
+
+false !== true
+
+PASS Window quickPersonBackdropV218: nonlinear downward exit, inert controls and cleanup
+PASS Window themeDialogV21727: nonlinear downward exit, inert controls and cleanup
+PASS Window grandModalOverlay: nonlinear downward exit, inert controls and cleanup
+PASS Dynamic warning closes with exit and repeated confirmation cannot fire twice
+PASS Rapid reopen cancels stale close; reduced motion closes immediately

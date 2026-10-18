@@ -1,0 +1,625 @@
+[
+  {
+    "key": "green",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "triple_green",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "triple_green",
+          "charges": 2,
+          "acquiredAt": 1792257647573
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "red",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        120,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "triple_red",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        120,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "triple_red",
+          "charges": 2,
+          "acquiredAt": 1792257654972
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "spiny",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        110
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "banana",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "triple_banana",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "triple_banana",
+          "charges": 2,
+          "acquiredAt": 1792257664854
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "horn",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        135,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "bomb",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "hammer",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        135,
+        165
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "coin",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        142,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "coin_shell",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        175,
+        225,
+        275
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "question",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        125,
+        175,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "mushroom",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        175,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "triple_mushroom",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        175,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "triple_mushroom",
+          "charges": 2,
+          "acquiredAt": 1792257678231
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "boo",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "mushroom",
+          "charges": 1,
+          "acquiredAt": 1792257681364
+        }
+      ],
+      "effect": null,
+      "ghost": 3,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "blooper",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": true
+    }
+  },
+  {
+    "key": "lightning",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        90,
+        110
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "star",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": {
+        "type": "star",
+        "hitsLeft": 3,
+        "startedAt": 1792257687490
+      },
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "mega",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "mega",
+          "charges": 1,
+          "acquiredAt": 1792257691881
+        }
+      ],
+      "effect": {
+        "type": "mega",
+        "hitsLeft": 3,
+        "startedAt": 1792257691881
+      },
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "bullet",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        221,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "power",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "power",
+          "charges": 1,
+          "acquiredAt": 1792257694587
+        }
+      ],
+      "effect": {
+        "type": "power",
+        "roundsLeft": 3,
+        "startedAt": 1792257694587
+      },
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "feather",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        100,
+        140,
+        180,
+        220
+      ],
+      "inventory": [],
+      "effect": {
+        "featherDodge": 1
+      },
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "fire_flower",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        75,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "fire_flower",
+          "charges": 2,
+          "acquiredAt": 1792257696983
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  },
+  {
+    "key": "ice_flower",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        80,
+        140,
+        180,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "ice_flower",
+          "charges": 2,
+          "acquiredAt": 1792257697931
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": {
+        "iceLock": 1,
+        "iceRoundsLeftV218": 3
+      },
+      "masked": false
+    }
+  },
+  {
+    "key": "boomerang_flower",
+    "status": "PASS",
+    "actual": {
+      "ok": true,
+      "allIn": false,
+      "allInBlocked": true,
+      "used": 1,
+      "scores": [
+        80,
+        140,
+        144,
+        220
+      ],
+      "inventory": [
+        {
+          "key": "boomerang_flower",
+          "charges": 2,
+          "acquiredAt": 1792257699076
+        }
+      ],
+      "effect": null,
+      "ghost": 0,
+      "targetEffect": null,
+      "masked": false
+    }
+  }
+]

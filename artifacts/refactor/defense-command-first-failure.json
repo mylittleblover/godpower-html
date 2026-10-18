@@ -1,0 +1,167 @@
+{
+  "results": [
+    {
+      "key": "mushroom",
+      "scenario": "accept",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "decline",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "undo",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "round",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "new-command",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reject",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "quota",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "mushroom",
+      "scenario": "reload",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "accept",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "decline",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "undo",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "round",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "new-command",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reject",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "quota",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "triple_mushroom",
+      "scenario": "reload",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "accept",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "decline",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "undo",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "round",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "new-command",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "import",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "reject",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "quota",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    },
+    {
+      "key": "horn",
+      "scenario": "reload",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///workspace/godpower-html/tests/e2e/defense-command.mjs:40:93"
+    }
+  ],
+  "pageErrors": []
+}

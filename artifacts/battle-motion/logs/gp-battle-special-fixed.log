@@ -1,0 +1,13 @@
+FAIL All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up green y
+PASS Score rolls preserve group color and right anchor at all application zooms and redraw mid-roll
+FAIL Real global draw fades in, preserves the same overlay across renders, holds result and fades out page.evaluate: Error: missing entry
+    at eval (eval at evaluate (:290:30), <anonymous>:6:21)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+FAIL Persistent auras do not transform cards, and cancellation/reduced motion leave no effect sessions Expected values to be strictly equal:
++ actual - expected
+
++ 'matrix(1, 0, 0, 1, 0, 0)'
+- 'none'
+
+PASS Independent button slots are categorized, customizable and same-event click sound stays singular

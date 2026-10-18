@@ -1,0 +1,30 @@
+PASS Shared six slots across all five scoring windows and persistent setting edit
+PASS Slot invalid input cannot replace saved values
+PASS Actual group slot scores once; green/red full-screen and undo
+PASS Actual modal slot scores once; green/red full-screen and undo
+PASS Actual hand slot scores once; green/red full-screen and undo
+PASS Manual hand score and invalid/locked commands: effects only on successful change
+FAIL Slot individual: actual vertical motion, continuous handoff and unchanged winner Expected "actual" not to be strictly deep-equal to:
+
+[
+  'matrix(1, 0, 0, 1, 0, 0)'
+]
+
+FAIL Slot group: actual vertical motion, continuous handoff and unchanged winner page.evaluate: TypeError: Cannot read properties of null (reading 'memberName')
+    at stopSlotSpin (http://127.0.0.1:32867/:11535:54)
+    at stopSlotSpin (http://127.0.0.1:32867/:13376:56)
+    at closePickerModal (http://127.0.0.1:32867/:11282:30)
+    at Object.pickerModal [as close] (http://127.0.0.1:32867/:22665:24)
+    at Object.viewChanged (http://127.0.0.1:32867/:21609:11)
+    at switchView (http://127.0.0.1:32867/:12021:47)
+    at switchView (http://127.0.0.1:32867/:13461:58)
+    at switchView (http://127.0.0.1:32867/:15559:29)
+    at switchView (http://127.0.0.1:32867/:18331:36)
+    at eval (eval at evaluate (:290:30), <anonymous>:47:5)
+PASS Slot two_tier: actual vertical motion, continuous handoff and unchanged winner
+PASS Effect off, reduced motion and page/undo interruptions clean overlays
+PASS Settings and full-screen bounds 1366
+PASS Settings and full-screen bounds 1920
+PASS Settings and full-screen bounds 2560
+PASS Every active sound slot has custom upload wiring and uploaded samples are played
+PASS Global pointer and keyboard clicks use custom click sound once; disable suppresses it

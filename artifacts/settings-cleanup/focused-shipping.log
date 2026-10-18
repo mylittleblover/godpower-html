@@ -1,0 +1,20 @@
+
+> godpower-html@2.19.0 test:settings
+> node tests/e2e/settings-cleanup.mjs
+
+PASS Settings entry and category staggered motion, rapid switching, Escape and reduced-motion cleanup
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1366x768
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 1920x1080
+PASS Eight categories, normal and expanded maintenance, scrolling and keyboard 2560x1440
+PASS Aligned full-width settings at all desktop sizes and 80/100/125 percent application zoom
+PASS Every original control and action survives exactly once; categories use explicit ownership
+PASS Moved layout, rules, real wallpaper and veil save and restore without changing groups
+PASS Daily volume uses original live setters and persists across reload
+PASS All nine music choices and all 30 item sound editors remain available after repeated navigation
+PASS Roster rebuild requires confirmation; cancellation preserves groups, acceptance applies original command
+PASS Danger tools stay collapsed; cancel score and item clearing preserves all data
+PASS All item icons retained; reset-all has confirmation and preserves custom image on cancel
+PASS Local bank maintenance is secondary, validates edits and exports real saved content
+PASS Data backup and local management PIN keep existing behavior after moving controls
+PASS Moved audio actions: real WAV upload, both BGMP exports, import into isolated storage and refreshed item status
+{ pass: 15, fail: 0, errors: [] }

@@ -1,0 +1,86 @@
+{
+  "sha256": "e2ad850024229c3f956c5639acdc024917bcd5b512922a5421d6bc01fa02da2b",
+  "results": [
+    {
+      "name": "Real WAV input uploads to custom button click slot and persists in IndexedDB",
+      "status": "PASS",
+      "evidence": {
+        "bytes": 3244
+      }
+    },
+    {
+      "name": "Actual mouse and keyboard clicks each play one uploaded sample; opt-out and master mute work",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 0.8500000238418579\n- 0\n\n    at file:///workspace/godpower-html/tests/e2e/audio-customization.mjs:8:1117\n    at async test (file:///workspace/godpower-html/tests/e2e/audio-customization.mjs:5:49)\n    at async file:///workspace/godpower-html/tests/e2e/audio-customization.mjs:8:1"
+    },
+    {
+      "name": "Concurrent file reads cannot cross-write another sound slot",
+      "status": "PASS",
+      "evidence": [
+        [
+          0,
+          0,
+          73,
+          2,
+          124,
+          4,
+          131,
+          6,
+          73,
+          8,
+          190,
+          9,
+          212,
+          10,
+          126,
+          11,
+          184,
+          11,
+          126,
+          11
+        ],
+        [
+          0,
+          0,
+          14,
+          4,
+          156,
+          7,
+          57,
+          10,
+          147,
+          11,
+          126,
+          11,
+          254,
+          9,
+          65,
+          7,
+          159,
+          3,
+          138,
+          255
+        ]
+      ]
+    },
+    {
+      "name": "Storage abort keeps old uploaded audio on disk and explicitly warns unsaved",
+      "status": "PASS",
+      "evidence": {
+        "diskPreserved": true
+      }
+    },
+    {
+      "name": "Corrupt audio preserves existing decoded custom slot",
+      "status": "PASS"
+    },
+    {
+      "name": "Default loop preview produces a fallback sound when no upload exists",
+      "status": "PASS",
+      "evidence": {
+        "oscillators": 1
+      }
+    }
+  ],
+  "errors": []
+}

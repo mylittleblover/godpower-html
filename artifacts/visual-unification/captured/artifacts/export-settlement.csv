@@ -1,0 +1,72 @@
+﻿【封神榜档案概要】
+字段,内容
+"档案名称","积分结算"
+"归档日期","10/17/2026"
+"归档时间","10/17/2026, 5:19:52 PM"
+"第一名","测试 4 组"
+"小组数量","4"
+"全班总分","640"
+
+【本轮课堂统计】
+项目,数值
+"课堂作答总次数","0"
+"答题轮次","0"
+"全局道具发放","0"
+"手动举手次数","0"
+"随机点名记录数","0"
+"手动举手记录数","0"
+"撤销历史节点数","0"
+
+【各组最终状态】
+"排名","小组名称","最终得分","组员名单","答对次数","答错次数","道具抽取次数","道具使用次数","持有道具","持续状态","幽灵防护剩余","本题已使用道具","三重道具续用键","All In","所选答案","结果文字"
+"1","测试 4 组","220","04 同学 / 4 甲","0","0","0","0","","无","0","否","","否","",""
+"2","测试 3 组","180","03 同学 / 3 甲","0","0","0","0","","无","0","否","","否","",""
+"3","测试 2 组","140","02 同学 / 2 甲","0","0","0","0","","无","0","否","","否","",""
+"4","测试 1 组","100","01 同学 / 1 甲","0","0","0","0","","无","0","否","","否","",""
+
+【道具与抽取状态】
+项目,内容
+"鱿鱿遮蔽截止时间","0"
+"抽取节流状态","{}"
+"抽取轮次与冷却","{}"
+"第一次手动举手特殊抽取是否待触发","是"
+"当前抽取会话",""
+"当前是否正在抽取","否"
+
+【随机点名与防重复记录】
+项目,内容
+"点名模式","individual"
+"已抽学生键","[]"
+"已抽小组 ID","[]"
+"预选小组 ID","[]"
+"当前抽取结果",""
+
+【随机点名历史】
+序号,时间,记录
+1,"","无记录"
+
+【手动举手历史】
+序号,时间,小组ID,小组名称,结果
+1,"","","","无记录"
+
+【结算前回合状态】
+项目,内容
+"是否正在答题","是"
+"是否已判定","否"
+"正确答案",""
+"回合编号","0"
+"是否曾开始过比赛","是"
+"上一轮 All In 状态","{""wins"":0,""losses"":0}"
+"当前举手小组 ID","1"
+"当前举手抽道具小组 ID",""
+"待定道具键",""
+"道具抽取开始时间","0"
+"当前道具详情小组 ID",""
+
+【撤销 / 回溯历史】
+节点,时间,操作,小组状态快照,随机点名快照,道具全局快照
+1,"","无历史节点","","",""
+
+【原始清零前快照】
+说明,JSON
+"以下 JSON 保存本次结算前、会被归零的数据快照","{""archivedAt"":""10/17/2026, 5:19:52 PM"",""groups"":[{""id"":1,""name"":""测试 1 组"",""color"":""#2F7DD1"",""members"":[""01 同学"",""1 甲""],""score"":100,""displayScore"":100,""allIn"":false,""selectedOpt"":"""",""resultText"":"""",""animState"":"""",""inventory"":[],""itemStats"":{""correct"":0,""wrong"":0,""draws"":0,""used"":0},""itemEffect"":null,""booShield"":0,""booRoundsLeftV218"":0,""itemUsedThisRound"":false,""roundItemContinuationKeyV218"":"""",""spinyHornDecisionPending"":false,""spinyHornDeclined"":false},{""id"":2,""name"":""测试 2 组"",""color"":""#2F7DD1"",""members"":[""02 同学"",""2 甲""],""score"":140,""displayScore"":140,""allIn"":false,""selectedOpt"":"""",""resultText"":"""",""animState"":"""",""inventory"":[],""itemStats"":{""correct"":0,""wrong"":0,""draws"":0,""used"":0},""itemEffect"":null,""booShield"":0,""booRoundsLeftV218"":0,""itemUsedThisRound"":false,""roundItemContinuationKeyV218"":"""",""spinyHornDecisionPending"":false,""spinyHornDeclined"":false},{""id"":3,""name"":""测试 3 组"",""color"":""#2F7DD1"",""members"":[""03 同学"",""3 甲""],""score"":180,""displayScore"":180,""allIn"":false,""selectedOpt"":"""",""resultText"":"""",""animState"":"""",""inventory"":[],""itemStats"":{""correct"":0,""wrong"":0,""draws"":0,""used"":0},""itemEffect"":null,""booShield"":0,""booRoundsLeftV218"":0,""itemUsedThisRound"":false,""roundItemContinuationKeyV218"":"""",""spinyHornDecisionPending"":false,""spinyHornDeclined"":false},{""id"":4,""name"":""测试 4 组"",""color"":""#2F7DD1"",""members"":[""04 同学"",""4 甲""],""score"":220,""displayScore"":220,""allIn"":false,""selectedOpt"":"""",""resultText"":"""",""animState"":"""",""inventory"":[],""itemStats"":{""correct"":0,""wrong"":0,""draws"":0,""used"":0},""itemEffect"":null,""booShield"":0,""booRoundsLeftV218"":0,""itemUsedThisRound"":false,""roundItemContinuationKeyV218"":"""",""spinyHornDecisionPending"":false,""spinyHornDeclined"":false}],""round"":{""roundActive"":true,""evaluated"":false,""correctAnswer"":"""",""correctAns"":"""",""roundNo"":0,""hasStartedOnce"":true,""lastRoundAllIn"":{""wins"":0,""losses"":0}},""itemGlobal"":{""blooperUntil"":0,""totalDraws"":0,""pickerHistory"":[],""handRaiseHistory"":[],""handRaiseTotal"":0,""pkTotal"":0,""drawThrottleV2179"":null,""drawSessionThrottleV21710"":null},""picker"":{""mode"":""individual"",""pickedStudentKeys"":[],""pickedGroupIds"":[],""preselectedGroupIds"":[]},""transient"":{""handRaiseGroupId"":1,""handItemDrawGroupId"":null,""handItemPendingKey"":null,""handItemDrawStartedAt"":0,""activeDrawSession"":null,""itemDrawBusy"":false,""firstHandDrawPending"":true,""activeItemGroupId"":null,""pickerInfoTab"":""history"",""slotEngine"":{""isSpinning"":false,""spinning"":false,""chosenResult"":null}},""undoHistory"":[]}"

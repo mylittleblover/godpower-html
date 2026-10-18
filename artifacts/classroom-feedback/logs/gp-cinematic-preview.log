@@ -1,0 +1,76 @@
+{
+  r: {
+    x: 268,
+    y: 663.6875,
+    width: 1049,
+    height: 62,
+    top: 663.6875,
+    right: 1317,
+    bottom: 725.6875,
+    left: 268
+  },
+  style: '',
+  inputs: [
+    {
+      x: 268,
+      y: 690.6875,
+      width: 164.828125,
+      height: 35,
+      top: 690.6875,
+      right: 432.828125,
+      bottom: 725.6875,
+      left: 268
+    },
+    {
+      x: 444.828125,
+      y: 690.6875,
+      width: 164.828125,
+      height: 35,
+      top: 690.6875,
+      right: 609.65625,
+      bottom: 725.6875,
+      left: 444.828125
+    },
+    {
+      x: 621.65625,
+      y: 690.6875,
+      width: 164.828125,
+      height: 35,
+      top: 690.6875,
+      right: 786.484375,
+      bottom: 725.6875,
+      left: 621.65625
+    },
+    {
+      x: 798.484375,
+      y: 690.6875,
+      width: 164.84375,
+      height: 35,
+      top: 690.6875,
+      right: 963.328125,
+      bottom: 725.6875,
+      left: 798.484375
+    },
+    {
+      x: 975.328125,
+      y: 690.6875,
+      width: 164.828125,
+      height: 35,
+      top: 690.6875,
+      right: 1140.15625,
+      bottom: 725.6875,
+      left: 975.328125
+    },
+    {
+      x: 1152.15625,
+      y: 690.6875,
+      width: 164.828125,
+      height: 35,
+      top: 690.6875,
+      right: 1316.984375,
+      bottom: 725.6875,
+      left: 1152.15625
+    }
+  ],
+  parent: '<section class="ui-panel cf-settings"><h3>六个快捷赋分槽位</h3><p class="ui-muted">抽取、举手、小组、独立赋分和按人赋分共用。修改后立即保存；各窗口保留手动输入。</p><div class="cf-slot-editor"><label>槽位 1<input type="number" step="1" data-cf-slot='
+}
