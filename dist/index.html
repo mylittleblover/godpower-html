@@ -4319,9 +4319,9 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 <style id="v2180PlanStyle">
 /* ===== V2.18.0：手写方案整合 ===== */
 
-/* 密码验证永远最高；防御/普通主题确认位于其下。 */
-#pwdModal{z-index:300500!important}
-.theme-dialog-v21727{z-index:299000!important}
+/* 统一模态焦点栈决定最近打开窗口的层级；旧值仅作为兼容回退。 */
+#pwdModal{z-index:var(--ui-modal-layer,300500)!important}
+.theme-dialog-v21727{z-index:var(--ui-modal-layer,299000)!important}
 
 /* 底栏快速按人加分 */
 .quick-person-backdrop-v218{
@@ -6158,6 +6158,30 @@ body.modern-flat-v217 {
 #themeDialogV21727[data-ui-notice="danger"] .theme-dialog-icon-v21727 {
   background: #fff0e9;
   color: #ba543c;
+}
+
+.ui-dock-menu[open] .ui-dock-menu-body {
+  animation: ui-menu-reveal var(--menu-reveal-duration, 180ms)
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes ui-menu-reveal {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+body[data-motion="off"] {
+  --menu-reveal-duration: 0ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-system-motion="true"] {
+    --menu-reveal-duration: 0ms;
+  }
 }
 </style>
 <style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
@@ -21893,7 +21917,8 @@ const DesktopUI = (() => {
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
   };
-  let openStack = [];
+  let openStack = [],
+    modalLayer = 300000;
   function setupModals() {
     const known = new Map();
     function focusModal(top) {
@@ -21921,7 +21946,13 @@ const DesktopUI = (() => {
       known.set(id, false);
       const item = openStack.find((x) => x.id === id);
       openStack = openStack.filter((x) => x.id !== id);
-      if (item?.el) delete item.el.dataset.uiModalOpen;
+      if (item?.el) {
+        delete item.el.dataset.uiModalOpen;
+        item.el.style.zIndex = item.previousZ;
+        if (item.previousLayer)
+          item.el.style.setProperty("--ui-modal-layer", item.previousLayer);
+        else item.el.style.removeProperty("--ui-modal-layer");
+      }
       const top = openStack.at(-1);
       if (top) {
         if (item?.focus?.isConnected && top.el.contains(item.focus))
@@ -21974,7 +22005,12 @@ const DesktopUI = (() => {
         if (visible && !known.get(id)) {
           const focus = document.activeElement;
           known.set(id, true);
-          openStack.push({ id, el, close, focus });
+          const previousZ = el.style.zIndex;
+          const previousLayer = el.style.getPropertyValue("--ui-modal-layer");
+          const layer = String(++modalLayer);
+          el.style.zIndex = layer;
+          el.style.setProperty("--ui-modal-layer", layer);
+          openStack.push({ id, el, close, focus, previousZ, previousLayer });
           const dialog =
             el.firstElementChild?.tagName === "CANVAS"
               ? el.querySelector(".grand-card")

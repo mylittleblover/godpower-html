@@ -1,9 +1,9 @@
 
 /* ===== V2.18.0：手写方案整合 ===== */
 
-/* 密码验证永远最高；防御/普通主题确认位于其下。 */
-#pwdModal{z-index:300500!important}
-.theme-dialog-v21727{z-index:299000!important}
+/* 统一模态焦点栈决定最近打开窗口的层级；旧值仅作为兼容回退。 */
+#pwdModal{z-index:var(--ui-modal-layer,300500)!important}
+.theme-dialog-v21727{z-index:var(--ui-modal-layer,299000)!important}
 
 /* 底栏快速按人加分 */
 .quick-person-backdrop-v218{

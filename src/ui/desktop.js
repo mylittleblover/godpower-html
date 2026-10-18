@@ -1224,7 +1224,8 @@ const DesktopUI = (() => {
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
   };
-  let openStack = [];
+  let openStack = [],
+    modalLayer = 300000;
   function setupModals() {
     const known = new Map();
     function focusModal(top) {
@@ -1252,7 +1253,13 @@ const DesktopUI = (() => {
       known.set(id, false);
       const item = openStack.find((x) => x.id === id);
       openStack = openStack.filter((x) => x.id !== id);
-      if (item?.el) delete item.el.dataset.uiModalOpen;
+      if (item?.el) {
+        delete item.el.dataset.uiModalOpen;
+        item.el.style.zIndex = item.previousZ;
+        if (item.previousLayer)
+          item.el.style.setProperty("--ui-modal-layer", item.previousLayer);
+        else item.el.style.removeProperty("--ui-modal-layer");
+      }
       const top = openStack.at(-1);
       if (top) {
         if (item?.focus?.isConnected && top.el.contains(item.focus))
@@ -1305,7 +1312,12 @@ const DesktopUI = (() => {
         if (visible && !known.get(id)) {
           const focus = document.activeElement;
           known.set(id, true);
-          openStack.push({ id, el, close, focus });
+          const previousZ = el.style.zIndex;
+          const previousLayer = el.style.getPropertyValue("--ui-modal-layer");
+          const layer = String(++modalLayer);
+          el.style.zIndex = layer;
+          el.style.setProperty("--ui-modal-layer", layer);
+          openStack.push({ id, el, close, focus, previousZ, previousLayer });
           const dialog =
             el.firstElementChild?.tagName === "CANVAS"
               ? el.querySelector(".grand-card")
