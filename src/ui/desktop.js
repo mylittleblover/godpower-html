@@ -1843,7 +1843,8 @@ const DesktopUI = (() => {
       applyPreferences();
       return saved;
     },
-    getAnimationCount: () => animations.size,
+    getAnimationCount: () =>
+      animations.size + (pageMotionFrame !== null ? 1 : 0),
     getSettingsMotionCount: () => settingsAnimations.size,
     getDisclosureMotionCount: () => disclosureMotions.size,
     isPickerRevealing: () => pickerRevealing,

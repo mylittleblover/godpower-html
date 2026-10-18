@@ -1548,7 +1548,7 @@ function closePwdModal() {
 }
 
 function handlePwdKey(event) {
-  if (event.key === 'Enter') submitPassword();
+  if (event.key === 'Enter') { event.preventDefault(); submitPassword(); }
   else if (event.key === 'Escape') closePwdModal();
 }
 
