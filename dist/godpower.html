@@ -2578,9 +2578,9 @@ body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
   min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;
 }
-body.modern-flat-v217:has(.modal-overlay.active),body.modern-flat-v217:has(.score-modal-backdrop.active),
-body.modern-flat-v217:has(.item-modal-backdrop.active),body.modern-flat-v217:has(.classroom-backdrop.active),
-body.modern-flat-v217:has(.about-backdrop.active),body.modern-flat-v217:has(.member-search-backdrop.active){overflow:hidden!important}
+body.modern-flat-v217:has(.modal-overlay.active:not([data-native-detached])),body.modern-flat-v217:has(.score-modal-backdrop.active:not([data-native-detached])),
+body.modern-flat-v217:has(.item-modal-backdrop.active:not([data-native-detached])),body.modern-flat-v217:has(.classroom-backdrop.active:not([data-native-detached])),
+body.modern-flat-v217:has(.about-backdrop.active:not([data-native-detached])),body.modern-flat-v217:has(.member-search-backdrop.active:not([data-native-detached])){overflow:hidden!important}
 
 /* 卡片、面板和弹窗 */
 body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container,
@@ -23424,7 +23424,7 @@ const DesktopUI = (() => {
         !item.focus.closest(".view:not(.active)")
       )
         item.focus.focus({ preventScroll: true });
-      cancelAnimations();
+      if (!item?.el?.hasAttribute("data-native-detached")) cancelAnimations();
     }
     function scan() {
       for (const [id, close] of Object.entries(modalClosers)) {
@@ -23436,11 +23436,12 @@ const DesktopUI = (() => {
           forgetModal(id);
         if (!el) continue;
         const visible =
-          el.open ||
-          el.classList.contains("active") ||
-          el.classList.contains("show") ||
-          el.style.display === "flex" ||
-          (id === "programConfirmV28" && el.getClientRects().length > 0);
+          !el.hasAttribute("data-native-detached") &&
+          (el.open ||
+            el.classList.contains("active") ||
+            el.classList.contains("show") ||
+            el.style.display === "flex" ||
+            (id === "programConfirmV28" && el.getClientRects().length > 0));
         if (visible) {
           const surface =
             el.querySelector(".ui-function-surface") || el.firstElementChild;
@@ -23550,7 +23551,7 @@ const DesktopUI = (() => {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["class", "style"],
+      attributeFilter: ["class", "style", "data-native-detached"],
     });
     document.addEventListener(
       "keydown",

@@ -1358,7 +1358,7 @@ const DesktopUI = (() => {
         !item.focus.closest(".view:not(.active)")
       )
         item.focus.focus({ preventScroll: true });
-      cancelAnimations();
+      if (!item?.el?.hasAttribute("data-native-detached")) cancelAnimations();
     }
     function scan() {
       for (const [id, close] of Object.entries(modalClosers)) {
@@ -1370,11 +1370,12 @@ const DesktopUI = (() => {
           forgetModal(id);
         if (!el) continue;
         const visible =
-          el.open ||
-          el.classList.contains("active") ||
-          el.classList.contains("show") ||
-          el.style.display === "flex" ||
-          (id === "programConfirmV28" && el.getClientRects().length > 0);
+          !el.hasAttribute("data-native-detached") &&
+          (el.open ||
+            el.classList.contains("active") ||
+            el.classList.contains("show") ||
+            el.style.display === "flex" ||
+            (id === "programConfirmV28" && el.getClientRects().length > 0));
         if (visible) {
           const surface =
             el.querySelector(".ui-function-surface") || el.firstElementChild;
@@ -1484,7 +1485,7 @@ const DesktopUI = (() => {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["class", "style"],
+      attributeFilter: ["class", "style", "data-native-detached"],
     });
     document.addEventListener(
       "keydown",
