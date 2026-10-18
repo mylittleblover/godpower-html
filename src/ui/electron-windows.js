@@ -112,6 +112,8 @@
       versions.set(id, { html, version });
       list.push({
         id,
+        bodyClass: document.body.className,
+        motion: document.body.dataset.motion || "full",
         title,
         html,
         css,
