@@ -110,34 +110,8 @@ queueUseStateV2120=function(g,index){
 
 /* 卡片上的 All In 也直接禁用，而不是非得让用户点击之后才发现。
    顺便给主要道具小格一个视觉锁定状态。 */
-const _v2177RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const result=_v2177RenderGrid.apply(this,args);
 
-  if(state.roundActive && !state.evaluated){
-    state.groups.forEach(g=>{
-      if(!g.itemUsedThisRound)return;
 
-      const card=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
-      if(!card)return;
-
-      const allIn=card.querySelector('.allin-toggle-btn');
-      if(allIn){
-        allIn.disabled=true;
-        allIn.classList.add('v2177-round-locked');
-        allIn.title='本题已经使用过道具，不能再 All In';
-      }
-
-      const main=card.querySelector('.v213-main-item');
-      if(main){
-        main.classList.add('v2177-round-item-locked');
-        main.title='本题已经使用过一次道具';
-      }
-    });
-  }
-
-  return result;
-};
 
 /* 兼容旧存档：如果不是答题阶段，不应把上一题的锁永久带到下一次比赛。 */
 try{

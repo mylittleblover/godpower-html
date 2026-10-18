@@ -4,6 +4,8 @@ import { parse } from "acorn";
 import { readFileSync, readdirSync } from "node:fs";
 const canonical = new Map(
   [
+    "renderAll",
+    "renderGrid",
     "useItem",
     "applyItemScore",
     "tryDefend",

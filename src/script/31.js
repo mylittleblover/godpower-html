@@ -166,12 +166,11 @@ legacyUseItem=function(groupId,index,...rest){
 
 /* 关键：旧逻辑在道具动画期间可能多次 renderGrid，并把 displayScore 又写成真实 score。
    每次刷新前重新套用视觉冻结值，确保新分数不会提前露出来。 */
-const _v21732RenderGrid=renderGrid;
-renderGrid=function(...args){
-  applyHeldDisplayScoresV21732();
-  const result=_v21732RenderGrid.apply(this,args);
-  applyHeldDisplayScoresV21732();
 
+
+
+/* Restore visual score holds after a grid refresh, including an active roll. */
+function restoreHeldScoreElementsV21732(){
   itemScoreDisplayHoldV21732.forEach((old,key)=>{
     const el=getScoreElementV21732(key);
     if(el && !el.classList.contains('score-roll-host-v21730')){
@@ -180,6 +179,4 @@ renderGrid=function(...args){
       if(session&&g)mountScoreRollV21732(el,g,session);else el.textContent=`${old}分`;
     }
   });
-
-  return result;
-};
+}

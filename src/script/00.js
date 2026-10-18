@@ -2324,17 +2324,7 @@ function searchMemberGroups() {
   }).join('');
 }
 
-function renderAll() {
-  renderLockStatus();
-  renderControls();
-  renderGrid();
-  updateHeaderStats();
-  renderChart();
-  renderDashboard();
-  updateResizerUI();
-  renderWelcomePage();
-  updateWelcomeTrackIfNeeded();
-}
+
 
 function updateQuickBatchBar() {
   const bar = document.getElementById('quickBatchBar');
@@ -2542,95 +2532,7 @@ function renderControls() {
   updateQuickBatchBar();
 }
 
-function renderGrid() {
-  const grid = document.getElementById('groupList');
-  if (!grid) return;
-  // 严格同步等宽规则
-  grid.style.gridTemplateColumns = state.columnMode === 'single' ? '1fr' : 'repeat(auto-fill, minmax(380px, 1fr))';
-  grid.dataset.columnMode = state.columnMode;
-  grid.innerHTML = '';
 
-  state.groups.forEach(g => {
-    const rowCard = document.createElement('div');
-    rowCard.className = `group-row-card ${g.animState || ''}`;
-    rowCard.setAttribute('data-group-id', g.id);
-    rowCard.style.borderLeftColor = g.color;
-
-    const roundClass = (state.roundActive && !state.evaluated) ? '' : 'round-disabled';
-
-    const optionsHtml = ['A', 'B', 'C', 'D'].map(opt => {
-      let cls = 'opt-btn';
-      if (g.selectedOpt === opt) cls += ' active';
-      if (state.evaluated && g.selectedOpt === opt) {
-        cls += ' flip-reveal';
-        if (opt === state.correctAns) cls += ' correct';
-        else cls += ' wrong';
-      }
-      return `<button class="${cls} ${roundClass}" onclick="selectGroupOpt(${g.id}, '${opt}')" ${state.evaluated ? 'disabled' : ''}>${opt}</button>`;
-    }).join('');
-
-    let scoreDisplayHtml = '';
-    const rawScoreVal = g.displayScore !== undefined ? g.displayScore : g.score;
-    const scoreDigits = String(rawScoreVal).length;
-    let scoreFontSize = '29px';
-    if (scoreDigits >= 18) scoreFontSize = '13px';
-    else if (scoreDigits >= 14) scoreFontSize = '15px';
-    else if (scoreDigits >= 11) scoreFontSize = '18px';
-    else if (scoreDigits >= 8) scoreFontSize = '21px';
-    else if (scoreDigits >= 7) scoreFontSize = '23px';
-    else if (scoreDigits >= 6) scoreFontSize = '25px';
-
-    if (state.editingScoreId === g.id) {
-      scoreDisplayHtml = `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event, ${g.id})">`;
-    } else {
-      const editCls = state.isLocked ? '' : 'editable';
-      scoreDisplayHtml = `<span class="row-score ${editCls}" id="score-val-${g.id}" style="color: ${g.color}; font-size: ${scoreFontSize};" onclick="startDirectScoreEdit(${g.id})">${rawScoreVal}分</span>`;
-    }
-
-    const lockAttr = state.isLocked ? 'locked-disabled' : '';
-    const allInBtnClass = g.allIn ? 'allin-toggle-btn active' : 'allin-toggle-btn';
-    const allInBtnText = g.allIn ? '🔥 ALL IN' : 'All In';
-
-    rowCard.innerHTML = `
-      <div class="milestone-banner-overlay">分数位数增加！</div>
-      <div class="card-header-row">
-        <div class="header-name-col">
-          <input class="name-input ${lockAttr}" value="${escapeHtml(g.name)}" ${state.isLocked ? 'readonly' : ''} 
-            oninput="updateGroupName(${g.id}, this.value)" 
-            onchange="updateGroupName(${g.id}, this.value)" 
-            title="${escapeHtml(g.name)}">
-        </div>
-        <div class="header-meta-col">
-          <span class="member-count-tag" onclick="openItemWindow(${g.id},'detail')" title="打开小组详情">
-            成员(${g.members ? g.members.length : 0})
-          </span>
-          <input type="color" class="color-picker ${lockAttr}" value="${g.color}" ${state.isLocked ? 'disabled' : ''} onchange="updateGroupColor(${g.id}, this.value)" title="选择颜色">
-          <button class="del-btn ${lockAttr}" onclick="deleteGroup(${g.id})" title="删除小组">×</button>
-        </div>
-      </div>
-
-      <div class="card-action-row">
-        <div class="action-score-col">
-          ${scoreDisplayHtml}
-        </div>
-
-        <div class="action-controls-col">
-          <div class="opt-group">${optionsHtml}</div>
-          <button class="${allInBtnClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? 'disabled' : ''}>${allInBtnText}</button>
-          <div class="result-msg-box">${g.resultText ? `<span class="result-msg">${escapeHtml(g.resultText)}</span>` : ''}</div>
-          
-          <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
-        </div>
-      </div>
-    `;
-    grid.appendChild(rowCard);
-
-    if (state.editingScoreId === g.id) {
-      const input = document.getElementById(`input-score-${g.id}`);
-      if (input) { input.focus(); input.select(); }
-    }
-  });
-}
 
 function openPickerModal() {
   if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
@@ -4685,7 +4587,7 @@ function itemQuickScore(id,d){if(state.isLocked){openPwdModal();return}applyScor
 function itemCustomScore(id){const n=Number(document.getElementById('itemCustomScore').value);if(!Number.isFinite(n)||n===0)return;itemQuickScore(id,Math.round(n))}
 
 function enhanceItemCards(){ensureItemState();state.groups.forEach(g=>{const c=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);if(!c)return;c.classList.remove('item-def-green','item-def-red','item-def-yellow','item-def-orange','effect-star','effect-mega','effect-power','effect-bullet','effect-boo','effect-ice');const firstDef=g.inventory.find(it=>ITEM_DEFS[it.key]?.def);if(firstDef)c.classList.add('item-def-'+ITEM_DEFS[firstDef.key].def);if(g.itemEffect?.type)c.classList.add('effect-'+g.itemEffect.type);if(g.itemEffect?.iceLock)c.classList.add('effect-ice');if(g.booShield>0)c.classList.add('effect-boo');const head=c.querySelector('.card-header-row');if(head&&!c.querySelector('.item-slots')){const slots=document.createElement('div');slots.className='item-slots';slots.innerHTML=[0,1,2].map(i=>{const it=g.inventory[i];return it?`<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?`<span class="charges">${it.charges}</span>`:''}</div>`:'<div class="item-slot empty">＋</div>'}).join('');head.parentNode.insertBefore(slots,head.nextSibling)}const mb=c.querySelector('.more-btn');if(mb){mb.classList.remove('locked-disabled');mb.title='小组详情 / 道具 / 基础赋分';mb.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openItemWindow(g.id)}}});applyBlooperMask()}
-const _itemBaseRenderGrid=renderGrid;renderGrid=function(){_itemBaseRenderGrid();enhanceItemCards()};
+
 
 const _itemBaseJudgeRound=legacyJudgeRound;legacyJudgeRound=function(){if(!state.roundActive||state.evaluated||!state.correctAns)return false;const before=ranking().map(g=>g.id),answered=state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}));_itemBaseJudgeRound();answered.forEach(x=>{const g=state.groups.find(q=>q.id===x.id);if(!g||!x.answered)return;if(x.correct)g.itemStats.correct++;else g.itemStats.wrong++;if(g.itemEffect&&g.itemEffect.type==='power'){g.itemEffect.roundsLeft--;if(x.correct&&eligibleForItems(g)){const r=ranking(),i=r.findIndex(q=>q.id===g.id);if(i>0){g.score=r[i-1].score+1;g.displayScore=g.score}}if(g.itemEffect&&g.itemEffect.roundsLeft<=0){const ix=g.inventory.findIndex(it=>it.key==='power');if(ix>=0)g.inventory.splice(ix,1);g.itemEffect=null}}detectOvertakePunish(g.id,before)});saveState();renderAll()};
 

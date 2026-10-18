@@ -3,7 +3,9 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { sourceAt } from "../tests/fixtures/source-at.mjs";
-const baseline = "079df316a999ced4f598a3c3d0495786f9f8d0e8";
+const baseline = process.env.LEGACY_BASELINE || "079df316a999ced4f598a3c3d0495786f9f8d0e8";
+const artifactRoot = process.env.LEGACY_ARTIFACT_DIR || "artifacts/refactor";
+const documentPath = process.env.LEGACY_DOCUMENT || "docs/LEGACY_CODE_INVENTORY.md";
 const files = execFileSync(
   "git",
   ["ls-tree", "-r", "--name-only", baseline, "src"],
@@ -176,9 +178,9 @@ for(const rule of after.rules){const signature=rule.selector+'{'+rule.body+'}';r
 const removed = before.functions.filter(
   (x) => !after.functions.some((y) => y.name === x.name && y.file === x.file),
 );
-await mkdir("artifacts/refactor", { recursive: true });
+await mkdir(artifactRoot, { recursive: true });
 await writeFile(
-  "artifacts/refactor/legacy-inventory.json",
+  `${artifactRoot}/legacy-inventory.json`,
   JSON.stringify({ baseline, before, after, removed }, null, 2),
 );
 const esc = (s) =>
@@ -187,7 +189,7 @@ let md = `# 遗留代码依赖与治理清单\n\n基线：\`${baseline}\`。由 
 for (const k of Object.keys(before.metrics))
   md += `|${k}|${before.metrics[k]}|${after.metrics[k]}|\n`;
 md+='\n## 已证明可替换／不可达的旧入口\n\n|原位置|实现|分类|依据|\n|---|---|---|---|\n';
-for(const row of removed)md+=`|${row.file}:${row.line}|${esc(row.name)}|${row.name==='rollbackToHistory'?'确认无法触达／可安全删除':'已被新实现取代／可安全删除'}|${row.name==='rollbackToHistory'?'全仓库无定义或调用，typeof 分支恒不执行':'canonical-entrypoints、464 业务差分及防御／历史回归；具体替代见报告'}|\n`;
+for(const row of removed)md+=`|${row.file}:${row.line}|${esc(row.name)}|${row.name==='rollbackToHistory'?'确认无法触达／可安全删除':'已移除（需结合本轮治理报告）'}|${row.name==='rollbackToHistory'?'全仓库无定义或调用，typeof 分支恒不执行':'仅表示静态清单中已不存在；安全依据及本轮实际测试见REFACTORING_REPORT.md，不能以历史测试代替本轮证据'}|\n`;
 md+='\n## 模块保留决策\n\n|文件|分类|保留理由|\n|---|---|---|\n';
 for(const file of files.filter(f=>existsSync(f)))md+=`|${file}|${file.startsWith('src/core/')?'仍然必要':'需要进一步测试'}|${file.startsWith('src/core/')?'当前规范、命令、攻击防御、快照或兼容接口的唯一实现':'仍含有效调用路径或层叠行为；不因旧版号／重复正文删除，逐组件证明后再迁移'}|\n`;
 md +=
@@ -212,5 +214,5 @@ for (const x of after.rules)
   md += `|${x.file}:${x.line}|${esc(x.selector)}|${x.classification}|\n`;
 md +=
   "\n## 人工验证与实际治理决策\n\n详见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md) 的替代行为表及对应测试。未出现在安全删除记录中的 CSS、音频、渲染和 legacyUseItem 包装层均保留，不以旧版本号作为删除依据。全部独立 keyframes 名称、模板及字符串内联事件入口也见 SOURCE_CATALOG.md；当前索引不是完整作用域解析或动态可达性证明。\n";
-await writeFile("docs/LEGACY_CODE_INVENTORY.md", md);
+await writeFile(documentPath, md);
 console.log(JSON.stringify({ before: before.metrics, after: after.metrics }));

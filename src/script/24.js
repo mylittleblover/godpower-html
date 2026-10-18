@@ -25,12 +25,8 @@ function renderBattleRankPreviewV21721(){
 }
 
 /* 排名预览跟随所有卡片刷新实时更新。 */
-const _v21721RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const result=_v21721RenderGrid.apply(this,args);
-  try{renderBattleRankPreviewV21721()}catch(e){}
-  return result;
-};
+
+
 
 /* 进入比赛页时也立刻刷新，避免第一次看到旧排名。 */
 const _v21721SwitchView=typeof switchView==='function' ? switchView : null;

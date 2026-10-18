@@ -9,21 +9,8 @@ function rankOfGroupV214(id){
 }
 
 /* 在 V2.13 卡片的固定布局上补充实时排名，不增加卡片总体高度。 */
-const _v214RenderGrid=renderGrid;
-renderGrid=function(){
-  const result=_v214RenderGrid.apply(this,arguments);
-  const ranks=new Map(ranking().map((g,i)=>[g.id,i+1]));
-  document.querySelectorAll('.group-row-card.v213-card[data-group-id]').forEach(card=>{
-    const id=Number(card.dataset.groupId),wrap=card.querySelector('.v213-name-wrap');
-    if(!wrap)return;
-    let badge=wrap.querySelector('.v214-rank-badge');
-    if(!badge){badge=document.createElement('span');badge.className='v214-rank-badge';wrap.appendChild(badge)}
-    badge.textContent=`第${ranks.get(id)||'-'}名`;
-    const sub=wrap.querySelector('.v213-name-sub');
-    if(sub)sub.textContent=`当前按${currentCardSortLabelV213()}排列`;
-  });
-  return result;
-};
+
+
 
 /* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */
 renderAbout=function(tab){

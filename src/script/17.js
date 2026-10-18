@@ -36,46 +36,10 @@ applyLightningHitV2116 = function(caster,target){
 /* renderAll 最终守门：
    攻击发生后第一次 renderAll 不立即重建卡片，先让旧位置上的 hit FX 出现。
    同一批多目标攻击只合并成一次延迟刷新，不会每个目标各拖 340ms。 */
-const _v21713RenderAll = renderAll;
-renderAll = function(...args){
-  if(attackRenderFlushingV21713){
-    return _v21713RenderAll.apply(this,args);
-  }
 
-  if(attackRenderGateV21713){
-    attackRenderGateV21713 = false;
-    pendingRenderArgsV21713 = args;
 
-    if(attackRenderTimerV21713){
-      clearTimeout(attackRenderTimerV21713);
-    }
-
-    attackRenderTimerV21713 = setTimeout(()=>{
-      attackRenderTimerV21713 = null;
-      attackRenderFlushingV21713 = true;
-      try{
-        _v21713RenderAll.apply(this,pendingRenderArgsV21713 || []);
-      }finally{
-        pendingRenderArgsV21713 = null;
-        attackRenderFlushingV21713 = false;
-      }
-    },ATTACK_REORDER_DELAY_V21713);
-
-    return;
-  }
-
-  return _v21713RenderAll.apply(this,args);
-};
 
 /* 如果攻击动画期间又触发了纯 renderGrid（例如某些卡片排序包装），
    也暂缓到攻击反馈之后，避免它从侧门把卡片提前排走。 */
-const _v21713RenderGrid = renderGrid;
-renderGrid = function(...args){
-  if(
-    !attackRenderFlushingV21713 &&
-    (attackRenderGateV21713 || attackRenderTimerV21713)
-  ){
-    return;
-  }
-  return _v21713RenderGrid.apply(this,args);
-};
+
+

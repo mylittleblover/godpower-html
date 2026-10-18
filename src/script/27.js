@@ -37,17 +37,8 @@ desiredGroupsV213 = desiredGroupsV21724;
 
 /* 状态切换必须允许真正的排序动画。
    仅“答题中使用道具”继续由 useItem 包装临时抑制。 */
-const _v21724RenderGrid=renderGrid;
-renderGrid=function(...args){
-  const inAnswering=!!(state.roundActive&&!state.evaluated);
 
-  /* 非答题阶段绝不能继承道具使用留下的 suppress 状态。 */
-  if(!inAnswering){
-    v213SuppressReorderAnimation=false;
-  }
 
-  return _v21724RenderGrid.apply(this,args);
-};
 
 /* V2.17.26：
    不再给 startRound / judgeRound / nextRound / forceEndRound 额外补第二次 renderGrid。

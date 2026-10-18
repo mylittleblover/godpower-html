@@ -16,15 +16,6 @@
       return r;
     };
   }
-  if(typeof renderAll==='function'){
-    const oldRenderAllV216=renderAll;
-    renderAll=function(...args){
-      const r=oldRenderAllV216.apply(this,args);
-      /* chartWrapper/podiumDeck 已经搬到欢迎页，仍需持续更新。 */
-      try{renderWelcomeAllV216()}catch(e){}
-      return r;
-    };
-  }
 
   /* 最终统一的道具使用演出。
      旧 showItemUseFx 的全屏舞台不再调用，避免超大图标和多个 overlay 叠加。

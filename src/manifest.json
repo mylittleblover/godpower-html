@@ -282,16 +282,6 @@
     },
     {
       "type": "script",
-      "path": "script/25.js",
-      "attributes": " id=\"v21722RankPreviewAndStableCards\""
-    },
-    {
-      "type": "script",
-      "path": "script/26.js",
-      "attributes": " id=\"v21723RankReorderRestore\""
-    },
-    {
-      "type": "script",
       "path": "script/27.js",
       "attributes": " id=\"v21724SortingContractFix\""
     },
@@ -299,11 +289,6 @@
       "type": "script",
       "path": "script/28.js",
       "attributes": " id=\"v21725RoundStateFlip\""
-    },
-    {
-      "type": "script",
-      "path": "script/29.js",
-      "attributes": " id=\"v21726RoundFlipDomGuard\""
     },
     {
       "type": "script",
@@ -319,11 +304,6 @@
       "type": "script",
       "path": "script/32.js",
       "attributes": " id=\"v21731ItemStatusRepair\""
-    },
-    {
-      "type": "script",
-      "path": "script/33.js",
-      "attributes": " id=\"v21733ScoreRollVisibilityFix\""
     },
     {
       "type": "script",
@@ -399,6 +379,16 @@
       "type": "script",
       "path": "script/45.js",
       "attributes": " id=\"v21813FullSettlementArchive\""
+    },
+    {
+      "type": "script",
+      "path": "ui/battle-grid.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/render.js",
+      "attributes": ""
     },
     {
       "type": "script",
