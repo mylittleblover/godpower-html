@@ -53,6 +53,9 @@
   desktop.onShellState((shell) =>
     GodpowerPicker.setExternalPresentation(shell.effectsEnabled),
   );
+  desktop.onUnlockRequest(() => {
+    if (state.isLocked) openPwdModal();
+  });
   window.addEventListener(
     "DOMContentLoaded",
     () => {
