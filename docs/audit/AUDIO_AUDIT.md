@@ -4,9 +4,9 @@
 
 ## 实际清单
 
-运行 `node scripts/audio-inventory.mjs` 可重建 `AUDIO_INVENTORY.json`。使用 Acorn 扫描 src 所有 JavaScript 的 playSound 调用，并和实际浏览器设置页生成的槽位核对。发现 42 个字面量调用位置、7 个动态调用位置；没有未知字面量槽位。
+运行 `node scripts/audio-inventory.mjs` 可重建 `AUDIO_INVENTORY.json`。使用 Acorn 扫描 src 所有 JavaScript 的 playSound 调用，并和实际浏览器设置页生成的槽位核对。初版发现 42 个字面量调用位置、7 个动态调用位置；没有未知字面量槽位。
 
-活动自定义槽位共 41 个：11 个基础/抽签音效、4 个公共道具事件、26 个独立道具音效。浏览器逐槽验证上传入口并注入样本、调用播放路径；结果见 `artifacts/classroom-feedback/audio-slots.json`。这验证每个活动槽能使用自定义资源，并不表示逐一实际触发了所有 26 个道具的攻击、防御组合。
+上一阶段活动自定义槽位共 41 个：11 个基础/抽签音效、4 个公共道具事件、26 个独立道具音效。浏览器逐槽验证上传入口并注入样本、调用播放路径；结果见 `artifacts/classroom-feedback/audio-slots.json`。这验证每个活动槽能使用自定义资源，并不表示逐一实际触发了所有 26 个道具的攻击、防御组合。
 
 5 个旧通用别名 item_use / item_attack / item_buff / item_status / item_steal 被现有逐道具音效替代，继续抑制重复播放，保留旧资源和导入兼容。音乐轨道继续使用原独立音乐管理系统；本轮未逐轨耳听过门与循环。
 
@@ -35,3 +35,7 @@
 ## 追加需求：同一操作的随机候选
 
 41 个活动槽均增加多文件追加与候选管理。统一选择器覆盖普通音效、26 个独立道具及抽取循环。旧主音效键保持不变，候选另存；BIN 原索引保留结构并增加可选文件名。选择随机源使用 crypto，不消耗业务随机数；每次选择一份，循环开始选一次。测试 `multiple-audio.mjs` 验证实际上传、播放随机边界、26 道具与循环、真实刷新、BIN 往返、单项移除及还原事务失败。
+
+## 比赛动效版本：63 活动槽与分类
+
+新增 ActionSounds 的 22 个按钮意图槽，基础设置细分为七类，旧 41 槽保留，共 63 槽。当前扫描计数以 AUDIO_INVENTORY.json 为准；实际路径来自 artifacts/battle-motion/audio-slots.json。新槽继承旧 ui_click 自定义文件，仍支持多候选及 BIN。试听通过 data-sound-preview 避开自动点击声和同事件去重冲突；日常按钮声音关闭仍可试听。详见 ui/BATTLE_MOTION.md 及 reports/BATTLE_MOTION_ACCEPTANCE.md。

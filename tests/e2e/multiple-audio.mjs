@@ -89,7 +89,10 @@ try {
       renderFxSlotList();
       renderItemFxSoundListV26();
     });
-    assert.equal(await page.locator(".cf-audio-choices").count(), 41);
+    assert.equal(
+      await page.locator(".cf-audio-choices").count(),
+      await page.evaluate(() => FX_SOUND_SLOTS.length + 4 + ITEM_KEYS.length),
+    );
     assert.equal(await page.locator(".cf-audio-choices img").count(), 0);
     return await page.evaluate(() => ({
       primary: !!customFxBuffers.ui_click,

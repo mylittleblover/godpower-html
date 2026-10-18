@@ -41,7 +41,11 @@ for (const file of files)
     file,
   );
 const active = JSON.parse(
-  await readFile("artifacts/classroom-feedback/audio-slots.json", "utf8"),
+  await readFile(
+    process.env.AUDIO_INVENTORY_INPUT ||
+      "artifacts/classroom-feedback/audio-slots.json",
+    "utf8",
+  ),
 );
 const retired = [
   "item_use",

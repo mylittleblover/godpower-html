@@ -122,6 +122,11 @@
     },
     {
       "type": "style",
+      "path": "ui/battle-motion.css",
+      "attributes": " id=\"battle-motion-style\""
+    },
+    {
+      "type": "style",
       "path": "ui/welcome-v2.css",
       "attributes": " id=\"gp-home-redesign\""
     },
@@ -143,6 +148,11 @@
     {
       "type": "script",
       "path": "core/item-score.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/action-sounds.js",
       "attributes": ""
     },
     {
@@ -403,6 +413,11 @@
     {
       "type": "script",
       "path": "ui/classroom-feedback.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/battle-motion.js",
       "attributes": ""
     },
     {

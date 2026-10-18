@@ -24,6 +24,7 @@ function readableTextOnColor(hex){
 }
 
 const FX_SOUND_SLOTS = [
+  ...ActionSounds.slots,
   { id: 'score_add', name: '基础加分 (+1 / +2)', desc: '复古方波金币音' },
   { id: 'score_sub', name: '基础扣分 (-1 / -2)', desc: '低沉方波震动音' },
   { id: 'pk_correct', name: 'PK 普通答对 (+2)', desc: '双阶明亮钟鸣' },
@@ -911,6 +912,8 @@ async function bgmPreloadNextSet() {
 }
 
 function playChiptuneSynth(slotId) {
+  const buttonTone=ActionSounds.slots.find(x=>x.id===slotId);
+  if(buttonTone)slotId='ui_click';
   if (!audioCtx) return;
   try {
     const now = audioCtx.currentTime;
@@ -1009,7 +1012,7 @@ function playChiptuneSynth(slotId) {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.setValueAtTime(buttonTone?.pitch||1200, now);
         gain.gain.setValueAtTime(0.1 * (typeof ClassroomFeedback!=='undefined'?ClassroomFeedback.getOptions().clickVolume:1), now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
         osc.connect(gain); gain.connect(getFxOutputV2176());
@@ -1048,11 +1051,11 @@ async function playSound(slotId) {
   try {
     await getAudioContext();
     if(!fxSoundsLoaded)await loadFxSounds();
-    const selectedFx=selectFxBuffer(slotId);
+    const selectedFx=selectFxBuffer(slotId)||(ActionSounds.isClick(slotId)&&slotId!=='ui_click'?selectFxBuffer('ui_click'):null);
     if (selectedFx) {
       const source = audioCtx.createBufferSource();
       source.buffer = selectedFx;
-      if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined'){
+      if(ActionSounds.isClick(slotId) && typeof ClassroomFeedback!=='undefined'){
         const gain=audioCtx.createGain();gain.gain.value=ClassroomFeedback.getOptions().clickVolume;source.connect(gain);gain.connect(getFxOutputV2176());ClassroomFeedback.ownClickVoice(source,gain);
       }else source.connect(getFxOutputV2176());
       source.start(0);
@@ -1988,7 +1991,7 @@ function animateScores(scoreUpdates, onComplete) {
     activeScoreAnimId = null;
   }
   const startTime = performance.now();
-  const duration = 650;
+  const duration = 950;
 
   function tick(now) {
     const elapsed = now - startTime;
@@ -3141,7 +3144,7 @@ async function renderBgmSlotList() {
           <div class="sound-tag">${isLoaded ? '已载入音频' : track.desc}</div>
         </div>
         <div class="sound-controls">
-          ${isLoaded ? `<button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="previewBgmTrack('${slotId}')">试听</button>` : ''}
+          ${isLoaded ? `<button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" data-sound-preview onclick="previewBgmTrack('${slotId}')">试听</button>` : ''}
           <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('${slotId}')">上传</button>
           ${isLoaded ? `<button class="btn btn-sm btn-danger" onclick="deleteBgmTrack('${slotId}')">清除</button>` : ''}
         </div>
@@ -3155,24 +3158,18 @@ function renderFxSlotList() {
   const fxContainer = document.getElementById('soundListContainer');
   if (!fxContainer) return;
   fxContainer.innerHTML = '';
-  FX_SOUND_SLOTS.forEach(slot => {
-    const isCustom = !!customFxBuffers[slot.id] || !!customFxVariants[slot.id]?.length;
-    const row = document.createElement('div');
-    row.className = 'sound-row';
-    row.innerHTML = `
-      <div class="sound-desc">
-        <div class="sound-name">${slot.name}</div>
-        <div class="sound-tag">${isCustom ? '已加载外部音频' : '默认：' + slot.desc}</div>
-      </div>
-      <div class="sound-controls">
-        <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="playSound('${slot.id}')">试听</button>
-        <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${slot.id}')">上传</button>
-        ${isCustom ? `<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${slot.id}', '${slot.id}')">还原</button>` : ''}
-      </div>
-      ${renderFxChoices(slot.id)}
-    `;
-    fxContainer.appendChild(row);
-  });
+  const categories=new Map();
+  FX_SOUND_SLOTS.forEach(slot=>{const category=slot.category||(['roll_tick','roll_loop','roll_win'].includes(slot.id)?'点名过程与结果':slot.id==='ui_click'?'通用按钮默认音效':'计分与比赛结果');if(!categories.has(category))categories.set(category,[]);categories.get(category).push(slot)});
+  for(const [category,slots] of categories){
+    const section=document.createElement('details');section.className='cf-sound-category';section.open=false;
+    const summary=document.createElement('summary');summary.textContent=category+' · '+slots.length+' 个音效槽';section.append(summary);
+    for(const slot of slots){
+      const isCustom=!!customFxBuffers[slot.id]||!!customFxVariants[slot.id]?.length;
+      const row=document.createElement('div');row.className='sound-row';row.dataset.soundId=slot.id;
+      row.innerHTML=`<div class="sound-desc"><div class="sound-name">${escapeHtml(slot.name)}</div><div class="sound-tag">${isCustom?'已加载外部音频':escapeHtml(slot.desc)}</div></div><div class="sound-controls"><button class="btn btn-sm" data-sound-preview onclick="playSound('${slot.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${slot.id}')">上传</button>${isCustom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${slot.id}','${slot.id}')">还原</button>`:''}</div>${renderFxChoices(slot.id)}`;
+      section.append(row);
+    }fxContainer.append(section);
+  }
 }
 
 async function previewBgmTrack(slotId) {

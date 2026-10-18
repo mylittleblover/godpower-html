@@ -2091,7 +2091,7 @@ body.items-disabled .group-row-card{min-height:unset}
 
 /* ===== V2.11.3：巨大蘑菇持续状态 · 橙色发光 ===== */
 .group-row-card.effect-mega{
-  animation:megaOrangeGlowV2113 1.05s ease-in-out infinite alternate !important;
+  animation:none !important;
   border-color:#f97316 !important;
 }
 @keyframes megaOrangeGlowV2113{
@@ -2135,7 +2135,7 @@ body.items-disabled .group-row-card{min-height:unset}
 
 /* 冰之花冻结：冻结期间整张小组卡片持续蓝色脉冲发光。 */
 .group-row-card.effect-ice{
-  animation:iceLockBlueGlowV2114 1.05s ease-in-out infinite alternate!important;
+  animation:none!important;
 }
 @keyframes iceLockBlueGlowV2114{
   from{

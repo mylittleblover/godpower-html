@@ -149,8 +149,22 @@ try {
         await p.screenshot({ path: `artifacts/desktop-ui/item-${key}.png` });
       await p.evaluate(() => DesktopUI.cancelAnimations());
       assert.equal(
-        await p.locator(".card-fx-badge,.attack-hit-badge-v2116").count(),
+        await p
+          .locator(".card-fx-badge,.attack-hit-badge-v2116,.bm-layer")
+          .count(),
         0,
+        JSON.stringify(
+          await p
+            .locator(".bm-layer,.card-fx-badge,.attack-hit-badge-v2116")
+            .evaluateAll((nodes) =>
+              nodes.map((el) => ({
+                class: el.className,
+                key: el.dataset.bmKey,
+                kind: el.dataset.kind,
+                label: el.textContent,
+              })),
+            ),
+        ),
       );
     }
     assert.equal(keys.length, 26);
@@ -166,7 +180,9 @@ try {
       playTargetCardFx(3, "green", "defend");
     });
     assert.equal(
-      await p.locator(".card-fx-badge,.attack-hit-badge-v2116").count(),
+      await p
+        .locator(".card-fx-badge,.attack-hit-badge-v2116,.bm-layer")
+        .count(),
       0,
     );
     assert.equal(await p.evaluate(() => DesktopUI.getAnimationCount()), 0);

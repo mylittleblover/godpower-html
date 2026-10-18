@@ -27,7 +27,7 @@
 .item-score-delta-v21730.gain{color:#15803d}
 .item-score-delta-v21730.loss{color:#dc2626}
 .item-score-delta-v21730.play{
-  animation:itemDeltaFloatV21730 .78s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:itemDeltaFloatV21730 1.05s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes itemDeltaFloatV21730{
   0%{opacity:0;transform:translateY(8px)}
@@ -40,21 +40,21 @@
    动画只叠加旧值 / 新值两层幽灵数字。 */
 .score-roll-ghost-v21730{
   position:absolute;
-  left:0;
+  right:0;
   top:0;
   z-index:2;
   pointer-events:none;
   white-space:nowrap;
-  color:#17302D!important;
+  color:var(--score-text-color,var(--group-color,#17302D))!important;
   opacity:1;
 }
 .score-roll-old-v21730{
-  animation:scoreRollOldV21730 .62s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:scoreRollOldV21730 .92s cubic-bezier(.2,.8,.2,1) forwards;
 }
 .score-roll-new-v21730{
   transform:translateY(105%);
   opacity:0;
-  animation:scoreRollNewV21730 .62s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:scoreRollNewV21730 .92s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes scoreRollOldV21730{
   0%{transform:translateY(0);opacity:1}
@@ -71,6 +71,6 @@
   overflow:visible!important;
 }
 .row-score.score-roll-host-v21730 .score-roll-ghost-v21730{
-  color:#17302D!important;
+  color:var(--score-text-color,var(--group-color,#17302D))!important;
   visibility:visible!important;
 }

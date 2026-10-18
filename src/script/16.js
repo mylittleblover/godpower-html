@@ -1,9 +1,9 @@
 
 /* ===== V2.17.12：课堂快速道具流程 ===== */
 const ITEM_DRAW_DURATION_V21712 = 1500;
-const ITEM_DRAW_RESULT_HOLD_V21712 = 520;
-const ITEM_DRAW_FADE_V21712 = 150;
-const ITEM_FX_DURATION_V21712 = 760;
+const ITEM_DRAW_RESULT_HOLD_V21712 = 900;
+const ITEM_DRAW_FADE_V21712 = 620;
+const ITEM_FX_DURATION_V21712 = 1700;
 
 /* 抽取音效与新的 1.5s 抽取动画同步。 */
 startDrawSoundBedV2164=function(){
@@ -82,6 +82,7 @@ globalItemDraw=function(){
     o.innerHTML='<div class="r-icon">❔</div><div class="r-name">道具抽取中</div><div class="r-hint">ITEM ROULETTE</div>';
     c.appendChild(o);
     overlays.set(g.id,o);
+    BattleMotion.trackDraw(g.id,o);
   });
 
   const lastUpdate=new Map();
@@ -123,6 +124,8 @@ globalItemDraw=function(){
     });
 
     saveState();
+    // Refresh awarded slots underneath the still-visible reveal overlay.
+    renderGrid();
 
     setTimeout(()=>{
       eligible.forEach(g=>{
@@ -131,14 +134,13 @@ globalItemDraw=function(){
 
         const o=c.querySelector('.card-item-roulette');
         if(o){
-          o.style.transition=`opacity ${ITEM_DRAW_FADE_V21712}ms ease`;
-          o.style.opacity='0';
-          o.style.removeProperty('transform');
+          BattleMotion.fadeDraw(o);
         }
 
         setTimeout(()=>{
-          c.classList.remove('item-draw-spinning');
-          c.querySelector('.card-item-roulette')?.remove();
+          o?.parentElement?.classList.remove('item-draw-spinning','bm-draw-fading');
+          o?.remove();
+          BattleMotion.releaseDraw(g.id,o);
         },ITEM_DRAW_FADE_V21712+20);
       });
 
@@ -181,6 +183,7 @@ handDrawItem=function(){
     </div>
     <div class="hand-item-progress"><div id="handItemProgressBar"></div></div>
   </div>`;
+  BattleMotion.enterDrawContent(box.firstElementChild);
 
   let last=0;
   const total=ITEM_DRAW_DURATION_V21712;
@@ -261,88 +264,13 @@ handDrawItem=function(){
         <button class="btn btn-success" onclick="finishHandItemReward()">✓ 完成</button>
       </div>
     </div>`;
+    BattleMotion.enterDrawContent(box.firstElementChild);
   }
 
   requestAnimationFrame(frame);
 };
 
-/* 使用者卡片特效快速收束。 */
-playCasterCardFx=function(key,gid){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
-  const card=battleCard(gid),d=ITEM_DEFS[key];
-  if(!card||!d)return;
-
-  clearCardFx(card);
-  void card.offsetWidth;
-
-  card.classList.add('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
-
-  const b=document.createElement('div');
-  b.className='card-fx-badge';
-  b.innerHTML=`<span class="cfi">${itemVisual(key)}</span><span>${escapeHtml(d.name)}</span>`;
-  card.appendChild(b);
-
-  setTimeout(()=>{
-    card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
-    b.remove();
-  },ITEM_FX_DURATION_V21712);
-};
-
-/* 普通目标命中 / 防御 / 治疗快速收束。 */
-playTargetCardFx=function(id,key,type='hit'){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
-  const card=battleCard(id);
-  if(!card)return;
-
-  card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');
-  void card.offsetWidth;
-
-  card.style.setProperty(
-    '--hitc',
-    type==='defend'?'#38bdf8':
-    type==='heal'?'#22c55e':
-    (CARD_HIT_COLOR[key]||'#ef4444')
-  );
-
-  card.classList.add(
-    type==='defend'?'card-defend-fx':
-    type==='heal'?'card-heal-fx':
-    'card-hit-fx'
-  );
-
-  setTimeout(()=>{
-    card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');
-    card.style.removeProperty('--hitc');
-  },700);
-};
-
-/* V2.11.6 的实际受击反馈也同步加速。 */
-playAttackTargetFxV2116=function(groupId,key,defended=false){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
-  const card=battleCard(groupId);
-  if(!card)return;
-
-  clearAttackHitFxV2116(card);
-  void card.offsetWidth;
-
-  const cls=attackHitClassV2116(key);
-  card.classList.add(cls);
-  card.style.setProperty('--hitc',CARD_HIT_COLOR[key]||'#ef4444');
-
-  if(defended)card.classList.add('card-defend-fx');
-
-  const badge=document.createElement('div');
-  badge.className='attack-hit-badge-v2116';
-  const d=ITEM_DEFS[key];
-  badge.innerHTML=`<span>${itemVisual(key)}</span><b>${defended?'已防御':'受到 '+(d?.name||'攻击')}</b>`;
-  card.appendChild(badge);
-
-  setTimeout(()=>{
-    card.classList.remove(cls,'card-defend-fx');
-    badge.remove();
-    card.style.removeProperty('--hitc');
-  },740);
-};
+/* Presentation delegates to one cancellable layer; rules remain in the item engine. */
+playCasterCardFx=function(key,gid){BattleMotion.show('use',gid,key)};
+playTargetCardFx=function(id,key,type='hit'){BattleMotion.show(type,id,key)};
+playAttackTargetFxV2116=function(groupId,key,defended=false){BattleMotion.show(defended?'defend':'hit',groupId,key)};

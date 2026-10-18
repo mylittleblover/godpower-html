@@ -74,3 +74,7 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
 修改六槽赋分、抽取转轮、全屏演出、按钮声音或课堂行为设置时，执行 `npm run build && npm run check && npm test && npm run test:classroom-feedback`。音效调用改动后再执行 `node scripts/audio-inventory.mjs`，不能仅凭扫描结果声称每个道具场景已真实操作。新增跳过演出的按钮复用 ui-cinematic-skip，作为动画表面的兄弟节点，固定在页面右下角；不要将其放入中心标题或会 transform 的内容容器。
 
 课堂行为的两个开关使用 ui-rule-card 和 v292-switch。保留动态 pane 所有者、旧 ID、原 onchange 和持久化字段，测试等高、标题与开关对齐、键盘操作及重载。不要通过改比赛卡片或底栏尺寸补偿设置页问题。
+
+### 比赛动画维护
+
+遵循 `docs/ui/BATTLE_MOTION.md`。新增反馈接入 BattleMotion，不能在卡片根节点叠加 transform 或由动画计算业务结果。取消效果时确认已提交的视觉快照；用回归证明后续新事件仍能播放。新按钮先复用 ActionSounds 稳定意图槽，必要时扩展元数据及分类测试，避免根据按钮文案随机命名存储键。

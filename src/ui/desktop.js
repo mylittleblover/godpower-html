@@ -64,11 +64,14 @@ const DesktopUI = (() => {
     settleDisclosures();
     cancelSettingsMotion();
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
     document.body.dataset.systemMotion = String(preferences.systemMotion);
-    if (preferences.motion === "off") {
+    if (!canAnimate()) {
+      cancelItemScoreAnimations();
+      cancelScoreAnimationAndSync();
       cancelAnimations();
       document.getAnimations().forEach((a) => a.cancel());
     }
@@ -95,6 +98,8 @@ const DesktopUI = (() => {
   }
   let pageMotionFrame = null;
   function cancelAnimations() {
+    BattleMotion.clear();
+    observeVisualState(false);
     if (pageMotionFrame !== null) cancelAnimationFrame(pageMotionFrame);
     pageMotionFrame = null;
     settleDisclosures();
@@ -115,29 +120,9 @@ const DesktopUI = (() => {
     document.dispatchEvent(
       new CustomEvent("godpower:visual", { detail: { type, ...detail } }),
     );
-    if (!preferences.itemFx || !canAnimate() || currentView !== "battle")
-      return;
-    const id = detail.groupId,
-      card =
-        id != null
-          ? $(`#groupList [data-group-id="${CSS.escape(String(id))}"]`)
-          : null;
-    if (
-      card &&
-      [
-        "ITEM_HIT",
-        "ITEM_DEFENDED",
-        "ITEM_USE_START",
-        "ITEM_EFFECT_APPLIED",
-        "ITEM_QUEUE_PROMOTED",
-      ].includes(type)
-    )
-      animate(
-        card,
-        [{ filter: "brightness(1.12)" }, { filter: "brightness(1)" }],
-        { duration: 280 / preferences.speed },
-      );
+    BattleMotion.event(type, detail);
   }
+
   let viewportSignature = "";
   function syncViewport() {
     const zoom = Number(getComputedStyle(document.body).zoom) || 1,
@@ -158,6 +143,9 @@ const DesktopUI = (() => {
   function viewChanged(name) {
     if (!ready) return;
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
+    cancelItemScoreAnimations();
+    cancelScoreAnimationAndSync();
     window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
@@ -307,7 +295,7 @@ const DesktopUI = (() => {
       !overflow || t.scrollLeft + t.clientWidth >= t.scrollWidth - 2;
   }
   let visualSnapshot = new Map();
-  function observeVisualState() {
+  function observeVisualState(notify = true) {
     const next = new Map();
     for (const g of state.groups) {
       const current = {
@@ -317,7 +305,7 @@ const DesktopUI = (() => {
         count: g.inventory?.length || 0,
       };
       const prior = visualSnapshot.get(g.id);
-      if (prior) {
+      if (prior && notify) {
         if (
           prior.main &&
           current.main &&
@@ -1524,6 +1512,7 @@ const DesktopUI = (() => {
     clearPickerReveal();
     ClassroomFeedback.clearLive();
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;

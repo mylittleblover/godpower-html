@@ -107,3 +107,9 @@ WelcomeV2 拥有按时间驱动的连续巡航与有限展示副本；DesktopUI 
 公共点击声音沿用已有 `ui_click` 槽和原 FX → masterGain 音频链，不建立新音频引擎。旧 playSound 入口只加事件去重和音量适配。音效清单由 scripts/audio-inventory.mjs 从源码调用与浏览器实际槽位证据生成。详见 ui/CLASSROOM_FEEDBACK.md。
 
 音效候选池由原音频所有者统一加载和选择：sounds 表主记录及 variant 记录 → 解码候选 → selectFxBuffer → 既有 FX/主音量。公共事件、26 个独立道具和抽取循环共用选择器，循环在启动时选一次。crypto 随机源独立于比赛 Math.random；没有为候选新增 playSound 包装层。renderFxChoices 被基础音效与道具音效的实际渲染所有者复用。
+
+### 比赛表现与操作音效
+
+`core/action-sounds.js` 提供稳定的按钮操作元数据和纯意图分类器；基础音效清单读取其 22 个槽。ClassroomFeedback 的单一点击委托选择槽位，playSound 的原所有者负责候选选取、ui_click 兼容回退和输出；不增加音频包装链。
+
+`ui/battle-motion.js/css` 管理有限的绝对定位视觉会话。script/16.js 的实际发动/受击/防御所有者直接调用它；script/01.js 重绘时恢复同一会话和抽取节点。DesktopUI 的状态观察只发送效果变更及队列事件，取消时同步快照避免回放旧状态。script/31.js 继续拥有延迟显示分数，但改为可重绘、按小组颜色和右侧锚点的数字交接。业务 score、库存和防御计算不在表现层。

@@ -59,10 +59,10 @@
 /* 持续状态改成独立光环层，不再与一次性道具动画争夺 animation 属性 */
 .group-row-card.effect-star,.group-row-card.effect-mega{animation:none!important}
 .persistent-aura-v213{position:absolute;inset:-4px;border-radius:14px;pointer-events:none;z-index:70;border:3px solid transparent;box-sizing:border-box}
-.persistent-aura-v213.aura-star{border-color:#ff4d6d;box-shadow:0 0 14px #ff4d6d,0 0 26px rgba(67,97,238,.52);animation:v213StarAura 1.25s linear infinite}
-.persistent-aura-v213.aura-mega{border-color:#fb923c;box-shadow:0 0 13px #f97316,0 0 25px rgba(251,146,60,.6);animation:v213MegaAura 1.05s ease-in-out infinite alternate}
-.persistent-aura-v213.aura-power{border-color:#facc15;box-shadow:0 0 12px #facc15,0 0 23px rgba(250,204,21,.55);animation:v213PowerAura 1.2s ease-in-out infinite alternate}
-.persistent-aura-v213.aura-ice{border-color:#38bdf8;box-shadow:0 0 12px #38bdf8,0 0 23px rgba(56,189,248,.55);animation:v213IceAura .9s ease-in-out infinite alternate}
+.persistent-aura-v213.aura-star{border-color:#ff4d6d;box-shadow:0 0 14px #ff4d6d,0 0 26px rgba(67,97,238,.52);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-mega{border-color:#fb923c;box-shadow:0 0 13px #f97316,0 0 25px rgba(251,146,60,.6);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-power{border-color:#facc15;box-shadow:0 0 12px #facc15,0 0 23px rgba(250,204,21,.55);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-ice{border-color:#38bdf8;box-shadow:0 0 12px #38bdf8,0 0 23px rgba(56,189,248,.55);animation:v213AuraBreath 2.8s ease-in-out infinite}
 @keyframes v213StarAura{0%{filter:hue-rotate(0deg);box-shadow:0 0 12px #ff3b30,0 0 24px #ff3b30}50%{filter:hue-rotate(180deg);box-shadow:0 0 15px #34c759,0 0 30px #0a84ff}100%{filter:hue-rotate(360deg);box-shadow:0 0 12px #bf5af2,0 0 24px #ff375f}}
 @keyframes v213MegaAura{from{opacity:.72;box-shadow:0 0 9px #f97316,0 0 18px rgba(249,115,22,.42)}to{opacity:1;box-shadow:0 0 17px #fb923c,0 0 31px rgba(251,146,60,.72)}}
 @keyframes v213PowerAura{from{opacity:.65}to{opacity:1;box-shadow:0 0 18px #fde047,0 0 30px rgba(250,204,21,.72)}}
@@ -80,3 +80,5 @@ body.items-disabled .v213-card .card-header-row{grid-template-columns:43px minma
  .v213-score-wrap{min-width:48px}.v213-card .row-score{font-size:21px!important;max-width:76px}
  .v213-card .opt-btn{width:24px!important;height:24px!important}.v213-card .allin-toggle-btn{height:24px!important;min-width:48px!important;padding:0 5px!important;font-size:9px!important}
 }
+
+@keyframes v213AuraBreath{0%,100%{opacity:.42}50%{opacity:.85}}

@@ -5,11 +5,14 @@ function scheduleScoreEffect(fn,delay){
 }
 function cancelItemScoreAnimations(){
   scoreAnimationEpoch++;
+  activeScoreRollsV21732.clear();
+  document.querySelectorAll('.score-roll-host-v21730').forEach(el=>{el.classList.remove('score-roll-host-v21730');const g=state.groups.find(g=>String(g.id)===el.id.slice(10));if(g)el.textContent=`${g.score}分`});
   clearTimeout(attackRenderTimerV21713);
   attackRenderTimerV21713=null;attackRenderGateV21713=false;pendingRenderArgsV21713=null;
   clearTimeout(queueItemScoreChangesV21732._timer);
   pendingItemScoreAnimationsV21732.length=0;
   itemScoreDisplayHoldV21732.clear();
+  state.groups.forEach(g=>{g.displayScore=g.score;const el=document.getElementById(`score-val-${g.id}`);if(el){el.classList.remove('score-roll-host-v21730');el.textContent=`${g.score}分`;}});
 }
 
 /* ===== V2.17.32：先播放分数变化提示，再更新实际显示分数 =====
@@ -20,9 +23,10 @@ function cancelItemScoreAnimations(){
 
 let itemScoreBatchDepthV21732=0;
 let pendingItemScoreAnimationsV21732=[];
-const ITEM_SCORE_AFTER_FX_DELAY_V21732=820;
-const ITEM_DELTA_DURATION_V21732=780;
-const ITEM_SCORE_ROLL_DURATION_V21732=620;
+const ITEM_SCORE_AFTER_FX_DELAY_V21732=980;
+const ITEM_DELTA_DURATION_V21732=1050;
+const ITEM_SCORE_ROLL_DURATION_V21732=920;
+const activeScoreRollsV21732=new Map();
 
 /* 正在“视觉冻结”的小组：renderGrid 无论被谁调用，都先显示旧分数。 */
 const itemScoreDisplayHoldV21732=new Map();
@@ -59,64 +63,33 @@ function showDeltaOnlyV21732(groupId,delta){
   },ITEM_DELTA_DURATION_V21732+80);
 }
 
-function rollThenCommitScoreV21732(groupId,from,to){
-  const scoreEl=getScoreElementV21732(groupId);
-  const g=state.groups.find(x=>String(x.id)===String(groupId));
-  if(!scoreEl||!g){
-    itemScoreDisplayHoldV21732.delete(String(groupId));
-    if(g)g.displayScore=to;
-    return;
-  }
-
-  /* 卡片在整个滚动期间仍保持旧 displayScore。
-     新值只作为可见的“幽灵数字”从下方滚入，动画完成后才正式写入。 */
-  scoreEl.querySelectorAll('.score-roll-ghost-v21730').forEach(x=>x.remove());
-
-  scoreEl.textContent=`${from}分`;
-
-  /* 锁住动画前尺寸，避免 9分→10分 之类位数变化造成横向抖动。 */
-  const rect=scoreEl.getBoundingClientRect();
-  if(rect.width>0) scoreEl.style.minWidth=`${Math.ceil(rect.width)}px`;
-  if(rect.height>0) scoreEl.style.minHeight=`${Math.ceil(rect.height)}px`;
-
+function mountScoreRollV21732(scoreEl,g,session){
+  scoreEl.textContent=`${session.from}分`;
+  scoreEl.style.setProperty('--score-text-color',g.color||'#17302D');
   scoreEl.classList.add('score-roll-host-v21730');
-
-  const oldGhost=document.createElement('span');
-  oldGhost.className='score-roll-ghost-v21730 score-roll-old-v21730';
-  oldGhost.textContent=`${from}分`;
-  oldGhost.style.color='#17302D';
-
-  const newGhost=document.createElement('span');
-  newGhost.className='score-roll-ghost-v21730 score-roll-new-v21730';
-  newGhost.textContent=`${to}分`;
-  newGhost.style.color='#17302D';
-
-  scoreEl.append(oldGhost,newGhost);
-
+  for(const [kind,value] of [['old',session.from],['new',session.to]]){
+    const ghost=document.createElement('span');ghost.className=`score-roll-ghost-v21730 score-roll-${kind}-v21730`;ghost.textContent=`${value}分`;
+    ghost.style.animationDelay=`-${Math.max(0,performance.now()-session.started)}ms`;scoreEl.append(ghost);
+  }
+}
+function rollThenCommitScoreV21732(groupId,from,to){
+  const key=String(groupId),g=state.groups.find(x=>String(x.id)===key);
+  if(!g){itemScoreDisplayHoldV21732.delete(key);return;}
+  const session={from,to,started:performance.now()};activeScoreRollsV21732.set(key,session);
+  const el=getScoreElementV21732(groupId);if(el)mountScoreRollV21732(el,g,session);
   scheduleScoreEffect(()=>{
-    itemScoreDisplayHoldV21732.delete(String(groupId));
-    g.displayScore=to;
-
-    if(scoreEl.isConnected){
-      scoreEl.classList.remove('score-roll-host-v21730');
-      scoreEl.style.removeProperty('min-width');
-      scoreEl.style.removeProperty('min-height');
-      scoreEl.textContent=`${to}分`;
-    }
-
-    try{
-      renderChart();
-      renderDashboard();
-      updateHeaderStats();
-      if(typeof renderBattleRankPreviewV21721==='function'){
-        renderBattleRankPreviewV21721();
-      }
-    }catch(e){}
+    if(activeScoreRollsV21732.get(key)!==session)return;
+    activeScoreRollsV21732.delete(key);itemScoreDisplayHoldV21732.delete(key);g.displayScore=g.score;
+    const el=getScoreElementV21732(groupId);if(el){el.classList.remove('score-roll-host-v21730');el.textContent=`${g.score}分`;}
+    renderChart();renderDashboard();updateHeaderStats();
+    if(typeof renderBattleRankPreviewV21721==='function')renderBattleRankPreviewV21721();
   },ITEM_SCORE_ROLL_DURATION_V21732+40);
 }
 
 function queueItemScoreChangesV21732(beforeMap){
   if(!(beforeMap instanceof Map))return;
+  const p=DesktopUI.getPreferences();
+  if(p.motion==='off'||(p.systemMotion&&matchMedia('(prefers-reduced-motion: reduce)').matches)){state.groups.forEach(g=>g.displayScore=g.score);return;}
 
   const changes=[];
   state.groups.forEach(g=>{
@@ -124,7 +97,8 @@ function queueItemScoreChangesV21732(beforeMap){
     if(old===undefined)return;
     const now=Number(g.score)||0;
     if(now!==old){
-      changes.push({groupId:g.id,old,now});
+      changes.push({groupId:g.id,old:itemScoreDisplayHoldV21732.get(String(g.id))??old,now});
+      activeScoreRollsV21732.delete(String(g.id));
       /* 立即冻结“显示分数”，真实 score 已经是最终值。 */
       itemScoreDisplayHoldV21732.set(String(g.id),old);
       g.displayScore=old;
@@ -201,7 +175,9 @@ renderGrid=function(...args){
   itemScoreDisplayHoldV21732.forEach((old,key)=>{
     const el=getScoreElementV21732(key);
     if(el && !el.classList.contains('score-roll-host-v21730')){
-      el.textContent=`${old}分`;
+      const session=activeScoreRollsV21732.get(String(key));
+      const g=state.groups.find(x=>String(x.id)===String(key));
+      if(session&&g)mountScoreRollV21732(el,g,session);else el.textContent=`${old}分`;
     }
   });
 

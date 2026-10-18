@@ -65,7 +65,7 @@ function playPerItemFallbackV2174(key){
    3. 旧的“发动通用/攻击/强化/状态/偷取”不再叠加播放。 */
 const _v2174PlaySound = playSound;
 playSound = async function(slotId){
-  if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined' && !ClassroomFeedback.allowClickSound())return;
+  if(ActionSounds.isClick(slotId) && typeof ClassroomFeedback!=='undefined' && !ClassroomFeedback.allowClickSound())return;
   if(GENERIC_ITEM_USE_SOUNDS_V2174.has(slotId)){
     return;
   }
@@ -142,7 +142,7 @@ renderItemFxSoundListV26=function(){
     return `<div class="sound-row v2174-sound-row${itemClass}">
       ${description}
       <div class="sound-controls">
-        <button class="btn btn-sm" onclick="playSound('${id}')">试听</button>
+        <button class="btn btn-sm" data-sound-preview onclick="playSound('${id}')">试听</button>
         <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${id}')">上传</button>
         ${custom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${id}','${id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>`:''}
       </div>

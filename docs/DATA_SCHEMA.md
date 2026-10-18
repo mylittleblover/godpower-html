@@ -97,3 +97,7 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 ### 操作音效候选
 
 原 sounds 表主记录 `fx_<slot>` 保持不变。候选记录 ID：`fx_<slot>::variant::<UUID>`；字段 `{id:string,arrayBuffer:ArrayBuffer,name?:string}`。加载时按操作汇总解码，旧记录缺少 name 合法。默认没有候选；从主音效及可解码候选等概率选一个。不迁移、不改库版本；BIN 的原索引记录增加可选 name，旧导入继续可读。还原一个操作以单事务删除主键及精确候选前缀，失败保留已保存记录。
+
+### 分功能按钮声音
+
+22 个新操作键 `fx_ui_button_<action>` 使用原 sounds 表主记录与 `::variant::<UUID>` 候选格式，不升级数据库或改变 BIN。缺少新键时回退原 `fx_ui_click` 自定义声音，再回退合成音；不复制旧资源。动画会话、绘制遮层及分数幽灵节点不持久化，不进入课堂存档。

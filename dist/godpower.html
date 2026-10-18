@@ -2099,7 +2099,7 @@ body.items-disabled .group-row-card{min-height:unset}
 
 /* ===== V2.11.3：巨大蘑菇持续状态 · 橙色发光 ===== */
 .group-row-card.effect-mega{
-  animation:megaOrangeGlowV2113 1.05s ease-in-out infinite alternate !important;
+  animation:none !important;
   border-color:#f97316 !important;
 }
 @keyframes megaOrangeGlowV2113{
@@ -2143,7 +2143,7 @@ body.items-disabled .group-row-card{min-height:unset}
 
 /* 冰之花冻结：冻结期间整张小组卡片持续蓝色脉冲发光。 */
 .group-row-card.effect-ice{
-  animation:iceLockBlueGlowV2114 1.05s ease-in-out infinite alternate!important;
+  animation:none!important;
 }
 @keyframes iceLockBlueGlowV2114{
   from{
@@ -2477,10 +2477,10 @@ body.items-disabled .group-row-card{min-height:unset}
 /* 持续状态改成独立光环层，不再与一次性道具动画争夺 animation 属性 */
 .group-row-card.effect-star,.group-row-card.effect-mega{animation:none!important}
 .persistent-aura-v213{position:absolute;inset:-4px;border-radius:14px;pointer-events:none;z-index:70;border:3px solid transparent;box-sizing:border-box}
-.persistent-aura-v213.aura-star{border-color:#ff4d6d;box-shadow:0 0 14px #ff4d6d,0 0 26px rgba(67,97,238,.52);animation:v213StarAura 1.25s linear infinite}
-.persistent-aura-v213.aura-mega{border-color:#fb923c;box-shadow:0 0 13px #f97316,0 0 25px rgba(251,146,60,.6);animation:v213MegaAura 1.05s ease-in-out infinite alternate}
-.persistent-aura-v213.aura-power{border-color:#facc15;box-shadow:0 0 12px #facc15,0 0 23px rgba(250,204,21,.55);animation:v213PowerAura 1.2s ease-in-out infinite alternate}
-.persistent-aura-v213.aura-ice{border-color:#38bdf8;box-shadow:0 0 12px #38bdf8,0 0 23px rgba(56,189,248,.55);animation:v213IceAura .9s ease-in-out infinite alternate}
+.persistent-aura-v213.aura-star{border-color:#ff4d6d;box-shadow:0 0 14px #ff4d6d,0 0 26px rgba(67,97,238,.52);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-mega{border-color:#fb923c;box-shadow:0 0 13px #f97316,0 0 25px rgba(251,146,60,.6);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-power{border-color:#facc15;box-shadow:0 0 12px #facc15,0 0 23px rgba(250,204,21,.55);animation:v213AuraBreath 2.8s ease-in-out infinite}
+.persistent-aura-v213.aura-ice{border-color:#38bdf8;box-shadow:0 0 12px #38bdf8,0 0 23px rgba(56,189,248,.55);animation:v213AuraBreath 2.8s ease-in-out infinite}
 @keyframes v213StarAura{0%{filter:hue-rotate(0deg);box-shadow:0 0 12px #ff3b30,0 0 24px #ff3b30}50%{filter:hue-rotate(180deg);box-shadow:0 0 15px #34c759,0 0 30px #0a84ff}100%{filter:hue-rotate(360deg);box-shadow:0 0 12px #bf5af2,0 0 24px #ff375f}}
 @keyframes v213MegaAura{from{opacity:.72;box-shadow:0 0 9px #f97316,0 0 18px rgba(249,115,22,.42)}to{opacity:1;box-shadow:0 0 17px #fb923c,0 0 31px rgba(251,146,60,.72)}}
 @keyframes v213PowerAura{from{opacity:.65}to{opacity:1;box-shadow:0 0 18px #fde047,0 0 30px rgba(250,204,21,.72)}}
@@ -2498,6 +2498,8 @@ body.items-disabled .v213-card .card-header-row{grid-template-columns:43px minma
  .v213-score-wrap{min-width:48px}.v213-card .row-score{font-size:21px!important;max-width:76px}
  .v213-card .opt-btn{width:24px!important;height:24px!important}.v213-card .allin-toggle-btn{height:24px!important;min-width:48px!important;padding:0 5px!important;font-size:9px!important}
 }
+
+@keyframes v213AuraBreath{0%,100%{opacity:.42}50%{opacity:.85}}
 </style>
 
 
@@ -3033,12 +3035,11 @@ body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette .r-
 }
 
 /* 抽取期间只轻微降低原卡片信息，不再模糊成一整块“遮罩”。 */
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-header-row,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .item-slots,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .answer-zone,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .score-zone,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .group-actions,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-action-row{
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .card-header-row,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .answer-zone,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .score-zone,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .group-actions,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .card-action-row{
   opacity:.28!important;
   filter:none!important;
 }
@@ -4217,7 +4218,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 .item-score-delta-v21730.gain{color:#15803d}
 .item-score-delta-v21730.loss{color:#dc2626}
 .item-score-delta-v21730.play{
-  animation:itemDeltaFloatV21730 .78s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:itemDeltaFloatV21730 1.05s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes itemDeltaFloatV21730{
   0%{opacity:0;transform:translateY(8px)}
@@ -4230,21 +4231,21 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
    动画只叠加旧值 / 新值两层幽灵数字。 */
 .score-roll-ghost-v21730{
   position:absolute;
-  left:0;
+  right:0;
   top:0;
   z-index:2;
   pointer-events:none;
   white-space:nowrap;
-  color:#17302D!important;
+  color:var(--score-text-color,var(--group-color,#17302D))!important;
   opacity:1;
 }
 .score-roll-old-v21730{
-  animation:scoreRollOldV21730 .62s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:scoreRollOldV21730 .92s cubic-bezier(.2,.8,.2,1) forwards;
 }
 .score-roll-new-v21730{
   transform:translateY(105%);
   opacity:0;
-  animation:scoreRollNewV21730 .62s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:scoreRollNewV21730 .92s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes scoreRollOldV21730{
   0%{transform:translateY(0);opacity:1}
@@ -4261,7 +4262,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   overflow:visible!important;
 }
 .row-score.score-roll-host-v21730 .score-roll-ghost-v21730{
-  color:#17302D!important;
+  color:var(--score-text-color,var(--group-color,#17302D))!important;
   visibility:visible!important;
 }
 </style>
@@ -6501,6 +6502,254 @@ body[data-motion="off"] {
 }
 .sound-row:has(> .cf-audio-choices) {
   flex-wrap: wrap;
+}
+</style>
+<style id="battle-motion-style">/* Effects live inside the existing card footprint; no card transform or reflow. */
+.bm-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 85;
+  pointer-events: none;
+  border: 2px solid var(--bm-color);
+  box-shadow: inset 0 0 18px
+    color-mix(in srgb, var(--bm-color) 18%, transparent);
+}
+.bm-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  background: linear-gradient(
+    110deg,
+    transparent 15%,
+    var(--bm-color),
+    transparent 85%
+  );
+  animation: bmSweep 1.1s cubic-bezier(0.18, 0.7, 0.3, 1) both;
+}
+.bm-layer[data-family="ice"]::before {
+  background: repeating-linear-gradient(
+    120deg,
+    transparent 0 18px,
+    #8cddf7 19px 21px,
+    transparent 22px 40px
+  );
+}
+.bm-layer[data-family="lightning"]::before {
+  clip-path: polygon(60% 0, 35% 50%, 53% 50%, 39% 100%, 74% 34%, 53% 34%);
+  background: #f8cf46;
+}
+.bm-badge {
+  position: absolute;
+  inset: auto auto 4px 10px;
+  max-width: 42%;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 9px;
+  font-size: 12px;
+  color: var(--ui-text);
+  background: #ffffffed;
+  box-shadow: 0 2px 10px #17302d12;
+}
+.bm-badge span {
+  display: flex;
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.bm-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.bm-badge b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@keyframes bmSweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.cf-sound-category {
+  margin: 10px 0;
+  border: 1px solid var(--ui-border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.cf-sound-category > summary {
+  cursor: pointer;
+  font-weight: 750;
+  color: var(--ui-text);
+  padding: 6px;
+}
+body[data-motion="off"] .persistent-aura-v213,
+body[data-motion="simple"] .persistent-aura-v213 {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-system-motion="true"] .persistent-aura-v213 {
+    animation: none;
+  }
+}
+
+#groupList .card-header-row,
+#groupList .card-action-row {
+  transition: opacity 0.38s cubic-bezier(0.22, 0.7, 0.25, 1);
+}
+
+/* Distinct silhouettes retain each item's identity without moving the card. */
+.bm-layer[data-family="shell"]::before {
+  background: radial-gradient(
+    circle at 30% 50%,
+    var(--bm-color) 0 10px,
+    transparent 11px
+  );
+}
+.bm-layer[data-family="fire"]::before {
+  background: radial-gradient(
+    ellipse at bottom,
+    #ffd271,
+    var(--bm-color) 25%,
+    transparent 65%
+  );
+  animation: bmFlame 1.1s ease-out both;
+}
+.bm-layer[data-family="bomb"]::before {
+  background: radial-gradient(
+    circle,
+    var(--bm-color),
+    #ffc77c 14%,
+    transparent 46%
+  );
+  animation: bmBurst 1.1s ease-out both;
+}
+.bm-layer[data-family="horn"]::before {
+  background: repeating-radial-gradient(
+    ellipse at center,
+    transparent 0 14px,
+    var(--bm-color) 15px 17px,
+    transparent 18px 27px
+  );
+  animation: bmBurst 1.1s ease-out both;
+}
+.bm-layer[data-family="ink"]::before {
+  background: radial-gradient(ellipse, #233946 8%, transparent 68%);
+  animation: bmMist 1.2s ease-out both;
+}
+.bm-layer[data-family="ghost"]::before {
+  background: radial-gradient(ellipse, #d9ceff, transparent 65%);
+  animation: bmMist 1.2s ease-out both;
+}
+.bm-layer[data-family="boomerang"]::before {
+  inset: 15% 35%;
+  border: 7px solid var(--bm-color);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  background: none;
+  animation: bmTurn 1.2s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.bm-layer[data-family="banana"]::before {
+  background: repeating-linear-gradient(
+    140deg,
+    transparent 0 24px,
+    #e9c74b 25px 29px,
+    transparent 30px 58px
+  );
+}
+.bm-layer[data-family="hammer"]::before {
+  background: linear-gradient(
+    transparent 40%,
+    #84929f 41% 60%,
+    transparent 61%
+  );
+  animation: bmStrike 1.1s ease-out both;
+}
+.bm-layer[data-family="bullet"]::before {
+  background: linear-gradient(90deg, transparent, #52616b 70%, transparent);
+}
+.bm-layer[data-family="buff"]::before {
+  background: linear-gradient(
+    115deg,
+    transparent,
+    #d5f9dd,
+    var(--bm-color),
+    transparent
+  );
+}
+@keyframes bmFlame {
+  from {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.38;
+  }
+  to {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+}
+@keyframes bmBurst {
+  from {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.35;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+@keyframes bmMist {
+  from {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+}
+@keyframes bmTurn {
+  from {
+    transform: rotate(-120deg) scale(0.5);
+  }
+  to {
+    transform: rotate(240deg) scale(1.1);
+  }
+}
+@keyframes bmStrike {
+  from {
+    transform: rotate(-18deg) translateY(-35%);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.35;
+  }
+  to {
+    transform: rotate(0) translateY(12%);
+    opacity: 0;
+  }
+}
+body[data-motion="simple"] .bm-layer::before {
+  animation: none;
+  opacity: 0.12;
 }
 </style>
 <style id="gp-home-redesign">/* V2.19 welcome redesign: intentionally scoped. Do not touch battle geometry. */
@@ -8746,6 +8995,93 @@ function applyItemScore(target, delta, sourceId, attackType = "normal") {
   return applyItemScoreAfterHorn(target, delta, sourceId, attackType);
 }
 </script>
+<script>/* Stable sound identities describe intent, never business outcomes. */
+const ActionSounds = (() => {
+  const definitions = [
+    ["nav", "页面导航", "导航与窗口", 1040],
+    ["open", "打开功能窗口", "导航与窗口", 960],
+    ["close", "关闭与返回", "导航与窗口", 760],
+    ["expand", "展开与收起", "导航与窗口", 880],
+    ["answer", "选择答案", "答题与回合", 1250],
+    ["allin", "All In 开关", "答题与回合", 1380],
+    ["start", "开始答题", "答题与回合", 1460],
+    ["judge", "判定结算", "答题与回合", 1100],
+    ["next", "下一题", "答题与回合", 1320],
+    ["undo", "撤销与恢复入口", "答题与回合", 680],
+    ["draw", "抽取道具", "道具与课堂工具", 1180],
+    ["use", "使用道具", "道具与课堂工具", 1420],
+    ["pick_start", "开始点名 / 拉杆", "道具与课堂工具", 900],
+    ["pick_stop", "停止点名", "道具与课堂工具", 700],
+    ["positive", "快捷加分按钮", "道具与课堂工具", 1560],
+    ["negative", "快捷扣分按钮", "道具与课堂工具", 600],
+    ["confirm", "确认与应用", "设置与数据", 1160],
+    ["cancel", "取消操作", "设置与数据", 740],
+    ["upload", "上传与导入", "设置与数据", 980],
+    ["export", "导出与备份", "设置与数据", 1080],
+    ["danger", "删除 / 清空入口", "设置与数据", 520],
+    ["settings", "设置分类与配置", "设置与数据", 1020],
+  ];
+  const slots = definitions.map(([key, name, category, pitch]) => ({
+    id: "ui_button_" + key,
+    name,
+    category,
+    pitch,
+    desc: "独立按钮音效；未上传时继承通用按钮音效",
+  }));
+  const isClick = (id) => id === "ui_click" || slots.some((x) => x.id === id);
+  function classify(button) {
+    const explicit = button.dataset.soundSlot;
+    if (explicit && isClick(explicit)) return explicit;
+    const code =
+        button.getAttribute("onclick") || button.onclick?.toString() || "",
+      text = button.textContent.trim();
+    let key;
+    if (button.matches(".nav-tab")) key = "nav";
+    else if (button.id === "btnMainAction")
+      key = /判定|结算/.test(text) ? "judge" : "start";
+    else if (button.id === "btnSlotTrigger")
+      key = /停止/.test(text) ? "pick_stop" : "pick_start";
+    else if (button.tagName === "SUMMARY") key = "expand";
+    else if (button.dataset.scoreSlot != null)
+      key = /^[-−]/.test(text) ? "negative" : "positive";
+    else if (/stopSlotSpin|stopPicker/.test(code)) key = "pick_stop";
+    else if (
+      /startSlotSpin|pull.*Lever|toggle.*Slot|pullPickerLever/i.test(code) ||
+      button.id === "uiPickerLever"
+    )
+      key = "pick_start";
+    else if (/globalItemDraw|drawItem|handDrawItem|DrawForGroup/.test(code))
+      key = "draw";
+    else if (/useItem|handUseNewItem/.test(code)) key = "use";
+    else if (/selectGroupOpt|batchSelectOption|setCorrectAns/.test(code))
+      key = "answer";
+    else if (/AllIn/.test(code)) key = "allin";
+    else if (/startRound/.test(code)) key = "start";
+    else if (/evaluateRound/.test(code)) key = "judge";
+    else if (/nextRound/.test(code)) key = "next";
+    else if (/undoLast|restoreHistory/.test(code)) key = "undo";
+    else if (
+      /delete|clear|resetAll|resetScores/i.test(code) ||
+      /清空|删除/.test(text)
+    )
+      key = "danger";
+    else if (/triggerUpload|Import|import|chooseItemIcon/.test(code))
+      key = "upload";
+    else if (/export|Export/.test(code)) key = "export";
+    else if (/取消/.test(text)) key = "cancel";
+    else if (
+      /close|dismiss|finishIntro/.test(code) ||
+      button.matches(".ui-round-close,.item-close,.ui-cinematic-skip")
+    )
+      key = "close";
+    else if (/open[A-Z]/.test(code)) key = "open";
+    else if (/确认|应用|保存|完成/.test(text)) key = "confirm";
+    else if (button.closest("#view-settings")) key = "settings";
+    return key ? "ui_button_" + key : "ui_click";
+  }
+  return { slots, isClick, classify };
+})();
+</script>
 <script>/* Shared UI-only visibility adapter. Business cleanup stays in its original command. */
 function showClassroomWindow(root) {
   if (!root) return;
@@ -8772,6 +9108,7 @@ function readableTextOnColor(hex){
 }
 
 const FX_SOUND_SLOTS = [
+  ...ActionSounds.slots,
   { id: 'score_add', name: '基础加分 (+1 / +2)', desc: '复古方波金币音' },
   { id: 'score_sub', name: '基础扣分 (-1 / -2)', desc: '低沉方波震动音' },
   { id: 'pk_correct', name: 'PK 普通答对 (+2)', desc: '双阶明亮钟鸣' },
@@ -9659,6 +9996,8 @@ async function bgmPreloadNextSet() {
 }
 
 function playChiptuneSynth(slotId) {
+  const buttonTone=ActionSounds.slots.find(x=>x.id===slotId);
+  if(buttonTone)slotId='ui_click';
   if (!audioCtx) return;
   try {
     const now = audioCtx.currentTime;
@@ -9757,7 +10096,7 @@ function playChiptuneSynth(slotId) {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.setValueAtTime(buttonTone?.pitch||1200, now);
         gain.gain.setValueAtTime(0.1 * (typeof ClassroomFeedback!=='undefined'?ClassroomFeedback.getOptions().clickVolume:1), now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
         osc.connect(gain); gain.connect(getFxOutputV2176());
@@ -9796,11 +10135,11 @@ async function playSound(slotId) {
   try {
     await getAudioContext();
     if(!fxSoundsLoaded)await loadFxSounds();
-    const selectedFx=selectFxBuffer(slotId);
+    const selectedFx=selectFxBuffer(slotId)||(ActionSounds.isClick(slotId)&&slotId!=='ui_click'?selectFxBuffer('ui_click'):null);
     if (selectedFx) {
       const source = audioCtx.createBufferSource();
       source.buffer = selectedFx;
-      if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined'){
+      if(ActionSounds.isClick(slotId) && typeof ClassroomFeedback!=='undefined'){
         const gain=audioCtx.createGain();gain.gain.value=ClassroomFeedback.getOptions().clickVolume;source.connect(gain);gain.connect(getFxOutputV2176());ClassroomFeedback.ownClickVoice(source,gain);
       }else source.connect(getFxOutputV2176());
       source.start(0);
@@ -10736,7 +11075,7 @@ function animateScores(scoreUpdates, onComplete) {
     activeScoreAnimId = null;
   }
   const startTime = performance.now();
-  const duration = 650;
+  const duration = 950;
 
   function tick(now) {
     const elapsed = now - startTime;
@@ -11889,7 +12228,7 @@ async function renderBgmSlotList() {
           <div class="sound-tag">${isLoaded ? '已载入音频' : track.desc}</div>
         </div>
         <div class="sound-controls">
-          ${isLoaded ? `<button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="previewBgmTrack('${slotId}')">试听</button>` : ''}
+          ${isLoaded ? `<button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" data-sound-preview onclick="previewBgmTrack('${slotId}')">试听</button>` : ''}
           <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('${slotId}')">上传</button>
           ${isLoaded ? `<button class="btn btn-sm btn-danger" onclick="deleteBgmTrack('${slotId}')">清除</button>` : ''}
         </div>
@@ -11903,24 +12242,18 @@ function renderFxSlotList() {
   const fxContainer = document.getElementById('soundListContainer');
   if (!fxContainer) return;
   fxContainer.innerHTML = '';
-  FX_SOUND_SLOTS.forEach(slot => {
-    const isCustom = !!customFxBuffers[slot.id] || !!customFxVariants[slot.id]?.length;
-    const row = document.createElement('div');
-    row.className = 'sound-row';
-    row.innerHTML = `
-      <div class="sound-desc">
-        <div class="sound-name">${slot.name}</div>
-        <div class="sound-tag">${isCustom ? '已加载外部音频' : '默认：' + slot.desc}</div>
-      </div>
-      <div class="sound-controls">
-        <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="playSound('${slot.id}')">试听</button>
-        <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${slot.id}')">上传</button>
-        ${isCustom ? `<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${slot.id}', '${slot.id}')">还原</button>` : ''}
-      </div>
-      ${renderFxChoices(slot.id)}
-    `;
-    fxContainer.appendChild(row);
-  });
+  const categories=new Map();
+  FX_SOUND_SLOTS.forEach(slot=>{const category=slot.category||(['roll_tick','roll_loop','roll_win'].includes(slot.id)?'点名过程与结果':slot.id==='ui_click'?'通用按钮默认音效':'计分与比赛结果');if(!categories.has(category))categories.set(category,[]);categories.get(category).push(slot)});
+  for(const [category,slots] of categories){
+    const section=document.createElement('details');section.className='cf-sound-category';section.open=false;
+    const summary=document.createElement('summary');summary.textContent=category+' · '+slots.length+' 个音效槽';section.append(summary);
+    for(const slot of slots){
+      const isCustom=!!customFxBuffers[slot.id]||!!customFxVariants[slot.id]?.length;
+      const row=document.createElement('div');row.className='sound-row';row.dataset.soundId=slot.id;
+      row.innerHTML=`<div class="sound-desc"><div class="sound-name">${escapeHtml(slot.name)}</div><div class="sound-tag">${isCustom?'已加载外部音频':escapeHtml(slot.desc)}</div></div><div class="sound-controls"><button class="btn btn-sm" data-sound-preview onclick="playSound('${slot.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${slot.id}')">上传</button>${isCustom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${slot.id}','${slot.id}')">还原</button>`:''}</div>${renderFxChoices(slot.id)}`;
+      section.append(row);
+    }fxContainer.append(section);
+  }
 }
 
 async function previewBgmTrack(slotId) {
@@ -15476,6 +15809,7 @@ renderGrid=function(){
     card.querySelectorAll('.persistent-aura-v213').forEach(x=>x.remove());
     let aura='';if(g.itemEffect?.type==='star')aura='star';else if(g.itemEffect?.type==='mega')aura='mega';else if(g.itemEffect?.type==='power')aura='power';else if(g.itemEffect?.iceLock)aura='ice';
     if(aura){const a=document.createElement('div');a.className=`persistent-aura-v213 aura-${aura}`;card.appendChild(a)}
+    if(typeof BattleMotion!=='undefined')BattleMotion.restore(card,g.id);
   });
 
   if(state.editingScoreId!=null){const input=document.getElementById(`input-score-${state.editingScoreId}`);if(input){input.focus();input.select()}}
@@ -16715,7 +17049,7 @@ function playPerItemFallbackV2174(key){
    3. 旧的“发动通用/攻击/强化/状态/偷取”不再叠加播放。 */
 const _v2174PlaySound = playSound;
 playSound = async function(slotId){
-  if(slotId==='ui_click' && typeof ClassroomFeedback!=='undefined' && !ClassroomFeedback.allowClickSound())return;
+  if(ActionSounds.isClick(slotId) && typeof ClassroomFeedback!=='undefined' && !ClassroomFeedback.allowClickSound())return;
   if(GENERIC_ITEM_USE_SOUNDS_V2174.has(slotId)){
     return;
   }
@@ -16792,7 +17126,7 @@ renderItemFxSoundListV26=function(){
     return `<div class="sound-row v2174-sound-row${itemClass}">
       ${description}
       <div class="sound-controls">
-        <button class="btn btn-sm" onclick="playSound('${id}')">试听</button>
+        <button class="btn btn-sm" data-sound-preview onclick="playSound('${id}')">试听</button>
         <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${id}')">上传</button>
         ${custom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${id}','${id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>`:''}
       </div>
@@ -17712,9 +18046,9 @@ setTimeout(()=>{
 <script id="v21712FastItemFlow">
 /* ===== V2.17.12：课堂快速道具流程 ===== */
 const ITEM_DRAW_DURATION_V21712 = 1500;
-const ITEM_DRAW_RESULT_HOLD_V21712 = 520;
-const ITEM_DRAW_FADE_V21712 = 150;
-const ITEM_FX_DURATION_V21712 = 760;
+const ITEM_DRAW_RESULT_HOLD_V21712 = 900;
+const ITEM_DRAW_FADE_V21712 = 620;
+const ITEM_FX_DURATION_V21712 = 1700;
 
 /* 抽取音效与新的 1.5s 抽取动画同步。 */
 startDrawSoundBedV2164=function(){
@@ -17793,6 +18127,7 @@ globalItemDraw=function(){
     o.innerHTML='<div class="r-icon">❔</div><div class="r-name">道具抽取中</div><div class="r-hint">ITEM ROULETTE</div>';
     c.appendChild(o);
     overlays.set(g.id,o);
+    BattleMotion.trackDraw(g.id,o);
   });
 
   const lastUpdate=new Map();
@@ -17834,6 +18169,8 @@ globalItemDraw=function(){
     });
 
     saveState();
+    // Refresh awarded slots underneath the still-visible reveal overlay.
+    renderGrid();
 
     setTimeout(()=>{
       eligible.forEach(g=>{
@@ -17842,14 +18179,13 @@ globalItemDraw=function(){
 
         const o=c.querySelector('.card-item-roulette');
         if(o){
-          o.style.transition=`opacity ${ITEM_DRAW_FADE_V21712}ms ease`;
-          o.style.opacity='0';
-          o.style.removeProperty('transform');
+          BattleMotion.fadeDraw(o);
         }
 
         setTimeout(()=>{
-          c.classList.remove('item-draw-spinning');
-          c.querySelector('.card-item-roulette')?.remove();
+          o?.parentElement?.classList.remove('item-draw-spinning','bm-draw-fading');
+          o?.remove();
+          BattleMotion.releaseDraw(g.id,o);
         },ITEM_DRAW_FADE_V21712+20);
       });
 
@@ -17892,6 +18228,7 @@ handDrawItem=function(){
     </div>
     <div class="hand-item-progress"><div id="handItemProgressBar"></div></div>
   </div>`;
+  BattleMotion.enterDrawContent(box.firstElementChild);
 
   let last=0;
   const total=ITEM_DRAW_DURATION_V21712;
@@ -17972,91 +18309,16 @@ handDrawItem=function(){
         <button class="btn btn-success" onclick="finishHandItemReward()">✓ 完成</button>
       </div>
     </div>`;
+    BattleMotion.enterDrawContent(box.firstElementChild);
   }
 
   requestAnimationFrame(frame);
 };
 
-/* 使用者卡片特效快速收束。 */
-playCasterCardFx=function(key,gid){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'&&(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off'))return;
-  const card=battleCard(gid),d=ITEM_DEFS[key];
-  if(!card||!d)return;
-
-  clearCardFx(card);
-  void card.offsetWidth;
-
-  card.classList.add('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
-
-  const b=document.createElement('div');
-  b.className='card-fx-badge';
-  b.innerHTML=`<span class="cfi">${itemVisual(key)}</span><span>${escapeHtml(d.name)}</span>`;
-  card.appendChild(b);
-
-  setTimeout(()=>{
-    card.classList.remove('card-use-fx',CARD_ITEM_FX_CLASS[key]||'cfx-rise');
-    b.remove();
-  },ITEM_FX_DURATION_V21712);
-};
-
-/* 普通目标命中 / 防御 / 治疗快速收束。 */
-playTargetCardFx=function(id,key,type='hit'){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(type==='defend'?'ITEM_DEFENDED':'ITEM_HIT',{groupId:id,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
-  const card=battleCard(id);
-  if(!card)return;
-
-  card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');
-  void card.offsetWidth;
-
-  card.style.setProperty(
-    '--hitc',
-    type==='defend'?'#38bdf8':
-    type==='heal'?'#22c55e':
-    (CARD_HIT_COLOR[key]||'#ef4444')
-  );
-
-  card.classList.add(
-    type==='defend'?'card-defend-fx':
-    type==='heal'?'card-heal-fx':
-    'card-hit-fx'
-  );
-
-  setTimeout(()=>{
-    card.classList.remove('card-hit-fx','card-defend-fx','card-heal-fx');
-    card.style.removeProperty('--hitc');
-  },700);
-};
-
-/* V2.11.6 的实际受击反馈也同步加速。 */
-playAttackTargetFxV2116=function(groupId,key,defended=false){
-  if(currentView!=='battle')return;
-  if(typeof DesktopUI!=='undefined'){DesktopUI.visualEvent(defended?'ITEM_DEFENDED':'ITEM_HIT',{groupId,key});if(!DesktopUI.getPreferences().itemFx||DesktopUI.getPreferences().motion==='off')return;}
-  const card=battleCard(groupId);
-  if(!card)return;
-
-  clearAttackHitFxV2116(card);
-  void card.offsetWidth;
-
-  const cls=attackHitClassV2116(key);
-  card.classList.add(cls);
-  card.style.setProperty('--hitc',CARD_HIT_COLOR[key]||'#ef4444');
-
-  if(defended)card.classList.add('card-defend-fx');
-
-  const badge=document.createElement('div');
-  badge.className='attack-hit-badge-v2116';
-  const d=ITEM_DEFS[key];
-  badge.innerHTML=`<span>${itemVisual(key)}</span><b>${defended?'已防御':'受到 '+(d?.name||'攻击')}</b>`;
-  card.appendChild(badge);
-
-  setTimeout(()=>{
-    card.classList.remove(cls,'card-defend-fx');
-    badge.remove();
-    card.style.removeProperty('--hitc');
-  },740);
-};
+/* Presentation delegates to one cancellable layer; rules remain in the item engine. */
+playCasterCardFx=function(key,gid){BattleMotion.show('use',gid,key)};
+playTargetCardFx=function(id,key,type='hit'){BattleMotion.show(type,id,key)};
+playAttackTargetFxV2116=function(groupId,key,defended=false){BattleMotion.show(defended?'defend':'hit',groupId,key)};
 </script>
 
 
@@ -18746,11 +19008,14 @@ function scheduleScoreEffect(fn,delay){
 }
 function cancelItemScoreAnimations(){
   scoreAnimationEpoch++;
+  activeScoreRollsV21732.clear();
+  document.querySelectorAll('.score-roll-host-v21730').forEach(el=>{el.classList.remove('score-roll-host-v21730');const g=state.groups.find(g=>String(g.id)===el.id.slice(10));if(g)el.textContent=`${g.score}分`});
   clearTimeout(attackRenderTimerV21713);
   attackRenderTimerV21713=null;attackRenderGateV21713=false;pendingRenderArgsV21713=null;
   clearTimeout(queueItemScoreChangesV21732._timer);
   pendingItemScoreAnimationsV21732.length=0;
   itemScoreDisplayHoldV21732.clear();
+  state.groups.forEach(g=>{g.displayScore=g.score;const el=document.getElementById(`score-val-${g.id}`);if(el){el.classList.remove('score-roll-host-v21730');el.textContent=`${g.score}分`;}});
 }
 
 /* ===== V2.17.32：先播放分数变化提示，再更新实际显示分数 =====
@@ -18761,9 +19026,10 @@ function cancelItemScoreAnimations(){
 
 let itemScoreBatchDepthV21732=0;
 let pendingItemScoreAnimationsV21732=[];
-const ITEM_SCORE_AFTER_FX_DELAY_V21732=820;
-const ITEM_DELTA_DURATION_V21732=780;
-const ITEM_SCORE_ROLL_DURATION_V21732=620;
+const ITEM_SCORE_AFTER_FX_DELAY_V21732=980;
+const ITEM_DELTA_DURATION_V21732=1050;
+const ITEM_SCORE_ROLL_DURATION_V21732=920;
+const activeScoreRollsV21732=new Map();
 
 /* 正在“视觉冻结”的小组：renderGrid 无论被谁调用，都先显示旧分数。 */
 const itemScoreDisplayHoldV21732=new Map();
@@ -18800,64 +19066,33 @@ function showDeltaOnlyV21732(groupId,delta){
   },ITEM_DELTA_DURATION_V21732+80);
 }
 
-function rollThenCommitScoreV21732(groupId,from,to){
-  const scoreEl=getScoreElementV21732(groupId);
-  const g=state.groups.find(x=>String(x.id)===String(groupId));
-  if(!scoreEl||!g){
-    itemScoreDisplayHoldV21732.delete(String(groupId));
-    if(g)g.displayScore=to;
-    return;
-  }
-
-  /* 卡片在整个滚动期间仍保持旧 displayScore。
-     新值只作为可见的“幽灵数字”从下方滚入，动画完成后才正式写入。 */
-  scoreEl.querySelectorAll('.score-roll-ghost-v21730').forEach(x=>x.remove());
-
-  scoreEl.textContent=`${from}分`;
-
-  /* 锁住动画前尺寸，避免 9分→10分 之类位数变化造成横向抖动。 */
-  const rect=scoreEl.getBoundingClientRect();
-  if(rect.width>0) scoreEl.style.minWidth=`${Math.ceil(rect.width)}px`;
-  if(rect.height>0) scoreEl.style.minHeight=`${Math.ceil(rect.height)}px`;
-
+function mountScoreRollV21732(scoreEl,g,session){
+  scoreEl.textContent=`${session.from}分`;
+  scoreEl.style.setProperty('--score-text-color',g.color||'#17302D');
   scoreEl.classList.add('score-roll-host-v21730');
-
-  const oldGhost=document.createElement('span');
-  oldGhost.className='score-roll-ghost-v21730 score-roll-old-v21730';
-  oldGhost.textContent=`${from}分`;
-  oldGhost.style.color='#17302D';
-
-  const newGhost=document.createElement('span');
-  newGhost.className='score-roll-ghost-v21730 score-roll-new-v21730';
-  newGhost.textContent=`${to}分`;
-  newGhost.style.color='#17302D';
-
-  scoreEl.append(oldGhost,newGhost);
-
+  for(const [kind,value] of [['old',session.from],['new',session.to]]){
+    const ghost=document.createElement('span');ghost.className=`score-roll-ghost-v21730 score-roll-${kind}-v21730`;ghost.textContent=`${value}分`;
+    ghost.style.animationDelay=`-${Math.max(0,performance.now()-session.started)}ms`;scoreEl.append(ghost);
+  }
+}
+function rollThenCommitScoreV21732(groupId,from,to){
+  const key=String(groupId),g=state.groups.find(x=>String(x.id)===key);
+  if(!g){itemScoreDisplayHoldV21732.delete(key);return;}
+  const session={from,to,started:performance.now()};activeScoreRollsV21732.set(key,session);
+  const el=getScoreElementV21732(groupId);if(el)mountScoreRollV21732(el,g,session);
   scheduleScoreEffect(()=>{
-    itemScoreDisplayHoldV21732.delete(String(groupId));
-    g.displayScore=to;
-
-    if(scoreEl.isConnected){
-      scoreEl.classList.remove('score-roll-host-v21730');
-      scoreEl.style.removeProperty('min-width');
-      scoreEl.style.removeProperty('min-height');
-      scoreEl.textContent=`${to}分`;
-    }
-
-    try{
-      renderChart();
-      renderDashboard();
-      updateHeaderStats();
-      if(typeof renderBattleRankPreviewV21721==='function'){
-        renderBattleRankPreviewV21721();
-      }
-    }catch(e){}
+    if(activeScoreRollsV21732.get(key)!==session)return;
+    activeScoreRollsV21732.delete(key);itemScoreDisplayHoldV21732.delete(key);g.displayScore=g.score;
+    const el=getScoreElementV21732(groupId);if(el){el.classList.remove('score-roll-host-v21730');el.textContent=`${g.score}分`;}
+    renderChart();renderDashboard();updateHeaderStats();
+    if(typeof renderBattleRankPreviewV21721==='function')renderBattleRankPreviewV21721();
   },ITEM_SCORE_ROLL_DURATION_V21732+40);
 }
 
 function queueItemScoreChangesV21732(beforeMap){
   if(!(beforeMap instanceof Map))return;
+  const p=DesktopUI.getPreferences();
+  if(p.motion==='off'||(p.systemMotion&&matchMedia('(prefers-reduced-motion: reduce)').matches)){state.groups.forEach(g=>g.displayScore=g.score);return;}
 
   const changes=[];
   state.groups.forEach(g=>{
@@ -18865,7 +19100,8 @@ function queueItemScoreChangesV21732(beforeMap){
     if(old===undefined)return;
     const now=Number(g.score)||0;
     if(now!==old){
-      changes.push({groupId:g.id,old,now});
+      changes.push({groupId:g.id,old:itemScoreDisplayHoldV21732.get(String(g.id))??old,now});
+      activeScoreRollsV21732.delete(String(g.id));
       /* 立即冻结“显示分数”，真实 score 已经是最终值。 */
       itemScoreDisplayHoldV21732.set(String(g.id),old);
       g.displayScore=old;
@@ -18942,7 +19178,9 @@ renderGrid=function(...args){
   itemScoreDisplayHoldV21732.forEach((old,key)=>{
     const el=getScoreElementV21732(key);
     if(el && !el.classList.contains('score-roll-host-v21730')){
-      el.textContent=`${old}分`;
+      const session=activeScoreRollsV21732.get(String(key));
+      const g=state.groups.find(x=>String(x.id)===String(key));
+      if(session&&g)mountScoreRollV21732(el,g,session);else el.textContent=`${old}分`;
     }
   });
 
@@ -21320,7 +21558,7 @@ const ClassroomFeedback = (() => {
       .querySelector('[data-category-panel="sound"]')
       .insertAdjacentHTML(
         "afterbegin",
-        `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方“基础交互音效”中的“按钮点选”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
+        `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方音效分类内，可分别为导航、答题、道具、赋分、确认等按钮设置声音；未单独上传时继承“通用按钮默认音效”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
       );
     document.querySelectorAll("[data-cf-slot]").forEach((e) =>
       e.addEventListener("change", () => {
@@ -21355,9 +21593,11 @@ const ClassroomFeedback = (() => {
   }
   let clickEvent = null,
     clickClaimed = false,
+    clickPreview = false,
     clickCleanup = null;
   function allowClickSound() {
-    if (!options.clickEnabled || !options.clickVolume) return false;
+    if ((!clickPreview && !options.clickEnabled) || !options.clickVolume)
+      return false;
     if (clickEvent) {
       if (clickClaimed) return false;
       clickClaimed = true;
@@ -21395,12 +21635,14 @@ const ClassroomFeedback = (() => {
         stopClickVoice();
         clickEvent = e;
         clickClaimed = false;
+        clickPreview = button.hasAttribute("data-sound-preview");
         clearTimeout(clickCleanup);
         clickCleanup = setTimeout(() => {
           clickEvent = null;
+          clickPreview = false;
           clickCleanup = null;
         }, 0);
-        void playSound("ui_click");
+        if (!clickPreview) void playSound(ActionSounds.classify(button));
       },
       true,
     );
@@ -21419,7 +21661,10 @@ const ClassroomFeedback = (() => {
       `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
     );
     bindButtonSound();
-    Reliability.onDefenseInvalidation(cancel);
+    Reliability.onDefenseInvalidation(() => {
+      cancel();
+      BattleMotion.clear();
+    });
     dialog().addEventListener("cancel", (e) => {
       e.preventDefault();
       dismiss();
@@ -21552,6 +21797,245 @@ const ClassroomFeedback = (() => {
   };
 })();
 </script>
+<script>/* Finite visual sessions: no scores, inventory or random results are calculated here. */
+const BattleMotion = (() => {
+  const sessions = new Map(),
+    draws = new Map();
+  const duration = 1700,
+    fade = 600;
+  function enabled() {
+    const p = DesktopUI.getPreferences();
+    return (
+      currentView === "battle" &&
+      p.itemFx &&
+      p.motion !== "off" &&
+      !(
+        p.systemMotion && matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+    );
+  }
+  function mount(session, card) {
+    if (!card || !enabled()) return;
+    const node = document.createElement("div");
+    node.className = "bm-layer";
+    node.dataset.bmKey = session.id;
+    node.dataset.kind = session.kind;
+    node.dataset.family = session.family;
+    node.style.setProperty("--bm-color", session.color);
+    const badge = document.createElement("div");
+    badge.className = "bm-badge";
+    badge.innerHTML = `<span>${ITEM_DEFS[session.key] ? itemVisual(session.key) : "✦"}</span><b>${escapeHtml(session.label)}</b>`;
+    node.append(badge);
+    card.append(node);
+    const simple = DesktopUI.getPreferences().motion === "simple";
+    node.animate(
+      simple
+        ? [
+            { opacity: 0 },
+            { opacity: 1, offset: 0.18 },
+            { opacity: 1, offset: 0.64 },
+            { opacity: 0 },
+          ]
+        : [
+            { opacity: 0, filter: "brightness(1.25)" },
+            { opacity: 1, filter: "brightness(1)", offset: 0.18 },
+            { opacity: 1, offset: 0.64 },
+            { opacity: 0 },
+          ],
+      { duration, easing: "cubic-bezier(.22,.7,.25,1)", fill: "both" },
+    ).currentTime = Math.max(0, performance.now() - session.started);
+  }
+  function show(kind, gid, key, label) {
+    if (!enabled()) return;
+    const id = String(gid) + ":" + kind,
+      prior = sessions.get(id);
+    if (prior) clearTimeout(prior.timer);
+    document.querySelectorAll(".bm-layer").forEach((el) => {
+      if (el.dataset.bmKey === id) {
+        el.getAnimations().forEach((a) => a.cancel());
+        el.remove();
+      }
+    });
+    const family = /fire/.test(key)
+      ? "fire"
+      : /ice/.test(key)
+        ? "ice"
+        : /lightning/.test(key)
+          ? "lightning"
+          : /green|red|spiny|shell/.test(key)
+            ? "shell"
+            : /bomb/.test(key)
+              ? "bomb"
+              : /boomerang/.test(key)
+                ? "boomerang"
+                : /banana/.test(key)
+                  ? "banana"
+                  : /horn/.test(key)
+                    ? "horn"
+                    : /blooper/.test(key)
+                      ? "ink"
+                      : /boo/.test(key)
+                        ? "ghost"
+                        : /hammer/.test(key)
+                          ? "hammer"
+                          : /bullet/.test(key)
+                            ? "bullet"
+                            : /star|mega|power|mushroom|feather|coin/.test(key)
+                              ? "buff"
+                              : "pulse";
+    const aliases = {
+      green: "green_shell",
+      red: "red_shell",
+      spiny: "spiny_shell",
+      horn: "super_horn",
+      bomb: "bob_omb",
+      mega: "giant_mushroom",
+      power: "power_mushroom",
+      bullet: "bullet_bill",
+    };
+    const color =
+      kind === "defend"
+        ? "#249ad0"
+        : kind === "heal"
+          ? "#1caa73"
+          : CARD_HIT_COLOR[key] ||
+            CARD_HIT_COLOR[aliases[key]] ||
+            (family === "buff" ? "#20a47a" : "#e97359");
+    const session = {
+      id,
+      gid,
+      key,
+      kind,
+      family,
+      color,
+      label:
+        label ||
+        (kind === "use"
+          ? "发动 · "
+          : kind === "defend"
+            ? "防御成功 · "
+            : kind === "heal"
+              ? "恢复 · "
+              : "受到 · ") + (ITEM_DEFS[key]?.name || "状态变化"),
+      started: performance.now(),
+    };
+    session.timer = setTimeout(() => {
+      if (sessions.get(id) !== session) return;
+      sessions.delete(id);
+      document.querySelectorAll(".bm-layer").forEach((el) => {
+        if (el.dataset.bmKey === id) el.remove();
+      });
+    }, duration + 40);
+    sessions.set(id, session);
+    mount(
+      session,
+      document.querySelector(
+        `#groupList [data-group-id="${CSS.escape(String(gid))}"]`,
+      ),
+    );
+  }
+  function restore(card, gid) {
+    for (const session of sessions.values())
+      if (
+        String(session.gid) === String(gid) &&
+        performance.now() - session.started < duration
+      )
+        mount(session, card);
+    const draw = draws.get(String(gid));
+    if (draw && !draw.isConnected && currentView === "battle") {
+      card.classList.add("item-draw-spinning");
+      card.classList.toggle("bm-draw-fading", draw.dataset.fading === "true");
+      card.append(draw);
+    }
+  }
+  function event(type, detail) {
+    if (type === "ITEM_EFFECT_EXPIRED")
+      show("expired", detail.groupId, detail.key, "持续状态已解除");
+    else if (type === "ITEM_EFFECT_APPLIED")
+      show("applied", detail.groupId, detail.key, "持续状态已更新");
+    else if (type === "ITEM_QUEUE_PROMOTED")
+      show("queue", detail.groupId, detail.key, "次要道具晋升主要队列");
+  }
+  function clear() {
+    for (const s of sessions.values()) clearTimeout(s.timer);
+    sessions.clear();
+    document.querySelectorAll(".bm-layer").forEach((el) => {
+      el.getAnimations().forEach((a) => a.cancel());
+      el.remove();
+    });
+    for (const node of draws.values()) {
+      node.parentElement?.classList.remove(
+        "item-draw-spinning",
+        "bm-draw-fading",
+      );
+      node.remove();
+    }
+    draws.clear();
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clear();
+  });
+  return {
+    show,
+    restore,
+    event,
+    clear,
+    duration,
+    fade,
+    enterDrawContent: (node) => {
+      if (!node || !enabled()) return;
+      node.animate(
+        [
+          { opacity: 0, translate: "0 7px" },
+          { opacity: 1, translate: "0 0" },
+        ],
+        { duration: 380, easing: "cubic-bezier(.18,.75,.25,1)" },
+      );
+    },
+    trackDraw: (id, node) => {
+      draws.set(String(id), node);
+      if (enabled()) {
+        node.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: 380,
+          easing: "cubic-bezier(.18,.75,.25,1)",
+        });
+        node.querySelectorAll(".r-icon,.r-name,.r-hint").forEach((el, i) =>
+          el.animate(
+            [
+              { opacity: 0, translate: "0 5px" },
+              { opacity: 1, translate: "0 0" },
+            ],
+            {
+              duration: 400,
+              delay: 60 + i * 60,
+              fill: "backwards",
+              easing: "cubic-bezier(.18,.75,.25,1)",
+            },
+          ),
+        );
+      }
+    },
+    fadeDraw: (node) => {
+      node.dataset.fading = "true";
+      node.parentElement?.classList.add("bm-draw-fading");
+      const opacity = getComputedStyle(node).opacity;
+      node.getAnimations().forEach((a) => a.cancel());
+      node.style.setProperty("animation", "none", "important");
+      if (enabled())
+        node.animate([{ opacity }, { opacity: 0 }], {
+          duration: 620,
+          easing: "cubic-bezier(.22,.7,.25,1)",
+          fill: "forwards",
+        });
+      else node.style.opacity = "0";
+    },
+    releaseDraw: (id, node) => {
+      if (draws.get(String(id)) === node) draws.delete(String(id));
+    },
+    activeCount: () => sessions.size,
+  };
+})();
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -21618,11 +22102,14 @@ const DesktopUI = (() => {
     settleDisclosures();
     cancelSettingsMotion();
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
     document.body.dataset.motion = preferences.motion;
     window.WelcomeV2?.preferencesChanged();
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
     document.body.dataset.systemMotion = String(preferences.systemMotion);
-    if (preferences.motion === "off") {
+    if (!canAnimate()) {
+      cancelItemScoreAnimations();
+      cancelScoreAnimationAndSync();
       cancelAnimations();
       document.getAnimations().forEach((a) => a.cancel());
     }
@@ -21649,6 +22136,8 @@ const DesktopUI = (() => {
   }
   let pageMotionFrame = null;
   function cancelAnimations() {
+    BattleMotion.clear();
+    observeVisualState(false);
     if (pageMotionFrame !== null) cancelAnimationFrame(pageMotionFrame);
     pageMotionFrame = null;
     settleDisclosures();
@@ -21669,29 +22158,9 @@ const DesktopUI = (() => {
     document.dispatchEvent(
       new CustomEvent("godpower:visual", { detail: { type, ...detail } }),
     );
-    if (!preferences.itemFx || !canAnimate() || currentView !== "battle")
-      return;
-    const id = detail.groupId,
-      card =
-        id != null
-          ? $(`#groupList [data-group-id="${CSS.escape(String(id))}"]`)
-          : null;
-    if (
-      card &&
-      [
-        "ITEM_HIT",
-        "ITEM_DEFENDED",
-        "ITEM_USE_START",
-        "ITEM_EFFECT_APPLIED",
-        "ITEM_QUEUE_PROMOTED",
-      ].includes(type)
-    )
-      animate(
-        card,
-        [{ filter: "brightness(1.12)" }, { filter: "brightness(1)" }],
-        { duration: 280 / preferences.speed },
-      );
+    BattleMotion.event(type, detail);
   }
+
   let viewportSignature = "";
   function syncViewport() {
     const zoom = Number(getComputedStyle(document.body).zoom) || 1,
@@ -21712,6 +22181,9 @@ const DesktopUI = (() => {
   function viewChanged(name) {
     if (!ready) return;
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
+    cancelItemScoreAnimations();
+    cancelScoreAnimationAndSync();
     window.WelcomeV2?.viewChanged(name);
     for (const m of [...openStack].reverse()) {
       if (
@@ -21861,7 +22333,7 @@ const DesktopUI = (() => {
       !overflow || t.scrollLeft + t.clientWidth >= t.scrollWidth - 2;
   }
   let visualSnapshot = new Map();
-  function observeVisualState() {
+  function observeVisualState(notify = true) {
     const next = new Map();
     for (const g of state.groups) {
       const current = {
@@ -21871,7 +22343,7 @@ const DesktopUI = (() => {
         count: g.inventory?.length || 0,
       };
       const prior = visualSnapshot.get(g.id);
-      if (prior) {
+      if (prior && notify) {
         if (
           prior.main &&
           current.main &&
@@ -23078,6 +23550,7 @@ const DesktopUI = (() => {
     clearPickerReveal();
     ClassroomFeedback.clearLive();
     ClassroomFeedback.cancel();
+    BattleMotion.clear();
     const button = $("#btnSlotTrigger");
     if (button) {
       button.disabled = false;

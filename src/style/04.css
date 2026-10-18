@@ -126,12 +126,11 @@ body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette .r-
 }
 
 /* 抽取期间只轻微降低原卡片信息，不再模糊成一整块“遮罩”。 */
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-header-row,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .item-slots,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .answer-zone,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .score-zone,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .group-actions,
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-action-row{
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .card-header-row,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .answer-zone,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .score-zone,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .group-actions,
+body.modern-flat-v217 .group-row-card.item-draw-spinning:not(.bm-draw-fading) .card-action-row{
   opacity:.28!important;
   filter:none!important;
 }

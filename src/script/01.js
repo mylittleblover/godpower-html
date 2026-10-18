@@ -129,6 +129,7 @@ renderGrid=function(){
     card.querySelectorAll('.persistent-aura-v213').forEach(x=>x.remove());
     let aura='';if(g.itemEffect?.type==='star')aura='star';else if(g.itemEffect?.type==='mega')aura='mega';else if(g.itemEffect?.type==='power')aura='power';else if(g.itemEffect?.iceLock)aura='ice';
     if(aura){const a=document.createElement('div');a.className=`persistent-aura-v213 aura-${aura}`;card.appendChild(a)}
+    if(typeof BattleMotion!=='undefined')BattleMotion.restore(card,g.id);
   });
 
   if(state.editingScoreId!=null){const input=document.getElementById(`input-score-${state.editingScoreId}`);if(input){input.focus();input.select()}}

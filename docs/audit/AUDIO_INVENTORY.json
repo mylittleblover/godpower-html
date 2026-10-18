@@ -1,6 +1,116 @@
 {
-  "activeSlotCount": 41,
+  "activeSlotCount": 63,
   "active": [
+    {
+      "id": "ui_button_nav",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_open",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_close",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_expand",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_answer",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_allin",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_start",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_judge",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_next",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_undo",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_draw",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_use",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_pick_start",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_pick_stop",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_positive",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_negative",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_confirm",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_cancel",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_upload",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_export",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_danger",
+      "played": true,
+      "listed": true
+    },
+    {
+      "id": "ui_button_settings",
+      "played": true,
+      "listed": true
+    },
     {
       "id": "score_add",
       "played": true,
@@ -224,50 +334,44 @@
     },
     {
       "file": "src/script/00.js",
-      "line": 299,
+      "line": 300,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 300,
+      "line": 301,
       "slot": "roll_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 586,
+      "line": 587,
       "slot": "rewind",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1677,
+      "line": 1680,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1752,
+      "line": 1755,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1857,
+      "line": 1860,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1872,
+      "line": 1875,
       "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2050,
-      "slot": "big_win",
       "expression": "Literal"
     },
     {
@@ -278,133 +382,139 @@
     },
     {
       "file": "src/script/00.js",
-      "line": 2054,
-      "slot": "score_add",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2055,
-      "slot": "score_sub",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2092,
-      "slot": "score_add",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2106,
-      "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2117,
-      "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2139,
-      "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2153,
-      "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2246,
+      "line": 2056,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2251,
-      "slot": "allin_win",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2252,
-      "slot": "allin_lose",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2253,
-      "slot": "pk_correct",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2874,
-      "slot": "roll_win",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2919,
+      "line": 2057,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 3007,
+      "line": 2058,
+      "slot": "score_sub",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2095,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 3057,
-      "slot": "allin_lose",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5257,
-      "slot": "item_use",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5259,
-      "slot": "item_defend",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5261,
-      "slot": "item_draw_start",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5262,
-      "slot": "item_draw_tick",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5263,
-      "slot": "item_draw_reveal",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 5416,
+      "line": 2109,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5427,
+      "line": 2120,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2142,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2156,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2249,
+      "slot": "big_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2254,
+      "slot": "allin_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2255,
+      "slot": "allin_lose",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2256,
+      "slot": "pk_correct",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2877,
+      "slot": "roll_win",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2922,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 3010,
+      "slot": "score_add",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 3060,
+      "slot": "allin_lose",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5254,
+      "slot": "item_use",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5256,
+      "slot": "item_defend",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5258,
+      "slot": "item_draw_start",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5259,
+      "slot": "item_draw_tick",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5260,
+      "slot": "item_draw_reveal",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5413,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 5424,
       "slot": "ui_click",
       "expression": "Literal"
     },
@@ -461,18 +571,12 @@
       "line": 82,
       "slot": "item_defend",
       "expression": "Literal"
-    },
-    {
-      "file": "src/ui/classroom-feedback.js",
-      "line": 312,
-      "slot": "ui_click",
-      "expression": "Literal"
     }
   ],
   "dynamicCalls": [
     {
       "file": "src/script/00.js",
-      "line": 5257,
+      "line": 5254,
       "slot": null,
       "expression": "CallExpression"
     },
@@ -511,6 +615,12 @@
       "line": 191,
       "slot": null,
       "expression": "ConditionalExpression"
+    },
+    {
+      "file": "src/ui/classroom-feedback.js",
+      "line": 316,
+      "slot": null,
+      "expression": "CallExpression"
     }
   ]
 }

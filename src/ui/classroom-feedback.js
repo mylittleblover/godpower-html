@@ -229,7 +229,7 @@ const ClassroomFeedback = (() => {
       .querySelector('[data-category-panel="sound"]')
       .insertAdjacentHTML(
         "afterbegin",
-        `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方“基础交互音效”中的“按钮点选”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
+        `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方音效分类内，可分别为导航、答题、道具、赋分、确认等按钮设置声音；未单独上传时继承“通用按钮默认音效”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
       );
     document.querySelectorAll("[data-cf-slot]").forEach((e) =>
       e.addEventListener("change", () => {
@@ -264,9 +264,11 @@ const ClassroomFeedback = (() => {
   }
   let clickEvent = null,
     clickClaimed = false,
+    clickPreview = false,
     clickCleanup = null;
   function allowClickSound() {
-    if (!options.clickEnabled || !options.clickVolume) return false;
+    if ((!clickPreview && !options.clickEnabled) || !options.clickVolume)
+      return false;
     if (clickEvent) {
       if (clickClaimed) return false;
       clickClaimed = true;
@@ -304,12 +306,14 @@ const ClassroomFeedback = (() => {
         stopClickVoice();
         clickEvent = e;
         clickClaimed = false;
+        clickPreview = button.hasAttribute("data-sound-preview");
         clearTimeout(clickCleanup);
         clickCleanup = setTimeout(() => {
           clickEvent = null;
+          clickPreview = false;
           clickCleanup = null;
         }, 0);
-        void playSound("ui_click");
+        if (!clickPreview) void playSound(ActionSounds.classify(button));
       },
       true,
     );
@@ -328,7 +332,10 @@ const ClassroomFeedback = (() => {
       `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
     );
     bindButtonSound();
-    Reliability.onDefenseInvalidation(cancel);
+    Reliability.onDefenseInvalidation(() => {
+      cancel();
+      BattleMotion.clear();
+    });
     dialog().addEventListener("cancel", (e) => {
       e.preventDefault();
       dismiss();
