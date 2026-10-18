@@ -77,7 +77,7 @@
       mask
         ? "积分与名次暂时遮蔽"
         : groups.length
-          ? `共 ${groups.length} 组 · 积分从高到低`
+          ? `共 ${groups.length} 组 · 积分从高到低${groups.length > 7 ? " · 区域内滚动查看" : ""}`
           : "尚未添加小组",
     );
     if (signature !== rankSignature) {

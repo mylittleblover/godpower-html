@@ -85,11 +85,16 @@ const DesktopUI = (() => {
       )
     );
   }
+  function motionEase() {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue("--motion-ease")
+      .trim();
+  }
   function animate(el, frames, options = {}) {
     if (!el || !canAnimate()) return;
     const a = el.animate(frames, {
       duration: 240 / preferences.speed,
-      easing: "cubic-bezier(.2,.8,.2,1)",
+      easing: motionEase(),
       ...options,
     });
     animations.add(a);
@@ -1224,6 +1229,7 @@ const DesktopUI = (() => {
     if (!pending) return;
     closingWindows.delete(root);
     pending.animation?.cancel();
+    pending.backdrop?.cancel();
     root.inert = pending.inert;
     delete root.dataset.uiClosing;
     pending.finish();
@@ -1233,6 +1239,7 @@ const DesktopUI = (() => {
     if (!pending) return;
     closingWindows.delete(root);
     pending.animation?.cancel();
+    pending.backdrop?.cancel();
     root.inert = pending.inert;
     delete root.dataset.uiClosing;
   }
@@ -1248,16 +1255,28 @@ const DesktopUI = (() => {
       finish();
       return;
     }
-    // Stop only this window's entrance; other windows keep their own lifecycle.
+    // Snapshot before cancelling entrance, so an early close never jumps to fully open.
+    const visual = getComputedStyle(surface);
+    const from = {
+      opacity: visual.opacity,
+      translate: visual.translate,
+      scale: visual.scale,
+    };
+    const backdropOpacity = getComputedStyle(root).opacity;
     surface.getAnimations().forEach((a) => a.cancel());
-    const pending = { finish, inert: root.inert, animation: null };
+    const pending = {
+      finish,
+      inert: root.inert,
+      animation: null,
+      backdrop: null,
+    };
     closingWindows.set(root, pending);
     root.inert = true;
     root.dataset.uiClosing = "true";
     pending.animation = animate(
       surface,
       [
-        { opacity: 1, translate: "0 0", scale: "1" },
+        from,
         {
           opacity: 0,
           translate: preferences.motion === "full" ? "0 64px" : "0 10px",
@@ -1267,8 +1286,22 @@ const DesktopUI = (() => {
       {
         duration:
           (preferences.motion === "full" ? 280 : 120) / preferences.speed,
-        easing: "cubic-bezier(.55,.05,.85,.35)",
+        easing: motionEase(),
         fill: "forwards",
+      },
+    );
+    pending.backdrop = animate(
+      root,
+      [
+        { opacity: root.tagName === "DIALOG" ? 1 : backdropOpacity },
+        { opacity: 0 },
+      ],
+      {
+        duration:
+          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
+        easing: motionEase(),
+        fill: "forwards",
+        ...(root.tagName === "DIALOG" ? { pseudoElement: "::backdrop" } : {}),
       },
     );
     pending.animation.finished

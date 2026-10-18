@@ -26,7 +26,7 @@
   --modal-lg: 1120px;
   --motion-fast: 140ms;
   --motion-normal: 240ms;
-  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ui-icon {
   width: 18px;

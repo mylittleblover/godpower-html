@@ -157,7 +157,7 @@ function renderQuickPersonListV218(){
     <button class="quick-person-entry-v218 ${qpStateV218.selected.has(s.key)?'selected':''}" onclick="toggleQuickPersonV218('${escapeHtml(s.key).replace(/'/g,"&#39;")}')">
       ${s.p.number!=null?`<span class="student-no-v218" style="background:${s.group.color}">${escapeHtml(s.p.numberText)}</span>`:'<span class="student-no-v218" style="background:#94a3b8">—</span>'}
       <span class="student-name-v218">${escapeHtml(s.p.name)}</span>
-      <span class="qp-group-v218">${escapeHtml(s.group.name)}</span>
+      <span class="qp-group-v218" title="${escapeHtml(s.group.name)}">${escapeHtml(s.group.name)}</span>
     </button>`).join(''):'<div class="member-search-empty">当前筛选条件下没有学生</div>';
   const c=document.getElementById('qpSelectedCountV218');
   if(c)c.textContent=`已选择 ${qpStateV218.selected.size} 人`;

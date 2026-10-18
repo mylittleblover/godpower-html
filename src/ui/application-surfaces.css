@@ -1,7 +1,7 @@
 /* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
 :root {
   --surface-ink: #183e39;
-  --surface-muted: #6b827b;
+  --surface-muted: var(--ui-muted);
   --surface-line: #dfeae5;
   --surface-soft: #f2f8f5;
   --surface-hero: linear-gradient(112deg, #084c4c, #0d6862 58%, #087b6c);
@@ -143,6 +143,15 @@
   border-color: #cddfd4;
   border-radius: 10px;
   accent-color: #13816c;
+}
+.ui-function-surface input::placeholder,
+.ui-function-surface textarea::placeholder {
+  color: var(--ui-muted);
+  opacity: 1;
+}
+.ui-function-surface .modal-actions {
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 .ui-function-surface
   :is(
@@ -293,7 +302,7 @@ body[data-current-view="archives"] {
   right: 24px;
   bottom: 12px;
   font-size: 11px;
-  color: #6a877c;
+  color: var(--ui-muted);
   pointer-events: none;
 }
 .ui-history details[open] {
@@ -407,7 +416,7 @@ body.modern-flat-v217 {
   font-size: 14px;
 }
 .ui-archive-search input::placeholder {
-  color: #739184;
+  color: var(--ui-muted);
 }
 .ui-archive-sort {
   display: flex;
@@ -417,7 +426,7 @@ body.modern-flat-v217 {
 .ui-archive-sort label {
   font-size: 12px;
   font-weight: 700;
-  color: #6b827b;
+  color: var(--ui-muted);
   white-space: nowrap;
 }
 .ui-archive-sort select {
@@ -601,7 +610,7 @@ body.modern-flat-v217 {
   text-align: center;
   font-size: 12px;
   line-height: 1.7;
-  color: #678271;
+  color: var(--ui-muted);
 }
 .ui-slot-deceleration {
   position: absolute;
@@ -669,7 +678,7 @@ body.modern-flat-v217 {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #b2775e;
+  color: var(--notice-head-text);
 }
 .program-confirm-window .program-confirm-body {
   min-height: 0;

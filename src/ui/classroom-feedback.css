@@ -4,6 +4,12 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   width: 100%;
+  --control-success-bg: var(--ui-soft);
+  --control-success-text: var(--ui-success);
+  --control-success-border: var(--ui-border-strong);
+  --control-danger-bg: #fff0e9;
+  --control-danger-text: #b91c1c;
+  --control-danger-border: #f5d1be;
 }
 .cf-score-slots .btn {
   min-width: 0;

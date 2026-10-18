@@ -140,7 +140,7 @@
       <article class="gp-panel gp-rank-panel">
         <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
         <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
-        <div class="gp-rank-list" id="gpRankList" role="list" aria-label="实时小组排名" aria-live="polite"></div>
+        <div class="gp-rank-list" id="gpRankList" tabindex="0" role="list" aria-label="实时小组排名" aria-live="polite"></div>
         <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
       </article>
       <article class="gp-panel gp-feed-panel">
@@ -288,7 +288,7 @@
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
     </p>
     <p id="uiSettlementStatus" class="ui-muted" role="status">先完整归档，保存成功后才会清零。</p>
-    <input type="text" id="settlementNameInput" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
+    <input type="text" id="settlementNameInput" aria-label="档案名称" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeSettlementNameModal()">取消</button>
       <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="DesktopUI.settleFromUI(this)">封存并清零</button>
@@ -320,7 +320,7 @@
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
     <div data-score-slots="modal" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
-    <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
+    <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" aria-label="自定义整数分值" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
     <div class="score-modal-error" id="scoreModalError"></div>
     <div class="score-modal-actions">
       <button class="btn score-modal-cancel" onclick="closeScoreModal()">取消</button>
@@ -342,7 +342,7 @@
   <div class="modal-box ui-function-surface">
     <h3>🔒 神迹认证处</h3>
     <p style="font-size: 13px; color: #64748b;">想改现实之前，先证明你确实有权限。密码可在设置里修改；这只是防手滑，不是五角大楼门禁。</p>
-    <input type="password" id="pwdInput" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
+    <input type="password" id="pwdInput" aria-label="管理口令" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closePwdModal()">取消</button>
       <button class="btn btn-primary" onclick="submitPassword()">批准神迹</button>
@@ -716,7 +716,7 @@
       <div class="qp-row-v218">
         <span>搜索</span>
         <input id="qpSearchV218" class="qp-input-v218" placeholder="姓名或学号" oninput="renderQuickPersonListV218()">
-        <span style="font-size:11px;color:#78908b">支持直接输入学号</span>
+        <span class="qp-search-hint-v218">支持直接输入学号</span>
       </div>
       <div class="qp-row-v218">
         <span>学号段</span>

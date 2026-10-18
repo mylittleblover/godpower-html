@@ -68,7 +68,7 @@
 }
 #view-welcome .gp-eyebrow {
   color: #a5edde;
-  font-size: 11px;
+  font-size: var(--font-xs);
   letter-spacing: 0.13em;
   font-weight: 850;
 }
@@ -144,7 +144,7 @@
 #view-welcome .gp-status-top {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: var(--font-xs);
   font-weight: 760;
   color: #d4eee9;
 }
@@ -153,7 +153,7 @@
   border-radius: 99px;
   padding: 4px 8px;
   color: #c3ffdd;
-  font-size: 10px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-hero-clock {
   font-size: 33px;
@@ -164,7 +164,7 @@
 }
 #view-welcome .gp-hero-date {
   color: #d0ece5;
-  font-size: 11px;
+  font-size: var(--font-xs);
   margin-top: 3px;
 }
 #view-welcome .gp-status-separator {
@@ -204,8 +204,8 @@
   flex-direction: column;
 }
 #view-welcome .gp-kpi span:first-child {
-  font-size: 11px;
-  color: #82958f;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   font-weight: 750;
 }
 #view-welcome .gp-kpi strong {
@@ -220,8 +220,8 @@
   white-space: nowrap;
 }
 #view-welcome .gp-kpi small {
-  font-size: 10px;
-  color: #98aaa4;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-kpi-icon {
   flex: none;
@@ -267,14 +267,14 @@
   margin: 0;
 }
 #view-welcome .gp-section-heading small {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.12em;
   font-weight: 800;
-  color: #afbfba;
+  color: var(--ui-muted);
 }
 #view-welcome .gp-section-heading > span {
-  font-size: 11px;
-  color: #8b9e97;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-heading-bar {
   height: 22px;
@@ -314,13 +314,13 @@
   font-weight: 840;
 }
 #view-welcome .gp-panel-title small {
-  font-size: 10px;
-  color: #9eafaa;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-panel-tag {
   background: #e8f7f0;
-  color: #108875;
-  font-size: 10px;
+  color: var(--ui-primary-hover);
+  font-size: var(--font-xs);
   padding: 5px 8px;
   border-radius: 6px;
   font-weight: 850;
@@ -328,6 +328,17 @@
 }
 #view-welcome .gp-panel-tag.gp-soft-tag {
   letter-spacing: normal;
+}
+/* All groups remain available without making the dashboard grow with class size. */
+#view-welcome .gp-rank-list {
+  max-height: 336px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+#view-welcome .gp-rank-list:focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: -2px;
 }
 #view-welcome .gp-rank-head,
 #view-welcome .gp-rank-row {
@@ -340,10 +351,12 @@
   padding: 0 20px;
 }
 #view-welcome .gp-rank-head {
-  font-size: 10px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  font-size: var(--font-xs);
   background: #f7faf8;
   min-height: 29px;
-  color: #a4b4af;
+  color: var(--ui-muted);
   font-weight: 750;
 }
 #view-welcome .gp-rank-row {
@@ -357,7 +370,7 @@
 #view-welcome .gp-rank-index {
   font-size: 13px;
   font-weight: 850;
-  color: #91a49e;
+  color: var(--ui-muted);
 }
 #view-welcome .gp-rank-index.gp-medal {
   background: #fff2d9;
@@ -402,8 +415,8 @@
   font-variant-numeric: tabular-nums;
 }
 #view-welcome .gp-rank-state {
-  font-size: 10px;
-  color: #398c76;
+  font-size: var(--font-xs);
+  color: var(--ui-primary-hover);
   text-align: center;
   background: #ebf8f1;
   padding: 5px 3px;
@@ -412,7 +425,7 @@
 }
 #view-welcome .gp-rank-empty {
   padding: 28px;
-  color: #90a39e;
+  color: var(--ui-muted);
   font-size: 13px;
 }
 #view-welcome .gp-panel-footer {
@@ -421,15 +434,15 @@
   align-items: center;
   gap: 10px;
   padding: 13px 20px;
-  color: #94a9a3;
-  font-size: 10px;
+  color: var(--ui-muted);
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-panel-footer button {
   border: 0;
   background: transparent;
   cursor: pointer;
-  color: #118576;
-  font-size: 11px;
+  color: var(--ui-primary-hover);
+  font-size: var(--font-xs);
   font-weight: 800;
 }
 #view-welcome .gp-match-status {
@@ -461,8 +474,8 @@
   color: #246553;
 }
 #view-welcome .gp-match-status small {
-  font-size: 10px;
-  color: #779b8c;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-match-status button {
   flex: none;
@@ -470,8 +483,8 @@
   border: 1px solid #d3e8df;
   border-radius: 8px;
   padding: 8px;
-  font-size: 10px;
-  color: #168675;
+  font-size: var(--font-xs);
+  color: var(--ui-primary-hover);
   cursor: pointer;
 }
 #view-welcome .gp-feed-list {
@@ -493,7 +506,7 @@
   height: 32px;
   border-radius: 10px;
   background: #eaf6f1;
-  color: #178779;
+  color: var(--ui-primary-hover);
   font-weight: 850;
 }
 #view-welcome .gp-feed-copy {
@@ -508,14 +521,14 @@
   color: #31544a;
 }
 #view-welcome .gp-feed-copy p {
-  font-size: 10px;
-  color: #94aaa2;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   margin: 4px 0 0;
   line-height: 1.6;
 }
 #view-welcome .gp-feed-time {
-  font-size: 10px;
-  color: #afbeb8;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   white-space: nowrap;
 }
 #view-welcome .gp-group-section {
@@ -544,15 +557,15 @@
   display: inline-block;
   margin-left: 8px;
   background: #e9f8f2;
-  color: #168b78;
+  color: var(--ui-primary-hover);
   border-radius: 7px;
   padding: 4px 8px;
-  font-size: 10px;
+  font-size: var(--font-xs);
   font-weight: 830;
 }
 #view-welcome .gp-group-head p {
-  font-size: 11px;
-  color: #91a79f;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   margin: 6px 0 0;
 }
 #view-welcome .gp-compact-track {
@@ -585,18 +598,18 @@
   font-size: 23px;
 }
 #view-welcome .gp-compact-track .ui-muted {
-  font-size: 10px;
+  font-size: var(--font-xs);
   line-height: 1.4;
 }
 #view-welcome .gp-compact-track .ui-chip {
-  font-size: 10px;
+  font-size: var(--font-xs);
   padding: 4px 6px;
 }
 #view-welcome .gp-compact-track footer {
   margin-top: 9px;
   padding-top: 7px;
   gap: 5px;
-  font-size: 10px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-compact-track footer img {
   width: 18px;
@@ -662,9 +675,9 @@
   min-height: 254px;
 }
 #view-welcome .gp-daily-grid .ui-eyebrow {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.03em;
-  color: #148775;
+  color: var(--ui-primary-hover);
   margin: 0;
 }
 #view-welcome .gp-daily-grid h3 {
@@ -678,8 +691,8 @@
 #view-welcome .gp-footnote {
   text-align: center;
   margin: 24px 0 0;
-  font-size: 11px;
-  color: #a0b3ac;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-existing-metrics[hidden] {
   display: none !important;
@@ -757,7 +770,7 @@
     transform 0.6s 0.35s;
 }
 .gp-intro-caption {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.24em;
   font-weight: 850;
   color: #88ada1;
@@ -845,7 +858,7 @@
   transition: none;
 }
 .gp-intro-skip {
-  font-size: 11px;
+  font-size: var(--font-xs);
   border: none;
   background: transparent;
   color: #94ada3;
@@ -965,7 +978,7 @@ body.gp-intro-reveal #view-welcome .gp-daily-grid {
     min-height: 43px;
   }
   #view-welcome .gp-rank-name {
-    font-size: 11px;
+    font-size: var(--font-xs);
   }
   #view-welcome .gp-group-head p {
     max-width: 250px;
@@ -993,7 +1006,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   width: auto;
   min-width: 106px;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-rank-points {
   overflow-wrap: anywhere;
