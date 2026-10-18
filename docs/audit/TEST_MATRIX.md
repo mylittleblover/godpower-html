@@ -217,3 +217,24 @@ Call log:
 ## 2026-10-18 界面与动效回归
 
 新增 [功能界面验收矩阵](APPLICATION_SURFACES_TEST_MATRIX.md)；最终状态及产物SHA以 [报告](../reports/APPLICATION_SURFACES_ACCEPTANCE.md) 为准。阶段测试、最终回归和BLOCKED项目分开记录。
+
+## 2026-10-18 六槽赋分、课堂特效和音频接入
+
+本轮证据与各阶段产物哈希统一见 `docs/reports/CLASSROOM_FEEDBACK_ACCEPTANCE.md`，不得把历史验收结果当成此次最终 HTML 的重新执行结果。
+
+| 功能 × 场景 | 测试类型 | 证据 |
+|---|---|---|
+| 五个自由赋分入口 × 六槽/输入/锁定/撤销 | Chromium E2E | artifacts/classroom-feedback/results.json |
+| 三种抽取 × 连续滚动/减速/赢家/防重复历史 | Chromium E2E | 同上；captured/artifacts/visual-unification/motion/results.json |
+| 全屏演出 × 三尺寸/三页面缩放/中断/关闭 | Chromium E2E + 几何 | fullscreen-zoom.json；results.json |
+| 偏好 × 实际重载/损坏配置 | Chromium E2E | restore-results.json |
+| 设置两卡 × 三尺寸/三页面缩放/键盘 | Chromium E2E + 截图 | settings-behavior-results.json |
+| 41 活动槽 × 自定义资源/播放路径 | Chromium 状态注入 | audio-slots.json |
+| 音频上传 × WAV/并发/损坏/存储中止 | Chromium E2E | audio-results.json |
+| 配置 × 默认/校验/复制/边界 | Node 单元 | logs/gp-settings-unit.log |
+| 14 小组 × 修改前后同配置 | Chromium DOM + 截图 | layout/battle-14-comparison.json |
+| HTTP 离线、归档及正常答对加分 | Chromium E2E | captured/artifacts/desktop-ui/release-smoke.json |
+| file:// | BLOCKED | 当前浏览器环境 ERR_BLOCKED_BY_ADMINISTRATOR，不能记 PASS |
+| 真实音箱听感、原生浏览器工具栏缩放 | NOT TESTED | CF-004；页面缩放 .8/1/1.25 不等于原生工具栏缩放 |
+| Firefox、WebKit、CircleCI | NOT APPLICABLE | 按用户指示不执行 |
+| 同一操作多音效 × 上传/随机播放/26 道具/循环/刷新/BIN/删除失败 | Chromium E2E | artifacts/classroom-feedback/multiple-audio-results.json |

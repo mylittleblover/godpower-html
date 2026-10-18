@@ -1,0 +1,6 @@
+PASS Multiple WAV upload keeps legacy primary and appends two persistent candidates
+PASS Actual playback randomly selects exactly one sample without consuming game Math.random
+PASS Real reload restores primary, candidate count and filenames
+PASS Audio BIN export and import preserve all choices and old primary format
+PASS Per-item and looping sounds share selection; removing one candidate preserves others
+PASS Failed restore transaction retains the primary and remaining candidate

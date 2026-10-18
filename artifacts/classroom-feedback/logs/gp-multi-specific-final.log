@@ -1,0 +1,28 @@
+PASS Multiple WAV upload keeps legacy primary and appends two persistent candidates
+PASS Actual playback randomly selects exactly one sample without consuming game Math.random
+FAIL Real reload restores primary, candidate count and filenames page.reload: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "load"[22m
+
+FAIL Audio BIN export and import preserve all choices and old primary format page.evaluate: Execution context was destroyed, most likely because of a navigation
+FAIL Per-item and looping sounds share selection; removing one candidate preserves others page.evaluate: ReferenceError: PER_ITEM_SOUND_IDS_V2174 is not defined
+    at eval (eval at evaluate (:290:30), <anonymous>:2:20)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+FAIL Failed restore transaction retains the primary and remaining candidate page.evaluate: ReferenceError: db is not defined
+    at eval (eval at evaluate (:290:30), <anonymous>:2:24)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.waitForEvent: Target page, context or browser has been closed
+=========================== logs ===========================
+waiting for event "download"
+============================================================
+    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:144:27
+    at test (/workspace/godpower-html/tests/e2e/multiple-audio.mjs:40:28)
+    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:143:9
+
+Node.js v24.19.0

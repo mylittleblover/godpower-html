@@ -1,0 +1,37 @@
+PASS Multiple WAV upload keeps legacy primary and appends two persistent candidates
+PASS Actual playback randomly selects exactly one sample without consuming game Math.random
+PASS Real reload restores primary, candidate count and filenames
+PASS Audio BIN export and import preserve all choices and old primary format
+PASS Per-item and looping sounds share selection; removing one candidate preserves others
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.screenshot: Timeout 29948.010000000002ms exceeded.
+Call log:
+[2m  - taking element screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+[2m  - attempting scroll into view action[22m
+[2m    - waiting for element to be stable[22m
+[2m    - element is not stable[22m
+[2m  - retrying scroll into view action[22m
+[2m    - waiting for element to be stable[22m
+[2m    - element is not visible[22m
+[2m  - retrying scroll into view action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying scroll into view action[22m
+[2m      - waiting 100ms[22m
+[2m    55 × waiting for element to be stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying scroll into view action[22m
+[2m       - waiting 500ms[22m
+[2m    - waiting for element to be stable[22m
+
+    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:223:13 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

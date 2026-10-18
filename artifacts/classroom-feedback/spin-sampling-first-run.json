@@ -1,0 +1,322 @@
+{
+  "sha256": "7b8029b4e535c817ca1972c9945e25fbc3b37493e40c7dc6e495ea6bb5dbf2db",
+  "results": [
+    {
+      "name": "Shared six slots across all five scoring windows and persistent setting edit",
+      "status": "PASS",
+      "evidence": {
+        "schemaVersion": 1,
+        "slots": [
+          7,
+          6,
+          9,
+          -3,
+          -6,
+          -9
+        ],
+        "pickEffects": false,
+        "scoreEffects": false,
+        "style": "aurora",
+        "duration": 1800,
+        "clickEnabled": true,
+        "clickVolume": 0.45
+      }
+    },
+    {
+      "name": "Slot invalid input cannot replace saved values",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual group slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual modal slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual hand slot scores once; green/red full-screen and undo",
+      "status": "PASS"
+    },
+    {
+      "name": "Manual hand score and invalid/locked commands: effects only on successful change",
+      "status": "PASS"
+    },
+    {
+      "name": "Slot individual: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected \"actual\" not to be strictly deep-equal to:\n\n[\n  'matrix(1, 0, 0, 1, 0, 0)'\n]\n\n    at file:///workspace/godpower-html/tests/e2e/classroom-feedback.mjs:214:14\n    at async test (file:///workspace/godpower-html/tests/e2e/classroom-feedback.mjs:24:22)\n    at async file:///workspace/godpower-html/tests/e2e/classroom-feedback.mjs:193:5"
+    },
+    {
+      "name": "Slot group: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "FAIL",
+      "error": "page.evaluate: TypeError: Cannot read properties of null (reading 'memberName')\n    at stopSlotSpin (http://127.0.0.1:32867/:11535:54)\n    at stopSlotSpin (http://127.0.0.1:32867/:13376:56)\n    at closePickerModal (http://127.0.0.1:32867/:11282:30)\n    at Object.pickerModal [as close] (http://127.0.0.1:32867/:22665:24)\n    at Object.viewChanged (http://127.0.0.1:32867/:21609:11)\n    at switchView (http://127.0.0.1:32867/:12021:47)\n    at switchView (http://127.0.0.1:32867/:13461:58)\n    at switchView (http://127.0.0.1:32867/:15559:29)\n    at switchView (http://127.0.0.1:32867/:18331:36)\n    at eval (eval at evaluate (:290:30), <anonymous>:47:5)\n    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:36:14)\n    at async test (/workspace/godpower-html/tests/e2e/classroom-feedback.mjs:23:5)\n    at async file:///workspace/godpower-html/tests/e2e/classroom-feedback.mjs:193:5"
+    },
+    {
+      "name": "Slot two_tier: actual vertical motion, continuous handoff and unchanged winner",
+      "status": "PASS",
+      "evidence": {
+        "chosen": "{\"group\":{\"id\":4,\"name\":\"测试 4 组\",\"color\":\"#2F7DD1\",\"score\":220,\"displayScore\":220,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"04 同学\",\"4 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":4,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false},\"memberName\":\"04 同学\",\"key\":\"4__04 同学\"}",
+        "transforms": [
+          "matrix(1, 0, 0, 1, 0, -147.048)",
+          "matrix(1, 0, 0, 1, 0, -147.048)"
+        ],
+        "history": 0
+      }
+    },
+    {
+      "name": "Effect off, reduced motion and page/undo interruptions clean overlays",
+      "status": "PASS"
+    },
+    {
+      "name": "Settings and full-screen bounds 1366",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 1366,
+        "height": 768
+      }
+    },
+    {
+      "name": "Settings and full-screen bounds 1920",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "name": "Settings and full-screen bounds 2560",
+      "status": "PASS",
+      "evidence": {
+        "x": 0,
+        "y": 0,
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    {
+      "name": "Every active sound slot has custom upload wiring and uploaded samples are played",
+      "status": "PASS",
+      "evidence": [
+        {
+          "id": "score_add",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "score_sub",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "pk_correct",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "allin_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "allin_lose",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "big_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "rewind",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "ui_click",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_tick",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_loop",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "roll_win",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_start",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_tick",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_draw_reveal",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_defend",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_green",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_green",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_red",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_red",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_spiny",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_banana",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_banana",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_horn",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_bomb",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_hammer",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_coin",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_coin_shell",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_question",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_mushroom",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_triple_mushroom",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_boo",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_blooper",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_lightning",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_star",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_mega",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_bullet",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_power",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_feather",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_fire_flower",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_ice_flower",
+          "played": true,
+          "listed": true
+        },
+        {
+          "id": "item_boomerang_flower",
+          "played": true,
+          "listed": true
+        }
+      ]
+    },
+    {
+      "name": "Global pointer and keyboard clicks use custom click sound once; disable suppresses it",
+      "status": "PASS",
+      "evidence": {
+        "first": 1,
+        "after": 1
+      }
+    }
+  ],
+  "errors": []
+}

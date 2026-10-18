@@ -1,0 +1,24 @@
+FAIL Shared six slots across all five scoring windows and persistent setting edit Expected values to be strictly equal:
+
+0 !== 6
+
+PASS Slot invalid input cannot replace saved values
+PASS Actual group slot scores once; green/red full-screen and undo
+PASS Actual modal slot scores once; green/red full-screen and undo
+FAIL Actual hand slot scores once; green/red full-screen and undo locator.click: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for locator('#handRaiseBackdrop [data-score-slot="1"]')[22m
+
+FAIL Manual hand score and invalid/locked commands: effects only on successful change locator.fill: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for locator('#handCustomScore')[22m
+
+PASS Slot individual: actual vertical motion, continuous handoff and unchanged winner
+PASS Slot group: actual vertical motion, continuous handoff and unchanged winner
+PASS Slot two_tier: actual vertical motion, continuous handoff and unchanged winner
+PASS Effect off, reduced motion and page/undo interruptions clean overlays
+PASS Settings and full-screen bounds 1366
+PASS Settings and full-screen bounds 1920
+PASS Settings and full-screen bounds 2560
+PASS Every active sound slot has custom upload wiring and uploaded samples are played
+PASS Global pointer and keyboard clicks use custom click sound once; disable suppresses it

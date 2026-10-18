@@ -1,0 +1,128 @@
+PASS All five pages produce layered, cancellable actual WAAPI entry animations
+PASS Window scoreModalBackdrop: upward nonlinear entry and single canonical round close
+PASS Window memberSearchBackdrop: upward nonlinear entry and single canonical round close
+PASS Window pwdModal: upward nonlinear entry and single canonical round close
+PASS Window settlementNameModal: upward nonlinear entry and single canonical round close
+PASS Window pickerModal: upward nonlinear entry and single canonical round close
+PASS Window itemModalBackdrop: upward nonlinear entry and single canonical round close
+PASS Window handRaiseBackdrop: upward nonlinear entry and single canonical round close
+PASS Window aboutBackdrop: upward nonlinear entry and single canonical round close
+PASS Window batchImportModal: upward nonlinear entry and single canonical round close
+PASS Window quickPersonBackdropV218: upward nonlinear entry and single canonical round close
+PASS Daily knowledge and all eight settings disclosure groups animate open/close, keyboard and rapid interruption
+FAIL SVG lever individual: actual result, 1000ms deceleration, anti-repeat, reward and cleanup page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#reelTextStudent .student-no-inline-v218') to be visible[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m      - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m      - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    3 × locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    3 × locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+
+PASS SVG lever group: actual result, 1000ms deceleration, anti-repeat, reward and cleanup
+FAIL SVG lever two_tier: actual result, 1000ms deceleration, anti-repeat, reward and cleanup page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#reelTextStudent .student-no-inline-v218') to be visible[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    3 × locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">01</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    2 × locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    3 × locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">04</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    3 × locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">1</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">3</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">2</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">02</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">03</span>[22m
+[2m    - locator resolved to hidden <span class="student-no-inline-v218">4</span>[22m
+
+PASS Compact SVG cabinet and lever fit three desktop sizes at 80/100/125 percent app zoom
+PASS Theme confirmation and archived celebration use the same round close without changing dismissal semantics
+PASS Closing and changing mode during slot deceleration cannot write stale UI or reward a previous target
+{ pass: 16, fail: 2, errors: [] }
