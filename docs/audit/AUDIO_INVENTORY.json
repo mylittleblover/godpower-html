@@ -224,85 +224,79 @@
     },
     {
       "file": "src/script/00.js",
-      "line": 297,
+      "line": 299,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 298,
+      "line": 300,
       "slot": "roll_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 584,
+      "line": 586,
       "slot": "rewind",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1655,
+      "line": 1677,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1730,
+      "line": 1752,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1835,
+      "line": 1857,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 1850,
+      "line": 1872,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2028,
+      "line": 2050,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2031,
+      "line": 2053,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2032,
+      "line": 2054,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2033,
+      "line": 2055,
       "slot": "score_sub",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2070,
+      "line": 2092,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2084,
-      "slot": "ui_click",
-      "expression": "Literal"
-    },
-    {
-      "file": "src/script/00.js",
-      "line": 2095,
+      "line": 2106,
       "slot": "ui_click",
       "expression": "Literal"
     },
@@ -314,97 +308,103 @@
     },
     {
       "file": "src/script/00.js",
-      "line": 2131,
+      "line": 2139,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2224,
+      "line": 2153,
+      "slot": "ui_click",
+      "expression": "Literal"
+    },
+    {
+      "file": "src/script/00.js",
+      "line": 2246,
       "slot": "big_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2229,
+      "line": 2251,
       "slot": "allin_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2230,
+      "line": 2252,
       "slot": "allin_lose",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2231,
+      "line": 2253,
       "slot": "pk_correct",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2852,
+      "line": 2874,
       "slot": "roll_win",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2897,
+      "line": 2919,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 2985,
+      "line": 3007,
       "slot": "score_add",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 3035,
+      "line": 3057,
       "slot": "allin_lose",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5231,
+      "line": 5257,
       "slot": "item_use",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5233,
+      "line": 5259,
       "slot": "item_defend",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5235,
+      "line": 5261,
       "slot": "item_draw_start",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5236,
+      "line": 5262,
       "slot": "item_draw_tick",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5237,
+      "line": 5263,
       "slot": "item_draw_reveal",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5390,
+      "line": 5416,
       "slot": "ui_click",
       "expression": "Literal"
     },
     {
       "file": "src/script/00.js",
-      "line": 5401,
+      "line": 5427,
       "slot": "ui_click",
       "expression": "Literal"
     },
@@ -472,7 +472,7 @@
   "dynamicCalls": [
     {
       "file": "src/script/00.js",
-      "line": 5231,
+      "line": 5257,
       "slot": null,
       "expression": "CallExpression"
     },

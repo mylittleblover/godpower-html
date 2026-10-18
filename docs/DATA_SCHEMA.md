@@ -93,3 +93,7 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 | clickVolume | number / .45 | 有限数且限制在 0–1 |
 
 缺失偏好使用默认，损坏 JSON 不修改课堂数据。界面偏好与已有 DesktopUI 偏好一样独立于课堂备份；自定义音频仍通过原音频包/BIN 迁移。音频槽、IndexedDB sounds 记录键 `fx_<slot>` 和打包格式不变。
+
+### 操作音效候选
+
+原 sounds 表主记录 `fx_<slot>` 保持不变。候选记录 ID：`fx_<slot>::variant::<UUID>`；字段 `{id:string,arrayBuffer:ArrayBuffer,name?:string}`。加载时按操作汇总解码，旧记录缺少 name 合法。默认没有候选；从主音效及可解码候选等概率选一个。不迁移、不改库版本；BIN 的原索引记录增加可选 name，旧导入继续可读。还原一个操作以单事务删除主键及精确候选前缀，失败保留已保存记录。

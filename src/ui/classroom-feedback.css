@@ -227,3 +227,30 @@
     animation: none;
   }
 }
+
+/* Candidate audio controls stay secondary to the operation's main settings. */
+.cf-audio-choices {
+  grid-column: 1 / -1;
+  flex: 1 0 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cf-audio-choices details {
+  flex-basis: 100%;
+}
+.cf-audio-choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+.cf-audio-choice > span {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.sound-row:has(> .cf-audio-choices) {
+  flex-wrap: wrap;
+}

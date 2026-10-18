@@ -77,7 +77,7 @@ playSound = async function(slotId){
       }
       await getAudioContext();
 
-      const custom=customFxBuffers?.[slotId];
+      const custom=selectFxBuffer(slotId);
       if(custom){
         const source=audioCtx.createBufferSource();
         source.buffer=custom;
@@ -125,7 +125,7 @@ renderItemFxSoundListV26=function(){
   ];
 
   const rowHtml=(id,name,desc,visual='')=>{
-    const custom=!!customFxBuffers[id] || hasSound('fx_'+id);
+    const custom=!!customFxBuffers[id] || !!customFxVariants[id]?.length || hasSound('fx_'+id);
     const itemClass=visual?' v2174-item-sound-card':'';
     const description=visual
       ? `<div class="sound-desc v2174-item-sound-desc">
@@ -146,6 +146,7 @@ renderItemFxSoundListV26=function(){
         <button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${id}')">上传</button>
         ${custom?`<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${id}','${id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>`:''}
       </div>
+      ${renderFxChoices(id)}
     </div>`;
   };
 

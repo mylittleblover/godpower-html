@@ -868,3 +868,14 @@ GP-016 → GP-017 → GP-011 → GP-012 → GP-013 → RF-001 → RF-002 → GP-
 - 依赖：CF-002；复杂度：低；风险：原动态设置 pane 必须保留以支持再次初始化，使用 display:contents 保留所有者。
 - 验收标准：九种桌面尺寸/页面缩放组合两卡与开关几何一致；键盘切换保持原状态字段；三类跳过入口位于右下，无控制台错误。
 - 推荐测试：settings-behavior-alignment.mjs；截图 settings-behavior-*、skip-*。
+
+## CF-006 每个操作支持随机候选音效
+
+- 分类：音频 / 数据兼容；优先级：P1；状态：DONE。
+- 问题描述：一个操作原本只能保存一个自定义声音，无法随机变化。
+- 证据／源码：script/00.js:selectFxBuffer/renderFxChoices/loadFxSounds；script/09.js:playSound；tests/e2e/multiple-audio.mjs。
+- 影响范围：41 活动音效、26 道具发动、抽取循环；不修改音乐调度或随机赢家。
+- 修复方案：保留主键并新增独立候选记录，批量追加、单项移除、统一等概率选择；BIN 兼容导入导出；还原等待事务完成。
+- 依赖：CF-003；复杂度：中；风险：大量长音频增加解码内存，保留人工听感和容量验收 CF-004。
+- 验收标准：多文件实际上传、随机边界、实际播放仅选一份、不调用业务 Math.random、重载及 BIN 往返、逐项删除不影响主音效、26 道具与循环接入。
+- 推荐测试：multiple-audio.mjs、audio-customization.mjs；课堂设备人工试听。
