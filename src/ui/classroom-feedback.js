@@ -138,6 +138,7 @@ const ClassroomFeedback = (() => {
       (type === "pick" ? !options.pickEffects : !options.scoreEffects)
     )
       return;
+    if(window.godpowerDesktop?.role==='main' && !window.GodpowerPicker?.isExternalPresentation())return;
     const soundSlot=type==='pick'?'fullscreen_pick':type==='positive'?'fullscreen_score_add':'fullscreen_score_sub';
     void playSound(soundSlot);
     if(type!=='pick' && window.godpowerDesktop?.showScore){

@@ -4649,7 +4649,7 @@ function renderPickerInfo(){
     const arr=state.itemGlobal.pickerHistory||[];box.innerHTML=arr.length?arr.slice(-30).reverse().map(x=>`<div class="picker-log">${escapeHtml(x.text)}<br><small>${new Date(x.time).toLocaleTimeString()}</small></div>`).join(''):'暂无抽签记录';
   }
 }
-const _v2OpenPicker=openPickerModal;openPickerModal=function(){ensureV2State();pickerInfoTab='history';_v2OpenPicker();setPickerInfoTab('history');syncPickerScoreTarget()}
+const _v2OpenPicker=openPickerModal;openPickerModal=function(...args){ensureV2State();pickerInfoTab='history';_v2OpenPicker(...args);setPickerInfoTab('history');syncPickerScoreTarget()}
 function syncPickerScoreTarget(){const el=document.getElementById('pickerScoreTarget'),w=slotEngine.chosenResult;if(!el)return;if(!w){el.textContent='抽中学生或小组后，可直接给所属小组赋分。';return}const g=state.picker.mode==='group'?w:w.group;el.innerHTML=`<b>${escapeHtml(g.name)}</b>${state.picker.mode==='group'?'':`<br>${escapeHtml(w.memberName)}`}<br>当前 ${g.score} 分`}
 function pickerTargetGroup(){const w=slotEngine.chosenResult;if(!w)return null;return state.picker.mode==='group'?w:w.group}
 function scorePickerTarget(n){const g=pickerTargetGroup();if(!g){showToast('请先完成一次抽签');return}applyScoreDelta(g.id,n);syncPickerScoreTarget()}
