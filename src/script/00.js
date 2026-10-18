@@ -28,6 +28,9 @@ function readableTextOnColor(hex){
 }
 
 const FX_SOUND_SLOTS = [
+  {id:'fullscreen_pick',name:'全屏点名揭晓',category:'全屏演出',desc:'全屏揭晓时播放；支持多段候选随机播放'},
+  {id:'fullscreen_score_add',name:'全屏加分展示',category:'全屏演出',desc:'绿色全屏加分展示音效'},
+  {id:'fullscreen_score_sub',name:'全屏扣分展示',category:'全屏演出',desc:'红色全屏扣分展示音效'},
   ...ActionSounds.slots,
   { id: 'score_add', name: '基础加分 (+1 / +2)', desc: '复古方波金币音' },
   { id: 'score_sub', name: '基础扣分 (-1 / -2)', desc: '低沉方波震动音' },
@@ -1064,7 +1067,7 @@ async function playSound(slotId) {
       }else source.connect(getFxOutputV2176());
       source.start(0);
     } else {
-      playChiptuneSynth(slotId==='roll_loop'?'roll_tick':slotId);
+      playChiptuneSynth(({fullscreen_pick:'roll_win',fullscreen_score_add:'score_add',fullscreen_score_sub:'score_sub'})[slotId] || (slotId==='roll_loop'?'roll_tick':slotId));
     }
   } catch (_) {}
 }

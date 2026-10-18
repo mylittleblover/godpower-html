@@ -3,9 +3,13 @@
   const desktop = window.godpowerDesktop;
   if (!desktop || desktop.role !== 'main') return;
   const completed = new Map();
-  let last = '', timer;
+  let last = '', timer, soundedReveal = null;
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(), json = JSON.stringify(snapshot);
+    if(snapshot.phase==='revealed' && snapshot.result?.id!==soundedReveal){
+      soundedReveal=snapshot.result?.id;
+      if(snapshot.effects.enabled && GodpowerPicker.isExternalPresentation())void playSound('fullscreen_pick');
+    }
     if (json !== last) { last = json; desktop.publish(snapshot); }
   };
   desktop.onExecute(async ({ id, action, payload }) => {

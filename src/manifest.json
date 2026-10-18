@@ -429,6 +429,11 @@
       "type": "script",
       "path": "ui/electron-host.js",
       "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/electron-windows.js",
+      "attributes": ""
     }
   ],
   "resources": [

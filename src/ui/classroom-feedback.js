@@ -138,6 +138,13 @@ const ClassroomFeedback = (() => {
       (type === "pick" ? !options.pickEffects : !options.scoreEffects)
     )
       return;
+    const soundSlot=type==='pick'?'fullscreen_pick':type==='positive'?'fullscreen_score_add':'fullscreen_score_sub';
+    void playSound(soundSlot);
+    if(type!=='pick' && window.godpowerDesktop?.showScore){
+      cancel();
+      window.godpowerDesktop.showScore({name:title,delta:Number(String(value).replace('−','-')),effects:{enabled:true,style:options.style,duration:options.duration}});
+      return;
+    }
     cancel();
     const root = dialog();
     if (!root) return;
