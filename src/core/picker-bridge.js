@@ -29,7 +29,7 @@ window.GodpowerPicker = (() => {
     const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
     const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
       !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    return { protocolVersion: 1, phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
+    return { protocolVersion: 1, theme: window.GodpowerTheme?.get() || 'classic', phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
       mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
       preselectedGroupIds: [...(state.picker.preselectedGroupIds || [])],
       remaining: document.getElementById('poolStatusText')?.textContent || '',

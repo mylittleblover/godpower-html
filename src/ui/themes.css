@@ -1,0 +1,314 @@
+/* Presentation-only theme. No layout dimensions or business-state selectors are changed. */
+body.modern-flat-v217.theme-marx {
+  --end-round-bg: #9b2834;
+  --end-round-hover: #7a1d27;
+  --ui-bg: #faf6f1;
+  --ui-panel: #fffdfa;
+  --ui-soft: #f9eae6;
+  --ui-soft-2: #fcf5f0;
+  --ui-primary: #a91e2c;
+  --ui-primary-hover: #831924;
+  --ui-secondary: #9d5723;
+  --ui-accent: #b26519;
+  --ui-accent-hover: #874a12;
+  --ui-text: #382624;
+  --ui-muted: #77534b;
+  --ui-border: #e3cec5;
+  --ui-border-strong: #c59d8e;
+  --surface-hero: linear-gradient(112deg, #681421, #a91e2c 58%, #b5392d);
+  --window-overlay: #38151c65;
+  --theme-tone-003a341d: #2f0b0e1d;
+  --theme-tone-04504721: #44101421;
+  --theme-tone-063b3412: #350c1012;
+  --theme-tone-063b3426: #350c1026;
+  --theme-tone-074d3b12: #44101412;
+  --theme-tone-075a54: #4f1217;
+  --theme-tone-07746114: #64171e14;
+  --theme-tone-084c4c: #441014;
+  --theme-tone-086b5a: #5d161c;
+  --theme-tone-087b6c: #6a1920;
+  --theme-tone-0b5352: #4c1217;
+  --theme-tone-0d6862: #5f161c;
+  --theme-tone-0e7e70: #711b22;
+  --theme-tone-0f766e: #6c1920;
+  --theme-tone-0f80693b: #741b233b;
+  --theme-tone-114c3f08: #4b121608;
+  --theme-tone-115e59: #5a151b;
+  --theme-tone-123d35: #3d1216;
+  --theme-tone-12624f: #5e161c;
+  --theme-tone-128a7b: #7e1e26;
+  --theme-tone-133f3608: #3f131708;
+  --theme-tone-133f3609: #3f131709;
+  --theme-tone-13816b: #781c24;
+  --theme-tone-13816c: #781c24;
+  --theme-tone-13816d: #781c24;
+  --theme-tone-138878: #7e1d25;
+  --theme-tone-145c4c: #5b151b;
+  --theme-tone-148978: #7f1e26;
+  --theme-tone-153e3759: #3e151859;
+  --theme-tone-154a42: #4a1519;
+  --theme-tone-15594a: #59151b;
+  --theme-tone-155b47: #5b151b;
+  --theme-tone-155d4b19: #5c161c19;
+  --theme-tone-15998866: #8d212a66;
+  --theme-tone-164d3e0c: #4d161b0c;
+  --theme-tone-16816a: #7a1d24;
+  --theme-tone-16816a30: #7a1d2430;
+  --theme-tone-168c79: #831f27;
+  --theme-tone-17302d: #301719;
+  --theme-tone-17302d08: #30171908;
+  --theme-tone-17302d26: #30171926;
+  --theme-tone-174b3a06: #4b171b06;
+  --theme-tone-174b3a08: #4b171b08;
+  --theme-tone-183634: #36181a;
+  --theme-tone-183e39: #3e181b;
+  --theme-tone-185547: #55181d;
+  --theme-tone-188466: #7e1e26;
+  --theme-tone-19755a: #731b22;
+  --theme-tone-20423b: #422023;
+  --theme-tone-20443b: #442023;
+  --theme-tone-213e35: #3e2123;
+  --theme-tone-21433b: #432124;
+  --theme-tone-24463e: #462427;
+  --theme-tone-246553: #652429;
+  --theme-tone-284a46: #4a282b;
+  --theme-tone-31544a: #543134;
+  --theme-tone-315c4c: #5c3135;
+  --theme-tone-35b69a: #b63540;
+  --theme-tone-39be96: #be3944;
+  --theme-tone-39be9627: #be394427;
+  --theme-tone-3d7261: #723d41;
+  --theme-tone-3e675b: #673e41;
+  --theme-tone-41705c: #704145;
+  --theme-tone-47c1a7: #c14751;
+  --theme-tone-496e5c: #6e494c;
+  --theme-tone-527165: #715255;
+  --theme-tone-607773: #776062;
+  --theme-tone-618779: #876164;
+  --theme-tone-6effd83f: #e38a913f;
+  --theme-tone-78958f: #95787a;
+  --theme-tone-839791: #978385;
+  --theme-tone-86a79b: #a78689;
+  --theme-tone-88ada1: #ad888b;
+  --theme-tone-8fffe211: #eaa4aa11;
+  --theme-tone-91aaa0: #aa9193;
+  --theme-tone-94ada3: #ad9496;
+  --theme-tone-96d6c7: #d6969b;
+  --theme-tone-a3d3bf: #d3a3a7;
+  --theme-tone-a5edde: #eaa8ad;
+  --theme-tone-a7bcb2: #bca7a9;
+  --theme-tone-acffdf: #e6c8c5;
+  --theme-tone-afc9c3: #c9afb1;
+  --theme-tone-b4d8c3: #d8b4b7;
+  --theme-tone-bee8df: #e5c5c1;
+  --theme-tone-c1e8e1: #e6c7c3;
+  --theme-tone-c3ffdd: #edd7d5;
+  --theme-tone-c6e7db: #e7cac6;
+  --theme-tone-c8e5df: #e5cbc8;
+  --theme-tone-c9dcd8: #dccbc9;
+  --theme-tone-c9e3d5: #e3ccc9;
+  --theme-tone-c9e7d8: #e7ccc9;
+  --theme-tone-cddfd4: #dfcfcd;
+  --theme-tone-d0eadf: #ead3d0;
+  --theme-tone-d0ece5: #ebd3d1;
+  --theme-tone-d3e8df: #e8d5d3;
+  --theme-tone-d4e8df: #e8d6d4;
+  --theme-tone-d4eee9: #edd7d5;
+  --theme-tone-d5e2df: #e2d6d5;
+  --theme-tone-d6e5db: #e5d8d6;
+  --theme-tone-d6e6dc: #e6d8d6;
+  --theme-tone-d6eee8: #eed9d6;
+  --theme-tone-d7e6db: #e6d8d7;
+  --theme-tone-d9e7de: #e7dad9;
+  --theme-tone-d9e7df: #e7dad9;
+  --theme-tone-d9f1ec: #efdddb;
+  --theme-tone-daf8ef: #f2e2e0;
+  --theme-tone-dce7df: #e7dddc;
+  --theme-tone-dce7e4: #e7dddc;
+  --theme-tone-dce8e0: #e8dddc;
+  --theme-tone-dce8e1: #e8dddc;
+  --theme-tone-dceae7: #eadddc;
+  --theme-tone-deebe3: #ebdfde;
+  --theme-tone-defff2: #f5e9e8;
+  --theme-tone-dfeae5: #eae0df;
+  --theme-tone-e0f6ee: #f3e5e3;
+  --theme-tone-e2f3e9: #f3e4e2;
+  --theme-tone-e4ede9: #ede5e4;
+  --theme-tone-e4f4ec: #f4e6e4;
+  --theme-tone-e4fff7: #f7edec;
+  --theme-tone-e5f1e9: #f1e6e5;
+  --theme-tone-e6eeeb: #eee7e6;
+  --theme-tone-e6f0ec: #f0e7e6;
+  --theme-tone-e7efed: #efe8e7;
+  --theme-tone-e8f5eb: #f5e9e8;
+  --theme-tone-e8f7f0: #f6ebe9;
+  --theme-tone-e9f7f3: #f6ebea;
+  --theme-tone-e9f8f2: #f6eceb;
+  --theme-tone-eaf5ed: #f5ebea;
+  --theme-tone-eaf5ee: #f5ebea;
+  --theme-tone-eaf6f1: #f6ebea;
+  --theme-tone-eafff8: #f9f1f0;
+  --theme-tone-ebf8f1: #f7edec;
+  --theme-tone-ecf3ef: #f3edec;
+  --theme-tone-ecf7f5: #f7edec;
+  --theme-tone-eef8f4: #f8efee;
+  --theme-tone-eff4f1: #f4f0ef;
+  --theme-tone-eff8f4: #f8f0ef;
+  --theme-tone-f0f6f2: #f6f1f0;
+  --theme-tone-f1f5f4: #f5f1f1;
+  --theme-tone-f1f8f5: #f8f2f1;
+  --theme-tone-f1f9f2: #f9f2f1;
+  --theme-tone-f2f7f4: #f7f2f2;
+  --theme-tone-f2f7f6: #f7f2f2;
+  --theme-tone-f2f8f4: #f8f3f2;
+  --theme-tone-f2f8f5: #f8f3f2;
+  --theme-tone-f2f9f4: #f9f3f2;
+  --theme-tone-f3f7f6: #f7f3f3;
+  --theme-tone-f3f8f4: #f8f3f3;
+  --theme-tone-f4f8f5: #f8f4f4;
+  --theme-tone-f4f9f6: #f9f4f4;
+  --theme-tone-f5f8f7: #f8f5f5;
+  --theme-tone-f5f9f6: #f9f5f5;
+  --theme-tone-f6fffc: #fcf9f9;
+  --theme-tone-f7faf8: #faf7f7;
+  --theme-tone-f7faf9: #faf7f7;
+  --theme-tone-f7fbf9: #fbf7f7;
+  --theme-tone-fbfefd: #fdfcfc;
+}
+html[data-theme="marx"] {
+  background-color: #faf6f1 !important;
+}
+/* Selection cards reuse the settings spacing and typography scale. */
+.gp-theme-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.gp-theme-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 2px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast),
+    background var(--motion-fast),
+    transform var(--motion-fast) var(--motion-ease);
+}
+.gp-theme-card[aria-pressed="true"] {
+  border-color: var(--ui-primary);
+  background: var(--ui-soft);
+}
+.gp-theme-card:focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+.gp-theme-card:active {
+  transform: scale(0.97);
+}
+.gp-theme-card strong,
+.gp-theme-card small {
+  display: block;
+}
+.gp-theme-card small {
+  margin-top: var(--space-2);
+  color: var(--ui-muted);
+}
+.gp-theme-swatch {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  background: #0f766e;
+  color: #fff;
+}
+.gp-theme-swatch.marx {
+  background: #a91e2c;
+  color: #ffe0a0;
+}
+.gp-theme-swatch svg {
+  width: 36px;
+  height: 36px;
+}
+.gp-theme-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  background: #761c29;
+  color: #ffe2aa;
+  overflow: hidden;
+  isolation: isolate;
+}
+.gp-theme-transition::before {
+  content: "";
+  position: absolute;
+  width: 90vmax;
+  height: 90vmax;
+  border: 1px solid #ffd89640;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 8vmax #ffd89608,
+    0 0 0 16vmax #ffd89606;
+  pointer-events: none;
+}
+.gp-theme-transition[data-target="classic"] {
+  background: #084c4c;
+  color: #defff2;
+}
+.gp-theme-transition-content {
+  position: relative;
+  text-align: center;
+}
+.gp-theme-transition-content svg {
+  width: 120px;
+  height: 120px;
+}
+.gp-theme-transition-content h2 {
+  font-size: var(--font-xl);
+  letter-spacing: 0.12em;
+  margin: var(--space-5) 0 var(--space-3);
+  color: inherit;
+}
+.gp-theme-transition-content p {
+  letter-spacing: 0.2em;
+  font-size: var(--font-sm);
+  color: inherit;
+}
+.gp-theme-transition .ui-cinematic-skip {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-theme-card {
+    transition: none;
+  }
+}
+
+.gp-theme-ribbon {
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    120deg,
+    transparent 25%,
+    #ffe0a016 40%,
+    #ffe0a028 50%,
+    transparent 65%
+  );
+  pointer-events: none;
+}

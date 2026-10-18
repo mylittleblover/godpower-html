@@ -1,5 +1,14 @@
 /* Owned desktop components; battle grid/card geometry remains owned by legacy layout. */
-:root {
+:root,
+body {
+  --end-round-bg: #b5442f;
+  --end-round-hover: #943521;
+  --honor-gold-light: #ffe49a;
+  --honor-gold: #edb83b;
+  --honor-gold-hover: #d99b23;
+  --honor-border: #bf851a;
+  --honor-ink: #51310c;
+  --honor-glow: #e9ad3e70;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -17,8 +26,8 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-  --shadow-card: 0 4px 20px #17302d08;
-  --shadow-float: 0 16px 56px #17302d26;
+  --shadow-card: 0 4px 20px var(--theme-tone-17302d08, #17302d08);
+  --shadow-float: 0 16px 56px var(--theme-tone-17302d26, #17302d26);
   --nav-height: 59px;
   --dock-height: 67px;
   --modal-sm: 480px;
@@ -526,10 +535,72 @@
   font-size: var(--font-sm);
   font-weight: 600;
 }
-.ui-settings-row input[type="checkbox"] {
-  accent-color: var(--ui-primary);
-  width: 18px;
-  height: 18px;
+/* Boolean controls share v292's track/knob geometry; selection checkboxes outside
+   settings remain checkboxes. Native inputs preserve labels, keyboard and handlers. */
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input),
+#chkAntiRepeat {
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  box-sizing: content-box;
+  width: 52px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 999px;
+  background: var(--ui-soft);
+  cursor: pointer;
+  transition:
+    background var(--motion-fast),
+    border-color var(--motion-fast);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input)::after,
+#chkAntiRepeat::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  box-sizing: content-box;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 50%;
+  background: #fff;
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input):checked,
+#chkAntiRepeat:checked {
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input):checked::after,
+#chkAntiRepeat:checked::after {
+  transform: translateX(24px);
+}
+:is(#view-settings, .ui-settings-row) input[type="checkbox"]:disabled,
+#chkAntiRepeat:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.v292-switch:has(input:focus-visible) {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(#view-settings, .ui-settings-row) input[type="checkbox"],
+  :is(#view-settings, .ui-settings-row) input[type="checkbox"]::after,
+  #chkAntiRepeat,
+  #chkAntiRepeat::after {
+    transition: none;
+  }
 }
 .ui-settings-row select {
   max-width: 260px;
@@ -551,13 +622,17 @@
   padding: 24px 32px;
   margin: 0 0 20px;
   color: #fff;
-  background: linear-gradient(115deg, #0b5352, #138878);
+  background: linear-gradient(
+    115deg,
+    var(--theme-tone-0b5352, #0b5352),
+    var(--theme-tone-138878, #138878)
+  );
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
 }
 .ui-settings-eyebrow {
   display: block;
-  color: #bee8df;
+  color: var(--theme-tone-bee8df, #bee8df);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -571,13 +646,13 @@
 }
 .ui-settings-header h2 small {
   margin-left: 12px;
-  color: #c1e8e1;
+  color: var(--theme-tone-c1e8e1, #c1e8e1);
   font-size: 14px;
   font-weight: 500;
 }
 .ui-settings-header p {
   margin: 9px 0 0;
-  color: #d6eee8;
+  color: var(--theme-tone-d6eee8, #d6eee8);
   font-size: 13px;
 }
 .ui-settings-status {
@@ -589,7 +664,7 @@
   border: 1px solid #ffffff25;
   border-radius: var(--radius-md);
   font-size: 12px;
-  color: #d6eee8;
+  color: var(--theme-tone-d6eee8, #d6eee8);
 }
 .ui-settings-status span:first-child {
   color: #fff;
@@ -657,7 +732,7 @@
   background: var(--ui-soft);
 }
 .ui-settings-disclosure > summary:focus-visible {
-  outline: 3px solid var(--ui-focus, #15998866);
+  outline: 3px solid var(--ui-focus, var(--theme-tone-15998866, #15998866));
   outline-offset: 3px;
 }
 .ui-settings-detail-body {
@@ -767,7 +842,7 @@
   padding: 12px 18px;
   border-radius: var(--radius-md);
   color: #fff;
-  background: #123d35;
+  background: var(--theme-tone-123d35, #123d35);
   border: 1px solid #ffffff60;
   cursor: pointer;
 }

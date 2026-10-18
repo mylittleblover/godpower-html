@@ -1,0 +1,35 @@
+.gp-hover-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  pointer-events: none;
+  box-sizing: border-box;
+  max-width: min(360px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  overflow: hidden;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: var(--ui-text, #172036);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  font:
+    13px/1.5 system-ui,
+    sans-serif;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+}
+.gp-hover-tooltip[hidden] {
+  display: none !important;
+}
+@starting-style {
+  .gp-hover-tooltip {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-hover-tooltip {
+    transition: none;
+  }
+}

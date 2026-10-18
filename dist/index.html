@@ -3,7 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V2.19.0</title>
+<title>上帝的力量 V3.0.1</title>
+<script>/* Theme composition owns appearance only. No classroom state or business commands. */
+window.GodpowerTheme = (() => {
+  "use strict";
+  const KEY = "godpower_appearance_v1";
+  const names = { classic: "上帝的力量", marx: "马克思的力量" };
+  const star =
+    "m12 2 2.8 6.2 6.7.8-5 4.7 1.4 6.7-5.9-3.3-5.9 3.3 1.4-6.7-5-4.7 6.7-.8Z";
+  const paths = {
+    home: "M3 11 12 4l9 7M5 10v11h14V10M9 21v-7h6v7M12 1v3",
+    battle: "M4 20 16 8m-4-4 8 8m-8-8 4-3 7 7-3 4M2 16l6 6M3 3l6 3-3 3Z",
+    history: "M4 12a8 8 0 1 0 3-6M3 3v6h6M12 7v5l4 3M10 22h4",
+    archive: "M5 4h14v16H5ZM3 20h18M9 4V2h6v2M8 9l2 2 2-4 2 4 2-2M9 16h6",
+    settings:
+      "M8 3h8l2 4 4 1v8l-4 1-2 4H8l-2-4-4-1V8l4-1ZM12 8l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.4-2.5 1.4.5-2.8-2-2 2.8-.4Z",
+    users:
+      "M3 21v-3q4-5 8 0v3m2 0v-3q4-5 8 0v3M7 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6m10 0a3 3 0 1 0 0 6 3 3 0 0 0 0-6M12 2v3",
+    spark: star,
+    sound: "M4 10h4l10-6v16L8 14H4ZM8 14v7h4v-5M21 8v8",
+    book: "M12 5Q6 2 2 5v15q6-3 10 0 6-3 10 0V5q-6-3-10 0v15M6 8l3 1m6 0 3-1",
+    shield:
+      "M12 2 3 6v6q0 7 9 10 9-3 9-10V6ZM12 6l1.4 3 3.3.4-2.4 2.3.7 3.3-3-1.7-3 1.7.7-3.3-2.4-2.3 3.3-.4Z",
+    arrow: "m8 5 7 7-7 7M4 12h11",
+    gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
+  };
+  const emblem = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="红星麦穗徽记"><rect width="64" height="64" rx="15" fill="#a91e2c"/><g fill="none" stroke="#ffe0a0" stroke-width="2"><path d="M24 53Q5 42 14 22m26 31q19-11 10-31M14 34l-6-4m7 11-6-2m10 9-7-1M50 34l6-4m-7 11 6-2m-10 9 7-1"/></g><path d="m32 10 4.6 10 11 1.2-8.2 7.7 2.2 11L32 34.4l-9.6 5.3 2.2-11-8.2-7.7 11-1.2Z" fill="#ffe0a0"/><path d="M24 49h16M27 54h10" stroke="#ffe0a0" stroke-width="2"/></svg>`;
+  let theme = "classic",
+    active = null,
+    classicBrand = null,
+    classicIcon = null;
+  try {
+    if (JSON.parse(localStorage.getItem(KEY))?.theme === "marx") theme = "marx";
+  } catch (error) {
+    /* Appearance storage may be unavailable; classroom storage is untouched. */
+  }
+  const classics = new Map();
+  function icon(name, fallback) {
+    if (!classics.has(name)) classics.set(name, fallback);
+    const path = theme === "marx" ? paths[name] || star : fallback;
+    return `<svg class="ui-icon" data-theme-icon="${name}" viewBox="0 0 24 24" aria-hidden="true"><path d="${path}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  }
+  function name() {
+    return names[theme];
+  }
+  function boot() {
+    document.documentElement.dataset.theme = theme;
+    document.body?.classList.toggle("theme-marx", theme === "marx");
+    if (document.body) document.body.dataset.theme = theme;
+  }
+  function apply() {
+    boot();
+    document.title = name() + " V3.0.1";
+    const label = document.querySelector(".gp-brand-label");
+    if (label?.firstChild?.nodeType === Node.TEXT_NODE)
+      label.firstChild.textContent = name() + " ";
+    const title = document.getElementById("gpIntroTitle");
+    if (title) title.textContent = name();
+    document
+      .getElementById("gpIntro")
+      ?.setAttribute("aria-label", "滑动解锁进入" + name());
+    document
+      .querySelector(".gp-home")
+      ?.setAttribute("aria-label", name() + "首页");
+    const foot = document.querySelector(".gp-footnote");
+    if (foot) foot.textContent = name() + " · 让每一次参与都有力量";
+    const svg = document.querySelector("#gpBrandMount svg,#gpIntroLogo svg");
+    if (svg) {
+      if (classicBrand === null) classicBrand = svg.innerHTML;
+      svg.innerHTML =
+        theme === "marx"
+          ? emblem.slice(emblem.indexOf(">") + 1, emblem.lastIndexOf("</svg>"))
+          : classicBrand;
+      svg.setAttribute(
+        "viewBox",
+        theme === "marx" ? "0 0 64 64" : "0 0 512 512",
+      );
+    }
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      classicIcon ??= favicon.href;
+      favicon.href =
+        theme === "marx"
+          ? "data:image/svg+xml," + encodeURIComponent(emblem)
+          : classicIcon;
+    }
+    for (const svg of document.querySelectorAll(".ui-icon[data-theme-icon]")) {
+      const key = svg.dataset.themeIcon;
+      svg
+        .querySelector("path")
+        ?.setAttribute(
+          "d",
+          theme === "marx" ? paths[key] || star : classics.get(key),
+        );
+    }
+    for (const button of document.querySelectorAll("[data-appearance-theme]"))
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.appearanceTheme === theme),
+      );
+    if (typeof updateWelcomeClock === "function") updateWelcomeClock();
+    // Dedicated event is consumed by presentation transports only.
+    window.dispatchEvent(
+      new CustomEvent("godpower:theme", { detail: { theme, name: name() } }),
+    );
+  }
+  function cancel() {
+    if (!active) return;
+    const current = active;
+    active = null;
+    for (const animation of current.animations) animation.cancel();
+    current.element.remove();
+    current.resolve();
+  }
+  function set(next, { animate = true } = {}) {
+    if (!Object.hasOwn(names, next)) return Promise.resolve({ ok: false });
+    cancel();
+    theme = next;
+    let persisted = true;
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ schemaVersion: 1, theme }));
+    } catch (error) {
+      persisted = false;
+      window.showToast?.("主题仅在本次生效：界面偏好保存失败");
+    }
+    const prefs =
+      typeof DesktopUI !== "undefined" ? DesktopUI.getPreferences() : {};
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (
+      !animate ||
+      reduce ||
+      prefs.motion === "off" ||
+      prefs.motion === "simple" ||
+      !document.body.animate
+    ) {
+      apply();
+      return Promise.resolve({ ok: true, persisted });
+    }
+    const overlay = document.createElement("div");
+    overlay.id = "gpThemeTransition";
+    overlay.className = "gp-theme-transition";
+    overlay.dataset.target = theme;
+    overlay.setAttribute("role", "status");
+    overlay.setAttribute("aria-label", "正在切换至" + name());
+    overlay.innerHTML = `<div class="gp-theme-ribbon" aria-hidden="true"></div><div class="gp-theme-transition-content">${emblem}<h2>${name()}</h2><p>KNOWLEDGE IS POWER · 知识就是力量</p></div><button type="button" id="gpThemeSkip" class="ui-cinematic-skip">跳过动画</button>`;
+    document.body.append(overlay);
+    const result = new Promise((resolve) => {
+      active = {
+        element: overlay,
+        animations: [],
+        resolve: () => resolve({ ok: true, persisted }),
+      };
+    });
+    const current = active;
+    document.getElementById("gpThemeSkip").onclick = cancel;
+    apply();
+    // A rare theme change earns a short ceremonial reveal; normal use remains instant.
+    const motion = overlay.animate(
+      [
+        { opacity: 0 },
+        { opacity: 1, offset: 0.24 },
+        { opacity: 1, offset: 0.6 },
+        { opacity: 0 },
+      ],
+      { duration: 960, easing: "cubic-bezier(0.23,1,0.32,1)" },
+    );
+    const content = overlay
+      .querySelector(".gp-theme-transition-content")
+      .animate(
+        [
+          { opacity: 0, transform: "translateY(24px) scale(.95)" },
+          { opacity: 1, transform: "translateY(0) scale(1)" },
+        ],
+        { duration: 500, easing: "cubic-bezier(0.23,1,0.32,1)" },
+      );
+    const ribbon = overlay.querySelector(".gp-theme-ribbon").animate(
+      [
+        { transform: "translateX(-35%) rotate(-12deg)", opacity: 0 },
+        { transform: "translateX(0) rotate(-12deg)", opacity: 1, offset: 0.45 },
+        { transform: "translateX(35%) rotate(-12deg)", opacity: 0 },
+      ],
+      { duration: 960, easing: "cubic-bezier(0.77,0,0.175,1)" },
+    );
+    current.animations.push(motion, content, ribbon);
+    motion.finished
+      .then(() => {
+        if (active === current) cancel();
+      })
+      .catch(() => {});
+    return result;
+  }
+  function mount(panel) {
+    if (document.getElementById("gpThemeOptions")) return;
+    const section = document.createElement("section");
+    section.className = "ui-settings-group";
+    section.id = "gpThemeOptions";
+    section.innerHTML = `<h3>应用主题</h3><p class="ui-muted">立即保存。仅改变外观、名称与图标，不改变比赛规则。</p><div class="gp-theme-options"><button id="gpTheme-classic" type="button" class="gp-theme-card" data-appearance-theme="classic"><span class="gp-theme-swatch">✦</span><span><strong>上帝的力量</strong><small>经典青绿 · 珊瑚橙</small></span></button><button id="gpTheme-marx" type="button" class="gp-theme-card" data-appearance-theme="marx"><span class="gp-theme-swatch marx">${emblem}</span><span><strong>马克思的力量</strong><small>朱红旗帜 · 暖白 · 金色麦穗</small></span></button></div>`;
+    panel.querySelector(".ui-settings-title")?.after(section);
+    section.querySelectorAll("[data-appearance-theme]").forEach((button) =>
+      button.addEventListener("click", () => {
+        void set(button.dataset.appearanceTheme);
+      }),
+    );
+    apply();
+  }
+  document.documentElement.dataset.theme = theme;
+  window.addEventListener("DOMContentLoaded", apply, { once: true });
+  window.addEventListener("pagehide", cancel);
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") cancel();
+  });
+  return {
+    get: () => theme,
+    name,
+    icon,
+    boot,
+    set,
+    mount,
+    cancel,
+    isSwitching: () => !!active,
+  };
+})();
+</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
   <style>
@@ -2513,14 +2734,14 @@ body.items-disabled .v213-card .card-header-row{grid-template-columns:43px minma
 }
 html{
   width:100%;max-width:100%;min-height:100%;overflow-x:hidden;overflow-x:clip;
-  background-color:#F3F7F6!important;background-image:var(--ui-wall-veil),var(--ui-wall)!important;
+  background-color:var(--theme-tone-f3f7f6,#F3F7F6)!important;background-image:var(--ui-wall-veil),var(--ui-wall)!important;
   background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;background-attachment:fixed!important;
 }
 body.modern-flat-v217{
-  --ui-bg:#F3F7F6;--ui-panel:#FFFFFF;--ui-soft:#ECF7F5;--ui-soft-2:#F7FAF9;
-  --ui-primary:#0F766E;--ui-primary-hover:#115E59;--ui-secondary:#0891B2;
-  --ui-accent:#F97316;--ui-accent-hover:#EA580C;--ui-text:#17302D;--ui-muted:#496E5C;
-  --ui-border:#C9DCD8;--ui-border-strong:#AFC9C3;--ui-success:#15803D;
+  --ui-bg:var(--theme-tone-f3f7f6,#F3F7F6);--ui-panel:#FFFFFF;--ui-soft:var(--theme-tone-ecf7f5,#ECF7F5);--ui-soft-2:var(--theme-tone-f7faf9,#F7FAF9);
+  --ui-primary:var(--theme-tone-0f766e,#0F766E);--ui-primary-hover:var(--theme-tone-115e59,#115E59);--ui-secondary:#0891B2;
+  --ui-accent:#F97316;--ui-accent-hover:#EA580C;--ui-text:var(--theme-tone-17302d,#17302D);--ui-muted:var(--theme-tone-496e5c,#496E5C);
+  --ui-border:var(--theme-tone-c9dcd8,#C9DCD8);--ui-border-strong:var(--theme-tone-afc9c3,#AFC9C3);--ui-success:#15803D;
   --ui-warning:#D97706;--ui-warning-text:#0F172A;--ui-danger:#DC2626;--ui-shadow:0 2px 8px rgba(23,48,45,.08);
   width:100%;max-width:100%;overflow-x:hidden;overflow-x:clip;background:transparent!important;color:var(--ui-text)!important;
 }
@@ -2602,7 +2823,7 @@ body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card{
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):not(.card-defend-fx):not(.card-heal-fx){
   background:var(--battle-card-bg,var(--ui-panel))!important;background-image:none!important;border-top:1px solid var(--ui-border)!important;
   border-right:1px solid var(--ui-border)!important;border-bottom:1px solid var(--ui-border)!important;
-  border-left:4px solid var(--group-color,#78958F)!important;border-radius:var(--battle-card-radius,10px)!important;box-shadow:var(--battle-card-shadow,var(--ui-shadow))!important;
+  border-left:4px solid var(--group-color,var(--theme-tone-78958f,#78958F))!important;border-radius:var(--battle-card-radius,10px)!important;box-shadow:var(--battle-card-shadow,var(--ui-shadow))!important;
 }
 body.modern-flat-v217 .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover{box-shadow:0 3px 10px rgba(23,48,45,.11)!important;transform:none}
 body.modern-flat-v217 .modal-box,body.modern-flat-v217 .score-modal-card,
@@ -2662,7 +2883,7 @@ body.modern-flat-v217 .opt-btn.correct{background:var(--ui-success)!important;co
 body.modern-flat-v217 .opt-btn.wrong{background:var(--ui-danger)!important;color:#fff!important;border-color:var(--ui-danger)!important}
 body.modern-flat-v217 .btn:disabled,body.modern-flat-v217 button:disabled,
 body.modern-flat-v217 .locked-disabled,body.modern-flat-v217 .round-disabled{
-  background:#E7EFED!important;background-image:none!important;color:#839791!important;border-color:#D5E2DF!important;opacity:.72!important;box-shadow:none!important;
+  background:var(--theme-tone-e7efed,#E7EFED)!important;background-image:none!important;color:var(--theme-tone-839791,#839791)!important;border-color:var(--theme-tone-d5e2df,#D5E2DF)!important;opacity:.72!important;box-shadow:none!important;
 }
 
 /* 主操作：青绿；结算与重要提醒：珊瑚 */
@@ -2671,12 +2892,20 @@ body.modern-flat-v217 #btnMainAction,body.modern-flat-v217 .welcome-enter-btn{
 }
 body.modern-flat-v217 #btnMainAction:hover,body.modern-flat-v217 .welcome-enter-btn:hover{background:var(--ui-primary-hover)!important;transform:none!important}
 body.modern-flat-v217 #btnNextRound:not(.locked-disabled){background:var(--ui-success)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-success)!important}
-body.modern-flat-v217 #btnForceEnd:not(.locked-disabled),body.modern-flat-v217 #btnFinalSettlement{
-  background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important;
+body.modern-flat-v217 #btnForceEnd:not(.locked-disabled){
+  background:var(--end-round-bg)!important;background-image:none!important;color:#fff!important;border-color:var(--end-round-bg)!important;box-shadow:none!important;
 }
 
+/* Theme-independent archive action: gold always means the final honor archive. */
+body.modern-flat-v217 #btnFinalSettlement{
+  background:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold))!important;
+  background-image:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold))!important;
+  color:var(--honor-ink)!important;border-color:var(--honor-border)!important;
+  box-shadow:0 0 14px var(--honor-glow),inset 0 1px 0 #fff8!important;
+  font-weight:800;
+}
 /* 表单、道具格与菜单 */
-body.modern-flat-v217 input,body.modern-flat-v217 textarea,body.modern-flat-v217 select{
+body.modern-flat-v217 input:not([type="checkbox"]),body.modern-flat-v217 textarea,body.modern-flat-v217 select{
   background:#fff!important;background-image:none!important;color:var(--ui-text)!important;border:1px solid var(--ui-border-strong)!important;box-shadow:none!important;
 }
 body.modern-flat-v217 input:focus,body.modern-flat-v217 textarea:focus,body.modern-flat-v217 select:focus{
@@ -2694,7 +2923,7 @@ body.modern-flat-v217 #v2ItemEncyclopedia .ency-card{background:#fff!important;b
 body.modern-flat-v217 .ency-v213-icon-disc{background:var(--ui-soft)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-draw-stage{background:var(--ui-soft-2)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .hand-item-capsule{background:var(--ui-soft)!important;background-image:none!important;border:2px solid var(--ui-primary)!important;box-shadow:none!important}
-body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-badge-color,var(--group-color,#607773))!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
+body.modern-flat-v217 .v213-number{color:var(--group-contrast,#fff)!important;background:var(--group-badge-color,var(--group-color,var(--theme-tone-607773,#607773)))!important;background-image:none!important;box-shadow:none!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name,body.modern-flat-v217 .dashboard-card-title,
 body.modern-flat-v217 .welcome-card-title,body.modern-flat-v217 .setting-section-title{color:var(--ui-text)!important;text-shadow:none!important}
 body.modern-flat-v217 .v213-name-sub,body.modern-flat-v217 .fullview-sub,
@@ -2704,9 +2933,9 @@ body.modern-flat-v217 .metric-label{color:var(--ui-muted)!important}
 body.modern-flat-v217 .podium-col{background:var(--ui-soft-2)!important;background-image:none!important;border:1px solid var(--ui-border)!important;box-shadow:none!important}
 body.modern-flat-v217 .podium-col::before,body.modern-flat-v217 .quick-batch-bar::before{display:none!important}
 body.modern-flat-v217 .podium-col.rank-1{background:#FFF7ED!important;border-color:#FDBA74!important}
-body.modern-flat-v217 .podium-col.rank-2{background:#F2F7F6!important;border-color:#AFC9C3!important}
+body.modern-flat-v217 .podium-col.rank-2{background:var(--theme-tone-f2f7f6,#F2F7F6)!important;border-color:var(--theme-tone-afc9c3,#AFC9C3)!important}
 body.modern-flat-v217 .podium-col.rank-3{background:#FFF1EB!important;border-color:#FB923C!important}
-body.modern-flat-v217 .chart-track{background:#DCEAE7!important;background-image:none!important;border:0!important;box-shadow:none!important}
+body.modern-flat-v217 .chart-track{background:var(--theme-tone-dceae7,#DCEAE7)!important;background-image:none!important;border:0!important;box-shadow:none!important}
 body.modern-flat-v217 .chart-bar{background-image:none!important;box-shadow:none!important;filter:none!important}
 body.modern-flat-v217 .welcome-clock{color:var(--ui-primary)!important;text-shadow:none!important}
 
@@ -2720,7 +2949,7 @@ body.modern-flat-v217 .program-confirm-actions{background:#fff!important;backgro
 body.modern-flat-v217 .program-confirm-actions button{border-radius:8px!important;box-shadow:none!important;background-image:none!important}
 
 /* 设置开关：纯色轨道和滑块 */
-body.modern-flat-v217 .v292-switch-track{background:#DCE7E4!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;box-shadow:none!important}
+body.modern-flat-v217 .v292-switch-track{background:var(--theme-tone-dce7e4,#DCE7E4)!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;box-shadow:none!important}
 body.modern-flat-v217 .v292-switch-knob{background:#fff!important;background-image:none!important;border:1px solid var(--ui-border-strong)!important;box-shadow:none!important}
 body.modern-flat-v217 .v292-switch input:checked+.v292-switch-track{background:var(--ui-primary)!important;background-image:none!important;border-color:var(--ui-primary)!important;box-shadow:none!important}
 
@@ -2736,7 +2965,7 @@ body.modern-flat-v217 .welcome-chart-wrapper-v216{min-height:226px!important;max
 body.modern-flat-v217 .status-badge,body.modern-flat-v217 .metric-box,
 body.modern-flat-v217 .wmp-tag,body.modern-flat-v217 .row-score,
 body.modern-flat-v217 .welcome-modal-btn{background-image:none!important;box-shadow:none!important;text-shadow:none!important}
-body.modern-flat-v217 .item-use-banner-v216{background:var(--ui-text)!important;border:1px solid #284A46!important;box-shadow:0 2px 8px rgba(23,48,45,.12)!important}
+body.modern-flat-v217 .item-use-banner-v216{background:var(--ui-text)!important;border:1px solid var(--theme-tone-284a46,#284A46)!important;box-shadow:0 2px 8px rgba(23,48,45,.12)!important}
 body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-radius:8px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important}
 
 /* 道具图片尺寸由使用组件决定，原始 PNG 永远不能撑开页面。 */
@@ -2750,7 +2979,7 @@ body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;back
 .item-use-banner-v216 .iub-icon{width:36px;height:36px;flex:0 0 36px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .item-use-banner-v216 .iub-icon img{display:block!important;width:34px!important;height:34px!important;max-width:34px!important;max-height:34px!important;object-fit:contain!important}
 .item-use-banner-v216 .iub-main{font-size:13px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item-use-banner-v216 .iub-sub{margin-top:1px;font-size:10px;color:#C9DCD8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-use-banner-v216 .iub-sub{margin-top:1px;font-size:10px;color:var(--theme-tone-c9dcd8,#C9DCD8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes itemUseBannerV216{0%{opacity:0;transform:translate(-50%,-10px) scale(.96)}12%{opacity:1;transform:translate(-50%,0) scale(1)}76%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-7px) scale(.98)}}
 
 /* 小组详情内嵌编辑。 */
@@ -3760,8 +3989,7 @@ body.modern-flat-v217 #welcomeModal .welcome-modal-btn:not(:disabled):hover{
 body.modern-flat-v217 .btn-success:not(:disabled):hover{background:#15803D!important;background-color:#15803D!important;color:#fff!important;border-color:#15803D!important}
 body.modern-flat-v217 .btn-warning:not(:disabled):hover{background:#B45309!important;background-color:#B45309!important;color:#fff!important;border-color:#B45309!important}
 body.modern-flat-v217 .btn-danger:not(:disabled):hover{background:#B91C1C!important;background-color:#B91C1C!important;color:#fff!important;border-color:#B91C1C!important}
-body.modern-flat-v217 #btnForceEnd:not(.locked-disabled):hover,
-body.modern-flat-v217 #btnFinalSettlement:not(:disabled):hover{background:var(--ui-accent-hover)!important;background-color:var(--ui-accent-hover)!important;color:#fff!important;border-color:var(--ui-accent-hover)!important}
+body.modern-flat-v217 #btnForceEnd:not(.locked-disabled):hover{background:var(--end-round-hover)!important;background-color:var(--end-round-hover)!important;color:#fff!important;border-color:var(--end-round-hover)!important}
 body.modern-flat-v217 button:focus-visible,
 body.modern-flat-v217 input:focus-visible,
 body.modern-flat-v217 textarea:focus-visible,
@@ -4028,6 +4256,13 @@ body.modern-flat-v217 .archive-stat-card span{display:block;margin-top:4px;color
   body.modern-flat-v217 #settingsV26_data .setting-item{align-items:stretch!important;flex-direction:column!important}
   body.modern-flat-v217 #settingsV26_data .setting-item>div{justify-content:flex-start!important}
   body.modern-flat-v217 .archive-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+body.modern-flat-v217 #btnFinalSettlement:not(:disabled):hover{
+ background:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold-hover))!important;
+ background-image:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold-hover))!important;
+ color:var(--honor-ink)!important;border-color:var(--honor-border)!important;
+ box-shadow:0 0 20px var(--honor-glow),inset 0 1px 0 #fff9!important;
 }
 </style>
 
@@ -4415,7 +4650,16 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 </style>
 
 <style id="desktop-design-system">/* Owned desktop components; battle grid/card geometry remains owned by legacy layout. */
-:root {
+:root,
+body {
+  --end-round-bg: #b5442f;
+  --end-round-hover: #943521;
+  --honor-gold-light: #ffe49a;
+  --honor-gold: #edb83b;
+  --honor-gold-hover: #d99b23;
+  --honor-border: #bf851a;
+  --honor-ink: #51310c;
+  --honor-glow: #e9ad3e70;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -4433,8 +4677,8 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
-  --shadow-card: 0 4px 20px #17302d08;
-  --shadow-float: 0 16px 56px #17302d26;
+  --shadow-card: 0 4px 20px var(--theme-tone-17302d08, #17302d08);
+  --shadow-float: 0 16px 56px var(--theme-tone-17302d26, #17302d26);
   --nav-height: 59px;
   --dock-height: 67px;
   --modal-sm: 480px;
@@ -4942,10 +5186,72 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   font-size: var(--font-sm);
   font-weight: 600;
 }
-.ui-settings-row input[type="checkbox"] {
-  accent-color: var(--ui-primary);
-  width: 18px;
-  height: 18px;
+/* Boolean controls share v292's track/knob geometry; selection checkboxes outside
+   settings remain checkboxes. Native inputs preserve labels, keyboard and handlers. */
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input),
+#chkAntiRepeat {
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  box-sizing: content-box;
+  width: 52px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 999px;
+  background: var(--ui-soft);
+  cursor: pointer;
+  transition:
+    background var(--motion-fast),
+    border-color var(--motion-fast);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input)::after,
+#chkAntiRepeat::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  box-sizing: content-box;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 50%;
+  background: #fff;
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input):checked,
+#chkAntiRepeat:checked {
+  background: var(--ui-primary);
+  border-color: var(--ui-primary);
+}
+:is(#view-settings, .ui-settings-row)
+  input[type="checkbox"]:not(.v292-switch input):checked::after,
+#chkAntiRepeat:checked::after {
+  transform: translateX(24px);
+}
+:is(#view-settings, .ui-settings-row) input[type="checkbox"]:disabled,
+#chkAntiRepeat:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.v292-switch:has(input:focus-visible) {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(#view-settings, .ui-settings-row) input[type="checkbox"],
+  :is(#view-settings, .ui-settings-row) input[type="checkbox"]::after,
+  #chkAntiRepeat,
+  #chkAntiRepeat::after {
+    transition: none;
+  }
 }
 .ui-settings-row select {
   max-width: 260px;
@@ -4967,13 +5273,17 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   padding: 24px 32px;
   margin: 0 0 20px;
   color: #fff;
-  background: linear-gradient(115deg, #0b5352, #138878);
+  background: linear-gradient(
+    115deg,
+    var(--theme-tone-0b5352, #0b5352),
+    var(--theme-tone-138878, #138878)
+  );
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
 }
 .ui-settings-eyebrow {
   display: block;
-  color: #bee8df;
+  color: var(--theme-tone-bee8df, #bee8df);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -4987,13 +5297,13 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 }
 .ui-settings-header h2 small {
   margin-left: 12px;
-  color: #c1e8e1;
+  color: var(--theme-tone-c1e8e1, #c1e8e1);
   font-size: 14px;
   font-weight: 500;
 }
 .ui-settings-header p {
   margin: 9px 0 0;
-  color: #d6eee8;
+  color: var(--theme-tone-d6eee8, #d6eee8);
   font-size: 13px;
 }
 .ui-settings-status {
@@ -5005,7 +5315,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   border: 1px solid #ffffff25;
   border-radius: var(--radius-md);
   font-size: 12px;
-  color: #d6eee8;
+  color: var(--theme-tone-d6eee8, #d6eee8);
 }
 .ui-settings-status span:first-child {
   color: #fff;
@@ -5073,7 +5383,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   background: var(--ui-soft);
 }
 .ui-settings-disclosure > summary:focus-visible {
-  outline: 3px solid var(--ui-focus, #15998866);
+  outline: 3px solid var(--ui-focus, var(--theme-tone-15998866, #15998866));
   outline-offset: 3px;
 }
 .ui-settings-detail-body {
@@ -5183,7 +5493,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   padding: 12px 18px;
   border-radius: var(--radius-md);
   color: #fff;
-  background: #123d35;
+  background: var(--theme-tone-123d35, #123d35);
   border: 1px solid #ffffff60;
   cursor: pointer;
 }
@@ -5510,20 +5820,28 @@ summary:focus-visible {
 }
 </style>
 <style id="application-surfaces">/* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
-:root {
-  --surface-ink: #183e39;
+:root,
+body {
+  --surface-ink: var(--theme-tone-183e39, #183e39);
   --surface-muted: var(--ui-muted);
-  --surface-line: #dfeae5;
-  --surface-soft: #f2f8f5;
-  --surface-hero: linear-gradient(112deg, #084c4c, #0d6862 58%, #087b6c);
+  --surface-line: var(--theme-tone-dfeae5, #dfeae5);
+  --surface-soft: var(--theme-tone-f2f8f5, #f2f8f5);
+  --surface-hero: linear-gradient(
+    112deg,
+    var(--theme-tone-084c4c, #084c4c),
+    var(--theme-tone-0d6862, #0d6862) 58%,
+    var(--theme-tone-087b6c, #087b6c)
+  );
   --window-radius: 20px;
-  --window-shadow: 0 24px 80px #063b3426, 0 4px 16px #063b3412;
-  --window-overlay: #153e3759;
-  --window-side-bg: #f1f8f5;
+  --window-shadow:
+    0 24px 80px var(--theme-tone-063b3426, #063b3426),
+    0 4px 16px var(--theme-tone-063b3412, #063b3412);
+  --window-overlay: var(--theme-tone-153e3759, #153e3759);
+  --window-side-bg: var(--theme-tone-f1f8f5, #f1f8f5);
 }
 .header-banner.app-topnav {
   --chrome-bg: #fff;
-  --chrome-shadow: 0 3px 18px #114c3f08;
+  --chrome-shadow: 0 3px 18px var(--theme-tone-114c3f08, #114c3f08);
 }
 .app-topnav .header-title {
   display: flex;
@@ -5537,9 +5855,9 @@ summary:focus-visible {
   --control-bg: transparent;
   --control-border: transparent;
   --control-radius: 11px;
-  --control-active-bg: #e4f4ec;
-  --control-active-text: #086b5a;
-  --control-active-border: #c9e7d8;
+  --control-active-bg: var(--theme-tone-e4f4ec, #e4f4ec);
+  --control-active-text: var(--theme-tone-086b5a, #086b5a);
+  --control-active-border: var(--theme-tone-c9e7d8, #c9e7d8);
   position: relative;
   transition:
     background var(--motion-fast),
@@ -5552,7 +5870,7 @@ summary:focus-visible {
   bottom: 3px;
   width: 14px;
   height: 2px;
-  background: #13816d;
+  background: var(--theme-tone-13816d, #13816d);
   border-radius: 4px;
 }
 .app-topnav .header-stats {
@@ -5561,9 +5879,9 @@ summary:focus-visible {
 }
 .bottom-dock {
   --chrome-bg: #fff;
-  --chrome-shadow: 0 -6px 26px #164d3e0c;
-  --control-bg: #f5f9f6;
-  --control-border: #dce8e1;
+  --chrome-shadow: 0 -6px 26px var(--theme-tone-164d3e0c, #164d3e0c);
+  --control-bg: var(--theme-tone-f5f9f6, #f5f9f6);
+  --control-border: var(--theme-tone-dce8e1, #dce8e1);
   --control-radius: 11px;
 }
 .ui-dock-answers {
@@ -5571,9 +5889,9 @@ summary:focus-visible {
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
-  border: 1px solid #d9e7df;
+  border: 1px solid var(--theme-tone-d9e7df, #d9e7df);
   border-radius: 12px;
-  background: #f2f8f4;
+  background: var(--theme-tone-f2f8f4, #f2f8f4);
   flex-shrink: 0;
 }
 .bottom-dock .status-badge {
@@ -5581,14 +5899,14 @@ summary:focus-visible {
   letter-spacing: 0.02em;
 }
 .bottom-dock .dock-right {
-  border-left: 1px solid #deebe3;
+  border-left: 1px solid var(--theme-tone-deebe3, #deebe3);
   padding-left: 10px;
 }
 .bottom-dock .ui-dock-menu summary {
-  background: #f2f7f4;
-  border-color: #dce8e0;
+  background: var(--theme-tone-f2f7f4, #f2f7f4);
+  border-color: var(--theme-tone-dce8e0, #dce8e0);
   border-radius: 10px;
-  color: #3e675b;
+  color: var(--theme-tone-3e675b, #3e675b);
 }
 .ui-dock-menu-body {
   border-color: var(--surface-line);
@@ -5599,9 +5917,9 @@ summary:focus-visible {
 #groupList {
   --battle-card-bg: #fff;
   --battle-card-radius: 14px;
-  --battle-card-shadow: 0 4px 16px #174b3a08;
-  --control-bg: #f4f8f5;
-  --control-border: #d6e5db;
+  --battle-card-shadow: 0 4px 16px var(--theme-tone-174b3a08, #174b3a08);
+  --control-bg: var(--theme-tone-f4f8f5, #f4f8f5);
+  --control-border: var(--theme-tone-d6e5db, #d6e5db);
   --control-radius: 9px;
 }
 #groupList .name-input {
@@ -5615,18 +5933,18 @@ summary:focus-visible {
   letter-spacing: -0.02em;
 }
 #groupList .member-count-tag {
-  color: #527165;
-  background: #f0f6f2;
-  border-color: #dce7df;
+  color: var(--theme-tone-527165, #527165);
+  background: var(--theme-tone-f0f6f2, #f0f6f2);
+  border-color: var(--theme-tone-dce7df, #dce7df);
 }
 #groupList .item-slot {
   border-radius: 9px;
 }
 #groupList .more-btn {
-  color: #3d7261;
+  color: var(--theme-tone-3d7261, #3d7261);
 }
 #groupList .opt-btn.active:not(.correct):not(.wrong) {
-  outline: 2px solid #a3d3bf;
+  outline: 2px solid var(--theme-tone-a3d3bf, #a3d3bf);
   outline-offset: 1px;
 }
 #groupList .allin-toggle-btn.active {
@@ -5639,9 +5957,9 @@ summary:focus-visible {
 .program-confirm-window {
   --window-head-bg: var(--surface-hero);
   --window-head-text: #fff;
-  --window-head-subtext: #e0f6ee;
-  --control-bg: #f3f8f4;
-  --control-border: #d9e7de;
+  --window-head-subtext: var(--theme-tone-e0f6ee, #e0f6ee);
+  --control-bg: var(--theme-tone-f3f8f4, #f3f8f4);
+  --control-border: var(--theme-tone-d9e7de, #d9e7de);
   --control-radius: 10px;
   color: var(--surface-ink);
 }
@@ -5651,9 +5969,9 @@ summary:focus-visible {
     textarea,
     select
   ) {
-  border-color: #cddfd4;
+  border-color: var(--theme-tone-cddfd4, #cddfd4);
   border-radius: 10px;
-  accent-color: #13816c;
+  accent-color: var(--theme-tone-13816c, #13816c);
 }
 .ui-function-surface input::placeholder,
 .ui-function-surface textarea::placeholder {
@@ -5676,7 +5994,7 @@ summary:focus-visible {
 }
 .ui-function-surface > :is(h3, .score-modal-title, .member-search-title) {
   padding-top: 10px;
-  border-top: 3px solid #13816b;
+  border-top: 3px solid var(--theme-tone-13816b, #13816b);
 }
 .ui-function-surface
   :is(.item-main-head, .classroom-head, .quick-person-head-v218) {
@@ -5685,10 +6003,10 @@ summary:focus-visible {
 }
 .ui-function-surface :is(.classroom-head, .quick-person-head-v218) .btn {
   --control-bg: #fff;
-  --control-text: #185547;
+  --control-text: var(--theme-tone-185547, #185547);
 }
 .ui-function-surface :is(.item-side-title, .about-side-title) {
-  color: #145c4c;
+  color: var(--theme-tone-145c4c, #145c4c);
   letter-spacing: 0.04em;
 }
 .ui-function-surface :is(.item-tab, .about-side button) {
@@ -5706,8 +6024,8 @@ summary:focus-visible {
   --window-side-bg: #fff;
 }
 .ui-function-surface .slot-reel-frame {
-  border-color: #c9e3d5;
-  background: #f2f9f4;
+  border-color: var(--theme-tone-c9e3d5, #c9e3d5);
+  background: var(--theme-tone-f2f9f4, #f2f9f4);
   border-radius: 18px;
 }
 .ui-function-surface .queue-item-card {
@@ -5717,7 +6035,7 @@ summary:focus-visible {
   letter-spacing: 0.03em;
 }
 .ui-function-surface .theme-dialog-icon-v21727 {
-  background: #e2f3e9;
+  background: var(--theme-tone-e2f3e9, #e2f3e9);
   border-radius: 12px;
 }
 .theme-dialog-card-v21727,
@@ -5748,7 +6066,7 @@ body[data-current-view="archives"] {
 }
 .ui-collection-header {
   --control-active-bg: #fff;
-  --control-active-text: #12624f;
+  --control-active-text: var(--theme-tone-12624f, #12624f);
   --control-active-border: #fff;
   flex: none;
   display: flex;
@@ -5760,7 +6078,7 @@ body[data-current-view="archives"] {
   background: var(--surface-hero);
   color: #fff;
   border-radius: 20px;
-  box-shadow: 0 10px 28px #074d3b12;
+  box-shadow: 0 10px 28px var(--theme-tone-074d3b12, #074d3b12);
 }
 .ui-collection-header h2 {
   margin: 0;
@@ -5768,14 +6086,14 @@ body[data-current-view="archives"] {
   letter-spacing: -0.03em;
 }
 .ui-collection-header h2 small {
-  color: #c6e7db;
+  color: var(--theme-tone-c6e7db, #c6e7db);
   font-size: 14px;
   margin-left: 12px;
   font-weight: 500;
 }
 .ui-collection-header .ui-collection-sub,
 .ui-collection-header .ui-record-count {
-  color: #d0eadf;
+  color: var(--theme-tone-d0eadf, #d0eadf);
   font-size: 13px;
   line-height: 1.7;
   margin-top: 8px;
@@ -5791,15 +6109,15 @@ body[data-current-view="archives"] {
 #view-history .ui-timeline {
   max-width: none;
   margin-left: 23px;
-  border-color: #d6e6dc;
+  border-color: var(--theme-tone-d6e6dc, #d6e6dc);
   gap: 16px;
 }
 .ui-history {
   border-color: var(--surface-line);
-  box-shadow: 0 4px 18px #174b3a06;
+  box-shadow: 0 4px 18px var(--theme-tone-174b3a06, #174b3a06);
 }
 .ui-history::before {
-  box-shadow: 0 0 0 3px #e5f1e9;
+  box-shadow: 0 0 0 3px var(--theme-tone-e5f1e9, #e5f1e9);
 }
 .ui-history summary > div {
   min-width: 0;
@@ -5821,7 +6139,7 @@ body[data-current-view="archives"] {
 }
 .ui-archive-card {
   border-color: var(--surface-line);
-  box-shadow: 0 4px 18px #174b3a06;
+  box-shadow: 0 4px 18px var(--theme-tone-174b3a06, #174b3a06);
 }
 .ui-archive-summary > div {
   flex: 1;
@@ -5833,8 +6151,8 @@ body[data-current-view="archives"] {
   width: 56px;
   height: 56px;
   border-radius: 16px;
-  background: #eaf5ed;
-  color: #19755a;
+  background: var(--theme-tone-eaf5ed, #eaf5ed);
+  color: var(--theme-tone-19755a, #19755a);
   flex: none;
 }
 .ui-archive-emblem .ui-icon {
@@ -5847,24 +6165,24 @@ body[data-current-view="archives"] {
   background: #fff;
 }
 #view-archives .ui-overview strong {
-  color: #15594a;
+  color: var(--theme-tone-15594a, #15594a);
   font-variant-numeric: tabular-nums;
 }
 .ui-podium > div:first-child {
-  background: #e8f5eb;
-  border-color: #b4d8c3;
-  box-shadow: inset 0 3px #188466;
+  background: var(--theme-tone-e8f5eb, #e8f5eb);
+  border-color: var(--theme-tone-b4d8c3, #b4d8c3);
+  box-shadow: inset 0 3px var(--theme-tone-188466, #188466);
 }
 .ui-podium > div:nth-child(2) {
-  background: #f1f5f4;
-  box-shadow: inset 0 3px #a7bcb2;
+  background: var(--theme-tone-f1f5f4, #f1f5f4);
+  box-shadow: inset 0 3px var(--theme-tone-a7bcb2, #a7bcb2);
 }
 .ui-podium > div:nth-child(3) {
   background: #fff5ed;
   box-shadow: inset 0 3px #e7b99c;
 }
 .ui-collection-body .ui-empty {
-  border-color: #d7e6db;
+  border-color: var(--theme-tone-d7e6db, #d7e6db);
   background: #fff;
 }
 body.modern-flat-v217 {
@@ -5872,7 +6190,7 @@ body.modern-flat-v217 {
   --ui-accent-hover: #dd6c57;
 }
 .ui-function-surface .classroom-head {
-  --window-side-bg: #0d6862;
+  --window-side-bg: var(--theme-tone-0d6862, #0d6862);
 }
 .ui-function-surface .quick-person-head-v218 b,
 .ui-function-surface .item-main-head h3 {
@@ -5883,7 +6201,7 @@ body.modern-flat-v217 {
   border-radius: 14px;
   background: var(--surface-hero);
   --window-head-text: #fff;
-  --window-head-subtext: #e0f6ee;
+  --window-head-subtext: var(--theme-tone-e0f6ee, #e0f6ee);
 }
 
 /* Archive discovery and empty-state actions use the same content rhythm as home. */
@@ -5905,14 +6223,14 @@ body.modern-flat-v217 {
   gap: 12px;
   min-width: 0;
   padding: 0 14px;
-  border: 1px solid #d6e6dc;
+  border: 1px solid var(--theme-tone-d6e6dc, #d6e6dc);
   border-radius: 11px;
-  background: #f4f9f6;
-  color: #618779;
+  background: var(--theme-tone-f4f9f6, #f4f9f6);
+  color: var(--theme-tone-618779, #618779);
 }
 .ui-archive-search:focus-within {
-  outline: 3px solid #16816a30;
-  border-color: #16816a;
+  outline: 3px solid var(--theme-tone-16816a30, #16816a30);
+  border-color: var(--theme-tone-16816a, #16816a);
 }
 .ui-archive-search input {
   width: 100%;
@@ -5944,10 +6262,10 @@ body.modern-flat-v217 {
   min-width: 180px;
   height: 44px;
   padding: 0 36px 0 14px;
-  border: 1px solid #d6e6dc;
+  border: 1px solid var(--theme-tone-d6e6dc, #d6e6dc);
   border-radius: 11px;
-  background: #f4f9f6;
-  color: #315c4c;
+  background: var(--theme-tone-f4f9f6, #f4f9f6);
+  color: var(--theme-tone-315c4c, #315c4c);
   font: inherit;
   font-size: 13px;
   cursor: pointer;
@@ -5955,8 +6273,8 @@ body.modern-flat-v217 {
 .ui-archive-filter .ui-record-count {
   padding: 8px 12px;
   border-radius: 999px;
-  background: #eaf5ee;
-  color: #41705c;
+  background: var(--theme-tone-eaf5ee, #eaf5ee);
+  color: var(--theme-tone-41705c, #41705c);
   white-space: nowrap;
 }
 #view-archives .ui-empty {
@@ -5996,7 +6314,7 @@ body.modern-flat-v217 {
   border: 0;
   border-radius: 50%;
   background: #e2e8f0;
-  color: #213e35;
+  color: var(--theme-tone-213e35, #213e35);
   font: 22px/1 sans-serif;
   cursor: pointer;
   transition:
@@ -6048,14 +6366,14 @@ body.modern-flat-v217 {
   min-width: 0;
   border: 0;
   border-radius: 12px;
-  background: #f1f9f2;
+  background: var(--theme-tone-f1f9f2, #f1f9f2);
 }
 .ui-slot-stage .slot-reel-text {
   height: 100%;
   padding: 8px;
   text-align: center;
   font-size: clamp(17px, 1.9vw, 28px);
-  color: #155b47;
+  color: var(--theme-tone-155b47, #155b47);
   overflow-wrap: anywhere;
   flex-wrap: wrap;
 }
@@ -6073,7 +6391,7 @@ body.modern-flat-v217 {
   border: 0;
   border-radius: 12px;
   background: transparent;
-  color: #496e5c;
+  color: var(--theme-tone-496e5c, #496e5c);
   font-size: 12px;
   font-weight: 700;
   box-shadow: none;
@@ -6087,7 +6405,7 @@ body.modern-flat-v217 {
   top: 8%;
   left: calc(50% - 5px);
   border-radius: 5px;
-  background: #86a79b;
+  background: var(--theme-tone-86a79b, #86a79b);
   transform-origin: center bottom;
   transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -6134,12 +6452,12 @@ body.modern-flat-v217 {
   align-items: center;
   justify-content: center;
   padding: 8px;
-  color: #155b47;
+  color: var(--theme-tone-155b47, #155b47);
   font-size: clamp(17px, 1.9vw, 28px);
   font-weight: 850;
   text-align: center;
   overflow-wrap: anywhere;
-  background: #f1f9f2;
+  background: var(--theme-tone-f1f9f2, #f1f9f2);
 }
 #pickerModal[data-picker-reveal="pending"] .slot-result-panel,
 #pickerModal[data-picker-reveal="pending"] .picker-target,
@@ -7043,8 +7361,8 @@ body[data-motion="simple"] .bm-layer::before {
   aspect-ratio: 1;
 }
 #view-welcome {
-  background: #f5f8f7;
-  color: #183634;
+  background: var(--theme-tone-f5f8f7, #f5f8f7);
+  color: var(--theme-tone-183634, #183634);
 }
 #view-welcome .gp-home {
   width: 100%;
@@ -7064,8 +7382,13 @@ body[data-motion="simple"] .bm-layer::before {
   min-height: 226px;
   padding: 32px 38px;
   border-radius: 21px;
-  background: linear-gradient(112deg, #084c4c 0%, #0d6862 58%, #087b6c 100%);
-  box-shadow: 0 14px 40px #04504721;
+  background: linear-gradient(
+    112deg,
+    var(--theme-tone-084c4c, #084c4c) 0%,
+    var(--theme-tone-0d6862, #0d6862) 58%,
+    var(--theme-tone-087b6c, #087b6c) 100%
+  );
+  box-shadow: 0 14px 40px var(--theme-tone-04504721, #04504721);
   color: #fff;
 }
 #view-welcome .gp-hero::before,
@@ -7081,21 +7404,25 @@ body[data-motion="simple"] .bm-layer::before {
   height: 390px;
   right: 13%;
   top: -310px;
-  border: 80px solid #8fffe211;
+  border: 80px solid var(--theme-tone-8fffe211, #8fffe211);
 }
 #view-welcome .gp-hero::after {
   width: 360px;
   height: 360px;
   right: -165px;
   bottom: -280px;
-  background: radial-gradient(circle, #6effd83f, transparent 70%);
+  background: radial-gradient(
+    circle,
+    var(--theme-tone-6effd83f, #6effd83f),
+    transparent 70%
+  );
 }
 #view-welcome .gp-hero-copy {
   min-width: 0;
   max-width: 720px;
 }
 #view-welcome .gp-eyebrow {
-  color: #a5edde;
+  color: var(--theme-tone-a5edde, #a5edde);
   font-size: var(--font-xs);
   letter-spacing: 0.13em;
   font-weight: 850;
@@ -7110,19 +7437,19 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-hero h1 em {
   font-style: normal;
-  color: #acffdf;
+  color: var(--theme-tone-acffdf, #acffdf);
 }
 #view-welcome .gp-greeting {
   font-size: 15px;
   line-height: 1.5;
   font-weight: 750;
-  color: #f6fffc;
+  color: var(--theme-tone-f6fffc, #f6fffc);
   margin: 0 0 4px;
 }
 #view-welcome .gp-hero-description {
   font-size: 12px;
   line-height: 1.75;
-  color: #c8e5df;
+  color: var(--theme-tone-c8e5df, #c8e5df);
   margin: 0;
 }
 #view-welcome .gp-actions {
@@ -7142,10 +7469,10 @@ body[data-motion="simple"] .bm-layer::before {
   min-height: 39px;
 }
 #view-welcome .gp-button-primary {
-  background: #defff2;
-  color: #075a54;
-  border: 1px solid #defff2;
-  box-shadow: 0 4px 15px #003a341d;
+  background: var(--theme-tone-defff2, #defff2);
+  color: var(--theme-tone-075a54, #075a54);
+  border: 1px solid var(--theme-tone-defff2, #defff2);
+  box-shadow: 0 4px 15px var(--theme-tone-003a341d, #003a341d);
 }
 #view-welcome .gp-button-primary:hover {
   background: #fff;
@@ -7153,7 +7480,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-button-outline {
   background: #ffffff13;
-  color: #e4fff7;
+  color: var(--theme-tone-e4fff7, #e4fff7);
   border: 1px solid #ffffff40;
 }
 #view-welcome .gp-button-outline:hover {
@@ -7164,7 +7491,7 @@ body[data-motion="simple"] .bm-layer::before {
   flex: none;
   border-radius: 16px;
   padding: 19px 20px;
-  background: #084c4c;
+  background: var(--theme-tone-084c4c, #084c4c);
   border: 1px solid #ffffff30;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
@@ -7174,13 +7501,13 @@ body[data-motion="simple"] .bm-layer::before {
   justify-content: space-between;
   font-size: var(--font-xs);
   font-weight: 760;
-  color: #d4eee9;
+  color: var(--theme-tone-d4eee9, #d4eee9);
 }
 #view-welcome .gp-live-pill {
   background: #ffffff23;
   border-radius: 99px;
   padding: 4px 8px;
-  color: #c3ffdd;
+  color: var(--theme-tone-c3ffdd, #c3ffdd);
   font-size: var(--font-xs);
 }
 #view-welcome .gp-hero-clock {
@@ -7191,7 +7518,7 @@ body[data-motion="simple"] .bm-layer::before {
   margin-top: 14px;
 }
 #view-welcome .gp-hero-date {
-  color: #d0ece5;
+  color: var(--theme-tone-d0ece5, #d0ece5);
   font-size: var(--font-xs);
   margin-top: 3px;
 }
@@ -7204,7 +7531,7 @@ body[data-motion="simple"] .bm-layer::before {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #d9f1ec;
+  color: var(--theme-tone-d9f1ec, #d9f1ec);
 }
 #view-welcome .gp-status-foot strong {
   color: #fff;
@@ -7217,11 +7544,11 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-kpi {
   min-width: 0;
-  border: 1px solid #e6eeeb;
+  border: 1px solid var(--theme-tone-e6eeeb, #e6eeeb);
   border-radius: 15px;
   padding: 17px 19px;
   background: #fff;
-  box-shadow: 0 5px 22px #133f3609;
+  box-shadow: 0 5px 22px var(--theme-tone-133f3609, #133f3609);
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -7241,7 +7568,7 @@ body[data-motion="simple"] .bm-layer::before {
   line-height: 1.45;
   letter-spacing: -0.4px;
   font-weight: 850;
-  color: #21433b;
+  color: var(--theme-tone-21433b, #21433b);
   font-variant-numeric: tabular-nums;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -7258,8 +7585,8 @@ body[data-motion="simple"] .bm-layer::before {
   width: 39px;
   height: 39px;
   border-radius: 13px;
-  background: #e9f7f3;
-  color: #148978;
+  background: var(--theme-tone-e9f7f3, #e9f7f3);
+  color: var(--theme-tone-148978, #148978);
   font-size: 21px;
   font-weight: 800;
 }
@@ -7289,7 +7616,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-section-heading h2 {
   font-size: 18px;
-  color: #20423b;
+  color: var(--theme-tone-20423b, #20423b);
   font-weight: 860;
   letter-spacing: -0.4px;
   margin: 0;
@@ -7308,7 +7635,7 @@ body[data-motion="simple"] .bm-layer::before {
   height: 22px;
   width: 4px;
   border-radius: 8px;
-  background: #128a7b;
+  background: var(--theme-tone-128a7b, #128a7b);
 }
 #view-welcome .gp-main-grid {
   display: grid;
@@ -7319,9 +7646,9 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-panel {
   min-width: 0;
   border-radius: 17px;
-  border: 1px solid #e4ede9;
+  border: 1px solid var(--theme-tone-e4ede9, #e4ede9);
   background: #fff;
-  box-shadow: 0 5px 24px #133f3608;
+  box-shadow: 0 5px 24px var(--theme-tone-133f3608, #133f3608);
   overflow: hidden;
 }
 #view-welcome .gp-panel-title {
@@ -7338,7 +7665,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-panel-title strong {
   font-size: 15px;
-  color: #24463e;
+  color: var(--theme-tone-24463e, #24463e);
   font-weight: 840;
 }
 #view-welcome .gp-panel-title small {
@@ -7346,7 +7673,7 @@ body[data-motion="simple"] .bm-layer::before {
   color: var(--ui-muted);
 }
 #view-welcome .gp-panel-tag {
-  background: #e8f7f0;
+  background: var(--theme-tone-e8f7f0, #e8f7f0);
   color: var(--ui-primary-hover);
   font-size: var(--font-xs);
   padding: 5px 8px;
@@ -7382,18 +7709,18 @@ body[data-motion="simple"] .bm-layer::before {
   overflow-y: auto;
   scrollbar-gutter: stable;
   font-size: var(--font-xs);
-  background: #f7faf8;
+  background: var(--theme-tone-f7faf8, #f7faf8);
   min-height: 29px;
   color: var(--ui-muted);
   font-weight: 750;
 }
 #view-welcome .gp-rank-row {
   min-height: 47px;
-  border-bottom: 1px solid #eff4f1;
+  border-bottom: 1px solid var(--theme-tone-eff4f1, #eff4f1);
   transition: background 0.15s;
 }
 #view-welcome .gp-rank-row:hover {
-  background: #f7fbf9;
+  background: var(--theme-tone-f7fbf9, #f7fbf9);
 }
 #view-welcome .gp-rank-index {
   font-size: 13px;
@@ -7425,7 +7752,7 @@ body[data-motion="simple"] .bm-layer::before {
   white-space: nowrap;
 }
 #view-welcome .gp-rank-bar {
-  background: #ecf3ef;
+  background: var(--theme-tone-ecf3ef, #ecf3ef);
   border-radius: 8px;
   height: 7px;
   overflow: hidden;
@@ -7434,7 +7761,11 @@ body[data-motion="simple"] .bm-layer::before {
   display: block;
   height: 100%;
   border-radius: 8px;
-  background: linear-gradient(90deg, #47c1a7, #168c79);
+  background: linear-gradient(
+    90deg,
+    var(--theme-tone-47c1a7, #47c1a7),
+    var(--theme-tone-168c79, #168c79)
+  );
 }
 #view-welcome .gp-rank-points {
   font-size: 12px;
@@ -7446,7 +7777,7 @@ body[data-motion="simple"] .bm-layer::before {
   font-size: var(--font-xs);
   color: var(--ui-primary-hover);
   text-align: center;
-  background: #ebf8f1;
+  background: var(--theme-tone-ebf8f1, #ebf8f1);
   padding: 5px 3px;
   border-radius: 6px;
   font-weight: 750;
@@ -7477,7 +7808,7 @@ body[data-motion="simple"] .bm-layer::before {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #eef8f4;
+  background: var(--theme-tone-eef8f4, #eef8f4);
   border-radius: 13px;
   padding: 15px;
   margin: 0 18px 6px;
@@ -7486,8 +7817,8 @@ body[data-motion="simple"] .bm-layer::before {
   flex: none;
   width: 9px;
   height: 9px;
-  background: #39be96;
-  box-shadow: 0 0 0 4px #39be9627;
+  background: var(--theme-tone-39be96, #39be96);
+  box-shadow: 0 0 0 4px var(--theme-tone-39be9627, #39be9627);
   border-radius: 50%;
 }
 #view-welcome .gp-match-status > div {
@@ -7499,7 +7830,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-match-status strong {
   font-size: 12px;
-  color: #246553;
+  color: var(--theme-tone-246553, #246553);
 }
 #view-welcome .gp-match-status small {
   font-size: var(--font-xs);
@@ -7508,7 +7839,7 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-match-status button {
   flex: none;
   background: white;
-  border: 1px solid #d3e8df;
+  border: 1px solid var(--theme-tone-d3e8df, #d3e8df);
   border-radius: 8px;
   padding: 8px;
   font-size: var(--font-xs);
@@ -7524,7 +7855,7 @@ body[data-motion="simple"] .bm-layer::before {
   align-items: flex-start;
   gap: 11px;
   padding: 14px 0;
-  border-bottom: 1px solid #eff4f1;
+  border-bottom: 1px solid var(--theme-tone-eff4f1, #eff4f1);
 }
 #view-welcome .gp-feed-icon {
   display: grid;
@@ -7533,7 +7864,7 @@ body[data-motion="simple"] .bm-layer::before {
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: #eaf6f1;
+  background: var(--theme-tone-eaf6f1, #eaf6f1);
   color: var(--ui-primary-hover);
   font-weight: 850;
 }
@@ -7546,7 +7877,7 @@ body[data-motion="simple"] .bm-layer::before {
   font-size: 12px;
   line-height: 1.5;
   font-weight: 780;
-  color: #31544a;
+  color: var(--theme-tone-31544a, #31544a);
 }
 #view-welcome .gp-feed-copy p {
   font-size: var(--font-xs);
@@ -7561,8 +7892,8 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-group-section {
   background: #fff;
-  border: 1px solid #e4ede9;
-  box-shadow: 0 5px 24px #133f3608;
+  border: 1px solid var(--theme-tone-e4ede9, #e4ede9);
+  box-shadow: 0 5px 24px var(--theme-tone-133f3608, #133f3608);
   border-radius: 17px;
   margin-top: 17px;
   padding: 17px 0 19px;
@@ -7578,13 +7909,13 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-group-head h2 {
   display: inline;
   font-size: 15px;
-  color: #20443b;
+  color: var(--theme-tone-20443b, #20443b);
   font-weight: 840;
 }
 #view-welcome .gp-group-live {
   display: inline-block;
   margin-left: 8px;
-  background: #e9f8f2;
+  background: var(--theme-tone-e9f8f2, #e9f8f2);
   color: var(--ui-primary-hover);
   border-radius: 7px;
   padding: 4px 8px;
@@ -7605,16 +7936,16 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-compact-track :is(.ui-group-card, .ui-group-repeat) {
   flex: 0 0 203px;
   min-height: 115px;
-  border: 1px solid #e4ede9;
+  border: 1px solid var(--theme-tone-e4ede9, #e4ede9);
   border-radius: 13px;
   border-top: 2px solid var(--group-color);
   padding: 13px 15px;
-  background: linear-gradient(135deg, #fff, #fbfefd);
+  background: linear-gradient(135deg, #fff, var(--theme-tone-fbfefd, #fbfefd));
   box-shadow: none;
 }
 #view-welcome .gp-compact-track :is(.ui-group-card, .ui-group-repeat):hover {
-  border-color: #96d6c7;
-  box-shadow: 0 8px 16px #07746114;
+  border-color: var(--theme-tone-96d6c7, #96d6c7);
+  box-shadow: 0 8px 16px var(--theme-tone-07746114, #07746114);
 }
 #view-welcome .gp-compact-track .ui-group-title {
   font-size: 14px;
@@ -7696,8 +8027,8 @@ body[data-motion="simple"] .bm-layer::before {
   padding-top: 10px;
 }
 #view-welcome .gp-daily-grid .ui-panel {
-  border-color: #e4ede9;
-  box-shadow: 0 5px 24px #133f3608;
+  border-color: var(--theme-tone-e4ede9, #e4ede9);
+  box-shadow: 0 5px 24px var(--theme-tone-133f3608, #133f3608);
   padding: 19px;
   border-radius: 16px;
   min-height: 254px;
@@ -7750,8 +8081,8 @@ body[data-motion="simple"] .bm-layer::before {
   background: radial-gradient(
     circle at 50% 36%,
     #fff 0%,
-    #eff8f4 65%,
-    #e6f0ec 100%
+    var(--theme-tone-eff8f4, #eff8f4) 65%,
+    var(--theme-tone-e6f0ec, #e6f0ec) 100%
   );
   opacity: 1;
   transition: opacity 0.55s;
@@ -7784,7 +8115,7 @@ body[data-motion="simple"] .bm-layer::before {
   overflow: visible; /* SVG owns its own rounded geometry; never animate border-radius */
 }
 .gp-intro-title {
-  color: #154a42;
+  color: var(--theme-tone-154a42, #154a42);
   font-size: clamp(27px, 5vw, 38px);
   line-height: 1.24;
   letter-spacing: 0.065em;
@@ -7801,7 +8132,7 @@ body[data-motion="simple"] .bm-layer::before {
   font-size: var(--font-xs);
   letter-spacing: 0.24em;
   font-weight: 850;
-  color: #88ada1;
+  color: var(--theme-tone-88ada1, #88ada1);
   opacity: 0;
   transition: opacity 0.5s 0.63s;
 }
@@ -7817,11 +8148,11 @@ body[data-motion="simple"] .bm-layer::before {
   margin-top: 25px;
   width: min(350px, calc(100vw - 54px));
   position: relative;
-  border: 1px solid #d4e8df;
+  border: 1px solid var(--theme-tone-d4e8df, #d4e8df);
   border-radius: 17px;
   height: 58px;
   background: white;
-  box-shadow: 0 6px 28px #155d4b19;
+  box-shadow: 0 6px 28px var(--theme-tone-155d4b19, #155d4b19);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7848,12 +8179,16 @@ body[data-motion="simple"] .bm-layer::before {
   bottom: 0;
   left: 0;
   width: 0;
-  background: linear-gradient(90deg, #daf8ef, #eafff8);
+  background: linear-gradient(
+    90deg,
+    var(--theme-tone-daf8ef, #daf8ef),
+    var(--theme-tone-eafff8, #eafff8)
+  );
   pointer-events: none;
 }
 .gp-slider-hint {
   font-size: 12px;
-  color: #91aaa0;
+  color: var(--theme-tone-91aaa0, #91aaa0);
   font-weight: 760;
   pointer-events: none;
   z-index: 1;
@@ -7865,14 +8200,14 @@ body[data-motion="simple"] .bm-layer::before {
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: #0e7e70;
+  background: var(--theme-tone-0e7e70, #0e7e70);
   color: #fff;
   display: grid;
   place-items: center;
   font-size: 29px;
   line-height: 1;
   z-index: 2;
-  box-shadow: 0 4px 12px #0f80693b;
+  box-shadow: 0 4px 12px var(--theme-tone-0f80693b, #0f80693b);
   transform: translateX(var(--gp-slide, 0px));
   will-change: transform;
   pointer-events: none;
@@ -7889,7 +8224,7 @@ body[data-motion="simple"] .bm-layer::before {
   font-size: var(--font-xs);
   border: none;
   background: transparent;
-  color: #94ada3;
+  color: var(--theme-tone-94ada3, #94ada3);
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.6s 1s;
@@ -7907,7 +8242,7 @@ body[data-motion="simple"] .bm-layer::before {
   opacity: 0;
 }
 .gp-intro:focus-within .gp-slider:focus-visible {
-  outline: 3px solid #35b69a;
+  outline: 3px solid var(--theme-tone-35b69a, #35b69a);
   outline-offset: 3px;
 }
 body.gp-intro-active {
@@ -8048,11 +8383,363 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   line-height: 1.45;
 }
 </style>
+<style id="global-tooltip-style">.gp-hover-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  pointer-events: none;
+  box-sizing: border-box;
+  max-width: min(360px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  overflow: hidden;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: var(--ui-text, #172036);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+  font:
+    13px/1.5 system-ui,
+    sans-serif;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+}
+.gp-hover-tooltip[hidden] {
+  display: none !important;
+}
+@starting-style {
+  .gp-hover-tooltip {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-hover-tooltip {
+    transition: none;
+  }
+}
+</style>
+<style id="application-themes">/* Presentation-only theme. No layout dimensions or business-state selectors are changed. */
+body.modern-flat-v217.theme-marx {
+  --end-round-bg: #9b2834;
+  --end-round-hover: #7a1d27;
+  --ui-bg: #faf6f1;
+  --ui-panel: #fffdfa;
+  --ui-soft: #f9eae6;
+  --ui-soft-2: #fcf5f0;
+  --ui-primary: #a91e2c;
+  --ui-primary-hover: #831924;
+  --ui-secondary: #9d5723;
+  --ui-accent: #b26519;
+  --ui-accent-hover: #874a12;
+  --ui-text: #382624;
+  --ui-muted: #77534b;
+  --ui-border: #e3cec5;
+  --ui-border-strong: #c59d8e;
+  --surface-hero: linear-gradient(112deg, #681421, #a91e2c 58%, #b5392d);
+  --window-overlay: #38151c65;
+  --theme-tone-003a341d: #2f0b0e1d;
+  --theme-tone-04504721: #44101421;
+  --theme-tone-063b3412: #350c1012;
+  --theme-tone-063b3426: #350c1026;
+  --theme-tone-074d3b12: #44101412;
+  --theme-tone-075a54: #4f1217;
+  --theme-tone-07746114: #64171e14;
+  --theme-tone-084c4c: #441014;
+  --theme-tone-086b5a: #5d161c;
+  --theme-tone-087b6c: #6a1920;
+  --theme-tone-0b5352: #4c1217;
+  --theme-tone-0d6862: #5f161c;
+  --theme-tone-0e7e70: #711b22;
+  --theme-tone-0f766e: #6c1920;
+  --theme-tone-0f80693b: #741b233b;
+  --theme-tone-114c3f08: #4b121608;
+  --theme-tone-115e59: #5a151b;
+  --theme-tone-123d35: #3d1216;
+  --theme-tone-12624f: #5e161c;
+  --theme-tone-128a7b: #7e1e26;
+  --theme-tone-133f3608: #3f131708;
+  --theme-tone-133f3609: #3f131709;
+  --theme-tone-13816b: #781c24;
+  --theme-tone-13816c: #781c24;
+  --theme-tone-13816d: #781c24;
+  --theme-tone-138878: #7e1d25;
+  --theme-tone-145c4c: #5b151b;
+  --theme-tone-148978: #7f1e26;
+  --theme-tone-153e3759: #3e151859;
+  --theme-tone-154a42: #4a1519;
+  --theme-tone-15594a: #59151b;
+  --theme-tone-155b47: #5b151b;
+  --theme-tone-155d4b19: #5c161c19;
+  --theme-tone-15998866: #8d212a66;
+  --theme-tone-164d3e0c: #4d161b0c;
+  --theme-tone-16816a: #7a1d24;
+  --theme-tone-16816a30: #7a1d2430;
+  --theme-tone-168c79: #831f27;
+  --theme-tone-17302d: #301719;
+  --theme-tone-17302d08: #30171908;
+  --theme-tone-17302d26: #30171926;
+  --theme-tone-174b3a06: #4b171b06;
+  --theme-tone-174b3a08: #4b171b08;
+  --theme-tone-183634: #36181a;
+  --theme-tone-183e39: #3e181b;
+  --theme-tone-185547: #55181d;
+  --theme-tone-188466: #7e1e26;
+  --theme-tone-19755a: #731b22;
+  --theme-tone-20423b: #422023;
+  --theme-tone-20443b: #442023;
+  --theme-tone-213e35: #3e2123;
+  --theme-tone-21433b: #432124;
+  --theme-tone-24463e: #462427;
+  --theme-tone-246553: #652429;
+  --theme-tone-284a46: #4a282b;
+  --theme-tone-31544a: #543134;
+  --theme-tone-315c4c: #5c3135;
+  --theme-tone-35b69a: #b63540;
+  --theme-tone-39be96: #be3944;
+  --theme-tone-39be9627: #be394427;
+  --theme-tone-3d7261: #723d41;
+  --theme-tone-3e675b: #673e41;
+  --theme-tone-41705c: #704145;
+  --theme-tone-47c1a7: #c14751;
+  --theme-tone-496e5c: #6e494c;
+  --theme-tone-527165: #715255;
+  --theme-tone-607773: #776062;
+  --theme-tone-618779: #876164;
+  --theme-tone-6effd83f: #e38a913f;
+  --theme-tone-78958f: #95787a;
+  --theme-tone-839791: #978385;
+  --theme-tone-86a79b: #a78689;
+  --theme-tone-88ada1: #ad888b;
+  --theme-tone-8fffe211: #eaa4aa11;
+  --theme-tone-91aaa0: #aa9193;
+  --theme-tone-94ada3: #ad9496;
+  --theme-tone-96d6c7: #d6969b;
+  --theme-tone-a3d3bf: #d3a3a7;
+  --theme-tone-a5edde: #eaa8ad;
+  --theme-tone-a7bcb2: #bca7a9;
+  --theme-tone-acffdf: #e6c8c5;
+  --theme-tone-afc9c3: #c9afb1;
+  --theme-tone-b4d8c3: #d8b4b7;
+  --theme-tone-bee8df: #e5c5c1;
+  --theme-tone-c1e8e1: #e6c7c3;
+  --theme-tone-c3ffdd: #edd7d5;
+  --theme-tone-c6e7db: #e7cac6;
+  --theme-tone-c8e5df: #e5cbc8;
+  --theme-tone-c9dcd8: #dccbc9;
+  --theme-tone-c9e3d5: #e3ccc9;
+  --theme-tone-c9e7d8: #e7ccc9;
+  --theme-tone-cddfd4: #dfcfcd;
+  --theme-tone-d0eadf: #ead3d0;
+  --theme-tone-d0ece5: #ebd3d1;
+  --theme-tone-d3e8df: #e8d5d3;
+  --theme-tone-d4e8df: #e8d6d4;
+  --theme-tone-d4eee9: #edd7d5;
+  --theme-tone-d5e2df: #e2d6d5;
+  --theme-tone-d6e5db: #e5d8d6;
+  --theme-tone-d6e6dc: #e6d8d6;
+  --theme-tone-d6eee8: #eed9d6;
+  --theme-tone-d7e6db: #e6d8d7;
+  --theme-tone-d9e7de: #e7dad9;
+  --theme-tone-d9e7df: #e7dad9;
+  --theme-tone-d9f1ec: #efdddb;
+  --theme-tone-daf8ef: #f2e2e0;
+  --theme-tone-dce7df: #e7dddc;
+  --theme-tone-dce7e4: #e7dddc;
+  --theme-tone-dce8e0: #e8dddc;
+  --theme-tone-dce8e1: #e8dddc;
+  --theme-tone-dceae7: #eadddc;
+  --theme-tone-deebe3: #ebdfde;
+  --theme-tone-defff2: #f5e9e8;
+  --theme-tone-dfeae5: #eae0df;
+  --theme-tone-e0f6ee: #f3e5e3;
+  --theme-tone-e2f3e9: #f3e4e2;
+  --theme-tone-e4ede9: #ede5e4;
+  --theme-tone-e4f4ec: #f4e6e4;
+  --theme-tone-e4fff7: #f7edec;
+  --theme-tone-e5f1e9: #f1e6e5;
+  --theme-tone-e6eeeb: #eee7e6;
+  --theme-tone-e6f0ec: #f0e7e6;
+  --theme-tone-e7efed: #efe8e7;
+  --theme-tone-e8f5eb: #f5e9e8;
+  --theme-tone-e8f7f0: #f6ebe9;
+  --theme-tone-e9f7f3: #f6ebea;
+  --theme-tone-e9f8f2: #f6eceb;
+  --theme-tone-eaf5ed: #f5ebea;
+  --theme-tone-eaf5ee: #f5ebea;
+  --theme-tone-eaf6f1: #f6ebea;
+  --theme-tone-eafff8: #f9f1f0;
+  --theme-tone-ebf8f1: #f7edec;
+  --theme-tone-ecf3ef: #f3edec;
+  --theme-tone-ecf7f5: #f7edec;
+  --theme-tone-eef8f4: #f8efee;
+  --theme-tone-eff4f1: #f4f0ef;
+  --theme-tone-eff8f4: #f8f0ef;
+  --theme-tone-f0f6f2: #f6f1f0;
+  --theme-tone-f1f5f4: #f5f1f1;
+  --theme-tone-f1f8f5: #f8f2f1;
+  --theme-tone-f1f9f2: #f9f2f1;
+  --theme-tone-f2f7f4: #f7f2f2;
+  --theme-tone-f2f7f6: #f7f2f2;
+  --theme-tone-f2f8f4: #f8f3f2;
+  --theme-tone-f2f8f5: #f8f3f2;
+  --theme-tone-f2f9f4: #f9f3f2;
+  --theme-tone-f3f7f6: #f7f3f3;
+  --theme-tone-f3f8f4: #f8f3f3;
+  --theme-tone-f4f8f5: #f8f4f4;
+  --theme-tone-f4f9f6: #f9f4f4;
+  --theme-tone-f5f8f7: #f8f5f5;
+  --theme-tone-f5f9f6: #f9f5f5;
+  --theme-tone-f6fffc: #fcf9f9;
+  --theme-tone-f7faf8: #faf7f7;
+  --theme-tone-f7faf9: #faf7f7;
+  --theme-tone-f7fbf9: #fbf7f7;
+  --theme-tone-fbfefd: #fdfcfc;
+}
+html[data-theme="marx"] {
+  background-color: #faf6f1 !important;
+}
+/* Selection cards reuse the settings spacing and typography scale. */
+.gp-theme-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.gp-theme-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 2px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast),
+    background var(--motion-fast),
+    transform var(--motion-fast) var(--motion-ease);
+}
+.gp-theme-card[aria-pressed="true"] {
+  border-color: var(--ui-primary);
+  background: var(--ui-soft);
+}
+.gp-theme-card:focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+.gp-theme-card:active {
+  transform: scale(0.97);
+}
+.gp-theme-card strong,
+.gp-theme-card small {
+  display: block;
+}
+.gp-theme-card small {
+  margin-top: var(--space-2);
+  color: var(--ui-muted);
+}
+.gp-theme-swatch {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  background: #0f766e;
+  color: #fff;
+}
+.gp-theme-swatch.marx {
+  background: #a91e2c;
+  color: #ffe0a0;
+}
+.gp-theme-swatch svg {
+  width: 36px;
+  height: 36px;
+}
+.gp-theme-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  background: #761c29;
+  color: #ffe2aa;
+  overflow: hidden;
+  isolation: isolate;
+}
+.gp-theme-transition::before {
+  content: "";
+  position: absolute;
+  width: 90vmax;
+  height: 90vmax;
+  border: 1px solid #ffd89640;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 8vmax #ffd89608,
+    0 0 0 16vmax #ffd89606;
+  pointer-events: none;
+}
+.gp-theme-transition[data-target="classic"] {
+  background: #084c4c;
+  color: #defff2;
+}
+.gp-theme-transition-content {
+  position: relative;
+  text-align: center;
+}
+.gp-theme-transition-content svg {
+  width: 120px;
+  height: 120px;
+}
+.gp-theme-transition-content h2 {
+  font-size: var(--font-xl);
+  letter-spacing: 0.12em;
+  margin: var(--space-5) 0 var(--space-3);
+  color: inherit;
+}
+.gp-theme-transition-content p {
+  letter-spacing: 0.2em;
+  font-size: var(--font-sm);
+  color: inherit;
+}
+.gp-theme-transition .ui-cinematic-skip {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-theme-card {
+    transition: none;
+  }
+}
+
+.gp-theme-ribbon {
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    120deg,
+    transparent 25%,
+    #ffe0a016 40%,
+    #ffe0a028 50%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+</style>
 </head>
 <body class="modern-flat-v217">
+<script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V2.19.0</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.1</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -8314,7 +9001,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
     <button id="btnMainAction" class="btn btn-primary" onclick="handleMainAction()">开始答题</button>
     <button id="btnNextRound" class="btn btn-success locked-disabled" onclick="nextRound()">下一题</button>
     <button id="btnForceEnd" class="btn btn-warning locked-disabled" onclick="forceEndRound()">强制结束</button>
-    <button id="btnFinalSettlement" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: 800; border: 1px solid #b45309;" onclick="triggerFinalSettlement()">🏆 封神榜</button>
+    <button id="btnFinalSettlement" class="btn" onclick="triggerFinalSettlement()">🏆 封神榜</button>
   </div>
 
   <div class="dock-right">
@@ -12943,6 +13630,8 @@ function ensureAudioUnlocked() {
 }
 
 function switchView(name) {
+  GodpowerTheme.cancel();
+  window.GodpowerTooltips?.cancel();
   if (!VIEW_NAMES.includes(name)) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
@@ -13013,7 +13702,7 @@ function updateWelcomeClock() {
   if (greeting) {
     const h = now.getHours();
     const part = h < 6 ? '夜深了' : h < 12 ? '早上好' : h < 14 ? '中午好' : h < 18 ? '下午好' : '晚上好';
-    greeting.innerText = part + '，欢迎使用上帝的力量';
+    greeting.innerText = part + '，欢迎使用' + GodpowerTheme.name();
   }
 }
 
@@ -20577,7 +21266,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V2.19.0';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.1';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -22043,7 +22732,7 @@ const CommandLifecycle = (() => {
 function buildClassroomBackup(){
   if(window.classroomReady && classroomCommands.isPending())return clone(classroomCommands.baseline().backup);
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
+    schemaVersion:Reliability.schemaVersion,appVersion:'V3.0.1',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
     round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
       hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},
@@ -23400,6 +24089,207 @@ const ItemModuleSettings = (() => {
 
 globalThis.ItemModuleSettings = ItemModuleSettings;
 </script>
+<script id="global-tooltips">/* Delegated title tooltips. Business renderers retain ownership of their labels. */
+(() => {
+  "use strict";
+  if (window.GodpowerTooltips) return;
+  const id = "godpower-hover-tooltip";
+  let pointerOwner = null;
+  let focusOwner = null;
+  let active = null;
+  let tooltip = null;
+
+  function titleOwner(target) {
+    return target instanceof Element ? target.closest("[title]") : null;
+  }
+
+  function getTooltip() {
+    if (!tooltip) {
+      tooltip = document.createElement("div");
+      tooltip.id = id;
+      tooltip.className = "gp-hover-tooltip";
+      tooltip.setAttribute("role", "tooltip");
+      tooltip.hidden = true;
+      document.body.append(tooltip);
+    }
+    return tooltip;
+  }
+
+  function removeDescription(owner) {
+    const current = owner.getAttribute("aria-describedby");
+    if (current === active.describedWithTooltip) {
+      if (active.describedBy === null)
+        owner.removeAttribute("aria-describedby");
+      else owner.setAttribute("aria-describedby", active.describedBy);
+      return;
+    }
+    if (!current) return;
+    const tokens = current
+      .split(/\s+/)
+      .filter((token) => token && token !== id);
+    if (tokens.length) owner.setAttribute("aria-describedby", tokens.join(" "));
+    else owner.removeAttribute("aria-describedby");
+  }
+
+  function dismiss() {
+    if (!active) return;
+    clearTimeout(active.timer);
+    active.dismissed = true;
+    if (tooltip) tooltip.hidden = true;
+    removeDescription(active.owner);
+  }
+
+  function position() {
+    if (!active || !tooltip || tooltip.hidden) return;
+    if (!active.owner.isConnected) {
+      cancel();
+      return;
+    }
+    const rect = active.owner.getBoundingClientRect();
+    const margin = 8;
+    const width = tooltip.offsetWidth;
+    const height = tooltip.offsetHeight;
+    const left = Math.max(
+      margin,
+      Math.min(
+        rect.left + (rect.width - width) / 2,
+        window.innerWidth - width - margin,
+      ),
+    );
+    const below = rect.bottom + margin;
+    const preferredTop =
+      below + height <= window.innerHeight - margin
+        ? below
+        : Math.max(margin, rect.top - height - margin);
+    const top = Math.max(
+      margin,
+      Math.min(preferredTop, window.innerHeight - height - margin),
+    );
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  }
+
+  function suppressTitle() {
+    active.observer.disconnect();
+    active.owner.setAttribute("title", "");
+    active.observer.observe(active.owner, {
+      attributes: true,
+      attributeFilter: ["title"],
+    });
+  }
+
+  function refreshTitle() {
+    if (!active) return;
+    active.savedTitle = active.owner.getAttribute("title");
+    if (
+      active.temporaryLabel !== null &&
+      active.owner.getAttribute("aria-label") === active.temporaryLabel
+    ) {
+      active.temporaryLabel = active.savedTitle || "";
+      active.owner.setAttribute("aria-label", active.temporaryLabel);
+    }
+    suppressTitle();
+    if (!active.dismissed) {
+      tooltip.textContent = active.savedTitle || "";
+      if (!active.savedTitle) dismiss();
+      else position();
+    }
+  }
+
+  function release() {
+    if (!active) return;
+    const previous = active;
+    dismiss();
+    previous.observer.disconnect();
+    // A renderer may have changed the title before its observer callback ran.
+    if (previous.owner.getAttribute("title") === "") {
+      if (previous.savedTitle === null) previous.owner.removeAttribute("title");
+      else previous.owner.setAttribute("title", previous.savedTitle);
+    }
+    if (
+      previous.temporaryLabel !== null &&
+      previous.owner.getAttribute("aria-label") === previous.temporaryLabel
+    )
+      previous.owner.removeAttribute("aria-label");
+    active = null;
+  }
+
+  function reconcile() {
+    const owner = pointerOwner || focusOwner;
+    if (active?.owner === owner) return;
+    release();
+    if (!owner || !owner.getAttribute("title")) return;
+    const bubble = getTooltip();
+    active = {
+      owner,
+      savedTitle: owner.getAttribute("title"),
+      describedBy: owner.getAttribute("aria-describedby"),
+      dismissed: false,
+      observer: new MutationObserver(refreshTitle),
+      timer: null,
+      temporaryLabel: null,
+    };
+    // Empty icon buttons can derive their accessible name entirely from title.
+    // Preserve that name until the title is restored, without replacing text names.
+    if (
+      owner.matches("button,a,[role='button']") &&
+      !owner.hasAttribute("aria-label") &&
+      !owner.hasAttribute("aria-labelledby") &&
+      !owner.textContent.trim() &&
+      !owner.querySelector("img[alt],svg title")
+    ) {
+      active.temporaryLabel = active.savedTitle;
+      owner.setAttribute("aria-label", active.temporaryLabel);
+    }
+    bubble.textContent = active.savedTitle;
+    suppressTitle();
+    active.describedWithTooltip = `${active.describedBy ? `${active.describedBy} ` : ""}${id}`;
+    owner.setAttribute("aria-describedby", active.describedWithTooltip);
+    bubble.hidden = false;
+    position();
+    active.timer = setTimeout(dismiss, 3000);
+  }
+
+  function cancel() {
+    release();
+    pointerOwner = null;
+    focusOwner = null;
+  }
+
+  document.addEventListener("pointerover", (event) => {
+    const owner = titleOwner(event.target);
+    if (owner === pointerOwner) return;
+    pointerOwner = owner;
+    reconcile();
+  });
+  document.addEventListener("pointerout", (event) => {
+    if (
+      !pointerOwner ||
+      (event.relatedTarget instanceof Node &&
+        pointerOwner.contains(event.relatedTarget))
+    )
+      return;
+    pointerOwner = titleOwner(event.relatedTarget);
+    reconcile();
+  });
+  document.addEventListener("focusin", (event) => {
+    focusOwner = titleOwner(event.target);
+    reconcile();
+  });
+  document.addEventListener("focusout", (event) => {
+    focusOwner = titleOwner(event.relatedTarget);
+    reconcile();
+  });
+  document.addEventListener("click", dismiss, true);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") dismiss();
+  });
+  window.addEventListener("blur", cancel);
+  window.addEventListener("resize", position);
+  document.addEventListener("scroll", position, true);
+  window.GodpowerTooltips = { dismiss, cancel, reset: cancel };
+})();
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -23445,7 +24335,7 @@ const DesktopUI = (() => {
     gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
   };
   function icon(name) {
-    return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] || paths.spark}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return GodpowerTheme.icon(name, paths[name] || paths.spark);
   }
   function empty(title, text) {
     return `<div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">进入比赛</button></div>`;
@@ -23463,6 +24353,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    GodpowerTheme.cancel();
     settleDisclosures();
     cancelSettingsMotion();
     ClassroomFeedback.cancel();
@@ -24216,6 +25107,7 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    GodpowerTheme.mount(sections.appearance);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -24691,8 +25583,6 @@ const DesktopUI = (() => {
     }
     right.append(details);
     const final = $("#btnFinalSettlement");
-    final.style.background = "var(--ui-danger)";
-    final.style.borderColor = "var(--ui-danger)";
     final.setAttribute("title", "归档成功后清零；操作前需确认");
     document.addEventListener(
       "click",
@@ -26228,7 +27118,7 @@ window.GodpowerPicker = (() => {
     const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
     const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
       !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    return { protocolVersion: 1, phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
+    return { protocolVersion: 1, theme: window.GodpowerTheme?.get() || 'classic', phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
       mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
       preselectedGroupIds: [...(state.picker.preselectedGroupIds || [])],
       remaining: document.getElementById('poolStatusText')?.textContent || '',

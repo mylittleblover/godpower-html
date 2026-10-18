@@ -11,3 +11,7 @@ const expectedBlocks=[...template.matchAll(/<(script|style)\b([^>]*)>\s*@@SOURCE
 const manifest=JSON.parse(await readFile('src/manifest.json','utf8'));
 if(JSON.stringify(manifest.blocks)!==JSON.stringify(expectedBlocks))throw Error('Source manifest drift; run node scripts/sync-source-manifest.mjs');
 console.log(`${expectedBlocks.length} source blocks match the manifest and template`);
+
+const {version}=JSON.parse(await readFile('package.json','utf8'));
+if(!s.includes(`window.__GOD_POWER_VERSION__='V${version}'`) || !s.includes(`<small>V${version}</small>`) || !s.includes(`<title>上帝的力量 V${version}</title>`) || !s.includes(`appVersion:'V${version}'`))throw Error('Visible/internal/package version mismatch');
+console.log(`Visible, internal and package version match: ${version}`);

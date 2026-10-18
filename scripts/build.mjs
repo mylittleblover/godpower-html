@@ -4,6 +4,8 @@ let html=await readFile('src/index.template.html','utf8');
 html=html.replaceAll(/@@SOURCE:([^@]+)@@/g,(_,p)=>`@@LOAD:${p}@@`);
 for(const p of [...html.matchAll(/@@LOAD:([^@]+)@@/g)].map(m=>m[1])) html=html.replace(`@@LOAD:${p}@@`,await readFile(`src/${p}`,'utf8'));
 for(const p of new Set([...html.matchAll(/@@RESOURCE:([^@]+)@@/g)].map(m=>m[1])))html=html.replaceAll(`@@RESOURCE:${p}@@`,await readFile(`src/resources/${p}`,'utf8'));
+const {version}=JSON.parse(await readFile('package.json','utf8'));
+html=html.replaceAll('@@VERSION@@',version);
 if(/@@(?:SOURCE|LOAD|RESOURCE):/.test(html))throw Error('Unresolved build token');
 await mkdir('dist',{recursive:true});await writeFile('dist/godpower.html',html);await writeFile('dist/index.html',html);
 console.log(JSON.stringify({file:'dist/godpower.html',bytes:Buffer.byteLength(html),sha256:createHash('sha256').update(html).digest('hex')}));

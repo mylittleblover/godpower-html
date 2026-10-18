@@ -43,7 +43,7 @@ const DesktopUI = (() => {
     gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
   };
   function icon(name) {
-    return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name] || paths.spark}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    return GodpowerTheme.icon(name, paths[name] || paths.spark);
   }
   function empty(title, text) {
     return `<div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">进入比赛</button></div>`;
@@ -61,6 +61,7 @@ const DesktopUI = (() => {
     }
   }
   function applyPreferences() {
+    GodpowerTheme.cancel();
     settleDisclosures();
     cancelSettingsMotion();
     ClassroomFeedback.cancel();
@@ -814,6 +815,7 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    GodpowerTheme.mount(sections.appearance);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -1289,8 +1291,6 @@ const DesktopUI = (() => {
     }
     right.append(details);
     const final = $("#btnFinalSettlement");
-    final.style.background = "var(--ui-danger)";
-    final.style.borderColor = "var(--ui-danger)";
     final.setAttribute("title", "归档成功后清零；操作前需确认");
     document.addEventListener(
       "click",

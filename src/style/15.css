@@ -50,8 +50,7 @@ body.modern-flat-v217 #welcomeModal .welcome-modal-btn:not(:disabled):hover{
 body.modern-flat-v217 .btn-success:not(:disabled):hover{background:#15803D!important;background-color:#15803D!important;color:#fff!important;border-color:#15803D!important}
 body.modern-flat-v217 .btn-warning:not(:disabled):hover{background:#B45309!important;background-color:#B45309!important;color:#fff!important;border-color:#B45309!important}
 body.modern-flat-v217 .btn-danger:not(:disabled):hover{background:#B91C1C!important;background-color:#B91C1C!important;color:#fff!important;border-color:#B91C1C!important}
-body.modern-flat-v217 #btnForceEnd:not(.locked-disabled):hover,
-body.modern-flat-v217 #btnFinalSettlement:not(:disabled):hover{background:var(--ui-accent-hover)!important;background-color:var(--ui-accent-hover)!important;color:#fff!important;border-color:var(--ui-accent-hover)!important}
+body.modern-flat-v217 #btnForceEnd:not(.locked-disabled):hover{background:var(--end-round-hover)!important;background-color:var(--end-round-hover)!important;color:#fff!important;border-color:var(--end-round-hover)!important}
 body.modern-flat-v217 button:focus-visible,
 body.modern-flat-v217 input:focus-visible,
 body.modern-flat-v217 textarea:focus-visible,
@@ -318,4 +317,11 @@ body.modern-flat-v217 .archive-stat-card span{display:block;margin-top:4px;color
   body.modern-flat-v217 #settingsV26_data .setting-item{align-items:stretch!important;flex-direction:column!important}
   body.modern-flat-v217 #settingsV26_data .setting-item>div{justify-content:flex-start!important}
   body.modern-flat-v217 .archive-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+body.modern-flat-v217 #btnFinalSettlement:not(:disabled):hover{
+ background:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold-hover))!important;
+ background-image:linear-gradient(135deg,var(--honor-gold-light),var(--honor-gold-hover))!important;
+ color:var(--honor-ink)!important;border-color:var(--honor-border)!important;
+ box-shadow:0 0 20px var(--honor-glow),inset 0 1px 0 #fff9!important;
 }

@@ -1,12 +1,12 @@
 // An isolated Playwright-managed Chromium profile tests the actual file URL.
 // System-managed Chromium policy is left untouched and separately reported.
-import {chromium} from 'playwright';import {writeFile} from 'node:fs/promises';import assert from 'node:assert/strict';import {setup} from '../fixtures/browser.mjs';
+import {chromium} from 'playwright';import {readFile,writeFile} from 'node:fs/promises';import assert from 'node:assert/strict';import {setup} from '../fixtures/browser.mjs';
 let browser;const results=[];let status='BLOCKED',error=null;
 try{
  browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||chromium.executablePath(),headless:true,args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:1920,height:1080},offline:true});
  const p=await context.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));
- await p.goto('file://'+process.cwd()+'/dist/godpower.html',{waitUntil:'domcontentloaded'});await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>window.__GOD_POWER_VERSION__),'V2.19.0');results.push({name:'file URL opens while network offline',status:'PASS'});
+ await p.goto('file://'+process.cwd()+'/dist/godpower.html',{waitUntil:'domcontentloaded'});await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>window.__GOD_POWER_VERSION__),'V'+JSON.parse(await readFile('package.json','utf8')).version);results.push({name:'file URL opens while network offline',status:'PASS'});
  await setup(p);
  const score=await p.evaluate(()=>{state.correctAns='A';state.groups.forEach(g=>g.selectedOpt='A');judgeRound();return state.groups.map(g=>g.score)});assert.deepEqual(score,[102,142,182,222]);results.push({name:'file scoring',status:'PASS'});
  await setup(p);

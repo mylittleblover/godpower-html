@@ -3,7 +3,7 @@
 function buildClassroomBackup(){
   if(window.classroomReady && classroomCommands.isPending())return clone(classroomCommands.baseline().backup);
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V2.19.0',timestamp:new Date().toISOString(),
+    schemaVersion:Reliability.schemaVersion,appVersion:'V@@VERSION@@',timestamp:new Date().toISOString(),
     groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
     round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
       hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},

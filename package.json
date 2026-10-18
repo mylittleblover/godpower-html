@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "2.19.0",
+  "version": "3.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -29,7 +29,8 @@
     "test:design": "node tests/e2e/design-regressions.mjs && node tests/e2e/design-review.mjs",
     "test:fullscreen-audio": "node tests/e2e/fullscreen-audio.mjs",
     "test:item-modules": "node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs",
-    "test:content": "node tests/e2e/welcome-content-editor.mjs"
+    "test:content": "node tests/e2e/welcome-content-editor.mjs",
+    "test:theme": "node tests/e2e/marx-theme.mjs && node tests/e2e/control-consistency.mjs && node tests/e2e/tooltip-lifetime.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

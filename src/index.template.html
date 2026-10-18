@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V2.19.0</title>
+<title>上帝的力量 V@@VERSION@@</title>
+<script>@@SOURCE:ui/themes.js@@</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
   <style>@@SOURCE:style/00.css@@</style>
@@ -73,11 +74,14 @@
 <style id="battle-motion-style">@@SOURCE:ui/battle-motion.css@@</style>
 <style>@@SOURCE:ui/item-modules.css@@</style>
 <style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
+<style id="global-tooltip-style">@@SOURCE:ui/tooltips.css@@</style>
+<style id="application-themes">@@SOURCE:ui/themes.css@@</style>
 </head>
 <body class="modern-flat-v217">
+<script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V2.19.0</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V@@VERSION@@</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -246,7 +250,7 @@
     <button id="btnMainAction" class="btn btn-primary" onclick="handleMainAction()">开始答题</button>
     <button id="btnNextRound" class="btn btn-success locked-disabled" onclick="nextRound()">下一题</button>
     <button id="btnForceEnd" class="btn btn-warning locked-disabled" onclick="forceEndRound()">强制结束</button>
-    <button id="btnFinalSettlement" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: 800; border: 1px solid #b45309;" onclick="triggerFinalSettlement()">🏆 封神榜</button>
+    <button id="btnFinalSettlement" class="btn" onclick="triggerFinalSettlement()">🏆 封神榜</button>
   </div>
 
   <div class="dock-right">
@@ -793,6 +797,7 @@
 <script>@@SOURCE:ui/classroom-feedback.js@@</script>
 <script>@@SOURCE:ui/battle-motion.js@@</script>
 <script>@@SOURCE:ui/item-modules.js@@</script>
+<script id="global-tooltips">@@SOURCE:ui/tooltips.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
 <script>@@SOURCE:core/picker-bridge.js@@</script>

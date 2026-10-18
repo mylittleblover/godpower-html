@@ -3297,6 +3297,8 @@ function ensureAudioUnlocked() {
 }
 
 function switchView(name) {
+  GodpowerTheme.cancel();
+  window.GodpowerTooltips?.cancel();
   if (!VIEW_NAMES.includes(name)) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
@@ -3367,7 +3369,7 @@ function updateWelcomeClock() {
   if (greeting) {
     const h = now.getHours();
     const part = h < 6 ? '夜深了' : h < 12 ? '早上好' : h < 14 ? '中午好' : h < 18 ? '下午好' : '晚上好';
-    greeting.innerText = part + '，欢迎使用上帝的力量';
+    greeting.innerText = part + '，欢迎使用' + GodpowerTheme.name();
   }
 }
 

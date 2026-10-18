@@ -1,6 +1,11 @@
 {
   "blocks": [
     {
+      "type": "script",
+      "path": "ui/themes.js",
+      "attributes": ""
+    },
+    {
       "type": "style",
       "path": "style/00.css",
       "attributes": ""
@@ -134,6 +139,16 @@
       "type": "style",
       "path": "ui/welcome-v2.css",
       "attributes": " id=\"gp-home-redesign\""
+    },
+    {
+      "type": "style",
+      "path": "ui/tooltips.css",
+      "attributes": " id=\"global-tooltip-style\""
+    },
+    {
+      "type": "style",
+      "path": "ui/themes.css",
+      "attributes": " id=\"application-themes\""
     },
     {
       "type": "script",
@@ -444,6 +459,11 @@
       "type": "script",
       "path": "ui/item-modules.js",
       "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/tooltips.js",
+      "attributes": " id=\"global-tooltips\""
     },
     {
       "type": "script",

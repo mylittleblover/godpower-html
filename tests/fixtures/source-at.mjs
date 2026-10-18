@@ -14,5 +14,13 @@ export function sourceAt(ref) {
     html = html.replaceAll(`@@RESOURCE:${path}@@`, read("resources/" + path));
   if (/@@(?:SOURCE|RESOURCE):/.test(html))
     throw Error("unresolved baseline source");
+  if (html.includes("@@VERSION@@")) {
+    const pkg = JSON.parse(
+      execFileSync("git", ["show", ref + ":package.json"], {
+        encoding: "utf8",
+      }),
+    );
+    html = html.replaceAll("@@VERSION@@", pkg.version);
+  }
   return html;
 }
