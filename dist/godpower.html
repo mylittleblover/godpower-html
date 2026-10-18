@@ -707,7 +707,7 @@
   .member-search-empty {
     padding: 20px 10px;
     text-align: center;
-    color: #94a3b8;
+    color: var(--ui-muted, #496e5c);
     font-size: 13px;
   }
   @media (max-width: 600px) {
@@ -1283,7 +1283,7 @@
 @keyframes itemBombHit{0%,100%{filter:none}40%{filter:brightness(.45);box-shadow:0 0 0 4px #111827,0 0 28px #111827}}
 .item-global-btn{background:linear-gradient(180deg,#dbeafe 0%,#60a5fa 45%,#2563eb 55%,#93c5fd 100%)!important;color:#fff!important;border:1px solid #1d4ed8!important;box-shadow:inset 0 2px 2px rgba(255,255,255,.85),0 0 14px rgba(59,130,246,.5)!important;font-weight:900!important}
 .item-modal-backdrop{display:none;position:fixed;inset:0;z-index:12000;background:rgba(15,23,42,.48);align-items:center;justify-content:center;padding:18px}.item-modal-backdrop.active{display:flex}.item-window{width:min(900px,96vw);max-height:90vh;background:rgba(245,250,255,.96);border:1px solid rgba(255,255,255,.9);border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.38),inset 0 1px 0 #fff;overflow:hidden;display:grid;grid-template-columns:180px 1fr;animation:itemPop .22s cubic-bezier(.2,.9,.25,1.2)}@keyframes itemPop{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:none}}
-.item-side{background:linear-gradient(180deg,rgba(219,234,254,.95),rgba(226,232,240,.92));padding:18px 12px;border-right:1px solid #cbd5e1}.item-side-title{font-weight:900;font-size:16px;margin:0 8px 14px}.item-tab{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;font-weight:800;color:#475569;cursor:pointer;margin-bottom:5px}.item-tab.active{background:linear-gradient(180deg,#fff,#dbeafe);color:#075985;box-shadow:0 2px 8px rgba(15,23,42,.1)}.item-main{padding:20px 22px;overflow:hidden;max-height:90vh}.item-main-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.item-main-head h3{margin:0;font-size:20px}.item-close{border:0;background:#e2e8f0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}.item-inventory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.item-big{min-height:150px;border:1px solid #cbd5e1;border-radius:14px;background:linear-gradient(180deg,#fff,#f1f5f9);padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}.item-big.empty{color:#94a3b8}.item-big-icon{font-size:46px}.item-big-name{font-weight:900}.item-big-desc{font-size:12px;color:#64748b;line-height:1.45}.item-use{margin-top:6px}.item-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.item-stat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center}.item-stat b{display:block;font-size:20px}.item-stat span{font-size:11px;color:#64748b}.item-members{margin-top:14px;padding:12px;background:#f8fafc;border-radius:10px;line-height:1.7}.item-score-panel{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.item-score-panel input{width:130px;padding:9px;border:1px solid #cbd5e1;border-radius:8px}.item-draw-overlay{display:none;position:fixed;inset:0;z-index:12500;background:rgba(2,6,23,.78);align-items:center;justify-content:center;padding:20px}.item-draw-overlay.active{display:flex}.item-draw-board{width:min(1100px,96vw);max-height:90vh;overflow:auto;background:rgba(240,249,255,.96);border-radius:20px;padding:22px;box-shadow:0 24px 80px #0008}.item-draw-title{text-align:center;font-size:24px;font-weight:900;margin-bottom:16px}.item-draw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.item-draw-card{background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;text-align:center}.item-draw-card .roulette{font-size:46px;height:58px}.item-draw-card .draw-name{font-weight:900;margin-top:4px}.item-draw-card.full{opacity:.55}.item-draw-card.reveal{animation:itemReveal .35s ease}@keyframes itemReveal{50%{transform:scale(1.08);box-shadow:0 0 28px #60a5fa}}
+.item-side{background:linear-gradient(180deg,rgba(219,234,254,.95),rgba(226,232,240,.92));padding:18px 12px;border-right:1px solid #cbd5e1}.item-side-title{font-weight:900;font-size:16px;margin:0 8px 14px}.item-tab{width:100%;border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;font-weight:800;color:#475569;cursor:pointer;margin-bottom:5px}.item-tab.active{background:linear-gradient(180deg,#fff,#dbeafe);color:#075985;box-shadow:0 2px 8px rgba(15,23,42,.1)}.item-main{padding:20px 22px;overflow:hidden;max-height:90vh}.item-main-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.item-main-head h3{margin:0;font-size:20px}.item-close{border:0;background:#e2e8f0;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}.item-inventory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.item-big{min-height:150px;border:1px solid #cbd5e1;border-radius:14px;background:linear-gradient(180deg,#fff,#f1f5f9);padding:14px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}.item-big.empty{color:var(--ui-muted,#496e5c)}.item-big-icon{font-size:46px}.item-big-name{font-weight:900}.item-big-desc{font-size:12px;color:#64748b;line-height:1.45}.item-use{margin-top:6px}.item-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.item-stat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;text-align:center}.item-stat b{display:block;font-size:20px}.item-stat span{font-size:11px;color:#64748b}.item-members{margin-top:14px;padding:12px;background:#f8fafc;border-radius:10px;line-height:1.7}.item-score-panel{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.item-score-panel input{width:130px;padding:9px;border:1px solid #cbd5e1;border-radius:8px}.item-draw-overlay{display:none;position:fixed;inset:0;z-index:12500;background:rgba(2,6,23,.78);align-items:center;justify-content:center;padding:20px}.item-draw-overlay.active{display:flex}.item-draw-board{width:min(1100px,96vw);max-height:90vh;overflow:auto;background:rgba(240,249,255,.96);border-radius:20px;padding:22px;box-shadow:0 24px 80px #0008}.item-draw-title{text-align:center;font-size:24px;font-weight:900;margin-bottom:16px}.item-draw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.item-draw-card{background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;text-align:center}.item-draw-card .roulette{font-size:46px;height:58px}.item-draw-card .draw-name{font-weight:900;margin-top:4px}.item-draw-card.full{opacity:.55}.item-draw-card.reveal{animation:itemReveal .35s ease}@keyframes itemReveal{50%{transform:scale(1.08);box-shadow:0 0 28px #60a5fa}}
 .squid-veil{display:none;position:fixed;inset:0;z-index:850;pointer-events:none;background:radial-gradient(circle at 18% 16%,rgba(2,6,23,.88) 0 6%,transparent 7%),radial-gradient(circle at 77% 24%,rgba(2,6,23,.8) 0 9%,transparent 10%),radial-gradient(circle at 48% 62%,rgba(2,6,23,.83) 0 14%,transparent 15%);mix-blend-mode:multiply}.squid-veil.active{display:block}.squid-hidden-score{filter:blur(8px)!important;color:transparent!important;text-shadow:0 0 9px #111827!important;user-select:none!important}.squid-score-mask::after{content:'???';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#111827;font-weight:900;font-size:18px}.squid-score-mask{position:relative}
 .item-defense-toast{position:fixed;z-index:13000;top:82px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:8px 15px;border-radius:20px;font-size:12px;font-weight:800;box-shadow:0 5px 18px #0005}
 @media(max-width:700px){.item-window{grid-template-columns:1fr}.item-side{display:flex;gap:5px;overflow:auto;border-right:0;border-bottom:1px solid #cbd5e1;padding:9px}.item-side-title{display:none}.item-tab{white-space:nowrap;margin:0}.item-inventory-grid{grid-template-columns:1fr}.item-stat-grid{grid-template-columns:repeat(2,1fr)}}
@@ -1751,8 +1751,8 @@ body.items-disabled .group-row-card{min-height:unset}
 }
 .communism-mode-copy{flex:1;min-width:0}
 .communism-mode-title{font-size:16px;font-weight:950;color:#173b59;margin-bottom:3px}
-.v292-switch{flex:0 0 auto;cursor:pointer}
-.v292-switch input{position:absolute;opacity:0;pointer-events:none}
+.v292-switch{position:relative;display:inline-block;flex:0 0 auto;cursor:pointer}
+.v292-switch input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:1;cursor:pointer;pointer-events:auto}
 .v292-switch-track{
   width:52px;height:28px;border-radius:999px;display:block;position:relative;
   background:linear-gradient(#d7e3eb,#f8fbfd);
@@ -2519,9 +2519,9 @@ html{
 body.modern-flat-v217{
   --ui-bg:#F3F7F6;--ui-panel:#FFFFFF;--ui-soft:#ECF7F5;--ui-soft-2:#F7FAF9;
   --ui-primary:#0F766E;--ui-primary-hover:#115E59;--ui-secondary:#0891B2;
-  --ui-accent:#F97316;--ui-accent-hover:#EA580C;--ui-text:#17302D;--ui-muted:#607773;
-  --ui-border:#C9DCD8;--ui-border-strong:#AFC9C3;--ui-success:#16A34A;
-  --ui-warning:#D97706;--ui-danger:#DC2626;--ui-shadow:0 2px 8px rgba(23,48,45,.08);
+  --ui-accent:#F97316;--ui-accent-hover:#EA580C;--ui-text:#17302D;--ui-muted:#496E5C;
+  --ui-border:#C9DCD8;--ui-border-strong:#AFC9C3;--ui-success:#15803D;
+  --ui-warning:#D97706;--ui-warning-text:#0F172A;--ui-danger:#DC2626;--ui-shadow:0 2px 8px rgba(23,48,45,.08);
   width:100%;max-width:100%;overflow-x:hidden;overflow-x:clip;background:transparent!important;color:var(--ui-text)!important;
 }
 body.modern-flat-v217 *,body.modern-flat-v217 *::before,body.modern-flat-v217 *::after{
@@ -2653,10 +2653,10 @@ body.modern-flat-v217 .settings-v26-tabs button.active,body.modern-flat-v217 .an
   background:var(--control-active-bg,var(--ui-primary))!important;background-image:none!important;color:var(--control-active-text,#fff)!important;border-color:var(--control-active-border,var(--ui-primary))!important;box-shadow:none!important;
 }
 body.modern-flat-v217 .ans-btn{width:40px!important;height:40px!important;border-radius:8px!important}
-body.modern-flat-v217 .btn-success{background:var(--ui-success)!important;color:#fff!important;border-color:var(--ui-success)!important}
-body.modern-flat-v217 .btn-warning{background:var(--ui-warning)!important;color:#fff!important;border-color:var(--ui-warning)!important}
-body.modern-flat-v217 .btn-danger{background:var(--ui-danger)!important;color:#fff!important;border-color:var(--ui-danger)!important}
-body.modern-flat-v217 .allin-toggle-btn.active{background:var(--ui-accent)!important;color:#fff!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important}
+body.modern-flat-v217 .btn-success{background:var(--control-success-bg,var(--ui-success))!important;color:var(--control-success-text,#fff)!important;border-color:var(--control-success-border,var(--ui-success))!important}
+body.modern-flat-v217 .btn-warning{background:var(--ui-warning)!important;color:var(--ui-warning-text)!important;border-color:var(--ui-warning)!important}
+body.modern-flat-v217 .btn-danger{background:var(--control-danger-bg,var(--ui-danger))!important;color:var(--control-danger-text,#fff)!important;border-color:var(--control-danger-border,var(--ui-danger))!important}
+body.modern-flat-v217 .allin-toggle-btn.active{background:var(--ui-accent)!important;color:var(--ui-text)!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important}
 body.modern-flat-v217 .opt-btn.active:not(.correct):not(.wrong){background:var(--ui-primary)!important;color:#fff!important;border-color:var(--ui-primary)!important}
 body.modern-flat-v217 .opt-btn.correct{background:var(--ui-success)!important;color:#fff!important;border-color:var(--ui-success)!important}
 body.modern-flat-v217 .opt-btn.wrong{background:var(--ui-danger)!important;color:#fff!important;border-color:var(--ui-danger)!important}
@@ -2672,7 +2672,7 @@ body.modern-flat-v217 #btnMainAction,body.modern-flat-v217 .welcome-enter-btn{
 body.modern-flat-v217 #btnMainAction:hover,body.modern-flat-v217 .welcome-enter-btn:hover{background:var(--ui-primary-hover)!important;transform:none!important}
 body.modern-flat-v217 #btnNextRound:not(.locked-disabled){background:var(--ui-success)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-success)!important}
 body.modern-flat-v217 #btnForceEnd:not(.locked-disabled),body.modern-flat-v217 #btnFinalSettlement{
-  background:var(--ui-accent)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important;
+  background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important;
 }
 
 /* 表单、道具格与菜单 */
@@ -2737,7 +2737,7 @@ body.modern-flat-v217 .status-badge,body.modern-flat-v217 .metric-box,
 body.modern-flat-v217 .wmp-tag,body.modern-flat-v217 .row-score,
 body.modern-flat-v217 .welcome-modal-btn{background-image:none!important;box-shadow:none!important;text-shadow:none!important}
 body.modern-flat-v217 .item-use-banner-v216{background:var(--ui-text)!important;border:1px solid #284A46!important;box-shadow:0 2px 8px rgba(23,48,45,.12)!important}
-body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;background-image:none!important;color:#fff!important;border-radius:8px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important}
+body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-radius:8px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important}
 
 /* 道具图片尺寸由使用组件决定，原始 PNG 永远不能撑开页面。 */
 .item-slot img{display:block!important;width:26px!important;height:26px!important;max-width:26px!important;max-height:26px!important;object-fit:contain!important}
@@ -4343,7 +4343,11 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 }
 .quick-person-head-v218 b{font-size:18px;color:var(--ui-text,#17302D)}
 .quick-person-filters-v218{padding:12px 16px;background:#f7faf9;border-bottom:1px solid #e3ecea;display:grid;gap:10px}
-.qp-row-v218{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.qp-row-v218{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:start;gap:8px}
+.qp-row-v218>div{min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.qp-row-v218>span:first-child{padding-top:8px}
+.qp-row-v218:first-child{grid-template-columns:72px minmax(180px,300px) minmax(0,1fr);align-items:center}
+.qp-search-hint-v218{font-size:var(--font-xs,12px);color:var(--ui-muted,#496e5c);line-height:1.5}
 .qp-row-v218>span:first-child{font-size:12px;font-weight:900;color:#607773;min-width:72px}
 .qp-input-v218{height:36px;padding:0 10px;border:1px solid #bfd0cc;border-radius:8px;font-size:14px;min-width:120px}
 .qp-chip-v218{
@@ -4368,7 +4372,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
 }
 .student-name-v218{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:850;color:#17302d}
 .student-no-inline-v218{font-weight:950;margin-right:5px}
-.qp-group-v218{margin-left:auto;font-size:10px;color:#78908b;white-space:nowrap}
+.qp-group-v218{margin-left:auto;min-width:0;max-width:45%;overflow:hidden;text-overflow:ellipsis;font-size:var(--font-xs,12px);color:var(--ui-muted,#496e5c);white-space:nowrap}
 .quick-person-actions-v218{
   display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
   padding:12px 16px;border-top:1px solid #d8e5e2;background:#fbfdfc
@@ -4438,7 +4442,7 @@ body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle{
   --modal-lg: 1120px;
   --motion-fast: 140ms;
   --motion-normal: 240ms;
-  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .ui-icon {
   width: 18px;
@@ -5508,7 +5512,7 @@ summary:focus-visible {
 <style id="application-surfaces">/* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
 :root {
   --surface-ink: #183e39;
-  --surface-muted: #6b827b;
+  --surface-muted: var(--ui-muted);
   --surface-line: #dfeae5;
   --surface-soft: #f2f8f5;
   --surface-hero: linear-gradient(112deg, #084c4c, #0d6862 58%, #087b6c);
@@ -5650,6 +5654,15 @@ summary:focus-visible {
   border-color: #cddfd4;
   border-radius: 10px;
   accent-color: #13816c;
+}
+.ui-function-surface input::placeholder,
+.ui-function-surface textarea::placeholder {
+  color: var(--ui-muted);
+  opacity: 1;
+}
+.ui-function-surface .modal-actions {
+  gap: var(--space-3);
+  margin-top: var(--space-5);
 }
 .ui-function-surface
   :is(
@@ -5800,7 +5813,7 @@ body[data-current-view="archives"] {
   right: 24px;
   bottom: 12px;
   font-size: 11px;
-  color: #6a877c;
+  color: var(--ui-muted);
   pointer-events: none;
 }
 .ui-history details[open] {
@@ -5914,7 +5927,7 @@ body.modern-flat-v217 {
   font-size: 14px;
 }
 .ui-archive-search input::placeholder {
-  color: #739184;
+  color: var(--ui-muted);
 }
 .ui-archive-sort {
   display: flex;
@@ -5924,7 +5937,7 @@ body.modern-flat-v217 {
 .ui-archive-sort label {
   font-size: 12px;
   font-weight: 700;
-  color: #6b827b;
+  color: var(--ui-muted);
   white-space: nowrap;
 }
 .ui-archive-sort select {
@@ -6108,7 +6121,7 @@ body.modern-flat-v217 {
   text-align: center;
   font-size: 12px;
   line-height: 1.7;
-  color: #678271;
+  color: var(--ui-muted);
 }
 .ui-slot-deceleration {
   position: absolute;
@@ -6176,7 +6189,7 @@ body.modern-flat-v217 {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #b2775e;
+  color: var(--notice-head-text);
 }
 .program-confirm-window .program-confirm-body {
   min-height: 0;
@@ -6253,6 +6266,12 @@ body[data-motion="off"] {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   width: 100%;
+  --control-success-bg: var(--ui-soft);
+  --control-success-text: var(--ui-success);
+  --control-success-border: var(--ui-border-strong);
+  --control-danger-bg: #fff0e9;
+  --control-danger-text: #b91c1c;
+  --control-danger-border: #f5d1be;
 }
 .cf-score-slots .btn {
   min-width: 0;
@@ -6285,7 +6304,8 @@ body[data-motion="off"] {
   outline: 2px solid #c3344520;
 }
 .cf-settings {
-  margin-top: 20px;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 .item-score-panel > .cf-score-slots {
   grid-column: 1/-1;
@@ -6822,7 +6842,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-eyebrow {
   color: #a5edde;
-  font-size: 11px;
+  font-size: var(--font-xs);
   letter-spacing: 0.13em;
   font-weight: 850;
 }
@@ -6890,7 +6910,7 @@ body[data-motion="simple"] .bm-layer::before {
   flex: none;
   border-radius: 16px;
   padding: 19px 20px;
-  background: #ffffff12;
+  background: #084c4c;
   border: 1px solid #ffffff30;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
@@ -6898,7 +6918,7 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-status-top {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: var(--font-xs);
   font-weight: 760;
   color: #d4eee9;
 }
@@ -6907,7 +6927,7 @@ body[data-motion="simple"] .bm-layer::before {
   border-radius: 99px;
   padding: 4px 8px;
   color: #c3ffdd;
-  font-size: 10px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-hero-clock {
   font-size: 33px;
@@ -6918,7 +6938,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-hero-date {
   color: #d0ece5;
-  font-size: 11px;
+  font-size: var(--font-xs);
   margin-top: 3px;
 }
 #view-welcome .gp-status-separator {
@@ -6958,8 +6978,8 @@ body[data-motion="simple"] .bm-layer::before {
   flex-direction: column;
 }
 #view-welcome .gp-kpi span:first-child {
-  font-size: 11px;
-  color: #82958f;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   font-weight: 750;
 }
 #view-welcome .gp-kpi strong {
@@ -6974,8 +6994,8 @@ body[data-motion="simple"] .bm-layer::before {
   white-space: nowrap;
 }
 #view-welcome .gp-kpi small {
-  font-size: 10px;
-  color: #98aaa4;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-kpi-icon {
   flex: none;
@@ -7021,14 +7041,14 @@ body[data-motion="simple"] .bm-layer::before {
   margin: 0;
 }
 #view-welcome .gp-section-heading small {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.12em;
   font-weight: 800;
-  color: #afbfba;
+  color: var(--ui-muted);
 }
 #view-welcome .gp-section-heading > span {
-  font-size: 11px;
-  color: #8b9e97;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-heading-bar {
   height: 22px;
@@ -7068,13 +7088,13 @@ body[data-motion="simple"] .bm-layer::before {
   font-weight: 840;
 }
 #view-welcome .gp-panel-title small {
-  font-size: 10px;
-  color: #9eafaa;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-panel-tag {
   background: #e8f7f0;
-  color: #108875;
-  font-size: 10px;
+  color: var(--ui-primary-hover);
+  font-size: var(--font-xs);
   padding: 5px 8px;
   border-radius: 6px;
   font-weight: 850;
@@ -7082,6 +7102,17 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-panel-tag.gp-soft-tag {
   letter-spacing: normal;
+}
+/* All groups remain available without making the dashboard grow with class size. */
+#view-welcome .gp-rank-list {
+  max-height: 336px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+#view-welcome .gp-rank-list:focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: -2px;
 }
 #view-welcome .gp-rank-head,
 #view-welcome .gp-rank-row {
@@ -7094,10 +7125,12 @@ body[data-motion="simple"] .bm-layer::before {
   padding: 0 20px;
 }
 #view-welcome .gp-rank-head {
-  font-size: 10px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  font-size: var(--font-xs);
   background: #f7faf8;
   min-height: 29px;
-  color: #a4b4af;
+  color: var(--ui-muted);
   font-weight: 750;
 }
 #view-welcome .gp-rank-row {
@@ -7111,7 +7144,7 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-rank-index {
   font-size: 13px;
   font-weight: 850;
-  color: #91a49e;
+  color: var(--ui-muted);
 }
 #view-welcome .gp-rank-index.gp-medal {
   background: #fff2d9;
@@ -7156,8 +7189,8 @@ body[data-motion="simple"] .bm-layer::before {
   font-variant-numeric: tabular-nums;
 }
 #view-welcome .gp-rank-state {
-  font-size: 10px;
-  color: #398c76;
+  font-size: var(--font-xs);
+  color: var(--ui-primary-hover);
   text-align: center;
   background: #ebf8f1;
   padding: 5px 3px;
@@ -7166,7 +7199,7 @@ body[data-motion="simple"] .bm-layer::before {
 }
 #view-welcome .gp-rank-empty {
   padding: 28px;
-  color: #90a39e;
+  color: var(--ui-muted);
   font-size: 13px;
 }
 #view-welcome .gp-panel-footer {
@@ -7175,15 +7208,15 @@ body[data-motion="simple"] .bm-layer::before {
   align-items: center;
   gap: 10px;
   padding: 13px 20px;
-  color: #94a9a3;
-  font-size: 10px;
+  color: var(--ui-muted);
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-panel-footer button {
   border: 0;
   background: transparent;
   cursor: pointer;
-  color: #118576;
-  font-size: 11px;
+  color: var(--ui-primary-hover);
+  font-size: var(--font-xs);
   font-weight: 800;
 }
 #view-welcome .gp-match-status {
@@ -7215,8 +7248,8 @@ body[data-motion="simple"] .bm-layer::before {
   color: #246553;
 }
 #view-welcome .gp-match-status small {
-  font-size: 10px;
-  color: #779b8c;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-match-status button {
   flex: none;
@@ -7224,8 +7257,8 @@ body[data-motion="simple"] .bm-layer::before {
   border: 1px solid #d3e8df;
   border-radius: 8px;
   padding: 8px;
-  font-size: 10px;
-  color: #168675;
+  font-size: var(--font-xs);
+  color: var(--ui-primary-hover);
   cursor: pointer;
 }
 #view-welcome .gp-feed-list {
@@ -7247,7 +7280,7 @@ body[data-motion="simple"] .bm-layer::before {
   height: 32px;
   border-radius: 10px;
   background: #eaf6f1;
-  color: #178779;
+  color: var(--ui-primary-hover);
   font-weight: 850;
 }
 #view-welcome .gp-feed-copy {
@@ -7262,14 +7295,14 @@ body[data-motion="simple"] .bm-layer::before {
   color: #31544a;
 }
 #view-welcome .gp-feed-copy p {
-  font-size: 10px;
-  color: #94aaa2;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   margin: 4px 0 0;
   line-height: 1.6;
 }
 #view-welcome .gp-feed-time {
-  font-size: 10px;
-  color: #afbeb8;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   white-space: nowrap;
 }
 #view-welcome .gp-group-section {
@@ -7298,15 +7331,15 @@ body[data-motion="simple"] .bm-layer::before {
   display: inline-block;
   margin-left: 8px;
   background: #e9f8f2;
-  color: #168b78;
+  color: var(--ui-primary-hover);
   border-radius: 7px;
   padding: 4px 8px;
-  font-size: 10px;
+  font-size: var(--font-xs);
   font-weight: 830;
 }
 #view-welcome .gp-group-head p {
-  font-size: 11px;
-  color: #91a79f;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
   margin: 6px 0 0;
 }
 #view-welcome .gp-compact-track {
@@ -7339,18 +7372,18 @@ body[data-motion="simple"] .bm-layer::before {
   font-size: 23px;
 }
 #view-welcome .gp-compact-track .ui-muted {
-  font-size: 10px;
+  font-size: var(--font-xs);
   line-height: 1.4;
 }
 #view-welcome .gp-compact-track .ui-chip {
-  font-size: 10px;
+  font-size: var(--font-xs);
   padding: 4px 6px;
 }
 #view-welcome .gp-compact-track footer {
   margin-top: 9px;
   padding-top: 7px;
   gap: 5px;
-  font-size: 10px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-compact-track footer img {
   width: 18px;
@@ -7416,9 +7449,9 @@ body[data-motion="simple"] .bm-layer::before {
   min-height: 254px;
 }
 #view-welcome .gp-daily-grid .ui-eyebrow {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.03em;
-  color: #148775;
+  color: var(--ui-primary-hover);
   margin: 0;
 }
 #view-welcome .gp-daily-grid h3 {
@@ -7432,8 +7465,8 @@ body[data-motion="simple"] .bm-layer::before {
 #view-welcome .gp-footnote {
   text-align: center;
   margin: 24px 0 0;
-  font-size: 11px;
-  color: #a0b3ac;
+  font-size: var(--font-xs);
+  color: var(--ui-muted);
 }
 #view-welcome .gp-existing-metrics[hidden] {
   display: none !important;
@@ -7511,7 +7544,7 @@ body[data-motion="simple"] .bm-layer::before {
     transform 0.6s 0.35s;
 }
 .gp-intro-caption {
-  font-size: 10px;
+  font-size: var(--font-xs);
   letter-spacing: 0.24em;
   font-weight: 850;
   color: #88ada1;
@@ -7599,7 +7632,7 @@ body[data-motion="simple"] .bm-layer::before {
   transition: none;
 }
 .gp-intro-skip {
-  font-size: 11px;
+  font-size: var(--font-xs);
   border: none;
   background: transparent;
   color: #94ada3;
@@ -7719,7 +7752,7 @@ body.gp-intro-reveal #view-welcome .gp-daily-grid {
     min-height: 43px;
   }
   #view-welcome .gp-rank-name {
-    font-size: 11px;
+    font-size: var(--font-xs);
   }
   #view-welcome .gp-group-head p {
     max-width: 250px;
@@ -7747,7 +7780,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   width: auto;
   min-width: 106px;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: var(--font-xs);
 }
 #view-welcome .gp-rank-points {
   overflow-wrap: anywhere;
@@ -7922,7 +7955,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       <article class="gp-panel gp-rank-panel">
         <div class="gp-panel-title"><div><strong>小组实时排名</strong><small>按积分从高到低 · 实时更新</small></div><span class="gp-panel-tag">LIVE</span></div>
         <div class="gp-rank-head" aria-hidden="true"><span>排名</span><span>小组</span><span>积分占比</span><span>得分</span><span>状态</span></div>
-        <div class="gp-rank-list" id="gpRankList" role="list" aria-label="实时小组排名" aria-live="polite"></div>
+        <div class="gp-rank-list" id="gpRankList" tabindex="0" role="list" aria-label="实时小组排名" aria-live="polite"></div>
         <div class="gp-panel-footer"><span id="gpRankNote">按当前课堂数据排名</span><button type="button" onclick="switchView('battle')">查看比赛 →</button></div>
       </article>
       <article class="gp-panel gp-feed-panel">
@@ -8070,7 +8103,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
       这一按会先把当前得分与排名<b>正式存档</b>，随后把本轮课堂数据<b>全部归零</b>：积分、道具、状态、答题统计、道具统计、抽取记录与冷却都会重新开始。封神榜档案会保留。给这次封神现场起个名字：
     </p>
     <p id="uiSettlementStatus" class="ui-muted" role="status">先完整归档，保存成功后才会清零。</p>
-    <input type="text" id="settlementNameInput" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
+    <input type="text" id="settlementNameInput" aria-label="档案名称" class="modal-input" style="font-weight: bold; text-align: left; padding: 8px 12px;" placeholder="请输入归档期次名称">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closeSettlementNameModal()">取消</button>
       <button class="btn btn-warning" style="background: linear-gradient(135deg, #f59e0b, #d97706); color:#fff;" onclick="DesktopUI.settleFromUI(this)">封存并清零</button>
@@ -8102,7 +8135,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
     <div class="score-modal-title" id="scoreModalTitle">💸 给分，或者收回来</div>
     <div class="score-modal-hint">正数是发钱，负数是追回预算，例如 5 或 -10。请确认手没抖。</div>
     <div data-score-slots="modal" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
-    <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
+    <input type="text" inputmode="numeric" autocomplete="off" id="modalCustomInput" aria-label="自定义整数分值" class="custom-score-field" placeholder="输入整数分值" onkeydown="handleModalKey(event)">
     <div class="score-modal-error" id="scoreModalError"></div>
     <div class="score-modal-actions">
       <button class="btn score-modal-cancel" onclick="closeScoreModal()">取消</button>
@@ -8124,7 +8157,7 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
   <div class="modal-box ui-function-surface">
     <h3>🔒 神迹认证处</h3>
     <p style="font-size: 13px; color: #64748b;">想改现实之前，先证明你确实有权限。密码可在设置里修改；这只是防手滑，不是五角大楼门禁。</p>
-    <input type="password" id="pwdInput" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
+    <input type="password" id="pwdInput" aria-label="管理口令" class="modal-input" placeholder="输入密码并回车" maxlength="16" onkeydown="handlePwdKey(event)">
     <div class="modal-actions">
       <button class="btn" style="background:#e2e8f0; color:#1e293b;" onclick="closePwdModal()">取消</button>
       <button class="btn btn-primary" onclick="submitPassword()">批准神迹</button>
@@ -9115,7 +9148,11 @@ function readableTextOnColor(hex){
   if(!/^[0-9a-f]{6}$/i.test(value))return '#FFFFFF';
   const rgb=[0,2,4].map(i=>parseInt(value.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4));
   const luminance=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2];
-  return luminance>.46?'#17302D':'#FFFFFF';
+  if(1.05/(luminance+.05)>=4.5)return '#FFFFFF';
+  const ink=[23,48,45].map(v=>v/255).map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4));
+  const inkLuminance=.2126*ink[0]+.7152*ink[1]+.0722*ink[2];
+  if((luminance+.05)/(inkLuminance+.05)>=4.5)return '#17302D';
+  return '#000000';
 }
 
 const FX_SOUND_SLOTS = [
@@ -19022,7 +19059,7 @@ tinyDefenseToast=function(msg){
       <div class="qp-row-v218">
         <span>搜索</span>
         <input id="qpSearchV218" class="qp-input-v218" placeholder="姓名或学号" oninput="renderQuickPersonListV218()">
-        <span style="font-size:11px;color:#78908b">支持直接输入学号</span>
+        <span class="qp-search-hint-v218">支持直接输入学号</span>
       </div>
       <div class="qp-row-v218">
         <span>学号段</span>
@@ -19213,7 +19250,7 @@ function renderQuickPersonListV218(){
     <button class="quick-person-entry-v218 ${qpStateV218.selected.has(s.key)?'selected':''}" onclick="toggleQuickPersonV218('${escapeHtml(s.key).replace(/'/g,"&#39;")}')">
       ${s.p.number!=null?`<span class="student-no-v218" style="background:${s.group.color}">${escapeHtml(s.p.numberText)}</span>`:'<span class="student-no-v218" style="background:#94a3b8">—</span>'}
       <span class="student-name-v218">${escapeHtml(s.p.name)}</span>
-      <span class="qp-group-v218">${escapeHtml(s.group.name)}</span>
+      <span class="qp-group-v218" title="${escapeHtml(s.group.name)}">${escapeHtml(s.group.name)}</span>
     </button>`).join(''):'<div class="member-search-empty">当前筛选条件下没有学生</div>';
   const c=document.getElementById('qpSelectedCountV218');
   if(c)c.textContent=`已选择 ${qpStateV218.selected.size} 人`;
@@ -21505,9 +21542,9 @@ const ClassroomFeedback = (() => {
         `<section class="ui-panel cf-settings"><h3>全屏课堂特效</h3><div class="ui-settings-row"><label for="cfPickEffects">抽中姓名全屏揭晓</label><input id="cfPickEffects" data-cf-option="pickEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfScoreEffects">自由加减分全屏反馈</label><input id="cfScoreEffects" data-cf-option="scoreEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfEffectStyle">视觉风格</label><select id="cfEffectStyle" data-cf-option="style"><option value="aurora">极光聚焦 · 光环与流光</option><option value="burst">星火绽放 · 放射粒子</option></select></div><div class="ui-settings-row"><label for="cfEffectDuration">自动收起时间</label><select id="cfEffectDuration" data-cf-option="duration"><option value="1200">1.2 秒</option><option value="1800">1.8 秒</option><option value="2600">2.6 秒</option><option value="3600">3.6 秒</option></select></div><p class="ui-muted">点击“继续课堂”或按 Escape 跳过。关闭非必要动效或系统减少动态效果时，不播放全屏演出；实际抽取、加分和扣分照常完成。</p></section>`,
       );
     document
-      .querySelector('[data-category-panel="sound"]')
+      .querySelector('[data-category-panel="sound"] > .ui-settings-title')
       .insertAdjacentHTML(
-        "afterbegin",
+        "afterend",
         `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方音效分类内，可分别为导航、答题、道具、赋分、确认等按钮设置声音；未单独上传时继承“通用按钮默认音效”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
       );
     document.querySelectorAll("[data-cf-slot]").forEach((e) =>
@@ -22073,11 +22110,16 @@ const DesktopUI = (() => {
       )
     );
   }
+  function motionEase() {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue("--motion-ease")
+      .trim();
+  }
   function animate(el, frames, options = {}) {
     if (!el || !canAnimate()) return;
     const a = el.animate(frames, {
       duration: 240 / preferences.speed,
-      easing: "cubic-bezier(.2,.8,.2,1)",
+      easing: motionEase(),
       ...options,
     });
     animations.add(a);
@@ -22692,10 +22734,12 @@ const DesktopUI = (() => {
         ) +
         '<h3 style="margin-top:24px">本地审核题库</h3><p class="ui-muted">导入完整 JSON：knowledge、challenges 数组；每项需 id、title、subject、source。题目需 4 个 options、0–3 的 answer 和 explanation。请仅使用已审核内容并标明来源。</p><textarea id="uiBankEditor" class="ui-bank-editor" aria-label="本地题库 JSON"></textarea><div class="ui-toolbar"><button class="btn btn-primary" id="uiSaveBank">验证并保存题库</button><button class="btn" id="uiExportBank">导出题库</button><button class="btn btn-warning" id="uiResetBank">恢复内置示例</button></div><p id="uiBankStatus" role="status" class="ui-muted"></p>',
     );
-    sections.data.insertAdjacentHTML(
-      "afterbegin",
-      '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。课堂备份不包含自定义音频；音频包请到“音效与音乐”中的迁移区单独导出。</div>',
-    );
+    sections.data
+      .querySelector(".ui-settings-title")
+      .insertAdjacentHTML(
+        "afterend",
+        '<div class="ui-snapshot-note">本地管理口令用于防止误操作，不能作为真正的身份认证或数据加密。课堂备份不包含自定义音频；音频包请到“音效与音乐”中的迁移区单独导出。</div>',
+      );
     const danger = [...sections.data.querySelectorAll("button")].filter((b) =>
       /resetAllScores|clear/.test(b.getAttribute("onclick") || ""),
     );
@@ -23212,6 +23256,7 @@ const DesktopUI = (() => {
     if (!pending) return;
     closingWindows.delete(root);
     pending.animation?.cancel();
+    pending.backdrop?.cancel();
     root.inert = pending.inert;
     delete root.dataset.uiClosing;
     pending.finish();
@@ -23221,6 +23266,7 @@ const DesktopUI = (() => {
     if (!pending) return;
     closingWindows.delete(root);
     pending.animation?.cancel();
+    pending.backdrop?.cancel();
     root.inert = pending.inert;
     delete root.dataset.uiClosing;
   }
@@ -23236,16 +23282,28 @@ const DesktopUI = (() => {
       finish();
       return;
     }
-    // Stop only this window's entrance; other windows keep their own lifecycle.
+    // Snapshot before cancelling entrance, so an early close never jumps to fully open.
+    const visual = getComputedStyle(surface);
+    const from = {
+      opacity: visual.opacity,
+      translate: visual.translate,
+      scale: visual.scale,
+    };
+    const backdropOpacity = getComputedStyle(root).opacity;
     surface.getAnimations().forEach((a) => a.cancel());
-    const pending = { finish, inert: root.inert, animation: null };
+    const pending = {
+      finish,
+      inert: root.inert,
+      animation: null,
+      backdrop: null,
+    };
     closingWindows.set(root, pending);
     root.inert = true;
     root.dataset.uiClosing = "true";
     pending.animation = animate(
       surface,
       [
-        { opacity: 1, translate: "0 0", scale: "1" },
+        from,
         {
           opacity: 0,
           translate: preferences.motion === "full" ? "0 64px" : "0 10px",
@@ -23255,8 +23313,22 @@ const DesktopUI = (() => {
       {
         duration:
           (preferences.motion === "full" ? 280 : 120) / preferences.speed,
-        easing: "cubic-bezier(.55,.05,.85,.35)",
+        easing: motionEase(),
         fill: "forwards",
+      },
+    );
+    pending.backdrop = animate(
+      root,
+      [
+        { opacity: root.tagName === "DIALOG" ? 1 : backdropOpacity },
+        { opacity: 0 },
+      ],
+      {
+        duration:
+          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
+        easing: motionEase(),
+        fill: "forwards",
+        ...(root.tagName === "DIALOG" ? { pseudoElement: "::backdrop" } : {}),
       },
     );
     pending.animation.finished
@@ -23995,7 +24067,7 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
       mask
         ? "积分与名次暂时遮蔽"
         : groups.length
-          ? `共 ${groups.length} 组 · 积分从高到低`
+          ? `共 ${groups.length} 组 · 积分从高到低${groups.length > 7 ? " · 区域内滚动查看" : ""}`
           : "尚未添加小组",
     );
     if (signature !== rankSignature) {

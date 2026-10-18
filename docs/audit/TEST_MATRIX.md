@@ -1,3 +1,9 @@
+# 设计整改最新专项（2026-10-18）
+
+[本轮正式验收](../reports/DESIGN_REVIEW_ACCEPTANCE.md)。后续仅Chromium、1920×1080、1×。最终构建114项Node测试、9项设计回归及14组单尺寸几何对照PASS；最终页面/窗口截图见artifacts/design-review/delivery-1920/。历史阶段专项与构建哈希在正式报告分列，不能视为同一最终文件的全部功能验收。
+
+---
+
 # 当前专项矩阵（2026-10-18）
 
 本轮真实结果：[渲染/生命周期治理验收](../reports/STRUCTURE_REFACTOR_ACCEPTANCE.md)，机器矩阵artifacts/structure/acceptance.json。旧表格保留为历史，不能当作本轮全部界面的覆盖声明。

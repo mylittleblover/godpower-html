@@ -1,0 +1,49 @@
+{
+  "pairs": [
+    {
+      "name": "body",
+      "fg": "#17302d",
+      "bg": "#ffffff"
+    },
+    {
+      "name": "secondary",
+      "fg": "#496e5c",
+      "bg": "#ffffff"
+    },
+    {
+      "name": "secondary on soft",
+      "fg": "#496e5c",
+      "bg": "#f2f8f5"
+    },
+    {
+      "name": "positive slot",
+      "fg": "#15803d",
+      "bg": "#ecf7f5"
+    },
+    {
+      "name": "negative slot",
+      "fg": "#b91c1c",
+      "bg": "#fff0e9"
+    },
+    {
+      "name": "warning",
+      "fg": "#0f172a",
+      "bg": "#d97706"
+    },
+    {
+      "name": "All In",
+      "fg": "#17302d",
+      "bg": "#f97316"
+    },
+    {
+      "name": "primary button",
+      "fg": "#ffffff",
+      "bg": "#0f766e"
+    },
+    {
+      "name": "clock date",
+      "fg": "#d0ece5",
+      "bg": "#084c4c"
+    }
+  ]
+}

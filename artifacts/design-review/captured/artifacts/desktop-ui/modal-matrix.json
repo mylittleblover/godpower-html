@@ -1,0 +1,1590 @@
+{
+  "results": [
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 491.4721984863281,
+        "y": 248.06521606445312,
+        "right": 874.52783203125,
+        "bottom": 525.42822265625,
+        "width": 383.0556335449219,
+        "height": 277.3630065917969
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 419.1600036621094,
+        "y": 320.43328857421875,
+        "right": 946.8399353027344,
+        "bottom": 514.7667236328125,
+        "width": 527.679931640625,
+        "height": 194.33343505859375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 491.4720764160156,
+        "y": 274.85772705078125,
+        "right": 874.5279541015625,
+        "bottom": 498.63427734375,
+        "width": 383.0558776855469,
+        "height": 223.77655029296875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 492.09088134765625,
+        "y": 256.2391357421875,
+        "right": 873.9091186523438,
+        "bottom": 524.4720458984375,
+        "width": 381.8182373046875,
+        "height": 268.23291015625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 240.9219970703125,
+        "y": 153.09646606445312,
+        "right": 1125.0780029296875,
+        "bottom": 644.5135498046875,
+        "width": 884.156005859375,
+        "height": 491.4170837402344
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 299.2053527832031,
+        "y": 133.34274291992188,
+        "right": 1066.7947082519531,
+        "bottom": 635.8551025390625,
+        "width": 767.58935546875,
+        "height": 502.5123596191406
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 318.6629638671875,
+        "y": 308.9521179199219,
+        "right": 1047.3370361328125,
+        "bottom": 481.3284606933594,
+        "width": 728.674072265625,
+        "height": 172.3763427734375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 284.34039306640625,
+        "y": 261.6885681152344,
+        "right": 1081.65966796875,
+        "bottom": 535.9058227539062,
+        "width": 797.3192749023438,
+        "height": 274.2172546386719
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 412.5448303222656,
+        "y": 254.2790069580078,
+        "right": 953.4552307128906,
+        "bottom": 526.4431915283203,
+        "width": 540.910400390625,
+        "height": 272.1641845703125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 302.7599792480469,
+        "y": 221.0686798095703,
+        "right": 1063.2399597167969,
+        "bottom": 614.1157379150391,
+        "width": 760.47998046875,
+        "height": 393.04705810546875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 235,
+        "y": 240.50794982910156,
+        "right": 1131,
+        "bottom": 533.2579498291016,
+        "width": 896,
+        "height": 292.75
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 444.36334228515625,
+        "y": 218.9410858154297,
+        "right": 921.63671875,
+        "bottom": 564.9642791748047,
+        "width": 477.27337646484375,
+        "height": 346.023193359375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 347.4951477050781,
+        "y": 279.16204833984375,
+        "right": 1018.5049133300781,
+        "bottom": 525.8568115234375,
+        "width": 671.009765625,
+        "height": 246.69476318359375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 445.3896179199219,
+        "y": 259.33331298828125,
+        "right": 920.6103515625,
+        "bottom": 536.54541015625,
+        "width": 475.2207336425781,
+        "height": 277.21209716796875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 445.3886413574219,
+        "y": 231.45098876953125,
+        "right": 920.611328125,
+        "bottom": 564.4008178710938,
+        "width": 475.2226867675781,
+        "height": 332.9498291015625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 128.573486328125,
+        "y": 90.02899169921875,
+        "right": 1237.426513671875,
+        "bottom": 705.8384399414062,
+        "width": 1108.85302734375,
+        "height": 615.8094482421875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 205.72589111328125,
+        "y": 80.35519409179688,
+        "right": 1160.274169921875,
+        "bottom": 703.5458679199219,
+        "width": 954.5482788085938,
+        "height": 623.190673828125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 229.07998657226562,
+        "y": 295.4384460449219,
+        "right": 1136.9200744628906,
+        "bottom": 509.57025146484375,
+        "width": 907.840087890625,
+        "height": 214.13180541992188
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 183.02609252929688,
+        "y": 226.67091369628906,
+        "right": 1182.9738464355469,
+        "bottom": 569.1809234619141,
+        "width": 999.94775390625,
+        "height": 342.510009765625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 347.4939270019531,
+        "y": 234.75132751464844,
+        "right": 1018.5061340332031,
+        "bottom": 570.2573699951172,
+        "width": 671.01220703125,
+        "height": 335.50604248046875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 199.47607421875,
+        "y": 153.8336639404297,
+        "right": 1166.52392578125,
+        "bottom": 651.1725311279297,
+        "width": 967.0478515625,
+        "height": 497.3388671875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "x": 123,
+        "y": 204.7130126953125,
+        "right": 1243,
+        "bottom": 567.7130126953125,
+        "width": 1120,
+        "height": 363
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 386.9665832519531,
+        "y": 193.25418090820312,
+        "right": 979.0334777832031,
+        "bottom": 621.0224609375,
+        "width": 592.06689453125,
+        "height": 427.7682800292969
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 267.8242492675781,
+        "y": 272.30303955078125,
+        "right": 1098.1758117675781,
+        "bottom": 576.6024169921875,
+        "width": 830.3515625,
+        "height": 304.29937744140625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 385.2532043457031,
+        "y": 223.95425415039062,
+        "right": 980.7468566894531,
+        "bottom": 570.3330078125,
+        "width": 595.49365234375,
+        "height": 346.3787536621094
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 385.98681640625,
+        "y": 194.07073974609375,
+        "right": 980.01318359375,
+        "bottom": 608.775390625,
+        "width": 594.0263671875,
+        "height": 414.70465087890625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 38.6309814453125,
+        "y": 59.967071533203125,
+        "right": 1327.3690185546875,
+        "bottom": 738.8735656738281,
+        "width": 1288.738037109375,
+        "height": 678.906494140625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 101,
+        "y": 70.29873657226562,
+        "right": 1265,
+        "bottom": 752.4513244628906,
+        "width": 1164,
+        "height": 682.152587890625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 125.25,
+        "y": 306.5199890136719,
+        "right": 1240.75,
+        "bottom": 566.47998046875,
+        "width": 1115.5,
+        "height": 259.9599914550781
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 66.33953857421875,
+        "y": 213.92686462402344,
+        "right": 1299.6603393554688,
+        "bottom": 634.9654998779297,
+        "width": 1233.32080078125,
+        "height": 421.03863525390625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 259.8275451660156,
+        "y": 180.9346466064453,
+        "right": 1106.1725158691406,
+        "bottom": 602.1157379150391,
+        "width": 846.344970703125,
+        "height": 421.18109130859375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 88.875,
+        "y": 132.64749145507812,
+        "right": 1277.125,
+        "bottom": 740.3525695800781,
+        "width": 1188.25,
+        "height": 607.705078125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 40,
+        "y": 164.6393585205078,
+        "right": 1326,
+        "bottom": 617.6393585205078,
+        "width": 1286,
+        "height": 453
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 769.4431762695312,
+        "y": 410.43231201171875,
+        "right": 1150.5567626953125,
+        "bottom": 686.3892211914062,
+        "width": 381.11358642578125,
+        "height": 275.9569091796875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 689.54541015625,
+        "y": 446.76080322265625,
+        "right": 1230.45458984375,
+        "bottom": 645.9662475585938,
+        "width": 540.9091796875,
+        "height": 199.2054443359375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 768.8259887695312,
+        "y": 433.12896728515625,
+        "right": 1151.174072265625,
+        "bottom": 656.4920043945312,
+        "width": 382.34808349609375,
+        "height": 223.363037109375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 769.0904541015625,
+        "y": 412.23663330078125,
+        "right": 1150.909423828125,
+        "bottom": 680.4700927734375,
+        "width": 381.8189697265625,
+        "height": 268.23345947265625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 522.3554077148438,
+        "y": 322.64404296875,
+        "right": 1397.64453125,
+        "bottom": 809.1329345703125,
+        "width": 875.2891235351562,
+        "height": 486.4888916015625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 576.9437866210938,
+        "y": 189.88760375976562,
+        "right": 1343.05615234375,
+        "bottom": 895.6020812988281,
+        "width": 766.1123657226562,
+        "height": 705.7144775390625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 603.0267333984375,
+        "y": 489.1054992675781,
+        "right": 1316.973388671875,
+        "bottom": 657.9979248046875,
+        "width": 713.9466552734375,
+        "height": 168.89242553710938
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 560.0210571289062,
+        "y": 413.5773620605469,
+        "right": 1359.97900390625,
+        "bottom": 688.7020874023438,
+        "width": 799.9579467773438,
+        "height": 275.1247253417969
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 690.706787109375,
+        "y": 415.6482238769531,
+        "right": 1229.293212890625,
+        "bottom": 686.64306640625,
+        "width": 538.58642578125,
+        "height": 270.9948425292969
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 570.2258911132812,
+        "y": 344.9007568359375,
+        "right": 1349.774169921875,
+        "bottom": 747.802978515625,
+        "width": 779.5482788085938,
+        "height": 402.9022216796875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 512,
+        "y": 398.193359375,
+        "right": 1408,
+        "bottom": 690.943359375,
+        "width": 896,
+        "height": 292.75
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 721.0323486328125,
+        "y": 372.770751953125,
+        "right": 1198.967529296875,
+        "bottom": 719.2738037109375,
+        "width": 477.9351806640625,
+        "height": 346.5030517578125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 625.9646606445312,
+        "y": 441.7532653808594,
+        "right": 1294.035400390625,
+        "bottom": 687.3674926757812,
+        "width": 668.0707397460938,
+        "height": 245.61422729492188
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 721.8026123046875,
+        "y": 411.56658935546875,
+        "right": 1198.197509765625,
+        "bottom": 689.4635620117188,
+        "width": 476.3948974609375,
+        "height": 277.89697265625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 720.4432373046875,
+        "y": 374.74005126953125,
+        "right": 1199.556640625,
+        "bottom": 710.415771484375,
+        "width": 479.1134033203125,
+        "height": 335.67572021484375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 405.5733642578125,
+        "y": 246.0286865234375,
+        "right": 1514.4266357421875,
+        "bottom": 861.8382568359375,
+        "width": 1108.853271484375,
+        "height": 615.8095703125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 491.0936584472656,
+        "y": 141.25872802734375,
+        "right": 1428.9064025878906,
+        "bottom": 1003.4541625976562,
+        "width": 937.812744140625,
+        "height": 862.1954345703125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 506.07989501953125,
+        "y": 451.4381103515625,
+        "right": 1413.920166015625,
+        "bottom": 665.5700073242188,
+        "width": 907.8402709960938,
+        "height": 214.13189697265625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 460.0260009765625,
+        "y": 382.670654296875,
+        "right": 1459.9739990234375,
+        "bottom": 725.1806640625,
+        "width": 999.947998046875,
+        "height": 342.510009765625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 624.4938354492188,
+        "y": 390.7509765625,
+        "right": 1295.506103515625,
+        "bottom": 726.2571411132812,
+        "width": 671.0122680664062,
+        "height": 335.50616455078125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 484.6999816894531,
+        "y": 337.55999755859375,
+        "right": 1435.3000793457031,
+        "bottom": 826.4400024414062,
+        "width": 950.60009765625,
+        "height": 488.8800048828125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "x": 400,
+        "y": 367.0693359375,
+        "right": 1520,
+        "bottom": 730.0693359375,
+        "width": 1120,
+        "height": 363
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 662.9873046875,
+        "y": 342.8340148925781,
+        "right": 1257.0126953125,
+        "bottom": 772.0174560546875,
+        "width": 594.025390625,
+        "height": 429.1834411621094
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 540.6201782226562,
+        "y": 409.4515380859375,
+        "right": 1379.3798828125,
+        "bottom": 716.832275390625,
+        "width": 838.7597045898438,
+        "height": 307.3807373046875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 661.7037353515625,
+        "y": 376.4297180175781,
+        "right": 1258.296142578125,
+        "bottom": 723.4476318359375,
+        "width": 596.5924072265625,
+        "height": 347.0179138183594
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 665.2620849609375,
+        "y": 364.93133544921875,
+        "right": 1254.738037109375,
+        "bottom": 776.459228515625,
+        "width": 589.4759521484375,
+        "height": 411.52789306640625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 260.71331787109375,
+        "y": 153.67926025390625,
+        "right": 1659.2865600585938,
+        "bottom": 929.887451171875,
+        "width": 1398.5732421875,
+        "height": 776.2081909179688
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 378,
+        "y": 74.97872924804688,
+        "right": 1542,
+        "bottom": 1059.7712097167969,
+        "width": 1164,
+        "height": 984.79248046875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 402.25,
+        "y": 462.5199890136719,
+        "right": 1517.75,
+        "bottom": 722.47998046875,
+        "width": 1115.5,
+        "height": 259.9599914550781
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 332.33441162109375,
+        "y": 335.66070556640625,
+        "right": 1587.6654663085938,
+        "bottom": 764.21337890625,
+        "width": 1255.3310546875,
+        "height": 428.55267333984375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 537.4132690429688,
+        "y": 339.63800048828125,
+        "right": 1382.586669921875,
+        "bottom": 760.236083984375,
+        "width": 845.1734008789062,
+        "height": 420.59808349609375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 365.875,
+        "y": 288.6474914550781,
+        "right": 1554.125,
+        "bottom": 896.3525695800781,
+        "width": 1188.25,
+        "height": 607.705078125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 260,
+        "y": 328.5,
+        "right": 1660,
+        "bottom": 781.5,
+        "width": 1400,
+        "height": 453
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 1092.4407958984375,
+        "y": 610.089111328125,
+        "right": 1467.55908203125,
+        "bottom": 881.7049560546875,
+        "width": 375.1182861328125,
+        "height": 271.6158447265625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 1012.7706909179688,
+        "y": 641.2290649414062,
+        "right": 1547.229248046875,
+        "bottom": 838.0589599609375,
+        "width": 534.4585571289062,
+        "height": 196.82989501953125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 1093.760009765625,
+        "y": 644.7930297851562,
+        "right": 1466.239990234375,
+        "bottom": 862.3912963867188,
+        "width": 372.47998046875,
+        "height": 217.5982666015625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 1089.4415283203125,
+        "y": 594.5311889648438,
+        "right": 1470.558349609375,
+        "bottom": 862.2713623046875,
+        "width": 381.1168212890625,
+        "height": 267.74017333984375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 835.3636474609375,
+        "y": 481.27862548828125,
+        "right": 1724.636474609375,
+        "bottom": 975.53955078125,
+        "width": 889.2728271484375,
+        "height": 494.26092529296875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 896.7091064453125,
+        "y": 317.285888671875,
+        "right": 1663.2908935546875,
+        "bottom": 1126.8349609375,
+        "width": 766.581787109375,
+        "height": 809.549072265625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 918.45361328125,
+        "y": 654.1055297851562,
+        "right": 1641.54638671875,
+        "bottom": 825.1615600585938,
+        "width": 723.0927734375,
+        "height": 171.0560302734375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 880.0202026367188,
+        "y": 593.5745849609375,
+        "right": 1679.979736328125,
+        "bottom": 868.699951171875,
+        "width": 799.9595336914062,
+        "height": 275.1253662109375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 1010.042236328125,
+        "y": 592.5772705078125,
+        "right": 1549.957763671875,
+        "bottom": 864.2409057617188,
+        "width": 539.91552734375,
+        "height": 271.66363525390625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 890.9431762695312,
+        "y": 527.3208618164062,
+        "right": 1669.056884765625,
+        "bottom": 929.481689453125,
+        "width": 778.1137084960938,
+        "height": 402.16082763671875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "x": 832,
+        "y": 576.5111083984375,
+        "right": 1728,
+        "bottom": 869.2611083984375,
+        "width": 896,
+        "height": 292.75
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 1040.4432373046875,
+        "y": 548.9071044921875,
+        "right": 1519.556640625,
+        "bottom": 896.264404296875,
+        "width": 479.1134033203125,
+        "height": 347.3572998046875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 944.4934692382812,
+        "y": 615.1544799804688,
+        "right": 1615.506591796875,
+        "bottom": 861.8504638671875,
+        "width": 671.0131225585938,
+        "height": 246.69598388671875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 1042.388427734375,
+        "y": 595.3255615234375,
+        "right": 1517.611572265625,
+        "bottom": 872.5390625,
+        "width": 475.22314453125,
+        "height": 277.2135009765625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 1042.388427734375,
+        "y": 567.4494018554688,
+        "right": 1517.611572265625,
+        "bottom": 900.3995361328125,
+        "width": 475.22314453125,
+        "height": 332.95013427734375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 725.5729370117188,
+        "y": 426.02728271484375,
+        "right": 1834.4269409179688,
+        "bottom": 1041.83740234375,
+        "width": 1108.85400390625,
+        "height": 615.8101196289062
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 808.4180297851562,
+        "y": 250.37387084960938,
+        "right": 1751.58203125,
+        "bottom": 1238.7310485839844,
+        "width": 943.1640014648438,
+        "height": 988.357177734375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 826.0791625976562,
+        "y": 631.4357299804688,
+        "right": 1733.9208984375,
+        "bottom": 845.5679321289062,
+        "width": 907.8417358398438,
+        "height": 214.1322021484375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 781.6738891601562,
+        "y": 567.803466796875,
+        "right": 1778.326171875,
+        "bottom": 909.1845703125,
+        "width": 996.6522827148438,
+        "height": 341.381103515625
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 943.3834228515625,
+        "y": 565.62353515625,
+        "right": 1616.616455078125,
+        "bottom": 902.2401123046875,
+        "width": 673.2330322265625,
+        "height": 336.6165771484375
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 796.4793701171875,
+        "y": 489.8448486328125,
+        "right": 1763.5205078125,
+        "bottom": 987.1802978515625,
+        "width": 967.0411376953125,
+        "height": 497.33544921875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "x": 720,
+        "y": 544.2213745117188,
+        "right": 1840,
+        "bottom": 907.2213745117188,
+        "width": 1120,
+        "height": 363
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "id": "scoreModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 986.93701171875,
+        "y": 548.727783203125,
+        "right": 1573.06298828125,
+        "bottom": 972.203857421875,
+        "width": 586.1259765625,
+        "height": 423.47607421875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "memberSearchBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 860.618896484375,
+        "y": 589.4459228515625,
+        "right": 1699.381103515625,
+        "bottom": 896.8275756835938,
+        "width": 838.76220703125,
+        "height": 307.38165283203125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pwdModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 982.986572265625,
+        "y": 564.6590576171875,
+        "right": 1577.013427734375,
+        "bottom": 910.1846313476562,
+        "width": 594.02685546875,
+        "height": 345.52557373046875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pwdModal-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "settlementNameModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 982.986572265625,
+        "y": 530.0693969726562,
+        "right": 1577.013427734375,
+        "bottom": 944.7743530273438,
+        "width": 594.02685546875,
+        "height": 414.7049560546875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "pickerModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 586.968017578125,
+        "y": 352.787353515625,
+        "right": 1973.031982421875,
+        "bottom": 1122.0528564453125,
+        "width": 1386.06396484375,
+        "height": 769.2655029296875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/pickerModal-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "itemModalBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 697.9791259765625,
+        "y": 166.04608154296875,
+        "right": 1862.0208740234375,
+        "bottom": 1378.8319702148438,
+        "width": 1164.041748046875,
+        "height": 1212.785888671875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "handRaiseBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 715.0867919921875,
+        "y": 619.049560546875,
+        "right": 1844.9132080078125,
+        "bottom": 882.3482666015625,
+        "width": 1129.826416015625,
+        "height": 263.2987060546875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "aboutBackdrop",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 655.0328369140625,
+        "y": 524.0626220703125,
+        "right": 1904.9671630859375,
+        "bottom": 950.7728271484375,
+        "width": 1249.934326171875,
+        "height": 426.710205078125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "batchImportModal",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 860.6175537109375,
+        "y": 534.4268188476562,
+        "right": 1699.38232421875,
+        "bottom": 951.835693359375,
+        "width": 838.7647705078125,
+        "height": 417.40887451171875
+      },
+      "screenshot": "artifacts/desktop-ui/modals/batchImportModal-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "quickPersonBackdropV218",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 685.875,
+        "y": 468.6474914550781,
+        "right": 1874.125,
+        "bottom": 1076.3525695800781,
+        "width": 1188.25,
+        "height": 607.705078125
+      },
+      "screenshot": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "id": "grandModalOverlay",
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "x": 580,
+        "y": 498.00384521484375,
+        "right": 1980,
+        "bottom": 951.0038452148438,
+        "width": 1400,
+        "height": 453
+      },
+      "screenshot": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.25.png",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "zoomMethod": "program CSS zoom (not browser toolbar zoom)"
+}

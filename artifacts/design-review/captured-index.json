@@ -1,0 +1,1298 @@
+[
+  {
+    "original": "artifacts/battle-motion/audio-categories.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/audio-categories.png",
+    "sha256": "acc25d79a02a5a6ddb0e1937ac47559195d4497c4fed98cebfb6da2902308aef",
+    "bytes": 242548
+  },
+  {
+    "original": "artifacts/battle-motion/draw-enter.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/draw-enter.png",
+    "sha256": "9a92329fd887a684a4678c2e1ca94a49a35645af15f8fa21e63d4c9d1a941d9a",
+    "bytes": 93215
+  },
+  {
+    "original": "artifacts/battle-motion/draw-fade.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/draw-fade.png",
+    "sha256": "a2c2329c6f450f6ddec2e4aa99cae58c7580f9e18e5a8e8e2366e33a6f6445a2",
+    "bytes": 106214
+  },
+  {
+    "original": "artifacts/battle-motion/draw-reveal.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/draw-reveal.png",
+    "sha256": "de4a1e4b1ac520ee97ee03feff1e193735d2bca9f0d4722b661f1ec7f3879d11",
+    "bytes": 93303
+  },
+  {
+    "original": "artifacts/battle-motion/hand-draw-reveal.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/hand-draw-reveal.png",
+    "sha256": "5956317a34f3fcc1c9f5a6523dbf449c98faa8bf7f7ef4ab653207e3090368c4",
+    "bytes": 152077
+  },
+  {
+    "original": "artifacts/battle-motion/item-defense.png",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/item-defense.png",
+    "sha256": "d0b675661cd7fdd48117b815675311e719070b9e784a5f0f98cf35b3f0b2b7e5",
+    "bytes": 92177
+  },
+  {
+    "original": "artifacts/battle-motion/results.json",
+    "saved": "artifacts/design-review/captured/artifacts/battle-motion/results.json",
+    "sha256": "a0801b808f03548e1f13ddf0bf990dcdf11a401e7007e5c6e3342486ba5e837d",
+    "bytes": 24883
+  },
+  {
+    "original": "artifacts/browser-results.json",
+    "saved": "artifacts/design-review/captured/artifacts/browser-results.json",
+    "sha256": "7b6340b0d6b4a2eea8512c66aeed4bfed1a843ab55aca909414b419c08c4d6ea",
+    "bytes": 19265
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-podium-details-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/archives-podium-details-1920.png",
+    "sha256": "791c6adc999d8214ead4cdf543fa91b36c37c60f08c6344d07d8a748586f4ab5",
+    "bytes": 282862
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-matrix.json",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modal-matrix.json",
+    "sha256": "18d654b4857ebe48a03823cbc879346275913c13dc5229ab5dddf139382fe825",
+    "bytes": 43418
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-0.8.png",
+    "sha256": "b333d244b93b5200227bbf2bd7910b61a6d5aa1edcddd7128f078c6d3220e721",
+    "bytes": 133591
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-1.25.png",
+    "sha256": "3b3875ffdf9cb91e1ed6cb3c01087956418d48a6e759374f4915f1ce28de259f",
+    "bytes": 218328
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-1.png",
+    "sha256": "53169604c1435dca01f20f3343e895e7d03e6019f2539286cb84c94fff9a6627",
+    "bytes": 168164
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-0.8.png",
+    "sha256": "16b1d6decc4a54b4e055844c33589036546478902fc4b5bc8d2426ad7de21cd9",
+    "bytes": 141728
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-1.25.png",
+    "sha256": "7cf6d2e57b3f97bdd8948dca4ff59de90614cf2248533a5bd48b830b702fbdc3",
+    "bytes": 230334
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-1.png",
+    "sha256": "6c2ff228f47b6aa870443950374436c35b9caf9ada3ca46008c263a434a19dc8",
+    "bytes": 165387
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-0.8.png",
+    "sha256": "6f0a4c6d4b1e31a7cce0e95c881eebcd92dc734ddebe528ccd614f8260ba5343",
+    "bytes": 145428
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-1.25.png",
+    "sha256": "06a0d2d19060abf68b578e0975d9cd70466fa7b2c12879f9939118d26fba0187",
+    "bytes": 224196
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-1.png",
+    "sha256": "5cdfe1d9c1c5d3f9709ec9793aa49f38c6d5143a74939f547989d62ca3d00e44",
+    "bytes": 172929
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1366-0.8.png",
+    "sha256": "4ba096aaad8aac5fb4cb445d40e25ea5cdb14175462ecf648f803be31b92459a",
+    "bytes": 88101
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1366-1.25.png",
+    "sha256": "0ceccf0ebaae2cb9190ca630bd1f202134e2ef27ff65710e81ce750f812a6e25",
+    "bytes": 141855
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1366-1.png",
+    "sha256": "e1aff03efa723f9af87c0010167407a98efb2a6536ebcc45eb16a4fc4db033dd",
+    "bytes": 107989
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1920-0.8.png",
+    "sha256": "57ef29505ba520b1250eb11a0ae9d534452805959c364d84efdb92d8326af9ac",
+    "bytes": 92160
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1920-1.25.png",
+    "sha256": "7de837ed79ea76b15b21007b7ad4f728c31485f71b797d00843a412ed4141314",
+    "bytes": 145054
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-1920-1.png",
+    "sha256": "c08cf420c7309a91639e7ffd7d8de7f534f54e68fea9b9a819b1e77f3c593abf",
+    "bytes": 102730
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-2560-0.8.png",
+    "sha256": "233d54a7d5466aaa7258e8b7b801fc09a71a4b582707ae210b2c24889a75c47d",
+    "bytes": 99971
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-2560-1.25.png",
+    "sha256": "4778a9f1129a4acc48cf017d50964680a30502193cfc11021d5db2c0dd446f46",
+    "bytes": 137834
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/batchImportModal-2560-1.png",
+    "sha256": "1988de5edefd8b75cc6dae58cce6ad6a9627919fdc4590e7fb3c5e7449ba2d02",
+    "bytes": 110958
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-0.8.png",
+    "sha256": "ed0dcce546284ac20744c73ac8a36f9d6b75dfd69d9dbc9f61a7b1647404f5ae",
+    "bytes": 90881
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-1.25.png",
+    "sha256": "ea9014ba45c4a7d31745511e1eeded5582b4fce800a3c97802448aef72ad14d2",
+    "bytes": 132206
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-1.png",
+    "sha256": "b77906e4cb1fae93e613000a1e7eb6d3286d304f66e4dce3203390c80ab734b3",
+    "bytes": 114871
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-0.8.png",
+    "sha256": "9ec16f1e2e97ae0fce085f59b6be2a40f746047a824cc18db4f27973521a6367",
+    "bytes": 96046
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-1.25.png",
+    "sha256": "c85e23a58b8949c19014dddb328837abdb09e96f6f873c06b307d806928741b1",
+    "bytes": 147242
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-1.png",
+    "sha256": "ac558aa88ed3152b29ad556eeff72ddb284e1d817c368d11c648de789c983e50",
+    "bytes": 119001
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-0.8.png",
+    "sha256": "5a3aced71008485007507ad70093b37d18db4f205b53ec9a837734730e029ca4",
+    "bytes": 100501
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-1.25.png",
+    "sha256": "a953ee83d106ff68ebb285a335729ede9f52febf89a4eb6ed0fd0a43091e9127",
+    "bytes": 159366
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-1.png",
+    "sha256": "d7d13adc7191a3b88c29c74c3ab9dcccf4e447dd8d9007d4e9537d96feaadf9a",
+    "bytes": 129304
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-0.8.png",
+    "sha256": "ea9485908ade9e34d8f38d9c9fef26de8ed87823e18bff663e78c2238affc34c",
+    "bytes": 97042
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.25.png",
+    "sha256": "b1a91d7272b40f359ee686bc2b00a5a52b4b9cdd9b0cdb7f813f1e9782ba03c2",
+    "bytes": 148267
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.png",
+    "sha256": "1e6a7ee8510e514422d468a1351d46197005d2ca2b2d0aeba08372a210fe3d99",
+    "bytes": 120698
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-0.8.png",
+    "sha256": "157a730dbd4105f595c088084c8e43e03c29bbd73192de42cae1c316d08a4267",
+    "bytes": 100558
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.25.png",
+    "sha256": "4ae625f348ed1cdb4b5590b9d703f0dc16073b558e0d181788c95d57153ce082",
+    "bytes": 167166
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.png",
+    "sha256": "fe7634d5caa0205972aa5d0d173cebabf66b9b01d2082e9c87ce944801bcb76a",
+    "bytes": 115542
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-0.8.png",
+    "sha256": "a6d402a2345f84023720473a6b298f01362d450b2b92dbf07e89d7b07348d339",
+    "bytes": 109510
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.25.png",
+    "sha256": "6f1d718b829fea44366aef3e527f4bd565e923c125c74e9a4a75c88c934dfb53",
+    "bytes": 150477
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.png",
+    "sha256": "1a8c384e62388f8b646d3f78a68ee09410031969490f80309b25ebcddde86323",
+    "bytes": 124760
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-0.8.png",
+    "sha256": "08215443d94c1402650015d70de6915f67f787fb253338ca04c46dc37c38991a",
+    "bytes": 130354
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.25.png",
+    "sha256": "47b01c8f811352f80490dc3d6ba9ab95f9338dc68cc0b1cb94ece002e32e0e95",
+    "bytes": 199436
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.png",
+    "sha256": "69e26e34eedc8519b0d67768b58603520128123aeb71017269efff7a35ce5ddf",
+    "bytes": 160943
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-0.8.png",
+    "sha256": "36608705c9e60b9be92a8f48b1f0bd59fb2189d70e3f51c86f6457efea3fc668",
+    "bytes": 142613
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.25.png",
+    "sha256": "601f532fc6f779475b627fafc2618789ddbf835ba8eac0487b57dbededba42bd",
+    "bytes": 229285
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.png",
+    "sha256": "f67cc375b739fb01a13ca275b774b9d4188b4030661ee1e1706598ef4ad8b404",
+    "bytes": 186298
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-0.8.png",
+    "sha256": "e8cd223d3c891402bd8e85e9e907415e49814adad5e9df432fde65b78fc5e7b2",
+    "bytes": 159688
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.25.png",
+    "sha256": "a80b5ddec93e5a2aa57b131ab02e233c59145208f2ade59be287abd21fc132b0",
+    "bytes": 261725
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.png",
+    "sha256": "5fe15e63380d1c661a727b116fb9723b36ffacf4ff8538b149e63b1745763014",
+    "bytes": 192281
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-0.8.png",
+    "sha256": "db040bce084dfb3ea4596871ed54b7892a706f95a74b7d927896c3d56510c0a6",
+    "bytes": 94146
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.25.png",
+    "sha256": "7952c5a18529a046c60629a9fa91156cefcbeae09468503908dd7fd3816d4324",
+    "bytes": 152292
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.png",
+    "sha256": "58b2e5b4564498fd702dc3017965ce32075cedeaef4d92902018917de54943ad",
+    "bytes": 115841
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-0.8.png",
+    "sha256": "0d06c80acb4486a4a77f97130f5c01da253a928e064c8521528986573191bada",
+    "bytes": 99839
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.25.png",
+    "sha256": "131bf26372d654a61895995b4b5e47844765d4466cdfaff1bcea57c62aa7bfa8",
+    "bytes": 157007
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.png",
+    "sha256": "642993b827aed97af05f4d12db8b84e8b6d624d74cb565d7056ff5f472206203",
+    "bytes": 114683
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-0.8.png",
+    "sha256": "e61f2760797a8e8cc12bddad0a7091236097fc0bfd16bfe97a36c7bf7c8a82b0",
+    "bytes": 100953
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.25.png",
+    "sha256": "7eaca99cd69630ff1901d157d1e8d2a21de7d44b9487f638cad518fa90e38332",
+    "bytes": 149212
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.png",
+    "sha256": "8ca0d2070d9e0b35d74902cc7bcfcdace89fd135a9609213d5aa3408e5b3340b",
+    "bytes": 122887
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1366-0.8.png",
+    "sha256": "c0bac4cda75922bfd9774ee913aea509dd577b6b98047ec4ab79a5cc4ce62b2f",
+    "bytes": 136541
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1366-1.25.png",
+    "sha256": "78ebaab82f7b9222be555a5b951e3efc429c1b1db3b5d8116af503e5886550c6",
+    "bytes": 219506
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1366-1.png",
+    "sha256": "0dc4582b49eabcffb7b37c4f577bb09d5b93946f18a531081c441d9fcca58dd2",
+    "bytes": 183389
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1920-0.8.png",
+    "sha256": "f7061427264e0f486a3c0391306efea2ee5f31b852bdfc59f77513e354eaf0ff",
+    "bytes": 146087
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1920-1.25.png",
+    "sha256": "94a256b15b97141c577dc0adebdb18073a9b8d6a38ff03e280cc25333a1a3736",
+    "bytes": 204557
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-1920-1.png",
+    "sha256": "7a44f3a86603ec7ffcd577725b541585f70a24818fb2c9db450db2b7d7f31ccc",
+    "bytes": 178065
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-2560-0.8.png",
+    "sha256": "00aefab9c6bc4d5f06ca7454e8b95d6e18050178522ee48e6a659471afa2946b",
+    "bytes": 149945
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-2560-1.25.png",
+    "sha256": "092766ee71df67e5173187d8fa0b2834944a913148adece89be64bd0ebb8fa83",
+    "bytes": 234022
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pickerModal-2560-1.png",
+    "sha256": "9be2332510f601e9582b521ac3e86ea58aa140d21f43134796aea0024f8d8036",
+    "bytes": 189492
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1366-0.8.png",
+    "sha256": "5c9a503f22fc883d855af32186ee5266dfebfe4c82d20616149afbbc5ce8e3dd",
+    "bytes": 88732
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1366-1.25.png",
+    "sha256": "5b75a37affba0347512f3aee2bc3aceb82002880290122a87d4d3ca0a7ee3d1b",
+    "bytes": 156943
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1366-1.png",
+    "sha256": "69017a6f0decc0ff248c3cddd568a7233f334a4ad7f3e990e008f5d0f62fe188",
+    "bytes": 116106
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1920-0.8.png",
+    "sha256": "71c23ab494a3e2f3560d0f64725583b999bbb2cba0d13b021fcb51dc54aec034",
+    "bytes": 99687
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1920-1.25.png",
+    "sha256": "cdd6ae9d7a118099d8d0609ed5a1274c310f30fec3f0d6e490f45e40ef57b75d",
+    "bytes": 155952
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-1920-1.png",
+    "sha256": "72b969ee1fc57abe821f017a3466d7bf2929f3da283f616d115f30b2b41fbf35",
+    "bytes": 113130
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-2560-0.8.png",
+    "sha256": "396d42f0101aa02a37f9110956841c538dbfbd670dd7226761b33559bee60de9",
+    "bytes": 99015
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-2560-1.25.png",
+    "sha256": "f7d3b7ee9f6645f02be543c1f6d978b07747b253148395736904bb35e773d14a",
+    "bytes": 150625
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/pwdModal-2560-1.png",
+    "sha256": "18ec50a2028cbe06ac506b06f1347857640bbc7b709d9d7570edaea5ebc3d31b",
+    "bytes": 119444
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-0.8.png",
+    "sha256": "5b32bb3d102204b73a6cee17373034d4801ba2a625b4d427bd44cf14d67a9b96",
+    "bytes": 141805
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.25.png",
+    "sha256": "8480723d81a4d074649ea774b84a2b4e08cd266dc8d4c0ec6a9684aaabc95c3c",
+    "bytes": 206657
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.png",
+    "sha256": "c38727cdfaa5b40e6e136b4444d5f4dcb71d4e47e179b4ce4a773e327b87948b",
+    "bytes": 203855
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-0.8.png",
+    "sha256": "f8835a77a2418580cb5584dc2f6854bc00ebe41877d119553a1f021665abf11e",
+    "bytes": 148983
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.25.png",
+    "sha256": "7cfa95767ac8b0f3acdaf0aeff726b030c21e13c57ba878ebc0c6202417d2e7c",
+    "bytes": 257939
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.png",
+    "sha256": "789bdb60ccc75ea2fa6d47822d2280415d0d0c666c930291cc8af8d1b9a4949a",
+    "bytes": 179467
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-0.8.png",
+    "sha256": "073b93518986dd98b42ba41ce11cb68cfda63953edf101d3358fdb1d6f6d5c64",
+    "bytes": 156759
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.25.png",
+    "sha256": "b902de7bb691287b1edc8ed06ffaaf69bdf238c9c87eb4bf3c9f5311fbb0d9f3",
+    "bytes": 242024
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.png",
+    "sha256": "4a3ffb650d595e8a775343f2c2e2840d70fde647c5bd5ee506b33b40bb70e499",
+    "bytes": 191708
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-0.8.png",
+    "sha256": "b958795bec305ba483327ac4056a50dea60197e4576993a602120aba834bc2c5",
+    "bytes": 88662
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.25.png",
+    "sha256": "870ef9339c6c78d7a5759053727e593afb8602b591ad460fea68c73708498616",
+    "bytes": 162744
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.png",
+    "sha256": "2cd4d2461aeca942d4d19a29a4c2ccff16963cbda4f7def58626c7694d9bd6ef",
+    "bytes": 119114
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-0.8.png",
+    "sha256": "586add37a178f9bf2471740cfa16fc5cd2cd644afb4622b3040e9186f4121545",
+    "bytes": 100145
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.25.png",
+    "sha256": "9da25a29261c9cf1792f2a3d721cbac776dc97adfab1cbe73faa1b31b746c01c",
+    "bytes": 155280
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.png",
+    "sha256": "37ffc0c41917cfcb8d2cff585289859cfe227d7433eef6879af44b0d11217160",
+    "bytes": 115771
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-0.8.png",
+    "sha256": "806237cccb6dc212cfeed7a97b9119249e0a3d55e34e446b1f94039bfe78f8e5",
+    "bytes": 106239
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.25.png",
+    "sha256": "d96b95792e2396779db9e91c86efd5159a5dc1b9f9b62e05fdc822c430b20877",
+    "bytes": 150188
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.png",
+    "sha256": "436188d213ef37fc0ce6b9623ded0dc03d23819b0f3f8f1aad4e7032c5b4fe8d",
+    "bytes": 122086
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-0.8.png",
+    "sha256": "5be98987e878b300e1f7b2da2e7c8727a3a930122f33898b960932c6c7472785",
+    "bytes": 105061
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-1.25.png",
+    "sha256": "c64197bfd9a2e4eb857bff5afbe5d9c61bbd7c22b6ccb4dd495552eee650d31a",
+    "bytes": 189764
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-1.png",
+    "sha256": "b1c9613a394d3195e341ec8a826222e3954c88ab8349b5e69f23a1d75484dc0a",
+    "bytes": 139787
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-0.8.png",
+    "sha256": "fc7bfd4dc5ccdaf0f0cebf89691fc428fc545bd379a85d38e35308a7d5e95118",
+    "bytes": 110234
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-1.25.png",
+    "sha256": "4b1c46214b34b2d4b3d3e1b31edf8082a20c1687ea1eb237556acab5eb687b18",
+    "bytes": 184859
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-1.png",
+    "sha256": "9e13aadc87791704faf2e057f70d43b52a9d24bfb9f7d92aea7e121665c227dd",
+    "bytes": 123347
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-0.8.png",
+    "sha256": "c2eaba5a27c679724b2303d19ddbb062828c014cf26583216d1cd616ed310080",
+    "bytes": 121378
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-1.25.png",
+    "sha256": "478539060d501acceae467869a3ca6623a71959fa9c954cec740d0ca44ebe58d",
+    "bytes": 182651
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-1.png",
+    "sha256": "40671bd50aa28f7398272f58dc5792475e45b25b6cd61854e19fc92b3c774a49",
+    "bytes": 145257
+  },
+  {
+    "original": "artifacts/desktop-ui/offline-archive.csv",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/offline-archive.csv",
+    "sha256": "b46820805b3cc557193718e32fc0c0d6ba920e238443c81ea9aa7e3cbda68fb0",
+    "bytes": 5324
+  },
+  {
+    "original": "artifacts/desktop-ui/release-smoke.json",
+    "saved": "artifacts/design-review/captured/artifacts/desktop-ui/release-smoke.json",
+    "sha256": "643b614aaf6249222d86e4e75469911344b5d856b2f8ac7a76c86b529bd1c85b",
+    "bytes": 1258
+  },
+  {
+    "original": "artifacts/export-backup.json",
+    "saved": "artifacts/design-review/captured/artifacts/export-backup.json",
+    "sha256": "12074923cbc314fe50966c1d79bcfb490443bbdba5784edccf0e0fd433491653",
+    "bytes": 3246
+  },
+  {
+    "original": "artifacts/export-settlement.csv",
+    "saved": "artifacts/design-review/captured/artifacts/export-settlement.csv",
+    "sha256": "d2109fb6724048f511bc7d45771e545e2350fcad3a58232f59045b1085336034",
+    "bytes": 5104
+  },
+  {
+    "original": "artifacts/performance-chromium.json",
+    "saved": "artifacts/design-review/captured/artifacts/performance-chromium.json",
+    "sha256": "cf47e396311e6aa9637ae4e479fc1644414af1a99926e9373a3972fd1334c367",
+    "bytes": 531
+  },
+  {
+    "original": "artifacts/rule-oracles.json",
+    "saved": "artifacts/design-review/captured/artifacts/rule-oracles.json",
+    "sha256": "22094a3a53e37b95bc3231cc49de78e7edea6fdd3cc5e0b860e73599c7df203e",
+    "bytes": 10687
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1366x768.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/archives-1366x768.png",
+    "sha256": "2f31df2eefd027b73bc4ae249efc06ba7ae246d5041c55a54db3cb6dce1b136d",
+    "bytes": 183172
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1920x1080.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/archives-1920x1080.png",
+    "sha256": "d37681d570772374cf945ac4c5cfbfe9e1bd2f629c7ea33615a30c5fa09a1827",
+    "bytes": 243680
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-2560x1440.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/archives-2560x1440.png",
+    "sha256": "5feed87baf63daed1fce69ab31c9bcdbc0d098179781c34f09dedf4183eec1f0",
+    "bytes": 267155
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1366x768.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/battle-1366x768.png",
+    "sha256": "96af02f8a589c425b32c5205fafa1e7535c5ea2323d86638f8bbce3595ae712e",
+    "bytes": 114933
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1920x1080.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/battle-1920x1080.png",
+    "sha256": "e3b1c71c7fe2448f8e144b8eed9aa14d4c850de943448d05b23e36d84a57992d",
+    "bytes": 138779
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-2560x1440.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/battle-2560x1440.png",
+    "sha256": "5ad19c2915aac0091041edbdad9c0901f36995e77ade4d0f1bc4edc92002f58f",
+    "bytes": 124302
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1366x768.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/history-1366x768.png",
+    "sha256": "3386809b6110f82b23868d54d6cf74dcefd8b66541cd3e25b23e3f5b601b0e0c",
+    "bytes": 158878
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1920x1080.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/history-1920x1080.png",
+    "sha256": "5589f803524a3f1662c6ecebe754a457bf8b44f86f74dd368c62e2a769d1785c",
+    "bytes": 192329
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-2560x1440.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/history-2560x1440.png",
+    "sha256": "fda8decf0bc13b7663a98aaade6bbe56c98d9bc0985ddba87ae9976a212da8b4",
+    "bytes": 224081
+  },
+  {
+    "original": "artifacts/screenshots/chromium/item-encyclopedia.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/item-encyclopedia.png",
+    "sha256": "83e6f752795c907748225b64dd0b865cd748439f9168ae7337de9885b7d1ad68",
+    "bytes": 338507
+  },
+  {
+    "original": "artifacts/screenshots/chromium/keyboard-hover.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/keyboard-hover.png",
+    "sha256": "1bb852a87a9815bd389b66284f181ac4ecfbeb8c8fcd7100e4a77c1daa195242",
+    "bytes": 102240
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-about.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-about.png",
+    "sha256": "2bce0e67f8c4f008ff7898b4b370a96bceb67e737fae32a7f27c11770221a18a",
+    "bytes": 178455
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-hand.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-hand.png",
+    "sha256": "4a343c53a3411e7318badee039a0baeb46cb263aa2d00bc853bcee13b4eba53a",
+    "bytes": 134839
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-item-window.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-item-window.png",
+    "sha256": "081f248f3ca88704eaff83f9aedfc3d0fe4ffaebcafe3f4aa8f1a0aeeb1a9e7b",
+    "bytes": 213968
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-member-search.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-member-search.png",
+    "sha256": "1950e55fc804ce63d9efb8fd6790d286d0b4c8d439592a512d2ef441c514f097",
+    "bytes": 122434
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-picker.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-picker.png",
+    "sha256": "677f53b16551e3810869e890bc29569567d2f8ba8733a41c1644f2286d835b26",
+    "bytes": 229294
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-settlement-name.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/modal-settlement-name.png",
+    "sha256": "c21ea39af697bbf48431fde7c55d51ae83898d75e40405b30b5570b8ee111da6",
+    "bytes": 133287
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1366x768.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/settings-1366x768.png",
+    "sha256": "5e6c82927b42c5dcc18677bd48b5f77327300e2e62ddb440da704d06828488c8",
+    "bytes": 182040
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1920x1080.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/settings-1920x1080.png",
+    "sha256": "e5b7bb80a0b7353a395b881d3d4ac7f570d1d16b3549eaf021cbb01da9525428",
+    "bytes": 200165
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-2560x1440.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/settings-2560x1440.png",
+    "sha256": "2e218695303d56df4d309bdd5e4b77e4a6d60e59edb8db7a21aee60429419dee",
+    "bytes": 235920
+  },
+  {
+    "original": "artifacts/screenshots/chromium/special-states.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/special-states.png",
+    "sha256": "5c350f10b1e6c63a939952163e8fc92f637a58d8e7cb409b200b0977b43ac0e6",
+    "bytes": 110019
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1366x768.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/welcome-1366x768.png",
+    "sha256": "778d9a9192fa509c918d04c993020dd65117cbe4e10326a445299a4492af53e4",
+    "bytes": 393837
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "sha256": "9daa22729702d3f628a6c85bb190c6deffd308bdf8bada88d82acea4d1c8a394",
+    "bytes": 412180
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "saved": "artifacts/design-review/captured/artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "sha256": "d850b5f4057c8a65fab1f8b83d64600c8d5fe3217b2047c0fb74ab97692cef86",
+    "bytes": 417960
+  },
+  {
+    "original": "artifacts/settings-cleanup/audio-all.bin",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/audio-all.bin",
+    "sha256": "b819d1537c802a9b1ba1b4e78e9cffceedc020d4ed3884aec0b5d6120f7ca31f",
+    "bytes": 4219
+  },
+  {
+    "original": "artifacts/settings-cleanup/classroom.json",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/classroom.json",
+    "sha256": "0bcbdadbd0d2a918320a06df62fa0ee7cf09cf28aa0c091f76d7de5a40de7cf2",
+    "bytes": 3385
+  },
+  {
+    "original": "artifacts/settings-cleanup/results.json",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/results.json",
+    "sha256": "cc20c75e261fc180dc7d1c6e2f73eb1a205ad96546ec73a6fc5f78f2fefaf68c",
+    "bytes": 40165
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1366-0.8.png",
+    "sha256": "6d881e2e80109beb17ea75709b03c3a2c55e42a994488f2e25fb21adfb98a360",
+    "bytes": 173878
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1366-1.25.png",
+    "sha256": "c42f7303778059ef66e4f9433b05d605d4d9b2f7639eecd434690654682e0af5",
+    "bytes": 221302
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1366-1.png",
+    "sha256": "d214510f35f33e81768a91589a96c2c264d691aaad9e66dbc44d1542a29772c4",
+    "bytes": 187271
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1920-0.8.png",
+    "sha256": "6ddfe34622c54745fce75f441b8866126bb320e88a675c552968719eb2ffef40",
+    "bytes": 195974
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1920-1.25.png",
+    "sha256": "7f51b0c7afe0fea346429296b0014c161d733dc75c23cc73e05dd3cab6d51c86",
+    "bytes": 294580
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-1920-1.png",
+    "sha256": "2511cc4054de29ded8741b24b185826d453fd70cd6bebc2ec8e540aec553a0d2",
+    "bytes": 242361
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-0.8.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-2560-0.8.png",
+    "sha256": "4b31040c11ea872f6aad2d6a6c0b4efa48ae7b3b518852b091956cfb3ac4bc56",
+    "bytes": 223938
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-1.25.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-2560-1.25.png",
+    "sha256": "3eeaa7f24940f0df54a8770b9db48c160ca40ba4e99f8f096d2c8a001dbfd0b9",
+    "bytes": 342180
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-1.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/alignment-2560-1.png",
+    "sha256": "e3a9da09a790e8d7f182f6eea05a85b98c70f3b291ef0b31ab80bcd860bb12a8",
+    "bytes": 270594
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-1366.png",
+    "sha256": "9401e84ecab55c97520422e240585a32d01e611d952f2e6c3c94a7772ac6caaf",
+    "bytes": 186595
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-1920.png",
+    "sha256": "9ad527346f8372f1151ce21c8b16aec17fcad58833c18fc331cea8aef0b59e15",
+    "bytes": 229850
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-2560.png",
+    "sha256": "33966f474f627dffa58f54fe46d0f601aa1d6c2d0721d402f38ca21fa55bb186",
+    "bytes": 257791
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-1366.png",
+    "sha256": "149e958db63d6efa0d09422d2870bd7cabf92062b40b70fc6cfaab34699bebc9",
+    "bytes": 193274
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-1920.png",
+    "sha256": "729927361262e9556f9dcc11ebe257b12605f0a27478d5578cb3a8745acad507",
+    "bytes": 261985
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-2560.png",
+    "sha256": "0fae83ad0f5c40ad57294d6df295185e29ef65b451c88a9954d81635f79a7141",
+    "bytes": 343285
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-1366.png",
+    "sha256": "a3ac7755d3d92a03b377ab6b8b4eca52287cc5e04cc4c0c98e43f7831dbbea99",
+    "bytes": 176930
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-1920.png",
+    "sha256": "2a4698ad462aecce48686fc83da97f2427fb2cf1d418c0111581ad4a224588cd",
+    "bytes": 218000
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-2560.png",
+    "sha256": "ed0187b1690d33357245904fc4d2680651a729899b8f167f76dde89b4d53b01e",
+    "bytes": 245068
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-expanded-1366.png",
+    "sha256": "47a22a191a41a7287bb4b06573289ed465c49c6e7c07191075f1138d788f9323",
+    "bytes": 189609
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-expanded-1920.png",
+    "sha256": "e1b8c41b565a3693e37bb2568f2f94a85ded0bc10ce67ee60624c1e59d0f84c3",
+    "bytes": 235016
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/data-expanded-2560.png",
+    "sha256": "cca05c8e9b16b1fa147098d2005f77498b2d86ce69a7f49a78e1082f206f455c",
+    "bytes": 301890
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-1366.png",
+    "sha256": "ae7552a8f136c7be84c5b68471e6826195e44d5df69f59ee2d5a65236015c4a5",
+    "bytes": 149141
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-1920.png",
+    "sha256": "a808a65d6e8968613699c54c0fa20038d2bc3eee94fe61be144982f0fb469d1d",
+    "bytes": 176182
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-2560.png",
+    "sha256": "08524c851c29f3f56eb06ea1bce93bb00be03cd3f70512b494906c46572f0e6d",
+    "bytes": 202494
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-expanded-1366.png",
+    "sha256": "cc5abde33b4975b932041994d96830a127de23beae1584d3d51717fb9914b242",
+    "bytes": 226920
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-expanded-1920.png",
+    "sha256": "ddae955d44cec26cfb9dc79816c82be4e8e7136751fefc7e5574893c7b728053",
+    "bytes": 298015
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/items-expanded-2560.png",
+    "sha256": "cc50fe876c0d9e96f117799bc3f77318c804f95765c1a0127d1be0f17bc24507",
+    "bytes": 386752
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-1366.png",
+    "sha256": "448e342e84bce3dd32919cc9f5f69a16aea66fb73643ce883250e175bd55525f",
+    "bytes": 167788
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-1920.png",
+    "sha256": "27945f22d17fcec0fa5830e3016ed9ae6dc153e4c7310cca013cba4ada1f266f",
+    "bytes": 225614
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-2560.png",
+    "sha256": "d50d77570873949c9388f3e26c301aaa03c469b36675d2913a14bbf8e55c6f1f",
+    "bytes": 253655
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-entry.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-entry.png",
+    "sha256": "43616ef5300a3751dde41a3176a84d403600aade9b8c80460c0b00908836643e",
+    "bytes": 218262
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-expanded-1366.png",
+    "sha256": "7aabc7020b21e75eec8432fcb0eb7706f0b76e8f40ff67d616183360d216ebca",
+    "bytes": 178104
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-expanded-1920.png",
+    "sha256": "27945f22d17fcec0fa5830e3016ed9ae6dc153e4c7310cca013cba4ada1f266f",
+    "bytes": 225614
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/motion-expanded-2560.png",
+    "sha256": "d50d77570873949c9388f3e26c301aaa03c469b36675d2913a14bbf8e55c6f1f",
+    "bytes": 253655
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-1366.png",
+    "sha256": "19d74038b5b8247d5197297bf84080f69be362e2e143b9f467fff18efe124e6c",
+    "bytes": 192572
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-1920.png",
+    "sha256": "bc2e97c9ecfeb2b77889a3c9c92c5149d23a2c06534936debb214e557e05ae3e",
+    "bytes": 218422
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-2560.png",
+    "sha256": "2faa2378514eb8b174d283cafa3666446b904c64851f2972f2161e7d137068a8",
+    "bytes": 251988
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-expanded-1366.png",
+    "sha256": "806a029c402b646348152a84ac620ffd39c705b3fb6aba29caddf2f404fc997e",
+    "bytes": 184956
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-expanded-1920.png",
+    "sha256": "bc2e97c9ecfeb2b77889a3c9c92c5149d23a2c06534936debb214e557e05ae3e",
+    "bytes": 218422
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/rules-expanded-2560.png",
+    "sha256": "a8e2fbffa5a4cccaa775423d797156abc1f62815de1457abe386160d7f5b4102",
+    "bytes": 247016
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-1366.png",
+    "sha256": "683b2a359889c484b157677f538e1f0697702510b8cde113c3a164b66ae88960",
+    "bytes": 181720
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-1920.png",
+    "sha256": "4f04c777c31af6195f0ebaef8c050e461564875d7c17a61e77cfe01d9f53d72e",
+    "bytes": 237269
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-2560.png",
+    "sha256": "e525a6e18aba68265c95accc2c19a0d3df0f8754bff0e1012e4c242d4eb735b7",
+    "bytes": 264918
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-expanded-1366.png",
+    "sha256": "2b93eebd22ad71db1171e4951ed3c7d2798a289d64fa88510b3b11691170ace0",
+    "bytes": 212685
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-expanded-1920.png",
+    "sha256": "5a99f9936387eb911f8018b3264107c3a9e1b588778135652f846f159651700a",
+    "bytes": 367328
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/sound-expanded-2560.png",
+    "sha256": "626e2ffdec56fb7c69da4bca01ec47af42776c7f6c0388bfa9c8de497b745d18",
+    "bytes": 490038
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-1366.png",
+    "sha256": "6cf7262ee700beec4daa6dedb46a4f56c766011cfb9dbc2caa02561a0d63fe79",
+    "bytes": 169796
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-1920.png",
+    "sha256": "6f0d7c131ea4ea1c1a8a24c453f7ae1993a586ce50512268861dd9f38be89027",
+    "bytes": 196721
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-2560.png",
+    "sha256": "94561abd05541a88098cbc9208f8670ca2f5bf99b17fd2143dbf6b9732021d1a",
+    "bytes": 224117
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-expanded-1366.png",
+    "sha256": "6cf7262ee700beec4daa6dedb46a4f56c766011cfb9dbc2caa02561a0d63fe79",
+    "bytes": 169796
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-expanded-1920.png",
+    "sha256": "6f0d7c131ea4ea1c1a8a24c453f7ae1993a586ce50512268861dd9f38be89027",
+    "bytes": 196721
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/students-expanded-2560.png",
+    "sha256": "94561abd05541a88098cbc9208f8670ca2f5bf99b17fd2143dbf6b9732021d1a",
+    "bytes": 224117
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-1366.png",
+    "sha256": "e04108b39008752de760d97336e07b3de90f778b11c05f4cf28db4a658b7960e",
+    "bytes": 164427
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-1920.png",
+    "sha256": "62744fb06e024e3ab613fc28a9aef11b2bca2168c4f4013c9d43749b52b0814e",
+    "bytes": 192020
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-2560.png",
+    "sha256": "8433335deadd6452555218ca814704b9e078a39ecf141bd3029bf5af8d7c353d",
+    "bytes": 219067
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-1366.png",
+    "sha256": "84ace505906d1e76b8997e2074931e63973e3cb9a0f52b34115a01624cc927d6",
+    "bytes": 184888
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-1920.png",
+    "sha256": "c94189cc231a38f7f1c76f0cdb1857f07aaa31facefa0a242c394d13eae18693",
+    "bytes": 230448
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-2560.png",
+    "sha256": "fbfc3649cab9d76c62b4b5f6f776aca469525bc5bc2d13f5c7e9901432f39c0a",
+    "bytes": 267527
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/compact-cabinet-1366.png",
+    "sha256": "ecf00be77242163bd6b5adec4e9f7c992076d256603927a149a7fcd17b4738d0",
+    "bytes": 170992
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/compact-cabinet-1920.png",
+    "sha256": "51d685c788b426d5d293dabc5371013f9d44dfc27930448b1166498b3cb1cfaa",
+    "bytes": 184026
+  },
+  {
+    "original": "artifacts/visual-unification/motion/compact-cabinet-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/compact-cabinet-2560.png",
+    "sha256": "58af7fca5f059ae7bcad734f52ca205ba5541d1df182ee2d86e146fd5906ad51",
+    "bytes": 193416
+  },
+  {
+    "original": "artifacts/visual-unification/motion/results.json",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/results.json",
+    "sha256": "7edff38047cda36add6f738df06549810c7393f19fa0151693e3d319d3288b06",
+    "bytes": 21384
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-group.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/slot-group.png",
+    "sha256": "d86eb34941c56399296eb6444cc475400a7b048c38f4b6b4763d98aeab958d35",
+    "bytes": 157983
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-individual.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/slot-individual.png",
+    "sha256": "d90eb62b0a3b3ef38cc2d4c4955042f6f51031099b45dcd938c8f71a38868998",
+    "bytes": 154325
+  },
+  {
+    "original": "artifacts/visual-unification/motion/slot-two_tier.png",
+    "saved": "artifacts/design-review/captured/artifacts/visual-unification/motion/slot-two_tier.png",
+    "sha256": "5f322827dde949337601f53b446c03d1d0c146a297bda630bf03d99c20af0844",
+    "bytes": 173897
+  },
+  {
+    "original": "artifacts/welcome-feedback/encyclopedia-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/encyclopedia-1920.png",
+    "sha256": "1747c9a26d42192ce9e8c73d3ebd622c32210e51b6859bf46d7d4dc022afa349",
+    "bytes": 389766
+  },
+  {
+    "original": "artifacts/welcome-feedback/picker-exit.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/picker-exit.png",
+    "sha256": "7bd4cb0727a1fdb9a097943aa73da3b35db4c648a1727848eb101ae2c15e391e",
+    "bytes": 154806
+  },
+  {
+    "original": "artifacts/welcome-feedback/recommendations-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/recommendations-1366.png",
+    "sha256": "babc19c0cd7632e55caa77f4703c6a276aa657c6b6125f7304e12aa7a49e9790",
+    "bytes": 106955
+  },
+  {
+    "original": "artifacts/welcome-feedback/recommendations-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/recommendations-1920.png",
+    "sha256": "42b08a169b1f74c809a95a1c7800cf0133016995ff76894f93e2c087c7469449",
+    "bytes": 108335
+  },
+  {
+    "original": "artifacts/welcome-feedback/recommendations-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/recommendations-2560.png",
+    "sha256": "04cec793d972586789e256a46f78eabbeba3a544546fee7fecba21aa1f0df48c",
+    "bytes": 111733
+  },
+  {
+    "original": "artifacts/welcome-feedback/results.json",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/results.json",
+    "sha256": "ee805b46157dda7ec697df12eb390a17ef39c914f5432fcc8a1cace691e5f773",
+    "bytes": 20211
+  },
+  {
+    "original": "artifacts/welcome-feedback/welcome-1366.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/welcome-1366.png",
+    "sha256": "1d261c29e64fe8a05b80e1e17f2d59d0c29797e7f2b8c14e04e1f879a4860fb2",
+    "bytes": 506354
+  },
+  {
+    "original": "artifacts/welcome-feedback/welcome-1920.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/welcome-1920.png",
+    "sha256": "acf22fe1f227f1cead15171ebbe4af380cf83ec4399ee00556de6ee1f2c26dd1",
+    "bytes": 544885
+  },
+  {
+    "original": "artifacts/welcome-feedback/welcome-2560.png",
+    "saved": "artifacts/design-review/captured/artifacts/welcome-feedback/welcome-2560.png",
+    "sha256": "424fa44be222bca373dfca91cb5947eba901047cd10c47c1198ff2e2dc4abd70",
+    "bytes": 555313
+  }
+]

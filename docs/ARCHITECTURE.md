@@ -140,3 +140,8 @@ WelcomeV2 拥有按时间驱动的连续巡航与有限展示副本；DesktopUI 
 `core/action-sounds.js` 提供稳定的按钮操作元数据和纯意图分类器；基础音效清单读取其 22 个槽。ClassroomFeedback 的单一点击委托选择槽位，playSound 的原所有者负责候选选取、ui_click 兼容回退和输出；不增加音频包装链。
 
 `ui/battle-motion.js/css` 管理有限的绝对定位视觉会话。script/16.js 的实际发动/受击/防御所有者直接调用它；script/01.js 重绘时恢复同一会话和抽取节点。DesktopUI 的状态观察只发送效果变更及队列事件，取消时同步快照避免回放旧状态。script/31.js 继续拥有延迟显示分数，但改为可重绘、按小组颜色和右侧锚点的数字交接。业务 score、库存和防御计算不在表现层。
+
+
+## 设计整改的所有权（2026-10-18）
+
+主题语义变量归src/style/02.css；首页布局归src/ui/welcome-v2.css；窗口公共表面归application-surfaces.css；六快捷槽与反馈设置归classroom-feedback；窗口动画生命周期归DesktopUI。关闭从当前视觉值开始，遮罩与面板同周期清理，动画不决定业务结果。学号前景色仅由readableTextOnColor负责，不改用户小组颜色。没有新增业务规则包装层或存档字段。

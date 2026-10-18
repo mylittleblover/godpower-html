@@ -1,0 +1,11 @@
+body               #17302d on #ffffff  PASS  14.03:1  (needs 4.5:1, normal text)
+secondary          #496e5c on #ffffff  PASS  5.72:1  (needs 4.5:1, normal text)
+secondary on soft  #496e5c on #f2f8f5  PASS  5.32:1  (needs 4.5:1, normal text)
+positive slot      #15803d on #ecf7f5  PASS  4.58:1  (needs 4.5:1, normal text)
+negative slot      #b91c1c on #fff0e9  PASS  5.82:1  (needs 4.5:1, normal text)
+warning            #0f172a on #d97706  PASS  5.60:1  (needs 4.5:1, normal text)
+All In             #17302d on #f97316  PASS  5.00:1  (needs 4.5:1, normal text)
+primary button     #ffffff on #0f766e  PASS  5.47:1  (needs 4.5:1, normal text)
+clock date         #d0ece5 on #084c4c  PASS  7.82:1  (needs 4.5:1, normal text)
+
+9/9 pass

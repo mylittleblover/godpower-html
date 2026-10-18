@@ -991,3 +991,49 @@ GP-016 → GP-017 → GP-011 → GP-012 → GP-013 → RF-001 → RF-002 → GP-
 5. STR-004：分批提取设置/历史档案/弹窗组件。
 6. BM-006：音效上传/删除后保持分类展开与阅读位置。
 7. GP-014剩余：按组件清理CSS层叠，逐项截图，不批量删除!important。
+
+
+## DS-001 页面层级、文字与学号可读性
+
+- 分类：UI/可访问性；优先级P1；状态DONE（2026-10-18）。
+- 问题：首页排名无限增长、辅助文字对比不足、学生筛选错列、六赋分按钮层级过重。
+- 证据：src/ui/welcome-v2.css、application-surfaces.css、classroom-feedback.css，src/style/20.css，src/script/00.js:readableTextOnColor；artifacts/design-review/。
+- 影响：首页、设置、成员窗口、学号。方案：限高滚动、复用深色变量、固定标签列、浅色赋分按钮、对比度选择文字。
+- 依赖：无；复杂度中；风险：长名称与自定义颜色。
+- 验收：9项设计浏览器回归、9对语义颜色、216色样单元断言通过。推荐：npm run test:design、npm test。
+
+## DS-002 中断动画与遮罩生命周期
+
+- 分类：动画；优先级P1；状态DONE（2026-10-18）。
+- 问题：入场中关闭跳到终态；遮罩在内容淡出后突然移除。
+- 证据：src/ui/desktop.js、desktop.css；design-regressions.mjs及artifacts/design-review/regressions.json。
+- 影响：统一窗口与原生dialog。方案：采样当前视觉值后退出，同周期淡出遮罩，重开/关闭取消句柄。
+- 依赖：无；复杂度中；风险：多层窗口与原生伪元素枚举差异。
+- 验收：中途连续性、真实backdrop透明度、inert清理、快速重开和减少动态效果专项通过。推荐：设计回归与welcome-feedback专项。
+
+## DS-003 设置标题顺序与原生开关命中区
+
+- 分类：设置UI；优先级P1；状态DONE（2026-10-18）。
+- 问题：音效与安全提示先于分类标题，音效卡片相贴；原生输入pointer-events:none妨碍直接点击控件。
+- 证据：src/ui/desktop.js、classroom-feedback.js/css、src/style/00.css；artifacts/design-review/captured/artifacts/settings-cleanup/results.json。
+- 影响：八类设置与比赛规则开关。方案：标题后插入卡片、统一间距、输入覆盖原轨道；不改配置语义。
+- 依赖：无；复杂度低；风险：旧测试选择器失效。
+- 验收：15项设置功能专项通过，原生输入操作、刷新恢复、真实音频导入导出通过。推荐：test:settings（已改为单尺寸）。
+
+## DS-004 真实投影与自定义媒体可读性
+
+- 分类：人工验收；优先级P2；状态OPEN。
+- 问题：自动对比度不覆盖任意壁纸、自定义图片、真实教室投影与听感。
+- 证据：docs/reports/DESIGN_REVIEW_ACCEPTANCE.md已列NOT TESTED；无真实设备证据。
+- 影响：全局主题、道具图、音效。建议：隔离副本导入代表性媒体，用1920×1080、1×投影检查文字、动效尾部与音量，记录素材哈希和照片/听感。
+- 依赖：可用投影/音频设备；复杂度中；风险：强光环境与素材差异。
+- 验收：逐项填写设备、素材、可读性与听感，不以截图代替。推荐：人工验收，失败项补可复现浏览器用例。
+
+## DS-005 历史测试矩阵范围统一
+
+- 分类：测试维护；优先级P3；状态OPEN。
+- 问题：旧test:ui/test:welcome等部分脚本仍含历史多尺寸循环；当前要求仅1920×1080、1×。
+- 证据：tests/e2e下历史UI脚本；当前test:design、settings-cleanup、desktop-modal-matrix、battle-layout已收敛。
+- 影响：手动调用旧全量命令会浪费时间。建议：逐个迁移到共享桌面测试范围配置，保留功能断言，不自动运行扩展矩阵。
+- 依赖：无；复杂度低；风险：误删功能场景。
+- 验收：默认所有UI入口只生成1920×1080/1×结果；原业务场景数保留。推荐：脚本静态范围检查与选定专项。

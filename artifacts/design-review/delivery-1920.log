@@ -1,0 +1,14 @@
+
+> godpower-html@2.19.0 test:design
+> node tests/e2e/design-regressions.mjs && node tests/e2e/design-review.mjs
+
+PASS Large welcome ranking has a bounded keyboard-scrollable viewport
+PASS Welcome ranking headings align with all five data columns
+PASS Flat-surface secondary labels and semantic buttons meet AA text contrast
+PASS Student filter controls align in one content column even with 14 groups
+PASS Student search helper stays beside its input instead of becoming a label row
+PASS Closing a partially entered window starts from its visible state and fades the backdrop
+PASS Window empty labels, long group metadata and score presets remain readable
+PASS Native showcase backdrop fades and cleans up without leaving the page inert
+PASS Every settings category keeps its title before configuration cards
+{ screenshots: 47, failures: [], errors: [] }

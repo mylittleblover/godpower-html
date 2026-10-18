@@ -1,0 +1,42 @@
+{
+  "sha256": "e98bf50049b075e821465013a736d96fcd1931dd8335cb351794473b23be55ba",
+  "results": [
+    {
+      "name": "Large welcome ranking has a bounded keyboard-scrollable viewport",
+      "status": "PASS"
+    },
+    {
+      "name": "Welcome ranking headings align with all five data columns",
+      "status": "PASS"
+    },
+    {
+      "name": "Flat-surface secondary labels and semantic buttons meet AA text contrast",
+      "status": "PASS"
+    },
+    {
+      "name": "Student filter controls align in one content column even with 14 groups",
+      "status": "PASS"
+    },
+    {
+      "name": "Student search helper stays beside its input instead of becoming a label row",
+      "status": "PASS"
+    },
+    {
+      "name": "Closing a partially entered window starts from its visible state and fades the backdrop",
+      "status": "PASS"
+    },
+    {
+      "name": "Window empty labels, long group metadata and score presets remain readable",
+      "status": "PASS"
+    },
+    {
+      "name": "Native showcase backdrop fades and cleans up without leaving the page inert",
+      "status": "PASS"
+    },
+    {
+      "name": "Every settings category keeps its title before configuration cards",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

@@ -1,5 +1,7 @@
 # 后续 Codex 维护说明
 
+> 当前用户约束（2026-10-18）：UI仅测试Chromium、1920×1080、1×（应用100%、DPR1）。日常运行 `npm run test:design`，按改动补充业务专项；不自动运行旧全量多尺寸/多缩放矩阵。禁止CircleCI操作，禁止Firefox/WebKit。旧文档的三尺寸要求以此条为准。
+
 1. 先读 ARCHITECTURE、DATA_SCHEMA、MAINTENANCE_BACKLOG 和最新 ACCEPTANCE_REPORT；检查 git status、分支、提交，不覆盖未提交工作。基线 HTML 只读。
 2. 领取维护任务编号，补最小可复现测试；用隔离 Playwright context 和合成名单，禁止接入真实课堂 profile。测试种子固定为21813。
 3. 新规则进入 `src/core` 的校验／计算／命令接口；禁止覆盖 public useItem、judgeRound、saveState 或在文件末尾追加版本补丁。旧适配层只做逐块替换，保留行为对照证据。

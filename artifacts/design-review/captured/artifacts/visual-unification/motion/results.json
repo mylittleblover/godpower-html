@@ -1,0 +1,755 @@
+{
+  "sha256": "975ccae4ff1b47379cc82764f575227b0effbb0f7659af909f1ffdb0dbb6f24f",
+  "results": [
+    {
+      "name": "All five pages produce layered, cancellable actual WAAPI entry animations",
+      "status": "PASS",
+      "evidence": [
+        {
+          "view": "welcome",
+          "count": 5
+        },
+        {
+          "view": "battle",
+          "count": 6
+        },
+        {
+          "view": "history",
+          "count": 1
+        },
+        {
+          "view": "archives",
+          "count": 1
+        },
+        {
+          "view": "settings",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "name": "Window scoreModalBackdrop: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "score-modal-card ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window memberSearchBackdrop: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "member-search-card ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window pwdModal: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "modal-box ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window settlementNameModal: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "modal-box ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window pickerModal: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "modal-box slot-modal ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window itemModalBackdrop: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "item-window ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window handRaiseBackdrop: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "classroom-window ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window aboutBackdrop: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "about-window ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window batchImportModal: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "modal-box large ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Window quickPersonBackdropV218: upward nonlinear entry and single canonical round close",
+      "status": "PASS",
+      "evidence": {
+        "id": "",
+        "classes": "quick-person-card-v218 ui-function-surface",
+        "frames": [
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "0",
+            "scale": "0.97",
+            "translate": "0px 42px",
+            "computedOffset": 0
+          },
+          {
+            "offset": null,
+            "easing": "linear",
+            "composite": "auto",
+            "opacity": "1",
+            "scale": "1",
+            "translate": "0px",
+            "computedOffset": 1
+          }
+        ],
+        "timing": {
+          "delay": 0,
+          "direction": "normal",
+          "duration": 420,
+          "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "endDelay": 0,
+          "fill": "backwards",
+          "iterationStart": 0,
+          "iterations": 1
+        }
+      }
+    },
+    {
+      "name": "Daily knowledge and all eight settings disclosure groups animate open/close, keyboard and rapid interruption",
+      "status": "PASS",
+      "evidence": {
+        "groups": 8
+      }
+    },
+    {
+      "name": "SVG lever individual: actual result, 1000ms deceleration, anti-repeat, reward and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "durationAfterProbe": 976.1000000014901,
+        "row": {
+          "started": 47324.5,
+          "frames": [
+            {
+              "last": "2甲",
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 1000,
+                "easing": "cubic-bezier(0.2, 0.4, 0.3, 1)",
+                "endDelay": 0,
+                "fill": "forwards",
+                "iterationStart": 0,
+                "iterations": 1
+              }
+            }
+          ],
+          "chosen": "{\"group\":{\"id\":2,\"name\":\"测试 2 组\",\"color\":\"#2F7DD1\",\"score\":140,\"displayScore\":140,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"02 同学\",\"2 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":2,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false},\"memberName\":\"2 甲\",\"key\":\"2__2 甲\"}",
+          "history": 1
+        },
+        "screenshot": "artifacts/visual-unification/motion/slot-individual.png"
+      }
+    },
+    {
+      "name": "SVG lever group: actual result, 1000ms deceleration, anti-repeat, reward and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "durationAfterProbe": 982.1000000014901,
+        "row": {
+          "started": 50305.5,
+          "frames": [
+            {
+              "last": "测试 1 组",
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 1000,
+                "easing": "cubic-bezier(0.2, 0.4, 0.3, 1)",
+                "endDelay": 0,
+                "fill": "forwards",
+                "iterationStart": 0,
+                "iterations": 1
+              }
+            }
+          ],
+          "chosen": "{\"id\":1,\"name\":\"测试 1 组\",\"color\":\"#2F7DD1\",\"score\":100,\"displayScore\":100,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"01 同学\",\"1 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":1,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false}",
+          "history": 1
+        },
+        "screenshot": "artifacts/visual-unification/motion/slot-group.png"
+      }
+    },
+    {
+      "name": "SVG lever two_tier: actual result, 1000ms deceleration, anti-repeat, reward and cleanup",
+      "status": "PASS",
+      "evidence": {
+        "durationAfterProbe": 1081.800000000745,
+        "row": {
+          "started": 53537.800000000745,
+          "frames": [
+            {
+              "last": "测试 2 组",
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 1000,
+                "easing": "cubic-bezier(0.2, 0.4, 0.3, 1)",
+                "endDelay": 0,
+                "fill": "forwards",
+                "iterationStart": 0,
+                "iterations": 1
+              }
+            },
+            {
+              "last": "02同学",
+              "timing": {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 1000,
+                "easing": "cubic-bezier(0.2, 0.4, 0.3, 1)",
+                "endDelay": 0,
+                "fill": "forwards",
+                "iterationStart": 0,
+                "iterations": 1
+              }
+            }
+          ],
+          "chosen": "{\"group\":{\"id\":2,\"name\":\"测试 2 组\",\"color\":\"#2F7DD1\",\"score\":140,\"displayScore\":140,\"selectedOpt\":\"\",\"allIn\":false,\"resultText\":\"\",\"animState\":\"\",\"members\":[\"02 同学\",\"2 甲\"],\"inventory\":[],\"itemStats\":{\"correct\":0,\"wrong\":0,\"draws\":0,\"used\":0},\"itemEffect\":null,\"booShield\":0,\"groupNo\":2,\"booRoundsLeftV218\":0,\"roundItemContinuationKeyV218\":\"\",\"itemUsedThisRound\":false},\"memberName\":\"02 同学\",\"key\":\"2__02 同学\"}",
+          "history": 1
+        },
+        "screenshot": "artifacts/visual-unification/motion/slot-two_tier.png"
+      }
+    },
+    {
+      "name": "Compact SVG cabinet and lever fit three desktop sizes at 80/100/125 percent app zoom",
+      "status": "PASS",
+      "evidence": [
+        {
+          "width": 1366,
+          "height": 768,
+          "zoom": 0.8,
+          "lever": {
+            "x": 832.28125,
+            "y": 316.328125,
+            "width": 62.71875,
+            "height": 180.90625,
+            "top": 316.328125,
+            "right": 895,
+            "bottom": 497.234375,
+            "left": 832.28125
+          },
+          "surface": {
+            "x": 235,
+            "y": 135,
+            "width": 896,
+            "height": 498,
+            "top": 135,
+            "right": 1131,
+            "bottom": 633,
+            "left": 235
+          }
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "zoom": 1,
+          "lever": {
+            "x": 869.609375,
+            "y": 300.21875,
+            "width": 78.390625,
+            "height": 226.140625,
+            "top": 300.21875,
+            "right": 948,
+            "bottom": 526.359375,
+            "left": 869.609375
+          },
+          "surface": {
+            "x": 123,
+            "y": 73,
+            "width": 1120,
+            "height": 622,
+            "top": 73,
+            "right": 1243,
+            "bottom": 695,
+            "left": 123
+          }
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "zoom": 1.25,
+          "lever": {
+            "x": 909.59375,
+            "y": 319.171875,
+            "width": 95.40625,
+            "height": 275.203125,
+            "top": 319.171875,
+            "right": 1005,
+            "bottom": 594.375,
+            "left": 909.59375
+          },
+          "surface": {
+            "x": 30,
+            "y": 40,
+            "width": 1306,
+            "height": 688,
+            "top": 40,
+            "right": 1336,
+            "bottom": 728,
+            "left": 30
+          }
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "zoom": 0.8,
+          "lever": {
+            "x": 1109.28125,
+            "y": 472.328125,
+            "width": 62.71875,
+            "height": 180.90625,
+            "top": 472.328125,
+            "right": 1172,
+            "bottom": 653.234375,
+            "left": 1109.28125
+          },
+          "surface": {
+            "x": 512,
+            "y": 291,
+            "width": 896,
+            "height": 498,
+            "top": 291,
+            "right": 1408,
+            "bottom": 789,
+            "left": 512
+          }
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "zoom": 1,
+          "lever": {
+            "x": 1146.609375,
+            "y": 456.21875,
+            "width": 78.390625,
+            "height": 226.140625,
+            "top": 456.21875,
+            "right": 1225,
+            "bottom": 682.359375,
+            "left": 1146.609375
+          },
+          "surface": {
+            "x": 400,
+            "y": 229,
+            "width": 1120,
+            "height": 622,
+            "top": 229,
+            "right": 1520,
+            "bottom": 851,
+            "left": 400
+          }
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "zoom": 1.25,
+          "lever": {
+            "x": 1193.25,
+            "y": 433.78125,
+            "width": 98,
+            "height": 282.671875,
+            "top": 433.78125,
+            "right": 1291.25,
+            "bottom": 716.453125,
+            "left": 1193.25
+          },
+          "surface": {
+            "x": 260,
+            "y": 151.5,
+            "width": 1400,
+            "height": 777,
+            "top": 151.5,
+            "right": 1660,
+            "bottom": 928.5,
+            "left": 260
+          }
+        },
+        {
+          "width": 2560,
+          "height": 1440,
+          "zoom": 0.8,
+          "lever": {
+            "x": 1429.28125,
+            "y": 652.328125,
+            "width": 62.71875,
+            "height": 180.90625,
+            "top": 652.328125,
+            "right": 1492,
+            "bottom": 833.234375,
+            "left": 1429.28125
+          },
+          "surface": {
+            "x": 832,
+            "y": 471,
+            "width": 896,
+            "height": 498,
+            "top": 471,
+            "right": 1728,
+            "bottom": 969,
+            "left": 832
+          }
+        },
+        {
+          "width": 2560,
+          "height": 1440,
+          "zoom": 1,
+          "lever": {
+            "x": 1466.609375,
+            "y": 636.21875,
+            "width": 78.390625,
+            "height": 226.140625,
+            "top": 636.21875,
+            "right": 1545,
+            "bottom": 862.359375,
+            "left": 1466.609375
+          },
+          "surface": {
+            "x": 720,
+            "y": 409,
+            "width": 1120,
+            "height": 622,
+            "top": 409,
+            "right": 1840,
+            "bottom": 1031,
+            "left": 720
+          }
+        },
+        {
+          "width": 2560,
+          "height": 1440,
+          "zoom": 1.25,
+          "lever": {
+            "x": 1513.25,
+            "y": 613.78125,
+            "width": 98,
+            "height": 282.671875,
+            "top": 613.78125,
+            "right": 1611.25,
+            "bottom": 896.453125,
+            "left": 1513.25
+          },
+          "surface": {
+            "x": 580,
+            "y": 331.5,
+            "width": 1400,
+            "height": 777,
+            "top": 331.5,
+            "right": 1980,
+            "bottom": 1108.5,
+            "left": 580
+          }
+        }
+      ]
+    },
+    {
+      "name": "Theme confirmation and archived celebration use the same round close without changing dismissal semantics",
+      "status": "PASS"
+    },
+    {
+      "name": "Closing and changing mode during slot deceleration cannot write stale UI or reward a previous target",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}
