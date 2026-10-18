@@ -2550,12 +2550,13 @@ function openPickerModal() {
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
+  window.GodpowerPicker?.notify('idle');
   hideClassroomWindow(document.getElementById('pickerModal'));
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
 function setPickerMode(mode) {
-  if (slotEngine.isSpinning) return;
+  if (slotEngine.isSpinning || window.GodpowerPicker?.isSettling()) return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
   ['btnModeInd', 'btnModeGrp', 'btnModeTwo'].forEach(id => document.getElementById(id).classList.remove('active'));
@@ -2610,6 +2611,7 @@ function toggleGroupPreselect(gid) {
 }
 
 function resetSlotDisplay() {
+  window.GodpowerPicker?.notify('idle');
   slotEngine.chosenResult=null;
   document.getElementById('reelTextGroup').innerText = '待开奖';
   document.getElementById('reelTextStudent').innerText = '待开奖';
@@ -2767,10 +2769,11 @@ async function startSlotSpin() {
     }, 50);
   }
   ClassroomFeedback.startLive();
+  window.GodpowerPicker?.notify('rolling');
 }
 
 function stopSlotSpin() {
-  if (!slotEngine.isSpinning) return;
+  if (!slotEngine.isSpinning) return false;
   slotEngine.isSpinning = false;
   clearInterval(slotEngine.timerGroup);
   clearInterval(slotEngine.timerStudent);
@@ -2806,8 +2809,15 @@ function stopSlotSpin() {
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) state.picker.pickedStudentKeys.push(win.key);
   }
+  ensureV2State();
+  const target = state.picker.mode === 'group' ? win : win.group;
+  const text = state.picker.mode === 'group' ? `抽中 ${target.name}` : `抽中 ${win.memberName}（${target.name}）`;
+  state.itemGlobal.pickerHistory.push({time:Date.now(),text});
+  if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();
   saveState();
+  syncPickerScoreTarget(); renderPickerInfo();
   updatePickerPoolUI();
+  window.GodpowerPicker?.notify('settling');
   document.getElementById('slotResultPanel').classList.add('show');
   if(typeof DesktopUI!=='undefined')DesktopUI.pickerStopped();
 }
@@ -4640,7 +4650,6 @@ function syncPickerScoreTarget(){const el=document.getElementById('pickerScoreTa
 function pickerTargetGroup(){const w=slotEngine.chosenResult;if(!w)return null;return state.picker.mode==='group'?w:w.group}
 function scorePickerTarget(n){const g=pickerTargetGroup();if(!g){showToast('请先完成一次抽签');return}applyScoreDelta(g.id,n);syncPickerScoreTarget()}
 function scorePickerCustom(){const n=Math.round(Number(document.getElementById('pickerCustomScore')?.value));if(!Number.isFinite(n)||n===0)return;scorePickerTarget(n)}
-const _v2StopSlot=stopSlotSpin;stopSlotSpin=function(){_v2StopSlot();ensureV2State();const w=slotEngine.chosenResult;if(w){const g=state.picker.mode==='group'?w:w.group;const text=state.picker.mode==='group'?`抽中 ${g.name}`:`抽中 ${w.memberName}（${g.name}）`;state.itemGlobal.pickerHistory.push({time:Date.now(),text});if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();saveState()}syncPickerScoreTarget();renderPickerInfo()}
 
 /* 手动举手 */
 function openHandRaise(){ensureV2State();handRaiseGroupId=null;showClassroomWindow(document.getElementById('handRaiseBackdrop'));renderHandRaise()}

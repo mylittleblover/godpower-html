@@ -419,6 +419,16 @@
       "type": "script",
       "path": "ui/welcome-v2.js",
       "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "core/picker-bridge.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/electron-host.js",
+      "attributes": ""
     }
   ],
   "resources": [

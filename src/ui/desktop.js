@@ -1613,6 +1613,7 @@ const DesktopUI = (() => {
       button.removeAttribute("aria-busy");
       badge.textContent = label + " · 抽取完成";
       pickerChanged();
+      window.GodpowerPicker?.notify("revealed");
       ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {

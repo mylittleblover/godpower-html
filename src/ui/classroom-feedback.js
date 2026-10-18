@@ -189,7 +189,7 @@ const ClassroomFeedback = (() => {
     });
   }
   function picked(win, mode) {
-    if (!win) return;
+    if (!win || window.GodpowerPicker?.isExternalPresentation()) return;
     const group = mode === "group" ? win : win.group;
     const student = mode === "group" ? null : parseStudentV218(win.memberName);
     show({

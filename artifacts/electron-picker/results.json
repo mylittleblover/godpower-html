@@ -1,0 +1,18 @@
+[
+  {
+    "mode": "individual",
+    "status": "PASS"
+  },
+  {
+    "mode": "group",
+    "status": "PASS"
+  },
+  {
+    "mode": "two_tier",
+    "status": "PASS"
+  },
+  {
+    "scenario": "anti-repeat, two-tier subset, duplicate start, async cancellation",
+    "status": "PASS"
+  }
+]

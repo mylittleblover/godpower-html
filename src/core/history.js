@@ -42,6 +42,7 @@ function persistHistoryV26() {
   return { ok };
 }
 function restoreStateFromSnapshot(snapshot) {
+  window.GodpowerPicker?.invalidate();
   Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
   if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);

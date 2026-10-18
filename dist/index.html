@@ -8766,6 +8766,7 @@ function persistHistoryV26() {
   return { ok };
 }
 function restoreStateFromSnapshot(snapshot) {
+  window.GodpowerPicker?.invalidate();
   Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
   if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
@@ -11678,12 +11679,13 @@ function openPickerModal() {
 function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
+  window.GodpowerPicker?.notify('idle');
   hideClassroomWindow(document.getElementById('pickerModal'));
   document.getElementById('slotResultPanel').classList.remove('show');
 }
 
 function setPickerMode(mode) {
-  if (slotEngine.isSpinning) return;
+  if (slotEngine.isSpinning || window.GodpowerPicker?.isSettling()) return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
   ['btnModeInd', 'btnModeGrp', 'btnModeTwo'].forEach(id => document.getElementById(id).classList.remove('active'));
@@ -11738,6 +11740,7 @@ function toggleGroupPreselect(gid) {
 }
 
 function resetSlotDisplay() {
+  window.GodpowerPicker?.notify('idle');
   slotEngine.chosenResult=null;
   document.getElementById('reelTextGroup').innerText = '待开奖';
   document.getElementById('reelTextStudent').innerText = '待开奖';
@@ -11895,10 +11898,11 @@ async function startSlotSpin() {
     }, 50);
   }
   ClassroomFeedback.startLive();
+  window.GodpowerPicker?.notify('rolling');
 }
 
 function stopSlotSpin() {
-  if (!slotEngine.isSpinning) return;
+  if (!slotEngine.isSpinning) return false;
   slotEngine.isSpinning = false;
   clearInterval(slotEngine.timerGroup);
   clearInterval(slotEngine.timerStudent);
@@ -11934,8 +11938,15 @@ function stopSlotSpin() {
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) state.picker.pickedStudentKeys.push(win.key);
   }
+  ensureV2State();
+  const target = state.picker.mode === 'group' ? win : win.group;
+  const text = state.picker.mode === 'group' ? `抽中 ${target.name}` : `抽中 ${win.memberName}（${target.name}）`;
+  state.itemGlobal.pickerHistory.push({time:Date.now(),text});
+  if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();
   saveState();
+  syncPickerScoreTarget(); renderPickerInfo();
   updatePickerPoolUI();
+  window.GodpowerPicker?.notify('settling');
   document.getElementById('slotResultPanel').classList.add('show');
   if(typeof DesktopUI!=='undefined')DesktopUI.pickerStopped();
 }
@@ -13768,7 +13779,6 @@ function syncPickerScoreTarget(){const el=document.getElementById('pickerScoreTa
 function pickerTargetGroup(){const w=slotEngine.chosenResult;if(!w)return null;return state.picker.mode==='group'?w:w.group}
 function scorePickerTarget(n){const g=pickerTargetGroup();if(!g){showToast('请先完成一次抽签');return}applyScoreDelta(g.id,n);syncPickerScoreTarget()}
 function scorePickerCustom(){const n=Math.round(Number(document.getElementById('pickerCustomScore')?.value));if(!Number.isFinite(n)||n===0)return;scorePickerTarget(n)}
-const _v2StopSlot=stopSlotSpin;stopSlotSpin=function(){_v2StopSlot();ensureV2State();const w=slotEngine.chosenResult;if(w){const g=state.picker.mode==='group'?w:w.group;const text=state.picker.mode==='group'?`抽中 ${g.name}`:`抽中 ${w.memberName}（${g.name}）`;state.itemGlobal.pickerHistory.push({time:Date.now(),text});if(state.itemGlobal.pickerHistory.length>100)state.itemGlobal.pickerHistory.shift();saveState()}syncPickerScoreTarget();renderPickerInfo()}
 
 /* 手动举手 */
 function openHandRaise(){ensureV2State();handRaiseGroupId=null;showClassroomWindow(document.getElementById('handRaiseBackdrop'));renderHandRaise()}
@@ -21161,6 +21171,7 @@ function buildClassroomBackup(){
 }
 function applyClassroomBackup(raw){
   const data=Reliability.validateBackup(raw);
+  window.GodpowerPicker?.invalidate();
   state.groups=normalizeAllGroups(data.groups);
   if(data.picker){
     const p=data.picker;
@@ -21505,7 +21516,7 @@ const ClassroomFeedback = (() => {
     });
   }
   function picked(win, mode) {
-    if (!win) return;
+    if (!win || window.GodpowerPicker?.isExternalPresentation()) return;
     const group = mode === "group" ? win : win.group;
     const student = mode === "group" ? null : parseStudentV218(win.memberName);
     show({
@@ -23638,6 +23649,7 @@ const DesktopUI = (() => {
       button.removeAttribute("aria-busy");
       badge.textContent = label + " · 抽取完成";
       pickerChanged();
+      window.GodpowerPicker?.notify("revealed");
       ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {
@@ -24652,6 +24664,128 @@ window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
   if (document.readyState === "loading")
     window.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
+})();
+</script>
+<script>/* Authoritative, presentation-neutral picker port. All commands reuse the existing classroom engine. */
+window.GodpowerPicker = (() => {
+  'use strict';
+  let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false;
+  const listeners = new Set();
+  function notify(next) {
+    if (next === 'rolling') resultId = `pick-${Date.now()}-${++serial}`;
+    if (next === 'idle' || next === 'cancelled') { next = 'idle'; resultId = null; }
+    if (next) phase = next;
+    const snapshot = getSnapshot();
+    for (const listener of listeners) { try { listener(snapshot); } catch (e) { console.error('Picker observer failed', e); } }
+    return snapshot;
+  }
+  function currentResult() {
+    const win = slotEngine.chosenResult;
+    if (!win || !resultId) return null;
+    const source = state.picker.mode === 'group' ? win : win.group;
+    const group = state.groups.find(g => g.id === source?.id);
+    if (!group || group !== source || (state.picker.mode !== 'group' && !group.members?.includes(win.memberName))) return null;
+    const student = state.picker.mode === 'group' ? null : parseStudentV218(win.memberName);
+    return { id: resultId, mode: state.picker.mode, groupId: group.id, groupName: group.name,
+      groupNo: group.groupNo || group.id, color: group.color, score: group.score,
+      name: student?.name || group.name, number: student?.number ?? null,
+      memberName: state.picker.mode === 'group' ? null : win.memberName };
+  }
+  function getSnapshot() {
+    const actual = slotEngine.isSpinning ? 'rolling' : phase;
+    const result = ['settling', 'revealed'].includes(actual) ? currentResult() : null;
+    const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
+    const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
+      !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    return { protocolVersion: 1, phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
+      mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
+      preselectedGroupIds: [...(state.picker.preselectedGroupIds || [])],
+      remaining: document.getElementById('poolStatusText')?.textContent || '',
+      preview: { group: document.getElementById('reelTextGroup')?.textContent || '',
+        student: document.getElementById('reelTextStudent')?.textContent || '' },
+      groups: state.groups.map(g => ({ id: g.id, name: g.name, color: g.color, members: g.members?.length || 0, score: g.score })),
+      result, slots: options.slots,
+      history: (state.itemGlobal?.pickerHistory || []).slice(-30).map(x => ({ text: x.text, time: x.time })),
+      locked: !!state.isLocked, unsaved: !!window.classroomUnsavedChanges,
+      effects: { enabled: effectEnabled, style: options.style, duration: options.duration } };
+  }
+  function cancel() {
+    clearInterval(slotEngine.timerGroup); clearInterval(slotEngine.timerStudent);
+    slotEngine.isSpinning = false; slotEngine.chosenResult = null;
+    DesktopUI.cancelPickerPreparation(); stopRollLoop(); resetSlotDisplay();
+    return notify('cancelled');
+  }
+  async function command(action, payload = {}) {
+    if (action === 'cancel') { cancel(); return { ok: true }; }
+    if (action === 'stop') {
+      if (preparing) cancel();
+      else if (slotEngine.isSpinning) stopSlotSpin();
+      return { ok: true, phase: getSnapshot().phase };
+    }
+    if (preparing || slotEngine.isSpinning || phase === 'settling') return { ok: false, error: 'BUSY' };
+    if (action === 'start') {
+      preparing = true; notify('preparing');
+      try {
+        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal();
+        await DesktopUI.togglePicker();
+        return { ok: slotEngine.isSpinning, error: slotEngine.isSpinning ? undefined : 'NOT_STARTED' };
+      } finally { preparing = false; if (!slotEngine.isSpinning) notify('idle'); }
+    }
+    if (action === 'mode') {
+      if (!['individual', 'group', 'two_tier'].includes(payload.mode)) return { ok: false, error: 'INVALID_MODE' };
+      setPickerMode(payload.mode); saveState(); notify('idle');
+    } else if (action === 'antiRepeat') {
+      if (typeof payload.enabled !== 'boolean') return { ok: false, error: 'INVALID_VALUE' };
+      toggleAntiRepeat(payload.enabled); notify();
+    } else if (action === 'preselect') {
+      if (!state.groups.some(g => g.id === payload.groupId)) return { ok: false, error: 'INVALID_GROUP' };
+      toggleGroupPreselect(payload.groupId); notify('idle');
+    } else if (action === 'resetPool') {
+      resetPickerPool(); notify();
+    } else if (action === 'score') {
+      const result = currentResult(), delta = payload.delta;
+      if (state.isLocked) return { ok: false, error: 'LOCKED' };
+      if (phase !== 'revealed' || !result || result.id !== payload.resultId) return { ok: false, error: 'STALE_RESULT' };
+      if (!Number.isSafeInteger(delta) || !delta || !Number.isSafeInteger(result.score + delta)) return { ok: false, error: 'INVALID_SCORE' };
+      if (classroomCommands.isPending()) return { ok: false, error: 'BUSY' };
+      applyScoreDelta(result.groupId, delta); syncPickerScoreTarget(); notify();
+    } else return { ok: false, error: 'UNKNOWN_COMMAND' };
+    return { ok: true, persisted: !window.classroomUnsavedChanges };
+  }
+  return Object.freeze({ invalidate: cancel, command, getSnapshot, notify, isSettling: () => phase === 'settling',
+    subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
+    setExternalPresentation(value) { external = value === true; }, isExternalPresentation: () => external });
+})();
+</script>
+<script>/* Transport only. Standalone HTML has no desktop bridge and keeps all existing behavior. */
+(() => {
+  const desktop = window.godpowerDesktop;
+  if (!desktop || desktop.role !== 'main') return;
+  const completed = new Map();
+  let last = '', timer;
+  const publish = () => {
+    const snapshot = GodpowerPicker.getSnapshot(), json = JSON.stringify(snapshot);
+    if (json !== last) { last = json; desktop.publish(snapshot); }
+  };
+  desktop.onExecute(async ({ id, action, payload }) => {
+    if (!completed.has(id)) {
+      const promise = GodpowerPicker.command(action, payload).catch(error => ({ ok: false, error: error.message }));
+      completed.set(id, promise);
+      if (completed.size > 256) completed.delete(completed.keys().next().value);
+    }
+    const result = await completed.get(id);
+    publish(); desktop.reply({ id, result });
+  });
+  desktop.onShellState(shell => GodpowerPicker.setExternalPresentation(shell.effectsEnabled));
+  window.addEventListener('DOMContentLoaded', () => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'btn btn-primary'; button.textContent = '独立点名悬浮窗';
+    button.addEventListener('click', () => desktop.openPicker());
+    document.querySelector('#pickerModal .picker-left-v2')?.append(button);
+    GodpowerPicker.subscribe(publish);
+    timer = setInterval(publish, 120); publish(); desktop.ready();
+  }, { once: true });
+  window.addEventListener('beforeunload', () => clearInterval(timer), { once: true });
 })();
 </script>
 </body>

@@ -15,6 +15,7 @@ function buildClassroomBackup(){
 }
 function applyClassroomBackup(raw){
   const data=Reliability.validateBackup(raw);
+  window.GodpowerPicker?.invalidate();
   state.groups=normalizeAllGroups(data.groups);
   if(data.picker){
     const p=data.picker;
