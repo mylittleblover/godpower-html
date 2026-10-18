@@ -1,0 +1,48 @@
+{
+  "sha256": "4e4831ca9e3906a22bee9c42594ccf6bee06c872aafcab25416e9d110375fd2d",
+  "results": [
+    {
+      "name": "HTTP document continues offline: five page navigation and actual correct-answer scoring",
+      "status": "PASS"
+    },
+    {
+      "name": "Offline representative major modal lifecycle has no console errors",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual archived four-group podium centers champion, preserves ties, full names and CSV offline",
+      "status": "PASS"
+    },
+    {
+      "name": "Representative release has no uncaught errors, console.error or external runtime requests",
+      "status": "PASS"
+    }
+  ],
+  "consoleLogs": [
+    {
+      "type": "warning",
+      "text": "道具权重池缺失： [spiny, coin, lightning, star, bullet]"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "pageErrors": [],
+  "network": [
+    "http://127.0.0.1:39067/"
+  ],
+  "offlineMethod": "HTTP loaded document then context.setOffline(true); initial file:// is separately BLOCKED"
+}

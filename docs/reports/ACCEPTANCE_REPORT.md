@@ -67,3 +67,7 @@ npm锁定依赖；构建仅内联静态源码与原资源，无CDN／API／本�
 ## 设置页清查与新UI补齐（e97933d 起点）
 
 当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。
+
+## 2026-10-18 后续功能界面发布
+
+本报告前文为历史阶段证据。当前全局界面、动画、抽取窗口、警告与口令窗口的修改及最终产物，请查看 [APPLICATION_SURFACES_ACCEPTANCE.md](APPLICATION_SURFACES_ACCEPTANCE.md)。其中明确列出实际执行结果与限制，未将本次UI任务表述为原始全部架构治理目标已完成。

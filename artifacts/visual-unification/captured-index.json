@@ -1,0 +1,1462 @@
+[
+  {
+    "original": "artifacts/desktop-ui/settings-1366-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1366-zoom1.png",
+    "sha256": "3953a2e74c6b913e91eb8478c4237ead231c57dad866614fc6bc993139f88529"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-24.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-24.png",
+    "sha256": "0fdbb2bdac7f69f011768859fe5fd988165c33a7f267dff3149c428c2d98ffd8"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-about.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-about.png",
+    "sha256": "50536ea4bf2054776b9db71a9b391c449fa9a5cd663232b012ca6306e5b2f423"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-1.25.png",
+    "sha256": "afc7c9193a6bab20522d1f3c04cf1cf6e4ed47ae5df9bb9073f115dae7791f0a"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-1.25.png",
+    "sha256": "e846f1811baff0883c1819a7838e02a2d6d2b0ccae9098048a7422b9c2063917"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-1.png",
+    "sha256": "2837218ce1ecb67a74a995311bc6a046c882bb632c01c67cd9712862fa66a2c4"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-0.8.png",
+    "sha256": "a6d18bc1607871c28d4529fb62f38e206e3b1de22a63768b7c7e6621e28a4cc6"
+  },
+  {
+    "original": "artifacts/export-settlement.csv",
+    "captured": "artifacts/visual-unification/captured/artifacts/export-settlement.csv",
+    "sha256": "7aad6daee9bd2bb300662fda14361320bde803f3cdb3c2d00a5ab51f82511a57"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-1366.png",
+    "sha256": "b979586c1c34cb62113bb0b79727805e08f58915abc11e5986702ee967846178"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1366-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1366-zoom1.25.png",
+    "sha256": "3b912313233c0dc6a307f480f8dd4f1ca6f6fa35317639d34420af7c8e0172da"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-expanded-1366.png",
+    "sha256": "1fcea802a88ee5eda67db9acf182fc254c2b23f6634cc00f996405840ae93e1f"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-2560-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-2560-zoom1.png",
+    "sha256": "caeb48a540dabacfff0ba4fbb7a0c0c9f1d45133edc1d9ab1be604fd676ca406"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-2560-1.png",
+    "sha256": "260e3f48e9de632f11469579d720d818c88fd8f4912e0d99a466305d53edbe2d"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-1366.png",
+    "sha256": "5c5ffe38b9741f07f7672cc1f23bd5af538ae455eb4c51d3f1ab669779f99665"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-1.25.png",
+    "sha256": "67e5bd406394663d18262fabcfd9de22da2f39f124457dec7179c97ee0444d8b"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1920-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1920-zoom1.png",
+    "sha256": "ccd6909de1b05a527545795e1083f7a4498dab464df56d80444b641dc62451fb"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-0.8.png",
+    "sha256": "82a5043c7f426e55c0714aca1927255cf63f0979bbec95d5d4a301fd88aaf661"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-1920.png",
+    "sha256": "fd10e18318188aa62a816e64754abdce188cb2adc57d20b51540ee1fc38a0eb0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-0.8.png",
+    "sha256": "7ffc495ecc1753ad6e5b6c519b302a3f07e960a15374fc89b2eb8498f5e7fd72"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-2560-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-2560-zoom1.png",
+    "sha256": "9fe1f012054450a0a28bc39894a2aa90f1fb7f0920e365a462468682b720bbe5"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-2560x1440.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/settings-2560x1440.png",
+    "sha256": "b4e6eb72e4e8ca23bfa1c3d044d4fa3c390ed6da01d2c1c5beee9d9a2ec3ef8b"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-expanded-1366.png",
+    "sha256": "072f41bd41a8e7799df1884c5c7462380b7efd3edb582172e394237947ddce47"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1366-1.png",
+    "sha256": "d7cd0d597370ab296977b3e02593a91e2a3d58c2327b7f6a095e26709dc69a24"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.png",
+    "sha256": "5e81591467ab5555ec1d89ace90ca34995183398a617858238e9094d566146e0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1920-1.png",
+    "sha256": "9e83bbb8456fe34965fe0717af9f4525b322055a4400d265083ffb831e47efa2"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-batchImportModal.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-batchImportModal.png",
+    "sha256": "7a08de972056c735243593b95ade96cf1949f5d790488d574f5e407e3830bb52"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-1366.png",
+    "sha256": "072f41bd41a8e7799df1884c5c7462380b7efd3edb582172e394237947ddce47"
+  },
+  {
+    "original": "artifacts/desktop-ui/results.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/results.json",
+    "sha256": "85c71e42f87120d0681a308406b46ebf5f7c1a8d2b310a72ad940df1752e2e22"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-2560-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-2560-zoom1.png",
+    "sha256": "e663a6ab9ae94de9e4f7ec26a524b46992f20131bd5ba8e00e0cca9e1f222be7"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1366-0.8.png",
+    "sha256": "f91feded7bf9cc36e71b3e36072c8d73c7df6733338f11c3b2542b64443e7ec6"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-0.8.png",
+    "sha256": "f2c7d8a603bc791c88a98025d9e3654374ff68d2815614e8132b28f55d64a211"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1366-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1366-zoom1.png",
+    "sha256": "7a8e8860fbb20394809578e14c004faf0315206e6308aa664206195928f135d6"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-expanded-1366.png",
+    "sha256": "c76904a047de5a91d90abd185c0bbdcb2698f660a304cc7b46c96e9c0103c7c9"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-0.8.png",
+    "sha256": "ed416f6096ce0ced065d2edeaeea3d02b2e234e403747ae9d61550ee49b498b7"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.25.png",
+    "sha256": "67821a016c338676d0fe2e322418485a1c8b41e924991747d9784dd2c4f75518"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-2560-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-2560-zoom1.25.png",
+    "sha256": "9b76e995b371c454b943bcf3012dbd1fdaf2fe561274cfc29e6847fddbcf1c03"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-quickPersonBackdropV218.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-quickPersonBackdropV218.png",
+    "sha256": "f8695d9fd57921bf13e1fe72369efc8b021e68ea084449fffc56ad047201b39b"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1366-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1366-zoom0.8.png",
+    "sha256": "1500392ff8332cacaa990cb626a4a0a6ff5e70705c8bb9e3507e28ee64000d79"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-picker.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-picker.png",
+    "sha256": "93d890836b0defab975741ae1efeddcd58a8c094bb07c374ee9ffd6c0a35ecb3"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-expanded-2560.png",
+    "sha256": "9c0c0be6b59b7d6eda5d66ebe73837ea9ea78c77dc7e5082f9a4dee0d9d2d8d4"
+  },
+  {
+    "original": "artifacts/desktop-ui/toast-over-confirmation.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/toast-over-confirmation.png",
+    "sha256": "464960a399b8dbf54ec8ecc7fe12db985350735138fb747a3794987d04697724"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-items.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-items.png",
+    "sha256": "4126ffbce53a3d244b46e224e7ab1c3904a0820033a75aef71f3482f033b5ddd"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.png",
+    "sha256": "874fb0dada045045bec82aae337673a9b424864645fc9b986c083976fc97ea6b"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-0.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-0.png",
+    "sha256": "4266dbe3e21de14a599f18bda323def0cb245b37ba32ea9b4586025f30f999f5"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1366-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1366-zoom0.8.png",
+    "sha256": "88fe477cfdc1655664f2b18a28f31b9405cb3e3a8ab20e51e56c999fc590773d"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-motion.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-motion.png",
+    "sha256": "65d84beed5121204728e7354a6d79467530fffd4c37a9a92a5ad1bbc67f1b8ed"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-expanded-2560.png",
+    "sha256": "e4042ad40dc61f82ce974cf58fd0ab3a0156b072709f7f539d23c751e9384137"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-2560.png",
+    "sha256": "a26341edcce8ce2c6fe2b784fa4a65372498114718961203ddeb4829b2b2307c"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-expanded-1366.png",
+    "sha256": "4d43f5ad691a777ba91a933cd0f4eaa19f78500c1b8517b4d905fdefb2ed5842"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1366-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1366-zoom1.png",
+    "sha256": "8bb02b83f9a21dd405aec45db8d0bce9f139f5cee3295f815a0b222d7314c84e"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-2560-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-2560-zoom0.8.png",
+    "sha256": "ceabf0d91092a1921c3d417d6f59ca2b32d1a344b5264008fff6449b5551ec4e"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-rules.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-rules.png",
+    "sha256": "117c3f49578181b605da91098daef36de88ff38e10ef4e56d12d9f57b2ed5221"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-2560-1.png",
+    "sha256": "9ce1ea58eec85c2ecc30afcbf3877cedc8ece8b28363e4338802a82754bbef34"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1920x1080.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/history-1920x1080.png",
+    "sha256": "982b3a2cdd814c710f5cda017067896125991164b226876803d9252807782695"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/welcome-2560x1440.png",
+    "sha256": "12475497994e8998ce976fdd1e3ea1aa4d84e131843ed446ab126a74a8990a8c"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1.png",
+    "sha256": "0ccbc4a6dad1a415829590cd6868bb7d9a9493e2769c143dd8c662087b431fa7"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-2560-0.8.png",
+    "sha256": "cdae9616f69d8a25264b547c46c088a7ca922f5d209cfefefe32e317deee6874"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-1920.png",
+    "sha256": "ba970af7b83cca3b1201e7d8a1f9fad42d7e957968bce243847a6a654e9d9836"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-students.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-students.png",
+    "sha256": "b60bacdd458f8ef20791536a23fc82319ac33a9d89a6d1401b70040a8d7c9331"
+  },
+  {
+    "original": "artifacts/export-backup.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/export-backup.json",
+    "sha256": "1048071d4441a47dc1bd98581a815deee6861775fc8d56dca6b80d4893b2c348"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-1366-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1366-zoom0.8.png",
+    "sha256": "67f944f4aaa148eb055de33a8be8c92c6246e678d485edf4559a6304d2532037"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1920-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1920-zoom1.25.png",
+    "sha256": "f0fe5150f85fc0296daca43c85a8ba19414685dabb2d36df7a1cddab4db3ba1b"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-1.png",
+    "sha256": "1e8a9490d9f4c5f4268793617fb1c377f1a7707cd2bf47d18f0b035f17ca9c16"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1920-1.25.png",
+    "sha256": "760c14d182579bc97e8b08033c131f70335f1ce6044353f9944490f8a3815f2e"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-boo.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-boo.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-motion.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-motion.png",
+    "sha256": "17ca1b4570251f598270bfab7639c22b76747d8cf4810e235403c19ebd785585"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1920-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1920-zoom1.png",
+    "sha256": "838ef232925655dc2c1b85b230e8b8988dcf1b963abe91255f6168459634ced4"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-0.8.png",
+    "sha256": "69a0cf63866a95d39b3636f459c2581e997ba78f02b61c7a2b829fdbd4aa4866"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-1920.png",
+    "sha256": "f890f7f205d93c533461a8fbb8ac97773844b88b4c5a4bb8b6879e6ffdb9b135"
+  },
+  {
+    "original": "artifacts/scoring-quota-export.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/scoring-quota-export.json",
+    "sha256": "5a270e60cda5513a4a6d58ccfc140b2f508de0d17d81f55b6ee7df4ac69f6d34"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.25.png",
+    "sha256": "4639de75108d2f23724c20dac6b0810751b218323d5e074d6267d591255794a5"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1366-1.25.png",
+    "sha256": "25ad4b77e03fb22b63ec3f40a5f4704af2cebd8f0365cb6f1886cf2ee09e3433"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-expanded-1920.png",
+    "sha256": "7700e691d681e81559a17be7031e9fe7e989d5776e87377af9cdd89446fa75a3"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.25.png",
+    "sha256": "1857876adc29e735c665b2faee15089cb6560a1d58968af25f33b2d1ea6ff6d5"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.25.png",
+    "sha256": "25146d190d2f82e9e419d607849fec5022ec8569772d4ca53c3da394de03d146"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-1366.png",
+    "sha256": "87ee57a883caecb12ff0d217a6b603fe0ab9ee044bc69509fb95aa3be02a767a"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-item-window.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-item-window.png",
+    "sha256": "afe7fa1784d1387b874965647a58009fae1daf423e52a629160e0bcbef2c753a"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.25.png",
+    "sha256": "3a74227247c5598d09f1696aaf0181f9194fcb5391ca1b1d17ddd368fa9fbf30"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1366-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1366-zoom1.png",
+    "sha256": "6140160665718e12f4df3cc1bdb5b7e1a2c7e0b6b3072b340ac336c68ed7c4ec"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-expanded-1366.png",
+    "sha256": "2d3485f65856d81991a04e2c3f5fa88c3fad91ae6629d5038b04161efab81667"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-1920.png",
+    "sha256": "c105955b04d181f19e30daceab0d954fbabf50e6cc7fd160830b5127cdb8a91a"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-2560-0.8.png",
+    "sha256": "ef17e906efdef47ab0b0252dd75cc4bcb598264a26ef9bca504c4d1f4efe25ea"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-sound.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-sound.png",
+    "sha256": "ba5a998c4df86e3efd7215808d138881209f590531474ddd1b41b2ba75f76f59"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1920-0.8.png",
+    "sha256": "26f47350e4654327cc308d95c6ea0659a23c1ad9a640432b0ea6a25bffb8b867"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-2560-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-2560-zoom1.25.png",
+    "sha256": "06a03dae87c3f48f4c5940c5a887d46f00a147f3136005116ccde8b85d8a9a9a"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1366-1.png",
+    "sha256": "3a296a299b173957440f01b48f4f1a81ef69c4a330b4e0577c28d5e0be508556"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-1.25.png",
+    "sha256": "a6b822d3d98e45abd5ceb22e2ff1f9754a6ebee4eadded08f9141307d870aa79"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1366x768.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/welcome-1366x768.png",
+    "sha256": "d9d022b5fd5326317b58e877cbe4dd24a686d9058801ba5772241021555baf4e"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-1.png",
+    "sha256": "75190a07e210d74f3a511b6c890df17d9bca3cbf646c920de34c1c1259a3d048"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-expanded-2560.png",
+    "sha256": "18b9aed027b5d33d047e6c235614ac71e9bc05af22f91da8ebba72f0a4ff195d"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-1.png",
+    "sha256": "a6c2adda8c7a151384583595f1f2e0b3bdbe6252a316c5b9ecfb2cb951494784"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-green.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-green.png",
+    "sha256": "0f7f0c5fb0a4393f01d44cf02cdf8e77b202cad1615f67659c4850744a80a4eb"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-1.png",
+    "sha256": "655bd8e05fdb3c6fe4c4cf2e048888c2e4cdc19fc7682afd14b35b8fee25fb76"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.png",
+    "sha256": "cf8d798cac4ae636beeda9d157bf98d0885c3ba6bb71e74d050a607af5b09d31"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-2560-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-2560-zoom1.png",
+    "sha256": "e9358ae141e9f280f88ba58de95c7854de350781755738e8297a3b7fa726cbb8"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-2560-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-2560-zoom0.8.png",
+    "sha256": "968ef4771e89477f84229d14470b889a03863dbf5445acfa2ba33d61cb22e9f9"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.25.png",
+    "sha256": "830e7dc71c5c447dc22aee0fe91ffb5269c5f3aa5c894315ec533b1e5e2291d8"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-expanded-1920.png",
+    "sha256": "17d41f9a63a8c81242c03a7955931d1b2d2d53f753f4d318979662b78ebe446e"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-expanded-1920.png",
+    "sha256": "ba970af7b83cca3b1201e7d8a1f9fad42d7e957968bce243847a6a654e9d9836"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-0.8.png",
+    "sha256": "3bf7a054eacbf878fa04ab7f87f5b467585a5df3024e775fd3b606ab220468b3"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1920-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1920-zoom1.25.png",
+    "sha256": "e7d374f67524c6c71718ed642ded6863c6d5149569e8e74ece2a918644cc98ca"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1920-0.8.png",
+    "sha256": "e5b646628b701046ddb3260ca52829ccee53f52da331fd5fa3429ebfb671a5d6"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1920-1.25.png",
+    "sha256": "4768fb1a42d724aee19ff41bbdcc48049f98761db42cf67c5f285a6bcec5eeb0"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1366-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1366-zoom1.25.png",
+    "sha256": "05232c43e1cf8a12af8ae7b78b64926d2425501e95c37884cd568b5b2ffad2fd"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-settlementNameModal.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-settlementNameModal.png",
+    "sha256": "b8f62a51b9bfae25870450e732edc31aa2a29ce20cb5e0fb1fed38e1fca14709"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-0.8.png",
+    "sha256": "d655652883efce40b1d9f46578cd7c9674a6c8ce04ec1c9e95629e18505d12d1"
+  },
+  {
+    "original": "artifacts/desktop-ui/interactions.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/interactions.json",
+    "sha256": "76976db6ca80c59d597131108098db0929090bedf2e1f748db0600c8dfd7e70f"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-1920-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1920-zoom0.8.png",
+    "sha256": "11298aca3dd0414ee6cb209e5f0c4de35a5bcda3a2be5bbeee68bdc94af567f0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-0.8.png",
+    "sha256": "ae3e1c60f1a99ce5b5daa4ce8f43544aba18ff9281033d5731659063ab6cb7b3"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-0.8.png",
+    "sha256": "d48e9975c67f8c55786f467d5c74c046f901974aa007564c3cd98e91d3644452"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.25.png",
+    "sha256": "35350aac3e19ad90acc1cf9ebad38d6124bc1b5a7cad42f6204ea4ac6314b16d"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-0.8.png",
+    "sha256": "6068806fcae7e97d43a5db0c5167225de4bd611290b5cc3f65687adadcceeb29"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-2560.png",
+    "sha256": "94c41c09528e80e4ffc357dc53ad6ccfc2ed21a0028151f8e55cda3f3d72d018"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-16-groups.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-16-groups.png",
+    "sha256": "8bc98b915eb58d790208c772c35e51309b70b751523088bdc706d1be39b5ed0f"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-2560-0.8.png",
+    "sha256": "5a8c4773bc5dafc7061442aa1a2f5ac0e552082c4e245c18aaf9565a9719c028"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.25.png",
+    "sha256": "2d1549d018e9e1d8f08819f1be52ec4e4e61b6705ef609111b7b84dd24b3a704"
+  },
+  {
+    "original": "artifacts/desktop-ui/offline-archive.csv",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/offline-archive.csv",
+    "sha256": "914087ce042ef000161f7aba1427890ae86c856224fbeb1633bd81a3ea59e0d6"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-entry.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-entry.png",
+    "sha256": "5ac1f08a2af7be46d5fa2587cf6115029fa15aca33251cbbdd4a0f2bdc8d3e23"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.25.png",
+    "sha256": "289c47b9bfd8534b1d0506443217b5a85c6f686e75e59ab4e99f34b9f3bad0e7"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1920x1080.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/archives-1920x1080.png",
+    "sha256": "cf8da28948f8dc3dae006729919a24ca15ca836ecad6e581fc397ba6a16b4d60"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-0.8.png",
+    "sha256": "7db06db4bedda4cf43050467b9a1d0f0b6d51d4a6d0b7c15df1d7d976079434e"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1920-1.png",
+    "sha256": "03bd243460b079b7212a266591f03aeabf7da7b09dc4f4fd691e580d005e5a8c"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1920-0.8.png",
+    "sha256": "acdc4d01f32177f283f3235335e21f44c923be11c0c12b5379edaf7b6a82638b"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-handRaiseBackdrop.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-handRaiseBackdrop.png",
+    "sha256": "04e39071cbf26eaef3a291e12debe45ea2fb3f2b57313d3b1836fb53f508b49f"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1366-1.png",
+    "sha256": "7ae9093788c3c8bdf0605e469898f6664713aff4014ff82518d25e58dd7825e0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-1.png",
+    "sha256": "f2aa2aaa243723d77c6bff4a8f7f1c69beef2e04cab6a14c6953f9740a2e1df9"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-1366.png",
+    "sha256": "0bc9cee57bcb2bb35cd65d90d41ddbd640eef5fbf5deaeee13aee1d5195b8c62"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-boomerang_flower.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-boomerang_flower.png",
+    "sha256": "f510f885c98e7c15b383b5d6ea346b7a1b4ca78902ab76946c2390e6e14f0d5f"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-0.8.png",
+    "sha256": "75f9da3e85fe25f4eefb90487af4325255702f6ae23dd4819e306a9f9ff58b75"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-2560.png",
+    "sha256": "fbf4ed491ec3e103ab5c55b498a4ed742fb58ce6c8b7675c01d53bcf15e64c4b"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-2560-1.png",
+    "sha256": "e901fc65e59eee6befd537c6ab140afa9d9a4793e8f497444e9a0b948ac15c4d"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1920-1.25.png",
+    "sha256": "e7ca574388fa849cc990de4ab48cdf96c668ff6b858d3cabe9fc09c78816be02"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-1920.png",
+    "sha256": "17d41f9a63a8c81242c03a7955931d1b2d2d53f753f4d318979662b78ebe446e"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1366-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1366-zoom1.25.png",
+    "sha256": "c12b45afa6d4402c2ffff2bbf8e06095437fbfea6dec0f94dd01bba33b35db89"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1920-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1920-zoom1.png",
+    "sha256": "d905278582a1b6f8dadb776222b71b5420ee3dce152c4560cdfa330474ea6a7e"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/welcome-1920x1080.png",
+    "sha256": "6677674d087af8caea756486b57c3512a53947a77d102ff2669f7b29c4aa75e1"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-1366.png",
+    "sha256": "9ab0ff964121690bf636417833102529e3c6be6ac5b781ba419a09fa4be20072"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1366x768.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/battle-1366x768.png",
+    "sha256": "8913978f62907c87343c239f979b9aabed2fe56baa757f3db7dc924077c00b90"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1366-1.25.png",
+    "sha256": "cfd2569f0a908e7f35dfb1f6d949074c37719083f2cdbd845997fee7eb9c2c74"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-2560-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-2560-zoom0.8.png",
+    "sha256": "00b09a0bf0ad85ff3528938f8a37088545ef0d90a3c2d992c329296ad30c2b17"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-1.png",
+    "sha256": "143ea6a987ae87a32ebbe16a5478fc8e16b2a2eb6bd36ca7a4df26eca6a2ef0c"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1366-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1366-zoom0.8.png",
+    "sha256": "a3fbec58f1e5f7d26e06230f5192db22fdb3ebabb50c3c9d1c738e7370910bb2"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-2560x1440.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/battle-2560x1440.png",
+    "sha256": "bf14129886b25952da47bac257886929aaedfae30785ed3a3fe0d16372ac296d"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/scoring-unsaved-warning.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/scoring-unsaved-warning.png",
+    "sha256": "e80cb5e2378f19a2bb9f8c6d6e1cd65a03ed11135ee47fd30b42eda16ce2b0e6"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1920-1.png",
+    "sha256": "ed6446217361dc87d24ca62062786a3954b23a923961189c52918c6b5b5110e1"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-2560-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-2560-zoom1.25.png",
+    "sha256": "bdd4f0c42b748621b159a5573d6b070864da59794ac41a2515c0219907b7e4c4"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-2560-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-2560-zoom1.25.png",
+    "sha256": "193eeab3b7cc19fb5f3ab5358efeb56429936a78ad73fc39c4467c5d018728e2"
+  },
+  {
+    "original": "artifacts/scoring-startup-denied-export.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/scoring-startup-denied-export.json",
+    "sha256": "2c5f994f13a61fd7a63c3c4cbba7ce2ef494b8bdb152245cdf06898df2c1b45f"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-0.8.png",
+    "sha256": "75eb578de3dca6528db5ac40eaaeffeb6a55c9dbeaf57e1d6bcbd72e4d949a57"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1366-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1366-zoom1.png",
+    "sha256": "493b4357897c85380f19f7c5b7092a33f0fb2d4ab39795ac83e496943d58437b"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-pickerModal.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-pickerModal.png",
+    "sha256": "5131185a3651ffe53a7cd1a19bf7837cd9349a88db6bb4406dab7d182503d3d3"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-1.25.png",
+    "sha256": "f038cb9ad3955889f51d4261d2ac8f2927874322a508bb962575c5c1429d905e"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-2560-1.25.png",
+    "sha256": "340b02d7a554750c11da362bdbc4e7f7dd5670ad9b7db19aa25da885eb91fa9a"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-hand.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-hand.png",
+    "sha256": "2483041e72e545dc67b3d794ec4f7ae454449c474cb1d02d4cde4ed28fa01d8f"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-matrix.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-matrix.json",
+    "sha256": "3f27c7a9d8c77b80b4c09c9daa99e5fc9cbeb09beeaa002424f796d0c4c0c686"
+  },
+  {
+    "original": "artifacts/settings-cleanup/results.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/results.json",
+    "sha256": "21e4e499fc8962139c5cf6703215126c97ddb0e0b78f5efabef614221f4d3b58"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1920-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1920-zoom0.8.png",
+    "sha256": "2f388c9ca31f7157f9a5c0d4bb6e667d877cf4dff206624889ac64a49773300a"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-2560-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-2560-zoom0.8.png",
+    "sha256": "ff2b07c646e288c41a7607a60c0e882c2bbea8d381907b9be237d72cc32e8b6e"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-expanded-2560.png",
+    "sha256": "0fdd9ba5acb994b8147011ef22ce2cb5d3c64cf7c604fe95d9876061c691ae27"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-expanded-1920.png",
+    "sha256": "76e30471c991928b58a860f166fd6e9b78adf2393a0610c4c92732ff08cba913"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/special-states.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/special-states.png",
+    "sha256": "a983309dcec13f1598f4a677767da9d326eadbdc5c6936b447b7ea82dab629f9"
+  },
+  {
+    "original": "artifacts/desktop-ui/settlement-success.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settlement-success.png",
+    "sha256": "796b0e0ea22d065adbbedbfb58ff82daf515f82cee4cb4f1ea6ac8c844fb4971"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-1920.png",
+    "sha256": "7af11c4b8999735d0427d541bd094015ea8f5954423bcbff0dbcd4d2b6cc368a"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1-restore-confirm.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1-restore-confirm.png",
+    "sha256": "69b2da15a2c7f4b1371cb48f93f26f6a4d9e581b82488e9b9210ae28ca3d3715"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-2560-1.png",
+    "sha256": "1b36e922efe90c02c1497b14c5715f721a971eb449927d85c7925c5f5cddb916"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1366-0.8.png",
+    "sha256": "1391280038976d3e846c7ec624db47048c21bb5ce60860c0ea93eba010b02229"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.png",
+    "sha256": "11f85acfd3af2ac814cfd41a371f97f36b80a2504509380496625c7636e4f460"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-1920.png",
+    "sha256": "466de4ee2889a3c925d28afe8104a04a2259edcd2b28224da2099c7507dd3270"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-1366.png",
+    "sha256": "2d3485f65856d81991a04e2c3f5fa88c3fad91ae6629d5038b04161efab81667"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-1920-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1920-zoom1.png",
+    "sha256": "4bb87a8cd554dcefae2bb59083c59f5e3d27e0014bd99c182db2b8d5fb93ae8b"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-1366.png",
+    "sha256": "add6b65c2742fb1e4d7005e18288a2eaab189cde779c204f41ac9efab6e4dc9d"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.png",
+    "sha256": "a3f1e62dd3fc20908993a9d311820ef6d4db204d93315ed8be7a09fc4a38f18d"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-2560.png",
+    "sha256": "b3c82d115aa2e178f797c7f1eb160590f16b56e176fdd86be61c438ff3afb23a"
+  },
+  {
+    "original": "artifacts/desktop-ui/picker-group.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/picker-group.png",
+    "sha256": "3be8a2ff7713121134b19c20a8f7bd16469a56db09d08e3d24857ce12b4c50bd"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1920-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1920-zoom1.png",
+    "sha256": "9f7e3eb0ed530c7f8e122ac4006a79a1df6a07a579d2b2ef1f3fdbad5f512c93"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-1.png",
+    "sha256": "77039cbbb8c09c275b73abd1f3ad366e60b49b458a2b20c08b03bbf46696de81"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1366-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1366-zoom0.8.png",
+    "sha256": "1b9194bad63a6c918781a8faeb75932995d19e8b9ef5ecd02bcf253cd2a48cc5"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-2560-1.png",
+    "sha256": "67f45ffdca4f917d106323554666dfc9c7f88f3f6e591f3e0d9973999752950a"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-data.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-data.png",
+    "sha256": "47d735221306d1f0a5e6e652fe270d34b26e86b46931b8f011ec06d6b13fb494"
+  },
+  {
+    "original": "artifacts/rule-oracles.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/rule-oracles.json",
+    "sha256": "55d0360b07b37f7868d7b81d693e0b2bb8d677c4a112ae770224cd8ded0732c4"
+  },
+  {
+    "original": "artifacts/settings-cleanup/classroom.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/classroom.json",
+    "sha256": "4635858a3de7459c97192ac5cc268053887a5bf3cdf05c438df35e5c4f3c1cb9"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-expanded-1920.png",
+    "sha256": "f77225ad368f3007b3768eba452e6d85c254a5a892f120ad3fab61e3ab60969b"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1366x768.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/settings-1366x768.png",
+    "sha256": "06f6dcb6c04306ea82cd272cf9e05907cbf61812bc2455432a838dfc63de7c77"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1920-1.25.png",
+    "sha256": "73d558ed1c7efb905029c6343ac7e016fb66d353f5eb9c4fe7c64b10cf5e81da"
+  },
+  {
+    "original": "artifacts/desktop-ui/battle-1920-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/battle-1920-zoom0.8.png",
+    "sha256": "406cbe4c9350c4443706f380fff88f46a32e7d231d05cab8de84ed5d661d1127"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-items.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-items.png",
+    "sha256": "5c5ffe38b9741f07f7672cc1f23bd5af538ae455eb4c51d3f1ab669779f99665"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/item-encyclopedia.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/item-encyclopedia.png",
+    "sha256": "a90c000f51132649a436f42206a893bf00d8d9f0532be554f8e5f78189ddb632"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-memberSearchBackdrop.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-memberSearchBackdrop.png",
+    "sha256": "342e5bc3b2aa932042fa9d888c8ab6814220923d39ff5704270b9bd56dd7628e"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1366-0.8.png",
+    "sha256": "4de4fedc5f79fd8415a0d82a4518bfc8c5ee0d3ceae6cf925226a8a489f6d7f0"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-settlement-name.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-settlement-name.png",
+    "sha256": "05047ccc5afa7fa91cefa38b8a384804c89d6466eb063dbb4be2f0817d15bc4a"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1920-1.png",
+    "sha256": "a080cc8ecefd5231d65b39907cb44b02a17f334c7d5903382408adcbacca8791"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-1366.png",
+    "sha256": "4d43f5ad691a777ba91a933cd0f4eaa19f78500c1b8517b4d905fdefb2ed5842"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-1.png",
+    "sha256": "6de0a4e71869939ebe91e43cdc2966d431e3dd4da3800975da08d8c295dc8552"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-2560x1440.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/history-2560x1440.png",
+    "sha256": "85c6099fe2841737c72b32f0c65844052bf0de104b230c4264d2f8dc6632bbe5"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/keyboard-hover.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/keyboard-hover.png",
+    "sha256": "18347980373809d5a7f6ea6051b78b8ef3c118b0f4daee2c30f5735112cf17d7"
+  },
+  {
+    "original": "artifacts/browser-results.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/browser-results.json",
+    "sha256": "79800c5eb0f3d470e07f690552b4fc7be992eaa462bb8eb34a94b6da03b7d358"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-1366x768.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/archives-1366x768.png",
+    "sha256": "2b54dc6619ad156f9521a6faa6c733f693c5808d5f2ef6ad03ae9c66d740c0ec"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-expanded-1920.png",
+    "sha256": "185217cee8e1536ea1a573f450171d78310bdd368db7903699ca6180d1064b11"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1920-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1920-zoom0.8.png",
+    "sha256": "5ced2897a9adfe8bc50cdf0307d3aaff266f3c146baee861db71b9c2d6831005"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1366-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1366-zoom1.25.png",
+    "sha256": "d494413806124dc5befab97bbf9d47166c9571e92493df118cc85508fc940bbb"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/settlementNameModal-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/settlementNameModal-1920-1.25.png",
+    "sha256": "41043c1bb53b4c681caae28064c87757a624acb9cee52de27119baf99bd047cb"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/settings-1920x1080.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/settings-1920x1080.png",
+    "sha256": "237cb0c3e7064269c0adaca0bfb03939934ee1b52bf13030af5fe29333ce0f12"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1920-1.png",
+    "sha256": "878f3c7e91818a1e074fc51ec99e653a307d2612941f04d1e9b99ce8ad5c6624"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-2560-1.png",
+    "sha256": "5997fabbe8f23085af15932730111b43d3b59f6beb8d3546b5577e7bd6ef496d"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-star.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-star.png",
+    "sha256": "ec27ebcc754277121aec9d964120ece0583d515aad7ae47c65b7672b5a8755e6"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1366-1.25.png",
+    "sha256": "d726b1d0d818172d2ce7dec3df5afd5a9afaffebfc63afdb2144716dbff722a9"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/motion-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/motion-expanded-2560.png",
+    "sha256": "b3c82d115aa2e178f797c7f1eb160590f16b56e176fdd86be61c438ff3afb23a"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-lightning.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-lightning.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-expanded-2560.png",
+    "sha256": "d6b3c4965ef289921169486633541c22fde75877fb9b965ec6f7a62790b0f896"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1920-1.25.png",
+    "sha256": "9a9e43672b0a5bfae33ed8195e6a4a9569d2a74f06ad429f485e5836d839eed6"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-welcome.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-welcome.png",
+    "sha256": "d8ee905dbb02e1eb4f3408d02ae3965d7988dd4d7cf3ed91689baa5bb64c2532"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-2560-1.25.png",
+    "sha256": "e3c079067989393c231ac9e7fb1c08ab2d2336104f6efb14ce149f3efcf82dc7"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-0.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-0.png",
+    "sha256": "2d6fee4ffd806629b64060ddff04fa7dccb991da8d997e6f8fbd286decfd673f"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-ice_flower.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-ice_flower.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-1366-1.png",
+    "sha256": "b9ec8a03e7bc189315eaa97f4dd64a5146e805eb4e1027feeea82f7176fbccfe"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-expanded-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-expanded-2560.png",
+    "sha256": "68e507132e947dce16c866350e4008ba129d3b93d407d9a269b9bc42295f4bb1"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1366-0.8.png",
+    "sha256": "6c10cabe779126c9c697cdcd89e4e765a39eb172fbefb5c18d53cec0a7035609"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-appearance.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-appearance.png",
+    "sha256": "e5a6228a73d737e3163f3e4fd29ef076f33cc9c56f93428b962166239afcc4bf"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1920-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1920-zoom1.25.png",
+    "sha256": "0cc1394caf896963424d16be5b13577e6968b0bea0ceb6057ac08f242a67a0e8"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-2560-1.25.png",
+    "sha256": "90a3230dcbd98273781819508e004150df3d6252944488204fbb7b7bae2fa918"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-data.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-data.png",
+    "sha256": "ec281a1d50121864951243f46bf53eab01ff02b5f1c491b0bce7090c25b5268d"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-rules.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-rules.png",
+    "sha256": "072f41bd41a8e7799df1884c5c7462380b7efd3edb582172e394237947ddce47"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-1920.png",
+    "sha256": "bc9d72a5d51d310c02a890da7b1b5030a503c4ab53585cf82de5f863a57f1fd9"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pwdModal-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pwdModal-1366-0.8.png",
+    "sha256": "6b53ec52b8e881de7fb6b685a59b2f7d8cc0e9ab38fd80100799b5a13f16a970"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-bomb.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-bomb.png",
+    "sha256": "ec27ebcc754277121aec9d964120ece0583d515aad7ae47c65b7672b5a8755e6"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-pwdModal.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-pwdModal.png",
+    "sha256": "c329fc3a13bd7b619d15a35abfc996acf2de0ec3681e3245a1dd80c5b4fd20c7"
+  },
+  {
+    "original": "artifacts/desktop-ui/picker-individual.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/picker-individual.png",
+    "sha256": "3b333e1abea87aa49f21db3631275db5098c8d0d22527fbd17f92d6477c133bc"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-1366-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1366-zoom1.25.png",
+    "sha256": "8c7706832d823412a8e0ccaf26c7cb7505d1f6aa8186286569208f4741309fb5"
+  },
+  {
+    "original": "artifacts/desktop-ui/welcome-1920-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/welcome-1920-zoom1.25.png",
+    "sha256": "2b5a253f37ed32fa8ff059748e8e219d2af590991427b3b4b1496875ff2546d5"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-2560-1.25.png",
+    "sha256": "979380776c41cc2af665e67c7a08cc92d31b2476d35ac0ba39cc595e2c894b5a"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-40-restore-confirm.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-40-restore-confirm.png",
+    "sha256": "c87017fca34521d73c04e1494126c8f2ede0530d81bb48052d0d666a47a9b4b9"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.png",
+    "sha256": "40185d0a295e507cf26d2d6d725a345b90bd82f61463cf2325dc6cb07bf8be13"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-1.png",
+    "sha256": "ba0f974f2067b25ac419a91a0c4f69784da724a1e69db48c8b804d5cdda353fa"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1920-1.25.png",
+    "sha256": "1120079d35a7047f9a2dc9d89d46656e1d6aa577c39c088e1239c3b3e86c9c4d"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-sound.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-sound.png",
+    "sha256": "7726a1c474296e5d7440bdc13d006cfda7504209cff6168223341991f5334d30"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-0.8.png",
+    "sha256": "d605daad5a1b6ca3566f507628192dfad10084cb3ffc02bf89be9d50c0a8dcb9"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-2560-1.25.png",
+    "sha256": "a623c8aa2e80961bc9ce93d8d1068a9fd9aad4f147fe92793d447bb59ad98cfb"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-1920-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-1920-zoom1.25.png",
+    "sha256": "359c62bf99712c1c19d1bf627260dd037f04faa6fa88dbe6eab6eb6f294d5ee1"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/items-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/items-1920.png",
+    "sha256": "a6fb963b4c1b5caad5f9aee713fc52e8cc8214b8bd68d2e9e3e95c00bd875a3a"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1366-1.25.png",
+    "sha256": "209c0964d0735b16d0facd8c6ec8a5498305dd5bb21bb576c66f7a2c8a2c9e58"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/aboutBackdrop-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/aboutBackdrop-1366-0.8.png",
+    "sha256": "2704a31769bdd06de70a45c815aa742da732a0e36cfcaf264378cd65b130c792"
+  },
+  {
+    "original": "artifacts/desktop-ui/release-smoke.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/release-smoke.json",
+    "sha256": "f9935bd7764eaaded057366130f8209937bde46af238991d3610ecea67c152e7"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-blooper.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-blooper.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1920-0.8.png",
+    "sha256": "d6c8b01e2531fdecf4f133a86f0cc17519771bc63b39a2ce19e0c65d87f96447"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/rules-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/rules-2560.png",
+    "sha256": "5d8a98050a37e0c75b97587dfb5cdb6b9c85dec7bb0704e035828c5719dd5a66"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-aboutBackdrop.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-aboutBackdrop.png",
+    "sha256": "745a8a40dc6ed2b04944bfe6ad599b557d939b1dc6f8b51f6ec004e5d43f95cf"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1920-0.8.png",
+    "sha256": "bfbaf7a538a6c661d7764834644f0773b1908d7eac1806106abea86534d94645"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-students.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-students.png",
+    "sha256": "85e3aff36c43a34ecbe413f6c730950e9b4f26d35bd399b61575177c8737d5a0"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-podium-details-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-podium-details-1920.png",
+    "sha256": "7b0aea7bef741c7e5f91b2aa1d256742ee6b5eefe60652c6ce0d94de75225e58"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-2560-zoom1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-2560-zoom1.png",
+    "sha256": "cff8629ccafd3216c7b283a17a84c74511c979f2b5a48ce17a31c23e803099e3"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-fire_flower.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-fire_flower.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-1.25.png",
+    "sha256": "2c55d1cd76ea4c4990c40cea5ae67b5be30b94c5f015f83ae221a225da4ec33b"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-expanded-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-expanded-1366.png",
+    "sha256": "a4ab359fe65a501bf59985d7b831f636c8533cdf56653c7daf9f57e03aee7755"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-2560-0.8.png",
+    "sha256": "eaf740eeb0dea6becc3af876fbabe0ae145251e8f7b23bcf86320f7f7f9533f3"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/itemModalBackdrop-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/itemModalBackdrop-1366-0.8.png",
+    "sha256": "d28e674db178d5ce8c22cc97d9d3393fcd425d1d0136de8ffea8f97e2ac24c55"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-2560-zoom1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-2560-zoom1.25.png",
+    "sha256": "f3087f6b68fc7dd4333754ff3df6f369ee58fb71a01471b9e1a0eb653e3f394c"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-2560.png",
+    "sha256": "66ae75d6d917fe0563cfb0571b2c308da9fd9b9d635c65e2287acf73751c2393"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-2560-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-2560-0.8.png",
+    "sha256": "1536ec8474d012b1b9d607b2074257a1005233360d3da2389f98e7f26f3674ff"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1366-1.png",
+    "sha256": "328b5511ea8b1e0c4e00952aaa1f8b4b2dece55483f0d256adbc2f39a2ecbd74"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/battle-1920x1080.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/battle-1920x1080.png",
+    "sha256": "754e5a57a7994f982438c86d627d7d3bd01eaaf3849eaab1d57459d8158eba67"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/modal-member-search.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/modal-member-search.png",
+    "sha256": "c90667632442147cf6423f26a77c19c01aab10df2e057e70158cb804cbbcb746"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/alignment-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/alignment-2560-1.png",
+    "sha256": "210d92b264bfc7135c33b11d5b4d6650936584f8fba31a20dc99bbfe84cbd7ea"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-2560-1.25.png",
+    "sha256": "5a125b85849402079f52589e9277ce7fe675c24fa919e123c37bfb0dd7a8446b"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-scoreModalBackdrop.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-scoreModalBackdrop.png",
+    "sha256": "0e4a8044de0aea8242bfe1f9605660101f9b029ed3f50b479f485145bace21c2"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-0.8.png",
+    "sha256": "c158333a708739d9923634733ffb4e7d9c9466962f2864ff300c6c73b27e4dee"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-1366-0.8.png",
+    "sha256": "01f75a26ff4bb7b2d7475252a1e6a11a16a6135b113de959437d8f9a48e013d8"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-appearance.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-appearance.png",
+    "sha256": "878f2b40fa5f833e7a6e12b661e67caba06dbfacd912df1acfbc0d10a1441d79"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/handRaiseBackdrop-1366-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/handRaiseBackdrop-1366-0.8.png",
+    "sha256": "8e57362b50b6d45ec957df3ac269794c9c32fe9eb784f7cf932dc044804051c0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/scoreModalBackdrop-2560-1.png",
+    "sha256": "51a78effa59eece56c8b1a76eee7740ec72842671beebf5149b7867e6e9d63d8"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/batchImportModal-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/batchImportModal-1366-1.25.png",
+    "sha256": "fbc14af305fefd146d0453a9e95b5f8a5e7dea375a848d38c77bea7e9b4fd553"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-1.png",
+    "sha256": "63d04cd680d5ababb19ba203d78cd5b8243533f2838457d77fb513f38a34c5cd"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/archives-2560x1440.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/archives-2560x1440.png",
+    "sha256": "e96ef20524a15420b06f35d69a4eeea31de93e4b247bc4a76208505ced136ada"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/students-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/students-2560.png",
+    "sha256": "d6b3c4965ef289921169486633541c22fde75877fb9b965ec6f7a62790b0f896"
+  },
+  {
+    "original": "artifacts/desktop-ui/item-mega.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/item-mega.png",
+    "sha256": "fa45d7e3595d1c9c895d4992ac7e4b7a2d42bd3fec076ca791c496c155b01398"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-1.png",
+    "sha256": "e400a017fbd54fed8407a8998d38e6feb7c98e4c6ffe573887ac1d2d6d32c9eb"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/welcome-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/welcome-2560.png",
+    "sha256": "83890ca45982c9fef081a86caf4a65be4e5b3c7f6795f2208cb9516221159c25"
+  },
+  {
+    "original": "artifacts/screenshots/chromium/history-1366x768.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/screenshots/chromium/history-1366x768.png",
+    "sha256": "c93fc72f955f6dd57c06f757af27f0dbdf68d6978eac2747e7b0d50d7006c8d0"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-1920-0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-1920-0.8.png",
+    "sha256": "7ffb49fc324aa08fd9f790a0bff3f44725278ea566187497872e3880553adedf"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/memberSearchBackdrop-1920-1.25.png",
+    "sha256": "1f863e70f983f4cfe77a9b62bcf4d437d9af69bcf5895d7f5b7b7ed374fdcf50"
+  },
+  {
+    "original": "artifacts/desktop-ui/archives-1920-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/archives-1920-zoom0.8.png",
+    "sha256": "25db02538fd4b01469d8f71064639de24c160ac42c90b355ad24bc6611b564e2"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/sound-2560.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/sound-2560.png",
+    "sha256": "0f060cc0716229705d48f7606d557ad9bf0d60912d8f1c47612908dbbab0d160"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-2560-zoom0.8.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-2560-zoom0.8.png",
+    "sha256": "fad56d04cda4bd25d109c46d81ab4db368198a912c40491d7d09cc38bf016937"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/grandModalOverlay-1366-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/grandModalOverlay-1366-1.25.png",
+    "sha256": "fb7bd3dee66fb76c064816ef0aef284d5ff84512f7ecbefca14508a45fcc6914"
+  },
+  {
+    "original": "artifacts/desktop-ui/settings-min-welcome.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/settings-min-welcome.png",
+    "sha256": "9d35c8ff802df0d1b7117be38c15d6318c30947e060150f032fdf08b17dab7ec"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/appearance-1366.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/appearance-1366.png",
+    "sha256": "ef514474b422d97e9ffdc48b538eb69bfce8a8a3903efb31eea1a6fb1a768a9c"
+  },
+  {
+    "original": "artifacts/performance-chromium.json",
+    "captured": "artifacts/visual-unification/captured/artifacts/performance-chromium.json",
+    "sha256": "fb06bc82cac717a64cf6b0e98a4d1d8862f3bdd5456637c5932537c9bc9132b4"
+  },
+  {
+    "original": "artifacts/desktop-ui/picker-two_tier.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/picker-two_tier.png",
+    "sha256": "0412092c86cb7c0689e559c14797d888a5ee4b0d5ff5caa1fe72f986456960d8"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/quickPersonBackdropV218-1920-1.png",
+    "sha256": "c8c7e01c8cc92189f4658b2caec7b4de0a8502817f15a176c30d9066360abf3a"
+  },
+  {
+    "original": "artifacts/desktop-ui/history-40.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/history-40.png",
+    "sha256": "5826f483028196f7c051c67b082d888d0ea18e36d919ce1a0d2c736ddb8464e1"
+  },
+  {
+    "original": "artifacts/settings-cleanup/screenshots/data-expanded-1920.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/settings-cleanup/screenshots/data-expanded-1920.png",
+    "sha256": "bd5b3c9b0d3bbecb9a54be53971edb99756ecac6a9270fd32f8c97d3cdaebdee"
+  },
+  {
+    "original": "artifacts/desktop-ui/modals/pickerModal-2560-1.25.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modals/pickerModal-2560-1.25.png",
+    "sha256": "0a3487e5a63e1ee0f086ce8eb3949f84b7713550784d0360e43b8b61827abcec"
+  },
+  {
+    "original": "artifacts/desktop-ui/modal-itemModalBackdrop.png",
+    "captured": "artifacts/visual-unification/captured/artifacts/desktop-ui/modal-itemModalBackdrop.png",
+    "sha256": "2330f7d24b745bd67d46dc2ad5d81f7e2ec0e44c7b165e6d27cf76467d061408"
+  }
+]

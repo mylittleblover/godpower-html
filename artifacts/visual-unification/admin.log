@@ -1,0 +1,13 @@
+FAIL admin 1366 page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#themeDialogV21727.active') to be visible[22m
+
+FAIL admin 1920 page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#themeDialogV21727.active') to be visible[22m
+
+FAIL admin 2560 page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#themeDialogV21727.active') to be visible[22m
+
+{ pass: 0, fail: 3, errors: [] }

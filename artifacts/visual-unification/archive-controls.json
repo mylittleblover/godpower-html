@@ -1,0 +1,384 @@
+{
+  "sha256": "80cb31fdb9cbc501b0af938a2b4c3cd8b5552e741f1f78cfaa0ccb1313f4cf80",
+  "results": [
+    {
+      "width": 1366,
+      "height": 768,
+      "zoom": 0.8,
+      "bounds": {
+        "filter": {
+          "x": 20.78125,
+          "y": 332.203125,
+          "width": 1309.4375,
+          "height": 61.5625,
+          "top": 332.203125,
+          "right": 1330.21875,
+          "bottom": 393.765625,
+          "left": 20.78125
+        },
+        "input": {
+          "x": 72.34375,
+          "y": 345.390625,
+          "width": 916.0625,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 988.40625,
+          "bottom": 380.578125,
+          "left": 72.34375
+        },
+        "sort": {
+          "x": 1064.5625,
+          "y": 345.390625,
+          "width": 158.984375,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 1223.546875,
+          "bottom": 380.578125,
+          "left": 1064.5625
+        },
+        "gap": 19.1875,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1366-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "zoom": 1,
+      "bounds": {
+        "filter": {
+          "x": 26,
+          "y": 414.890625,
+          "width": 1299,
+          "height": 76,
+          "top": 414.890625,
+          "right": 1325,
+          "bottom": 490.890625,
+          "left": 26
+        },
+        "input": {
+          "x": 90,
+          "y": 430.890625,
+          "width": 811.796875,
+          "height": 44,
+          "top": 430.890625,
+          "right": 901.796875,
+          "bottom": 474.890625,
+          "left": 90
+        },
+        "sort": {
+          "x": 996.8125,
+          "y": 430.890625,
+          "width": 195,
+          "height": 44,
+          "top": 430.890625,
+          "right": 1191.8125,
+          "bottom": 474.890625,
+          "left": 996.8125
+        },
+        "gap": 24,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1366-1.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "zoom": 1.25,
+      "bounds": {
+        "filter": {
+          "x": 32.5,
+          "y": 518.375,
+          "width": 1286,
+          "height": 94,
+          "top": 518.375,
+          "right": 1318.5,
+          "bottom": 612.375,
+          "left": 32.5
+        },
+        "input": {
+          "x": 112,
+          "y": 537.875,
+          "width": 678.265625,
+          "height": 55,
+          "top": 537.875,
+          "right": 790.265625,
+          "bottom": 592.875,
+          "left": 112
+        },
+        "sort": {
+          "x": 908.78125,
+          "y": 537.875,
+          "width": 243.5,
+          "height": 55,
+          "top": 537.875,
+          "right": 1152.28125,
+          "bottom": 592.875,
+          "left": 908.78125
+        },
+        "gap": 30,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1366-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "zoom": 0.8,
+      "bounds": {
+        "filter": {
+          "x": 20.78125,
+          "y": 332.203125,
+          "width": 1863.4375,
+          "height": 61.5625,
+          "top": 332.203125,
+          "right": 1884.21875,
+          "bottom": 393.765625,
+          "left": 20.78125
+        },
+        "input": {
+          "x": 72.34375,
+          "y": 345.390625,
+          "width": 1470.0625,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 1542.40625,
+          "bottom": 380.578125,
+          "left": 72.34375
+        },
+        "sort": {
+          "x": 1618.5625,
+          "y": 345.390625,
+          "width": 158.984375,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 1777.546875,
+          "bottom": 380.578125,
+          "left": 1618.5625
+        },
+        "gap": 19.1875,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1920-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1,
+      "bounds": {
+        "filter": {
+          "x": 26,
+          "y": 414.890625,
+          "width": 1853,
+          "height": 76,
+          "top": 414.890625,
+          "right": 1879,
+          "bottom": 490.890625,
+          "left": 26
+        },
+        "input": {
+          "x": 90,
+          "y": 430.890625,
+          "width": 1365.796875,
+          "height": 44,
+          "top": 430.890625,
+          "right": 1455.796875,
+          "bottom": 474.890625,
+          "left": 90
+        },
+        "sort": {
+          "x": 1550.8125,
+          "y": 430.890625,
+          "width": 195,
+          "height": 44,
+          "top": 430.890625,
+          "right": 1745.8125,
+          "bottom": 474.890625,
+          "left": 1550.8125
+        },
+        "gap": 24,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1920-1.png",
+      "status": "PASS"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "zoom": 1.25,
+      "bounds": {
+        "filter": {
+          "x": 32.5,
+          "y": 518.375,
+          "width": 1840,
+          "height": 94,
+          "top": 518.375,
+          "right": 1872.5,
+          "bottom": 612.375,
+          "left": 32.5
+        },
+        "input": {
+          "x": 112,
+          "y": 537.875,
+          "width": 1232.265625,
+          "height": 55,
+          "top": 537.875,
+          "right": 1344.265625,
+          "bottom": 592.875,
+          "left": 112
+        },
+        "sort": {
+          "x": 1462.78125,
+          "y": 537.875,
+          "width": 243.5,
+          "height": 55,
+          "top": 537.875,
+          "right": 1706.28125,
+          "bottom": 592.875,
+          "left": 1462.78125
+        },
+        "gap": 30,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-1920-1.25.png",
+      "status": "PASS"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "zoom": 0.8,
+      "bounds": {
+        "filter": {
+          "x": 20.78125,
+          "y": 332.203125,
+          "width": 2503.4375,
+          "height": 61.5625,
+          "top": 332.203125,
+          "right": 2524.21875,
+          "bottom": 393.765625,
+          "left": 20.78125
+        },
+        "input": {
+          "x": 72.34375,
+          "y": 345.390625,
+          "width": 2110.0625,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 2182.40625,
+          "bottom": 380.578125,
+          "left": 72.34375
+        },
+        "sort": {
+          "x": 2258.5625,
+          "y": 345.390625,
+          "width": 158.984375,
+          "height": 35.1875,
+          "top": 345.390625,
+          "right": 2417.546875,
+          "bottom": 380.578125,
+          "left": 2258.5625
+        },
+        "gap": 19.1875,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-2560-0.8.png",
+      "status": "PASS"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1,
+      "bounds": {
+        "filter": {
+          "x": 26,
+          "y": 414.890625,
+          "width": 2493,
+          "height": 76,
+          "top": 414.890625,
+          "right": 2519,
+          "bottom": 490.890625,
+          "left": 26
+        },
+        "input": {
+          "x": 90,
+          "y": 430.890625,
+          "width": 2005.796875,
+          "height": 44,
+          "top": 430.890625,
+          "right": 2095.796875,
+          "bottom": 474.890625,
+          "left": 90
+        },
+        "sort": {
+          "x": 2190.8125,
+          "y": 430.890625,
+          "width": 195,
+          "height": 44,
+          "top": 430.890625,
+          "right": 2385.8125,
+          "bottom": 474.890625,
+          "left": 2190.8125
+        },
+        "gap": 24,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-2560-1.png",
+      "status": "PASS"
+    },
+    {
+      "width": 2560,
+      "height": 1440,
+      "zoom": 1.25,
+      "bounds": {
+        "filter": {
+          "x": 32.5,
+          "y": 518.375,
+          "width": 2480,
+          "height": 94,
+          "top": 518.375,
+          "right": 2512.5,
+          "bottom": 612.375,
+          "left": 32.5
+        },
+        "input": {
+          "x": 112,
+          "y": 537.875,
+          "width": 1872.265625,
+          "height": 55,
+          "top": 537.875,
+          "right": 1984.265625,
+          "bottom": 592.875,
+          "left": 112
+        },
+        "sort": {
+          "x": 2102.78125,
+          "y": 537.875,
+          "width": 243.5,
+          "height": 55,
+          "top": 537.875,
+          "right": 2346.28125,
+          "bottom": 592.875,
+          "left": 2102.78125
+        },
+        "gap": 30,
+        "radius": "11px",
+        "overflow": false
+      },
+      "screenshot": "artifacts/visual-unification/screenshots/archive-controls-2560-1.25.png",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

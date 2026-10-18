@@ -1,0 +1,19 @@
+PASS All five pages produce layered, cancellable actual WAAPI entry animations
+PASS Window scoreModalBackdrop: upward nonlinear entry and single canonical round close
+PASS Window memberSearchBackdrop: upward nonlinear entry and single canonical round close
+PASS Window pwdModal: upward nonlinear entry and single canonical round close
+PASS Window settlementNameModal: upward nonlinear entry and single canonical round close
+PASS Window pickerModal: upward nonlinear entry and single canonical round close
+PASS Window itemModalBackdrop: upward nonlinear entry and single canonical round close
+PASS Window handRaiseBackdrop: upward nonlinear entry and single canonical round close
+PASS Window aboutBackdrop: upward nonlinear entry and single canonical round close
+PASS Window batchImportModal: upward nonlinear entry and single canonical round close
+PASS Window quickPersonBackdropV218: upward nonlinear entry and single canonical round close
+PASS Daily knowledge and all eight settings disclosure groups animate open/close, keyboard and rapid interruption
+PASS SVG lever individual: actual result, 1000ms deceleration, anti-repeat, reward and cleanup
+PASS SVG lever group: actual result, 1000ms deceleration, anti-repeat, reward and cleanup
+PASS SVG lever two_tier: actual result, 1000ms deceleration, anti-repeat, reward and cleanup
+PASS Compact SVG cabinet and lever fit three desktop sizes at 80/100/125 percent app zoom
+PASS Theme confirmation and archived celebration use the same round close without changing dismissal semantics
+PASS Closing and changing mode during slot deceleration cannot write stale UI or reward a previous target
+{ pass: 18, fail: 0, errors: [] }

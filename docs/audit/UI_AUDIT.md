@@ -79,3 +79,7 @@ reference-baseline/ 与 reference-fixed/ 保存相同四组数据、相同1920×
 ## 设置页清查与新UI补齐（e97933d 起点）
 
 当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。
+
+## 2026-10-18 全局功能界面与动效
+
+顶底栏、比赛卡片表面、历史/档案、SVG老虎机、展开动画、真实未作答警告及管理口令流程见 [本轮正式报告](../reports/APPLICATION_SURFACES_ACCEPTANCE.md) 与 [验收矩阵](APPLICATION_SURFACES_TEST_MATRIX.md)。本轮证据独立保存在 artifacts/visual-unification，历史发布证据保留。包含动画进行中窗口越界、待启动帧竞态和口令错误提示的实际修复，不能仅用截图张数判断通过。

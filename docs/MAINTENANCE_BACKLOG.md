@@ -726,3 +726,62 @@ GP-016 → GP-017 → GP-011 → GP-012 → GP-013 → RF-001 → RF-002 → GP-
 - 风险：导入异常或旧格式兼容回归
 - 验收标准：损坏魔数、截断、非法索引、越界切片、事务拒绝均有明确失败反馈且旧音频不丢失；合法旧包往返通过。
 - 推荐测试方法：独立IndexedDB上下文、损坏BIN fixtures、注入事务失败，比较导入前后真实记录。
+
+## SURF-001 首页风格扩展到功能界面
+
+- 分类：UI 架构；优先级：P1；当前状态：DONE。
+- 问题描述：顶底栏、卡片、窗口及历史/档案页没有复用首页的新视觉层级。
+- 证据/源码：src/ui/application-surfaces.css、src/index.template.html；docs/reports/APPLICATION_SURFACES_ACCEPTANCE.md。
+- 影响范围：五页及全部已识别功能窗口。
+- 已完成方案：单一组件样式所有者与变量桥；不增加!important，原比赛几何所有者保留。
+- 依赖：SET-002；复杂度：高；风险：旧高优先级样式和14组布局。
+- 验收标准：三档桌面尺寸、99窗口矩阵与14组逐卡DOM比较通过，正常计分不变。
+- 推荐测试：test:surfaces、desktop-modal-matrix、battle-layout、release-smoke。
+
+## SURF-002 统一页面/窗口/展开和抽取动画
+
+- 分类：交互与动画；优先级：P1；当前状态：DONE。
+- 问题描述：页面只有局部动画，窗口方向不同，展开突然跳变，抽取结果即时跳停。
+- 证据/源码：DesktopUI.viewChanged/setupDisclosures/pickerStopped；WelcomeV2.finish；motion/results.json。
+- 影响范围：五页、导航启动、details、三种抽取模式。
+- 已完成方案：分层入场、窗口向上非线性飞入、统一圆形叉号、真实高度展开；SVG老虎机+拉杆，1000ms表现层减速。
+- 依赖：SURF-001；复杂度：高；风险：中断与旧异步回调、学号样式丢失。
+- 验收标准：关闭/切页/换模式无残留，结果沿用原选择；候选与最终行保留小组颜色学号，9尺寸缩放组合拉杆可操作。
+- 推荐测试：motion-unification、真实三模式赋分、减少动态效果和快速反转。
+
+## SURF-003 真实未作答警告的旧窗口治理
+
+- 分类：UI 生命周期；优先级：P1；当前状态：DONE。
+- 问题描述：未全部作答使用单独programConfirmV28，未接入新模态样式、焦点和关闭；监听器清理及重复打开待决确认不完整。
+- 证据/源码：src/script/00.js:programConfirmV28/setCorrectAns；DesktopUI.modalClosers/forgetModal；warnings/results.json。
+- 影响范围：提前公布正解及程序确认窗。
+- 已完成方案：原确认函数保留，接入统一表面/飞入/叉号/焦点；关闭即移除键盘监听，替换时取消前次确认；动态移除/同ID替换清理原焦点记录。
+- 依赖：SURF-001；复杂度：中；风险：不能因改样式自动确认。
+- 验收标准：13个真实触发场景通过；取消、Escape和切页不设置正解；继续及原Enter行为保留。
+- 推荐测试：warning-dialogs、重复setCorrectAns、三分辨率三档应用缩放。
+
+## SURF-004 口令错误提示层级与回车默认动作
+
+- 分类：UI 可用性；优先级：P1；当前状态：DONE。
+- 问题描述：旧口令固定层级压住错误提示；回车提交后焦点移到提示按钮，浏览器默认激活会立即关闭新提示。
+- 证据/源码：src/style/20.css、DesktopUI.setupModals、src/script/00.js:handlePwdKey；admin/results.json。
+- 影响范围：进入上帝模式、本地管理口令及嵌套提示。
+- 已完成方案：模态层级与现有焦点栈一致，关闭恢复原层级；口令Enter阻止默认点击，不改口令比较或权限状态规则。
+- 依赖：SURF-001；复杂度：中；风险：焦点陷阱和取消误解锁。
+- 验收标准：三档桌面真实入口测试；错误提示可见可关闭、返回输入框、正确解锁、取消仍锁定、组数据不变。
+- 推荐测试：admin-dialog、嵌套焦点/层级、键盘和统一叉号。
+
+## SURF-005 待启动页面动画的生命周期可观测性
+
+- 分类：动画调度；优先级：P2；当前状态：DONE。
+- 问题描述：requestAnimationFrame已排队但尚未创建WAAPI对象时，动画计数短暂为0，等待零残留会与新页面入场竞争。
+- 证据/源码：DesktopUI.pageMotionFrame/cancelAnimations/getAnimationCount；validated-pages.log、最终acceptance-pages.log。
+- 影响范围：快速切页、清理验证与页面动画。
+- 已完成方案：取消排队帧并将待启动工作纳入计数；保留最终严格0残留断言，不减少业务断言。
+- 依赖：SURF-002；复杂度：低；风险：旧模块绕过统一动画入口。
+- 验收标准：26道具UI循环后切页，入场完成后严格无残留，快速切页不启动旧页面动画。
+- 推荐测试：desktop-ui、motion-unification。
+
+## 本轮后续优先级与覆盖边界
+
+下一阶段优先处理 SET-004（音频包结构/失败校验），UI-101（教师真实14组配置），UI-102（浏览器工具栏原生缩放），以及既有核心遗留规则/渲染拆分任务。不要将程序CSS缩放当作原生浏览器缩放；不要把合成14组场景标为教师真实设备验收。既有未解决数据、音频和架构任务保持OPEN，不因本轮UI通过而关闭。

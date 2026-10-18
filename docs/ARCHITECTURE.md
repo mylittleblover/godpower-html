@@ -87,3 +87,9 @@ Web Audio／IndexedDB 音频库、菜单 BGM、思考／战斗／结算轨、节
 模板通过 data-settings-category 与 data-settings-group 声明控件归属，DesktopUI 一次性移动原DOM节点并分组，保留ID、原处理器和保存行为。分类进入时刷新声音／道具资源，showSettingsV26兼容导航只委派。音频包导入完成补通知道具音效视图，音乐列表使用独立UI代次避免异步旧结果重复追加。设置文案归模板，旧copy脚本不再覆写。
 
 低频音频迁移、音轨、图标与题库维护使用原生details；展开状态仅存在当前DOM。设置进场与分类动效复用DesktopUI.animate，单独收集Animation对象并在切页、快速分类、Esc、偏好及系统减少动态效果时清理。计算设置页高度使用syncViewport提供的--ui-viewport-height，避免CSS zoom二次放大100dvh。计分、存储schema及规则引擎没有变更。
+
+## 全局功能界面统一层
+
+`ui/application-surfaces.css` 统一顶栏、底栏、比赛卡片外观、窗口及历史/档案页，详见 [规范](ui/APPLICATION_SURFACES.md)。旧几何所有者通过声明中的组件变量接收外观，没有新增全局包装函数。`WelcomeV2` 在原入场动画集合中加入五个导航标签，`DesktopUI` 在现有模态焦点扫描中管理普通窗口入场，并消费档案页的单次进入标志；无新增计时器，无业务状态写入。历史/档案采用换算视口高度和单一正文滚动，比赛几何不变。
+
+模态焦点栈现同时拥有视觉层级：打开分配递增层级，关闭/卸载恢复原值和焦点，动态programConfirmV28也接入同一生命周期。口令回车仅提交一次，防止默认点击新错误提示。details采用一个委托监听与可取消高度动画，页面计数包含待启动requestAnimationFrame；老虎机减速覆盖层是纯展示，不接管原抽取和防重复记账。

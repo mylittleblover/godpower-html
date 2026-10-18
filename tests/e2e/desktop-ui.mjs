@@ -396,7 +396,8 @@ try {
       }, key);
     }
     await p.evaluate(() => switchView("welcome"));
-    assert.ok((await p.evaluate(() => DesktopUI.getAnimationCount())) <= 1);
+    // The requested layered page entrance now has several finite animations.
+    // Wait for that entrance, then retain the strict zero-residual assertion.
     await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0, null, {
       timeout: 5000,
     });

@@ -213,3 +213,7 @@ Call log:
 ## 设置页清查与新UI补齐（e97933d 起点）
 
 当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。
+
+## 2026-10-18 界面与动效回归
+
+新增 [功能界面验收矩阵](APPLICATION_SURFACES_TEST_MATRIX.md)；最终状态及产物SHA以 [报告](../reports/APPLICATION_SURFACES_ACCEPTANCE.md) 为准。阶段测试、最终回归和BLOCKED项目分开记录。
