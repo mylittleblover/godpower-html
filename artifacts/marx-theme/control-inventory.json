@@ -1,0 +1,421 @@
+{
+  "status": "PASS",
+  "viewport": "1920x1080@1",
+  "pages": [
+    {
+      "theme": "classic",
+      "view": "welcome",
+      "checkboxes": 0
+    },
+    {
+      "theme": "classic",
+      "view": "battle",
+      "checkboxes": 0
+    },
+    {
+      "theme": "classic",
+      "view": "history",
+      "checkboxes": 0
+    },
+    {
+      "theme": "classic",
+      "view": "archives",
+      "checkboxes": 0
+    },
+    {
+      "theme": "classic",
+      "view": "settings",
+      "checkboxes": 15
+    },
+    {
+      "theme": "marx",
+      "view": "welcome",
+      "checkboxes": 0
+    },
+    {
+      "theme": "marx",
+      "view": "battle",
+      "checkboxes": 0
+    },
+    {
+      "theme": "marx",
+      "view": "history",
+      "checkboxes": 0
+    },
+    {
+      "theme": "marx",
+      "view": "archives",
+      "checkboxes": 0
+    },
+    {
+      "theme": "marx",
+      "view": "settings",
+      "checkboxes": 15
+    }
+  ],
+  "controls": [
+    {
+      "theme": "classic",
+      "category": "rules",
+      "controls": [
+        {
+          "id": "communismModeToggle",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "cfgSaveAllIn",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "appearance",
+      "controls": [
+        {
+          "id": "cfgResizerEnabled",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "motion",
+      "controls": [
+        {
+          "id": "uiPref-pageMotion",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-itemFx",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-systemMotion",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "cfPickEffects",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "id": "cfScoreEffects",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "sound",
+      "controls": [
+        {
+          "id": "cfClickEnabled",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "items",
+      "controls": [
+        {
+          "id": "green.draw.enabled",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "students",
+      "controls": []
+    },
+    {
+      "theme": "classic",
+      "category": "welcome",
+      "controls": [
+        {
+          "id": "uiPref-knowledge",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-itemTip",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-honors",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-challenge",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-groupCruise",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "data",
+      "controls": []
+    },
+    {
+      "theme": "marx",
+      "category": "rules",
+      "controls": [
+        {
+          "id": "communismModeToggle",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "cfgSaveAllIn",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "appearance",
+      "controls": [
+        {
+          "id": "cfgResizerEnabled",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "motion",
+      "controls": [
+        {
+          "id": "uiPref-pageMotion",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-itemFx",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-systemMotion",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "cfPickEffects",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "id": "cfScoreEffects",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "sound",
+      "controls": [
+        {
+          "id": "cfClickEnabled",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "items",
+      "controls": [
+        {
+          "id": "green.draw.enabled",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "students",
+      "controls": []
+    },
+    {
+      "theme": "marx",
+      "category": "welcome",
+      "controls": [
+        {
+          "id": "uiPref-knowledge",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-itemTip",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-honors",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-challenge",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        },
+        {
+          "id": "uiPref-groupCruise",
+          "kind": "native-switch",
+          "width": 52,
+          "height": 28,
+          "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "data",
+      "controls": []
+    }
+  ],
+  "errors": []
+}

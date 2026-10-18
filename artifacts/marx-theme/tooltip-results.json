@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "viewport": "1920x1080@1",
+  "timer": "Playwright browser clock: 3000ms",
+  "checks": [
+    "expiry",
+    "no reappear while held",
+    "child movement",
+    "mouseleave",
+    "Escape",
+    "click",
+    "dynamic title",
+    "safe XSS text",
+    "keyboard focus",
+    "accessible name",
+    "viewport bounds"
+  ],
+  "errors": []
+}

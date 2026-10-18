@@ -90,3 +90,14 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
   `LEGACY_BASELINE=9e1be3c LEGACY_ARTIFACT_DIR=artifacts/structure LEGACY_DOCUMENT=docs/LEGACY_CODE_INVENTORY.md npm run audit:legacy`。
 - 本轮验收入口见 `docs/reports/STRUCTURE_REFACTOR_ACCEPTANCE.md`。性能/业务差分脚本支持 `REFACTOR_BASELINE`；14组比较使用 `BATTLE_BASELINE_COMMIT`、`BATTLE_ARTIFACT_DIR`。
 - 旧测试脚本默认会写原artifacts路径。新任务要将实际新产物保存至独立目录，再仅恢复该任务覆盖的历史证据，保留SHA和索引；不要把历史PASS当成本轮结果。
+
+
+## 每次发布的版本与主题约束（强制）
+
+- 用户要求：每次更新必须同步左上角、内部版本及发行包版本。修改两个仓库package.json及锁文件版本；HTML的顶栏、标题、__GOD_POWER_VERSION__和备份appVersion统一由构建VERSION token生成，禁止手改dist。
+- HTML运行npm run build/check；Electron同步已提交的HTML，再执行verify:bundle和verify-release。任何一处版本不一致禁止发布。
+- 新主题只能通过GodpowerTheme增加外观，不能复用业务模式开关。颜色由原始样式所有者读主题变量，禁止同名全局函数包装。保持用户组色、正负分语义与14组几何。
+- 所有主题底栏封神榜保持金色与柔光；到此为止使用深色底和白字。新增布尔设置复用共享滑块；选择列表保持复选框。
+- 主题切换须测试刷新、存储失败、快速连续切换、跳过/Escape、减少动态效果、页面切换清理和独立窗口同步。仅Chromium1920×1080、1×；不运行CircleCI。
+
+- 悬停提示统一由GodpowerTooltips管理：显示后3秒自动消失，持续悬停不重播；新增提示继续声明title/ARIA即可。禁止另加不自动消失的CSS hover气泡。独立窗口的提示源必须由sync:html同步，不能复制后各自修改。

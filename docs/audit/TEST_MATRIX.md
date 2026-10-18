@@ -280,3 +280,8 @@ Call log:
 | 22 按钮槽、七分类、试听与去重 | 同上；preview-red-results.json | 实际鼠标试听与 BufferSource 验证 |
 | 14 小组 × 三尺寸 | artifacts/battle-motion/layout | 同配置前后对比，教师真实配置仍未知 |
 | 核心业务、26 道具预言机、音频上传/BIN | artifacts/battle-motion/captured、logs | 执行阶段与哈希见验收报告 |
+
+
+## 3.0.1 主题增量
+
+见reports/MARX_THEME_3_0_1.md；新增npm run test:theme覆盖主题、五页、八类设置、14组精确几何、语义色、版本、金色按钮、开关持久化和3秒提示。全项目旧功能未重跑的项目保留原状态，不自动标为PASS。
