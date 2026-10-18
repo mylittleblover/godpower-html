@@ -5947,7 +5947,7 @@ body.modern-flat-v217 {
   position: relative;
   width: 100%;
   max-width: 560px;
-  aspect-ratio: 520 / 410;
+  aspect-ratio: 520 / 350;
   margin: 8px auto;
 }
 .ui-slot-cabinet {
@@ -5957,7 +5957,7 @@ body.modern-flat-v217 {
 }
 .ui-slot-stage .slot-machine-case {
   position: absolute;
-  inset: 32% 20% 33% 10%;
+  inset: 37% 20% 37% 10%;
   display: flex;
   align-items: stretch;
   gap: 8px;
@@ -6053,7 +6053,7 @@ body.modern-flat-v217 {
   width: 100%;
   pointer-events: none;
 }
-.ui-slot-deceleration span {
+.ui-slot-deceleration > span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7459,19 +7459,19 @@ body[data-welcome-motion="off"].gp-intro-reveal #view-welcome .gp-reveal {
           <div id="twoTierGroupChips" class="two-tier-chips"></div>
         </div>
         <div class="ui-slot-stage">
-          <svg class="ui-slot-cabinet" viewBox="0 0 520 410" role="img" aria-label="课堂幸运老虎机">
+          <svg class="ui-slot-cabinet" viewBox="0 0 520 350" role="img" aria-label="课堂幸运老虎机">
             <defs><linearGradient id="slotCabinet" x2="0" y2="1"><stop stop-color="#168574"/><stop offset="1" stop-color="#07574e"/></linearGradient></defs>
-            <rect x="28" y="24" width="426" height="350" rx="40" fill="#0b463f" opacity=".10"/>
-            <rect x="20" y="14" width="426" height="350" rx="36" fill="url(#slotCabinet)"/>
+            <rect x="28" y="24" width="426" height="290" rx="40" fill="#0b463f" opacity=".10"/>
+            <rect x="20" y="14" width="426" height="290" rx="36" fill="url(#slotCabinet)"/>
             <rect x="41" y="35" width="384" height="71" rx="20" fill="#e3f4e9"/>
             <text x="233" y="65" text-anchor="middle" fill="#12634f" font-size="12" font-family="sans-serif" letter-spacing="4">CLASSROOM LUCKY DRAW</text>
             <text x="233" y="91" text-anchor="middle" fill="#12634f" font-size="20" font-family="sans-serif" font-weight="800">今天，谁是天选之人？</text>
-            <rect x="41" y="123" width="384" height="163" rx="22" fill="#074d44" stroke="#62b89a" stroke-width="2"/>
-            <path d="M76 311h314" stroke="#5dab92" stroke-width="3" stroke-linecap="round"/>
-            <rect x="153" y="324" width="160" height="13" rx="6" fill="#064b41"/>
+            <rect x="41" y="123" width="384" height="103" rx="22" fill="#074d44" stroke="#62b89a" stroke-width="2"/>
+            <path d="M76 251h314" stroke="#5dab92" stroke-width="3" stroke-linecap="round"/>
+            <rect x="153" y="264" width="160" height="13" rx="6" fill="#064b41"/>
             <circle cx="69" cy="65" r="5" fill="#f4a28c"/><circle cx="397" cy="65" r="5" fill="#f4a28c"/>
-            <path d="M447 191h23" stroke="#87aaa0" stroke-width="14" stroke-linecap="round"/>
-            <rect x="9" y="363" width="448" height="23" rx="11" fill="#164d42"/>
+            <path d="M447 161h23" stroke="#87aaa0" stroke-width="14" stroke-linecap="round"/>
+            <rect x="9" y="303" width="448" height="23" rx="11" fill="#164d42"/>
           </svg>
           <div class="slot-machine-case">
             <div class="slot-reel-frame" id="reelFrameGroup" style="display:none"><div class="slot-reel-text" id="reelTextGroup">待开奖</div></div>
@@ -22112,14 +22112,13 @@ const DesktopUI = (() => {
     const pending = [];
     modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
       if (!frame.getClientRects().length) return;
-      const actual = frame.querySelector(".slot-reel-text"),
-        finalLabel = actual.textContent;
-      const candidates =
-        frame.id === "reelFrameGroup"
-          ? state.groups.map((g) => g.name)
-          : state.groups.flatMap((g) =>
-              (g.members || []).map((m) => String(m)),
-            );
+      const actual = frame.querySelector(".slot-reel-text");
+      const isGroup = frame.id === "reelFrameGroup";
+      const candidates = isGroup
+        ? state.groups.map((g) => ({ raw: g.name, group: g }))
+        : state.groups.flatMap((g) =>
+            (g.members || []).map((raw) => ({ raw, group: g })),
+          );
       const height = frame.clientHeight;
       const strip = document.createElement("div");
       strip.className = "ui-slot-deceleration";
@@ -22127,10 +22126,16 @@ const DesktopUI = (() => {
       // Display-only cycle: never consume or replace the business RNG.
       for (let i = 0; i < 10; i++) {
         const row = document.createElement("span");
-        row.textContent =
-          i === 9
-            ? finalLabel
-            : candidates[i % Math.max(1, candidates.length)] || finalLabel;
+        const candidate = candidates[i % Math.max(1, candidates.length)];
+        if (i === 9 || !candidate) {
+          for (const node of actual.childNodes)
+            row.append(node.cloneNode(true));
+        } else if (isGroup) {
+          row.textContent = candidate.raw;
+        } else {
+          // Reuse the existing escaped student/colored-number renderer.
+          row.innerHTML = studentLabelHTMLV218(candidate.raw, candidate.group);
+        }
         row.style.height = height + "px";
         strip.append(row);
       }

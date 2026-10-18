@@ -1514,14 +1514,13 @@ const DesktopUI = (() => {
     const pending = [];
     modal.querySelectorAll(".slot-reel-frame").forEach((frame) => {
       if (!frame.getClientRects().length) return;
-      const actual = frame.querySelector(".slot-reel-text"),
-        finalLabel = actual.textContent;
-      const candidates =
-        frame.id === "reelFrameGroup"
-          ? state.groups.map((g) => g.name)
-          : state.groups.flatMap((g) =>
-              (g.members || []).map((m) => String(m)),
-            );
+      const actual = frame.querySelector(".slot-reel-text");
+      const isGroup = frame.id === "reelFrameGroup";
+      const candidates = isGroup
+        ? state.groups.map((g) => ({ raw: g.name, group: g }))
+        : state.groups.flatMap((g) =>
+            (g.members || []).map((raw) => ({ raw, group: g })),
+          );
       const height = frame.clientHeight;
       const strip = document.createElement("div");
       strip.className = "ui-slot-deceleration";
@@ -1529,10 +1528,16 @@ const DesktopUI = (() => {
       // Display-only cycle: never consume or replace the business RNG.
       for (let i = 0; i < 10; i++) {
         const row = document.createElement("span");
-        row.textContent =
-          i === 9
-            ? finalLabel
-            : candidates[i % Math.max(1, candidates.length)] || finalLabel;
+        const candidate = candidates[i % Math.max(1, candidates.length)];
+        if (i === 9 || !candidate) {
+          for (const node of actual.childNodes)
+            row.append(node.cloneNode(true));
+        } else if (isGroup) {
+          row.textContent = candidate.raw;
+        } else {
+          // Reuse the existing escaped student/colored-number renderer.
+          row.innerHTML = studentLabelHTMLV218(candidate.raw, candidate.group);
+        }
         row.style.height = height + "px";
         strip.append(row);
       }

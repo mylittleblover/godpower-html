@@ -501,7 +501,7 @@ body.modern-flat-v217 {
   position: relative;
   width: 100%;
   max-width: 560px;
-  aspect-ratio: 520 / 410;
+  aspect-ratio: 520 / 350;
   margin: 8px auto;
 }
 .ui-slot-cabinet {
@@ -511,7 +511,7 @@ body.modern-flat-v217 {
 }
 .ui-slot-stage .slot-machine-case {
   position: absolute;
-  inset: 32% 20% 33% 10%;
+  inset: 37% 20% 37% 10%;
   display: flex;
   align-items: stretch;
   gap: 8px;
@@ -607,7 +607,7 @@ body.modern-flat-v217 {
   width: 100%;
   pointer-events: none;
 }
-.ui-slot-deceleration span {
+.ui-slot-deceleration > span {
   display: flex;
   align-items: center;
   justify-content: center;
