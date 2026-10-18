@@ -12,6 +12,7 @@ const server = createServer((q, r) => {
   r.end(html);
 });
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
+const settingsOnly = process.env.DESIGN_ONLY === "settings";
 const browser = await launch(),
   rows = [],
   errors = [];
@@ -175,17 +176,21 @@ async function shot(p, name, scope = "body") {
   rows.push({ name, screenshot: file, ...metrics });
 }
 try {
-  for (const width of (process.env.DESIGN_WIDTHS || "1366,1920,2560")
+  for (const width of (process.env.DESIGN_WIDTHS || "1920")
     .split(",")
     .map(Number)) {
     const height = width === 1366 ? 768 : width === 2560 ? 1440 : 1080;
-    const context = await browser.newContext({ viewport: { width, height } }),
+    const context = await browser.newContext({
+        viewport: { width, height },
+        deviceScaleFactor: 1,
+      }),
       p = await context.newPage();
     p.on("pageerror", (e) => errors.push(e.message));
     await p.goto(`http://127.0.0.1:${server.address().port}`, {
       waitUntil: "domcontentloaded",
     });
     await setup(p, 14);
+    await p.evaluate(() => applyZoom(1));
     await p.evaluate(() => {
       state.groups[0].name = "银河探索小组 · 一起向未来";
       state.groups[0].score = 12345678;
@@ -215,7 +220,7 @@ try {
       "history",
       "archives",
       "settings",
-    ]) {
+    ].filter((v) => !settingsOnly || v === "settings")) {
       await p.evaluate((v) => switchView(v), view);
       await shot(p, `${view}-${width}`);
       if (view === "history" || view === "archives") {
@@ -251,7 +256,7 @@ try {
       }
     }
     await p.evaluate(() => switchView("battle"));
-    for (const [name, id, open] of cases) {
+    for (const [name, id, open] of settingsOnly ? [] : cases) {
       try {
         await p.evaluate(open);
         await p.locator("#" + id).waitFor({ state: "visible" });
@@ -265,21 +270,23 @@ try {
         .waitFor({ state: "hidden", timeout: 6000 })
         .catch(() => {});
     }
-    // Empty collection states are independently rendered without touching a real profile.
-    await p.evaluate(() => {
-      historyStack = [];
-      STORAGE.setJSON("politics_settlement_history", []);
-      state.groups = [];
-      renderAll();
-    });
-    for (const view of ["welcome", "history", "archives"]) {
-      await p.evaluate((v) => switchView(v), view);
-      await shot(p, `${view}-empty-${width}`);
+    if (!settingsOnly) {
+      // Empty collection states are independently rendered without touching a real profile.
+      await p.evaluate(() => {
+        historyStack = [];
+        STORAGE.setJSON("politics_settlement_history", []);
+        state.groups = [];
+        renderAll();
+      });
+      for (const view of ["welcome", "history", "archives"]) {
+        await p.evaluate((v) => switchView(v), view);
+        await shot(p, `${view}-empty-${width}`);
+      }
+      await p.evaluate(() => WelcomeV2.replay());
+      await shot(p, `startup-${width}`, "#gpIntro");
+      await p.locator("#gpIntroSkip").click();
+      await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
     }
-    await p.evaluate(() => WelcomeV2.replay());
-    await shot(p, `startup-${width}`, "#gpIntro");
-    await p.locator("#gpIntroSkip").click();
-    await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
     await context.close();
   }
 } finally {

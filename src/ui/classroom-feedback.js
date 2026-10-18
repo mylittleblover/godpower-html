@@ -226,9 +226,9 @@ const ClassroomFeedback = (() => {
         `<section class="ui-panel cf-settings"><h3>全屏课堂特效</h3><div class="ui-settings-row"><label for="cfPickEffects">抽中姓名全屏揭晓</label><input id="cfPickEffects" data-cf-option="pickEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfScoreEffects">自由加减分全屏反馈</label><input id="cfScoreEffects" data-cf-option="scoreEffects" type="checkbox"></div><div class="ui-settings-row"><label for="cfEffectStyle">视觉风格</label><select id="cfEffectStyle" data-cf-option="style"><option value="aurora">极光聚焦 · 光环与流光</option><option value="burst">星火绽放 · 放射粒子</option></select></div><div class="ui-settings-row"><label for="cfEffectDuration">自动收起时间</label><select id="cfEffectDuration" data-cf-option="duration"><option value="1200">1.2 秒</option><option value="1800">1.8 秒</option><option value="2600">2.6 秒</option><option value="3600">3.6 秒</option></select></div><p class="ui-muted">点击“继续课堂”或按 Escape 跳过。关闭非必要动效或系统减少动态效果时，不播放全屏演出；实际抽取、加分和扣分照常完成。</p></section>`,
       );
     document
-      .querySelector('[data-category-panel="sound"]')
+      .querySelector('[data-category-panel="sound"] > .ui-settings-title')
       .insertAdjacentHTML(
-        "afterbegin",
+        "afterend",
         `<section class="ui-panel cf-settings"><h3>按钮点击音效</h3><div class="ui-settings-row"><label for="cfClickEnabled">所有可操作按钮播放点击音效</label><input id="cfClickEnabled" data-cf-option="clickEnabled" type="checkbox"></div><div class="ui-settings-row"><label for="cfClickVolume">点击音量（叠加总音量与音效音量）</label><input id="cfClickVolume" data-cf-option="clickVolume" type="range" min="0" max="1" step=".05"></div><p class="ui-muted">上传、试听与还原：下方音效分类内，可分别为导航、答题、道具、赋分、确认等按钮设置声音；未单独上传时继承“通用按钮默认音效”。同一次点击只播放一次，不叠加旧按钮内的点选音效。</p></section>`,
       );
     document.querySelectorAll("[data-cf-slot]").forEach((e) =>

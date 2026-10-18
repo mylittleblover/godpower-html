@@ -20,7 +20,11 @@ function readableTextOnColor(hex){
   if(!/^[0-9a-f]{6}$/i.test(value))return '#FFFFFF';
   const rgb=[0,2,4].map(i=>parseInt(value.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4));
   const luminance=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2];
-  return luminance>.46?'#17302D':'#FFFFFF';
+  if(1.05/(luminance+.05)>=4.5)return '#FFFFFF';
+  const ink=[23,48,45].map(v=>v/255).map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4));
+  const inkLuminance=.2126*ink[0]+.7152*ink[1]+.0722*ink[2];
+  if((luminance+.05)/(inkLuminance+.05)>=4.5)return '#17302D';
+  return '#000000';
 }
 
 const FX_SOUND_SLOTS = [

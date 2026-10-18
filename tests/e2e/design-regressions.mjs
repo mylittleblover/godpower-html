@@ -9,7 +9,10 @@ await mkdir(root, { recursive: true });
 const server = createServer((q, r) => r.end(html));
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const b = await launch(),
-  p = await b.newPage({ viewport: { width: 1920, height: 1080 } }),
+  p = await b.newPage({
+    viewport: { width: 1920, height: 1080 },
+    deviceScaleFactor: 1,
+  }),
   results = [],
   errors = [];
 p.on("pageerror", (e) => errors.push(e.message));
@@ -28,6 +31,7 @@ try {
     waitUntil: "domcontentloaded",
   });
   await setup(p, 14);
+  await p.evaluate(() => applyZoom(1));
   await test("Large welcome ranking has a bounded keyboard-scrollable viewport", async () => {
     await p.evaluate(() => switchView("welcome"));
     await p.waitForTimeout(500);
@@ -308,6 +312,33 @@ try {
     assert.equal(r.open, false);
     assert.equal(r.inert, false);
     assert.equal(r.closing, undefined);
+  });
+  await test("Every settings category keeps its title before configuration cards", async () => {
+    await p.evaluate(() => switchView("settings"));
+    const bad = await p
+      .locator(".ui-settings-category")
+      .evaluateAll((sections) =>
+        sections
+          .filter(
+            (s) =>
+              !s.firstElementChild?.classList.contains("ui-settings-title"),
+          )
+          .map((s) => s.dataset.categoryPanel),
+      );
+    assert.deepEqual(bad, []);
+    await p.evaluate(() => DesktopUI.selectSettings("sound"));
+    await p.waitForFunction(() => DesktopUI.getSettingsMotionCount() === 0);
+    const gap = await p
+      .locator('[data-category-panel="sound"] .cf-settings')
+      .evaluate(
+        (e) =>
+          e.nextElementSibling.getBoundingClientRect().top -
+          e.getBoundingClientRect().bottom,
+      );
+    assert.ok(
+      gap >= 15.5,
+      `Adjacent settings cards must remain grouped with space: ${gap}`,
+    );
   });
 } finally {
   await writeFile(

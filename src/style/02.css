@@ -165,7 +165,7 @@ body.modern-flat-v217 #btnMainAction,body.modern-flat-v217 .welcome-enter-btn{
 body.modern-flat-v217 #btnMainAction:hover,body.modern-flat-v217 .welcome-enter-btn:hover{background:var(--ui-primary-hover)!important;transform:none!important}
 body.modern-flat-v217 #btnNextRound:not(.locked-disabled){background:var(--ui-success)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-success)!important}
 body.modern-flat-v217 #btnForceEnd:not(.locked-disabled),body.modern-flat-v217 #btnFinalSettlement{
-  background:var(--ui-accent)!important;background-image:none!important;color:#fff!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important;
+  background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-color:var(--ui-accent-hover)!important;box-shadow:none!important;
 }
 
 /* 表单、道具格与菜单 */
@@ -230,7 +230,7 @@ body.modern-flat-v217 .status-badge,body.modern-flat-v217 .metric-box,
 body.modern-flat-v217 .wmp-tag,body.modern-flat-v217 .row-score,
 body.modern-flat-v217 .welcome-modal-btn{background-image:none!important;box-shadow:none!important;text-shadow:none!important}
 body.modern-flat-v217 .item-use-banner-v216{background:var(--ui-text)!important;border:1px solid #284A46!important;box-shadow:0 2px 8px rgba(23,48,45,.12)!important}
-body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;background-image:none!important;color:#fff!important;border-radius:8px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important}
+body.modern-flat-v217 .audio-hint-bar{background:var(--ui-accent)!important;background-image:none!important;color:var(--ui-text)!important;border-radius:8px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important}
 
 /* 道具图片尺寸由使用组件决定，原始 PNG 永远不能撑开页面。 */
 .item-slot img{display:block!important;width:26px!important;height:26px!important;max-width:26px!important;max-height:26px!important;object-fit:contain!important}

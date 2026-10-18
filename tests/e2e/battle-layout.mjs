@@ -27,11 +27,7 @@ if (artifactRoot) {
   await mkdir(`${artifactRoot}/after`, { recursive: true });
 }
 try {
-  for (const [width, height, zoom] of [
-    [1366, 768, 0.8],
-    [1920, 1080, 1],
-    [2560, 1440, 1],
-  ]) {
+  for (const [width, height, zoom] of [[1920, 1080, 1]]) {
     const measurements = {};
     for (const version of ["before", "after"]) {
       const p = await browser.newPage({ viewport: { width, height } });

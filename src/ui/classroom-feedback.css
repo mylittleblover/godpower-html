@@ -42,7 +42,8 @@
   outline: 2px solid #c3344520;
 }
 .cf-settings {
-  margin-top: 20px;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 .item-score-panel > .cf-score-slots {
   grid-column: 1/-1;

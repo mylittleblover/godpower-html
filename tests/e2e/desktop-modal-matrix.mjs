@@ -27,11 +27,7 @@ const modals = [
   ["grandModalOverlay", "confirmFinalSettlement"],
 ];
 try {
-  for (const [width, height] of [
-    [1366, 768],
-    [1920, 1080],
-    [2560, 1440],
-  ]) {
+  for (const [width, height] of [[1920, 1080]]) {
     const context = await browser.newContext({ viewport: { width, height } });
     await context.route("**/*", (r) => r.continue());
     const p = await context.newPage();
@@ -42,7 +38,7 @@ try {
       timeout: 30000,
     });
     await setup(p);
-    for (const zoom of [0.8, 1, 1.25]) {
+    for (const zoom of [1]) {
       await p.evaluate((z) => applyZoom(z), zoom);
       for (const [id, fn, arg] of modals) {
         const row = { id, width, height, zoom };

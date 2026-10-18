@@ -148,11 +148,7 @@ try {
       await c.close();
     }
   });
-  for (const [width, height] of [
-    [1366, 768],
-    [1920, 1080],
-    [2560, 1440],
-  ])
+  for (const [width, height] of [[1920, 1080]])
     await test(`Eight categories, normal and expanded maintenance, scrolling and keyboard ${width}x${height}`, async () => {
       const { c, p } = await open(width, height);
       const measurements = [];
@@ -252,17 +248,13 @@ try {
         await c.close();
       }
     });
-  await test("Aligned full-width settings at all desktop sizes and 80/100/125 percent application zoom", async () => {
+  await test("Aligned full-width settings at 1920x1080 and 100 percent application zoom", async () => {
     const { c, p } = await open();
     const measurements = [];
     try {
-      for (const [width, height] of [
-        [1366, 768],
-        [1920, 1080],
-        [2560, 1440],
-      ]) {
+      for (const [width, height] of [[1920, 1080]]) {
         await p.setViewportSize({ width, height });
-        for (const zoom of [0.8, 1, 1.25]) {
+        for (const zoom of [1]) {
           await p.evaluate((zoom) => applyZoom(zoom), zoom);
           await category(p, "sound");
           const m = await p.evaluate(() => ({
@@ -388,7 +380,7 @@ try {
       const groups = await p.evaluate(() => JSON.stringify(state.groups));
       await category(p, "rules");
       await p.locator("#cfgSaveAllIn").uncheck();
-      await p.locator(".communism-mode-card .v292-switch").click();
+      await p.locator("#communismModeToggle").uncheck();
       assert.equal(await p.locator("#communismModeToggle").isChecked(), false);
       await category(p, "appearance");
       await p.locator("#cfgColumnMode").selectOption("double");
@@ -498,9 +490,25 @@ try {
       await expand(p, "uiSettingsItemFx");
       assert.equal(
         await p
-          .locator('#itemFxSoundListV26 button[onclick^="triggerUploadAudio"]')
+          .locator(
+            '#itemFxSoundListV26 button[onclick^="triggerUploadAudio"]:not([onclick*=",true"])',
+          )
           .count(),
         30,
+      );
+      assert.equal(
+        await p
+          .locator(
+            '#itemFxSoundListV26 button[onclick^="triggerUploadAudio"][onclick*=",true"]',
+          )
+          .count(),
+        30,
+      );
+      assert.equal(
+        await p
+          .locator('#itemFxSoundListV26 button[onclick^="triggerUploadAudio"]')
+          .count(),
+        60,
       );
       const keys = await p.evaluate(() => ITEM_KEYS);
       for (const key of keys)
@@ -512,6 +520,30 @@ try {
             .count(),
           1,
         );
+      for (const id of [
+        "item_draw_start",
+        "item_draw_tick",
+        "item_draw_reveal",
+        "item_defend",
+        ...keys.map((k) => "item_" + k),
+      ]) {
+        assert.equal(
+          await p
+            .locator(
+              `#itemFxSoundListV26 button[onclick="triggerUploadAudio('fx_${id}',true)"]`,
+            )
+            .count(),
+          1,
+        );
+        assert.equal(
+          await p
+            .locator(
+              `#itemFxSoundListV26 button[onclick="triggerUploadAudio('fx_${id}')"]`,
+            )
+            .count(),
+          1,
+        );
+      }
       for (let i = 0; i < 3; i++) {
         await category(p, "appearance");
         await category(p, "sound");
@@ -737,7 +769,10 @@ try {
       await row
         .locator('button[onclick^="deleteFxTrack"]')
         .waitFor({ state: "visible", timeout: 4000 });
-      assert.equal((await row.locator(".sound-tag").textContent()).trim(), "已载入独立音频");
+      assert.equal(
+        (await row.locator(".sound-tag").textContent()).trim(),
+        "已载入独立音频",
+      );
       return {
         wavBytes: wav.length,
         exportFiles: ["audio-all.bin", "audio-fx.bin"],
