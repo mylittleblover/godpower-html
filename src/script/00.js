@@ -2541,7 +2541,8 @@ function renderControls() {
 
 
 
-function openPickerModal() {
+function openPickerModal({internal=false}={}) {
+  if(!internal && window.godpowerDesktop?.role==='main') {window.godpowerDesktop.openPicker();return;}
   if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   showClassroomWindow(document.getElementById('pickerModal'));

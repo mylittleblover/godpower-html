@@ -11670,7 +11670,8 @@ function renderControls() {
 
 
 
-function openPickerModal() {
+function openPickerModal({internal=false}={}) {
+  if(!internal && window.godpowerDesktop?.role==='main') {window.godpowerDesktop.openPicker();return;}
   if(document.getElementById('pickerModal').classList.contains('active') && !document.getElementById('pickerModal').dataset.uiClosing)return;
   if(typeof DesktopUI!=='undefined')DesktopUI.cancelPickerPreparation();
   showClassroomWindow(document.getElementById('pickerModal'));
@@ -24736,7 +24737,7 @@ window.GodpowerPicker = (() => {
     if (action === 'start') {
       preparing = true; notify('preparing');
       try {
-        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal();
+        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal({internal:true});
         await DesktopUI.togglePicker();
         return { ok: slotEngine.isSpinning, error: slotEngine.isSpinning ? undefined : 'NOT_STARTED' };
       } finally { preparing = false; if (!slotEngine.isSpinning) notify('idle'); }
@@ -24811,7 +24812,7 @@ window.GodpowerPicker = (() => {
   const desktop=window.godpowerDesktop;
   if(!desktop||desktop.role!=='main'||!desktop.publishDialogs)return;
   const ids=['welcomeModal','scoreModalBackdrop','pwdModal','memberSearchBackdrop','settlementNameModal','grandModalOverlay','itemModalBackdrop','handRaiseBackdrop','aboutBackdrop','batchImportModal','themeDialogV21727','quickPersonBackdropV218','programConfirmV28'];
-  const nodes=new Map(),tokens=new WeakMap(),acks=new Map();let nextToken=0,last='',timer;
+  const nodes=new Map(),tokens=new WeakMap(),acks=new Map(),versions=new Map();let nextToken=0,last='',timer;
   function token(el){if(!tokens.has(el)){tokens.set(el,++nextToken);nodes.set(nextToken,el);}return tokens.get(el);}
   const visible=el=>el.open||el.classList.contains('active')||el.classList.contains('show')||el.style.display==='flex'||(el.id==='programConfirmV28'&&el.getClientRects().length>0);
   function close(root){
@@ -24841,22 +24842,26 @@ window.GodpowerPicker = (() => {
       });
       root.setAttribute('data-native-detached','');
       const title=root.querySelector('[class*="title"],h1,h2,h3')?.textContent?.trim().slice(0,100)||'课堂工具';
-      list.push({id,title,html:copy.outerHTML,css,acks:Object.fromEntries(acks)});
+      const html=copy.outerHTML,previous=versions.get(id);
+      const version=previous&&previous.html===html?previous.version:(previous?.version||0)+1;
+      versions.set(id,{html,version});
+      list.push({id,title,html,css,version,acks:Object.fromEntries(acks)});
     }
     // The picker is already an independent authoritative client; redirect its original entry.
     const picker=document.getElementById('pickerModal');
-    if(picker&&visible(picker)){closePickerModal();desktop.openPicker();}
+    if(picker)picker.toggleAttribute('data-native-detached',!!visible(picker));
     const json=JSON.stringify(list);if(json!==last){last=json;desktop.publishDialogs(list);}
     for(const [key,node]of nodes)if(!node.isConnected){nodes.delete(key);acks.delete(key);}
   }
   desktop.onDialogEvent(message=>{
     const root=document.getElementById(message.id);if(!root||!visible(root))return;
     if(message.type==='close'){close(root);scan();return;}
+    if(message.version!==versions.get(message.id)?.version)return;
     const el=nodes.get(message.token);if(!el||!root.contains(el)||el.disabled)return;
     if(message.type==='input'||message.type==='change'){
       el.value=message.value;acks.set(message.token,message.inputSeq||0);
       el.dispatchEvent(new Event(message.type,{bubbles:true}));
-    }else if(message.type==='click')el.click();
+    }else if(message.type==='click')el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
     else if(message.type==='keydown')el.dispatchEvent(new KeyboardEvent('keydown',{key:message.key,bubbles:true,cancelable:true}));
     else if(message.type==='submit'&&el.tagName==='FORM')el.requestSubmit();
     else if(message.type==='files'&&el.matches('input[type=file]')){

@@ -58,7 +58,7 @@ window.GodpowerPicker = (() => {
     if (action === 'start') {
       preparing = true; notify('preparing');
       try {
-        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal();
+        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal({internal:true});
         await DesktopUI.togglePicker();
         return { ok: slotEngine.isSpinning, error: slotEngine.isSpinning ? undefined : 'NOT_STARTED' };
       } finally { preparing = false; if (!slotEngine.isSpinning) notify('idle'); }
