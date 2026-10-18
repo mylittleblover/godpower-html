@@ -42,7 +42,9 @@ try {
     assert.equal(r.overflow, "auto");
     await p.locator("#gpRankList").focus();
     await p.keyboard.press("End");
-    await p.waitForTimeout(180);
+    await p.waitForFunction(
+      () => document.getElementById("gpRankList").scrollTop > 0,
+    );
     assert.ok(await p.locator("#gpRankList").evaluate((e) => e.scrollTop > 0));
   });
   await test("Welcome ranking headings align with all five data columns", async () => {
@@ -81,6 +83,7 @@ try {
         ".gp-kpi small",
         ".gp-daily-grid .ui-source",
         ".gp-rank-state",
+        ".gp-hero-date",
       ];
       return selectors.flatMap((s) =>
         [...document.querySelectorAll("#view-welcome " + s)].map((e) => {
@@ -265,6 +268,11 @@ try {
     );
     await p.keyboard.press("Escape");
     await p.locator("#scoreModalBackdrop").waitFor({ state: "hidden" });
+    await p.evaluate(() => triggerFinalSettlement());
+    await p.waitForTimeout(450);
+    assert.ok((await contrast("#settlementNameModal .btn-warning")) >= 4.5);
+    await p.keyboard.press("Escape");
+    await p.locator("#settlementNameModal").waitFor({ state: "hidden" });
   });
   await test("Native showcase backdrop fades and cleans up without leaving the page inert", async () => {
     await p.evaluate(() => {
@@ -280,7 +288,7 @@ try {
       const root = document.getElementById("classroomShowcase");
       ClassroomFeedback.dismiss();
       const back = root
-        .getAnimations()
+        .getAnimations({ subtree: true })
         .find((a) => a.effect.pseudoElement === "::backdrop");
       if (!back) return { present: false };
       back.pause();

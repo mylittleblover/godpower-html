@@ -4,7 +4,7 @@ import { createServer } from "node:http";
 import { createHash } from "node:crypto";
 import { launch, setup } from "../fixtures/browser.mjs";
 const html = await readFile("dist/godpower.html"),
-  phase = process.env.DESIGN_PHASE || "before";
+  phase = process.env.DESIGN_PHASE || "current";
 const root = `artifacts/design-review/${phase}`;
 await mkdir(root, { recursive: true });
 const server = createServer((q, r) => {
@@ -175,7 +175,7 @@ async function shot(p, name, scope = "body") {
   rows.push({ name, screenshot: file, ...metrics });
 }
 try {
-  for (const width of (process.env.DESIGN_WIDTHS || "1920")
+  for (const width of (process.env.DESIGN_WIDTHS || "1366,1920,2560")
     .split(",")
     .map(Number)) {
     const height = width === 1366 ? 768 : width === 2560 ? 1440 : 1080;
