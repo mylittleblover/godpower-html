@@ -83,3 +83,7 @@ reference-baseline/ 与 reference-fixed/ 保存相同四组数据、相同1920×
 ## 2026-10-18 全局功能界面与动效
 
 顶底栏、比赛卡片表面、历史/档案、SVG老虎机、展开动画、真实未作答警告及管理口令流程见 [本轮正式报告](../reports/APPLICATION_SURFACES_ACCEPTANCE.md) 与 [验收矩阵](APPLICATION_SURFACES_TEST_MATRIX.md)。本轮证据独立保存在 artifacts/visual-unification，历史发布证据保留。包含动画进行中窗口越界、待启动帧竞态和口令错误提示的实际修复，不能仅用截图张数判断通过。
+
+## 比赛连贯动画增补
+
+本轮修复抽取遮层突现与骤停、揭晓后槽位闪现、分数幽灵颜色丢失及缩放跳位，重做道具反馈的进入/停留/淡出和持续光环。按钮音效按意图独立并细分设置分类。实际 Chromium 专项、14 组对比、阶段证据和未测试边界集中记录在 docs/reports/BATTLE_MOTION_ACCEPTANCE.md；不能据此把原有尚未验收的其他 UI 项一律改为 PASS。

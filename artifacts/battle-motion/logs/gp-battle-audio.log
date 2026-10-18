@@ -1,0 +1,6 @@
+PASS Real WAV input uploads to custom button click slot and persists in IndexedDB
+PASS Actual mouse and keyboard clicks each play one uploaded sample; opt-out and master mute work
+PASS Concurrent file reads cannot cross-write another sound slot
+PASS Storage abort keeps old uploaded audio on disk and explicitly warns unsaved
+PASS Corrupt audio preserves existing decoded custom slot
+PASS Default loop preview produces a fallback sound when no upload exists

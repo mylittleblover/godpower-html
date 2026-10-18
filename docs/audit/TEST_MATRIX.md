@@ -238,3 +238,15 @@ Call log:
 | 真实音箱听感、原生浏览器工具栏缩放 | NOT TESTED | CF-004；页面缩放 .8/1/1.25 不等于原生工具栏缩放 |
 | Firefox、WebKit、CircleCI | NOT APPLICABLE | 按用户指示不执行 |
 | 同一操作多音效 × 上传/随机播放/26 道具/循环/刷新/BIN/删除失败 | Chromium E2E | artifacts/classroom-feedback/multiple-audio-results.json |
+
+## 比赛连贯动画与操作声音（2026-10-18）
+
+| 范围 | 证据 | 状态说明 |
+|---|---|---|
+| 26 道具表现、帧内淡出、重绘恢复 | artifacts/battle-motion/results.json | 以该文件的实际 PASS/FAIL 为准 |
+| 三页面缩放的分数颜色、右锚点 | 同上 | 真实 CSS/DOM 测量 |
+| 抽取入场、揭晓、退出与库存一次性提交 | 同上；draw-*.png | 真实业务流程与中间透明度 |
+| 连续改分、撤销、跳过旧状态、新事件 | 同上；skip-red-results.json | 保存红绿回归证据 |
+| 22 按钮槽、七分类、试听与去重 | 同上；preview-red-results.json | 实际鼠标试听与 BufferSource 验证 |
+| 14 小组 × 三尺寸 | artifacts/battle-motion/layout | 同配置前后对比，教师真实配置仍未知 |
+| 核心业务、26 道具预言机、音频上传/BIN | artifacts/battle-motion/captured、logs | 执行阶段与哈希见验收报告 |

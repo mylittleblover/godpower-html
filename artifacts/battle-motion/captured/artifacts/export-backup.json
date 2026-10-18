@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "V2.19.0",
+  "timestamp": "2026-10-18T06:24:29.771Z",
+  "groups": [
+    {
+      "id": 1,
+      "name": "测试 1 组",
+      "color": "#2F7DD1",
+      "score": 100,
+      "displayScore": 100,
+      "selectedOpt": "",
+      "allIn": false,
+      "resultText": "",
+      "animState": "",
+      "members": [
+        "01 同学",
+        "1 甲"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 0,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 1,
+      "booRoundsLeftV218": 0,
+      "roundItemContinuationKeyV218": "",
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 2,
+      "name": "测试 2 组",
+      "color": "#2F7DD1",
+      "score": 140,
+      "displayScore": 140,
+      "selectedOpt": "",
+      "allIn": false,
+      "resultText": "",
+      "animState": "",
+      "members": [
+        "02 同学",
+        "2 甲"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 0,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 2,
+      "booRoundsLeftV218": 0,
+      "roundItemContinuationKeyV218": "",
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 3,
+      "name": "测试 3 组",
+      "color": "#2F7DD1",
+      "score": 180,
+      "displayScore": 180,
+      "selectedOpt": "",
+      "allIn": false,
+      "resultText": "",
+      "animState": "",
+      "members": [
+        "03 同学",
+        "3 甲"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 0,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 3,
+      "booRoundsLeftV218": 0,
+      "roundItemContinuationKeyV218": "",
+      "itemUsedThisRound": false
+    },
+    {
+      "id": 4,
+      "name": "测试 4 组",
+      "color": "#2F7DD1",
+      "score": 220,
+      "displayScore": 220,
+      "selectedOpt": "",
+      "allIn": false,
+      "resultText": "",
+      "animState": "",
+      "members": [
+        "04 同学",
+        "4 甲"
+      ],
+      "inventory": [],
+      "itemStats": {
+        "correct": 0,
+        "wrong": 0,
+        "draws": 0,
+        "used": 0
+      },
+      "itemEffect": null,
+      "booShield": 0,
+      "groupNo": 4,
+      "booRoundsLeftV218": 0,
+      "roundItemContinuationKeyV218": "",
+      "itemUsedThisRound": false
+    }
+  ],
+  "picker": {
+    "mode": "individual",
+    "antiRepeat": true,
+    "pickedStudentKeys": [],
+    "pickedGroupIds": [],
+    "preselectedGroupIds": []
+  },
+  "itemGlobal": {
+    "blooperUntil": 0,
+    "totalDraws": 0,
+    "pickerHistory": [],
+    "handRaiseHistory": [],
+    "handRaiseTotal": 0,
+    "pkTotal": 0,
+    "customIcons": {}
+  },
+  "round": {
+    "roundActive": true,
+    "evaluated": false,
+    "correctAns": "",
+    "hasStartedOnce": true,
+    "lastRoundAllIn": {
+      "wins": 0,
+      "losses": 0
+    }
+  },
+  "history": [],
+  "firstHandDrawPending": true,
+  "adminPin": "1234",
+  "masterVolume": 0.85,
+  "sfxVolume": 1,
+  "zoomLevel": 1,
+  "resizerEnabled": false,
+  "resizerHeight": 120,
+  "columnMode": "double",
+  "saveAllIn": true
+}

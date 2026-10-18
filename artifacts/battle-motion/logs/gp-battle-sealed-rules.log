@@ -1,0 +1,11 @@
+FAIL green page.evaluate: Target page, context or browser has been closed
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.isVisible: Target page, context or browser has been closed
+    at dismissStartup (/workspace/godpower-html/tests/fixtures/browser.mjs:24:19)
+    at setup (/workspace/godpower-html/tests/fixtures/browser.mjs:35:9)
+    at /workspace/godpower-html/tests/e2e/rules.mjs:5:8
+
+Node.js v24.19.0

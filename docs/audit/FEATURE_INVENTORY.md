@@ -94,3 +94,13 @@ SOURCE_CATALOG.md列出所有命名函数及覆盖定义、输入、返回、副
 | 统一顶部统计 | src/ui/model.js；src/script/00.js | renderAll、时钟、墨汁到期 | 与首页共享只读模型；同分、负分、大整数及墨汁遮蔽正确 | 无新增业务字段 | 中 | Node summary 3项；浏览器大整数、负分、墨汁及到期 |
 
 新增项的最终状态统一见 docs/reports/WELCOME_V2_COMPLETION.md；其余历史覆盖缺口仍然有效。
+
+## 比赛连贯动效及按钮声音增补
+
+| 功能 | 源码 | 触发 / 输入 / 输出 | 依赖与持久化 | 风险 / 测试 |
+|---|---|---|---|---|
+| 26 道具反馈层 | ui/battle-motion.js/css；script/16.js | 原道具视觉调用 / gid,key,type / 1700ms 分族反馈与淡出 | 不写业务状态；无持久化 | 中；battle-motion 26 清单、desktop-interactions |
+| 全局抽取渐入渐出 | script/16.js；BattleMotion.trackDraw/fadeDraw | 原全局抽取 / 实际获取结果 / 渐入、揭晓、库存衔接、淡出 | 原库存及保存字段不变 | 中；实际抽取、中间透明度、节点及类恢复 |
+| 举手单组抽取入场 | script/16.js:handDrawItem | 原奖励抽取 / 选中组 / 面板与结果渐入 | 原奖励及库存不变 | 中；实际奖励一次性断言 |
+| 分数滚动恢复 | script/31.js；style/18.css | 原分差队列 / from,to / 小组颜色及右锚点数字交接 | score 立即生效；displayScore 短暂延迟 | 中；三缩放、重绘、连发、撤销 |
+| 分操作按钮音效 | core/action-sounds.js；ClassroomFeedback.bindButtonSound | 真实鼠标/键盘 / 按钮意图 / 22 独立槽或通用回退 | 原 sounds 表、候选、BIN 结构 | 中；元数据单元、真实点击与试听、63 活动槽路径 |

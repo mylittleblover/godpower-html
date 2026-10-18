@@ -1,0 +1,913 @@
+{
+  "sha256": "f8774076c2a161958c8dc3fd071e0f6093e71e9ad4889a536d3c24bf20823a64",
+  "results": [
+    {
+      "name": "All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up",
+      "status": "PASS",
+      "evidence": [
+        {
+          "key": "green",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "triple_green",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "red",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "triple_red",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "spiny",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "banana",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "banana",
+            "banana"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "triple_banana",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "banana",
+            "banana"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "horn",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "horn",
+            "horn"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "bomb",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "bomb",
+            "bomb"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "hammer",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "hammer",
+            "hammer"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "coin",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "coin_shell",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "shell",
+            "shell"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "question",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "pulse",
+            "pulse"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "mushroom",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "triple_mushroom",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "boo",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "ghost",
+            "ghost"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "blooper",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "ink",
+            "ink"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "lightning",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "lightning",
+            "lightning"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "star",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "mega",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "bullet",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "bullet",
+            "bullet"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "power",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "feather",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "buff",
+            "buff"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "fire_flower",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "fire",
+            "fire"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "ice_flower",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "ice",
+            "ice"
+          ],
+          "duration": 1700
+        },
+        {
+          "key": "boomerang_flower",
+          "before": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "after": {
+            "x": 16,
+            "y": 73,
+            "width": 463,
+            "height": 106.84375,
+            "top": 73,
+            "right": 479,
+            "bottom": 179.84375,
+            "left": 16
+          },
+          "count": 2,
+          "opacities": [
+            0.0182938,
+            0.0182938
+          ],
+          "families": [
+            "boomerang",
+            "boomerang"
+          ],
+          "duration": 1700
+        }
+      ]
+    },
+    {
+      "name": "Score rolls preserve group color and right anchor at all application zooms and redraw mid-roll",
+      "status": "FAIL",
+      "error": "page.evaluate: TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.\n    at eval (eval at evaluate (:290:30), <anonymous>:9:18)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/godpower-html/tests/e2e/battle-motion.mjs:104:30\n    at async test (/workspace/godpower-html/tests/e2e/battle-motion.mjs:33:22)\n    at async file:///workspace/godpower-html/tests/e2e/battle-motion.mjs:89:3"
+    },
+    {
+      "name": "Real global draw fades in, preserves the same overlay across renders, holds result and fades out",
+      "status": "PASS",
+      "evidence": {
+        "entry": 0.85854,
+        "fade": {
+          "opacity": 0.0613545,
+          "inventory": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "name": "Persistent auras do not transform cards, and cancellation/reduced motion leave no effect sessions",
+      "status": "PASS",
+      "evidence": {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "animation": "v213AuraBreath",
+        "duration": "2.8s"
+      }
+    },
+    {
+      "name": "Rapid score updates and undo cancel stale visual commits",
+      "status": "PASS"
+    },
+    {
+      "name": "Skipping acknowledges committed visual state without suppressing the next operation",
+      "status": "PASS"
+    },
+    {
+      "name": "Independent button slots are categorized, customizable and same-event click sound stays singular",
+      "status": "FAIL",
+      "error": "page.waitForFunction: Timeout 15000ms exceeded.\n    at /workspace/godpower-html/tests/e2e/battle-motion.mjs:370:16\n    at async test (/workspace/godpower-html/tests/e2e/battle-motion.mjs:33:22)\n    at async file:///workspace/godpower-html/tests/e2e/battle-motion.mjs:295:3"
+    }
+  ],
+  "errors": []
+}
