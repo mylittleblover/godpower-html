@@ -59,9 +59,20 @@ const Reliability = (() => {
     return null;
   }
   // Stale asynchronous defense dialogs must never modify a different round or item.
-  let defenseDecisionEpoch=0, defenseInvalidationHandler=null;
-  function onDefenseInvalidation(handler){defenseInvalidationHandler=handler;}
-  function invalidateDefenseDecisions(){++defenseDecisionEpoch;defenseInvalidationHandler?.();return defenseDecisionEpoch}
+  let defenseDecisionEpoch=0;
+  const defenseInvalidationHandlers=new Set();
+  function onDefenseInvalidation(handler){
+    if(typeof handler!=='function')throw new TypeError('Defense invalidation requires a function');
+    defenseInvalidationHandlers.add(handler);
+    return ()=>defenseInvalidationHandlers.delete(handler);
+  }
+  function invalidateDefenseDecisions(){
+    ++defenseDecisionEpoch;
+    // A visual subscriber must never replace command cancellation. Snapshot the
+    // listeners so subscriptions added during notification start next time.
+    for(const handler of [...defenseInvalidationHandlers])handler();
+    return defenseDecisionEpoch;
+  }
   function captureDefenseDecision(s,target,key){
     const item=target?.inventory?.[0];
     if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;

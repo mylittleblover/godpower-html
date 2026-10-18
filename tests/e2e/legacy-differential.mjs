@@ -3,7 +3,8 @@ import { createServer } from "node:http";
 import { readFile, writeFile } from "node:fs/promises";
 import { launch, setup } from "../fixtures/browser.mjs";
 import { sourceAt } from "../fixtures/source-at.mjs";
-const baseline = "079df316a999ced4f598a3c3d0495786f9f8d0e8",
+const baseline =
+    process.env.REFACTOR_BASELINE || "079df316a999ced4f598a3c3d0495786f9f8d0e8",
   before = sourceAt(baseline),
   after = await readFile("dist/godpower.html");
 const server = createServer((req, res) => {

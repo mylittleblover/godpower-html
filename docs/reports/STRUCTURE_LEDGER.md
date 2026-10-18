@@ -7,3 +7,5 @@
 - Task 2: renderAll 3→1、renderGrid 11→1；卡片构建迁入ui/battle-grid.js；去除同条件排序重复层与重复welcome/chart/dashboard刷新。110项Node测试通过，14组3档几何比较通过。
 - Task 3: 原25/33只含注释；26/29有效行为迁入render.js后删除空块。模板/manifest通过。
 - Finding P1: 最新基线与本轮均复现防御待决时导入成功后被旧事务恢复（999→100）。根因Reliability单一失效回调被classroom-feedback覆盖；扩展独立修复，保留原断言。
+- 防御根因修复：Reliability使用Set订阅，返回解除订阅函数，通知时取快照；命令取消和动画清理同时生效。新测试观察到旧实现仅调用visual而失败，修复后111项Node通过。
+- 沿用原defense-command导入999分断言，未降低预期；baseline probe保存旧版与重构版均失败的证据。

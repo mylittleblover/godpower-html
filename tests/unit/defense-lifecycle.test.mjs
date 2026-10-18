@@ -7,3 +7,15 @@ test('new command invalidates pending confirmation',()=>{const {state,target}=sc
 test('replaced item invalidates confirmation',()=>{const {state,target}=scene(),d=core.captureDefenseDecision(state,target,'horn');target.inventory[0]={key:'horn'};assert.equal(core.isDefenseDecisionCurrent(state,d),false)});
 test('restore/import invalidates former target',()=>{const {state,target}=scene(),d=core.captureDefenseDecision(state,target,'horn');state.groups[1]={...target};assert.equal(core.isDefenseDecisionCurrent(state,d),false);assert.equal(core.isDefenseDecisionCurrent(scene().state,d),false)});
 test('phase/answer/round/settlement changes invalidate confirmation',()=>{for(const change of [s=>{s.evaluated=true},s=>{s.correctAns='B'},s=>{s.round=2},s=>{s.itemGlobal.pkTotal++}]){const {state,target}=scene(),d=core.captureDefenseDecision(state,target,'horn');change(state);assert.equal(core.isDefenseDecisionCurrent(state,d),false)}});
+
+test('defense invalidation notifies command and visual owners independently',()=>{
+ const calls=[];
+ const command=()=>calls.push('command');const visual=()=>calls.push('visual');
+ const offCommand=core.onDefenseInvalidation(command);
+ const offVisual=core.onDefenseInvalidation(visual);
+ core.invalidateDefenseDecisions();
+ assert.deepEqual(calls,['command','visual']);
+ assert.equal(typeof offVisual,'function');offVisual();calls.length=0;
+ core.invalidateDefenseDecisions();assert.deepEqual(calls,['command']);
+ offCommand();calls.length=0;core.invalidateDefenseDecisions();assert.deepEqual(calls,[]);
+});
