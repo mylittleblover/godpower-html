@@ -2816,7 +2816,7 @@ async function startSlotSpin() {
   if (reelStuText) {
     slotEngine.timerStudent = setInterval(() => {
       const randomStu = reelStus[Math.floor(Math.random() * reelStus.length)];
-      reelStuText.innerText = randomStu.name;
+      reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
     }, 50);
   }
 }
