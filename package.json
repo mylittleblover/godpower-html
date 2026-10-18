@@ -8,7 +8,7 @@
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
     "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs",
-    "verify": "npm run build && npm run check && npm test && npm run test:e2e && npm run test:ui && npm run test:refactor",
+    "verify": "npm run build && npm run check && npm run format:check && npm run audit:hygiene && npm test && npm run test:e2e && npm run test:ui && npm run test:refactor",
     "audit": "node scripts/audit.mjs",
     "test:visual": "node tests/e2e/visual.mjs",
     "report": "python3 scripts/report.py",
@@ -22,7 +22,10 @@
     "test:feedback": "node tests/e2e/welcome-feedback.mjs",
     "test:settings": "node tests/e2e/settings-cleanup.mjs",
     "test:surfaces": "node tests/e2e/visual-unification.mjs && node tests/e2e/archive-controls.mjs && node tests/e2e/motion-unification.mjs && node tests/e2e/warning-dialogs.mjs && node tests/e2e/admin-dialog.mjs",
-    "test:battle-motion": "node tests/e2e/battle-motion.mjs"
+    "test:battle-motion": "node tests/e2e/battle-motion.mjs",
+    "audit:hygiene": "node scripts/repo-hygiene.mjs",
+    "format:core": "prettier --check src/core/action-sounds.js src/core/commands.js src/core/history.js src/core/item-score.js",
+    "format:check": "npm run format:ui && npm run format:core"
   },
   "devDependencies": {
     "acorn": "8.15.0",
