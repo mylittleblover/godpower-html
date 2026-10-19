@@ -1187,3 +1187,9 @@ P1业务状态/高风险，中复杂度。nextRound等待音乐后可把期间�
 P1业务状态/高风险，中复杂度/中风险。3.0.17把成功切题字段复位和保存纳入一个事务，无新撤销节点；音乐异步旧请求仍用令牌作废。RED/GREEN旧请求、正常切题一次保存/字段规则、80差分及239单元通过。音频资源生命周期仍在旧服务中，等待阶段仅做提交前预加载，需后续把音频/命令ACK处理整合并补失败/中断场景。完成标准：音频故障不改变回合字段，提交/重入无并发，旧课不被迟到音乐请求清空。
 
 GP-V3-NEXT-ROUND-COMMAND completed in3.0.17: final core117, unit239, 80 differential and two targeted Chromium cases PASS; map now79/73/13 (function/save/command lexical counts). Audio service lifecycle/interruption and the remaining mutation leads still require migration before default storage cutover.
+
+## GP-V3-START-ROUND-COMMAND（已迁移，3.0.18验收中）
+
+P1数据/异步状态，高复杂度/中风险。音频加载迟到回调可能覆盖加载期间新课堂；旧finishStartRound直接写并保存，锁又由script12包装改动。现RoundSettlement.start单命令持久化/展示，startRound令牌过期时退出，锁重置只在命令内发生。两专项覆盖旧状态保留与正常单次保存、无新历史节点、原设置。完整core回归结束后更新最终状态；后续音频服务生命周期仍需统一取消/资源释放。
+
+GP-V3-START-ROUND-COMMAND completed3.0.18: final core117, unit239,80 rule differential and two targeted browser tests PASS. Remaining audio lifetime management and all unconverted group/member/settings mutations still prevent default repository cutover.

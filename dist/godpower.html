@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.17</title>
+<title>上帝的力量 V3.0.18</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.17";
+    document.title = name() + " V3.0.18";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.17</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.18</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14042,8 +14042,9 @@ async function preloadInitialAudio() {
 }
 
 async function startRound() {
+  if (isStartingRound || isSwitchingRound) return false;
   Reliability.invalidateDefenseDecisions();
-  if (isStartingRound || isSwitchingRound) return;
+  const roundToken = RoundSettlement.captureRoundToken();
   isStartingRound = true;
   const overlay = document.getElementById('initProgressOverlay');
   const fill = document.getElementById('initProgressFill');
@@ -14058,17 +14059,27 @@ async function startRound() {
     ]);
     if (!playable) {
       if (overlay) overlay.style.display = 'none';
-      finishStartRound();
+      if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+        showToast('课堂状态已变化，未启动旧回合。');
+        isStartingRound = false;
+        return false;
+      }
+      await finishStartRound();
       showToast('未检测到战斗音频：已静音启动（0.05s 跳过加载）');
       isStartingRound = false;
-      return;
+      return true;
     }
   } catch(e) {
     if (overlay) overlay.style.display = 'none';
-    finishStartRound();
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      isStartingRound = false;
+      return false;
+    }
+    await finishStartRound();
     showToast('音频初始化异常：已强制启动');
     isStartingRound = false;
-    return;
+    return true;
   }
 
   if (overlay && fill) {
@@ -14077,43 +14088,36 @@ async function startRound() {
     if (txt) txt.innerText = '正在初始化...';
   }
 
-  bgmStartNewRoundMusicWithProgress((percent) => {
-    if (fill) fill.style.width = `${percent}%`;
-  }).then(() => {
+  try {
+    await bgmStartNewRoundMusicWithProgress((percent) => {
+      if (fill) fill.style.width = `${percent}%`;
+    });
     if (overlay) overlay.style.display = 'none';
-    finishStartRound();
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      return false;
+    }
+    await finishStartRound();
     playSound('score_add');
     showToast('初始化完毕');
-    isStartingRound = false;
-  }).catch(() => {
+    return true;
+  } catch(e) {
     if (overlay) overlay.style.display = 'none';
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      return false;
+    }
     showToast('初始化异常，已强制启动');
-    finishStartRound();
+    await finishStartRound();
+    return false;
+  } finally {
     isStartingRound = false;
-  });
+    if (overlay) overlay.style.display = 'none';
+  }
 }
 
 function finishStartRound() {
-  Reliability.invalidateDefenseDecisions();
-  const flipSnapshotV21725 = captureCardRectsV21725();
-
-  state.hasStartedOnce = true;
-  state.roundActive = true;
-  state.evaluated = false;
-  state.correctAns = '';
-  state.groups.forEach(g => {
-    g.selectedOpt = '';
-    g.allIn = false;
-    g.resultText = '';
-    g.animState = '';
-  });
-
-  /* 状态切换由专用 FLIP 接管，避免旧包装层把第一次 renderGrid 吃掉。 */
-  v213SuppressReorderAnimation = true;
-  renderAll();
-  v213SuppressReorderAnimation = false;
-  animateCardsFromSnapshotV21725(flipSnapshotV21725);
-  saveState();
+  return RoundSettlement.start();
 }
 
 async function hasAnyPlayableBgm() {
@@ -20028,12 +20032,7 @@ showItemUseFx=function(key,casterId,targetText=''){
 /* 使用过道具后，本题不能再开启 All In。 */
 /* All In guard is now owned by application/answer-commands.js. */
 
-/* 下一题开始时清除锁定。 */
-const _v2177FinishStartRound=finishStartRound;
-finishStartRound=function(...args){
-  resetRoundItemUseLocksV2177();
-  return _v2177FinishStartRound.apply(this,args);
-};
+/* Per-round item locks are reset inside the transactional start command. */
 
 /* 道具窗口里的主道具按钮直接表现为不可用。 */
 const _v2177QueueUseState=queueUseStateV2120;
@@ -22631,7 +22630,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.17';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.18';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24037,6 +24036,38 @@ const RoundSettlement = (() => {
     return result;
   }
   let forceEndGeneration = 0;
+  async function start() {
+    const flipSnapshot = captureCardRectsV21725();
+    const committed = runClassroomCommand(
+      "开始新回合",
+      () => {
+        resetRoundItemUseLocksV2177();
+        state.hasStartedOnce = true;
+        state.roundActive = true;
+        state.evaluated = false;
+        state.correctAns = "";
+        state.groups.forEach((g) => {
+          g.selectedOpt = "";
+          g.allIn = false;
+          g.resultText = "";
+          g.animState = "";
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
+    v213SuppressReorderAnimation = true;
+    try {
+      renderAll();
+    } finally {
+      v213SuppressReorderAnimation = false;
+    }
+    animateCardsFromSnapshotV21725(flipSnapshot);
+    return true;
+  }
   function captureRoundToken() {
     return {
       classroom: state,
@@ -24123,7 +24154,7 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, forceEnd, captureRoundToken, isRoundTokenCurrent };
+  return { execute, start, forceEnd, captureRoundToken, isRoundTokenCurrent };
 })();
 </script>
 <script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
@@ -24943,7 +24974,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.17",
+    appVersion: "V3.0.18",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

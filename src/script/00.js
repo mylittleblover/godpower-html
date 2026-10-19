@@ -1604,8 +1604,9 @@ async function preloadInitialAudio() {
 }
 
 async function startRound() {
+  if (isStartingRound || isSwitchingRound) return false;
   Reliability.invalidateDefenseDecisions();
-  if (isStartingRound || isSwitchingRound) return;
+  const roundToken = RoundSettlement.captureRoundToken();
   isStartingRound = true;
   const overlay = document.getElementById('initProgressOverlay');
   const fill = document.getElementById('initProgressFill');
@@ -1620,17 +1621,27 @@ async function startRound() {
     ]);
     if (!playable) {
       if (overlay) overlay.style.display = 'none';
-      finishStartRound();
+      if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+        showToast('课堂状态已变化，未启动旧回合。');
+        isStartingRound = false;
+        return false;
+      }
+      await finishStartRound();
       showToast('未检测到战斗音频：已静音启动（0.05s 跳过加载）');
       isStartingRound = false;
-      return;
+      return true;
     }
   } catch(e) {
     if (overlay) overlay.style.display = 'none';
-    finishStartRound();
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      isStartingRound = false;
+      return false;
+    }
+    await finishStartRound();
     showToast('音频初始化异常：已强制启动');
     isStartingRound = false;
-    return;
+    return true;
   }
 
   if (overlay && fill) {
@@ -1639,43 +1650,36 @@ async function startRound() {
     if (txt) txt.innerText = '正在初始化...';
   }
 
-  bgmStartNewRoundMusicWithProgress((percent) => {
-    if (fill) fill.style.width = `${percent}%`;
-  }).then(() => {
+  try {
+    await bgmStartNewRoundMusicWithProgress((percent) => {
+      if (fill) fill.style.width = `${percent}%`;
+    });
     if (overlay) overlay.style.display = 'none';
-    finishStartRound();
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      return false;
+    }
+    await finishStartRound();
     playSound('score_add');
     showToast('初始化完毕');
-    isStartingRound = false;
-  }).catch(() => {
+    return true;
+  } catch(e) {
     if (overlay) overlay.style.display = 'none';
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未启动旧回合。');
+      return false;
+    }
     showToast('初始化异常，已强制启动');
-    finishStartRound();
+    await finishStartRound();
+    return false;
+  } finally {
     isStartingRound = false;
-  });
+    if (overlay) overlay.style.display = 'none';
+  }
 }
 
 function finishStartRound() {
-  Reliability.invalidateDefenseDecisions();
-  const flipSnapshotV21725 = captureCardRectsV21725();
-
-  state.hasStartedOnce = true;
-  state.roundActive = true;
-  state.evaluated = false;
-  state.correctAns = '';
-  state.groups.forEach(g => {
-    g.selectedOpt = '';
-    g.allIn = false;
-    g.resultText = '';
-    g.animState = '';
-  });
-
-  /* 状态切换由专用 FLIP 接管，避免旧包装层把第一次 renderGrid 吃掉。 */
-  v213SuppressReorderAnimation = true;
-  renderAll();
-  v213SuppressReorderAnimation = false;
-  animateCardsFromSnapshotV21725(flipSnapshotV21725);
-  saveState();
+  return RoundSettlement.start();
 }
 
 async function hasAnyPlayableBgm() {

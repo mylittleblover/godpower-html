@@ -60,12 +60,7 @@ showItemUseFx=function(key,casterId,targetText=''){
 /* 使用过道具后，本题不能再开启 All In。 */
 /* All In guard is now owned by application/answer-commands.js. */
 
-/* 下一题开始时清除锁定。 */
-const _v2177FinishStartRound=finishStartRound;
-finishStartRound=function(...args){
-  resetRoundItemUseLocksV2177();
-  return _v2177FinishStartRound.apply(this,args);
-};
+/* Per-round item locks are reset inside the transactional start command. */
 
 /* 道具窗口里的主道具按钮直接表现为不可用。 */
 const _v2177QueueUseState=queueUseStateV2120;

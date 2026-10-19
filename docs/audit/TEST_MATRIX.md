@@ -400,3 +400,7 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.17切题：2项浏览器专项PASS，含音乐等待竞态与成功路径单次保存/原字段复位；版本17全套单元239 PASS，完整核心回归待最终会话结果。
 
 3.0.17 final: Chromium core117/117, Node239/239, round differential80/80, next-round2/2 PASS, errors=[]. `file://` BLOCKED by browser environment. Build and embedded27-resource checks PASS.
+
+3.0.18 startRound：两项Chromium1920×1080 1x专测覆盖异步旧启动与正常复位/单保存；full core/unit/differential pending。
+
+3.0.18 final: startup two cases PASS; core117/117, units239/239, round differential80/80 PASS, errors=[]. Chromium1920×1080 1x only. file:// blocked by environment policy.

@@ -1,0 +1,1390 @@
+{
+  "criteria": "Nearest lexical function containing saveState or runClassroomCommand; static leads only. Helper calls may already be inside a command. Dynamic calls, aliases and business validation require manual review.",
+  "rows": [
+    {
+      "file": "src/application/answer-commands.js",
+      "owner": "select",
+      "line": 3,
+      "calls": [
+        "<object>.find",
+        "playSound",
+        "runClassroomCommand"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/answer-commands.js",
+      "owner": "toggleAllIn",
+      "line": 17,
+      "calls": [
+        "<object>.find",
+        "bgmTransitionBattleToThinking",
+        "bgmTransitionThinkingToBattle",
+        "checkAllInRatio",
+        "playSound",
+        "runClassroomCommand",
+        "showToast"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/answer-commands.js",
+      "owner": "correct",
+      "line": 55,
+      "calls": [
+        "<object>.filter",
+        "<object>.join",
+        "ClassroomWriteBarrier.allow",
+        "classroomCommands.whenIdle",
+        "playSound",
+        "programConfirmV28",
+        "renderControls",
+        "runClassroomCommand",
+        "showToast",
+        "unanswered.map"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/history-commands.js",
+      "owner": "clear",
+      "line": 3,
+      "calls": [
+        "ClassroomWriteBarrier.allow",
+        "JSON.stringify",
+        "classroomCommands.whenIdle",
+        "openPwdModal",
+        "renderHistoryList",
+        "runClassroomCommand",
+        "showToast",
+        "themeConfirm"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/history-commands.js",
+      "owner": "commitRestore",
+      "line": 76,
+      "calls": [
+        "<object>.invalidate",
+        "classroomCommands.whenIdle",
+        "playSound",
+        "renderHistoryList",
+        "runClassroomCommand",
+        "showToast"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "importClassroomData",
+      "line": 113,
+      "calls": [
+        "<object>.toISOString",
+        "CLASSROOM_STORAGE.getItem",
+        "ClassroomRepository.writeVerified",
+        "ClassroomWriteBarrier.conflict",
+        "Error",
+        "Reliability.invalidateDefenseDecisions",
+        "Reliability.validateBackup",
+        "String",
+        "applyClassroomBackup",
+        "cancelScoreAnimationAndSync",
+        "clone",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "<initialization>:callback@213",
+      "line": 213,
+      "calls": [
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "runClassroomCommand",
+      "line": 233,
+      "calls": [
+        "classroomCommands.run"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "deferClassroomDefense:callback@240",
+      "line": 240,
+      "calls": [
+        "apply",
+        "isCurrent",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "useItem",
+      "line": 251,
+      "calls": [
+        "<object>.find",
+        "ItemModules.canUse",
+        "Reliability.invalidateDefenseDecisions",
+        "Reliability.validateItem",
+        "closeItemWindowForFx",
+        "isCommunismMode",
+        "runClassroomCommand",
+        "showToast"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/legacy-classroom-adapter.js",
+      "owner": "judgeRound",
+      "line": 347,
+      "calls": [
+        "Reliability.calculateRoundScores",
+        "runClassroomCommand",
+        "themeAlert"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/manual-score-commands.js",
+      "owner": "adjust",
+      "line": 3,
+      "calls": [
+        "<object>.find",
+        "ClassroomFeedback.score",
+        "Reliability.invalidateDefenseDecisions",
+        "ScoreAdjustments.delta",
+        "animateScores",
+        "cancelScoreAnimationAndSync",
+        "openPwdModal",
+        "playSound",
+        "runClassroomCommand",
+        "showMilestoneBanner",
+        "showToast"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/manual-score-commands.js",
+      "owner": "set",
+      "line": 60,
+      "calls": [
+        "<object>.find",
+        "ScoreAdjustments.set",
+        "animateScores",
+        "playSound",
+        "runClassroomCommand",
+        "showToast"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/round-settlement.js",
+      "owner": "execute",
+      "line": 3,
+      "calls": [
+        "<object>.filter",
+        "<object>.map",
+        "RoundFeedback.afterPowerRound",
+        "RoundItemEffects.expire",
+        "RoundItemEffects.settle",
+        "ensureV2State",
+        "ranking",
+        "saveState",
+        "settleBaseRoundLegacy"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/application/round-settlement.js",
+      "owner": "start",
+      "line": 32,
+      "calls": [
+        "animateCardsFromSnapshotV21725",
+        "captureCardRectsV21725",
+        "classroomCommands.whenIdle",
+        "renderAll",
+        "runClassroomCommand"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/application/round-settlement.js",
+      "owner": "forceEnd",
+      "line": 100,
+      "calls": [
+        "<object>.map",
+        "ClassroomWriteBarrier.allow",
+        "JSON.stringify",
+        "animateCardsFromSnapshotV21725",
+        "bgmStopAll",
+        "captureCardRectsV21725",
+        "classroomCommands.whenIdle",
+        "renderAll",
+        "runClassroomCommand",
+        "showToast",
+        "themeConfirm"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/core/picker-bridge.js",
+      "owner": "command",
+      "line": 50,
+      "calls": [
+        "<object>.contains",
+        "<object>.includes",
+        "<object>.some",
+        "DesktopUI.togglePicker",
+        "Number.isSafeInteger",
+        "applyScoreDelta",
+        "cancel",
+        "classroomCommands.isPending",
+        "currentResult",
+        "document.getElementById",
+        "getSnapshot",
+        "notify",
+        "openPickerModal",
+        "resetPickerPool",
+        "saveState",
+        "setPickerMode",
+        "stopSlotSpin",
+        "syncPickerScoreTarget",
+        "toggleAntiRepeat",
+        "toggleGroupPreselect"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/items/round-effects.js",
+      "owner": "settle",
+      "line": 3,
+      "calls": [
+        "answersBefore.forEach",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/items/round-effects.js",
+      "owner": "expire",
+      "line": 36,
+      "calls": [
+        "<object>.forEach",
+        "answersBefore.map",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "confirmFinalSettlement",
+      "line": 271,
+      "calls": [
+        "<object>.reduce",
+        "<object>.some",
+        "<object>.sort",
+        "<object>.toLocaleDateString",
+        "<object>.toLocaleString",
+        "<object>.trim",
+        "ClassroomWriteBarrier.conflict",
+        "Date.now",
+        "Reliability.invalidateDefenseDecisions",
+        "bgmStopAll",
+        "clone",
+        "closeSettlementNameModal",
+        "document.getElementById",
+        "escapeHtml",
+        "initConfetti",
+        "openPwdModal",
+        "playSound",
+        "recordHistory",
+        "renderAll",
+        "renderControls",
+        "resetCompetitionDataAfterSettlementV21812",
+        "saveSettlementRecord",
+        "saveState",
+        "setTimeout",
+        "showClassroomWindow",
+        "showToast",
+        "themeAlert"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "toggleResizerEnabled",
+      "line": 1482,
+      "calls": [
+        "saveState",
+        "updateResizerUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "toggleSaveAllIn",
+      "line": 1488,
+      "calls": [
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "updateColumnMode",
+      "line": 1493,
+      "calls": [
+        "renderGrid",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "initResizerDrag:callback@1529",
+      "line": 1529,
+      "calls": [
+        "handle.hasPointerCapture",
+        "handle.releasePointerCapture",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "updateAdminPin",
+      "line": 1577,
+      "calls": [
+        "<object>.trim",
+        "document.getElementById",
+        "saveState",
+        "showToast",
+        "themeAlert"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "nextRound",
+      "line": 1700,
+      "calls": [
+        "Reliability.invalidateDefenseDecisions",
+        "RoundSettlement.captureRoundToken",
+        "RoundSettlement.isRoundTokenCurrent",
+        "animateCardsFromSnapshotV21725",
+        "bgmStartNewRoundMusicWithProgress",
+        "bgmStopAll",
+        "bgmTransitionBattleToThinking",
+        "bgmTransitionThinkingToBattle",
+        "captureCardRectsV21725",
+        "checkAllInRatio",
+        "classroomCommands.whenIdle",
+        "document.getElementById",
+        "playSound",
+        "runClassroomCommand",
+        "showToast",
+        "themeAlert"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "applySettingsBatchMembers",
+      "line": 1776,
+      "calls": [
+        "<object>.filter",
+        "<object>.map",
+        "<object>.trim",
+        "closeSoundModal",
+        "document.getElementById",
+        "lines.forEach",
+        "openPwdModal",
+        "renderAll",
+        "saveState",
+        "showToast",
+        "text.split",
+        "themeAlert",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "batchSelectOption",
+      "line": 1819,
+      "calls": [
+        "<object>.forEach",
+        "playSound",
+        "renderDashboard",
+        "renderGrid",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "batchToggleAllIn",
+      "line": 1834,
+      "calls": [
+        "<object>.every",
+        "<object>.forEach",
+        "bgmTransitionBattleToThinking",
+        "bgmTransitionThinkingToBattle",
+        "checkAllInRatio",
+        "playSound",
+        "renderDashboard",
+        "renderGrid",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "settleBaseRoundLegacy",
+      "line": 2039,
+      "calls": [
+        "<object>.forEach",
+        "CompetitionRules.calculateRound",
+        "animateCardsFromSnapshotV21725",
+        "animateScores",
+        "bgmTriggerVictory",
+        "captureCardRectsV21725",
+        "milestoneGroups.forEach",
+        "playSound",
+        "recordHistory",
+        "renderControls",
+        "renderGrid",
+        "saveState",
+        "themeAlert"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "toggleGroupPreselect",
+      "line": 2457,
+      "calls": [
+        "<object>.slice",
+        "Array.isArray",
+        "pre.indexOf",
+        "pre.push",
+        "pre.splice",
+        "renderTwoTierChips",
+        "resetSlotDisplay",
+        "saveState",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "toggleAntiRepeat",
+      "line": 2482,
+      "calls": [
+        "saveState",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "resetPickerPool",
+      "line": 2488,
+      "calls": [
+        "saveState",
+        "showToast",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "stopSlotSpin",
+      "line": 2632,
+      "calls": [
+        "<object>.add",
+        "<object>.notify",
+        "<object>.push",
+        "<object>.shift",
+        "Date.now",
+        "DesktopUI.pickerStopped",
+        "clearInterval",
+        "document.getElementById",
+        "ensureV2State",
+        "escapeHtml",
+        "renderPickerInfo",
+        "saveState",
+        "stopRollLoop",
+        "studentLabelHTMLV218",
+        "syncPickerScoreTarget",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "rewardPickedStudent",
+      "line": 2682,
+      "calls": [
+        "<object>.find",
+        "<object>.remove",
+        "animateScores",
+        "cancelScoreAnimationAndSync",
+        "document.getElementById",
+        "playSound",
+        "recordHistory",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "applyBatchImport",
+      "line": 2712,
+      "calls": [
+        "<object>.filter",
+        "<object>.map",
+        "<object>.trim",
+        "closeBatchImportModal",
+        "document.getElementById",
+        "lines.forEach",
+        "renderGrid",
+        "saveState",
+        "showToast",
+        "text.split",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "addGroup",
+      "line": 2765,
+      "calls": [
+        "<object>.push",
+        "Date.now",
+        "StableIdentity.createGroupUid",
+        "openPwdModal",
+        "playSound",
+        "recordHistory",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "deleteGroup",
+      "line": 2789,
+      "calls": [
+        "<object>.filter",
+        "<object>.find",
+        "openPwdModal",
+        "recordHistory",
+        "renderAll",
+        "saveState",
+        "themeConfirm"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "updateGroupName",
+      "line": 2800,
+      "calls": [
+        "<object>.find",
+        "renderChart",
+        "renderDashboard",
+        "saveState",
+        "updateHeaderStats"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "updateGroupColor",
+      "line": 2811,
+      "calls": [
+        "<object>.find",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "resetAllScores",
+      "line": 2820,
+      "calls": [
+        "<object>.forEach",
+        "animateScores",
+        "cancelScoreAnimationAndSync",
+        "openPwdModal",
+        "playSound",
+        "recordHistory",
+        "saveState",
+        "themeConfirm"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "updateMasterVolume",
+      "line": 2866,
+      "calls": [
+        "<object>.setValueAtTime",
+        "Math.round",
+        "document.getElementById",
+        "parseFloat",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "startBulletTimer:callback@4264",
+      "line": 4264,
+      "calls": [
+        "<object>.forEach",
+        "clearInterval",
+        "ensureItemState",
+        "renderChart",
+        "renderDashboard",
+        "renderGrid",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "globalItemDraw:callback@4271",
+      "line": 4271,
+      "calls": [
+        "clearInterval",
+        "eligible.forEach",
+        "renderAll",
+        "saveState",
+        "setTimeout"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "saveItemGroupDetail",
+      "line": 4363,
+      "calls": [
+        "<object>.filter",
+        "<object>.find",
+        "<object>.map",
+        "<object>.some",
+        "<object>.test",
+        "<object>.trim",
+        "Array.from",
+        "JSON.stringify",
+        "Number",
+        "document.getElementById",
+        "openPwdModal",
+        "rawMembers.split",
+        "recordHistory",
+        "renderAll",
+        "renderItemWindow",
+        "saveState",
+        "showToast",
+        "updatePickerPoolUI"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "judgeHandRaise",
+      "line": 4447,
+      "calls": [
+        "<object>.find",
+        "<object>.push",
+        "ClassroomFeedback.slotMarkup",
+        "Date.now",
+        "document.getElementById",
+        "ensureV2State",
+        "recordHistory",
+        "renderAll",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "handDrawItem",
+      "line": 4455,
+      "calls": [
+        "<object>.find",
+        "addItemToGroup",
+        "drawItemForGroup",
+        "eligibleForItems",
+        "recordHistory",
+        "renderAll",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@4459:callback@4467",
+      "line": 4467,
+      "calls": [
+        "clearInterval",
+        "eligible.forEach",
+        "saveState",
+        "setTimeout"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "handleItemIconUpload:callback@4479",
+      "line": 4479,
+      "calls": [
+        "STORAGE.setJSON",
+        "ensureV2State",
+        "renderAll",
+        "renderItemEncyclopedia",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "resetItemIcon",
+      "line": 4480,
+      "calls": [
+        "STORAGE.setJSON",
+        "ensureV2State",
+        "renderAll",
+        "renderItemEncyclopedia",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "resetAllItemIcons",
+      "line": 4481,
+      "calls": [
+        "STORAGE.setJSON",
+        "ensureV2State",
+        "renderAll",
+        "renderItemEncyclopedia",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "importItemIconPack:callback@4483",
+      "line": 4483,
+      "calls": [
+        "JSON.parse",
+        "STORAGE.setJSON",
+        "ensureV2State",
+        "renderAll",
+        "renderItemEncyclopedia",
+        "saveState",
+        "showToast",
+        "themeAlert"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "godAddItem",
+      "line": 4512,
+      "calls": [
+        "<object>.find",
+        "<object>.push",
+        "Date.now",
+        "ItemModules.inventory",
+        "Math.random",
+        "recordHistory",
+        "renderAll",
+        "renderItemWindow",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "godClearItems",
+      "line": 4513,
+      "calls": [
+        "<object>.find",
+        "recordHistory",
+        "renderAll",
+        "renderItemWindow",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@4562:callback@4591",
+      "line": 4591,
+      "calls": [
+        "<object>.find",
+        "<object>.findIndex",
+        "Math.max",
+        "addItemToGroup",
+        "cancelHandItemDraw",
+        "clearInterval",
+        "document.getElementById",
+        "eligibleForItems",
+        "itemDropWeights",
+        "itemVisual",
+        "r.findIndex",
+        "ranking",
+        "recordHistory",
+        "renderAll",
+        "renderHandRaise",
+        "saveState",
+        "showToast",
+        "weightedPick"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@4682:callback@4684",
+      "line": 4684,
+      "calls": [
+        "STORAGE.setJSON",
+        "ensureV2State",
+        "renderAll",
+        "renderItemEncyclopedia",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "frame",
+      "line": 4721,
+      "calls": [
+        "<object>.find",
+        "<object>.findIndex",
+        "Math.max",
+        "Math.min",
+        "Math.pow",
+        "addItemToGroup",
+        "cancelHandItemDraw",
+        "cap.animate",
+        "document.getElementById",
+        "eligible.forEach",
+        "eligibleForItems",
+        "escapeHtml",
+        "itemDropWeights",
+        "itemVisual",
+        "pickItemForGroupV281",
+        "r.findIndex",
+        "ranking",
+        "recordHistory",
+        "renderAll",
+        "renderHandRaise",
+        "requestAnimationFrame",
+        "roulettePreviewPickV282",
+        "saveState",
+        "setTimeout",
+        "showToast",
+        "weightedPick"
+      ],
+      "saves": 6,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@4898",
+      "line": 4898,
+      "calls": [
+        "persistHistoryV26",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@4899",
+      "line": 4899,
+      "calls": [
+        "persistHistoryV26",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@5033:callback@5036",
+      "line": 5036,
+      "calls": [
+        "persistHistoryV26",
+        "renderItemFxSoundListV26",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "repairPersistentItemsV28",
+      "line": 5058,
+      "calls": [
+        "<object>.forEach",
+        "ensureItemState",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "<initialization>:callback@5098",
+      "line": 5098,
+      "calls": [
+        "persistHistoryV26",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "godAddItemV283",
+      "line": 5421,
+      "calls": [
+        "<object>.find",
+        "Number",
+        "addItemToGroup",
+        "recordHistory",
+        "renderAll",
+        "renderGroupModalV283",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "godAddQueueItemV2120",
+      "line": 5905,
+      "calls": [
+        "<object>.find",
+        "addItemToGroup",
+        "eligibleForItems",
+        "recordHistory",
+        "renderAll",
+        "renderItemWindow",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/00.js",
+      "owner": "godClearQueueItemsV2120",
+      "line": 5917,
+      "calls": [
+        "<object>.find",
+        "recordHistory",
+        "renderAll",
+        "renderItemWindow",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/01.js",
+      "owner": "ensureGroupNumbersV213",
+      "line": 11,
+      "calls": [
+        "<object>.forEach",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/01.js",
+      "owner": "<initialization>:callback@56",
+      "line": 56,
+      "calls": [
+        "<object>.forEach",
+        "<object>.map",
+        "_v213Batch.apply",
+        "ensureGroupNumbersV213",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/07.js",
+      "owner": "clearAllItemsV2172",
+      "line": 164,
+      "calls": [
+        "<object>.filter",
+        "<object>.forEach",
+        "<object>.reduce",
+        "Date.now",
+        "Number",
+        "applyBlooperMask",
+        "clearInterval",
+        "ensureItemState",
+        "recordHistory",
+        "renderAll",
+        "saveState",
+        "showToast",
+        "themeConfirm"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/12.js",
+      "owner": "markItemUsedThisRoundV2177",
+      "line": 27,
+      "calls": [
+        "<object>.find",
+        "refreshAllInMusicAfterItemUseV2177",
+        "renderDashboard",
+        "renderGrid",
+        "renderItemWindow",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/13.js",
+      "owner": "<initialization>:callback@6",
+      "line": 6,
+      "calls": [
+        "<object>.filter",
+        "<object>.forEach",
+        "bgmTransitionBattleToThinking",
+        "bgmTransitionThinkingToBattle",
+        "checkAllInRatio",
+        "eligible.every",
+        "eligible.forEach",
+        "locked.forEach",
+        "playSound",
+        "refreshAllInMusicAfterItemUseV2177",
+        "renderDashboard",
+        "renderGrid",
+        "saveState",
+        "showToast"
+      ],
+      "saves": 2,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/15.js",
+      "owner": "beginDrawSessionV21710",
+      "line": 45,
+      "calls": [
+        "ensureDrawSessionThrottleV21710",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/16.js",
+      "owner": "frame",
+      "line": 90,
+      "calls": [
+        "<object>.find",
+        "BattleMotion.enterDrawContent",
+        "Math.min",
+        "Math.pow",
+        "addItemToGroup",
+        "cancelHandItemDraw",
+        "cap.animate",
+        "document.getElementById",
+        "eligible.forEach",
+        "eligibleForItems",
+        "escapeHtml",
+        "itemVisual",
+        "pickItemForGroupV281",
+        "recordHistory",
+        "renderAll",
+        "renderGrid",
+        "renderHandRaise",
+        "requestAnimationFrame",
+        "roulettePreviewPickV282",
+        "saveState",
+        "setTimeout",
+        "showToast"
+      ],
+      "saves": 2,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/21.js",
+      "owner": "repairDuplicateInventoryV21718",
+      "line": 31,
+      "calls": [
+        "<object>.forEach",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/22.js",
+      "owner": "repairFlowerChargesV21719",
+      "line": 3,
+      "calls": [
+        "<object>.forEach",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/32.js",
+      "owner": "repairAllItemEffectsV21731",
+      "line": 26,
+      "calls": [
+        "<object>.forEach",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/36.js",
+      "owner": "<initialization>",
+      "line": 1,
+      "calls": [
+        "<object>.forEach",
+        "Object.assign",
+        "document.getElementById",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/script/36.js",
+      "owner": "applyQuickPersonScoreV218",
+      "line": 169,
+      "calls": [
+        "<object>.filter",
+        "<object>.join",
+        "ClassroomFeedback.score",
+        "Number",
+        "Number.isSafeInteger",
+        "Reliability.planBatchScoreChanges",
+        "allStudentsV218",
+        "animateScores",
+        "cancelScoreAnimationAndSync",
+        "openPwdModal",
+        "playSound",
+        "runClassroomCommand",
+        "selected.forEach",
+        "showToast",
+        "updates.map",
+        "updates.reduce"
+      ],
+      "saves": 0,
+      "commandCalls": 1,
+      "classification": "COMMAND_ENTRY_CANDIDATE"
+    },
+    {
+      "file": "src/script/36.js",
+      "owner": "finishOwnItemUseV218",
+      "line": 235,
+      "calls": [
+        "Number",
+        "recordHistory",
+        "renderAll",
+        "saveState",
+        "showItemUseFx",
+        "showToast"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    },
+    {
+      "file": "src/ui/round-feedback.js",
+      "owner": "afterPowerRound:callback@10:callback@27",
+      "line": 27,
+      "calls": [
+        "console.warn",
+        "renderAll",
+        "saveState"
+      ],
+      "saves": 1,
+      "commandCalls": 0,
+      "classification": "CALLER_AUDIT_REQUIRED"
+    }
+  ]
+}

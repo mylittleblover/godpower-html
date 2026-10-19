@@ -29,6 +29,38 @@ const RoundSettlement = (() => {
     return result;
   }
   let forceEndGeneration = 0;
+  async function start() {
+    const flipSnapshot = captureCardRectsV21725();
+    const committed = runClassroomCommand(
+      "开始新回合",
+      () => {
+        resetRoundItemUseLocksV2177();
+        state.hasStartedOnce = true;
+        state.roundActive = true;
+        state.evaluated = false;
+        state.correctAns = "";
+        state.groups.forEach((g) => {
+          g.selectedOpt = "";
+          g.allIn = false;
+          g.resultText = "";
+          g.animState = "";
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
+    v213SuppressReorderAnimation = true;
+    try {
+      renderAll();
+    } finally {
+      v213SuppressReorderAnimation = false;
+    }
+    animateCardsFromSnapshotV21725(flipSnapshot);
+    return true;
+  }
   function captureRoundToken() {
     return {
       classroom: state,
@@ -115,5 +147,5 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, forceEnd, captureRoundToken, isRoundTokenCurrent };
+  return { execute, start, forceEnd, captureRoundToken, isRoundTokenCurrent };
 })();

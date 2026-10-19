@@ -5917,3 +5917,5 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 3.0.15：forceEndRound直接修改/recordHistory/saveState已由RoundSettlement.forceEnd单命令替换。危险确认组件及音效、FLIP动画保留；旧确认现需身份/阶段/作答代次匹配。2项时序专项和80项结算差分是替换证据。
 
 3.0.17：nextRound中分散直接赋字段+saveState已替换为事务命令；音频预加载仍为异步前置步骤，防止旧完成覆盖新课堂。结果复位、AllIn持久选项和道具锁行为由2项专项和原117核心回归验证。
+
+3.0.18：`_v2177FinishStartRound`/`finishStartRound`最后一层重置包装已由RoundSettlement.start覆盖，删除安全（原 wrapper 唯一行为 resetRoundItemUseLocks，命令现含同一函数并有组/锁专项断言）。startRound音频回调保留，但加入轮次身份令牌防止迟到状态复位。

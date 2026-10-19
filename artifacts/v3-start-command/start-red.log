@@ -1,0 +1,20 @@
+[
+  {
+    name: 'start-round command cases',
+    status: 'FAIL',
+    error: 'Expected values to be strictly deep-equal:\n' +
+      '+ actual - expected\n' +
+      '\n' +
+      '  {\n' +
+      '+   active: true,\n' +
+      "+   correct: '',\n" +
+      '+   evaluated: false,\n' +
+      '-   active: false,\n' +
+      "-   correct: 'D',\n" +
+      '-   evaluated: true,\n' +
+      '    score: 102,\n' +
+      "+   selected: ''\n" +
+      "-   selected: 'C'\n" +
+      '  }\n'
+  }
+]
