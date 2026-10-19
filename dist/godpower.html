@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.9</title>
+<title>上帝的力量 V3.0.10</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.9";
+    document.title = name() + " V3.0.10";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.9</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.10</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -11948,114 +11948,129 @@ function undoLast() {
   saveState();
 }
 </script>
-<script>/* Single attack/defense entry. Migrated from 00/05/17/31/36 without changing
-   damage fractions, defense priority or inventory consumption. */
+<script>/* Existing defense precedence only; consumption, effects and dialogs belong to application. */
+const DefensePolicy = (() => {
+  function choose(g, attackType, { eligible, shellAttack }) {
+    if (Number(g?.booRoundsLeftV218 || 0) > 0 && Number(g?.booShield || 0) > 0)
+      return "timed-ghost";
+    const main = g?.inventory?.[0];
+    if (
+      attackType === "spiny" &&
+      g?.__spinyHornDeclinedV218 &&
+      main?.key === "horn"
+    )
+      return "none";
+    if (!eligible) return "ineligible";
+    if (g.itemEffect && Number(g.itemEffect.featherDodge || 0) > 0)
+      return "feather";
+    if (g.itemEffect?.type === "bullet") return "bullet";
+    if (g.itemEffect && ["star", "mega"].includes(g.itemEffect.type))
+      return "persistent";
+    if (Number(g.booShield || 0) > 0) return "ghost";
+    if (main?.key === "bomb" && shellAttack) return "bomb";
+    if (
+      main &&
+      [
+        "green",
+        "triple_green",
+        "red",
+        "triple_red",
+        "banana",
+        "triple_banana",
+        "horn",
+      ].includes(main.key) &&
+      (attackType !== "spiny" || main.key === "horn")
+    )
+      return "inventory";
+    if (
+      attackType === "spiny" &&
+      main &&
+      ["mushroom", "triple_mushroom"].includes(main.key) &&
+      !g.__spinyMushroomDeclinedV21727
+    )
+      return "pending-mushroom";
+    return "none";
+  }
+  return { choose };
+})();
+</script>
+<script>/* Application adapter applies the pure defense decision, preserving legacy side effects. */
 function tryDefend(g, attackType) {
-  // V2.18 ghost lifetime and explicit horn refusal precede the older defenses.
-  if (Number(g?.booRoundsLeftV218 || 0) > 0 && Number(g?.booShield || 0) > 0) {
-    tinyDefenseToast(
-      `对方持有防御：害羞幽灵保护（剩余 ${g.booRoundsLeftV218} 次答题）`,
-    );
-    return true;
-  }
-  if (
-    attackType === "spiny" &&
-    g?.__spinyHornDeclinedV218 &&
-    g.inventory?.[0]?.key === "horn"
-  )
-    return false;
-
-  if (!eligibleForItems(g)) return true;
-
-  /* 羽毛依然最优先。 */
-  if (g.itemEffect && Number(g.itemEffect.featherDodge || 0) > 0) {
-    g.itemEffect.featherDodge = Math.max(
-      0,
-      Number(g.itemEffect.featherDodge || 0) - 1,
-    );
-    if (g.itemEffect.featherDodge <= 0) delete g.itemEffect.featherDodge;
-    if (Object.keys(g.itemEffect).length === 0) g.itemEffect = null;
-    tinyDefenseToast(`${g.name} 使用羽毛跃起，闪避了本次攻击`);
-    return true;
-  }
-
-  if (g.itemEffect?.type === "bullet") {
-    tinyDefenseToast(`${g.name} 的炮弹刺客处于绝对防御`);
-    return true;
-  }
-
-  /* 持续状态与害羞幽灵仍优先于道具栏。 */
-  if (g.itemEffect && ["star", "mega"].includes(g.itemEffect.type)) {
-    const type = g.itemEffect.type;
-    tinyDefenseToast(`对方持有防御：${ITEM_DEFS[type]?.name || "持续状态"}`);
-    g.itemEffect.hitsLeft = Math.max(0, Number(g.itemEffect.hitsLeft || 0) - 1);
-    if (g.itemEffect.hitsLeft <= 0) {
-      /* 无敌星已不在道具栏；巨大蘑菇仍是卡手主要道具，需要释放。 */
-      if (type === "mega") {
-        const ix = g.inventory.findIndex((x) => x.key === "mega");
-        if (ix >= 0) g.inventory.splice(ix, 1);
-      }
-      g.itemEffect = null;
+  const kind = DefensePolicy.choose(g, attackType, {
+    eligible: eligibleForItems(g),
+    shellAttack:
+      g?.inventory?.[0]?.key === "bomb" &&
+      SHELL_ATTACK_KEYS_V2170.has(attackType),
+  });
+  const main = g?.inventory?.[0];
+  switch (kind) {
+    case "timed-ghost": {
+      tinyDefenseToast(
+        `对方持有防御：害羞幽灵保护（剩余 ${g.booRoundsLeftV218} 次答题）`,
+      );
+      return true;
     }
-    return true;
-  }
-
-  if (Number(g.booShield || 0) > 0) {
-    tinyDefenseToast(`对方持有防御：害羞幽灵保护`);
-    g.booShield = Math.max(0, Number(g.booShield || 0) - 1);
-    return true;
-  }
-
-  const main = g.inventory?.[0];
-
-  /* 炸弹只防红/绿龟壳，并以自爆作为防御代价。 */
-  if (main?.key === "bomb" && SHELL_ATTACK_KEYS_V2170.has(attackType)) {
-    g.inventory.splice(0, 1);
-    tinyDefenseToast(
-      `${g.name} 用炸弹兵挡住了${ITEM_DEFS[attackType]?.name || "龟壳"}`,
-    );
-    explodeDestroyedBombV2170(g, null, "防御龟壳时");
-    return true;
-  }
-
-  /* 原有基础防御。刺龟壳只保留超级喇叭，基础防御会在命中前被直接摧毁。 */
-  if (
-    main &&
-    [
-      "green",
-      "triple_green",
-      "red",
-      "triple_red",
-      "banana",
-      "triple_banana",
-      "horn",
-    ].includes(main.key)
-  ) {
-    const canBlock = attackType === "spiny" ? main.key === "horn" : true;
-    if (canBlock) {
+    case "feather": {
+      g.itemEffect.featherDodge = Math.max(
+        0,
+        Number(g.itemEffect.featherDodge || 0) - 1,
+      );
+      if (g.itemEffect.featherDodge <= 0) delete g.itemEffect.featherDodge;
+      if (Object.keys(g.itemEffect).length === 0) g.itemEffect = null;
+      tinyDefenseToast(`${g.name} 使用羽毛跃起，闪避了本次攻击`);
+      return true;
+    }
+    case "bullet": {
+      tinyDefenseToast(`${g.name} 的炮弹刺客处于绝对防御`);
+      return true;
+    }
+    case "persistent": {
+      const type = g.itemEffect.type;
+      tinyDefenseToast(`对方持有防御：${ITEM_DEFS[type]?.name || "持续状态"}`);
+      g.itemEffect.hitsLeft = Math.max(
+        0,
+        Number(g.itemEffect.hitsLeft || 0) - 1,
+      );
+      if (g.itemEffect.hitsLeft <= 0) {
+        /* 无敌星已不在道具栏；巨大蘑菇仍是卡手主要道具，需要释放。 */
+        if (type === "mega") {
+          const ix = g.inventory.findIndex((x) => x.key === "mega");
+          if (ix >= 0) g.inventory.splice(ix, 1);
+        }
+        g.itemEffect = null;
+      }
+      return true;
+    }
+    case "ghost": {
+      tinyDefenseToast(`对方持有防御：害羞幽灵保护`);
+      g.booShield = Math.max(0, Number(g.booShield || 0) - 1);
+      return true;
+    }
+    case "bomb": {
+      g.inventory.splice(0, 1);
+      tinyDefenseToast(
+        `${g.name} 用炸弹兵挡住了${ITEM_DEFS[attackType]?.name || "龟壳"}`,
+      );
+      explodeDestroyedBombV2170(g, null, "防御龟壳时");
+      return true;
+    }
+    case "inventory": {
       tinyDefenseToast(
         `对方持有防御：${ITEM_DEFS[main.key]?.name || "防御道具"}`,
       );
       consumeInventoryItem(g, 0, 1);
       return true;
     }
-  }
-
-  /* 刺龟壳的蘑菇主动闪避仍保留。 */
-  if (attackType === "spiny") {
-    const mi =
-      g.inventory?.[0] &&
-      ["mushroom", "triple_mushroom"].includes(g.inventory[0].key)
-        ? 0
-        : -1;
-    if (mi === 0 && !g.__spinyMushroomDeclinedV21727) {
+    case "ineligible":
+    case "pending-mushroom":
       return true;
-    }
+    default:
+      return false;
   }
-
-  return false;
 }
 
+// Weak ownership is transient: no tokens enter storage, backups or game rules.
+const spinyDefenseRequests = new WeakMap();
 function requestSpinyDefense(target, key, continueAttack) {
   const horn = key === "horn",
     flag = horn
@@ -12064,6 +12079,13 @@ function requestSpinyDefense(target, key, continueAttack) {
   const declined = horn
     ? "__spinyHornDeclinedV218"
     : "__spinyMushroomDeclinedV21727";
+  let requests = spinyDefenseRequests.get(target);
+  if (!requests) {
+    requests = new Map();
+    spinyDefenseRequests.set(target, requests);
+  }
+  const requestToken = {};
+  requests.set(flag, requestToken);
   target[flag] = true;
   const decision = Reliability.captureDefenseDecision(state, target, key);
   const name = ITEM_DEFS[key]?.name || "蘑菇";
@@ -12076,7 +12098,12 @@ function requestSpinyDefense(target, key, continueAttack) {
     },
   );
   const clear = () => {
+    // A superseded promise may settle after another request for the same group.
+    // Only the current request owns that flag; clearing an older token is a no-op.
+    if (requests.get(flag) !== requestToken) return;
+    requests.delete(flag);
     target[flag] = false;
+    if (!requests.size) spinyDefenseRequests.delete(target);
   };
   deferClassroomDefense(
     prompt,
@@ -12106,7 +12133,8 @@ function requestSpinyDefense(target, key, continueAttack) {
     blocked: horn ? "pending-horn-defense" : "pending-defense",
   };
 }
-
+</script>
+<script>/* Single score application entry; defense choices and dialogs live in application. */
 function commitItemScore(
   target,
   delta,
@@ -22536,7 +22564,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.9';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.10';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24643,7 +24671,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.9",
+    appVersion: "V3.0.10",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

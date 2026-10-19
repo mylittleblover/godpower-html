@@ -1,0 +1,32 @@
+{
+  "base": "cf3ebc8",
+  "criteria": "FunctionDeclaration plus direct identifier AssignmentExpression; source metrics exclude CSS/resources; size is observational, not a deletion target.",
+  "before": {
+    "jsFiles": 87,
+    "sourceBytes": 812058,
+    "sourceLines": 20415,
+    "entryWrites": {
+      "legacyUseItem": 1,
+      "legacyJudgeRound": 1,
+      "useItem": 1,
+      "renderAll": 1,
+      "renderGrid": 1,
+      "saveState": 1
+    },
+    "bundleBytes": 7942522
+  },
+  "after": {
+    "jsFiles": 89,
+    "sourceBytes": 813220,
+    "sourceLines": 20443,
+    "entryWrites": {
+      "legacyUseItem": 1,
+      "legacyJudgeRound": 1,
+      "useItem": 1,
+      "renderAll": 1,
+      "renderGrid": 1,
+      "saveState": 1
+    },
+    "bundleBytes": 7943725
+  }
+}

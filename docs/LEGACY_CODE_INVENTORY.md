@@ -1,3 +1,9 @@
+# 3.0.10 防御所有权
+
+core/item-score.js的tryDefend与requestSpinyDefense并未删除功能：规则判断转移domain/items/defense-policy，副作用/弹窗移至application/item-defense-adapter。分类：仍必要→按职责迁移。共享消费/炸弹自爆/视觉函数仍保留。旧无归属clear回调已被token保护替代；RED/229/464/26/10/30/2证据见artifacts/v3-defense。
+
+---
+
 # 3.0.9 All In control chain
 
 script12 _v2177ToggleAllInCard captured wrapper:已被新实现取代→删除；其每题道具使用后禁止All In守门保留在application/answer-commands.js。原00.js直接选择/AllIn函数改为单一转发。动态控制/7手工/117核心/80判题/14组布局全部通过，证据artifacts/v3-controls。其他script12队列、状态锁及回合工具仍保留。

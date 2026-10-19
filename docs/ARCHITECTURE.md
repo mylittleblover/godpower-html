@@ -98,3 +98,8 @@ UI→applyScoreDelta→ManualScoreCommands.adjust→ScoreAdjustments.delta→Com
 ### 答题控制命令（3.0.9）
 
 selectGroupOpt/toggleAllInCard→AnswerCommands→CommandLifecycle。recordHistory=false仅用于原来不产生撤销节点的答题选择与AllIn；仍有回滚快照、保存验证和结果。旧道具使用限制和音乐阈值未变。命令替换待定防御时，旧事务先回滚，选择在可靠基线上提交。保存默认仍旧repository，不是异步后端已激活。
+
+
+### 防御职责（3.0.10）
+
+Domain DefensePolicy只选既有优先级，不改数据、不读DOM、不调用音效。application/item-defense-adapter执行扣次/状态消耗/提示和requestSpinyDefense；core/item-score执行分数应用与反馈调度。异步确认的epoch保护业务结果，WeakMap请求token保护pending标志归属；两层不能相互替代。token不进入存档，旧布尔标志格式不变。

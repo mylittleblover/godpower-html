@@ -1,0 +1,45 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    afterCurrent: false,
++   afterStale: false,
+-   afterStale: true,
+    before: true,
+    history: 1,
+    inventory: 0,
+    pending: false,
+    prompts: 2,
+
+    at file:///workspace/godpower-html-electron-020/tests/e2e/defense-generation.mjs:24:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    before: true,
+    afterStale: false,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  },
+  expected: {
+    before: true,
+    afterStale: true,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

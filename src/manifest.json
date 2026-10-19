@@ -232,6 +232,16 @@
     },
     {
       "type": "script",
+      "path": "domain/items/defense-policy.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "application/item-defense-adapter.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/item-score.js",
       "attributes": ""
     },

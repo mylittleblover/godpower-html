@@ -1144,3 +1144,8 @@ P1架构，中复杂度/中风险。原手工积分直接修改全局state，已
 ## GP-V3-ANSWER-COMMAND（已完成）
 
 P1架构，中复杂度/中风险。选择答案/AllIn原为直接全局修改，现迁入应用命令并删除script12AllIn覆盖链。依赖统一CommandLifecycle；新增不记录历史的控制选项，保留旧撤销语义。211单元、4答题/7手工专项、117核心、80判题、14组布局通过。证据artifacts/v3-controls。验收旧待定攻击不会在新答案之后结算，不增加历史条数，不改道具互斥/音乐阈值。后续继续回合开始、抽取/管理等命令及异步持久化接通。
+
+
+## GP-010-GENERATION（已修复）
+
+P1异步生命周期，中复杂度/中风险。旧确认Promise可清掉同组新确认pending标志；复现两次刺龟壳请求后先结束旧确认，标志false。现用WeakMap请求token限定clear归属；旧epoch保护保留。源码application/item-defense-adapter；依赖既有防御epoch/命令取消。229单元、464差分、26oracle、10生命周期、30全异步及2代际场景通过。验收旧结束不清新标志，新结束仅消耗一次，存档无新token。证据artifacts/v3-defense。此项不能代替后续整个异步持久化权威切换。

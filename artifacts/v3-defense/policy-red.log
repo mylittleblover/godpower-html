@@ -1,0 +1,236 @@
+✖ defense priority is an independent pure domain port (2.266283ms)
+✖ timed ghost precedes all effects (0.280457ms)
+✖ horn refusal precedes feather (0.147152ms)
+✖ timed ghost precedes horn refusal (0.146051ms)
+✖ ineligible group precedes feather (0.254856ms)
+✖ feather precedes bullet (0.188985ms)
+✖ bullet absolute defense (0.145893ms)
+✖ star counts even last hit (0.113179ms)
+✖ mega with zero remaining keeps legacy final defense (0.182467ms)
+✖ untimed ghost precedes inventory (0.28133ms)
+✖ bomb blocks shell (0.119596ms)
+✖ bomb cannot block spiny (0.117484ms)
+✖ basic inventory blocks normal attack (0.154958ms)
+✖ basic inventory cannot block spiny (0.095726ms)
+✖ horn blocks spiny (0.421132ms)
+✖ mushroom requests spiny decision (0.110798ms)
+✖ mushroom refused (0.112721ms)
+✖ secondary inventory is not defense (0.107256ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 0
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 109.704473
+
+✖ failing tests:
+
+test at tests/unit/defense-policy.test.mjs:27:1
+✖ defense priority is an independent pure domain port (2.266283ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:27:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ timed ghost precedes all effects (0.280457ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ horn refusal precedes feather (0.147152ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ timed ghost precedes horn refusal (0.146051ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ ineligible group precedes feather (0.254856ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ feather precedes bullet (0.188985ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ bullet absolute defense (0.145893ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ star counts even last hit (0.113179ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ mega with zero remaining keeps legacy final defense (0.182467ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ untimed ghost precedes inventory (0.28133ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ bomb blocks shell (0.119596ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ bomb cannot block spiny (0.117484ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ basic inventory blocks normal attack (0.154958ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ basic inventory cannot block spiny (0.095726ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ horn blocks spiny (0.421132ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ mushroom requests spiny decision (0.110798ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ mushroom refused (0.112721ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/defense-policy.test.mjs:28:70
+✖ secondary inventory is not defense (0.107256ms)
+  TypeError: Cannot read properties of null (reading 'choose')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/defense-policy.test.mjs:29:54)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
