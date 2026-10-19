@@ -32,8 +32,8 @@ Default legacy authority remains active. The async compatibility controller is v
 |src/application/legacy-classroom-adapter.js|`judgeRound`|347|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`adjust`|3|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`set`|60|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/round-settlement.js|`start`|72|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/round-settlement.js|`forceEnd`|140|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/round-settlement.js|`start`|75|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/round-settlement.js|`forceEnd`|143|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/core/picker-bridge.js|`command`|50|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`confirmFinalSettlement`|271|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`toggleResizerEnabled`|1482|1|0|CALLER_AUDIT_REQUIRED|

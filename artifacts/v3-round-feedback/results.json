@@ -1,0 +1,22 @@
+{
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080@1x",
+  "status": "PASS",
+  "result": {
+    "accepted": true,
+    "completion": {
+      "ok": true,
+      "persisted": true
+    },
+    "before": {
+      "score": 2,
+      "displayScore": 0,
+      "writes": 1
+    },
+    "after": {
+      "score": 2,
+      "displayScore": 0,
+      "writes": 1
+    }
+  }
+}

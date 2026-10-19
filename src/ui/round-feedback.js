@@ -1,6 +1,6 @@
 /* Power-mushroom second score phase, retaining the established 720ms handoff. */
 const RoundFeedback = (() => {
-  function afterPowerRound(powerBefore) {
+  function afterPowerRound(powerBefore, roundToken) {
     const targets = powerBefore
       .filter((answer) => answer.answered && answer.correct)
       .map((answer) => state.groups.find((group) => group.id === answer.id))
@@ -8,6 +8,8 @@ const RoundFeedback = (() => {
       .map((group) => group.id);
     if (!targets.length) return;
     setTimeout(() => {
+      if (roundToken && !RoundSettlement.isRoundTokenCurrent(roundToken))
+        return;
       try {
         if (activeScoreAnimId) {
           cancelAnimationFrame(activeScoreAnimId);

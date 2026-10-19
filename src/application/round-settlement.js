@@ -42,7 +42,10 @@ const RoundSettlement = (() => {
       milestoneGroups,
       powerBefore,
     } = presentation;
-    RoundFeedback.afterPowerRound(powerBefore);
+    RoundFeedback.afterPowerRound(
+      powerBefore,
+      RoundSettlement.captureRoundToken(),
+    );
     animateCardsFromSnapshotV21725(flipSnapshotV21725);
     state.groups.forEach((group) => {
       if (!group.selectedOpt || !group.allIn) return;
