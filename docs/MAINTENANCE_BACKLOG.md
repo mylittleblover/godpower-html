@@ -1167,3 +1167,7 @@ P0架构/数据，高复杂度/高风险。导入、撤销、恢复/回溯、清
 ## GP-V3-HISTORY-OWNER（已修复，3.0.13）
 
 P1数据/历史，中复杂度/中风险。证据：artifacts/v3-history/red-results.json，旧undo重复主保存、待防御回溯历史截断被取消覆盖、配额失败显示旧结果。以HistoryCommands单命令恢复替换旧入口，保留快照字段、撤销节点语义和RAM-only故障策略。依赖CommandLifecycle/写屏障。验收：五浏览器专项、18旧新真实渲染差分、239单元通过；正常撤销仅一次主保存，取消攻击不撤销更早操作。后续回合开始/正解选择、抽取与计时器、管理写入仍须收口，完成前不切换默认后端。
+
+## GP-V3-CORRECT-ANSWER（已修复，3.0.14）
+
+P1业务/数据，中复杂度/中风险。src/script/00.js后部setCorrectAns覆盖早期实现，选择/取消均未主保存，晚确认可覆写已结算正解。替换为AnswerCommands.correct，保留实际警告窗，确认后按身份/阶段/代次复核并单命令保存。依赖CommandLifecycle/写屏障。5专项、4答题、5历史及239单元通过；证据artifacts/v3-round-controls。验收：选A保存A，取消保存空，旧确认不能改新状态，配额明确RAM-only，不新增历史节点。后续回合开始音频异步流程及旧finishStartRound包装仍待迁移。

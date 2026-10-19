@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.13</title>
+<title>上帝的力量 V3.0.14</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.13";
+    document.title = name() + " V3.0.14";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.13</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.14</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14473,28 +14473,8 @@ function toggleAllInCard(groupId) {
   return AnswerCommands.toggleAllIn(groupId);
 }
 
-async function setCorrectAns(opt) {
-  if (state.evaluated) return;
-
-  if (state.correctAns === opt) {
-    playSound('ui_click');
-    state.correctAns = '';
-    renderControls();
-    return;
-  }
-
-  const allAnswered = state.groups.every(g => g.selectedOpt !== '');
-  if (!allAnswered) {
-    const confirmEarly = await themeConfirm('当前仍有小组尚未完成作答！\n是否确认提前选定正确答案？', {title:'提前公布正解', confirmText:'继续选定'});
-    if (!confirmEarly) {
-      return;
-    }
-  }
-
-  playSound('ui_click');
-  state.correctAns = opt;
-  saveState();
-  renderControls();
+function setCorrectAns(opt) {
+  return AnswerCommands.correct(opt);
 }
 
 function settleBaseRoundLegacy() {
@@ -17553,24 +17533,6 @@ function programConfirmV28(message,opts={}){
     const key=e=>{if(!o.isConnected){document.removeEventListener('keydown',key);return}if(e.key==='Escape'){document.removeEventListener('keydown',key);finish(false)}else if(e.key==='Enter'){document.removeEventListener('keydown',key);finish(true)}};
     document.addEventListener('keydown',key);
   });
-}
-
-/* 重写正确答案选择入口，仅把“未全部选择”的原生 confirm 换成程序窗。 */
-setCorrectAns=async function(opt){
-  if(state.evaluated)return;
-  if(state.correctAns===opt){
-    playSound('ui_click');state.correctAns='';renderControls();return;
-  }
-  const unanswered=state.groups.filter(g=>g.selectedOpt==='');
-  if(unanswered.length){
-    const names=unanswered.map(g=>g.name).join('、');
-    const ok=await programConfirmV28(
-      `仍有 ${unanswered.length} 个小组尚未完成作答：${names}\n现在选定正确答案后，未作答小组将保持“未作答”状态。`,
-      {title:'作答尚未完成',cancelText:'返回检查',okText:`继续选择 ${opt}`}
-    );
-    if(!ok)return;
-  }
-  playSound('ui_click');state.correctAns=opt;renderControls();
 }
 
 /* 页面离开时做同步回写。 */
@@ -22676,7 +22638,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.13';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.14';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24750,7 +24712,62 @@ const AnswerCommands = (() => {
     }
   }
 
-  return { select, toggleAllIn };
+  let generation = 0;
+  Reliability.onDefenseInvalidation(() => {
+    generation++;
+  });
+  async function correct(opt) {
+    if (!ClassroomWriteBarrier.allow() || state.evaluated) return false;
+    const classroom = state,
+      groups = state.groups,
+      season = state.seasonId;
+    const previous = state.correctAns,
+      started = state.roundActive,
+      revision = generation;
+    if (previous !== opt) {
+      const unanswered = state.groups.filter((g) => g.selectedOpt === "");
+      if (unanswered.length) {
+        const names = unanswered.map((g) => g.name).join("、");
+        const accepted = await programConfirmV28(
+          `仍有 ${unanswered.length} 个小组尚未完成作答：${names}\n现在选定正确答案后，未作答小组将保持“未作答”状态。`,
+          {
+            title: "作答尚未完成",
+            cancelText: "返回检查",
+            okText: `继续选择 ${opt}`,
+          },
+        );
+        if (!accepted) return false;
+      }
+    }
+    if (!ClassroomWriteBarrier.allow()) return false;
+    if (
+      state !== classroom ||
+      state.groups !== groups ||
+      state.seasonId !== season ||
+      state.evaluated ||
+      state.correctAns !== previous ||
+      state.roundActive !== started ||
+      generation !== revision
+    ) {
+      showToast("课堂状态已变化，请重新选择正确答案。");
+      return false;
+    }
+    const accepted = runClassroomCommand(
+      "选择正确答案",
+      () => {
+        state.correctAns = previous === opt ? "" : opt;
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!accepted) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
+    playSound("ui_click");
+    renderControls();
+    return true;
+  }
+  return { select, toggleAllIn, correct };
 })();
 </script>
 <script>/* Manual score application commands; one pre-operation snapshot and one persistence result. */
@@ -24846,7 +24863,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.13",
+    appVersion: "V3.0.14",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

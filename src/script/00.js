@@ -2035,28 +2035,8 @@ function toggleAllInCard(groupId) {
   return AnswerCommands.toggleAllIn(groupId);
 }
 
-async function setCorrectAns(opt) {
-  if (state.evaluated) return;
-
-  if (state.correctAns === opt) {
-    playSound('ui_click');
-    state.correctAns = '';
-    renderControls();
-    return;
-  }
-
-  const allAnswered = state.groups.every(g => g.selectedOpt !== '');
-  if (!allAnswered) {
-    const confirmEarly = await themeConfirm('当前仍有小组尚未完成作答！\n是否确认提前选定正确答案？', {title:'提前公布正解', confirmText:'继续选定'});
-    if (!confirmEarly) {
-      return;
-    }
-  }
-
-  playSound('ui_click');
-  state.correctAns = opt;
-  saveState();
-  renderControls();
+function setCorrectAns(opt) {
+  return AnswerCommands.correct(opt);
 }
 
 function settleBaseRoundLegacy() {
@@ -5115,24 +5095,6 @@ function programConfirmV28(message,opts={}){
     const key=e=>{if(!o.isConnected){document.removeEventListener('keydown',key);return}if(e.key==='Escape'){document.removeEventListener('keydown',key);finish(false)}else if(e.key==='Enter'){document.removeEventListener('keydown',key);finish(true)}};
     document.addEventListener('keydown',key);
   });
-}
-
-/* 重写正确答案选择入口，仅把“未全部选择”的原生 confirm 换成程序窗。 */
-setCorrectAns=async function(opt){
-  if(state.evaluated)return;
-  if(state.correctAns===opt){
-    playSound('ui_click');state.correctAns='';renderControls();return;
-  }
-  const unanswered=state.groups.filter(g=>g.selectedOpt==='');
-  if(unanswered.length){
-    const names=unanswered.map(g=>g.name).join('、');
-    const ok=await programConfirmV28(
-      `仍有 ${unanswered.length} 个小组尚未完成作答：${names}\n现在选定正确答案后，未作答小组将保持“未作答”状态。`,
-      {title:'作答尚未完成',cancelText:'返回检查',okText:`继续选择 ${opt}`}
-    );
-    if(!ok)return;
-  }
-  playSound('ui_click');state.correctAns=opt;renderControls();
 }
 
 /* 页面离开时做同步回写。 */

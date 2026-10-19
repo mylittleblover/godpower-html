@@ -129,3 +129,13 @@ Reproduced three independent defects: undo wrote the primary twice; reverting wh
 239/239 Node tests, five browser scenarios, 18 old/new full-backup differential cases with real rendering at 1/4/14 groups, defense generation checks and 1920×1080 1x 14-group geometry pass. Evidence artifacts/v3-history includes RED failures. No business balance, data format or CSS changed. Static inventory now 79 lexical leads,76 save calls,10 command calls; not a claim that all remaining leads are defects. Default storage authority remains unchanged. New competition rules ZIP remains deferred until rule implementation.
 
 Final core regression117/117 PASS,application errors=[];file:// remains BLOCKED by managed Chromium ERR_BLOCKED_BY_ADMINISTRATOR, not counted as passed. Core report and observed performance copied to current phase. Offline resource embedding/build validation passed separately.
+
+## 3.0.14 correct-answer ownership and stale confirmation
+
+Independently traced BOTH setCorrectAns definitions: the first is shadowed; the actual later override does not save either selection or deselection. RED confirms selected A remains saved as empty, and a delayed early-answer confirmation overwrites a settled D with B. Removed the superseded function and override chain in favor of one stable forwarding entry and AnswerCommands.correct. Retains exact programConfirmV28 warning text, unanswered names, cancellation and no-history-node semantics. Captures classroom/group identity, season, phase, current choice and business invalidation generation; rechecks after confirmation and before committing. Valid selection/deselection now saves once and exposes its own RAM-only failure result.
+
+Five Chromium1920×1080 1x targeted scenarios PASS (select/deselect persistence, settled-round stale confirmation, decline, intervening command, quota), existing four answer-control and five history cases PASS,239Node tests PASS;27embedded resources,version3.0.14 andboundaries PASS. Evidenceartifacts/v3-round-controls. Static map79lexical leads/75save calls/11command calls. Default storage cutover still blocked on remaining mutation ownership;new rules ZIP still unopened.
+
+Round pipeline old/new differential80/80PASS (4/14groups,power/ice/boo,AllIn,overflow); selected rule/effect behavior preserved.
+
+Final 3.0.14 core Chromium regression117/117PASS,application errors=[];round differential80/80 and all 26-item compatibility coverage pass. `file://` remains environment-blocked (ERR_BLOCKED_BY_ADMINISTRATOR) and is not counted as passed. Build is self-contained; its 27 embedded resource hashes are checked.

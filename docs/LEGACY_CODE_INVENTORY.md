@@ -5911,3 +5911,5 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 详见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md) 的替代行为表及对应测试。未出现在安全删除记录中的 CSS、音频、渲染和 legacyUseItem 包装层均保留，不以旧版本号作为删除依据。全部独立 keyframes 名称、模板及字符串内联事件入口也见 SOURCE_CATALOG.md；当前索引不是完整作用域解析或动态可达性证明。
 
 3.0.13：restoreStateFromSnapshot/undoLast/revertToHistory旧函数体已被HistoryCommands覆盖并替换为转发入口；保留公开名称兼容既有调用。快照capture、normalizeAllGroups和item timer仍必要。替换证据见artifacts/v3-history（18差分、5专项）。
+
+3.0.14：两处setCorrectAns旧实现（早期themeConfirm版、后期programConfirmV28覆盖版）替换为AnswerCommands.correct单实现。保留实际后期警告窗语义与文案；后期缺少保存、确认失效问题由5浏览器专项验证修复。旧programConfirmV28组件仍必要，未删除。

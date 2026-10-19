@@ -1,0 +1,20 @@
+{
+  name: 'deselecting correct answer persists the cleared choice',
+  status: 'PASS'
+}
+{
+  name: 'stale early-answer confirmation cannot overwrite a newer settled round',
+  status: 'PASS'
+}
+{
+  name: 'declining early confirmation leaves current and saved answers unchanged',
+  status: 'PASS'
+}
+{
+  name: 'another committed classroom action invalidates an older confirmation',
+  status: 'PASS'
+}
+{
+  name: 'correct-answer save failure reports its own RAM-only outcome',
+  status: 'PASS'
+}

@@ -1,0 +1,15 @@
+{
+  "results": [
+    {
+      "name": "deselecting correct answer persists the cleared choice",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    current: '',\n    saved: '',\n+   selected: ''\n-   selected: 'A'\n  }\n"
+    },
+    {
+      "name": "stale early-answer confirmation cannot overwrite a newer settled round",
+      "status": "FAIL",
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   current: 'B',\n-   current: 'D',\n    saved: 'D'\n  }\n"
+    }
+  ],
+  "errors": []
+}

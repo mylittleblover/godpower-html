@@ -117,3 +117,7 @@ ClassroomWriteBarrier只拒绝durable commit期，不阻止取消旧防御等待
 ### 历史恢复命令（3.0.13）
 
 HistoryCommands统一clear/restore/undo/revert。恢复字段适配器不保存、不触发防御失效；外层命令先取消旧防御，再选择可靠历史并在同一命令中截断、恢复和保存一次。undo在防御等待时仅取消该次攻击。普通恢复保留RAM-only保存故障策略，清空仍严格失败回滚。public旧入口仅转发；快照字段、显示/计时器恢复顺序及已有设置不变。
+
+### 正解选择（3.0.14）
+
+setCorrectAns唯一入口转发AnswerCommands.correct，复用现有programConfirmV28。异步确认捕获课堂、小组数组、赛季、阶段、当前正解及业务失效代次，返回后重验；单命令提交正解或取消，未保存不宣称persisted。旧00末尾覆盖实现已删除，不新增历史节点。

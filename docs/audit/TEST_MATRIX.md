@@ -386,3 +386,5 @@ FinalNode239/239 PASS;6Chromium scenarios PASS including actual reload,stale con
 Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actual undo/revert ownership (existing snapshot adapter invalidates commands and saves multiple times),round-start/draw/timer/management write sources,then quiescence+domain cutover. New competition rules ZIP remains deferred to the rules stage.
 
 3.0.13历史命令：PASS 239单元、5历史浏览器专项、18真实渲染旧新快照差分、GP-010代际回归、1920×1080 1x 14组布局。证据artifacts/v3-history。默认新存储生产切换NOT TESTED；不计入通过。
+
+3.0.14正解命令：PASS 5专项、4现有答题控制、5历史专项、239单元；选择/取消持久化与确认过期均由真实Chromium1920×1080 1x验证。证据artifacts/v3-round-controls。生产新后端切换尚未执行。
