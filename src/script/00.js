@@ -1817,48 +1817,10 @@ function applySettingsBatchMembers() {
 }
 
 function batchSelectOption(opt) {
-  if (!state.roundActive || state.evaluated) {
-    showToast('请先开始答题');
-    return;
-  }
-  playSound('ui_click');
-  state.groups.forEach(g => {
-    g.selectedOpt = opt;
-  });
-  saveState();
-  renderGrid();
-  renderDashboard();
-  showToast(`已选 ${opt}`);
+  return AnswerCommands.batchSelect(opt);
 }
-
 function batchToggleAllIn() {
-  if (!state.roundActive || state.evaluated) {
-    showToast('请先开始答题');
-    return;
-  }
-  playSound('ui_click');
-  const allCurrentlyAllIn = state.groups.every(g => g.allIn);
-  const targetState = !allCurrentlyAllIn;
-
-  state.groups.forEach(g => {
-    g.allIn = targetState;
-  });
-  saveState();
-  renderGrid();
-  renderDashboard();
-
-  const ratioMet = checkAllInRatio();
-  if (ratioMet) {
-    if (bgmEngine.state === 'THINKING') {
-      bgmTransitionThinkingToBattle();
-    }
-  } else {
-    if (bgmEngine.state === 'BATTLE' || bgmEngine.state === 'TRANSITION') {
-      bgmTransitionBattleToThinking();
-    }
-  }
-
-  showToast(targetState ? '已全All' : '已取消');
+  return AnswerCommands.batchToggleAllIn();
 }
 
 function openScoreModal(groupId, event) {

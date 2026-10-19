@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.19</title>
+<title>上帝的力量 V3.0.20</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.19";
+    document.title = name() + " V3.0.20";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.19</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.20</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14276,48 +14276,10 @@ function applySettingsBatchMembers() {
 }
 
 function batchSelectOption(opt) {
-  if (!state.roundActive || state.evaluated) {
-    showToast('请先开始答题');
-    return;
-  }
-  playSound('ui_click');
-  state.groups.forEach(g => {
-    g.selectedOpt = opt;
-  });
-  saveState();
-  renderGrid();
-  renderDashboard();
-  showToast(`已选 ${opt}`);
+  return AnswerCommands.batchSelect(opt);
 }
-
 function batchToggleAllIn() {
-  if (!state.roundActive || state.evaluated) {
-    showToast('请先开始答题');
-    return;
-  }
-  playSound('ui_click');
-  const allCurrentlyAllIn = state.groups.every(g => g.allIn);
-  const targetState = !allCurrentlyAllIn;
-
-  state.groups.forEach(g => {
-    g.allIn = targetState;
-  });
-  saveState();
-  renderGrid();
-  renderDashboard();
-
-  const ratioMet = checkAllInRatio();
-  if (ratioMet) {
-    if (bgmEngine.state === 'THINKING') {
-      bgmTransitionThinkingToBattle();
-    }
-  } else {
-    if (bgmEngine.state === 'BATTLE' || bgmEngine.state === 'TRANSITION') {
-      bgmTransitionBattleToThinking();
-    }
-  }
-
-  showToast(targetState ? '已全All' : '已取消');
+  return AnswerCommands.batchToggleAllIn();
 }
 
 function openScoreModal(groupId, event) {
@@ -22651,7 +22613,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.19';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.20';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24844,6 +24806,61 @@ const AnswerCommands = (() => {
     }
   }
 
+  function batchSelect(opt) {
+    if (!state.roundActive || state.evaluated) {
+      showToast("请先开始答题");
+      return false;
+    }
+    playSound("ui_click");
+    const committed = runClassroomCommand(
+      "批量选择答案",
+      () => {
+        state.groups.forEach((group) => {
+          group.selectedOpt = opt;
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    renderGrid();
+    renderDashboard();
+    showToast(`已选 ${opt}`);
+    return true;
+  }
+  function batchToggleAllIn() {
+    if (!state.roundActive || state.evaluated) {
+      showToast("请先开始答题");
+      return false;
+    }
+    playSound("ui_click");
+    const targetState = !state.groups.every((group) => group.allIn);
+    const committed = runClassroomCommand(
+      "批量切换 All In",
+      () => {
+        state.groups.forEach((group) => {
+          group.allIn = targetState;
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    const ratioMet = checkAllInRatio();
+    if (ratioMet) {
+      if (bgmEngine.state === "THINKING") bgmTransitionThinkingToBattle();
+    } else if (
+      bgmEngine.state === "BATTLE" ||
+      bgmEngine.state === "TRANSITION"
+    ) {
+      bgmTransitionBattleToThinking();
+    }
+    renderGrid();
+    renderDashboard();
+    showToast(targetState ? "已全All" : "已取消");
+    return true;
+  }
+
   let generation = 0;
   Reliability.onDefenseInvalidation(() => {
     generation++;
@@ -24899,7 +24916,7 @@ const AnswerCommands = (() => {
     renderControls();
     return true;
   }
-  return { select, toggleAllIn, correct };
+  return { select, toggleAllIn, correct, batchSelect, batchToggleAllIn };
 })();
 </script>
 <script>/* Manual score application commands; one pre-operation snapshot and one persistence result. */
@@ -24995,7 +25012,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.19",
+    appVersion: "V3.0.20",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

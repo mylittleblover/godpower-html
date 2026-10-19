@@ -48,6 +48,61 @@ const AnswerCommands = (() => {
     }
   }
 
+  function batchSelect(opt) {
+    if (!state.roundActive || state.evaluated) {
+      showToast("请先开始答题");
+      return false;
+    }
+    playSound("ui_click");
+    const committed = runClassroomCommand(
+      "批量选择答案",
+      () => {
+        state.groups.forEach((group) => {
+          group.selectedOpt = opt;
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    renderGrid();
+    renderDashboard();
+    showToast(`已选 ${opt}`);
+    return true;
+  }
+  function batchToggleAllIn() {
+    if (!state.roundActive || state.evaluated) {
+      showToast("请先开始答题");
+      return false;
+    }
+    playSound("ui_click");
+    const targetState = !state.groups.every((group) => group.allIn);
+    const committed = runClassroomCommand(
+      "批量切换 All In",
+      () => {
+        state.groups.forEach((group) => {
+          group.allIn = targetState;
+        });
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    const ratioMet = checkAllInRatio();
+    if (ratioMet) {
+      if (bgmEngine.state === "THINKING") bgmTransitionThinkingToBattle();
+    } else if (
+      bgmEngine.state === "BATTLE" ||
+      bgmEngine.state === "TRANSITION"
+    ) {
+      bgmTransitionBattleToThinking();
+    }
+    renderGrid();
+    renderDashboard();
+    showToast(targetState ? "已全All" : "已取消");
+    return true;
+  }
+
   let generation = 0;
   Reliability.onDefenseInvalidation(() => {
     generation++;
@@ -103,5 +158,5 @@ const AnswerCommands = (() => {
     renderControls();
     return true;
   }
-  return { select, toggleAllIn, correct };
+  return { select, toggleAllIn, correct, batchSelect, batchToggleAllIn };
 })();

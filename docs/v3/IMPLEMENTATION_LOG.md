@@ -171,3 +171,13 @@ A partial settlement can save the official archive, then fail while writing the 
 Two new storage repository unit cases cover identical retry and conflicting/legacy archive protection. Unit/check/build/format/core results pending. No competitions rules or balance changed. Evidence for fixture red/green: artifact storage migration logs to follow.
 
 Final3.0.19: unit241/241 PASS, full Chromium core117/117 PASS (errors=[]), storage focused14/14 PASS, check/build/resources/format/boundaries PASS. file:// BLOCKED by managed Chromium (`ERR_BLOCKED_BY_ADMINISTRATOR`) and not counted; offline resources remain embedded/verified. Evidence `artifacts/v3-archive-immutability`.
+
+Archive idempotency verification complete: repository focused14/14, unit241/241, core117/117, application errors=[]; storage conflict scenario proves exact prior archive is retained. Production version is19 and 27 embedded assets verified.
+
+## 3.0.20 Batch answer controls
+
+Moved batch answer selection and batch All In toggling into `AnswerCommands`. Both now use the classroom command persistence barrier, commit all group fields in one write, and preserve the legacy no-undo-node behavior and existing audio/BGM feedback. The public legacy handlers are thin forwards. No answer or All In rule changed. Removed an accidental duplicate next-round command invocation from the consolidated test script.
+
+Verification in progress: targeted Chromium batch cases pass (3/3); unit, build, static checks, full Chromium core, all command migrations and round differential are being rerun. 1920×1080 at 1x only. Evidence: `artifacts/v3-batch-commands`.
+
+Final 3.0.20 verification: unit241/241 PASS; batch command browser cases3/3 PASS; consolidated command lifecycle cases all PASS; core Chromium117/117 PASS with errors=[]; seeded round differential80/80 PASS; check/build/embedded-resource/version/domain boundaries/format PASS. Batch migration map reports 79 functions, 70 direct saves, 16 command-entry occurrences (static leads, not defect totals). Final standalone bundle is 7,955,065 bytes, SHA-256 `af148d07e942a1e416f6fbf916a7889eb8318ca64259d648827399d89bb4722c`. Browser 1920×1080, scale1. `file://` remains BLOCKED by `ERR_BLOCKED_BY_ADMINISTRATOR`; HTTP run is real and passing. No competition rules or game balance changes.

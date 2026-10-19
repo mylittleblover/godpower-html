@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "name": "batch answer commits one save without new undo node",
+      "status": "PASS"
+    },
+    {
+      "name": "batch All In applies and cancels all groups in separate commands",
+      "status": "PASS"
+    },
+    {
+      "name": "batch controls refuse evaluated rounds",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

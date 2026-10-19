@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.19",
+  "version": "3.0.20",
   "private": true,
   "type": "module",
   "scripts": {
@@ -32,7 +32,7 @@
     "test:content": "node tests/e2e/welcome-content-editor.mjs",
     "test:theme": "node tests/e2e/marx-theme.mjs && node tests/e2e/control-consistency.mjs && node tests/e2e/tooltip-lifetime.mjs",
     "test:migration": "node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/transactional-command-service.mjs && node tests/e2e/legacy-inventory.mjs && node tests/e2e/migration-ui.mjs && node tests/e2e/legacy-async-command.mjs",
-    "test:commands": "node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs && node tests/e2e/defense-generation.mjs && node tests/e2e/destructive-barrier.mjs && node tests/e2e/history-commands.mjs && node tests/e2e/correct-answer-command.mjs && node tests/e2e/force-end-command.mjs && node tests/e2e/next-round-command.mjs && node tests/e2e/next-round-command.mjs && node tests/e2e/start-round-command.mjs"
+    "test:commands": "node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs && node tests/e2e/defense-generation.mjs && node tests/e2e/destructive-barrier.mjs && node tests/e2e/history-commands.mjs && node tests/e2e/correct-answer-command.mjs && node tests/e2e/force-end-command.mjs && node tests/e2e/next-round-command.mjs && node tests/e2e/start-round-command.mjs && node tests/e2e/batch-answer-command.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",
