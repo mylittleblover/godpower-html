@@ -2041,36 +2041,10 @@ function finishDirectScoreEdit(groupId) {
 }
 
 function selectGroupOpt(groupId, opt) {
-  if (!state.roundActive || state.evaluated) return;
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-  playSound('ui_click');
-  g.selectedOpt = g.selectedOpt === opt ? '' : opt;
-  saveState();
-  renderGrid();
-  renderDashboard();
+  return AnswerCommands.select(groupId, opt);
 }
-
 function toggleAllInCard(groupId) {
-  if (!state.roundActive || state.evaluated) return;
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-  playSound('ui_click');
-  g.allIn = !g.allIn;
-  saveState();
-  renderGrid();
-  renderDashboard();
-
-  const ratioMet = checkAllInRatio();
-  if (ratioMet) {
-    if (bgmEngine.state === 'THINKING') {
-      bgmTransitionThinkingToBattle();
-    }
-  } else {
-    if (bgmEngine.state === 'BATTLE' || bgmEngine.state === 'TRANSITION') {
-      bgmTransitionBattleToThinking();
-    }
-  }
+  return AnswerCommands.toggleAllIn(groupId);
 }
 
 async function setCorrectAns(opt) {

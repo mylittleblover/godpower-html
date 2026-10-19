@@ -1,13 +1,13 @@
 {
   "name": "godpower-html",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
-    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs",
+    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs && npm run test:commands",
     "verify": "npm run build && npm run check && npm run format:check && npm run audit:hygiene && npm test && npm run test:e2e && npm run test:ui && npm run test:refactor",
     "audit": "node scripts/audit.mjs",
     "test:visual": "node tests/e2e/visual.mjs",
@@ -31,7 +31,8 @@
     "test:item-modules": "node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs",
     "test:content": "node tests/e2e/welcome-content-editor.mjs",
     "test:theme": "node tests/e2e/marx-theme.mjs && node tests/e2e/control-consistency.mjs && node tests/e2e/tooltip-lifetime.mjs",
-    "test:migration": "node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/transactional-command-service.mjs && node tests/e2e/legacy-inventory.mjs && node tests/e2e/migration-ui.mjs"
+    "test:migration": "node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/transactional-command-service.mjs && node tests/e2e/legacy-inventory.mjs && node tests/e2e/migration-ui.mjs",
+    "test:commands": "node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

@@ -118,7 +118,7 @@ const CommandLifecycle = (() => {
       };
       current = tx;
       try {
-        host.record(description);
+        if (options.recordHistory !== false) host.record(description);
         host.setActive(true);
         const result = operation(context(tx));
         if (result === false) {

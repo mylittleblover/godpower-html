@@ -532,6 +532,11 @@
     },
     {
       "type": "script",
+      "path": "application/answer-commands.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/manual-score-commands.js",
       "attributes": ""
     },

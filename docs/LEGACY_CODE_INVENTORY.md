@@ -1,3 +1,9 @@
+# 3.0.9 All In control chain
+
+script12 _v2177ToggleAllInCard captured wrapper:已被新实现取代→删除；其每题道具使用后禁止All In守门保留在application/answer-commands.js。原00.js直接选择/AllIn函数改为单一转发。动态控制/7手工/117核心/80判题/14组布局全部通过，证据artifacts/v3-controls。其他script12队列、状态锁及回合工具仍保留。
+
+---
+
 # 3.0.5 道具旧分发链治理
 
 基准 e714dbe（3.0.4）。生产公开入口 useItem → ItemModules.execute → ItemOperationBlocks.run 已独立执行全部26种道具。删除前将 legacyUseItem 替换为抛错函数，26/26规则oracle仍通过；源码全局搜索没有旧链以外的生产调用。删除后相同26/26、464攻防差分、30异步防御场景及80回合差分通过。

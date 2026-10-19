@@ -58,17 +58,7 @@ showItemUseFx=function(key,casterId,targetText=''){
 
 
 /* 使用过道具后，本题不能再开启 All In。 */
-const _v2177ToggleAllInCard=toggleAllInCard;
-toggleAllInCard=function(groupId,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-
-  if(g && state.roundActive && !state.evaluated && g.itemUsedThisRound){
-    showToast(`${g.name} 本题已经使用过道具，不能再 All In`);
-    return false;
-  }
-
-  return _v2177ToggleAllInCard.call(this,groupId,...rest);
-};
+/* All In guard is now owned by application/answer-commands.js. */
 
 /* 下一题开始时清除锁定。 */
 const _v2177FinishStartRound=finishStartRound;

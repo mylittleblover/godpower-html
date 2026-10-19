@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.8</title>
+<title>上帝的力量 V3.0.9</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.8";
+    document.title = name() + " V3.0.9";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.8</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.9</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14327,36 +14327,10 @@ function finishDirectScoreEdit(groupId) {
 }
 
 function selectGroupOpt(groupId, opt) {
-  if (!state.roundActive || state.evaluated) return;
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-  playSound('ui_click');
-  g.selectedOpt = g.selectedOpt === opt ? '' : opt;
-  saveState();
-  renderGrid();
-  renderDashboard();
+  return AnswerCommands.select(groupId, opt);
 }
-
 function toggleAllInCard(groupId) {
-  if (!state.roundActive || state.evaluated) return;
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-  playSound('ui_click');
-  g.allIn = !g.allIn;
-  saveState();
-  renderGrid();
-  renderDashboard();
-
-  const ratioMet = checkAllInRatio();
-  if (ratioMet) {
-    if (bgmEngine.state === 'THINKING') {
-      bgmTransitionThinkingToBattle();
-    }
-  } else {
-    if (bgmEngine.state === 'BATTLE' || bgmEngine.state === 'TRANSITION') {
-      bgmTransitionBattleToThinking();
-    }
-  }
+  return AnswerCommands.toggleAllIn(groupId);
 }
 
 async function setCorrectAns(opt) {
@@ -19957,17 +19931,7 @@ showItemUseFx=function(key,casterId,targetText=''){
 
 
 /* 使用过道具后，本题不能再开启 All In。 */
-const _v2177ToggleAllInCard=toggleAllInCard;
-toggleAllInCard=function(groupId,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-
-  if(g && state.roundActive && !state.evaluated && g.itemUsedThisRound){
-    showToast(`${g.name} 本题已经使用过道具，不能再 All In`);
-    return false;
-  }
-
-  return _v2177ToggleAllInCard.call(this,groupId,...rest);
-};
+/* All In guard is now owned by application/answer-commands.js. */
 
 /* 下一题开始时清除锁定。 */
 const _v2177FinishStartRound=finishStartRound;
@@ -22572,7 +22536,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.8';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.9';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24158,7 +24122,7 @@ const CommandLifecycle = (() => {
       };
       current = tx;
       try {
-        host.record(description);
+        if (options.recordHistory !== false) host.record(description);
         host.setActive(true);
         const result = operation(context(tx));
         if (result === false) {
@@ -24533,6 +24497,59 @@ const MigrationCoordinator = (() => {
   return { create };
 })();
 </script>
+<script>/* Answer controls share transaction safety without changing the legacy undo list. */
+const AnswerCommands = (() => {
+  function select(groupId, opt) {
+    if (!state.roundActive || state.evaluated) return;
+    const group = state.groups.find((g) => g.id === groupId);
+    if (!group) return;
+    playSound("ui_click");
+    return runClassroomCommand(
+      `${group.name} 选择答案`,
+      () => {
+        group.selectedOpt = group.selectedOpt === opt ? "" : opt;
+        return true;
+      },
+      { recordHistory: false },
+    );
+  }
+  function toggleAllIn(groupId) {
+    const group = state.groups.find((g) => g.id === groupId);
+    if (
+      group &&
+      state.roundActive &&
+      !state.evaluated &&
+      group.itemUsedThisRound
+    ) {
+      showToast(`${group.name} 本题已经使用过道具，不能再 All In`);
+      return false;
+    }
+    if (!state.roundActive || state.evaluated || !group) return;
+    playSound("ui_click");
+    const committed = runClassroomCommand(
+      `${group.name} 切换 All In`,
+      () => {
+        group.allIn = !group.allIn;
+        return true;
+      },
+      { recordHistory: false },
+    );
+    if (!committed) return false;
+    const ratioMet = checkAllInRatio();
+    if (ratioMet) {
+      if (bgmEngine.state === "THINKING") {
+        bgmTransitionThinkingToBattle();
+      }
+    } else {
+      if (bgmEngine.state === "BATTLE" || bgmEngine.state === "TRANSITION") {
+        bgmTransitionBattleToThinking();
+      }
+    }
+  }
+
+  return { select, toggleAllIn };
+})();
+</script>
 <script>/* Manual score application commands; one pre-operation snapshot and one persistence result. */
 const ManualScoreCommands = (() => {
   function adjust(groupId, delta) {
@@ -24626,7 +24643,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.8",
+    appVersion: "V3.0.9",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

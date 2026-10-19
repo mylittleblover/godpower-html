@@ -93,3 +93,8 @@ RankingRules.ordered保留同分原始顺序且不改输入；旧ranking入口�
 ### 手工积分命令（3.0.8）
 
 UI→applyScoreDelta→ManualScoreCommands.adjust→ScoreAdjustments.delta→CommandLifecycle→旧repository一次保存→表现。直接编辑使用set入口、保留原撤销语义；手工来源manual不应触发答题/竞技/道具成就。配额不足显式保留RAM未保存状态；新后端未激活。
+
+
+### 答题控制命令（3.0.9）
+
+selectGroupOpt/toggleAllInCard→AnswerCommands→CommandLifecycle。recordHistory=false仅用于原来不产生撤销节点的答题选择与AllIn；仍有回滚快照、保存验证和结果。旧道具使用限制和音乐阈值未变。命令替换待定防御时，旧事务先回滚，选择在可靠基线上提交。保存默认仍旧repository，不是异步后端已激活。

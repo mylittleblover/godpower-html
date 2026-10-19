@@ -299,3 +299,34 @@ test("render failure cannot roll back a successfully persisted command", () => {
   assert.deepEqual(f.presentationErrors, ["renderer failed"]);
   assert.equal(f.controller.isPending(), false);
 });
+
+test("non-history controls still get validation, one save and rollback without adding undo entries", () => {
+  const f = fixture();
+  assert.equal(
+    f.controller.run(
+      "answer selection",
+      () => {
+        f.score = 12;
+        return true;
+      },
+      { recordHistory: false },
+    ),
+    true,
+  );
+  assert.equal(f.history, 0);
+  assert.equal(f.saves, 1);
+  assert.equal(f.result.persisted, true);
+  assert.equal(
+    f.controller.run(
+      "invalid selection",
+      () => {
+        f.score = Infinity;
+      },
+      { recordHistory: false },
+    ),
+    false,
+  );
+  assert.equal(f.score, 12);
+  assert.equal(f.history, 0);
+  assert.equal(f.saves, 1);
+});

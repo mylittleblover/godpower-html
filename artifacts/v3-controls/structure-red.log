@@ -1,0 +1,77 @@
+✔ renderAll has exactly one canonical definition and no override assignment (0.898098ms)
+✔ renderGrid has exactly one canonical definition and no override assignment (0.133755ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.077425ms)
+✔ selectGroupOpt has exactly one canonical definition and no override assignment (0.064325ms)
+✖ toggleAllInCard has exactly one canonical definition and no override assignment (0.89591ms)
+✔ legacyUseItem has exactly one canonical definition and no override assignment (0.105596ms)
+✔ legacyJudgeRound has exactly one canonical definition and no override assignment (0.061984ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.074959ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.105197ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.149218ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.074104ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.095293ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.035879ms)
+✔ synchronous command persists once and records once (2.255873ms)
+✔ committed domain events are passed to persistence and published only after a successful save (0.984946ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (0.353037ms)
+✔ pending defense never persists a partial command; finish records one operation (7.162602ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (1.688675ms)
+✔ new command cancels pending operation before its own snapshot (0.524624ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.743708ms)
+✔ multiple asynchronous effects commit only when all decisions finish (2.748357ms)
+✔ invalid or overflowing commands never persist (0.308229ms)
+✔ stale defense cancels entire command (1.717845ms)
+✔ render failure cannot roll back a successfully persisted command (1.630683ms)
+✖ non-history controls still get validation, one save and rollback without adding undo entries (1.424982ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 23
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.243899
+
+✖ failing tests:
+
+test at tests/unit/canonical-entrypoints.test.mjs:46:3
+✖ toggleAllInCard has exactly one canonical definition and no override assignment (0.89591ms)
+  AssertionError [ERR_ASSERTION]: [{"file":"src/script/00.js","type":"FunctionDeclaration"},{"file":"src/script/12.js","type":"AssignmentExpression"}]
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/canonical-entrypoints.test.mjs:47:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/command-lifecycle.test.mjs:303:1
+✖ non-history controls still get validation, one save and rollback without adding undo entries (1.424982ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/command-lifecycle.test.mjs:306:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

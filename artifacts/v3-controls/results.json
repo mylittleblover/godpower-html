@@ -1,0 +1,9 @@
+{
+  "results": [
+    "A-D selection, replacement and cancellation persist without new undo entries",
+    "All In toggles and item-used restriction are preserved",
+    "settled phase rejects controls without mutation",
+    "a new answer cancels stale pending defense and persists the selected answer"
+  ],
+  "errors": []
+}
