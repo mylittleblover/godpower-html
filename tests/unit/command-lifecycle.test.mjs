@@ -4,7 +4,9 @@ import vm from "node:vm";
 import { readFileSync } from "node:fs";
 const scope = vm.createContext({});
 vm.runInContext(
-  readFileSync("src/core/commands.js", "utf8") +
+  readFileSync("src/domain/events.js", "utf8") +
+    ";globalThis.domainEvents=DomainEvents;" +
+    readFileSync("src/application/command-lifecycle.js", "utf8") +
     ";globalThis.api=CommandLifecycle",
   scope,
 );
@@ -16,9 +18,20 @@ function fixture() {
     result,
     warning,
     error,
+    persisted,
+    commits = [],
+    presentationErrors = [],
+    render = () => {},
+    persistResult = { ok: true, eventsPersisted: true },
     invalidator = () => {};
   const controller = scope.api.create({
     active: () => active,
+    commandId: (() => {
+      let id = 0;
+      return () => `command-${++id}`;
+    })(),
+    createEventScope: (options) =>
+      scope.domainEvents.createScope({ ...options, now: () => new Date(0) }),
     setActive: (v) => (active = v),
     invalidate: () => invalidator(),
     snapshot: () => ({ score, history }),
@@ -30,14 +43,17 @@ function fixture() {
     validate: () => {
       if (!Number.isSafeInteger(score)) throw Error("overflow");
     },
-    persist: () => {
+    persist: (transaction) => {
       saves++;
-      return { ok: true };
+      persisted = transaction;
+      return persistResult;
     },
-    render: () => {},
+    render: () => render(),
+    postCommitError: (error) => presentationErrors.push(error.message),
     result: (r) => (result = r),
     warning: (e) => (warning = e),
     error: (e) => (error = e),
+    committed: (batch) => commits.push(batch),
   });
   return {
     controller,
@@ -59,6 +75,21 @@ function fixture() {
     get error() {
       return error;
     },
+    get persisted() {
+      return persisted;
+    },
+    get commits() {
+      return commits;
+    },
+    get presentationErrors() {
+      return presentationErrors;
+    },
+    set render(value) {
+      render = value;
+    },
+    set persistResult(value) {
+      persistResult = value;
+    },
     set invalidator(fn) {
       invalidator = fn;
     },
@@ -77,23 +108,82 @@ test("synchronous command persists once and records once", () => {
   assert.equal(f.saves, 1);
   assert.equal(f.history, 1);
 });
+test("committed domain events are passed to persistence and published only after a successful save", () => {
+  const f = fixture();
+  f.controller.run("answer", (context) => {
+    f.score += 2;
+    context.onCommit((commit) =>
+      commit.emit(
+        "ROUND_SETTLED",
+        { type: "group", id: "group-1" },
+        { correct: true },
+      ),
+    );
+    return true;
+  });
+  assert.equal(f.persisted.commandId, "command-1");
+  assert.equal(f.persisted.events[0].type, "ROUND_SETTLED");
+  assert.equal(f.commits.length, 1);
+  assert.equal(f.commits[0].events[0].eventId, "command-1:1");
+});
+test("cancelled, rejected and unpersisted commands do not publish achievement events", () => {
+  const f = fixture();
+  f.controller.run("rejected", (context) => {
+    context.emit(
+      "ITEM_USED",
+      { type: "group", id: "group-1" },
+      { itemKey: "coin" },
+    );
+    return false;
+  });
+  assert.equal(f.commits.length, 0);
+  f.persistResult = { ok: false, error: "quota" };
+  f.controller.run("quota", (context) => {
+    context.emit(
+      "ITEM_USED",
+      { type: "group", id: "group-1" },
+      { itemKey: "coin" },
+    );
+    return true;
+  });
+  assert.equal(f.commits.length, 0);
+  f.persistResult = { ok: true, eventsPersisted: false };
+  f.controller.run("state-only", (context) => {
+    context.emit(
+      "ROUND_SETTLED",
+      { type: "group", id: "group-1" },
+      { correct: true },
+    );
+    return true;
+  });
+  assert.equal(f.commits.length, 0);
+});
 test("pending defense never persists a partial command; finish records one operation", async () => {
   const f = fixture();
   let answer;
   const p = new Promise((r) => (answer = r));
-  f.controller.run("attack", () => {
+  f.controller.run("attack", (context) => {
+    context.onCommit((commit) =>
+      commit.emit(
+        "ITEM_USED",
+        { type: "group", id: "group-1" },
+        { itemKey: "spiny" },
+      ),
+    );
     f.score--;
     f.controller.defer(p, (yes) => {
       f.score -= yes ? 0 : 5;
     });
   });
   assert.equal(f.saves, 0);
+  assert.equal(f.commits.length, 0);
   assert.equal(f.result.pending, true);
   answer(false);
   await tick();
   assert.equal(f.score, 4);
   assert.equal(f.saves, 1);
   assert.equal(f.history, 1);
+  assert.equal(f.commits.length, 1);
 });
 test("cancellation restores pre-operation score and history, ignores late resolution", async () => {
   const f = fixture();
@@ -187,4 +277,23 @@ test("stale defense cancels entire command", async () => {
   await tick();
   assert.equal(f.score, 10);
   assert.equal(f.saves, 0);
+});
+
+test("render failure cannot roll back a successfully persisted command", () => {
+  const f = fixture();
+  f.render = () => {
+    throw Error("renderer failed");
+  };
+  assert.equal(
+    f.controller.run("add", () => {
+      f.score += 2;
+    }),
+    true,
+  );
+  assert.equal(f.score, 12);
+  assert.equal(f.history, 1);
+  assert.equal(f.saves, 1);
+  assert.equal(f.result.persisted, true);
+  assert.deepEqual(f.presentationErrors, ["renderer failed"]);
+  assert.equal(f.controller.isPending(), false);
 });

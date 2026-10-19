@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,13 +24,14 @@
     "test:surfaces": "node tests/e2e/visual-unification.mjs && node tests/e2e/archive-controls.mjs && node tests/e2e/motion-unification.mjs && node tests/e2e/warning-dialogs.mjs && node tests/e2e/admin-dialog.mjs",
     "test:battle-motion": "node tests/e2e/battle-motion.mjs",
     "audit:hygiene": "node scripts/repo-hygiene.mjs",
-    "format:core": "prettier --check src/core/action-sounds.js src/core/commands.js src/core/history.js src/core/item-score.js",
+    "format:core": "prettier --check src/domain src/application src/infrastructure src/core/action-sounds.js src/core/history.js src/core/item-score.js",
     "format:check": "npm run format:ui && npm run format:core",
     "test:design": "node tests/e2e/design-regressions.mjs && node tests/e2e/design-review.mjs",
     "test:fullscreen-audio": "node tests/e2e/fullscreen-audio.mjs",
     "test:item-modules": "node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs",
     "test:content": "node tests/e2e/welcome-content-editor.mjs",
-    "test:theme": "node tests/e2e/marx-theme.mjs && node tests/e2e/control-consistency.mjs && node tests/e2e/tooltip-lifetime.mjs"
+    "test:theme": "node tests/e2e/marx-theme.mjs && node tests/e2e/control-consistency.mjs && node tests/e2e/tooltip-lifetime.mjs",
+    "test:migration": "node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/legacy-inventory.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

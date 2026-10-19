@@ -157,6 +157,46 @@
     },
     {
       "type": "script",
+      "path": "domain/identity.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/legacy/classroom-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/indexeddb/repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/legacy/schema-migrations.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/legacy/inventory.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/legacy/audio-migration.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "domain/achievements/catalog.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "domain/events.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/item-module-model.js",
       "attributes": ""
     },
@@ -437,12 +477,12 @@
     },
     {
       "type": "script",
-      "path": "core/commands.js",
+      "path": "application/command-lifecycle.js",
       "attributes": ""
     },
     {
       "type": "script",
-      "path": "core/classroom.js",
+      "path": "application/legacy-classroom-adapter.js",
       "attributes": ""
     },
     {

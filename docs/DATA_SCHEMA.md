@@ -1,10 +1,10 @@
 # 数据结构与兼容策略
 
-Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂快照；无 schemaVersion 的 V2 JSON 视为旧格式导入。未知 schemaVersion 拒绝，不能猜测迁移。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
+Schema Version 为 2，应用版本 3.0.2。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
 
 | 字段 | 类型／默认值 | 持久化与规则 |
 |---|---|---|
-| schemaVersion / appVersion / timestamp | 1 / 字符串 / ISO 时间 | 每次主存档保存；构建不依赖时间戳 |
+| schemaVersion / appVersion / timestamp | 2 / 字符串 / ISO 时间 | 每次主存档保存；构建不依赖时间戳 |
 | groups | 数组，默认原四组 | 导入须 1–1000 组；日常添加仍沿用原管理规则 |
 | group.id | 安全整数 | 缺失生成、重复去重；关联点名预选 ID 需留意迁移 |
 | group.groupNo | 正整数／索引+1 | 不再因刷新丢失；编号去重沿用原规则 |
@@ -12,7 +12,7 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 | score / displayScore | 安全整数／0 | 导入拒绝非有限数、小数、超安全范围；displayScore 从 score 派生；极端手动积分、All In 和道具结果拒绝溢出 |
 | selectedOpt / allIn | A–D 或空／false | 新格式随回合恢复；旧备份缺少回合元数据时恢复为闲置课堂 |
 | resultText / animState | 字符串／空 | 结果可保留；动画进度不恢复 |
-| inventory | 最多三个 `{key,charges,acquiredAt}` | 实际 key 来自 ITEM_DEFS；主栏 index0、次栏1/2；旧清洗去未知 key 和重复；次数钳制到实际定义上限 |
+| inventory | 最多三个 `{key,charges,acquiredAt,itemInstanceId}` | 实际 key 来自 ITEM_DEFS；主栏 index0、次栏1/2；旧清洗去未知 key 和重复；次数钳制到实际定义上限 |
 | itemStats | correct/wrong/draws/used，均为非负安全整数／0 | 对缺失、非法及注入字符串归零 |
 | itemEffect | null 或对象 | type: star/mega/power/bullet；hitsLeft/roundsLeft/startedAt/targetId/featherDodge/iceLock/iceRoundsLeftV218 为非负安全整数；不接纳任意 HTML 字段 |
 | booShield / booRoundsLeftV218 | 数值／0 | 后者已加入规范化，保留幽灵三次答题时效 |
@@ -42,7 +42,7 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 
 正式使用前，分别导出课堂 JSON、需要保留的封神榜 CSV、音频 BIN、图标包。JSON 备份包含当前课堂、撤销节点和设置，**不包含全部历史封神榜、IndexedDB 音频、壁纸和按钮图标库**。文件改名、浏览器／配置目录／协议／HTTP端口变化可能改变存储来源；请先导出再迁移。不要把“主存档”误称为全应用备份。
 
-回滚旧版前先导出新版 JSON；旧键镜像尽力兼容 V2.18.13，但旧版无法理解新回合 envelope，不能承诺同一浏览器来回切换不丢会话状态。恢复损坏主存档的完整交互工具仍待 GP-016；原始 JSON 应先在浏览器开发工具导出，不直接删除。
+回滚旧版前先导出新版 JSON；旧键镜像尽力兼容 V2.18.13，但旧版无法理解新回合 envelope，不能承诺同一浏览器来回切换不丢会话状态。损坏主存档通过明确导入恢复：写入前先保存原始字节到 `godpower_recovery_before_import_v2`；保留失败则取消导入，不直接删除。
 
 ## V2.18.15 保存不可用策略
 
@@ -115,4 +115,30 @@ Schema Version 为 1，应用版本 V2.18.15。`godpower_state_v1` 为主课堂�
 
 `godpower_appearance_v1`：`{schemaVersion:1, theme:"classic"|"marx"}`，默认 classic。旧用户无此键时不需要迁移；损坏或未知主题回退 classic。独立于课堂主存档，切换不写小组、积分、回合、历史或道具配置。存储失败仅使本次外观生效并提示，禁止清空用户存储。主题偏好当前不随课堂 JSON 备份导入导出；须在新设备重新选择。
 
-Picker协议1新增可选theme展示字段，旧消息缺省classic；Electron拒绝任意字符串作为原生路径，图标和标题仅由内部映射选取。Schema Version仍为1，发行版本变为3.0.1，两者用途不同。
+Picker协议1新增可选theme展示字段，旧消息缺省classic；Electron拒绝任意字符串作为原生路径，图标和标题仅由内部映射选取。外观偏好自身Schema Version仍为1；课堂envelope另行升级为2，两者用途不同。
+
+## V3 稳定身份（schemaVersion 2）
+
+以下字段是向旧 envelope 添加的可选值；旧数据继续按原格式读取。`groupUid`、`seasonId`、`itemInstanceId` 缺失时在运行时生成；成功的导入保存或后续主存档会持久化这些值。读存储失败时不强行改写原数据。旧结算档案不回填身份，也不从积分猜测道具历史。
+
+| 字段 | 类型 | 生成与兼容 | 用途 |
+|---|---|---|---|
+| `seasonId` | `season-<UUID>` 字符串 | 新课堂生成；V2备份缺失时创建；正式结算写入 archive 与 `clearedData`；清零保存成功后启用新 ID | 赛季归档重试幂等键 |
+| `group.groupUid` | `group-<UUID>` 字符串 | 老小组首次规范化时创建；已存在且唯一的 UID 原样保留；重复/非法值修复；小组数字 `id` 不变 | 跨重命名、排序和赛季的小组身份 |
+| `group.inventory[].itemInstanceId` | `item-<UUID>` 字符串 | 新道具创建时生成；旧 `{key,charges,acquiredAt}` 规范化补齐；道具扣次数或转移时保留 | 三重道具及持续效果与单件库存绑定 |
+
+所有归档重试优先按 `seasonId` 去重，旧档案（无 `seasonId`）仍按原 `id` 去重。schemaVersion 1导入时可缺失这些值；schemaVersion 2要求有效赛季与唯一小组身份。IndexedDB/Electron事务后端切换尚未完成。
+
+## Schema 1 → 2 迁移
+
+纯转换位于 `src/infrastructure/legacy/schema-migrations.js`。补齐稳定身份，保留积分、成员、回合、道具次数和历史，历史中相同组的身份映射到当前组。缺失偏好不转换成0或false。当前版本必须具有有效seasonId及唯一groupUid。
+
+启动仓库先验证当前v2；当前不存在才复制v1或旧镜像。来源保留，目标读回校验后写 `godpower_migration_v2_receipt`（migrationId/source/target/schemaVersion/groups/completedAt/status）。写入失败不标记完成，来源原文不变。
+
+`politics_audio_migration_v2`只在新版安全音频复制事务完成后写入。旧v1标记保留；新迁移会重新检查缺失目标槽位，当前自定义音频优先。
+
+## 新事务仓库（隔离验证阶段）
+
+候选库 `godpower-domain-v1` 含 aggregates、commands、events、archives、resources、migrations 六个store。聚合包含id/revision/snapshot；命令包含commandId/requestHash/result；事件按eventId唯一；资源保存原Blob/ArrayBuffer及来源；迁移回执按migrationId唯一。
+
+仓库尚未切换为生产权威。旧数据完整预检与隔离导入已覆盖localStorage原文、档案、音频和壁纸字节，不会删除来源。下一步须先统一异步命令和来源冻结，再启用正式切换。

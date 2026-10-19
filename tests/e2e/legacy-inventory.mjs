@@ -1,0 +1,63 @@
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { launch } from '../fixtures/browser.mjs';
+const files = ['domain/identity.js', 'infrastructure/legacy/classroom-repository.js', 'infrastructure/legacy/schema-migrations.js', 'core/reliability.js', 'infrastructure/indexeddb/repository.js', 'infrastructure/legacy/inventory.js'];
+let scripts = '';
+for (const file of files) { try { scripts += await readFile('src/' + file, 'utf8') + '\n'; } catch (error) { if (error.code !== 'ENOENT') throw error; } }
+const server = createServer((_, response) => response.end('<!doctype html><title>Legacy inventory</title>'));
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const browser = await launch(); const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+try {
+  await page.goto(`http://127.0.0.1:${server.address().port}`);
+  await page.addScriptTag({ content: scripts + '\nwindow.inventory = typeof LegacyStorageInventory === "undefined" ? null : LegacyStorageInventory;' });
+  assert.equal(await page.evaluate(() => typeof window.inventory?.capture), 'function');
+  const result = await page.evaluate(async () => {
+    const ensure = (test, message) => { if (!test) throw Error(message); };
+    localStorage.setItem('godpower_state_v1', JSON.stringify({ schemaVersion: 1, groups: [{ id: 1, name: '原小组', score: 23, members: ['甲'], inventory: [{ key: 'coin', charges: 1 }] }] }));
+    localStorage.setItem('politics_settlement_history', JSON.stringify([{ id: 17, title: '旧赛季', groups: [{ name: '原小组', score: 19 }] }]));
+    localStorage.setItem('godpower_ui_preferences_v1', '{"motion":"full"}');
+    localStorage.setItem('unrelated-application', 'do not import');
+    async function seed(name, store, key, value) {
+      const db = await new Promise((resolve, reject) => {
+        const request = indexedDB.open(name, 1);
+        request.onupgradeneeded = () => request.result.createObjectStore(store);
+        request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
+      });
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(store, 'readwrite'); tx.objectStore(store).put(value, key);
+        tx.oncomplete = resolve; tx.onabort = () => reject(tx.error);
+      });
+      db.close();
+    }
+    await seed('PoliticsScoreSoundDB_Unified', 'sounds', 'fx_one', { id: 'fx_one', name: '音效', arrayBuffer: new Uint8Array([2, 4, 6]).buffer });
+    await seed('PoliticsUiDB', 'kv', 'wallpaper', new Blob(['wallpaper-bytes'], { type: 'image/png' }));
+    const beforeKeys = Object.fromEntries(Object.entries(localStorage));
+    const beforeDBs = (await indexedDB.databases()).map(db => db.name).sort().join();
+    const captured = await inventory.capture();
+    ensure(captured.ready, 'capture ready');
+    ensure(captured.sourceManifest.every(entry => /^[0-9a-f]{64}$/.test(entry.sha256)), 'all sources have SHA-256');
+    ensure(!captured.localEntries.some(entry => entry.key === 'unrelated-application'), 'foreign app excluded');
+    const plan = await inventory.prepare(captured);
+    ensure(plan.snapshot.groups[0].score === 23, 'score preserved');
+    ensure(plan.archives.length === 1, 'archive preserved');
+    const audio = plan.resources.find(resource => resource.database === 'PoliticsScoreSoundDB_Unified');
+    ensure(new Uint8Array(audio.payload.arrayBuffer).join() === '2,4,6', 'audio bytes preserved');
+    const wallpaper = plan.resources.find(resource => resource.database === 'PoliticsUiDB');
+    ensure(await wallpaper.payload.text() === 'wallpaper-bytes', 'wallpaper preserved');
+    ensure((await inventory.verify(plan)).ok, 'source recheck before commit');
+    const target = await TransactionalRepository.open({ name: 'isolated-full-migration', validateSnapshot: Reliability.validateBackup });
+    await target.importSnapshot(plan);
+    const copiedAudio = await target.readResource(audio.resourceId);
+    ensure(new Uint8Array(copiedAudio.payload.arrayBuffer).join() === '2,4,6', 'target retains audio bytes');
+    ensure((await target.read(plan.aggregateId)).snapshot.groups[0].score === 23, 'target score verified');
+    ensure(JSON.stringify(Object.fromEntries(Object.entries(localStorage))) === JSON.stringify(beforeKeys), 'local source bytes unchanged');
+    const afterDBs = (await indexedDB.databases()).map(db => db.name).filter(name => name !== 'isolated-full-migration').sort().join();
+    ensure(afterDBs === beforeDBs, 'absent legacy databases not created');
+    localStorage.setItem('godpower_ui_preferences_v1', '{"motion":"off"}');
+    ensure(!(await inventory.verify(plan)).ok, 'source mutation detected before import');
+    target.close();
+    return { sourceRecords: captured.sourceManifest.length, resources: plan.resources.length, archives: plan.archives.length, sha256: true, sourcePreserved: true, mutationDetected: true };
+  });
+  console.log('PASS legacy dry-run and isolated atomic import', JSON.stringify(result));
+} finally { await browser.close(); server.close(); }

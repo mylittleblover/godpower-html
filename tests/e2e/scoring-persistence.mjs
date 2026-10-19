@@ -17,7 +17,7 @@ async function run(version,failure){
  await dismissStartup(p);
  await p.locator('button[onclick="enterBattleFromWelcome()"]').click();
  await p.locator('#btnMainAction').click();await p.waitForFunction(()=>state.roundActive);
- if(failure==='quota')await p.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='godpower_state_v1')throw new DOMException('test full','QuotaExceededError');return original.call(this,k,v)};window.restoreTestStorage=()=>Storage.prototype.setItem=original});
+ if(failure==='quota')await p.evaluate(()=>{const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===Reliability.stateKey)throw new DOMException('test full','QuotaExceededError');return original.call(this,k,v)};window.restoreTestStorage=()=>Storage.prototype.setItem=original});
  for(const id of [1,2,3,4])await p.locator(`.group-row-card[data-group-id="${id}"] .opt-btn`).first().click();
  await p.locator('.ans-btn').first().click();
  await p.locator('#btnMainAction').click();await p.waitForTimeout(900);

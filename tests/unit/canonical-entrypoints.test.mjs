@@ -23,20 +23,21 @@ function walk(n, fn) {
     else if (v?.type) walk(v, fn);
   }
 }
-for (const dir of ["src/core", "src/script", "src/ui"])
-  for (const file of readdirSync(dir).filter((f) => f.endsWith(".js"))) {
-    const path = dir + "/" + file;
-    walk(parse(readFileSync(path, "utf8"), { ecmaVersion: "latest" }), (n) => {
-      const name =
-        n.type === "FunctionDeclaration"
-          ? n.id?.name
-          : n.type === "AssignmentExpression"
-            ? n.left?.name
-            : null;
-      if (canonical.has(name))
-        canonical.get(name).push({ file: path, type: n.type });
-    });
-  }
+for (const file of readdirSync("src", { recursive: true }).filter((f) =>
+  f.endsWith(".js"),
+)) {
+  const path = "src/" + file;
+  walk(parse(readFileSync(path, "utf8"), { ecmaVersion: "latest" }), (n) => {
+    const name =
+      n.type === "FunctionDeclaration"
+        ? n.id?.name
+        : n.type === "AssignmentExpression"
+          ? n.left?.name
+          : null;
+    if (canonical.has(name))
+      canonical.get(name).push({ file: path, type: n.type });
+  });
+}
 for (const [name, entries] of canonical)
   test(`${name} has exactly one canonical definition and no override assignment`, () => {
     assert.equal(entries.length, 1, JSON.stringify(entries));

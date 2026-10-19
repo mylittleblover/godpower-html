@@ -81,6 +81,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 
 let state = {
   isLocked: true,
+  seasonId: StableIdentity.createSeasonId(),
   hasStartedOnce: false,
   roundActive: false,
   lastRoundAllIn: null,
@@ -138,6 +139,7 @@ function normalizeGroup(raw, index = 0) {
     : [];
   return {
     id,
+    groupUid: StableIdentity.isValidGroupUid(source.groupUid) ? source.groupUid : StableIdentity.createGroupUid(),
     name: String(source.name ?? `第 ${index + 1} 组`).trim() || `第 ${index + 1} 组`,
     color,
     score: Number.isFinite(numericScore) ? Math.trunc(numericScore) : 0,
@@ -161,7 +163,7 @@ function normalizeGroup(raw, index = 0) {
 
 function normalizeAllGroups(groups) {
   const seen = new Set();
-  return (Array.isArray(groups) ? groups : []).map((raw, index) => {
+  return StableIdentity.assignGroupUids(Array.isArray(groups) ? groups : []).map((raw, index) => {
     const g = normalizeGroup(raw, index);
     while (seen.has(g.id)) g.id = Date.now() + index + seen.size + 1;
     seen.add(g.id);
@@ -285,6 +287,7 @@ function confirmFinalSettlement() {
 
   const record = {
     id: Date.now(),
+    seasonId: state.seasonId,
     title: title,
     date: new Date().toLocaleDateString(),
     time: new Date().toLocaleString(),
@@ -632,12 +635,14 @@ function scheduleBackgroundAudioInit() {
 
   backgroundAudioInitTimer = scheduleIdleTask(async () => {
     backgroundAudioInitTimer = null;
-    const migrationDone = STORAGE.get('politics_audio_migration_v1', '0') === '1';
+    const migrationDone = STORAGE.get('politics_audio_migration_v2', '0') === '1';
     if (!migrationDone) {
       try {
         await migrateOldDatabases();
-      } catch (_) {}
-      STORAGE.set('politics_audio_migration_v1', '1');
+      } catch (error) {
+        console.warn('旧音频迁移未完成，来源保留以供重试', error);
+        showToast('旧音频迁移未完成，原音频已保留，下次启动将重试。');
+      }
       await refreshSoundIdCache();
     }
 
@@ -648,41 +653,7 @@ function scheduleBackgroundAudioInit() {
 }
 
 async function migrateOldDatabases() {
-  const legacyNames = ['PoliticsScoreSoundDB_v3', 'PoliticsScoreSoundDB'];
-  for (const oldName of legacyNames) {
-    try {
-      await new Promise(res => {
-        const req = indexedDB.open(oldName);
-        req.onsuccess = (ev) => {
-          const oldDb = ev.target.result;
-          if (!oldDb.objectStoreNames.contains('sounds')) { oldDb.close(); res(); return; }
-          const txOld = oldDb.transaction('sounds', 'readonly');
-          const storeOld = txOld.objectStore('sounds');
-          const getAllReq = storeOld.getAll();
-          getAllReq.onsuccess = () => {
-            const records = getAllReq.result || [];
-            if (records.length > 0) {
-              const txNew = db.transaction('sounds', 'readwrite');
-              const storeNew = txNew.objectStore('sounds');
-              records.forEach(rec => {
-                let newId = rec.id;
-                if (newId === 'bgm_intro_0') newId = 'bgm_set_0_intro_normal';
-                else if (newId === 'bgm_thinking') newId = 'bgm_set_0_thinking';
-                else if (newId === 'bgm_battle') newId = 'bgm_set_0_battle';
-                else if (newId === 'bgm_victory') newId = 'bgm_set_0_victory';
-                else if (newId.startsWith('bgm_trans_')) newId = `bgm_set_0_trans_${newId.replace('bgm_trans_', '')}`;
-                storeNew.put({ id: newId, arrayBuffer: rec.arrayBuffer });
-              });
-            }
-            oldDb.close();
-            res();
-          };
-          getAllReq.onerror = () => { oldDb.close(); res(); };
-        };
-        req.onerror = () => res();
-      });
-    } catch(e) {}
-  }
+  return LegacyAudioMigration.run({indexedDB,destination:db,storage:CLASSROOM_STORAGE});
 }
 
 async function getAudioContext() {
@@ -2918,6 +2889,7 @@ function addGroup() {
   recordHistory(`添加新小组 (第 ${index} 组)`);
   state.groups.push({
     id: newId,
+    groupUid: StableIdentity.createGroupUid(),
     name: `第 ${index} 组`,
     color: color,
     score: 0,
@@ -4256,8 +4228,10 @@ function normalizeInventoryV21718(inventory){
       const charges=Number.isFinite(storedCharges)
         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
       const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
-      if(Object.keys(it).length===(configuredCharges?4:3) && it.charges===charges && it.acquiredAt===acquiredAt)return it;
-      return {key:it.key,charges,acquiredAt,...(configuredCharges?{configuredCharges}:{})};
+      const itemInstanceId=StableIdentity.isValidItemInstanceId(it.itemInstanceId)?it.itemInstanceId:StableIdentity.createItemInstanceId();
+      const expectedKeys=3+1+(configuredCharges?1:0);
+      if(Object.keys(it).length===expectedKeys && it.charges===charges && it.acquiredAt===acquiredAt && it.itemInstanceId===itemInstanceId)return it;
+      return {key:it.key,charges,acquiredAt,itemInstanceId,...(configuredCharges?{configuredCharges}:{})};
     });
 }
 

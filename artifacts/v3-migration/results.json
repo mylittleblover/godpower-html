@@ -1,0 +1,27 @@
+{
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080",
+  "deviceScaleFactor": 1,
+  "results": [
+    {
+      "name": "v1 startup copy, refresh and source retention",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "quota failure keeps valid old classroom usable in memory",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "corrupt current data is protected without fallback overwrite",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "legacy mirrors retain missing preference defaults",
+      "status": "PASS",
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "browser": "154.0.8037.57",
+  "results": [
+    "single commit and exact retry",
+    "conflicting retry and stale revision",
+    "event failure rolls back entire commit",
+    "immutable async command input",
+    "database reopen",
+    "atomic migration and source identity",
+    "clone validation and mid-transaction resource failure leave all stores unchanged"
+  ]
+}

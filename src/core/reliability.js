@@ -1,16 +1,24 @@
 /* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
-  const schemaVersion = 1;
-  const stateKey = 'godpower_state_v1';
+  const schemaVersion = 2;
+  const stateKey = 'godpower_state_v2';
+  const legacyStateKey = 'godpower_state_v1';
   function validateBackup(data) {
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error('备份必须是 JSON 对象');
-    if (data.schemaVersion != null && data.schemaVersion !== schemaVersion) throw Error('不支持此存档版本');
+    if (data.schemaVersion != null && ![1,schemaVersion].includes(data.schemaVersion)) throw Error('不支持此存档版本');
+    if(data.schemaVersion===schemaVersion&&!StableIdentity.isValidSeasonId(data.seasonId))throw Error('赛季身份无效');
     if (!Array.isArray(data.groups) || !data.groups.length || data.groups.length > 1000) throw Error('小组数据为空或超过 1000 组');
+    const groupUids=new Set();
     data.groups.forEach(g => {
       if (!g || typeof g !== 'object' || Array.isArray(g)) throw Error('小组格式无效');
+      if(data.schemaVersion===schemaVersion){
+        if(!StableIdentity.isValidGroupUid(g.groupUid)||groupUids.has(g.groupUid))throw Error('小组身份无效或重复');
+        groupUids.add(g.groupUid);
+      }
       if (!Number.isSafeInteger(Number(g.score ?? 0))) throw Error('分数必须是安全整数');
       if (g.members != null && (!Array.isArray(g.members) || g.members.some(m=>typeof m!=='string'))) throw Error('成员格式无效');
       if(g.inventory!=null && (!Array.isArray(g.inventory)||g.inventory.length>3))throw Error('道具队列格式无效');
+      if(g.inventory?.some(it=>!it||typeof it!=='object'||Array.isArray(it)))throw Error('道具格式无效');
       if(g.itemEffect!=null && (typeof g.itemEffect!=='object'||Array.isArray(g.itemEffect)))throw Error('持续状态格式无效');
     });
     if(data.picker!=null && (typeof data.picker!=='object'||Array.isArray(data.picker)))throw Error('点名数据格式无效');
@@ -24,23 +32,8 @@ const Reliability = (() => {
     }
     return data;
   }
-  function writeVerified(storage, key, data) {
-    try {
-      const text=JSON.stringify(data);
-      storage.setItem(key,text);
-      if(storage.getItem(key)!==text)throw Error('保存后校验不一致');
-      return {ok:true};
-    } catch(error) { return {ok:false,error:String(error.message||error)}; }
-  }
-  function appendArchive(storage,record) {
-    try {
-      const raw=storage.getItem('politics_settlement_history');
-      const list=raw==null?[]:JSON.parse(raw);
-      if(!Array.isArray(list))throw Error('原有归档格式损坏，请先导出恢复');
-      // Never silently drop old archives to make a new archive fit.
-      return writeVerified(storage,'politics_settlement_history',[record,...list.filter(x=>x.id!==record.id)]);
-    }catch(error){return {ok:false,error:String(error.message||error)}}
-  }
+  const writeVerified=ClassroomRepository.writeVerified;
+  const appendArchive=ClassroomRepository.appendArchive;
   function phase(s) {
     if(!s.hasStartedOnce)return 'NOT_STARTED';
     if(!s.roundActive)return 'FINISHED';
@@ -127,12 +120,13 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
+  return {schemaVersion,stateKey,legacyStateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is
 // reported by the same verified-write failure path as quota errors.
 const CLASSROOM_STORAGE={
   getItem(key){return localStorage.getItem(key)},
-  setItem(key,value){localStorage.setItem(key,value)}
+  setItem(key,value){localStorage.setItem(key,value)},
+  removeItem(key){localStorage.removeItem(key)}
 };

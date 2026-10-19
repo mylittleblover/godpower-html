@@ -4,6 +4,7 @@
 function snapshotGroupForSettlementV21813(g){
   return {
     id:g.id,
+    groupUid:g.groupUid||'',
     name:g.name,
     color:g.color,
     members:clone(g.members||[]),
@@ -45,6 +46,7 @@ function compactUndoHistoryV21813(){
 function buildSettlementClearedDataV21813(){
   const ig=state.itemGlobal||{};
   return {
+    seasonId:state.seasonId,
     archivedAt:new Date().toLocaleString(),
 
     groups:state.groups.map(snapshotGroupForSettlementV21813),

@@ -1,6 +1,12 @@
 import {readFile} from 'node:fs/promises';import {parse} from 'acorn';
 const s=await readFile('dist/godpower.html','utf8');let count=0;
-for(const m of s.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)){parse(m[1],{ecmaVersion:'latest',allowReturnOutsideFunction:false});count++}
+const appVersions=[];
+function visit(node){
+ if(!node||typeof node!=='object')return;
+ if(node.type==='Property'&&(node.key?.name==='appVersion'||node.key?.value==='appVersion')&&node.value?.type==='Literal')appVersions.push(node.value.value);
+ for(const value of Object.values(node)){if(Array.isArray(value))value.forEach(visit);else if(value?.type)visit(value)}
+}
+for(const m of s.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)){visit(parse(m[1],{ecmaVersion:'latest',allowReturnOutsideFunction:false}));count++}
 const baseline=await readFile('baseline/V2.18.13.html','utf8');
 const resources=x=>[...x.matchAll(/data:[a-zA-Z0-9.+/-]+(?:;[a-zA-Z0-9=.+-]+)*;base64,[a-zA-Z0-9+/=\s]+/g)].map(m=>m[0]);
 if(JSON.stringify(resources(s))!==JSON.stringify(resources(baseline)))throw Error('Embedded resources changed');
@@ -13,5 +19,7 @@ if(JSON.stringify(manifest.blocks)!==JSON.stringify(expectedBlocks))throw Error(
 console.log(`${expectedBlocks.length} source blocks match the manifest and template`);
 
 const {version}=JSON.parse(await readFile('package.json','utf8'));
-if(!s.includes(`window.__GOD_POWER_VERSION__='V${version}'`) || !s.includes(`<small>V${version}</small>`) || !s.includes(`<title>上帝的力量 V${version}</title>`) || !s.includes(`appVersion:'V${version}'`))throw Error('Visible/internal/package version mismatch');
+if(!s.includes(`window.__GOD_POWER_VERSION__='V${version}'`) || !s.includes(`<small>V${version}</small>`) || !s.includes(`<title>上帝的力量 V${version}</title>`) || !appVersions.includes('V'+version))throw Error('Visible/internal/package version mismatch');
 console.log(`Visible, internal and package version match: ${version}`);
+
+await import('./check-boundaries.mjs');

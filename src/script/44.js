@@ -4,6 +4,7 @@
    清空：本轮比赛产生的一切状态与统计。 */
 function resetCompetitionDataAfterSettlementV21812(){
   cancelScoreAnimationAndSync();
+  state.seasonId=StableIdentity.createSeasonId();
 
   /* 1. 小组本轮数据 */
   state.groups.forEach(g=>{

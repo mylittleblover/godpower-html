@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.1</title>
+<title>上帝的力量 V3.0.2</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.1";
+    document.title = name() + " V3.0.2";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.1</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.2</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9567,6 +9567,1704 @@ html[data-theme="marx"] {
   };
 })(globalThis);
 </script>
+<script>/* Stable entity identity for records that outlive display names and positions. */
+const StableIdentity = (() => {
+  const GROUP_UID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
+  const fallbackEpoch = (
+    globalThis.performance?.timeOrigin ?? Date.now()
+  ).toString(36);
+  let fallbackSequence = 0;
+
+  function isValidGroupUid(value) {
+    return typeof value === "string" && GROUP_UID_PATTERN.test(value);
+  }
+
+  function createUuid(prefix) {
+    try {
+      if (globalThis.crypto?.randomUUID)
+        return `${prefix}-${globalThis.crypto.randomUUID()}`;
+      if (globalThis.crypto?.getRandomValues) {
+        const bytes = globalThis.crypto.getRandomValues(new Uint8Array(16));
+        bytes[6] = (bytes[6] & 0x0f) | 0x40;
+        bytes[8] = (bytes[8] & 0x3f) | 0x80;
+        const hex = [...bytes]
+          .map((value) => value.toString(16).padStart(2, "0"))
+          .join("");
+        return `${prefix}-${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+      }
+    } catch (_) {
+      // Some file:// browser contexts expose crypto without enabling its methods.
+    }
+    // Entity identity must not advance the RNG used by draw/attack rules.
+    const clock = (globalThis.performance?.now?.() ?? 0).toString(36);
+    return `${prefix}-${fallbackEpoch}-${Date.now().toString(36)}-${(++fallbackSequence).toString(36)}-${clock}`;
+  }
+
+  const createGroupUid = () => createUuid("group");
+  const createItemInstanceId = () => createUuid("item");
+  const createSeasonId = () => createUuid("season");
+  const createCommandId = () => createUuid("command");
+
+  function assignGroupUids(groups, idFactory = createGroupUid) {
+    if (!Array.isArray(groups)) throw new TypeError("groups must be an array");
+    if (typeof idFactory !== "function")
+      throw new TypeError("idFactory must be a function");
+    const used = new Set();
+    return groups.map((group) => {
+      const copy =
+        group && typeof group === "object" && !Array.isArray(group)
+          ? { ...group }
+          : {};
+      let uid =
+        isValidGroupUid(copy.groupUid) && !used.has(copy.groupUid)
+          ? copy.groupUid
+          : "";
+      for (let attempt = 0; !uid && attempt < 100; attempt++) {
+        const candidate = idFactory();
+        if (isValidGroupUid(candidate) && !used.has(candidate)) uid = candidate;
+      }
+      if (!uid) throw new Error("Could not produce a unique group identity");
+      used.add(uid);
+      copy.groupUid = uid;
+      return copy;
+    });
+  }
+
+  return {
+    isValidGroupUid,
+    isValidItemInstanceId: (value) =>
+      isValidGroupUid(value) && value.startsWith("item-"),
+    isValidSeasonId: (value) =>
+      isValidGroupUid(value) && value.startsWith("season-"),
+    createGroupUid,
+    createItemInstanceId,
+    createSeasonId,
+    createCommandId,
+    assignGroupUids,
+  };
+})();
+</script>
+<script>/* Storage adapters own serialization and migration receipts; domain rules stay separate. */
+const ClassroomRepository = (() => {
+  function writeVerified(storage, key, data) {
+    try {
+      const text = JSON.stringify(data);
+      storage.setItem(key, text);
+      if (storage.getItem(key) !== text) throw new Error("保存后校验不一致");
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error: String(error?.message || error) };
+    }
+  }
+
+  function appendArchive(storage, record) {
+    try {
+      const raw = storage.getItem("politics_settlement_history");
+      const archives = raw == null ? [] : JSON.parse(raw);
+      if (!Array.isArray(archives))
+        throw new Error("原有归档格式损坏，请先导出恢复");
+      const sameArchive = (old) =>
+        record.seasonId && old?.seasonId
+          ? old.seasonId === record.seasonId
+          : !record.seasonId && old?.id === record.id;
+      return writeVerified(storage, "politics_settlement_history", [
+        record,
+        ...archives.filter((old) => !sameArchive(old)),
+      ]);
+    } catch (error) {
+      return { ok: false, error: String(error?.message || error) };
+    }
+  }
+
+  function parse(raw, label) {
+    try {
+      return JSON.parse(raw);
+    } catch (error) {
+      throw new Error(`${label}无法解析：${error.message}`);
+    }
+  }
+
+  function loadOrMigrate(storage, options) {
+    const {
+      currentKey,
+      legacyKey,
+      receiptKey,
+      migrate,
+      validate,
+      fallbackData = null,
+      fallbackSource = "legacy-mirror-keys",
+      now = () => new Date(),
+    } = options;
+    let previousTarget = null;
+    let targetWasWritten = false;
+    let stage = "read-current";
+    let candidate = null;
+    try {
+      const targetRaw = storage.getItem(currentKey);
+      if (targetRaw !== null) {
+        previousTarget = targetRaw;
+        stage = "validate-current";
+        const original = parse(targetRaw, "当前主存档");
+        const current = migrate(original);
+        validate(current);
+        if (original.schemaVersion === current.schemaVersion)
+          return { status: "current", data: current, sourceKey: currentKey };
+        candidate = current;
+        stage = "write-current-upgrade";
+        const upgraded = JSON.stringify(current);
+        storage.setItem(currentKey, upgraded);
+        targetWasWritten = true;
+        if (storage.getItem(currentKey) !== upgraded)
+          throw new Error("当前主存档升级后的校验不一致");
+        validate(parse(upgraded, "升级后的主存档"));
+        return {
+          status: "migrated-in-place",
+          data: current,
+          sourceKey: currentKey,
+        };
+      }
+
+      stage = "read-legacy";
+      const sourceRaw = legacyKey ? storage.getItem(legacyKey) : null;
+      const source =
+        sourceRaw === null
+          ? typeof fallbackData === "function"
+            ? fallbackData()
+            : fallbackData
+          : parse(sourceRaw, "旧版主存档");
+      if (source == null)
+        return { status: "missing", data: null, sourceKey: null };
+
+      stage = "prepare-migration";
+      const migrated = migrate(source);
+      validate(migrated);
+      candidate = migrated;
+      const serialized = JSON.stringify(migrated);
+      stage = "write-target";
+      storage.setItem(currentKey, serialized);
+      targetWasWritten = true;
+      if (storage.getItem(currentKey) !== serialized)
+        throw new Error("迁移后的主存档读回校验不一致");
+      validate(parse(storage.getItem(currentKey), "迁移后的主存档"));
+
+      const sourceLabel = sourceRaw === null ? fallbackSource : legacyKey;
+      const receipt = {
+        migrationId: "classroom-envelope-v1-to-v2",
+        status: "complete",
+        source: sourceLabel,
+        target: currentKey,
+        schemaVersion: migrated.schemaVersion,
+        groups: migrated.groups.length,
+        completedAt: now().toISOString(),
+      };
+      stage = "write-receipt";
+      const receiptResult = writeVerified(storage, receiptKey, receipt);
+      return {
+        status: "migrated",
+        data: migrated,
+        sourceKey: sourceLabel,
+        receiptPersisted: receiptResult.ok,
+        receiptError: receiptResult.error || null,
+      };
+    } catch (error) {
+      let rollbackError = null;
+      if (targetWasWritten) {
+        try {
+          if (previousTarget === null) storage.removeItem(currentKey);
+          else storage.setItem(currentKey, previousTarget);
+        } catch (restoreError) {
+          rollbackError = String(restoreError?.message || restoreError);
+        }
+      }
+      return {
+        status: "failed",
+        data: candidate,
+        sourceKey: legacyKey || null,
+        stage,
+        sourceValidated: !!candidate,
+        rollbackError,
+        error:
+          String(error?.message || error) +
+          (rollbackError ? "；目标回滚未完成：" + rollbackError : ""),
+      };
+    }
+  }
+
+  return { writeVerified, appendArchive, loadOrMigrate };
+})();
+</script>
+<script>/* Transactional repository port shared by HTML and Electron's authoritative renderer.
+   It is opt-in until legacy import and async command cutover have been verified. */
+const TransactionalRepository = (() => {
+  const STORES = [
+    "aggregates",
+    "commands",
+    "events",
+    "archives",
+    "resources",
+    "migrations",
+  ];
+  const KEYS = [
+    "id",
+    "commandId",
+    "eventId",
+    "archiveId",
+    "resourceId",
+    "migrationId",
+  ];
+  function fault(code, message) {
+    const error = new Error(message);
+    error.code = code;
+    return error;
+  }
+  function identifier(value, label) {
+    if (typeof value !== "string" || !value.trim() || value.length > 200)
+      throw fault(
+        "INVALID_REQUEST",
+        `${label} must be a bounded, non-empty string`,
+      );
+    return value;
+  }
+  async function fingerprint(value) {
+    if (!globalThis.crypto?.subtle)
+      throw fault(
+        "HASH_UNAVAILABLE",
+        "SHA-256 is unavailable in this browser context",
+      );
+    const bytes = new TextEncoder().encode(JSON.stringify(value));
+    const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(digest)]
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+  function transaction(db, names, operation) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(names, "readwrite");
+      let result = null;
+      let failure = null;
+      const abort = (error) => {
+        failure =
+          typeof error?.code === "string"
+            ? error
+            : fault("TRANSACTION_ABORTED", String(error?.message || error));
+        try {
+          tx.abort();
+        } catch (abortError) {
+          reject(failure || abortError);
+        }
+      };
+      const guard = (fn) => (event) => {
+        try {
+          fn(event);
+        } catch (error) {
+          abort(error);
+        }
+      };
+      tx.oncomplete = () => resolve(result);
+      tx.onabort = () =>
+        reject(
+          failure ||
+            fault(
+              "TRANSACTION_ABORTED",
+              tx.error?.message || "IndexedDB transaction aborted",
+            ),
+        );
+      tx.onerror = () => {
+        failure ||= fault(
+          "TRANSACTION_ABORTED",
+          tx.error?.message || "IndexedDB request failed",
+        );
+      };
+      try {
+        operation(
+          tx,
+          (value) => {
+            result = value;
+          },
+          abort,
+          guard,
+        );
+      } catch (error) {
+        abort(error);
+      }
+    });
+  }
+  function readOne(db, store, key) {
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(store, "readonly");
+      const request = tx.objectStore(store).get(key);
+      tx.oncomplete = () => resolve(request.result ?? null);
+      tx.onabort = () =>
+        reject(
+          fault("READ_FAILED", tx.error?.message || "IndexedDB read aborted"),
+        );
+      tx.onerror = () =>
+        reject(
+          fault(
+            "READ_FAILED",
+            request.error?.message || "IndexedDB read failed",
+          ),
+        );
+    });
+  }
+  async function open({
+    name = "godpower-domain-v1",
+    indexedDB = globalThis.indexedDB,
+    validateSnapshot = () => {},
+  } = {}) {
+    identifier(name, "database name");
+    if (!indexedDB) throw fault("UNAVAILABLE", "IndexedDB is unavailable");
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open(name, 1);
+      request.onupgradeneeded = () => {
+        const database = request.result;
+        STORES.forEach((store, index) => {
+          if (!database.objectStoreNames.contains(store))
+            database.createObjectStore(store, { keyPath: KEYS[index] });
+        });
+        const events = request.transaction.objectStore("events");
+        if (!events.indexNames.contains("aggregateId"))
+          events.createIndex("aggregateId", "aggregateId");
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () =>
+        reject(
+          fault(
+            "OPEN_FAILED",
+            request.error?.message || "IndexedDB open failed",
+          ),
+        );
+      request.onblocked = () =>
+        reject(
+          fault(
+            "OPEN_BLOCKED",
+            "Another application window is blocking the database upgrade",
+          ),
+        );
+    });
+    db.onversionchange = () => db.close();
+
+    async function commit(request) {
+      const {
+        commandId,
+        aggregateId,
+        expectedRevision,
+        snapshot,
+        events = [],
+        archive = null,
+      } = structuredClone(request);
+      identifier(commandId, "commandId");
+      identifier(aggregateId, "aggregateId");
+      if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0)
+        throw fault(
+          "INVALID_REQUEST",
+          "expectedRevision must be a non-negative safe integer",
+        );
+      validateSnapshot(snapshot);
+      if (!Array.isArray(events))
+        throw fault("INVALID_REQUEST", "events must be an array");
+      for (const event of events) {
+        identifier(event?.eventId, "eventId");
+        if (event.commandId !== commandId)
+          throw fault("INVALID_REQUEST", "event must belong to this command");
+      }
+      if (archive) identifier(archive.archiveId, "archiveId");
+      const requestHash = await fingerprint({
+        commandId,
+        aggregateId,
+        expectedRevision,
+        snapshot,
+        events,
+        archive,
+      });
+      return transaction(
+        db,
+        ["aggregates", "commands", "events", "archives"],
+        (tx, done, abort, guard) => {
+          const commands = tx.objectStore("commands");
+          const existing = commands.get(commandId);
+          existing.onsuccess = guard(() => {
+            if (existing.result) {
+              if (existing.result.requestHash !== requestHash)
+                return abort(
+                  fault(
+                    "COMMAND_REUSED",
+                    "Command ID was reused for a different request",
+                  ),
+                );
+              return done({ ...existing.result.result, duplicate: true });
+            }
+            const aggregates = tx.objectStore("aggregates");
+            const current = aggregates.get(aggregateId);
+            current.onsuccess = guard(() => {
+              const revision = current.result?.revision || 0;
+              if (revision !== expectedRevision)
+                return abort(
+                  fault(
+                    "REVISION_CONFLICT",
+                    `Expected revision ${expectedRevision}, found ${revision}`,
+                  ),
+                );
+              if (!Number.isSafeInteger(revision + 1))
+                return abort(
+                  fault(
+                    "REVISION_CONFLICT",
+                    "Revision exhausted safe integer range",
+                  ),
+                );
+              const result = {
+                ok: true,
+                revision: revision + 1,
+                duplicate: false,
+              };
+              aggregates.put({
+                id: aggregateId,
+                revision: revision + 1,
+                snapshot,
+              });
+              for (const event of events)
+                tx.objectStore("events").add({ ...event, aggregateId });
+              if (archive) tx.objectStore("archives").add(archive);
+              commands.add({ commandId, aggregateId, requestHash, result });
+              done(result);
+            });
+          });
+        },
+      );
+    }
+
+    async function importSnapshot(request) {
+      // Keep caller mutations outside the transaction while hashes are calculated.
+      // Resource clone errors are normalized without opening/writing a transaction.
+      let captured;
+      try {
+        captured = structuredClone(request);
+      } catch (error) {
+        throw fault("TRANSACTION_ABORTED", String(error?.message || error));
+      }
+      const {
+        migrationId,
+        sourceManifest,
+        aggregateId,
+        snapshot,
+        archives = [],
+        resources = [],
+      } = captured;
+      identifier(migrationId, "migrationId");
+      identifier(aggregateId, "aggregateId");
+      validateSnapshot(snapshot);
+      if (
+        !Array.isArray(sourceManifest) ||
+        !Array.isArray(archives) ||
+        !Array.isArray(resources)
+      )
+        throw fault("INVALID_REQUEST", "Migration collections must be arrays");
+      for (const archive of archives)
+        identifier(archive?.archiveId, "archiveId");
+      for (const resource of resources)
+        identifier(resource?.resourceId, "resourceId");
+      const sourceHash = await fingerprint({ aggregateId, sourceManifest });
+      return transaction(
+        db,
+        ["aggregates", "archives", "resources", "migrations"],
+        (tx, done, abort, guard) => {
+          const migrations = tx.objectStore("migrations");
+          const receipt = migrations.get(migrationId);
+          receipt.onsuccess = guard(() => {
+            if (receipt.result) {
+              if (receipt.result.sourceHash !== sourceHash)
+                return abort(
+                  fault(
+                    "MIGRATION_REUSED",
+                    "Migration ID was reused with different source data",
+                  ),
+                );
+              return done({ ...receipt.result, duplicate: true });
+            }
+            const aggregates = tx.objectStore("aggregates");
+            const current = aggregates.get(aggregateId);
+            current.onsuccess = guard(() => {
+              if (current.result)
+                return abort(
+                  fault(
+                    "MIGRATION_CONFLICT",
+                    "Destination classroom already contains data",
+                  ),
+                );
+              aggregates.add({ id: aggregateId, revision: 1, snapshot });
+              for (const archive of archives)
+                tx.objectStore("archives").add(archive);
+              for (const resource of resources)
+                tx.objectStore("resources").add(resource);
+              const result = {
+                migrationId,
+                sourceHash,
+                aggregateId,
+                complete: true,
+                archives: archives.length,
+                resources: resources.length,
+                completedAt: new Date().toISOString(),
+              };
+              migrations.add(result);
+              done(result);
+            });
+          });
+        },
+      );
+    }
+    function listEvents(aggregateId) {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("events", "readonly");
+        const request = tx
+          .objectStore("events")
+          .index("aggregateId")
+          .getAll(aggregateId);
+        tx.oncomplete = () => resolve(request.result);
+        tx.onabort = () =>
+          reject(
+            fault("READ_FAILED", tx.error?.message || "Event read aborted"),
+          );
+      });
+    }
+    return {
+      commit,
+      importSnapshot,
+      listEvents,
+      read: (aggregateId) => readOne(db, "aggregates", aggregateId),
+      readArchive: (archiveId) => readOne(db, "archives", archiveId),
+      readResource: (resourceId) => readOne(db, "resources", resourceId),
+      getMigration: (migrationId) => readOne(db, "migrations", migrationId),
+      close: () => db.close(),
+    };
+  }
+  return { open };
+})();
+</script>
+<script>/* Pure, additive migrations for the legacy classroom envelope. */
+const SchemaMigrations = (() => {
+  const CURRENT_SCHEMA_VERSION = 2;
+  const LEGACY_SCHEMA_VERSION = 1;
+
+  function copy(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function parseKey(storage, key, fallback) {
+    const raw = storage.getItem(key);
+    return raw == null ? fallback : JSON.parse(raw);
+  }
+
+  function optionalNumber(storage, key) {
+    const raw = storage.getItem(key);
+    return raw == null || raw === "" ? undefined : Number(raw);
+  }
+
+  function optionalBoolean(storage, key) {
+    const raw = storage.getItem(key);
+    return raw == null ? undefined : raw === "true";
+  }
+
+  function fromLegacyKeys(storage, { now = () => new Date() } = {}) {
+    const groups = parseKey(storage, "politics_groups_data", null);
+    if (!Array.isArray(groups) || !groups.length) return null;
+    const history =
+      parseKey(storage, "politics_history_stack_v26", null) ??
+      parseKey(storage, "politics_history_v26", []);
+    return {
+      schemaVersion: LEGACY_SCHEMA_VERSION,
+      timestamp: now().toISOString(),
+      groups,
+      picker: parseKey(storage, "politics_picker_state", {}),
+      itemGlobal: parseKey(storage, "politics_item_global", {}),
+      history,
+      round: {
+        roundActive: false,
+        evaluated: false,
+        correctAns: "",
+        hasStartedOnce: false,
+      },
+      adminPin: storage.getItem("politics_admin_pin") ?? undefined,
+      masterVolume: optionalNumber(storage, "politics_master_volume"),
+      sfxVolume: optionalNumber(storage, "politics_sfx_volume"),
+      zoomLevel: optionalNumber(storage, "politics_zoom_level"),
+      resizerEnabled: optionalBoolean(storage, "politics_resizer_enabled"),
+      resizerHeight: optionalNumber(storage, "politics_resizer_height"),
+      columnMode: storage.getItem("politics_column_mode") ?? undefined,
+      saveAllIn: optionalBoolean(storage, "politics_save_allin"),
+    };
+  }
+
+  function migrateBackup(
+    raw,
+    { identity = StableIdentity, now = () => new Date() } = {},
+  ) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw))
+      throw new TypeError("备份必须是 JSON 对象");
+    const version =
+      raw.schemaVersion == null ? LEGACY_SCHEMA_VERSION : raw.schemaVersion;
+    if (
+      !Number.isInteger(version) ||
+      version < LEGACY_SCHEMA_VERSION ||
+      version > CURRENT_SCHEMA_VERSION
+    )
+      throw new Error(`不支持的存档版本：${version}`);
+    const output = copy(raw);
+    if (version === CURRENT_SCHEMA_VERSION) return output;
+    if (!Array.isArray(output.groups) || !output.groups.length)
+      throw new Error("旧版存档缺少小组数据");
+
+    const currentGroups = identity.assignGroupUids(output.groups);
+    const byLegacyId = new Map(
+      currentGroups.map((group) => [String(group.id), group.groupUid]),
+    );
+    const currentItemIds = new Map();
+    const historicItemIds = new Map();
+    function signatureFor(uid, item) {
+      return `${uid}|${String(item.key || "")}|${String(item.acquiredAt ?? "")}`;
+    }
+    function normalizeInventory(group, uid, historic = false) {
+      if (!Array.isArray(group.inventory)) return;
+      const local = new Set();
+      const occurrences = new Map();
+      group.inventory = group.inventory.map((item) => {
+        const value =
+          item && typeof item === "object" && !Array.isArray(item)
+            ? { ...item }
+            : {};
+        const signature = signatureFor(uid, value);
+        const index = occurrences.get(signature) || 0;
+        occurrences.set(signature, index + 1);
+        const currentIds = currentItemIds.get(signature) || [];
+        const historyIds = historicItemIds.get(signature) || [];
+        let id = identity.isValidItemInstanceId(value.itemInstanceId)
+          ? value.itemInstanceId
+          : historic
+            ? currentIds[index] || historyIds[index]
+            : null;
+        if (!id || local.has(id)) id = identity.createItemInstanceId();
+        value.itemInstanceId = id;
+        local.add(id);
+        if (historic) {
+          if (!historicItemIds.has(signature))
+            historicItemIds.set(signature, []);
+          historicItemIds.get(signature)[index] = id;
+        } else {
+          if (!currentItemIds.has(signature)) currentItemIds.set(signature, []);
+          currentItemIds.get(signature)[index] = id;
+        }
+        return value;
+      });
+    }
+    currentGroups.forEach((group) => normalizeInventory(group, group.groupUid));
+    output.groups = currentGroups;
+
+    if (Array.isArray(output.history)) {
+      output.history = output.history.map((snapshot) => {
+        if (!snapshot || typeof snapshot !== "object") return snapshot;
+        const migrated = { ...snapshot };
+        if (Array.isArray(migrated.groups)) {
+          const assigned = identity.assignGroupUids(
+            migrated.groups.map((group) => ({
+              ...group,
+              groupUid: identity.isValidGroupUid(group?.groupUid)
+                ? group.groupUid
+                : byLegacyId.get(String(group?.id)) || "",
+            })),
+          );
+          assigned.forEach((group) =>
+            normalizeInventory(group, group.groupUid, true),
+          );
+          migrated.groups = assigned;
+        }
+        return migrated;
+      });
+    }
+    output.seasonId = identity.isValidSeasonId(output.seasonId)
+      ? output.seasonId
+      : identity.createSeasonId();
+    output.schemaVersion = CURRENT_SCHEMA_VERSION;
+    output.migratedAt = now().toISOString();
+    return output;
+  }
+
+  return {
+    CURRENT_SCHEMA_VERSION,
+    LEGACY_SCHEMA_VERSION,
+    migrateBackup,
+    fromLegacyKeys,
+  };
+})();
+</script>
+<script>/* Read-only legacy inventory and dry-run import planning. Never deletes or updates a source. */
+const LegacyStorageInventory = (() => {
+  const DATABASES = [
+    "PoliticsScoreSoundDB_Unified",
+    "PoliticsScoreSoundDB_v3",
+    "PoliticsScoreSoundDB",
+    "PoliticsUiDB",
+  ];
+  async function digest(bytes) {
+    if (!globalThis.crypto?.subtle)
+      throw new Error("当前环境无法执行 SHA-256，迁移预检未完成");
+    const hash = await crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(hash)]
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+  const utf8 = (value) => new TextEncoder().encode(value);
+  async function canonical(value, seen = new Set()) {
+    if (value === undefined) return ["undefined"];
+    if (
+      value === null ||
+      ["string", "boolean", "number"].includes(typeof value)
+    )
+      return value;
+    if (value instanceof ArrayBuffer)
+      return ["ArrayBuffer", value.byteLength, await digest(value)];
+    if (ArrayBuffer.isView(value))
+      return [
+        "view",
+        value.constructor.name,
+        await canonical(
+          value.buffer.slice(
+            value.byteOffset,
+            value.byteOffset + value.byteLength,
+          ),
+        ),
+      ];
+    if (value instanceof Blob)
+      return [
+        "Blob",
+        value.type,
+        value.size,
+        await digest(await value.arrayBuffer()),
+      ];
+    if (value instanceof Date) return ["Date", value.toISOString()];
+    if (typeof value !== "object" || seen.has(value))
+      throw new Error("迁移来源含不支持或循环的数据结构");
+    seen.add(value);
+    const result = Array.isArray(value)
+      ? [
+          "array",
+          await Promise.all(
+            value.map((entry) => canonical(entry, new Set(seen))),
+          ),
+        ]
+      : [
+          "object",
+          await Promise.all(
+            Object.keys(value)
+              .sort()
+              .map(async (key) => [
+                key,
+                await canonical(value[key], new Set(seen)),
+              ]),
+          ),
+        ];
+    return result;
+  }
+  async function hashValue(value) {
+    return digest(utf8(JSON.stringify(await canonical(value))));
+  }
+  function readLocal(storage) {
+    const keys = Array.from({ length: storage.length }, (_, index) =>
+      storage.key(index),
+    )
+      .filter(
+        (key) => typeof key === "string" && /^(godpower_|politics_)/.test(key),
+      )
+      .sort();
+    return keys.map((key) => ({ key, raw: storage.getItem(key) }));
+  }
+  async function readDatabase(indexedDB, name) {
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open(name);
+      request.onupgradeneeded = () => {
+        request.transaction.abort();
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () =>
+        reject(
+          new Error(`读取来源数据库失败：${name}：${request.error?.message}`),
+        );
+      request.onblocked = () =>
+        reject(new Error(`来源数据库被其他窗口占用：${name}`));
+    });
+    try {
+      const stores = [...db.objectStoreNames];
+      if (!stores.length) return [];
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction(stores, "readonly");
+        const requests = stores.map((store) => ({
+          store,
+          values: tx.objectStore(store).getAll(),
+          keys: tx.objectStore(store).getAllKeys(),
+        }));
+        tx.oncomplete = () =>
+          resolve(
+            requests.flatMap(({ store, values, keys }) =>
+              values.result.map((payload, index) => ({
+                store,
+                key: keys.result[index],
+                payload,
+              })),
+            ),
+          );
+        tx.onabort = () =>
+          reject(tx.error || new Error(`来源数据库读取中断：${name}`));
+      });
+    } finally {
+      db.close();
+    }
+  }
+  async function capture({
+    storage = globalThis.localStorage,
+    indexedDB = globalThis.indexedDB,
+    sourceOrigin = globalThis.location?.origin || "unknown",
+  } = {}) {
+    if (typeof indexedDB?.databases !== "function")
+      throw new Error("无法安全枚举旧数据库，迁移预检未完成");
+    const localEntries = readLocal(storage);
+    const resources = [];
+    const sourceManifest = [];
+    for (const entry of localEntries) {
+      sourceManifest.push({
+        id: `local:${entry.key}`,
+        kind: "localStorage",
+        sha256: await digest(utf8(entry.raw)),
+        bytes: utf8(entry.raw).byteLength,
+      });
+    }
+    const existing = new Map(
+      (await indexedDB.databases()).map((database) => [
+        database.name,
+        database.version,
+      ]),
+    );
+    for (const database of DATABASES) {
+      const present = existing.has(database);
+      sourceManifest.push({
+        id: `database:${database}`,
+        kind: "database",
+        sha256: await hashValue({
+          present,
+          version: existing.get(database) || null,
+        }),
+        bytes: 0,
+      });
+      if (!present) continue;
+      for (const record of await readDatabase(indexedDB, database)) {
+        const identity = `${database}|${record.store}|${JSON.stringify(await canonical(record.key))}`;
+        const resourceId = "legacy-resource-" + (await hashValue(identity));
+        const sha256 = await hashValue(record.payload);
+        sourceManifest.push({
+          id: identity,
+          kind: "indexedDB",
+          sha256,
+          bytes:
+            record.payload?.arrayBuffer?.byteLength ??
+            record.payload?.size ??
+            null,
+        });
+        resources.push({
+          resourceId,
+          database,
+          store: record.store,
+          sourceKey: record.key,
+          payload: record.payload,
+          sha256,
+        });
+      }
+    }
+    sourceManifest.sort((a, b) => a.id.localeCompare(b.id));
+    const changedDuringRead =
+      JSON.stringify(localEntries) !== JSON.stringify(readLocal(storage));
+    return {
+      ready: !changedDuringRead,
+      sourceOrigin,
+      sourceManifest,
+      localEntries,
+      resources,
+      conflicts: changedDuringRead
+        ? ["读取期间课堂数据发生变化，请停止操作后重新预检"]
+        : [],
+    };
+  }
+  async function prepare(captured, { aggregateId } = {}) {
+    if (!captured?.ready) throw new Error("来源预检尚未通过");
+    const map = new Map(
+      captured.localEntries.map((entry) => [entry.key, entry.raw]),
+    );
+    const storage = { getItem: (key) => map.get(key) ?? null };
+    const raw =
+      storage.getItem("godpower_state_v2") ??
+      storage.getItem("godpower_state_v1");
+    const legacy =
+      raw === null ? SchemaMigrations.fromLegacyKeys(storage) : JSON.parse(raw);
+    if (!legacy) throw new Error("来源没有可迁移的课堂数据");
+    Reliability.validateBackup(legacy);
+    const snapshot = SchemaMigrations.migrateBackup(legacy);
+    Reliability.validateBackup(snapshot);
+    const sourceHash = await hashValue({
+      sourceOrigin: captured.sourceOrigin,
+      manifest: captured.sourceManifest,
+    });
+    const resources = captured.resources.slice();
+    for (const entry of captured.localEntries) {
+      resources.push({
+        resourceId: "legacy-local-" + (await hashValue(entry.key)),
+        sourceKey: entry.key,
+        raw: entry.raw,
+      });
+    }
+    const archives = JSON.parse(
+      storage.getItem("politics_settlement_history") || "[]",
+    );
+    if (
+      !Array.isArray(archives) ||
+      archives.some(
+        (record) =>
+          !record || typeof record !== "object" || Array.isArray(record),
+      )
+    )
+      throw new Error("旧档案格式无效，禁止跳过后迁移");
+    return {
+      migrationId: "legacy-" + sourceHash,
+      sourceOrigin: captured.sourceOrigin,
+      sourceManifest: captured.sourceManifest,
+      aggregateId:
+        aggregateId ||
+        "legacy-classroom-" +
+          (await hashValue(captured.sourceOrigin)).slice(0, 32),
+      snapshot,
+      resources,
+      archives: await Promise.all(
+        archives.map(async (data, index) => ({
+          archiveId: `legacy-${index}-${await hashValue(data)}`,
+          data,
+        })),
+      ),
+    };
+  }
+  async function verify(plan, options = {}) {
+    const captured = await capture({
+      ...options,
+      sourceOrigin: options.sourceOrigin || plan.sourceOrigin,
+    });
+    const ok =
+      captured.ready &&
+      JSON.stringify(captured.sourceManifest) ===
+        JSON.stringify(plan.sourceManifest);
+    return {
+      ok,
+      conflicts: ok ? [] : ["来源数据已改变，旧预检结果不可提交，请重新预检"],
+    };
+  }
+  return { capture, prepare, verify };
+})();
+</script>
+<script>/* Legacy audio copy: source databases remain read-only; destination writes are atomic. */
+const LegacyAudioMigration = (() => {
+  function alias(id) {
+    const fixed = {
+      bgm_intro_0: "bgm_set_0_intro_normal",
+      bgm_thinking: "bgm_set_0_thinking",
+      bgm_battle: "bgm_set_0_battle",
+      bgm_victory: "bgm_set_0_victory",
+    };
+    return (
+      fixed[id] ||
+      (id.startsWith("bgm_trans_") ? `bgm_set_0_trans_${id.slice(10)}` : id)
+    );
+  }
+  function openExisting(indexedDB, name) {
+    return new Promise((resolve, reject) => {
+      let missing = false;
+      const request = indexedDB.open(name);
+      request.onupgradeneeded = () => {
+        missing = true;
+        request.transaction.abort();
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => (missing ? resolve(null) : reject(request.error));
+      request.onblocked = () =>
+        reject(new Error(`旧音频数据库被其他窗口占用：${name}`));
+    });
+  }
+  async function readSource(indexedDB, name) {
+    const source = await openExisting(indexedDB, name);
+    if (!source) return [];
+    try {
+      if (!source.objectStoreNames.contains("sounds")) return [];
+      return await new Promise((resolve, reject) => {
+        const tx = source.transaction("sounds", "readonly");
+        const request = tx.objectStore("sounds").getAll();
+        tx.oncomplete = () => resolve(request.result || []);
+        tx.onabort = () =>
+          reject(tx.error || new Error(`无法读取旧音频：${name}`));
+      });
+    } finally {
+      source.close();
+    }
+  }
+  async function run({
+    indexedDB = globalThis.indexedDB,
+    destination,
+    storage,
+    sourceNames = ["PoliticsScoreSoundDB_v3", "PoliticsScoreSoundDB"],
+    markerKey = "politics_audio_migration_v2",
+  }) {
+    if (storage.getItem(markerKey) === "1")
+      return { status: "current", copied: 0, skipped: 0 };
+    if (!destination?.objectStoreNames.contains("sounds"))
+      throw new Error("目标音频数据库尚未准备好");
+    const records = new Map();
+    for (const name of sourceNames) {
+      for (const record of await readSource(indexedDB, name)) {
+        if (
+          typeof record?.id !== "string" ||
+          !record.id ||
+          !(record.arrayBuffer instanceof ArrayBuffer)
+        )
+          throw new Error(`旧音频记录格式无效，已保留来源：${name}`);
+        const id = alias(record.id);
+        if (!records.has(id)) records.set(id, { ...record, id });
+      }
+    }
+    const copiedRecords = [];
+    const counts = await new Promise((resolve, reject) => {
+      const tx = destination.transaction("sounds", "readwrite");
+      const store = tx.objectStore("sounds");
+      let copied = 0,
+        skipped = 0,
+        failure = null;
+      for (const record of records.values()) {
+        const existing = store.get(record.id);
+        existing.onsuccess = () => {
+          try {
+            if (existing.result !== undefined) {
+              skipped++;
+              return;
+            }
+            store.add(record);
+            copiedRecords.push(record);
+            copied++;
+          } catch (error) {
+            failure = error;
+            tx.abort();
+          }
+        };
+      }
+      tx.oncomplete = () => resolve({ copied, skipped });
+      tx.onabort = () =>
+        reject(failure || tx.error || new Error("旧音频复制事务未完成"));
+    });
+    if (copiedRecords.length)
+      await new Promise((resolve, reject) => {
+        const tx = destination.transaction("sounds", "readonly");
+        const checks = copiedRecords.map((record) => ({
+          record,
+          request: tx.objectStore("sounds").get(record.id),
+        }));
+        tx.oncomplete = () => {
+          for (const { record, request } of checks) {
+            const actual = request.result?.arrayBuffer;
+            const expected = new Uint8Array(record.arrayBuffer);
+            if (
+              !(actual instanceof ArrayBuffer) ||
+              actual.byteLength !== expected.byteLength ||
+              new Uint8Array(actual).some(
+                (byte, index) => byte !== expected[index],
+              )
+            ) {
+              reject(new Error("旧音频复制后读回校验失败：" + record.id));
+              return;
+            }
+          }
+          resolve();
+        };
+        tx.onabort = () => reject(tx.error || new Error("旧音频读回校验中断"));
+      });
+    // A failed marker write is retryable: the next run skips already-copied records.
+    storage.setItem(markerKey, "1");
+    if (storage.getItem(markerKey) !== "1")
+      throw new Error("音频已复制，但迁移完成标记校验失败");
+    return { status: "migrated", ...counts };
+  }
+  return { run };
+})();
+</script>
+<script>/* Rules registry metadata; progress changes are handled by the later event reducer. */
+const AchievementCatalog = (() => {
+  const entries = [
+    ["ACH-001", "初露锋芒", "learning", "普通", "累计首次正确作答"],
+    ["ACH-002", "小试牛刀", "learning", "普通", "历史累计正确作答 10 次"],
+    ["ACH-003", "博闻强识", "learning", "进阶", "历史累计正确作答 30 次"],
+    ["ACH-004", "百题斩", "learning", "传奇", "历史累计正确作答 100 次"],
+    ["ACH-005", "渐入佳境", "learning", "普通", "同一赛季连续答对 3 题"],
+    ["ACH-006", "势如破竹", "learning", "进阶", "同一赛季连续答对 5 题"],
+    ["ACH-007", "十全十美", "learning", "史诗", "同一赛季连续答对 10 题"],
+    [
+      "ACH-008",
+      "全程在线",
+      "learning",
+      "进阶",
+      "同一赛季连续 10 个正式结算回合均有作答，无论对错",
+    ],
+    ["ACH-009", "孜孜不倦", "learning", "进阶", "历史累计有效作答 50 次"],
+    [
+      "ACH-010",
+      "精准思维",
+      "learning",
+      "进阶",
+      "同一赛季累计作答至少 10 次，正确率达到 80%",
+    ],
+    [
+      "ACH-011",
+      "无懈可击",
+      "learning",
+      "传奇",
+      "同一赛季累计作答至少 15 次，正确率保持 100%",
+    ],
+    [
+      "ACH-012",
+      "愈挫愈勇",
+      "learning",
+      "史诗",
+      "同一赛季答错某题后，接下来的 3 个正式回合全部正确作答",
+    ],
+    [
+      "ACH-013",
+      "积少成多",
+      "competition",
+      "普通",
+      "单赛季由正式判题及道具效果带来的正向积分增量累计达到 10 分",
+    ],
+    [
+      "ACH-014",
+      "百分豪杰",
+      "competition",
+      "史诗",
+      "跨赛季正式判题及道具带来的正向积分增量累计达到 100 分",
+    ],
+    [
+      "ACH-015",
+      "登顶时刻",
+      "competition",
+      "进阶",
+      "至少 4 组参赛，首次在正式答题结算后取得第 1 名",
+    ],
+    [
+      "ACH-016",
+      "三甲常客",
+      "competition",
+      "进阶",
+      "至少 5 组参赛的有效答题结算中，历史累计 10 次位于前三名",
+    ],
+    [
+      "ACH-017",
+      "跨越阶梯",
+      "competition",
+      "史诗",
+      "至少 5 组参赛，一次正式答题结算使名次提升至少 3 位",
+    ],
+    [
+      "ACH-018",
+      "末位突围",
+      "competition",
+      "史诗",
+      "至少 5 组参赛，同赛季曾在正式结算后位居最后一名，之后进入前三名",
+    ],
+    [
+      "ACH-019",
+      "孤注一掷",
+      "competition",
+      "普通",
+      "赛前积分大于 0，All In 正确作答并成功翻倍",
+    ],
+    [
+      "ACH-020",
+      "命运三连",
+      "competition",
+      "传奇",
+      "同一赛季连续 3 个正式回合 All In 成功，期间没有漏答或失败",
+    ],
+    [
+      "ACH-021",
+      "王者归来",
+      "competition",
+      "传奇",
+      "单题结算前落后榜首至少 10 分，结算后成功升至第 1 名，至少 4 组参赛",
+    ],
+    [
+      "ACH-022",
+      "一夜暴富",
+      "competition",
+      "史诗",
+      "单次成功 All In 带来的实际积分增量达到 20 分",
+    ],
+    [
+      "ACH-023",
+      "第一次的惊喜",
+      "collection",
+      "普通",
+      "首次通过正式道具抽取获得任意道具",
+    ],
+    [
+      "ACH-024",
+      "百宝开箱",
+      "collection",
+      "进阶",
+      "跨赛季累计通过正式抽取获得 20 件道具",
+    ],
+    [
+      "ACH-025",
+      "半部图鉴",
+      "collection",
+      "史诗",
+      "历史累计获得至少 13 种不同道具",
+    ],
+    [
+      "ACH-026",
+      "全图鉴制霸",
+      "collection",
+      "传奇",
+      "历史累计获得全部 26 种不同道具",
+    ],
+    [
+      "ACH-027",
+      "金钱的力量",
+      "collection",
+      "普通",
+      "使用金币，使自身实际增加 2 分",
+      "coin",
+    ],
+    [
+      "ACH-028",
+      "黄金同行",
+      "collection",
+      "进阶",
+      "使用金币龟壳，使自身和至少 1 个领先小组实际增加积分",
+      "coin_shell",
+    ],
+    [
+      "ACH-029",
+      "幸运扩散",
+      "collection",
+      "进阶",
+      "使用问号砖块，使自身和至少 2 个落后小组实际增加积分",
+      "question",
+    ],
+    [
+      "ACH-030",
+      "蘑菇加速",
+      "collection",
+      "普通",
+      "使用普通蘑菇，使自身积分实际增加至少 1 分",
+      "mushroom",
+    ],
+    [
+      "ACH-031",
+      "三重滋养",
+      "collection",
+      "史诗",
+      "同一枚三重蘑菇的 3 次使用都成功为自身增加积分",
+      "triple_mushroom",
+    ],
+    [
+      "ACH-032",
+      "嘹亮号角",
+      "collection",
+      "史诗",
+      "成功使用超级喇叭抵挡一次刺龟壳攻击",
+      "horn",
+    ],
+    [
+      "ACH-033",
+      "绿光一闪",
+      "tactics",
+      "普通",
+      "使用绿龟壳，成功造成至少 1 次实际积分损失",
+      "green",
+    ],
+    [
+      "ACH-034",
+      "三重追击",
+      "tactics",
+      "史诗",
+      "同一枚三重绿龟壳的 3 发分别成功攻击 3 个不同小组",
+      "triple_green",
+    ],
+    [
+      "ACH-035",
+      "精准制导",
+      "tactics",
+      "普通",
+      "使用红龟壳，成功伤害当前排名紧邻的上位小组",
+      "red",
+    ],
+    [
+      "ACH-036",
+      "连锁超车",
+      "tactics",
+      "史诗",
+      "同一枚三重红龟壳的 3 发均造成伤害，且命中过至少 2 个不同小组",
+      "triple_red",
+    ],
+    [
+      "ACH-037",
+      "蓝色警报",
+      "tactics",
+      "进阶",
+      "使用刺龟壳，成功让当时的第 1 名损失积分",
+      "spiny",
+    ],
+    [
+      "ACH-038",
+      "后方陷阱",
+      "tactics",
+      "普通",
+      "使用香蕉皮，成功伤害当前排名紧邻的下位小组",
+      "banana",
+    ],
+    [
+      "ACH-039",
+      "香蕉三连",
+      "tactics",
+      "史诗",
+      "同一枚三重香蕉皮的 3 发全部在同一题内成功造成伤害",
+      "triple_banana",
+    ],
+    [
+      "ACH-040",
+      "连环爆破",
+      "tactics",
+      "史诗",
+      "单次主动使用炸弹兵，同时让至少 2 个不同小组损失积分",
+      "bomb",
+    ],
+    [
+      "ACH-041",
+      "铁锤风暴",
+      "tactics",
+      "史诗",
+      "单次使用锤子，成功让 3 个原本领先自己的不同小组损失积分",
+      "hammer",
+    ],
+    [
+      "ACH-042",
+      "雷霆万钧",
+      "tactics",
+      "史诗",
+      "单次使用闪电，让至少 3 个不同的领先小组实际损失积分",
+      "lightning",
+    ],
+    [
+      "ACH-043",
+      "星光守护者",
+      "tactics",
+      "传奇",
+      "同一次无敌星持续效果成功抵挡 3 次独立攻击",
+      "star",
+    ],
+    [
+      "ACH-044",
+      "巨人之盾",
+      "tactics",
+      "传奇",
+      "同一次巨大蘑菇持续效果成功抵挡 3 次独立攻击",
+      "mega",
+    ],
+    ["ACH-045", "初代封神", "honors", "进阶", "首次在有效赛季获得冠军"],
+    ["ACH-046", "三冠王", "honors", "史诗", "历史累计获得 3 届有效赛季冠军"],
+    ["ACH-047", "十冠传奇", "honors", "传奇", "历史累计获得 10 届有效赛季冠军"],
+    ["ACH-048", "银色荣耀", "honors", "普通", "首次获得有效赛季第 2 名"],
+    [
+      "ACH-049",
+      "领奖台常客",
+      "honors",
+      "进阶",
+      "历史累计 5 届有效赛季进入前三名",
+    ],
+    [
+      "ACH-050",
+      "不老传奇",
+      "honors",
+      "进阶",
+      "同一小组累计参加并完成 5 届有效赛季",
+    ],
+    [
+      "ACH-051",
+      "学霸冠军",
+      "honors",
+      "史诗",
+      "同一有效赛季夺冠，并且至少作答 10 题、正确率达到 80%",
+    ],
+    [
+      "ACH-052",
+      "绝对统治",
+      "honors",
+      "传奇",
+      "同一有效赛季夺冠，最终积分比第二名高至少 10 分，且全赛季至少完成 10 轮正式答题",
+    ],
+    [
+      "ACH-053",
+      "幽灵的馈赠",
+      "hidden",
+      "进阶",
+      "使用害羞幽灵时，由于没有可偷取的道具，触发获得普通蘑菇的替代效果",
+      "boo",
+      true,
+    ],
+    [
+      "ACH-054",
+      "墨染战场",
+      "hidden",
+      "史诗",
+      "使用鱿鱿后，在比分遮蔽仍然有效的 2 分钟内，完成一次实际产生积分变化的正式答题结算",
+      "blooper",
+      true,
+    ],
+    [
+      "ACH-055",
+      "弹射起步",
+      "hidden",
+      "史诗",
+      "使用炮弹刺客，在至少 5 组参赛时，单次效果让自身名次实际上升至少 3 位",
+      "bullet",
+      true,
+    ],
+    [
+      "ACH-056",
+      "强力全胜",
+      "hidden",
+      "传奇",
+      "同一次强力蘑菇的 3 次有效答题中全部答对，且该状态按正常规则持续至结束",
+      "power",
+      true,
+    ],
+    [
+      "ACH-057",
+      "空中闪避",
+      "hidden",
+      "进阶",
+      "持有羽毛并实际触发一次成功的自动防御",
+      "feather",
+      true,
+    ],
+    [
+      "ACH-058",
+      "烈焰三连",
+      "hidden",
+      "史诗",
+      "同一枚火之花的 3 次攻击分别成功造成积分损失",
+      "fire_flower",
+      true,
+    ],
+    [
+      "ACH-059",
+      "冰封禁令",
+      "hidden",
+      "史诗",
+      "使用冰之花冻结一个目标，随后目标尝试主动使用道具，因冻结被迫解除冻结并取消该次使用",
+      "ice_flower",
+      true,
+    ],
+    [
+      "ACH-060",
+      "双向回旋",
+      "hidden",
+      "史诗",
+      "单次使用回旋镖花，同时成功伤害当前紧邻的上位和下位两个小组",
+      "boomerang_flower",
+      true,
+    ],
+  ].map(
+    ([id, name, category, rarity, condition, itemKey = "", hidden = false]) =>
+      Object.freeze({ id, name, category, rarity, condition, itemKey, hidden }),
+  );
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+  return {
+    list: () => entries.map((entry) => ({ ...entry })),
+    get: (id) => (byId.has(id) ? { ...byId.get(id) } : null),
+    itemKeys: () =>
+      entries.filter((entry) => entry.itemKey).map((entry) => entry.itemKey),
+  };
+})();
+</script>
+<script>/* Immutable domain-event envelopes shared by browser commands and future consumers. */
+const DomainEvents = (() => {
+  const SCHEMA_VERSION = 1;
+  const SOURCES = new Set(["classroom", "manual", "import", "system", "test"]);
+  const TYPES = new Set([
+    "ROUND_SETTLED",
+    "ITEM_ACQUIRED",
+    "ITEM_USED",
+    "ITEM_HIT",
+    "DEFENSE_RESOLVED",
+    "EFFECT_APPLIED",
+    "EFFECT_EXPIRED",
+    "RANK_CHANGED",
+    "SEASON_ARCHIVED",
+    "SCORE_CHANGED",
+  ]);
+  const MAX_PAYLOAD_BYTES = 64 * 1024;
+
+  function requiredText(value, label, max = 160) {
+    if (typeof value !== "string" || !value.trim() || value.length > max)
+      throw new TypeError(`${label} must be a non-empty string`);
+    return value.trim();
+  }
+
+  function cloneJson(value, seen = new Set(), depth = 0) {
+    if (depth > 24)
+      throw new TypeError("event payload exceeds JSON depth limit");
+    if (
+      value === null ||
+      typeof value === "string" ||
+      typeof value === "boolean"
+    )
+      return value;
+    if (typeof value === "number") {
+      if (!Number.isFinite(value))
+        throw new TypeError("event payload must contain finite JSON numbers");
+      return value;
+    }
+    if (!value || typeof value !== "object" || seen.has(value))
+      throw new TypeError("event payload must contain JSON values only");
+    if (!Array.isArray(value)) {
+      const prototype = Object.getPrototypeOf(value);
+      if (prototype !== null && Object.getPrototypeOf(prototype) !== null)
+        throw new TypeError("event payload must contain plain JSON objects");
+    }
+    seen.add(value);
+    let output;
+    if (Array.isArray(value)) {
+      if (value.length > 2000)
+        throw new TypeError("event payload array is too large");
+      output = value.map((entry) => cloneJson(entry, seen, depth + 1));
+    } else {
+      output = {};
+      for (const key of Object.keys(value)) {
+        if (["__proto__", "prototype", "constructor"].includes(key))
+          throw new TypeError("event payload contains a reserved key");
+        const descriptor = Object.getOwnPropertyDescriptor(value, key);
+        if (!descriptor || !Object.hasOwn(descriptor, "value"))
+          throw new TypeError(
+            "event payload cannot contain accessor properties",
+          );
+        output[key] = cloneJson(descriptor.value, seen, depth + 1);
+      }
+    }
+    seen.delete(value);
+    return output;
+  }
+
+  function deepFreeze(value) {
+    if (!value || typeof value !== "object" || Object.isFrozen(value))
+      return value;
+    for (const child of Object.values(value)) deepFreeze(child);
+    return Object.freeze(value);
+  }
+
+  function normalizeTime(value) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (!Number.isFinite(date.getTime()))
+      throw new TypeError("event occurredAt must be a valid date");
+    return date.toISOString();
+  }
+
+  function createScope({
+    commandId,
+    actorId = null,
+    source = "classroom",
+    now = () => new Date(),
+  } = {}) {
+    const id = requiredText(commandId, "commandId");
+    if (!SOURCES.has(source))
+      throw new TypeError("unsupported domain event source");
+    if (actorId !== null) actorId = requiredText(actorId, "actorId");
+    if (typeof now !== "function")
+      throw new TypeError("event clock must be a function");
+    let sequence = 0;
+    let closed = false;
+    const records = [];
+
+    function emit(type, aggregate, payload = {}, options = {}) {
+      if (closed) throw new Error("domain event scope is closed");
+      if (!TYPES.has(type))
+        throw new TypeError(`unsupported domain event: ${type}`);
+      if (!aggregate || typeof aggregate !== "object")
+        throw new TypeError("event aggregate is required");
+      const aggregateType = requiredText(aggregate.type, "aggregate.type", 64);
+      const aggregateId = requiredText(
+        String(aggregate.id ?? ""),
+        "aggregate.id",
+      );
+      const safePayload = cloneJson(payload);
+      if (
+        !safePayload ||
+        Array.isArray(safePayload) ||
+        typeof safePayload !== "object"
+      )
+        throw new TypeError("event payload must be a JSON object");
+      const serialized = JSON.stringify(safePayload);
+      const utf8Bytes = encodeURIComponent(serialized).replace(
+        /%[0-9A-F]{2}/gi,
+        "x",
+      ).length;
+      if (utf8Bytes > MAX_PAYLOAD_BYTES)
+        throw new TypeError("event payload exceeds 64 KiB");
+      const nextSequence = sequence + 1;
+      const event = deepFreeze({
+        schemaVersion: SCHEMA_VERSION,
+        eventId: `${id}:${nextSequence}`,
+        commandId: id,
+        sequence: nextSequence,
+        type,
+        occurredAt: normalizeTime(options.occurredAt ?? now()),
+        source,
+        actorId,
+        causationId:
+          options.causationId == null
+            ? null
+            : requiredText(options.causationId, "causationId"),
+        aggregate: { type: aggregateType, id: aggregateId },
+        payload: safePayload,
+      });
+      sequence = nextSequence;
+      records.push(event);
+      return event;
+    }
+
+    return {
+      emit,
+      list: () => records.slice(),
+      close: () => {
+        closed = true;
+      },
+      isClosed: () => closed,
+    };
+  }
+
+  function isAchievementEligible(event) {
+    return (
+      !!event &&
+      event.schemaVersion === SCHEMA_VERSION &&
+      event.source === "classroom" &&
+      TYPES.has(event.type) &&
+      event.type !== "SCORE_CHANGED"
+    );
+  }
+
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    types: [...TYPES],
+    createScope,
+    isAchievementEligible,
+  };
+})();
+</script>
 <script>/* Typed item blocks: pure policy, no DOM or classroom mutations. */
 (function (root) {
   "use strict";
@@ -9751,6 +11449,7 @@ html[data-theme="marx"] {
           key,
           charges,
           acquiredAt,
+          itemInstanceId: root.StableIdentity?.createItemInstanceId?.() || `item-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
           ...(charges !== definitions[key].charges
             ? { configuredCharges: charges }
             : {}),
@@ -9774,17 +11473,25 @@ html[data-theme="marx"] {
 </script>
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
-  const schemaVersion = 1;
-  const stateKey = 'godpower_state_v1';
+  const schemaVersion = 2;
+  const stateKey = 'godpower_state_v2';
+  const legacyStateKey = 'godpower_state_v1';
   function validateBackup(data) {
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error('备份必须是 JSON 对象');
-    if (data.schemaVersion != null && data.schemaVersion !== schemaVersion) throw Error('不支持此存档版本');
+    if (data.schemaVersion != null && ![1,schemaVersion].includes(data.schemaVersion)) throw Error('不支持此存档版本');
+    if(data.schemaVersion===schemaVersion&&!StableIdentity.isValidSeasonId(data.seasonId))throw Error('赛季身份无效');
     if (!Array.isArray(data.groups) || !data.groups.length || data.groups.length > 1000) throw Error('小组数据为空或超过 1000 组');
+    const groupUids=new Set();
     data.groups.forEach(g => {
       if (!g || typeof g !== 'object' || Array.isArray(g)) throw Error('小组格式无效');
+      if(data.schemaVersion===schemaVersion){
+        if(!StableIdentity.isValidGroupUid(g.groupUid)||groupUids.has(g.groupUid))throw Error('小组身份无效或重复');
+        groupUids.add(g.groupUid);
+      }
       if (!Number.isSafeInteger(Number(g.score ?? 0))) throw Error('分数必须是安全整数');
       if (g.members != null && (!Array.isArray(g.members) || g.members.some(m=>typeof m!=='string'))) throw Error('成员格式无效');
       if(g.inventory!=null && (!Array.isArray(g.inventory)||g.inventory.length>3))throw Error('道具队列格式无效');
+      if(g.inventory?.some(it=>!it||typeof it!=='object'||Array.isArray(it)))throw Error('道具格式无效');
       if(g.itemEffect!=null && (typeof g.itemEffect!=='object'||Array.isArray(g.itemEffect)))throw Error('持续状态格式无效');
     });
     if(data.picker!=null && (typeof data.picker!=='object'||Array.isArray(data.picker)))throw Error('点名数据格式无效');
@@ -9798,23 +11505,8 @@ const Reliability = (() => {
     }
     return data;
   }
-  function writeVerified(storage, key, data) {
-    try {
-      const text=JSON.stringify(data);
-      storage.setItem(key,text);
-      if(storage.getItem(key)!==text)throw Error('保存后校验不一致');
-      return {ok:true};
-    } catch(error) { return {ok:false,error:String(error.message||error)}; }
-  }
-  function appendArchive(storage,record) {
-    try {
-      const raw=storage.getItem('politics_settlement_history');
-      const list=raw==null?[]:JSON.parse(raw);
-      if(!Array.isArray(list))throw Error('原有归档格式损坏，请先导出恢复');
-      // Never silently drop old archives to make a new archive fit.
-      return writeVerified(storage,'politics_settlement_history',[record,...list.filter(x=>x.id!==record.id)]);
-    }catch(error){return {ok:false,error:String(error.message||error)}}
-  }
+  const writeVerified=ClassroomRepository.writeVerified;
+  const appendArchive=ClassroomRepository.appendArchive;
   function phase(s) {
     if(!s.hasStartedOnce)return 'NOT_STARTED';
     if(!s.roundActive)return 'FINISHED';
@@ -9901,14 +11593,15 @@ const Reliability = (() => {
     });
   }
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
+  return {schemaVersion,stateKey,legacyStateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();
 
 // Resolve the browser storage getter inside operations so access denial is
 // reported by the same verified-write failure path as quota errors.
 const CLASSROOM_STORAGE={
   getItem(key){return localStorage.getItem(key)},
-  setItem(key,value){localStorage.setItem(key,value)}
+  setItem(key,value){localStorage.setItem(key,value)},
+  removeItem(key){localStorage.removeItem(key)}
 };
 </script>
 <script>/* One snapshot owner, retaining V2 pre-operation snapshots and legacy keys. */
@@ -10414,6 +12107,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 
 let state = {
   isLocked: true,
+  seasonId: StableIdentity.createSeasonId(),
   hasStartedOnce: false,
   roundActive: false,
   lastRoundAllIn: null,
@@ -10471,6 +12165,7 @@ function normalizeGroup(raw, index = 0) {
     : [];
   return {
     id,
+    groupUid: StableIdentity.isValidGroupUid(source.groupUid) ? source.groupUid : StableIdentity.createGroupUid(),
     name: String(source.name ?? `第 ${index + 1} 组`).trim() || `第 ${index + 1} 组`,
     color,
     score: Number.isFinite(numericScore) ? Math.trunc(numericScore) : 0,
@@ -10494,7 +12189,7 @@ function normalizeGroup(raw, index = 0) {
 
 function normalizeAllGroups(groups) {
   const seen = new Set();
-  return (Array.isArray(groups) ? groups : []).map((raw, index) => {
+  return StableIdentity.assignGroupUids(Array.isArray(groups) ? groups : []).map((raw, index) => {
     const g = normalizeGroup(raw, index);
     while (seen.has(g.id)) g.id = Date.now() + index + seen.size + 1;
     seen.add(g.id);
@@ -10618,6 +12313,7 @@ function confirmFinalSettlement() {
 
   const record = {
     id: Date.now(),
+    seasonId: state.seasonId,
     title: title,
     date: new Date().toLocaleDateString(),
     time: new Date().toLocaleString(),
@@ -10965,12 +12661,14 @@ function scheduleBackgroundAudioInit() {
 
   backgroundAudioInitTimer = scheduleIdleTask(async () => {
     backgroundAudioInitTimer = null;
-    const migrationDone = STORAGE.get('politics_audio_migration_v1', '0') === '1';
+    const migrationDone = STORAGE.get('politics_audio_migration_v2', '0') === '1';
     if (!migrationDone) {
       try {
         await migrateOldDatabases();
-      } catch (_) {}
-      STORAGE.set('politics_audio_migration_v1', '1');
+      } catch (error) {
+        console.warn('旧音频迁移未完成，来源保留以供重试', error);
+        showToast('旧音频迁移未完成，原音频已保留，下次启动将重试。');
+      }
       await refreshSoundIdCache();
     }
 
@@ -10981,41 +12679,7 @@ function scheduleBackgroundAudioInit() {
 }
 
 async function migrateOldDatabases() {
-  const legacyNames = ['PoliticsScoreSoundDB_v3', 'PoliticsScoreSoundDB'];
-  for (const oldName of legacyNames) {
-    try {
-      await new Promise(res => {
-        const req = indexedDB.open(oldName);
-        req.onsuccess = (ev) => {
-          const oldDb = ev.target.result;
-          if (!oldDb.objectStoreNames.contains('sounds')) { oldDb.close(); res(); return; }
-          const txOld = oldDb.transaction('sounds', 'readonly');
-          const storeOld = txOld.objectStore('sounds');
-          const getAllReq = storeOld.getAll();
-          getAllReq.onsuccess = () => {
-            const records = getAllReq.result || [];
-            if (records.length > 0) {
-              const txNew = db.transaction('sounds', 'readwrite');
-              const storeNew = txNew.objectStore('sounds');
-              records.forEach(rec => {
-                let newId = rec.id;
-                if (newId === 'bgm_intro_0') newId = 'bgm_set_0_intro_normal';
-                else if (newId === 'bgm_thinking') newId = 'bgm_set_0_thinking';
-                else if (newId === 'bgm_battle') newId = 'bgm_set_0_battle';
-                else if (newId === 'bgm_victory') newId = 'bgm_set_0_victory';
-                else if (newId.startsWith('bgm_trans_')) newId = `bgm_set_0_trans_${newId.replace('bgm_trans_', '')}`;
-                storeNew.put({ id: newId, arrayBuffer: rec.arrayBuffer });
-              });
-            }
-            oldDb.close();
-            res();
-          };
-          getAllReq.onerror = () => { oldDb.close(); res(); };
-        };
-        req.onerror = () => res();
-      });
-    } catch(e) {}
-  }
+  return LegacyAudioMigration.run({indexedDB,destination:db,storage:CLASSROOM_STORAGE});
 }
 
 async function getAudioContext() {
@@ -13251,6 +14915,7 @@ function addGroup() {
   recordHistory(`添加新小组 (第 ${index} 组)`);
   state.groups.push({
     id: newId,
+    groupUid: StableIdentity.createGroupUid(),
     name: `第 ${index} 组`,
     color: color,
     score: 0,
@@ -14589,8 +16254,10 @@ function normalizeInventoryV21718(inventory){
       const charges=Number.isFinite(storedCharges)
         ? Math.max(1,Math.min(maxCharges,Math.trunc(storedCharges))) : maxCharges;
       const acquiredAt=Number(it.acquiredAt)||Date.now()+i;
-      if(Object.keys(it).length===(configuredCharges?4:3) && it.charges===charges && it.acquiredAt===acquiredAt)return it;
-      return {key:it.key,charges,acquiredAt,...(configuredCharges?{configuredCharges}:{})};
+      const itemInstanceId=StableIdentity.isValidItemInstanceId(it.itemInstanceId)?it.itemInstanceId:StableIdentity.createItemInstanceId();
+      const expectedKeys=3+1+(configuredCharges?1:0);
+      if(Object.keys(it).length===expectedKeys && it.charges===charges && it.acquiredAt===acquiredAt && it.itemInstanceId===itemInstanceId)return it;
+      return {key:it.key,charges,acquiredAt,itemInstanceId,...(configuredCharges?{configuredCharges}:{})};
     });
 }
 
@@ -21266,7 +22933,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.1';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.2';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -21511,6 +23178,7 @@ renderAbout=function(tab){
    清空：本轮比赛产生的一切状态与统计。 */
 function resetCompetitionDataAfterSettlementV21812(){
   cancelScoreAnimationAndSync();
+  state.seasonId=StableIdentity.createSeasonId();
 
   /* 1. 小组本轮数据 */
   state.groups.forEach(g=>{
@@ -21633,6 +23301,7 @@ function resetCompetitionDataAfterSettlementV21812(){
 function snapshotGroupForSettlementV21813(g){
   return {
     id:g.id,
+    groupUid:g.groupUid||'',
     name:g.name,
     color:g.color,
     members:clone(g.members||[]),
@@ -21674,6 +23343,7 @@ function compactUndoHistoryV21813(){
 function buildSettlementClearedDataV21813(){
   const ig=state.itemGlobal||{};
   return {
+    seasonId:state.seasonId,
     archivedAt:new Date().toLocaleString(),
 
     groups:state.groups.map(snapshotGroupForSettlementV21813),
@@ -22620,11 +24290,44 @@ const ItemDrawBlocks = (() => {
 const CommandLifecycle = (() => {
   function create(host) {
     let current = null;
+    let generatedCommandId = 0;
+    function context(tx) {
+      return Object.freeze({
+        commandId: tx.commandId,
+        emit: (...args) => {
+          if (current !== tx)
+            throw Error("command no longer accepts domain events");
+          if (!tx.eventScope) return false;
+          return tx.eventScope.emit(...args);
+        },
+        onCommit: (finalizer) => {
+          if (current !== tx)
+            throw Error("command no longer accepts commit hooks");
+          if (typeof finalizer !== "function")
+            throw TypeError("commit hook must be a function");
+          tx.finalizers.push(finalizer);
+        },
+      });
+    }
+    function notify(tx, callback) {
+      try {
+        callback();
+      } catch (error) {
+        try {
+          if (host.postCommitError)
+            host.postCommitError(error, { commandId: tx.commandId });
+          else console.error("Command presentation failed", error);
+        } catch (reportError) {
+          console.error("Command error reporting failed", error, reportError);
+        }
+      }
+    }
     function cancel(reason = "cancelled") {
       const tx = current;
       if (!tx) return false;
       current = null;
       tx.cancelled = true;
+      tx.eventScope?.close();
       host.restore(tx.before);
       host.result({ ok: false, cancelled: true, reason });
       host.render();
@@ -22637,35 +24340,65 @@ const CommandLifecycle = (() => {
     }
     function finish(tx) {
       if (current !== tx || tx.waiting) return;
+      let saved, transaction;
       try {
+        tx.finalizers.forEach((finalizer) => finalizer(context(tx)));
         host.validate();
         current = null;
-        const saved = host.persist();
-        if (!saved.ok && !tx.retainOnPersistenceFailure) {
-          tx.cancelled = true;
-          host.restore(tx.before);
-          host.result({ ok: false, error: saved.error });
-          host.error(Error(saved.error));
-        } else {
+        transaction = {
+          commandId: tx.commandId,
+          events: tx.eventScope?.list() || [],
+        };
+        tx.eventScope?.close();
+        saved = host.persist(transaction);
+      } catch (error) {
+        current = tx;
+        fail(tx, error);
+        return;
+      }
+      // Persistence has returned: presentation failures must never reverse it.
+      if (!saved.ok && !tx.retainOnPersistenceFailure) {
+        tx.cancelled = true;
+        host.restore(tx.before);
+        notify(tx, () => host.result({ ok: false, error: saved.error }));
+        notify(tx, () => host.error(Error(saved.error)));
+      } else {
+        notify(tx, () =>
           host.result({
             ok: true,
             persisted: !!saved.ok,
             ...(!saved.ok ? { error: saved.error } : {}),
-          });
-          if (!saved.ok) host.warning(saved.error);
-        }
-        host.render();
-      } catch (error) {
-        // persist may itself throw, including in a test/storage adapter.
-        current = tx;
-        fail(tx, error);
+          }),
+        );
+        if (!saved.ok) notify(tx, () => host.warning(saved.error));
       }
+      if (
+        saved.ok &&
+        !saved.deferred &&
+        saved.eventsPersisted === true &&
+        transaction.events.length
+      )
+        notify(tx, () => host.committed?.(transaction));
+      notify(tx, () => host.render());
     }
     function run(description, operation, options = {}) {
       if (host.active()) return false;
+      const commandId =
+        options.commandId ||
+        host.commandId?.() ||
+        `command-${++generatedCommandId}`;
+      const eventScope =
+        host.createEventScope?.({
+          commandId,
+          actorId: options.actorId ?? host.actorId?.() ?? null,
+          source: options.source || "classroom",
+        }) || null;
       host.invalidate(); // Cancels any older pending command before the new snapshot.
       cancel("superseded");
       const tx = {
+        commandId,
+        eventScope,
+        finalizers: [],
         before: host.snapshot(),
         waiting: 0,
         retainOnPersistenceFailure:
@@ -22675,7 +24408,7 @@ const CommandLifecycle = (() => {
       try {
         host.record(description);
         host.setActive(true);
-        const result = operation();
+        const result = operation(context(tx));
         if (result === false) {
           cancel("rejected");
           return false;
@@ -22729,174 +24462,370 @@ const CommandLifecycle = (() => {
 </script>
 <script>/* Stable public APIs. Legacy item executors remain isolated until their rule
    matrix is complete; new features must not add another override layer. */
-function buildClassroomBackup(){
-  if(window.classroomReady && classroomCommands.isPending())return clone(classroomCommands.baseline().backup);
+function buildClassroomBackup() {
+  if (window.classroomReady && classroomCommands.isPending())
+    return clone(classroomCommands.baseline().backup);
   return {
-    schemaVersion:Reliability.schemaVersion,appVersion:'V3.0.1',timestamp:new Date().toISOString(),
-    groups:getPersistableGroups(),picker:clone(state.picker),itemGlobal:clone(state.itemGlobal||{}),
-    round:{roundActive:state.roundActive,evaluated:state.evaluated,correctAns:state.correctAns,
-      hasStartedOnce:state.hasStartedOnce,lastRoundAllIn:state.lastRoundAllIn},
-    history:clone(historyStack),firstHandDrawPending:firstHandDrawPendingV218,
-    adminPin:state.adminPin,masterVolume:state.masterVolume,sfxVolume:state.sfxVolume,
-    zoomLevel:state.zoomLevel,resizerEnabled:state.resizerEnabled,resizerHeight:state.resizerHeight,
-    columnMode:state.columnMode,saveAllIn:state.saveAllIn
+    schemaVersion: Reliability.schemaVersion,
+    appVersion: "V3.0.2",
+    timestamp: new Date().toISOString(),
+    seasonId: state.seasonId,
+    groups: getPersistableGroups(),
+    picker: clone(state.picker),
+    itemGlobal: clone(state.itemGlobal || {}),
+    round: {
+      roundActive: state.roundActive,
+      evaluated: state.evaluated,
+      correctAns: state.correctAns,
+      hasStartedOnce: state.hasStartedOnce,
+      lastRoundAllIn: state.lastRoundAllIn,
+    },
+    history: clone(historyStack),
+    firstHandDrawPending: firstHandDrawPendingV218,
+    adminPin: state.adminPin,
+    masterVolume: state.masterVolume,
+    sfxVolume: state.sfxVolume,
+    zoomLevel: state.zoomLevel,
+    resizerEnabled: state.resizerEnabled,
+    resizerHeight: state.resizerHeight,
+    columnMode: state.columnMode,
+    saveAllIn: state.saveAllIn,
   };
 }
-function applyClassroomBackup(raw){
-  const data=Reliability.validateBackup(raw);
+function applyClassroomBackup(raw) {
+  Reliability.validateBackup(raw);
+  const data = Reliability.validateBackup(SchemaMigrations.migrateBackup(raw));
   window.GodpowerPicker?.invalidate();
-  state.groups=normalizeAllGroups(data.groups);
-  if(data.picker){
-    const p=data.picker;
-    state.picker={mode:['individual','group','two_tier'].includes(p.mode)?p.mode:'individual',antiRepeat:p.antiRepeat!==false,
-      pickedStudentKeys:Array.isArray(p.pickedStudentKeys)?p.pickedStudentKeys:[],
-      pickedGroupIds:Array.isArray(p.pickedGroupIds)?p.pickedGroupIds:[],preselectedGroupIds:Array.isArray(p.preselectedGroupIds)?p.preselectedGroupIds:[]};
+  state.seasonId = StableIdentity.isValidSeasonId(data.seasonId)
+    ? data.seasonId
+    : StableIdentity.createSeasonId();
+  state.groups = normalizeAllGroups(data.groups);
+  if (data.picker) {
+    const p = data.picker;
+    state.picker = {
+      mode: ["individual", "group", "two_tier"].includes(p.mode)
+        ? p.mode
+        : "individual",
+      antiRepeat: p.antiRepeat !== false,
+      pickedStudentKeys: Array.isArray(p.pickedStudentKeys)
+        ? p.pickedStudentKeys
+        : [],
+      pickedGroupIds: Array.isArray(p.pickedGroupIds) ? p.pickedGroupIds : [],
+      preselectedGroupIds: Array.isArray(p.preselectedGroupIds)
+        ? p.preselectedGroupIds
+        : [],
+    };
   }
-  if(data.itemGlobal){
-    state.itemGlobal=clone(data.itemGlobal);
-    for(const k of ['blooperUntil','totalDraws','handRaiseTotal','pkTotal'])state.itemGlobal[k]=Reliability.count(state.itemGlobal[k]);
-    for(const k of ['pickerHistory','handRaiseHistory'])if(!Array.isArray(state.itemGlobal[k]))state.itemGlobal[k]=[];
-    state.itemGlobal.customIcons=Object.fromEntries(Object.entries(state.itemGlobal.customIcons||{}).filter(([k,v])=>ITEM_DEFS[k]&&Reliability.safeImage(v)));
+  if (data.itemGlobal) {
+    state.itemGlobal = clone(data.itemGlobal);
+    for (const k of ["blooperUntil", "totalDraws", "handRaiseTotal", "pkTotal"])
+      state.itemGlobal[k] = Reliability.count(state.itemGlobal[k]);
+    for (const k of ["pickerHistory", "handRaiseHistory"])
+      if (!Array.isArray(state.itemGlobal[k])) state.itemGlobal[k] = [];
+    state.itemGlobal.customIcons = Object.fromEntries(
+      Object.entries(state.itemGlobal.customIcons || {}).filter(
+        ([k, v]) => ITEM_DEFS[k] && Reliability.safeImage(v),
+      ),
+    );
   }
-  if(data.round){
-    const r=data.round;
-    state.roundActive=!!r.roundActive;state.evaluated=!!r.evaluated;
-    state.hasStartedOnce=!!r.hasStartedOnce;state.correctAns=['A','B','C','D'].includes(r.correctAns)?r.correctAns:'';
-    state.lastRoundAllIn=r.lastRoundAllIn||null;
-  }else{
+  if (data.round) {
+    const r = data.round;
+    state.roundActive = !!r.roundActive;
+    state.evaluated = !!r.evaluated;
+    state.hasStartedOnce = !!r.hasStartedOnce;
+    state.correctAns = ["A", "B", "C", "D"].includes(r.correctAns)
+      ? r.correctAns
+      : "";
+    state.lastRoundAllIn = r.lastRoundAllIn || null;
+  } else {
     // Unversioned V2 backups have no round metadata. Resume as an idle classroom.
-    state.roundActive=false;state.evaluated=false;state.hasStartedOnce=false;state.correctAns='';
-    state.groups.forEach(g=>{g.selectedOpt='';g.allIn=false;g.itemUsedThisRound=false});
+    state.roundActive = false;
+    state.evaluated = false;
+    state.hasStartedOnce = false;
+    state.correctAns = "";
+    state.groups.forEach((g) => {
+      g.selectedOpt = "";
+      g.allIn = false;
+      g.itemUsedThisRound = false;
+    });
   }
-  if(data.adminPin!=null)state.adminPin=String(data.adminPin);
-  for(const [k,min,max]of [['masterVolume',0,1],['sfxVolume',0,1],['zoomLevel',.4,2],['resizerHeight',0,2000]]){
-    if(Number.isFinite(Number(data[k])))state[k]=Math.max(min,Math.min(max,Number(data[k])));
+  if (data.adminPin != null) state.adminPin = String(data.adminPin);
+  for (const [k, min, max] of [
+    ["masterVolume", 0, 1],
+    ["sfxVolume", 0, 1],
+    ["zoomLevel", 0.4, 2],
+    ["resizerHeight", 0, 2000],
+  ]) {
+    if (Number.isFinite(Number(data[k])))
+      state[k] = Math.max(min, Math.min(max, Number(data[k])));
   }
-  for(const k of ['saveAllIn','resizerEnabled'])if(typeof data[k]==='boolean')state[k]=data[k];
-  if(['single','double'].includes(data.columnMode))state.columnMode=data.columnMode;
-  if(typeof data.firstHandDrawPending==='boolean')firstHandDrawPendingV218=data.firstHandDrawPending;
-  if(Array.isArray(data.history))historyStack=data.history.filter(h=>h&&Array.isArray(h.groups)).slice(-MAX_HISTORY);
-  ensureV2State();ensureGroupNumbersV213(false);
+  for (const k of ["saveAllIn", "resizerEnabled"])
+    if (typeof data[k] === "boolean") state[k] = data[k];
+  if (["single", "double"].includes(data.columnMode))
+    state.columnMode = data.columnMode;
+  if (typeof data.firstHandDrawPending === "boolean")
+    firstHandDrawPendingV218 = data.firstHandDrawPending;
+  if (Array.isArray(data.history))
+    historyStack = data.history
+      .filter((h) => h && Array.isArray(h.groups))
+      .slice(-MAX_HISTORY);
+  ensureV2State();
+  ensureGroupNumbersV213(false);
 }
-function importClassroomData(data){
-  if(state.isLocked)return {ok:false,error:'请先解锁'};
+function importClassroomData(data) {
+  if (state.isLocked) return { ok: false, error: "请先解锁" };
   Reliability.invalidateDefenseDecisions();
-  const old=clone(state),history=clone(historyStack),first=firstHandDrawPendingV218;
-  try{
+  const old = clone(state),
+    history = clone(historyStack),
+    first = firstHandDrawPendingV218;
+  const wasRecovering = !!window.classroomRecoveryRequired;
+  try {
     Reliability.validateBackup(data);
+    if (wasRecovering) {
+      const preserved = ClassroomRepository.writeVerified(
+        CLASSROOM_STORAGE,
+        "godpower_recovery_before_import_v2",
+        {
+          sourceKey: Reliability.stateKey,
+          raw: CLASSROOM_STORAGE.getItem(Reliability.stateKey),
+          preservedAt: new Date().toISOString(),
+        },
+      );
+      if (!preserved.ok)
+        throw Error("无法保留待恢复的原存档：" + preserved.error);
+    }
     cancelScoreAnimationAndSync();
     applyClassroomBackup(data);
-    const result=saveState();
-    if(!result.ok)throw Error(result.error);
-    document.body.style.zoom=state.zoomLevel;
-    renderAll();return {ok:true};
-  }catch(error){
-    state=old;historyStack=history;firstHandDrawPendingV218=first;
-    renderAll();return {ok:false,error:String(error.message||error)};
+    window.classroomRecoveryRequired = false;
+    const result = saveState();
+    if (!result.ok) throw Error(result.error);
+    document.body.style.zoom = state.zoomLevel;
+    renderAll();
+    return { ok: true };
+  } catch (error) {
+    state = old;
+    historyStack = history;
+    firstHandDrawPendingV218 = first;
+    window.classroomRecoveryRequired = wasRecovering;
+    renderAll();
+    return { ok: false, error: String(error.message || error) };
   }
 }
-function itemCommandSnapshot(){return JSON.stringify({groups:state.groups,itemGlobal:state.itemGlobal})}
-function showClassroomSaveWarning(error){
-  const alreadyUnsaved=!!window.classroomUnsavedChanges;
-  window.classroomUnsavedChanges=true;
-  window.classroomPersistenceError=String(error||'保存不可用');
-  const warning=document.getElementById('classroomSaveWarning');
-  if(warning){warning.hidden=false;warning.dataset.reason=String(error||'保存不可用')}
-  if(!alreadyUnsaved)showToast('更改仅保存在本页。关闭或刷新前请导出备份。');
+function itemCommandSnapshot() {
+  return JSON.stringify({ groups: state.groups, itemGlobal: state.itemGlobal });
+}
+function showClassroomSaveWarning(error) {
+  const alreadyUnsaved = !!window.classroomUnsavedChanges;
+  window.classroomUnsavedChanges = true;
+  window.classroomPersistenceError = String(error || "保存不可用");
+  const warning = document.getElementById("classroomSaveWarning");
+  if (warning) {
+    warning.hidden = false;
+    warning.dataset.reason = String(error || "保存不可用");
+  }
+  if (!alreadyUnsaved) showToast("更改仅保存在本页。关闭或刷新前请导出备份。");
 }
 // Only this adapter touches global classroom state; the controller is pure/testable.
-const classroomCommands=CommandLifecycle.create({
-  active:()=>!!window.itemCommandActive,
-  setActive:value=>{window.itemCommandActive=value},
-  invalidate:()=>Reliability.invalidateDefenseDecisions(),
-  snapshot:()=>({state:clone(state),history:clone(historyStack),identity:state,backup:clone(buildClassroomBackup())}),
-  restore:before=>{
+const classroomCommands = CommandLifecycle.create({
+  active: () => !!window.itemCommandActive,
+  setActive: (value) => {
+    window.itemCommandActive = value;
+  },
+  commandId: () => StableIdentity.createCommandId(),
+  createEventScope: (options) => DomainEvents.createScope(options),
+  invalidate: () => Reliability.invalidateDefenseDecisions(),
+  snapshot: () => ({
+    state: clone(state),
+    history: clone(historyStack),
+    identity: state,
+    backup: clone(buildClassroomBackup()),
+  }),
+  restore: (before) => {
     // Imported/replaced state belongs to a newer classroom and must be preserved.
-    if(state===before.identity){
-      const liveGroups=new Map(state.groups.map(g=>[g.id,g]));
-      const restored=before.state;
-      restored.groups=restored.groups.map(g=>{
-        const live=liveGroups.get(g.id);if(!live)return g;
-        Object.keys(live).forEach(k=>delete live[k]);Object.assign(live,g);return live;
+    if (state === before.identity) {
+      const liveGroups = new Map(state.groups.map((g) => [g.id, g]));
+      const restored = before.state;
+      restored.groups = restored.groups.map((g) => {
+        const live = liveGroups.get(g.id);
+        if (!live) return g;
+        Object.keys(live).forEach((k) => delete live[k]);
+        Object.assign(live, g);
+        return live;
       });
-      Object.keys(state).forEach(k=>delete state[k]);Object.assign(state,restored);
-      historyStack=before.history;
+      Object.keys(state).forEach((k) => delete state[k]);
+      Object.assign(state, restored);
+      historyStack = before.history;
     }
     cancelScoreAnimationAndSync();
   },
-  record:description=>{
-    window.classroomRecordingCommand=true;
-    try{recordHistory(description)}finally{window.classroomRecordingCommand=false}
-  },
-  validate:()=>{if(state.groups.some(g=>!Number.isSafeInteger(g.score)))throw Error('操作结果超出安全整数范围')},
-  persist:()=>saveState(), render:()=>renderAll(),
-  result:value=>{window.lastClassroomCommandResult=value},
-  warning:error=>showClassroomSaveWarning(error),
-  error:error=>showToast('操作未完成，已回滚，请导出备份：'+error.message)
-});
-Reliability.onDefenseInvalidation(()=>classroomCommands.cancel('lifecycle-changed'));
-function runClassroomCommand(description,operation,options){return classroomCommands.run(description,operation,options)}
-function deferClassroomDefense(promise,apply,isCurrent){
-  if(classroomCommands.defer(promise,apply,isCurrent))return;
-  // Compatibility for direct effect callers outside the public item command.
-  Promise.resolve(promise).then(answer=>{
-    if(!isCurrent())return;
-    apply(answer);saveState();renderAll();
-  }).catch(error=>{console.error('防御确认失败',error);showToast('防御确认未完成，请重试')});
-}
-function useItem(groupId,index){
-  if(window.itemCommandActive)return false;
-  Reliability.invalidateDefenseDecisions();
-  const g=state.groups.find(x=>x.id===groupId);
-  const reason=Reliability.validateItem(state,g,index,isCommunismMode());
-  closeItemWindowForFx();
-  if(reason){showToast(reason);return false}
-  const key=g.inventory[index].key;
-  if(!ItemModules.canUse(key)){showToast('该道具的主动使用积木已关闭');return false;}
-  return runClassroomCommand(`${g.name} 使用道具：${ITEM_DEFS[key]?.name||key}`,()=>{
-    ensureV2State();
-    const beforeValue=itemCommandSnapshot();
-    if(g.itemEffect?.iceLock){
-      delete g.itemEffect.iceLock;delete g.itemEffect.iceRoundsLeftV218;
-      if(!Object.keys(g.itemEffect).length)g.itemEffect=null;
-      markItemUsedThisRoundV2177(groupId);
-      showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
-      return true;
+  record: (description) => {
+    window.classroomRecordingCommand = true;
+    try {
+      recordHistory(description);
+    } finally {
+      window.classroomRecordingCommand = false;
     }
-    const result=ItemModules.execute(key,()=>ItemOperationBlocks.run(key,g,index));
-    if(result===false||itemCommandSnapshot()===beforeValue)return false;
-    markItemUsedThisRoundV2177(groupId);
-    return true;
-  });
+  },
+  validate: () => {
+    if (state.groups.some((g) => !Number.isSafeInteger(g.score)))
+      throw Error("操作结果超出安全整数范围");
+  },
+  persist: (transaction) => saveState(transaction),
+  render: () => renderAll(),
+  committed: (transaction) =>
+    window.dispatchEvent(
+      new CustomEvent("godpower:domain-commit", { detail: transaction }),
+    ),
+  postCommitError: (error, transaction) => {
+    console.error("课堂命令完成后界面反馈失败", transaction.commandId, error);
+    showToast("操作已完成，但界面反馈失败。请先导出备份。");
+  },
+  result: (value) => {
+    window.lastClassroomCommandResult = value;
+  },
+  warning: (error) => showClassroomSaveWarning(error),
+  error: (error) =>
+    showToast("操作未完成，已回滚，请导出备份：" + error.message),
+});
+Reliability.onDefenseInvalidation(() =>
+  classroomCommands.cancel("lifecycle-changed"),
+);
+function runClassroomCommand(description, operation, options) {
+  return classroomCommands.run(description, operation, options);
+}
+function deferClassroomDefense(promise, apply, isCurrent) {
+  if (classroomCommands.defer(promise, apply, isCurrent)) return;
+  // Compatibility for direct effect callers outside the public item command.
+  Promise.resolve(promise)
+    .then((answer) => {
+      if (!isCurrent()) return;
+      apply(answer);
+      saveState();
+      renderAll();
+    })
+    .catch((error) => {
+      console.error("防御确认失败", error);
+      showToast("防御确认未完成，请重试");
+    });
+}
+function useItem(groupId, index) {
+  if (window.itemCommandActive) return false;
+  Reliability.invalidateDefenseDecisions();
+  const g = state.groups.find((x) => x.id === groupId);
+  const reason = Reliability.validateItem(state, g, index, isCommunismMode());
+  closeItemWindowForFx();
+  if (reason) {
+    showToast(reason);
+    return false;
+  }
+  const key = g.inventory[index].key;
+  if (!ItemModules.canUse(key)) {
+    showToast("该道具的主动使用积木已关闭");
+    return false;
+  }
+  return runClassroomCommand(
+    `${g.name} 使用道具：${ITEM_DEFS[key]?.name || key}`,
+    () => {
+      ensureV2State();
+      const beforeValue = itemCommandSnapshot();
+      if (g.itemEffect?.iceLock) {
+        delete g.itemEffect.iceLock;
+        delete g.itemEffect.iceRoundsLeftV218;
+        if (!Object.keys(g.itemEffect).length) g.itemEffect = null;
+        markItemUsedThisRoundV2177(groupId);
+        showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
+        return true;
+      }
+      const result = ItemModules.execute(key, () =>
+        ItemOperationBlocks.run(key, g, index),
+      );
+      if (result === false || itemCommandSnapshot() === beforeValue)
+        return false;
+      markItemUsedThisRoundV2177(groupId);
+      return true;
+    },
+  );
 }
 // Read access denial is a browser capability limitation, not a corrupt save.
 // Leave stored data untouched and keep ordinary classroom actions usable in RAM.
-let classroomStoredState=null;
-try{
-  classroomStoredState=CLASSROOM_STORAGE.getItem(Reliability.stateKey);
-}catch(error){
-  window.classroomStorageUnavailable=true;
+let classroomStoredState = null;
+try {
+  const loaded = ClassroomRepository.loadOrMigrate(CLASSROOM_STORAGE, {
+    currentKey: Reliability.stateKey,
+    legacyKey: Reliability.legacyStateKey,
+    receiptKey: "godpower_migration_v2_receipt",
+    fallbackData: () => SchemaMigrations.fromLegacyKeys(CLASSROOM_STORAGE),
+    migrate: (raw) => {
+      Reliability.validateBackup(raw);
+      return SchemaMigrations.migrateBackup(raw);
+    },
+    validate: (data) => Reliability.validateBackup(data),
+  });
+  window.classroomMigrationResult = {
+    status: loaded.status,
+    stage: loaded.stage || null,
+    sourceKey: loaded.sourceKey,
+    error: loaded.error || null,
+  };
+  classroomStoredState = loaded.data;
+  if (loaded.status === "failed") {
+    if (loaded.sourceValidated) {
+      showClassroomSaveWarning("迁移暂未保存，旧存档已保留：" + loaded.error);
+    } else if (
+      ["validate-current", "prepare-migration", "read-legacy"].includes(
+        loaded.stage,
+      )
+    ) {
+      window.classroomRecoveryRequired = true;
+      showClassroomSaveWarning("原存档无法读取，已保护原数据：" + loaded.error);
+    } else {
+      window.classroomStorageUnavailable = true;
+      showClassroomSaveWarning(loaded.error);
+    }
+  }
+  if (loaded.receiptError)
+    console.warn("迁移数据已保存，迁移回执写入失败", loaded.receiptError);
+} catch (error) {
+  window.classroomStorageUnavailable = true;
   showClassroomSaveWarning(error.message);
 }
-if(classroomStoredState!==null){
-  try{applyClassroomBackup(JSON.parse(classroomStoredState))}
-  catch(error){
-    console.error('主存档读取失败，未覆盖原存档',error);
-    window.classroomRecoveryRequired=true;
-    showClassroomSaveWarning('原存档无法解析，已保护原数据：'+error.message);
+if (classroomStoredState !== null) {
+  try {
+    applyClassroomBackup(classroomStoredState);
+  } catch (error) {
+    console.error("主存档读取失败，未覆盖原存档", error);
+    window.classroomRecoveryRequired = true;
+    showClassroomSaveWarning("原存档无法解析，已保护原数据：" + error.message);
   }
 }
-window.classroomReady=true;
+window.classroomReady = true;
 
-function judgeRound(){
-  if(!state.roundActive||state.evaluated||!state.correctAns)return false;
-  try{Reliability.calculateRoundScores(state)}catch(error){themeAlert(error.message);return false}
-  return runClassroomCommand(`自动判定结算 (正解: ${state.correctAns})`,()=>{legacyJudgeRound();return true},{retainOnPersistenceFailure:true});
+function judgeRound() {
+  if (!state.roundActive || state.evaluated || !state.correctAns) return false;
+  try {
+    Reliability.calculateRoundScores(state);
+  } catch (error) {
+    themeAlert(error.message);
+    return false;
+  }
+  return runClassroomCommand(
+    `自动判定结算 (正解: ${state.correctAns})`,
+    () => {
+      legacyJudgeRound();
+      return true;
+    },
+    { retainOnPersistenceFailure: true },
+  );
 }
 
-const classroomDock=document.querySelector('.bottom-dock');
-if(classroomDock&&typeof ResizeObserver==='function'){
-  new ResizeObserver(()=>document.body.style.setProperty('--dock-height',classroomDock.getBoundingClientRect().height+'px')).observe(classroomDock);
+const classroomDock = document.querySelector(".bottom-dock");
+if (classroomDock && typeof ResizeObserver === "function") {
+  new ResizeObserver(() =>
+    document.body.style.setProperty(
+      "--dock-height",
+      classroomDock.getBoundingClientRect().height + "px",
+    ),
+  ).observe(classroomDock);
 }
 </script>
 <script>/* Shared free-score controls and display-only cinematics. Never choose winners or mutate scores. */

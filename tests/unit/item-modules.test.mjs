@@ -72,6 +72,8 @@ test("new inventory carries bounded configured charges; defaults unchanged", () 
   assert.equal(it.charges, 7);
   assert.equal(it.configuredCharges, 7);
   assert.equal(m.inventory("coin", 123).configuredCharges, undefined);
+  assert.match(m.inventory("coin", 123).itemInstanceId, /^item-/);
+  assert.notEqual(m.inventory("coin", 123).itemInstanceId, m.inventory("coin", 123).itemInstanceId);
   v.items.coin.draw.charges = 100;
   assert.throws(() => m.update(v));
 });

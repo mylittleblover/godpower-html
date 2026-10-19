@@ -101,3 +101,15 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
 - 主题切换须测试刷新、存储失败、快速连续切换、跳过/Escape、减少动态效果、页面切换清理和独立窗口同步。仅Chromium1920×1080、1×；不运行CircleCI。
 
 - 悬停提示统一由GodpowerTooltips管理：显示后3秒自动消失，持续悬停不重播；新增提示继续声明title/ARIA即可。禁止另加不自动消失的CSS hover气泡。独立窗口的提示源必须由sync:html同步，不能复制后各自修改。
+
+## V3迁移阶段约束
+
+先迁移与架构，后扩展成就和新规则。新领域逻辑放入 `src/domain`；命令编排放入 `src/application`；localStorage/IndexedDB/迁移在 `src/infrastructure`；界面继续在 `src/ui`。`npm run check`同时检查领域与基础设施反向依赖。
+
+课堂当前权威是Schema2 localStorage。新事务仓库在完成异步命令、来源冻结和完整迁移读回前不得默认启用。禁止同时维护两个可独立改写的权威源。旧v1主存档是迁移时原文，不能当作新操作的实时备份。
+
+涉及迁移时运行 `npm test` 和 `npm run test:migration`，再运行受影响的计分/道具/撤销回归。验证localStorage原文、音频ArrayBuffer、壁纸Blob、档案数和来源hash；必须注入失败并证明无部分数据/完成标记。测试仅使用隔离profile。
+
+音频迁移只补缺失，不覆盖现有用户音效；完成标记只能在目标事务提交且读回确认后写。旧源保留，失败可重试。
+
+UI验证按当前用户范围只用Chromium1920×1080、1×；不执行CircleCI。存储事务测试属于功能验证，不以截图替代。

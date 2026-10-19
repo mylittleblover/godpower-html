@@ -182,6 +182,7 @@
           key,
           charges,
           acquiredAt,
+          itemInstanceId: root.StableIdentity?.createItemInstanceId?.() || `item-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`,
           ...(charges !== definitions[key].charges
             ? { configuredCharges: charges }
             : {}),
