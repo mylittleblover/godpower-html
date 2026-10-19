@@ -1205,3 +1205,18 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 - 风险：过早删除回执可能让旧命令重放重复累计。
 - 验收：长时运行后账本有明确上限或证明增长有界；旧备份仍迁移；崩溃重试不重复计数。
 - 推荐测试：模拟至少 100,000 个事件的纯账本测试及序列化体积/耗时测量。
+
+## CR-001 Review V3 competition rules before engine work (BLOCKED)
+
+- 分类：产品规则/兼容性
+- 优先级：P0
+- 状态：BLOCKED，已完成只读基线、差异矩阵和逐阶段计划；等待设计规则总审
+- 问题：2026-10-20 规则稿将计分取整、状态效果时长、事件池与权重等标为推荐默认，并明确要求先审阅再编码；这些与现有 `Math.round`、Star/Mega 防御、All In 和 26 道具行为存在差异。Kamek、道具箱及个人参赛身份也不在旧数据模型内。
+- 证据：`docs/superpowers/specs/2026-10-20-godpower-v3-competition-rules-design.md`、`CODEX_COMPETITION_RULES_V3_HANDOFF.md`、`competition-rules-difference-matrix.md`、`competition-rules-implementation-plan.md`、`legacy-item-baseline.md`。
+- 影响范围：答题计分、All In、道具/状态、随机数、赛季数据、成员身份、结算归档、Electron/HTML一致性。
+- 建议：请先审阅差异矩阵并确认每个推荐规则/冲突；另行提供 handoff 引用但 ZIP 未包含的 `2026-10-19-godpower-v3-architecture-design.md`，或确认以当前 `docs/ARCHITECTURE.md` 代替。确认后再按实施计划小步推进。
+- 依赖：设计所有者确认；缺失的 companion architecture spec 或替代确认。
+- 复杂度：高
+- 风险：在未裁定前直接实施会擅改比赛平衡并可能破坏旧课堂数据/用户习惯。
+- 验收：推荐项有明确批准/拒绝结果；旧行为基线覆盖全部26道具、All In、排名、状态、回合/撤销；每个新效果有对应差分测试和恢复策略。
+- 推荐测试：先执行只读测试清单和 1920×1080 1x Chromium 14组基线；规则批准后增加纯函数、 seeded differential、事务撤销和 Electron 回归。
