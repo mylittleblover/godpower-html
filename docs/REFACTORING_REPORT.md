@@ -223,3 +223,5 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.14：正解选择2处实现→1个应用命令+1个公开转发，保留实际警告窗、无历史节点和取消规则。新增持久化与异步确认重验；非评分/平衡规则变更。证据artifacts/v3-round-controls。
 
 3.0.15：强制结束直接保存链替换为CommandLifecycle命令，历史仍恰好新增一个恢复点；延迟确认无法覆盖新课堂状态。分数和规则未变，保存确认后再停止音乐/播放动画。
+
+3.0.17：nextRound直接写状态与直接保存迁入课堂命令，保持不产生额外撤销节点，保存一次后执行原有轨道切换/动画。新测试验证复位字段与保存次数。

@@ -1,0 +1,16 @@
+
+> godpower-html@3.0.17 format:check
+> npm run format:ui && npm run format:core
+
+
+> godpower-html@3.0.17 format:ui
+> prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> godpower-html@3.0.17 format:core
+> prettier --check src/domain src/application src/infrastructure src/core/action-sounds.js src/core/history.js src/core/item-score.js
+
+Checking formatting...
+All matched files use Prettier code style!

@@ -1181,3 +1181,9 @@ GP-V3-FORCE-END-OWNER completed: final core117/117 PASS, 239 unit pass,80 round 
 ## GP-V3-NEXT-ROUND-STALE-ASYNC（异步作废检查已修复，状态写入命令仍待迁移）
 
 P1业务状态/高风险，中复杂度。nextRound等待音乐后可把期间新选择清空。3.0.16加状态令牌重验；1项RED/GREEN、80结算差分、239单测通过，证据artifacts/v3-round-controls/next-round-*. 依赖RoundSettlement代次和课堂命令。验收旧音频请求不得更改新课堂。后续仍需把成功切题状态复位、音频生命周期和保存合并为明确命令，不能将该防护误称为整段回合迁移完成。
+
+## GP-V3-NEXT-ROUND-COMMAND（切题状态单命令已完成；音频前置待整合）
+
+P1业务状态/高风险，中复杂度/中风险。3.0.17把成功切题字段复位和保存纳入一个事务，无新撤销节点；音乐异步旧请求仍用令牌作废。RED/GREEN旧请求、正常切题一次保存/字段规则、80差分及239单元通过。音频资源生命周期仍在旧服务中，等待阶段仅做提交前预加载，需后续把音频/命令ACK处理整合并补失败/中断场景。完成标准：音频故障不改变回合字段，提交/重入无并发，旧课不被迟到音乐请求清空。
+
+GP-V3-NEXT-ROUND-COMMAND completed in3.0.17: final core117, unit239, 80 differential and two targeted Chromium cases PASS; map now79/73/13 (function/save/command lexical counts). Audio service lifecycle/interruption and the remaining mutation leads still require migration before default storage cutover.

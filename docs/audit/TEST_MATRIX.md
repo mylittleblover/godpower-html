@@ -396,3 +396,7 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.16 nextRound异步作废：Chromium1920×1080 1x一项PASS，80差分与239单元通过。成功路径写入仍是后续待迁移事项。
 
 3.0.16 core:117/117 PASS; next-round stale async1/1 PASS; 80 settlement differential; app errors=[]. Chromium1920×1080 1x. file:// BLOCKED.
+
+3.0.17切题：2项浏览器专项PASS，含音乐等待竞态与成功路径单次保存/原字段复位；版本17全套单元239 PASS，完整核心回归待最终会话结果。
+
+3.0.17 final: Chromium core117/117, Node239/239, round differential80/80, next-round2/2 PASS, errors=[]. `file://` BLOCKED by browser environment. Build and embedded27-resource checks PASS.

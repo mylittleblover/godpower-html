@@ -5915,3 +5915,5 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 3.0.14：两处setCorrectAns旧实现（早期themeConfirm版、后期programConfirmV28覆盖版）替换为AnswerCommands.correct单实现。保留实际后期警告窗语义与文案；后期缺少保存、确认失效问题由5浏览器专项验证修复。旧programConfirmV28组件仍必要，未删除。
 
 3.0.15：forceEndRound直接修改/recordHistory/saveState已由RoundSettlement.forceEnd单命令替换。危险确认组件及音效、FLIP动画保留；旧确认现需身份/阶段/作答代次匹配。2项时序专项和80项结算差分是替换证据。
+
+3.0.17：nextRound中分散直接赋字段+saveState已替换为事务命令；音频预加载仍为异步前置步骤，防止旧完成覆盖新课堂。结果复位、AllIn持久选项和道具锁行为由2项专项和原117核心回归验证。

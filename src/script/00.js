@@ -1728,18 +1728,28 @@ async function nextRound() {
 
     const flipSnapshotV21725 = captureCardRectsV21725();
 
-    resetRoundItemUseLocksV2177();
-    state.correctAns = '';
-    state.evaluated = false;
-    state.roundActive = true;
-    state.groups.forEach(g => {
-      g.selectedOpt = '';
-      if (!state.saveAllIn) {
-        g.allIn = false;
-      }
-      g.resultText = '';
-      g.animState = '';
-    });
+    v213SuppressReorderAnimation = true;
+    let committed;
+    try {
+      committed = runClassroomCommand("进入下一题", () => {
+        resetRoundItemUseLocksV2177();
+        state.correctAns = '';
+        state.evaluated = false;
+        state.roundActive = true;
+        state.groups.forEach(g => {
+          g.selectedOpt = '';
+          if (!state.saveAllIn) g.allIn = false;
+          g.resultText = '';
+          g.animState = '';
+        });
+        return true;
+      }, {recordHistory:false});
+    } finally {
+      v213SuppressReorderAnimation = false;
+    }
+    if (!committed) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
     // 根据本题初始化后的 All In 状态重新决定思考轨 / 战斗轨。
     const nextRoundAllIn = checkAllInRatio();
     if (nextRoundAllIn) {
@@ -1747,11 +1757,6 @@ async function nextRound() {
     } else if (bgmEngine.state === 'BATTLE' || bgmEngine.state === 'TRANSITION') {
       bgmTransitionBattleToThinking();
     }
-
-    saveState();
-    v213SuppressReorderAnimation = true;
-    renderAll();
-    v213SuppressReorderAnimation = false;
     animateCardsFromSnapshotV21725(flipSnapshotV21725);
     showToast('初始化完毕');
   } finally {

@@ -1,0 +1,10 @@
+[
+  {
+    name: 'stale music completion cannot reset a newer classroom command',
+    status: 'PASS'
+  },
+  {
+    name: 'normal next-round commit saves once and preserves legacy reset rules',
+    status: 'PASS'
+  }
+]
