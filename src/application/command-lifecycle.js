@@ -2,6 +2,8 @@
 const CommandLifecycle = (() => {
   function create(host) {
     let current = null;
+    let committing = null;
+    let persisting = null;
     let generatedCommandId = 0;
     function context(tx) {
       return Object.freeze({
@@ -62,39 +64,69 @@ const CommandLifecycle = (() => {
           events: tx.eventScope?.list() || [],
         };
         tx.eventScope?.close();
+        // Block reentrant dispatch, but leave isPending() false during the
+        // synchronous legacy save call so it does not defer its own persistence.
+        committing = tx;
         saved = host.persist(transaction);
       } catch (error) {
+        committing = null;
+        persisting = null;
         current = tx;
         fail(tx, error);
         return;
       }
-      // Persistence has returned: presentation failures must never reverse it.
-      if (!saved.ok && !tx.retainOnPersistenceFailure) {
-        tx.cancelled = true;
-        host.restore(tx.before);
-        notify(tx, () => host.result({ ok: false, error: saved.error }));
-        notify(tx, () => host.error(Error(saved.error)));
-      } else {
+      if (saved && typeof saved.then === "function") {
+        persisting = tx;
         notify(tx, () =>
-          host.result({
-            ok: true,
-            persisted: !!saved.ok,
-            ...(!saved.ok ? { error: saved.error } : {}),
-          }),
+          host.result({ ok: true, pending: true, persisted: false }),
         );
-        if (!saved.ok) notify(tx, () => host.warning(saved.error));
+        Promise.resolve(saved)
+          .then(
+            (result) => acknowledge(tx, transaction, result),
+            (error) =>
+              acknowledge(tx, transaction, {
+                ok: false,
+                error: String(error?.message || error),
+              }),
+          )
+          .catch((error) => notify(tx, () => host.error(error)));
+      } else acknowledge(tx, transaction, saved);
+    }
+    function acknowledge(tx, transaction, saved) {
+      // The durable acknowledgment is the boundary; UI failures cannot reverse it.
+      persisting = null;
+      try {
+        if (!saved || typeof saved.ok !== "boolean" || saved.deferred)
+          saved = { ok: false, error: "存储没有返回有效的持久化确认" };
+        if (!saved.ok && !tx.retainOnPersistenceFailure) {
+          tx.cancelled = true;
+          host.restore(tx.before);
+          notify(tx, () => host.result({ ok: false, error: saved.error }));
+          notify(tx, () => host.error(Error(saved.error)));
+        } else {
+          notify(tx, () =>
+            host.result({
+              ok: true,
+              persisted: !!saved.ok,
+              ...(!saved.ok ? { error: saved.error } : {}),
+            }),
+          );
+          if (!saved.ok) notify(tx, () => host.warning(saved.error));
+        }
+        if (
+          saved.ok &&
+          !saved.deferred &&
+          saved.eventsPersisted === true &&
+          transaction.events.length
+        )
+          notify(tx, () => host.committed?.(transaction));
+        notify(tx, () => host.render());
+      } finally {
+        if (committing === tx) committing = null;
       }
-      if (
-        saved.ok &&
-        !saved.deferred &&
-        saved.eventsPersisted === true &&
-        transaction.events.length
-      )
-        notify(tx, () => host.committed?.(transaction));
-      notify(tx, () => host.render());
     }
     function run(description, operation, options = {}) {
-      if (host.active()) return false;
+      if (host.active() || committing) return false;
       const commandId =
         options.commandId ||
         host.commandId?.() ||
@@ -165,8 +197,8 @@ const CommandLifecycle = (() => {
       run,
       defer,
       cancel,
-      isPending: () => !!current,
-      baseline: () => current?.before,
+      isPending: () => !!(current || persisting),
+      baseline: () => current?.before || committing?.before,
     };
   }
   return { create };

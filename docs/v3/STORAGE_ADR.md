@@ -28,3 +28,8 @@
 ### 3.0.7验证日志与恢复
 
 import receipt.complete仅表示原子复制完成。迁移检查使用独立verification.status记录VERIFYING/VERIFIED/DESTINATION_INVALID/STAGED_SOURCE_CHANGED/CANCELLED_STAGED及sourceHash/checkedAt/counts。重启遇VERIFYING须重新完整校验，不能推断成功；重试先使旧VERIFIED失效。只有来源仍一致、资源/档案读回齐全、目标revision仍1，才可记录VERIFIED。此标记仍不授权生产切换；切换时需重新冻结来源及验证。取消晚于日志提交时以已提交结果为准。源数据不删除。
+
+
+### 3.0.11兼容命令的异步ACK
+
+旧命令控制器已可等待Promise保存结果、拒绝重叠提交并隔离通知重入。actual IndexedDB测试证明快照/历史/事件可一次提交，失败按strict策略恢复，再次提交及重开正确。仍不能以此默认切换：直接导入/恢复/结算/计时器/管理入口须逐一接通或拒绝在提交期改状态，详见COMMAND_MIGRATION_INVENTORY.md。

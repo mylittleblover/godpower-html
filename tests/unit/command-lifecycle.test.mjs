@@ -25,7 +25,8 @@ function fixture() {
     presentationErrors = [],
     render = () => {},
     persistResult = { ok: true, eventsPersisted: true },
-    invalidator = () => {};
+    invalidator = () => {},
+    resultHook = () => {};
   const controller = scope.api.create({
     active: () => active,
     commandId: (() => {
@@ -52,7 +53,10 @@ function fixture() {
     },
     render: () => render(),
     postCommitError: (error) => presentationErrors.push(error.message),
-    result: (r) => (result = r),
+    result: (r) => {
+      result = r;
+      resultHook(r);
+    },
     warning: (e) => (warning = e),
     error: (e) => (error = e),
     committed: (batch) => commits.push(batch),
@@ -94,6 +98,9 @@ function fixture() {
     },
     set invalidator(fn) {
       invalidator = fn;
+    },
+    set resultHook(fn) {
+      resultHook = fn;
     },
   };
 }
@@ -329,4 +336,148 @@ test("non-history controls still get validation, one save and rollback without a
   assert.equal(f.score, 12);
   assert.equal(f.history, 0);
   assert.equal(f.saves, 1);
+});
+
+test("async persistence keeps one command pending until durable acknowledgment", async () => {
+  const f = fixture();
+  let complete,
+    secondRan = false;
+  f.persistResult = new Promise((resolve) => {
+    complete = resolve;
+  });
+  assert.equal(
+    f.controller.run("async save", () => {
+      f.score = 12;
+      return true;
+    }),
+    true,
+  );
+  assert.equal(f.controller.isPending(), true);
+  assert.equal(f.result.pending, true);
+  assert.equal(f.result.persisted, false);
+  assert.equal(
+    f.controller.run("overlap", () => {
+      secondRan = true;
+    }),
+    false,
+  );
+  assert.equal(secondRan, false);
+  assert.equal(f.saves, 1);
+  complete({ ok: true, eventsPersisted: true });
+  await tick();
+  assert.equal(f.controller.isPending(), false);
+  assert.equal(f.result.persisted, true);
+  assert.equal(f.score, 12);
+});
+
+test("async rejection remains explicitly unsaved and does not publish events", async () => {
+  const f = fixture();
+  let reject;
+  f.persistResult = new Promise((_, fail) => {
+    reject = fail;
+  });
+  f.controller.run("async unavailable", () => {
+    f.score = 12;
+    return true;
+  });
+  reject(Error("isolated async quota"));
+  await tick();
+  assert.equal(f.controller.isPending(), false);
+  assert.equal(f.score, 12);
+  assert.equal(f.result.persisted, false);
+  assert.match(f.result.error, /async quota/);
+  assert.equal(f.commits.length, 0);
+});
+test("strict async failure restores the pre-operation state and history", async () => {
+  const f = fixture();
+  f.persistResult = Promise.resolve({ ok: false, error: "quota" });
+  f.controller.run(
+    "strict async",
+    () => {
+      f.score = 12;
+      return true;
+    },
+    { retainOnPersistenceFailure: false },
+  );
+  await tick();
+  assert.equal(f.score, 10);
+  assert.equal(f.history, 0);
+  assert.equal(f.result.ok, false);
+  assert.equal(f.controller.isPending(), false);
+});
+test("cancel cannot roll back an in-flight durable commit", async () => {
+  const f = fixture();
+  let complete;
+  f.persistResult = new Promise((resolve) => {
+    complete = resolve;
+  });
+  f.controller.run("async commit", () => {
+    f.score = 12;
+    return true;
+  });
+  assert.equal(f.controller.cancel("late cancellation"), false);
+  assert.equal(f.score, 12);
+  complete({ ok: true });
+  await tick();
+  assert.equal(f.result.persisted, true);
+  assert.equal(f.score, 12);
+});
+test("deferred storage acknowledgment is never reported as durable success", () => {
+  const f = fixture();
+  f.persistResult = { ok: true, deferred: true, eventsPersisted: true };
+  f.controller.run("deferred", () => {
+    f.score = 12;
+    return true;
+  });
+  assert.equal(f.result.persisted, false);
+  assert.equal(f.commits.length, 0);
+  assert.match(f.result.error, /持久化确认/);
+});
+test("async events publish exactly once after durable acknowledgment", async () => {
+  const f = fixture();
+  let complete;
+  f.persistResult = new Promise((resolve) => {
+    complete = resolve;
+  });
+  f.controller.run(
+    "async event",
+    (ctx) => {
+      f.score = 12;
+      ctx.emit(
+        "SCORE_CHANGED",
+        { type: "group", id: "group-a" },
+        { before: 10, after: 12 },
+      );
+      return true;
+    },
+    { source: "manual" },
+  );
+  assert.equal(f.commits.length, 0);
+  complete({ ok: true, eventsPersisted: true });
+  await tick();
+  assert.equal(f.commits.length, 1);
+  assert.equal(f.commits[0].events.length, 1);
+  assert.equal(f.commits[0].events[0].source, "manual");
+});
+
+test("postcommit notifications cannot reenter before earlier events and render complete", () => {
+  const f = fixture();
+  let tried = false,
+    accepted;
+  f.resultHook = () => {
+    if (!tried) {
+      tried = true;
+      accepted = f.controller.run("reentrant", () => {
+        f.score = 99;
+        return true;
+      });
+    }
+  };
+  f.controller.run("first", () => {
+    f.score = 12;
+    return true;
+  });
+  assert.equal(accepted, false);
+  assert.equal(f.saves, 1);
+  assert.equal(f.score, 12);
 });

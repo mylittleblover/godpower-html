@@ -1149,3 +1149,8 @@ P1架构，中复杂度/中风险。选择答案/AllIn原为直接全局修改�
 ## GP-010-GENERATION（已修复）
 
 P1异步生命周期，中复杂度/中风险。旧确认Promise可清掉同组新确认pending标志；复现两次刺龟壳请求后先结束旧确认，标志false。现用WeakMap请求token限定clear归属；旧epoch保护保留。源码application/item-defense-adapter；依赖既有防御epoch/命令取消。229单元、464差分、26oracle、10生命周期、30全异步及2代际场景通过。验收旧结束不清新标志，新结束仅消耗一次，存档无新token。证据artifacts/v3-defense。此项不能代替后续整个异步持久化权威切换。
+
+
+## GP-V3-ASYNC-LIFECYCLE（兼容控制器已完成，默认切换未完成）
+
+P1存储/架构，中复杂度/高风险。旧控制器把Promise当同步结果，现支持明确pending/ACK、拒绝重叠与通知重入、事件仅持久化后发布、strict/RAM失败策略。236单元、真实14组IndexedDB提交/冲突/重开、7手工/4答题/2代际、117核心及3保存故障场景通过。证据artifacts/v3-async-lifecycle。依赖仓库事务port。验收无未确认成功/无重叠写/事件不提前发布。后续GP-V3-MUTATION-BARRIER待实施：P0，高复杂度/高风险；按COMMAND_MIGRATION_INVENTORY中危险操作→回合→抽取/计时器→管理→设置顺序收口。完成前严禁默认切换，源须保留并重新完整验证。

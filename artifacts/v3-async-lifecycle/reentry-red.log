@@ -1,0 +1,50 @@
+✔ synchronous command persists once and records once (1.690931ms)
+✔ committed domain events are passed to persistence and published only after a successful save (1.037811ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (0.550077ms)
+✔ pending defense never persists a partial command; finish records one operation (6.00594ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (0.960135ms)
+✔ new command cancels pending operation before its own snapshot (1.870085ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.820934ms)
+✔ multiple asynchronous effects commit only when all decisions finish (2.719763ms)
+✔ invalid or overflowing commands never persist (0.518912ms)
+✔ stale defense cancels entire command (0.667136ms)
+✔ render failure cannot roll back a successfully persisted command (0.906388ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.206416ms)
+✔ async persistence keeps one command pending until durable acknowledgment (0.849222ms)
+✔ async rejection remains explicitly unsaved and does not publish events (1.831331ms)
+✔ strict async failure restores the pre-operation state and history (1.738797ms)
+✔ cancel cannot roll back an in-flight durable commit (1.575811ms)
+✔ deferred storage acknowledgment is never reported as durable success (0.249073ms)
+✔ async events publish exactly once after durable acknowledgment (1.872122ms)
+✖ postcommit notifications cannot reenter before earlier events and render complete (0.925369ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 18
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 113.673694
+
+✖ failing tests:
+
+test at tests/unit/command-lifecycle.test.mjs:458:1
+✖ postcommit notifications cannot reenter before earlier events and render complete (0.925369ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/command-lifecycle.test.mjs:462:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

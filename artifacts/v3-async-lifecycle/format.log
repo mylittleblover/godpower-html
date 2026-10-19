@@ -1,0 +1,6 @@
+
+> godpower-html@3.0.11 format:core
+> prettier --check src/domain src/application src/infrastructure src/core/action-sounds.js src/core/history.js src/core/item-score.js
+
+Checking formatting...
+All matched files use Prettier code style!

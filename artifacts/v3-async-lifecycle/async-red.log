@@ -1,0 +1,44 @@
+✔ synchronous command persists once and records once (3.205796ms)
+✔ committed domain events are passed to persistence and published only after a successful save (0.874386ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (41.878268ms)
+✔ pending defense never persists a partial command; finish records one operation (8.682041ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (5.043829ms)
+✔ new command cancels pending operation before its own snapshot (3.328225ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.945624ms)
+✔ multiple asynchronous effects commit only when all decisions finish (5.684324ms)
+✔ invalid or overflowing commands never persist (0.476306ms)
+✔ stale defense cancels entire command (2.553165ms)
+✔ render failure cannot roll back a successfully persisted command (1.897713ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.192988ms)
+✖ async persistence keeps one command pending until durable acknowledgment (4.977449ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 296.82091
+
+✖ failing tests:
+
+test at ../../tmp/gp-command-lifecycle-next.test.mjs:334:1
+✖ async persistence keeps one command pending until durable acknowledgment (4.977449ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///tmp/gp-command-lifecycle-next.test.mjs:338:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

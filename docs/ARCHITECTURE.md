@@ -103,3 +103,8 @@ selectGroupOpt/toggleAllInCard→AnswerCommands→CommandLifecycle。recordHisto
 ### 防御职责（3.0.10）
 
 Domain DefensePolicy只选既有优先级，不改数据、不读DOM、不调用音效。application/item-defense-adapter执行扣次/状态消耗/提示和requestSpinyDefense；core/item-score执行分数应用与反馈调度。异步确认的epoch保护业务结果，WeakMap请求token保护pending标志归属；两层不能相互替代。token不进入存档，旧布尔标志格式不变。
+
+
+### 异步保存屏障（3.0.11）
+
+CommandLifecycle分离current计算/防御、committing排他提交、persisting异步确认。同步legacy save调用时isPending保持false以免自我延迟，异步返回后isPending为true。ACK前不发布事件；ACK后直到结果、事件、渲染通知结束仍禁止重入。拒绝/无效ACK按明确RAM或严格回滚策略处理。真实IndexedDB适配验证已通过，但默认host仍同步；直接全局写入口及危险操作未全部迁完，不可启用默认新后端。
