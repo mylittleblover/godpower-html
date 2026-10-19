@@ -5909,3 +5909,5 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 ## 人工验证与实际治理决策
 
 详见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md) 的替代行为表及对应测试。未出现在安全删除记录中的 CSS、音频、渲染和 legacyUseItem 包装层均保留，不以旧版本号作为删除依据。全部独立 keyframes 名称、模板及字符串内联事件入口也见 SOURCE_CATALOG.md；当前索引不是完整作用域解析或动态可达性证明。
+
+3.0.13：restoreStateFromSnapshot/undoLast/revertToHistory旧函数体已被HistoryCommands覆盖并替换为转发入口；保留公开名称兼容既有调用。快照capture、normalizeAllGroups和item timer仍必要。替换证据见artifacts/v3-history（18差分、5专项）。

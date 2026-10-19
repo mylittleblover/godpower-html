@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "name": "undo commits one snapshot restore and one primary save",
+      "status": "PASS"
+    },
+    {
+      "name": "history revert cancels defense before trimming its reliable history",
+      "status": "PASS"
+    },
+    {
+      "name": "undo under quota preserves the explicit RAM-only compatibility policy",
+      "status": "PASS"
+    },
+    {
+      "name": "pending attack undo cancels only that attack, preserving earlier history",
+      "status": "PASS"
+    },
+    {
+      "name": "consecutive undo restores original scores without new history nodes",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

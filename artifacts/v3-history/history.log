@@ -1,0 +1,5 @@
+PASS undo commits one snapshot restore and one primary save
+PASS history revert cancels defense before trimming its reliable history
+PASS undo under quota preserves the explicit RAM-only compatibility policy
+PASS pending attack undo cancels only that attack, preserving earlier history
+PASS consecutive undo restores original scores without new history nodes

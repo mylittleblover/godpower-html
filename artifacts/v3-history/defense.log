@@ -1,0 +1,24 @@
+PASS stale defense completion preserves the newer pending decision [
+  {
+    key: 'horn',
+    before: true,
+    afterStale: true,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  },
+  {
+    key: 'mushroom',
+    before: true,
+    afterStale: true,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  }
+]

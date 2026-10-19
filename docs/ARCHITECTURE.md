@@ -113,3 +113,7 @@ CommandLifecycle分离current计算/防御、committing排他提交、persisting
 ### 危险操作写屏障与历史清空（3.0.12）
 
 ClassroomWriteBarrier只拒绝durable commit期，不阻止取消旧防御等待。导入、撤销、恢复、回溯及最终归档在任何修改前检测。HistoryCommands.clear重新检查确认时的课堂/赛季/历史和本地锁；不新增撤销节点，保存失败严格恢复记录，await whenIdle确认持久化后提示。原clearHistoryStack仅转发，不再出现内存清空但主存档未更新的分叉。whenIdle的completion不进入存档。其余直接写入口仍须迁移。
+
+### 历史恢复命令（3.0.13）
+
+HistoryCommands统一clear/restore/undo/revert。恢复字段适配器不保存、不触发防御失效；外层命令先取消旧防御，再选择可靠历史并在同一命令中截断、恢复和保存一次。undo在防御等待时仅取消该次攻击。普通恢复保留RAM-only保存故障策略，清空仍严格失败回滚。public旧入口仅转发；快照字段、显示/计时器恢复顺序及已有设置不变。

@@ -585,19 +585,7 @@ async function clearHistoryStack() {
 }
 
 function revertToHistory(index) {
-  if (!ClassroomWriteBarrier.allow()) return false;
-  if (state.isLocked) {
-    themeAlert('时间旅行需要许可证。先解锁上帝模式，再回来改写历史。');
-    openPwdModal();
-    return;
-  }
-  const target = historyStack[index];
-  if (!target) return;
-  historyStack = historyStack.slice(0, index);
-  restoreStateFromSnapshot(target);
-  playSound('rewind');
-  renderHistoryList();
-  showToast(`已回溯至：[${target.time}] ${target.desc}`);
+  return HistoryCommands.revert(index);
 }
 
 function initDB() {

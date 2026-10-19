@@ -42,44 +42,8 @@ function persistHistoryV26() {
   return { ok };
 }
 function restoreStateFromSnapshot(snapshot) {
-  if (!ClassroomWriteBarrier.allow()) return false;
-  window.GodpowerPicker?.invalidate();
-  Reliability.invalidateDefenseDecisions();
-  cancelScoreAnimationAndSync();
-  if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
-  state.groups = normalizeAllGroups(snapshot.groups);
-  state.groups.forEach((g) => {
-    g.displayScore = g.score;
-  });
-  state.correctAns = snapshot.correctAns;
-  state.evaluated = snapshot.evaluated;
-  state.roundActive = snapshot.roundActive;
-  state.hasStartedOnce = snapshot.hasStartedOnce;
-  state.lastRoundAllIn = snapshot.lastRoundAllIn;
-  if (snapshot.picker) state.picker = clone(snapshot.picker);
-  if (Number.isFinite(snapshot.resizerHeight))
-    state.resizerHeight = snapshot.resizerHeight;
-  saveState();
-  renderAll();
-  // Preserve original restore adapter's item timers and final render ordering.
-  ensureItemState();
-  if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
-  startBulletTimer();
-  startBlooperClock();
-  renderAll();
+  return HistoryCommands.restore(snapshot);
 }
 function undoLast() {
-  if (!ClassroomWriteBarrier.allow()) return false;
-  if (state.isLocked) openPwdModal();
-  else if (window.classroomReady && classroomCommands.isPending())
-    Reliability.invalidateDefenseDecisions();
-  else if (!historyStack.length) showToast("暂无更早的历史记录");
-  else {
-    const prev = historyStack.pop();
-    restoreStateFromSnapshot(prev);
-    playSound("rewind");
-    showToast(`已恢复到历史节点：${prev.desc}`);
-  }
-  persistHistoryV26();
-  saveState();
+  return HistoryCommands.undo();
 }
