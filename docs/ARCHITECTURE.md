@@ -1,20 +1,20 @@
 # GodPower V3 当前架构
 
-更新日期：2026-10-19。应用版本：3.0.4。当前处于渐进迁移中，领域事件与成就目录不代表成就运行时已完成。
+更新日期：2026-10-19。应用版本：3.0.23。当前处于渐进迁移中；成就运行时尚不评估或授予60项徽章。
 
 ## 分层与职责
 
-| 层 | 目录/所有者 | 职责与禁止事项 |
-|---|---|---|
-| 领域 | `src/domain/identity.js`、`events.js`、`achievements/catalog.js` | 稳定身份、不可变事件信封、60项成就元数据；不读取DOM、存储或Electron接口 |
-| 旧命令生命周期 | `src/application/command-lifecycle.js` | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果 |
-| 旧程序适配 | `src/application/legacy-classroom-adapter.js` | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出 |
-| 旧存储基础设施 | `src/infrastructure/legacy/` | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制 |
-| 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js` | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
-| 存储预检 | `src/infrastructure/legacy/inventory.js` | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源 |
-| 兼容核心 | `src/core/` | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容 |
-| 表现 | `src/ui/` | 页面投影、渲染、弹窗、动画、音乐/音效反馈与Electron界面桥；表现不得决定随机或积分结果 |
-| 遗留实现 | `src/script/`、`src/style/` | 仍包含有效计分/道具/音频规则及CSS。编号不代表无效；每族通过差分测试后再删除 |
+| 层               | 目录/所有者                                                                                | 职责与禁止事项                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| 领域             | `src/domain/identity.js`、`events.js`、`achievements/catalog.js`、`achievements/ledger.js` | 稳定身份、不可变事件信封、60项目录元数据、按小组去重的已确认事件计数；不读取DOM、存储或Electron接口    |
+| 旧命令生命周期   | `src/application/command-lifecycle.js`                                                     | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果                                 |
+| 旧程序适配       | `src/application/legacy-classroom-adapter.js`                                              | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出                   |
+| 旧存储基础设施   | `src/infrastructure/legacy/`                                                               | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制                                            |
+| 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js`                                               | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
+| 存储预检         | `src/infrastructure/legacy/inventory.js`                                                   | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源             |
+| 兼容核心         | `src/core/`                                                                                | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容    |
+| 表现             | `src/ui/`                                                                                  | 页面投影、渲染、弹窗、动画、音乐/音效反馈与Electron界面桥；表现不得决定随机或积分结果                  |
+| 遗留实现         | `src/script/`、`src/style/`                                                                | 仍包含有效计分/道具/音频规则及CSS。编号不代表无效；每族通过差分测试后再删除                            |
 
 领域层依赖标准JavaScript与可注入的时间/身份来源。应用层通过仓库和表现适配器执行副作用；基础设施不得调用渲染函数。普通内联脚本的构建顺序由模板和manifest显式记录，最终不需要模块服务器。
 
@@ -24,16 +24,17 @@
 
 命令成功、持久化成功与视觉播放是独立结果。普通课堂在浏览器存储不可写时保留本页结果并持续提示导出；导入和最终归档采用严格保存/恢复。异步防御取消后不得修改新回合、替换过的道具或导入后的课堂。
 
-事件scope含commandId、eventId、source、aggregate、causationId、时间与序号。只有仓库明确确认事件已持久化，控制器才发布确认事件。生产旧存储目前未接事件持久化，因此不会提前发布成就事件。
+事件scope含commandId、eventId、source、aggregate、causationId、时间与序号。正式判题会为每组产生ROUND_SETTLED事实；主状态和achievementLedger在同一godpower_state_v2写入中提交。只有主存档确认成功，控制器才发布godpower:domain-commit。导入和手动来源不会成为成就事实。道具、攻防、效果与封神事件的生产者及60项规则评估仍待实现。
 
 ## 当前数据权威及迁移
 
-1. 当前课堂主键为`godpower_state_v2`，envelope schemaVersion=2。旧`godpower_state_v1`保留迁移时的原始字节。
+1. 当前课堂主键为`godpower_state_v2`，envelope schemaVersion=2。新增字段achievementLedger.schemaVersion=1为加法字段，旧`godpower_state_v1`保留迁移时的原始字节。
 2. 启动优先读取并验证v2；只有v2不存在才读取v1，或旧镜像键。纯转换补齐groupUid、itemInstanceId、seasonId后，复制到v2并读回校验。
 3. 当前主存档损坏时阻止自动覆盖，不能静默回退成更旧的课堂。明确导入恢复前把损坏原文保存到`godpower_recovery_before_import_v2`。
 4. 迁移复制失败时保留来源；已验证的旧课堂可在内存使用并导出。完成回执最后写入，回执写入失败可重试。
 5. 兼容镜像仍在主快照成功后更新。归档目前仍位于`politics_settlement_history`，与课堂清零尚非跨键事务；保存失败恢复原课堂，seasonId用于防重复。
 6. 新IndexedDB事务仓库已验证原子提交、修订冲突、命令去重、崩溃后重开与资源导入。切换生产权威前，必须完成异步应用命令入口、来源冻结和完整迁移读回验证，不能长期维持两个权威源。
+7. 成就事件回执与历史/赛季计数随课堂快照保存并纳入撤销快照；最终档案包含当前账本副本。旧备份缺少该字段时初始化为空账本，不改变旧数据字段。
 
 v1来源是迁移前基线，不代表迁移后每次操作的最新副本。回退旧程序前必须导出新课堂并做兼容转换；不能直接把旧源当作最新进度。
 
@@ -79,36 +80,29 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 
 这不是所有比赛规则都已纯化：道具回合适配仍使用现有state和攻击/防御服务，存储默认切换仍等待后续真实命令迁移。
 
-
 ### 3.0.5道具单一执行入口
 
 公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；原14层legacyUseItem链已移除，仅保留legacyUseItem→useItem兼容转发。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。
-
 
 ### 3.0.6领域排序与目标选择
 
 RankingRules.ordered保留同分原始顺序且不改输入；旧ranking入口只读取state.groups并转交纯函数。ItemTargets.select只返回引用，random/eligible由执行器显式注入；抽取与效果计算不在该模块。randomAhead旧排序比较器、取数顺序均保留。迁移或新竞技规则阶段可复用这些边界，不必通过全局覆盖修改。
 
-
 ### 手工积分命令（3.0.8）
 
 UI→applyScoreDelta→ManualScoreCommands.adjust→ScoreAdjustments.delta→CommandLifecycle→旧repository一次保存→表现。直接编辑使用set入口、保留原撤销语义；手工来源manual不应触发答题/竞技/道具成就。配额不足显式保留RAM未保存状态；新后端未激活。
-
 
 ### 答题控制命令（3.0.9）
 
 selectGroupOpt/toggleAllInCard→AnswerCommands→CommandLifecycle。recordHistory=false仅用于原来不产生撤销节点的答题选择与AllIn；仍有回滚快照、保存验证和结果。旧道具使用限制和音乐阈值未变。命令替换待定防御时，旧事务先回滚，选择在可靠基线上提交。保存默认仍旧repository，不是异步后端已激活。
 
-
 ### 防御职责（3.0.10）
 
 Domain DefensePolicy只选既有优先级，不改数据、不读DOM、不调用音效。application/item-defense-adapter执行扣次/状态消耗/提示和requestSpinyDefense；core/item-score执行分数应用与反馈调度。异步确认的epoch保护业务结果，WeakMap请求token保护pending标志归属；两层不能相互替代。token不进入存档，旧布尔标志格式不变。
 
-
 ### 异步保存屏障（3.0.11）
 
 CommandLifecycle分离current计算/防御、committing排他提交、persisting异步确认。同步legacy save调用时isPending保持false以免自我延迟，异步返回后isPending为true。ACK前不发布事件；ACK后直到结果、事件、渲染通知结束仍禁止重入。拒绝/无效ACK按明确RAM或严格回滚策略处理。真实IndexedDB适配验证已通过，但默认host仍同步；直接全局写入口及危险操作未全部迁完，不可启用默认新后端。
-
 
 ### 危险操作写屏障与历史清空（3.0.12）
 

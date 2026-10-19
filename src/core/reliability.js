@@ -7,6 +7,7 @@ const Reliability = (() => {
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error('备份必须是 JSON 对象');
     if (data.schemaVersion != null && ![1,schemaVersion].includes(data.schemaVersion)) throw Error('不支持此存档版本');
     if(data.schemaVersion===schemaVersion&&!StableIdentity.isValidSeasonId(data.seasonId))throw Error('赛季身份无效');
+    if(data.achievementLedger!=null)AchievementLedger.normalize(data.achievementLedger);
     if (!Array.isArray(data.groups) || !data.groups.length || data.groups.length > 1000) throw Error('小组数据为空或超过 1000 组');
     const groupUids=new Set();
     data.groups.forEach(g => {
@@ -27,7 +28,7 @@ const Reliability = (() => {
       if(!Array.isArray(data.history)||data.history.length>40)throw Error('历史格式无效');
       for(const h of data.history){
         if(!h||typeof h!=='object')throw Error('历史节点格式无效');
-        validateBackup({groups:h.groups,picker:h.picker,itemGlobal:h.itemGlobal});
+        validateBackup({groups:h.groups,picker:h.picker,itemGlobal:h.itemGlobal,achievementLedger:h.achievementLedger});
       }
     }
     return data;

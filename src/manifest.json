@@ -217,6 +217,11 @@
     },
     {
       "type": "script",
+      "path": "domain/achievements/ledger.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/item-module-model.js",
       "attributes": ""
     },

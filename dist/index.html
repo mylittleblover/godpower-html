@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.22</title>
+<title>上帝的力量 V3.0.23</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.22";
+    document.title = name() + " V3.0.23";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.22</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.23</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -11557,6 +11557,139 @@ const DomainEvents = (() => {
   };
 })();
 </script>
+<script>/* Durable per-group progress receipts; rule evaluation stays in later stages. */
+const AchievementLedger = (() => {
+  const SCHEMA_VERSION = 1;
+  const clone = (value) => DomainValues.cloneJson(value);
+
+  function empty() {
+    return { schemaVersion: SCHEMA_VERSION, groups: {} };
+  }
+
+  function normalize(value) {
+    if (value == null) return empty();
+    if (
+      typeof value !== "object" ||
+      Array.isArray(value) ||
+      value.schemaVersion !== SCHEMA_VERSION ||
+      !value.groups ||
+      typeof value.groups !== "object" ||
+      Array.isArray(value.groups)
+    )
+      throw new TypeError("achievement ledger format is invalid");
+    const ledger = clone(value);
+    for (const [uid, progress] of Object.entries(ledger.groups)) {
+      if (!StableIdentity.isValidGroupUid(uid))
+        throw new TypeError("achievement group identity is invalid");
+      if (
+        !progress ||
+        typeof progress !== "object" ||
+        Array.isArray(progress) ||
+        !progress.historicalCounters ||
+        typeof progress.historicalCounters !== "object" ||
+        !progress.seasonCounters ||
+        typeof progress.seasonCounters !== "object" ||
+        !Array.isArray(progress.processedEvents)
+      )
+        throw new TypeError("achievement progress format is invalid");
+      for (const bucket of [
+        "permanentUnlocks",
+        "historicalCounters",
+        "seasonCounters",
+        "seasonUnlocks",
+      ]) {
+        if (!progress[bucket]) progress[bucket] = {};
+        if (
+          typeof progress[bucket] !== "object" ||
+          Array.isArray(progress[bucket])
+        )
+          throw new TypeError("achievement bucket format is invalid");
+      }
+      for (const counters of [
+        progress.historicalCounters,
+        progress.seasonCounters,
+      ])
+        if (
+          Object.values(counters).some(
+            (count) => !Number.isSafeInteger(count) || count < 0,
+          )
+        )
+          throw new TypeError("achievement counter is invalid");
+      if (!Array.isArray(progress.itemDiscovery)) progress.itemDiscovery = [];
+      if (!Array.isArray(progress.itemMastery)) progress.itemMastery = [];
+      if (progress.processedEvents.some((id) => typeof id !== "string" || !id))
+        throw new TypeError("achievement event receipt is invalid");
+    }
+    return ledger;
+  }
+
+  function newGroupProgress(seasonId) {
+    return {
+      seasonId: seasonId || null,
+      permanentUnlocks: {},
+      historicalCounters: {},
+      seasonCounters: {},
+      seasonUnlocks: {},
+      itemDiscovery: [],
+      itemMastery: [],
+      processedEvents: [],
+    };
+  }
+
+  function apply(value, events, { seasonId = null } = {}) {
+    const ledger = normalize(value);
+    const seenInBatch = new Set();
+    let applied = 0;
+    let duplicates = 0;
+    for (const event of Array.isArray(events) ? events : []) {
+      if (!DomainEvents.isAchievementEligible(event)) continue;
+      if (
+        event.aggregate?.type !== "group" ||
+        !StableIdentity.isValidGroupUid(event.aggregate.id) ||
+        typeof event.eventId !== "string" ||
+        !event.eventId
+      )
+        continue;
+      const uid = event.aggregate.id;
+      const progress =
+        ledger.groups[uid] || (ledger.groups[uid] = newGroupProgress(seasonId));
+      if (
+        seenInBatch.has(event.eventId) ||
+        progress.processedEvents.includes(event.eventId)
+      ) {
+        duplicates++;
+        continue;
+      }
+      seenInBatch.add(event.eventId);
+      const eventSeason = StableIdentity.isValidSeasonId(
+        event.payload?.seasonId,
+      )
+        ? event.payload.seasonId
+        : seasonId;
+      if (eventSeason && progress.seasonId !== eventSeason) {
+        progress.seasonId = eventSeason;
+        progress.seasonCounters = {};
+        progress.seasonUnlocks = {};
+      }
+      progress.historicalCounters[event.type] =
+        (progress.historicalCounters[event.type] || 0) + 1;
+      progress.seasonCounters[event.type] =
+        (progress.seasonCounters[event.type] || 0) + 1;
+      if (
+        event.type === "ITEM_ACQUIRED" &&
+        typeof event.payload?.itemKey === "string" &&
+        !progress.itemDiscovery.includes(event.payload.itemKey)
+      )
+        progress.itemDiscovery.push(event.payload.itemKey);
+      progress.processedEvents.push(event.eventId);
+      applied++;
+    }
+    return { ledger, applied, duplicates };
+  }
+
+  return { schemaVersion: SCHEMA_VERSION, empty, normalize, apply };
+})();
+</script>
 <script>/* Typed item blocks: pure policy, no DOM or classroom mutations. */
 (function (root) {
   "use strict";
@@ -11772,6 +11905,7 @@ const Reliability = (() => {
     if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error('备份必须是 JSON 对象');
     if (data.schemaVersion != null && ![1,schemaVersion].includes(data.schemaVersion)) throw Error('不支持此存档版本');
     if(data.schemaVersion===schemaVersion&&!StableIdentity.isValidSeasonId(data.seasonId))throw Error('赛季身份无效');
+    if(data.achievementLedger!=null)AchievementLedger.normalize(data.achievementLedger);
     if (!Array.isArray(data.groups) || !data.groups.length || data.groups.length > 1000) throw Error('小组数据为空或超过 1000 组');
     const groupUids=new Set();
     data.groups.forEach(g => {
@@ -11792,7 +11926,7 @@ const Reliability = (() => {
       if(!Array.isArray(data.history)||data.history.length>40)throw Error('历史格式无效');
       for(const h of data.history){
         if(!h||typeof h!=='object')throw Error('历史节点格式无效');
-        validateBackup({groups:h.groups,picker:h.picker,itemGlobal:h.itemGlobal});
+        validateBackup({groups:h.groups,picker:h.picker,itemGlobal:h.itemGlobal,achievementLedger:h.achievementLedger});
       }
     }
     return data;
@@ -11959,6 +12093,10 @@ const HistoryCommands = (() => {
   function apply(snapshot) {
     cancelScoreAnimationAndSync();
     if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
+    if (snapshot.achievementLedger)
+      state.achievementLedger = AchievementLedger.normalize(
+        snapshot.achievementLedger,
+      );
     state.groups = normalizeAllGroups(snapshot.groups);
     state.groups.forEach((g) => {
       g.displayScore = g.score;
@@ -12059,6 +12197,9 @@ const HistorySnapshots = {
       hasStartedOnce: s.hasStartedOnce,
       lastRoundAllIn: s.lastRoundAllIn,
       itemGlobal: copy(s.itemGlobal),
+      achievementLedger: copy(
+        s.achievementLedger || { schemaVersion: 1, groups: {} },
+      ),
     };
   },
 };
@@ -12541,6 +12682,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 let state = {
   isLocked: true,
   seasonId: StableIdentity.createSeasonId(),
+  achievementLedger: AchievementLedger.empty(),
   hasStartedOnce: false,
   roundActive: false,
   lastRoundAllIn: null,
@@ -12756,7 +12898,8 @@ function confirmFinalSettlement() {
     champion: top1 ? top1.name : '无',
     totalGroups: state.groups.length,
     totalScore: state.groups.reduce((sum, g) => sum + (Number(g.score) || 0), 0),
-    groups: clone(sorted)
+    groups: clone(sorted),
+    achievementLedger: AchievementLedger.normalize(state.achievementLedger)
   };
   const archiveResult=saveSettlementRecord(record);
   if(!archiveResult.ok){
@@ -13890,10 +14033,17 @@ function getPersistableGroups() {
   }));
 }
 
-function saveState() {
+function saveState(transaction) {
   if(window.classroomRecoveryRequired){showClassroomSaveWarning("需要先恢复主存档");return {ok:false,error:"需要先恢复主存档"}}
   if (!window.classroomReady || window.itemCommandActive || classroomCommands.isPending()) return {ok:true,deferred:true};
   ensureV2State();
+  if (Array.isArray(transaction?.events) && transaction.events.length) {
+    state.achievementLedger = AchievementLedger.apply(
+      state.achievementLedger,
+      transaction.events,
+      { seasonId: state.seasonId },
+    ).ledger;
+  }
   const payload=buildClassroomBackup();
   const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
   if(!result.ok){
@@ -13915,7 +14065,13 @@ function saveState() {
     if(!STORAGE.set(k,v))failed.push(k);
   }
   if(failed.length)showToast('主存档已保存，旧版兼容副本写入失败。请导出 JSON 备份。');
-  return {...result,legacyMirrorFailures:failed};
+  return {
+    ...result,
+    legacyMirrorFailures: failed,
+    ...(Array.isArray(transaction?.events) && transaction.events.length
+      ? { eventsPersisted: !!result.ok && !result.deferred }
+      : {}),
+  };
 }
 
 function applyZoom(level) {
@@ -22584,7 +22740,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.22';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.23';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -23967,8 +24123,16 @@ const RoundSettlement = (() => {
       return false;
     const context = {
       rankingsBefore: ranking().map((group) => group.id),
+      groupsBefore: state.groups.map((group) => ({
+        id: group.id,
+        score: group.score,
+      })),
       answersBefore: state.groups.map((group) => ({
         id: group.id,
+        groupUid: group.groupUid,
+        answer: group.selectedOpt || "",
+        allIn: !!group.allIn,
+        scoreBefore: group.score,
         answered: !!group.selectedOpt,
         correct: group.selectedOpt === state.correctAns,
       })),
@@ -23987,9 +24151,35 @@ const RoundSettlement = (() => {
     ensureV2State();
     state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
     RoundItemEffects.expire(context);
+    const rankingsAfter = ranking();
+    const rankOf = (groups, id) => {
+      const group = groups.find((candidate) => candidate.id === id);
+      return group
+        ? 1 + groups.filter((candidate) => candidate.score > group.score).length
+        : null;
+    };
     return {
       ...presentation,
       powerBefore: context.powerBefore,
+      roundFacts: context.answersBefore.map((answer) => {
+        const group = state.groups.find(
+          (candidate) => candidate.id === answer.id,
+        );
+        return {
+          seasonId: state.seasonId,
+          roundNumber: state.itemGlobal.pkTotal,
+          groupUid: answer.groupUid,
+          answered: answer.answered,
+          correct: answer.correct,
+          answer: answer.answer,
+          correctAnswer: state.correctAns,
+          allIn: answer.allIn,
+          scoreBefore: answer.scoreBefore,
+          scoreAfter: group?.score ?? answer.scoreBefore,
+          rankBefore: rankOf(context.groupsBefore, answer.id),
+          rankAfter: rankOf(rankingsAfter, answer.id),
+        };
+      }),
     };
   }
   function present(presentation) {
@@ -25034,9 +25224,10 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.22",
+    appVersion: "V3.0.23",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
+    achievementLedger: AchievementLedger.normalize(state.achievementLedger),
     groups: getPersistableGroups(),
     picker: clone(state.picker),
     itemGlobal: clone(state.itemGlobal || {}),
@@ -25066,6 +25257,12 @@ function applyClassroomBackup(raw) {
   state.seasonId = StableIdentity.isValidSeasonId(data.seasonId)
     ? data.seasonId
     : StableIdentity.createSeasonId();
+  if (data.achievementLedger != null)
+    state.achievementLedger = AchievementLedger.normalize(
+      data.achievementLedger,
+    );
+  else if (!state.achievementLedger)
+    state.achievementLedger = AchievementLedger.empty();
   state.groups = normalizeAllGroups(data.groups);
   if (data.picker) {
     const p = data.picker;
@@ -25384,8 +25581,14 @@ function judgeRound() {
   v213SuppressReorderAnimation = true;
   const accepted = runClassroomCommand(
     `自动判定结算 (正解: ${state.correctAns})`,
-    () => {
+    (context) => {
       window.pendingRoundPresentation = legacyJudgeRound();
+      for (const fact of window.pendingRoundPresentation.roundFacts)
+        context.emit(
+          "ROUND_SETTLED",
+          { type: "group", id: fact.groupUid },
+          fact,
+        );
       return true;
     },
     { retainOnPersistenceFailure: true },

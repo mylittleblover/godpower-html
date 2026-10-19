@@ -8,6 +8,7 @@ function buildClassroomBackup() {
     appVersion: "V@@VERSION@@",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
+    achievementLedger: AchievementLedger.normalize(state.achievementLedger),
     groups: getPersistableGroups(),
     picker: clone(state.picker),
     itemGlobal: clone(state.itemGlobal || {}),
@@ -37,6 +38,12 @@ function applyClassroomBackup(raw) {
   state.seasonId = StableIdentity.isValidSeasonId(data.seasonId)
     ? data.seasonId
     : StableIdentity.createSeasonId();
+  if (data.achievementLedger != null)
+    state.achievementLedger = AchievementLedger.normalize(
+      data.achievementLedger,
+    );
+  else if (!state.achievementLedger)
+    state.achievementLedger = AchievementLedger.empty();
   state.groups = normalizeAllGroups(data.groups);
   if (data.picker) {
     const p = data.picker;
@@ -355,8 +362,14 @@ function judgeRound() {
   v213SuppressReorderAnimation = true;
   const accepted = runClassroomCommand(
     `自动判定结算 (正解: ${state.correctAns})`,
-    () => {
+    (context) => {
       window.pendingRoundPresentation = legacyJudgeRound();
+      for (const fact of window.pendingRoundPresentation.roundFacts)
+        context.emit(
+          "ROUND_SETTLED",
+          { type: "group", id: fact.groupUid },
+          fact,
+        );
       return true;
     },
     { retainOnPersistenceFailure: true },

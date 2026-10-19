@@ -82,6 +82,7 @@ const clone = value => JSON.parse(JSON.stringify(value));
 let state = {
   isLocked: true,
   seasonId: StableIdentity.createSeasonId(),
+  achievementLedger: AchievementLedger.empty(),
   hasStartedOnce: false,
   roundActive: false,
   lastRoundAllIn: null,
@@ -297,7 +298,8 @@ function confirmFinalSettlement() {
     champion: top1 ? top1.name : '无',
     totalGroups: state.groups.length,
     totalScore: state.groups.reduce((sum, g) => sum + (Number(g.score) || 0), 0),
-    groups: clone(sorted)
+    groups: clone(sorted),
+    achievementLedger: AchievementLedger.normalize(state.achievementLedger)
   };
   const archiveResult=saveSettlementRecord(record);
   if(!archiveResult.ok){
@@ -1431,10 +1433,17 @@ function getPersistableGroups() {
   }));
 }
 
-function saveState() {
+function saveState(transaction) {
   if(window.classroomRecoveryRequired){showClassroomSaveWarning("需要先恢复主存档");return {ok:false,error:"需要先恢复主存档"}}
   if (!window.classroomReady || window.itemCommandActive || classroomCommands.isPending()) return {ok:true,deferred:true};
   ensureV2State();
+  if (Array.isArray(transaction?.events) && transaction.events.length) {
+    state.achievementLedger = AchievementLedger.apply(
+      state.achievementLedger,
+      transaction.events,
+      { seasonId: state.seasonId },
+    ).ledger;
+  }
   const payload=buildClassroomBackup();
   const result=Reliability.writeVerified(CLASSROOM_STORAGE,Reliability.stateKey,payload);
   if(!result.ok){
@@ -1456,7 +1465,13 @@ function saveState() {
     if(!STORAGE.set(k,v))failed.push(k);
   }
   if(failed.length)showToast('主存档已保存，旧版兼容副本写入失败。请导出 JSON 备份。');
-  return {...result,legacyMirrorFailures:failed};
+  return {
+    ...result,
+    legacyMirrorFailures: failed,
+    ...(Array.isArray(transaction?.events) && transaction.events.length
+      ? { eventsPersisted: !!result.ok && !result.deferred }
+      : {}),
+  };
 }
 
 function applyZoom(level) {

@@ -40,6 +40,7 @@ test("snapshot retains exactly the legacy undo domain including global items", (
       "hasStartedOnce",
       "lastRoundAllIn",
       "itemGlobal",
+      "achievementLedger",
     ].sort(),
   );
   assert.equal(h.groups[0].score, 20);

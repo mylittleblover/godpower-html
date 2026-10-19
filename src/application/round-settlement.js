@@ -5,8 +5,16 @@ const RoundSettlement = (() => {
       return false;
     const context = {
       rankingsBefore: ranking().map((group) => group.id),
+      groupsBefore: state.groups.map((group) => ({
+        id: group.id,
+        score: group.score,
+      })),
       answersBefore: state.groups.map((group) => ({
         id: group.id,
+        groupUid: group.groupUid,
+        answer: group.selectedOpt || "",
+        allIn: !!group.allIn,
+        scoreBefore: group.score,
         answered: !!group.selectedOpt,
         correct: group.selectedOpt === state.correctAns,
       })),
@@ -25,9 +33,35 @@ const RoundSettlement = (() => {
     ensureV2State();
     state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
     RoundItemEffects.expire(context);
+    const rankingsAfter = ranking();
+    const rankOf = (groups, id) => {
+      const group = groups.find((candidate) => candidate.id === id);
+      return group
+        ? 1 + groups.filter((candidate) => candidate.score > group.score).length
+        : null;
+    };
     return {
       ...presentation,
       powerBefore: context.powerBefore,
+      roundFacts: context.answersBefore.map((answer) => {
+        const group = state.groups.find(
+          (candidate) => candidate.id === answer.id,
+        );
+        return {
+          seasonId: state.seasonId,
+          roundNumber: state.itemGlobal.pkTotal,
+          groupUid: answer.groupUid,
+          answered: answer.answered,
+          correct: answer.correct,
+          answer: answer.answer,
+          correctAnswer: state.correctAns,
+          allIn: answer.allIn,
+          scoreBefore: answer.scoreBefore,
+          scoreAfter: group?.score ?? answer.scoreBefore,
+          rankBefore: rankOf(context.groupsBefore, answer.id),
+          rankAfter: rankOf(rankingsAfter, answer.id),
+        };
+      }),
     };
   }
   function present(presentation) {

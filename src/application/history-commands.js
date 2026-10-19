@@ -54,6 +54,10 @@ const HistoryCommands = (() => {
   function apply(snapshot) {
     cancelScoreAnimationAndSync();
     if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
+    if (snapshot.achievementLedger)
+      state.achievementLedger = AchievementLedger.normalize(
+        snapshot.achievementLedger,
+      );
     state.groups = normalizeAllGroups(snapshot.groups);
     state.groups.forEach((g) => {
       g.displayScore = g.score;

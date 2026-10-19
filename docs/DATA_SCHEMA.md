@@ -2,31 +2,31 @@
 
 Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
 
-| 字段 | 类型／默认值 | 持久化与规则 |
-|---|---|---|
-| schemaVersion / appVersion / timestamp | 2 / 字符串 / ISO 时间 | 每次主存档保存；构建不依赖时间戳 |
-| groups | 数组，默认原四组 | 导入须 1–1000 组；日常添加仍沿用原管理规则 |
-| group.id | 安全整数 | 缺失生成、重复去重；关联点名预选 ID 需留意迁移 |
-| group.groupNo | 正整数／索引+1 | 不再因刷新丢失；编号去重沿用原规则 |
-| name / color / members | 字符串／合法六位十六进制／字符串数组 | 名称保留特殊字符，渲染转义；成员去空、同组去重 |
-| score / displayScore | 安全整数／0 | 导入拒绝非有限数、小数、超安全范围；displayScore 从 score 派生；极端手动积分、All In 和道具结果拒绝溢出 |
-| selectedOpt / allIn | A–D 或空／false | 新格式随回合恢复；旧备份缺少回合元数据时恢复为闲置课堂 |
-| resultText / animState | 字符串／空 | 结果可保留；动画进度不恢复 |
-| inventory | 最多三个 `{key,charges,acquiredAt,itemInstanceId}` | 实际 key 来自 ITEM_DEFS；主栏 index0、次栏1/2；旧清洗去未知 key 和重复；次数钳制到实际定义上限 |
-| itemStats | correct/wrong/draws/used，均为非负安全整数／0 | 对缺失、非法及注入字符串归零 |
-| itemEffect | null 或对象 | type: star/mega/power/bullet；hitsLeft/roundsLeft/startedAt/targetId/featherDodge/iceLock/iceRoundsLeftV218 为非负安全整数；不接纳任意 HTML 字段 |
-| booShield / booRoundsLeftV218 | 数值／0 | 后者已加入规范化，保留幽灵三次答题时效 |
-| itemUsedThisRound | 布尔／false | 新格式恢复；新题重置 |
-| roundItemContinuationKeyV218 | 字符串／空 | 保留三重道具同题续用身份 |
-| picker | mode/antiRepeat 和三类 ID/key 数组 | mode 只允许 individual/group/two_tier；已抽池耗尽按原规则重置 |
-| itemGlobal | 对象 | blooperUntil/totalDraws/handRaiseTotal/pkTotal 非负安全整数；pickerHistory/handRaiseHistory 数组；两版抽取冷却对象保留 |
-| itemGlobal.customIcons | key → raster data URI | 只允许 PNG/JPEG/WebP/GIF base64；SVG、网络 URL、属性注入拒绝；原图片保留 |
-| round | roundActive/evaluated/correctAns/hasStartedOnce/lastRoundAllIn | 启动在所有旧适配器就绪后恢复，避免先重置再覆盖 |
-| history | 至多40节点 | groups、picker、回合字段、itemGlobal 操作前快照；导入验证每节点 group；不存整套配置、音频 |
-| firstHandDrawPending | 布尔／true | 主存档保存首次举手特殊抽取状态 |
-| adminPin | 字符串／原有1234 | 本地防误触配置，可读可改，绝不是远程身份认证 |
-| masterVolume / sfxVolume / zoomLevel | 数值／原默认值 | 迁移钳制0–1／0–1／0.4–2 |
-| resizerEnabled / resizerHeight / columnMode / saveAllIn | 布尔／数值／single或double／布尔 | 保留原设置，导入限制数值边界 |
+| 字段                                                    | 类型／默认值                                                   | 持久化与规则                                                                                                                                     |
+| ------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| schemaVersion / appVersion / timestamp                  | 2 / 字符串 / ISO 时间                                          | 每次主存档保存；构建不依赖时间戳                                                                                                                 |
+| groups                                                  | 数组，默认原四组                                               | 导入须 1–1000 组；日常添加仍沿用原管理规则                                                                                                       |
+| group.id                                                | 安全整数                                                       | 缺失生成、重复去重；关联点名预选 ID 需留意迁移                                                                                                   |
+| group.groupNo                                           | 正整数／索引+1                                                 | 不再因刷新丢失；编号去重沿用原规则                                                                                                               |
+| name / color / members                                  | 字符串／合法六位十六进制／字符串数组                           | 名称保留特殊字符，渲染转义；成员去空、同组去重                                                                                                   |
+| score / displayScore                                    | 安全整数／0                                                    | 导入拒绝非有限数、小数、超安全范围；displayScore 从 score 派生；极端手动积分、All In 和道具结果拒绝溢出                                          |
+| selectedOpt / allIn                                     | A–D 或空／false                                                | 新格式随回合恢复；旧备份缺少回合元数据时恢复为闲置课堂                                                                                           |
+| resultText / animState                                  | 字符串／空                                                     | 结果可保留；动画进度不恢复                                                                                                                       |
+| inventory                                               | 最多三个 `{key,charges,acquiredAt,itemInstanceId}`             | 实际 key 来自 ITEM_DEFS；主栏 index0、次栏1/2；旧清洗去未知 key 和重复；次数钳制到实际定义上限                                                   |
+| itemStats                                               | correct/wrong/draws/used，均为非负安全整数／0                  | 对缺失、非法及注入字符串归零                                                                                                                     |
+| itemEffect                                              | null 或对象                                                    | type: star/mega/power/bullet；hitsLeft/roundsLeft/startedAt/targetId/featherDodge/iceLock/iceRoundsLeftV218 为非负安全整数；不接纳任意 HTML 字段 |
+| booShield / booRoundsLeftV218                           | 数值／0                                                        | 后者已加入规范化，保留幽灵三次答题时效                                                                                                           |
+| itemUsedThisRound                                       | 布尔／false                                                    | 新格式恢复；新题重置                                                                                                                             |
+| roundItemContinuationKeyV218                            | 字符串／空                                                     | 保留三重道具同题续用身份                                                                                                                         |
+| picker                                                  | mode/antiRepeat 和三类 ID/key 数组                             | mode 只允许 individual/group/two_tier；已抽池耗尽按原规则重置                                                                                    |
+| itemGlobal                                              | 对象                                                           | blooperUntil/totalDraws/handRaiseTotal/pkTotal 非负安全整数；pickerHistory/handRaiseHistory 数组；两版抽取冷却对象保留                           |
+| itemGlobal.customIcons                                  | key → raster data URI                                          | 只允许 PNG/JPEG/WebP/GIF base64；SVG、网络 URL、属性注入拒绝；原图片保留                                                                         |
+| round                                                   | roundActive/evaluated/correctAns/hasStartedOnce/lastRoundAllIn | 启动在所有旧适配器就绪后恢复，避免先重置再覆盖                                                                                                   |
+| history                                                 | 至多40节点                                                     | groups、picker、回合字段、itemGlobal 操作前快照；导入验证每节点 group；不存整套配置、音频                                                        |
+| firstHandDrawPending                                    | 布尔／true                                                     | 主存档保存首次举手特殊抽取状态                                                                                                                   |
+| adminPin                                                | 字符串／原有1234                                               | 本地防误触配置，可读可改，绝不是远程身份认证                                                                                                     |
+| masterVolume / sfxVolume / zoomLevel                    | 数值／原默认值                                                 | 迁移钳制0–1／0–1／0.4–2                                                                                                                          |
+| resizerEnabled / resizerHeight / columnMode / saveAllIn | 布尔／数值／single或double／布尔                               | 保留原设置，导入限制数值边界                                                                                                                     |
 
 ## 归档
 
@@ -37,6 +37,12 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 主快照单 key 原子写入、字符串回读一致性校验。成功后镜像旧 groups/picker/itemGlobal/history 与设置键；兼容副本失败显示提示，并在返回值给出 key 列表。其他历史功能尚有直接写旧键路径，未实现所有状态操作的统一事务。关闭页面不保证浏览器一定触发 pagehide，关键命令即时保存。
 
 存储配额、安全限制、损坏 JSON 都应保留原存储。读取主快照失败禁止自动覆盖并显示恢复提示；不调用 localStorage.clear。导入先校验，再修改隔离副本，主存档写失败恢复内存。不要通过删键“修复”兼容性。
+
+## 成就进度（应用 3.0.23，增量字段）
+
+`godpower_state_v2.achievementLedger` 是可选对象，当前内部 `schemaVersion=1`。课堂外层 schema 仍为 2，不要求旧存档升级或改写；缺字段的旧备份按空账本处理。对象包含 `groups`，以稳定 `groupUid` 为键；每组进度保存 `permanentUnlocks`、`historicalCounters`、`seasonCounters`、`seasonUnlocks`、`itemDiscovery`、`itemMastery`、`processedEvents` 与 `seasonId`。计数必须是非负安全整数；未知/无效结构在存档校验阶段拒绝。
+
+当前只有正常判题命令产生 `ROUND_SETTLED` 事实（每组一条，包含是否作答/正确及判题前后积分、排名等事实）；手动改分和导入事件不进入账本。事件回执和计数与主课堂快照同一次验证写入，撤销快照包含账本，正式赛季归档也保留其副本。尚无成就条件评估、解锁或成就 UI；道具/防御/效果/归档事件生产者、回执压缩及相关规则仍未实现。该实现不补猜旧道具行为，也不改变计分。
 
 ## 备份和恢复
 
@@ -50,10 +56,10 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 
 ## V2.19.0 界面扩展（不修改课堂 schema）
 
-| 存储键 | 类型/默认值 | 校验与恢复 |
-| --- | --- | --- |
-| godpower_ui_preferences_v1 | 对象，见下表 | 按默认值类型筛选；异常使用默认，不清空课堂存储；写入失败当次界面仍生效并提示 |
-| godpower_ui_bank_v1 | `{knowledge:[],challenges:[]}`，默认内置教学示例 | 解析/校验/保存均成功后替换题库；失败保留现有对象和旧存储；可单独导出与恢复 |
+| 存储键                     | 类型/默认值                                      | 校验与恢复                                                                   |
+| -------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------- |
+| godpower_ui_preferences_v1 | 对象，见下表                                     | 按默认值类型筛选；异常使用默认，不清空课堂存储；写入失败当次界面仍生效并提示 |
+| godpower_ui_bank_v1        | `{knowledge:[],challenges:[]}`，默认内置教学示例 | 解析/校验/保存均成功后替换题库；失败保留现有对象和旧存储；可单独导出与恢复   |
 
 偏好默认：motion=`full`（full/simple/off），speed=1（0.75/1/1.5），pageMotion/itemFx/systemMotion/knowledge/itemTip/honors/challenge=true，subject=`politics`。全部为持久化 UI 状态，不参与计分、结算或历史恢复。程序启动读取；改动立即保存。主课堂备份未扩展为包含题库/界面偏好，题库应单独导出；完整偏好打包列入维护任务。
 
@@ -63,7 +69,6 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 
 历史 UI 差异只读取 groups 中的 score/inventory/itemEffect/booShield/booRoundsLeftV218 与回合字段。未知字段在完整原始档案 JSON 中保留；UI 不进行猜测补全、改写旧排名或数据迁移。
 
-
 ## 未决防御命令（2026-10-17）
 
 没有新增持久化 schema 或迁移存档字段。待决操作只驻留内存，主存档和旧历史镜像暂缓写入；导出返回操作前完整快照。确认完成才保存整体结果，等待中刷新读回最后完整课堂，相当于取消未完成攻击。合法且已规范化的库存对象保留身份，以兼容防御令牌；非法字段、charges和acquiredAt仍按既有规则规范化。旧存档仍通过原 validateBackup/normalizeAllGroups 读取。
@@ -71,7 +76,6 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 ## 欢迎页UI偏好增量
 
 `godpower_ui_preferences_v1.groupCruise`：boolean，默认 false，立即保存。旧偏好缺失此字段时使用false；非法类型被忽略。不增加业务schema版本，不改任何课堂存储键。动画速度、完整／简洁／关闭、跟随系统减少动态效果沿用同一既有UI偏好。欢迎统计的BigInt只存在于计算局部并输出十进制字符串，分数持久化仍为原安全整数Number。
-
 
 ## 设置页整理兼容声明
 
@@ -81,16 +85,16 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 
 独立 localStorage 键 `godpower_score_feedback_v1`，不改变原课堂/历史 Schema 与旧存档迁移。
 
-| 字段 | 类型/默认 | 校验 |
-| --- | --- | --- |
-| schemaVersion | number / 1 | 当前界面格式 |
-| slots | number[6] / [1,2,5,-1,-2,-5] | 恰好六个非零安全整数 |
-| pickEffects | boolean / true | 抽中演出开关 |
-| scoreEffects | boolean / true | 自由赋分演出开关 |
-| style | string / aurora | aurora 或 burst |
-| duration | number / 1800 | 1200、1800、2600、3600ms |
-| clickEnabled | boolean / true | 公共按钮点击音 |
-| clickVolume | number / .45 | 有限数且限制在 0–1 |
+| 字段          | 类型/默认                    | 校验                     |
+| ------------- | ---------------------------- | ------------------------ |
+| schemaVersion | number / 1                   | 当前界面格式             |
+| slots         | number[6] / [1,2,5,-1,-2,-5] | 恰好六个非零安全整数     |
+| pickEffects   | boolean / true               | 抽中演出开关             |
+| scoreEffects  | boolean / true               | 自由赋分演出开关         |
+| style         | string / aurora              | aurora 或 burst          |
+| duration      | number / 1800                | 1200、1800、2600、3600ms |
+| clickEnabled  | boolean / true               | 公共按钮点击音           |
+| clickVolume   | number / .45                 | 有限数且限制在 0–1       |
 
 缺失偏好使用默认，损坏 JSON 不修改课堂数据。界面偏好与已有 DesktopUI 偏好一样独立于课堂备份；自定义音频仍通过原音频包/BIN 迁移。音频槽、IndexedDB sounds 记录键 `fx_<slot>` 和打包格式不变。
 
@@ -110,7 +114,6 @@ Schema Version 为 2，应用版本 3.0.4。`godpower_state_v2` 为当前主课�
 
 欢迎页题库仍使用 `godpower_ui_bank_v1` 的 `knowledge`/`challenges` 数组，合计至多500条，单文本字段/选项至多10000字符。ID不可空且全库唯一，学科、标题、来源不可空；选项四项不可空，答案0–3。浏览器文件导入与高级JSON编辑使用同一验证和保存入口。首页手动游标属于会话UI状态，不进入课堂积分存档；刷新后回到自然日默认内容。
 
-
 ## 3.0.1 外观偏好
 
 `godpower_appearance_v1`：`{schemaVersion:1, theme:"classic"|"marx"}`，默认 classic。旧用户无此键时不需要迁移；损坏或未知主题回退 classic。独立于课堂主存档，切换不写小组、积分、回合、历史或道具配置。存储失败仅使本次外观生效并提示，禁止清空用户存储。主题偏好当前不随课堂 JSON 备份导入导出；须在新设备重新选择。
@@ -121,11 +124,11 @@ Picker协议1新增可选theme展示字段，旧消息缺省classic；Electron�
 
 以下字段是向旧 envelope 添加的可选值；旧数据继续按原格式读取。`groupUid`、`seasonId`、`itemInstanceId` 缺失时在运行时生成；成功的导入保存或后续主存档会持久化这些值。读存储失败时不强行改写原数据。旧结算档案不回填身份，也不从积分猜测道具历史。
 
-| 字段 | 类型 | 生成与兼容 | 用途 |
-|---|---|---|---|
-| `seasonId` | `season-<UUID>` 字符串 | 新课堂生成；V2备份缺失时创建；正式结算写入 archive 与 `clearedData`；清零保存成功后启用新 ID | 赛季归档重试幂等键 |
-| `group.groupUid` | `group-<UUID>` 字符串 | 老小组首次规范化时创建；已存在且唯一的 UID 原样保留；重复/非法值修复；小组数字 `id` 不变 | 跨重命名、排序和赛季的小组身份 |
-| `group.inventory[].itemInstanceId` | `item-<UUID>` 字符串 | 新道具创建时生成；旧 `{key,charges,acquiredAt}` 规范化补齐；道具扣次数或转移时保留 | 三重道具及持续效果与单件库存绑定 |
+| 字段                               | 类型                   | 生成与兼容                                                                                   | 用途                             |
+| ---------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| `seasonId`                         | `season-<UUID>` 字符串 | 新课堂生成；V2备份缺失时创建；正式结算写入 archive 与 `clearedData`；清零保存成功后启用新 ID | 赛季归档重试幂等键               |
+| `group.groupUid`                   | `group-<UUID>` 字符串  | 老小组首次规范化时创建；已存在且唯一的 UID 原样保留；重复/非法值修复；小组数字 `id` 不变     | 跨重命名、排序和赛季的小组身份   |
+| `group.inventory[].itemInstanceId` | `item-<UUID>` 字符串   | 新道具创建时生成；旧 `{key,charges,acquiredAt}` 规范化补齐；道具扣次数或转移时保留           | 三重道具及持续效果与单件库存绑定 |
 
 所有归档重试优先按 `seasonId` 去重，旧档案（无 `seasonId`）仍按原 `id` 去重。schemaVersion 1导入时可缺失这些值；schemaVersion 2要求有效赛季与唯一小组身份。IndexedDB/Electron事务后端切换尚未完成。
 
@@ -152,7 +155,6 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 目标校验逐条比较snapshot、archive、resource的完整hash，并检查receipt计数；音频ArrayBuffer与壁纸Blob参与字节校验。校验失败只报告暂存副本无效，原存储和当前课堂不切换。
 
 3.0.4只整理判题职责和共享基础计算，没有改变Schema2字段、旧存档转换或道具平衡参数。
-
 
 ### 迁移回执verification（3.0.7）
 
