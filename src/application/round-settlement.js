@@ -28,5 +28,59 @@ const RoundSettlement = (() => {
     RoundItemEffects.expire(context);
     return result;
   }
-  return { execute };
+  let forceEndGeneration = 0;
+  Reliability.onDefenseInvalidation(() => {
+    forceEndGeneration++;
+  });
+  async function forceEnd() {
+    if (!state.roundActive || state.evaluated) return false;
+    const classroom = state,
+      groups = state.groups,
+      season = state.seasonId;
+    const fingerprint = JSON.stringify({
+      roundActive: state.roundActive,
+      evaluated: state.evaluated,
+      correctAns: state.correctAns,
+      groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+    });
+    const generation = forceEndGeneration;
+    const accepted = await themeConfirm(
+      "确认强制结束当前题目吗？（当前作答将作废，不进行加分结算）",
+      { title: "强制结束题目", danger: true, confirmText: "强制结束" },
+    );
+    if (!accepted) return false;
+    if (!ClassroomWriteBarrier.allow()) return false;
+    if (
+      state !== classroom ||
+      state.groups !== groups ||
+      state.seasonId !== season ||
+      forceEndGeneration !== generation ||
+      JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      }) !== fingerprint
+    ) {
+      showToast("课堂状态已变化，未强制结束题目。");
+      return false;
+    }
+    const flipSnapshot = captureCardRectsV21725();
+    const committed = runClassroomCommand("教师强制结束本题", () => {
+      state.roundActive = true;
+      state.evaluated = true;
+      return true;
+    });
+    if (!committed) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
+    bgmStopAll();
+    v213SuppressReorderAnimation = true;
+    renderAll();
+    v213SuppressReorderAnimation = false;
+    animateCardsFromSnapshotV21725(flipSnapshot);
+    showToast("当前题目已强制结束");
+    return true;
+  }
+  return { execute, forceEnd };
 })();

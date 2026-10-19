@@ -1,0 +1,30 @@
+{
+  name: 'late force-end confirmation cannot terminate a newer answered phase',
+  status: 'FAIL',
+  error: 'Expected values to be strictly deep-equal:\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    '  {\n' +
+    '    active: true,\n' +
+    "    answer: 'B',\n" +
+    '+   evaluated: true,\n' +
+    '+   history: 1\n' +
+    '-   evaluated: false,\n' +
+    '-   history: 0\n' +
+    '  }\n'
+}
+{
+  name: 'accepted force end records one undo point and persists',
+  status: 'FAIL',
+  error: 'Expected values to be strictly deep-equal:\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    '  {\n' +
+    '    active: true,\n' +
+    '    evaluated: true,\n' +
+    '    history: 1,\n' +
+    '+   persisted: undefined,\n' +
+    '-   persisted: true,\n' +
+    '    saved: true\n' +
+    '  }\n'
+}

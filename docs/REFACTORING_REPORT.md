@@ -221,3 +221,5 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.13：删除core/history及00中旧恢复/撤销/回溯的直接保存与跨入口实现，以HistoryCommands中的单一字段适配及命令替代。18旧新完整备份差分证明字段兼容；5专项证明重复保存和异步取消历史问题修复。保留计时器启动、正常RAM-only配额策略和全部旧快照字段；未进行不安全的未知代码删除。
 
 3.0.14：正解选择2处实现→1个应用命令+1个公开转发，保留实际警告窗、无历史节点和取消规则。新增持久化与异步确认重验；非评分/平衡规则变更。证据artifacts/v3-round-controls。
+
+3.0.15：强制结束直接保存链替换为CommandLifecycle命令，历史仍恰好新增一个恢复点；延迟确认无法覆盖新课堂状态。分数和规则未变，保存确认后再停止音乐/播放动画。

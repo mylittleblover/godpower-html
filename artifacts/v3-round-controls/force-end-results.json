@@ -1,0 +1,13 @@
+{
+  "results": [
+    {
+      "name": "late force-end confirmation cannot terminate a newer answered phase",
+      "status": "PASS"
+    },
+    {
+      "name": "accepted force end records one undo point and persists",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

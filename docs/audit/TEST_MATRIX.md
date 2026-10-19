@@ -388,3 +388,7 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.13历史命令：PASS 239单元、5历史浏览器专项、18真实渲染旧新快照差分、GP-010代际回归、1920×1080 1x 14组布局。证据artifacts/v3-history。默认新存储生产切换NOT TESTED；不计入通过。
 
 3.0.14正解命令：PASS 5专项、4现有答题控制、5历史专项、239单元；选择/取消持久化与确认过期均由真实Chromium1920×1080 1x验证。证据artifacts/v3-round-controls。生产新后端切换尚未执行。
+
+3.0.15强制结束：两项Chromium1920×1080 1x时序/持久化专项PASS，80结算差分PASS，core回归待完成。音频听感NOT TESTED。证据artifacts/v3-round-controls。当前还未同步Electron。
+
+3.0.15 final: Chromium core117/117 PASS at1920×1080 1x, 239 Node tests PASS,80 round differential PASS, force-end2 PASS; app errors=[]. file:// BLOCKED by managed Chromium. Full data-backend cutover, achievement runtime and Windows native test are not claimed.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.14</title>
+<title>上帝的力量 V3.0.15</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.14";
+    document.title = name() + " V3.0.15";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.14</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.15</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14193,25 +14193,8 @@ async function nextRound() {
   }
 }
 
-async function forceEndRound() {
-  if (!state.roundActive || state.evaluated) return;
-  if (await themeConfirm('确认强制结束当前题目吗？（当前作答将作废，不进行加分结算）', {title:'强制结束题目', danger:true, confirmText:'强制结束'})) {
-    Reliability.invalidateDefenseDecisions();
-    const flipSnapshotV21725 = captureCardRectsV21725();
-
-    bgmStopAll();
-    recordHistory('教师强制结束本题');
-    state.roundActive = true;
-    state.evaluated = true;
-    saveState();
-
-    v213SuppressReorderAnimation = true;
-    renderAll();
-    v213SuppressReorderAnimation = false;
-    animateCardsFromSnapshotV21725(flipSnapshotV21725);
-
-    showToast('当前题目已强制结束');
-  }
+function forceEndRound() {
+  return RoundSettlement.forceEnd();
 }
 
 function applySettingsBatchMembers() {
@@ -22638,7 +22621,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.14';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.15';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24043,7 +24026,61 @@ const RoundSettlement = (() => {
     RoundItemEffects.expire(context);
     return result;
   }
-  return { execute };
+  let forceEndGeneration = 0;
+  Reliability.onDefenseInvalidation(() => {
+    forceEndGeneration++;
+  });
+  async function forceEnd() {
+    if (!state.roundActive || state.evaluated) return false;
+    const classroom = state,
+      groups = state.groups,
+      season = state.seasonId;
+    const fingerprint = JSON.stringify({
+      roundActive: state.roundActive,
+      evaluated: state.evaluated,
+      correctAns: state.correctAns,
+      groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+    });
+    const generation = forceEndGeneration;
+    const accepted = await themeConfirm(
+      "确认强制结束当前题目吗？（当前作答将作废，不进行加分结算）",
+      { title: "强制结束题目", danger: true, confirmText: "强制结束" },
+    );
+    if (!accepted) return false;
+    if (!ClassroomWriteBarrier.allow()) return false;
+    if (
+      state !== classroom ||
+      state.groups !== groups ||
+      state.seasonId !== season ||
+      forceEndGeneration !== generation ||
+      JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      }) !== fingerprint
+    ) {
+      showToast("课堂状态已变化，未强制结束题目。");
+      return false;
+    }
+    const flipSnapshot = captureCardRectsV21725();
+    const committed = runClassroomCommand("教师强制结束本题", () => {
+      state.roundActive = true;
+      state.evaluated = true;
+      return true;
+    });
+    if (!committed) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok) return false;
+    bgmStopAll();
+    v213SuppressReorderAnimation = true;
+    renderAll();
+    v213SuppressReorderAnimation = false;
+    animateCardsFromSnapshotV21725(flipSnapshot);
+    showToast("当前题目已强制结束");
+    return true;
+  }
+  return { execute, forceEnd };
 })();
 </script>
 <script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
@@ -24863,7 +24900,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.14",
+    appVersion: "V3.0.15",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

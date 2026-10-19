@@ -1755,25 +1755,8 @@ async function nextRound() {
   }
 }
 
-async function forceEndRound() {
-  if (!state.roundActive || state.evaluated) return;
-  if (await themeConfirm('确认强制结束当前题目吗？（当前作答将作废，不进行加分结算）', {title:'强制结束题目', danger:true, confirmText:'强制结束'})) {
-    Reliability.invalidateDefenseDecisions();
-    const flipSnapshotV21725 = captureCardRectsV21725();
-
-    bgmStopAll();
-    recordHistory('教师强制结束本题');
-    state.roundActive = true;
-    state.evaluated = true;
-    saveState();
-
-    v213SuppressReorderAnimation = true;
-    renderAll();
-    v213SuppressReorderAnimation = false;
-    animateCardsFromSnapshotV21725(flipSnapshotV21725);
-
-    showToast('当前题目已强制结束');
-  }
+function forceEndRound() {
+  return RoundSettlement.forceEnd();
 }
 
 function applySettingsBatchMembers() {

@@ -5913,3 +5913,5 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 3.0.13：restoreStateFromSnapshot/undoLast/revertToHistory旧函数体已被HistoryCommands覆盖并替换为转发入口；保留公开名称兼容既有调用。快照capture、normalizeAllGroups和item timer仍必要。替换证据见artifacts/v3-history（18差分、5专项）。
 
 3.0.14：两处setCorrectAns旧实现（早期themeConfirm版、后期programConfirmV28覆盖版）替换为AnswerCommands.correct单实现。保留实际后期警告窗语义与文案；后期缺少保存、确认失效问题由5浏览器专项验证修复。旧programConfirmV28组件仍必要，未删除。
+
+3.0.15：forceEndRound直接修改/recordHistory/saveState已由RoundSettlement.forceEnd单命令替换。危险确认组件及音效、FLIP动画保留；旧确认现需身份/阶段/作答代次匹配。2项时序专项和80项结算差分是替换证据。

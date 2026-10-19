@@ -139,3 +139,9 @@ Five Chromium1920×1080 1x targeted scenarios PASS (select/deselect persistence,
 Round pipeline old/new differential80/80PASS (4/14groups,power/ice/boo,AllIn,overflow); selected rule/effect behavior preserved.
 
 Final 3.0.14 core Chromium regression117/117PASS,application errors=[];round differential80/80 and all 26-item compatibility coverage pass. `file://` remains environment-blocked (ERR_BLOCKED_BY_ADMINISTRATOR) and is not counted as passed. Build is self-contained; its 27 embedded resource hashes are checked.
+
+## 3.0.15 force-end confirmation command ownership
+
+RED: a deferred force-end confirmation could change a newer answered phase to evaluated=true; the prior path saved directly and emitted no command persistence result. RoundSettlement.forceEnd now snapshots classroom/groups/season, phase, answer selection and a domain invalidation generation before the existing danger confirmation. It rechecks after await, then commits the existing teacher action as one normal undoable command and awaits its persistence outcome before stopping music and animating. Accepted path keeps exactly one history point; stale confirmation leaves the current answer and phase untouched. Two Chromium1920×1080 1x cases PASS. 239 unit cases PASS;80-round differential, version/schema/resource/format checks pass. Full core browser regression is running. Evidence: artifacts/v3-round-controls/force-end-results.json (failed RED and green output to be added after final run). Audio was not decoded/subjectively evaluated in this phase.
+
+Final core regression117/117 PASS, Chromium application errors=[]; managed file:// remains BLOCKED (ERR_BLOCKED_BY_ADMINISTRATOR), not counted as pass. Build resource check validates all27 bundled assets offline; native Windows NOT TESTED.

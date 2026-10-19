@@ -1171,3 +1171,9 @@ P1数据/历史，中复杂度/中风险。证据：artifacts/v3-history/red-res
 ## GP-V3-CORRECT-ANSWER（已修复，3.0.14）
 
 P1业务/数据，中复杂度/中风险。src/script/00.js后部setCorrectAns覆盖早期实现，选择/取消均未主保存，晚确认可覆写已结算正解。替换为AnswerCommands.correct，保留实际警告窗，确认后按身份/阶段/代次复核并单命令保存。依赖CommandLifecycle/写屏障。5专项、4答题、5历史及239单元通过；证据artifacts/v3-round-controls。验收：选A保存A，取消保存空，旧确认不能改新状态，配额明确RAM-only，不新增历史节点。后续回合开始音频异步流程及旧finishStartRound包装仍待迁移。
+
+## GP-V3-FORCE-END-OWNER（实现中，3.0.15）
+
+P1回合正确性/历史，中复杂度/中风险。延迟强制结束确认可能结束新答题阶段；直接saveState不暴露独立命令结果。已改为RoundSettlement forceEnd和后确认复核，2专项与80差分通过；完整core regression待结束后记录。复现：待themeConfirm期间更改回答/回合后确认。验收为无迟到写入，成功仅一历史点且先保存ACK再停止音乐/动画。Electron同步待HTML提交完成。
+
+GP-V3-FORCE-END-OWNER completed: final core117/117 PASS, 239 unit pass,80 round differential and targeted command tests pass; errors=[]. Browser file protocol remains BLOCKED by environment. Windows native build not part of this source commit.
