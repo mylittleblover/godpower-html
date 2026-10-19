@@ -332,6 +332,81 @@ const TransactionalRepository = (() => {
         },
       );
     }
+    async function recordMigrationStatus(plan, report) {
+      const { migrationId, aggregateId, sourceManifest } = structuredClone({
+        migrationId: plan.migrationId,
+        aggregateId: plan.aggregateId,
+        sourceManifest: plan.sourceManifest,
+      });
+      const check = structuredClone(report);
+      identifier(migrationId, "migrationId");
+      identifier(aggregateId, "aggregateId");
+      const allowed = [
+        "VERIFYING",
+        "VERIFIED",
+        "DESTINATION_INVALID",
+        "STAGED_SOURCE_CHANGED",
+        "CANCELLED_STAGED",
+      ];
+      if (!allowed.includes(check?.status))
+        throw fault("INVALID_REQUEST", "Unknown migration verification status");
+      const sourceHash = await fingerprint({ aggregateId, sourceManifest });
+      return transaction(
+        db,
+        ["migrations", "aggregates"],
+        (tx, done, abort, guard) => {
+          const store = tx.objectStore("migrations");
+          const request = store.get(migrationId);
+          request.onsuccess = guard(() => {
+            const receipt = request.result;
+            if (
+              !receipt?.complete ||
+              receipt.aggregateId !== aggregateId ||
+              receipt.sourceHash !== sourceHash
+            )
+              return abort(
+                fault(
+                  "MIGRATION_REUSED",
+                  "Verification does not match an imported source",
+                ),
+              );
+            const current = tx.objectStore("aggregates").get(aggregateId);
+            current.onsuccess = guard(() => {
+              if (!current.result || current.result.revision !== 1)
+                return abort(
+                  fault(
+                    "REVISION_CONFLICT",
+                    "Staging data changed after import",
+                  ),
+                );
+              if (
+                check.status === "VERIFIED" &&
+                (!check.sourceRechecked ||
+                  !check.integrity?.ok ||
+                  check.integrity.verifiedArchives !== receipt.archives ||
+                  check.integrity.verifiedResources !== receipt.resources)
+              )
+                return abort(
+                  fault(
+                    "INVALID_REQUEST",
+                    "Verified staging requires complete readback and source checks",
+                  ),
+                );
+              const verification = {
+                status: check.status,
+                checkedAt: new Date().toISOString(),
+                sourceHash,
+                sourceRechecked: check.sourceRechecked === true,
+                authorityChanged: false,
+                integrity: check.integrity || null,
+              };
+              store.put({ ...receipt, verification });
+              done(verification);
+            });
+          });
+        },
+      );
+    }
     function listEvents(aggregateId) {
       return new Promise((resolve, reject) => {
         const tx = db.transaction("events", "readonly");
@@ -362,6 +437,7 @@ const TransactionalRepository = (() => {
       commit,
       findCommand,
       importSnapshot,
+      recordMigrationStatus,
       listEvents,
       read: (aggregateId) => readOne(db, "aggregates", aggregateId),
       readArchive: (archiveId) => readOne(db, "archives", archiveId),

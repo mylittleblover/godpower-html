@@ -1,0 +1,32 @@
+✔ staging journals VERIFYING then VERIFIED only after both readbacks (2.493075ms)
+✔ target corruption cannot leave a verified journal (0.245412ms)
+✔ source change after import is durably distinguished from verified staging (0.292623ms)
+✔ journal persistence failure never reports successful staging or changes authority (0.484253ms)
+✖ cancellation after durable verification cannot contradict its recorded outcome (1.146284ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 68.832912
+
+✖ failing tests:
+
+test at tests/unit/migration-coordinator.test.mjs:91:1
+✖ cancellation after durable verification cannot contradict its recorded outcome (1.146284ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/migration-coordinator.test.mjs:96:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

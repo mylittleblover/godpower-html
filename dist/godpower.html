@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.6</title>
+<title>上帝的力量 V3.0.7</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.6";
+    document.title = name() + " V3.0.7";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.6</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.7</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -10202,6 +10202,81 @@ const TransactionalRepository = (() => {
         },
       );
     }
+    async function recordMigrationStatus(plan, report) {
+      const { migrationId, aggregateId, sourceManifest } = structuredClone({
+        migrationId: plan.migrationId,
+        aggregateId: plan.aggregateId,
+        sourceManifest: plan.sourceManifest,
+      });
+      const check = structuredClone(report);
+      identifier(migrationId, "migrationId");
+      identifier(aggregateId, "aggregateId");
+      const allowed = [
+        "VERIFYING",
+        "VERIFIED",
+        "DESTINATION_INVALID",
+        "STAGED_SOURCE_CHANGED",
+        "CANCELLED_STAGED",
+      ];
+      if (!allowed.includes(check?.status))
+        throw fault("INVALID_REQUEST", "Unknown migration verification status");
+      const sourceHash = await fingerprint({ aggregateId, sourceManifest });
+      return transaction(
+        db,
+        ["migrations", "aggregates"],
+        (tx, done, abort, guard) => {
+          const store = tx.objectStore("migrations");
+          const request = store.get(migrationId);
+          request.onsuccess = guard(() => {
+            const receipt = request.result;
+            if (
+              !receipt?.complete ||
+              receipt.aggregateId !== aggregateId ||
+              receipt.sourceHash !== sourceHash
+            )
+              return abort(
+                fault(
+                  "MIGRATION_REUSED",
+                  "Verification does not match an imported source",
+                ),
+              );
+            const current = tx.objectStore("aggregates").get(aggregateId);
+            current.onsuccess = guard(() => {
+              if (!current.result || current.result.revision !== 1)
+                return abort(
+                  fault(
+                    "REVISION_CONFLICT",
+                    "Staging data changed after import",
+                  ),
+                );
+              if (
+                check.status === "VERIFIED" &&
+                (!check.sourceRechecked ||
+                  !check.integrity?.ok ||
+                  check.integrity.verifiedArchives !== receipt.archives ||
+                  check.integrity.verifiedResources !== receipt.resources)
+              )
+                return abort(
+                  fault(
+                    "INVALID_REQUEST",
+                    "Verified staging requires complete readback and source checks",
+                  ),
+                );
+              const verification = {
+                status: check.status,
+                checkedAt: new Date().toISOString(),
+                sourceHash,
+                sourceRechecked: check.sourceRechecked === true,
+                authorityChanged: false,
+                integrity: check.integrity || null,
+              };
+              store.put({ ...receipt, verification });
+              done(verification);
+            });
+          });
+        },
+      );
+    }
     function listEvents(aggregateId) {
       return new Promise((resolve, reject) => {
         const tx = db.transaction("events", "readonly");
@@ -10232,6 +10307,7 @@ const TransactionalRepository = (() => {
       commit,
       findCommand,
       importSnapshot,
+      recordMigrationStatus,
       listEvents,
       read: (aggregateId) => readOne(db, "aggregates", aggregateId),
       readArchive: (archiveId) => readOne(db, "archives", archiveId),
@@ -22513,7 +22589,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.6';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.7';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24404,9 +24480,15 @@ const MigrationCoordinator = (() => {
         cancelled();
         stage = "import";
         const receipt = await repository.importSnapshot(plan);
+        stage = "journal-verifying";
+        await repository.recordMigrationStatus(plan, { status: "VERIFYING" });
         stage = "verify-target";
         const integrity = await inventory.verifyDestination(repository, plan);
-        if (!integrity.ok)
+        if (!integrity.ok) {
+          await repository.recordMigrationStatus(plan, {
+            status: "DESTINATION_INVALID",
+            integrity,
+          });
           return {
             ok: false,
             status: "DESTINATION_INVALID",
@@ -24414,9 +24496,14 @@ const MigrationCoordinator = (() => {
             receipt,
             integrity,
           };
+        }
         stage = "verify-source-after-import";
         const sourceAfter = await inventory.verify(plan, sourceOptions);
-        if (!sourceAfter.ok)
+        if (!sourceAfter.ok) {
+          await repository.recordMigrationStatus(plan, {
+            status: "STAGED_SOURCE_CHANGED",
+            integrity,
+          });
           return {
             ok: false,
             status: "STAGED_SOURCE_CHANGED",
@@ -24425,12 +24512,26 @@ const MigrationCoordinator = (() => {
             integrity,
             conflicts: sourceAfter.conflicts,
           };
+        }
+        stage = "journal-result";
+        const completedStatus = signal?.aborted
+          ? "CANCELLED_STAGED"
+          : "VERIFIED";
+        const journal = await repository.recordMigrationStatus(plan, {
+          status: completedStatus,
+          sourceRechecked: true,
+          integrity,
+        });
         return {
-          ok: !signal?.aborted,
-          status: signal?.aborted ? "CANCELLED_STAGED" : "STAGED_VERIFIED",
+          ok: completedStatus === "VERIFIED",
+          status:
+            completedStatus === "VERIFIED"
+              ? "STAGED_VERIFIED"
+              : "CANCELLED_STAGED",
           authorityChanged: false,
           receipt,
           integrity,
+          journal,
         };
       } catch (error) {
         return {
@@ -24456,7 +24557,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.6",
+    appVersion: "V3.0.7",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

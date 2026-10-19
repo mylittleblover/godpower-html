@@ -23,3 +23,8 @@
 保留源与目标会暂时增加存储占用；配额不足必须停止迁移并提供导出。大音频预检目前整批加载，尚需容量/内存测试。IndexedDB的可用性受浏览器/配置目录策略影响；受限环境继续旧课堂RAM+导出路径，不能把未持久化状态称为已保存。
 
 旧v1主存档是迁移时基线；退回旧应用前需从新版本导出并转换，而不能直接读取旧基线当作最新课堂。
+
+
+### 3.0.7验证日志与恢复
+
+import receipt.complete仅表示原子复制完成。迁移检查使用独立verification.status记录VERIFYING/VERIFIED/DESTINATION_INVALID/STAGED_SOURCE_CHANGED/CANCELLED_STAGED及sourceHash/checkedAt/counts。重启遇VERIFYING须重新完整校验，不能推断成功；重试先使旧VERIFIED失效。只有来源仍一致、资源/档案读回齐全、目标revision仍1，才可记录VERIFIED。此标记仍不授权生产切换；切换时需重新冻结来源及验证。取消晚于日志提交时以已提交结果为准。源数据不删除。

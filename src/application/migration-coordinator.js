@@ -76,9 +76,15 @@ const MigrationCoordinator = (() => {
         cancelled();
         stage = "import";
         const receipt = await repository.importSnapshot(plan);
+        stage = "journal-verifying";
+        await repository.recordMigrationStatus(plan, { status: "VERIFYING" });
         stage = "verify-target";
         const integrity = await inventory.verifyDestination(repository, plan);
-        if (!integrity.ok)
+        if (!integrity.ok) {
+          await repository.recordMigrationStatus(plan, {
+            status: "DESTINATION_INVALID",
+            integrity,
+          });
           return {
             ok: false,
             status: "DESTINATION_INVALID",
@@ -86,9 +92,14 @@ const MigrationCoordinator = (() => {
             receipt,
             integrity,
           };
+        }
         stage = "verify-source-after-import";
         const sourceAfter = await inventory.verify(plan, sourceOptions);
-        if (!sourceAfter.ok)
+        if (!sourceAfter.ok) {
+          await repository.recordMigrationStatus(plan, {
+            status: "STAGED_SOURCE_CHANGED",
+            integrity,
+          });
           return {
             ok: false,
             status: "STAGED_SOURCE_CHANGED",
@@ -97,12 +108,26 @@ const MigrationCoordinator = (() => {
             integrity,
             conflicts: sourceAfter.conflicts,
           };
+        }
+        stage = "journal-result";
+        const completedStatus = signal?.aborted
+          ? "CANCELLED_STAGED"
+          : "VERIFIED";
+        const journal = await repository.recordMigrationStatus(plan, {
+          status: completedStatus,
+          sourceRechecked: true,
+          integrity,
+        });
         return {
-          ok: !signal?.aborted,
-          status: signal?.aborted ? "CANCELLED_STAGED" : "STAGED_VERIFIED",
+          ok: completedStatus === "VERIFIED",
+          status:
+            completedStatus === "VERIFIED"
+              ? "STAGED_VERIFIED"
+              : "CANCELLED_STAGED",
           authorityChanged: false,
           receipt,
           integrity,
+          journal,
         };
       } catch (error) {
         return {

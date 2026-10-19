@@ -47,6 +47,18 @@ try {
     const staged = await stage.execute(preview);
     ensure(staged.ok && staged.status === 'STAGED_VERIFIED' && !staged.authorityChanged, 'verified staging never switches authority');
     ensure((await stage.execute(preview)).receipt.duplicate, 'coordinator restart/retry is idempotent');
+    const reopenedStage = await TransactionalRepository.open({name:'isolated-stage-'+plan.migrationId});
+    const journal = await reopenedStage.getMigration(plan.migrationId);
+    ensure(journal.verification.status === 'VERIFIED' && journal.verification.sourceRechecked && journal.verification.authorityChanged === false, 'verification journal survives close and reopen without switching authority');
+    let invalidStatusRejected = false;
+    try { await reopenedStage.recordMigrationStatus(plan, {status:'VERIFIED', sourceRechecked:true, integrity:{ok:true,verifiedArchives:99,verifiedResources:0}}); } catch (_) {invalidStatusRejected=true;}
+    ensure(invalidStatusRejected, 'incomplete readback counts cannot create a verified journal');
+    const interrupted = await reopenedStage.recordMigrationStatus(plan, {status:'VERIFYING'});
+    ensure(interrupted.status === 'VERIFYING', 'new attempt durably invalidates prior verified state');
+    reopenedStage.close();
+    const recovered = await stage.execute(preview);
+    ensure(recovered.ok && recovered.receipt.duplicate && recovered.journal.status === 'VERIFIED', 'interrupted verification resumes without importing twice');
+
     ensure(JSON.stringify(plan.snapshot) === JSON.stringify(repeatedPlan.snapshot), 'same source produces identical retry snapshot');
     ensure(plan.snapshot.groups[0].score === 23, 'score preserved');
     ensure(plan.archives.length === 1, 'archive preserved');
@@ -71,10 +83,11 @@ try {
     ensure(!(await inventory.verifyDestination(target, plan)).ok, 'target byte corruption blocks cutover');
     const brokenStage = coordinator.create({ inventory, openRepository: () => TransactionalRepository.open({ name: 'isolated-full-migration' }) });
     ensure((await brokenStage.execute(preview)).status === 'DESTINATION_INVALID', 'coordinator blocks corrupt destination');
+    ensure((await target.getMigration(plan.migrationId)).verification.status === 'DESTINATION_INVALID', 'failed readback is durable and never remains verified');
     localStorage.setItem('godpower_ui_preferences_v1', '{"motion":"off"}');
     ensure(!(await inventory.verify(plan)).ok, 'source mutation detected before import');
     ensure((await stage.execute(preview)).status === 'SOURCE_CHANGED', 'coordinator rejects obsolete preview');
-    ensure(openCount === 2, 'obsolete preview never opens or writes target');
+    ensure(openCount === 3, 'obsolete preview never opens or writes target');
     await seed('PoliticsScoreSoundDB_Unified', 'sounds', 'unsupported', new Map([['hidden', 1]]));
     let unsupportedRejected = false;
     try { await inventory.capture(); } catch (_) { unsupportedRejected = true; }

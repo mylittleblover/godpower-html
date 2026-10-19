@@ -152,3 +152,8 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 目标校验逐条比较snapshot、archive、resource的完整hash，并检查receipt计数；音频ArrayBuffer与壁纸Blob参与字节校验。校验失败只报告暂存副本无效，原存储和当前课堂不切换。
 
 3.0.4只整理判题职责和共享基础计算，没有改变Schema2字段、旧存档转换或道具平衡参数。
+
+
+### 迁移回执verification（3.0.7）
+
+迁移库migrations记录保留complete/aggregateId/sourceHash/archives/resources/completedAt。新增verification对象：status枚举VERIFYING、VERIFIED、DESTINATION_INVALID、STAGED_SOURCE_CHANGED、CANCELLED_STAGED；checkedAt为ISO字符串；sourceHash字符串；sourceRechecked布尔；authorityChanged固定false；integrity为实际读回结果或null。旧无verification回执只证明复制，重新检查后补齐，不作成功推断。

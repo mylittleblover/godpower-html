@@ -334,3 +334,10 @@ Call log:
 ## 3.0.6 pure ranking and target policies (verified)
 
 Extracted domain/competition/ranking.js and domain/items/targets.js; production ranking() and ItemOperationBlocks use these ports. Ranking is stable and nonmutating; target policy receives RNG and eligibility explicitly and returns original group references. Existing randomAhead comparator and RNG consumption are retained, not rebalanced. New 200 seeded ordering cases and17target contract/boundary tests were RED before implementation. Node195/195 PASS;464item-defense differential,448seeded draws,26oracle and configured-item tests PASS; Chromium core117/117 errors=[] at1920×1080 1x. file:// BLOCKED by managed policy. Evidence artifacts/v3-domain. No default storage cutover or achievement activation. Next: persistent migration verification journal and recovery distinction.
+
+
+## 3.0.7 durable migration verification journal
+
+Implemented separate migration receipt verification statuses VERIFYING/VERIFIED/DESTINATION_INVALID/STAGED_SOURCE_CHANGED/CANCELLED_STAGED, timestamp, sourceHash, source recheck and complete resource/archive counts. Imported complete=true means atomic copy completed; only verification.status=VERIFIED records subsequent full readback. It is never an authority-cutover marker. A new attempt invalidates an older verification result before checking bytes. Interrupted verification reopens/resumes by migrationId without duplicate import. Changed aggregate revisions cannot be certified as pristine staging. A postcommit cancellation race was reproduced RED then fixed: return outcome follows the persisted check result.
+
+Node200/200 PASS; complete migration suite PASS; final updated source inventory/reopen/interrupted-check/corrupt-resource/journal-count tests and settings UI PASS,14group scores and source bytes unchanged. Evidence artifacts/v3-journal. No Windows native test or CircleCI. The source still needs a quiescence barrier and actual command migration before default authority activation. Continue with manual scoring command family.

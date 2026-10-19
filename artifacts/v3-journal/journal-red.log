@@ -1,0 +1,97 @@
+✖ staging journals VERIFYING then VERIFIED only after both readbacks (3.523887ms)
+✖ target corruption cannot leave a verified journal (0.486511ms)
+✖ source change after import is durably distinguished from verified staging (0.441935ms)
+✖ journal persistence failure never reports successful staging or changes authority (0.394747ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 72.077
+
+✖ failing tests:
+
+test at tests/unit/migration-coordinator.test.mjs:15:1
+✖ staging journals VERIFYING then VERIFIED only after both readbacks (3.523887ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'VERIFYING',
+  -   'VERIFIED'
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/migration-coordinator.test.mjs:17:38)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'VERIFYING', 'VERIFIED' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/migration-coordinator.test.mjs:19:1
+✖ target corruption cannot leave a verified journal (0.486511ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'VERIFYING',
+  -   'DESTINATION_INVALID'
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/migration-coordinator.test.mjs:21:54)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'VERIFYING', 'DESTINATION_INVALID' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/migration-coordinator.test.mjs:23:1
+✖ source change after import is durably distinguished from verified staging (0.441935ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'VERIFYING',
+  -   'STAGED_SOURCE_CHANGED'
+  - ]
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/migration-coordinator.test.mjs:25:56)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'VERIFYING', 'STAGED_SOURCE_CHANGED' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/migration-coordinator.test.mjs:27:1
+✖ journal persistence failure never reports successful staging or changes authority (0.394747ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/migration-coordinator.test.mjs:29:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
