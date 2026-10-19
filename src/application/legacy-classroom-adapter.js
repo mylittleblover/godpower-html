@@ -352,14 +352,25 @@ function judgeRound() {
     themeAlert(error.message);
     return false;
   }
-  return runClassroomCommand(
+  v213SuppressReorderAnimation = true;
+  const accepted = runClassroomCommand(
     `自动判定结算 (正解: ${state.correctAns})`,
     () => {
-      legacyJudgeRound();
+      window.pendingRoundPresentation = legacyJudgeRound();
       return true;
     },
     { retainOnPersistenceFailure: true },
   );
+  if (!accepted) v213SuppressReorderAnimation = false;
+  else
+    classroomCommands.whenIdle().then((result) => {
+      v213SuppressReorderAnimation = false;
+      if (result?.ok) {
+        RoundSettlement.present(window.pendingRoundPresentation);
+        window.pendingRoundPresentation = null;
+      }
+    });
+  return accepted;
 }
 
 const classroomDock = document.querySelector(".bottom-dock");

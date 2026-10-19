@@ -2007,8 +2007,6 @@ function settleBaseRoundLegacy() {
 
   const flipSnapshotV21725 = captureCardRectsV21725();
 
-  recordHistory(`自动判定结算 (正解: ${state.correctAns})`);
-
   let allInWins = 0;
   let allInLosses = 0;
   let hasNormalWin = false;
@@ -2041,42 +2039,15 @@ function settleBaseRoundLegacy() {
 
   state.lastRoundAllIn = { wins: allInWins, losses: allInLosses };
   state.evaluated = true;
-  saveState();
-
-  renderControls();
-
-  /* 判定完成时：编号顺序 -> 排名顺序，完整播放 0.75s。 */
-  v213SuppressReorderAnimation = true;
-  renderGrid();
-  v213SuppressReorderAnimation = false;
-  animateCardsFromSnapshotV21725(flipSnapshotV21725);
-
-  state.groups.forEach(g => {
-    if (g.selectedOpt && g.allIn) {
-      const card = document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
-      if (card) {
-        const isCorrect = g.selectedOpt === state.correctAns;
-        const animCls = isCorrect ? 'anim-win' : 'anim-loss';
-        card.classList.add(animCls);
-        setTimeout(() => card.classList.remove(animCls), 1100);
-      }
-    }
-  });
-
-  if (scoreUpdates.length > 0) {
-    animateScores(scoreUpdates);
-  }
-
-  if (hasMilestone) {
-    playSound('big_win');
-    milestoneGroups.forEach(id => showMilestoneBanner(id));
-  }
-
-  bgmTriggerVictory(() => {
-    if (allInWins > 0) playSound('allin_win');
-    else if (allInLosses > 0) playSound('allin_lose');
-    else if (hasNormalWin) playSound('pk_correct');
-  });
+  return {
+    flipSnapshotV21725,
+    scoreUpdates,
+    allInWins,
+    allInLosses,
+    hasNormalWin,
+    hasMilestone,
+    milestoneGroups,
+  };
 }
 
 function openMemberSearchModal() {

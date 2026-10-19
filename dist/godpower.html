@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.20</title>
+<title>上帝的力量 V3.0.21</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.20";
+    document.title = name() + " V3.0.21";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.20</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.21</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14466,8 +14466,6 @@ function settleBaseRoundLegacy() {
 
   const flipSnapshotV21725 = captureCardRectsV21725();
 
-  recordHistory(`自动判定结算 (正解: ${state.correctAns})`);
-
   let allInWins = 0;
   let allInLosses = 0;
   let hasNormalWin = false;
@@ -14500,42 +14498,15 @@ function settleBaseRoundLegacy() {
 
   state.lastRoundAllIn = { wins: allInWins, losses: allInLosses };
   state.evaluated = true;
-  saveState();
-
-  renderControls();
-
-  /* 判定完成时：编号顺序 -> 排名顺序，完整播放 0.75s。 */
-  v213SuppressReorderAnimation = true;
-  renderGrid();
-  v213SuppressReorderAnimation = false;
-  animateCardsFromSnapshotV21725(flipSnapshotV21725);
-
-  state.groups.forEach(g => {
-    if (g.selectedOpt && g.allIn) {
-      const card = document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
-      if (card) {
-        const isCorrect = g.selectedOpt === state.correctAns;
-        const animCls = isCorrect ? 'anim-win' : 'anim-loss';
-        card.classList.add(animCls);
-        setTimeout(() => card.classList.remove(animCls), 1100);
-      }
-    }
-  });
-
-  if (scoreUpdates.length > 0) {
-    animateScores(scoreUpdates);
-  }
-
-  if (hasMilestone) {
-    playSound('big_win');
-    milestoneGroups.forEach(id => showMilestoneBanner(id));
-  }
-
-  bgmTriggerVictory(() => {
-    if (allInWins > 0) playSound('allin_win');
-    else if (allInLosses > 0) playSound('allin_lose');
-    else if (hasNormalWin) playSound('pk_correct');
-  });
+  return {
+    flipSnapshotV21725,
+    scoreUpdates,
+    allInWins,
+    allInLosses,
+    hasNormalWin,
+    hasMilestone,
+    milestoneGroups,
+  };
 }
 
 function openMemberSearchModal() {
@@ -22613,7 +22584,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.20';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.21';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -23908,8 +23879,7 @@ const RoundItemEffects = (() => {
       }
       detectOvertakePunish(group.id, rankingsBefore);
     });
-    saveState();
-    renderAll();
+    return true;
   }
   function expire({ answersBefore }) {
     const answered = new Map(
@@ -23938,8 +23908,7 @@ const RoundItemEffects = (() => {
       }
       delete group.roundItemContinuationKeyV218;
     });
-    saveState();
-    renderAll();
+    return true;
   }
   return { settle, expire };
 })();
@@ -23972,8 +23941,9 @@ const RoundFeedback = (() => {
         });
         const refresh = () => {
           try {
-            saveState();
-            renderAll();
+            renderDashboard();
+            renderChart();
+            updateHeaderStats();
           } catch (error) {
             console.warn("Power round presentation refresh failed", error);
           }
@@ -24009,14 +23979,54 @@ const RoundSettlement = (() => {
             !!group.selectedOpt && group.selectedOpt === state.correctAns,
         })),
     };
-    const result = settleBaseRoundLegacy();
+    const presentation = settleBaseRoundLegacy();
+    if (!presentation) return false;
     RoundItemEffects.settle(context);
     ensureV2State();
     state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
-    saveState();
-    RoundFeedback.afterPowerRound(context.powerBefore);
     RoundItemEffects.expire(context);
-    return result;
+    return {
+      ...presentation,
+      powerBefore: context.powerBefore,
+    };
+  }
+  function present(presentation) {
+    if (!presentation) return;
+    const {
+      flipSnapshotV21725,
+      scoreUpdates,
+      allInWins,
+      allInLosses,
+      hasNormalWin,
+      hasMilestone,
+      milestoneGroups,
+      powerBefore,
+    } = presentation;
+    RoundFeedback.afterPowerRound(powerBefore);
+    animateCardsFromSnapshotV21725(flipSnapshotV21725);
+    state.groups.forEach((group) => {
+      if (!group.selectedOpt || !group.allIn) return;
+      const card = document.querySelector(
+        `.group-row-card[data-group-id="${group.id}"]`,
+      );
+      if (!card) return;
+      card.classList.add(
+        group.selectedOpt === state.correctAns ? "anim-win" : "anim-loss",
+      );
+      setTimeout(() => {
+        card.classList.remove("anim-win", "anim-loss");
+      }, 1100);
+    });
+    if (scoreUpdates.length) animateScores(scoreUpdates);
+    if (hasMilestone) {
+      playSound("big_win");
+      milestoneGroups.forEach(showMilestoneBanner);
+    }
+    bgmTriggerVictory(() => {
+      if (allInWins > 0) playSound("allin_win");
+      else if (allInLosses > 0) playSound("allin_lose");
+      else if (hasNormalWin) playSound("pk_correct");
+    });
   }
   let forceEndGeneration = 0;
   async function start() {
@@ -24137,7 +24147,14 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, start, forceEnd, captureRoundToken, isRoundTokenCurrent };
+  return {
+    execute,
+    present,
+    start,
+    forceEnd,
+    captureRoundToken,
+    isRoundTokenCurrent,
+  };
 })();
 </script>
 <script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
@@ -25012,7 +25029,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.20",
+    appVersion: "V3.0.21",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),
@@ -25359,14 +25376,25 @@ function judgeRound() {
     themeAlert(error.message);
     return false;
   }
-  return runClassroomCommand(
+  v213SuppressReorderAnimation = true;
+  const accepted = runClassroomCommand(
     `自动判定结算 (正解: ${state.correctAns})`,
     () => {
-      legacyJudgeRound();
+      window.pendingRoundPresentation = legacyJudgeRound();
       return true;
     },
     { retainOnPersistenceFailure: true },
   );
+  if (!accepted) v213SuppressReorderAnimation = false;
+  else
+    classroomCommands.whenIdle().then((result) => {
+      v213SuppressReorderAnimation = false;
+      if (result?.ok) {
+        RoundSettlement.present(window.pendingRoundPresentation);
+        window.pendingRoundPresentation = null;
+      }
+    });
+  return accepted;
 }
 
 const classroomDock = document.querySelector(".bottom-dock");

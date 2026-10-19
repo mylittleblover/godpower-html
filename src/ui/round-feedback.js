@@ -26,8 +26,9 @@ const RoundFeedback = (() => {
         });
         const refresh = () => {
           try {
-            saveState();
-            renderAll();
+            renderDashboard();
+            renderChart();
+            updateHeaderStats();
           } catch (error) {
             console.warn("Power round presentation refresh failed", error);
           }

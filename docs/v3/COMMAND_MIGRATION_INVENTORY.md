@@ -13,7 +13,7 @@ Generated with node scripts/command-migration-map.mjs. This is a static lead lis
 
 Default legacy authority remains active. The async compatibility controller is verified against an isolated real IndexedDB repository; it has not automatically converted the rows below.
 
-## Lexical leads (79)
+## Lexical leads (74)
 
 |File|Function|Line|Save calls|Command calls|Static classification|
 |---|---|---:|---:|---:|---|
@@ -32,12 +32,9 @@ Default legacy authority remains active. The async compatibility controller is v
 |src/application/legacy-classroom-adapter.js|`judgeRound`|347|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`adjust`|3|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`set`|60|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/round-settlement.js|`execute`|3|1|0|CALLER_AUDIT_REQUIRED|
-|src/application/round-settlement.js|`start`|32|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/round-settlement.js|`forceEnd`|100|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/round-settlement.js|`start`|72|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/round-settlement.js|`forceEnd`|140|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/core/picker-bridge.js|`command`|50|1|0|CALLER_AUDIT_REQUIRED|
-|src/items/round-effects.js|`settle`|3|1|0|CALLER_AUDIT_REQUIRED|
-|src/items/round-effects.js|`expire`|36|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`confirmFinalSettlement`|271|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`toggleResizerEnabled`|1482|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`toggleSaveAllIn`|1488|1|0|CALLER_AUDIT_REQUIRED|
@@ -46,42 +43,41 @@ Default legacy authority remains active. The async compatibility controller is v
 |src/script/00.js|`updateAdminPin`|1577|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`nextRound`|1700|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/script/00.js|`applySettingsBatchMembers`|1776|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`settleBaseRoundLegacy`|2001|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`toggleGroupPreselect`|2419|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`toggleAntiRepeat`|2444|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`resetPickerPool`|2450|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`stopSlotSpin`|2594|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`rewardPickedStudent`|2644|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`applyBatchImport`|2674|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`addGroup`|2727|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`deleteGroup`|2751|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`updateGroupName`|2762|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`updateGroupColor`|2773|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`resetAllScores`|2782|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`updateMasterVolume`|2828|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`startBulletTimer:callback@4226`|4226|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`globalItemDraw:callback@4233`|4233|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`saveItemGroupDetail`|4325|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`judgeHandRaise`|4409|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`handDrawItem`|4417|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4421:callback@4429`|4429|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`handleItemIconUpload:callback@4441`|4441|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`resetItemIcon`|4442|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`resetAllItemIcons`|4443|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`importItemIconPack:callback@4445`|4445|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`godAddItem`|4474|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`godClearItems`|4475|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4524:callback@4553`|4553|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4644:callback@4646`|4646|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`frame`|4683|6|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4860`|4860|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4861`|4861|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@4995:callback@4998`|4998|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`repairPersistentItemsV28`|5020|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`<initialization>:callback@5060`|5060|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`godAddItemV283`|5383|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`godAddQueueItemV2120`|5867|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`godClearQueueItemsV2120`|5879|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`toggleGroupPreselect`|2390|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`toggleAntiRepeat`|2415|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`resetPickerPool`|2421|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`stopSlotSpin`|2565|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`rewardPickedStudent`|2615|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`applyBatchImport`|2645|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`addGroup`|2698|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`deleteGroup`|2722|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`updateGroupName`|2733|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`updateGroupColor`|2744|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`resetAllScores`|2753|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`updateMasterVolume`|2799|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`startBulletTimer:callback@4197`|4197|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`globalItemDraw:callback@4204`|4204|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`saveItemGroupDetail`|4296|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`judgeHandRaise`|4380|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`handDrawItem`|4388|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4392:callback@4400`|4400|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`handleItemIconUpload:callback@4412`|4412|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`resetItemIcon`|4413|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`resetAllItemIcons`|4414|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`importItemIconPack:callback@4416`|4416|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`godAddItem`|4445|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`godClearItems`|4446|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4495:callback@4524`|4524|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4615:callback@4617`|4617|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`frame`|4654|6|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4831`|4831|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4832`|4832|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@4966:callback@4969`|4969|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`repairPersistentItemsV28`|4991|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`<initialization>:callback@5031`|5031|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`godAddItemV283`|5354|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`godAddQueueItemV2120`|5838|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`godClearQueueItemsV2120`|5850|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/01.js|`ensureGroupNumbersV213`|11|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/01.js|`<initialization>:callback@56`|56|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/07.js|`clearAllItemsV2172`|164|1|0|CALLER_AUDIT_REQUIRED|
@@ -95,4 +91,3 @@ Default legacy authority remains active. The async compatibility controller is v
 |src/script/36.js|`<initialization>`|1|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/36.js|`applyQuickPersonScoreV218`|169|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/script/36.js|`finishOwnItemUseV218`|235|1|0|CALLER_AUDIT_REQUIRED|
-|src/ui/round-feedback.js|`afterPowerRound:callback@10:callback@27`|27|1|0|CALLER_AUDIT_REQUIRED|

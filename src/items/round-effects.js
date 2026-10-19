@@ -30,8 +30,7 @@ const RoundItemEffects = (() => {
       }
       detectOvertakePunish(group.id, rankingsBefore);
     });
-    saveState();
-    renderAll();
+    return true;
   }
   function expire({ answersBefore }) {
     const answered = new Map(
@@ -60,8 +59,7 @@ const RoundItemEffects = (() => {
       }
       delete group.roundItemContinuationKeyV218;
     });
-    saveState();
-    renderAll();
+    return true;
   }
   return { settle, expire };
 })();

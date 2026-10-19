@@ -19,14 +19,54 @@ const RoundSettlement = (() => {
             !!group.selectedOpt && group.selectedOpt === state.correctAns,
         })),
     };
-    const result = settleBaseRoundLegacy();
+    const presentation = settleBaseRoundLegacy();
+    if (!presentation) return false;
     RoundItemEffects.settle(context);
     ensureV2State();
     state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
-    saveState();
-    RoundFeedback.afterPowerRound(context.powerBefore);
     RoundItemEffects.expire(context);
-    return result;
+    return {
+      ...presentation,
+      powerBefore: context.powerBefore,
+    };
+  }
+  function present(presentation) {
+    if (!presentation) return;
+    const {
+      flipSnapshotV21725,
+      scoreUpdates,
+      allInWins,
+      allInLosses,
+      hasNormalWin,
+      hasMilestone,
+      milestoneGroups,
+      powerBefore,
+    } = presentation;
+    RoundFeedback.afterPowerRound(powerBefore);
+    animateCardsFromSnapshotV21725(flipSnapshotV21725);
+    state.groups.forEach((group) => {
+      if (!group.selectedOpt || !group.allIn) return;
+      const card = document.querySelector(
+        `.group-row-card[data-group-id="${group.id}"]`,
+      );
+      if (!card) return;
+      card.classList.add(
+        group.selectedOpt === state.correctAns ? "anim-win" : "anim-loss",
+      );
+      setTimeout(() => {
+        card.classList.remove("anim-win", "anim-loss");
+      }, 1100);
+    });
+    if (scoreUpdates.length) animateScores(scoreUpdates);
+    if (hasMilestone) {
+      playSound("big_win");
+      milestoneGroups.forEach(showMilestoneBanner);
+    }
+    bgmTriggerVictory(() => {
+      if (allInWins > 0) playSound("allin_win");
+      else if (allInLosses > 0) playSound("allin_lose");
+      else if (hasNormalWin) playSound("pk_correct");
+    });
   }
   let forceEndGeneration = 0;
   async function start() {
@@ -147,5 +187,12 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, start, forceEnd, captureRoundToken, isRoundTokenCurrent };
+  return {
+    execute,
+    present,
+    start,
+    forceEnd,
+    captureRoundToken,
+    isRoundTokenCurrent,
+  };
 })();

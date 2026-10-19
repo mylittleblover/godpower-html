@@ -1,0 +1,21 @@
+{
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080@1x",
+  "status": "PASS",
+  "result": {
+    "accepted": true,
+    "completion": {
+      "ok": true,
+      "persisted": true
+    },
+    "history": 1,
+    "renders": 1,
+    "saves": 1,
+    "scores": [
+      2,
+      0
+    ],
+    "evaluated": true,
+    "pkTotal": 1
+  }
+}
