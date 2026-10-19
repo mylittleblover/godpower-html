@@ -2138,7 +2138,7 @@ async function setCorrectAns(opt) {
   renderControls();
 }
 
-function legacyJudgeRound() {
+function settleBaseRoundLegacy() {
   if (!state.roundActive || state.evaluated) return;
   if (!state.correctAns) {
     themeAlert('请先设定正确选项 (A/B/C/D)');
@@ -2156,34 +2156,17 @@ function legacyJudgeRound() {
   const milestoneGroups = [];
   const scoreUpdates = [];
 
-  state.groups.forEach(g => {
+  const roundResults = CompetitionRules.calculateRound(state);
+  state.groups.forEach((g, index) => {
+    const result = roundResults[index];
     g.animState = '';
-    if (!g.selectedOpt) {
-      g.resultText = '未作答';
-      return;
-    }
-    const isCorrect = g.selectedOpt === state.correctAns;
-    const oldScore = g.score;
-
-    if (g.allIn) {
-      if (isCorrect) {
-        g.score = g.score * 2;
-        g.resultText = '答对(×2)';
-        allInWins++;
-      } else {
-        g.score = 0;
-        g.resultText = '清零';
-        allInLosses++;
-      }
-    } else {
-      if (isCorrect) {
-        g.score += 2;
-        g.resultText = '正确(+2)';
-        hasNormalWin = true;
-      } else {
-        g.resultText = '错误(+0)';
-      }
-    }
+    g.resultText = result.resultText;
+    if (!result.answered) return;
+    const oldScore = result.scoreBefore;
+    g.score = result.scoreAfter;
+    if (result.allIn) {
+      if (result.correct) allInWins++; else allInLosses++;
+    } else if (result.correct) hasNormalWin = true;
 
     if (oldScore !== g.score) {
       scoreUpdates.push({ groupId: g.id, start: oldScore, target: g.score });
@@ -4585,7 +4568,6 @@ function itemCustomScore(id){const n=Number(document.getElementById('itemCustomS
 function enhanceItemCards(){ensureItemState();state.groups.forEach(g=>{const c=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);if(!c)return;c.classList.remove('item-def-green','item-def-red','item-def-yellow','item-def-orange','effect-star','effect-mega','effect-power','effect-bullet','effect-boo','effect-ice');const firstDef=g.inventory.find(it=>ITEM_DEFS[it.key]?.def);if(firstDef)c.classList.add('item-def-'+ITEM_DEFS[firstDef.key].def);if(g.itemEffect?.type)c.classList.add('effect-'+g.itemEffect.type);if(g.itemEffect?.iceLock)c.classList.add('effect-ice');if(g.booShield>0)c.classList.add('effect-boo');const head=c.querySelector('.card-header-row');if(head&&!c.querySelector('.item-slots')){const slots=document.createElement('div');slots.className='item-slots';slots.innerHTML=[0,1,2].map(i=>{const it=g.inventory[i];return it?`<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?`<span class="charges">${it.charges}</span>`:''}</div>`:'<div class="item-slot empty">＋</div>'}).join('');head.parentNode.insertBefore(slots,head.nextSibling)}const mb=c.querySelector('.more-btn');if(mb){mb.classList.remove('locked-disabled');mb.title='小组详情 / 道具 / 基础赋分';mb.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openItemWindow(g.id)}}});applyBlooperMask()}
 
 
-const _itemBaseJudgeRound=legacyJudgeRound;legacyJudgeRound=function(){if(!state.roundActive||state.evaluated||!state.correctAns)return false;const before=ranking().map(g=>g.id),answered=state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}));_itemBaseJudgeRound();answered.forEach(x=>{const g=state.groups.find(q=>q.id===x.id);if(!g||!x.answered)return;if(x.correct)g.itemStats.correct++;else g.itemStats.wrong++;if(g.itemEffect&&g.itemEffect.type==='power'){g.itemEffect.roundsLeft--;if(x.correct&&eligibleForItems(g)){const r=ranking(),i=r.findIndex(q=>q.id===g.id);if(i>0){g.score=r[i-1].score+1;g.displayScore=g.score}}if(g.itemEffect&&g.itemEffect.roundsLeft<=0){const ix=g.inventory.findIndex(it=>it.key==='power');if(ix>=0)g.inventory.splice(ix,1);g.itemEffect=null}}detectOvertakePunish(g.id,before)});saveState();renderAll()};
 
 
 const savedItemGlobal=STORAGE.getJSON('politics_item_global',null);if(savedItemGlobal)state.itemGlobal={...state.itemGlobal,...savedItemGlobal};
@@ -4711,7 +4693,6 @@ const _v2Enhance=enhanceItemCards;enhanceItemCards=function(){_v2Enhance();ensur
 const _v2RenderItemWindowIcons=renderItemWindow;renderItemWindow=function(){_v2RenderItemWindowIcons();const g=state.groups.find(x=>x.id===activeItemGroupId);if(!g||activeItemTab!=='items')return;document.querySelectorAll('#itemWindowBody .item-big-icon').forEach((el,i)=>{const it=g.inventory[i];if(it)el.innerHTML=itemVisual(it.key)})}
 
 /* 答题轮次统计 */
-const _v2Judge=legacyJudgeRound;legacyJudgeRound=function(){const was=state.roundActive&&!state.evaluated;_v2Judge();if(was){ensureV2State();state.itemGlobal.pkTotal=(state.itemGlobal.pkTotal||0)+1;saveState()}}
 
 /* 设置/关于关闭与初始化 */
 document.getElementById('aboutBackdrop')?.addEventListener('click',e=>{if(e.target.id==='aboutBackdrop')closeAbout()});

@@ -153,3 +153,7 @@ BATTLE_14_GROUPS_BASELINE：最新起点源码与当前源码分别在相同Chro
 ## 设置页清查与新UI补齐（e97933d 起点）
 
 当前设置页清单、布局、动效、真实音频往返与验收范围见 docs/reports/SETTINGS_CLEANUP_ACCEPTANCE.md、docs/audit/SETTINGS_INVENTORY.md。最终同产物43个UI场景与阶段性157核心／31桌面场景分开记录，未将阶段测试合并为全量最终verify。
+
+## 3.0.4判题治理
+
+legacyJudgeRound从5处定义/覆盖变成1个明确兼容入口。移除四个旧包装器及其捕获别名，保留其有效行为在RoundSettlement/ItemEffects/Feedback各职责模块。基础+2/All In计算与预检复用同一纯函数。旧/新80种子（含4/14组、强力、冰冻、幽灵、空答、All In和溢出）结果完全一致，包含统计、库存、回合状态、720ms调度、音效/分数视觉事件。173项Node测试通过。更广回归结果随本阶段验收报告记录；不宣称14层旧道具链已处理完毕。

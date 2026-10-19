@@ -338,6 +338,10 @@ if (classroomStoredState !== null) {
 }
 window.classroomReady = true;
 
+function legacyJudgeRound() {
+  return RoundSettlement.execute();
+}
+
 function judgeRound() {
   if (!state.roundActive || state.evaluated || !state.correctAns) return false;
   try {

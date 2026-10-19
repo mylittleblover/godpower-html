@@ -7,67 +7,7 @@
  * 动画结束时又把 displayScore 写回“普通结算后的分数”，所以画面看起来像没触发。
  * 这里保留“先普通结算、再提升一名”的设计，在基础动画结束后再做第二段提升动画。
  */
-if (typeof legacyJudgeRound === 'function') {
-  const _v2164JudgeRound = legacyJudgeRound;
-  legacyJudgeRound = function(...args) {
-    if(!state.roundActive||state.evaluated||!state.correctAns)return false;
-    const powerBefore = state.groups
-      .filter(g => g?.itemEffect?.type === 'power')
-      .map(g => ({
-        id: g.id,
-        answered: !!g.selectedOpt,
-        correct: !!g.selectedOpt && g.selectedOpt === state.correctAns
-      }));
-
-    const result = _v2164JudgeRound.apply(this, args);
-
-    const powerTargets = powerBefore
-      .filter(x => x.answered && x.correct)
-      .map(x => {
-        const g = state.groups.find(q => q.id === x.id);
-        return g ? { id: g.id, target: Number(g.score) || 0 } : null;
-      })
-      .filter(Boolean);
-
-    if (powerTargets.length) {
-      setTimeout(() => {
-        try {
-          /* 基础 +2 / All In 动画到这里应当已经完成；若还有尾帧，直接收束。 */
-          if (activeScoreAnimId) {
-            cancelAnimationFrame(activeScoreAnimId);
-            activeScoreAnimId = null;
-          }
-
-          const updates = [];
-          powerTargets.forEach(x => {
-            const g = state.groups.find(q => q.id === x.id);
-            if (!g) return;
-            const target = Number(g.score) || 0;
-            const start = Number(g.displayScore);
-            const visibleStart = Number.isFinite(start) ? start : target;
-            if (visibleStart !== target) {
-              updates.push({ groupId: g.id, start: visibleStart, target });
-            } else {
-              g.displayScore = target;
-            }
-          });
-
-          if (updates.length) {
-            animateScores(updates, () => {
-              try { saveState(); renderAll(); } catch (e) {}
-            });
-          } else {
-            try { saveState(); renderAll(); } catch (e) {}
-          }
-        } catch (e) {
-          console.warn('power mushroom score sync', e);
-        }
-      }, 720);
-    }
-
-    return result;
-  };
-}
+/* Power round feedback is owned by ui/round-feedback.js. */
 
 /*
  * 2. 道具音效：

@@ -162,6 +162,11 @@
     },
     {
       "type": "script",
+      "path": "domain/competition/rules.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "infrastructure/legacy/classroom-repository.js",
       "attributes": ""
     },
@@ -473,6 +478,21 @@
     {
       "type": "script",
       "path": "items/operation.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "items/round-effects.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/round-feedback.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "application/round-settlement.js",
       "attributes": ""
     },
     {

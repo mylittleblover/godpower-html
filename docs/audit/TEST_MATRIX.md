@@ -1,3 +1,18 @@
+# 3.0.4判题专项（2026-10-19）
+
+| 功能×场景 | 类型 | 实际结果 | 证据 |
+|---|---|---|---|
+| 纯计分/架构/现有单元集成 | Node | PASS173/173 | artifacts/v3-round/unit.log |
+| 旧/新判题链4/14组、All In、power/ice/boo、空答、溢出 | Chromium种子差分 | PASS80/80，状态/声音/720ms调度相同 | differential.json |
+| 核心业务 | Chromium1920×1080 1× | PASS117/117 errors=[] | browser-results.json |
+| 全部道具及可配置积木 | 浏览器oracle | PASS26/26 | items.log |
+| 道具抽取 | 可控种子 | PASS448案例 | items.log |
+| file:// | Chromium | BLOCKED | 浏览器策略禁止，不计PASS |
+
+以下为历史阶段。
+
+---
+
 # 3.0.3迁移架构专项（2026-10-19）
 
 | 功能×场景 | 类型 | 实际结果 | 证据 |

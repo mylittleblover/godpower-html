@@ -107,18 +107,7 @@ const Reliability = (() => {
       if(Object.hasOwn(raw,k))out[k]=count(raw[k]);
     return Object.keys(out).length?out:null;
   }
-  function calculateRoundScores(s){
-    return s.groups.map(g=>{
-      let score=Number(g.score);
-      if(!Number.isSafeInteger(score))throw Error('分数超出安全整数范围');
-      if(g.selectedOpt){
-        const correct=g.selectedOpt===s.correctAns;
-        score=g.allIn?(correct?score*2:0):(correct?score+2:score);
-      }
-      if(!Number.isSafeInteger(score))throw Error('本次计分将超出安全整数范围，请先导出备份并调整积分');
-      return score;
-    });
-  }
+  function calculateRoundScores(s){return CompetitionRules.calculateRound(s).map(result=>result.scoreAfter)}
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
   return {schemaVersion,stateKey,legacyStateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();

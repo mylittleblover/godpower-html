@@ -55,3 +55,9 @@ Migration coordination now rebuilds source payloads, uses deterministic identity
 Verification: Node160/160; Chromium core117/117 errors=[]; complete migration suite including8 async command scenarios, source/target corruption, repeat staging and actual settings clicks PASS. Screenshot artifacts/v3-async/screenshots/migration-panel.png was inspected. The14group score list and primary raw string remained identical before/after staging. file:// remains BLOCKED by managed browser policy.100 synchronous round-loop sample:2669.5ms, DOM nodes2514 at20/50/100; heap one-point35156851 bytes, not a memory-leak trend or real-class FPS claim.
 
 Next: migrate actual legacy command families into pure/domain calculations and the async gateway; first consolidate duplicate basic score calculation and the five legacyJudgeRound writes, with a pre-change differential baseline. Only then can default storage authority be safely switched.
+
+## 3.0.4 round settlement consolidation (verified)
+
+Pre-change80-case characterization againstda00d1b passed before editing. Then structural guard failed5→1 and pure port test failed missing implementation. Implemented CompetitionRules, explicit RoundSettlement, item-round adapter and separate720ms feedback owner. Removed four legacy wrappers, retained one compatibility entry; actual old/new80-case full selected-state/visual/sound comparison PASS. Node173/173 PASS. Broad Chromium business regression117/117 errors=[], item oracle26/26, seeded draw448 cases and configured-item browser tests PASS. Evidence artifacts/v3-round. file:// remains BLOCKED.
+
+Next investigation found the currentItemOperationBlocks executes all26blueprints directly, while legacyUseItem still has14definitions/assignments. This is a reachability lead, not yet a safe-deletion conclusion. Inspect every capture/IIFE side effect and prove current public commands never enter the chain before deleting it. Keep shared attack/defense/animation helpers.

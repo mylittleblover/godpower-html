@@ -359,37 +359,7 @@ if(typeof queueUseStateV2120==='function'){
 
 
 /* ---------- 5. 答题次数型状态 ---------- */
-const _v218JudgeRound=legacyJudgeRound;
-legacyJudgeRound=function(...args){
-  if(!state.roundActive||state.evaluated||!state.correctAns)return false;
-  const wasActive=state.roundActive&&!state.evaluated;
-  const answeredBefore=new Map(state.groups.map(g=>[g.id,!!g.selectedOpt]));
-  const result=_v218JudgeRound.apply(this,args);
-  if(!wasActive)return result;
-
-  state.groups.forEach(g=>{
-    /* 冰冻：若不主动用道具，经历 3 次实际答题后自动解除。 */
-    if(g.itemEffect?.iceLock && answeredBefore.get(g.id)){
-      let left=Number(g.itemEffect.iceRoundsLeftV218||3)-1;
-      g.itemEffect.iceRoundsLeftV218=left;
-      if(left<=0){
-        delete g.itemEffect.iceLock;delete g.itemEffect.iceRoundsLeftV218;
-        if(Object.keys(g.itemEffect).length===0)g.itemEffect=null;
-        showToast(`${g.name} 的冰冻状态已自然解除`);
-      }
-    }
-    /* 害羞幽灵：持续 3 次答题，攻击不会消耗。 */
-    if(Number(g.booRoundsLeftV218||0)>0 && answeredBefore.get(g.id)){
-      g.booRoundsLeftV218=Math.max(0,Number(g.booRoundsLeftV218)-1);
-      if(g.booRoundsLeftV218<=0){
-        g.booShield=0;delete g.booRoundsLeftV218;
-      }
-    }
-    delete g.roundItemContinuationKeyV218;
-  });
-  saveState();renderAll();
-  return result;
-};
+/* Answered-round expiry is owned by items/round-effects.js. */
 
 /* 冰冻被主动使用触发时：立即解除，并继续沿用“本次使用被取消”的既有规则。 */
 const _v218UseItemIceCleanup=legacyUseItem;

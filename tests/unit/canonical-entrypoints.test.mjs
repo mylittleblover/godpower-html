@@ -7,6 +7,7 @@ const canonical = new Map(
     "renderAll",
     "renderGrid",
     "useItem",
+    "legacyJudgeRound",
     "applyItemScore",
     "tryDefend",
     "saveState",

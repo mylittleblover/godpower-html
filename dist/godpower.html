@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.3</title>
+<title>上帝的力量 V3.0.4</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.3";
+    document.title = name() + " V3.0.4";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.3</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.4</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9655,6 +9655,53 @@ const StableIdentity = (() => {
     createCommandId,
     assignGroupUids,
   };
+})();
+</script>
+<script>/* Basic answer scoring only. Item effects and presentation are separate stages. */
+const CompetitionRules = (() => {
+  function calculateRound({ groups, correctAns }) {
+    if (!Array.isArray(groups)) throw new TypeError("小组数据必须是数组");
+    if (!["A", "B", "C", "D"].includes(correctAns))
+      throw new Error("请先设定正确选项 (A/B/C/D)");
+    return groups.map((group) => {
+      const scoreBefore = Number(group.score);
+      if (!Number.isSafeInteger(scoreBefore))
+        throw new Error("分数超出安全整数范围");
+      const answered = !!group.selectedOpt;
+      const correct = answered && group.selectedOpt === correctAns;
+      const allIn = !!group.allIn;
+      let scoreAfter = scoreBefore;
+      if (answered)
+        scoreAfter = allIn
+          ? correct
+            ? scoreBefore * 2
+            : 0
+          : correct
+            ? scoreBefore + 2
+            : scoreBefore;
+      if (!Number.isSafeInteger(scoreAfter))
+        throw new Error("本次计分将超出安全整数范围，请先导出备份并调整积分");
+      return {
+        groupId: group.id,
+        answered,
+        correct,
+        allIn,
+        scoreBefore,
+        scoreAfter,
+        delta: scoreAfter - scoreBefore,
+        resultText: !answered
+          ? "未作答"
+          : allIn
+            ? correct
+              ? "答对(×2)"
+              : "清零"
+            : correct
+              ? "正确(+2)"
+              : "错误(+0)",
+      };
+    });
+  }
+  return { calculateRound };
 })();
 </script>
 <script>/* Storage adapters own serialization and migration receipts; domain rules stay separate. */
@@ -11689,18 +11736,7 @@ const Reliability = (() => {
       if(Object.hasOwn(raw,k))out[k]=count(raw[k]);
     return Object.keys(out).length?out:null;
   }
-  function calculateRoundScores(s){
-    return s.groups.map(g=>{
-      let score=Number(g.score);
-      if(!Number.isSafeInteger(score))throw Error('分数超出安全整数范围');
-      if(g.selectedOpt){
-        const correct=g.selectedOpt===s.correctAns;
-        score=g.allIn?(correct?score*2:0):(correct?score+2:score);
-      }
-      if(!Number.isSafeInteger(score))throw Error('本次计分将超出安全整数范围，请先导出备份并调整积分');
-      return score;
-    });
-  }
+  function calculateRoundScores(s){return CompetitionRules.calculateRound(s).map(result=>result.scoreAfter)}
   function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
   return {schemaVersion,stateKey,legacyStateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
 })();
@@ -14273,7 +14309,7 @@ async function setCorrectAns(opt) {
   renderControls();
 }
 
-function legacyJudgeRound() {
+function settleBaseRoundLegacy() {
   if (!state.roundActive || state.evaluated) return;
   if (!state.correctAns) {
     themeAlert('请先设定正确选项 (A/B/C/D)');
@@ -14291,34 +14327,17 @@ function legacyJudgeRound() {
   const milestoneGroups = [];
   const scoreUpdates = [];
 
-  state.groups.forEach(g => {
+  const roundResults = CompetitionRules.calculateRound(state);
+  state.groups.forEach((g, index) => {
+    const result = roundResults[index];
     g.animState = '';
-    if (!g.selectedOpt) {
-      g.resultText = '未作答';
-      return;
-    }
-    const isCorrect = g.selectedOpt === state.correctAns;
-    const oldScore = g.score;
-
-    if (g.allIn) {
-      if (isCorrect) {
-        g.score = g.score * 2;
-        g.resultText = '答对(×2)';
-        allInWins++;
-      } else {
-        g.score = 0;
-        g.resultText = '清零';
-        allInLosses++;
-      }
-    } else {
-      if (isCorrect) {
-        g.score += 2;
-        g.resultText = '正确(+2)';
-        hasNormalWin = true;
-      } else {
-        g.resultText = '错误(+0)';
-      }
-    }
+    g.resultText = result.resultText;
+    if (!result.answered) return;
+    const oldScore = result.scoreBefore;
+    g.score = result.scoreAfter;
+    if (result.allIn) {
+      if (result.correct) allInWins++; else allInLosses++;
+    } else if (result.correct) hasNormalWin = true;
 
     if (oldScore !== g.score) {
       scoreUpdates.push({ groupId: g.id, start: oldScore, target: g.score });
@@ -16720,7 +16739,6 @@ function itemCustomScore(id){const n=Number(document.getElementById('itemCustomS
 function enhanceItemCards(){ensureItemState();state.groups.forEach(g=>{const c=document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);if(!c)return;c.classList.remove('item-def-green','item-def-red','item-def-yellow','item-def-orange','effect-star','effect-mega','effect-power','effect-bullet','effect-boo','effect-ice');const firstDef=g.inventory.find(it=>ITEM_DEFS[it.key]?.def);if(firstDef)c.classList.add('item-def-'+ITEM_DEFS[firstDef.key].def);if(g.itemEffect?.type)c.classList.add('effect-'+g.itemEffect.type);if(g.itemEffect?.iceLock)c.classList.add('effect-ice');if(g.booShield>0)c.classList.add('effect-boo');const head=c.querySelector('.card-header-row');if(head&&!c.querySelector('.item-slots')){const slots=document.createElement('div');slots.className='item-slots';slots.innerHTML=[0,1,2].map(i=>{const it=g.inventory[i];return it?`<div class="item-slot" title="${ITEM_DEFS[it.key].name}">${itemVisual(it.key)}${it.charges>1?`<span class="charges">${it.charges}</span>`:''}</div>`:'<div class="item-slot empty">＋</div>'}).join('');head.parentNode.insertBefore(slots,head.nextSibling)}const mb=c.querySelector('.more-btn');if(mb){mb.classList.remove('locked-disabled');mb.title='小组详情 / 道具 / 基础赋分';mb.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openItemWindow(g.id)}}});applyBlooperMask()}
 
 
-const _itemBaseJudgeRound=legacyJudgeRound;legacyJudgeRound=function(){if(!state.roundActive||state.evaluated||!state.correctAns)return false;const before=ranking().map(g=>g.id),answered=state.groups.map(g=>({id:g.id,answered:!!g.selectedOpt,correct:g.selectedOpt===state.correctAns}));_itemBaseJudgeRound();answered.forEach(x=>{const g=state.groups.find(q=>q.id===x.id);if(!g||!x.answered)return;if(x.correct)g.itemStats.correct++;else g.itemStats.wrong++;if(g.itemEffect&&g.itemEffect.type==='power'){g.itemEffect.roundsLeft--;if(x.correct&&eligibleForItems(g)){const r=ranking(),i=r.findIndex(q=>q.id===g.id);if(i>0){g.score=r[i-1].score+1;g.displayScore=g.score}}if(g.itemEffect&&g.itemEffect.roundsLeft<=0){const ix=g.inventory.findIndex(it=>it.key==='power');if(ix>=0)g.inventory.splice(ix,1);g.itemEffect=null}}detectOvertakePunish(g.id,before)});saveState();renderAll()};
 
 
 const savedItemGlobal=STORAGE.getJSON('politics_item_global',null);if(savedItemGlobal)state.itemGlobal={...state.itemGlobal,...savedItemGlobal};
@@ -16846,7 +16864,6 @@ const _v2Enhance=enhanceItemCards;enhanceItemCards=function(){_v2Enhance();ensur
 const _v2RenderItemWindowIcons=renderItemWindow;renderItemWindow=function(){_v2RenderItemWindowIcons();const g=state.groups.find(x=>x.id===activeItemGroupId);if(!g||activeItemTab!=='items')return;document.querySelectorAll('#itemWindowBody .item-big-icon').forEach((el,i)=>{const it=g.inventory[i];if(it)el.innerHTML=itemVisual(it.key)})}
 
 /* 答题轮次统计 */
-const _v2Judge=legacyJudgeRound;legacyJudgeRound=function(){const was=state.roundActive&&!state.evaluated;_v2Judge();if(was){ensureV2State();state.itemGlobal.pkTotal=(state.itemGlobal.pkTotal||0)+1;saveState()}}
 
 /* 设置/关于关闭与初始化 */
 document.getElementById('aboutBackdrop')?.addEventListener('click',e=>{if(e.target.id==='aboutBackdrop')closeAbout()});
@@ -18876,67 +18893,7 @@ window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
  * 动画结束时又把 displayScore 写回“普通结算后的分数”，所以画面看起来像没触发。
  * 这里保留“先普通结算、再提升一名”的设计，在基础动画结束后再做第二段提升动画。
  */
-if (typeof legacyJudgeRound === 'function') {
-  const _v2164JudgeRound = legacyJudgeRound;
-  legacyJudgeRound = function(...args) {
-    if(!state.roundActive||state.evaluated||!state.correctAns)return false;
-    const powerBefore = state.groups
-      .filter(g => g?.itemEffect?.type === 'power')
-      .map(g => ({
-        id: g.id,
-        answered: !!g.selectedOpt,
-        correct: !!g.selectedOpt && g.selectedOpt === state.correctAns
-      }));
-
-    const result = _v2164JudgeRound.apply(this, args);
-
-    const powerTargets = powerBefore
-      .filter(x => x.answered && x.correct)
-      .map(x => {
-        const g = state.groups.find(q => q.id === x.id);
-        return g ? { id: g.id, target: Number(g.score) || 0 } : null;
-      })
-      .filter(Boolean);
-
-    if (powerTargets.length) {
-      setTimeout(() => {
-        try {
-          /* 基础 +2 / All In 动画到这里应当已经完成；若还有尾帧，直接收束。 */
-          if (activeScoreAnimId) {
-            cancelAnimationFrame(activeScoreAnimId);
-            activeScoreAnimId = null;
-          }
-
-          const updates = [];
-          powerTargets.forEach(x => {
-            const g = state.groups.find(q => q.id === x.id);
-            if (!g) return;
-            const target = Number(g.score) || 0;
-            const start = Number(g.displayScore);
-            const visibleStart = Number.isFinite(start) ? start : target;
-            if (visibleStart !== target) {
-              updates.push({ groupId: g.id, start: visibleStart, target });
-            } else {
-              g.displayScore = target;
-            }
-          });
-
-          if (updates.length) {
-            animateScores(updates, () => {
-              try { saveState(); renderAll(); } catch (e) {}
-            });
-          } else {
-            try { saveState(); renderAll(); } catch (e) {}
-          }
-        } catch (e) {
-          console.warn('power mushroom score sync', e);
-        }
-      }, 720);
-    }
-
-    return result;
-  };
-}
+/* Power round feedback is owned by ui/round-feedback.js. */
 
 /*
  * 2. 道具音效：
@@ -22451,37 +22408,7 @@ if(typeof queueUseStateV2120==='function'){
 
 
 /* ---------- 5. 答题次数型状态 ---------- */
-const _v218JudgeRound=legacyJudgeRound;
-legacyJudgeRound=function(...args){
-  if(!state.roundActive||state.evaluated||!state.correctAns)return false;
-  const wasActive=state.roundActive&&!state.evaluated;
-  const answeredBefore=new Map(state.groups.map(g=>[g.id,!!g.selectedOpt]));
-  const result=_v218JudgeRound.apply(this,args);
-  if(!wasActive)return result;
-
-  state.groups.forEach(g=>{
-    /* 冰冻：若不主动用道具，经历 3 次实际答题后自动解除。 */
-    if(g.itemEffect?.iceLock && answeredBefore.get(g.id)){
-      let left=Number(g.itemEffect.iceRoundsLeftV218||3)-1;
-      g.itemEffect.iceRoundsLeftV218=left;
-      if(left<=0){
-        delete g.itemEffect.iceLock;delete g.itemEffect.iceRoundsLeftV218;
-        if(Object.keys(g.itemEffect).length===0)g.itemEffect=null;
-        showToast(`${g.name} 的冰冻状态已自然解除`);
-      }
-    }
-    /* 害羞幽灵：持续 3 次答题，攻击不会消耗。 */
-    if(Number(g.booRoundsLeftV218||0)>0 && answeredBefore.get(g.id)){
-      g.booRoundsLeftV218=Math.max(0,Number(g.booRoundsLeftV218)-1);
-      if(g.booRoundsLeftV218<=0){
-        g.booShield=0;delete g.booRoundsLeftV218;
-      }
-    }
-    delete g.roundItemContinuationKeyV218;
-  });
-  saveState();renderAll();
-  return result;
-};
+/* Answered-round expiry is owned by items/round-effects.js. */
 
 /* 冰冻被主动使用触发时：立即解除，并继续沿用“本次使用被取消”的既有规则。 */
 const _v218UseItemIceCleanup=legacyUseItem;
@@ -23042,7 +22969,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.3';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.4';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24337,6 +24264,151 @@ const ItemOperationBlocks = (() => {
   return { run, blueprints: () => ItemBlueprints };
 })();
 </script>
+<script>/* Explicit compatibility owner for item effects applied after base answer scoring. */
+const RoundItemEffects = (() => {
+  function settle({ rankingsBefore, answersBefore }) {
+    answersBefore.forEach((answer) => {
+      const group = state.groups.find(
+        (candidate) => candidate.id === answer.id,
+      );
+      if (!group || !answer.answered) return;
+      if (answer.correct) group.itemStats.correct++;
+      else group.itemStats.wrong++;
+      if (group.itemEffect && group.itemEffect.type === "power") {
+        group.itemEffect.roundsLeft--;
+        if (answer.correct && eligibleForItems(group)) {
+          const sorted = ranking(),
+            position = sorted.findIndex(
+              (candidate) => candidate.id === group.id,
+            );
+          if (position > 0) {
+            group.score = sorted[position - 1].score + 1;
+            group.displayScore = group.score;
+          }
+        }
+        if (group.itemEffect && group.itemEffect.roundsLeft <= 0) {
+          const index = group.inventory.findIndex(
+            (item) => item.key === "power",
+          );
+          if (index >= 0) group.inventory.splice(index, 1);
+          group.itemEffect = null;
+        }
+      }
+      detectOvertakePunish(group.id, rankingsBefore);
+    });
+    saveState();
+    renderAll();
+  }
+  function expire({ answersBefore }) {
+    const answered = new Map(
+      answersBefore.map((answer) => [answer.id, answer.answered]),
+    );
+    state.groups.forEach((group) => {
+      if (group.itemEffect?.iceLock && answered.get(group.id)) {
+        const left = Number(group.itemEffect.iceRoundsLeftV218 || 3) - 1;
+        group.itemEffect.iceRoundsLeftV218 = left;
+        if (left <= 0) {
+          delete group.itemEffect.iceLock;
+          delete group.itemEffect.iceRoundsLeftV218;
+          if (!Object.keys(group.itemEffect).length) group.itemEffect = null;
+          showToast(`${group.name} 的冰冻状态已自然解除`);
+        }
+      }
+      if (Number(group.booRoundsLeftV218 || 0) > 0 && answered.get(group.id)) {
+        group.booRoundsLeftV218 = Math.max(
+          0,
+          Number(group.booRoundsLeftV218) - 1,
+        );
+        if (group.booRoundsLeftV218 <= 0) {
+          group.booShield = 0;
+          delete group.booRoundsLeftV218;
+        }
+      }
+      delete group.roundItemContinuationKeyV218;
+    });
+    saveState();
+    renderAll();
+  }
+  return { settle, expire };
+})();
+</script>
+<script>/* Power-mushroom second score phase, retaining the established 720ms handoff. */
+const RoundFeedback = (() => {
+  function afterPowerRound(powerBefore) {
+    const targets = powerBefore
+      .filter((answer) => answer.answered && answer.correct)
+      .map((answer) => state.groups.find((group) => group.id === answer.id))
+      .filter(Boolean)
+      .map((group) => group.id);
+    if (!targets.length) return;
+    setTimeout(() => {
+      try {
+        if (activeScoreAnimId) {
+          cancelAnimationFrame(activeScoreAnimId);
+          activeScoreAnimId = null;
+        }
+        const updates = [];
+        targets.forEach((id) => {
+          const group = state.groups.find((candidate) => candidate.id === id);
+          if (!group) return;
+          const target = Number(group.score) || 0,
+            start = Number(group.displayScore);
+          const visible = Number.isFinite(start) ? start : target;
+          if (visible !== target)
+            updates.push({ groupId: group.id, start: visible, target });
+          else group.displayScore = target;
+        });
+        const refresh = () => {
+          try {
+            saveState();
+            renderAll();
+          } catch (error) {
+            console.warn("Power round presentation refresh failed", error);
+          }
+        };
+        if (updates.length) animateScores(updates, refresh);
+        else refresh();
+      } catch (error) {
+        console.warn("Power mushroom score sync failed", error);
+      }
+    }, 720);
+  }
+  return { afterPowerRound };
+})();
+</script>
+<script>/* One ordered settlement pipeline replacing the legacy function override chain. */
+const RoundSettlement = (() => {
+  function execute() {
+    if (!state.roundActive || state.evaluated || !state.correctAns)
+      return false;
+    const context = {
+      rankingsBefore: ranking().map((group) => group.id),
+      answersBefore: state.groups.map((group) => ({
+        id: group.id,
+        answered: !!group.selectedOpt,
+        correct: group.selectedOpt === state.correctAns,
+      })),
+      powerBefore: state.groups
+        .filter((group) => group?.itemEffect?.type === "power")
+        .map((group) => ({
+          id: group.id,
+          answered: !!group.selectedOpt,
+          correct:
+            !!group.selectedOpt && group.selectedOpt === state.correctAns,
+        })),
+    };
+    const result = settleBaseRoundLegacy();
+    RoundItemEffects.settle(context);
+    ensureV2State();
+    state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
+    saveState();
+    RoundFeedback.afterPowerRound(context.powerBefore);
+    RoundItemEffects.expire(context);
+    return result;
+  }
+  return { execute };
+})();
+</script>
 <script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
 const ItemDrawBlocks = (() => {
   function pick(group, batchUsed = new Set()) {
@@ -24872,7 +24944,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.3",
+    appVersion: "V3.0.4",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),
@@ -25204,6 +25276,10 @@ if (classroomStoredState !== null) {
   }
 }
 window.classroomReady = true;
+
+function legacyJudgeRound() {
+  return RoundSettlement.execute();
+}
 
 function judgeRound() {
   if (!state.roundActive || state.evaluated || !state.correctAns) return false;

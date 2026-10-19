@@ -1,3 +1,21 @@
+# 3.0.4判题包装链治理
+
+基准da00d1b（V3.0.3）。实际替代及动态差分覆盖如下；不得把此表推广为全部旧代码已删除。
+
+| 旧实现 | 分类 | 替代实现 | 证据 |
+|---|---|---|---|
+| 00.js基础判题数学与Reliability预检重复 | 重复实现→已统一 | domain/competition/rules.calculateRound | 零/负数/All In/空答/安全整数单元测试 |
+| 00.js _itemBaseJudgeRound包装 | 已由新实现取代→已删除 | items/round-effects.settle | 80种子差分 |
+| 00.js _v2Judge包装 | 已由新实现取代→已删除 | application/round-settlement显式pkTotal阶段 | 80种子差分，正式回合数/撤销快照 |
+| 04.js _v2164JudgeRound包装 | 已由新实现取代→已删除 | ui/round-feedback.afterPowerRound | 相同720ms调度、分数与音效/视觉事件差分 |
+| 36.js _v218JudgeRound包装 | 已由新实现取代→已删除 | items/round-effects.expire | 作答/未作答、冰冻/幽灵期限与续用锁差分 |
+| legacyJudgeRound入口 | 仍然必要的过渡兼容 | 单一函数转交RoundSettlement，后续调用清单清空后移除 | AST守卫仅允许一个定义，无覆盖 |
+| legacyUseItem14处写入 | 需要进一步静态/动态可达性审查 | 当前公开useItem已转ItemOperationBlocks；旧链可能已被替代 | 下一阶段逐块确认，尚未删除 |
+
+以下为历史库存，行号对应当时版本。
+
+---
+
 # 遗留代码依赖与治理清单
 
 基线：`9e1be3c`。由 `node scripts/legacy-inventory.mjs` 生成。范围：全部旧版脚本、core、UI 与 CSS；资源内容另由构建完整性检查验证。

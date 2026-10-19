@@ -1,0 +1,7 @@
+
+> godpower-html@3.0.4 test:item-modules
+> node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs
+
+PASS item modules: real configured use, separate flows, inventory, empty pool, reload and settings
+PASS draw compatibility 448 seeded cases
+{ pass: 26, fail: 0 }
