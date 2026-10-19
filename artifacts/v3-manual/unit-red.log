@@ -1,0 +1,105 @@
+✖ manual score planning is independent of persistence and presentation (1.480655ms)
+✖ 10 plus 5 plans 15 (0.206303ms)
+✖ 0 plus -5 plans -5 (0.173892ms)
+✖ 99 plus 1 plans 100 (0.09267ms)
+✖ -10 plus 9 plans -1 (0.108934ms)
+✖ 9 plus -10 plans -1 (0.100565ms)
+✖ absolute score set preserves negative and unchanged values (0.097371ms)
+✔ overflow and noninteger inputs are rejected before mutation (0.455123ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 1
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 75.190778
+
+✖ failing tests:
+
+test at tests/unit/score-adjustments.test.mjs:8:1
+✖ manual score planning is independent of persistence and presentation (1.480655ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:8:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/score-adjustments.test.mjs:10:2
+✖ 10 plus 5 plans 15 (0.206303ms)
+  TypeError: Cannot read properties of null (reading 'delta')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:11:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/unit/score-adjustments.test.mjs:10:2
+✖ 0 plus -5 plans -5 (0.173892ms)
+  TypeError: Cannot read properties of null (reading 'delta')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:11:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/score-adjustments.test.mjs:10:2
+✖ 99 plus 1 plans 100 (0.09267ms)
+  TypeError: Cannot read properties of null (reading 'delta')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:11:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/score-adjustments.test.mjs:10:2
+✖ -10 plus 9 plans -1 (0.108934ms)
+  TypeError: Cannot read properties of null (reading 'delta')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:11:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/score-adjustments.test.mjs:10:2
+✖ 9 plus -10 plans -1 (0.100565ms)
+  TypeError: Cannot read properties of null (reading 'delta')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:11:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/score-adjustments.test.mjs:14:1
+✖ absolute score set preserves negative and unchanged values (0.097371ms)
+  TypeError: Cannot read properties of null (reading 'set')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/score-adjustments.test.mjs:15:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

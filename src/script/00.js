@@ -2008,41 +2008,7 @@ function animateScores(scoreUpdates, onComplete) {
 }
 
 function applyScoreDelta(groupId, delta) {
-  Reliability.invalidateDefenseDecisions();
-  cancelScoreAnimationAndSync();
-  if (state.isLocked) { openPwdModal(); return; }
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-
-  const oldScore = g.score;
-  const targetScore = oldScore + delta;
-  if(!Number.isSafeInteger(delta)||!Number.isSafeInteger(targetScore)){showToast('积分必须保持在安全整数范围内');return false}
-  const actualDelta = targetScore - oldScore;
-  const clipped = actualDelta !== delta;
-  if (actualDelta === 0) { showToast(`${g.name} 已是 0 分，无法继续扣分`); return; }
-  // 历史记录写入实际变动值（发生截断时注明），撤销与回滚按快照恢复，不会多出分数
-  recordHistory(`${g.name} 积分调整 (${actualDelta > 0 ? '+' : ''}${actualDelta}${clipped ? `，原输入 ${delta}，已截断至 0 分` : ''})`);
-  g.score = targetScore;
-
-  const oldDigits = Math.floor(Math.abs(oldScore)).toString().length;
-  const newDigits = Math.floor(Math.abs(targetScore)).toString().length;
-  const isMilestone = (newDigits > oldDigits && targetScore > oldScore);
-
-  if (isMilestone) {
-    playSound('big_win');
-    showMilestoneBanner(groupId);
-  } else {
-    if (delta >= 4) playSound('big_win');
-    else if (delta > 0) playSound('score_add');
-    else playSound('score_sub');
-  }
-
-  saveState();
-  animateScores([{ groupId, start: oldScore, target: targetScore }]);
-  ClassroomFeedback.score(g.name,actualDelta);
-  showToast(clipped
-    ? `${g.name} 扣 ${-actualDelta} 分（输入 ${delta}，已截断至 0 分）`
-    : `${g.name} 积分更新：${delta > 0 ? '+' : ''}${delta}`);
+  return ManualScoreCommands.adjust(groupId, delta);
 }
 
 function startDirectScoreEdit(groupId) {
@@ -2067,14 +2033,7 @@ function finishDirectScoreEdit(groupId) {
   if (input && g) {
     const newVal = Number(input.value);
     if(!Number.isSafeInteger(newVal)){showToast('请输入安全整数');return false}
-    const oldVal = g.score;
-    recordHistory(`${g.name} 手动设定分数为 ${newVal}`);
-    g.score = newVal;
-    state.editingScoreId = null;
-    playSound('score_add');
-    saveState();
-    renderGrid();
-    animateScores([{ groupId, start: oldVal, target: newVal }]);
+    return ManualScoreCommands.set(groupId,newVal);
   } else {
     state.editingScoreId = null;
     renderGrid();

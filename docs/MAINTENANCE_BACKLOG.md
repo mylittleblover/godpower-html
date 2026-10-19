@@ -1134,3 +1134,8 @@ P1架构，中复杂度/中风险。全局排名和道具目标选择已提取�
 ## GP-V3-MIGRATION-JOURNAL（已完成）
 
 P1数据/架构，中复杂度/中风险。复制回执未独立持久化验证阶段，现已加入验证日志及中断恢复，取消竞态已修复。源码application/migration-coordinator及infrastructure/indexeddb/repository；200单元、真实Chromium重开/中断/完整字节验证通过，证据artifacts/v3-journal。依赖既有copy importer。验收不重复导入、未校验不能VERIFIED、失败不切权威。后续源静默屏障及真实命令迁移仍待完成，不能凭此标记直接激活新存储。
+
+
+## GP-V3-MANUAL-COMMAND（已完成）
+
+P1架构，中复杂度/中风险。原手工积分直接修改全局state，已迁入统一应用命令、纯积分计划、一次快照/保存及明确结果。证据artifacts/v3-manual：208单元、7专项、完整test:e2e通过；负分/里程碑/撤销/配额RAM行为保留。依赖命令生命周期；验收旧弹窗不能改动新赋分、保存后UI异常不能回滚。后续依赖：实际异步repository接通前，答题选择、AllIn、回合、管理/抽取等入口仍要逐族迁移，不得直接切换数据库。

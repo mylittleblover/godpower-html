@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.7</title>
+<title>上帝的力量 V3.0.8</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.7";
+    document.title = name() + " V3.0.8";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.7</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.8</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9670,6 +9670,30 @@ const RankingRules = (() => {
       .map((entry) => entry.group);
   }
   return { ordered };
+})();
+</script>
+<script>/* Integer score plans only; manual changes never imply answer/item achievement facts. */
+const ScoreAdjustments = (() => {
+  function set(group, after) {
+    const before = group.score;
+    if (!Number.isSafeInteger(before) || !Number.isSafeInteger(after))
+      throw new Error("积分必须保持在安全整数范围内");
+    return {
+      groupId: group.id,
+      before,
+      after,
+      delta: after - before,
+      milestone:
+        Math.floor(Math.abs(after)).toString().length >
+          Math.floor(Math.abs(before)).toString().length && after > before,
+    };
+  }
+  function delta(group, points) {
+    if (!Number.isSafeInteger(points))
+      throw new Error("积分必须保持在安全整数范围内");
+    return set(group, group.score + points);
+  }
+  return { set, delta };
 })();
 </script>
 <script>/* Basic answer scoring only. Item effects and presentation are separate stages. */
@@ -14270,41 +14294,7 @@ function animateScores(scoreUpdates, onComplete) {
 }
 
 function applyScoreDelta(groupId, delta) {
-  Reliability.invalidateDefenseDecisions();
-  cancelScoreAnimationAndSync();
-  if (state.isLocked) { openPwdModal(); return; }
-  const g = state.groups.find(x => x.id === groupId);
-  if (!g) return;
-
-  const oldScore = g.score;
-  const targetScore = oldScore + delta;
-  if(!Number.isSafeInteger(delta)||!Number.isSafeInteger(targetScore)){showToast('积分必须保持在安全整数范围内');return false}
-  const actualDelta = targetScore - oldScore;
-  const clipped = actualDelta !== delta;
-  if (actualDelta === 0) { showToast(`${g.name} 已是 0 分，无法继续扣分`); return; }
-  // 历史记录写入实际变动值（发生截断时注明），撤销与回滚按快照恢复，不会多出分数
-  recordHistory(`${g.name} 积分调整 (${actualDelta > 0 ? '+' : ''}${actualDelta}${clipped ? `，原输入 ${delta}，已截断至 0 分` : ''})`);
-  g.score = targetScore;
-
-  const oldDigits = Math.floor(Math.abs(oldScore)).toString().length;
-  const newDigits = Math.floor(Math.abs(targetScore)).toString().length;
-  const isMilestone = (newDigits > oldDigits && targetScore > oldScore);
-
-  if (isMilestone) {
-    playSound('big_win');
-    showMilestoneBanner(groupId);
-  } else {
-    if (delta >= 4) playSound('big_win');
-    else if (delta > 0) playSound('score_add');
-    else playSound('score_sub');
-  }
-
-  saveState();
-  animateScores([{ groupId, start: oldScore, target: targetScore }]);
-  ClassroomFeedback.score(g.name,actualDelta);
-  showToast(clipped
-    ? `${g.name} 扣 ${-actualDelta} 分（输入 ${delta}，已截断至 0 分）`
-    : `${g.name} 积分更新：${delta > 0 ? '+' : ''}${delta}`);
+  return ManualScoreCommands.adjust(groupId, delta);
 }
 
 function startDirectScoreEdit(groupId) {
@@ -14329,14 +14319,7 @@ function finishDirectScoreEdit(groupId) {
   if (input && g) {
     const newVal = Number(input.value);
     if(!Number.isSafeInteger(newVal)){showToast('请输入安全整数');return false}
-    const oldVal = g.score;
-    recordHistory(`${g.name} 手动设定分数为 ${newVal}`);
-    g.score = newVal;
-    state.editingScoreId = null;
-    playSound('score_add');
-    saveState();
-    renderGrid();
-    animateScores([{ groupId, start: oldVal, target: newVal }]);
+    return ManualScoreCommands.set(groupId,newVal);
   } else {
     state.editingScoreId = null;
     renderGrid();
@@ -22589,7 +22572,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.7';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.8';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24550,6 +24533,92 @@ const MigrationCoordinator = (() => {
   return { create };
 })();
 </script>
+<script>/* Manual score application commands; one pre-operation snapshot and one persistence result. */
+const ManualScoreCommands = (() => {
+  function adjust(groupId, delta) {
+    Reliability.invalidateDefenseDecisions();
+    cancelScoreAnimationAndSync();
+    if (state.isLocked) {
+      openPwdModal();
+      return;
+    }
+    const g = state.groups.find((x) => x.id === groupId);
+    if (!g) return;
+
+    let plan;
+    try {
+      plan = ScoreAdjustments.delta(g, delta);
+    } catch (error) {
+      showToast(error.message);
+      return false;
+    }
+    const {
+      before: oldScore,
+      after: targetScore,
+      delta: actualDelta,
+      milestone: isMilestone,
+    } = plan;
+    const clipped = false;
+    if (actualDelta === 0) {
+      showToast(`${g.name} 已是 0 分，无法继续扣分`);
+      return;
+    }
+    const committed = runClassroomCommand(
+      `${g.name} 积分调整 (${actualDelta > 0 ? "+" : ""}${actualDelta})`,
+      () => {
+        g.score = targetScore;
+        return true;
+      },
+      { source: "manual" },
+    );
+    if (!committed) return false;
+
+    if (isMilestone) {
+      playSound("big_win");
+      showMilestoneBanner(groupId);
+    } else {
+      if (delta >= 4) playSound("big_win");
+      else if (delta > 0) playSound("score_add");
+      else playSound("score_sub");
+    }
+
+    animateScores([{ groupId, start: oldScore, target: targetScore }]);
+    ClassroomFeedback.score(g.name, actualDelta);
+    showToast(
+      clipped
+        ? `${g.name} 扣 ${-actualDelta} 分（输入 ${delta}，已截断至 0 分）`
+        : `${g.name} 积分更新：${delta > 0 ? "+" : ""}${delta}`,
+    );
+    return true;
+  }
+
+  function set(groupId, targetScore) {
+    const group = state.groups.find((g) => g.id === groupId);
+    if (!group) return false;
+    let plan;
+    try {
+      plan = ScoreAdjustments.set(group, targetScore);
+    } catch (error) {
+      showToast(error.message);
+      return false;
+    }
+    const committed = runClassroomCommand(
+      `${group.name} 手动设定分数为 ${targetScore}`,
+      () => {
+        group.score = plan.after;
+        state.editingScoreId = null;
+        return true;
+      },
+      { source: "manual" },
+    );
+    if (!committed) return false;
+    playSound("score_add");
+    animateScores([{ groupId, start: plan.before, target: plan.after }]);
+    return true;
+  }
+  return { adjust, set };
+})();
+</script>
 <script>/* Stable public APIs. ItemOperationBlocks is the sole item executor;
    new features must not add another override layer. */
 function buildClassroomBackup() {
@@ -24557,7 +24626,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.7",
+    appVersion: "V3.0.8",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

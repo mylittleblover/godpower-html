@@ -88,3 +88,8 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 ### 3.0.6领域排序与目标选择
 
 RankingRules.ordered保留同分原始顺序且不改输入；旧ranking入口只读取state.groups并转交纯函数。ItemTargets.select只返回引用，random/eligible由执行器显式注入；抽取与效果计算不在该模块。randomAhead旧排序比较器、取数顺序均保留。迁移或新竞技规则阶段可复用这些边界，不必通过全局覆盖修改。
+
+
+### 手工积分命令（3.0.8）
+
+UI→applyScoreDelta→ManualScoreCommands.adjust→ScoreAdjustments.delta→CommandLifecycle→旧repository一次保存→表现。直接编辑使用set入口、保留原撤销语义；手工来源manual不应触发答题/竞技/道具成就。配额不足显式保留RAM未保存状态；新后端未激活。

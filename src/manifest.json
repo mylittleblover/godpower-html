@@ -167,6 +167,11 @@
     },
     {
       "type": "script",
+      "path": "domain/competition/score-adjustments.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/competition/rules.js",
       "attributes": ""
     },
@@ -523,6 +528,11 @@
     {
       "type": "script",
       "path": "application/migration-coordinator.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "application/manual-score-commands.js",
       "attributes": ""
     },
     {
