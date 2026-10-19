@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.23</title>
+<title>上帝的力量 V3.0.24</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.23";
+    document.title = name() + " V3.0.24";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.23</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.24</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -11557,6 +11557,106 @@ const DomainEvents = (() => {
   };
 })();
 </script>
+<script>/* Learning achievements are reduced only from durable, formal round facts. */
+const LearningAchievementRules = (() => {
+  const PERMANENT_THRESHOLDS = [
+    ["ACH-001", (p) => p.historicalCounters.correctAnswers >= 1],
+    ["ACH-002", (p) => p.historicalCounters.correctAnswers >= 10],
+    ["ACH-003", (p) => p.historicalCounters.correctAnswers >= 30],
+    ["ACH-004", (p) => p.historicalCounters.correctAnswers >= 100],
+    ["ACH-009", (p) => p.historicalCounters.answeredRounds >= 50],
+  ];
+  const SEASON_THRESHOLDS = [
+    ["ACH-005", (p) => p.seasonProgress.correctStreak >= 3],
+    ["ACH-006", (p) => p.seasonProgress.correctStreak >= 5],
+    ["ACH-007", (p) => p.seasonProgress.correctStreak >= 10],
+    ["ACH-008", (p) => p.seasonProgress.answeredStreak >= 10],
+    [
+      "ACH-010",
+      (p) =>
+        p.seasonProgress.answered >= 10 &&
+        p.seasonProgress.correct / p.seasonProgress.answered >= 0.8,
+    ],
+    [
+      "ACH-011",
+      (p) =>
+        p.seasonProgress.answered >= 15 &&
+        p.seasonProgress.correct === p.seasonProgress.answered,
+    ],
+    [
+      "ACH-012",
+      (p) =>
+        p.seasonProgress.recoveryRemaining === 0 &&
+        p.seasonProgress.recoveryReady,
+    ],
+  ];
+
+  function evaluate(progress, event) {
+    const facts = event?.payload;
+    if (
+      event?.type !== "ROUND_SETTLED" ||
+      !facts ||
+      typeof facts.answered !== "boolean" ||
+      typeof facts.correct !== "boolean" ||
+      facts.correct !== (facts.answered && facts.answer === facts.correctAnswer)
+    )
+      return [];
+
+    const learning = progress.seasonProgress;
+    const correct = facts.answered && facts.correct;
+    progress.historicalCounters.formalRounds =
+      (progress.historicalCounters.formalRounds || 0) + 1;
+    if (facts.answered) {
+      progress.historicalCounters.answeredRounds =
+        (progress.historicalCounters.answeredRounds || 0) + 1;
+      learning.answered++;
+      learning.answeredStreak++;
+    } else {
+      learning.answeredStreak = 0;
+    }
+    if (correct) {
+      progress.historicalCounters.correctAnswers =
+        (progress.historicalCounters.correctAnswers || 0) + 1;
+      learning.correct++;
+      learning.correctStreak++;
+      if (learning.recoveryRemaining > 0) {
+        learning.recoveryRemaining--;
+        if (learning.recoveryRemaining === 0) learning.recoveryReady = true;
+      }
+    } else {
+      learning.correctStreak = 0;
+      if (facts.answered) {
+        learning.recoveryRemaining = 3;
+        learning.recoveryReady = false;
+      } else {
+        learning.recoveryRemaining = 0;
+        learning.recoveryReady = false;
+      }
+    }
+
+    const unlocked = [];
+    for (const [id, condition] of PERMANENT_THRESHOLDS) {
+      if (condition(progress) && !progress.permanentUnlocks[id]) {
+        progress.permanentUnlocks[id] = { unlockedAt: event.occurredAt };
+        unlocked.push(id);
+      }
+    }
+    for (const [id, condition] of SEASON_THRESHOLDS) {
+      if (condition(progress) && !progress.seasonUnlocks[id]) {
+        progress.seasonUnlocks[id] = {
+          status: "pending-archive",
+          seasonId: facts.seasonId || null,
+          unlockedAt: event.occurredAt,
+        };
+        unlocked.push(id);
+      }
+    }
+    return unlocked;
+  }
+
+  return { evaluate };
+})();
+</script>
 <script>/* Durable per-group progress receipts; rule evaluation stays in later stages. */
 const AchievementLedger = (() => {
   const SCHEMA_VERSION = 1;
@@ -11615,6 +11715,19 @@ const AchievementLedger = (() => {
           )
         )
           throw new TypeError("achievement counter is invalid");
+      if (progress.seasonProgress == null)
+        progress.seasonProgress = emptySeasonProgress();
+      if (
+        typeof progress.seasonProgress !== "object" ||
+        Array.isArray(progress.seasonProgress) ||
+        Object.entries(progress.seasonProgress).some(
+          ([key, count]) =>
+            key !== "recoveryReady" &&
+            (!Number.isSafeInteger(count) || count < 0),
+        ) ||
+        typeof progress.seasonProgress.recoveryReady !== "boolean"
+      )
+        throw new TypeError("achievement seasonal progress is invalid");
       if (!Array.isArray(progress.itemDiscovery)) progress.itemDiscovery = [];
       if (!Array.isArray(progress.itemMastery)) progress.itemMastery = [];
       if (progress.processedEvents.some((id) => typeof id !== "string" || !id))
@@ -11630,15 +11743,28 @@ const AchievementLedger = (() => {
       historicalCounters: {},
       seasonCounters: {},
       seasonUnlocks: {},
+      seasonProgress: emptySeasonProgress(),
       itemDiscovery: [],
       itemMastery: [],
       processedEvents: [],
     };
   }
 
+  function emptySeasonProgress() {
+    return {
+      answered: 0,
+      correct: 0,
+      correctStreak: 0,
+      answeredStreak: 0,
+      recoveryRemaining: 0,
+      recoveryReady: false,
+    };
+  }
+
   function apply(value, events, { seasonId = null } = {}) {
     const ledger = normalize(value);
     const seenInBatch = new Set();
+    const unlocked = [];
     let applied = 0;
     let duplicates = 0;
     for (const event of Array.isArray(events) ? events : []) {
@@ -11670,6 +11796,7 @@ const AchievementLedger = (() => {
         progress.seasonId = eventSeason;
         progress.seasonCounters = {};
         progress.seasonUnlocks = {};
+        progress.seasonProgress = emptySeasonProgress();
       }
       progress.historicalCounters[event.type] =
         (progress.historicalCounters[event.type] || 0) + 1;
@@ -11681,10 +11808,17 @@ const AchievementLedger = (() => {
         !progress.itemDiscovery.includes(event.payload.itemKey)
       )
         progress.itemDiscovery.push(event.payload.itemKey);
+      const groupUnlocks = LearningAchievementRules.evaluate(progress, event);
       progress.processedEvents.push(event.eventId);
       applied++;
+      unlocked.push(
+        ...groupUnlocks.map((achievementId) => ({
+          groupUid: uid,
+          achievementId,
+        })),
+      );
     }
-    return { ledger, applied, duplicates };
+    return { ledger, applied, duplicates, unlocked };
   }
 
   return { schemaVersion: SCHEMA_VERSION, empty, normalize, apply };
@@ -22740,7 +22874,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.23';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.24';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -25224,7 +25358,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.23",
+    appVersion: "V3.0.24",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

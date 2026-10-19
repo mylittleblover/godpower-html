@@ -8,6 +8,7 @@ for (const file of [
   "src/domain/values.js",
   "src/domain/identity.js",
   "src/domain/events.js",
+  "src/domain/achievements/learning-rules.js",
   "src/domain/achievements/ledger.js",
 ]) {
   vm.runInContext(readFileSync(file, "utf8"), context);
@@ -20,6 +21,8 @@ function event({
   season = "season-1",
   type = "ROUND_SETTLED",
   group = "group-1",
+  answered = true,
+  correct = true,
 } = {}) {
   return {
     schemaVersion: 1,
@@ -32,7 +35,13 @@ function event({
     actorId: null,
     causationId: null,
     aggregate: { type: "group", id: group },
-    payload: { seasonId: season, answered: true, correct: true },
+    payload: {
+      seasonId: season,
+      answered,
+      correct,
+      answer: correct ? "A" : answered ? "B" : "",
+      correctAnswer: "A",
+    },
   };
 }
 
@@ -75,4 +84,54 @@ test("a new season resets seasonal counters but keeps lifetime counters and unlo
   assert.equal(progress.historicalCounters.ROUND_SETTLED, 2);
   assert.equal(progress.seasonCounters.ROUND_SETTLED, 1);
   assert.equal(progress.seasonId, "season-2");
+});
+
+test("learning streak, participation and accuracy achievements use formal rounds", () => {
+  let ledger = api.empty();
+  let unlocked = [];
+  for (let index = 1; index <= 10; index++) {
+    const result = api.apply(ledger, [event({ id: `cmd-${index}:1` })], {
+      seasonId: "season-1",
+    });
+    ledger = result.ledger;
+    unlocked.push(...result.unlocked.map((item) => item.achievementId));
+  }
+  assert.ok(unlocked.includes("ACH-001"));
+  assert.ok(unlocked.includes("ACH-005"));
+  assert.ok(unlocked.includes("ACH-006"));
+  assert.ok(unlocked.includes("ACH-007"));
+  assert.ok(unlocked.includes("ACH-008"));
+  assert.ok(unlocked.includes("ACH-010"));
+  const progress = ledger.groups["group-1"];
+  assert.equal(progress.historicalCounters.correctAnswers, 10);
+  assert.equal(progress.seasonProgress.correctStreak, 10);
+  assert.equal(progress.seasonUnlocks["ACH-010"].status, "pending-archive");
+});
+
+test("unanswered rounds break answer streaks and wrong answers restart recovery", () => {
+  let ledger = api.empty();
+  let unlocked = [];
+  const rounds = [
+    { answered: true, correct: false },
+    { answered: true, correct: true },
+    { answered: false, correct: false },
+    { answered: true, correct: false },
+    { answered: true, correct: true },
+    { answered: true, correct: true },
+    { answered: true, correct: true },
+  ];
+  rounds.forEach((facts, index) => {
+    const result = api.apply(
+      ledger,
+      [event({ ...facts, id: `recover-${index}:1` })],
+      { seasonId: "season-1" },
+    );
+    ledger = result.ledger;
+    unlocked.push(...result.unlocked.map((item) => item.achievementId));
+  });
+  const progress = ledger.groups["group-1"];
+  assert.ok(unlocked.includes("ACH-012"));
+  assert.equal(progress.seasonProgress.answeredStreak, 4);
+  assert.equal(progress.seasonProgress.recoveryRemaining, 0);
+  assert.equal(progress.historicalCounters.answeredRounds, 6);
 });

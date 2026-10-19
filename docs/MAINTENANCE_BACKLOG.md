@@ -1180,12 +1180,12 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：业务事件、成就数据
 - 优先级：P1
-- 状态：OPEN；3.0.23 仅完成最小账本与正式判题事件
-- 问题：`src/domain/achievements/ledger.js` 只保存可幂等计数事实，尚未评估或解锁设计稿中的 60 项成就；道具获得/使用、真实攻击、防御确认、持续效果和归档事件也未全部发出。
+- 状态：OPEN；3.0.24 已完成账本和 12 项学习规则，其余仍未完成
+- 问题：`src/domain/achievements/learning-rules.js` 已评估 ACH-001～012，但未实现竞技表现10项、道具22项、封神荣誉8项；道具获得/使用、真实攻击、防御确认、持续效果和归档事件也未全部发出。
 - 证据：`src/domain/achievements/ledger.js`；`src/application/round-settlement.js`；`src/script/00.js` 的 `saveState(transaction)` 与结算归档。
 - 影响：当前不存在成就殿堂、徽章或可见进度，不能宣称 60 项成就已实现。
-- 建议：在规则资料审阅阶段逐项映射事件事实与来源，再按 ACH-001/P1 判题、ACH-002/P2 道具、ACH-003/P2 赛季归档分阶段实现纯规则评估器；成就解锁仍须和原业务操作同一持久化事务，并纳入撤销。
-- 依赖：GP-V3 正式操作命令迁移；ItemOperationBlocks/DefenseCommands 事件确认边界；稳定赛季归档身份。
+- 建议：先按源代码确认每种道具/防御成功事件边界，再逐项实现 ACH-013～060 的纯规则评估器；成就解锁仍须和原业务操作同一持久化事务，并纳入撤销。
+- 依赖：GP-V3 正式操作命令迁移；ItemOperationBlocks/DefenseCommands 事件确认边界；稳定赛季归档身份。学习成就映射已提交于 3.0.24。
 - 复杂度：高
 - 风险：异步防御若在用户确认之前发事件会误授予成就；事件重复或撤销不一致会污染永久进度；旧版记录不足以补猜历史道具成就。
 - 验收：60 项条件逐项可追溯到业务事实；攻防确认、撤销、导入、存档重载、归档重试均幂等；手动改分/导入/回放不授予业务成就；旧存档保持可读。

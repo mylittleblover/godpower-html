@@ -1,20 +1,20 @@
 # GodPower V3 当前架构
 
-更新日期：2026-10-19。应用版本：3.0.23。当前处于渐进迁移中；成就运行时尚不评估或授予60项徽章。
+更新日期：2026-10-19。应用版本：3.0.24。当前处于渐进迁移中；成就引擎只评估学习表现类 ACH-001～012，其他48项仍未评估。
 
 ## 分层与职责
 
-| 层               | 目录/所有者                                                                                | 职责与禁止事项                                                                                         |
-| ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| 领域             | `src/domain/identity.js`、`events.js`、`achievements/catalog.js`、`achievements/ledger.js` | 稳定身份、不可变事件信封、60项目录元数据、按小组去重的已确认事件计数；不读取DOM、存储或Electron接口    |
-| 旧命令生命周期   | `src/application/command-lifecycle.js`                                                     | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果                                 |
-| 旧程序适配       | `src/application/legacy-classroom-adapter.js`                                              | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出                   |
-| 旧存储基础设施   | `src/infrastructure/legacy/`                                                               | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制                                            |
-| 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js`                                               | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
-| 存储预检         | `src/infrastructure/legacy/inventory.js`                                                   | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源             |
-| 兼容核心         | `src/core/`                                                                                | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容    |
-| 表现             | `src/ui/`                                                                                  | 页面投影、渲染、弹窗、动画、音乐/音效反馈与Electron界面桥；表现不得决定随机或积分结果                  |
-| 遗留实现         | `src/script/`、`src/style/`                                                                | 仍包含有效计分/道具/音频规则及CSS。编号不代表无效；每族通过差分测试后再删除                            |
+| 层               | 目录/所有者                                                                                                                  | 职责与禁止事项                                                                                         |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| 领域             | `src/domain/identity.js`、`events.js`、`achievements/catalog.js`、`achievements/learning-rules.js`、`achievements/ledger.js` | 稳定身份、不可变事件信封、60项目录元数据、正式判题学习成就事实与计数；不读取DOM、存储或Electron接口    |
+| 旧命令生命周期   | `src/application/command-lifecycle.js`                                                                                       | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果                                 |
+| 旧程序适配       | `src/application/legacy-classroom-adapter.js`                                                                                | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出                   |
+| 旧存储基础设施   | `src/infrastructure/legacy/`                                                                                                 | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制                                            |
+| 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js`                                                                                 | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
+| 存储预检         | `src/infrastructure/legacy/inventory.js`                                                                                     | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源             |
+| 兼容核心         | `src/core/`                                                                                                                  | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容    |
+| 表现             | `src/ui/`                                                                                                                    | 页面投影、渲染、弹窗、动画、音乐/音效反馈与Electron界面桥；表现不得决定随机或积分结果                  |
+| 遗留实现         | `src/script/`、`src/style/`                                                                                                  | 仍包含有效计分/道具/音频规则及CSS。编号不代表无效；每族通过差分测试后再删除                            |
 
 领域层依赖标准JavaScript与可注入的时间/身份来源。应用层通过仓库和表现适配器执行副作用；基础设施不得调用渲染函数。普通内联脚本的构建顺序由模板和manifest显式记录，最终不需要模块服务器。
 
@@ -24,7 +24,7 @@
 
 命令成功、持久化成功与视觉播放是独立结果。普通课堂在浏览器存储不可写时保留本页结果并持续提示导出；导入和最终归档采用严格保存/恢复。异步防御取消后不得修改新回合、替换过的道具或导入后的课堂。
 
-事件scope含commandId、eventId、source、aggregate、causationId、时间与序号。正式判题会为每组产生ROUND_SETTLED事实；主状态和achievementLedger在同一godpower_state_v2写入中提交。只有主存档确认成功，控制器才发布godpower:domain-commit。导入和手动来源不会成为成就事实。道具、攻防、效果与封神事件的生产者及60项规则评估仍待实现。
+事件scope含commandId、eventId、source、aggregate、causationId、时间与序号。正式判题会为每组产生ROUND_SETTLED事实；主状态和achievementLedger在同一godpower_state_v2写入中提交。ACH-001～004、009按历史正确/有效作答次数解锁；ACH-005～008、010～012按当前赛季连续/比例/反弹状态标为待归档。只有主存档确认成功，控制器才发布godpower:domain-commit。导入和手动来源不会成为成就事实。道具、攻防、效果、封神事件及其余48项评估仍待实现。
 
 ## 当前数据权威及迁移
 

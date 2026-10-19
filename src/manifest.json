@@ -217,6 +217,11 @@
     },
     {
       "type": "script",
+      "path": "domain/achievements/learning-rules.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/achievements/ledger.js",
       "attributes": ""
     },

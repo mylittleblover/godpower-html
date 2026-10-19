@@ -97,6 +97,13 @@ try {
     beforeReload.ledger.groups["ach-group-2"].seasonCounters.ROUND_SETTLED,
     1,
   );
+  assert.ok(
+    beforeReload.ledger.groups["ach-group-1"].permanentUnlocks["ACH-001"],
+  );
+  assert.equal(
+    beforeReload.ledger.groups["ach-group-2"].permanentUnlocks["ACH-001"],
+    undefined,
+  );
   assert.deepEqual(beforeReload.backup.achievementLedger, beforeReload.ledger);
 
   await page.reload({ waitUntil: "domcontentloaded" });

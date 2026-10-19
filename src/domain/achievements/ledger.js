@@ -56,6 +56,19 @@ const AchievementLedger = (() => {
           )
         )
           throw new TypeError("achievement counter is invalid");
+      if (progress.seasonProgress == null)
+        progress.seasonProgress = emptySeasonProgress();
+      if (
+        typeof progress.seasonProgress !== "object" ||
+        Array.isArray(progress.seasonProgress) ||
+        Object.entries(progress.seasonProgress).some(
+          ([key, count]) =>
+            key !== "recoveryReady" &&
+            (!Number.isSafeInteger(count) || count < 0),
+        ) ||
+        typeof progress.seasonProgress.recoveryReady !== "boolean"
+      )
+        throw new TypeError("achievement seasonal progress is invalid");
       if (!Array.isArray(progress.itemDiscovery)) progress.itemDiscovery = [];
       if (!Array.isArray(progress.itemMastery)) progress.itemMastery = [];
       if (progress.processedEvents.some((id) => typeof id !== "string" || !id))
@@ -71,15 +84,28 @@ const AchievementLedger = (() => {
       historicalCounters: {},
       seasonCounters: {},
       seasonUnlocks: {},
+      seasonProgress: emptySeasonProgress(),
       itemDiscovery: [],
       itemMastery: [],
       processedEvents: [],
     };
   }
 
+  function emptySeasonProgress() {
+    return {
+      answered: 0,
+      correct: 0,
+      correctStreak: 0,
+      answeredStreak: 0,
+      recoveryRemaining: 0,
+      recoveryReady: false,
+    };
+  }
+
   function apply(value, events, { seasonId = null } = {}) {
     const ledger = normalize(value);
     const seenInBatch = new Set();
+    const unlocked = [];
     let applied = 0;
     let duplicates = 0;
     for (const event of Array.isArray(events) ? events : []) {
@@ -111,6 +137,7 @@ const AchievementLedger = (() => {
         progress.seasonId = eventSeason;
         progress.seasonCounters = {};
         progress.seasonUnlocks = {};
+        progress.seasonProgress = emptySeasonProgress();
       }
       progress.historicalCounters[event.type] =
         (progress.historicalCounters[event.type] || 0) + 1;
@@ -122,10 +149,17 @@ const AchievementLedger = (() => {
         !progress.itemDiscovery.includes(event.payload.itemKey)
       )
         progress.itemDiscovery.push(event.payload.itemKey);
+      const groupUnlocks = LearningAchievementRules.evaluate(progress, event);
       progress.processedEvents.push(event.eventId);
       applied++;
+      unlocked.push(
+        ...groupUnlocks.map((achievementId) => ({
+          groupUid: uid,
+          achievementId,
+        })),
+      );
     }
-    return { ledger, applied, duplicates };
+    return { ledger, applied, duplicates, unlocked };
   }
 
   return { schemaVersion: SCHEMA_VERSION, empty, normalize, apply };

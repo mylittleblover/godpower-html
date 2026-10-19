@@ -11,18 +11,18 @@ Date: 2026-10-19. Branch: `feat/v3-foundation-sp01-sp02`, HTML base `2ba6bed`. U
 
 ## Implemented
 
-| Area | Actual change | Current boundary |
-|---|---|---|
-| Layers | Domain, application, infrastructure directories; template/manifest and test discovery follow relocated modules | Legacy global adapter and numbered scripts remain; not a completed domain rewrite |
-| Identity | Stable groupUid/itemInstanceId/seasonId; archive dedupe by season | Numeric IDs, scores, roster, order and charges unchanged |
-| Command contract | Command-scoped immutable events, deferred finalizers, publish only with explicit persisted-event acknowledgment | Production legacy repository does not claim event persistence; no runtime achievements yet |
-| Commit/presentation boundary | A renderer failure after persistence cannot roll back already-saved classroom state | Regression observed RED then GREEN |
-| Classroom migration | Schema1/unversioned → Schema2 copy, source retention, readback, receipt; malformed current envelope protected | New authority key godpower_state_v2; v1 remains migration baseline, not a live mirror |
-| Recovery | Explicit import preserves corrupt primary raw text before replacing; failed import restores prior memory/recovery guard | No localStorage.clear |
-| Audio migration | Missing-only copy, aliases/metadata preserved, atomic destination transaction, new verified v2 marker, retry after failure | Current audio database and BIN format unchanged; old sources retained |
-| Transaction adapter | Aggregate/event/command/archive atomic commit, revision conflict, command SHA-256 identity, atomic media migration, receipts | Opt-in prototype; not activated as production authority |
-| Full-source preflight | Read-only project-key/known-DB scan, original bytes/Blob/ArrayBuffer retained, SHA-256 manifest, source-change detection | Isolated import tested; UI and source-freeze coordinator still to implement |
-| Achievement catalog | Exactly60 definitions, six categories and26 item mappings | Metadata only, no badges or progress claims |
+| Area                         | Actual change                                                                                                                | Current boundary                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Layers                       | Domain, application, infrastructure directories; template/manifest and test discovery follow relocated modules               | Legacy global adapter and numbered scripts remain; not a completed domain rewrite          |
+| Identity                     | Stable groupUid/itemInstanceId/seasonId; archive dedupe by season                                                            | Numeric IDs, scores, roster, order and charges unchanged                                   |
+| Command contract             | Command-scoped immutable events, deferred finalizers, publish only with explicit persisted-event acknowledgment              | Production legacy repository does not claim event persistence; no runtime achievements yet |
+| Commit/presentation boundary | A renderer failure after persistence cannot roll back already-saved classroom state                                          | Regression observed RED then GREEN                                                         |
+| Classroom migration          | Schema1/unversioned → Schema2 copy, source retention, readback, receipt; malformed current envelope protected                | New authority key godpower_state_v2; v1 remains migration baseline, not a live mirror      |
+| Recovery                     | Explicit import preserves corrupt primary raw text before replacing; failed import restores prior memory/recovery guard      | No localStorage.clear                                                                      |
+| Audio migration              | Missing-only copy, aliases/metadata preserved, atomic destination transaction, new verified v2 marker, retry after failure   | Current audio database and BIN format unchanged; old sources retained                      |
+| Transaction adapter          | Aggregate/event/command/archive atomic commit, revision conflict, command SHA-256 identity, atomic media migration, receipts | Opt-in prototype; not activated as production authority                                    |
+| Full-source preflight        | Read-only project-key/known-DB scan, original bytes/Blob/ArrayBuffer retained, SHA-256 manifest, source-change detection     | Isolated import tested; UI and source-freeze coordinator still to implement                |
+| Achievement catalog          | Exactly60 definitions, six categories and26 item mappings                                                                    | Metadata only, no badges or progress claims                                                |
 
 ## Executed evidence
 
@@ -62,16 +62,13 @@ Pre-change80-case characterization againstda00d1b passed before editing. Then st
 
 Next investigation found the currentItemOperationBlocks executes all26blueprints directly, while legacyUseItem still has14definitions/assignments. This is a reachability lead, not yet a safe-deletion conclusion. Inspect every capture/IIFE side effect and prove current public commands never enter the chain before deleting it. Keep shared attack/defense/animation helpers.
 
-
 ## 3.0.5 legacy item dispatcher cleanup (verified)
 
 Pre-change all26 public item oracle passed with legacy dispatcher replaced by throwing trap. AST guard then failed14writes instead of1. Removed13overrides, captured aliases and2isolated IIFEs; kept one compatibility forwarder and shared helpers/metadata. Node175/175, item26/26, differential464/464, asynchronous-defense30 and round80 PASS;14groupDOM/screenshot PASS at1920×1080 1x. See artifacts/v3-items and reports/V3_ITEM_CHAIN_ACCEPTANCE.md. Default storage unchanged. Continue architecture/migration; new rules ZIP deferred until rules work, per user.
 
-
 ## 3.0.6 pure ranking and target policies (verified)
 
 Extracted domain/competition/ranking.js and domain/items/targets.js; production ranking() and ItemOperationBlocks use these ports. Ranking is stable and nonmutating; target policy receives RNG and eligibility explicitly and returns original group references. Existing randomAhead comparator and RNG consumption are retained, not rebalanced. New 200 seeded ordering cases and17target contract/boundary tests were RED before implementation. Node195/195 PASS;464item-defense differential,448seeded draws,26oracle and configured-item tests PASS; Chromium core117/117 errors=[] at1920×1080 1x. file:// BLOCKED by managed policy. Evidence artifacts/v3-domain. No default storage cutover or achievement activation. Next: persistent migration verification journal and recovery distinction.
-
 
 ## 3.0.7 durable migration verification journal
 
@@ -79,20 +76,17 @@ Implemented separate migration receipt verification statuses VERIFYING/VERIFIED/
 
 Node200/200 PASS; complete migration suite PASS; final updated source inventory/reopen/interrupted-check/corrupt-resource/journal-count tests and settings UI PASS,14group scores and source bytes unchanged. Evidence artifacts/v3-journal. No Windows native test or CircleCI. The source still needs a quiescence barrier and actual command migration before default authority activation. Continue with manual scoring command family.
 
-
 ## 3.0.8 actual manual score commands (verified)
 
 Manual add/subtract and direct absolute editing now use ScoreAdjustments pure plans and the existing CommandLifecycle with source=manual, one pre-operation history snapshot, one primary save and explicit persistence result. Removed duplicate standalone history/save from these entries. Milestone/audio/visual rules and negative score behavior remain unchanged. Legacy RAM-only-on-quota compatibility remains explicit persisted=false; this is not a false durable success. Actual production callers (picker/hand/group/native bridge) still use applyScoreDelta, which now delegates to the application command. Backend remains legacy until the full command cutover, not a new dual authority.
 
 Node208/208 PASS;7 browser command scenarios PASS (snapshot,undo,overflow,quota,direct edit,stale defense cancellation,presentation failure after durable save). Full test:e2e PASS:core117/117 errors=[],26item oracle,normal/quota/startup-denied scoring,10async defense lifecycle checks,batch student scoring+undo+overflow. Chromium1920×1080 1x only;file://BLOCKED;WindowsnativeNOT TESTED. Evidenceartifacts/v3-manual. Continue migrating interactive commands without adding undo entries that did not exist before.
 
-
 ## 3.0.9 answer/All In command migration (verified)
 
 selectGroupOpt and toggleAllInCard are now single compatibility entries delegating to AnswerCommands. Removed the oldscript12AllIn override/captured alias, preserving its item-used guard and original music thresholds. CommandLifecycle adds explicit recordHistory=false so these controls get snapshots/validation/one save/result while preserving the original undo list. New answer selection cancels an older pending attack transaction before applying/persisting its choice; late defense confirmation cannot consume either item or alter scores.
 
 Node211/211 PASS;4answer-control and7manual-score browser scenarios PASS; core117/117 errors=[],80round differential and14groupDOM/screenshots PASS at1920×1080 1x. Actual battle14 screenshot opened and inspected. file:// remainsBLOCKED. npm run test:commands now includes both new suites and test:e2e includes this command. Evidenceartifacts/v3-controls. Still legacy storage authority; continue actual command migration, not achievement runtime yet.
-
 
 ## 3.0.10 defense domain boundary and GP-010 generation cleanup
 
@@ -102,7 +96,6 @@ New independent reproduction found a GP-010 lifecycle remainder: two successive 
 
 Node229/229 PASS (18newpriority cases);464differential PASS;26oracle PASS;10defense lifecycle checks PASS;30fullasync defense cases rerun after token fix PASS,pageErrors=[];2generation tests PASS. Manifest/version3.0.10 and27original embedded resources PASS. Evidenceartifacts/v3-defense. New test wired into test:commands/test:e2e. Default authority unchanged. Next: legacy command lifecycle must await async durable acknowledgments and prevent overlapping commits before connecting the transactional backend. New rules ZIP still deferred.
 
-
 ## 3.0.11 async compatibility persistence barrier (verified)
 
 CommandLifecycle now recognizes async persistence, reports pending/persisted=false until acknowledgment, denies overlapping/reentrant dispatch through result/event/render completion, and cannot cancel/roll back a commit in flight. Rejected saves follow explicit RAM-only or strict rollback policy. Deferred/malformed acknowledgments cannot claim persistence or publish events. Synchronous legacy save remains compatible: it does not see its own invocation as pending and therefore does not defer itself.
@@ -110,7 +103,6 @@ CommandLifecycle now recognizes async persistence, reports pending/persisted=fal
 Node236/236 PASS;actual Chromium IndexedDB compatibility-host test with14groups commits score/history/events atomically, rejects stale revision, restores strict in-memory snapshot, recovers the queue, reopens final score17/events2/revision3 and preserves source sentinel.7manual/4answer/2generation scenarios PASS,core117/117 errors=[],normal/quota/startup-denied scoring PASS. This is an isolated adapter test, not production authority activation. Default legacy host remains synchronous. Evidenceartifacts/v3-async-lifecycle.
 
 Added reproducible command-migration map:79lexical save/command leads,78save calls,8command calls. These are not79defects and not proof of complete dataflow: helpers may already execute inside an outer command. See docs/v3/COMMAND_MIGRATION_INVENTORY.md and command-map.json. Known anchors ensure the generator does not silently emit an empty map. Next priority: guard import/undo/final archive against an in-flight durable commit; then round start,draw/timer and management ownership, source quiescence and only then domain cutover. New competition rules remain deferred.
-
 
 ## 3.0.12 destructive write barriers and reliable history clear
 
@@ -148,7 +140,7 @@ Final core regression117/117 PASS, Chromium application errors=[]; managed file:
 
 ## 3.0.16 stale next-round audio completion guard
 
-RED reproduced music-loader completion resetting an intervening committed answer: evaluated became false, answer A and selection B were erased. RoundSettlement now captures classroom/group identity, season, business generation and round/answer fingerprint before the awaited audio transition; nextRound rechecks immediately after await and exits without resetting state if anything changed. Audio loading itself and normal successful behavior remain as before. One RED/GREEN Chromium1920×1080 1x scenario,80 old/new settlement differential and239 unit tests PASS. Evidence artifacts/v3-round-controls/next-round-*. Default storage authority remains old adapter.
+RED reproduced music-loader completion resetting an intervening committed answer: evaluated became false, answer A and selection B were erased. RoundSettlement now captures classroom/group identity, season, business generation and round/answer fingerprint before the awaited audio transition; nextRound rechecks immediately after await and exits without resetting state if anything changed. Audio loading itself and normal successful behavior remain as before. One RED/GREEN Chromium1920×1080 1x scenario,80 old/new settlement differential and239 unit tests PASS. Evidence artifacts/v3-round-controls/next-round-\*. Default storage authority remains old adapter.
 
 Final 3.0.16 core regression117/117 PASS, Chromium application errors=[]; file:// remains environment BLOCKED as above. Normal nextRound behavior/undo smoke retained. No multi-browser or other resolution testing added.
 
@@ -199,3 +191,9 @@ Final verification: unit241/241, Chromium core117/117 (`errors=[]`), command lif
 Added a versioned additive `achievementLedger` inside the existing Schema 2 classroom snapshot. A completed `judgeRound` emits one confirmed `ROUND_SETTLED` fact per stable group, including unanswered groups needed for future streak reset rules. The existing command lifecycle applies the event receipt and counters during the same primary save; only a confirmed persisted commit publishes the event. Import/manual event sources are excluded. History snapshots and final archive records retain the ledger, and history undo restores it. Backup validation accepts legacy backups without the optional field and validates the ledger when present. No achievement conditions are evaluated, no badges unlock, no UI is added, and no item/defense/effect/archive event producers are claimed complete. Competition rule changes are outside this increment.
 
 Final evidence: Node unit/integration 244/244 PASS; `npm run check` and `npm run format:check` PASS; build preserves all 27 embedded resources and reports bundle hash/size in build output. Real Chromium 1920×1080 1x suite117/117 PASS with errors=[]; direct `file://` navigation BLOCKED by managed browser policy (`ERR_BLOCKED_BY_ADMINISTRATOR`), therefore offline launch is not reported as tested. Achievement ledger reload/undo test PASS; settlement command PASS; 80 seeded round differential cases PASS; all command lifecycle tests including achievement persistence PASS. No CircleCI executed. Remaining implementation and event receipt growth are recorded as GP-ACH-001/002 in the maintenance backlog.
+
+## 3.0.24 learning achievements ACH-001–012
+
+`LearningAchievementRules` now evaluates only durable `ROUND_SETTLED` facts. Lifetime correct/answered counters support ACH-001–004 and ACH-009; season-local streaks and accuracy support ACH-005–008 and ACH-010–012. Unanswered rounds break correct/participation streaks, and the three-round recovery challenge restarts on a later wrong answer. Lifetime badges are persisted in `permanentUnlocks`; season achievements are marked `pending-archive` and are not yet promoted by a season archive command. Manual/import events remain excluded. No achievement UI, item/defense/honor rules or new competition rules are included.
+
+Verification: unit246/246; build/check/format pass; Chromium1920×1080 1x core117/117 with errors=[]; 80 seeded round-rule differential cases pass; all current command lifecycle tests pass, including event save/reload/undo and malformed/legacy backup validation. `file://` remains BLOCKED by managed browser policy. All other 48 achievements and permanent season promotion remain OPEN in the maintenance backlog.
