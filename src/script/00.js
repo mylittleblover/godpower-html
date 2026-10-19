@@ -4230,7 +4230,7 @@ function ensureItemState(){
 }
 ensureItemState();
 
-function ranking(){return state.groups.slice().sort((a,b)=>(Number(b.score)||0)-(Number(a.score)||0)||state.groups.indexOf(a)-state.groups.indexOf(b));}
+function ranking(){return RankingRules.ordered(state.groups);}
 function rankIndex(id){return ranking().findIndex(g=>g.id===id);}
 function roundQuarter(v){return Math.round((Number(v)||0)/4)}
 function roundThird(v){return Math.round((Number(v)||0)/3)}

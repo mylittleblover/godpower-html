@@ -1,36 +1,29 @@
 /* Operation pipeline. Draw policy has no access to this executor. */
 const ItemOperationBlocks = (() => {
-  const randomOne = (pool) =>
-    pool.length ? [pool[Math.floor(Math.random() * pool.length)]] : [];
-  const targets = {
-    self: (c) => [c.group],
-    randomOther: (c) => randomOne(c.others),
-    above: (c) => [c.ranking[c.position - 1]].filter(Boolean),
-    below: (c) => [c.ranking[c.position + 1]].filter(Boolean),
-    leader: (c) => (c.ranking[0]?.id !== c.group.id ? [c.ranking[0]] : []),
-    adjacent: (c) =>
-      [c.ranking[c.position - 1], c.ranking[c.position + 1]].filter(Boolean),
-    aheadInclusive: (c) => c.ranking.slice(0, c.position + 1),
-    behindInclusive: (c) => c.ranking.slice(c.position),
-    allAhead: (c) => c.ranking.slice(0, c.position),
-    threeAhead: (c) => [c.ranking[Math.max(0, c.position - 3)]].filter(Boolean),
-    randomAhead: (c) =>
-      c.ranking
-        .slice(0, c.position)
-        .filter(eligibleForItems)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3),
-    randomUnfrozen: (c) =>
-      randomOne(c.others.filter((t) => !t.itemEffect?.iceLock)),
-    blast: (c) => {
-      const [center] = randomOne(c.others);
-      if (!center) return [];
-      const i = c.ranking.indexOf(center);
-      return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
-        (t) => t && t.id !== c.group.id,
-      );
-    },
-  };
+  const targets = Object.fromEntries(
+    [
+      "self",
+      "randomOther",
+      "above",
+      "below",
+      "leader",
+      "adjacent",
+      "aheadInclusive",
+      "behindInclusive",
+      "allAhead",
+      "threeAhead",
+      "randomAhead",
+      "randomUnfrozen",
+      "blast",
+    ].map((kind) => [
+      kind,
+      (context) =>
+        ItemTargets.select(kind, context, {
+          random: () => Math.random(),
+          eligible: eligibleForItems,
+        }),
+    ]),
+  );
   const effects = {
     fraction(c) {
       for (const target of c.targets) {

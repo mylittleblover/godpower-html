@@ -83,3 +83,8 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 ### 3.0.5道具单一执行入口
 
 公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；原14层legacyUseItem链已移除，仅保留legacyUseItem→useItem兼容转发。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。
+
+
+### 3.0.6领域排序与目标选择
+
+RankingRules.ordered保留同分原始顺序且不改输入；旧ranking入口只读取state.groups并转交纯函数。ItemTargets.select只返回引用，random/eligible由执行器显式注入；抽取与效果计算不在该模块。randomAhead旧排序比较器、取数顺序均保留。迁移或新竞技规则阶段可复用这些边界，不必通过全局覆盖修改。

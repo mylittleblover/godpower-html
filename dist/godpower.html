@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.5</title>
+<title>上帝的力量 V3.0.6</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.5";
+    document.title = name() + " V3.0.6";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.5</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.6</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9655,6 +9655,21 @@ const StableIdentity = (() => {
     createCommandId,
     assignGroupUids,
   };
+})();
+</script>
+<script>/* Stable score ordering; no rank-rule changes or mutation of caller data. */
+const RankingRules = (() => {
+  function ordered(groups) {
+    return groups
+      .map((group, index) => ({ group, index }))
+      .sort(
+        (a, b) =>
+          (Number(b.group.score) || 0) - (Number(a.group.score) || 0) ||
+          a.index - b.index,
+      )
+      .map((entry) => entry.group);
+  }
+  return { ordered };
 })();
 </script>
 <script>/* Basic answer scoring only. Item effects and presentation are separate stages. */
@@ -16401,7 +16416,7 @@ function ensureItemState(){
 }
 ensureItemState();
 
-function ranking(){return state.groups.slice().sort((a,b)=>(Number(b.score)||0)-(Number(a.score)||0)||state.groups.indexOf(a)-state.groups.indexOf(b));}
+function ranking(){return RankingRules.ordered(state.groups);}
 function rankIndex(id){return ranking().findIndex(g=>g.id===id);}
 function roundQuarter(v){return Math.round((Number(v)||0)/4)}
 function roundThird(v){return Math.round((Number(v)||0)/3)}
@@ -22498,7 +22513,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.5';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.6';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -23523,39 +23538,75 @@ if (ItemModules.loadError)
     ItemModules.loadError,
   );
 </script>
+<script>/* Target policy only: no mutation, effects, UI or ambient random generator. */
+const ItemTargets = (() => {
+  function select(kind, context, { random, eligible }) {
+    const randomOne = (pool) =>
+      pool.length ? [pool[Math.floor(random() * pool.length)]] : [];
+    const selectors = {
+      self: (c) => [c.group],
+      randomOther: (c) => randomOne(c.others),
+      above: (c) => [c.ranking[c.position - 1]].filter(Boolean),
+      below: (c) => [c.ranking[c.position + 1]].filter(Boolean),
+      leader: (c) => (c.ranking[0]?.id !== c.group.id ? [c.ranking[0]] : []),
+      adjacent: (c) =>
+        [c.ranking[c.position - 1], c.ranking[c.position + 1]].filter(Boolean),
+      aheadInclusive: (c) => c.ranking.slice(0, c.position + 1),
+      behindInclusive: (c) => c.ranking.slice(c.position),
+      allAhead: (c) => c.ranking.slice(0, c.position),
+      threeAhead: (c) =>
+        [c.ranking[Math.max(0, c.position - 3)]].filter(Boolean),
+      randomAhead: (c) =>
+        c.ranking
+          .slice(0, c.position)
+          .filter(eligible)
+          .sort(() => random() - 0.5)
+          .slice(0, 3),
+      randomUnfrozen: (c) =>
+        randomOne(c.others.filter((t) => !t.itemEffect?.iceLock)),
+      blast: (c) => {
+        const [center] = randomOne(c.others);
+        if (!center) return [];
+        const i = c.ranking.indexOf(center);
+        return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
+          (t) => t && t.id !== c.group.id,
+        );
+      },
+    };
+    const selector = selectors[kind];
+    if (typeof selector !== "function" || !Object.hasOwn(selectors, kind))
+      throw new Error("Unknown item target selector: " + kind);
+    return selector(context);
+  }
+  return { select };
+})();
+</script>
 <script>/* Operation pipeline. Draw policy has no access to this executor. */
 const ItemOperationBlocks = (() => {
-  const randomOne = (pool) =>
-    pool.length ? [pool[Math.floor(Math.random() * pool.length)]] : [];
-  const targets = {
-    self: (c) => [c.group],
-    randomOther: (c) => randomOne(c.others),
-    above: (c) => [c.ranking[c.position - 1]].filter(Boolean),
-    below: (c) => [c.ranking[c.position + 1]].filter(Boolean),
-    leader: (c) => (c.ranking[0]?.id !== c.group.id ? [c.ranking[0]] : []),
-    adjacent: (c) =>
-      [c.ranking[c.position - 1], c.ranking[c.position + 1]].filter(Boolean),
-    aheadInclusive: (c) => c.ranking.slice(0, c.position + 1),
-    behindInclusive: (c) => c.ranking.slice(c.position),
-    allAhead: (c) => c.ranking.slice(0, c.position),
-    threeAhead: (c) => [c.ranking[Math.max(0, c.position - 3)]].filter(Boolean),
-    randomAhead: (c) =>
-      c.ranking
-        .slice(0, c.position)
-        .filter(eligibleForItems)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3),
-    randomUnfrozen: (c) =>
-      randomOne(c.others.filter((t) => !t.itemEffect?.iceLock)),
-    blast: (c) => {
-      const [center] = randomOne(c.others);
-      if (!center) return [];
-      const i = c.ranking.indexOf(center);
-      return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
-        (t) => t && t.id !== c.group.id,
-      );
-    },
-  };
+  const targets = Object.fromEntries(
+    [
+      "self",
+      "randomOther",
+      "above",
+      "below",
+      "leader",
+      "adjacent",
+      "aheadInclusive",
+      "behindInclusive",
+      "allAhead",
+      "threeAhead",
+      "randomAhead",
+      "randomUnfrozen",
+      "blast",
+    ].map((kind) => [
+      kind,
+      (context) =>
+        ItemTargets.select(kind, context, {
+          random: () => Math.random(),
+          eligible: eligibleForItems,
+        }),
+    ]),
+  );
   const effects = {
     fraction(c) {
       for (const target of c.targets) {
@@ -24405,7 +24456,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.5",
+    appVersion: "V3.0.6",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

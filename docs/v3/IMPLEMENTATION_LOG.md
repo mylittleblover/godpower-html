@@ -66,3 +66,8 @@ Next investigation found the currentItemOperationBlocks executes all26blueprints
 ## 3.0.5 legacy item dispatcher cleanup (verified)
 
 Pre-change all26 public item oracle passed with legacy dispatcher replaced by throwing trap. AST guard then failed14writes instead of1. Removed13overrides, captured aliases and2isolated IIFEs; kept one compatibility forwarder and shared helpers/metadata. Node175/175, item26/26, differential464/464, asynchronous-defense30 and round80 PASS;14groupDOM/screenshot PASS at1920×1080 1x. See artifacts/v3-items and reports/V3_ITEM_CHAIN_ACCEPTANCE.md. Default storage unchanged. Continue architecture/migration; new rules ZIP deferred until rules work, per user.
+
+
+## 3.0.6 pure ranking and target policies (verified)
+
+Extracted domain/competition/ranking.js and domain/items/targets.js; production ranking() and ItemOperationBlocks use these ports. Ranking is stable and nonmutating; target policy receives RNG and eligibility explicitly and returns original group references. Existing randomAhead comparator and RNG consumption are retained, not rebalanced. New 200 seeded ordering cases and17target contract/boundary tests were RED before implementation. Node195/195 PASS;464item-defense differential,448seeded draws,26oracle and configured-item tests PASS; Chromium core117/117 errors=[] at1920×1080 1x. file:// BLOCKED by managed policy. Evidence artifacts/v3-domain. No default storage cutover or achievement activation. Next: persistent migration verification journal and recovery distinction.

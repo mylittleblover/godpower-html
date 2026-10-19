@@ -1,0 +1,244 @@
+✖ item target selection is a separately injectable domain port (2.750611ms)
+✖ self selects existing group references without mutating the ranking (0.237097ms)
+✖ above selects existing group references without mutating the ranking (0.091452ms)
+✖ below selects existing group references without mutating the ranking (0.079443ms)
+✖ leader selects existing group references without mutating the ranking (0.079131ms)
+✖ adjacent selects existing group references without mutating the ranking (0.077199ms)
+✖ aheadInclusive selects existing group references without mutating the ranking (0.066097ms)
+✖ behindInclusive selects existing group references without mutating the ranking (0.060772ms)
+✖ allAhead selects existing group references without mutating the ranking (0.121454ms)
+✖ threeAhead selects existing group references without mutating the ranking (0.140905ms)
+✖ randomOther selects existing group references without mutating the ranking (0.119251ms)
+✖ randomUnfrozen selects existing group references without mutating the ranking (0.188551ms)
+✖ blast selects existing group references without mutating the ranking (0.096996ms)
+✖ empty and all-frozen pools consume no random values (0.25669ms)
+✖ random pool uses exactly one supplied value and preserves eligibility ordering (0.28856ms)
+✖ a first-ranked caster is not targeted by leader attacks (0.134134ms)
+✖ unknown selector is rejected rather than silently selecting a target (1.031019ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 0
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74.894169
+
+✖ failing tests:
+
+test at tests/unit/target-selection.test.mjs:13:1
+✖ item target selection is a separately injectable domain port (2.750611ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:13:80)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ self selects existing group references without mutating the ranking (0.237097ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ above selects existing group references without mutating the ranking (0.091452ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ below selects existing group references without mutating the ranking (0.079443ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ leader selects existing group references without mutating the ranking (0.079131ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ adjacent selects existing group references without mutating the ranking (0.077199ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ aheadInclusive selects existing group references without mutating the ranking (0.066097ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ behindInclusive selects existing group references without mutating the ranking (0.060772ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ allAhead selects existing group references without mutating the ranking (0.121454ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ threeAhead selects existing group references without mutating the ranking (0.140905ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ randomOther selects existing group references without mutating the ranking (0.119251ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ randomUnfrozen selects existing group references without mutating the ranking (0.188551ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:15:2
+✖ blast selects existing group references without mutating the ranking (0.096996ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:22:1
+✖ empty and all-frozen pools consume no random values (0.25669ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:24:27)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:28:1
+✖ random pool uses exactly one supplied value and preserves eligibility ordering (0.28856ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:30:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:33:1
+✖ a first-ranked caster is not targeted by leader attacks (0.134134ms)
+  TypeError: Cannot read properties of null (reading 'select')
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:33:93)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/target-selection.test.mjs:34:1
+✖ unknown selector is rejected rather than silently selecting a target (1.031019ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Unknown/. Input:
+  
+  "TypeError: Cannot read properties of null (reading 'select')"
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:34:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: TypeError: Cannot read properties of null (reading 'select')
+        at file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:34:103
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/target-selection.test.mjs:34:88)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1382:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+        at Test.postRun (node:internal/test_runner/test:1522:19)
+        at Test.run (node:internal/test_runner/test:1447:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: /Unknown/,
+    operator: 'throws',
+    diff: 'simple'
+  }

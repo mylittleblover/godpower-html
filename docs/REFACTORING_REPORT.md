@@ -162,3 +162,8 @@ legacyJudgeRound从5处定义/覆盖变成1个明确兼容入口。移除四个�
 ## 3.0.5道具链
 
 旧入口14→1，已删除13层覆盖及仅服务旧链的局部辅助，保留兼容转发和全部共享函数。26oracle、464攻防差分、30异步防御、80回合与14组布局通过；详见reports/V3_ITEM_CHAIN_ACCEPTANCE.md和LEGACY_CODE_INVENTORY.md。
+
+
+## 3.0.6 pure ranking and target policies (verified)
+
+Extracted domain/competition/ranking.js and domain/items/targets.js; production ranking() and ItemOperationBlocks use these ports. Ranking is stable and nonmutating; target policy receives RNG and eligibility explicitly and returns original group references. Existing randomAhead comparator and RNG consumption are retained, not rebalanced. New 200 seeded ordering cases and17target contract/boundary tests were RED before implementation. Node195/195 PASS;464item-defense differential,448seeded draws,26oracle and configured-item tests PASS; Chromium core117/117 errors=[] at1920×1080 1x. file:// BLOCKED by managed policy. Evidence artifacts/v3-domain. No default storage cutover or achievement activation. Next: persistent migration verification journal and recovery distinction.

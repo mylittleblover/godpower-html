@@ -162,6 +162,11 @@
     },
     {
       "type": "script",
+      "path": "domain/competition/ranking.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/competition/rules.js",
       "attributes": ""
     },
@@ -473,6 +478,11 @@
     {
       "type": "script",
       "path": "core/item-modules.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "domain/items/targets.js",
       "attributes": ""
     },
     {

@@ -329,3 +329,8 @@ Call log:
 |回合差分|PASS80|round-differential.json|
 |14组1920×1080 1x|PASS|layout.json,before.png,after.png|
 |Windows真机|NOT TESTED|无真机|
+
+
+## 3.0.6 pure ranking and target policies (verified)
+
+Extracted domain/competition/ranking.js and domain/items/targets.js; production ranking() and ItemOperationBlocks use these ports. Ranking is stable and nonmutating; target policy receives RNG and eligibility explicitly and returns original group references. Existing randomAhead comparator and RNG consumption are retained, not rebalanced. New 200 seeded ordering cases and17target contract/boundary tests were RED before implementation. Node195/195 PASS;464item-defense differential,448seeded draws,26oracle and configured-item tests PASS; Chromium core117/117 errors=[] at1920×1080 1x. file:// BLOCKED by managed policy. Evidence artifacts/v3-domain. No default storage cutover or achievement activation. Next: persistent migration verification journal and recovery distinction.
