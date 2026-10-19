@@ -1,0 +1,43 @@
+
+> godpower-html@3.0.12 test:commands
+> node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs && node tests/e2e/defense-generation.mjs
+
+PASS manual command lifecycle [
+  'manual delta joins one pre-operation snapshot and persisted result',
+  'undo restores the pre-command score',
+  'overflow refuses all mutations',
+  'quota keeps explicit unsaved RAM state without false persistence',
+  'direct score edit uses the same lifecycle',
+  'manual command cancels stale defense without consuming attack or defense',
+  'presentation failure cannot undo a persisted manual command'
+]
+PASS answer command controls [
+  'A-D selection, replacement and cancellation persist without new undo entries',
+  'All In toggles and item-used restriction are preserved',
+  'settled phase rejects controls without mutation',
+  'a new answer cancels stale pending defense and persists the selected answer'
+]
+PASS stale defense completion preserves the newer pending decision [
+  {
+    key: 'horn',
+    before: true,
+    afterStale: true,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  },
+  {
+    key: 'mushroom',
+    before: true,
+    afterStale: true,
+    afterCurrent: false,
+    prompts: 2,
+    score: 220,
+    inventory: 0,
+    history: 1,
+    pending: false
+  }
+]

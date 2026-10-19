@@ -1,0 +1,4 @@
+PASS v1 startup copy, refresh and source retention
+PASS quota failure keeps valid old classroom usable in memory
+PASS corrupt current data is protected without fallback overwrite
+PASS legacy mirrors retain missing preference defaults

@@ -60,9 +60,10 @@ if (
     "Command inventory did not find its known production anchors",
   );
 rows.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line);
-await mkdir("artifacts/v3-async-lifecycle", { recursive: true });
+const artifactDirectory=process.argv[2] || "artifacts/v3-async-lifecycle";
+await mkdir(artifactDirectory, { recursive: true });
 await writeFile(
-  "artifacts/v3-async-lifecycle/command-map.json",
+  artifactDirectory + "/command-map.json",
   JSON.stringify(
     {
       criteria:

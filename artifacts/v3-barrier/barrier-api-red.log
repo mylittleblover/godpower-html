@@ -1,0 +1,41 @@
+✔ synchronous command persists once and records once (1.467042ms)
+✔ committed domain events are passed to persistence and published only after a successful save (0.894307ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (0.474541ms)
+✔ pending defense never persists a partial command; finish records one operation (12.666663ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (1.393249ms)
+✔ new command cancels pending operation before its own snapshot (1.743987ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.220478ms)
+✔ multiple asynchronous effects commit only when all decisions finish (1.863553ms)
+✔ invalid or overflowing commands never persist (0.496868ms)
+✔ stale defense cancels entire command (1.840603ms)
+✔ render failure cannot roll back a successfully persisted command (1.524511ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.240939ms)
+✔ async persistence keeps one command pending until durable acknowledgment (0.737708ms)
+✔ async rejection remains explicitly unsaved and does not publish events (0.78539ms)
+✔ strict async failure restores the pre-operation state and history (1.000278ms)
+✔ cancel cannot roll back an in-flight durable commit (1.496466ms)
+✔ deferred storage acknowledgment is never reported as durable success (0.289415ms)
+✔ async events publish exactly once after durable acknowledgment (1.299922ms)
+✔ postcommit notifications cannot reenter before earlier events and render complete (1.019739ms)
+✖ write barrier distinguishes cancellable defense from a durable commit in flight (0.541069ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 19
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.911066
+
+✖ failing tests:
+
+test at tests/unit/command-lifecycle.test.mjs:485:1
+✖ write barrier distinguishes cancellable defense from a durable commit in flight (0.541069ms)
+  TypeError: f.controller.isCommitting is not a function
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/command-lifecycle.test.mjs:490:72)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

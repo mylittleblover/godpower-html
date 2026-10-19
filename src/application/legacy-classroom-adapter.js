@@ -111,6 +111,8 @@ function applyClassroomBackup(raw) {
   ensureGroupNumbersV213(false);
 }
 function importClassroomData(data) {
+  const conflict = ClassroomWriteBarrier.conflict();
+  if (conflict) return conflict;
   if (state.isLocked) return { ok: false, error: "请先解锁" };
   Reliability.invalidateDefenseDecisions();
   const old = clone(state),

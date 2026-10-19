@@ -227,6 +227,16 @@
     },
     {
       "type": "script",
+      "path": "application/write-barrier.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "application/history-commands.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "core/history.js",
       "attributes": ""
     },

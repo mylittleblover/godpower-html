@@ -108,3 +108,8 @@ Domain DefensePolicy只选既有优先级，不改数据、不读DOM、不调用
 ### 异步保存屏障（3.0.11）
 
 CommandLifecycle分离current计算/防御、committing排他提交、persisting异步确认。同步legacy save调用时isPending保持false以免自我延迟，异步返回后isPending为true。ACK前不发布事件；ACK后直到结果、事件、渲染通知结束仍禁止重入。拒绝/无效ACK按明确RAM或严格回滚策略处理。真实IndexedDB适配验证已通过，但默认host仍同步；直接全局写入口及危险操作未全部迁完，不可启用默认新后端。
+
+
+### 危险操作写屏障与历史清空（3.0.12）
+
+ClassroomWriteBarrier只拒绝durable commit期，不阻止取消旧防御等待。导入、撤销、恢复、回溯及最终归档在任何修改前检测。HistoryCommands.clear重新检查确认时的课堂/赛季/历史和本地锁；不新增撤销节点，保存失败严格恢复记录，await whenIdle确认持久化后提示。原clearHistoryStack仅转发，不再出现内存清空但主存档未更新的分叉。whenIdle的completion不进入存档。其余直接写入口仍须迁移。

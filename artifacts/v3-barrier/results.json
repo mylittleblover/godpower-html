@@ -1,0 +1,11 @@
+{
+  "results": [
+    "history clear persists the authoritative envelope",
+    "cleared history stays empty after an actual reload",
+    "late confirmation cannot clear newly changed history",
+    "history clear rechecks the local lock after confirmation",
+    "import undo restore clear and final archive refuse mutation during commit",
+    "history clear save failure restores the existing records"
+  ],
+  "errors": []
+}

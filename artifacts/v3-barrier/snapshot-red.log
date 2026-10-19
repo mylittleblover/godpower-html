@@ -1,0 +1,64 @@
+✔ synchronous command persists once and records once (37.897068ms)
+✔ committed domain events are passed to persistence and published only after a successful save (1.569736ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (4.947722ms)
+✔ pending defense never persists a partial command; finish records one operation (21.591603ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (1.532974ms)
+✔ new command cancels pending operation before its own snapshot (2.356343ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (1.425207ms)
+✔ multiple asynchronous effects commit only when all decisions finish (8.654993ms)
+✔ invalid or overflowing commands never persist (1.161728ms)
+✔ stale defense cancels entire command (6.94404ms)
+✔ render failure cannot roll back a successfully persisted command (1.333761ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.909703ms)
+✔ async persistence keeps one command pending until durable acknowledgment (2.743261ms)
+✔ async rejection remains explicitly unsaved and does not publish events (1.584449ms)
+✔ strict async failure restores the pre-operation state and history (39.529414ms)
+✔ cancel cannot roll back an in-flight durable commit (1.86748ms)
+✔ deferred storage acknowledgment is never reported as durable success (0.375999ms)
+✔ async events publish exactly once after durable acknowledgment (4.494803ms)
+✔ postcommit notifications cannot reenter before earlier events and render complete (0.292142ms)
+✔ write barrier distinguishes cancellable defense from a durable commit in flight (7.118036ms)
+✖ snapshot failure does not leave an unresolved idle barrier behind (2.898458ms)
+✔ whenIdle waits for the actual durable result and resolves cancelled defenses (9.199642ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 669.385208
+
+✖ failing tests:
+
+test at tests/unit/command-lifecycle.test.mjs:511:1
+✖ snapshot failure does not leave an unresolved idle barrier behind (2.898458ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be reference-equal to "expected":
+  + actual - expected
+  
+    Promise {
+  +   <pending>,
+  +   Symbol(async_id_symbol): 2121,
+  -   Symbol(async_id_symbol): 2120,
+      Symbol(trigger_async_id_symbol): 78,
+  -   {
+  -     idle: true,
+  -     ok: true,
+  -     persisted: false
+  -   }
+    }
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/command-lifecycle.test.mjs:515:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Promise],
+    expected: [Promise],
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

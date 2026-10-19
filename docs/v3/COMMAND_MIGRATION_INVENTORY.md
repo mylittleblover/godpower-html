@@ -13,27 +13,28 @@ Generated with node scripts/command-migration-map.mjs. This is a static lead lis
 
 Default legacy authority remains active. The async compatibility controller is verified against an isolated real IndexedDB repository; it has not automatically converted the rows below.
 
-## Lexical leads (79)
+## Lexical leads (80)
 
 |File|Function|Line|Save calls|Command calls|Static classification|
 |---|---|---:|---:|---:|---|
 |src/application/answer-commands.js|`select`|3|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/answer-commands.js|`toggleAllIn`|17|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/history-commands.js|`clear`|3|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/legacy-classroom-adapter.js|`importClassroomData`|113|1|0|CALLER_AUDIT_REQUIRED|
-|src/application/legacy-classroom-adapter.js|`<initialization>:callback@211`|211|1|0|CALLER_AUDIT_REQUIRED|
-|src/application/legacy-classroom-adapter.js|`runClassroomCommand`|231|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/legacy-classroom-adapter.js|`deferClassroomDefense:callback@238`|238|1|0|CALLER_AUDIT_REQUIRED|
-|src/application/legacy-classroom-adapter.js|`useItem`|249|0|1|COMMAND_ENTRY_CANDIDATE|
-|src/application/legacy-classroom-adapter.js|`judgeRound`|345|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/legacy-classroom-adapter.js|`<initialization>:callback@213`|213|1|0|CALLER_AUDIT_REQUIRED|
+|src/application/legacy-classroom-adapter.js|`runClassroomCommand`|233|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/legacy-classroom-adapter.js|`deferClassroomDefense:callback@240`|240|1|0|CALLER_AUDIT_REQUIRED|
+|src/application/legacy-classroom-adapter.js|`useItem`|251|0|1|COMMAND_ENTRY_CANDIDATE|
+|src/application/legacy-classroom-adapter.js|`judgeRound`|347|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`adjust`|3|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/manual-score-commands.js|`set`|60|0|1|COMMAND_ENTRY_CANDIDATE|
 |src/application/round-settlement.js|`execute`|3|1|0|CALLER_AUDIT_REQUIRED|
 |src/core/history.js|`restoreStateFromSnapshot`|44|1|0|CALLER_AUDIT_REQUIRED|
-|src/core/history.js|`undoLast`|70|1|0|CALLER_AUDIT_REQUIRED|
+|src/core/history.js|`undoLast`|71|1|0|CALLER_AUDIT_REQUIRED|
 |src/core/picker-bridge.js|`command`|50|1|0|CALLER_AUDIT_REQUIRED|
 |src/items/round-effects.js|`settle`|3|1|0|CALLER_AUDIT_REQUIRED|
 |src/items/round-effects.js|`expire`|36|1|0|CALLER_AUDIT_REQUIRED|
-|src/script/00.js|`confirmFinalSettlement`|270|1|0|CALLER_AUDIT_REQUIRED|
+|src/script/00.js|`confirmFinalSettlement`|271|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`toggleResizerEnabled`|1494|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`toggleSaveAllIn`|1500|1|0|CALLER_AUDIT_REQUIRED|
 |src/script/00.js|`updateColumnMode`|1505|1|0|CALLER_AUDIT_REQUIRED|

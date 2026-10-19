@@ -4,6 +4,11 @@ const CommandLifecycle = (() => {
     let current = null;
     let committing = null;
     let persisting = null;
+    let lastCompletion = Promise.resolve({
+      ok: true,
+      idle: true,
+      persisted: false,
+    });
     let generatedCommandId = 0;
     function context(tx) {
       return Object.freeze({
@@ -42,9 +47,14 @@ const CommandLifecycle = (() => {
       current = null;
       tx.cancelled = true;
       tx.eventScope?.close();
-      host.restore(tx.before);
-      host.result({ ok: false, cancelled: true, reason });
-      host.render();
+      const outcome = { ok: false, cancelled: true, reason };
+      try {
+        host.restore(tx.before);
+        host.result(outcome);
+        host.render();
+      } finally {
+        tx.resolveCompletion(outcome);
+      }
       return true;
     }
     function fail(tx, error) {
@@ -95,9 +105,18 @@ const CommandLifecycle = (() => {
     function acknowledge(tx, transaction, saved) {
       // The durable acknowledgment is the boundary; UI failures cannot reverse it.
       persisting = null;
+      let outcome;
       try {
         if (!saved || typeof saved.ok !== "boolean" || saved.deferred)
           saved = { ok: false, error: "存储没有返回有效的持久化确认" };
+        outcome =
+          !saved.ok && !tx.retainOnPersistenceFailure
+            ? { ok: false, error: saved.error }
+            : {
+                ok: true,
+                persisted: !!saved.ok,
+                ...(!saved.ok ? { error: saved.error } : {}),
+              };
         if (!saved.ok && !tx.retainOnPersistenceFailure) {
           tx.cancelled = true;
           host.restore(tx.before);
@@ -123,6 +142,7 @@ const CommandLifecycle = (() => {
         notify(tx, () => host.render());
       } finally {
         if (committing === tx) committing = null;
+        tx.resolveCompletion(outcome || { ok: false, error: "命令确认失败" });
       }
     }
     function run(description, operation, options = {}) {
@@ -139,11 +159,19 @@ const CommandLifecycle = (() => {
         }) || null;
       host.invalidate(); // Cancels any older pending command before the new snapshot.
       cancel("superseded");
+      const before = host.snapshot();
+      let resolveCompletion;
+      const completion = new Promise((resolve) => {
+        resolveCompletion = resolve;
+      });
+      lastCompletion = completion;
       const tx = {
         commandId,
+        completion,
+        resolveCompletion,
         eventScope,
         finalizers: [],
-        before: host.snapshot(),
+        before,
         waiting: 0,
         retainOnPersistenceFailure:
           options.retainOnPersistenceFailure !== false,
@@ -198,6 +226,9 @@ const CommandLifecycle = (() => {
       defer,
       cancel,
       isPending: () => !!(current || persisting),
+      isCommitting: () => !!committing,
+      whenIdle: () =>
+        current?.completion || committing?.completion || lastCompletion,
       baseline: () => current?.before || committing?.before,
     };
   }

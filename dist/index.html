@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.11</title>
+<title>上帝的力量 V3.0.12</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.11";
+    document.title = name() + " V3.0.12";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.11</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.12</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -11864,6 +11864,78 @@ const CLASSROOM_STORAGE={
   removeItem(key){localStorage.removeItem(key)}
 };
 </script>
+<script>/* Shared application guard; cancellable defense waits remain distinct from durable commits. */
+const ClassroomWriteBarrier = {
+  conflict() {
+    if (!window.classroomReady || !classroomCommands.isCommitting())
+      return null;
+    return {
+      ok: false,
+      reason: "commit-pending",
+      error: "课堂正在保存，请稍后再试。",
+    };
+  },
+  allow() {
+    const conflict = this.conflict();
+    if (conflict) showToast(conflict.error);
+    return !conflict;
+  },
+};
+</script>
+<script>/* Destructive history edits require a fresh confirmation and a durable save. */
+const HistoryCommands = (() => {
+  async function clear() {
+    if (!ClassroomWriteBarrier.allow()) return false;
+    if (state.isLocked) {
+      openPwdModal();
+      return false;
+    }
+    const classroom = state,
+      seasonId = state.seasonId,
+      fingerprint = JSON.stringify(historyStack);
+    if (
+      !(await themeConfirm("确定清空全部历史操作记录吗？此操作不可逆。", {
+        title: "清空历史记录",
+        danger: true,
+        confirmText: "清空",
+      }))
+    )
+      return false;
+    if (!ClassroomWriteBarrier.allow()) return false;
+    if (state.isLocked) {
+      openPwdModal();
+      return false;
+    }
+    if (
+      state !== classroom ||
+      state.seasonId !== seasonId ||
+      JSON.stringify(historyStack) !== fingerprint
+    ) {
+      showToast("历史记录已变化，请重新确认后再清空。");
+      return false;
+    }
+    const accepted = runClassroomCommand(
+      "清空历史记录",
+      () => {
+        historyStack = [];
+        return true;
+      },
+      {
+        recordHistory: false,
+        source: "manual",
+        retainOnPersistenceFailure: false,
+      },
+    );
+    if (!accepted) return false;
+    const result = await classroomCommands.whenIdle();
+    if (!result.ok || !result.persisted) return false;
+    renderHistoryList();
+    showToast("历史记录已清空");
+    return true;
+  }
+  return { clear };
+})();
+</script>
 <script>/* One snapshot owner, retaining V2 pre-operation snapshots and legacy keys. */
 const HistorySnapshots = {
   capture(s, desc, time) {
@@ -11908,6 +11980,7 @@ function persistHistoryV26() {
   return { ok };
 }
 function restoreStateFromSnapshot(snapshot) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   window.GodpowerPicker?.invalidate();
   Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
@@ -11934,6 +12007,7 @@ function restoreStateFromSnapshot(snapshot) {
   renderAll();
 }
 function undoLast() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) openPwdModal();
   else if (window.classroomReady && classroomCommands.isPending())
     Reliability.invalidateDefenseDecisions();
@@ -12557,6 +12631,7 @@ function saveSettlementRecord(record) {
 }
 
 function triggerFinalSettlement() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     themeAlert('封神榜不是随手一按的烟花按钮。先去底栏解锁上帝模式，再回来决定全班分数的命运。');
     openPwdModal();
@@ -12582,6 +12657,8 @@ function closeSettlementNameModal() {
 }
 
 function confirmFinalSettlement() {
+  const conflict=ClassroomWriteBarrier.conflict();
+  if(conflict){showToast(conflict.error);return conflict;}
   Reliability.invalidateDefenseDecisions();
   if(state.isLocked){openPwdModal();return {ok:false,reason:'locked'}}
   if(itemDrawBusy || slotEngine.isSpinning || isStartingRound || isSwitchingRound){
@@ -12892,14 +12969,11 @@ function toggleHistExpand(index) {
 }
 
 async function clearHistoryStack() {
-  if (state.isLocked) { openPwdModal(); return; }
-  if (!await themeConfirm('确定清空全部历史操作记录吗？此操作不可逆。', {title:'清空历史记录', danger:true, confirmText:'清空'})) return;
-  historyStack = [];
-  renderHistoryList();
-  showToast('历史记录已清空');
+  return HistoryCommands.clear();
 }
 
 function revertToHistory(index) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     themeAlert('时间旅行需要许可证。先解锁上帝模式，再回来改写历史。');
     openPwdModal();
@@ -22564,7 +22638,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.11';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.12';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24036,6 +24110,11 @@ const CommandLifecycle = (() => {
     let current = null;
     let committing = null;
     let persisting = null;
+    let lastCompletion = Promise.resolve({
+      ok: true,
+      idle: true,
+      persisted: false,
+    });
     let generatedCommandId = 0;
     function context(tx) {
       return Object.freeze({
@@ -24074,9 +24153,14 @@ const CommandLifecycle = (() => {
       current = null;
       tx.cancelled = true;
       tx.eventScope?.close();
-      host.restore(tx.before);
-      host.result({ ok: false, cancelled: true, reason });
-      host.render();
+      const outcome = { ok: false, cancelled: true, reason };
+      try {
+        host.restore(tx.before);
+        host.result(outcome);
+        host.render();
+      } finally {
+        tx.resolveCompletion(outcome);
+      }
       return true;
     }
     function fail(tx, error) {
@@ -24127,9 +24211,18 @@ const CommandLifecycle = (() => {
     function acknowledge(tx, transaction, saved) {
       // The durable acknowledgment is the boundary; UI failures cannot reverse it.
       persisting = null;
+      let outcome;
       try {
         if (!saved || typeof saved.ok !== "boolean" || saved.deferred)
           saved = { ok: false, error: "存储没有返回有效的持久化确认" };
+        outcome =
+          !saved.ok && !tx.retainOnPersistenceFailure
+            ? { ok: false, error: saved.error }
+            : {
+                ok: true,
+                persisted: !!saved.ok,
+                ...(!saved.ok ? { error: saved.error } : {}),
+              };
         if (!saved.ok && !tx.retainOnPersistenceFailure) {
           tx.cancelled = true;
           host.restore(tx.before);
@@ -24155,6 +24248,7 @@ const CommandLifecycle = (() => {
         notify(tx, () => host.render());
       } finally {
         if (committing === tx) committing = null;
+        tx.resolveCompletion(outcome || { ok: false, error: "命令确认失败" });
       }
     }
     function run(description, operation, options = {}) {
@@ -24171,11 +24265,19 @@ const CommandLifecycle = (() => {
         }) || null;
       host.invalidate(); // Cancels any older pending command before the new snapshot.
       cancel("superseded");
+      const before = host.snapshot();
+      let resolveCompletion;
+      const completion = new Promise((resolve) => {
+        resolveCompletion = resolve;
+      });
+      lastCompletion = completion;
       const tx = {
         commandId,
+        completion,
+        resolveCompletion,
         eventScope,
         finalizers: [],
-        before: host.snapshot(),
+        before,
         waiting: 0,
         retainOnPersistenceFailure:
           options.retainOnPersistenceFailure !== false,
@@ -24230,6 +24332,9 @@ const CommandLifecycle = (() => {
       defer,
       cancel,
       isPending: () => !!(current || persisting),
+      isCommitting: () => !!committing,
+      whenIdle: () =>
+        current?.completion || committing?.completion || lastCompletion,
       baseline: () => current?.before || committing?.before,
     };
   }
@@ -24703,7 +24808,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.11",
+    appVersion: "V3.0.12",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),
@@ -24809,6 +24914,8 @@ function applyClassroomBackup(raw) {
   ensureGroupNumbersV213(false);
 }
 function importClassroomData(data) {
+  const conflict = ClassroomWriteBarrier.conflict();
+  if (conflict) return conflict;
   if (state.isLocked) return { ok: false, error: "请先解锁" };
   Reliability.invalidateDefenseDecisions();
   const old = clone(state),

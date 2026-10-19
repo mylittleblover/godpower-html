@@ -104,9 +104,11 @@ try {
       committed: (transaction) => publications.push(transaction),
     });
     const idle = async () => {
-      for (let i = 0; i < 1000 && controller.isPending(); i++)
-        await new Promise((r) => setTimeout(r, 2));
-      ensure(!controller.isPending(), "commit timed out");
+      await controller.whenIdle();
+      ensure(
+        !controller.isPending(),
+        "durable completion must release the pending phase",
+      );
     };
     const add = (points) => (context) => {
       const before = snapshot.groups[0].score;

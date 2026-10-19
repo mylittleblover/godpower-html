@@ -243,6 +243,7 @@ function saveSettlementRecord(record) {
 }
 
 function triggerFinalSettlement() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     themeAlert('封神榜不是随手一按的烟花按钮。先去底栏解锁上帝模式，再回来决定全班分数的命运。');
     openPwdModal();
@@ -268,6 +269,8 @@ function closeSettlementNameModal() {
 }
 
 function confirmFinalSettlement() {
+  const conflict=ClassroomWriteBarrier.conflict();
+  if(conflict){showToast(conflict.error);return conflict;}
   Reliability.invalidateDefenseDecisions();
   if(state.isLocked){openPwdModal();return {ok:false,reason:'locked'}}
   if(itemDrawBusy || slotEngine.isSpinning || isStartingRound || isSwitchingRound){
@@ -578,14 +581,11 @@ function toggleHistExpand(index) {
 }
 
 async function clearHistoryStack() {
-  if (state.isLocked) { openPwdModal(); return; }
-  if (!await themeConfirm('确定清空全部历史操作记录吗？此操作不可逆。', {title:'清空历史记录', danger:true, confirmText:'清空'})) return;
-  historyStack = [];
-  renderHistoryList();
-  showToast('历史记录已清空');
+  return HistoryCommands.clear();
 }
 
 function revertToHistory(index) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     themeAlert('时间旅行需要许可证。先解锁上帝模式，再回来改写历史。');
     openPwdModal();

@@ -481,3 +481,80 @@ test("postcommit notifications cannot reenter before earlier events and render c
   assert.equal(f.saves, 1);
   assert.equal(f.score, 12);
 });
+
+test("write barrier distinguishes cancellable defense from a durable commit in flight", async () => {
+  const f = fixture();
+  let decision, ack;
+  const prompt = new Promise((resolve) => {
+    decision = resolve;
+  });
+  f.persistResult = new Promise((resolve) => {
+    ack = resolve;
+  });
+  f.controller.run("pending defense", () => {
+    f.controller.defer(prompt, () => {
+      f.score = 12;
+    });
+    return true;
+  });
+  assert.equal(f.controller.isPending(), true);
+  assert.equal(f.controller.isCommitting(), false);
+  decision(true);
+  await tick();
+  assert.equal(f.controller.isCommitting(), true);
+  ack({ ok: true });
+  await tick();
+  assert.equal(f.controller.isCommitting(), false);
+  assert.equal(f.controller.isPending(), false);
+});
+
+test("snapshot failure does not leave an unresolved idle barrier behind", () => {
+  const controller = scope.api.create({
+    active: () => false,
+    invalidate: () => {},
+    snapshot: () => {
+      throw Error("snapshot failed");
+    },
+  });
+  const prior = controller.whenIdle();
+  assert.throws(
+    () => controller.run("invalid snapshot", () => true),
+    /snapshot failed/,
+  );
+  assert.equal(controller.whenIdle(), prior);
+  assert.equal(controller.isPending(), false);
+  assert.equal(controller.isCommitting(), false);
+});
+test("whenIdle waits for the actual durable result and resolves cancelled defenses", async () => {
+  const f = fixture();
+  let complete;
+  f.persistResult = new Promise((resolve) => {
+    complete = resolve;
+  });
+  f.controller.run("async idle", () => {
+    f.score = 12;
+    return true;
+  });
+  let resolved = false;
+  const idle = f.controller.whenIdle().then((result) => {
+    resolved = true;
+    return result;
+  });
+  await tick();
+  assert.equal(resolved, false);
+  complete({ ok: true });
+  assert.equal((await idle).persisted, true);
+  let decision;
+  const prompt = new Promise((resolve) => {
+    decision = resolve;
+  });
+  f.controller.run("defense wait", () => {
+    f.controller.defer(prompt, () => {});
+    return true;
+  });
+  const cancelled = f.controller.whenIdle();
+  f.controller.cancel("user cancelled");
+  assert.equal((await cancelled).cancelled, true);
+  decision(false);
+  await tick();
+});

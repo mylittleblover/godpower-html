@@ -42,6 +42,7 @@ function persistHistoryV26() {
   return { ok };
 }
 function restoreStateFromSnapshot(snapshot) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   window.GodpowerPicker?.invalidate();
   Reliability.invalidateDefenseDecisions();
   cancelScoreAnimationAndSync();
@@ -68,6 +69,7 @@ function restoreStateFromSnapshot(snapshot) {
   renderAll();
 }
 function undoLast() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) openPwdModal();
   else if (window.classroomReady && classroomCommands.isPending())
     Reliability.invalidateDefenseDecisions();
