@@ -192,6 +192,11 @@
     },
     {
       "type": "script",
+      "path": "domain/values.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/events.js",
       "attributes": ""
     },
@@ -482,6 +487,16 @@
     },
     {
       "type": "script",
+      "path": "application/transactional-command-service.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "application/migration-coordinator.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/legacy-classroom-adapter.js",
       "attributes": ""
     },
@@ -508,6 +523,11 @@
     {
       "type": "script",
       "path": "ui/desktop.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/migration.js",
       "attributes": ""
     },
     {

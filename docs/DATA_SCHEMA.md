@@ -1,6 +1,6 @@
 # 数据结构与兼容策略
 
-Schema Version 为 2，应用版本 3.0.2。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
+Schema Version 为 2，应用版本 3.0.3。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
 
 | 字段 | 类型／默认值 | 持久化与规则 |
 |---|---|---|
@@ -142,3 +142,11 @@ Picker协议1新增可选theme展示字段，旧消息缺省classic；Electron�
 候选库 `godpower-domain-v1` 含 aggregates、commands、events、archives、resources、migrations 六个store。聚合包含id/revision/snapshot；命令包含commandId/requestHash/result；事件按eventId唯一；资源保存原Blob/ArrayBuffer及来源；迁移回执按migrationId唯一。
 
 仓库尚未切换为生产权威。旧数据完整预检与隔离导入已覆盖localStorage原文、档案、音频和壁纸字节，不会删除来源。下一步须先统一异步命令和来源冻结，再启用正式切换。
+
+## 3.0.3命令意图与确定性导入
+
+commands记录新增可选intentHash：对规范化命令意图计算SHA-256，包含actorId、aggregateId、expectedRevision、source、type与payload。相同ID的不同意图拒绝；相同意图返回原receipt，不重新执行计算。直接仓库调用无intent时仍按完整requestHash严格去重。
+
+完整迁移计划对缺失的旧身份使用来源hash和有序序号生成稳定ID，保留已有身份；重复预检不生成不同赛季/组/道具ID。实际完成时间记录在目标迁移回执，不伪造历史发生时间。来源不支持的对象类型/循环或非有限数值会阻止预检，不按空对象计算hash。
+
+目标校验逐条比较snapshot、archive、resource的完整hash，并检查receipt计数；音频ArrayBuffer与壁纸Blob参与字节校验。校验失败只报告暂存副本无效，原存储和当前课堂不切换。

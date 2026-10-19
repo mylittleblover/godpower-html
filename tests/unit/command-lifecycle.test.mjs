@@ -4,7 +4,9 @@ import vm from "node:vm";
 import { readFileSync } from "node:fs";
 const scope = vm.createContext({});
 vm.runInContext(
-  readFileSync("src/domain/events.js", "utf8") +
+  readFileSync("src/domain/values.js", "utf8") +
+    "\n" +
+    readFileSync("src/domain/events.js", "utf8") +
     ";globalThis.domainEvents=DomainEvents;" +
     readFileSync("src/application/command-lifecycle.js", "utf8") +
     ";globalThis.api=CommandLifecycle",

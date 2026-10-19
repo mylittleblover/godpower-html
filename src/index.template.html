@@ -577,6 +577,19 @@
       </div>
     </div>
 
+    <details id="v3MigrationTools" class="ui-settings-disclosure" data-settings-category="data">
+      <summary><b>迁移预检与副本验证</b><span>高级维护 · 保留原数据，不切换当前课堂</span></summary>
+      <div class="ui-settings-detail-body">
+        <p class="ui-muted">检查本机课堂、历届档案与自定义资源，创建独立的迁移副本并核对完整性。请在完成本题和抽取后操作。</p>
+        <div class="ui-toolbar">
+          <button id="v3MigrationInspect" type="button" class="btn">检查本机旧数据</button>
+          <button id="v3MigrationStage" type="button" class="btn btn-primary" disabled>创建副本并验证</button>
+          <button id="v3MigrationDownload" type="button" class="btn" disabled>导出校验报告</button>
+        </div>
+        <p id="v3MigrationStatus" role="status" aria-live="polite" class="ui-muted" data-status="IDLE">尚未检查。校验报告不包含音频等资源的原始内容，不能替代完整备份。</p>
+      </div>
+    </details>
+
     <div class="setting-item" data-settings-category="data" data-settings-group="danger">
       <span class="setting-label">将全部小组积分重置为 0（不会生成封神榜档案）</span>
       <button class="btn btn-sm btn-danger" onclick="resetAllScores()">积分清零</button>
@@ -610,6 +623,7 @@
 <script>@@SOURCE:infrastructure/legacy/inventory.js@@</script>
 <script>@@SOURCE:infrastructure/legacy/audio-migration.js@@</script>
 <script>@@SOURCE:domain/achievements/catalog.js@@</script>
+<script>@@SOURCE:domain/values.js@@</script>
 <script>@@SOURCE:domain/events.js@@</script>
 <script>@@SOURCE:core/item-module-model.js@@</script>
 <script>@@SOURCE:core/reliability.js@@</script>
@@ -801,12 +815,15 @@
 <script>@@SOURCE:items/operation.js@@</script>
 <script>@@SOURCE:items/draw.js@@</script>
 <script>@@SOURCE:application/command-lifecycle.js@@</script>
+<script>@@SOURCE:application/transactional-command-service.js@@</script>
+<script>@@SOURCE:application/migration-coordinator.js@@</script>
 <script>@@SOURCE:application/legacy-classroom-adapter.js@@</script>
 <script>@@SOURCE:ui/classroom-feedback.js@@</script>
 <script>@@SOURCE:ui/battle-motion.js@@</script>
 <script>@@SOURCE:ui/item-modules.js@@</script>
 <script id="global-tooltips">@@SOURCE:ui/tooltips.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
+<script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
 <script>@@SOURCE:core/picker-bridge.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>

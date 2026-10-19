@@ -45,3 +45,13 @@ Identity fallback now uses a session clock/counter rather than the gameplay RNG;
 5. Only then implement achievement progress/event facts, undo rollback, archival promotion and UI; continue the rest of the approved V3 handoff by dependency.
 
 Unknown gameplay thresholds/status/item/random-event details remain registered in the Electron V3 audit. They block only dependent rules, not migration or architecture work.
+
+## 3.0.3 async gateway and staging coordinator
+
+Implemented after449f2c1/bf248bf: shared domain JSON values; async transactional command service with actor/scope/revision guards, in-flight/persisted intent deduplication, immutable calculation, cancellation and postcommit presentation isolation. Trusted synthetic handlers are tested against actual IndexedDB; production legacy commands are not all routed through it yet.
+
+Migration coordination now rebuilds source payloads, uses deterministic identity generation for repeat preflight, checks every destination snapshot/archive/media hash and receipt, and rechecks source data. Settings has an advanced collapsed preview/staging/report entry. It creates an independent copy and explicitly does not activate a new authority. Unsupported resource prototypes and corrupt target bytes are rejected.
+
+Verification: Node160/160; Chromium core117/117 errors=[]; complete migration suite including8 async command scenarios, source/target corruption, repeat staging and actual settings clicks PASS. Screenshot artifacts/v3-async/screenshots/migration-panel.png was inspected. The14group score list and primary raw string remained identical before/after staging. file:// remains BLOCKED by managed browser policy.100 synchronous round-loop sample:2669.5ms, DOM nodes2514 at20/50/100; heap one-point35156851 bytes, not a memory-leak trend or real-class FPS claim.
+
+Next: migrate actual legacy command families into pure/domain calculations and the async gateway; first consolidate duplicate basic score calculation and the five legacyJudgeRound writes, with a pre-change differential baseline. Only then can default storage authority be safely switched.

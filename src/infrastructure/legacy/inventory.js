@@ -17,6 +17,8 @@ const LegacyStorageInventory = (() => {
   const utf8 = (value) => new TextEncoder().encode(value);
   async function canonical(value, seen = new Set()) {
     if (value === undefined) return ["undefined"];
+    if (typeof value === "number" && !Number.isFinite(value))
+      throw new Error("迁移来源含非有限数值，无法确认完整性");
     if (
       value === null ||
       ["string", "boolean", "number"].includes(typeof value)
@@ -45,6 +47,12 @@ const LegacyStorageInventory = (() => {
     if (value instanceof Date) return ["Date", value.toISOString()];
     if (typeof value !== "object" || seen.has(value))
       throw new Error("迁移来源含不支持或循环的数据结构");
+    if (
+      !Array.isArray(value) &&
+      Object.getPrototypeOf(value) !== null &&
+      Object.getPrototypeOf(value) !== Object.prototype
+    )
+      throw new Error("迁移来源含不支持的数据类型，禁止忽略后继续");
     seen.add(value);
     const result = Array.isArray(value)
       ? [
@@ -199,19 +207,38 @@ const LegacyStorageInventory = (() => {
       captured.localEntries.map((entry) => [entry.key, entry.raw]),
     );
     const storage = { getItem: (key) => map.get(key) ?? null };
-    const raw =
-      storage.getItem("godpower_state_v2") ??
-      storage.getItem("godpower_state_v1");
-    const legacy =
-      raw === null ? SchemaMigrations.fromLegacyKeys(storage) : JSON.parse(raw);
-    if (!legacy) throw new Error("来源没有可迁移的课堂数据");
-    Reliability.validateBackup(legacy);
-    const snapshot = SchemaMigrations.migrateBackup(legacy);
-    Reliability.validateBackup(snapshot);
     const sourceHash = await hashValue({
       sourceOrigin: captured.sourceOrigin,
       manifest: captured.sourceManifest,
     });
+    let identitySequence = 0;
+    const newIdentity = (prefix) =>
+      `${prefix}-migrate-${sourceHash}-${++identitySequence}`;
+    const identity = {
+      ...StableIdentity,
+      createGroupUid: () => newIdentity("group"),
+      createItemInstanceId: () => newIdentity("item"),
+      createSeasonId: () => newIdentity("season"),
+      assignGroupUids: (groups) =>
+        StableIdentity.assignGroupUids(groups, () => newIdentity("group")),
+    };
+    const raw =
+      storage.getItem("godpower_state_v2") ??
+      storage.getItem("godpower_state_v1");
+    const legacy =
+      raw === null
+        ? SchemaMigrations.fromLegacyKeys(storage, { now: () => new Date(0) })
+        : JSON.parse(raw);
+    if (!legacy) throw new Error("来源没有可迁移的课堂数据");
+    if (raw === null) delete legacy.timestamp;
+    Reliability.validateBackup(legacy);
+    const snapshot = SchemaMigrations.migrateBackup(legacy, {
+      identity,
+      now: () => new Date(0),
+    });
+    if (legacy.schemaVersion !== 2 && !Object.hasOwn(legacy, "migratedAt"))
+      delete snapshot.migratedAt;
+    Reliability.validateBackup(snapshot);
     const resources = captured.resources.slice();
     for (const entry of captured.localEntries) {
       resources.push({
@@ -263,5 +290,38 @@ const LegacyStorageInventory = (() => {
       conflicts: ok ? [] : ["来源数据已改变，旧预检结果不可提交，请重新预检"],
     };
   }
-  return { capture, prepare, verify };
+  async function verifyDestination(repository, plan) {
+    const failures = [];
+    const current = await repository.read(plan.aggregateId);
+    if (
+      !current ||
+      (await hashValue(current.snapshot)) !== (await hashValue(plan.snapshot))
+    )
+      failures.push("课堂快照读回校验不一致");
+    for (const archive of plan.archives) {
+      const actual = await repository.readArchive(archive.archiveId);
+      if (!actual || (await hashValue(actual)) !== (await hashValue(archive)))
+        failures.push("档案读回校验不一致：" + archive.archiveId);
+    }
+    for (const resource of plan.resources) {
+      const actual = await repository.readResource(resource.resourceId);
+      if (!actual || (await hashValue(actual)) !== (await hashValue(resource)))
+        failures.push("资源读回校验不一致：" + resource.resourceId);
+    }
+    const receipt = await repository.getMigration(plan.migrationId);
+    if (
+      !receipt?.complete ||
+      receipt.aggregateId !== plan.aggregateId ||
+      receipt.archives !== plan.archives.length ||
+      receipt.resources !== plan.resources.length
+    )
+      failures.push("迁移回执缺失或计数不一致");
+    return {
+      ok: failures.length === 0,
+      failures,
+      verifiedArchives: plan.archives.length,
+      verifiedResources: plan.resources.length,
+    };
+  }
+  return { capture, prepare, verify, verifyDestination };
 })();

@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
+import { readFile, mkdir } from 'node:fs/promises';
+import { launch, setup } from '../fixtures/browser.mjs';
+const html = await readFile('dist/godpower.html');
+const server = createServer((_, response) => { response.setHeader('Content-Type', 'text/html; charset=utf-8'); response.end(html); });
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const browser = await launch(); const context = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+await context.addInitScript(() => { localStorage.setItem('politics_audio_migration_v2', '1'); });
+const page = await context.newPage(); const errors = []; page.on('pageerror', error => errors.push(error.message));
+try {
+  await page.goto(`http://127.0.0.1:${server.address().port}`, { waitUntil: 'domcontentloaded' });
+  await setup(page, 14);
+  await page.evaluate(() => { state.roundActive = false; state.evaluated = true; saveState(); switchView('settings'); DesktopUI.selectSettings('data'); });
+  assert.equal(await page.locator('#v3MigrationTools').count(), 1, 'advanced migration tools must exist in data settings');
+  await page.locator('#v3MigrationTools summary').click();
+  assert.equal(await page.locator('#v3MigrationStage').isDisabled(), true);
+  await page.waitForFunction(() => typeof bulletTimer === 'undefined' || bulletTimer === null);
+  const before = await page.evaluate(() => ({ raw: localStorage.getItem(Reliability.stateKey), scores: state.groups.map(group => group.score) }));
+  await page.locator('#v3MigrationInspect').click();
+  await page.waitForFunction(() => document.querySelector('#v3MigrationStatus').dataset.status === 'PREVIEW');
+  assert.match(await page.locator('#v3MigrationStatus').innerText(), /14.*小组/);
+  await page.locator('#v3MigrationStage').click();
+  await page.waitForFunction(() => document.querySelector('#v3MigrationStatus').dataset.status === 'STAGED_VERIFIED', { timeout: 30000 });
+  assert.match(await page.locator('#v3MigrationStatus').innerText(), /副本验证通过/);
+  assert.deepEqual(await page.evaluate(() => ({ raw: localStorage.getItem(Reliability.stateKey), scores: state.groups.map(group => group.score) })), before);
+  assert.deepEqual(errors, []);
+  await mkdir('artifacts/v3-async/screenshots', { recursive: true });
+  await page.screenshot({ path: 'artifacts/v3-async/screenshots/migration-panel.png' });
+  console.log('PASS migration settings preview and verified staging preserve primary bytes and all 14 group scores');
+} finally { await browser.close(); server.close(); }

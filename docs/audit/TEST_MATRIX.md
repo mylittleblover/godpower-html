@@ -1,3 +1,19 @@
+# 3.0.3迁移架构专项（2026-10-19）
+
+| 功能×场景 | 类型 | 实际结果 | 证据 |
+|---|---|---|---|
+| 核心单元/集成 | Node | PASS160/160 | artifacts/v3-async/unit.log |
+| 核心业务及五页 | Chromium1920×1080 1× | PASS117/117，无page error | artifacts/v3-async/browser-results.json |
+| 异步事务命令 | 真实IndexedDB+浏览器 | PASS8类场景 | artifacts/v3-async/migration.log |
+| 迁移预检/暂存/读回/源变更/损坏资源/重试 | 真实IndexedDB+设置点击 | PASS | artifacts/v3-async/migration.log及screenshots |
+| file://运行 | Chromium | BLOCKED（浏览器管理策略） | browser-results.json |
+| Windows真机 | 原生 | NOT TESTED | 不以Linux替代 |
+| CircleCI | CI | NOT RUN（用户禁止操作） | — |
+
+以下为历史阶段，不计入本轮通过数。
+
+---
+
 # 设计整改最新专项（2026-10-18）
 
 [本轮正式验收](../reports/DESIGN_REVIEW_ACCEPTANCE.md)。后续仅Chromium、1920×1080、1×。最终构建114项Node测试、9项设计回归及14组单尺寸几何对照PASS；最终页面/窗口截图见artifacts/design-review/delivery-1920/。历史阶段专项与构建哈希在正式报告分列，不能视为同一最终文件的全部功能验收。

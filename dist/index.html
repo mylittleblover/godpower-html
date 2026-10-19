@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.2</title>
+<title>上帝的力量 V3.0.3</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.2";
+    document.title = name() + " V3.0.3";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.2</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.3</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9327,6 +9327,19 @@ html[data-theme="marx"] {
         <button class="btn btn-sm" style="background:#e2e8f0; color:#1e293b;" onclick="triggerImport()">恢复备份</button>
       </div>
     </div>
+
+    <details id="v3MigrationTools" class="ui-settings-disclosure" data-settings-category="data">
+      <summary><b>迁移预检与副本验证</b><span>高级维护 · 保留原数据，不切换当前课堂</span></summary>
+      <div class="ui-settings-detail-body">
+        <p class="ui-muted">检查本机课堂、历届档案与自定义资源，创建独立的迁移副本并核对完整性。请在完成本题和抽取后操作。</p>
+        <div class="ui-toolbar">
+          <button id="v3MigrationInspect" type="button" class="btn">检查本机旧数据</button>
+          <button id="v3MigrationStage" type="button" class="btn btn-primary" disabled>创建副本并验证</button>
+          <button id="v3MigrationDownload" type="button" class="btn" disabled>导出校验报告</button>
+        </div>
+        <p id="v3MigrationStatus" role="status" aria-live="polite" class="ui-muted" data-status="IDLE">尚未检查。校验报告不包含音频等资源的原始内容，不能替代完整备份。</p>
+      </div>
+    </details>
 
     <div class="setting-item" data-settings-category="data" data-settings-group="danger">
       <span class="setting-label">将全部小组积分重置为 0（不会生成封神榜档案）</span>
@@ -9952,6 +9965,7 @@ const TransactionalRepository = (() => {
         snapshot,
         events = [],
         archive = null,
+        intent = null,
       } = structuredClone(request);
       identifier(commandId, "commandId");
       identifier(aggregateId, "aggregateId");
@@ -9976,7 +9990,9 @@ const TransactionalRepository = (() => {
         snapshot,
         events,
         archive,
+        intent,
       });
+      const intentHash = intent === null ? null : await fingerprint(intent);
       return transaction(
         db,
         ["aggregates", "commands", "events", "archives"],
@@ -9985,7 +10001,12 @@ const TransactionalRepository = (() => {
           const existing = commands.get(commandId);
           existing.onsuccess = guard(() => {
             if (existing.result) {
-              if (existing.result.requestHash !== requestHash)
+              if (
+                intentHash !== null
+                  ? existing.result.intentHash !== intentHash ||
+                    existing.result.aggregateId !== aggregateId
+                  : existing.result.requestHash !== requestHash
+              )
                 return abort(
                   fault(
                     "COMMAND_REUSED",
@@ -10016,6 +10037,7 @@ const TransactionalRepository = (() => {
                 ok: true,
                 revision: revision + 1,
                 duplicate: false,
+                eventsPersisted: events.length > 0,
               };
               aggregates.put({
                 id: aggregateId,
@@ -10025,7 +10047,13 @@ const TransactionalRepository = (() => {
               for (const event of events)
                 tx.objectStore("events").add({ ...event, aggregateId });
               if (archive) tx.objectStore("archives").add(archive);
-              commands.add({ commandId, aggregateId, requestHash, result });
+              commands.add({
+                commandId,
+                aggregateId,
+                requestHash,
+                intentHash,
+                result,
+              });
               done(result);
             });
           });
@@ -10126,8 +10154,21 @@ const TransactionalRepository = (() => {
           );
       });
     }
+    async function findCommand(commandId, intent) {
+      identifier(commandId, "commandId");
+      const intentHash = await fingerprint(structuredClone(intent));
+      const record = await readOne(db, "commands", commandId);
+      if (!record) return null;
+      if (record.intentHash !== intentHash)
+        throw fault(
+          "COMMAND_REUSED",
+          "Command ID was reused for a different intent",
+        );
+      return { ...record.result, duplicate: true };
+    }
     return {
       commit,
+      findCommand,
       importSnapshot,
       listEvents,
       read: (aggregateId) => readOne(db, "aggregates", aggregateId),
@@ -10314,6 +10355,8 @@ const LegacyStorageInventory = (() => {
   const utf8 = (value) => new TextEncoder().encode(value);
   async function canonical(value, seen = new Set()) {
     if (value === undefined) return ["undefined"];
+    if (typeof value === "number" && !Number.isFinite(value))
+      throw new Error("迁移来源含非有限数值，无法确认完整性");
     if (
       value === null ||
       ["string", "boolean", "number"].includes(typeof value)
@@ -10342,6 +10385,12 @@ const LegacyStorageInventory = (() => {
     if (value instanceof Date) return ["Date", value.toISOString()];
     if (typeof value !== "object" || seen.has(value))
       throw new Error("迁移来源含不支持或循环的数据结构");
+    if (
+      !Array.isArray(value) &&
+      Object.getPrototypeOf(value) !== null &&
+      Object.getPrototypeOf(value) !== Object.prototype
+    )
+      throw new Error("迁移来源含不支持的数据类型，禁止忽略后继续");
     seen.add(value);
     const result = Array.isArray(value)
       ? [
@@ -10496,19 +10545,38 @@ const LegacyStorageInventory = (() => {
       captured.localEntries.map((entry) => [entry.key, entry.raw]),
     );
     const storage = { getItem: (key) => map.get(key) ?? null };
-    const raw =
-      storage.getItem("godpower_state_v2") ??
-      storage.getItem("godpower_state_v1");
-    const legacy =
-      raw === null ? SchemaMigrations.fromLegacyKeys(storage) : JSON.parse(raw);
-    if (!legacy) throw new Error("来源没有可迁移的课堂数据");
-    Reliability.validateBackup(legacy);
-    const snapshot = SchemaMigrations.migrateBackup(legacy);
-    Reliability.validateBackup(snapshot);
     const sourceHash = await hashValue({
       sourceOrigin: captured.sourceOrigin,
       manifest: captured.sourceManifest,
     });
+    let identitySequence = 0;
+    const newIdentity = (prefix) =>
+      `${prefix}-migrate-${sourceHash}-${++identitySequence}`;
+    const identity = {
+      ...StableIdentity,
+      createGroupUid: () => newIdentity("group"),
+      createItemInstanceId: () => newIdentity("item"),
+      createSeasonId: () => newIdentity("season"),
+      assignGroupUids: (groups) =>
+        StableIdentity.assignGroupUids(groups, () => newIdentity("group")),
+    };
+    const raw =
+      storage.getItem("godpower_state_v2") ??
+      storage.getItem("godpower_state_v1");
+    const legacy =
+      raw === null
+        ? SchemaMigrations.fromLegacyKeys(storage, { now: () => new Date(0) })
+        : JSON.parse(raw);
+    if (!legacy) throw new Error("来源没有可迁移的课堂数据");
+    if (raw === null) delete legacy.timestamp;
+    Reliability.validateBackup(legacy);
+    const snapshot = SchemaMigrations.migrateBackup(legacy, {
+      identity,
+      now: () => new Date(0),
+    });
+    if (legacy.schemaVersion !== 2 && !Object.hasOwn(legacy, "migratedAt"))
+      delete snapshot.migratedAt;
+    Reliability.validateBackup(snapshot);
     const resources = captured.resources.slice();
     for (const entry of captured.localEntries) {
       resources.push({
@@ -10560,7 +10628,40 @@ const LegacyStorageInventory = (() => {
       conflicts: ok ? [] : ["来源数据已改变，旧预检结果不可提交，请重新预检"],
     };
   }
-  return { capture, prepare, verify };
+  async function verifyDestination(repository, plan) {
+    const failures = [];
+    const current = await repository.read(plan.aggregateId);
+    if (
+      !current ||
+      (await hashValue(current.snapshot)) !== (await hashValue(plan.snapshot))
+    )
+      failures.push("课堂快照读回校验不一致");
+    for (const archive of plan.archives) {
+      const actual = await repository.readArchive(archive.archiveId);
+      if (!actual || (await hashValue(actual)) !== (await hashValue(archive)))
+        failures.push("档案读回校验不一致：" + archive.archiveId);
+    }
+    for (const resource of plan.resources) {
+      const actual = await repository.readResource(resource.resourceId);
+      if (!actual || (await hashValue(actual)) !== (await hashValue(resource)))
+        failures.push("资源读回校验不一致：" + resource.resourceId);
+    }
+    const receipt = await repository.getMigration(plan.migrationId);
+    if (
+      !receipt?.complete ||
+      receipt.aggregateId !== plan.aggregateId ||
+      receipt.archives !== plan.archives.length ||
+      receipt.resources !== plan.resources.length
+    )
+      failures.push("迁移回执缺失或计数不一致");
+    return {
+      ok: failures.length === 0,
+      failures,
+      verifiedArchives: plan.archives.length,
+      verifiedResources: plan.resources.length,
+    };
+  }
+  return { capture, prepare, verify, verifyDestination };
 })();
 </script>
 <script>/* Legacy audio copy: source databases remain read-only; destination writes are atomic. */
@@ -11092,30 +11193,8 @@ const AchievementCatalog = (() => {
   };
 })();
 </script>
-<script>/* Immutable domain-event envelopes shared by browser commands and future consumers. */
-const DomainEvents = (() => {
-  const SCHEMA_VERSION = 1;
-  const SOURCES = new Set(["classroom", "manual", "import", "system", "test"]);
-  const TYPES = new Set([
-    "ROUND_SETTLED",
-    "ITEM_ACQUIRED",
-    "ITEM_USED",
-    "ITEM_HIT",
-    "DEFENSE_RESOLVED",
-    "EFFECT_APPLIED",
-    "EFFECT_EXPIRED",
-    "RANK_CHANGED",
-    "SEASON_ARCHIVED",
-    "SCORE_CHANGED",
-  ]);
-  const MAX_PAYLOAD_BYTES = 64 * 1024;
-
-  function requiredText(value, label, max = 160) {
-    if (typeof value !== "string" || !value.trim() || value.length > max)
-      throw new TypeError(`${label} must be a non-empty string`);
-    return value.trim();
-  }
-
+<script>/* Shared JSON value boundary for domain events and application commands. */
+const DomainValues = (() => {
   function cloneJson(value, seen = new Set(), depth = 0) {
     if (depth > 24)
       throw new TypeError("event payload exceeds JSON depth limit");
@@ -11145,7 +11224,7 @@ const DomainEvents = (() => {
       output = value.map((entry) => cloneJson(entry, seen, depth + 1));
     } else {
       output = {};
-      for (const key of Object.keys(value)) {
+      for (const key of Object.keys(value).sort()) {
         if (["__proto__", "prototype", "constructor"].includes(key))
           throw new TypeError("event payload contains a reserved key");
         const descriptor = Object.getOwnPropertyDescriptor(value, key);
@@ -11166,6 +11245,35 @@ const DomainEvents = (() => {
     for (const child of Object.values(value)) deepFreeze(child);
     return Object.freeze(value);
   }
+
+  return { cloneJson, deepFreeze };
+})();
+</script>
+<script>/* Immutable domain-event envelopes shared by browser commands and future consumers. */
+const DomainEvents = (() => {
+  const SCHEMA_VERSION = 1;
+  const SOURCES = new Set(["classroom", "manual", "import", "system", "test"]);
+  const TYPES = new Set([
+    "ROUND_SETTLED",
+    "ITEM_ACQUIRED",
+    "ITEM_USED",
+    "ITEM_HIT",
+    "DEFENSE_RESOLVED",
+    "EFFECT_APPLIED",
+    "EFFECT_EXPIRED",
+    "RANK_CHANGED",
+    "SEASON_ARCHIVED",
+    "SCORE_CHANGED",
+  ]);
+  const MAX_PAYLOAD_BYTES = 64 * 1024;
+
+  function requiredText(value, label, max = 160) {
+    if (typeof value !== "string" || !value.trim() || value.length > max)
+      throw new TypeError(`${label} must be a non-empty string`);
+    return value.trim();
+  }
+
+  const { cloneJson, deepFreeze } = DomainValues;
 
   function normalizeTime(value) {
     const date = value instanceof Date ? value : new Date(value);
@@ -11260,6 +11368,7 @@ const DomainEvents = (() => {
   return {
     schemaVersion: SCHEMA_VERSION,
     types: [...TYPES],
+    isValidSource: (value) => SOURCES.has(value),
     createScope,
     isAchievementEligible,
   };
@@ -22933,7 +23042,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.2';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.3';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24460,6 +24569,302 @@ const CommandLifecycle = (() => {
   return { create };
 })();
 </script>
+<script>/* Async application commands: immutable calculation, one repository commit, then presentation. */
+const TransactionalCommandService = (() => {
+  function fault(code, message) {
+    const error = new Error(message);
+    error.code = code;
+    return error;
+  }
+  const freeze = DomainValues.deepFreeze;
+  function text(value, field) {
+    if (typeof value !== "string" || !value.trim() || value.length > 160)
+      throw fault("INVALID_COMMAND", `${field} is required`);
+    return value.trim();
+  }
+  function capture(raw) {
+    let request;
+    try {
+      request = DomainValues.cloneJson(raw);
+    } catch (error) {
+      throw fault("INVALID_COMMAND", String(error.message || error));
+    }
+    if (!request || typeof request !== "object")
+      throw fault("INVALID_COMMAND", "Command must be an object");
+    if (
+      !Number.isSafeInteger(request.expectedRevision) ||
+      request.expectedRevision < 0
+    )
+      throw fault("INVALID_COMMAND", "expectedRevision is required");
+    const source = text(request.source, "source");
+    if (!DomainEvents.isValidSource(source))
+      throw fault("INVALID_COMMAND", "Unsupported command source");
+    return freeze({
+      commandId: text(request.commandId, "commandId"),
+      aggregateId: text(request.aggregateId, "aggregateId"),
+      actorId: text(request.actorId, "actorId"),
+      expectedRevision: request.expectedRevision,
+      source,
+      type: text(request.type, "type"),
+      payload: request.payload ?? {},
+    });
+  }
+  function create({
+    repository,
+    handlers,
+    authorize,
+    publish = () => {},
+    reportPresentationError = (error) =>
+      console.error("Committed command presentation failed", error),
+    validateSnapshot = () => {},
+    now = () => new Date(),
+  }) {
+    if (!repository || typeof authorize !== "function" || !handlers)
+      throw new TypeError(
+        "Repository, trusted handlers and authorization policy are required",
+      );
+    const inFlight = new Map();
+    async function execute(request, { signal } = {}) {
+      const checkCancelled = () => {
+        if (signal?.aborted)
+          throw fault("CANCELLED", "Command cancelled before commit");
+      };
+      checkCancelled();
+      if (!(await authorize(request)))
+        throw fault("FORBIDDEN", "Actor cannot modify this classroom scope");
+      checkCancelled();
+      const prior = await repository.findCommand(request.commandId, request);
+      if (prior)
+        return { ...prior, commandId: request.commandId, persisted: true };
+      const handler = Object.hasOwn(handlers, request.type)
+        ? handlers[request.type]
+        : null;
+      if (typeof handler !== "function")
+        throw fault("INVALID_COMMAND", "Unsupported command type");
+      const aggregate = await repository.read(request.aggregateId);
+      if (!aggregate) throw fault("NOT_FOUND", "Classroom does not exist");
+      if (aggregate.revision !== request.expectedRevision)
+        throw fault("REVISION_CONFLICT", "Classroom revision changed");
+      checkCancelled();
+      const events = DomainEvents.createScope({
+        commandId: request.commandId,
+        actorId: request.actorId,
+        source: request.source,
+        now,
+      });
+      try {
+        const context = Object.freeze({
+          commandId: request.commandId,
+          actorId: request.actorId,
+          aggregateId: request.aggregateId,
+          emit: events.emit,
+          signal,
+        });
+        let outcome;
+        try {
+          outcome = DomainValues.cloneJson(
+            await handler(
+              freeze(DomainValues.cloneJson(aggregate.snapshot)),
+              request.payload,
+              context,
+            ),
+          );
+        } catch (error) {
+          checkCancelled();
+          throw fault("OPERATION_FAILED", String(error.message || error));
+        }
+        checkCancelled();
+        if (!outcome || !Object.hasOwn(outcome, "snapshot"))
+          throw fault(
+            "OPERATION_FAILED",
+            "Handler must return an explicit next snapshot",
+          );
+        validateSnapshot(outcome.snapshot);
+        const confirmedEvents = events.list();
+        const receipt = await repository.commit({
+          commandId: request.commandId,
+          aggregateId: request.aggregateId,
+          expectedRevision: request.expectedRevision,
+          intent: request,
+          snapshot: outcome.snapshot,
+          events: confirmedEvents,
+          archive: outcome.archive || null,
+        });
+        // Cancellation after a durable commit cannot pretend the command was undone.
+        if (!receipt.duplicate && confirmedEvents.length) {
+          try {
+            await publish({
+              commandId: request.commandId,
+              aggregateId: request.aggregateId,
+              revision: receipt.revision,
+              events: confirmedEvents,
+            });
+          } catch (error) {
+            try {
+              await reportPresentationError(error, receipt);
+            } catch (reportError) {
+              console.error(
+                "Presentation error reporting failed",
+                error,
+                reportError,
+              );
+            }
+          }
+        }
+        return { ...receipt, commandId: request.commandId, persisted: true };
+      } finally {
+        events.close();
+      }
+    }
+    function dispatch(raw, options) {
+      let request;
+      try {
+        request = capture(raw);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      const intent = JSON.stringify(request);
+      const existing = inFlight.get(request.commandId);
+      if (existing)
+        return existing.intent === intent
+          ? existing.promise
+          : Promise.reject(
+              fault("COMMAND_REUSED", "In-flight command ID was reused"),
+            );
+      const promise = execute(request, options).finally(() => {
+        inFlight.delete(request.commandId);
+      });
+      inFlight.set(request.commandId, { intent, promise });
+      return promise;
+    }
+    return { dispatch, isPending: (commandId) => inFlight.has(commandId) };
+  }
+  return { create };
+})();
+</script>
+<script>/* Staging-only migration orchestration. Authority cutover is a separate application command. */
+const MigrationCoordinator = (() => {
+  function create({ inventory, openRepository, sourceOptions = {} }) {
+    if (!inventory || typeof openRepository !== "function")
+      throw new TypeError(
+        "Inventory and target repository factory are required",
+      );
+    async function preview() {
+      const captured = await inventory.capture(sourceOptions);
+      if (!captured.ready)
+        return {
+          ok: false,
+          status: "SOURCE_UNSTABLE",
+          conflicts: captured.conflicts,
+        };
+      const plan = await inventory.prepare(captured);
+      return {
+        ok: true,
+        status: "PREVIEW",
+        migrationId: plan.migrationId,
+        aggregateId: plan.aggregateId,
+        sourceOrigin: plan.sourceOrigin,
+        counts: {
+          groups: plan.snapshot.groups.length,
+          archives: plan.archives.length,
+          resources: plan.resources.length,
+        },
+      };
+    }
+    async function execute(selected, { signal } = {}) {
+      let repository = null;
+      let stage = "read-source";
+      const cancelled = () => {
+        if (signal?.aborted) {
+          const error = new Error("迁移已取消，来源保持不变");
+          error.code = "CANCELLED";
+          throw error;
+        }
+      };
+      try {
+        cancelled();
+        // Re-read payloads rather than trusting a mutable UI preview or imported plan.
+        const captured = await inventory.capture(sourceOptions);
+        if (!captured.ready)
+          return {
+            ok: false,
+            status: "SOURCE_CHANGED",
+            authorityChanged: false,
+            conflicts: captured.conflicts,
+          };
+        const plan = await inventory.prepare(captured);
+        if (
+          !selected?.ok ||
+          selected.migrationId !== plan.migrationId ||
+          selected.aggregateId !== plan.aggregateId ||
+          selected.sourceOrigin !== plan.sourceOrigin
+        )
+          return {
+            ok: false,
+            status: "SOURCE_CHANGED",
+            authorityChanged: false,
+            conflicts: ["预览之后来源或目标范围已变化，请重新预检"],
+          };
+        stage = "verify-source";
+        const sourceBefore = await inventory.verify(plan, sourceOptions);
+        if (!sourceBefore.ok)
+          return {
+            ok: false,
+            status: "SOURCE_CHANGED",
+            authorityChanged: false,
+            conflicts: sourceBefore.conflicts,
+          };
+        cancelled();
+        stage = "open-target";
+        repository = await openRepository(plan);
+        cancelled();
+        stage = "import";
+        const receipt = await repository.importSnapshot(plan);
+        stage = "verify-target";
+        const integrity = await inventory.verifyDestination(repository, plan);
+        if (!integrity.ok)
+          return {
+            ok: false,
+            status: "DESTINATION_INVALID",
+            authorityChanged: false,
+            receipt,
+            integrity,
+          };
+        stage = "verify-source-after-import";
+        const sourceAfter = await inventory.verify(plan, sourceOptions);
+        if (!sourceAfter.ok)
+          return {
+            ok: false,
+            status: "STAGED_SOURCE_CHANGED",
+            authorityChanged: false,
+            receipt,
+            integrity,
+            conflicts: sourceAfter.conflicts,
+          };
+        return {
+          ok: !signal?.aborted,
+          status: signal?.aborted ? "CANCELLED_STAGED" : "STAGED_VERIFIED",
+          authorityChanged: false,
+          receipt,
+          integrity,
+        };
+      } catch (error) {
+        return {
+          ok: false,
+          status: error.code === "CANCELLED" ? "CANCELLED" : "FAILED",
+          stage,
+          authorityChanged: false,
+          error: String(error.message || error),
+        };
+      } finally {
+        repository?.close();
+      }
+    }
+    return { preview, execute };
+  }
+  return { create };
+})();
+</script>
 <script>/* Stable public APIs. Legacy item executors remain isolated until their rule
    matrix is complete; new features must not add another override layer. */
 function buildClassroomBackup() {
@@ -24467,7 +24872,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.2",
+    appVersion: "V3.0.3",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),
@@ -28349,6 +28754,148 @@ const DesktopUI = (() => {
   };
 })();
 window.addEventListener("DOMContentLoaded", DesktopUI.init, { once: true });
+</script>
+<script>/* Advanced maintenance presentation; the coordinator owns all migration work. */
+const MigrationPanel = (() => {
+  let selected = null,
+    report = null,
+    busy = false,
+    cancellation = null;
+  const coordinator = MigrationCoordinator.create({
+    inventory: LegacyStorageInventory,
+    openRepository: (plan) =>
+      TransactionalRepository.open({
+        name: "godpower-staging-" + plan.migrationId,
+        validateSnapshot: Reliability.validateBackup,
+      }),
+  });
+  const element = (id) => document.getElementById(id);
+  function status(code, message) {
+    const output = element("v3MigrationStatus");
+    if (!output) return;
+    output.dataset.status = code;
+    output.textContent = message;
+  }
+  function refresh() {
+    element("v3MigrationInspect").disabled = busy;
+    element("v3MigrationStage").disabled = busy || !selected;
+    element("v3MigrationDownload").disabled = busy || !report;
+    element("v3MigrationTools").setAttribute("aria-busy", String(busy));
+  }
+  function available(staging) {
+    if (window.classroomUnsavedChanges || window.classroomRecoveryRequired) {
+      showToast(
+        "当前有尚未保存或需要恢复的课堂数据。请先导出备份，再进行迁移检查。",
+      );
+      return false;
+    }
+    if (staging && state.isLocked) {
+      openPwdModal();
+      return false;
+    }
+    if (
+      staging &&
+      (classroomCommands.isPending() ||
+        itemDrawBusy ||
+        slotEngine.isSpinning ||
+        isStartingRound ||
+        isSwitchingRound ||
+        (state.roundActive && !state.evaluated))
+    ) {
+      showToast("请完成本题和当前抽取后，再创建迁移副本。");
+      return false;
+    }
+    return true;
+  }
+  async function inspect() {
+    if (busy || !available(false)) return;
+    busy = true;
+    selected = null;
+    report = null;
+    refresh();
+    status("INSPECTING", "正在检查本机课堂、档案与自定义资源…");
+    try {
+      const preview = await coordinator.preview();
+      if (!preview.ok) {
+        status(preview.status, preview.conflicts.join("；"));
+        return;
+      }
+      selected = preview;
+      report = { appVersion: window.__GOD_POWER_VERSION__, preview };
+      status(
+        "PREVIEW",
+        `${preview.counts.groups} 个小组 · ${preview.counts.archives} 届档案 · ${preview.counts.resources} 项数据与资源记录。可创建副本并验证，当前课堂不会被替换。`,
+      );
+    } catch (error) {
+      status("FAILED", "检查未完成，原数据保持不变：" + error.message);
+    } finally {
+      busy = false;
+      refresh();
+    }
+  }
+  async function stage() {
+    if (busy || !selected || !available(true)) return;
+    busy = true;
+    cancellation = new AbortController();
+    refresh();
+    status("STAGING", "正在创建本机迁移副本并核对数据，请稍候…");
+    try {
+      const result = await coordinator.execute(selected, {
+        signal: cancellation.signal,
+      });
+      report = {
+        appVersion: window.__GOD_POWER_VERSION__,
+        preview: selected,
+        result,
+      };
+      if (result.ok) {
+        status(
+          result.status,
+          `副本验证通过：${selected.counts.groups} 个小组、${result.integrity.verifiedArchives} 届档案、${result.integrity.verifiedResources} 项数据与资源记录。当前课堂仍使用原存储，未执行切换。`,
+        );
+      } else {
+        selected = null;
+        const reason =
+          result.error ||
+          result.conflicts?.join("；") ||
+          result.integrity?.failures.join("；") ||
+          "验证未完成";
+        status(result.status, "未切换课堂，原数据保持不变。" + reason);
+      }
+    } catch (error) {
+      status("FAILED", "未切换课堂，原数据保持不变：" + error.message);
+    } finally {
+      busy = false;
+      cancellation = null;
+      refresh();
+    }
+  }
+  function download() {
+    if (!report) return;
+    const url = URL.createObjectURL(
+      new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "GodPower_迁移校验报告.json";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function init() {
+    if (!element("v3MigrationTools")) return;
+    element("v3MigrationInspect").addEventListener("click", inspect);
+    element("v3MigrationStage").addEventListener("click", stage);
+    element("v3MigrationDownload").addEventListener("click", download);
+    window.addEventListener("beforeunload", () => cancellation?.abort(), {
+      once: true,
+    });
+    refresh();
+  }
+  return { init };
+})();
+window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
+  once: true,
+});
 </script>
 <script>/* Homepage-only composition and cancellable entrance. Business state is read-only. */
 (function () {

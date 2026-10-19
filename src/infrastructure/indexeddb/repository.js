@@ -157,6 +157,7 @@ const TransactionalRepository = (() => {
         snapshot,
         events = [],
         archive = null,
+        intent = null,
       } = structuredClone(request);
       identifier(commandId, "commandId");
       identifier(aggregateId, "aggregateId");
@@ -181,7 +182,9 @@ const TransactionalRepository = (() => {
         snapshot,
         events,
         archive,
+        intent,
       });
+      const intentHash = intent === null ? null : await fingerprint(intent);
       return transaction(
         db,
         ["aggregates", "commands", "events", "archives"],
@@ -190,7 +193,12 @@ const TransactionalRepository = (() => {
           const existing = commands.get(commandId);
           existing.onsuccess = guard(() => {
             if (existing.result) {
-              if (existing.result.requestHash !== requestHash)
+              if (
+                intentHash !== null
+                  ? existing.result.intentHash !== intentHash ||
+                    existing.result.aggregateId !== aggregateId
+                  : existing.result.requestHash !== requestHash
+              )
                 return abort(
                   fault(
                     "COMMAND_REUSED",
@@ -221,6 +229,7 @@ const TransactionalRepository = (() => {
                 ok: true,
                 revision: revision + 1,
                 duplicate: false,
+                eventsPersisted: events.length > 0,
               };
               aggregates.put({
                 id: aggregateId,
@@ -230,7 +239,13 @@ const TransactionalRepository = (() => {
               for (const event of events)
                 tx.objectStore("events").add({ ...event, aggregateId });
               if (archive) tx.objectStore("archives").add(archive);
-              commands.add({ commandId, aggregateId, requestHash, result });
+              commands.add({
+                commandId,
+                aggregateId,
+                requestHash,
+                intentHash,
+                result,
+              });
               done(result);
             });
           });
@@ -331,8 +346,21 @@ const TransactionalRepository = (() => {
           );
       });
     }
+    async function findCommand(commandId, intent) {
+      identifier(commandId, "commandId");
+      const intentHash = await fingerprint(structuredClone(intent));
+      const record = await readOne(db, "commands", commandId);
+      if (!record) return null;
+      if (record.intentHash !== intentHash)
+        throw fault(
+          "COMMAND_REUSED",
+          "Command ID was reused for a different intent",
+        );
+      return { ...record.result, duplicate: true };
+    }
     return {
       commit,
+      findCommand,
       importSnapshot,
       listEvents,
       read: (aggregateId) => readOne(db, "aggregates", aggregateId),

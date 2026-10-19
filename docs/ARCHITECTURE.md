@@ -1,13 +1,13 @@
 # GodPower V3 当前架构
 
-更新日期：2026-10-19。应用版本：3.0.2。当前处于渐进迁移中，领域事件与成就目录不代表成就运行时已完成。
+更新日期：2026-10-19。应用版本：3.0.3。当前处于渐进迁移中，领域事件与成就目录不代表成就运行时已完成。
 
 ## 分层与职责
 
 | 层 | 目录/所有者 | 职责与禁止事项 |
 |---|---|---|
 | 领域 | `src/domain/identity.js`、`events.js`、`achievements/catalog.js` | 稳定身份、不可变事件信封、60项成就元数据；不读取DOM、存储或Electron接口 |
-| 应用 | `src/application/command-lifecycle.js` | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果 |
+| 旧命令生命周期 | `src/application/command-lifecycle.js` | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果 |
 | 旧程序适配 | `src/application/legacy-classroom-adapter.js` | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出 |
 | 旧存储基础设施 | `src/infrastructure/legacy/` | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制 |
 | 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js` | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
@@ -62,3 +62,11 @@ Electron主窗口继续拥有唯一课堂状态和抽选结果。悬浮点名、
 Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和字节数。Windows真机安装、托盘、多显示器与跨应用覆盖仍需真机证据，Linux测试不能替代。
 
 旧架构记录保存在[历史文档](history/ARCHITECTURE_PRE_V3.md)。实施证据见[V3日志](v3/IMPLEMENTATION_LOG.md)。
+
+## 3.0.3异步事务与迁移协调
+
+`domain/values.js`统一JSON边界与深冻结，事件和命令复用同一实现。`application/transactional-command-service.js`从仓库读取不可变快照，先检查actor/scope/revision，执行可信handler，随后把结果与事件一次提交；提交确认后再通知界面。同一在途commandId共用一次计算，重启后用已保存intentHash识别重试。非法JSON、非有限计算结果、取消的异步决定不写入；表现异常不回滚已提交状态。该入口尚未替代所有旧命令，不代表教师登录/插件权限已完成。
+
+`application/migration-coordinator.js`重新读取来源并重建确定性计划，不信任可修改的界面预览payload；提交到独立staging库后逐条核对课堂、档案、资源hash和回执，最后再次检查来源。相同来源生成相同迁移身份，可重启重试。失败/取消/源变化均不切换权威。
+
+设置→数据与安全→“迁移预检与副本验证”已提供可操作入口，采用现有折叠卡片与动效。只读预检、创建本机独立副本、导出校验报告；报告不包含音频原文，不能代替完整备份。副本库名为godpower-staging-<migrationId>，当前课堂仍用Schema2原存储。来源冻结和默认权威切换仍待后续命令迁移完成。

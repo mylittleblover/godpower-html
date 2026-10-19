@@ -1,0 +1,30 @@
+
+> godpower-html@3.0.3 test:migration
+> node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/transactional-command-service.mjs && node tests/e2e/legacy-inventory.mjs && node tests/e2e/migration-ui.mjs
+
+PASS v1 startup copy, refresh and source retention
+PASS quota failure keeps valid old classroom usable in memory
+PASS corrupt current data is protected without fallback overwrite
+PASS legacy mirrors retain missing preference defaults
+PASS existing custom audio preserved
+PASS legacy aliases and metadata copied
+PASS missing source databases not created
+PASS failed transaction has no completion marker or partial sound
+PASS retry after failure succeeds
+PASS single commit and exact retry
+PASS conflicting retry and stale revision
+PASS event failure rolls back entire commit
+PASS immutable async command input
+PASS database reopen
+PASS atomic migration and source identity
+PASS clone validation and mid-transaction resource failure leave all stores unchanged
+PASS async atomic command and one publication
+PASS in-flight and persistent command deduplication
+PASS caller mutation isolated
+PASS actor/scope/revision rejection
+PASS calculation failure preserves prior state
+PASS presentation failure preserves committed state
+PASS invalid JSON and non-finite calculation rejected
+PASS pending async decision cancellation preserves state and event log
+PASS legacy dry-run and isolated atomic import {"sourceRecords":9,"resources":5,"archives":1,"sha256":true,"sourcePreserved":true,"mutationDetected":true}
+PASS migration settings preview and verified staging preserve primary bytes and all 14 group scores
