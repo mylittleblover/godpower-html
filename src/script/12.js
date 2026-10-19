@@ -54,29 +54,8 @@ showItemUseFx=function(key,casterId,targetText=''){
 };
 
 /* 最外层主动使用守门。无论卡片点击、详情窗口还是举手窗口，最后都会经过这里。 */
-const _v2177UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  const activeRound=!!(g && state.roundActive && !state.evaluated);
 
-  if(activeRound && g.itemUsedThisRound){
-    try{closeItemWindowForFx()}catch(e){}
-    showToast(`${g.name} 本题已经使用过一次道具，不能再次使用`);
-    return false;
-  }
 
-  /* V2.17.11：
-     冰冻状态会“取消下一次主动道具使用”，虽然道具没有被消耗，
-     但玩家已经执行了本题的一次主动使用动作，因此必须照样占用
-     “每题一次道具”的机会，并禁止之后 All In。
-     注意必须在调用内层冰冻处理前落锁，但不能让本层自己把这次尝试拦掉。 */
-  if(activeRound && g.itemEffect?.iceLock && g.inventory?.[index]){
-    // Frozen attempts are recorded by the public command.
-    return _v2177UseItem.call(this,groupId,index,...rest);
-  }
-
-  return _v2177UseItem.call(this,groupId,index,...rest);
-};
 
 /* 使用过道具后，本题不能再开启 All In。 */
 const _v2177ToggleAllInCard=toggleAllInCard;

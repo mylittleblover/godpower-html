@@ -220,7 +220,7 @@ Object.assign(ITEM_DEFS,{
 });
 
 /* 火 / 冰 / 回旋镖最终行为直接在最外层接管，避免旧版 1/8 / 1/10 残留。 */
-const _v218UseItemBalance=legacyUseItem;
+
 const TRIPLE_KEYS_V218=new Set(['triple_green','triple_red','triple_banana','triple_mushroom']);
 function consumeOneV218(g,index){
   const it=g.inventory?.[index];if(!it)return;
@@ -239,102 +239,7 @@ function finishOwnItemUseV218(g,key,index,targetText){
   return true;
 }
 
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  let it=g?.inventory?.[index],key=it?.key;
-  if(!g||!it)return _v218UseItemBalance.call(this,groupId,index,...rest);
 
-  /* 答题中同一个三重道具可继续使用剩余次数；All In 仍保持锁定。 */
-  const continuing=!!(
-    state.roundActive&&!state.evaluated &&
-    g.itemUsedThisRound &&
-    g.roundItemContinuationKeyV218===key &&
-    TRIPLE_KEYS_V218.has(key)
-  );
-  if(continuing)g.itemUsedThisRound=false;
-
-  /* 红龟壳：没有上方排名时仍消耗，但不产生效果。 */
-  if((key==='red'||key==='triple_red')){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id),above=r[ri-1];
-    if(!above){
-      consumeOneV218(g,index);
-      finishOwnItemUseV218(g,key,index,'当前没有上方排名 · 道具已消耗');
-      if(TRIPLE_KEYS_V218.has(key)&&g.inventory?.[index]?.key===key)g.roundItemContinuationKeyV218=key;
-      else delete g.roundItemContinuationKeyV218;
-      return true;
-    }
-  }
-
-  /* 锤子：只从排名高于自己的组中随机抽最多 3 组。 */
-  if(key==='hammer'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id);
-    const pool=r.slice(0,ri).filter(eligibleForItems).sort(()=>Math.random()-.5).slice(0,3);
-    if(!pool.length){showToast('当前没有排名高于自己的可攻击小组');return false}
-    pool.forEach(t=>damageFraction(t,4,g.id,'hammer'));
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,`目标：${pool.map(x=>x.name).join('、')}`);
-  }
-
-  /* 害羞幽灵：无上方排名 / 上方无道具 -> 自动获得一个蘑菇。 */
-  if(key==='boo'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id),above=r[ri-1];
-    if(!above || !above.inventory?.length){
-      consumeOneV218(g,index);
-      if(!g.inventory.some(x=>x.key==='mushroom') && g.inventory.length<3){
-        g.inventory.push(globalThis.ItemModules?ItemModules.inventory('mushroom'):{key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
-      }
-      g.booShield=1;g.booRoundsLeftV218=3;
-      return finishOwnItemUseV218(g,key,index,!above?'没有上方排名 · 自动获得蘑菇':'上方无道具 · 自动获得蘑菇');
-    }
-  }
-
-  /* 三种花：统一 -1/5。 */
-  if(key==='fire_flower'||key==='ice_flower'){
-    const pool=state.groups.filter(x=>x.id!==g.id&&eligibleForItems(x));
-    if(!pool.length){showToast('没有可攻击的小组');return false}
-    const t=pool[Math.floor(Math.random()*pool.length)];
-    const result=attackOneFifthV218(g,t,key);
-    if(key==='ice_flower'&&!result?.blocked){
-      t.itemEffect={...(t.itemEffect||{}),iceLock:1,iceRoundsLeftV218:3};
-    }
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,
-      result?.blocked?`目标：${t.name} · 攻击被防御`:`目标：${t.name} · -1/5${key==='ice_flower'?' 并冻结':''}`);
-  }
-  if(key==='boomerang_flower'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id);
-    const targets=[r[ri-1],r[ri+1]].filter(x=>x&&eligibleForItems(x));
-    if(!targets.length){showToast('当前没有可命中的相邻小组');return false}
-    targets.forEach(t=>attackOneFifthV218(g,t,key));
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,`目标：${targets.map(x=>x.name).join('、')} · 各 -1/5`);
-  }
-
-  const beforeKey=key;
-  const result=_v218UseItemBalance.call(this,groupId,index,...rest);
-
-  /* 强力蘑菇从 5 改为 3 次答题。 */
-  if(result!==false && beforeKey==='power' && g.itemEffect?.type==='power'){
-    g.itemEffect.roundsLeft=3;
-  }
-  /* 幽灵从“1次防御”改成“3次答题内无限防御”。 */
-  if(result!==false && beforeKey==='boo'){
-    g.booShield=1;g.booRoundsLeftV218=3;
-  }
-
-  /* 三重道具第一次用后，剩余次数允许本题继续使用。 */
-  if(result!==false && TRIPLE_KEYS_V218.has(beforeKey)){
-    const still=g.inventory?.[0]?.key===beforeKey && Number(g.inventory[0].charges)>0;
-    if(still)g.roundItemContinuationKeyV218=beforeKey;
-    else delete g.roundItemContinuationKeyV218;
-    g.itemUsedThisRound=true;
-  }else if(continuing){
-    g.itemUsedThisRound=true;
-  }
-
-  saveState();
-  return result;
-};
 
 /* 道具窗口状态：同一个三重道具在本题剩余次数仍可继续点。 */
 if(typeof queueUseStateV2120==='function'){
@@ -362,17 +267,8 @@ if(typeof queueUseStateV2120==='function'){
 /* Answered-round expiry is owned by items/round-effects.js. */
 
 /* 冰冻被主动使用触发时：立即解除，并继续沿用“本次使用被取消”的既有规则。 */
-const _v218UseItemIceCleanup=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  const frozen=!!g?.itemEffect?.iceLock;
-  const r=_v218UseItemIceCleanup.call(this,groupId,index,...rest);
-  if(frozen && g?.itemEffect){
-    delete g.itemEffect.iceRoundsLeftV218;
-    if(Object.keys(g.itemEffect).length===0)g.itemEffect=null;
-  }
-  return r;
-};
+
+
 
 /* ---------- 6. 道具抽取：喇叭前 60%，第一名精确 10%；首次举手等概率池 ---------- */
 const FIRST_HAND_POOL_V218=[

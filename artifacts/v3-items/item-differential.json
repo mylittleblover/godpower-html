@@ -1,0 +1,2326 @@
+{
+  "baseline": "079df316a999ced4f598a3c3d0495786f9f8d0e8",
+  "scope": "business-only; render/audio stubbed; asynchronous bug cases separately tested",
+  "results": [
+    {
+      "key": "green",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "green",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_green",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "red",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_red",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "spiny",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "banana",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_banana",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "horn",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "bomb",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "hammer",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "coin",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "coin_shell",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "question",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "mushroom",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "triple_mushroom",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "boo",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "blooper",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "lightning",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "star",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "mega",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "bullet",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "power",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "feather",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "fire_flower",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "ice_flower",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "none",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "green",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "triple_green",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "red",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "banana",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "horn",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "bomb",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "triple_mushroom",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "star",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "mega",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "timed-boo",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "boo",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "feather",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "bullet",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "ice",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "green-horn",
+      "status": "PASS"
+    },
+    {
+      "key": "boomerang_flower",
+      "defense": "banana-mushroom",
+      "status": "PASS"
+    }
+  ]
+}

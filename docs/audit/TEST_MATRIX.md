@@ -316,3 +316,16 @@ Call log:
 ## 3.0.1 主题增量
 
 见reports/MARX_THEME_3_0_1.md；新增npm run test:theme覆盖主题、五页、八类设置、14组精确几何、语义色、版本、金色按钮、开关持久化和3秒提示。全项目旧功能未重跑的项目保留原状态，不自动标为PASS。
+
+
+## 3.0.5旧道具链治理实际回归
+
+|范围|结果|证据|
+|---|---|---|
+|Node unit/integration|PASS175/175|artifacts/v3-items/unit.log|
+|26公开道具旧入口抛错|PASS26/26|item-oracles.json/rules.log|
+|攻防差分|PASS464/464|item-differential.json|
+|异步防御生命周期|PASS30,pageErrors=[]|defense.json|
+|回合差分|PASS80|round-differential.json|
+|14组1920×1080 1x|PASS|layout.json,before.png,after.png|
+|Windows真机|NOT TESTED|无真机|

@@ -1,5 +1,5 @@
-/* Stable public APIs. Legacy item executors remain isolated until their rule
-   matrix is complete; new features must not add another override layer. */
+/* Stable public APIs. ItemOperationBlocks is the sole item executor;
+   new features must not add another override layer. */
 function buildClassroomBackup() {
   if (window.classroomReady && classroomCommands.isPending())
     return clone(classroomCommands.baseline().backup);

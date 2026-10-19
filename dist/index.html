@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.4</title>
+<title>上帝的力量 V3.0.5</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.4";
+    document.title = name() + " V3.0.5";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.4</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.5</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -16530,82 +16530,8 @@ function detectOvertakePunish(actorId,beforeOrder){
   const passed=beforeOrder.slice(afterIdx,beforeIdx).filter(id=>id!==actorId);
   passed.forEach(id=>{const t=state.groups.find(g=>g.id===id);if(t&&eligibleForItems(t)&&!tryDefend(t,'normal')){t.score-=roundQuarter(t.score);t.displayScore=t.score}});
 }
-function legacyUseItem(groupId,index){
-  ensureItemState();const g=state.groups.find(x=>x.id===groupId);
-  // V2.11.1：点击“使用”后立即关闭道具窗口；后续即使条件不满足也不会停留在窗口。
-  closeItemWindowForFx();if(!g)return;if(!eligibleForItems(g)){showToast('负分保护：该组不能使用道具');return}const it=g.inventory[index];if(!it)return;const key=it.key,d=ITEM_DEFS[key],r=ranking(),ri=r.findIndex(x=>x.id===g.id),before=r.map(x=>x.id);
-  if(d.kind==='status'&&g.itemEffect){showToast('已有持续型状态，当前不能激活新的持续道具');return}
-  recordHistory(`${g.name} 使用道具：${d.name}`);let used=true;
-  const other=()=>state.groups.filter(x=>x.id!==g.id&&eligibleForItems(x));
-  if(key==='green'||key==='triple_green'){const pool=other();if(!pool.length)used=false;else damageFraction(pool[Math.floor(Math.random()*pool.length)],4,g.id,key)}
-  else if(key==='red'||key==='triple_red'){const t=r[ri-1];if(!t||!eligibleForItems(t))used=false;else damageFraction(t,3,g.id,key)}
-  else if(key==='spiny'){const t=r[0];if(!t||t.id===g.id||!eligibleForItems(t))used=false;else damageFraction(t,2,g.id,'spiny')}
-  else if(key==='banana'||key==='triple_banana'){const t=r[ri+1];if(!t||!eligibleForItems(t))used=false;else damageFraction(t,4,g.id,key)}
-  else if(key==='horn'){[r[ri-1],r[ri+1]].filter(Boolean).forEach(t=>damageFraction(t,4,g.id,key))}
-  else if(key==='bomb'){const pool=other();if(!pool.length)used=false;else{const center=pool[Math.floor(Math.random()*pool.length)],ci=r.findIndex(x=>x.id===center.id);[r[ci-1],r[ci],r[ci+1]].filter(Boolean).forEach(t=>{if(t.id!==g.id){damageFraction(t,4,g.id,key);flashBomb(t.id)}})}}
-  else if(key==='hammer'){const pool=other().sort(()=>Math.random()-.5).slice(0,3);if(!pool.length)used=false;else pool.forEach(t=>damageFraction(t,4,g.id,key))}
-  else if(key==='coin'){g.score+=globalThis.ItemModules?ItemModules.scoreDelta('coin',2):2;g.displayScore=g.score}
-  else if(key==='coin_shell'){r.slice(0,ri+1).forEach(t=>boostFraction(t,4))}
-  else if(key==='question'){r.slice(ri).forEach(t=>boostFraction(t,4))}
-  else if(key==='mushroom'||key==='triple_mushroom'){boostFraction(g,4)}
-  else if(key==='boo'){
-    const t=r[ri-1];
-    if(!t||!eligibleForItems(t)||!t.inventory.length){
-      used=false;
-    }else{
-      // 害羞幽灵仍偷“最新获得”的道具，但不能把正在生效的卡手主要道具硬拔走。
-      let stealIndex=t.inventory.length-1;
-      if(stealIndex===0 && t.itemEffect?.type && t.inventory[0]?.key===t.itemEffect.type && ['star','mega','power'].includes(t.itemEffect.type)){
-        stealIndex=-1;
-      }
-      if(stealIndex<0){
-        used=false;
-      }else{
-        const stolen=t.inventory.splice(stealIndex,1)[0];
-        consumeInventoryItem(g,index,1);
-        g.inventory.push(stolen);
-        g.booShield=1;
-        g.itemStats.used++;
-        saveState();renderAll();
-        showToast(`${g.name} 偷走了 ${ITEM_DEFS[stolen.key].name}`);
-        return
-      }
-    }
-  }
-  else if(key==='blooper'){state.itemGlobal.blooperUntil=Date.now()+120000;startBlooperClock()}
-  else if(key==='lightning'){
-    // V2.11.6：闪电攻击所有排名高于使用者的小组。
-    // 仅无敌星 / 巨大蘑菇的持续状态可以阻挡。
-    r.slice(0,ri).forEach(t=>applyLightningHitV2116(g,t));
-  }
-  else if(key==='star'){
-    // V2.17.0：无敌星使用后立即离开主要道具栏，但 3 次防御状态继续存在。
-    g.itemEffect={type:'star',hitsLeft:3,startedAt:Date.now()};
-    consumeInventoryItem(g,index,1);
-    g.itemStats.used++;
-    detectOvertakePunish(g.id,before);
-    saveState();renderAll();
-    showToast(`${g.name} 使用了 ${d.name}，无敌状态持续生效，主要道具栏已释放`);
-    return
-  }
-  else if(key==='mega'){g.itemEffect={type:'mega',hitsLeft:3,startedAt:Date.now()}}
-  else if(key==='bullet'){
-    // 瞬间超越前方 3 名；若前方不足 3 名，则直接冲到第一名之上。
-    // 统一目标索引：正常为 ri-3，不足 3 名时钳制到第 1 名（索引 0）。
-    const target=r[Math.max(0,ri-3)];
-    if(!target){
-      used=false;
-    }else{
-      g.score=Number(target.score)+1;
-      g.displayScore=g.score;
-      g.itemEffect=null;
-    }
-  }
-  else if(key==='power'){g.itemEffect={type:'power',roundsLeft:5,startedAt:Date.now()}}
-  if(!used){showToast('当前排名条件下无法使用这个道具');return}
-  if(!['mega','power'].includes(key))consumeInventoryItem(g,index,1);
-  g.itemStats.used++;detectOvertakePunish(g.id,before);saveState();renderAll();showToast(`${g.name} 使用了 ${d.name}`)
-}
+/* Deprecated compatibility entry; public item commands own validation and execution. */
+function legacyUseItem(groupId,index){ return useItem(groupId,index); }
 function flashBomb(id){setTimeout(()=>{const c=document.querySelector(`.group-row-card[data-group-id="${id}"]`);if(c){c.classList.add('effect-bomb');setTimeout(()=>c.classList.remove('effect-bomb'),900)}},30)}
 
 function startBulletTimer(){if(bulletTimer)clearInterval(bulletTimer);bulletTimer=setInterval(()=>{let any=false;ensureItemState();state.groups.forEach(g=>{if(!g.itemEffect||g.itemEffect.type!=='bullet')return;any=true;const t=state.groups.find(x=>x.id===g.itemEffect.targetId);if(!t||rankIndex(g.id)<rankIndex(t.id)){const ix=g.inventory.findIndex(x=>x.key==='bullet');if(ix>=0)g.inventory.splice(ix,1);g.itemEffect=null;showToast(`${g.name} 的炮弹刺客追击完成`);return}if(eligibleForItems(g)){g.score+=1;g.displayScore=g.score}});if(!any){clearInterval(bulletTimer);bulletTimer=null}saveState();renderGrid();renderChart();renderDashboard()},350)}
@@ -17001,21 +16927,7 @@ function itemFxTargetText(key,gid){
 function closeItemWindowForFx(){
   try{if(typeof closeItemWindow==='function')closeItemWindow()}catch(e){}
 }
-if(typeof legacyUseItem==='function'){
-  const useItemBeforeVisualDispatch=legacyUseItem;
-  legacyUseItem=function(groupId,index,...rest){
-    const g=state.groups.find(x=>x.id===groupId),before=g?.inventory?.[index],key=before?.key;
-    const beforeSnapshot=JSON.stringify({inventory:g?.inventory||[],effect:g?.itemEffect||null,score:g?.score});
-    const result=useItemBeforeVisualDispatch.call(this,groupId,index,...rest);
-    const g2=state.groups.find(x=>x.id===groupId);
-    const afterSnapshot=JSON.stringify({inventory:g2?.inventory||[],effect:g2?.itemEffect||null,score:g2?.score});
-    if(key&&g2&&beforeSnapshot!==afterSnapshot){
-      closeItemWindowForFx();
-      setTimeout(()=>showItemUseFx(key,groupId,itemFxTargetText(key,groupId)),40);
-    }
-    return result;
-  };
-}
+
 
 /* ===== V2.4：图片规范化 + 更平滑的排名道具轮盘 ===== */
 
@@ -17660,38 +17572,8 @@ function v282Consume(g,index){
 }
 
 /* 扩展 useItem。旧 26 种完全交回 V2.8 原逻辑。 */
-const _v282UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
- const g=state.groups.find(x=>x.id===groupId),it=g?.inventory?.[index],key=it?.key;
- if(!['feather','fire_flower','ice_flower','boomerang_flower'].includes(key))
-   return _v282UseItem.call(this,groupId,index,...rest);
- if(!g||Number(g.score)<0){showToast('负分状态严格禁止使用道具');return false}
- recordHistory(`${g.name} 使用 ${ITEM_DEFS[key].name}`);
 
- if(key==='feather'){
-   g.itemEffect={...(g.itemEffect||{}),featherDodge:1};
-   g.inventory.splice(index,1);
-   saveState();renderAll();showItemUseFx(key,g.id,'下一次攻击可闪避');return true;
- }
- if(key==='fire_flower'){
-   const t=v282RandomOther(g);if(!t){showToast('没有可攻击的小组');return false}
-   v282TakeFraction(t,1/8,key,g);v282Consume(g,index);
-   saveState();renderAll();showItemUseFx(key,g.id,`${t.name} -1/8`);return true;
- }
- if(key==='ice_flower'){
-   const t=v282RandomOther(g);if(!t){showToast('没有可攻击的小组');return false}
-   v282TakeFraction(t,1/10,key,g);
-   t.itemEffect={...(t.itemEffect||{}),iceLock:1};
-   v282Consume(g,index);
-   saveState();renderAll();showItemUseFx(key,g.id,`${t.name} 冻结`);return true;
- }
- if(key==='boomerang_flower'){
-   const r=ranking(),p=r.findIndex(x=>x.id===g.id),targets=[r[p-1],r[p+1]].filter(x=>x&&Number(x.score)>=0);
-   if(!targets.length){showToast('当前没有可命中的相邻小组');return false}
-   targets.forEach(t=>v282TakeFraction(t,1/8,key,g));v282Consume(g,index);
-   saveState();renderAll();showItemUseFx(key,g.id,targets.map(x=>x.name).join('、'));return true;
- }
-};
+
 
 /* 新增道具视觉语言 */
 Object.assign(CARD_ITEM_FX_CLASS,{
@@ -17806,19 +17688,8 @@ handDrawItem=function(){
 }
 
 /* 冰冻限制：下一次主动使用道具时拦截并解除。 */
-const _v282UseItemWithIce=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
- const g=state.groups.find(x=>x.id===groupId);
- if(g?.itemEffect?.iceLock){
-    // V2.11.5：冰冻阻止主动使用时，先立即关闭战术道具窗口。
-    closeItemWindowForFx();
-   g.itemEffect.iceLock=0;
-   if(!Object.values(g.itemEffect).some(Boolean))g.itemEffect=null;
-   saveState();renderAll();showToast(`${g.name} 处于冰冻状态，本次道具使用被取消`);
-   return false;
- }
- return _v282UseItemWithIce.call(this,groupId,index,...rest);
-}
+
+
 
 
 /* ===== V2.8.3：26 种道具真正接入所有静态/动态页面 ===== */
@@ -18049,11 +17920,8 @@ globalItemDraw=function(...a){
   if(!isCommunismMode()){showToast('共产主义模式已关闭');return}
   return _v291GlobalItemDraw.apply(this,a);
 };
-const _v291UseItem=legacyUseItem;
-legacyUseItem=function(...a){
-  if(!isCommunismMode()){showToast('共产主义模式已关闭');return false}
-  return _v291UseItem.apply(this,a);
-};
+
+
 if(typeof openItemWindow==='function'){
   const _v291OpenItemWindow=openItemWindow;
   openItemWindow=function(...a){
@@ -18114,170 +17982,13 @@ function formatChartScoreV294(value){
    特别处理巨大蘑菇、炮弹刺客、强力蘑菇这类激活后仍留在道具槽中的道具：
    再次点击不会消耗、不会覆盖状态，只弹出阻止 Toast。
 */
-(function installPersistentItemUseGuardV299(){
-  if (typeof legacyUseItem !== 'function') return;
 
-  const previousUseItemV299 = legacyUseItem;
-
-  function activePersistentEffect(g){
-    const type = g?.itemEffect?.type;
-    if (!type) return null;
-    const def = ITEM_DEFS[type];
-    // 只把真正的持续型道具状态算作互斥状态。
-    // featherDodge / iceLock 等附加标记不参与这一规则。
-    if (def?.kind === 'status') return { key:type, def };
-    return null;
-  }
-
-  legacyUseItem = function(groupId, index, ...rest){
-    ensureItemState?.();
-
-    const g = state.groups.find(x => x.id === groupId);
-    const it = g?.inventory?.[index];
-    const nextKey = it?.key;
-    const nextDef = nextKey ? ITEM_DEFS[nextKey] : null;
-
-    // 非持续型道具完全沿用原逻辑。
-    if (!g || !nextDef || nextDef.kind !== 'status') {
-      return previousUseItemV299.call(this, groupId, index, ...rest);
-    }
-
-    const active = activePersistentEffect(g);
-    if (active) {
-      // 即使本次使用被阻止，也要立刻退出小组/道具窗口，
-      // 让用户回到比赛页看到当前持续状态；随后再给出 Toast。
-      // 不调用原 useItem，因此不会消耗道具、播放使用动画或写入成功使用记录。
-      closeItemWindowForFx();
-
-      if (active.key === nextKey) {
-        showToast(`「${active.def.name}」的持续状态仍在生效，不能重复使用`);
-      } else {
-        showToast(`当前已有「${active.def.name}」持续状态，结束前不能使用「${nextDef.name}」`);
-      }
-      return false;
-    }
-
-    return previousUseItemV299.call(this, groupId, index, ...rest);
-  };
-})();
 
 
 /* ===== V2.11.3：羽毛 / 火之花 / 冰之花 / 回旋镖花统一最终处理器 =====
    旧版本这些道具由后追加 wrapper 接入，但随后又经历了多层 useItem 包装，
    导致功能与视觉演出存在断链。这里在最终 useItem 外再做一次权威分流。 */
-(function installV2113ExtendedItemHandler(){
-  if(typeof legacyUseItem!=='function') return;
-  const previousUseItemV2113 = legacyUseItem;
-  const EXT = new Set(['feather','fire_flower','ice_flower','boomerang_flower']);
 
-  function cleanEmptyEffectV2113(g){
-    if(!g?.itemEffect) return;
-    for(const k of Object.keys(g.itemEffect)){
-      if(g.itemEffect[k]===0 || g.itemEffect[k]===false || g.itemEffect[k]==null) delete g.itemEffect[k];
-    }
-    if(Object.keys(g.itemEffect).length===0) g.itemEffect=null;
-  }
-
-  function consumeChargeV2113(g,index){
-    const it=g?.inventory?.[index];
-    if(!it) return;
-    it.charges=Math.max(0,(Number(it.charges)||1)-1);
-    if(it.charges<=0) g.inventory.splice(index,1);
-  }
-
-  function randomTargetV2113(g){
-    const pool=state.groups.filter(x=>x.id!==g.id && eligibleForItems(x));
-    return pool.length ? pool[Math.floor(Math.random()*pool.length)] : null;
-  }
-
-  function attackFractionV2113(caster,target,denom,key){
-    if(!target || !eligibleForItems(target)) return {changed:false,blocked:'invalid'};
-    const amount=Math.round(Math.max(0,Number(target.score)||0)/denom);
-    if(amount<=0) return {changed:false,blocked:null};
-    return applyItemScore(target,-amount,caster.id,key);
-  }
-
-  legacyUseItem=function(groupId,index,...rest){
-    const g=state.groups.find(x=>x.id===groupId);
-    const it=g?.inventory?.[index];
-    const key=it?.key;
-
-    if(!EXT.has(key)) return previousUseItemV2113.call(this,groupId,index,...rest);
-
-    // 延续 V2.11.1 规则：只要点“使用”，窗口立刻消失。
-    closeItemWindowForFx();
-
-    if(typeof isCommunismMode==='function' && !isCommunismMode()){
-      showToast('共产主义模式已关闭');
-      return false;
-    }
-    if(!g || !eligibleForItems(g)){
-      showToast('负分状态严格禁止使用道具');
-      return false;
-    }
-
-    // 冰冻锁会取消下一次主动道具使用，且本次不消耗所点击的道具。
-    if(g.itemEffect?.iceLock){
-      delete g.itemEffect.iceLock;
-      cleanEmptyEffectV2113(g);
-      saveState(); renderAll();
-      showToast(`${g.name} 处于冰冻状态，本次道具使用被取消`);
-      return false;
-    }
-
-    let used=false, targetText='';
-
-    if(key==='feather'){
-      g.itemEffect={...(g.itemEffect||{}),featherDodge:1};
-      g.inventory.splice(index,1);
-      used=true;
-      targetText='下一次外部攻击可闪避';
-    }
-
-    else if(key==='fire_flower'){
-      const t=randomTargetV2113(g);
-      if(!t){ showToast('没有可攻击的小组'); return false; }
-      attackFractionV2113(g,t,8,key);
-      consumeChargeV2113(g,index);
-      used=true;
-      targetText=`目标：${t.name} · -1/8`;
-    }
-
-    else if(key==='ice_flower'){
-      const t=randomTargetV2113(g);
-      if(!t){ showToast('没有可攻击的小组'); return false; }
-      const result=attackFractionV2113(g,t,10,key);
-      // 只有攻击真正穿透防御时才附加冰冻，避免“明明挡住了却还是被冻结”。
-      if(!result?.blocked){
-        t.itemEffect={...(t.itemEffect||{}),iceLock:1};
-      }
-      consumeChargeV2113(g,index);
-      used=true;
-      targetText=result?.blocked ? `目标：${t.name} · 攻击被防御` : `目标：${t.name} · -1/10 并冻结`;
-    }
-
-    else if(key==='boomerang_flower'){
-      const r=ranking(), p=r.findIndex(x=>x.id===g.id);
-      const targets=[r[p-1],r[p+1]].filter(x=>x && eligibleForItems(x));
-      if(!targets.length){ showToast('当前没有可命中的相邻小组'); return false; }
-      targets.forEach(t=>attackFractionV2113(g,t,8,key));
-      consumeChargeV2113(g,index);
-      used=true;
-      targetText='目标：'+targets.map(x=>x.name).join('、')+' · 各 -1/8';
-    }
-
-    if(!used) return false;
-
-    recordHistory(`${g.name} 使用道具：${ITEM_DEFS[key].name}`);
-    g.itemStats=g.itemStats||{};
-    g.itemStats.used=(Number(g.itemStats.used)||0)+1;
-    saveState();
-    renderAll();
-    showItemUseFx(key,g.id,targetText);
-    showToast(`${g.name} 使用了 ${ITEM_DEFS[key].name}`);
-    return true;
-  };
-})();
 
 
 /* ===== V2.11.6：攻击发动 / 受击视觉系统 + 闪电重制 ===== */
@@ -18478,35 +18189,8 @@ function queueUseStateV2120(g,index){
 }
 
 /* 最终主动使用守门：即使旧 DOM、历史页面或脚本直接传入 index 1/2，也不能越过主要道具。 */
-const _v2120UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  if(!g)return false;
 
-  if(index!==0){
-    closeItemWindowForFx();
-    const main=g.inventory?.[0];
-    showToast(main
-      ? `「${ITEM_DEFS[main.key]?.name||'主要道具'}」尚未使用完，次要道具暂不可使用`
-      : '当前没有可用的主要道具');
-    return false;
-  }
 
-  const main=g.inventory?.[0];
-  if(!main){
-    closeItemWindowForFx();
-    showToast('当前没有主要道具');
-    return false;
-  }
-
-  if(isQueuePersistentActiveV2120(g,main)){
-    closeItemWindowForFx();
-    showToast(`「${ITEM_DEFS[main.key]?.name||'主要道具'}」的持续状态尚未结束，主要道具栏仍被占用`);
-    return false;
-  }
-
-  return _v2120UseItem.call(this,groupId,0,...rest);
-};
 
 /* 管理员添加也只会排到队尾，不允许插队。 */
 function godAddQueueItemV2120(gid,key){
@@ -18708,27 +18392,8 @@ if(typeof applySettingsBatchMembers==='function'){
 /* V2.17.21：答题期间卡片既然已经按编号排列，
    使用道具时就保持原位，不再为了发动道具临时切到排名顺序。
    当前排名改由顶部独立预览显示。 */
-const _v213UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  v213ForceRankSort=false;
-  v213ItemSortBusy=false;
 
-  /* V2.17.23：
-     只有“答题进行中、卡片固定按编号排列”时，才临时抑制布局 FLIP。
-     非答题阶段仍按排名排列，因此道具/改分造成名次变化时必须保留 0.75s 位移动画。 */
-  const fixedNumberOrder=!!(state.roundActive&&!state.evaluated);
-  if(fixedNumberOrder) v213SuppressReorderAnimation=true;
 
-  let result;
-  try{
-    result=_v213UseItem.call(this,groupId,index,...rest);
-  }finally{
-    if(fixedNumberOrder){
-      setTimeout(()=>{v213SuppressReorderAnimation=false},1100);
-    }
-  }
-  return result;
-};
 
 /* 页面加载与旧存档迁移。 */
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{ensureGroupNumbersV213(true);try{renderAll()}catch(e){};try{renderItemEncyclopedia()}catch(e){}},280));
@@ -20214,29 +19879,8 @@ showItemUseFx=function(key,casterId,targetText=''){
 };
 
 /* 最外层主动使用守门。无论卡片点击、详情窗口还是举手窗口，最后都会经过这里。 */
-const _v2177UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  const activeRound=!!(g && state.roundActive && !state.evaluated);
 
-  if(activeRound && g.itemUsedThisRound){
-    try{closeItemWindowForFx()}catch(e){}
-    showToast(`${g.name} 本题已经使用过一次道具，不能再次使用`);
-    return false;
-  }
 
-  /* V2.17.11：
-     冰冻状态会“取消下一次主动道具使用”，虽然道具没有被消耗，
-     但玩家已经执行了本题的一次主动使用动作，因此必须照样占用
-     “每题一次道具”的机会，并禁止之后 All In。
-     注意必须在调用内层冰冻处理前落锁，但不能让本层自己把这次尝试拦掉。 */
-  if(activeRound && g.itemEffect?.iceLock && g.inventory?.[index]){
-    // Frozen attempts are recorded by the public command.
-    return _v2177UseItem.call(this,groupId,index,...rest);
-  }
-
-  return _v2177UseItem.call(this,groupId,index,...rest);
-};
 
 /* 使用过道具后，本题不能再开启 All In。 */
 const _v2177ToggleAllInCard=toggleAllInCard;
@@ -21791,19 +21435,8 @@ function queueItemScoreChangesV21732(beforeMap){
 }
 
 /* 道具主入口 */
-const _v21732UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const before=snapshotScoresV21732();
-  itemScoreBatchDepthV21732++;
-  let result;
-  try{
-    result=_v21732UseItem.call(this,groupId,index,...rest);
-  }finally{
-    itemScoreBatchDepthV21732=Math.max(0,itemScoreBatchDepthV21732-1);
-    queueItemScoreChangesV21732(before);
-  }
-  return result;
-};
+
+
 
 /* 异步攻击兜底，例如刺龟壳确认后才真正扣分。 */
 
@@ -22269,7 +21902,7 @@ Object.assign(ITEM_DEFS,{
 });
 
 /* 火 / 冰 / 回旋镖最终行为直接在最外层接管，避免旧版 1/8 / 1/10 残留。 */
-const _v218UseItemBalance=legacyUseItem;
+
 const TRIPLE_KEYS_V218=new Set(['triple_green','triple_red','triple_banana','triple_mushroom']);
 function consumeOneV218(g,index){
   const it=g.inventory?.[index];if(!it)return;
@@ -22288,102 +21921,7 @@ function finishOwnItemUseV218(g,key,index,targetText){
   return true;
 }
 
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  let it=g?.inventory?.[index],key=it?.key;
-  if(!g||!it)return _v218UseItemBalance.call(this,groupId,index,...rest);
 
-  /* 答题中同一个三重道具可继续使用剩余次数；All In 仍保持锁定。 */
-  const continuing=!!(
-    state.roundActive&&!state.evaluated &&
-    g.itemUsedThisRound &&
-    g.roundItemContinuationKeyV218===key &&
-    TRIPLE_KEYS_V218.has(key)
-  );
-  if(continuing)g.itemUsedThisRound=false;
-
-  /* 红龟壳：没有上方排名时仍消耗，但不产生效果。 */
-  if((key==='red'||key==='triple_red')){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id),above=r[ri-1];
-    if(!above){
-      consumeOneV218(g,index);
-      finishOwnItemUseV218(g,key,index,'当前没有上方排名 · 道具已消耗');
-      if(TRIPLE_KEYS_V218.has(key)&&g.inventory?.[index]?.key===key)g.roundItemContinuationKeyV218=key;
-      else delete g.roundItemContinuationKeyV218;
-      return true;
-    }
-  }
-
-  /* 锤子：只从排名高于自己的组中随机抽最多 3 组。 */
-  if(key==='hammer'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id);
-    const pool=r.slice(0,ri).filter(eligibleForItems).sort(()=>Math.random()-.5).slice(0,3);
-    if(!pool.length){showToast('当前没有排名高于自己的可攻击小组');return false}
-    pool.forEach(t=>damageFraction(t,4,g.id,'hammer'));
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,`目标：${pool.map(x=>x.name).join('、')}`);
-  }
-
-  /* 害羞幽灵：无上方排名 / 上方无道具 -> 自动获得一个蘑菇。 */
-  if(key==='boo'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id),above=r[ri-1];
-    if(!above || !above.inventory?.length){
-      consumeOneV218(g,index);
-      if(!g.inventory.some(x=>x.key==='mushroom') && g.inventory.length<3){
-        g.inventory.push(globalThis.ItemModules?ItemModules.inventory('mushroom'):{key:'mushroom',charges:1,acquiredAt:Date.now()+Math.random()});
-      }
-      g.booShield=1;g.booRoundsLeftV218=3;
-      return finishOwnItemUseV218(g,key,index,!above?'没有上方排名 · 自动获得蘑菇':'上方无道具 · 自动获得蘑菇');
-    }
-  }
-
-  /* 三种花：统一 -1/5。 */
-  if(key==='fire_flower'||key==='ice_flower'){
-    const pool=state.groups.filter(x=>x.id!==g.id&&eligibleForItems(x));
-    if(!pool.length){showToast('没有可攻击的小组');return false}
-    const t=pool[Math.floor(Math.random()*pool.length)];
-    const result=attackOneFifthV218(g,t,key);
-    if(key==='ice_flower'&&!result?.blocked){
-      t.itemEffect={...(t.itemEffect||{}),iceLock:1,iceRoundsLeftV218:3};
-    }
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,
-      result?.blocked?`目标：${t.name} · 攻击被防御`:`目标：${t.name} · -1/5${key==='ice_flower'?' 并冻结':''}`);
-  }
-  if(key==='boomerang_flower'){
-    const r=ranking(),ri=r.findIndex(x=>x.id===g.id);
-    const targets=[r[ri-1],r[ri+1]].filter(x=>x&&eligibleForItems(x));
-    if(!targets.length){showToast('当前没有可命中的相邻小组');return false}
-    targets.forEach(t=>attackOneFifthV218(g,t,key));
-    consumeOneV218(g,index);
-    return finishOwnItemUseV218(g,key,index,`目标：${targets.map(x=>x.name).join('、')} · 各 -1/5`);
-  }
-
-  const beforeKey=key;
-  const result=_v218UseItemBalance.call(this,groupId,index,...rest);
-
-  /* 强力蘑菇从 5 改为 3 次答题。 */
-  if(result!==false && beforeKey==='power' && g.itemEffect?.type==='power'){
-    g.itemEffect.roundsLeft=3;
-  }
-  /* 幽灵从“1次防御”改成“3次答题内无限防御”。 */
-  if(result!==false && beforeKey==='boo'){
-    g.booShield=1;g.booRoundsLeftV218=3;
-  }
-
-  /* 三重道具第一次用后，剩余次数允许本题继续使用。 */
-  if(result!==false && TRIPLE_KEYS_V218.has(beforeKey)){
-    const still=g.inventory?.[0]?.key===beforeKey && Number(g.inventory[0].charges)>0;
-    if(still)g.roundItemContinuationKeyV218=beforeKey;
-    else delete g.roundItemContinuationKeyV218;
-    g.itemUsedThisRound=true;
-  }else if(continuing){
-    g.itemUsedThisRound=true;
-  }
-
-  saveState();
-  return result;
-};
 
 /* 道具窗口状态：同一个三重道具在本题剩余次数仍可继续点。 */
 if(typeof queueUseStateV2120==='function'){
@@ -22411,17 +21949,8 @@ if(typeof queueUseStateV2120==='function'){
 /* Answered-round expiry is owned by items/round-effects.js. */
 
 /* 冰冻被主动使用触发时：立即解除，并继续沿用“本次使用被取消”的既有规则。 */
-const _v218UseItemIceCleanup=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  const frozen=!!g?.itemEffect?.iceLock;
-  const r=_v218UseItemIceCleanup.call(this,groupId,index,...rest);
-  if(frozen && g?.itemEffect){
-    delete g.itemEffect.iceRoundsLeftV218;
-    if(Object.keys(g.itemEffect).length===0)g.itemEffect=null;
-  }
-  return r;
-};
+
+
 
 /* ---------- 6. 道具抽取：喇叭前 60%，第一名精确 10%；首次举手等概率池 ---------- */
 const FIRST_HAND_POOL_V218=[
@@ -22969,7 +22498,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.4';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.5';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -23109,77 +22638,9 @@ if(typeof ITEM_TIPS_V218!=='undefined'){
   ITEM_TIPS_V218.ice_flower='不会选择已经冻结的小组，因此控制会自然分散到不同目标；若全场可攻击目标都已被冻结，再用只会白白消耗 1 发。';
 }
 
-/* 最外层接管两种花，确保不会被旧版 1/5 逻辑抢回去。 */
-const _v2189UseItem = legacyUseItem;
-legacyUseItem = function(groupId,index,...rest){
-  const g=state.groups.find(x=>x.id===groupId);
-  const it=g?.inventory?.[index];
-  const key=it?.key;
-  if(!g||!it||(key!=='fire_flower'&&key!=='ice_flower')){
-    return _v2189UseItem.call(this,groupId,index,...rest);
-  }
+/* Runtime execution is owned by items/operation.js; this block only supplies legacy copy. */
 
-  /* 沿用每题主动道具限制；如果旧包装器已处理冻结/限制，就让它接管。 */
-  if(state.roundActive && !state.evaluated && g.itemUsedThisRound){
-    showToast(`${g.name} 本题已经使用过主动道具`);
-    return false;
-  }
 
-  if(g.itemEffect?.iceLock){
-    /* 交回旧逻辑处理“尝试使用 -> 解冻但本次作废”的机制。 */
-    return _v2189UseItem.call(this,groupId,index,...rest);
-  }
-
-  const allTargets=state.groups.filter(x=>x.id!==g.id && eligibleForItems(x));
-
-  if(key==='ice_flower'){
-    const pool=allTargets.filter(t=>!t.itemEffect?.iceLock);
-
-    /* 所有目标均被冻结：消耗 1 发，但无效果。 */
-    if(!pool.length){
-      consumeOneV218(g,index);
-      g.itemStats=g.itemStats||{};
-      g.itemStats.used=(Number(g.itemStats.used)||0)+1;
-      recordHistory(`${g.name} 使用道具：${ITEM_DEFS.ice_flower.name}（所有可攻击目标均已冻结，无效果）`);
-      saveState();renderAll();
-      showItemUseFx('ice_flower',g.id,'所有可攻击目标均已冻结 · 本次无效果');
-      showToast(`${g.name} 的冰之花没有找到未冻结目标`);
-      return true;
-    }
-
-    const t=pool[Math.floor(Math.random()*pool.length)];
-    const result=attackOneFifthV218(g,t,'ice_flower');
-    if(!result?.blocked){
-      t.itemEffect={...(t.itemEffect||{}),iceLock:1,iceRoundsLeftV218:3};
-    }
-    consumeOneV218(g,index);
-    g.itemStats=g.itemStats||{};
-    g.itemStats.used=(Number(g.itemStats.used)||0)+1;
-    recordHistory(`${g.name} 使用道具：${ITEM_DEFS.ice_flower.name}`);
-    saveState();renderAll();
-    showItemUseFx('ice_flower',g.id,result?.blocked?`目标：${t.name} · 攻击被防御`:`目标：${t.name} · -1/5 并冻结`);
-    showToast(`${g.name} 使用了 ${ITEM_DEFS.ice_flower.name}`);
-    return true;
-  }
-
-  /* 火之花：-1/4 */
-  if(!allTargets.length){
-    showToast('没有可攻击的小组');
-    return false;
-  }
-  const t=allTargets[Math.floor(Math.random()*allTargets.length)];
-  const amount=Math.round(Math.max(0,Number(t.score)||0)/4);
-  const result=amount>0 ? applyItemScore(t,-amount,g.id,'fire_flower') : {changed:false};
-
-  consumeOneV218(g,index);
-  g.itemStats=g.itemStats||{};
-  g.itemStats.used=(Number(g.itemStats.used)||0)+1;
-  recordHistory(`${g.name} 使用道具：${ITEM_DEFS.fire_flower.name}`);
-  saveState();renderAll();
-  showItemUseFx('fire_flower',g.id,result?.blocked?`目标：${t.name} · 攻击被防御`:`目标：${t.name} · -1/4`);
-  showToast(`${g.name} 使用了 ${ITEM_DEFS.fire_flower.name}`);
-  return true;
-};
 </script>
 
 
@@ -24937,14 +24398,14 @@ const MigrationCoordinator = (() => {
   return { create };
 })();
 </script>
-<script>/* Stable public APIs. Legacy item executors remain isolated until their rule
-   matrix is complete; new features must not add another override layer. */
+<script>/* Stable public APIs. ItemOperationBlocks is the sole item executor;
+   new features must not add another override layer. */
 function buildClassroomBackup() {
   if (window.classroomReady && classroomCommands.isPending())
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.4",
+    appVersion: "V3.0.5",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

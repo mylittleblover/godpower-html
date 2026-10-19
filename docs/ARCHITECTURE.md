@@ -78,3 +78,8 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 `items/round-effects.js`暂以兼容适配器方式拥有道具回合联动；`ui/round-feedback.js`只保留原720ms第二段分数衔接。旧00/04/36脚本四层判题包装已删除，legacyJudgeRound保留单一兼容入口，实际由稳定judgeRound命令调用。没有改变计分/排名/道具参数或把动画变成业务判定。
 
 这不是所有比赛规则都已纯化：道具回合适配仍使用现有state和攻击/防御服务，存储默认切换仍等待后续真实命令迁移。
+
+
+### 3.0.5道具单一执行入口
+
+公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；原14层legacyUseItem链已移除，仅保留legacyUseItem→useItem兼容转发。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。

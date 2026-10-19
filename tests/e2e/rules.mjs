@@ -17,6 +17,10 @@ await p.goto(`http://127.0.0.1:${server.address().port}`, {
   waitUntil: "domcontentloaded",
 });
 await p.waitForTimeout(400);
+// All 26 public commands must work without entering the superseded dispatcher.
+await p.evaluate(() => {
+  legacyUseItem = () => { throw Error("public pipeline entered superseded dispatcher"); };
+});
 const expected = {
   green: [75, 140, 180, 220],
   triple_green: [75, 140, 180, 220],

@@ -1,0 +1,42 @@
+✔ renderAll has exactly one canonical definition and no override assignment (0.796353ms)
+✔ renderGrid has exactly one canonical definition and no override assignment (0.102584ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.072584ms)
+✖ legacyUseItem has exactly one canonical definition and no override assignment (0.728211ms)
+✔ legacyJudgeRound has exactly one canonical definition and no override assignment (0.096868ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.124405ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.091969ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.059815ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.175422ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.203294ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.118171ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 394.861409
+
+✖ failing tests:
+
+test at tests/unit/canonical-entrypoints.test.mjs:44:3
+✖ legacyUseItem has exactly one canonical definition and no override assignment (0.728211ms)
+  AssertionError [ERR_ASSERTION]: [{"file":"src/script/00.js","type":"FunctionDeclaration"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/00.js","type":"AssignmentExpression"},{"file":"src/script/01.js","type":"AssignmentExpression"},{"file":"src/script/12.js","type":"AssignmentExpression"},{"file":"src/script/31.js","type":"AssignmentExpression"},{"file":"src/script/36.js","type":"AssignmentExpression"},{"file":"src/script/36.js","type":"AssignmentExpression"},{"file":"src/script/42.js","type":"AssignmentExpression"}]
+  
+  14 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-electron-020/tests/unit/canonical-entrypoints.test.mjs:45:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 14,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

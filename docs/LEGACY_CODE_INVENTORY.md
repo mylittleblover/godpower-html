@@ -1,3 +1,25 @@
+# 3.0.5 道具旧分发链治理
+
+基准 e714dbe（3.0.4）。生产公开入口 useItem → ItemModules.execute → ItemOperationBlocks.run 已独立执行全部26种道具。删除前将 legacyUseItem 替换为抛错函数，26/26规则oracle仍通过；源码全局搜索没有旧链以外的生产调用。删除后相同26/26、464攻防差分、30异步防御场景及80回合差分通过。
+
+| 旧实现 | 分类/处理 | 有效行为的现有归属 |
+|---|---|---|
+| 00.js legacyUseItem 原始分支树 | 已被新实现取代→删除正文；保留一个兼容转发 | application/legacy-classroom-adapter.js + items/operation.js |
+| 00.js useItemBeforeVisualDispatch、_v282UseItem、_v282UseItemWithIce、_v291UseItem、_v2120UseItem | 旧链内部重复分发→删除捕获及赋值 | ItemOperationBlocks、现有showItemUseFx与score scheduler |
+| 00.js installPersistentItemUseGuardV299 | 只安装旧链包装，无其他副作用→删除整个局部IIFE | Reliability.validateItem 与 ItemOperationBlocks |
+| 00.js installV2113ExtendedItemHandler | 局部EXT/目标/消耗工具仅服务旧链→删除整个IIFE | ItemOperationBlocks的feather/fire/ice/boomerang积木 |
+| 01.js _v213UseItem | 已被替代→删除 | 当前公开命令及持久化路径 |
+| 12.js _v2177UseItem | 已被替代→删除；共享markItemUsedThisRoundV2177仍保留 | 当前useItem直接调用共享标记 |
+| 31.js _v21732UseItem | 已被替代→删除；快照、队列、批处理深度/滚动调度仍保留 | 当前道具执行器/攻防调度 |
+| 36.js _v218UseItemBalance、_v218UseItemIceCleanup | 已被替代→删除；共享consume/attack/队列/描述保留 | ItemOperationBlocks及公开冻结取消分支 |
+| 42.js _v2189UseItem | 已被替代→删除；实际道具说明及tips保留 | ItemOperationBlocks最终花类规则 |
+| legacyUseItem兼容别名 | 仍然必要的过渡兼容 | 单次转发公开useItem；AST只允许一个函数定义；下游/控制台使用清单归零后可另删 |
+| 其他共享旧函数、CSS、音频、计时器 | 仍必要或需要进一步测试→保留 | 本次不以旧版号作为删除依据 |
+
+实测证据 artifacts/v3-items。历史库存如下，旧行号/统计不能作为本轮完成范围。
+
+---
+
 # 3.0.4判题包装链治理
 
 基准da00d1b（V3.0.3）。实际替代及动态差分覆盖如下；不得把此表推广为全部旧代码已删除。

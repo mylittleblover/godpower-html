@@ -146,19 +146,8 @@ function queueItemScoreChangesV21732(beforeMap){
 }
 
 /* 道具主入口 */
-const _v21732UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  const before=snapshotScoresV21732();
-  itemScoreBatchDepthV21732++;
-  let result;
-  try{
-    result=_v21732UseItem.call(this,groupId,index,...rest);
-  }finally{
-    itemScoreBatchDepthV21732=Math.max(0,itemScoreBatchDepthV21732-1);
-    queueItemScoreChangesV21732(before);
-  }
-  return result;
-};
+
+
 
 /* 异步攻击兜底，例如刺龟壳确认后才真正扣分。 */
 

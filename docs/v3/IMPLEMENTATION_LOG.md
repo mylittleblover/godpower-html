@@ -61,3 +61,8 @@ Next: migrate actual legacy command families into pure/domain calculations and t
 Pre-change80-case characterization againstda00d1b passed before editing. Then structural guard failed5→1 and pure port test failed missing implementation. Implemented CompetitionRules, explicit RoundSettlement, item-round adapter and separate720ms feedback owner. Removed four legacy wrappers, retained one compatibility entry; actual old/new80-case full selected-state/visual/sound comparison PASS. Node173/173 PASS. Broad Chromium business regression117/117 errors=[], item oracle26/26, seeded draw448 cases and configured-item browser tests PASS. Evidence artifacts/v3-round. file:// remains BLOCKED.
 
 Next investigation found the currentItemOperationBlocks executes all26blueprints directly, while legacyUseItem still has14definitions/assignments. This is a reachability lead, not yet a safe-deletion conclusion. Inspect every capture/IIFE side effect and prove current public commands never enter the chain before deleting it. Keep shared attack/defense/animation helpers.
+
+
+## 3.0.5 legacy item dispatcher cleanup (verified)
+
+Pre-change all26 public item oracle passed with legacy dispatcher replaced by throwing trap. AST guard then failed14writes instead of1. Removed13overrides, captured aliases and2isolated IIFEs; kept one compatibility forwarder and shared helpers/metadata. Node175/175, item26/26, differential464/464, asynchronous-defense30 and round80 PASS;14groupDOM/screenshot PASS at1920×1080 1x. See artifacts/v3-items and reports/V3_ITEM_CHAIN_ACCEPTANCE.md. Default storage unchanged. Continue architecture/migration; new rules ZIP deferred until rules work, per user.

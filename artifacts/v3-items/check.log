@@ -1,0 +1,8 @@
+
+> godpower-html@3.0.5 check
+> node scripts/check.mjs
+
+83 script blocks parse; all 27 original embedded resources preserved
+114 source blocks match the manifest and template
+Visible, internal and package version match: 3.0.5
+Domain and infrastructure boundaries pass

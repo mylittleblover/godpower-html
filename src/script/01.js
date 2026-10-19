@@ -63,27 +63,8 @@ if(typeof applySettingsBatchMembers==='function'){
 /* V2.17.21：答题期间卡片既然已经按编号排列，
    使用道具时就保持原位，不再为了发动道具临时切到排名顺序。
    当前排名改由顶部独立预览显示。 */
-const _v213UseItem=legacyUseItem;
-legacyUseItem=function(groupId,index,...rest){
-  v213ForceRankSort=false;
-  v213ItemSortBusy=false;
 
-  /* V2.17.23：
-     只有“答题进行中、卡片固定按编号排列”时，才临时抑制布局 FLIP。
-     非答题阶段仍按排名排列，因此道具/改分造成名次变化时必须保留 0.75s 位移动画。 */
-  const fixedNumberOrder=!!(state.roundActive&&!state.evaluated);
-  if(fixedNumberOrder) v213SuppressReorderAnimation=true;
 
-  let result;
-  try{
-    result=_v213UseItem.call(this,groupId,index,...rest);
-  }finally{
-    if(fixedNumberOrder){
-      setTimeout(()=>{v213SuppressReorderAnimation=false},1100);
-    }
-  }
-  return result;
-};
 
 /* 页面加载与旧存档迁移。 */
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{ensureGroupNumbersV213(true);try{renderAll()}catch(e){};try{renderItemEncyclopedia()}catch(e){}},280));

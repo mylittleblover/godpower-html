@@ -157,3 +157,8 @@ BATTLE_14_GROUPS_BASELINE：最新起点源码与当前源码分别在相同Chro
 ## 3.0.4判题治理
 
 legacyJudgeRound从5处定义/覆盖变成1个明确兼容入口。移除四个旧包装器及其捕获别名，保留其有效行为在RoundSettlement/ItemEffects/Feedback各职责模块。基础+2/All In计算与预检复用同一纯函数。旧/新80种子（含4/14组、强力、冰冻、幽灵、空答、All In和溢出）结果完全一致，包含统计、库存、回合状态、720ms调度、音效/分数视觉事件。173项Node测试通过。更广回归结果随本阶段验收报告记录；不宣称14层旧道具链已处理完毕。
+
+
+## 3.0.5道具链
+
+旧入口14→1，已删除13层覆盖及仅服务旧链的局部辅助，保留兼容转发和全部共享函数。26oracle、464攻防差分、30异步防御、80回合与14组布局通过；详见reports/V3_ITEM_CHAIN_ACCEPTANCE.md和LEGACY_CODE_INVENTORY.md。
