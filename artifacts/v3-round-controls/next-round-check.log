@@ -1,0 +1,8 @@
+
+> godpower-html@3.0.16 check
+> node scripts/check.mjs
+
+92 script blocks parse; all 27 original embedded resources preserved
+123 source blocks match the manifest and template
+Visible, internal and package version match: 3.0.16
+Domain and infrastructure boundaries pass

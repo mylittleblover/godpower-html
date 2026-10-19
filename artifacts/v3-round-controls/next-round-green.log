@@ -1,0 +1,6 @@
+[
+  {
+    name: 'stale music completion cannot reset a newer classroom command',
+    status: 'PASS'
+  }
+]

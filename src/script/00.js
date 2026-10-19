@@ -1700,6 +1700,7 @@ async function nextRound() {
     return;
   }
   Reliability.invalidateDefenseDecisions();
+  const roundToken = RoundSettlement.captureRoundToken();
   isSwitchingRound = true;
 
   const overlay = document.getElementById('initProgressOverlay');
@@ -1717,6 +1718,10 @@ async function nextRound() {
     await bgmStartNewRoundMusicWithProgress((percent) => {
       if (fill) fill.style.width = `${percent}%`;
     });
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未切换到下一题。');
+      return false;
+    }
 
     if (overlay) overlay.style.display = 'none';
     playSound('ui_click');

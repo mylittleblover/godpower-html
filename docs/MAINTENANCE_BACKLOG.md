@@ -1177,3 +1177,7 @@ P1业务/数据，中复杂度/中风险。src/script/00.js后部setCorrectAns�
 P1回合正确性/历史，中复杂度/中风险。延迟强制结束确认可能结束新答题阶段；直接saveState不暴露独立命令结果。已改为RoundSettlement forceEnd和后确认复核，2专项与80差分通过；完整core regression待结束后记录。复现：待themeConfirm期间更改回答/回合后确认。验收为无迟到写入，成功仅一历史点且先保存ACK再停止音乐/动画。Electron同步待HTML提交完成。
 
 GP-V3-FORCE-END-OWNER completed: final core117/117 PASS, 239 unit pass,80 round differential and targeted command tests pass; errors=[]. Browser file protocol remains BLOCKED by environment. Windows native build not part of this source commit.
+
+## GP-V3-NEXT-ROUND-STALE-ASYNC（异步作废检查已修复，状态写入命令仍待迁移）
+
+P1业务状态/高风险，中复杂度。nextRound等待音乐后可把期间新选择清空。3.0.16加状态令牌重验；1项RED/GREEN、80结算差分、239单测通过，证据artifacts/v3-round-controls/next-round-*. 依赖RoundSettlement代次和课堂命令。验收旧音频请求不得更改新课堂。后续仍需把成功切题状态复位、音频生命周期和保存合并为明确命令，不能将该防护误称为整段回合迁移完成。

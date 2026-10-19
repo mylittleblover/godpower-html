@@ -29,6 +29,39 @@ const RoundSettlement = (() => {
     return result;
   }
   let forceEndGeneration = 0;
+  function captureRoundToken() {
+    return {
+      classroom: state,
+      groups: state.groups,
+      season: state.seasonId,
+      generation: forceEndGeneration,
+      phase: JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      }),
+    };
+  }
+  function isRoundTokenCurrent(token) {
+    if (
+      !token ||
+      state !== token.classroom ||
+      state.groups !== token.groups ||
+      state.seasonId !== token.season ||
+      forceEndGeneration !== token.generation
+    )
+      return false;
+    return (
+      token.phase ===
+      JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      })
+    );
+  }
   Reliability.onDefenseInvalidation(() => {
     forceEndGeneration++;
   });
@@ -82,5 +115,5 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, forceEnd };
+  return { execute, forceEnd, captureRoundToken, isRoundTokenCurrent };
 })();

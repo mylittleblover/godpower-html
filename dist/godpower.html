@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.15</title>
+<title>上帝的力量 V3.0.16</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.15";
+    document.title = name() + " V3.0.16";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.15</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.16</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -14138,6 +14138,7 @@ async function nextRound() {
     return;
   }
   Reliability.invalidateDefenseDecisions();
+  const roundToken = RoundSettlement.captureRoundToken();
   isSwitchingRound = true;
 
   const overlay = document.getElementById('initProgressOverlay');
@@ -14155,6 +14156,10 @@ async function nextRound() {
     await bgmStartNewRoundMusicWithProgress((percent) => {
       if (fill) fill.style.width = `${percent}%`;
     });
+    if (!RoundSettlement.isRoundTokenCurrent(roundToken)) {
+      showToast('课堂状态已变化，未切换到下一题。');
+      return false;
+    }
 
     if (overlay) overlay.style.display = 'none';
     playSound('ui_click');
@@ -22621,7 +22626,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.15';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.16';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24027,6 +24032,39 @@ const RoundSettlement = (() => {
     return result;
   }
   let forceEndGeneration = 0;
+  function captureRoundToken() {
+    return {
+      classroom: state,
+      groups: state.groups,
+      season: state.seasonId,
+      generation: forceEndGeneration,
+      phase: JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      }),
+    };
+  }
+  function isRoundTokenCurrent(token) {
+    if (
+      !token ||
+      state !== token.classroom ||
+      state.groups !== token.groups ||
+      state.seasonId !== token.season ||
+      forceEndGeneration !== token.generation
+    )
+      return false;
+    return (
+      token.phase ===
+      JSON.stringify({
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        groups: state.groups.map((g) => [g.id, g.selectedOpt, g.allIn]),
+      })
+    );
+  }
   Reliability.onDefenseInvalidation(() => {
     forceEndGeneration++;
   });
@@ -24080,7 +24118,7 @@ const RoundSettlement = (() => {
     showToast("当前题目已强制结束");
     return true;
   }
-  return { execute, forceEnd };
+  return { execute, forceEnd, captureRoundToken, isRoundTokenCurrent };
 })();
 </script>
 <script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
@@ -24900,7 +24938,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.15",
+    appVersion: "V3.0.16",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

@@ -392,3 +392,7 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.15强制结束：两项Chromium1920×1080 1x时序/持久化专项PASS，80结算差分PASS，core回归待完成。音频听感NOT TESTED。证据artifacts/v3-round-controls。当前还未同步Electron。
 
 3.0.15 final: Chromium core117/117 PASS at1920×1080 1x, 239 Node tests PASS,80 round differential PASS, force-end2 PASS; app errors=[]. file:// BLOCKED by managed Chromium. Full data-backend cutover, achievement runtime and Windows native test are not claimed.
+
+3.0.16 nextRound异步作废：Chromium1920×1080 1x一项PASS，80差分与239单元通过。成功路径写入仍是后续待迁移事项。
+
+3.0.16 core:117/117 PASS; next-round stale async1/1 PASS; 80 settlement differential; app errors=[]. Chromium1920×1080 1x. file:// BLOCKED.
