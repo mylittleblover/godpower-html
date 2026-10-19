@@ -404,3 +404,7 @@ Command map now80lexical leads/78save calls/9command calls, not80bugs. Next:actu
 3.0.18 startRound：两项Chromium1920×1080 1x专测覆盖异步旧启动与正常复位/单保存；full core/unit/differential pending。
 
 3.0.18 final: startup two cases PASS; core117/117, units239/239, round differential80/80 PASS, errors=[]. Chromium1920×1080 1x only. file:// blocked by environment policy.
+
+3.0.19 archive retry: two repository unit cases added for identical and conflicting same-season retries; full suite and browser regression pending.
+
+3.0.19 archives: identical same-season retry, conflicting retry and legacy incomparable record tests covered; unit241/241, full core117/117, focused storage14/14 PASS. Conflicts preserve exact archive source string. file:// remains BLOCKED.

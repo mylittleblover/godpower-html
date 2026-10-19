@@ -1,0 +1,22 @@
+✔ season archive retry is idempotent and never replaces a conflicting official result (1.176479ms)
+✔ an older archive with matching season identity but no comparable snapshot is protected (0.225711ms)
+✔ v1 to v2 migration preserves classroom data and adds stable identities without mutating input (1.546332ms)
+✔ migration copies and verifies the new envelope, writes receipt last, and retains the old source (0.66683ms)
+✔ migration is idempotent and never rewrites an already-current envelope (0.48583ms)
+✔ write or verification failure rolls back only the destination and preserves source bytes (0.282666ms)
+✔ a corrupt current envelope is surfaced instead of silently falling back to older data (0.187647ms)
+✔ legacy mirror migration imports only classroom keys and leaves unrelated IndexedDB assets alone (0.615355ms)
+✔ malformed legacy content is rejected before any destination write (0.245446ms)
+✔ invalid candidates are not exposed as validated recovery data (1.231816ms)
+✔ a valid current envelope never reads damaged fallback mirrors (0.330292ms)
+✔ v1 mistakenly placed in the current slot is durably upgraded once (0.251832ms)
+✔ absent legacy preferences preserve application defaults rather than becoming zero or false (0.143274ms)
+✔ failed destination rollback is reported without touching the legacy source (0.355428ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 79.334763

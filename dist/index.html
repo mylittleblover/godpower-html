@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.18</title>
+<title>上帝的力量 V3.0.19</title>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -54,7 +54,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.18";
+    document.title = name() + " V3.0.19";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8739,7 +8739,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.18</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.19</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -9766,9 +9766,30 @@ const ClassroomRepository = (() => {
         record.seasonId && old?.seasonId
           ? old.seasonId === record.seasonId
           : !record.seasonId && old?.id === record.id;
+      const existing = archives.find(sameArchive);
+      if (existing) {
+        const comparableSnapshot = (entry) => {
+          const data = entry?.clearedData;
+          if (!data || !Array.isArray(data.groups)) return null;
+          return JSON.stringify({
+            groups: data.groups,
+            round: data.round,
+            itemGlobal: data.itemGlobal,
+            picker: data.picker,
+          });
+        };
+        const previousSnapshot = comparableSnapshot(existing);
+        const retrySnapshot = comparableSnapshot(record);
+        if (previousSnapshot !== null && previousSnapshot === retrySnapshot)
+          return { ok: true, idempotent: true };
+        return {
+          ok: false,
+          error: "本赛季已有不同内容的正式归档，已保留原档案。",
+        };
+      }
       return writeVerified(storage, "politics_settlement_history", [
         record,
-        ...archives.filter((old) => !sameArchive(old)),
+        ...archives,
       ]);
     } catch (error) {
       return { ok: false, error: String(error?.message || error) };
@@ -22630,7 +22651,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.18';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.19';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -24974,7 +24995,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.18",
+    appVersion: "V3.0.19",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     groups: getPersistableGroups(),

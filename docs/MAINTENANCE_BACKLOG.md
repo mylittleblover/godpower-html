@@ -1193,3 +1193,9 @@ GP-V3-NEXT-ROUND-COMMAND completed in3.0.17: final core117, unit239, 80 differen
 P1数据/异步状态，高复杂度/中风险。音频加载迟到回调可能覆盖加载期间新课堂；旧finishStartRound直接写并保存，锁又由script12包装改动。现RoundSettlement.start单命令持久化/展示，startRound令牌过期时退出，锁重置只在命令内发生。两专项覆盖旧状态保留与正常单次保存、无新历史节点、原设置。完整core回归结束后更新最终状态；后续音频服务生命周期仍需统一取消/资源释放。
 
 GP-V3-START-ROUND-COMMAND completed3.0.18: final core117, unit239,80 rule differential and two targeted browser tests PASS. Remaining audio lifetime management and all unconverted group/member/settings mutations still prevent default repository cutover.
+
+## GP-V3-ARCHIVE-RETRY-IMMUTABILITY（实现中，3.0.19）
+
+P0数据/正式归档，中复杂度/高风险。清零保存失败后课堂恢复原状；同season重试会替换已写入正式档案，可能使旧正式结果被后续改动覆盖。repository现在仅接受相同稳定快照幂等重试，冲突和缺少旧字段时保留旧档案并返回明确错误。2项新单测及全量浏览器回归待完成。依赖已存在的seasonId/clearedData。验收原始归档字节不变、无重复冠军记录、冲突不能清零数据。
+
+GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write success, conflicting/legacy incomparable retries are no-write failure. Unit241, core117 and storage14 all PASS; errors=[]. Source implementation in classroom-repository.js. Evidence artifacts/v3-archive-immutability. The overall final archive flow remains multiple legacy steps and should later become one durable archive+classroom transaction before backend cutover.

@@ -21,9 +21,30 @@ const ClassroomRepository = (() => {
         record.seasonId && old?.seasonId
           ? old.seasonId === record.seasonId
           : !record.seasonId && old?.id === record.id;
+      const existing = archives.find(sameArchive);
+      if (existing) {
+        const comparableSnapshot = (entry) => {
+          const data = entry?.clearedData;
+          if (!data || !Array.isArray(data.groups)) return null;
+          return JSON.stringify({
+            groups: data.groups,
+            round: data.round,
+            itemGlobal: data.itemGlobal,
+            picker: data.picker,
+          });
+        };
+        const previousSnapshot = comparableSnapshot(existing);
+        const retrySnapshot = comparableSnapshot(record);
+        if (previousSnapshot !== null && previousSnapshot === retrySnapshot)
+          return { ok: true, idempotent: true };
+        return {
+          ok: false,
+          error: "本赛季已有不同内容的正式归档，已保留原档案。",
+        };
+      }
       return writeVerified(storage, "politics_settlement_history", [
         record,
-        ...archives.filter((old) => !sameArchive(old)),
+        ...archives,
       ]);
     } catch (error) {
       return { ok: false, error: String(error?.message || error) };

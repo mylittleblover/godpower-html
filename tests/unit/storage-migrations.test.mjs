@@ -78,6 +78,32 @@ function legacyBackup() {
   };
 }
 
+test("season archive retry is idempotent and never replaces a conflicting official result", () => {
+  const db = storage();
+  const first = {
+    seasonId: "season-archive-1", id: 1, title: "Original", time: "09:00",
+    clearedData: {groups:[{groupUid:"group-a",score:20}],round:{evaluated:true},itemGlobal:{pkTotal:5},picker:{mode:"individual"}},
+  };
+  assert.equal(Repository.appendArchive(db, first).ok, true);
+  const archived = db.getItem("politics_settlement_history");
+  const sameSeasonRetry = {...first,id:2,title:"Retry",time:"10:00",clearedData:JSON.parse(JSON.stringify(first.clearedData))};
+  const retry = Repository.appendArchive(db, sameSeasonRetry);
+  assert.equal(retry.ok, true);
+  assert.equal(retry.idempotent, true);
+  assert.equal(db.getItem("politics_settlement_history"), archived);
+  const changedResult = {...sameSeasonRetry,clearedData:{...sameSeasonRetry.clearedData,groups:[{groupUid:"group-a",score:99}]}};
+  assert.equal(Repository.appendArchive(db, changedResult).ok, false);
+  assert.equal(db.getItem("politics_settlement_history"), archived);
+});
+
+test("an older archive with matching season identity but no comparable snapshot is protected", () => {
+  const original = JSON.stringify([{seasonId:"season-archive-2",title:"Legacy archived result"}]);
+  const db = storage({politics_settlement_history:original});
+  const result = Repository.appendArchive(db,{seasonId:"season-archive-2",id:2,clearedData:{groups:[],round:{},itemGlobal:{},picker:{}}});
+  assert.equal(result.ok,false);
+  assert.equal(db.getItem("politics_settlement_history"),original);
+});
+
 test("v1 to v2 migration preserves classroom data and adds stable identities without mutating input", () => {
   const raw = legacyBackup();
   const before = JSON.stringify(raw);
