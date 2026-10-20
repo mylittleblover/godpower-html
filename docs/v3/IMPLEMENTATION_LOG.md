@@ -245,3 +245,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 名单工作区现能将已保存 roster 显式应用到正式比赛。应用前按稳定 `groupUid` 展示逐组差异，二次确认后只更新现有 `groups[].members`；不增删/排序小组、不改分数/道具/回合/规则，也不写名单仓库。通过课堂事务入口获得单一历史点、权威存档确认和持久化失败回滚；预览与事务执行前都检查比赛状态、赛季、名单选择、仓库 revision/原始字节，陈旧预览被拒。还修复了 `normalizeGroup` 删除同组同名成员以及点名防重复键无法区分同名学生的问题；新键按成员位置，旧名称键仍兼容。
 
 验证：TDD 浏览器测试旧构建先因缺少入口而失败；实现后 Chromium 1920×1080 @1x E2E 覆盖预览/取消、主存储 quota 故障精确回滚、成功持久化、刷新、同名成员保序、历史撤销、名单字节不变及过期预览拒绝。单元与集成测试296/296；设置测试13/13及名单、名单应用、课表、资源工作区回归通过；三种点名模式26/26，448个种子兼容案例，道具模块与完整命令回归通过；14组布局1920×1080 PASS。`check`与`format:check` PASS。最终构建8,161,854 bytes，SHA-256 `1eb25c0e6e20de1b353fa3f386bf62ff75f8699175a0064c5500480819d97322`。预览截图 `artifacts/f1-roster-workspace/apply-preview-1920x1080.png`。Electron同步待本提交后进行；Windows真机 NOT TESTED；`file://`受管 Chromium 策略 BLOCKED；无 CircleCI 操作。
+
+## 3.0.38 — 学生头像资源与安全引用
+
+名单工作区使用已有离线资源仓库管理 PNG/JPEG/WebP 学生头像，单图上限2MiB并经过资源格式和签名校验。名单学生只新增 `avatarResourceId`，图片 Blob 不写入 localStorage。头像上传先验证名单草稿/仓库revision，再添加并读回资源，最后 CAS 更新引用；若名单写入失败，仅补偿删除本次新资源。清除/替换头像只解除旧引用，不删除源图。头像 Blob URL 在名单重新渲染时释放。界面明确提示名单JSON不包含媒体字节，跨设备迁移还需单独导出资源库。
+
+验证：Chromium 1920×1080 @1x 新增头像上传/资源内容/引用刷新测试；模拟名单存储 `QuotaExceededError` 后，头像引用保持旧值，本次孤立 Blob 被删除，已有资源数不变。名单应用事务、14组布局和原名单工作区均PASS。Node单元/集成296/296，`check`、`format:check`、`audit:hygiene` PASS。构建8,170,727 bytes，SHA-256 `beac59ae50b5365ad944a53d06ecd1d5a8b9976f43d5090eb35079c371482b72`。头像截图 `artifacts/f1-roster-workspace/avatars-1920x1080.png`。Electron同步与桌面验收待提交后进行；名单和头像组合备份、孤立资源回收、Windows真机及`file://`仍未完成/受阻；无CircleCI操作。

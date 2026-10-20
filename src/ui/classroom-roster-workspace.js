@@ -20,7 +20,7 @@
     const section = document.createElement("section");
     section.id = "classroomRosterWorkspace";
     section.className = "ui-settings-group roster-workspace";
-    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛；应用到比赛时仅更新成员姓名，其他比赛数据保持不变。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn" id="rosterSave">保存名单</button><button type="button" class="btn btn-primary" id="rosterPreviewApply">预览并应用到比赛</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
+    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛；应用到比赛时仅更新成员姓名，其他比赛数据保持不变。头像只支持 PNG/JPEG/WebP，单张不超过 2 MiB，原文件保存于本机资源库。名单 JSON 只保存头像引用；迁移到另一设备时，请另外导出资源库文件。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th>头像</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn" id="rosterSave">保存名单</button><button type="button" class="btn btn-primary" id="rosterPreviewApply">预览并应用到比赛</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
     host.append(section);
 
     const profileSelect = section.querySelector("#rosterProfileSelect");
@@ -58,6 +58,42 @@
     let selectedProfile = "";
     let selectedClassroom = "";
     let activeClassroomContext = null;
+    let avatarRepositoryPromise = null;
+    const avatarObjectUrls = new Set();
+
+    function getAvatarRepository() {
+      avatarRepositoryPromise ||= root.TeachingResourceRepository.open();
+      return avatarRepositoryPromise;
+    }
+    function clearAvatarUrls() {
+      for (const url of avatarObjectUrls) URL.revokeObjectURL(url);
+      avatarObjectUrls.clear();
+    }
+    async function renderAvatar(student, image) {
+      if (!student.avatarResourceId) return;
+      try {
+        const avatar = await (
+          await getAvatarRepository()
+        ).get(student.avatarResourceId);
+        if (
+          !avatar ||
+          avatar.classroomId !== selectedClassroom ||
+          avatar.subjectId !== "student-avatar" ||
+          !avatar.mimeType.startsWith("image/")
+        )
+          return;
+        const objectUrl = URL.createObjectURL(avatar.blob);
+        avatarObjectUrls.add(objectUrl);
+        if (!image.isConnected) {
+          URL.revokeObjectURL(objectUrl);
+          avatarObjectUrls.delete(objectUrl);
+          return;
+        }
+        image.src = objectUrl;
+      } catch (error) {
+        setStatus(`头像读取失败：${error.message}`, true);
+      }
+    }
     try {
       const savedContext = JSON.parse(
         storage.getItem("godpower_active_classroom_context_v1") || "null",
@@ -105,6 +141,7 @@
       return assignment;
     }
     function renderRows() {
+      clearAvatarUrls();
       rows.replaceChildren();
       const classroom = documentData?.classrooms.find(
         (item) => item.classroomId === selectedClassroom,
@@ -150,6 +187,167 @@
           group.disabled = true;
         }
         groupCell.append(group);
+        const avatarCell = document.createElement("td");
+        const avatarEditor = document.createElement("div");
+        avatarEditor.className = "roster-avatar-editor";
+        const avatar = document.createElement("img");
+        avatar.className = "roster-student-avatar";
+        avatar.alt = `${student.displayName} 头像`;
+        avatar.hidden = !student.avatarResourceId;
+        if (student.avatarResourceId) renderAvatar(student, avatar);
+        const placeholder = text(
+          "span",
+          student.displayName.trim().slice(0, 1) || "?",
+          "roster-avatar-placeholder",
+        );
+        placeholder.hidden = Boolean(student.avatarResourceId);
+        const upload = document.createElement("input");
+        upload.type = "file";
+        upload.accept = ".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp";
+        upload.className = "roster-avatar-upload";
+        upload.setAttribute("aria-label", `为 ${student.displayName} 上传头像`);
+        upload.hidden = true;
+        upload.onchange = async () => {
+          const file = upload.files?.[0];
+          upload.value = "";
+          if (!file) return;
+          if (file.size > 2 * 1024 * 1024) {
+            setStatus("头像文件不能超过 2 MiB。", true);
+            return;
+          }
+          if (
+            !new Set(["image/png", "image/jpeg", "image/webp"]).has(file.type)
+          ) {
+            setStatus("头像只接受 PNG、JPEG 或 WebP 图片。", true);
+            return;
+          }
+          upload.disabled = true;
+          let avatarRepo;
+          let createdResourceId = "";
+          try {
+            const stored = repository.read();
+            if (!stored.ok || !stored.rosterData)
+              throw new Error("请先保存有效课堂名单");
+            const rosterBytes = storage.getItem(repository.key);
+            const existingDocument = documentData;
+            documentData = clone(documentData);
+            let draft;
+            try {
+              draft = serializeRows();
+            } finally {
+              documentData = existingDocument;
+            }
+            if (JSON.stringify(draft) !== JSON.stringify(stored.rosterData))
+              throw new Error("名单有未保存编辑，请先保存后再上传头像");
+            const profileId = selectedProfile;
+            const classroomId = selectedClassroom;
+            const studentRecord = stored.rosterData.students.find(
+              (item) => item.studentUid === studentUid,
+            );
+            if (!studentRecord || studentRecord.classroomId !== classroomId)
+              throw new Error("学生身份已变化，请刷新名单后重试");
+            avatarRepo = await getAvatarRepository();
+            const bytes = new Uint8Array(await file.arrayBuffer());
+            const digest = [
+              ...new Uint8Array(
+                await root.crypto.subtle.digest("SHA-256", bytes),
+              ),
+            ]
+              .map((value) => value.toString(16).padStart(2, "0"))
+              .join("");
+            const existingAvatar = (
+              await avatarRepo.list({
+                profileId,
+                classroomId,
+                subjectId: "student-avatar",
+              })
+            ).find((item) => item.sha256 === digest);
+            let resourceId;
+            if (existingAvatar) resourceId = existingAvatar.resourceId;
+            else {
+              const [created] = await avatarRepo.addBatch([
+                {
+                  file,
+                  profileId,
+                  classroomId,
+                  subjectId: "student-avatar",
+                  title: `${studentRecord.displayName}头像`,
+                  tags: ["student-avatar"],
+                },
+              ]);
+              resourceId = created.resourceId;
+              createdResourceId = resourceId;
+            }
+            const latestRoster = repository.read();
+            if (
+              profileId !== selectedProfile ||
+              classroomId !== selectedClassroom ||
+              !latestRoster.ok ||
+              latestRoster.revision !== stored.revision ||
+              storage.getItem(repository.key) !== rosterBytes
+            )
+              throw new Error("教师/课堂选择已变化，请重新上传");
+            const next = clone(stored.rosterData);
+            const target = next.students.find(
+              (item) => item.studentUid === studentUid,
+            );
+            if (!target) throw new Error("学生已从名单中移除");
+            target.avatarResourceId = resourceId;
+            const result = repository.write(next, {
+              expectedRevision: stored.revision,
+            });
+            if (!result.ok)
+              throw new Error(
+                `头像关联未保存：${result.message || result.code}`,
+              );
+            documentData = result.rosterData;
+            revision = result.revision;
+            render();
+            setStatus("头像已保存。替换或清除头像不会删除资源库中的原图。");
+          } catch (error) {
+            if (createdResourceId && avatarRepo) {
+              try {
+                await avatarRepo.remove(createdResourceId);
+              } catch (rollbackError) {
+                setStatus(
+                  `名单未更改，但清理未关联头像失败：${error.message}；${rollbackError.message}`,
+                  true,
+                );
+                return;
+              }
+            }
+            setStatus(`头像未保存：${error.message}`, true);
+          } finally {
+            upload.disabled = false;
+          }
+        };
+        const uploadLabel = text(
+          "label",
+          student.avatarResourceId ? "更换图片" : "选择图片",
+          "btn btn-sm roster-avatar-label",
+        );
+        uploadLabel.append(upload);
+        avatarEditor.append(avatar, placeholder, uploadLabel);
+        if (student.avatarResourceId) {
+          const clearAvatar = text("button", "清除", "btn btn-sm");
+          clearAvatar.type = "button";
+          clearAvatar.setAttribute(
+            "aria-label",
+            `清除 ${student.displayName} 头像`,
+          );
+          clearAvatar.onclick = () => {
+            const next = clone(documentData);
+            const target = next.students.find(
+              (item) => item.studentUid === studentUid,
+            );
+            if (!target) return;
+            target.avatarResourceId = null;
+            if (writeDocument(next, "头像引用已清除；资源库中的文件仍保留。"))
+              setStatus("头像引用已清除；资源库中的文件仍保留。");
+          };
+          avatarEditor.append(clearAvatar);
+        }
+        avatarCell.append(avatarEditor);
         const actionCell = document.createElement("td");
         const remove = text("button", "移除", "btn btn-sm btn-danger");
         remove.type = "button";
@@ -168,7 +366,7 @@
           setStatus("有未保存的名单更改");
         };
         actionCell.append(remove);
-        row.append(nameCell, groupCell, actionCell);
+        row.append(nameCell, groupCell, avatarCell, actionCell);
         rows.append(row);
       }
     }

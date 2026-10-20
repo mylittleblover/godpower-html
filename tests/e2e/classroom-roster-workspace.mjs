@@ -78,6 +78,83 @@ try {
   assert.equal(saved.rosterData.students[0].displayName, "工作区测试姓名");
   assert.equal(saved.rosterData.assignments[0].groupAssignments.length, 28);
 
+  const avatarBytes = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/6Y8AAAAASUVORK5CYII=",
+    "base64",
+  );
+  await page.locator(".roster-avatar-upload").first().setInputFiles({
+    name: "student-avatar.png",
+    mimeType: "image/png",
+    buffer: avatarBytes,
+  });
+  await page.getByText("头像已保存", { exact: false }).waitFor();
+  const avatarState = await page.evaluate(async () => {
+    const current = JSON.parse(
+      localStorage.getItem("godpower_classroom_roster_v1"),
+    );
+    const student = current.rosterData.students[0];
+    const resources = await TeachingResourceRepository.open();
+    const resource = await resources.get(student.avatarResourceId);
+    return {
+      resourceId: student.avatarResourceId,
+      valid: resource?.subjectId === "student-avatar" && resource.blob.size > 0,
+      count: (await resources.list({ subjectId: "student-avatar" })).length,
+    };
+  });
+  assert.ok(avatarState.resourceId);
+  assert.equal(avatarState.valid, true);
+  assert.equal(avatarState.count, 1);
+
+  // If the roster link cannot commit, remove only the newly uploaded orphan blob.
+  await page.evaluate(() => {
+    window.__rosterSetItem = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, value) {
+      if (key === "godpower_classroom_roster_v1")
+        throw new DOMException("quota", "QuotaExceededError");
+      return window.__rosterSetItem.call(this, key, value);
+    };
+  });
+  await page
+    .locator(".roster-avatar-upload")
+    .first()
+    .setInputFiles({
+      name: "student-avatar-2.png",
+      mimeType: "image/png",
+      buffer: Buffer.concat([avatarBytes, Buffer.from([0])]),
+    });
+  await page.getByText(/头像未保存/, { exact: false }).waitFor();
+  await page.evaluate(() => {
+    Storage.prototype.setItem = window.__rosterSetItem;
+  });
+  const afterAvatarFailure = await page.evaluate(async () => {
+    const current = JSON.parse(
+      localStorage.getItem("godpower_classroom_roster_v1"),
+    );
+    const resources = await TeachingResourceRepository.open();
+    return {
+      avatarResourceId: current.rosterData.students[0].avatarResourceId,
+      count: (await resources.list({ subjectId: "student-avatar" })).length,
+    };
+  });
+  assert.equal(afterAvatarFailure.avatarResourceId, avatarState.resourceId);
+  assert.equal(afterAvatarFailure.count, 1);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.evaluate(() => {
+    switchView("settings");
+    DesktopUI.selectSettings("students");
+  });
+  await page
+    .locator(".roster-student-avatar")
+    .first()
+    .waitFor({ state: "visible" });
+  assert.match(
+    await page.locator(".roster-student-avatar").first().getAttribute("src"),
+    /^blob:/,
+  );
+  await page.screenshot({
+    path: "artifacts/f1-roster-workspace/avatars-1920x1080.png",
+  });
+
   await page.locator("#rosterAddProfile").click();
   await page.locator("#rosterProfileName").fill("第二位教师");
   await page.locator("#rosterSaveProfile").click();

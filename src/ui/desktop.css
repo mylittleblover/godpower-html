@@ -1240,17 +1240,51 @@ summary:focus-visible {
   font-size: 12px;
 }
 .roster-table th:first-child {
-  width: 48%;
+  width: 37%;
 }
 .roster-table th:nth-child(2) {
-  width: 34%;
+  width: 27%;
+}
+.roster-table th:nth-child(3) {
+  width: 23%;
 }
 .roster-table th:last-child {
-  width: 18%;
+  width: 13%;
 }
 .roster-table td input,
 .roster-table td select {
   width: 100%;
+}
+.roster-avatar-editor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.roster-student-avatar,
+.roster-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 1px solid var(--ui-border);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ui-soft);
+}
+.roster-avatar-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--theme-tone-12624f, #12624f);
+  font-weight: 800;
+}
+.roster-avatar-label {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.roster-avatar-upload[hidden] {
+  display: none;
 }
 .roster-workspace-footer {
   justify-content: space-between;

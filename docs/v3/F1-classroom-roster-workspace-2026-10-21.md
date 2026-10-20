@@ -1,6 +1,6 @@
 # F1 本地教师与课堂名单工作区
 
-版本：3.0.37
+版本：3.0.38
 范围：HTML 源码；只使用 Chromium 1920×1080 @1x 验收。
 
 ## 决策
@@ -16,6 +16,9 @@
 - 比赛状态通过统一 `runClassroomCommand` 完成快照、历史、持久化和回滚；只有权威存档返回持久化成功才报告应用完成。名单仓库只读，不存在 roster/classroom 双键写入。
 - 预览失效条件包括比赛对象/状态、赛季、名单 profile/classroom、仓库 revision 或原始存储字节变化；确认前及事务内再次校验，陈旧确认拒绝。
 - 同一小组允许同名学生保持为独立列表项。点名防重复键采用组内位置，旧版 `${groupId}__${memberName}` 键在迁移期间仍可被识别。
+- 学生头像仅接受经签名验证的 PNG/JPEG/WebP，大小不超过 2 MiB；二进制复用既有离线资源库，名单只保存 `avatarResourceId`。替换/清除只解除旧引用，不主动删除文件，以免删除其它引用或备份需要的资源。
+- 如果写名单时失败，新上传的未引用资源会补偿删除；已存在并复用的资源不会被删除。头像读取只显示本课堂内、标记为 `student-avatar` 的图像，并在重绘时撤销 Blob URL。
+- 名单 JSON 目前只包含头像引用 ID，不包含图片字节；跨设备迁移还要从离线资源库额外导出对应课堂资源。这是有意显式展示的限制，组合备份列在后续维护任务。
 
 ## 已实现
 
@@ -46,7 +49,9 @@
 
 `tests/e2e/roster-competition-apply.mjs` 在同一视口另外覆盖：预览取消不改数据；存储主键写入抛出 `QuotaExceededError` 时，比赛对象、历史、权威原始字节及名单原始字节均不变；确认成功后分数/道具保持、成员改动可在刷新后恢复并可撤销；同一组重复姓名及顺序经规范化和刷新后保留；预览期间名单变更会使旧确认失效。预览截图为 `artifacts/f1-roster-workspace/apply-preview-1920x1080.png`。
 
-本切片验收：Node 单元/集成 296/296 PASS；设置回归13/13 PASS；名单、名单应用回滚/刷新/撤销、课程表和教学资源 Chromium E2E PASS；点名三模式及 exactly-once 26/26 PASS；14组比赛布局 1920×1080 PASS；规则与道具模块/448 seeded compatibility cases PASS；完整课堂命令浏览器回归 PASS；`check`、`format:check`、`audit:hygiene` PASS。Chromium 仅测试 1920×1080 @1x。最终单文件 8,161,854 bytes，SHA-256 `1eb25c0e6e20de1b353fa3f386bf62ff75f8699175a0064c5500480819d97322`。Electron 同步待本切片提交后验证；Windows 真机未测；无 CircleCI 操作。
+头像回归同样使用 1920×1080 Chromium：上传 1px PNG 后验证 `avatarResourceId`、IndexedDB 资源内容与课堂作用域；在名单存储抛出 quota 错误时，新建资源回滚、原头像引用和已有资源保持；刷新后 blob 图片可读。头像截图为 `artifacts/f1-roster-workspace/avatars-1920x1080.png`。名单与头像图片需分别导出以完整跨设备备份，当前不伪称成单文件备份。
+
+本切片验收：Node 单元/集成296/296 PASS；设置回归13/13 PASS；名单、名单应用回滚/刷新/撤销、头像 IndexedDB 写入/补偿回滚/刷新、课表和教学资源 Chromium E2E PASS；点名三模式及 exactly-once 26/26 PASS；14组比赛布局1920×1080 PASS；规则与道具模块/448 seeded compatibility cases PASS；完整课堂命令浏览器回归 PASS；`check`、`format:check`、`audit:hygiene` PASS。Chromium 仅测试1920×1080 @1x。最终单文件8,170,727 bytes，SHA-256 `beac59ae50b5365ad944a53d06ecd1d5a8b9976f43d5090eb35079c371482b72`。Electron同步待本切片提交后验证；Windows真机未测；无 CircleCI 操作。
 
 ## 尚未完成
 

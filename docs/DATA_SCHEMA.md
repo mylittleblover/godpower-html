@@ -169,6 +169,10 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 
 名单来源仍存放于 `godpower_classroom_roster_v1`，正式比赛仍只持久化在既有 `godpower_state_v2`。确认应用时，事务目标字段仅为每个稳定 `groupUid` 对应的 `groups[].members: string[]`；字段顺序即 roster assignment 的学生顺序，成员名称相同也保留为多个数组项。`normalizeGroup` 保留姓名数组顺序与重复值。个人参与模式、缺失/未知小组身份、陈旧预览、无活动小组及未保存的名单均拒绝应用。应用操作记录现有历史快照并通过统一课堂命令保存；主存档没有持久化确认时回滚内存和历史。名单仓库不随应用写入，因此没有双键部分提交。点名 `pickedStudentKeys` 新条目用 `groupId__memberIndex__name` 区分同名成员；读取筛选时仍检查旧 `groupId__name` 键，以兼容此前防重复记录。
 
+## 3.0.38 学生头像引用
+
+学生 `avatarResourceId` 指向 `godpower_teaching_resources_v1` 中资源记录的 `resourceId`；资源元数据的 `subjectId` 固定为 `student-avatar`，媒体限定 PNG/JPEG/WebP、每个文件最多 2 MiB，并校验相应二进制签名。图片 Blob 继续由 IndexedDB `resourceBlobs` 保存；学生名单只保存资源 ID，不把二进制塞入 localStorage。头像替换前检查 profile/classroom、名单 revision 与原始字节；先添加并验证资源，再 CAS 保存名单引用，失败时删除本次新建孤立资源。头像清除/替换不会删除旧文件，待后续引用计数/清理工作。名单 JSON 只导出引用，不含头像 Blob；跨设备完整恢复需另外导出同课堂资源库备份，这一限制会在界面提示。
+
 ## 3.0.36 本地教学资源（F2）
 
 数据库：`godpower_teaching_resources_v1`，schema version 1。`resources` object store 保存元数据，`resourceBlobs` 保存 `{resourceId, blob}`；两者以稳定 resourceId 关联，写入/删除同一 IndexedDB 事务执行。SHA-256 唯一索引用于重复内容拒绝。列表读取只加载元数据，预览、下载或备份时才读取 Blob。
