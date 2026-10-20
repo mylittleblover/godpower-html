@@ -2,6 +2,19 @@
 
 完整证据、条件与限制见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md)。历史矩阵保留在 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md)。
 
+## 官方玩法插件迁移（3.0.31）
+
+| 功能 × 场景 | 测试类型 | 结果 | 证据 |
+|---|---|---|---|
+| 内置 `official.miyamotos-power` 安装、激活及 page/settings 贡献注册 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
+| 主设置移除旧道具总开关，插件工作区显示兼容状态 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/workspace.png` |
+| 道具百科读取当前 26 项实际定义 | Chromium E2E | PASS | 同上；检查 `ice_flower` 名称 |
+| 关闭道具、旧键保存、刷新后恢复关闭状态 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/disabled.png` |
+| 停用玩法插件不清理或改写旧设置键 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
+| 新竞技规则及完整道具引擎迁移 | 规则/事务/Electron | BLOCKED | 先解决 `competition-rules-difference-matrix.md` 中 Needs review 项并冻结旧规则差分 |
+
+本阶段 UI 浏览器只测 Chromium 1920×1080、deviceScaleFactor=1；不运行 CircleCI。
+
 |测试类型／场景|实际通过数|结果|证据|
 |---|---:|---|---|
 |Node 原生单元／集成及架构守卫|87|PASS|artifacts/refactor/final-verify.log|

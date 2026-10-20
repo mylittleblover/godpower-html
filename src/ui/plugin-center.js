@@ -46,16 +46,22 @@
       root.GodPowerPluginLocalRepository.createPluginLocalRepository(
         root.localStorage,
       );
-    const builtin = root.GodpowerMarxThemePlugin?.manifest;
+    const builtins = [
+      root.GodpowerMarxThemePlugin?.manifest,
+      root.GodpowerMiyamotoPlugin?.manifest,
+    ].filter(Boolean);
     const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
       repository,
       platform: "html",
       currentScope: () => ({ classroomId: "local-classroom" }),
       isTrustedBuiltin: (manifest) =>
-        manifest.id === builtin?.id && manifest.version === builtin?.version,
+        builtins.some(
+          (builtin) =>
+            manifest.id === builtin.id && manifest.version === builtin.version,
+        ),
     });
-    if (builtin) {
+    for (const builtin of builtins) {
       let installed = platform.get(builtin.id);
       if (!installed)
         installed = platform.install(builtin, { source: "builtin" });
@@ -79,6 +85,14 @@
     parent.append(button);
     return button;
   }
+  function contributionTitle(value) {
+    return (
+      {
+        "plugin.miyamoto.items": "道具百科与玩法",
+        "plugin.miyamoto.settings": "宫本茂的力量设置",
+      }[value] || value
+    );
+  }
   function renderWorkspace() {
     const host = $("#pluginWorkspace");
     if (!host) return;
@@ -96,13 +110,80 @@
     }
     host.hidden = false;
     host.replaceChildren();
+    if (route === "plugins/official.miyamotos-power/items") {
+      renderMiyamotoWorkspace(host);
+      return;
+    }
     const title = document.createElement("h3");
-    title.textContent = page.descriptor.titleKey;
+    title.textContent = contributionTitle(page.descriptor.titleKey);
     const body = document.createElement("p");
     body.textContent = `扩展页面 ${route} 由宿主的受限工作区承载。插件代码不会在主页面执行。`;
     const code = document.createElement("code");
     code.textContent = page.pluginId;
     host.append(title, body, code);
+  }
+  function renderMiyamotoWorkspace(host) {
+    const section = document.createElement("div");
+    section.className = "miyamoto-plugin-workspace";
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "ui-eyebrow";
+    eyebrow.textContent = "GAMEPLAY PLUGIN · 规则由主程序事务执行";
+    const heading = document.createElement("h3");
+    heading.textContent = "宫本茂的力量";
+    const intro = document.createElement("p");
+    intro.textContent =
+      "道具玩法工作区。现阶段集中管理道具功能开关并展示实时道具百科；比赛规则、库存、撤销和历史仍由原有业务内核负责。";
+    const settings = document.createElement("section");
+    settings.className = "miyamoto-plugin-settings";
+    const settingCopy = document.createElement("div");
+    const settingTitle = document.createElement("h4");
+    settingTitle.textContent = "道具玩法总开关";
+    const settingDescription = document.createElement("p");
+    settingDescription.textContent =
+      "关闭后隐藏道具槽、抽取和相关入口；已有道具与存档不会删除。设置继续兼容旧版 politics_communism_mode。";
+    settingCopy.append(settingTitle, settingDescription);
+    const toggleLabel = document.createElement("label");
+    toggleLabel.className = "miyamoto-toggle";
+    toggleLabel.setAttribute("aria-label", "启用道具玩法");
+    const toggle = document.createElement("input");
+    toggle.type = "checkbox";
+    toggle.checked = root.isCommunismMode();
+    toggle.addEventListener("change", () => {
+      root.setCommunismMode(toggle.checked);
+      toggle.checked = root.isCommunismMode();
+    });
+    const track = document.createElement("span");
+    track.className = "miyamoto-toggle-track";
+    toggleLabel.append(toggle, track);
+    settings.append(settingCopy, toggleLabel);
+
+    const encyclopedia = document.createElement("section");
+    encyclopedia.className = "miyamoto-encyclopedia";
+    const encyclopediaHeader = document.createElement("div");
+    const title = document.createElement("h4");
+    title.textContent = `道具百科 · ${root.GodpowerItemCatalog?.list().length || 0} 种`;
+    const subtitle = document.createElement("p");
+    subtitle.textContent = "名称、图标与说明直接读取当前道具定义。";
+    encyclopediaHeader.append(title, subtitle);
+    const grid = document.createElement("div");
+    grid.className = "miyamoto-item-grid";
+    for (const definition of root.GodpowerItemCatalog?.list() || []) {
+      const card = document.createElement("article");
+      card.className = "miyamoto-item-card";
+      card.dataset.itemKey = definition.key;
+      const icon = document.createElement("span");
+      icon.className = "miyamoto-item-icon";
+      icon.innerHTML = root.itemVisual(definition.key);
+      const name = document.createElement("h5");
+      name.textContent = definition.name || definition.key;
+      const description = document.createElement("p");
+      description.textContent = definition.desc || "暂无说明";
+      card.append(icon, name, description);
+      grid.append(card);
+    }
+    encyclopedia.append(encyclopediaHeader, grid);
+    section.append(eyebrow, heading, intro, settings, encyclopedia);
+    host.append(section);
   }
   function render() {
     const host = $("#pluginCenterContent");
@@ -196,7 +277,7 @@
       ))
         addButton(
           actions,
-          `打开：${page.descriptor.titleKey}`,
+          `打开：${contributionTitle(page.descriptor.titleKey)}`,
           "route",
           page.route,
         );
@@ -256,6 +337,10 @@
         platform.uninstall(id);
         status("插件已卸载，数据保留；重新安装相同 ID 可恢复。");
       } else if (action === "route") {
+        if (id === "plugins/official.miyamotos-power/items") {
+          root.switchView(id);
+          return;
+        }
         root.switchView(id);
         return;
       }
@@ -272,6 +357,8 @@
       readyError = error.message || String(error);
     }
     $("#view-plugins")?.addEventListener("click", onClick);
+    root.openItemEncyclopedia = () =>
+      root.switchView("plugins/official.miyamotos-power/items");
     $("#pluginManifestFile")?.addEventListener("change", async (event) => {
       const file = event.target.files?.[0];
       if (!file) return;

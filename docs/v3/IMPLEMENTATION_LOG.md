@@ -201,3 +201,7 @@ Verification: unit246/246; build/check/format pass; Chromium1920×1080 1x core11
 ## 2026-10-20 competition rules design review packet (no rules implementation)
 
 Reached the point explicitly deferred by the user and opened `GodPower_Competition_Rules_V3_2026-10-20.zip`. Followed its handoff: completed read-only source baseline, row-by-row legacy/spec difference matrix, and staged implementation/test/recovery plan. No competition scoring, event, state, or item behavior was changed in this step. The archive references `2026-10-19-godpower-v3-architecture-design.md`, but that companion file is absent from the ZIP and both worktrees; current HTML architecture docs were used and the missing reference is recorded as a review dependency. The handoff says to wait for design/plan review before coding these rules. See `docs/superpowers/specs/legacy-item-baseline.md`, `competition-rules-difference-matrix.md`, and `competition-rules-implementation-plan.md`.
+
+## 3.0.31 — 宫本茂插件入口迁移切片
+
+主页Hero以下卡片自由定制设计由用户交其他会话负责，本次没有修改主页布局。当前转入玩法插件阶段；依据竞技规则差异矩阵，计分取整、旧状态映射、新道具身份等仍待裁定，因此本提交只迁移道具总开关和百科入口，不重写规则。`official.miyamotos-power`由内置manifest声明，宿主注册玩法页及设置贡献；百科读取实时26项道具目录。总开关移出主设置，但仍使用`politics_communism_mode`单一旧键，不做插件副本双写。Chromium 1920×1080 1x插件及工作区E2E通过，完整规则迁移仍BLOCKED。

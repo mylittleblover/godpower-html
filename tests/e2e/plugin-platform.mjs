@@ -135,7 +135,15 @@ try {
       GodPowerPageShell.resolvePage("plugins/community.sample/workspace"),
     ),
   );
-  assert.equal(await page.locator('[data-plugin-action="route"]').count(), 1);
+  assert.equal(
+    await page
+      .locator(
+        '[data-plugin-action="route"][data-plugin-id^="plugins/community.sample/"]',
+      )
+      .count(),
+    1,
+    "the sample plugin contributes its route independently of official gameplay pages",
+  );
   await page
     .locator(
       '[data-plugin-action="theme"][data-plugin-id^="community.sample/"]',
@@ -156,7 +164,11 @@ try {
     await page.locator(".plugin-safety-note").innerText(),
     /不会运行插件 JavaScript/,
   );
-  await page.locator('[data-plugin-action="route"]').click();
+  await page
+    .locator(
+      '[data-plugin-action="route"][data-plugin-id^="plugins/community.sample/"]',
+    )
+    .click();
   await page.waitForFunction(
     () => document.querySelector("#pluginWorkspace")?.hidden === false,
   );

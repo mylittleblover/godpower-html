@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.30",
+  "version": "3.0.31",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,7 +17,7 @@
     "test:ui": "node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs && node tests/e2e/release-smoke.mjs && npm run test:welcome && npm run test:settings && npm run test:surfaces && npm run test:feedback && npm run test:classroom-feedback && npm run test:battle-motion && node tests/e2e/design-regressions.mjs",
     "test:ui-governance-baseline": "node tests/e2e/ui-governance-baseline.mjs",
     "test:contributions": "node tests/e2e/contribution-registry.mjs",
-    "test:plugins": "node tests/e2e/plugin-platform.mjs",
+    "test:plugins": "node tests/e2e/plugin-platform.mjs && node tests/e2e/miyamoto-plugin.mjs",
     "test:page-lifecycle": "node tests/e2e/page-lifecycle.mjs",
     "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs",
     "test:refactor": "node tests/e2e/defense-command.mjs && node tests/e2e/legacy-differential.mjs && node tests/e2e/refactor-layout.mjs && node tests/e2e/refactor-performance.mjs",

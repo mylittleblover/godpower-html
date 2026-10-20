@@ -4042,6 +4042,9 @@ const ITEM_DEFS = {
   boomerang_flower:{name:'回旋镖花',icon:'🪃',kind:'attack',charges:3,slots:1,desc:'3 次回旋镖。每次命中当前排名紧邻自己的上一组和下一组，各扣当前积分 1/5。'}
 };
 let ITEM_KEYS = Object.keys(ITEM_DEFS);
+globalThis.GodpowerItemCatalog = Object.freeze({
+  list: () => ITEM_KEYS.map(key => Object.freeze({ key, name: ITEM_DEFS[key].name, desc: ITEM_DEFS[key].desc, kind: ITEM_DEFS[key].kind, charges: ITEM_DEFS[key].charges })),
+});
 const ITEM_DEFENSE_KEYS = new Set(['green','triple_green','red','triple_red','banana','triple_banana','horn']);
 let activeItemGroupId = null, activeItemTab = 'detail', itemDrawBusy = false, bulletTimer = null;
 
@@ -5597,26 +5600,8 @@ if(typeof openItemWindow==='function'){
 
 /* Add the switch to Function Settings using the same setting-card language. */
 function installCommunismModeSetting(){
-  let card=document.getElementById('communismModeSetting');
-  const pane=document.getElementById('settingsV26_function');
-  if(!pane)return;
-  if(!card){
-    card=document.createElement('div');
-    card.id='communismModeSetting';
-    card.className='setting-card setting-row ui-rule-card';
-    card.innerHTML=`<div class="ui-rule-copy">
-        <label class="ui-rule-title" for="communismModeToggle">☭ 共产主义模式</label>
-        <div class="setting-note">道具功能总开关。关闭后，道具槽、道具抽取、道具管理、道具百科和相关入口都会隐藏；已有道具不会被删除。</div>
-      </div>
-      <label class="v292-switch" title="共产主义模式">
-        <input id="communismModeToggle" type="checkbox" onchange="setCommunismMode(this.checked)">
-        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
-      </label>`;
-  }
-  /* 必须属于“功能设置”pane，而不是 tabs 与 pane 之间的公共区域。 */
-  if(card.parentElement!==pane) pane.prepend(card);
-  const cb=card.querySelector('#communismModeToggle');
-  if(cb)cb.checked=isCommunismMode();
+  /* UI moved to the built-in gameplay plugin; legacy key remains authoritative. */
+  document.getElementById('communismModeSetting')?.remove();
 }
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
   installCommunismModeSetting();

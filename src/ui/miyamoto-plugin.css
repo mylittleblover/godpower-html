@@ -1,0 +1,145 @@
+.miyamoto-plugin-workspace {
+  display: grid;
+  gap: 18px;
+  animation: ui-panel-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.miyamoto-plugin-workspace > h3 {
+  margin: -12px 0 -12px;
+  color: var(--ui-text, #173b38);
+  font-size: 28px;
+}
+.miyamoto-plugin-workspace > p,
+.miyamoto-plugin-settings p,
+.miyamoto-encyclopedia header p {
+  margin: 0;
+  color: var(--ui-muted, #647875);
+  line-height: 1.65;
+}
+.miyamoto-plugin-settings,
+.miyamoto-encyclopedia {
+  padding: 20px 22px;
+  border: 1px solid var(--ui-border, #dce8e5);
+  border-radius: 18px;
+  background: var(--ui-panel, #fff);
+  box-shadow: 0 10px 28px rgb(23 59 56 / 5%);
+}
+.miyamoto-plugin-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.miyamoto-plugin-settings h4,
+.miyamoto-encyclopedia h4 {
+  margin: 0 0 5px;
+  color: var(--ui-text, #173b38);
+  font-size: 17px;
+}
+.miyamoto-toggle {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 31px;
+  cursor: pointer;
+}
+.miyamoto-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.miyamoto-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: #aebbb8;
+  transition: background 180ms ease;
+}
+.miyamoto-toggle-track::after {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+  content: "";
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.miyamoto-toggle input:checked + .miyamoto-toggle-track {
+  background: var(--ui-primary, #168574);
+}
+.miyamoto-toggle input:checked + .miyamoto-toggle-track::after {
+  transform: translateX(23px);
+}
+.miyamoto-toggle input:focus-visible + .miyamoto-toggle-track {
+  outline: 3px solid #f0a28c;
+  outline-offset: 3px;
+}
+.miyamoto-item-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.miyamoto-item-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--ui-border, #e2e9e7);
+  border-radius: 14px;
+  background: var(--ui-soft-2, #f8fbfa);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+.miyamoto-item-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ui-border-strong, #b8d0ca);
+  box-shadow: 0 8px 20px rgb(23 59 56 / 8%);
+}
+.miyamoto-item-icon {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+}
+.miyamoto-item-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.miyamoto-item-card h5 {
+  margin: 9px 0 5px;
+  color: var(--ui-text, #173b38);
+  font-size: 14px;
+}
+.miyamoto-item-card p {
+  margin: 0;
+  color: var(--ui-muted, #647875);
+  font-size: 12px;
+  line-height: 1.55;
+}
+@media (max-width: 1050px) {
+  .miyamoto-item-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .miyamoto-item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .miyamoto-plugin-workspace {
+    animation: none;
+  }
+  .miyamoto-toggle-track,
+  .miyamoto-toggle-track::after,
+  .miyamoto-item-card {
+    transition: none;
+  }
+}

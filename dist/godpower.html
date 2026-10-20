@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.30</title>
+<title>上帝的力量 V3.0.31</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.30";
+    document.title = name() + " V3.0.31";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -2029,6 +2029,56 @@ window.GodpowerTheme = (() => {
   root.GodpowerMarxThemePlugin = Object.freeze({ manifest });
 })(globalThis);
 </script>
+<script>/* Trusted declarative catalog entry for the official gameplay plugin. */
+(function installOfficialMiyamotoPlugin(root) {
+  "use strict";
+  const manifest = {
+    manifestVersion: 1,
+    id: "official.miyamotos-power",
+    name: { "zh-CN": "宫本茂的力量", en: "Miyamoto's Power" },
+    description: {
+      "zh-CN":
+        "课堂道具玩法与百科。当前阶段仅迁移入口和功能开关，竞技规则仍由原业务内核执行。",
+      en: "Classroom item gameplay and encyclopedia. This stage migrates entry points and the feature toggle only.",
+    },
+    author: { name: "GodPower Official" },
+    version: "1.0.0",
+    sdk: ">=1.0.0 <2.0.0",
+    types: ["gameplay"],
+    subjects: [],
+    platforms: ["html", "electron"],
+    entry: { content: "gameplay/items.json" },
+    permissions: [
+      { capability: "ui.page.register", required: true },
+      { capability: "ui.settings.register", required: true },
+    ],
+    dependencies: {},
+    optionalDependencies: {},
+    contributes: [
+      {
+        localId: "items",
+        kind: "page",
+        descriptor: {
+          titleKey: "plugin.miyamoto.items",
+          renderer: "builtin.plugin-workspace",
+        },
+      },
+      {
+        localId: "settings",
+        kind: "settings",
+        descriptor: {
+          slot: "settings.pluginLinks",
+          renderer: "builtin.plugin-workspace",
+          titleKey: "plugin.miyamoto.settings",
+          schema: { type: "object", properties: {} },
+        },
+      },
+    ],
+    data: { schemaVersion: 1 },
+  };
+  root.GodpowerMiyamotoPlugin = Object.freeze({ manifest });
+})(globalThis);
+</script>
 <script>(function installPluginCenter(root) {
   "use strict";
   const $ = (selector) => document.querySelector(selector);
@@ -2077,16 +2127,22 @@ window.GodpowerTheme = (() => {
       root.GodPowerPluginLocalRepository.createPluginLocalRepository(
         root.localStorage,
       );
-    const builtin = root.GodpowerMarxThemePlugin?.manifest;
+    const builtins = [
+      root.GodpowerMarxThemePlugin?.manifest,
+      root.GodpowerMiyamotoPlugin?.manifest,
+    ].filter(Boolean);
     const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
       repository,
       platform: "html",
       currentScope: () => ({ classroomId: "local-classroom" }),
       isTrustedBuiltin: (manifest) =>
-        manifest.id === builtin?.id && manifest.version === builtin?.version,
+        builtins.some(
+          (builtin) =>
+            manifest.id === builtin.id && manifest.version === builtin.version,
+        ),
     });
-    if (builtin) {
+    for (const builtin of builtins) {
       let installed = platform.get(builtin.id);
       if (!installed)
         installed = platform.install(builtin, { source: "builtin" });
@@ -2110,6 +2166,14 @@ window.GodpowerTheme = (() => {
     parent.append(button);
     return button;
   }
+  function contributionTitle(value) {
+    return (
+      {
+        "plugin.miyamoto.items": "道具百科与玩法",
+        "plugin.miyamoto.settings": "宫本茂的力量设置",
+      }[value] || value
+    );
+  }
   function renderWorkspace() {
     const host = $("#pluginWorkspace");
     if (!host) return;
@@ -2127,13 +2191,80 @@ window.GodpowerTheme = (() => {
     }
     host.hidden = false;
     host.replaceChildren();
+    if (route === "plugins/official.miyamotos-power/items") {
+      renderMiyamotoWorkspace(host);
+      return;
+    }
     const title = document.createElement("h3");
-    title.textContent = page.descriptor.titleKey;
+    title.textContent = contributionTitle(page.descriptor.titleKey);
     const body = document.createElement("p");
     body.textContent = `扩展页面 ${route} 由宿主的受限工作区承载。插件代码不会在主页面执行。`;
     const code = document.createElement("code");
     code.textContent = page.pluginId;
     host.append(title, body, code);
+  }
+  function renderMiyamotoWorkspace(host) {
+    const section = document.createElement("div");
+    section.className = "miyamoto-plugin-workspace";
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "ui-eyebrow";
+    eyebrow.textContent = "GAMEPLAY PLUGIN · 规则由主程序事务执行";
+    const heading = document.createElement("h3");
+    heading.textContent = "宫本茂的力量";
+    const intro = document.createElement("p");
+    intro.textContent =
+      "道具玩法工作区。现阶段集中管理道具功能开关并展示实时道具百科；比赛规则、库存、撤销和历史仍由原有业务内核负责。";
+    const settings = document.createElement("section");
+    settings.className = "miyamoto-plugin-settings";
+    const settingCopy = document.createElement("div");
+    const settingTitle = document.createElement("h4");
+    settingTitle.textContent = "道具玩法总开关";
+    const settingDescription = document.createElement("p");
+    settingDescription.textContent =
+      "关闭后隐藏道具槽、抽取和相关入口；已有道具与存档不会删除。设置继续兼容旧版 politics_communism_mode。";
+    settingCopy.append(settingTitle, settingDescription);
+    const toggleLabel = document.createElement("label");
+    toggleLabel.className = "miyamoto-toggle";
+    toggleLabel.setAttribute("aria-label", "启用道具玩法");
+    const toggle = document.createElement("input");
+    toggle.type = "checkbox";
+    toggle.checked = root.isCommunismMode();
+    toggle.addEventListener("change", () => {
+      root.setCommunismMode(toggle.checked);
+      toggle.checked = root.isCommunismMode();
+    });
+    const track = document.createElement("span");
+    track.className = "miyamoto-toggle-track";
+    toggleLabel.append(toggle, track);
+    settings.append(settingCopy, toggleLabel);
+
+    const encyclopedia = document.createElement("section");
+    encyclopedia.className = "miyamoto-encyclopedia";
+    const encyclopediaHeader = document.createElement("div");
+    const title = document.createElement("h4");
+    title.textContent = `道具百科 · ${root.GodpowerItemCatalog?.list().length || 0} 种`;
+    const subtitle = document.createElement("p");
+    subtitle.textContent = "名称、图标与说明直接读取当前道具定义。";
+    encyclopediaHeader.append(title, subtitle);
+    const grid = document.createElement("div");
+    grid.className = "miyamoto-item-grid";
+    for (const definition of root.GodpowerItemCatalog?.list() || []) {
+      const card = document.createElement("article");
+      card.className = "miyamoto-item-card";
+      card.dataset.itemKey = definition.key;
+      const icon = document.createElement("span");
+      icon.className = "miyamoto-item-icon";
+      icon.innerHTML = root.itemVisual(definition.key);
+      const name = document.createElement("h5");
+      name.textContent = definition.name || definition.key;
+      const description = document.createElement("p");
+      description.textContent = definition.desc || "暂无说明";
+      card.append(icon, name, description);
+      grid.append(card);
+    }
+    encyclopedia.append(encyclopediaHeader, grid);
+    section.append(eyebrow, heading, intro, settings, encyclopedia);
+    host.append(section);
   }
   function render() {
     const host = $("#pluginCenterContent");
@@ -2227,7 +2358,7 @@ window.GodpowerTheme = (() => {
       ))
         addButton(
           actions,
-          `打开：${page.descriptor.titleKey}`,
+          `打开：${contributionTitle(page.descriptor.titleKey)}`,
           "route",
           page.route,
         );
@@ -2287,6 +2418,10 @@ window.GodpowerTheme = (() => {
         platform.uninstall(id);
         status("插件已卸载，数据保留；重新安装相同 ID 可恢复。");
       } else if (action === "route") {
+        if (id === "plugins/official.miyamotos-power/items") {
+          root.switchView(id);
+          return;
+        }
         root.switchView(id);
         return;
       }
@@ -2303,6 +2438,8 @@ window.GodpowerTheme = (() => {
       readyError = error.message || String(error);
     }
     $("#view-plugins")?.addEventListener("click", onClick);
+    root.openItemEncyclopedia = () =>
+      root.switchView("plugins/official.miyamotos-power/items");
     $("#pluginManifestFile")?.addEventListener("change", async (event) => {
       const file = event.target.files?.[0];
       if (!file) return;
@@ -11025,12 +11162,158 @@ html[data-theme="marx"] {
   }
 }
 </style>
+<style id="miyamoto-plugin-style">.miyamoto-plugin-workspace {
+  display: grid;
+  gap: 18px;
+  animation: ui-panel-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.miyamoto-plugin-workspace > h3 {
+  margin: -12px 0 -12px;
+  color: var(--ui-text, #173b38);
+  font-size: 28px;
+}
+.miyamoto-plugin-workspace > p,
+.miyamoto-plugin-settings p,
+.miyamoto-encyclopedia header p {
+  margin: 0;
+  color: var(--ui-muted, #647875);
+  line-height: 1.65;
+}
+.miyamoto-plugin-settings,
+.miyamoto-encyclopedia {
+  padding: 20px 22px;
+  border: 1px solid var(--ui-border, #dce8e5);
+  border-radius: 18px;
+  background: var(--ui-panel, #fff);
+  box-shadow: 0 10px 28px rgb(23 59 56 / 5%);
+}
+.miyamoto-plugin-settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.miyamoto-plugin-settings h4,
+.miyamoto-encyclopedia h4 {
+  margin: 0 0 5px;
+  color: var(--ui-text, #173b38);
+  font-size: 17px;
+}
+.miyamoto-toggle {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 31px;
+  cursor: pointer;
+}
+.miyamoto-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.miyamoto-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: #aebbb8;
+  transition: background 180ms ease;
+}
+.miyamoto-toggle-track::after {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+  content: "";
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.miyamoto-toggle input:checked + .miyamoto-toggle-track {
+  background: var(--ui-primary, #168574);
+}
+.miyamoto-toggle input:checked + .miyamoto-toggle-track::after {
+  transform: translateX(23px);
+}
+.miyamoto-toggle input:focus-visible + .miyamoto-toggle-track {
+  outline: 3px solid #f0a28c;
+  outline-offset: 3px;
+}
+.miyamoto-item-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.miyamoto-item-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--ui-border, #e2e9e7);
+  border-radius: 14px;
+  background: var(--ui-soft-2, #f8fbfa);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+.miyamoto-item-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ui-border-strong, #b8d0ca);
+  box-shadow: 0 8px 20px rgb(23 59 56 / 8%);
+}
+.miyamoto-item-icon {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+}
+.miyamoto-item-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.miyamoto-item-card h5 {
+  margin: 9px 0 5px;
+  color: var(--ui-text, #173b38);
+  font-size: 14px;
+}
+.miyamoto-item-card p {
+  margin: 0;
+  color: var(--ui-muted, #647875);
+  font-size: 12px;
+  line-height: 1.55;
+}
+@media (max-width: 1050px) {
+  .miyamoto-item-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .miyamoto-item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .miyamoto-plugin-workspace {
+    animation: none;
+  }
+  .miyamoto-toggle-track,
+  .miyamoto-toggle-track::after,
+  .miyamoto-item-card {
+    transition: none;
+  }
+}
+</style>
 </head>
 <body class="modern-flat-v217">
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.30</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.31</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -19081,6 +19364,9 @@ const ITEM_DEFS = {
   boomerang_flower:{name:'回旋镖花',icon:'🪃',kind:'attack',charges:3,slots:1,desc:'3 次回旋镖。每次命中当前排名紧邻自己的上一组和下一组，各扣当前积分 1/5。'}
 };
 let ITEM_KEYS = Object.keys(ITEM_DEFS);
+globalThis.GodpowerItemCatalog = Object.freeze({
+  list: () => ITEM_KEYS.map(key => Object.freeze({ key, name: ITEM_DEFS[key].name, desc: ITEM_DEFS[key].desc, kind: ITEM_DEFS[key].kind, charges: ITEM_DEFS[key].charges })),
+});
 const ITEM_DEFENSE_KEYS = new Set(['green','triple_green','red','triple_red','banana','triple_banana','horn']);
 let activeItemGroupId = null, activeItemTab = 'detail', itemDrawBusy = false, bulletTimer = null;
 
@@ -20636,26 +20922,8 @@ if(typeof openItemWindow==='function'){
 
 /* Add the switch to Function Settings using the same setting-card language. */
 function installCommunismModeSetting(){
-  let card=document.getElementById('communismModeSetting');
-  const pane=document.getElementById('settingsV26_function');
-  if(!pane)return;
-  if(!card){
-    card=document.createElement('div');
-    card.id='communismModeSetting';
-    card.className='setting-card setting-row ui-rule-card';
-    card.innerHTML=`<div class="ui-rule-copy">
-        <label class="ui-rule-title" for="communismModeToggle">☭ 共产主义模式</label>
-        <div class="setting-note">道具功能总开关。关闭后，道具槽、道具抽取、道具管理、道具百科和相关入口都会隐藏；已有道具不会被删除。</div>
-      </div>
-      <label class="v292-switch" title="共产主义模式">
-        <input id="communismModeToggle" type="checkbox" onchange="setCommunismMode(this.checked)">
-        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
-      </label>`;
-  }
-  /* 必须属于“功能设置”pane，而不是 tabs 与 pane 之间的公共区域。 */
-  if(card.parentElement!==pane) pane.prepend(card);
-  const cb=card.querySelector('#communismModeToggle');
-  if(cb)cb.checked=isCommunismMode();
+  /* UI moved to the built-in gameplay plugin; legacy key remains authoritative. */
+  document.getElementById('communismModeSetting')?.remove();
 }
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
   installCommunismModeSetting();
@@ -25187,7 +25455,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.30';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.31';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -27671,7 +27939,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.30",
+    appVersion: "V3.0.31",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

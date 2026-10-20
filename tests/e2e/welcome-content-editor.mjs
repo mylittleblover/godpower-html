@@ -70,11 +70,9 @@ try {
   );
   await page.locator(".gp-daily-item summary").click();
   await page.getByRole("button", { name: "打开实际道具百科" }).click();
-  assert.equal(await page.locator("#aboutBackdrop").isVisible(), true);
-  assert.equal(await page.locator("#aboutMain .v2170-ency-row").count(), 26);
-  assert.equal(await page.locator("#view-welcome").isVisible(), true);
+  assert.equal(await page.locator("#view-plugins").isVisible(), true);
+  assert.equal(await page.locator(".miyamoto-item-card").count(), 26);
   await page.evaluate(() => {
-    closeAbout();
     switchView("settings");
     DesktopUI.selectSettings("welcome");
   });

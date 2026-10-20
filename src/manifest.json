@@ -37,6 +37,11 @@
     },
     {
       "type": "script",
+      "path": "ui/official-miyamoto-plugin.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/plugin-center.js",
       "attributes": ""
     },
@@ -189,6 +194,11 @@
       "type": "style",
       "path": "ui/plugin-center.css",
       "attributes": " id=\"plugin-center-style\""
+    },
+    {
+      "type": "style",
+      "path": "ui/miyamoto-plugin.css",
+      "attributes": " id=\"miyamoto-plugin-style\""
     },
     {
       "type": "script",

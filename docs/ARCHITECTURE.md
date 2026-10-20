@@ -75,6 +75,12 @@ v1来源是迁移前基线，不代表迁移后每次操作的最新副本。回
 
 Electron主窗口继续拥有唯一课堂状态和抽选结果。悬浮点名、独立功能窗口与全屏特效通过安全preload/白名单IPC交互，不重新抽选或重复赋分。迁移期间不改变该所有权。
 
+### 官方玩法插件迁移状态（3.0.31）
+
+`official.miyamotos-power`已作为受信任内置的声明式Gameplay插件进入插件生命周期，注册玩法百科页面和设置贡献。百科由宿主通过`GodpowerItemCatalog`读取26项实时道具定义；插件不执行任意脚本，也不拥有或直接写入课堂状态。道具命令、库存、随机目标、撤销、计分、异步防御仍归现有主程序执行器所有。
+
+道具功能开关已从主程序“功能设置”界面移入该插件工作区。`politics_communism_mode`仍是唯一兼容权威键，插件控制沿用原`setCommunismMode`门禁；本阶段刻意没有复制到插件私有存储，以免出现双写或默认值迁移风险。插件停用不删除旧值和道具库存。新计分/状态/事件规则的迁移被竞技差异矩阵中尚待裁定的规则阻塞，详见`docs/superpowers/specs/competition-rules-difference-matrix.md`与`docs/ui-audit/M7-miyamoto-gameplay-plugin.md`。
+
 ## 构建和验证
 
 `src/index.template.html`引用分层源码；`src/manifest.json`记录内联顺序；`scripts/build.mjs`输出自包含`dist/godpower.html`与`dist/index.html`，版本来自package.json。所有27项原内嵌资源按原文保留，不引入CDN。
