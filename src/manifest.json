@@ -182,6 +182,11 @@
     },
     {
       "type": "style",
+      "path": "ui/home-dashboard.css",
+      "attributes": " id=\"home-dashboard-style\""
+    },
+    {
+      "type": "style",
       "path": "ui/tooltips.css",
       "attributes": " id=\"global-tooltip-style\""
     },
@@ -718,6 +723,11 @@
     {
       "type": "script",
       "path": "ui/welcome-v2.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/home-dashboard.js",
       "attributes": ""
     },
     {

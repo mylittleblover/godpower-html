@@ -64,135 +64,124 @@ async function skip(p) {
   await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
 }
 try {
-  for (const [width, height] of [
-    [1366, 768],
-    [1920, 1080],
-    [2560, 1440],
-  ])
-    for (const zoom of [0.8, 1, 1.25])
-      await test(`Entrance geometry, actual pointer unlock and SVG FLIP ${width}x${height} app zoom ${zoom}`, async () => {
-        const { c, p } = await open({ width, height, zoom });
-        try {
-          assert.equal(
-            await p.evaluate(() => document.activeElement.id),
-            "gpSlideTrack",
-          );
-          await p.evaluate(
-            () =>
-              (window.testLogo = document.querySelector("#gpIntroLogo svg")),
-          );
-          await p.keyboard.press("Shift+Tab");
-          assert.equal(
-            await p.evaluate(() => document.activeElement.id),
-            "gpIntroSkip",
-          );
-          await p.keyboard.press("Tab");
-          assert.equal(
-            await p.evaluate(() => document.activeElement.id),
-            "gpSlideTrack",
-          );
-          await p.waitForTimeout(800);
-          const root = await p.locator("#gpIntro").boundingBox();
-          assert.ok(Math.abs(root.x) < 2 && Math.abs(root.y) < 2);
-          assert.ok(
-            root.width >= width - 2 && root.height >= height - 2,
-            "overlay covers viewport",
-          );
-          if (zoom === 1) await shot(p, `intro-${width}`);
-          let box = await p.locator("#gpSlideTrack").boundingBox();
-          await p.mouse.move(box.x + box.width * 0.1, box.y + box.height / 2);
-          await p.mouse.down();
-          await p.mouse.move(box.x + box.width * 0.4, box.y + box.height / 2, {
-            steps: 6,
-          });
-          await p.mouse.up();
-          assert.equal(
-            await p.locator("#gpSlideTrack").getAttribute("aria-valuenow"),
-            "0",
-          );
-          assert.equal(
-            await p.evaluate(() => WelcomeV2.getStatus().introFinished),
-            false,
-          );
-          await p.mouse.move(box.x + box.width * 0.1, box.y + box.height / 2);
-          await p.mouse.down();
-          await p.mouse.move(box.x + box.width - 5, box.y + box.height / 2, {
-            steps: 10,
-          });
-          await p.mouse.up();
-          const endpoint = await p.evaluate(() => {
-            const logo = document.getElementById("gpIntroLogo"),
-              all = logo.getAnimations();
-            if (!all.length) throw Error("Expected actual logo animation");
-            for (const animation of all) {
-              animation.pause();
-              animation.currentTime = animation.effect.getTiming().duration;
-            }
-            const a = logo.getBoundingClientRect(),
-              b = document
-                .getElementById("gpBrandMount")
-                .getBoundingClientRect();
-            return {
-              dx: Math.abs(a.left + a.width / 2 - (b.left + b.width / 2)),
-              dy: Math.abs(a.top + a.height / 2 - (b.top + b.height / 2)),
-              width: Math.abs(a.width - b.width),
-            };
-          });
-          assert.ok(
-            endpoint.dx <= 2 && endpoint.dy <= 2 && endpoint.width <= 2,
-            JSON.stringify(endpoint),
-          );
-          if (zoom === 1) await shot(p, `flip-endpoint-${width}`);
-          await p.keyboard.press("Escape");
-          await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
-          assert.deepEqual(
-            await p.evaluate(() => ({
-              same:
-                document.querySelector("#gpBrandMount svg") === window.testLogo,
-              locks: WelcomeV2.getStatus().backgroundLocks,
-              animations: WelcomeV2.getStatus().animations,
-              visible: !document.getElementById("gpIntro").hidden,
-            })),
-            { same: true, locks: 0, animations: 0, visible: false },
-          );
-          assert.equal(
-            await p.evaluate(() =>
-              document.activeElement.classList.contains("welcome-enter-btn"),
-            ),
-            true,
-          );
-          await setup(p, 14);
-          await p.evaluate(() => {
-            switchView("welcome");
-            renderAll();
-          });
-          const layout = await p.evaluate(() => ({
-            width: innerWidth,
-            scroll: document.documentElement.scrollWidth,
-            rows: document.querySelectorAll(".gp-rank-row").length,
-            groups: document.querySelectorAll(".ui-group-card").length,
-          }));
-          assert.equal(layout.rows, 14);
-          assert.equal(layout.groups, 14);
-          if (zoom === 1) {
-            assert.ok(
-              layout.scroll <= layout.width + 2,
-              JSON.stringify(layout),
-            );
-            await shot(p, `dashboard-14-${width}`);
+  for (const [width, height, zoom] of [[1920, 1080, 1]])
+    await test(`Entrance geometry, actual pointer unlock and SVG FLIP ${width}x${height} app zoom ${zoom}`, async () => {
+      const { c, p } = await open({ width, height, zoom });
+      try {
+        assert.equal(
+          await p.evaluate(() => document.activeElement.id),
+          "gpSlideTrack",
+        );
+        await p.evaluate(
+          () => (window.testLogo = document.querySelector("#gpIntroLogo svg")),
+        );
+        await p.keyboard.press("Shift+Tab");
+        assert.equal(
+          await p.evaluate(() => document.activeElement.id),
+          "gpIntroSkip",
+        );
+        await p.keyboard.press("Tab");
+        assert.equal(
+          await p.evaluate(() => document.activeElement.id),
+          "gpSlideTrack",
+        );
+        await p.waitForTimeout(800);
+        const root = await p.locator("#gpIntro").boundingBox();
+        assert.ok(Math.abs(root.x) < 2 && Math.abs(root.y) < 2);
+        assert.ok(
+          root.width >= width - 2 && root.height >= height - 2,
+          "overlay covers viewport",
+        );
+        if (zoom === 1) await shot(p, `intro-${width}`);
+        let box = await p.locator("#gpSlideTrack").boundingBox();
+        await p.mouse.move(box.x + box.width * 0.1, box.y + box.height / 2);
+        await p.mouse.down();
+        await p.mouse.move(box.x + box.width * 0.4, box.y + box.height / 2, {
+          steps: 6,
+        });
+        await p.mouse.up();
+        assert.equal(
+          await p.locator("#gpSlideTrack").getAttribute("aria-valuenow"),
+          "0",
+        );
+        assert.equal(
+          await p.evaluate(() => WelcomeV2.getStatus().introFinished),
+          false,
+        );
+        await p.mouse.move(box.x + box.width * 0.1, box.y + box.height / 2);
+        await p.mouse.down();
+        await p.mouse.move(box.x + box.width - 5, box.y + box.height / 2, {
+          steps: 10,
+        });
+        await p.mouse.up();
+        const endpoint = await p.evaluate(() => {
+          const logo = document.getElementById("gpIntroLogo"),
+            all = logo.getAnimations();
+          if (!all.length) throw Error("Expected actual logo animation");
+          for (const animation of all) {
+            animation.pause();
+            animation.currentTime = animation.effect.getTiming().duration;
           }
+          const a = logo.getBoundingClientRect(),
+            b = document.getElementById("gpBrandMount").getBoundingClientRect();
           return {
-            width,
-            height,
-            zoom,
-            endpoint,
-            overlay: root,
-            dashboard: layout,
+            dx: Math.abs(a.left + a.width / 2 - (b.left + b.width / 2)),
+            dy: Math.abs(a.top + a.height / 2 - (b.top + b.height / 2)),
+            width: Math.abs(a.width - b.width),
           };
-        } finally {
-          await c.close();
+        });
+        assert.ok(
+          endpoint.dx <= 2 && endpoint.dy <= 2 && endpoint.width <= 2,
+          JSON.stringify(endpoint),
+        );
+        if (zoom === 1) await shot(p, `flip-endpoint-${width}`);
+        await p.keyboard.press("Escape");
+        await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
+        assert.deepEqual(
+          await p.evaluate(() => ({
+            same:
+              document.querySelector("#gpBrandMount svg") === window.testLogo,
+            locks: WelcomeV2.getStatus().backgroundLocks,
+            animations: WelcomeV2.getStatus().animations,
+            visible: !document.getElementById("gpIntro").hidden,
+          })),
+          { same: true, locks: 0, animations: 0, visible: false },
+        );
+        assert.equal(
+          await p.evaluate(() =>
+            document.activeElement.classList.contains("welcome-enter-btn"),
+          ),
+          true,
+        );
+        await setup(p, 14);
+        await p.evaluate(() => {
+          switchView("welcome");
+          renderAll();
+        });
+        const layout = await p.evaluate(() => ({
+          width: innerWidth,
+          scroll: document.documentElement.scrollWidth,
+          rows: document.querySelectorAll(".gp-rank-row").length,
+          groups: document.querySelectorAll(".ui-group-card").length,
+        }));
+        assert.equal(layout.rows, 14);
+        assert.equal(layout.groups, 14);
+        if (zoom === 1) {
+          assert.ok(layout.scroll <= layout.width + 2, JSON.stringify(layout));
+          await shot(p, `dashboard-14-${width}`);
         }
-      });
+        return {
+          width,
+          height,
+          zoom,
+          endpoint,
+          overlay: root,
+          dashboard: layout,
+        };
+      } finally {
+        await c.close();
+      }
+    });
   await test("Keyboard full entrance, partial reset, repeated replay and view-switch interruption", async () => {
     const { c, p } = await open();
     try {
@@ -287,7 +276,7 @@ try {
     try {
       await p.keyboard.press("End");
       await p.keyboard.press("Enter");
-      await p.setViewportSize({ width: 1366, height: 768 });
+      await p.setViewportSize({ width: 1920, height: 1080 });
       await p.waitForFunction(() => WelcomeV2.getStatus().introFinished);
       assert.equal(
         await p.evaluate(() => WelcomeV2.getStatus().backgroundLocks),

@@ -293,3 +293,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 增加 `godpower_home_layout_v1` 独立偏好仓储，使用schema/revision、乐观并发检查、存储读回验证和失败回滚；损坏布局数据明确报错，不会覆盖旧内容。对原有固定首页只生成只读迁移预览，不自动保存、不更改旧首页DOM，也不触碰 `godpower_state_v2`。首页编辑入口和统一卡片渲染仍未完成。
 
 验证：4项布局域测试 + 4项仓储测试；全体Node单元/集成307/307 PASS；源码/资源检查、格式检查和单文件离线构建PASS；Chromium 1920×1080 @1x 14组比赛布局PASS。首次全测发现跨VM realm对象原型导致两个测试断言失败，调整断言为序列化值比较后重跑通过，未降低业务断言。构建SHA/体积见 `docs/validation/v3.0.45-home-layout-repository.md`。
+
+## 3.0.46 — 首页统一只读卡片网格
+
+新增首页只读Dashboard Renderer，将原固定分区内容收拢到标题卡下方的单一12列CSS Grid，并用原DOM节点/ID维持数据刷新、按钮动作和每日内容重绘。默认核心目录包括统计、实时排名、课堂动态、小组展示和历史荣誉；道具小知识归宫本茂玩法插件，知识与学科问答归学科插件，不再列为核心卡片类型。兼容期内容仍由宿主旧渲染器生成，运行时插件贡献注册、真正的编辑器、配置和启停占位尚待后续阶段。
+
+验证：新增Chromium `tests/e2e/home-dashboard.mjs`，1920×1080 1x验证单一网格、固定hero、14组排名/展示、插件归属标签、无横向溢出和无页面错误；生成首页全页截图。单元/集成、格式、源码嵌入与版本检查及14组比赛布局均PASS。详细结果见 `docs/validation/v3.0.46-home-dashboard-renderer.md`。

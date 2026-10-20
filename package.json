@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.45",
+  "version": "3.0.46",
   "private": true,
   "type": "module",
   "scripts": {
@@ -23,7 +23,7 @@
     "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs",
     "test:refactor": "node tests/e2e/defense-command.mjs && node tests/e2e/legacy-differential.mjs && node tests/e2e/refactor-layout.mjs && node tests/e2e/refactor-performance.mjs",
     "audit:legacy": "node scripts/legacy-inventory.mjs",
-    "test:welcome": "node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs",
+    "test:welcome": "node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs && npm run test:home-dashboard",
     "test:classroom-feedback": "node tests/e2e/classroom-feedback.mjs && node tests/e2e/audio-customization.mjs && node tests/e2e/multiple-audio.mjs && node tests/e2e/classroom-feedback-layout.mjs && node tests/e2e/classroom-feedback-restore.mjs && node tests/e2e/settings-behavior-alignment.mjs",
     "test:feedback": "node tests/e2e/welcome-feedback.mjs",
     "test:settings": "node tests/e2e/settings-cleanup.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/roster-competition-apply.mjs && node tests/e2e/teaching-workspace.mjs && node tests/e2e/teaching-resource-repository.mjs && node tests/e2e/teaching-resource-library.mjs",
@@ -41,7 +41,8 @@
     "test:migration": "node tests/e2e/storage-migration.mjs && node tests/e2e/audio-migration.mjs && node tests/e2e/transactional-repository.mjs && node tests/e2e/transactional-command-service.mjs && node tests/e2e/legacy-inventory.mjs && node tests/e2e/migration-ui.mjs && node tests/e2e/legacy-async-command.mjs",
     "test:commands": "node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs && node tests/e2e/defense-generation.mjs && node tests/e2e/destructive-barrier.mjs && node tests/e2e/history-commands.mjs && node tests/e2e/correct-answer-command.mjs && node tests/e2e/force-end-command.mjs && node tests/e2e/next-round-command.mjs && node tests/e2e/start-round-command.mjs && node tests/e2e/batch-answer-command.mjs && node tests/e2e/settlement-command.mjs && node tests/e2e/round-feedback-lifecycle.mjs && node tests/e2e/achievement-command.mjs",
     "test:home-layout": "node --test tests/unit/home-layout.test.mjs",
-    "format:home": "prettier --check src/domain/home-layout.js src/infrastructure/home-layout-repository.js tests/unit/home-layout.test.mjs tests/unit/home-layout-repository.test.mjs"
+    "format:home": "prettier --check src/domain/home-layout.js src/infrastructure/home-layout-repository.js tests/unit/home-layout.test.mjs tests/unit/home-layout-repository.test.mjs src/ui/home-dashboard.js src/ui/home-dashboard.css tests/e2e/home-dashboard.mjs",
+    "test:home-dashboard": "node tests/e2e/home-dashboard.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

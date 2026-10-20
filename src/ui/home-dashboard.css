@@ -1,0 +1,83 @@
+#view-welcome #homeDashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: 48px;
+  gap: 14px;
+  align-items: stretch;
+  margin-block: 16px 28px;
+  isolation: isolate;
+}
+#view-welcome #homeDashboardGrid > .gp-kpis,
+#view-welcome #homeDashboardGrid > .gp-main-grid,
+#view-welcome #homeDashboardGrid > .gp-daily-grid {
+  display: contents;
+}
+#view-welcome #homeDashboardGrid > .gp-section-heading,
+#view-welcome #homeDashboardGrid > .gp-bottom-heading {
+  display: none;
+}
+#view-welcome #homeDashboardGrid > .gp-group-section {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+#view-welcome #homeDashboardGrid > .gp-kpis > .gp-kpi,
+#view-welcome #homeDashboardGrid .gp-panel,
+#view-welcome #homeDashboardGrid > .gp-daily-grid > article {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+#view-welcome #homeDashboardGrid > .gp-daily-grid > [data-home-plugin-owner] {
+  grid-column: span 6;
+  grid-row: span 6;
+  border-radius: 17px;
+  box-shadow: 0 5px 24px var(--theme-tone-133f3608, #133f3608);
+}
+#view-welcome #homeDashboardGrid > .gp-kpis > .gp-kpi {
+  padding: 14px 16px;
+}
+#view-welcome #homeDashboardGrid .gp-panel {
+  display: flex;
+  flex-direction: column;
+}
+#view-welcome #homeDashboardGrid .gp-rank-list,
+#view-welcome #homeDashboardGrid .gp-feed-list {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+#view-welcome #homeDashboardGrid > [data-home-card-type] {
+  animation-delay: var(--home-enter-delay, 0ms);
+}
+body.gp-intro-reveal #view-welcome #homeDashboardGrid [data-home-card-type],
+body.gp-intro-reveal #view-welcome #homeDashboardGrid [data-home-plugin-owner] {
+  animation: gp-content-reveal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--home-enter-delay, 0ms);
+}
+@media (max-width: 1100px) {
+  #view-welcome #homeDashboardGrid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  #view-welcome #homeDashboardGrid > [data-home-card-type] {
+    grid-column: span 4 !important;
+  }
+  #view-welcome #homeDashboardGrid > .gp-daily-grid > [data-home-plugin-owner] {
+    grid-column: span 4;
+  }
+  #view-welcome #homeDashboardGrid > .gp-group-section {
+    grid-column: 1 / -1 !important;
+  }
+}
+@media (max-width: 720px) {
+  #view-welcome #homeDashboardGrid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+  }
+  #view-welcome #homeDashboardGrid > [data-home-card-type],
+  #view-welcome #homeDashboardGrid > .gp-daily-grid > [data-home-plugin-owner],
+  #view-welcome #homeDashboardGrid > .gp-kpis > .gp-kpi {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+    min-height: 112px;
+  }
+}
