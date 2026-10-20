@@ -27,6 +27,11 @@
     },
     {
       "type": "script",
+      "path": "ui/plugin-appearance.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/plugin-center.js",
       "attributes": ""
     },

@@ -9,6 +9,7 @@
 <script>@@SOURCE:infrastructure/plugin-local-repository.js@@</script>
 <script>@@SOURCE:ui/disposable-scope.js@@</script>
 <script>@@SOURCE:ui/themes.js@@</script>
+<script>@@SOURCE:ui/plugin-appearance.js@@</script>
 <script>@@SOURCE:ui/plugin-center.js@@</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
@@ -124,8 +125,8 @@
       <div class="gp-hero-copy">
         <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
         <h1>课堂竞技，<em>一目了然。</em></h1>
-        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
-        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <p id="welcomeGreeting" class="gp-greeting" data-plugin-text-key="home.greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description" data-plugin-text-key="home.description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
         <div class="gp-actions">
           <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
           <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>

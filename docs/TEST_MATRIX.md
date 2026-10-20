@@ -105,3 +105,13 @@
 | 六core routes与既有14组布局/全桌面交互 | `test:contributions`、`test:ui-governance-baseline`、`battle-layout`、`desktop-ui` | PASS；desktop-ui 23/23 |
 | M3全量单元/集成 | `npm test` | PASS 268/268 |
 | 可执行第三方JS、zip安装/签名、Electron隔离插件host | 未实现 | NOT TESTED；插件中心明示目前仅JSON声明 |
+
+### M4 主题 Token 与安全文案贡献
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| 固定主题颜色Token与hex值校验，拒绝CSS/URL/布局Token | `tests/unit/contribution-registry.test.mjs` | PASS |
+| 有限文案Key、纯文本/长度限制及安全命名空间保护 | `tests/unit/contribution-registry.test.mjs` | PASS |
+| Chromium插件安装、授权、主题/文案应用、停用后恢复 | `tests/e2e/plugin-platform.mjs` | PASS；1920×1080、1x、0 pageerror |
+| 六页基线、14组布局、离线操作及旧Marx主题 | `ui-governance-baseline.mjs`、`battle-layout.mjs`、`release-smoke.mjs`、`marx-theme.mjs` | PASS；见 M4 审查记录 |
+| 主题预览、完整scope层级、contrast检查、全量locale与Electron主题DTO | 尚未实现 | NOT TESTED；后续主题引擎任务 |

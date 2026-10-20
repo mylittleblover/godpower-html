@@ -11,6 +11,8 @@
     "commandShortcut",
     "viewPreset",
     "decoration",
+    "theme",
+    "textBundle",
   ]);
   const SLOTS = new Set([
     "home.cards",
@@ -44,6 +46,8 @@
     commandShortcut: "ui.commandShortcut.register",
     viewPreset: "ui.viewPreset.register",
     decoration: "ui.decoration.register",
+    theme: "ui.theme.register",
+    textBundle: "ui.text.register",
   };
   const EXECUTABLE_FIELD =
     /^(?:html|markup|script|module|mount|handler|callback|function|css|csstext|javascript|__proto__|prototype|constructor)$/i;
@@ -86,6 +90,8 @@
     commandShortcut: new Set(["commandId", "titleKey", "renderer", "schema"]),
     viewPreset: new Set(["presetId", "titleKey", "renderer", "tokens"]),
     decoration: new Set(["slot", "renderer", "titleKey", "asset"]),
+    theme: new Set(["displayNameKey", "tokens"]),
+    textBundle: new Set(["locale", "messages"]),
   };
   const clone = (value) => JSON.parse(JSON.stringify(value));
   const equal = (left, right) => JSON.stringify(left) === JSON.stringify(right);
@@ -312,6 +318,77 @@
         descriptor.renderer !== "builtin.notice"
       ) {
         fail("competition overlay must use the transient notice renderer");
+      }
+      if (input.kind === "theme") {
+        if (
+          !/^[a-z][a-zA-Z0-9_.-]{0,127}$/.test(descriptor.displayNameKey || "")
+        )
+          fail("theme displayNameKey is required");
+        const allowedTokens = new Set([
+          "--ui-primary",
+          "--ui-primary-hover",
+          "--ui-accent",
+          "--ui-accent-hover",
+          "--ui-bg",
+          "--ui-panel",
+          "--ui-soft",
+          "--ui-soft-2",
+          "--ui-text",
+          "--ui-muted",
+          "--ui-border",
+          "--ui-border-strong",
+        ]);
+        if (
+          !descriptor.tokens ||
+          typeof descriptor.tokens !== "object" ||
+          Array.isArray(descriptor.tokens)
+        )
+          fail("theme tokens must be a token map");
+        for (const [token, value] of Object.entries(descriptor.tokens)) {
+          if (!allowedTokens.has(token))
+            fail(`theme token is not allowed: ${token}`);
+          if (typeof value !== "string" || !/^#[0-9a-f]{6}$/i.test(value))
+            fail(`theme token ${token} must be a six-digit hex color`);
+        }
+        if (!Object.keys(descriptor.tokens).length)
+          fail("theme tokens are empty");
+      }
+      if (input.kind === "textBundle") {
+        if (!/^[a-z]{2,3}(?:-[A-Z]{2})?$/.test(descriptor.locale || ""))
+          fail("text bundle locale is invalid");
+        const allowedKeys = new Set([
+          "app.name",
+          "nav.welcome",
+          "nav.battle",
+          "nav.history",
+          "nav.archives",
+          "nav.plugins",
+          "nav.settings",
+          "home.description",
+        ]);
+        if (
+          !descriptor.messages ||
+          typeof descriptor.messages !== "object" ||
+          Array.isArray(descriptor.messages)
+        )
+          fail("text bundle messages must be a map");
+        const keys = Object.keys(descriptor.messages);
+        if (!keys.length || keys.length > 32)
+          fail("text bundle message count is invalid");
+        for (const [key, value] of Object.entries(descriptor.messages)) {
+          if (
+            !allowedKeys.has(key) ||
+            /^(safety|permissions|dataLoss|transaction)\./.test(key)
+          )
+            fail(`text key is not allowed: ${key}`);
+          if (
+            typeof value !== "string" ||
+            !value.trim() ||
+            value.length > 120 ||
+            /[<>]/.test(value)
+          )
+            fail(`text value for ${key} must be plain bounded text`);
+        }
       }
       return {
         id: `${activationRecord.pluginId}/${input.localId}`,

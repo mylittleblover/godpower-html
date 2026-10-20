@@ -26,6 +26,8 @@ const pluginContext = (registry, pluginId = "official.example") =>
           "ui.commandShortcut.register",
           "ui.viewPreset.register",
           "ui.decoration.register",
+          "ui.theme.register",
+          "ui.text.register",
         ],
       }),
     ),
@@ -242,6 +244,108 @@ test("disposes only the matching activation and makes repeated disposal safe", (
     () => register(registry, [page("late")], first),
     /inactive|disposed/i,
   );
+});
+
+test("theme and text contributions are limited to host tokens and safe text keys", () => {
+  const registry = createRegistry();
+  const activation = pluginContext(registry, "official.design");
+  register(
+    registry,
+    [
+      {
+        localId: "theme",
+        kind: "theme",
+        descriptor: {
+          displayNameKey: "theme.design.name",
+          tokens: { "--ui-primary": "#a91e2c", "--ui-panel": "#fffdfa" },
+        },
+      },
+      {
+        localId: "copy",
+        kind: "textBundle",
+        descriptor: {
+          locale: "zh-CN",
+          messages: { "home.description": "欢迎来到新课堂" },
+        },
+      },
+    ],
+    activation,
+  );
+  const registered = registry.listByPlugin("official.design");
+  assert.equal(registered.length, 2);
+  assert.throws(
+    () =>
+      register(
+        registry,
+        [
+          {
+            localId: "unsafe-color",
+            kind: "theme",
+            descriptor: {
+              displayNameKey: "theme.bad",
+              tokens: { "--ui-primary": "url(https://evil)" },
+            },
+          },
+        ],
+        activation,
+      ),
+    /hex color/i,
+  );
+  assert.throws(
+    () =>
+      register(
+        registry,
+        [
+          {
+            localId: "unsafe-layout",
+            kind: "theme",
+            descriptor: {
+              displayNameKey: "theme.bad",
+              tokens: { "--group-card-height": "100px" },
+            },
+          },
+        ],
+        activation,
+      ),
+    /not allowed/i,
+  );
+  assert.throws(
+    () =>
+      register(
+        registry,
+        [
+          {
+            localId: "unsafe-copy",
+            kind: "textBundle",
+            descriptor: {
+              locale: "zh-CN",
+              messages: { "safety.archive.warning": "放心点" },
+            },
+          },
+        ],
+        activation,
+      ),
+    /not allowed/i,
+  );
+  assert.throws(
+    () =>
+      register(
+        registry,
+        [
+          {
+            localId: "html-copy",
+            kind: "textBundle",
+            descriptor: {
+              locale: "zh-CN",
+              messages: { "home.description": "<img src=x onerror=alert(1)>" },
+            },
+          },
+        ],
+        activation,
+      ),
+    /plain bounded text/i,
+  );
+  assert.equal(registry.listByPlugin("official.design").length, 2);
 });
 
 test("returns cloned read-only data and rejects unknown kinds", () => {

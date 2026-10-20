@@ -1328,3 +1328,27 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 - 复杂度：高；风险：高。
 - 验收：webContents/mainFrame/url/epoch/permission四重校验；任意IPC、跨scope、过期activation拒绝；原浮窗/全屏点名不退化。
 - 测试：Electron权限/隔离测试；Windows真机需单独记录，不用Linux结果代替。
+
+### PLUG-M6 — 完整主题与文案扩展引擎
+
+- 分类：插件/界面；优先级：P1；状态：PARTIAL（M4实现有限Token与文本Key基础）
+- 问题：当前不支持主题预览、低对比度拒绝、页面级作用域、个人覆盖、占位符格式化、多语言回退、资源句柄与版本/导入导出；`GodpowerTheme`仍直接维护classic/Marx品牌和图标。
+- 证据：`src/ui/plugin-appearance.js`、`src/ui/themes.js`、`docs/ui-audit/M4-theme-text-contributions.md`。
+- 影响：官方主题迁移、第三方主题易用性和HTML/Electron一致性。
+- 建议：冻结Design Token schema和对比度计算；增加preview lease和scope/CAS selection，再把现有Marx描述导入受信任内置catalog，在浮窗/全屏演出及主窗对照验收完成前保留旧适配。
+- 依赖：PLUG-M1、M4基础；Electron DTO能力由PLUG-M5。
+- 复杂度：高；风险：中（品牌、图标和旧偏好兼容）。
+- 验收：停用和预览中断无遗留Token；正文/大字/焦点对比度达到设计门槛；旧classic/Marx设置迁移可恢复；所有窗口外观一致。
+- 测试：纯函数Token/locale单测；Chromium 1920×1080 1x主页面和弹窗截图；Electron桌面/浮窗/特效对照。
+
+### PLUG-M7 — 将“共产主义模式”道具总开关迁入竞技插件
+
+- 分类：设置迁移/兼容性；优先级：P1；状态：OPEN（必须与《宫本茂的力量》道具设置迁移同批完成）
+- 问题：现有“共产主义模式”实际承担道具功能开关，不是独立主题。插件化后继续把它留在主程序设置会造成设置职责重复和误解。
+- 证据：证据：`src/script/00.js:5550` 的 `COMMUNISM_MODE_KEY=politics_communism_mode`；`src/script/00.js:5547-5620` 实现设置与道具门禁。本阶段尚未删除或改写该设置。
+- 影响：旧道具行为、旧设置存档、主程序/插件职责边界。
+- 建议：将开关呈现在《宫本茂的力量》插件设置；迁移读取旧值并写入插件设置副本，先读回校验。完成全道具和存档兼容验收后，删除主设置UI并保留旧字段兼容适配；不得在本迁移前清除旧键或让“关闭道具”默认值改变。
+- 依赖：SP03-C/竞技玩法迁移设计裁决、插件设置贡献、完整26道具行为差分测试。
+- 复杂度：中；风险：高（错误默认会改变课堂规则/旧用户行为）。
+- 验收：旧启用/关闭状态精确保留；主设置中不再显示旧开关；插件停用时主程序基础答题正常且道具状态不丢；重新启用后行为一致。
+- 测试：旧存档两种开关值迁移、刷新/卸载留存/重新启用、26种道具开关差分、Chromium 1920×1080 1x设置截图及Electron回归。

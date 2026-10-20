@@ -28,6 +28,8 @@
     "ui.commandShortcut.register": "命令快捷入口",
     "ui.viewPreset.register": "页面预设",
     "ui.decoration.register": "页面装饰",
+    "ui.theme.register": "受控主题令牌",
+    "ui.text.register": "界面文案覆盖",
   };
   let platform;
   let route = null;
@@ -158,6 +160,20 @@
         );
       if (plugin.state !== "active" && plugin.state !== "paused")
         addButton(actions, "卸载", "uninstall", plugin.id, "danger");
+      const contributions = root.GodPowerPageShell.listByPlugin(plugin.id);
+      if (plugin.state === "active") {
+        for (const item of contributions.filter(
+          (entry) => entry.kind === "theme",
+        ))
+          addButton(
+            actions,
+            `应用主题：${item.descriptor.displayNameKey}`,
+            "theme",
+            `${plugin.id}/${item.localId}`,
+          );
+        if (contributions.some((entry) => entry.kind === "textBundle"))
+          addButton(actions, "应用界面文案", "text", plugin.id);
+      }
       for (const page of root.GodPowerPageShell.listPages().filter(
         (item) => !item.core && item.pluginId === plugin.id,
       ))
@@ -171,6 +187,7 @@
       host.append(card);
     }
     renderWorkspace();
+    root.GodPowerPluginAppearance?.sync();
   }
   async function importManifest(file) {
     const text = await file.text();
@@ -188,6 +205,18 @@
     try {
       if (action === "import") {
         $("#pluginManifestFile")?.click();
+        return;
+      }
+      if (action === "theme") {
+        const [pluginId, ...rest] = id.split("/");
+        root.GodPowerPluginAppearance.apply(pluginId, rest.join("/"));
+        status("宿主主题令牌已应用；比赛规则与布局保持不变。", "success");
+        render();
+        return;
+      } else if (action === "text") {
+        const result = root.GodPowerPluginAppearance.applyText(id);
+        status(`已应用受支持的界面文案：${result.count} 个文案包。`, "success");
+        render();
         return;
       }
       if (action === "disable") {

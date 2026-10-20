@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.27</title>
+<title>上帝的力量 V3.0.28</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -17,6 +17,8 @@
     "commandShortcut",
     "viewPreset",
     "decoration",
+    "theme",
+    "textBundle",
   ]);
   const SLOTS = new Set([
     "home.cards",
@@ -50,6 +52,8 @@
     commandShortcut: "ui.commandShortcut.register",
     viewPreset: "ui.viewPreset.register",
     decoration: "ui.decoration.register",
+    theme: "ui.theme.register",
+    textBundle: "ui.text.register",
   };
   const EXECUTABLE_FIELD =
     /^(?:html|markup|script|module|mount|handler|callback|function|css|csstext|javascript|__proto__|prototype|constructor)$/i;
@@ -92,6 +96,8 @@
     commandShortcut: new Set(["commandId", "titleKey", "renderer", "schema"]),
     viewPreset: new Set(["presetId", "titleKey", "renderer", "tokens"]),
     decoration: new Set(["slot", "renderer", "titleKey", "asset"]),
+    theme: new Set(["displayNameKey", "tokens"]),
+    textBundle: new Set(["locale", "messages"]),
   };
   const clone = (value) => JSON.parse(JSON.stringify(value));
   const equal = (left, right) => JSON.stringify(left) === JSON.stringify(right);
@@ -319,6 +325,77 @@
       ) {
         fail("competition overlay must use the transient notice renderer");
       }
+      if (input.kind === "theme") {
+        if (
+          !/^[a-z][a-zA-Z0-9_.-]{0,127}$/.test(descriptor.displayNameKey || "")
+        )
+          fail("theme displayNameKey is required");
+        const allowedTokens = new Set([
+          "--ui-primary",
+          "--ui-primary-hover",
+          "--ui-accent",
+          "--ui-accent-hover",
+          "--ui-bg",
+          "--ui-panel",
+          "--ui-soft",
+          "--ui-soft-2",
+          "--ui-text",
+          "--ui-muted",
+          "--ui-border",
+          "--ui-border-strong",
+        ]);
+        if (
+          !descriptor.tokens ||
+          typeof descriptor.tokens !== "object" ||
+          Array.isArray(descriptor.tokens)
+        )
+          fail("theme tokens must be a token map");
+        for (const [token, value] of Object.entries(descriptor.tokens)) {
+          if (!allowedTokens.has(token))
+            fail(`theme token is not allowed: ${token}`);
+          if (typeof value !== "string" || !/^#[0-9a-f]{6}$/i.test(value))
+            fail(`theme token ${token} must be a six-digit hex color`);
+        }
+        if (!Object.keys(descriptor.tokens).length)
+          fail("theme tokens are empty");
+      }
+      if (input.kind === "textBundle") {
+        if (!/^[a-z]{2,3}(?:-[A-Z]{2})?$/.test(descriptor.locale || ""))
+          fail("text bundle locale is invalid");
+        const allowedKeys = new Set([
+          "app.name",
+          "nav.welcome",
+          "nav.battle",
+          "nav.history",
+          "nav.archives",
+          "nav.plugins",
+          "nav.settings",
+          "home.description",
+        ]);
+        if (
+          !descriptor.messages ||
+          typeof descriptor.messages !== "object" ||
+          Array.isArray(descriptor.messages)
+        )
+          fail("text bundle messages must be a map");
+        const keys = Object.keys(descriptor.messages);
+        if (!keys.length || keys.length > 32)
+          fail("text bundle message count is invalid");
+        for (const [key, value] of Object.entries(descriptor.messages)) {
+          if (
+            !allowedKeys.has(key) ||
+            /^(safety|permissions|dataLoss|transaction)\./.test(key)
+          )
+            fail(`text key is not allowed: ${key}`);
+          if (
+            typeof value !== "string" ||
+            !value.trim() ||
+            value.length > 120 ||
+            /[<>]/.test(value)
+          )
+            fail(`text value for ${key} must be plain bounded text`);
+        }
+      }
       return {
         id: `${activationRecord.pluginId}/${input.localId}`,
         pluginId: activationRecord.pluginId,
@@ -477,6 +554,8 @@
     "ui.commandShortcut.register",
     "ui.viewPreset.register",
     "ui.decoration.register",
+    "ui.theme.register",
+    "ui.text.register",
   ]);
   const TYPES = new Set([
     "gameplay",
@@ -1483,7 +1562,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.27";
+    document.title = name() + " V3.0.28";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -1654,6 +1733,139 @@ window.GodpowerTheme = (() => {
   };
 })();
 </script>
+<script>/* Host-owned, reversible appearance extensions. Contributions can select only fixed host tokens and text keys. */
+(function installPluginAppearance(root) {
+  "use strict";
+  const KEY = "godpower_plugin_appearance_v1";
+  const TOKEN_KEYS = new Set([
+    "--ui-primary",
+    "--ui-primary-hover",
+    "--ui-accent",
+    "--ui-accent-hover",
+    "--ui-bg",
+    "--ui-panel",
+    "--ui-soft",
+    "--ui-soft-2",
+    "--ui-text",
+    "--ui-muted",
+    "--ui-border",
+    "--ui-border-strong",
+  ]);
+  const TEXT_TARGETS = new Map([["home.description", ".gp-hero-description"]]);
+  const defaults = new Map();
+  let applied = null;
+
+  function selection() {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) || "null");
+    } catch {
+      return null;
+    }
+  }
+  function restoreTexts() {
+    for (const [key, selector] of TEXT_TARGETS) {
+      const node = document.querySelector(selector);
+      if (node && defaults.has(key)) node.textContent = defaults.get(key);
+    }
+  }
+  function restore() {
+    for (const key of TOKEN_KEYS) {
+      document.documentElement.style.removeProperty(key);
+      document.body?.style.removeProperty(key);
+    }
+    document.documentElement.removeAttribute("data-plugin-theme");
+    restoreTexts();
+    applied = null;
+  }
+  function apply(
+    pluginId,
+    localId,
+    contributions = root.GodPowerPageShell?.listByPlugin(pluginId) || [],
+  ) {
+    const record = contributions.find(
+      (item) => item.id === `${pluginId}/${localId}` && item.kind === "theme",
+    );
+    if (!record) throw new Error("主题贡献不存在或插件未启用");
+    restore();
+    const tokens = record.descriptor.tokens || {};
+    for (const [key, value] of Object.entries(tokens)) {
+      if (!TOKEN_KEYS.has(key) || !/^#[0-9a-f]{6}$/i.test(value))
+        throw new Error(`宿主拒绝不安全主题令牌：${key}`);
+      document.documentElement.style.setProperty(key, value);
+      document.body?.style.setProperty(key, value);
+    }
+    document.documentElement.dataset.pluginTheme = `${pluginId}/${localId}`;
+    applied = { pluginId, localId };
+    try {
+      localStorage.setItem(
+        KEY,
+        JSON.stringify({ schemaVersion: 1, ...applied }),
+      );
+    } catch {
+      window.showToast?.("主题已临时应用，偏好保存失败");
+    }
+    return { ok: true, pluginId, localId };
+  }
+  function applyText(
+    pluginId,
+    contributions = root.GodPowerPageShell?.listByPlugin(pluginId) || [],
+  ) {
+    const bundles = contributions.filter((item) => item.kind === "textBundle");
+    for (const bundle of bundles) {
+      for (const [key, value] of Object.entries(
+        bundle.descriptor.messages || {},
+      )) {
+        const selector = TEXT_TARGETS.get(key);
+        if (!selector || typeof value !== "string" || /[<>]/.test(value))
+          continue;
+        const node = document.querySelector(selector);
+        if (!node) continue;
+        if (!defaults.has(key)) defaults.set(key, node.textContent);
+        node.textContent = value;
+      }
+    }
+    return { ok: true, count: bundles.length };
+  }
+  function sync() {
+    restore();
+    restoreTexts();
+    const saved = selection();
+    if (saved?.schemaVersion === 1 && saved.pluginId && saved.localId) {
+      const contributions =
+        root.GodPowerPageShell?.listByPlugin(saved.pluginId) || [];
+      if (
+        contributions.some(
+          (item) => item.kind === "theme" && item.localId === saved.localId,
+        )
+      ) {
+        try {
+          apply(saved.pluginId, saved.localId, contributions);
+        } catch {
+          restore();
+        }
+      } else {
+        try {
+          localStorage.removeItem(KEY);
+        } catch {
+          /* Appearance preference only. */
+        }
+      }
+    }
+    for (const plugin of root.GodPowerPluginCenter?.platform?.list?.() || [])
+      if (plugin.state === "active") applyText(plugin.id);
+  }
+  root.GodPowerPluginAppearance = Object.freeze({
+    apply,
+    applyText,
+    restore,
+    sync,
+    get applied() {
+      return applied && { ...applied };
+    },
+  });
+  window.addEventListener("DOMContentLoaded", sync, { once: true });
+})(globalThis);
+</script>
 <script>(function installPluginCenter(root) {
   "use strict";
   const $ = (selector) => document.querySelector(selector);
@@ -1684,6 +1896,8 @@ window.GodpowerTheme = (() => {
     "ui.commandShortcut.register": "命令快捷入口",
     "ui.viewPreset.register": "页面预设",
     "ui.decoration.register": "页面装饰",
+    "ui.theme.register": "受控主题令牌",
+    "ui.text.register": "界面文案覆盖",
   };
   let platform;
   let route = null;
@@ -1814,6 +2028,20 @@ window.GodpowerTheme = (() => {
         );
       if (plugin.state !== "active" && plugin.state !== "paused")
         addButton(actions, "卸载", "uninstall", plugin.id, "danger");
+      const contributions = root.GodPowerPageShell.listByPlugin(plugin.id);
+      if (plugin.state === "active") {
+        for (const item of contributions.filter(
+          (entry) => entry.kind === "theme",
+        ))
+          addButton(
+            actions,
+            `应用主题：${item.descriptor.displayNameKey}`,
+            "theme",
+            `${plugin.id}/${item.localId}`,
+          );
+        if (contributions.some((entry) => entry.kind === "textBundle"))
+          addButton(actions, "应用界面文案", "text", plugin.id);
+      }
       for (const page of root.GodPowerPageShell.listPages().filter(
         (item) => !item.core && item.pluginId === plugin.id,
       ))
@@ -1827,6 +2055,7 @@ window.GodpowerTheme = (() => {
       host.append(card);
     }
     renderWorkspace();
+    root.GodPowerPluginAppearance?.sync();
   }
   async function importManifest(file) {
     const text = await file.text();
@@ -1844,6 +2073,18 @@ window.GodpowerTheme = (() => {
     try {
       if (action === "import") {
         $("#pluginManifestFile")?.click();
+        return;
+      }
+      if (action === "theme") {
+        const [pluginId, ...rest] = id.split("/");
+        root.GodPowerPluginAppearance.apply(pluginId, rest.join("/"));
+        status("宿主主题令牌已应用；比赛规则与布局保持不变。", "success");
+        render();
+        return;
+      } else if (action === "text") {
+        const result = root.GodPowerPluginAppearance.applyText(id);
+        status(`已应用受支持的界面文案：${result.count} 个文案包。`, "success");
+        render();
         return;
       }
       if (action === "disable") {
@@ -10609,7 +10850,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.27</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.28</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -10739,8 +10980,8 @@ html[data-theme="marx"] {
       <div class="gp-hero-copy">
         <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
         <h1>课堂竞技，<em>一目了然。</em></h1>
-        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
-        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <p id="welcomeGreeting" class="gp-greeting" data-plugin-text-key="home.greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description" data-plugin-text-key="home.description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
         <div class="gp-actions">
           <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
           <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>
@@ -24766,7 +25007,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.27';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.28';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -27250,7 +27491,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.27",
+    appVersion: "V3.0.28",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

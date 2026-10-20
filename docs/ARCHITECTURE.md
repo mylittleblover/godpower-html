@@ -1,14 +1,18 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.27（插件平台基础阶段）。
+当前版本：3.0.28（插件平台基础与主题/文案扩展阶段）。
 
-## V3 UI Shell、页面生命周期与插件中心（3.0.27，M1–M3）
+## V3 UI Shell、页面生命周期与插件中心（3.0.28，M1–M4）
 
 UI源文件仍按 `src/manifest.json` 声明顺序嵌入单文件HTML。`ui/contribution-registry.js` 在早期建立宿主拥有的路由表，欢迎、比赛、历史、档案、插件、设置六个页面是不可覆盖的core routes；`switchView` 仍是旧导航调用方的兼容入口，但有效页面名取自注册表。插件贡献route会由宿主切换到插件中心工作区，不创建任意DOM，也不接收插件回调。
 
 唯一 `ContributionRegistry` 接收JSON描述符批次，使用宿主创建的activation capability绑定pluginId、权限和作用域。整个批次先验证后提交；未知kind/slot/renderer、权限缺失、重复ID/route、可执行字段和插件自报身份均拒绝。`dispose(activationId)` 只撤销对应activation的贡献，并可重复调用。页面route由宿主生成 `plugins/<pluginId>/<localId>`；插件页仅允许宿主workspace renderer。卡片只可注册到 `home.cards`，面板/设置等使用规格白名单slots和renderer keys。
 
 `application/plugin-platform.js`提供宿主管理的manifest校验、安装/启停/暂停/隔离/卸载状态、scope绑定权限、权限更新、依赖启用检查和CAS私有存储。`infrastructure/plugin-local-repository.js`把插件记录与课堂存档分键持久化，并执行写后读回；损坏或配额错误会显式失败，不覆盖源。当前插件包仅允许JSON声明和宿主白名单renderer，不能带可执行入口，也没有启用第三方脚本sandbox；插件中心UI会明示此边界。卸载默认保留命名空间，授权按本地课堂scope分开保存。
+
+M4 增加 `theme` 与 `textBundle` 两类声明式贡献。主题只能覆盖宿主固定的12个十六进制颜色Token；布局尺寸、字体、动画、正负分、警告/危险语义色均不开放。文案包只能覆盖有限的稳定Key，值必须是有长度上限的纯文本；权限、删除、数据丢失和事务安全说明不属于开放Key。`ui/plugin-appearance.js`通过宿主DOM目标与CSS变量应用主题/文案，插件停用时恢复初始显示，外观偏好独立存储，不改课堂数据。该实现是受控扩展基础，不等于SP03-D完整主题引擎：尚未有多层scope选择、对比度分析、主题预览/版本/导入导出、页面级主题及完整locale占位符服务。
+
+“共产主义模式”当前仍是兼容中的道具功能总开关，不应在主题迁移时误当作外观选项。它将在《宫本茂的力量》道具设置及旧设置值迁移、读回和26道具行为验证完成后，从主程序设置入口移除；迁移前不得删除其旧值或改变默认行为（PLUG-M7）。
 
 不得把 `GodPowerPageShell` 暴露给第三方同realm脚本。后续plugin runtime应通过隔离消息通道调用它，并在Electron使用窄preload/provider；不能放宽CSP或让插件取得主DOM、主状态、数据库或通用IPC。实现证据及边界测试见 `src/application/plugin-platform.js`、`src/ui/contribution-registry.js`、`src/ui/plugin-center.js` 和对应unit/E2E。
 
@@ -26,7 +30,7 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 | 旧命令生命周期   | `src/application/command-lifecycle.js`                                                                                       | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果                                 |
 | 旧程序适配       | `src/application/legacy-classroom-adapter.js`                                                                                | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出                   |
 | 旧存储基础设施   | `src/infrastructure/legacy/`                                                                                                 | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制                                            |
-| 插件平台         | `src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`                                         | 声明式manifest、宿主权限/生命周期、scope私有数据；当前拒绝可执行入口，尚无脚本sandbox                      |
+| 插件平台         | `src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`                                        | 声明式manifest、宿主权限/生命周期、scope私有数据；当前拒绝可执行入口，尚无脚本sandbox                  |
 | 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js`                                                                                 | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
 | 存储预检         | `src/infrastructure/legacy/inventory.js`                                                                                     | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源             |
 | 兼容核心         | `src/core/`                                                                                                                  | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容    |

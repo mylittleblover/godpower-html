@@ -11,7 +11,7 @@ const server = createServer((_request, response) => {
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const browser = await launch();
 const errors = [];
-await mkdir("artifacts/ui-governance-m3", { recursive: true });
+await mkdir("artifacts/ui-governance-m4", { recursive: true });
 try {
   const context = await browser.newContext({
     viewport: { width: 1920, height: 1080 },
@@ -39,6 +39,9 @@ try {
     await page.locator(".plugin-safety-note").innerText(),
     /不会运行插件 JavaScript/,
   );
+  const originalPrimary = await page.evaluate(() =>
+    getComputedStyle(document.body).getPropertyValue("--ui-primary").trim(),
+  );
 
   const packageJson = {
     manifestVersion: 1,
@@ -54,6 +57,8 @@ try {
     entry: { content: "content.json" },
     permissions: [
       { capability: "ui.page.register", required: true },
+      { capability: "ui.theme.register", required: true },
+      { capability: "ui.text.register", required: true },
       { capability: "plugin.storage", required: true },
       { capability: "audio.play", required: false },
     ],
@@ -66,6 +71,22 @@ try {
         descriptor: {
           titleKey: "plugin.sample.workspace",
           renderer: "builtin.plugin-workspace",
+        },
+      },
+      {
+        localId: "classroom-theme",
+        kind: "theme",
+        descriptor: {
+          displayNameKey: "plugin.sample.theme",
+          tokens: { "--ui-primary": "#3157a4", "--ui-panel": "#fffdfa" },
+        },
+      },
+      {
+        localId: "copy",
+        kind: "textBundle",
+        descriptor: {
+          locale: "zh-CN",
+          messages: { "home.description": "插件介绍文案" },
         },
       },
     ],
@@ -96,6 +117,22 @@ try {
     ),
   );
   assert.equal(await page.locator('[data-plugin-action="route"]').count(), 1);
+  await page.locator('[data-plugin-action="theme"]').click();
+  assert.equal(
+    await page.evaluate(() =>
+      getComputedStyle(document.body).getPropertyValue("--ui-primary").trim(),
+    ),
+    "#3157a4",
+  );
+  await page.locator('[data-plugin-action="text"]').click();
+  assert.equal(
+    await page.locator(".gp-hero-description").innerText(),
+    "插件介绍文案",
+  );
+  assert.match(
+    await page.locator(".plugin-safety-note").innerText(),
+    /不会运行插件 JavaScript/,
+  );
   await page.locator('[data-plugin-action="route"]').click();
   await page.waitForFunction(
     () => document.querySelector("#pluginWorkspace")?.hidden === false,
@@ -105,7 +142,7 @@ try {
     /plugin\.sample\.workspace/,
   );
   await page.screenshot({
-    path: "artifacts/ui-governance-m3/plugins-active.png",
+    path: "artifacts/ui-governance-m4/plugins-active.png",
     fullPage: true,
   });
   await page.locator('[data-plugin-action="disable"]').click();
@@ -114,13 +151,23 @@ try {
       GodPowerPageShell.resolvePage("plugins/community.sample/workspace") ===
       null,
   );
+  assert.equal(
+    await page.evaluate(() =>
+      getComputedStyle(document.body).getPropertyValue("--ui-primary").trim(),
+    ),
+    originalPrimary,
+  );
+  assert.equal(
+    await page.locator(".gp-hero-description").innerText(),
+    "实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。",
+  );
   await page.locator('[data-plugin-action="uninstall"]').click();
   await page.waitForFunction(
     () => GodPowerPluginCenter.platform?.get("community.sample") === null,
   );
   assert.deepEqual(errors, []);
   await page.screenshot({
-    path: "artifacts/ui-governance-m3/plugins.png",
+    path: "artifacts/ui-governance-m4/plugins.png",
     fullPage: true,
   });
   console.log(

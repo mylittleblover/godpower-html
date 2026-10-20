@@ -29,6 +29,8 @@
     "ui.commandShortcut.register",
     "ui.viewPreset.register",
     "ui.decoration.register",
+    "ui.theme.register",
+    "ui.text.register",
   ]);
   const TYPES = new Set([
     "gameplay",
