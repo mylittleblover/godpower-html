@@ -38,7 +38,7 @@ test("registers immutable core routes once and does not let plugins shadow them"
   const pages = JSON.parse(JSON.stringify(registry.listPages()));
   assert.deepEqual(
     pages.map(({ route }) => route),
-    ["welcome", "battle", "history", "archives", "settings"],
+    ["welcome", "battle", "history", "archives", "plugins", "settings"],
   );
   const activation = pluginContext(registry);
   assert.throws(
@@ -60,7 +60,7 @@ test("registers immutable core routes once and does not let plugins shadow them"
       ),
     /reserved|conflict|host-generated/i,
   );
-  assert.equal(registry.listPages().length, 5);
+  assert.equal(registry.listPages().length, 6);
 });
 
 test("validates a batch atomically and rejects duplicate IDs, unknown slots and executable descriptors", () => {

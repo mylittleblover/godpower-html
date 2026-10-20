@@ -1984,10 +1984,11 @@ const DesktopUI = (() => {
     });
     ready = true;
     document.querySelectorAll(".nav-tab").forEach((b, i) => {
-      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
+      const text = ["欢迎", "比赛", "历史", "档案", "插件", "设置"][i];
       b.innerHTML =
-        icon(["home", "battle", "history", "archive", "settings"][i]) +
-        `<span>${text}</span>`;
+        icon(
+          ["home", "battle", "history", "archive", "plugin", "settings"][i],
+        ) + `<span>${text}</span>`;
       b.setAttribute("role", "tab");
     });
     setupDock();

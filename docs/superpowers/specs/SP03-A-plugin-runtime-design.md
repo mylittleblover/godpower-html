@@ -1,6 +1,6 @@
 # SP03-A：插件运行环境、SDK 与安全设计
 
-状态：设计待审；协议候选 SDK 1.0.0。关联：[总规格](2026-10-20-godpower-v3-plugin-platform-design.md)。
+状态：设计已批准；SDK候选1.0.0。基础运行管理已实施，代码沙箱/包签名/Electron broker仍未实施。关联：[总规格](2026-10-20-godpower-v3-plugin-platform-design.md)。实施证据：`docs/ui-audit/M3-plugin-platform-foundation.md`。
 
 ## 1. 目标和非目标
 

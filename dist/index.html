@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.26</title>
+<title>上帝的力量 V3.0.27</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -33,7 +33,14 @@
     "builtin.command-shortcut",
     "builtin.decoration",
   ]);
-  const CORE_PAGES = ["welcome", "battle", "history", "archives", "settings"];
+  const CORE_PAGES = [
+    "welcome",
+    "battle",
+    "history",
+    "archives",
+    "plugins",
+    "settings",
+  ];
   const REQUIRED = {
     page: "ui.page.register",
     navigation: "ui.navigation.register",
@@ -439,6 +446,799 @@
   }
 })(globalThis);
 </script>
+<script>/* Host-owned declarative plugin lifecycle. It never evaluates plugin code. */
+(function installGodPowerPluginPlatform(root) {
+  "use strict";
+
+  const KNOWN_CAPABILITIES = new Set([
+    "classroom.read",
+    "students.read",
+    "groups.read",
+    "competition.stats.read",
+    "competition.commands.request",
+    "rules.register",
+    "resources.read",
+    "resources.write",
+    "plugin.storage",
+    "network.request",
+    "files.open",
+    "files.save",
+    "audio.play",
+    "audio.capture",
+    "midi.access",
+    "camera.capture",
+    "microphone.capture",
+    "native.device",
+    "ui.page.register",
+    "ui.navigation.register",
+    "ui.card.register",
+    "ui.panel.register",
+    "ui.settings.register",
+    "ui.commandShortcut.register",
+    "ui.viewPreset.register",
+    "ui.decoration.register",
+  ]);
+  const TYPES = new Set([
+    "gameplay",
+    "subject",
+    "theme",
+    "tool",
+    "resource",
+    "native",
+  ]);
+  const SUBJECTS = new Set([
+    "chinese",
+    "math",
+    "english",
+    "physics",
+    "chemistry",
+    "biology",
+    "history",
+    "politics",
+    "geography",
+    "art",
+    "music",
+  ]);
+  const PLATFORMS = new Set(["html", "electron"]);
+  const ID = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/;
+  const LOCAL_ID = /^[a-z0-9][a-z0-9._-]{0,63}$/;
+  const SEMVER =
+    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?$/;
+  const SAFE_KEY = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$/;
+  const MANIFEST_FIELDS = new Set([
+    "manifestVersion",
+    "id",
+    "name",
+    "description",
+    "author",
+    "version",
+    "sdk",
+    "types",
+    "subjects",
+    "platforms",
+    "entry",
+    "permissions",
+    "dependencies",
+    "optionalDependencies",
+    "contributes",
+    "data",
+  ]);
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  // A conservative UTF-8 upper bound that also works in the isolated test VM.
+  const bytes = (value) => JSON.stringify(value).length * 3;
+  const fail = (message) => {
+    throw new TypeError(message);
+  };
+
+  function plainJson(value, path = "value", depth = 0) {
+    if (depth > 32) fail(`${path} exceeds maximum JSON depth`);
+    if (
+      value === null ||
+      typeof value === "string" ||
+      typeof value === "boolean"
+    )
+      return;
+    if (typeof value === "number") {
+      if (!Number.isFinite(value)) fail(`${path} contains non-finite number`);
+      return;
+    }
+    if (Array.isArray(value)) {
+      if (value.length > 1000) fail(`${path} contains too many entries`);
+      value.forEach((item, i) => plainJson(item, `${path}[${i}]`, depth + 1));
+      return;
+    }
+    const prototype = value && Object.getPrototypeOf(value);
+    if (
+      !value ||
+      Object.prototype.toString.call(value) !== "[object Object]" ||
+      (prototype !== null && Object.getPrototypeOf(prototype) !== null)
+    )
+      fail(`${path} must be plain JSON`);
+    for (const [key, item] of Object.entries(value)) {
+      if (["__proto__", "constructor", "prototype"].includes(key))
+        fail(`${path} has unsafe key`);
+      plainJson(item, `${path}.${key}`, depth + 1);
+    }
+  }
+
+  function localized(value, required, label) {
+    if (!value || typeof value !== "object" || Array.isArray(value))
+      fail(`${label} must be localized text`);
+    const result = {};
+    for (const [locale, text] of Object.entries(value)) {
+      if (
+        !/^[a-z]{2,3}(?:-[A-Z]{2})?$/.test(locale) ||
+        typeof text !== "string" ||
+        !text.trim() ||
+        text.length > 200
+      )
+        fail(`${label} contains invalid locale text`);
+      result[locale] = text.trim();
+    }
+    if (!result["zh-CN"] && !result.en) fail(`${label} requires zh-CN or en`);
+    if (required && !Object.keys(result).length) fail(`${label} is required`);
+    return result;
+  }
+
+  function safePackagePath(value, label) {
+    if (
+      typeof value !== "string" ||
+      !value ||
+      value.length > 200 ||
+      value.includes("\\") ||
+      value.includes("\0") ||
+      value.startsWith("/") ||
+      /^[a-z]+:/i.test(value)
+    )
+      fail(`${label} must be a package-relative JSON path`);
+    const parts = value.split("/");
+    if (parts.some((part) => !part || part === "." || part === ".."))
+      fail(`${label} contains unsafe path segments`);
+    if (!value.toLowerCase().endsWith(".json"))
+      fail(`${label} must reference declarative JSON, not executable code`);
+    return value;
+  }
+
+  function validateManifest(input, platform = "html") {
+    plainJson(input, "manifest");
+    if (bytes(input) > 65536) fail("manifest exceeds 64 KiB");
+    if (!input || input.manifestVersion !== 1)
+      fail("unsupported manifestVersion");
+    for (const key of Object.keys(input))
+      if (!MANIFEST_FIELDS.has(key)) fail(`unsupported manifest field: ${key}`);
+    if (
+      typeof input.id !== "string" ||
+      input.id.length > 120 ||
+      !ID.test(input.id)
+    )
+      fail("invalid reverse-domain plugin id");
+    const name = localized(input.name, true, "name");
+    const description = localized(
+      input.description || { "zh-CN": "" },
+      false,
+      "description",
+    );
+    const version = input.version;
+    if (typeof version !== "string" || !SEMVER.test(version))
+      fail("invalid plugin version");
+    const sdk = input.sdk;
+    const sdkMatch =
+      typeof sdk === "string" &&
+      sdk.match(
+        /^>=((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)) <((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))$/,
+      );
+    if (!sdkMatch) fail("SDK range must use the supported >=x.y.z <x.y.z form");
+    const parseVersion = (v) => v.split(".").map(Number);
+    const current = [1, 0, 0];
+    const compare = (a, b) => {
+      for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] - b[i];
+      return 0;
+    };
+    if (
+      compare(current, parseVersion(sdkMatch[1])) < 0 ||
+      compare(current, parseVersion(sdkMatch[2])) >= 0
+    )
+      fail("plugin SDK is incompatible");
+    if (
+      !input.author ||
+      typeof input.author.name !== "string" ||
+      !input.author.name.trim() ||
+      input.author.name.length > 120
+    )
+      fail("author.name is required");
+    if (
+      !Array.isArray(input.types) ||
+      !input.types.length ||
+      input.types.some((v) => !TYPES.has(v)) ||
+      new Set(input.types).size !== input.types.length
+    )
+      fail("invalid plugin types");
+    if (
+      !Array.isArray(input.subjects || []) ||
+      (input.subjects || []).some((v) => !SUBJECTS.has(v))
+    )
+      fail("invalid subject list");
+    if (
+      !Array.isArray(input.platforms) ||
+      !input.platforms.includes(platform) ||
+      input.platforms.some((v) => !PLATFORMS.has(v))
+    )
+      fail("plugin does not support this platform");
+    if (
+      !input.entry ||
+      typeof input.entry !== "object" ||
+      Array.isArray(input.entry) ||
+      !Object.keys(input.entry).length
+    )
+      fail("entry is required");
+    for (const [kind, path] of Object.entries(input.entry)) {
+      if (!["content", "theme", "views", "rules"].includes(kind))
+        fail(`unsupported declarative entry: ${kind}`);
+      safePackagePath(path, `entry.${kind}`);
+    }
+    if (!Array.isArray(input.permissions) || input.permissions.length > 64)
+      fail("permissions must be an array");
+    const seenPermissions = new Set();
+    const permissions = input.permissions.map((grant) => {
+      if (
+        !grant ||
+        !KNOWN_CAPABILITIES.has(grant.capability) ||
+        typeof grant.required !== "boolean" ||
+        seenPermissions.has(grant.capability)
+      )
+        fail("invalid or duplicate permission capability");
+      seenPermissions.add(grant.capability);
+      return { capability: grant.capability, required: grant.required };
+    });
+    for (const field of ["dependencies", "optionalDependencies"]) {
+      if (input[field] !== undefined) {
+        if (
+          !input[field] ||
+          typeof input[field] !== "object" ||
+          Array.isArray(input[field])
+        )
+          fail(`${field} must be an object`);
+        for (const [id, range] of Object.entries(input[field]))
+          if (!ID.test(id) || typeof range !== "string" || range.length > 80)
+            fail(`${field} contains invalid dependency`);
+      }
+    }
+    if (
+      !Array.isArray(input.contributes || []) ||
+      (input.contributes || []).length > 100
+    )
+      fail("contributes must be a bounded array");
+    const contributes = clone(input.contributes || []);
+    const localIds = new Set();
+    for (const contribution of contributes) {
+      if (
+        !contribution ||
+        !LOCAL_ID.test(contribution.localId || "") ||
+        localIds.has(contribution.localId)
+      )
+        fail("invalid or duplicate contribution localId");
+      localIds.add(contribution.localId);
+      if (
+        !Array.isArray(contribution.requiredPermissions || []) ||
+        (contribution.requiredPermissions || []).some(
+          (cap) => !KNOWN_CAPABILITIES.has(cap),
+        )
+      )
+        fail("contribution requests unknown permission");
+    }
+    if (
+      !input.data ||
+      !Number.isSafeInteger(input.data.schemaVersion) ||
+      input.data.schemaVersion < 1
+    )
+      fail("data.schemaVersion must be a positive integer");
+    return Object.freeze({
+      manifestVersion: 1,
+      id: input.id,
+      name,
+      description,
+      author: { name: input.author.name.trim() },
+      version,
+      sdk,
+      types: [...input.types],
+      subjects: [...(input.subjects || [])],
+      platforms: [...input.platforms],
+      entry: clone(input.entry),
+      permissions,
+      dependencies: clone(input.dependencies || {}),
+      optionalDependencies: clone(input.optionalDependencies || {}),
+      contributes,
+      data: { schemaVersion: input.data.schemaVersion },
+    });
+  }
+
+  function canonical(value) {
+    if (Array.isArray(value)) return value.map(canonical);
+    if (value && typeof value === "object")
+      return Object.fromEntries(
+        Object.keys(value)
+          .sort()
+          .map((key) => [key, canonical(value[key])]),
+      );
+    return value;
+  }
+  function scopeKey(scope) {
+    plainJson(scope, "scope");
+    if (!scope || typeof scope !== "object" || Array.isArray(scope))
+      fail("host scope must be an object");
+    return JSON.stringify(canonical(scope));
+  }
+
+  function createPluginPlatform(options = {}) {
+    const registry = options.contributions;
+    const repository = options.repository;
+    const currentScope =
+      options.currentScope || (() => ({ teacherId: "local" }));
+    const platform = options.platform || "html";
+    const isTrustedBuiltin = options.isTrustedBuiltin || (() => false);
+    if (
+      !registry ||
+      !repository ||
+      typeof repository.load !== "function" ||
+      typeof repository.save !== "function"
+    )
+      fail("plugin registry and repository are required");
+    const records = new Map();
+    const capabilities = new WeakMap();
+    const pending = new Map();
+    if (repository.list) {
+      for (const persisted of repository.list()) {
+        if (persisted.state === "active" || persisted.state === "paused") {
+          const recovered = {
+            ...persisted,
+            state: "installed",
+            activationId: null,
+            activeScopeKey: null,
+          };
+          repository.save(persisted.manifest.id, clone(recovered));
+          records.set(persisted.manifest.id, recovered);
+        }
+      }
+    }
+    const read = (id) =>
+      records.has(id)
+        ? records.get(id)
+        : (records.set(id, repository.load(id)), records.get(id));
+    const save = (record) => {
+      repository.save(record.manifest.id, clone(record));
+      records.set(record.manifest.id, record);
+    };
+    const assertHandle = (handle) => {
+      const capability = capabilities.get(handle);
+      if (!capability || !capability.active)
+        fail("plugin activation is inactive or stale");
+      if (scopeKey(currentScope()) !== capability.scopeKey)
+        fail("plugin activation scope is stale");
+      return capability;
+    };
+    function install(input, config = {}) {
+      const manifest = validateManifest(input, platform);
+      if (
+        manifest.id.startsWith("official.") &&
+        (config.source !== "builtin" || !isTrustedBuiltin(manifest))
+      )
+        fail("unsigned package cannot claim an official plugin id");
+      const prior = read(manifest.id);
+      if (prior && prior.state !== "uninstalled")
+        fail("plugin is already installed");
+      const record = prior
+        ? {
+            ...prior,
+            manifest: clone(manifest),
+            state: "installed",
+            activationId: null,
+            grantsByScope: {},
+          }
+        : {
+            manifest: clone(manifest),
+            state: "installed",
+            activationId: null,
+            grantsByScope: {},
+            privateData: {},
+          };
+      save(record);
+      return publicRecord(record);
+    }
+    function publicRecord(record) {
+      return Object.freeze({
+        id: record.manifest.id,
+        name: clone(record.manifest.name),
+        version: record.manifest.version,
+        state: record.state,
+        types: [...record.manifest.types],
+        grantedPermissions: Object.keys(
+          record.grantsByScope[scopeKey(currentScope())] || {},
+        ),
+      });
+    }
+    function inspect(id) {
+      const record = read(id);
+      return record && record.state !== "uninstalled"
+        ? Object.freeze({
+            manifest: clone(record.manifest),
+            state: record.state,
+          })
+        : null;
+    }
+    function get(id) {
+      const record = read(id);
+      return record && record.state !== "uninstalled"
+        ? publicRecord(record)
+        : null;
+    }
+    function list() {
+      return repository.list
+        ? repository
+            .list()
+            .filter((r) => r.state !== "uninstalled")
+            .map(publicRecord)
+        : [...records.values()]
+            .filter((r) => r.state !== "uninstalled")
+            .map(publicRecord);
+    }
+    function grantPermissions(id, requested) {
+      const record = read(id);
+      if (!record || record.state === "uninstalled")
+        fail("plugin is not installed");
+      if (record.state === "active" || record.state === "paused")
+        fail("deactivate plugin before changing permissions");
+      if (!Array.isArray(requested)) fail("permission grant must be an array");
+      const declared = new Map(
+        record.manifest.permissions.map((p) => [p.capability, p]),
+      );
+      const grants = {};
+      for (const capability of requested) {
+        if (!declared.has(capability))
+          fail(`permission was not declared: ${capability}`);
+        grants[capability] = true;
+      }
+      const missing = record.manifest.permissions.filter(
+        (p) => p.required && !grants[p.capability],
+      );
+      if (missing.length)
+        fail(
+          `required permission not granted: ${missing.map((p) => p.capability).join(", ")}`,
+        );
+      const candidate = {
+        ...record,
+        grantsByScope: {
+          ...record.grantsByScope,
+          [scopeKey(currentScope())]: grants,
+        },
+      };
+      save(candidate);
+      return publicRecord(candidate);
+    }
+    function activate(id, scope = currentScope()) {
+      const record = read(id);
+      if (!record || record.state === "uninstalled")
+        fail("plugin is not installed");
+      if (record.state === "active") fail("plugin is already active");
+      if (record.state === "quarantined")
+        fail("quarantined plugin requires explicit restore");
+      const key = scopeKey(scope);
+      const grants = record.grantsByScope[key] || {};
+      const missing = record.manifest.permissions.filter(
+        (p) => p.required && !grants[p.capability],
+      );
+      if (missing.length)
+        fail(
+          `required permission not granted: ${missing.map((p) => p.capability).join(", ")}`,
+        );
+      for (const dependency of Object.keys(record.manifest.dependencies)) {
+        const provider = read(dependency);
+        if (provider?.state !== "active" || provider.activeScopeKey !== key)
+          fail(`required dependency is inactive in this scope: ${dependency}`);
+      }
+      const activation = registry.activate(record.manifest.id, {
+        scope,
+        permissions: Object.keys(grants),
+      });
+      let registration;
+      try {
+        if (record.manifest.contributes.length)
+          registration = registry.register(
+            record.manifest.contributes.map((contribution) => ({
+              ...clone(contribution),
+              requiredPermissions: [
+                ...(contribution.requiredPermissions || []),
+              ],
+            })),
+            activation,
+          );
+        const candidate = {
+          ...record,
+          state: "active",
+          activationId: activation.activationId,
+          activeScopeKey: key,
+        };
+        save(candidate);
+        const handle = Object.freeze({
+          pluginId: id,
+          activationId: activation.activationId,
+        });
+        capabilities.set(handle, {
+          pluginId: id,
+          activationId: activation.activationId,
+          scopeKey: key,
+          grants,
+          active: true,
+        });
+        pending.set(id, { activation, handle });
+        return Object.freeze({
+          ...publicRecord(candidate),
+          registered: registration?.registeredIds || [],
+          handle,
+        });
+      } catch (error) {
+        registry.dispose(activation.activationId);
+        throw error;
+      }
+    }
+    function deactivate(id, nextState = "installed") {
+      const record = read(id);
+      if (
+        !record ||
+        !["active", "paused", "quarantined"].includes(record.state)
+      )
+        return false;
+      const active = pending.get(id);
+      if (active) {
+        const capability = capabilities.get(active.handle);
+        if (capability) capability.active = false;
+      }
+      registry.dispose(record.activationId);
+      pending.delete(id);
+      save({
+        ...record,
+        state: nextState,
+        activationId: null,
+        activeScopeKey: null,
+      });
+      return true;
+    }
+    function pause(id) {
+      const record = read(id);
+      if (record?.state !== "active") fail("plugin is not active");
+      deactivate(id, "paused");
+      return get(id);
+    }
+    function resume(id) {
+      if (read(id)?.state !== "paused") fail("plugin is not paused");
+      return activate(id);
+    }
+    function quarantine(id, reason = "runtime-error") {
+      const record = read(id);
+      if (!record || record.state === "uninstalled")
+        fail("plugin is not installed");
+      deactivate(id, "quarantined");
+      if (record.state !== "quarantined")
+        save({
+          ...read(id),
+          state: "quarantined",
+          diagnostic: String(reason).slice(0, 160),
+        });
+      return get(id);
+    }
+    function restore(id) {
+      const record = read(id);
+      if (record?.state !== "quarantined") fail("plugin is not quarantined");
+      save({ ...record, state: "installed", diagnostic: null });
+      return get(id);
+    }
+    function reconcileScope(scope = currentScope()) {
+      const key = scopeKey(scope);
+      const stopped = [];
+      for (const record of [...records.values()])
+        if (record.state === "active" && record.activeScopeKey !== key) {
+          deactivate(record.manifest.id);
+          stopped.push(record.manifest.id);
+        }
+      return stopped;
+    }
+    function uninstall(id, config = {}) {
+      const record = read(id);
+      if (!record || record.state === "uninstalled") return false;
+      if (["active", "paused"].includes(record.state))
+        fail("deactivate plugin before uninstall");
+      for (const other of [...records.values()])
+        if (other.state !== "uninstalled" && other.manifest.dependencies[id])
+          fail(`plugin is required by ${other.manifest.id}`);
+      if (config.purgeData === true) {
+        repository.delete?.(id);
+        records.delete(id);
+      } else
+        save({
+          ...record,
+          state: "uninstalled",
+          activationId: null,
+          activeScopeKey: null,
+        });
+      return true;
+    }
+    function storage(handle) {
+      const capability = assertHandle(handle);
+      if (!capability.grants["plugin.storage"])
+        fail("permission denied: plugin.storage");
+      const privateKey = `${capability.pluginId}:${capability.scopeKey}`;
+      const readData = () => {
+        const record = read(capability.pluginId);
+        return record.privateData[privateKey] || {};
+      };
+      return Object.freeze({
+        get(key) {
+          assertHandle(handle);
+          if (!SAFE_KEY.test(key)) fail("invalid plugin storage key");
+          const entry = readData()[key];
+          return entry
+            ? Object.freeze({
+                value: clone(entry.value),
+                revision: entry.revision,
+              })
+            : null;
+        },
+        set(key, value, expectedRevision = 0) {
+          assertHandle(handle);
+          if (!SAFE_KEY.test(key)) fail("invalid plugin storage key");
+          plainJson(value, "plugin storage value");
+          const record = read(capability.pluginId);
+          const priorData = record.privateData[privateKey] || {};
+          const prior = priorData[key];
+          const revision = prior?.revision || 0;
+          if (revision !== expectedRevision)
+            fail("plugin storage revision conflict");
+          const valueCopy = clone(value);
+          const nextData = {
+            ...priorData,
+            [key]: { value: valueCopy, revision: revision + 1 },
+          };
+          if (bytes(nextData) > 10 * 1024 * 1024)
+            fail("plugin scope storage exceeds 10 MiB quota");
+          const candidate = {
+            ...record,
+            privateData: { ...record.privateData, [privateKey]: nextData },
+          };
+          save(candidate);
+          return Object.freeze({ revision: revision + 1 });
+        },
+        remove(key, expectedRevision) {
+          assertHandle(handle);
+          if (!SAFE_KEY.test(key)) fail("invalid plugin storage key");
+          const record = read(capability.pluginId);
+          const data = record.privateData[privateKey] || {};
+          const prior = data[key];
+          if (!prior) return false;
+          if (prior.revision !== expectedRevision)
+            fail("plugin storage revision conflict");
+          const nextData = { ...data };
+          delete nextData[key];
+          save({
+            ...record,
+            privateData: { ...record.privateData, [privateKey]: nextData },
+          });
+          return true;
+        },
+      });
+    }
+    return Object.freeze({
+      install,
+      get,
+      list,
+      inspect,
+      grantPermissions,
+      activate,
+      deactivate,
+      pause,
+      resume,
+      quarantine,
+      restore,
+      reconcileScope,
+      uninstall,
+      storage,
+      contributions: registry,
+      validateManifest: (value) => validateManifest(value, platform),
+    });
+  }
+  root.GodPowerPluginPlatform = Object.freeze({
+    createPluginPlatform,
+    validateManifest: (manifest, platform) =>
+      validateManifest(manifest, platform),
+  });
+})(globalThis);
+</script>
+<script>(function installPluginLocalRepository(root) {
+  "use strict";
+  const KEY = "godpower_plugins_v1";
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  const fail = (message) => {
+    throw new Error(message);
+  };
+  function createPluginLocalRepository(storage) {
+    if (
+      !storage ||
+      typeof storage.getItem !== "function" ||
+      typeof storage.setItem !== "function"
+    )
+      fail("plugin storage is unavailable");
+    function read() {
+      const raw = storage.getItem(KEY);
+      if (raw === null) return { schemaVersion: 1, records: {} };
+      let parsed;
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        fail("plugin repository is corrupt; existing data was left untouched");
+      }
+      if (
+        !parsed ||
+        parsed.schemaVersion !== 1 ||
+        !parsed.records ||
+        typeof parsed.records !== "object" ||
+        Array.isArray(parsed.records)
+      )
+        fail(
+          "plugin repository schema is invalid; existing data was left untouched",
+        );
+      return parsed;
+    }
+    function commit(next) {
+      const previous = storage.getItem(KEY);
+      const encoded = JSON.stringify(next);
+      try {
+        storage.setItem(KEY, encoded);
+        if (storage.getItem(KEY) !== encoded)
+          fail("plugin repository readback verification failed");
+      } catch (error) {
+        try {
+          if (previous === null) storage.removeItem(KEY);
+          else storage.setItem(KEY, previous);
+          if (storage.getItem(KEY) !== previous)
+            throw new Error("plugin repository rollback readback failed");
+        } catch (rollbackError) {
+          throw new Error(
+            `${error.message}; rollback failed: ${rollbackError.message}`,
+          );
+        }
+        throw error;
+      }
+    }
+    return Object.freeze({
+      load(id) {
+        const value = read().records[id];
+        return value ? clone(value) : null;
+      },
+      list() {
+        return Object.values(read().records).map(clone);
+      },
+      save(id, value) {
+        const current = read();
+        const next = {
+          schemaVersion: 1,
+          records: { ...current.records, [id]: clone(value) },
+        };
+        commit(next);
+      },
+      delete(id) {
+        const current = read();
+        if (!(id in current.records)) return false;
+        const records = { ...current.records };
+        delete records[id];
+        commit({ schemaVersion: 1, records });
+        return true;
+      },
+    });
+  }
+  root.GodPowerPluginLocalRepository = Object.freeze({
+    createPluginLocalRepository,
+    key: KEY,
+  });
+})(globalThis);
+</script>
 <script>/* Deterministic ownership for view-scoped UI work. No business operation belongs here. */
 (function installGodPowerDisposableScope(root) {
   "use strict";
@@ -683,7 +1483,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.26";
+    document.title = name() + " V3.0.27";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -853,6 +1653,260 @@ window.GodpowerTheme = (() => {
     isSwitching: () => !!active,
   };
 })();
+</script>
+<script>(function installPluginCenter(root) {
+  "use strict";
+  const $ = (selector) => document.querySelector(selector);
+  const labels = {
+    "classroom.read": "课堂只读",
+    "students.read": "学生信息",
+    "groups.read": "小组信息",
+    "competition.stats.read": "竞技统计",
+    "competition.commands.request": "申请竞技命令",
+    "rules.register": "注册规则",
+    "resources.read": "读取资源",
+    "resources.write": "写入资源",
+    "plugin.storage": "插件私有存储",
+    "network.request": "网络访问",
+    "files.open": "打开文件",
+    "files.save": "保存文件",
+    "audio.play": "播放音频",
+    "audio.capture": "音频采集",
+    "midi.access": "MIDI设备",
+    "camera.capture": "摄像头",
+    "microphone.capture": "麦克风",
+    "native.device": "原生设备",
+    "ui.page.register": "注册插件页面",
+    "ui.navigation.register": "注册导航",
+    "ui.card.register": "主页卡片",
+    "ui.panel.register": "功能面板",
+    "ui.settings.register": "插件设置",
+    "ui.commandShortcut.register": "命令快捷入口",
+    "ui.viewPreset.register": "页面预设",
+    "ui.decoration.register": "页面装饰",
+  };
+  let platform;
+  let route = null;
+  let readyError = null;
+  function status(message, kind = "info") {
+    const node = $("#pluginCenterStatus");
+    if (node) {
+      node.textContent = message;
+      node.dataset.kind = kind;
+    }
+  }
+  function safeStore() {
+    const repository =
+      root.GodPowerPluginLocalRepository.createPluginLocalRepository(
+        root.localStorage,
+      );
+    return root.GodPowerPluginPlatform.createPluginPlatform({
+      contributions: root.GodPowerPageShell,
+      repository,
+      platform: "html",
+      currentScope: () => ({ classroomId: "local-classroom" }),
+    });
+  }
+  function addButton(parent, text, action, id, extra = "") {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = text;
+    button.dataset.pluginAction = action;
+    button.dataset.pluginId = id || "";
+    if (extra) button.className = extra;
+    parent.append(button);
+    return button;
+  }
+  function renderWorkspace() {
+    const host = $("#pluginWorkspace");
+    if (!host) return;
+    if (!route) {
+      host.hidden = true;
+      host.replaceChildren();
+      return;
+    }
+    const page = root.GodPowerPageShell.resolvePage(route);
+    if (!page || page.core) {
+      route = null;
+      host.hidden = true;
+      host.replaceChildren();
+      return;
+    }
+    host.hidden = false;
+    host.replaceChildren();
+    const title = document.createElement("h3");
+    title.textContent = page.descriptor.titleKey;
+    const body = document.createElement("p");
+    body.textContent = `扩展页面 ${route} 由宿主的受限工作区承载。插件代码不会在主页面执行。`;
+    const code = document.createElement("code");
+    code.textContent = page.pluginId;
+    host.append(title, body, code);
+  }
+  function render() {
+    const host = $("#pluginCenterContent");
+    if (!host) return;
+    if (readyError) {
+      host.replaceChildren();
+      const p = document.createElement("p");
+      p.className = "plugin-center-empty";
+      p.textContent = `插件存储暂不可用：${readyError}`;
+      host.append(p);
+      return;
+    }
+    const plugins = platform.list();
+    host.replaceChildren();
+    if (!plugins.length) {
+      const empty = document.createElement("div");
+      empty.className = "plugin-center-empty";
+      const title = document.createElement("h3");
+      title.textContent = "插件空间已经准备好";
+      const copy = document.createElement("p");
+      copy.textContent =
+        "导入 JSON 声明清单来安装受限插件。当前版本不会执行外部脚本。";
+      empty.append(title, copy);
+      host.append(empty);
+    }
+    for (const plugin of plugins) {
+      const record = platform.inspect(plugin.id);
+      const card = document.createElement("article");
+      card.className = "plugin-card";
+      const head = document.createElement("div");
+      head.className = "plugin-card-head";
+      const identity = document.createElement("div");
+      const title = document.createElement("h3");
+      title.textContent = plugin.name["zh-CN"] || plugin.name.en || plugin.id;
+      const id = document.createElement("div");
+      id.className = "plugin-id";
+      id.textContent = `${plugin.id} · v${plugin.version}`;
+      identity.append(title, id);
+      const badge = document.createElement("span");
+      badge.className = "plugin-state";
+      badge.dataset.state = plugin.state;
+      badge.textContent =
+        {
+          installed: "已安装 · 未启用",
+          active: "已启用",
+          paused: "已暂停",
+          quarantined: "已隔离",
+        }[plugin.state] || plugin.state;
+      head.append(identity, badge);
+      card.append(head);
+      const description = document.createElement("p");
+      description.textContent =
+        record.manifest.description["zh-CN"] ||
+        record.manifest.description.en ||
+        "";
+      card.append(description);
+      const permissions = document.createElement("div");
+      permissions.className = "plugin-card-permissions";
+      permissions.textContent = `权限声明：${record.manifest.permissions.map((p) => `${labels[p.capability] || p.capability}${p.required ? "（必需）" : "（可选）"}`).join("、") || "无"}`;
+      card.append(permissions);
+      const actions = document.createElement("div");
+      actions.className = "plugin-card-actions";
+      if (plugin.state === "active")
+        addButton(actions, "停用", "disable", plugin.id);
+      else if (plugin.state === "installed" || plugin.state === "paused")
+        addButton(
+          actions,
+          plugin.state === "paused" ? "恢复" : "启用",
+          "enable",
+          plugin.id,
+        );
+      if (plugin.state !== "active" && plugin.state !== "paused")
+        addButton(actions, "卸载", "uninstall", plugin.id, "danger");
+      for (const page of root.GodPowerPageShell.listPages().filter(
+        (item) => !item.core && item.pluginId === plugin.id,
+      ))
+        addButton(
+          actions,
+          `打开：${page.descriptor.titleKey}`,
+          "route",
+          page.route,
+        );
+      card.append(actions);
+      host.append(card);
+    }
+    renderWorkspace();
+  }
+  async function importManifest(file) {
+    const text = await file.text();
+    if (text.length > 65536) throw new Error("清单超过 64 KiB");
+    const manifest = JSON.parse(text);
+    platform.install(manifest);
+    status(`已安装 ${manifest.id}。插件保持停用，启用前请审阅权限。`);
+    render();
+  }
+  async function onClick(event) {
+    const button = event.target.closest("[data-plugin-action]");
+    if (!button) return;
+    const action = button.dataset.pluginAction;
+    const id = button.dataset.pluginId;
+    try {
+      if (action === "import") {
+        $("#pluginManifestFile")?.click();
+        return;
+      }
+      if (action === "disable") {
+        platform.deactivate(id);
+        status("插件已停用；其私有数据仍保留。");
+      } else if (action === "enable") {
+        const entry = platform.inspect(id);
+        const required = entry.manifest.permissions
+          .filter((p) => p.required)
+          .map((p) => p.capability);
+        const approved = window.confirm(
+          `启用 ${entry.manifest.name["zh-CN"] || id}？\n\n必需权限：${required.map((p) => labels[p] || p).join("、") || "无"}\n\n仅受限 JSON 贡献会启用，不会执行外部 JavaScript。`,
+        );
+        if (!approved) return;
+        platform.grantPermissions(id, required);
+        platform.activate(id);
+        status("插件已启用；授权绑定到本地课堂范围。");
+      } else if (action === "uninstall") {
+        if (!window.confirm(`卸载 ${id} 并保留其私有数据？`)) return;
+        platform.uninstall(id);
+        status("插件已卸载，数据保留；重新安装相同 ID 可恢复。");
+      } else if (action === "route") {
+        root.switchView(id);
+        return;
+      }
+      render();
+    } catch (error) {
+      status(error.message || String(error), "error");
+      render();
+    }
+  }
+  function init() {
+    try {
+      platform = safeStore();
+    } catch (error) {
+      readyError = error.message || String(error);
+    }
+    $("#view-plugins")?.addEventListener("click", onClick);
+    $("#pluginManifestFile")?.addEventListener("change", async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      try {
+        await importManifest(file);
+      } catch (error) {
+        status(error.message || String(error), "error");
+      } finally {
+        event.target.value = "";
+      }
+    });
+    render();
+  }
+  root.GodPowerPluginCenter = Object.freeze({
+    init,
+    render,
+    showRoute(value) {
+      route = value;
+    },
+    get platform() {
+      return platform;
+    },
+  });
+  window.addEventListener("DOMContentLoaded", init, { once: true });
+})(globalThis);
 </script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
@@ -1983,7 +3037,7 @@ window.GodpowerTheme = (() => {
     }
   }
 
-  /* ================= SPA 五页面视图架构 v3 ================= */
+  /* ================= SPA core view architecture v3 ================= */
   .view { display: none; min-height: calc(100vh - 96px); }
   .view.active { display: flex; flex-direction: column; }
 
@@ -9363,17 +10417,205 @@ html[data-theme="marx"] {
   pointer-events: none;
 }
 </style>
+<style id="plugin-center-style">.plugin-center-page {
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 32px 0 54px;
+  color: var(--text, #183b3b);
+}
+.plugin-center-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+.plugin-center-header h2 {
+  margin: 7px 0;
+  font-size: 30px;
+  letter-spacing: -0.03em;
+}
+.plugin-center-header p {
+  margin: 0;
+  color: var(--muted, #667c7a);
+}
+.plugin-center-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.plugin-safety-note {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 14px 18px;
+  margin: 0 0 22px;
+  border: 1px solid #f1d8a5;
+  border-radius: 16px;
+  background: #fff9e9;
+  color: #75551d;
+  font-size: 13px;
+}
+.plugin-center-status {
+  min-height: 24px;
+  margin: 0 0 12px;
+  color: #18776d;
+  font-size: 13px;
+}
+.plugin-center-status[data-kind="error"] {
+  color: #b33d50;
+}
+.plugin-center-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.plugin-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 212px;
+  padding: 21px;
+  border: 1px solid #dce9e6;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 28px #1b55520c;
+  animation: pluginCardEnter 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.plugin-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.plugin-card h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+.plugin-card p {
+  margin: 8px 0;
+  color: #647875;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.plugin-id {
+  font:
+    11px ui-monospace,
+    monospace;
+  color: #7a8d89;
+}
+.plugin-state {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eaf5f1;
+  color: #18776d;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.plugin-state[data-state="active"] {
+  background: #d9f3e5;
+  color: #137847;
+}
+.plugin-state[data-state="quarantined"] {
+  background: #ffe8e9;
+  color: #a53643;
+}
+.plugin-card-permissions {
+  margin-top: auto;
+  padding-top: 12px;
+  color: #71827f;
+  font-size: 11px;
+}
+.plugin-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.plugin-card-actions button {
+  border: 1px solid #dce8e5;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: #f7fbf9;
+  color: #275954;
+  font-weight: 650;
+  cursor: pointer;
+}
+.plugin-card-actions button:hover {
+  background: #e7f5f0;
+}
+.plugin-card-actions .danger {
+  color: #a53643;
+  background: #fff5f4;
+  border-color: #f4d2cd;
+}
+.plugin-center-empty {
+  grid-column: 1/-1;
+  padding: 52px 24px;
+  border: 1px dashed #bed5cf;
+  border-radius: 20px;
+  text-align: center;
+  background: #f8fbfa;
+  color: #59736e;
+}
+.plugin-center-empty h3 {
+  margin: 0 0 8px;
+  color: #245954;
+}
+.plugin-workspace {
+  margin-top: 22px;
+  padding: 28px;
+  border: 1px solid #dce9e6;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 30px #123f3b10;
+  animation: pluginCardEnter 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.plugin-workspace h3 {
+  margin: 0 0 8px;
+}
+.plugin-workspace code {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #edf5f2;
+}
+@keyframes pluginCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1100px) {
+  .plugin-center-grid {
+    grid-template-columns: 1fr;
+  }
+  .plugin-center-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plugin-card,
+  .plugin-workspace {
+    animation: none;
+  }
+}
+</style>
 </head>
 <body class="modern-flat-v217">
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.26</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.27</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
+    <button type="button" class="nav-tab" data-view="plugins" onclick="switchView('plugins')">🧩 插件</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
   </div>
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
@@ -9748,6 +10990,19 @@ html[data-theme="marx"] {
   <div class="ui-collection-body">
     <div id="historyListView" class="history-timeline"></div>
   </div>
+</div>
+
+<div id="view-plugins" class="view">
+  <section class="plugin-center-page">
+    <header class="plugin-center-header">
+      <div><span class="ui-settings-eyebrow">PLUGIN WORKSPACE · 离线扩展</span><h2>插件中心</h2><p>管理扩展、独立工作区与授权范围。</p></div>
+      <div class="plugin-center-actions"><button type="button" class="btn btn-primary" data-plugin-action="import">导入声明式插件</button><input id="pluginManifestFile" type="file" accept="application/json,.json" hidden></div>
+    </header>
+    <div class="plugin-safety-note"><strong>当前安全边界</strong><span>此版本仅接受受限 JSON 声明，不会运行插件 JavaScript；可执行插件代码的隔离沙箱尚未启用。</span></div>
+    <div id="pluginCenterStatus" class="plugin-center-status" role="status" aria-live="polite"></div>
+    <div id="pluginCenterContent" class="plugin-center-grid"></div>
+    <section id="pluginWorkspace" class="plugin-workspace" hidden></section>
+  </section>
 </div>
 
 <div id="pickerModal" class="modal-overlay">
@@ -16447,7 +17702,7 @@ function escapeHtml(str) {
 
 
 /* ================================================================
- * v3：五页面 SPA 视图导航 + 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
+ * v3：六个core view（含插件中心）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
@@ -16466,7 +17721,10 @@ function switchView(name) {
   GodpowerTheme.cancel();
   window.GodpowerTooltips?.cancel();
   const route = window.GodPowerPageShell?.resolvePage(name);
-  if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
+  if (route && !route.core && String(name).startsWith('plugins/')) {
+    window.GodPowerPluginCenter?.showRoute(name);
+    name = 'plugins';
+  } else if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
   if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);
@@ -16479,6 +17737,7 @@ function switchView(name) {
   if (name === 'welcome') { renderWelcomePage(); updateWelcomeTrackIfNeeded(); }
   if (name === 'history') renderHistoryList();
   if (name === 'archives') renderSettlementHistoryList();
+  if (name === 'plugins') window.GodPowerPluginCenter?.render();
   if (name === 'settings') { syncSettingsControls(); renderBgmSlotList(); renderFxSlotList(); renderBgmEngineConsole(); }
   if (name === 'battle') {
     menuFadeOut();
@@ -16501,6 +17760,7 @@ function getMenuTrackKeyForView(name) {
   if (name === 'welcome') return getWelcomeTrackKey();
   if (name === 'history') return 'aux_history';
   if (name === 'archives') return 'aux_archives';
+  if (name === 'plugins') return 'aux_settings';
   if (name === 'settings') return 'aux_settings';
   return null;
 }
@@ -18267,7 +19527,7 @@ const _v26HandDraw=handDrawItem;handDrawItem=function(){if(!handItemDrawTimer)st
 /* 4. 顶部导航 + 底部主要功能按钮图标自定义 */
 const UI_ICON_TARGETS=[
  ['nav_welcome','欢迎','[data-view="welcome"]','🏠'],['nav_battle','比赛','[data-view="battle"]','⚔️'],
- ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_settings','设置','[data-view="settings"]','⚙️'],
+ ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_plugins','插件','[data-view="plugins"]','🧩'],['nav_settings','设置','[data-view="settings"]','⚙️'],
  ['dock_item','全局道具抽取','button[onclick="globalItemDraw()"]','🎁'],['dock_hand','举手办案处','button[onclick="openHandRaise()"]','✋'],
  ['dock_picker','点名抽签','button[onclick="openPickerModal()"]','🎰'],['dock_about','关于','button[onclick="openAbout()"]','ⓘ'],
  ['dock_search','人肉搜索（文明版）','button[onclick="openMemberSearchModal()"]','😎'],['dock_undo','撤销','button[onclick="undoLast()"]','↩️'],
@@ -23506,7 +24766,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.26';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.27';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -25990,7 +27250,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.26",
+    appVersion: "V3.0.27",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -29758,10 +31018,11 @@ const DesktopUI = (() => {
     });
     ready = true;
     document.querySelectorAll(".nav-tab").forEach((b, i) => {
-      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
+      const text = ["欢迎", "比赛", "历史", "档案", "插件", "设置"][i];
       b.innerHTML =
-        icon(["home", "battle", "history", "archive", "settings"][i]) +
-        `<span>${text}</span>`;
+        icon(
+          ["home", "battle", "history", "archive", "plugin", "settings"][i],
+        ) + `<span>${text}</span>`;
       b.setAttribute("role", "tab");
     });
     setupDock();

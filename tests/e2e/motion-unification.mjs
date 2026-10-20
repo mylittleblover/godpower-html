@@ -67,9 +67,16 @@ try {
       return a;
     };
   });
-  await test("All five pages produce layered, cancellable actual WAAPI entry animations", async () => {
+  await test("All core pages produce layered, cancellable actual WAAPI entry animations", async () => {
     const evidence = [];
-    for (const v of ["welcome", "battle", "history", "archives", "settings"]) {
+    for (const v of [
+      "welcome",
+      "battle",
+      "history",
+      "archives",
+      "plugins",
+      "settings",
+    ]) {
       await p.evaluate((v) => {
         motionProbe = [];
         switchView(v);

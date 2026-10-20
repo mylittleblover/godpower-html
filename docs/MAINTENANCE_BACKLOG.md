@@ -1241,21 +1241,21 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：架构/插件平台
 - 优先级：P1
-- 状态：DONE（2026-10-20，提交待生成）
+- 状态：DONE（2026-10-20，提交 `e0dc04e`）
 - 问题描述：插件页面协议需要在页面模块化前固定，避免后续增加另一套页面注册机制。
-- 证据：`src/ui/contribution-registry.js`、`src/script/00.js`、`tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`、`docs/ui-audit/M1-contribution-registry.md`。
-- 影响范围：五个默认页面、导航、后续插件页面与管理页。
+- 证据：`src/ui/contribution-registry.js`、`src/script/00.js`、`tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`、`docs/ui-audit/M1-contribution-registry.md`。M3将原五个core route扩展为含插件中心的六个route。
+- 影响范围：六个core页面、导航、插件页面与管理页。
 - 建议方案：单一注册表采用声明式descriptor、原子批次校验、activation绑定和幂等dispose；五个默认页面通过宿主route适配，不接受插件mount函数。
 - 依赖：UI-M0。
 - 复杂度：中；风险：中。
-- 验收：无插件默认五页可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
+- 验收：六个core页面可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
 - 推荐测试：已执行Node单测5项、Chromium 1920×1080导航/注册/拒绝/撤销；全量单元集成253项；14组fixture PASS。后续isolated workspace依然待测。
 
 ### UI-M2 — 页面与组件Disposable生命周期
 
 - 分类：架构/交互可靠性
 - 优先级：P1
-- 状态：DONE（2026-10-20；实现提交待生成）
+- 状态：DONE（2026-10-20，提交 `42789c1`）
 - 问题描述：页面mount/unmount尚无统一的事件、timer、observer和动画租约释放协议。
 - 证据：`src/ui/desktop.js`、`src/ui/welcome-v2.js`、`src/ui/battle-motion.js`；M0的listener/timer词法清单只作初筛。
 - 影响范围：快速切页、弹窗/动画、未来插件停用和错误恢复。
@@ -1269,12 +1269,62 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：安全/架构
 - 优先级：P1
-- 状态：OPEN
-- 问题描述：当前无宿主强制校验的统一插件安装、启停、scope、权限与故障隔离runtime。
-- 证据：已批准 `docs/superpowers/specs/SP03-A-plugin-runtime-design.md`，当前尚未实现。
+- 状态：PARTIAL（2026-10-20，HTML基础已实现；安全执行host未实现）
+- 问题描述：插件管理与声明式贡献已由宿主管理，但可执行第三方脚本隔离、签名包验证、服务broker和Electron插件host尚不存在。当前版本不可执行插件JS。
+- 证据：`src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`、`src/ui/plugin-center.js`、`tests/unit/plugin-platform.test.mjs`、`tests/unit/plugin-local-repository.test.mjs`、`tests/e2e/plugin-platform.mjs`、`docs/ui-audit/M3-plugin-platform-foundation.md`。
 - 影响范围：第三方/官方插件、Electron主进程能力、安全与持久化。
-- 建议方案：先建立JSON Schema manifest、受限消息协议、宿主身份绑定、默认拒绝权限和插件私有存储；不暴露Node、主DOM或课堂主数据库。
+- 已实现：严格manifest校验、安装/启用/暂停/恢复/停用/隔离/卸载状态、scope授权、显式权限、核心贡献批次原子注册、scope切换撤权、私有数据CAS/单scope 10MiB软上限、启动时不自动恢复active态、卸载默认留数据。插件中心仅导入JSON声明，JS入口与伪造official ID会被拒绝。
+- 尚缺：实际zip文件扫描/路径和签名验证、安装版本摘要/依赖范围求解、隔离iframe+Worker协议、速率/时间/内存资源预算、崩溃自动隔离/恢复UI、独立IndexedDB私有数据库与数据导出、Electron窄preload broker、网络/文件/音频等能力执行接口。浏览器localStorage实际配额可能低于10MiB，写失败会显示错误并保留旧记录。
 - 依赖：UI-M1、UI-M2及HTML/Electron共享协议复核。
 - 复杂度：高；风险：高。
-- 验收：权限拒绝/跨scope/重复请求/停用token/崩溃隔离均有回归测试，旧存档和课堂事务不变。
-- 推荐测试：schema与权限单测、隔离frame E2E、Electron preload allowlist合同测试。
+- 当前验收：manifest恶意ID/可执行入口/未知权限、显式授权、scope撤销、贡献批次原子失败、失活handle、启动恢复、卸载留存/清除、损坏存储与写失败均有测试；Chromium 1920×1080插件中心流程PASS，14组布局PASS。
+- 剩余验收：安全sandbox、签名安装、完整依赖/升级/回滚及Electron broker尚未测试；不得把当前JSON声明能力宣传为已安全运行不可信代码。
+- 推荐测试：继续执行本节下方PLUG-M2～M5。
+
+### PLUG-M2 — HTML隔离执行宿主与消息协议
+
+- 分类：安全/运行时；优先级：P0；状态：OPEN。
+- 问题：当前只接受声明式JSON，不能运行需要逻辑Worker的教学/玩法插件。
+- 证据：`src/application/plugin-platform.js` `safePackagePath()`只接受JSON入口；Plugin Center有“不会运行JavaScript”说明。
+- 影响：主题/卡片/页面等声明扩展可用范围有限；任何当前导入的代码文件都必须拒绝。
+- 方案：按照`SP03-A`使用opaque sandbox frame+Worker+宿主建立MessageChannel，身份绑定activation/scope/epoch；不授予same-origin、主DOM、网络直连或任意导航。
+- 依赖：PLUG-M1；HTML file://与HTTP隔离策略复核。
+- 复杂度：高；风险：高。
+- 验收：恶意导航、重放、伪造身份、权限撤销、timeout和worker terminate均拒绝；主页面/CSP保持原状，业务快照hash不变。
+- 测试：Chromium 1920×1080协议E2E，Worker消息攻击用隔离context及种子随机。
+
+### PLUG-M3 — 插件包验证、签名、迁移与私有数据导出
+
+- 分类：安全/数据；优先级：P1；状态：OPEN。
+- 问题：插件中心当前导入的是JSON manifest，不是带摘要、文件路径、版本和内容的真实离线包；localStorage配额有限，没有插件数据导出/迁移。
+- 证据：`src/ui/plugin-center.js` `importManifest()`；`src/infrastructure/plugin-local-repository.js`使用独立localStorage键。
+- 影响：无法验证entry文件存在、包完整性、压缩炸弹、升级来源及私有题库长期容量。
+- 方案：实现有界ZIP解析、规范路径/总解压量/文件数验证、哈希/签名信任分层、staging迁移和IndexedDB隔离插件命名空间；失败不覆盖旧包/课堂数据。
+- 依赖：PLUG-M2之前先冻结manifest包格式；IndexedDB既有repository能力评估。
+- 复杂度：高；风险：高。
+- 验收：目录穿越/大小写冲突/重复路径/炸弹/损坏摘要均拒绝；升级中断回滚、数据导出可读回。
+- 测试：恶意fixture、quota故障注入、关闭/重开恢复、旧包兼容。
+
+### PLUG-M4 — 插件管理授权、诊断与安全维护UI
+
+- 分类：产品/可访问性；优先级：P1；状态：OPEN。
+- 问题：当前权限批准使用浏览器原生confirm；错误诊断及卸载删除数据选项有限，缺少隔离插件恢复/权限撤销/依赖视图。
+- 证据：`src/ui/plugin-center.js` `onClick()`；`tests/e2e/plugin-platform.mjs`。
+- 影响：权限变更透明度、键盘操作、数据保留决策和故障恢复体验。
+- 方案：建立符合当前设计系统的权限详情对话框、按学科/课堂管理scope、导出私有数据、状态筛选与诊断列表；危险删除明确二次确认。
+- 依赖：PLUG-M1；不等待代码sandbox。
+- 复杂度：中；风险：低。
+- 验收：键盘/焦点/缩放可用；可只撤销一项可选权限；卸载与清数据为不同明确操作。
+- 测试：Chromium 1920×1080安装/授权/撤销/恢复流程与空、已安装、大量插件截图。
+
+### PLUG-M5 — Electron插件broker与安全一致性
+
+- 分类：Electron安全；优先级：P1；状态：OPEN。
+- 问题：Electron目前尚未同步3.0.27，也没有插件隔离窗口/provider权限合同。
+- 证据：Electron `docs/validation/v3.0.26-electron-sync.md`。
+- 影响：桌面版插件能力和HTML权限边界不一致；不应暴露通用IPC。
+- 方案：共享manifest/SDK契约，在主进程实现窄白名单能力broker、独立partition插件host和preload最小API；保持课堂主窗口CSP `frame-src 'none'`。
+- 依赖：PLUG-M2协议冻结；Electron安全合同测试。
+- 复杂度：高；风险：高。
+- 验收：webContents/mainFrame/url/epoch/permission四重校验；任意IPC、跨scope、过期activation拒绝；原浮窗/全屏点名不退化。
+- 测试：Electron权限/隔离测试；Windows真机需单独记录，不用Linux结果代替。

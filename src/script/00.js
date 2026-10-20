@@ -3084,7 +3084,7 @@ function escapeHtml(str) {
 
 
 /* ================================================================
- * v3：五页面 SPA 视图导航 + 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
+ * v3：六个core view（含插件中心）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
@@ -3103,7 +3103,10 @@ function switchView(name) {
   GodpowerTheme.cancel();
   window.GodpowerTooltips?.cancel();
   const route = window.GodPowerPageShell?.resolvePage(name);
-  if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
+  if (route && !route.core && String(name).startsWith('plugins/')) {
+    window.GodPowerPluginCenter?.showRoute(name);
+    name = 'plugins';
+  } else if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
   if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);
@@ -3116,6 +3119,7 @@ function switchView(name) {
   if (name === 'welcome') { renderWelcomePage(); updateWelcomeTrackIfNeeded(); }
   if (name === 'history') renderHistoryList();
   if (name === 'archives') renderSettlementHistoryList();
+  if (name === 'plugins') window.GodPowerPluginCenter?.render();
   if (name === 'settings') { syncSettingsControls(); renderBgmSlotList(); renderFxSlotList(); renderBgmEngineConsole(); }
   if (name === 'battle') {
     menuFadeOut();
@@ -3138,6 +3142,7 @@ function getMenuTrackKeyForView(name) {
   if (name === 'welcome') return getWelcomeTrackKey();
   if (name === 'history') return 'aux_history';
   if (name === 'archives') return 'aux_archives';
+  if (name === 'plugins') return 'aux_settings';
   if (name === 'settings') return 'aux_settings';
   return null;
 }
@@ -4904,7 +4909,7 @@ const _v26HandDraw=handDrawItem;handDrawItem=function(){if(!handItemDrawTimer)st
 /* 4. 顶部导航 + 底部主要功能按钮图标自定义 */
 const UI_ICON_TARGETS=[
  ['nav_welcome','欢迎','[data-view="welcome"]','🏠'],['nav_battle','比赛','[data-view="battle"]','⚔️'],
- ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_settings','设置','[data-view="settings"]','⚙️'],
+ ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_plugins','插件','[data-view="plugins"]','🧩'],['nav_settings','设置','[data-view="settings"]','⚙️'],
  ['dock_item','全局道具抽取','button[onclick="globalItemDraw()"]','🎁'],['dock_hand','举手办案处','button[onclick="openHandRaise()"]','✋'],
  ['dock_picker','点名抽签','button[onclick="openPickerModal()"]','🎰'],['dock_about','关于','button[onclick="openAbout()"]','ⓘ'],
  ['dock_search','人肉搜索（文明版）','button[onclick="openMemberSearchModal()"]','😎'],['dock_undo','撤销','button[onclick="undoLast()"]','↩️'],

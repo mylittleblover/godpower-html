@@ -33,6 +33,7 @@ try {
     "battle",
     "history",
     "archives",
+    "plugins",
     "settings",
   ]);
 
@@ -133,6 +134,7 @@ try {
     "battle",
     "history",
     "archives",
+    "plugins",
     "settings",
   ]);
   assert.deepEqual(pageErrors, []);

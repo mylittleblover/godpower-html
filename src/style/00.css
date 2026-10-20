@@ -1125,7 +1125,7 @@
     }
   }
 
-  /* ================= SPA 五页面视图架构 v3 ================= */
+  /* ================= SPA core view architecture v3 ================= */
   .view { display: none; min-height: calc(100vh - 96px); }
   .view.active { display: flex; flex-direction: column; }
 

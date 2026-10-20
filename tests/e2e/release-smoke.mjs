@@ -45,13 +45,14 @@ async function test(name, fn) {
   }
 }
 try {
-  await test("HTTP document continues offline: five page navigation and actual correct-answer scoring", async () => {
+  await test("HTTP document continues offline: six core page navigation and actual correct-answer scoring", async () => {
     await setup(p);
     await context.setOffline(true);
     for (const view of [
       "welcome",
       "history",
       "archives",
+      "plugins",
       "settings",
       "battle",
     ]) {

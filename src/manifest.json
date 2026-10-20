@@ -7,12 +7,27 @@
     },
     {
       "type": "script",
+      "path": "application/plugin-platform.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/plugin-local-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/disposable-scope.js",
       "attributes": ""
     },
     {
       "type": "script",
       "path": "ui/themes.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/plugin-center.js",
       "attributes": ""
     },
     {
@@ -159,6 +174,11 @@
       "type": "style",
       "path": "ui/themes.css",
       "attributes": " id=\"application-themes\""
+    },
+    {
+      "type": "style",
+      "path": "ui/plugin-center.css",
+      "attributes": " id=\"plugin-center-style\""
     },
     {
       "type": "script",

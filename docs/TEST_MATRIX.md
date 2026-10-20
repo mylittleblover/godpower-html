@@ -63,8 +63,11 @@
 | 旧 desktop-ui 全流程 | 曾启动但未完成 | INCOMPLETE；一个抽签断言未在隔离复测复现；Escape断言未等待关闭动效，M2需用动画结束信号重测 |
 | M1 页面注册协议 | 见下方 M1 已执行矩阵 | PASS |
 | M2 页面dispose与动画清理 | `docs/ui-audit/M2-page-lifecycle.md` | PASS；详见下方 M2 已执行矩阵 |
-| 插件安装runtime与权限/数据 | 未实施 | NOT TESTED |
-| Electron/Windows | M2 HTML源代码同步待执行 | NOT TESTED |
+| 声明式插件manifest/权限/生命周期/私有数据 | `tests/unit/plugin-platform.test.mjs`、`tests/unit/plugin-local-repository.test.mjs`、`tests/e2e/plugin-platform.mjs` | PASS；仅声明式JSON，不执行外部代码 |
+| HTML六入口与14组布局 | `artifacts/ui-governance-m3/`、`tests/e2e/desktop-ui.mjs` | PASS；Chromium 1920×1080 1x |
+| 可执行插件隔离沙箱/安装包签名/依赖迁移 | 尚未实现 | NOT TESTED |
+| Electron插件broker/插件窗口 | 尚未同步此版本 | NOT TESTED |
+| Electron/Windows | M2 HTML已同步至3.0.26；M3 HTML源代码待同步 | NOT TESTED |
 
 ### M1 已执行
 
@@ -88,3 +91,17 @@
 | M2全量单元/集成 | `npm test` | PASS 257/257 |
 | M2 HTML构建/检查 | `npm run build && npm run check` | PASS；版本3.0.26 |
 | Electron同版同步/插件中心/隔离sandbox | 下阶段同步或实现 | NOT TESTED |
+
+### M3 插件平台基础（声明式）
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| Manifest ID/SDK/平台/权限/路径/类型校验、拒绝JS入口和官方ID伪造 | `tests/unit/plugin-platform.test.mjs` | PASS |
+| 默认拒绝、权限显式授予、注册批次失败无部分路由、scope切换撤销 | `tests/unit/plugin-platform.test.mjs` | PASS；7项 |
+| 生命周期安装/启用/停用/恢复/隔离/卸载保留或清除私有数据 | `tests/unit/plugin-platform.test.mjs` | PASS |
+| 私有数据revision冲突、10MiB/scope限额、失活token和启动恢复 | `tests/unit/plugin-platform.test.mjs` | PASS |
+| localStorage读写回读、损坏数据不覆盖、写入失败可见 | `tests/unit/plugin-local-repository.test.mjs` | PASS 3项 |
+| Plugin Center导入→审阅必需权限→启用→导航→停用→卸载 | `npm run test:plugins` | PASS；Chromium 1920×1080 1x；无pageerror |
+| 六core routes与既有14组布局/全桌面交互 | `test:contributions`、`test:ui-governance-baseline`、`battle-layout`、`desktop-ui` | PASS；desktop-ui 23/23 |
+| M3全量单元/集成 | `npm test` | PASS 268/268 |
+| 可执行第三方JS、zip安装/签名、Electron隔离插件host | 未实现 | NOT TESTED；插件中心明示目前仅JSON声明 |

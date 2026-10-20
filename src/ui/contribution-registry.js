@@ -27,7 +27,14 @@
     "builtin.command-shortcut",
     "builtin.decoration",
   ]);
-  const CORE_PAGES = ["welcome", "battle", "history", "archives", "settings"];
+  const CORE_PAGES = [
+    "welcome",
+    "battle",
+    "history",
+    "archives",
+    "plugins",
+    "settings",
+  ];
   const REQUIRED = {
     page: "ui.page.register",
     navigation: "ui.navigation.register",

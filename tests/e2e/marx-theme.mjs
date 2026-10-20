@@ -123,10 +123,10 @@ try {
     .evaluateAll((es) => es.map((e) => e.getAttribute("d")));
   assert.equal(
     new Set(paths).size,
-    5,
+    6,
     "functional icons must remain distinguishable",
   );
-  for (const view of ["welcome", "battle", "history", "archives", "settings"]) {
+  for (const view of ["welcome", "battle", "history", "archives", "plugins", "settings"]) {
     await page.evaluate((view) => {
       switchView(view);
       if (view === "settings") DesktopUI.selectSettings("appearance");
