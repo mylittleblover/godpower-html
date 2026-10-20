@@ -86,7 +86,7 @@
 - [x] Record final test evidence and any deferred F1 UI integration.
 - [x] Bump version metadata consistently to 3.0.33 and build the standalone HTML.
 - [x] Run unit/integration and Chromium layout test at exactly 1920×1080 DPR 1.
-- [ ] Commit the HTML phase; sync that exact HTML commit into Electron, verify SHA/build/smoke, then commit Electron.
+- [x] Commit the HTML phase; sync that exact HTML commit into Electron, verify SHA/build/smoke, then commit Electron.
 
 ## Self-review
 

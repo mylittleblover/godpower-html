@@ -30,6 +30,7 @@ The above does not certify every R01–R20 feature. Statuses below distinguish e
 - `npm run format:check`: PASS.
 - `npm run audit:hygiene`: PASS with no source-manifest issues after including untracked non-ignored worktree files.
 - Chromium 1920×1080 @1x: 14-group fit PASS; plugin lifecycle PASS; Miyamoto 26-item workspace/settings compatibility PASS; no page errors.
+- Electron sync for the exact HTML source commit: bundle SHA/version PASS; security IPC tests 20/20; isolated `classroom://app` smoke PASS; Electron Chromium desktop suite 16/16, including 14-group fit, all picker modes, detached windows and recovery. Native Windows remains NOT TESTED; CircleCI was not run.
 - No UI screenshot baseline was overwritten. Native Windows and full profile-selection UI remain NOT TESTED.
 
 ## R01–R20 traceability
