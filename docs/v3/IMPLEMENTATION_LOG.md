@@ -257,3 +257,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 “导出名单”现生成版本化组合 JSON，包含 roster 与被引用的头像字节；旧版纯名单 JSON 仍可导入。组合导入先校验全部数据和资源，限制文件 ≤70 MiB、头像单个 ≤2 MiB/合计 ≤50 MiB，验证文件签名和 SHA-256，拒绝缺失/未引用头像与跨课堂资源。冲突资源 ID 使用新 ID 并重映射学生，而不覆盖旧 Blob。导入先写并验证 IndexedDB 资源，再 CAS 保存 localStorage roster；名单提交失败时删除本次新增头像，错误可见。清除/替换头像的旧资源回收仍然保留为后续工作。
 
 验证：新增 Chromium 1920×1080 流程覆盖备份格式、头像恢复、损坏头像摘要拒绝、名单存储失败保持原名单并回滚新资源、resourceId 冲突映射。`npm test` 296/296，`npm run test:settings` 全部通过，14 小组布局 1920×1080 PASS，`check`、`format:check`、`audit:hygiene` PASS。最终构建与 Electron 同步结果记录在 `docs/validation/v3.0.39-electron-sync.md`。未运行 CircleCI；Windows 真机 NOT TESTED；`file://` 仍受当前 Playwright 管理环境策略阻止。
+
+## 3.0.40 — 保护被引用头像免遭资源库删除
+
+修复通用离线资源库可删除仍被 roster `avatarResourceId` 引用的图片、造成名单头像断链的问题。删除操作在显示确认前检查最新名单，在用户确认后、删除前再检查一次；如果名单损坏或无法读取则保守拒绝。解除头像引用后，原有确认删除和教学资源备份恢复保持不变。不自动清理所有孤立头像，仍需设计可预览、可恢复的清理工作流。
+
+验证：新增 Chromium 1920×1080 测试，生成独立头像并持久化名单引用，尝试删除时确认资源仍在；清除引用后确认删除成功，再从资源备份恢复全部资源。旧实现测试先因缺少“仍被学生头像引用”反馈而失败，实现后通过。完整验证结果记录在 `docs/validation/v3.0.40-avatar-reference-guard.md` 与 Electron 同步验收中。

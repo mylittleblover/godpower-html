@@ -62,6 +62,18 @@
       status.dataset.state = error ? "error" : "ok";
     }
 
+    function ensureResourceUnreferenced(resourceId) {
+      const currentRoster = rosterRepository.read();
+      if (!currentRoster.ok || !currentRoster.rosterData)
+        throw new Error("名单无法可靠读取，已阻止删除资源");
+      if (
+        currentRoster.rosterData.students.some(
+          (student) => student.avatarResourceId === resourceId,
+        )
+      )
+        throw new Error("此资源仍被学生头像引用，请先清除名单头像引用");
+    }
+
     function fillScope() {
       const profile = byId(section, "teachingResourceProfile");
       const classroom = byId(section, "teachingResourceClassroom");
@@ -281,6 +293,12 @@
         const removeButton = make("button", "删除", "btn btn-sm btn-danger");
         removeButton.type = "button";
         removeButton.onclick = async () => {
+          try {
+            ensureResourceUnreferenced(item.resourceId);
+          } catch (error) {
+            setStatus(error.message, true);
+            return;
+          }
           if (
             !root.confirm(
               `确认删除“${item.title}”吗？删除前请先导出需要保留的资源。`,
@@ -288,6 +306,7 @@
           )
             return;
           try {
+            ensureResourceUnreferenced(item.resourceId);
             await repository.remove(item.resourceId);
             await refresh();
             setStatus("资源已删除。");

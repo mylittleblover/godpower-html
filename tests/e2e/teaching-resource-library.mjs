@@ -63,6 +63,9 @@ try {
     .locator(".teaching-resource-card")
     .first()
     .waitFor({ state: "visible" });
+  await page.waitForFunction(
+    () => document.querySelectorAll(".teaching-resource-card").length === 1,
+  );
   assert.match(
     await page.locator("#teachingResourceList").innerText(),
     /权利与义务/,
@@ -125,6 +128,47 @@ try {
   await page.locator("#teachingResourceImport").click();
   await page.waitForFunction(
     () => document.querySelectorAll(".teaching-resource-card").length === 3,
+  );
+  const avatarBytes = await page.evaluate(async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 3;
+    canvas.height = 3;
+    const context = canvas.getContext("2d");
+    context.fillStyle = "#d85e56";
+    context.fillRect(0, 0, 3, 3);
+    const blob = await new Promise((resolve) =>
+      canvas.toBlob(resolve, "image/png"),
+    );
+    return [...new Uint8Array(await blob.arrayBuffer())];
+  });
+  const avatarResourceId = await page.evaluate(async (bytes) => {
+    const repo = await TeachingResourceRepository.open();
+    const [avatar] = await repo.addBatch([
+      {
+        file: new File([new Uint8Array(bytes)], "class-avatar.png", {
+          type: "image/png",
+        }),
+        profileId: "profile-resource-test",
+        classroomId: "classroom-resource-test",
+        subjectId: "student-avatar",
+        title: "课堂头像",
+      },
+    ]);
+    const roster = ClassroomRosterRepository.createClassroomRosterRepository({
+      storage: localStorage,
+    });
+    const current = roster.read();
+    current.rosterData.students[0].avatarResourceId = avatar.resourceId;
+    const saved = roster.write(current.rosterData, {
+      expectedRevision: current.revision,
+    });
+    if (!saved.ok) throw new Error(saved.message || saved.code);
+    repo.close();
+    return avatar.resourceId;
+  }, avatarBytes);
+  await page.evaluate(() => TeachingResourceWorkspace.refresh());
+  await page.waitForFunction(
+    () => document.querySelectorAll(".teaching-resource-card").length === 4,
   );
   await page
     .locator(".teaching-resource-card")
@@ -200,7 +244,7 @@ try {
   const backupBytes = await readFile(backupFile);
   const pack = JSON.parse(backupBytes.toString());
   assert.equal(pack.format, "godpower-teaching-resources");
-  assert.equal(pack.resources.length, 3);
+  assert.equal(pack.resources.length, 4);
 
   for (const title of ["权利与义务", "课堂插图", "课堂 PDF 讲义"]) {
     page.once("dialog", (dialog) => dialog.accept());
@@ -210,6 +254,38 @@ try {
       .locator("button", { hasText: "删除" })
       .click();
   }
+  await page.waitForFunction(
+    () => document.querySelectorAll(".teaching-resource-card").length === 1,
+  );
+  await page
+    .locator(".teaching-resource-card")
+    .filter({ hasText: "课堂头像" })
+    .locator("button", { hasText: "删除" })
+    .click();
+  await page.waitForFunction(() =>
+    document
+      .querySelector("#teachingResourceStatus")
+      ?.textContent.includes("仍被学生头像引用"),
+  );
+  assert.equal(await page.locator(".teaching-resource-card").count(), 1);
+  assert.ok(avatarResourceId);
+  await page.evaluate(() => {
+    const roster = ClassroomRosterRepository.createClassroomRosterRepository({
+      storage: localStorage,
+    });
+    const current = roster.read();
+    current.rosterData.students[0].avatarResourceId = undefined;
+    const saved = roster.write(current.rosterData, {
+      expectedRevision: current.revision,
+    });
+    if (!saved.ok) throw new Error(saved.message || saved.code);
+  });
+  page.once("dialog", (dialog) => dialog.accept());
+  await page
+    .locator(".teaching-resource-card")
+    .filter({ hasText: "课堂头像" })
+    .locator("button", { hasText: "删除" })
+    .click();
   await page.waitForFunction(
     () => document.querySelectorAll(".teaching-resource-card").length === 0,
   );
@@ -249,7 +325,7 @@ try {
       document.querySelector("#teachingResourceStatus").dataset.state ===
       "error",
   );
-  assert.equal(await page.locator(".teaching-resource-card").count(), 3);
+  assert.equal(await page.locator(".teaching-resource-card").count(), 4);
   assert.match(
     await page.locator("#teachingResourceStatus").innerText(),
     /现有资源保持不变/,
