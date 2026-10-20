@@ -39,6 +39,20 @@ try {
     await page.locator(".plugin-safety-note").innerText(),
     /不会运行插件 JavaScript/,
   );
+  await page.waitForFunction(
+    () =>
+      GodPowerPluginCenter.platform?.get("official.marx-theme")?.state ===
+      "active",
+  );
+  assert.equal(
+    await page.evaluate(() =>
+      GodPowerPageShell.listByPlugin("official.marx-theme").some(
+        (entry) => entry.kind === "theme" && entry.localId === "marx",
+      ),
+    ),
+    true,
+    "the official Marx appearance is registered by the host plugin lifecycle",
+  );
   const originalPrimary = await page.evaluate(() =>
     getComputedStyle(document.body).getPropertyValue("--ui-primary").trim(),
   );
@@ -100,7 +114,12 @@ try {
   await page.waitForFunction(() =>
     GodPowerPluginCenter.platform?.get("community.sample"),
   );
-  assert.match(await page.locator(".plugin-card").innerText(), /已安装/);
+  assert.match(
+    await page
+      .locator('.plugin-card[data-plugin-id="community.sample"]')
+      .innerText(),
+    /已安装/,
+  );
   assert.equal(
     await page.evaluate(() =>
       GodPowerPageShell.resolvePage("plugins/community.sample/workspace"),
@@ -117,7 +136,11 @@ try {
     ),
   );
   assert.equal(await page.locator('[data-plugin-action="route"]').count(), 1);
-  await page.locator('[data-plugin-action="theme"]').click();
+  await page
+    .locator(
+      '[data-plugin-action="theme"][data-plugin-id^="community.sample/"]',
+    )
+    .click();
   assert.equal(
     await page.evaluate(() =>
       getComputedStyle(document.body).getPropertyValue("--ui-primary").trim(),
@@ -145,7 +168,11 @@ try {
     path: "artifacts/ui-governance-m4/plugins-active.png",
     fullPage: true,
   });
-  await page.locator('[data-plugin-action="disable"]').click();
+  await page
+    .locator(
+      '[data-plugin-action="disable"][data-plugin-id="community.sample"]',
+    )
+    .click();
   await page.waitForFunction(
     () =>
       GodPowerPageShell.resolvePage("plugins/community.sample/workspace") ===

@@ -1331,15 +1331,16 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 ### PLUG-M6 — 完整主题与文案扩展引擎
 
-- 分类：插件/界面；优先级：P1；状态：PARTIAL（M4实现有限Token与文本Key基础）
-- 问题：当前不支持主题预览、低对比度拒绝、页面级作用域、个人覆盖、占位符格式化、多语言回退、资源句柄与版本/导入导出；`GodpowerTheme`仍直接维护classic/Marx品牌和图标。
+- 分类：插件/界面；优先级：P1；状态：PARTIAL（M4有限Token/Text基础；3.0.30已迁移马克思主题Token catalog）
+- 问题：当前不支持主题预览、低对比度拒绝、页面级作用域、个人覆盖、占位符格式化、多语言回退、资源句柄与版本/导入导出；`GodpowerTheme`仍直接维护classic/Marx品牌、图标、旧CSS别名和转场。
 - 证据：`src/ui/plugin-appearance.js`、`src/ui/themes.js`、`docs/ui-audit/M4-theme-text-contributions.md`。
 - 影响：官方主题迁移、第三方主题易用性和HTML/Electron一致性。
-- 建议：冻结Design Token schema和对比度计算；增加preview lease和scope/CAS selection，再把现有Marx描述导入受信任内置catalog，在浮窗/全屏演出及主窗对照验收完成前保留旧适配。
+- 已实现：`official.marx-theme`在宿主启动时以受信任内置manifest安装/激活，主题贡献经唯一ContributionRegistry注册；旧偏好`godpower_appearance_v1`仍为选择权威，内置主题token作为视觉适配层应用，切回经典会撤销token并清理扩展主题覆盖。旧CSS/品牌图标适配保留。
+- 建议：冻结Design Token schema和对比度计算；增加preview lease和scope/CAS selection，再迁移旧CSS别名、品牌图标/装饰及Electron浮窗/全屏主题。
 - 依赖：PLUG-M1、M4基础；Electron DTO能力由PLUG-M5。
 - 复杂度：高；风险：中（品牌、图标和旧偏好兼容）。
 - 验收：停用和预览中断无遗留Token；正文/大字/焦点对比度达到设计门槛；旧classic/Marx设置迁移可恢复；所有窗口外观一致。
-- 测试：纯函数Token/locale单测；Chromium 1920×1080 1x主页面和弹窗截图；Electron桌面/浮窗/特效对照。
+- 测试：纯函数Token/locale单测；Chromium 1920×1080 1x主页面和弹窗截图；Electron桌面/浮窗/特效对照。3.0.30已在HTML Chromium验证token应用、切换回退、刷新恢复及14组布局；Electron同步待执行。
 
 ### PLUG-M7 — 将“共产主义模式”道具总开关迁入竞技插件
 

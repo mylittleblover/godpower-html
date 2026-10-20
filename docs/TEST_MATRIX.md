@@ -126,3 +126,14 @@
 |被已安装插件引用的provider卸载保护|PASS|`tests/unit/plugin-platform.test.mjs`|
 |插件中心受限JSON声明安装流程|PASS|`tests/e2e/plugin-platform.mjs`，Chromium 1920×1080 1x|
 |Electron共享依赖范围合同|NOT TESTED|当前实现尚未提取到HTML/Electron共享协议包|
+
+
+## 官方马克思主题插件迁移（3.0.30）
+
+|场景|结果|证据|
+|---|---|---|
+|官方manifest受信任安装、权限授予和激活|PASS|`tests/e2e/plugin-platform.mjs`，Chromium 1920×1080 1x|
+|主题贡献只通过宿主白名单token注册|PASS|`tests/e2e/plugin-platform.mjs`、`tests/e2e/marx-theme.mjs`|
+|经典/马克思切换及旧主题偏好刷新恢复|PASS|`tests/e2e/marx-theme.mjs`|
+|14小组比赛布局保持与主题差分验收|PASS|`tests/e2e/marx-theme.mjs`，Chromium 1920×1080 1x|
+|Electron浮窗、全屏特效主题一致性|NOT TESTED|HTML主题catalog尚未同步到Electron本阶段验证|

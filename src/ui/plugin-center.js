@@ -46,12 +46,28 @@
       root.GodPowerPluginLocalRepository.createPluginLocalRepository(
         root.localStorage,
       );
-    return root.GodPowerPluginPlatform.createPluginPlatform({
+    const builtin = root.GodpowerMarxThemePlugin?.manifest;
+    const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
       repository,
       platform: "html",
       currentScope: () => ({ classroomId: "local-classroom" }),
+      isTrustedBuiltin: (manifest) =>
+        manifest.id === builtin?.id && manifest.version === builtin?.version,
     });
+    if (builtin) {
+      let installed = platform.get(builtin.id);
+      if (!installed)
+        installed = platform.install(builtin, { source: "builtin" });
+      if (installed.state !== "active") {
+        const required = builtin.permissions
+          .filter((permission) => permission.required)
+          .map((permission) => permission.capability);
+        platform.grantPermissions(builtin.id, required);
+        platform.activate(builtin.id);
+      }
+    }
+    return platform;
   }
   function addButton(parent, text, action, id, extra = "") {
     const button = document.createElement("button");
@@ -116,6 +132,7 @@
       const record = platform.inspect(plugin.id);
       const card = document.createElement("article");
       card.className = "plugin-card";
+      card.dataset.pluginId = plugin.id;
       const head = document.createElement("div");
       head.className = "plugin-card-head";
       const identity = document.createElement("div");

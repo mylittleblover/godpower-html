@@ -95,6 +95,7 @@
     restore();
     restoreTexts();
     const saved = selection();
+    let restoredPluginTheme = false;
     if (saved?.schemaVersion === 1 && saved.pluginId && saved.localId) {
       const contributions =
         root.GodPowerPageShell?.listByPlugin(saved.pluginId) || [];
@@ -105,6 +106,7 @@
       ) {
         try {
           apply(saved.pluginId, saved.localId, contributions);
+          restoredPluginTheme = true;
         } catch {
           restore();
         }
@@ -116,14 +118,33 @@
         }
       }
     }
+    if (!restoredPluginTheme && root.GodpowerTheme?.get?.() === "marx")
+      selectBuiltinTheme("marx");
     for (const plugin of root.GodPowerPluginCenter?.platform?.list?.() || [])
       if (plugin.state === "active") applyText(plugin.id);
+  }
+  function selectBuiltinTheme(theme) {
+    if (theme !== "marx") {
+      try {
+        localStorage.removeItem(KEY);
+      } catch {
+        window.showToast?.("主题已切换，但扩展主题偏好未能清除");
+      }
+      restore();
+      return { ok: true, restored: true };
+    }
+    const item = (
+      root.GodPowerPageShell?.listByPlugin("official.marx-theme") || []
+    ).find((entry) => entry.kind === "theme" && entry.localId === "marx");
+    if (!item) return { ok: false, reason: "official Marx theme is inactive" };
+    return apply("official.marx-theme", "marx");
   }
   root.GodPowerPluginAppearance = Object.freeze({
     apply,
     applyText,
     restore,
     sync,
+    selectBuiltinTheme,
     get applied() {
       return applied && { ...applied };
     },

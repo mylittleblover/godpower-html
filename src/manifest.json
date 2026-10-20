@@ -32,6 +32,11 @@
     },
     {
       "type": "script",
+      "path": "ui/official-marx-theme.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/plugin-center.js",
       "attributes": ""
     },

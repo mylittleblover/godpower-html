@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.29</title>
+<title>上帝的力量 V3.0.30</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.29";
+    document.title = name() + " V3.0.30";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -1703,6 +1703,7 @@ window.GodpowerTheme = (() => {
         String(button.dataset.appearanceTheme === theme),
       );
     if (typeof updateWelcomeClock === "function") updateWelcomeClock();
+    window.GodPowerPluginAppearance?.selectBuiltinTheme?.(theme);
     // Dedicated event is consumed by presentation transports only.
     window.dispatchEvent(
       new CustomEvent("godpower:theme", { detail: { theme, name: name() } }),
@@ -1922,6 +1923,7 @@ window.GodpowerTheme = (() => {
     restore();
     restoreTexts();
     const saved = selection();
+    let restoredPluginTheme = false;
     if (saved?.schemaVersion === 1 && saved.pluginId && saved.localId) {
       const contributions =
         root.GodPowerPageShell?.listByPlugin(saved.pluginId) || [];
@@ -1932,6 +1934,7 @@ window.GodpowerTheme = (() => {
       ) {
         try {
           apply(saved.pluginId, saved.localId, contributions);
+          restoredPluginTheme = true;
         } catch {
           restore();
         }
@@ -1943,19 +1946,87 @@ window.GodpowerTheme = (() => {
         }
       }
     }
+    if (!restoredPluginTheme && root.GodpowerTheme?.get?.() === "marx")
+      selectBuiltinTheme("marx");
     for (const plugin of root.GodPowerPluginCenter?.platform?.list?.() || [])
       if (plugin.state === "active") applyText(plugin.id);
+  }
+  function selectBuiltinTheme(theme) {
+    if (theme !== "marx") {
+      try {
+        localStorage.removeItem(KEY);
+      } catch {
+        window.showToast?.("主题已切换，但扩展主题偏好未能清除");
+      }
+      restore();
+      return { ok: true, restored: true };
+    }
+    const item = (
+      root.GodPowerPageShell?.listByPlugin("official.marx-theme") || []
+    ).find((entry) => entry.kind === "theme" && entry.localId === "marx");
+    if (!item) return { ok: false, reason: "official Marx theme is inactive" };
+    return apply("official.marx-theme", "marx");
   }
   root.GodPowerPluginAppearance = Object.freeze({
     apply,
     applyText,
     restore,
     sync,
+    selectBuiltinTheme,
     get applied() {
       return applied && { ...applied };
     },
   });
   window.addEventListener("DOMContentLoaded", sync, { once: true });
+})(globalThis);
+</script>
+<script>/* Trusted, declarative catalog entry for the official Marx appearance plugin. */
+(function installOfficialMarxTheme(root) {
+  "use strict";
+  const manifest = {
+    manifestVersion: 1,
+    id: "official.marx-theme",
+    name: { "zh-CN": "马克思主题", en: "Marx Theme" },
+    description: {
+      "zh-CN": "提供马克思的力量受控主题令牌。",
+      en: "Provides the Marx visual theme tokens.",
+    },
+    author: { name: "GodPower Official" },
+    version: "1.0.0",
+    sdk: ">=1.0.0 <2.0.0",
+    types: ["theme"],
+    subjects: [],
+    platforms: ["html", "electron"],
+    entry: { theme: "themes/marx.json" },
+    permissions: [{ capability: "ui.theme.register", required: true }],
+    dependencies: {},
+    optionalDependencies: {},
+    contributes: [
+      {
+        localId: "marx",
+        kind: "theme",
+        descriptor: {
+          displayNameKey: "theme.marx.name",
+          tokens: {
+            "--ui-primary": "#a91e2c",
+            "--ui-primary-hover": "#831924",
+            "--ui-accent": "#b26519",
+            "--ui-accent-hover": "#874a12",
+            "--ui-bg": "#faf6f1",
+            "--ui-panel": "#fffdfa",
+            "--ui-soft": "#f9eae6",
+            "--ui-soft-2": "#fcf5f0",
+            "--ui-text": "#382624",
+            "--ui-muted": "#77534b",
+            "--ui-border": "#e3cec5",
+            "--ui-border-strong": "#c59d8e",
+          },
+        },
+      },
+    ],
+    data: { schemaVersion: 1 },
+  };
+  root.GodpowerMarxThemePlugin = Object.freeze({ manifest });
 })(globalThis);
 </script>
 <script>(function installPluginCenter(root) {
@@ -2006,12 +2077,28 @@ window.GodpowerTheme = (() => {
       root.GodPowerPluginLocalRepository.createPluginLocalRepository(
         root.localStorage,
       );
-    return root.GodPowerPluginPlatform.createPluginPlatform({
+    const builtin = root.GodpowerMarxThemePlugin?.manifest;
+    const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
       repository,
       platform: "html",
       currentScope: () => ({ classroomId: "local-classroom" }),
+      isTrustedBuiltin: (manifest) =>
+        manifest.id === builtin?.id && manifest.version === builtin?.version,
     });
+    if (builtin) {
+      let installed = platform.get(builtin.id);
+      if (!installed)
+        installed = platform.install(builtin, { source: "builtin" });
+      if (installed.state !== "active") {
+        const required = builtin.permissions
+          .filter((permission) => permission.required)
+          .map((permission) => permission.capability);
+        platform.grantPermissions(builtin.id, required);
+        platform.activate(builtin.id);
+      }
+    }
+    return platform;
   }
   function addButton(parent, text, action, id, extra = "") {
     const button = document.createElement("button");
@@ -2076,6 +2163,7 @@ window.GodpowerTheme = (() => {
       const record = platform.inspect(plugin.id);
       const card = document.createElement("article");
       card.className = "plugin-card";
+      card.dataset.pluginId = plugin.id;
       const head = document.createElement("div");
       head.className = "plugin-card-head";
       const identity = document.createElement("div");
@@ -10942,7 +11030,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.29</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.30</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -25099,7 +25187,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.29';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.30';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -27583,7 +27671,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.29",
+    appVersion: "V3.0.30",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
