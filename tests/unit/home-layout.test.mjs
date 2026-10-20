@@ -167,3 +167,23 @@ test("draft undo redo, hide, cancel, and save never mutate initial layout", () =
   assert.equal(saved.instances[0].visible, false);
   assert.equal(initial.instances[0].visible, true);
 });
+
+test("replacing a draft is undoable and never commits the saved layout", () => {
+  const initial = scope.api.createDefaultLayout(
+    "layout-main",
+    "默认布局",
+    [{ typeId: "core.a", size: card("core.a").size }],
+    () => "instance-a",
+  );
+  const service = scope.api.createLayoutService({
+    catalog: [card("core.a")],
+    initial,
+    makeInstanceId: () => "instance-unused",
+  });
+  const preset = scope.api.emptyLayout("layout-preset", "恢复默认");
+  service.replaceDraft(preset);
+  assert.equal(service.getDraft().layoutId, "layout-preset");
+  assert.equal(service.getSaved().layoutId, "layout-main");
+  service.undo();
+  assert.equal(service.getDraft().layoutId, "layout-main");
+});

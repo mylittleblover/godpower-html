@@ -390,6 +390,10 @@
         item.configVersion = configVersion;
         apply({ ...draft, instances });
       },
+      replaceDraft(layout) {
+        apply(validateLayout(layout));
+        return clone(draft);
+      },
       undo() {
         if (!undoStack.length) return false;
         redoStack.push(clone(draft));
