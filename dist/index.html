@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.47</title>
+<title>上帝的力量 V3.0.48</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.47";
+    document.title = name() + " V3.0.48";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8754,6 +8754,92 @@ body {
   outline: 2px solid #ffcfb5;
   outline-offset: 1px;
 }
+
+/* Optional roster avatars occupy the original number badge footprint. */
+body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
+  width: 40px !important;
+  height: 45px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 1px !important;
+  overflow: visible !important;
+  color: var(--group-color) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border-radius: 0 !important;
+  font-size: 10px !important;
+}
+.v213-group-avatar-stack {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1.5px solid var(--group-color, #78909c);
+  border-radius: 8px;
+  background: #fff;
+}
+.v213-group-avatar-stack img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
+}
+.v213-group-avatar-stack.count-1 img {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+.v213-group-number-below-avatar {
+  height: 12px;
+  line-height: 12px;
+  font-size: 10px;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+  color: var(--group-color, #607d8b);
+}
+.picker-avatar-reel-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 100%;
+}
+.picker-avatar-reel-content img {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  box-shadow: 0 5px 16px rgba(4, 37, 33, 0.22);
+}
+.picker-avatar-reel-content > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .v213-group-avatar-stack img {
+    animation: roster-avatar-arrive 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes roster-avatar-arrive {
+    from {
+      opacity: 0.45;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
 /* The same palette, with content-specific structures retained for each window. */
 .ui-function-surface,
 .item-draw-board,
@@ -9172,6 +9258,9 @@ body.modern-flat-v217 {
   background: var(--theme-tone-f1f9f2, #f1f9f2);
 }
 .ui-slot-stage .slot-reel-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   padding: 8px;
   text-align: center;
@@ -9485,6 +9574,48 @@ body[data-motion="off"] {
   gap: 18px;
   padding: 40px 80px;
   width: min(1200px, 95vw);
+}
+.cf-show-avatar-stack {
+  width: clamp(112px, 19vh, 220px);
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  padding: 5px;
+  border: 2px solid color-mix(in srgb, var(--cf-accent) 75%, white);
+  border-radius: 28%;
+  background: color-mix(in srgb, var(--cf-accent) 14%, #071b20);
+  box-shadow:
+    0 0 35px color-mix(in srgb, var(--cf-glow) 50%, transparent),
+    0 0 110px color-mix(in srgb, var(--cf-glow) 35%, transparent);
+  animation: cf-avatar-arrive 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cf-show-avatar-stack[hidden] {
+  display: none;
+}
+.cf-show-avatar-stack img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 22%;
+}
+.cf-show-avatar-stack:has(img:only-child) img {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  border-radius: 24%;
+}
+@keyframes cf-avatar-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.76) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
 }
 #classroomShowcase .cf-show-title {
   color: #fff;
@@ -12107,7 +12238,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.47</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.48</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -15194,6 +15325,356 @@ globalThis.StableIdentity = StableIdentity;
   }
 
   root.ClassroomRosterWorkspace = Object.freeze({ mount });
+})(globalThis);
+</script>
+<script>/* Read-only presentation adapter for locally stored roster avatars. */
+(function installClassroomAvatarDisplay(root) {
+  "use strict";
+
+  const urls = new Map();
+  const compactImages = new Map();
+  const compactGroups = new Map();
+  let contextKey = "";
+  let avatarIndex = new Map();
+  let generation = 0;
+
+  function currentContext() {
+    try {
+      const value = JSON.parse(
+        root.localStorage.getItem("godpower_active_classroom_context_v1") ||
+          "null",
+      );
+      if (
+        value?.schemaVersion !== 1 ||
+        !root.StableIdentity.isValidUserProfileId(value.userProfileId) ||
+        !root.StableIdentity.isValidClassroomId(value.classroomId)
+      )
+        return null;
+      return value;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function clearUrls() {
+    for (const url of urls.values()) root.URL.revokeObjectURL(url);
+    urls.clear();
+    compactImages.clear();
+    compactGroups.clear();
+    avatarIndex = new Map();
+  }
+
+  function canvasImage(source, width, height) {
+    const canvas = root.document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    if (!context) return "";
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, width, height);
+    const scale = Math.max(width / source.width, height / source.height);
+    const drawWidth = source.width * scale;
+    const drawHeight = source.height * scale;
+    context.drawImage(
+      source,
+      (width - drawWidth) / 2,
+      (height - drawHeight) / 2,
+      drawWidth,
+      drawHeight,
+    );
+    return canvas.toDataURL("image/webp", 0.82);
+  }
+
+  async function compactImage(url) {
+    if (compactImages.has(url)) return compactImages.get(url);
+    const imageGeneration = generation;
+    const pending = (async () => {
+      try {
+        const image = new Image();
+        image.src = url;
+        if (typeof image.decode === "function") await image.decode();
+        else
+          await new Promise((resolve, reject) => {
+            image.onload = resolve;
+            image.onerror = reject;
+          });
+        return canvasImage(image, 256, 256);
+      } catch (_) {
+        return "";
+      }
+    })();
+    compactImages.set(url, pending);
+    pending.then((value) => {
+      if (imageGeneration === generation) compactImages.set(url, value);
+    });
+    return pending;
+  }
+
+  async function readIndex() {
+    const context = currentContext();
+    const nextKey = context
+      ? `${context.userProfileId}\u0000${context.classroomId}`
+      : "";
+    if (nextKey !== contextKey) {
+      generation++;
+      clearUrls();
+      contextKey = nextKey;
+    }
+    if (!context) return;
+    const indexGeneration = generation;
+
+    const repository =
+      root.ClassroomRosterRepository.createClassroomRosterRepository({
+        storage: root.localStorage,
+      });
+    const saved = repository.read();
+    if (!saved.ok || !saved.rosterData) return;
+    const roster = saved.rosterData;
+    const assignment = roster.assignments.find(
+      (entry) =>
+        entry.userProfileId === context.userProfileId &&
+        entry.classroomId === context.classroomId,
+    );
+    if (!assignment || assignment.mode !== "group") return;
+
+    const students = new Map(
+      roster.students.map((student) => [student.studentUid, student]),
+    );
+    const byGroup = new Map();
+    for (const item of assignment.groupAssignments) {
+      const student = students.get(item.studentUid);
+      if (!student || student.classroomId !== context.classroomId) continue;
+      const entries = byGroup.get(item.groupUid) || [];
+      entries.push({
+        name: student.displayName,
+        resourceId: student.avatarResourceId || "",
+      });
+      byGroup.set(item.groupUid, entries);
+    }
+    avatarIndex = byGroup;
+
+    const resourceIds = new Set();
+    for (const entries of byGroup.values())
+      for (const entry of entries)
+        if (entry.resourceId) resourceIds.add(entry.resourceId);
+    if (!resourceIds.size) return;
+
+    let resourceRepository;
+    try {
+      resourceRepository = await root.TeachingResourceRepository.open();
+    } catch (_) {
+      return;
+    }
+    await Promise.all(
+      [...resourceIds].map(async (resourceId) => {
+        if (urls.has(resourceId)) return;
+        try {
+          const resource = await resourceRepository.get(resourceId);
+          if (
+            indexGeneration !== generation ||
+            !resource ||
+            resource.profileId !== context.userProfileId ||
+            resource.classroomId !== context.classroomId ||
+            resource.subjectId !== "student-avatar" ||
+            !["image/png", "image/jpeg", "image/webp"].includes(
+              resource.mimeType,
+            )
+          )
+            return;
+          urls.set(resourceId, root.URL.createObjectURL(resource.blob));
+        } catch (_) {
+          // Missing or unavailable optional avatars never block the classroom UI.
+        }
+      }),
+    );
+    await Promise.all([...urls.values()].map(compactImage));
+  }
+
+  function studentUrl(group, name, occurrence = 0) {
+    const entries = avatarIndex.get(group?.groupUid) || [];
+    let matchIndex = 0;
+    for (const entry of entries) {
+      if (entry.name !== name) continue;
+      if (matchIndex++ !== occurrence) continue;
+      return entry.resourceId ? urls.get(entry.resourceId) || "" : "";
+    }
+    return "";
+  }
+
+  function groupUrls(group) {
+    const entries = avatarIndex.get(group?.groupUid) || [];
+    const seen = new Set();
+    const result = [];
+    for (const entry of entries) {
+      const url = entry.resourceId ? urls.get(entry.resourceId) : "";
+      if (!url || seen.has(url)) continue;
+      seen.add(url);
+      result.push(url);
+      if (result.length === 4) break;
+    }
+    return result;
+  }
+
+  async function groupDataUrl(group) {
+    const cached = compactGroups.get(group?.groupUid);
+    if (cached) return cached;
+    const images = groupUrls(group);
+    if (!images.length) return "";
+    const imageGeneration = generation;
+    const pending = (async () => {
+      const sources = await Promise.all(
+        images.map(async (url) => {
+          const image = new Image();
+          image.src = url;
+          if (typeof image.decode === "function") await image.decode();
+          else
+            await new Promise((resolve, reject) => {
+              image.onload = resolve;
+              image.onerror = reject;
+            });
+          return image;
+        }),
+      );
+      const canvas = root.document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 256;
+      const context = canvas.getContext("2d");
+      if (!context) return "";
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, 256, 256);
+      const cell = sources.length === 1 ? 256 : 127;
+      sources.forEach((image, index) => {
+        const x = sources.length === 1 ? 0 : (index % 2) * 129;
+        const y = sources.length === 1 ? 0 : Math.floor(index / 2) * 129;
+        const scale = Math.max(cell / image.width, cell / image.height);
+        const width = image.width * scale;
+        const height = image.height * scale;
+        context.save();
+        context.beginPath();
+        context.rect(x, y, cell, cell);
+        context.clip();
+        context.drawImage(
+          image,
+          x + (cell - width) / 2,
+          y + (cell - height) / 2,
+          width,
+          height,
+        );
+        context.restore();
+      });
+      return canvas.toDataURL("image/webp", 0.82);
+    })().catch(() => "");
+    compactGroups.set(group.groupUid, pending);
+    pending.then((value) => {
+      if (imageGeneration === generation)
+        compactGroups.set(group.groupUid, value);
+    });
+    return pending;
+  }
+
+  function studentDataUrl(group, name, occurrence = 0) {
+    const url = studentUrl(group, name, occurrence);
+    const value = url ? compactImages.get(url) : "";
+    return typeof value === "string" ? value : "";
+  }
+
+  function groupDataUrlCached(group) {
+    const value = compactGroups.get(group?.groupUid);
+    return typeof value === "string" ? value : "";
+  }
+
+  function decorateGroupCards(groups) {
+    const taskGeneration = generation;
+    readIndex().then(() => {
+      if (taskGeneration !== generation && taskGeneration !== generation - 1)
+        return;
+      for (const group of groups) {
+        const card = root.document.querySelector(
+          `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
+        );
+        const badge = card?.querySelector(".v213-number");
+        if (!badge || badge.dataset.avatarDecorated === "true") continue;
+        const images = groupUrls(group);
+        if (!images.length) continue;
+        badge.dataset.avatarDecorated = "true";
+        badge.classList.add("v213-number-avatar");
+        badge.replaceChildren();
+        const stack = root.document.createElement("span");
+        stack.className = `v213-group-avatar-stack count-${images.length}`;
+        stack.setAttribute("aria-label", `${group.name} 小组头像`);
+        for (const url of images) {
+          const image = root.document.createElement("img");
+          image.src = url;
+          image.alt = "";
+          image.draggable = false;
+          stack.append(image);
+        }
+        const number = root.document.createElement("span");
+        number.className = "v213-group-number-below-avatar";
+        number.textContent = groupNoTextV213(group);
+        badge.append(stack, number);
+      }
+    });
+  }
+
+  function renderRaffleReel(element, group, studentName = "", occurrence = 0) {
+    if (!element) return;
+    const imageUrl = studentName
+      ? studentUrl(group, studentName, occurrence)
+      : groupUrls(group)[0] || "";
+    element.replaceChildren();
+    const wrapper = root.document.createElement("span");
+    wrapper.className = "picker-avatar-reel-content";
+    const label = root.document.createElement("span");
+    if (studentName && typeof root.parseStudentV218 === "function") {
+      const parsed = root.parseStudentV218(studentName);
+      if (parsed.numberText) {
+        const number = root.document.createElement("span");
+        number.className = "student-no-inline-v218";
+        number.style.color = group?.color || "#0f766e";
+        number.textContent = parsed.numberText;
+        label.append(number);
+      }
+      const name = root.document.createElement("span");
+      name.className = "student-name-v218";
+      name.textContent = parsed.name;
+      label.append(name);
+    } else label.textContent = group?.name || "";
+    if (imageUrl) {
+      const image = root.document.createElement("img");
+      image.src = imageUrl;
+      image.alt = "";
+      image.draggable = false;
+      wrapper.append(image);
+    }
+    wrapper.append(label);
+    element.append(wrapper);
+  }
+
+  root.addEventListener("godpower:active-classroom-changed", () => {
+    contextKey = "!refresh!";
+    readIndex();
+  });
+  root.addEventListener("pagehide", clearUrls, { once: true });
+
+  root.ClassroomAvatarDisplay = Object.freeze({
+    async prepare(groups = []) {
+      return readIndex()
+        .then(() => {
+          return Promise.all(groups.map(groupDataUrl));
+        })
+        .then(() => {
+          decorateGroupCards(groups);
+        });
+    },
+    decorateGroupCards,
+    groupUrls,
+    groupDataUrl,
+    groupDataUrlCached,
+    renderRaffleReel,
+    studentDataUrl,
+    studentUrl,
+  });
 })(globalThis);
 </script>
 <script>(function installTeachingSchedule(root) {
@@ -22498,7 +22979,7 @@ function getAvailablePool() {
     }
     let students = [];
     grps.forEach(g => {
-      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
+      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
     });
     if (state.picker.antiRepeat) {
       const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
@@ -22513,8 +22994,8 @@ function getAvailablePool() {
 
   let students = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach((m, index) => {
-      students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
+      (g.members || []).forEach((m, index) => {
+      students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
     });
   });
   if (state.picker.antiRepeat) {
@@ -22551,6 +23032,7 @@ async function startSlotSpin() {
     themeAlert('奖池空了');
     return;
   }
+  await window.ClassroomAvatarDisplay?.prepare(state.groups);
   await getAudioContext();
   if(slotEngine.isSpinning||(uiGeneration!==null&&!DesktopUI.isPickerCurrent(uiGeneration)))return false;
   startRollLoop();
@@ -22571,7 +23053,7 @@ async function startSlotSpin() {
   const allGroups = state.groups;
   let allStudents = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach(m => allStudents.push({ group: g, name: m }));
+    (g.members || []).forEach((m, memberIndex) => allStudents.push({ group: g, name: m, memberIndex }));
   });
   if (allGroups.length === 0) allGroups.push({ name: '默认组' });
   if (allStudents.length === 0) allStudents = [{ group: { name: '默认组' }, name: '学生' }];
@@ -22597,7 +23079,7 @@ async function startSlotSpin() {
   if (reelGrpText) {
     slotEngine.timerGroup = setInterval(() => {
       const randomGrp = reelGrps[Math.floor(Math.random() * reelGrps.length)];
-      reelGrpText.innerText = randomGrp.name;
+      window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, randomGrp);
     }, 70);
   }
 
@@ -22605,7 +23087,8 @@ async function startSlotSpin() {
   if (reelStuText) {
     slotEngine.timerStudent = setInterval(() => {
       const randomStu = reelStus[Math.floor(Math.random() * reelStus.length)];
-      reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
+      window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, randomStu.group, randomStu.name, randomStu.memberIndex);
+      if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.textContent = randomStu.name;
     }, 50);
   }
   ClassroomFeedback.startLive();
@@ -22631,20 +23114,26 @@ function stopSlotSpin() {
   const resultHeadline = document.getElementById('resultHeadline');
 
   if (state.picker.mode === 'group') {
-    reelGrpText.innerText = win.name;
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelGrpText.textContent = win.name;
     badge.innerText = `小组抽签`;
     resultHeadline.innerText = `抽中：${win.name}`;
     if (state.picker.antiRepeat) state.picker.pickedGroupIds.push(win.id);
   } else if (state.picker.mode === 'two_tier') {
-    reelGrpText.innerText = win.group.name;
-    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') {
+      reelGrpText.textContent = win.group.name;
+      reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    }
     badge.innerText = `双层联动：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) {
       state.picker.pickedStudentKeys.push(win.key);
     }
   } else {
-    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
     badge.innerText = `所属：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) state.picker.pickedStudentKeys.push(win.key);
@@ -30168,7 +30657,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.47';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.48';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -30893,6 +31382,8 @@ function renderBattleGridCards() {
     }
     if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
   });
+  if (typeof ClassroomAvatarDisplay !== "undefined")
+    ClassroomAvatarDisplay.decorateGroupCards(ordered);
 
   if (state.editingScoreId != null) {
     const input = document.getElementById(
@@ -32652,7 +33143,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.47",
+    appVersion: "V3.0.48",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -33375,7 +33866,7 @@ const ClassroomFeedback = (() => {
         root.querySelector(".cf-show-particles")?.replaceChildren();
       });
   }
-  function show({ type, title, subtitle, value }) {
+  function show({ type, title, subtitle, value, avatars = [] }) {
     if (
       !allowed() ||
       (type === "pick" ? !options.pickEffects : !options.scoreEffects)
@@ -33421,6 +33912,17 @@ const ClassroomFeedback = (() => {
     root.querySelector(".cf-show-title").textContent = title;
     root.querySelector(".cf-show-subtitle").textContent = subtitle || "";
     root.querySelector(".cf-show-value").textContent = value || "";
+    const avatarStack = root.querySelector(".cf-show-avatar-stack");
+    avatarStack.replaceChildren();
+    for (const src of avatars.slice(0, 4)) {
+      if (typeof src !== "string" || !src.startsWith("blob:")) continue;
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.draggable = false;
+      avatarStack.append(image);
+    }
+    avatarStack.hidden = !avatarStack.childElementCount;
     const particles = root.querySelector(".cf-show-particles");
     const simple = DesktopUI.getPreferences().motion === "simple";
     if (!simple)
@@ -33468,6 +33970,16 @@ const ClassroomFeedback = (() => {
           ? "本次抽中小组"
           : `${group?.name || ""}${student?.number != null ? " · 学号 " + student.number : ""}`,
       value: mode === "group" ? "LUCKY TEAM" : "就是你",
+      avatars:
+        mode === "group"
+          ? window.ClassroomAvatarDisplay?.groupUrls(group) || []
+          : [
+              window.ClassroomAvatarDisplay?.studentUrl(
+                group,
+                win.memberName,
+                win.memberIndex,
+              ) || "",
+            ],
     });
   }
   function syncSettings() {
@@ -33597,7 +34109,7 @@ const ClassroomFeedback = (() => {
     }
     document.body.insertAdjacentHTML(
       "beforeend",
-      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
+      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><div class="cf-show-avatar-stack" hidden></div><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
     );
     bindButtonSound();
     Reliability.onDefenseInvalidation(() => {
@@ -38173,9 +38685,13 @@ window.GodpowerPicker = (() => {
     const group = state.groups.find(g => g.id === source?.id);
     if (!group || group !== source || (state.picker.mode !== 'group' && !group.members?.includes(win.memberName))) return null;
     const student = state.picker.mode === 'group' ? null : parseStudentV218(win.memberName);
+    const avatarDataUrl = state.picker.mode === 'group'
+      ? window.ClassroomAvatarDisplay?.groupDataUrlCached(group) || ''
+      : window.ClassroomAvatarDisplay?.studentDataUrl(group, win.memberName, win.memberIndex) || '';
     return { id: resultId, mode: state.picker.mode, groupId: group.id, groupName: group.name,
       groupNo: group.groupNo || group.id, color: group.color, score: group.score,
       name: student?.name || group.name, number: student?.number ?? null,
+      avatarDataUrl,
       memberName: state.picker.mode === 'group' ? null : win.memberName };
   }
   function getSnapshot() {

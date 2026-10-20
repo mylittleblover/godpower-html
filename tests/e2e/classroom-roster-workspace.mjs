@@ -26,6 +26,9 @@ try {
     timeout: 90000,
   });
   await setup(page, 14);
+  const originalGroupMember = await page.evaluate(
+    () => state.groups[0].members[0],
+  );
   await page.evaluate(() => {
     localStorage.removeItem("godpower_classroom_roster_v1");
     switchView("settings");
@@ -81,7 +84,21 @@ try {
   assert.equal(saved.rosterData.assignments[0].groupAssignments.length, 28);
 
   const avatarBytes = Buffer.from(
-    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/6Y8AAAAASUVORK5CYII=",
+    await page.evaluate(() => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 96;
+      canvas.height = 96;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#0f766e";
+      context.fillRect(0, 0, 96, 96);
+      context.fillStyle = "#f8c6a5";
+      context.beginPath();
+      context.arc(48, 38, 22, 0, Math.PI * 2);
+      context.fill();
+      context.fillStyle = "#153b49";
+      context.fillRect(19, 64, 58, 32);
+      return canvas.toDataURL("image/png").split(",")[1];
+    }),
     "base64",
   );
   await page.locator(".roster-avatar-upload").first().setInputFiles({
@@ -106,6 +123,101 @@ try {
   assert.ok(avatarState.resourceId);
   assert.equal(avatarState.valid, true);
   assert.equal(avatarState.count, 1);
+
+  await page.evaluate(() => {
+    const roster = JSON.parse(
+      localStorage.getItem("godpower_classroom_roster_v1"),
+    ).rosterData;
+    const context = {
+      schemaVersion: 1,
+      userProfileId: roster.profiles[0].userProfileId,
+      classroomId: roster.classrooms[0].classroomId,
+    };
+    localStorage.setItem(
+      "godpower_active_classroom_context_v1",
+      JSON.stringify(context),
+    );
+    dispatchEvent(
+      new CustomEvent("godpower:active-classroom-changed", { detail: context }),
+    );
+    state.groups[0].members[0] = "工作区测试姓名";
+    switchView("battle");
+    renderGrid();
+  });
+  const groupAvatar = page.locator(
+    '.group-row-card[data-group-id="1"] .v213-number-avatar .v213-group-avatar-stack img',
+  );
+  await groupAvatar.waitFor({ state: "visible" });
+  assert.match(await groupAvatar.getAttribute("src"), /^blob:/);
+  assert.equal(
+    await page
+      .locator(
+        '.group-row-card[data-group-id="1"] .v213-group-number-below-avatar',
+      )
+      .innerText(),
+    "01",
+  );
+  await page.screenshot({
+    path: "artifacts/f1-roster-workspace/avatar-group-card-1920x1080.png",
+  });
+
+  await page.evaluate(async () => {
+    openPickerModal();
+    setPickerMode("individual");
+    window.__avatarTestRandom = Math.random;
+    Math.random = () => 0;
+    await startSlotSpin();
+    stopSlotSpin();
+  });
+  const pickerAvatar = page.locator(
+    "#reelTextStudent .picker-avatar-reel-content img",
+  );
+  await pickerAvatar.waitFor({ state: "visible" });
+  assert.match(await pickerAvatar.getAttribute("src"), /^blob:/);
+  assert.match(
+    await page.locator("#reelTextStudent").innerText(),
+    /工作区测试姓名/,
+  );
+  await page.screenshot({
+    path: "artifacts/f1-roster-workspace/avatar-picker-slot-1920x1080.png",
+  });
+  await page.evaluate(() => {
+    ClassroomFeedback.setOptions({ pickEffects: true }, { persist: false });
+    ClassroomFeedback.picked(slotEngine.chosenResult, state.picker.mode);
+  });
+  const fullScreenAvatar = page.locator(
+    "#classroomShowcase[open] .cf-show-avatar-stack img",
+  );
+  await fullScreenAvatar.waitFor({ state: "visible" });
+  assert.match(await fullScreenAvatar.getAttribute("src"), /^blob:/);
+  const compactAvatars = await page.evaluate(async () => {
+    await ClassroomAvatarDisplay.prepare(state.groups);
+    return {
+      student: ClassroomAvatarDisplay.studentDataUrl(
+        state.groups[0],
+        "工作区测试姓名",
+      ),
+      group: ClassroomAvatarDisplay.groupDataUrlCached(state.groups[0]),
+    };
+  });
+  assert.match(compactAvatars.student, /^data:image\/webp;base64,/);
+  assert.match(compactAvatars.group, /^data:image\/webp;base64,/);
+  await page.screenshot({
+    path: "artifacts/f1-roster-workspace/avatar-fullscreen-1920x1080.png",
+  });
+  await page.evaluate(() => {
+    Math.random = window.__avatarTestRandom;
+    delete window.__avatarTestRandom;
+    closePickerModal();
+  });
+  await page.evaluate((name) => {
+    state.groups[0].members[0] = name;
+    renderGrid();
+  }, originalGroupMember);
+  await page.evaluate(() => {
+    switchView("settings");
+    DesktopUI.selectSettings("students");
+  });
 
   // If the roster link cannot commit, remove only the newly uploaded orphan blob.
   await page.evaluate(() => {

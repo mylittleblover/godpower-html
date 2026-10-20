@@ -18,9 +18,13 @@ window.GodpowerPicker = (() => {
     const group = state.groups.find(g => g.id === source?.id);
     if (!group || group !== source || (state.picker.mode !== 'group' && !group.members?.includes(win.memberName))) return null;
     const student = state.picker.mode === 'group' ? null : parseStudentV218(win.memberName);
+    const avatarDataUrl = state.picker.mode === 'group'
+      ? window.ClassroomAvatarDisplay?.groupDataUrlCached(group) || ''
+      : window.ClassroomAvatarDisplay?.studentDataUrl(group, win.memberName, win.memberIndex) || '';
     return { id: resultId, mode: state.picker.mode, groupId: group.id, groupName: group.name,
       groupNo: group.groupNo || group.id, color: group.color, score: group.score,
       name: student?.name || group.name, number: student?.number ?? null,
+      avatarDataUrl,
       memberName: state.picker.mode === 'group' ? null : win.memberName };
   }
   function getSnapshot() {

@@ -242,6 +242,11 @@
     },
     {
       "type": "script",
+      "path": "ui/classroom-avatar-display.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/teaching-schedule.js",
       "attributes": ""
     },

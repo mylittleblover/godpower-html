@@ -305,3 +305,10 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 在统一网格上增加可撤销的本地布局编辑器：添加/移除/隐藏/恢复卡片、键盘移动、鼠标拖动、尺寸调整、撤销/重做、默认布局恢复、保存/取消和刷新后恢复。布局仍使用独立首页偏好仓储，不接触课堂快照；取消编辑不会写入，默认布局重置可撤销。比赛页业务与14组卡片结构未修改。插件拥有卡片仍仅显示归属且不可由插件生命周期增删，留待插件注册迁移阶段。
 
 验证：308项 Node 单元/集成测试、格式检查、首页编辑器 Chromium E2E、欢迎页 Chromium 回归 12/12、14组比赛页 Chromium 1920×1080 1x 均通过；详细操作矩阵见 `docs/validation/v3.0.47-home-dashboard-editor.md`。构建 SHA-256 `6087cba412cdcfe062bc28776e6ea7bd0e3782fe0322250b354b293790f3432a`，8,241,622 bytes。
+
+
+## 3.0.48 — 名单头像接入比赛展示
+
+在不扩展课堂权威存档的前提下，将本地名单的稳定学生身份与教学资源头像引用接入比赛小组卡片、老虎机点名窗口和全屏结果揭晓。小组有头像时将头像拼贴放入原编号方块位置，组号放在其下；无头像维持原彩色编号样式。老虎机滚动结果名左侧展示头像；全屏揭晓使用大尺寸头像突出结果。个人/小组/双层点名仅展示同一抽选业务已确定的对象，不新增随机选择或赋分。Electron IPC 仅接受受限大小的本地 WebP 缩略图。
+
+验证：`npm run format:check`、`npm run check`、Node 单元/集成 308/308 PASS；Chromium 1920×1080 1x 名单工作区/头像链路及14组布局 PASS。人工检查老虎机头像位于名字左侧，全屏头像突出显示；无头像的兼容回退与原14组布局保持。单文件构建 8,258,349 bytes，SHA-256 `6ddbaa5669e6b423ffded20fdfd683a2b0b7b4b0f46b4f7fef5491c0653a79a3`。截图见 `artifacts/f1-roster-workspace/avatar-picker-slot-1920x1080.png`、`avatar-fullscreen-1920x1080.png`、`avatar-group-card-1920x1080.png`。Electron同步及桌面构建另行验证；未执行 Firefox、CircleCI、Windows真机。

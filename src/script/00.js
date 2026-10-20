@@ -2463,7 +2463,7 @@ function getAvailablePool() {
     }
     let students = [];
     grps.forEach(g => {
-      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
+      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
     });
     if (state.picker.antiRepeat) {
       const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
@@ -2478,8 +2478,8 @@ function getAvailablePool() {
 
   let students = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach((m, index) => {
-      students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
+      (g.members || []).forEach((m, index) => {
+      students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
     });
   });
   if (state.picker.antiRepeat) {
@@ -2516,6 +2516,7 @@ async function startSlotSpin() {
     themeAlert('奖池空了');
     return;
   }
+  await window.ClassroomAvatarDisplay?.prepare(state.groups);
   await getAudioContext();
   if(slotEngine.isSpinning||(uiGeneration!==null&&!DesktopUI.isPickerCurrent(uiGeneration)))return false;
   startRollLoop();
@@ -2536,7 +2537,7 @@ async function startSlotSpin() {
   const allGroups = state.groups;
   let allStudents = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach(m => allStudents.push({ group: g, name: m }));
+    (g.members || []).forEach((m, memberIndex) => allStudents.push({ group: g, name: m, memberIndex }));
   });
   if (allGroups.length === 0) allGroups.push({ name: '默认组' });
   if (allStudents.length === 0) allStudents = [{ group: { name: '默认组' }, name: '学生' }];
@@ -2562,7 +2563,7 @@ async function startSlotSpin() {
   if (reelGrpText) {
     slotEngine.timerGroup = setInterval(() => {
       const randomGrp = reelGrps[Math.floor(Math.random() * reelGrps.length)];
-      reelGrpText.innerText = randomGrp.name;
+      window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, randomGrp);
     }, 70);
   }
 
@@ -2570,7 +2571,8 @@ async function startSlotSpin() {
   if (reelStuText) {
     slotEngine.timerStudent = setInterval(() => {
       const randomStu = reelStus[Math.floor(Math.random() * reelStus.length)];
-      reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
+      window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, randomStu.group, randomStu.name, randomStu.memberIndex);
+      if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.textContent = randomStu.name;
     }, 50);
   }
   ClassroomFeedback.startLive();
@@ -2596,20 +2598,26 @@ function stopSlotSpin() {
   const resultHeadline = document.getElementById('resultHeadline');
 
   if (state.picker.mode === 'group') {
-    reelGrpText.innerText = win.name;
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelGrpText.textContent = win.name;
     badge.innerText = `小组抽签`;
     resultHeadline.innerText = `抽中：${win.name}`;
     if (state.picker.antiRepeat) state.picker.pickedGroupIds.push(win.id);
   } else if (state.picker.mode === 'two_tier') {
-    reelGrpText.innerText = win.group.name;
-    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') {
+      reelGrpText.textContent = win.group.name;
+      reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    }
     badge.innerText = `双层联动：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) {
       state.picker.pickedStudentKeys.push(win.key);
     }
   } else {
-    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
+    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
     badge.innerText = `所属：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) state.picker.pickedStudentKeys.push(win.key);
