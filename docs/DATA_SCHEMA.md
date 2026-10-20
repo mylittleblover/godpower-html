@@ -1,6 +1,6 @@
 # 数据结构与兼容策略
 
-Schema Version 为 2，应用版本 3.0.24。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
+Schema Version 为 2，应用版本 3.0.41。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。主快照损坏时不会自动覆盖；GP-016 恢复面板可原样导出损坏文本，只读扫描旧副本并预览小组数和积分差异，明确确认后才走课堂导入事务。
 
 | 字段                                                    | 类型／默认值                                                   | 持久化与规则                                                                                                                                     |
 | ------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -18,11 +18,11 @@ Schema Version 为 2，应用版本 3.0.24。`godpower_state_v2` 为当前主课
 | booShield / booRoundsLeftV218                           | 数值／0                                                        | 后者已加入规范化，保留幽灵三次答题时效                                                                                                           |
 | itemUsedThisRound                                       | 布尔／false                                                    | 新格式恢复；新题重置                                                                                                                             |
 | roundItemContinuationKeyV218                            | 字符串／空                                                     | 保留三重道具同题续用身份                                                                                                                         |
-| picker                                                  | mode/antiRepeat 和三类 ID/key 数组                             | mode 只允许 individual/group/two_tier；已抽池耗尽按原规则重置                                                                                    |
-| itemGlobal                                              | 对象                                                           | blooperUntil/totalDraws/handRaiseTotal/pkTotal 非负安全整数；pickerHistory/handRaiseHistory 数组；两版抽取冷却对象保留                           |
+| picker                                                  | mode/antiRepeat 和三类 ID/key 数组                             | mode 只允许 individual/group/two_tier；数组最多10000项且只接受有限长度字符串或安全整数                                                                 |
+| itemGlobal                                              | 对象                                                           | 计数、冷却序号为非负安全整数；点名/举手历史限制数组大小并验证时间、文本、小组ID和布尔结果；两版抽取冷却对象的嵌套序号均验证                           |
 | itemGlobal.customIcons                                  | key → raster data URI                                          | 只允许 PNG/JPEG/WebP/GIF base64；SVG、网络 URL、属性注入拒绝；原图片保留                                                                         |
 | round                                                   | roundActive/evaluated/correctAns/hasStartedOnce/lastRoundAllIn | 启动在所有旧适配器就绪后恢复，避免先重置再覆盖                                                                                                   |
-| history                                                 | 至多40节点                                                     | groups、picker、回合字段、itemGlobal 操作前快照；导入验证每节点 group；不存整套配置、音频                                                        |
+| history                                                 | 至多40节点                                                     | groups、picker、回合字段、itemGlobal 操作前快照；校验每节点嵌套状态且拒绝多层递归；不存整套配置、音频                                                        |
 | firstHandDrawPending                                    | 布尔／true                                                     | 主存档保存首次举手特殊抽取状态                                                                                                                   |
 | adminPin                                                | 字符串／原有1234                                               | 本地防误触配置，可读可改，绝不是远程身份认证                                                                                                     |
 | masterVolume / sfxVolume / zoomLevel                    | 数值／原默认值                                                 | 迁移钳制0–1／0–1／0.4–2                                                                                                                          |

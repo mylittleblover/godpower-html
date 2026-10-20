@@ -1,13 +1,14 @@
 {
   "name": "godpower-html",
-  "version": "3.0.40",
+  "version": "3.0.41",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
-    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs && npm run test:contributions && npm run test:page-lifecycle && npm run test:plugins && npm run test:commands",
+    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs && npm run test:contributions && npm run test:page-lifecycle && npm run test:plugins && npm run test:commands && npm run test:recovery",
+    "test:recovery": "node tests/e2e/classroom-recovery.mjs",
     "verify": "npm run build && npm run check && npm run format:check && npm run audit:hygiene && npm test && npm run test:e2e && npm run test:ui && npm run test:refactor",
     "audit": "node scripts/audit.mjs",
     "audit:ui": "node scripts/ui-ownership.mjs",

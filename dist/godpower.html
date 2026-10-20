@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.40</title>
+<title>上帝的力量 V3.0.41</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.40";
+    document.title = name() + " V3.0.41";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -5287,6 +5287,13 @@ body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-second
 
 .classroom-save-warning{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#fff7db;color:#713f12;border-bottom:1px solid #f5cc71;font-size:14px;line-height:1.6;}
 .classroom-save-warning[hidden]{display:none;}
+.classroom-recovery-tools{display:grid;gap:8px;width:100%;padding:12px 14px;border:1px solid #e7b85a;border-radius:12px;background:#fffdf5;}
+.classroom-recovery-actions{display:flex;gap:8px;flex-wrap:wrap;}
+#classroomRecoveryCandidates{display:grid;gap:8px;}
+#classroomRecoveryCandidates article{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border:1px solid #eadfca;border-radius:9px;background:#fff;}
+#classroomRecoveryCandidates p,#classroomRecoveryPreview p{margin:0;}
+#classroomRecoveryPreview{display:grid;gap:8px;padding:10px;border-left:3px solid #d39b32;background:#fff8e7;}
+#classroomRecoveryPreview[hidden]{display:none;}
 </style>
 
 
@@ -11881,7 +11888,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.40</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.41</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -12004,6 +12011,21 @@ html[data-theme="marx"] {
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
   <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
+  <section id="classroomRecoveryTools" class="classroom-recovery-tools" hidden aria-labelledby="classroomRecoveryTitle">
+    <strong id="classroomRecoveryTitle">存档恢复</strong>
+    <span>原始存档已保护。先导出损坏原文，再只读扫描可用旧副本；恢复前会显示内容摘要并要求确认。</span>
+    <div class="classroom-recovery-actions">
+      <button id="classroomRecoveryExportRaw" type="button" class="btn btn-warning">导出损坏原文</button>
+      <button id="classroomRecoveryScan" type="button" class="btn btn-primary">扫描可恢复副本</button>
+    </div>
+    <div id="classroomRecoveryStatus" role="status" aria-live="polite"></div>
+    <div id="classroomRecoveryCandidates"></div>
+    <div id="classroomRecoveryPreview" hidden>
+      <p id="classroomRecoveryPreviewText"></p>
+      <button id="classroomRecoveryRestore" type="button" class="btn btn-danger">确认恢复此副本</button>
+      <button id="classroomRecoveryCancel" type="button" class="btn btn-secondary">取消</button>
+    </div>
+  </section>
 </div>
 <div id="view-welcome" class="view active">
   <main class="ui-page gp-home" aria-label="上帝的力量首页">
@@ -18227,124 +18249,414 @@ const AchievementLedger = (() => {
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
   const schemaVersion = 2;
-  const stateKey = 'godpower_state_v2';
-  const legacyStateKey = 'godpower_state_v1';
-  function validateBackup(data) {
-    if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error('备份必须是 JSON 对象');
-    if (data.schemaVersion != null && ![1,schemaVersion].includes(data.schemaVersion)) throw Error('不支持此存档版本');
-    if(data.schemaVersion===schemaVersion&&!StableIdentity.isValidSeasonId(data.seasonId))throw Error('赛季身份无效');
-    if(data.achievementLedger!=null)AchievementLedger.normalize(data.achievementLedger);
-    if (!Array.isArray(data.groups) || !data.groups.length || data.groups.length > 1000) throw Error('小组数据为空或超过 1000 组');
-    const groupUids=new Set();
-    data.groups.forEach(g => {
-      if (!g || typeof g !== 'object' || Array.isArray(g)) throw Error('小组格式无效');
-      if(data.schemaVersion===schemaVersion){
-        if(!StableIdentity.isValidGroupUid(g.groupUid)||groupUids.has(g.groupUid))throw Error('小组身份无效或重复');
+  const stateKey = "godpower_state_v2";
+  const legacyStateKey = "godpower_state_v1";
+  function validateBackup(data, depth = 0) {
+    if (!data || typeof data !== "object" || Array.isArray(data))
+      throw Error("备份必须是 JSON 对象");
+    if (depth > 1) throw Error("历史嵌套层级过深");
+    if (
+      data.schemaVersion != null &&
+      ![1, schemaVersion].includes(data.schemaVersion)
+    )
+      throw Error("不支持此存档版本");
+    if (
+      data.schemaVersion === schemaVersion &&
+      !StableIdentity.isValidSeasonId(data.seasonId)
+    )
+      throw Error("赛季身份无效");
+    if (data.achievementLedger != null)
+      AchievementLedger.normalize(data.achievementLedger);
+    if (
+      !Array.isArray(data.groups) ||
+      !data.groups.length ||
+      data.groups.length > 1000
+    )
+      throw Error("小组数据为空或超过 1000 组");
+    const groupUids = new Set();
+    data.groups.forEach((g) => {
+      if (!g || typeof g !== "object" || Array.isArray(g))
+        throw Error("小组格式无效");
+      if (data.schemaVersion === schemaVersion) {
+        if (
+          !StableIdentity.isValidGroupUid(g.groupUid) ||
+          groupUids.has(g.groupUid)
+        )
+          throw Error("小组身份无效或重复");
         groupUids.add(g.groupUid);
       }
-      if (!Number.isSafeInteger(Number(g.score ?? 0))) throw Error('分数必须是安全整数');
-      if (g.members != null && (!Array.isArray(g.members) || g.members.some(m=>typeof m!=='string'))) throw Error('成员格式无效');
-      if(g.inventory!=null && (!Array.isArray(g.inventory)||g.inventory.length>3))throw Error('道具队列格式无效');
-      if(g.inventory?.some(it=>!it||typeof it!=='object'||Array.isArray(it)))throw Error('道具格式无效');
-      if(g.itemEffect!=null && (typeof g.itemEffect!=='object'||Array.isArray(g.itemEffect)))throw Error('持续状态格式无效');
+      if (!Number.isSafeInteger(Number(g.score ?? 0)))
+        throw Error("分数必须是安全整数");
+      if (
+        g.members != null &&
+        (!Array.isArray(g.members) ||
+          g.members.some((m) => typeof m !== "string"))
+      )
+        throw Error("成员格式无效");
+      if (
+        g.inventory != null &&
+        (!Array.isArray(g.inventory) || g.inventory.length > 3)
+      )
+        throw Error("道具队列格式无效");
+      if (
+        g.inventory?.some(
+          (it) => !it || typeof it !== "object" || Array.isArray(it),
+        )
+      )
+        throw Error("道具格式无效");
+      if (
+        g.itemEffect != null &&
+        (typeof g.itemEffect !== "object" || Array.isArray(g.itemEffect))
+      )
+        throw Error("持续状态格式无效");
     });
-    if(data.picker!=null && (typeof data.picker!=='object'||Array.isArray(data.picker)))throw Error('点名数据格式无效');
-    if(data.itemGlobal!=null && (typeof data.itemGlobal!=='object'||Array.isArray(data.itemGlobal)))throw Error('全局道具数据格式无效');
-    if(data.history!=null){
-      if(!Array.isArray(data.history)||data.history.length>40)throw Error('历史格式无效');
-      for(const h of data.history){
-        if(!h||typeof h!=='object')throw Error('历史节点格式无效');
-        validateBackup({groups:h.groups,picker:h.picker,itemGlobal:h.itemGlobal,achievementLedger:h.achievementLedger});
+    if (data.picker != null) {
+      if (typeof data.picker !== "object" || Array.isArray(data.picker))
+        throw Error("点名数据格式无效");
+      if (
+        data.picker.mode != null &&
+        !["individual", "group", "two_tier", ""].includes(data.picker.mode)
+      )
+        throw Error("点名模式无效");
+      if (
+        data.picker.antiRepeat != null &&
+        typeof data.picker.antiRepeat !== "boolean"
+      )
+        throw Error("防重复设置无效");
+      for (const key of [
+        "pickedStudentKeys",
+        "pickedGroupIds",
+        "preselectedGroupIds",
+      ]) {
+        const values = data.picker[key];
+        if (
+          values != null &&
+          (!Array.isArray(values) ||
+            values.length > 10000 ||
+            values.some(
+              (value) =>
+                !["string", "number"].includes(typeof value) ||
+                (typeof value === "number" && !Number.isSafeInteger(value)) ||
+                (typeof value === "string" && value.length > 500),
+            ))
+        )
+          throw Error("点名候选记录无效");
+      }
+    }
+    if (data.itemGlobal != null) {
+      const global = data.itemGlobal;
+      if (typeof global !== "object" || Array.isArray(global))
+        throw Error("全局道具数据格式无效");
+      for (const key of [
+        "blooperUntil",
+        "totalDraws",
+        "handRaiseTotal",
+        "pkTotal",
+      ])
+        if (
+          global[key] != null &&
+          (!Number.isSafeInteger(Number(global[key])) ||
+            Number(global[key]) < 0)
+        )
+          throw Error("全局计数格式无效");
+      for (const key of ["pickerHistory", "handRaiseHistory"]) {
+        const records = global[key];
+        if (
+          records != null &&
+          (!Array.isArray(records) || records.length > 10000)
+        )
+          throw Error("课堂工具历史格式无效");
+        for (const record of records || []) {
+          if (
+            !record ||
+            typeof record !== "object" ||
+            Array.isArray(record) ||
+            !Number.isSafeInteger(Number(record.time)) ||
+            Number(record.time) < 0
+          )
+            throw Error("课堂工具历史节点无效");
+          if (
+            key === "pickerHistory" &&
+            (typeof record.text !== "string" || record.text.length > 2000)
+          )
+            throw Error("点名历史内容无效");
+          if (
+            key === "handRaiseHistory" &&
+            (!Number.isSafeInteger(Number(record.groupId)) ||
+              typeof record.correct !== "boolean")
+          )
+            throw Error("举手历史内容无效");
+        }
+      }
+      for (const [key, sequenceKey, eligibleKey] of [
+        ["drawThrottleV2179", "sequence", "nextEligible"],
+        ["drawSessionThrottleV21710", "sessionNo", "nextEligibleSession"],
+      ]) {
+        const throttle = global[key];
+        if (throttle == null) continue;
+        if (typeof throttle !== "object" || Array.isArray(throttle))
+          throw Error("道具冷却数据无效");
+        if (
+          throttle[sequenceKey] != null &&
+          (!Number.isSafeInteger(Number(throttle[sequenceKey])) ||
+            Number(throttle[sequenceKey]) < 0)
+        )
+          throw Error("道具冷却序号无效");
+        const eligible = throttle[eligibleKey];
+        if (
+          eligible != null &&
+          (typeof eligible !== "object" ||
+            Array.isArray(eligible) ||
+            Object.values(eligible).some(
+              (value) =>
+                !Number.isSafeInteger(Number(value)) || Number(value) < 0,
+            ))
+        )
+          throw Error("道具可用序号无效");
+        if (
+          key === "drawThrottleV2179" &&
+          throttle.groupStrongSkip != null &&
+          (typeof throttle.groupStrongSkip !== "object" ||
+            Array.isArray(throttle.groupStrongSkip) ||
+            Object.values(throttle.groupStrongSkip).some(
+              (value) =>
+                !Number.isSafeInteger(Number(value)) || Number(value) < 0,
+            ))
+        )
+          throw Error("小组道具冷却数据无效");
+        if (
+          key === "drawSessionThrottleV21710" &&
+          throttle.activeDrawSession != null
+        ) {
+          const session = throttle.activeDrawSession;
+          if (
+            !session ||
+            typeof session !== "object" ||
+            Array.isArray(session) ||
+            !Number.isSafeInteger(Number(session.no)) ||
+            Number(session.no) < 0 ||
+            typeof session.kind !== "string" ||
+            session.kind.length > 100
+          )
+            throw Error("道具抽取会话无效");
+        }
+      }
+    }
+    if (data.history != null) {
+      if (!Array.isArray(data.history) || data.history.length > 40)
+        throw Error("历史格式无效");
+      for (const h of data.history) {
+        if (!h || typeof h !== "object") throw Error("历史节点格式无效");
+        validateBackup(
+          {
+            groups: h.groups,
+            picker: h.picker,
+            itemGlobal: h.itemGlobal,
+            achievementLedger: h.achievementLedger,
+          },
+          depth + 1,
+        );
       }
     }
     return data;
   }
-  const writeVerified=ClassroomRepository.writeVerified;
-  const appendArchive=ClassroomRepository.appendArchive;
+  const writeVerified = ClassroomRepository.writeVerified;
+  const appendArchive = ClassroomRepository.appendArchive;
   function phase(s) {
-    if(!s.hasStartedOnce)return 'NOT_STARTED';
-    if(!s.roundActive)return 'FINISHED';
-    if(s.evaluated)return 'SETTLED';
-    return s.correctAns?'ANSWER_SELECTED':'ANSWERING';
+    if (!s.hasStartedOnce) return "NOT_STARTED";
+    if (!s.roundActive) return "FINISHED";
+    if (s.evaluated) return "SETTLED";
+    return s.correctAns ? "ANSWER_SELECTED" : "ANSWERING";
   }
-  function validateItem(s,g,index,enabled) {
-    if(!enabled)return '共产主义模式已关闭';
-    if(!g || !g.inventory?.[index])return '没有可用道具';
-    if(index!==0)return '次要道具需要等待主要道具';
-    if(Number(g.score)<0)return '负分保护：该组不能使用道具';
-    const key=g.inventory[index].key;
-    const continuation=['triple_green','triple_red','triple_banana','triple_mushroom'].includes(key)&&g.roundItemContinuationKeyV218===key;
-    if(s.roundActive&&!s.evaluated&&g.itemUsedThisRound&&!continuation)return '本题已经使用过道具';
-    if(['star','mega','power'].includes(g.itemEffect?.type)&&g.itemEffect.type===key)return '主要道具持续状态尚未结束';
+  function validateItem(s, g, index, enabled) {
+    if (!enabled) return "共产主义模式已关闭";
+    if (!g || !g.inventory?.[index]) return "没有可用道具";
+    if (index !== 0) return "次要道具需要等待主要道具";
+    if (Number(g.score) < 0) return "负分保护：该组不能使用道具";
+    const key = g.inventory[index].key;
+    const continuation =
+      [
+        "triple_green",
+        "triple_red",
+        "triple_banana",
+        "triple_mushroom",
+      ].includes(key) && g.roundItemContinuationKeyV218 === key;
+    if (s.roundActive && !s.evaluated && g.itemUsedThisRound && !continuation)
+      return "本题已经使用过道具";
+    if (
+      ["star", "mega", "power"].includes(g.itemEffect?.type) &&
+      g.itemEffect.type === key
+    )
+      return "主要道具持续状态尚未结束";
     return null;
   }
   // Stale asynchronous defense dialogs must never modify a different round or item.
-  let defenseDecisionEpoch=0;
-  const defenseInvalidationHandlers=new Set();
-  function onDefenseInvalidation(handler){
-    if(typeof handler!=='function')throw new TypeError('Defense invalidation requires a function');
+  let defenseDecisionEpoch = 0;
+  const defenseInvalidationHandlers = new Set();
+  function onDefenseInvalidation(handler) {
+    if (typeof handler !== "function")
+      throw new TypeError("Defense invalidation requires a function");
     defenseInvalidationHandlers.add(handler);
-    return ()=>defenseInvalidationHandlers.delete(handler);
+    return () => defenseInvalidationHandlers.delete(handler);
   }
-  function invalidateDefenseDecisions(){
+  function invalidateDefenseDecisions() {
     ++defenseDecisionEpoch;
     // A visual subscriber must never replace command cancellation. Snapshot the
     // listeners so subscriptions added during notification start next time.
-    for(const handler of [...defenseInvalidationHandlers])handler();
+    for (const handler of [...defenseInvalidationHandlers]) handler();
     return defenseDecisionEpoch;
   }
-  function captureDefenseDecision(s,target,key){
-    const item=target?.inventory?.[0];
-    if(!s||!Array.isArray(s.groups)||!s.groups.includes(target)||!item||item.key!==key)return null;
-    return {epoch:defenseDecisionEpoch,state:s,groups:s.groups,target,targetId:target.id,item,key,
-      phase:phase(s),round:s.round,roundActive:s.roundActive,evaluated:s.evaluated,
-      hasStartedOnce:s.hasStartedOnce,correctAns:s.correctAns,settlements:s.itemGlobal?.pkTotal};
+  function captureDefenseDecision(s, target, key) {
+    const item = target?.inventory?.[0];
+    if (
+      !s ||
+      !Array.isArray(s.groups) ||
+      !s.groups.includes(target) ||
+      !item ||
+      item.key !== key
+    )
+      return null;
+    return {
+      epoch: defenseDecisionEpoch,
+      state: s,
+      groups: s.groups,
+      target,
+      targetId: target.id,
+      item,
+      key,
+      phase: phase(s),
+      round: s.round,
+      roundActive: s.roundActive,
+      evaluated: s.evaluated,
+      hasStartedOnce: s.hasStartedOnce,
+      correctAns: s.correctAns,
+      settlements: s.itemGlobal?.pkTotal,
+    };
   }
-  function isDefenseDecisionCurrent(s,d){
-    if(!s||!d||d.epoch!==defenseDecisionEpoch||s!==d.state||s.groups!==d.groups||
-       !Array.isArray(s.groups)||s.groups.find(g=>g.id===d.targetId)!==d.target||
-       d.target.inventory?.[0]!==d.item||d.item.key!==d.key||phase(s)!==d.phase)return false;
-    return Object.is(s.round,d.round)&&s.roundActive===d.roundActive&&
-      s.evaluated===d.evaluated&&s.hasStartedOnce===d.hasStartedOnce&&
-      s.correctAns===d.correctAns&&s.itemGlobal?.pkTotal===d.settlements;
+  function isDefenseDecisionCurrent(s, d) {
+    if (
+      !s ||
+      !d ||
+      d.epoch !== defenseDecisionEpoch ||
+      s !== d.state ||
+      s.groups !== d.groups ||
+      !Array.isArray(s.groups) ||
+      s.groups.find((g) => g.id === d.targetId) !== d.target ||
+      d.target.inventory?.[0] !== d.item ||
+      d.item.key !== d.key ||
+      phase(s) !== d.phase
+    )
+      return false;
+    return (
+      Object.is(s.round, d.round) &&
+      s.roundActive === d.roundActive &&
+      s.evaluated === d.evaluated &&
+      s.hasStartedOnce === d.hasStartedOnce &&
+      s.correctAns === d.correctAns &&
+      s.itemGlobal?.pkTotal === d.settlements
+    );
   }
 
-  function planBatchScoreChanges(groups,groupCounts,points){
-    if(!Number.isSafeInteger(points)||points===0)throw Error('分值必须为非零安全整数');
-    if(!Array.isArray(groups)||!Array.isArray(groupCounts))throw Error('小组列表无效');
-    const groupMap=new Map(groups.map(g=>[g.id,g]));
-    return groupCounts.map(([id,count])=>{
-      const g=groupMap.get(id);
-      if(!g||!Number.isSafeInteger(count)||count<1)throw Error('批量计分对象无效');
-      const old=Number(g.score),delta=points*count,score=old+delta;
-      if(!Number.isSafeInteger(old)||!Number.isSafeInteger(delta)||!Number.isSafeInteger(score))throw Error('批量计分超出安全整数范围');
-      return {id,old,delta,score};
+  function planBatchScoreChanges(groups, groupCounts, points) {
+    if (!Number.isSafeInteger(points) || points === 0)
+      throw Error("分值必须为非零安全整数");
+    if (!Array.isArray(groups) || !Array.isArray(groupCounts))
+      throw Error("小组列表无效");
+    const groupMap = new Map(groups.map((g) => [g.id, g]));
+    return groupCounts.map(([id, count]) => {
+      const g = groupMap.get(id);
+      if (!g || !Number.isSafeInteger(count) || count < 1)
+        throw Error("批量计分对象无效");
+      const old = Number(g.score),
+        delta = points * count,
+        score = old + delta;
+      if (
+        !Number.isSafeInteger(old) ||
+        !Number.isSafeInteger(delta) ||
+        !Number.isSafeInteger(score)
+      )
+        throw Error("批量计分超出安全整数范围");
+      return { id, old, delta, score };
     });
   }
   function safeImage(value) {
-    return typeof value==='string' && /^data:image\/(?:png|jpe?g|webp|gif);base64,[a-zA-Z0-9+/=\s]+$/.test(value) ? value : '';
+    return typeof value === "string" &&
+      /^data:image\/(?:png|jpe?g|webp|gif);base64,[a-zA-Z0-9+/=\s]+$/.test(
+        value,
+      )
+      ? value
+      : "";
   }
-  function count(value){const n=Number(value);return Number.isSafeInteger(n)&&n>=0?n:0}
-  function normalizeStats(raw){return Object.fromEntries(['correct','wrong','draws','used'].map(k=>[k,count(raw?.[k])]))}
-  function normalizeEffect(raw){
-    if(!raw||typeof raw!=='object'||Array.isArray(raw))return null;
-    const out={};
-    if(['star','mega','power','bullet'].includes(raw.type))out.type=raw.type;
-    for(const k of ['hitsLeft','roundsLeft','startedAt','targetId','featherDodge','iceLock','iceRoundsLeftV218'])
-      if(Object.hasOwn(raw,k))out[k]=count(raw[k]);
-    return Object.keys(out).length?out:null;
+  function count(value) {
+    const n = Number(value);
+    return Number.isSafeInteger(n) && n >= 0 ? n : 0;
   }
-  function calculateRoundScores(s){return CompetitionRules.calculateRound(s).map(result=>result.scoreAfter)}
-  function csvText(text){text=String(text);return /^[\s]*[=+@-]/.test(text)?"'"+text:text}
-  return {schemaVersion,stateKey,legacyStateKey,validateBackup,writeVerified,appendArchive,phase,validateItem,safeImage,csvText,count,normalizeStats,normalizeEffect,calculateRoundScores,invalidateDefenseDecisions,captureDefenseDecision,isDefenseDecisionCurrent,onDefenseInvalidation,planBatchScoreChanges};
+  function normalizeStats(raw) {
+    return Object.fromEntries(
+      ["correct", "wrong", "draws", "used"].map((k) => [k, count(raw?.[k])]),
+    );
+  }
+  function normalizeEffect(raw) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+    const out = {};
+    if (["star", "mega", "power", "bullet"].includes(raw.type))
+      out.type = raw.type;
+    for (const k of [
+      "hitsLeft",
+      "roundsLeft",
+      "startedAt",
+      "targetId",
+      "featherDodge",
+      "iceLock",
+      "iceRoundsLeftV218",
+    ])
+      if (Object.hasOwn(raw, k)) out[k] = count(raw[k]);
+    return Object.keys(out).length ? out : null;
+  }
+  function calculateRoundScores(s) {
+    return CompetitionRules.calculateRound(s).map(
+      (result) => result.scoreAfter,
+    );
+  }
+  function csvText(text) {
+    text = String(text);
+    return /^[\s]*[=+@-]/.test(text) ? "'" + text : text;
+  }
+  return {
+    schemaVersion,
+    stateKey,
+    legacyStateKey,
+    validateBackup,
+    writeVerified,
+    appendArchive,
+    phase,
+    validateItem,
+    safeImage,
+    csvText,
+    count,
+    normalizeStats,
+    normalizeEffect,
+    calculateRoundScores,
+    invalidateDefenseDecisions,
+    captureDefenseDecision,
+    isDefenseDecisionCurrent,
+    onDefenseInvalidation,
+    planBatchScoreChanges,
+  };
 })();
 
 // Resolve the browser storage getter inside operations so access denial is
 // reported by the same verified-write failure path as quota errors.
-const CLASSROOM_STORAGE={
-  getItem(key){return localStorage.getItem(key)},
-  setItem(key,value){localStorage.setItem(key,value)},
-  removeItem(key){localStorage.removeItem(key)}
+const CLASSROOM_STORAGE = {
+  getItem(key) {
+    return localStorage.getItem(key);
+  },
+  setItem(key, value) {
+    localStorage.setItem(key, value);
+  },
+  removeItem(key) {
+    localStorage.removeItem(key);
+  },
 };
 </script>
 <script>/* Shared application guard; cancellable defense waits remain distinct from durable commits. */
@@ -29061,7 +29373,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.40';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.41';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -31545,7 +31857,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.40",
+    appVersion: "V3.0.41",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -31935,6 +32247,190 @@ if (classroomDock && typeof ResizeObserver === "function") {
     ),
   ).observe(classroomDock);
 }
+</script>
+<script>/* Read-only discovery and explicit recovery for a protected corrupt snapshot. */
+const ClassroomRecovery = (() => {
+  let candidates = [];
+  let selected = null;
+  const byId = (id) => document.getElementById(id);
+  const setStatus = (text) => {
+    byId("classroomRecoveryStatus").textContent = text;
+  };
+
+  function validCandidate(source, raw) {
+    try {
+      const data = Reliability.validateBackup(raw);
+      return {
+        source,
+        data,
+        groups: data.groups.length,
+        score: data.groups.reduce(
+          (sum, group) => sum + Number(group.score || 0),
+          0,
+        ),
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  function collect() {
+    const found = [];
+    for (const key of [Reliability.legacyStateKey]) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw != null) {
+          const item = validCandidate(key, JSON.parse(raw));
+          if (item) found.push(item);
+        }
+      } catch {
+        /* Keep scanning other independent recovery sources. */
+      }
+    }
+    try {
+      const legacy = SchemaMigrations.fromLegacyKeys(localStorage);
+      if (legacy) {
+        const item = validCandidate("旧版分散存储镜像", legacy);
+        if (item) found.push(item);
+      }
+    } catch {
+      /* A broken legacy key does not make other sources unusable. */
+    }
+    try {
+      const preserved = JSON.parse(
+        localStorage.getItem("godpower_recovery_before_import_v2") || "null",
+      );
+      if (preserved && typeof preserved.raw === "string") {
+        const item = validCandidate(
+          "上次恢复前保留副本",
+          JSON.parse(preserved.raw),
+        );
+        if (item) found.push(item);
+      }
+    } catch {
+      /* Invalid preserved data is shown only through raw export. */
+    }
+    const seen = new Set();
+    candidates = found.filter((item) => {
+      const signature = JSON.stringify(item.data);
+      if (seen.has(signature)) return false;
+      seen.add(signature);
+      return true;
+    });
+    return candidates;
+  }
+
+  function renderCandidates() {
+    const host = byId("classroomRecoveryCandidates");
+    host.replaceChildren();
+    for (const [index, item] of candidates.entries()) {
+      const card = document.createElement("article");
+      card.dataset.recoveryCandidate = String(index);
+      const summary = document.createElement("p");
+      summary.textContent = `${item.source} · ${item.groups} 个小组 · 合计 ${item.score} 分`;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn btn-secondary";
+      button.dataset.recoveryPreview = String(index);
+      button.textContent = "查看摘要";
+      button.addEventListener("click", () => preview(index));
+      card.append(summary, button);
+      host.append(card);
+    }
+  }
+
+  function scan() {
+    if (!window.classroomRecoveryRequired) return;
+    byId("classroomRecoveryPreview").hidden = true;
+    selected = null;
+    collect();
+    renderCandidates();
+    setStatus(
+      candidates.length
+        ? `发现 ${candidates.length} 个有效副本。扫描没有修改任何数据。`
+        : "没有发现可直接恢复的有效副本。原始存档仍可导出；可从备份文件导入。扫描没有修改任何数据。",
+    );
+  }
+
+  function preview(index) {
+    selected = candidates[index] || null;
+    if (!selected) return;
+    const currentGroups = Array.isArray(state.groups) ? state.groups : [];
+    const currentScore = currentGroups.reduce(
+      (sum, group) => sum + Number(group.score || 0),
+      0,
+    );
+    byId("classroomRecoveryPreviewText").textContent =
+      `候选来源：${selected.source}。当前页面内存副本：${currentGroups.length} 组、合计 ${currentScore} 分；候选副本：${selected.groups} 组、合计 ${selected.score} 分（小组数差 ${selected.groups - currentGroups.length}，积分差 ${selected.score - currentScore}）。确认后会替换本页课堂状态并写入主存档；应用会先保留损坏原文，取消则不修改数据。`;
+    byId("classroomRecoveryPreview").hidden = false;
+  }
+
+  async function restore() {
+    if (!selected || !window.classroomRecoveryRequired) return;
+    const accepted = await themeConfirm(
+      "此操作会用选中的副本恢复当前课堂。损坏原文会另行保留，是否继续？",
+      { title: "恢复课堂存档", danger: true },
+    );
+    if (!accepted) return;
+    byId("classroomRecoveryRestore").disabled = true;
+    try {
+      const result = importClassroomData(selected.data);
+      if (!result?.ok) throw new Error(result?.error || "恢复未完成");
+      byId("classroomRecoveryTools").hidden = true;
+      setStatus("课堂已恢复并完成主存档写入。");
+      showToast("课堂存档已恢复。");
+    } catch (error) {
+      setStatus(`恢复失败，原始数据仍已保留：${error.message}`);
+    } finally {
+      byId("classroomRecoveryRestore").disabled = false;
+    }
+  }
+
+  function exportRaw() {
+    let raw;
+    try {
+      raw = localStorage.getItem(Reliability.stateKey);
+    } catch (error) {
+      setStatus(`读取损坏原文失败：${error.message}`);
+      return;
+    }
+    if (raw == null) {
+      setStatus("主存档键当前为空，没有可导出的原文。");
+      return;
+    }
+    const url = URL.createObjectURL(
+      new Blob([raw], { type: "text/plain;charset=utf-8" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "godpower-corrupt-primary-raw.txt";
+    link.hidden = true;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setStatus(
+      `已导出原始主存档文本（${new Blob([raw]).size} 字节）；内容未解析或修改。`,
+    );
+  }
+
+  function init() {
+    const tools = byId("classroomRecoveryTools");
+    if (!tools) return;
+    tools.hidden = !window.classroomRecoveryRequired;
+    byId("classroomRecoveryScan").addEventListener("click", scan);
+    byId("classroomRecoveryExportRaw").addEventListener("click", exportRaw);
+    byId("classroomRecoveryRestore").addEventListener("click", restore);
+    byId("classroomRecoveryCancel").addEventListener("click", () => {
+      selected = null;
+      byId("classroomRecoveryPreview").hidden = true;
+    });
+  }
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  else init();
+  return { scan, collect, preview };
+})();
 </script>
 <script>/* Shared free-score controls and display-only cinematics. Never choose winners or mutate scores. */
 const ClassroomFeedback = (() => {

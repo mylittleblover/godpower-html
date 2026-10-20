@@ -1,6 +1,6 @@
 # F1 本地教师与课堂名单工作区
 
-版本：3.0.40
+版本：3.0.41
 范围：HTML 源码；只使用 Chromium 1920×1080 @1x 验收。
 
 ## 决策
@@ -54,9 +54,9 @@
 
 `tests/e2e/roster-competition-apply.mjs` 在同一视口另外覆盖：预览取消不改数据；存储主键写入抛出 `QuotaExceededError` 时，比赛对象、历史、权威原始字节及名单原始字节均不变；确认成功后分数/道具保持、成员改动可在刷新后恢复并可撤销；同一组重复姓名及顺序经规范化和刷新后保留；预览期间名单变更会使旧确认失效。预览截图为 `artifacts/f1-roster-workspace/apply-preview-1920x1080.png`。
 
-头像回归同样使用 1920×1080 Chromium：上传 1px PNG 后验证 `avatarResourceId`、IndexedDB 资源内容与课堂作用域；在名单存储抛出 quota 错误时，新建资源回滚、原头像引用和已有资源保持；刷新后 blob 图片可读。头像截图为 `artifacts/f1-roster-workspace/avatars-1920x1080.png`。名单与头像图片需分别导出以完整跨设备备份，当前不伪称成单文件备份。
+头像回归同样使用 1920×1080 Chromium：上传 1px PNG 后验证 `avatarResourceId`、IndexedDB 资源内容与课堂作用域；在名单存储抛出 quota 错误时，新建资源回滚、原头像引用和已有资源保持；刷新后 blob 图片可读。头像截图为 `artifacts/f1-roster-workspace/avatars-1920x1080.png`。自 3.0.39 起，名单导出已包含当前课堂引用的头像文件字节，可作为单文件跨设备备份；未引用的孤立资源不包含在内。
 
-本切片验收：Node 单元/集成296/296 PASS；设置回归13/13 PASS；名单、名单应用回滚/刷新/撤销、头像 IndexedDB 写入/补偿回滚/刷新、课表和教学资源 Chromium E2E PASS；点名三模式及 exactly-once 26/26 PASS；14组比赛布局1920×1080 PASS；规则与道具模块/448 seeded compatibility cases PASS；完整课堂命令浏览器回归 PASS；`check`、`format:check`、`audit:hygiene` PASS。Chromium 仅测试1920×1080 @1x。最终单文件8,170,727 bytes，SHA-256 `beac59ae50b5365ad944a53d06ecd1d5a8b9976f43d5090eb35079c371482b72`。Electron同步待本切片提交后验证；Windows真机未测；无 CircleCI 操作。
+3.0.40 对应构建单文件8,182,801 bytes，SHA-256 `acea4740cc6b274f6f60d588876f84ac78c5d9d7687ff1f4f34f5f2ec288c224`，Electron 3.0.40 同步验收见 `docs/validation/v3.0.40-electron-sync.md`。后续 3.0.41 的主存档恢复切片在 `docs/validation/v3.0.41-corrupt-snapshot-recovery.md` 独立记录；Chromium 仅测试1920×1080 @1x，Windows真机未测，无 CircleCI 操作。
 
 ## 尚未完成
 

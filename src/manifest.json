@@ -672,6 +672,11 @@
     },
     {
       "type": "script",
+      "path": "ui/classroom-recovery.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/classroom-feedback.js",
       "attributes": ""
     },

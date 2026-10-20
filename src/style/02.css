@@ -280,3 +280,10 @@ body.modern-flat-v217 textarea:focus-visible { outline:3px solid var(--ui-second
 
 .classroom-save-warning{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#fff7db;color:#713f12;border-bottom:1px solid #f5cc71;font-size:14px;line-height:1.6;}
 .classroom-save-warning[hidden]{display:none;}
+.classroom-recovery-tools{display:grid;gap:8px;width:100%;padding:12px 14px;border:1px solid #e7b85a;border-radius:12px;background:#fffdf5;}
+.classroom-recovery-actions{display:flex;gap:8px;flex-wrap:wrap;}
+#classroomRecoveryCandidates{display:grid;gap:8px;}
+#classroomRecoveryCandidates article{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border:1px solid #eadfca;border-radius:9px;background:#fff;}
+#classroomRecoveryCandidates p,#classroomRecoveryPreview p{margin:0;}
+#classroomRecoveryPreview{display:grid;gap:8px;padding:10px;border-left:3px solid #d39b32;background:#fff8e7;}
+#classroomRecoveryPreview[hidden]{display:none;}
