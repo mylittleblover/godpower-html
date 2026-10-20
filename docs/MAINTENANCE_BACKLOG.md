@@ -1220,3 +1220,61 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 - 风险：在未裁定前直接实施会擅改比赛平衡并可能破坏旧课堂数据/用户习惯。
 - 验收：推荐项有明确批准/拒绝结果；旧行为基线覆盖全部26道具、All In、排名、状态、回合/撤销；每个新效果有对应差分测试和恢复策略。
 - 推荐测试：先执行只读测试清单和 1920×1080 1x Chromium 14组基线；规则批准后增加纯函数、 seeded differential、事务撤销和 Electron 回归。
+
+## V3 UI 治理与插件平台阶段任务
+
+### UI-M0 — 资产所有权基线
+
+- 分类：架构/可测试性
+- 优先级：P1
+- 状态：DONE（2026-10-20，提交 `1b95aae` 记录计划；M0实现与验收待本阶段提交）
+- 问题描述：模板按manifest嵌入125块脚本/样式，跨文件DOM、事件和CSS ownership没有可重复的统一快照。
+- 证据：`scripts/ui-ownership.mjs`；`docs/ui-audit/M0-baseline.md`；`artifacts/ui-governance-m0/ownership.json`
+- 影响范围：后续页面生命周期、插件贡献、CSS与事件迁移。
+- 建议方案：保持审计输出只作为线索；运行时reachability、级联与实际视觉必须浏览器验证。
+- 依赖：无。
+- 复杂度：低；风险：低。
+- 验收：审计两次输出稳定；125 blocks与五个page root对齐；不重复静态ID；Chromium 1920×1080截图和14组fixture几何存档。
+- 推荐测试：`npm run audit:ui`、审计单测、`npm run test:ui-governance-baseline`。
+
+### UI-M1 — 唯一 UI Shell/ContributionRegistry
+
+- 分类：架构/插件平台
+- 优先级：P1
+- 状态：OPEN
+- 问题描述：插件页面协议需要在页面模块化前固定，避免后续增加另一套页面注册机制。
+- 证据：`src/ui/render.js`、`src/ui/model.js`、`docs/superpowers/specs/SP03-B-ui-contribution-design.md`。
+- 影响范围：五个默认页面、导航、后续插件页面与管理页。
+- 建议方案：单一注册表采用声明式descriptor、原子批次校验、activation绑定和幂等dispose；五个默认页面通过宿主route适配，不接受插件mount函数。
+- 依赖：UI-M0。
+- 复杂度：中；风险：中。
+- 验收：无插件默认五页可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
+- 推荐测试：Node单测＋Chromium 1920×1080导航/回退。
+
+### UI-M2 — 页面与组件Disposable生命周期
+
+- 分类：架构/交互可靠性
+- 优先级：P1
+- 状态：OPEN
+- 问题描述：页面mount/unmount尚无统一的事件、timer、observer和动画租约释放协议。
+- 证据：`src/ui/desktop.js`、`src/ui/welcome-v2.js`、`src/ui/battle-motion.js`；M0的listener/timer词法清单只作初筛。
+- 影响范围：快速切页、弹窗/动画、未来插件停用和错误恢复。
+- 建议方案：DisposableScope负责UI副作用清理；不改变业务提交、随机结果、页面结构和14组几何。更新Escape测试等待既有退出动画完成，而不是缩短/删除动画。
+- 依赖：UI-M1。
+- 复杂度：中；风险：中。
+- 验收：重复mount不重复事件；dispose清除timer/observer/animation；快速页面往返无遮罩/焦点残留；动画时序和业务状态分离。
+- 推荐测试：生命周期单测＋Chromium 1920×1080历史/档案/设置与14组复归。
+
+### PLUG-M1 — 插件runtime、生命周期与权限broker
+
+- 分类：安全/架构
+- 优先级：P1
+- 状态：OPEN
+- 问题描述：当前无宿主强制校验的统一插件安装、启停、scope、权限与故障隔离runtime。
+- 证据：已批准 `docs/superpowers/specs/SP03-A-plugin-runtime-design.md`，当前尚未实现。
+- 影响范围：第三方/官方插件、Electron主进程能力、安全与持久化。
+- 建议方案：先建立JSON Schema manifest、受限消息协议、宿主身份绑定、默认拒绝权限和插件私有存储；不暴露Node、主DOM或课堂主数据库。
+- 依赖：UI-M1、UI-M2及HTML/Electron共享协议复核。
+- 复杂度：高；风险：高。
+- 验收：权限拒绝/跨scope/重复请求/停用token/崩溃隔离均有回归测试，旧存档和课堂事务不变。
+- 推荐测试：schema与权限单测、隔离frame E2E、Electron preload allowlist合同测试。

@@ -50,3 +50,17 @@
 | 单文件构建/语法/嵌入资源/格式 | npm run build/check/format:check | PASS |
 | file://离线直接打开 | artifacts/item-modules/file-offline.json | BLOCKED：管理策略 |
 | Windows真机/投影/听感 | 无设备证据 | NOT TESTED |
+
+## V3 UI 治理与插件基础阶段（2026-10-20 起）
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| M0静态UI资产所有权与五页入口 | `npm run audit:ui` + `tests/unit/ui-ownership.test.mjs` | PASS；manifest 125块、五页、227静态ID无重复、102 inline入口（候选统计，非缺陷判断） |
+| 单文件基线构建 | `npm run build && npm run check` | PASS；7,967,474 bytes，SHA-256 `ffa430c685d9be8b607d738ec4366293d07b9835477d49871b4554c0d9533352` |
+| M0单元/集成 | `npm test` | PASS 246/246 |
+| M0 14组浏览器几何 | `node tests/e2e/battle-layout.mjs` | PASS；Chromium 1920×1080 1x；自动fixture，非用户私有设置 |
+| 五页/Picker基线截图 | `npm run test:ui-governance-baseline` | PASS；Chromium 1920×1080 1x，零pageerror；见 `artifacts/ui-governance-m0/` |
+| 旧 desktop-ui 全流程 | 曾启动但未完成 | INCOMPLETE；一个抽签断言未在隔离复测复现；Escape断言未等待关闭动效，M2需用动画结束信号重测 |
+| M1/M2 页面注册与dispose | 未实施 | NOT TESTED |
+| 插件运行与权限/数据 | 未实施 | NOT TESTED |
+| Electron/Windows | 未在M0实施范围运行 | NOT TESTED |
