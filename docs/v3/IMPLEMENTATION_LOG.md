@@ -287,3 +287,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 新增 `HomeLayout` 纯域模块：独立的 schemaVersion 1 布局与卡片实例，12列整型网格，限制配置 JSON 深度/大小，拒绝非法原型字段、越界/重叠和重复实例；布局服务支持多实例限制、添加/复制/移除/隐藏/移动/缩放、确定性冲突挤推、草稿撤销重做、保存/取消。尚未接到欢迎页 DOM 和持久层，因此现有首页外观与卡片行为保持原样；下一步继续实现布局存储和兼容渲染，不把 H1 报告为完整自定义主页。
 
 验证：新增4项单元测试；全体 Node 单元/集成 303/303 PASS；Chromium 1920×1080 @1x 的14组比赛布局 PASS；`check`、格式检查和单文件构建 PASS。构建哈希/体积见 `docs/validation/v3.0.44-home-layout-domain.md`。
+
+## 3.0.45 — H2 首页布局隔离持久化
+
+增加 `godpower_home_layout_v1` 独立偏好仓储，使用schema/revision、乐观并发检查、存储读回验证和失败回滚；损坏布局数据明确报错，不会覆盖旧内容。对原有固定首页只生成只读迁移预览，不自动保存、不更改旧首页DOM，也不触碰 `godpower_state_v2`。首页编辑入口和统一卡片渲染仍未完成。
+
+验证：4项布局域测试 + 4项仓储测试；全体Node单元/集成307/307 PASS；源码/资源检查、格式检查和单文件离线构建PASS；Chromium 1920×1080 @1x 14组比赛布局PASS。首次全测发现跨VM realm对象原型导致两个测试断言失败，调整断言为序列化值比较后重跑通过，未降低业务断言。构建SHA/体积见 `docs/validation/v3.0.45-home-layout-repository.md`。

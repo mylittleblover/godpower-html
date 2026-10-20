@@ -217,6 +217,11 @@
     },
     {
       "type": "script",
+      "path": "infrastructure/home-layout-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/classroom-roster.js",
       "attributes": ""
     },
