@@ -275,6 +275,7 @@ function useItem(groupId, index) {
     (context) => {
       ensureV2State();
       const beforeValue = itemCommandSnapshot();
+      const beforeGroups = JSON.parse(beforeValue).groups;
       const usedItem = g.inventory[index];
       const itemInstanceId = usedItem.itemInstanceId || null;
       const chargesBefore = Number(usedItem.charges) || 1;
@@ -303,6 +304,14 @@ function useItem(groupId, index) {
           chargesAfter: Number(g.inventory[index]?.charges) || 0,
         },
       );
+      context.onCommit((commit) => {
+        for (const fact of ItemImpactFacts.scoreLosses(
+          beforeGroups,
+          state.groups,
+          { actorGroupUid: g.groupUid, itemKey: key, seasonId: state.seasonId },
+        ))
+          commit.emit("ITEM_HIT", fact.aggregate, fact.payload);
+      });
       return true;
     },
   );

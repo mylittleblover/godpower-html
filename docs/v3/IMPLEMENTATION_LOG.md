@@ -312,3 +312,10 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 在不扩展课堂权威存档的前提下，将本地名单的稳定学生身份与教学资源头像引用接入比赛小组卡片、老虎机点名窗口和全屏结果揭晓。小组有头像时将头像拼贴放入原编号方块位置，组号放在其下；无头像维持原彩色编号样式。老虎机滚动结果名左侧展示头像；全屏揭晓使用大尺寸头像突出结果。个人/小组/双层点名仅展示同一抽选业务已确定的对象，不新增随机选择或赋分。Electron IPC 仅接受受限大小的本地 WebP 缩略图。
 
 验证：`npm run format:check`、`npm run check`、Node 单元/集成 308/308 PASS；Chromium 1920×1080 1x 名单工作区/头像链路及14组布局 PASS。人工检查老虎机头像位于名字左侧，全屏头像突出显示；无头像的兼容回退与原14组布局保持。单文件构建 8,258,349 bytes，SHA-256 `6ddbaa5669e6b423ffded20fdfd683a2b0b7b4b0f46b4f7fef5491c0653a79a3`。截图见 `artifacts/f1-roster-workspace/avatar-picker-slot-1920x1080.png`、`avatar-fullscreen-1920x1080.png`、`avatar-group-card-1920x1080.png`。Electron同步及桌面构建另行验证；未执行 Firefox、CircleCI、Windows真机。
+
+
+## 3.0.49 — 道具实际伤害事件切片
+
+将公开道具操作事务中“本次操作是否真实造成其他小组失分”的纯事实投影提取到 `src/domain/items/impact-facts.js`。道具操作在 commit hook 中对操作前后小组的稳定身份与积分作差；只对非施术组、积分确实下降且分值为安全整数的目标产生 `ITEM_HIT`，不会从动画、点击或预期目标推断命中。hook 在异步防御完成后运行，事件与 `ITEM_USED`、成就账本一同持久化；操作取消/保存回滚不会记入账本，历史撤销会恢复原账本。此切片不覆盖道具抽取获得、防御事件和持续状态到期事件，GP-011仍为PARTIAL。
+
+验证：新增纯事实投影测试；扩展 Chromium `item-domain-events`：金币正常使用与撤销、冰冻取消、刺龟壳实际扣分目标及账本保存均PASS。单元/集成310/310 PASS，源码边界/单文件构建PASS；道具模块专项规则26/26、448个固定随机数抽取差分、全部26道具撤销快照PASS；Chromium 1920×1080 14组布局PASS。

@@ -632,6 +632,11 @@
     },
     {
       "type": "script",
+      "path": "domain/items/impact-facts.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/items/targets.js",
       "attributes": ""
     },

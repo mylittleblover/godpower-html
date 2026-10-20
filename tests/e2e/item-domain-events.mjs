@@ -105,8 +105,56 @@ try {
   assert.deepEqual(cancelledFreeze.events, []);
   assert.deepEqual(cancelledFreeze.inventory, ["ice_flower"]);
   assert.deepEqual(cancelledFreeze.ledger, { schemaVersion: 1, groups: {} });
+
+  await setup(page, 4);
+  const confirmedHit = await page.evaluate(async () => {
+    state.isLocked = false;
+    state.achievementLedger = AchievementLedger.empty();
+    historyStack = [];
+    state.groups.forEach((group, index) => {
+      group.score = index * 10;
+      group.displayScore = group.score;
+    });
+    const attacker = state.groups[0];
+    const leader = state.groups[3];
+    addItemToGroup(attacker, "spiny");
+    const events = [];
+    window.addEventListener("godpower:domain-commit", (event) =>
+      events.push(...event.detail.events),
+    );
+    const accepted = useItem(attacker.id, 0);
+    const completion = await classroomCommands.whenIdle();
+    return {
+      accepted,
+      persisted: completion.persisted,
+      attackerUid: attacker.groupUid,
+      leaderUid: leader.groupUid,
+      score: leader.score,
+      events,
+      ledger: state.achievementLedger,
+    };
+  });
+  assert.equal(confirmedHit.accepted, true);
+  assert.equal(confirmedHit.persisted, true);
+  assert.equal(confirmedHit.score, 15);
+  assert.deepEqual(
+    confirmedHit.events.map((event) => [event.type, event.aggregate.id]),
+    [
+      ["ITEM_USED", confirmedHit.attackerUid],
+      ["ITEM_HIT", confirmedHit.leaderUid],
+    ],
+  );
+  assert.equal(
+    confirmedHit.events[1].payload.scoreLost,
+    15,
+    "the spiny-shell score delta is the confirmed applied damage",
+  );
+  assert.equal(
+    confirmedHit.ledger.groups[confirmedHit.leaderUid].seasonCounters.ITEM_HIT,
+    1,
+  );
   console.log(
-    "PASS effective item use emits one durable ITEM_USED fact; undo removes it and cancelled ice use emits none",
+    "PASS item use is durable, undo/cancel emits no false fact, and confirmed damage emits ITEM_HIT",
   );
 } finally {
   await browser.close();

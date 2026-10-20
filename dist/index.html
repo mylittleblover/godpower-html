@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.48</title>
+<title>上帝的力量 V3.0.49</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.48";
+    document.title = name() + " V3.0.49";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -12238,7 +12238,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.48</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.49</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -30657,7 +30657,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.48';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.49';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -31683,6 +31683,57 @@ if (ItemModules.loadError)
     "道具积木配置无法读取，当前会话使用默认配置；原数据未覆盖：",
     ItemModules.loadError,
   );
+</script>
+<script>/* Facts derived only from the committed before/after score of one item command. */
+const ItemImpactFacts = (() => {
+  function scoreLosses(
+    beforeGroups,
+    afterGroups,
+    { actorGroupUid, itemKey, seasonId },
+  ) {
+    if (!Array.isArray(beforeGroups) || !Array.isArray(afterGroups)) return [];
+    if (typeof actorGroupUid !== "string" || !actorGroupUid) return [];
+    if (typeof itemKey !== "string" || !itemKey) return [];
+
+    const beforeByUid = new Map(
+      beforeGroups
+        .filter((group) => typeof group?.groupUid === "string")
+        .map((group) => [group.groupUid, group]),
+    );
+    const facts = [];
+    for (const after of afterGroups) {
+      if (
+        !after ||
+        typeof after.groupUid !== "string" ||
+        after.groupUid === actorGroupUid
+      )
+        continue;
+      const before = beforeByUid.get(after.groupUid);
+      const scoreBefore = before?.score;
+      const scoreAfter = after.score;
+      if (
+        !Number.isSafeInteger(scoreBefore) ||
+        !Number.isSafeInteger(scoreAfter) ||
+        scoreAfter >= scoreBefore
+      )
+        continue;
+      facts.push({
+        aggregate: { type: "group", id: after.groupUid },
+        payload: {
+          seasonId: typeof seasonId === "string" ? seasonId : null,
+          itemKey,
+          attackerGroupUid: actorGroupUid,
+          scoreBefore,
+          scoreAfter,
+          scoreLost: scoreBefore - scoreAfter,
+        },
+      });
+    }
+    return facts;
+  }
+
+  return { scoreLosses };
+})();
 </script>
 <script>/* Target policy only: no mutation, effects, UI or ambient random generator. */
 const ItemTargets = (() => {
@@ -33143,7 +33194,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.48",
+    appVersion: "V3.0.49",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -33413,6 +33464,7 @@ function useItem(groupId, index) {
     (context) => {
       ensureV2State();
       const beforeValue = itemCommandSnapshot();
+      const beforeGroups = JSON.parse(beforeValue).groups;
       const usedItem = g.inventory[index];
       const itemInstanceId = usedItem.itemInstanceId || null;
       const chargesBefore = Number(usedItem.charges) || 1;
@@ -33441,6 +33493,14 @@ function useItem(groupId, index) {
           chargesAfter: Number(g.inventory[index]?.charges) || 0,
         },
       );
+      context.onCommit((commit) => {
+        for (const fact of ItemImpactFacts.scoreLosses(
+          beforeGroups,
+          state.groups,
+          { actorGroupUid: g.groupUid, itemKey: key, seasonId: state.seasonId },
+        ))
+          commit.emit("ITEM_HIT", fact.aggregate, fact.payload);
+      });
       return true;
     },
   );
