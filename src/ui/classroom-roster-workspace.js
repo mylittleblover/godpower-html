@@ -20,7 +20,7 @@
     const section = document.createElement("section");
     section.id = "classroomRosterWorkspace";
     section.className = "ui-settings-group roster-workspace";
-    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛、积分或现有名单；应用到比赛将在跨存储事务验证完成后开放。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn btn-primary" id="rosterSave">保存名单</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
+    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛；应用到比赛时仅更新成员姓名，其他比赛数据保持不变。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn" id="rosterSave">保存名单</button><button type="button" class="btn btn-primary" id="rosterPreviewApply">预览并应用到比赛</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
     host.append(section);
 
     const profileSelect = section.querySelector("#rosterProfileSelect");
@@ -219,6 +219,8 @@
       section.querySelector("#rosterAddStudent").disabled = !hasRoster;
       section.querySelector("#rosterSave").disabled = !hasRoster;
       section.querySelector("#rosterExport").disabled = !hasRoster;
+      section.querySelector("#rosterPreviewApply").disabled =
+        !hasRoster || !getGroups().length;
       renderRows();
     }
     function serializeRows() {
@@ -266,6 +268,188 @@
       link.download = "上帝的力量-课堂名单.json";
       link.click();
       setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+
+    function closeApplyPreview() {
+      const overlay = document.getElementById("rosterApplyPreview");
+      if (!overlay) return;
+      if (overlay._onKeydown)
+        document.removeEventListener("keydown", overlay._onKeydown);
+      overlay.remove();
+      section.querySelector("#rosterPreviewApply")?.focus();
+    }
+    function openApplyPreview() {
+      if (state.isLocked) {
+        openPwdModal();
+        return;
+      }
+      if (!ClassroomWriteBarrier.allow()) return;
+      if (!selectedProfile || !selectedClassroom) {
+        setStatus("请先选择教师档案和课堂名单。", true);
+        return;
+      }
+      const persisted = repository.read();
+      if (!persisted.ok || !persisted.rosterData) {
+        setStatus("名单档案尚未可靠保存，不能应用到正式比赛。", true);
+        return;
+      }
+      let workingRoster;
+      try {
+        const liveDocument = documentData;
+        documentData = clone(documentData);
+        try {
+          workingRoster = serializeRows();
+        } finally {
+          documentData = liveDocument;
+        }
+        if (
+          JSON.stringify(workingRoster) !== JSON.stringify(persisted.rosterData)
+        ) {
+          setStatus("名单有未保存的编辑，请先保存再预览应用。", true);
+          return;
+        }
+        const liveGroups = getGroups();
+        const plan = root.ClassroomRoster.planCompetitionMemberUpdate({
+          groups: liveGroups,
+          rosterData: persisted.rosterData,
+          userProfileId: selectedProfile,
+          classroomId: selectedClassroom,
+        });
+        if (!plan.changedGroups) {
+          setStatus("比赛成员与此课堂名单一致，无需应用。", false);
+          return;
+        }
+        const stateFingerprint = JSON.stringify(state);
+        const stateReference = state;
+        const selection = {
+          profileId: selectedProfile,
+          classroomId: selectedClassroom,
+        };
+        const rosterBytes = storage.getItem(repository.key);
+        const snapshot = Object.freeze({
+          plan,
+          stateFingerprint,
+          stateReference,
+          seasonId: state.seasonId,
+          selection,
+          rosterBytes,
+          revision: persisted.revision,
+          before: JSON.stringify(buildClassroomBackup()),
+        });
+        const overlay = document.createElement("div");
+        overlay.id = "rosterApplyPreview";
+        overlay.className = "roster-apply-backdrop";
+        overlay.setAttribute("role", "dialog");
+        overlay.setAttribute("aria-modal", "true");
+        overlay.setAttribute("aria-labelledby", "rosterApplyTitle");
+        const changed = plan.groupChanges.filter((item) => item.changed);
+        const rowsHtml = plan.groupChanges
+          .map(
+            (item) =>
+              `<tr><th>${root.escapeHtml(item.groupName)}</th><td>${root.escapeHtml(item.before.join("、") || "（无）")}</td><td>${root.escapeHtml(item.after.join("、") || "（无）")}</td><td>${item.changed ? "将更新" : "不变"}</td></tr>`,
+          )
+          .join("");
+        overlay.innerHTML = `<section class="roster-apply-card"><button type="button" class="ui-window-close" id="rosterApplyClose" aria-label="关闭">❌</button><p class="ui-eyebrow">正式比赛数据预览</p><h3 id="rosterApplyTitle">应用课堂名单</h3><p>仅按稳定小组 ID 更新成员姓名。小组顺序、积分、道具、答题与回合状态保持不变。</p><div class="roster-apply-summary">将变更 ${changed.length} / ${plan.groupChanges.length} 个小组 · ${plan.beforeMemberCount} 名 → ${plan.afterMemberCount} 名</div><div class="roster-apply-table-wrap"><table class="roster-apply-table"><thead><tr><th>小组</th><th>比赛当前成员</th><th>名单应用后</th><th>结果</th></tr></thead><tbody>${rowsHtml}</tbody></table></div><p class="roster-apply-warning">继续后会将此变更记录到操作历史。若保存失败，比赛状态会自动回滚；本地名单档案不会被修改。应用后仍可通过“历史”撤销。</p><div class="roster-apply-actions"><button type="button" class="btn" id="rosterApplyCancel">取消</button><button type="button" class="btn btn-primary" id="rosterApplyConfirm">确认应用</button></div></section>`;
+        document.body.append(overlay);
+        const closeButton = overlay.querySelector("#rosterApplyClose");
+        overlay.querySelector("#rosterApplyCancel").onclick = closeApplyPreview;
+        closeButton.onclick = closeApplyPreview;
+        overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) closeApplyPreview();
+        });
+        const onKeydown = (event) => {
+          if (
+            event.key === "Escape" &&
+            document.getElementById("rosterApplyPreview") === overlay
+          ) {
+            event.preventDefault();
+            closeApplyPreview();
+            document.removeEventListener("keydown", onKeydown);
+          }
+        };
+        overlay._onKeydown = onKeydown;
+        document.addEventListener("keydown", onKeydown);
+        closeButton.focus();
+        overlay.querySelector("#rosterApplyConfirm").onclick = async (
+          event,
+        ) => {
+          const confirmButton = event.currentTarget;
+          if (confirmButton.disabled) return;
+          confirmButton.disabled = true;
+          const confirmed = await root.themeConfirm(
+            `即将更新 ${changed.length} 个小组的成员名单。比赛积分、道具与回合状态不变，且本次操作可从历史撤销。`,
+            {
+              title: "确认应用课堂名单",
+              danger: true,
+              confirmText: "应用名单",
+            },
+          );
+          if (!confirmed) {
+            if (document.getElementById("rosterApplyPreview") === overlay)
+              confirmButton.disabled = false;
+            return;
+          }
+          closeApplyPreview();
+          document.removeEventListener("keydown", onKeydown);
+          const latest = repository.read();
+          const stillCurrent = () =>
+            state === snapshot.stateReference &&
+            state.seasonId === snapshot.seasonId &&
+            JSON.stringify(state) === snapshot.stateFingerprint &&
+            selectedProfile === snapshot.selection.profileId &&
+            selectedClassroom === snapshot.selection.classroomId &&
+            storage.getItem(repository.key) === snapshot.rosterBytes &&
+            latest.ok;
+          if (!stillCurrent() || latest.revision !== snapshot.revision) {
+            setStatus("预览已过期：比赛或名单已变化，请重新预览。", true);
+            return;
+          }
+          if (!ClassroomWriteBarrier.allow()) return;
+          if (state.isLocked) {
+            openPwdModal();
+            return;
+          }
+          const accepted = runClassroomCommand(
+            `应用课堂名单：${documentData.classrooms.find((item) => item.classroomId === selectedClassroom)?.name || "课堂"}`,
+            () => {
+              const currentRoster = repository.read();
+              if (
+                !stillCurrent() ||
+                !currentRoster.ok ||
+                currentRoster.revision !== snapshot.revision ||
+                storage.getItem(repository.key) !== snapshot.rosterBytes
+              )
+                throw new Error("预览已过期：比赛或名单已变化，请重新预览");
+              for (const change of snapshot.plan.groupChanges) {
+                const group = state.groups.find(
+                  (item) => item.groupUid === change.groupUid,
+                );
+                if (!group) throw new Error("小组结构已变化，请重新预览");
+                group.members = [...change.after];
+              }
+              return true;
+            },
+            { source: "manual", retainOnPersistenceFailure: false },
+          );
+          if (!accepted) {
+            setStatus("应用失败，比赛状态已回滚。请检查存储空间后重试。", true);
+            return;
+          }
+          const outcome = await classroomCommands.whenIdle();
+          if (!outcome?.ok || outcome.persisted !== true) {
+            setStatus(
+              `应用失败，比赛状态已回滚：${outcome?.error || "未收到持久化确认"}`,
+              true,
+            );
+            return;
+          }
+          setStatus(
+            `名单已应用到比赛（${changed.length} 个小组有变化）；积分、道具与回合状态未改变。`,
+          );
+        };
+      } catch (error) {
+        setStatus(`无法生成名单预览：${error.message}`, true);
+      }
     }
 
     profileSelect.onchange = () => {
@@ -391,6 +575,7 @@
       }
     };
     section.querySelector("#rosterExport").onclick = download;
+    section.querySelector("#rosterPreviewApply").onclick = openApplyPreview;
     section.querySelector("#rosterImport").onchange = async (event) => {
       const file = event.target.files?.[0];
       if (!file) return;

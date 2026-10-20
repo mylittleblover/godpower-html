@@ -237,10 +237,69 @@
     }));
   }
 
+  function planCompetitionMemberUpdate({
+    groups,
+    rosterData,
+    userProfileId,
+    classroomId,
+  }) {
+    if (!Array.isArray(groups) || !groups.length)
+      fail("an active group competition is required");
+    const valid = validateRosterDocument(rosterData);
+    const assignment = valid.assignments.find(
+      (entry) =>
+        entry.userProfileId === userProfileId &&
+        entry.classroomId === classroomId,
+    );
+    if (!assignment) fail("profile classroom assignment was not found");
+    if (assignment.mode !== "group")
+      fail("individual roster mode cannot be applied to group competition");
+    const ids = new Set();
+    for (const group of groups) {
+      if (
+        !group ||
+        !validId(group.groupUid, "isValidGroupUid") ||
+        ids.has(group.groupUid)
+      )
+        fail("live group identity is invalid or duplicated");
+      ids.add(group.groupUid);
+    }
+    const original = groups.map(clone);
+    const projected = projectLegacyMembers({
+      groups: original,
+      rosterData: valid,
+      userProfileId,
+      classroomId,
+    });
+    const groupChanges = projected.map((group, index) => ({
+      groupUid: group.groupUid,
+      groupName: group.name || `第 ${index + 1} 组`,
+      before: [...original[index].members],
+      after: [...group.members],
+      changed:
+        JSON.stringify(original[index].members) !==
+        JSON.stringify(group.members),
+    }));
+    return {
+      groups: projected,
+      groupChanges,
+      changedGroups: groupChanges.filter((change) => change.changed).length,
+      beforeMemberCount: groupChanges.reduce(
+        (total, change) => total + change.before.length,
+        0,
+      ),
+      afterMemberCount: groupChanges.reduce(
+        (total, change) => total + change.after.length,
+        0,
+      ),
+    };
+  }
+
   root.ClassroomRoster = Object.freeze({
     validateRosterDocument,
     createRosterDocument,
     previewLegacyRoster,
     projectLegacyMembers,
+    planCompetitionMemberUpdate,
   });
 })(globalThis);

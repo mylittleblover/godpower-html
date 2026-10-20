@@ -136,7 +136,7 @@ function normalizeGroup(raw, index = 0) {
   const color = /^#[0-9a-fA-F]{6}$/.test(String(source.color || ''))
     ? String(source.color) : DEFAULT_COLORS[index % DEFAULT_COLORS.length];
   const members = Array.isArray(source.members)
-    ? Array.from(new Set(source.members.map(v => String(v ?? '').trim()).filter(Boolean)))
+    ? source.members.map(v => String(v ?? '').trim()).filter(Boolean)
     : [];
   return {
     id,
@@ -2463,10 +2463,10 @@ function getAvailablePool() {
     }
     let students = [];
     grps.forEach(g => {
-      (g.members || []).forEach(m => students.push({ group: g, memberName: m, key: g.id + '__' + m }));
+      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
     });
     if (state.picker.antiRepeat) {
-      const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key));
+      const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
       if (filtered.length === 0 && students.length > 0) {
         state.picker.pickedStudentKeys = [];
         return { type: 'students', list: students, total: students.length };
@@ -2478,12 +2478,12 @@ function getAvailablePool() {
 
   let students = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach(m => {
-      students.push({ group: g, memberName: m, key: `${g.id}__${m}` });
+    (g.members || []).forEach((m, index) => {
+      students.push({ group: g, memberName: m, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
     });
   });
   if (state.picker.antiRepeat) {
-    let filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key));
+    let filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
     if (filtered.length === 0 && students.length > 0) {
       state.picker.pickedStudentKeys = [];
       filtered = students;

@@ -165,6 +165,10 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 
 `TeachingSchedule.findCurrentLesson`使用浏览器本机星期/分钟，区间为`startMinute <= now < endMinute`。时钟只用于显示建议；没有自动切换比赛状态的定时器。
 
+## 3.0.37 名单应用与成员顺序
+
+名单来源仍存放于 `godpower_classroom_roster_v1`，正式比赛仍只持久化在既有 `godpower_state_v2`。确认应用时，事务目标字段仅为每个稳定 `groupUid` 对应的 `groups[].members: string[]`；字段顺序即 roster assignment 的学生顺序，成员名称相同也保留为多个数组项。`normalizeGroup` 保留姓名数组顺序与重复值。个人参与模式、缺失/未知小组身份、陈旧预览、无活动小组及未保存的名单均拒绝应用。应用操作记录现有历史快照并通过统一课堂命令保存；主存档没有持久化确认时回滚内存和历史。名单仓库不随应用写入，因此没有双键部分提交。点名 `pickedStudentKeys` 新条目用 `groupId__memberIndex__name` 区分同名成员；读取筛选时仍检查旧 `groupId__name` 键，以兼容此前防重复记录。
+
 ## 3.0.36 本地教学资源（F2）
 
 数据库：`godpower_teaching_resources_v1`，schema version 1。`resources` object store 保存元数据，`resourceBlobs` 保存 `{resourceId, blob}`；两者以稳定 resourceId 关联，写入/删除同一 IndexedDB 事务执行。SHA-256 唯一索引用于重复内容拒绝。列表读取只加载元数据，预览、下载或备份时才读取 Blob。

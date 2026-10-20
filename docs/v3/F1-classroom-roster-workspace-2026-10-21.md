@@ -1,6 +1,6 @@
 # F1 本地教师与课堂名单工作区
 
-版本：3.0.34  
+版本：3.0.37
 范围：HTML 源码；只使用 Chromium 1920×1080 @1x 验收。
 
 ## 决策
@@ -11,7 +11,11 @@
 - 从当前比赛创建名单副本只读取小组/成员并生成稳定身份；源比赛分数、回合、历史和成员数组不变。
 - 同名学生保留为不同 `studentUid`。个人参与模式不强制分配小组。
 - 名单导入先完成 JSON/schema 验证，再由仓库 CAS 写入、回读验证；无效文件不得覆盖已保存名单。
-- 暂不开放“应用到比赛”。名单与课堂数据分属两个存储键，在跨键原子事务或可靠补偿回滚尚未实现前，UI 明确隔离两者。
+- 名单应用只更新权威比赛中稳定 `groupUid` 对应的 `members` 数组，不增删或重排小组，不更改分数、道具、回合与规则字段。
+- 应用前必须保存本地名单，先展示每个小组的当前/目标成员和增删改结果，再进行危险操作确认；保存成功后显示可撤销的历史操作。
+- 比赛状态通过统一 `runClassroomCommand` 完成快照、历史、持久化和回滚；只有权威存档返回持久化成功才报告应用完成。名单仓库只读，不存在 roster/classroom 双键写入。
+- 预览失效条件包括比赛对象/状态、赛季、名单 profile/classroom、仓库 revision 或原始存储字节变化；确认前及事务内再次校验，陈旧确认拒绝。
+- 同一小组允许同名学生保持为独立列表项。点名防重复键采用组内位置，旧版 `${groupId}__${memberName}` 键在迁移期间仍可被识别。
 
 ## 已实现
 
@@ -23,6 +27,9 @@
 - 全文 JSON 导入/导出。
 - 导入错误保留此前已保存的名单；比赛权威数据不变。
 - CAS 版本冲突、写后读回与回滚仍由 `ClassroomRosterRepository` 负责。
+- 预览并按稳定小组 ID 应用成员名单，保持比赛的分数/道具/回合数据不变。
+- 应用操作加入既有历史并可撤销；主存档写入失败精确回滚内存比赛状态及历史。
+- 刷新后恢复应用结果；名单仓库字节不被应用流程修改。
 
 ## 自动化证据
 
@@ -37,11 +44,12 @@
 - 操作前后权威比赛小组与回合状态序列化完全相等。
 - 工作区不产生水平溢出；截图保存在 `artifacts/f1-roster-workspace/1920x1080.png`。
 
-本切片验收：284/284 Node 单元/集成测试 PASS；旧设置页 Chromium 回归13/13 PASS；名单工作区 Chromium E2E PASS；14组比赛布局 Chromium PASS；`check`、`format:check`、`audit:hygiene` PASS。HTML 单文件 8,085,024 bytes，SHA-256 `433edc24880d4fabdf942f07542a2ec51908a1b1aa2a02141ee365a3f242b372`。Electron 源码同步、bundle SHA 校验、Node 测试20/20、smoke 与桌面16场景均 PASS；运行环境为 Electron44.9.0/Linux/Chromium152，1920×1080 @1x。Windows 真机安装/运行 NOT TESTED；无 CircleCI 操作。
+`tests/e2e/roster-competition-apply.mjs` 在同一视口另外覆盖：预览取消不改数据；存储主键写入抛出 `QuotaExceededError` 时，比赛对象、历史、权威原始字节及名单原始字节均不变；确认成功后分数/道具保持、成员改动可在刷新后恢复并可撤销；同一组重复姓名及顺序经规范化和刷新后保留；预览期间名单变更会使旧确认失效。预览截图为 `artifacts/f1-roster-workspace/apply-preview-1920x1080.png`。
+
+本切片验收：Node 单元/集成 296/296 PASS；设置回归13/13 PASS；名单、名单应用回滚/刷新/撤销、课程表和教学资源 Chromium E2E PASS；点名三模式及 exactly-once 26/26 PASS；14组比赛布局 1920×1080 PASS；规则与道具模块/448 seeded compatibility cases PASS；完整课堂命令浏览器回归 PASS；`check`、`format:check`、`audit:hygiene` PASS。Chromium 仅测试 1920×1080 @1x。最终单文件 8,161,854 bytes，SHA-256 `1eb25c0e6e20de1b353fa3f386bf62ff75f8699175a0064c5500480819d97322`。Electron 同步待本切片提交后验证；Windows 真机未测；无 CircleCI 操作。
 
 ## 尚未完成
 
-- 本地名单变更应用到权威比赛状态的差异预览、快照和原子提交/失败回滚。
 - 旧名单迁移前的重复姓名与成员数量预览、导出回执。
 - 学生头像及其它资源的大小限制、持久化、导入导出。
 - profile 级偏好与课堂级教学设置隔离。

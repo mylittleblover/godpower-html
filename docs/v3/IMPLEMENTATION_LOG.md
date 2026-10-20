@@ -239,3 +239,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 新增独立 IndexedDB `godpower_teaching_resources_v1`，元数据和 Blob 分处两个 object store 并在同一事务管理；列表只读取元数据，避免一次加载全部资源二进制。导入先验证整个批次、扩展名/MIME、大小与文件签名，计算 SHA-256 并拒绝重复内容；保存后读回重新核对摘要，失败时删除本批新记录。资源支持 profile/课堂/学科、标题/标签搜索，文本与 JSON 安全文本预览、图片 Blob URL 预览、PDF元信息与下载、单文件下载、本地 JSON 备份导出和全量校验恢复。文件只运行在本地，PDF不嵌入DOM；没有网络/CDN。
 
 验证：Node 单元/集成293/293 PASS；资源格式模型4/4 PASS；设置和资源 Chromium E2E 五项组全部 PASS：设置回归13/13、名单工作区、课表工作区、IndexedDB仓库（配额/重复/无数据库/批次失败）及资源UI（搜索、文本和图片预览与URL撤销、PDF不嵌入、下载、备份恢复与损坏包回滚）；14组布局在1920×1080 PASS。`check`（111脚本块、27嵌入资源、144模块、3.0.36版本及层边界）、`format:check`、`audit:hygiene` PASS。离线 `file://` 用例 BLOCKED：Playwright Chromium导航被环境策略返回`ERR_BLOCKED_BY_ADMINISTRATOR`，尚未执行其中业务断言。单文件构建8,148,440 bytes，SHA-256 `64e1e15d2bcf67191822963429e50aba212fa38f83a903e585c6dbd95091a9b0`。Electron同步与桌面回归待提交HTML后执行；Windows真机未测；未执行CircleCI。
+
+## 3.0.37 — 安全应用本地课堂名单
+
+名单工作区现能将已保存 roster 显式应用到正式比赛。应用前按稳定 `groupUid` 展示逐组差异，二次确认后只更新现有 `groups[].members`；不增删/排序小组、不改分数/道具/回合/规则，也不写名单仓库。通过课堂事务入口获得单一历史点、权威存档确认和持久化失败回滚；预览与事务执行前都检查比赛状态、赛季、名单选择、仓库 revision/原始字节，陈旧预览被拒。还修复了 `normalizeGroup` 删除同组同名成员以及点名防重复键无法区分同名学生的问题；新键按成员位置，旧名称键仍兼容。
+
+验证：TDD 浏览器测试旧构建先因缺少入口而失败；实现后 Chromium 1920×1080 @1x E2E 覆盖预览/取消、主存储 quota 故障精确回滚、成功持久化、刷新、同名成员保序、历史撤销、名单字节不变及过期预览拒绝。单元与集成测试296/296；设置测试13/13及名单、名单应用、课表、资源工作区回归通过；三种点名模式26/26，448个种子兼容案例，道具模块与完整命令回归通过；14组布局1920×1080 PASS。`check`与`format:check` PASS。最终构建8,161,854 bytes，SHA-256 `1eb25c0e6e20de1b353fa3f386bf62ff75f8699175a0064c5500480819d97322`。预览截图 `artifacts/f1-roster-workspace/apply-preview-1920x1080.png`。Electron同步待本提交后进行；Windows真机 NOT TESTED；`file://`受管 Chromium 策略 BLOCKED；无 CircleCI 操作。
