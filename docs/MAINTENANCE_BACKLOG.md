@@ -1255,15 +1255,15 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：架构/交互可靠性
 - 优先级：P1
-- 状态：OPEN
+- 状态：DONE（2026-10-20；实现提交待生成）
 - 问题描述：页面mount/unmount尚无统一的事件、timer、observer和动画租约释放协议。
 - 证据：`src/ui/desktop.js`、`src/ui/welcome-v2.js`、`src/ui/battle-motion.js`；M0的listener/timer词法清单只作初筛。
 - 影响范围：快速切页、弹窗/动画、未来插件停用和错误恢复。
-- 建议方案：DisposableScope负责UI副作用清理；不改变业务提交、随机结果、页面结构和14组几何。更新Escape测试等待既有退出动画完成，而不是缩短/删除动画。
+- 实施：新增 `src/ui/disposable-scope.js` 与 `GodPowerPageLifecycle`，页面导航时释放旧scope并绑定新scope；页面入场RAF/WAAPI受scope管理。比赛页面DOM/CSS/排列没有调整。修复两项桌面UI测试对关闭动画时序的断言，等待既有动画结束后检查关闭状态。
 - 依赖：UI-M1。
 - 复杂度：中；风险：中。
 - 验收：重复mount不重复事件；dispose清除timer/observer/animation；快速页面往返无遮罩/焦点残留；动画时序和业务状态分离。
-- 推荐测试：生命周期单测＋Chromium 1920×1080历史/档案/设置与14组复归。
+- 推荐测试：已执行 `npm test` 257/257；`npm run test:page-lifecycle`、`npm run test:contributions`、M2基线、14组布局及 `node tests/e2e/desktop-ui.mjs` 全部PASS（23/23，Chromium 1920×1080 1x）。证据见 `docs/ui-audit/M2-page-lifecycle.md` 与 `artifacts/ui-governance-m2/`。
 
 ### PLUG-M1 — 插件runtime、生命周期与权限broker
 

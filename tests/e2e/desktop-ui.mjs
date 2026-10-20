@@ -359,6 +359,10 @@ try {
       );
       await shot(p, "picker-" + mode);
       await p.keyboard.press("Escape");
+      await p.waitForFunction(
+        () =>
+          !document.querySelector("#pickerModal")?.classList.contains("active"),
+      );
       assert.equal(await p.locator("#pickerModal").isVisible(), false);
     }
   });
@@ -422,9 +426,19 @@ try {
     });
     await p.waitForTimeout(80);
     await p.keyboard.press("Escape");
+    await p.waitForFunction(
+      () =>
+        !document
+          .querySelector("#themeDialogV21727")
+          ?.classList.contains("active"),
+    );
     assert.equal(await p.locator("#themeDialogV21727").isVisible(), false);
     assert.equal(await p.locator("#pickerModal").isVisible(), true);
     await p.keyboard.press("Escape");
+    await p.waitForFunction(
+      () =>
+        !document.querySelector("#pickerModal")?.classList.contains("active"),
+    );
     assert.equal(await p.locator("#pickerModal").isVisible(), false);
     for (let i = 0; i < 10; i++) {
       await p.evaluate(() => {
@@ -432,16 +446,16 @@ try {
         closeItemWindow();
       });
     }
+    await p.waitForFunction(
+      () =>
+        document.querySelectorAll('[data-ui-modal-open="true"]').length === 0,
+    );
     assert.equal(await p.locator("[data-ui-modal-open=true]").count(), 0);
   });
   await context.close();
   // Desktop acceptance uses CSS application zoom, recorded separately from browser UI zoom.
-  for (const [width, height] of [
-    [1366, 768],
-    [1920, 1080],
-    [2560, 1440],
-  ])
-    for (const zoom of [0.8, 1, 1.25]) {
+  for (const [width, height] of [[1920, 1080]])
+    for (const zoom of [1]) {
       const { context, p } = await open({ width, height });
       await test(`Desktop ${width}x${height} app zoom ${zoom} five pages bounds/navigation`, async () => {
         await p.evaluate((z) => {

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.25</title>
+<title>上帝的力量 V3.0.26</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -439,6 +439,200 @@
   }
 })(globalThis);
 </script>
+<script>/* Deterministic ownership for view-scoped UI work. No business operation belongs here. */
+(function installGodPowerDisposableScope(root) {
+  "use strict";
+
+  function createDisposableScope(route = "") {
+    let disposed = false;
+    const cleanups = [];
+    const abortController = new AbortController();
+
+    function removeCleanup(entry) {
+      const index = cleanups.indexOf(entry);
+      if (index >= 0) cleanups.splice(index, 1);
+    }
+
+    function add(cleanup) {
+      if (typeof cleanup !== "function")
+        throw new TypeError("cleanup must be a function");
+      let active = true;
+      const entry = () => {
+        if (!active) return;
+        active = false;
+        cleanup();
+      };
+      if (disposed) {
+        entry();
+        return () => {};
+      }
+      cleanups.push(entry);
+      return () => {
+        removeCleanup(entry);
+        entry();
+      };
+    }
+
+    function listen(target, type, listener, options) {
+      if (!target?.addEventListener || !target?.removeEventListener) {
+        throw new TypeError(
+          "event target must support addEventListener/removeEventListener",
+        );
+      }
+      if (disposed) return () => {};
+      target.addEventListener(type, listener, options);
+      return add(() => target.removeEventListener(type, listener, options));
+    }
+
+    function timeout(callback, delay = 0) {
+      if (typeof callback !== "function")
+        throw new TypeError("timeout callback must be a function");
+      if (disposed) return null;
+      let release;
+      const id = setTimeout(() => {
+        release?.();
+        if (!disposed) callback();
+      }, delay);
+      release = add(() => clearTimeout(id));
+      return id;
+    }
+
+    function frame(callback) {
+      if (typeof callback !== "function")
+        throw new TypeError("frame callback must be a function");
+      if (disposed) return null;
+      let release;
+      const id = requestAnimationFrame((time) => {
+        release?.();
+        if (!disposed) callback(time);
+      });
+      release = add(() => cancelAnimationFrame(id));
+      return id;
+    }
+
+    function observe(observer, target, options) {
+      if (!observer?.observe || !observer?.disconnect) {
+        throw new TypeError("observer must support observe/disconnect");
+      }
+      if (disposed) {
+        observer.disconnect();
+        return observer;
+      }
+      observer.observe(target, options);
+      add(() => observer.disconnect());
+      return observer;
+    }
+
+    function animation(animation) {
+      if (!animation?.cancel)
+        throw new TypeError("animation must support cancel");
+      if (disposed) {
+        animation.cancel();
+        return animation;
+      }
+      const release = add(() => animation.cancel());
+      if (animation.finished?.then) animation.finished.then(release, release);
+      return animation;
+    }
+
+    function child(childScope) {
+      if (!childScope?.dispose)
+        throw new TypeError("child scope must support dispose");
+      add(() => childScope.dispose());
+      return childScope;
+    }
+
+    function dispose() {
+      if (disposed) return [];
+      disposed = true;
+      const errors = [];
+      try {
+        abortController.abort();
+      } catch (error) {
+        errors.push(error);
+      }
+      for (const cleanup of cleanups.splice(0).reverse()) {
+        try {
+          cleanup();
+        } catch (error) {
+          errors.push(error);
+        }
+      }
+      return errors;
+    }
+
+    return Object.freeze({
+      route,
+      add,
+      listen,
+      timeout,
+      frame,
+      observe,
+      animation,
+      child,
+      dispose,
+      get disposed() {
+        return disposed;
+      },
+      get signal() {
+        return abortController.signal;
+      },
+      get size() {
+        return cleanups.length;
+      },
+    });
+  }
+
+  function createPageLifecycle(
+    onDisposeError = (route, errors) => {
+      for (const error of errors)
+        console.error(`UI scope cleanup failed (${route})`, error);
+    },
+  ) {
+    let active = null;
+
+    function enter(route) {
+      if (typeof route !== "string" || !route || route.length > 192) {
+        throw new TypeError(
+          "page route must be a non-empty string up to 192 characters",
+        );
+      }
+      if (active?.route === route)
+        return Object.freeze({ route, scope: active, changed: false });
+      if (active) {
+        const previous = active;
+        const errors = previous.dispose();
+        if (errors.length) onDisposeError(previous.route, errors);
+      }
+      active = createDisposableScope(route);
+      return Object.freeze({ route, scope: active, changed: true });
+    }
+
+    function dispose() {
+      if (!active) return [];
+      const previous = active;
+      active = null;
+      const errors = previous.dispose();
+      if (errors.length) onDisposeError(previous.route, errors);
+      return errors;
+    }
+
+    return Object.freeze({
+      enter,
+      dispose,
+      current: () => active,
+    });
+  }
+
+  root.GodPowerDisposableScope = Object.freeze({
+    createDisposableScope,
+    createPageLifecycle,
+  });
+  if (typeof document !== "undefined" && !root.GodPowerPageLifecycle) {
+    root.GodPowerPageLifecycle = createPageLifecycle();
+  }
+})(globalThis);
+</script>
 <script>/* Theme composition owns appearance only. No classroom state or business commands. */
 window.GodpowerTheme = (() => {
   "use strict";
@@ -489,7 +683,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.25";
+    document.title = name() + " V3.0.26";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -9174,7 +9368,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.25</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.26</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -23312,7 +23506,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.25';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.26';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -25796,7 +25990,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.25",
+    appVersion: "V3.0.26",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -27728,6 +27922,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    const pageScope = window.GodPowerPageLifecycle?.enter(name).scope;
     ClassroomFeedback.cancel();
     BattleMotion.clear();
     cancelItemScoreAnimations();
@@ -27759,7 +27954,7 @@ const DesktopUI = (() => {
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
     if (preferences.pageMotion && name !== "settings") {
-      pageMotionFrame = requestAnimationFrame(() => {
+      const enterPage = () => {
         pageMotionFrame = null;
         if (currentView !== name || !preferences.pageMotion) return;
         const selectors = {
@@ -27775,8 +27970,8 @@ const DesktopUI = (() => {
         const targets = [
           ...host.querySelectorAll(selectors[name] || ":scope"),
         ].slice(0, 18);
-        targets.forEach((el, i) =>
-          animate(
+        targets.forEach((el, i) => {
+          const animation = animate(
             el,
             [
               {
@@ -27790,9 +27985,13 @@ const DesktopUI = (() => {
               duration: 260 / preferences.speed,
               fill: "backwards",
             },
-          ),
-        );
-      });
+          );
+          if (pageScope && animation) pageScope.animation(animation);
+        });
+      };
+      pageMotionFrame = pageScope
+        ? pageScope.frame(enterPage)
+        : requestAnimationFrame(enterPage);
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);

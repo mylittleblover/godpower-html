@@ -62,9 +62,9 @@
 | 五页/Picker基线截图 | `npm run test:ui-governance-baseline` | PASS；Chromium 1920×1080 1x，零pageerror；见 `artifacts/ui-governance-m0/` |
 | 旧 desktop-ui 全流程 | 曾启动但未完成 | INCOMPLETE；一个抽签断言未在隔离复测复现；Escape断言未等待关闭动效，M2需用动画结束信号重测 |
 | M1 页面注册协议 | 见下方 M1 已执行矩阵 | PASS |
-| M2 页面dispose与动画清理 | 未实施 | NOT TESTED |
+| M2 页面dispose与动画清理 | `docs/ui-audit/M2-page-lifecycle.md` | PASS；详见下方 M2 已执行矩阵 |
 | 插件安装runtime与权限/数据 | 未实施 | NOT TESTED |
-| Electron/Windows | M1源代码同步待执行 | NOT TESTED |
+| Electron/Windows | M2 HTML源代码同步待执行 | NOT TESTED |
 
 ### M1 已执行
 
@@ -76,3 +76,15 @@
 | M1全量单元/集成 | `npm test` | PASS 253/253 |
 | M1构建/manifest/版本/资源 | `npm run build && npm run check` | PASS；版本3.0.25，产物SHA见`docs/ui-audit/M1-contribution-registry.md` |
 | 页面lifecycle dispose、动画清理、插件中心 | 后续M2/SP05实现后执行 | NOT TESTED |
+
+### M2 页面生命周期已执行
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| DisposableScope清理顺序、错误收集、listener/timer/frame/observer/WAAPI取消、route替换 | `tests/unit/disposable-scope.test.mjs` | PASS 4项 |
+| 跨页清理与业务状态隔离、窗口Escape退出动效 | `npm run test:page-lifecycle` | PASS；Chromium 1920×1080 1x |
+| 全桌面UI及所有主页面抽验 | `node tests/e2e/desktop-ui.mjs` | PASS 23/23；Chromium 1920×1080 1x；0 uncaught error；`artifacts/ui-governance-m2/desktop-ui-results.json` |
+| 14组布局 | `node tests/e2e/battle-layout.mjs` | PASS；原fixture布局比较 |
+| M2全量单元/集成 | `npm test` | PASS 257/257 |
+| M2 HTML构建/检查 | `npm run build && npm run check` | PASS；版本3.0.26 |
+| Electron同版同步/插件中心/隔离sandbox | 下阶段同步或实现 | NOT TESTED |

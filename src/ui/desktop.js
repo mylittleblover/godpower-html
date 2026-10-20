@@ -148,6 +148,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    const pageScope = window.GodPowerPageLifecycle?.enter(name).scope;
     ClassroomFeedback.cancel();
     BattleMotion.clear();
     cancelItemScoreAnimations();
@@ -179,7 +180,7 @@ const DesktopUI = (() => {
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
     if (preferences.pageMotion && name !== "settings") {
-      pageMotionFrame = requestAnimationFrame(() => {
+      const enterPage = () => {
         pageMotionFrame = null;
         if (currentView !== name || !preferences.pageMotion) return;
         const selectors = {
@@ -195,8 +196,8 @@ const DesktopUI = (() => {
         const targets = [
           ...host.querySelectorAll(selectors[name] || ":scope"),
         ].slice(0, 18);
-        targets.forEach((el, i) =>
-          animate(
+        targets.forEach((el, i) => {
+          const animation = animate(
             el,
             [
               {
@@ -210,9 +211,13 @@ const DesktopUI = (() => {
               duration: 260 / preferences.speed,
               fill: "backwards",
             },
-          ),
-        );
-      });
+          );
+          if (pageScope && animation) pageScope.animation(animation);
+        });
+      };
+      pageMotionFrame = pageScope
+        ? pageScope.frame(enterPage)
+        : requestAnimationFrame(enterPage);
     }
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);
