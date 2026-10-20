@@ -269,3 +269,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 主快照损坏时，恢复面板可原文下载受保护的 `godpower_state_v2`，只读扫描 V1、旧版分散镜像及恢复前副本。候选显示小组数、积分合计和相对当前页面内存状态的差异；恢复需要教师确认，并沿用事务式课堂导入路径，确认前先保留原始损坏字节。扩展嵌套点名数组、道具抽取冷却、点名/举手历史及撤销快照的长度/类型/深度验证。
 
 验证：测试先证明原实现缺少嵌套校验；随后 Node 单元/集成 299/299 PASS，Chromium 1920×1080 @1x 验证原始损坏文本精确下载、只读扫描、取消不变、确认恢复和刷新恢复。迁移面板与 14 组比赛布局均 PASS。完整证据及构建 SHA 见 `docs/validation/v3.0.41-corrupt-snapshot-recovery.md`。CircleCI 未执行；Windows 真机与 `file://` 本轮未测试。
+
+## 3.0.42 — 全道具事务撤销矩阵
+
+没有修改规则；新增运行时读取全部 26 个 `ITEM_KEYS` 的端到端测试，逐项验证道具使用与撤销均持久化，且小组积分/库存/效果、全局计数、点名和回合字段恢复到规范化操作前快照。矩阵加入 `npm run test:item-modules`。GP-017 仍未完成，尚有防御交互、持续效果到期、冷却统计、按钮音效、批量名单等维度。
+
+验证：Chromium 1920×1080 @1x 道具撤销矩阵 26/26 PASS，Node 单元/集成 299/299 PASS，构建/check/format PASS。构建大小及SHA见 `docs/validation/v3.0.42-item-undo-matrix.md`。CircleCI 未执行。
