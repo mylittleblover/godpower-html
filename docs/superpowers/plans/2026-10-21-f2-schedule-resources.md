@@ -74,10 +74,10 @@
 
 **Interfaces:** Validate safe metadata and file signatures before storage. Repository imports a fully preflighted batch, uses IndexedDB database `godpower_teaching_resources_v1`, verifies readback and hash, and returns errors without partial success.
 
-- [ ] Add failing tests for MIME/extension mismatch, active content, size boundary, metadata, digest duplicates and rollback.
-- [ ] Verify RED, then implement validation and repository APIs.
-- [ ] Test absent IndexedDB, transaction abort, quota exception and duplicate content.
-- [ ] Run unit suite and commit resource repository.
+- [x] Add failing tests for MIME/extension mismatch, active content, size boundary, metadata, digest duplicates and rollback.
+- [x] Verify RED, then implement validation and repository APIs.
+- [x] Test absent IndexedDB, transaction abort, quota exception and duplicate content.
+- [x] Run unit suite and commit resource repository.
 
 ### Task 4: Resource library UI and Electron sync
 
@@ -88,8 +88,9 @@
 - Modify: `package.json`, `docs/ARCHITECTURE.md`, `docs/DATA_SCHEMA.md`, `docs/MAINTENANCE_BACKLOG.md`, `docs/v3/IMPLEMENTATION_LOG.md`
 - Modify: Electron generated bundle and validation record after HTML commit.
 
-- [ ] Verify import/search/filter/metadata preview/text image preview/PDF information/download/delete/backup export/restore flows.
-- [ ] Verify object URLs are revoked and invalid import preserves existing resources.
-- [ ] Run HTML unit, resource E2E, Chromium 1920×1080, build/offline checks and Electron bundle/smoke/desktop tests.
-- [ ] Record Windows NOT TESTED if no native Windows runtime is available; do not run CircleCI.
+- [x] Verify import/search/filter/text preview/download/delete/backup export/restore flows.
+- [x] Verify image/PDF validation, object URL cleanup and invalid import preserves existing resources.
+- [x] Capture final resource library screenshot and rerun complete acceptance after version bump.
+- [x] Run HTML unit, resource E2E, Chromium 1920×1080, build checks and Electron bundle/smoke/desktop tests.
+- [x] Record file:// blocked by managed Chromium policy, Windows NOT TESTED and no CircleCI operation.
 - [ ] Commit HTML and Electron sync separately and push both development branches.

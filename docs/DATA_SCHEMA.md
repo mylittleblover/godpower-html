@@ -163,7 +163,13 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 | `godpower_teaching_schedule_v1`        | envelope `schemaVersion:1`，`revision >= 1`；文档 `schemaVersion:1` | `entries[]`: `scheduleId`, `userProfileId`, `classroomId`, `weekday`(0–6), `startMinute`(0–1439), `endMinute`(1–1440), `subjectId`, `note` | 键缺失时是空课程表 revision 0；profile同一星期课程时间段不得重叠；跨午夜范围拒绝；写入CAS、读回验证和原字节回滚。 |
 | `godpower_active_classroom_context_v1` | `schemaVersion:1`                                                   | `userProfileId`, `classroomId`, `sourceScheduleId`                                                                                         | 必须教师显式选择当前课表建议后写入；只驱动名单工作区本机选择；无效值不应用到比赛。                                |
 
-`TeachingSchedule.findCurrentLesson`使用浏览器本机星期/分钟，区间为`startMinute <= now < endMinute`。时钟只用于显示建议；没有自动切换比赛状态的定时器。学科资源仓库格式仍待后续F2实现。
+`TeachingSchedule.findCurrentLesson`使用浏览器本机星期/分钟，区间为`startMinute <= now < endMinute`。时钟只用于显示建议；没有自动切换比赛状态的定时器。
+
+## 3.0.36 本地教学资源（F2）
+
+数据库：`godpower_teaching_resources_v1`，schema version 1。`resources` object store 保存元数据，`resourceBlobs` 保存 `{resourceId, blob}`；两者以稳定 resourceId 关联，写入/删除同一 IndexedDB 事务执行。SHA-256 唯一索引用于重复内容拒绝。列表读取只加载元数据，预览、下载或备份时才读取 Blob。
+
+元数据字段：`resourceId`（resource- 稳定 ID）、`profileId`、`classroomId`、`subjectId`、`title`、`tags[]`、`fileName`（仅基本文件名）、`mimeType`、`byteSize`、`sha256`、`importedAt`、`schemaVersion:1`。允许 PDF、TXT、JSON、PNG、JPEG、WebP，单文件上限 20 MiB。类型扩展名和 MIME 必须匹配；JSON 必须可解析；文本按 UTF-8 解码；图像和 PDF 检查基本签名，PDF 中可见的 JavaScript/Launch/OpenAction 等活动操作会被拒绝，并且 PDF 只提供元信息与下载、不嵌入 DOM。JSON 备份格式为 `godpower-teaching-resources`/版本1，包含每条记录元数据与 Base64 原始字节；恢复逐条校验身份、大小、签名和 SHA-256，批次失败不写入任何新记录。IndexedDB 不可用、配额不足或读回失败会显示错误，不触碰名单/比赛存储。
 
 3.0.4只整理判题职责和共享基础计算，没有改变Schema2字段、旧存档转换或道具平衡参数。
 

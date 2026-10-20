@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.35</title>
+<title>上帝的力量 V3.0.36</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.35";
+    document.title = name() + " V3.0.36";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -8265,6 +8265,206 @@ summary:focus-visible {
 #teachingScheduleStatus[data-state="error"] {
   color: var(--ui-danger, #a43d30);
 }
+.teaching-resource-workspace > p {
+  max-width: 1040px;
+}
+.teaching-resource-scope,
+.teaching-resource-import,
+.teaching-resource-filters {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+}
+.teaching-resource-scope label,
+.teaching-resource-import label,
+.teaching-resource-filters label {
+  display: grid;
+  gap: 5px;
+  min-width: 150px;
+  color: var(--ui-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.teaching-resource-import label:first-child,
+.teaching-resource-import label:nth-child(2) {
+  flex: 1 1 190px;
+}
+.teaching-resource-filters label:first-child {
+  flex: 1 1 300px;
+}
+.teaching-resource-scope input,
+.teaching-resource-scope select,
+.teaching-resource-import input:not([type="file"]),
+.teaching-resource-import select,
+.teaching-resource-filters input {
+  box-sizing: border-box;
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 9px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  font: inherit;
+}
+.teaching-resource-file-label input[type="file"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 38px;
+  padding: 5px;
+  border: 1px solid var(--ui-border);
+  border-radius: 9px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  font: inherit;
+}
+.teaching-resource-list {
+  display: grid;
+  gap: 8px;
+  max-height: 460px;
+  overflow: auto;
+  padding: 2px;
+}
+.teaching-resource-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--ui-border);
+  border-radius: 11px;
+  background: var(--ui-panel);
+}
+.teaching-resource-card-info {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.teaching-resource-card-info strong,
+.teaching-resource-card-info span {
+  overflow-wrap: anywhere;
+}
+.teaching-resource-card-info strong {
+  color: var(--ui-text);
+  font-size: 14px;
+}
+.teaching-resource-card-info span {
+  color: var(--ui-muted);
+  font-size: 12px;
+}
+.teaching-resource-card-info .teaching-resource-tags {
+  color: var(--ui-accent);
+}
+.teaching-resource-card-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+.teaching-resource-preview {
+  width: min(960px, calc(100vw - 64px));
+  max-width: 960px;
+  max-height: min(860px, calc(100vh - 48px));
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--ui-border);
+  border-radius: 18px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  box-shadow: var(--ui-shadow-lg, 0 24px 70px #163d353d);
+}
+.teaching-resource-preview::backdrop {
+  background: #102e2c99;
+  backdrop-filter: blur(5px);
+}
+.teaching-resource-preview > header,
+.teaching-resource-preview > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--ui-border);
+  background: var(--ui-soft);
+}
+.teaching-resource-preview > header h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.teaching-resource-preview > footer {
+  border-top: 1px solid var(--ui-border);
+  border-bottom: 0;
+}
+.teaching-resource-preview-body {
+  max-height: calc(100vh - 190px);
+  overflow: auto;
+  padding: 18px;
+}
+.teaching-resource-preview-body pre {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    13px/1.65 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+.teaching-resource-preview-body img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 250px);
+  margin: 0 auto;
+  object-fit: contain;
+}
+#teachingResourceStatus[data-state="error"] {
+  color: var(--ui-danger, #a43d30);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .teaching-resource-card {
+    animation: teaching-resource-arrive 260ms cubic-bezier(0.2, 0.8, 0.2, 1)
+      both;
+  }
+  .teaching-resource-preview[open] {
+    animation: teaching-resource-modal-enter 300ms
+      cubic-bezier(0.2, 0.85, 0.22, 1.2) both;
+  }
+  .teaching-resource-preview.is-closing {
+    animation: teaching-resource-modal-exit 220ms cubic-bezier(0.4, 0, 1, 1)
+      both;
+  }
+}
+@keyframes teaching-resource-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes teaching-resource-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes teaching-resource-modal-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.96);
+  }
+}
 </style>
 <style id="application-surfaces">/* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
 :root,
@@ -11532,7 +11732,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.35</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.36</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -12428,6 +12628,7 @@ const StableIdentity = (() => {
   const createClassroomId = () => createUuid("classroom");
   const createStudentUid = () => createUuid("student");
   const createScheduleId = () => createUuid("schedule");
+  const createResourceId = () => createUuid("resource");
 
   function assignGroupUids(groups, idFactory = createGroupUid) {
     if (!Array.isArray(groups)) throw new TypeError("groups must be an array");
@@ -12474,6 +12675,7 @@ const StableIdentity = (() => {
     createClassroomId,
     createStudentUid,
     createScheduleId,
+    createResourceId,
     assignGroupUids,
     assignStudentUids: assignEntityUids(
       "studentUid",
@@ -13537,6 +13739,461 @@ globalThis.StableIdentity = StableIdentity;
   });
 })(globalThis);
 </script>
+<script>(function installTeachingResource(root) {
+  "use strict";
+
+  const MAX_BYTES = 20 * 1024 * 1024;
+  const FORMATS = Object.freeze({
+    ".pdf": { mimeType: "application/pdf", kind: "pdf" },
+    ".txt": { mimeType: "text/plain", kind: "text" },
+    ".json": { mimeType: "application/json", kind: "json" },
+    ".png": { mimeType: "image/png", kind: "png" },
+    ".jpg": { mimeType: "image/jpeg", kind: "jpeg" },
+    ".jpeg": { mimeType: "image/jpeg", kind: "jpeg" },
+    ".webp": { mimeType: "image/webp", kind: "webp" },
+  });
+  const fail = (message) => {
+    throw new TypeError(message);
+  };
+
+  function formatFor(fileName) {
+    if (typeof fileName !== "string") return null;
+    const index = fileName.lastIndexOf(".");
+    return FORMATS[fileName.slice(index).toLowerCase()] || null;
+  }
+
+  function validateMetadata(input) {
+    if (!input || typeof input !== "object" || Array.isArray(input))
+      fail("resource metadata must be an object");
+    if (input.schemaVersion !== 1) fail("resource schemaVersion 1 is required");
+    if (
+      !root.StableIdentity.isValidGroupUid(input.resourceId) ||
+      !input.resourceId.startsWith("resource-")
+    )
+      fail("resource identity is invalid");
+    if (!root.StableIdentity.isValidUserProfileId(input.profileId))
+      fail("profile identity is invalid");
+    if (!root.StableIdentity.isValidClassroomId(input.classroomId))
+      fail("classroom identity is invalid");
+    if (
+      typeof input.subjectId !== "string" ||
+      !input.subjectId.trim() ||
+      input.subjectId.length > 80
+    )
+      fail("subject is required and must be at most 80 characters");
+    if (
+      typeof input.title !== "string" ||
+      !input.title.trim() ||
+      input.title.length > 160
+    )
+      fail("title is required and must be at most 160 characters");
+    if (
+      typeof input.fileName !== "string" ||
+      input.fileName.length > 255 ||
+      /[/\\\0]/.test(input.fileName) ||
+      input.fileName === "." ||
+      input.fileName === ".."
+    )
+      fail("file name must be a plain file name");
+    const format = formatFor(input.fileName);
+    if (!format || input.mimeType !== format.mimeType)
+      fail("file extension and allowed MIME type must match");
+    if (
+      !Number.isSafeInteger(input.byteSize) ||
+      input.byteSize < 1 ||
+      input.byteSize > MAX_BYTES
+    )
+      fail("file must be between 1 byte and 20 MiB");
+    if (
+      typeof input.sha256 !== "string" ||
+      !/^[a-f0-9]{64}$/i.test(input.sha256)
+    )
+      fail("SHA-256 digest is invalid");
+    if (
+      typeof input.importedAt !== "string" ||
+      Number.isNaN(Date.parse(input.importedAt))
+    )
+      fail("import time must be a valid date");
+    if (!Array.isArray(input.tags) || input.tags.length > 30)
+      fail("tags must be an array with at most 30 entries");
+    const tags = [
+      ...new Set(
+        input.tags.map((tag) => {
+          if (typeof tag !== "string" || !tag.trim() || tag.trim().length > 40)
+            fail("each tag must contain 1 to 40 characters");
+          return tag.trim();
+        }),
+      ),
+    ];
+    return {
+      resourceId: input.resourceId,
+      profileId: input.profileId,
+      classroomId: input.classroomId,
+      subjectId: input.subjectId.trim(),
+      title: input.title.trim(),
+      tags,
+      fileName: input.fileName,
+      mimeType: format.mimeType,
+      byteSize: input.byteSize,
+      sha256: input.sha256.toLowerCase(),
+      importedAt: new Date(input.importedAt).toISOString(),
+      schemaVersion: 1,
+    };
+  }
+
+  function validateFile(input, rawBytes) {
+    const bytes =
+      rawBytes instanceof Uint8Array ? rawBytes : new Uint8Array(rawBytes);
+    if (!bytes.byteLength || bytes.byteLength > MAX_BYTES)
+      fail("file must be between 1 byte and 20 MiB");
+    const format = formatFor(input?.fileName);
+    if (!format || input.mimeType !== format.mimeType)
+      fail("file extension and allowed MIME type must match");
+    const starts = (...expected) =>
+      expected.every((value, index) => bytes[index] === value);
+    if (
+      format.kind === "png" &&
+      !starts(0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a)
+    )
+      fail("PNG signature does not match the file extension");
+    if (format.kind === "jpeg" && !starts(0xff, 0xd8, 0xff))
+      fail("JPEG signature does not match the file extension");
+    if (
+      format.kind === "webp" &&
+      !(
+        starts(0x52, 0x49, 0x46, 0x46) &&
+        String.fromCharCode(...bytes.slice(8, 12)) === "WEBP"
+      )
+    )
+      fail("WebP signature does not match the file extension");
+    const decoder = new TextDecoder("utf-8", { fatal: true });
+    if (format.kind === "text" || format.kind === "json") {
+      const text = decoder.decode(bytes);
+      if (format.kind === "json") {
+        try {
+          JSON.parse(text);
+        } catch {
+          fail("JSON file is malformed");
+        }
+      }
+    }
+    if (format.kind === "pdf") {
+      const header = new TextDecoder("latin1").decode(
+        bytes.slice(0, Math.min(bytes.length, 1024)),
+      );
+      if (!header.startsWith("%PDF-"))
+        fail("PDF signature does not match the file extension");
+      const searchable = new TextDecoder("latin1").decode(bytes);
+      if (/\/(?:JavaScript|JS|OpenAction|AA|Launch)\b/i.test(searchable))
+        fail("active PDF actions are not allowed");
+    }
+    return validateMetadata({ ...input, byteSize: bytes.byteLength });
+  }
+
+  root.TeachingResource = Object.freeze({
+    MAX_BYTES,
+    FORMATS,
+    validateMetadata,
+    validateFile,
+  });
+})(globalThis);
+</script>
+<script>(function installTeachingResourceRepository(root) {
+  "use strict";
+  const DATABASE = "godpower_teaching_resources_v1";
+  const STORE = "resources";
+  const BLOB_STORE = "resourceBlobs";
+  const fault = (code, message) => Object.assign(new Error(message), { code });
+
+  function requestValue(request) {
+    return new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () =>
+        reject(
+          request.error || fault("REQUEST_FAILED", "IndexedDB request failed"),
+        );
+    });
+  }
+
+  function transactionDone(transaction) {
+    return new Promise((resolve, reject) => {
+      transaction.oncomplete = () => resolve();
+      transaction.onabort = () =>
+        reject(
+          transaction.error ||
+            fault("TRANSACTION_ABORTED", "Resource transaction was aborted"),
+        );
+      transaction.onerror = () =>
+        reject(
+          transaction.error ||
+            fault("TRANSACTION_FAILED", "Resource transaction failed"),
+        );
+    });
+  }
+
+  function hex(bytes) {
+    return [...new Uint8Array(bytes)]
+      .map((value) => value.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function open({
+    indexedDB = root.indexedDB,
+    crypto = root.crypto,
+    storageManager = root.navigator?.storage,
+    now = () => new Date(),
+  } = {}) {
+    if (!indexedDB) throw fault("UNAVAILABLE", "IndexedDB is unavailable");
+    if (!crypto?.subtle)
+      throw fault("CRYPTO_UNAVAILABLE", "SHA-256 is unavailable");
+    const database = await new Promise((resolve, reject) => {
+      const request = indexedDB.open(DATABASE, 1);
+      request.onupgradeneeded = () => {
+        const metadata = request.result.createObjectStore(STORE, {
+          keyPath: "resourceId",
+        });
+        metadata.createIndex("profileId", "profileId");
+        metadata.createIndex("classroomId", "classroomId");
+        metadata.createIndex("subjectId", "subjectId");
+        metadata.createIndex("sha256", "sha256", { unique: true });
+        request.result.createObjectStore(BLOB_STORE, { keyPath: "resourceId" });
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () =>
+        reject(
+          fault(
+            "OPEN_FAILED",
+            request.error?.message || "Resource database could not open",
+          ),
+        );
+      request.onblocked = () =>
+        reject(
+          fault(
+            "OPEN_BLOCKED",
+            "Another window is blocking the resource database",
+          ),
+        );
+    });
+    database.onversionchange = () => database.close();
+
+    async function hash(bytes) {
+      return hex(await crypto.subtle.digest("SHA-256", bytes));
+    }
+
+    async function prepare(input) {
+      const file = input?.file;
+      if (!file || typeof file.arrayBuffer !== "function")
+        throw fault("INVALID_FILE", "A local File is required");
+      if (file.size > root.TeachingResource.MAX_BYTES)
+        throw fault("TOO_LARGE", "Each resource must be 20 MiB or smaller");
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const metadata = root.TeachingResource.validateFile(
+        {
+          resourceId:
+            input.resourceId || root.StableIdentity.createResourceId(),
+          profileId: input.profileId,
+          classroomId: input.classroomId,
+          subjectId: input.subjectId,
+          title: input.title || file.name.replace(/\.[^.]+$/, ""),
+          tags: input.tags || [],
+          fileName: file.name,
+          mimeType: file.type,
+          byteSize: bytes.byteLength,
+          sha256: await hash(bytes),
+          importedAt: input.importedAt || now().toISOString(),
+          schemaVersion: 1,
+        },
+        bytes,
+      );
+      if (
+        input.expectedSha256 &&
+        input.expectedSha256.toLowerCase() !== metadata.sha256
+      )
+        throw fault(
+          "INTEGRITY_MISMATCH",
+          "Imported resource digest does not match its bytes",
+        );
+      if (
+        input.expectedByteSize !== undefined &&
+        input.expectedByteSize !== metadata.byteSize
+      )
+        throw fault(
+          "INTEGRITY_MISMATCH",
+          "Imported resource size does not match its bytes",
+        );
+      return {
+        ...metadata,
+        blob: new Blob([bytes], { type: metadata.mimeType }),
+      };
+    }
+
+    async function addBatch(files) {
+      if (!Array.isArray(files) || !files.length)
+        throw fault("INVALID_BATCH", "At least one file is required");
+      // Preflight every entry before opening a write transaction, so one bad file
+      // cannot leave a partial import behind.
+      const prepared = await Promise.all(files.map(prepare));
+      const ids = new Set();
+      const hashes = new Set();
+      for (const item of prepared) {
+        if (ids.has(item.resourceId))
+          throw fault("DUPLICATE_ID", "Resource IDs in a batch must be unique");
+        if (hashes.has(item.sha256))
+          throw fault(
+            "DUPLICATE_CONTENT",
+            "The batch contains duplicate file content",
+          );
+        ids.add(item.resourceId);
+        hashes.add(item.sha256);
+      }
+      if (typeof storageManager?.estimate === "function") {
+        try {
+          const estimate = await storageManager.estimate();
+          const requestedBytes = prepared.reduce(
+            (sum, item) => sum + item.byteSize,
+            0,
+          );
+          if (
+            Number.isFinite(estimate.quota) &&
+            Number.isFinite(estimate.usage) &&
+            estimate.usage + requestedBytes > estimate.quota
+          )
+            throw fault(
+              "QUOTA_PREDICTED",
+              "Browser storage estimate indicates insufficient space",
+            );
+        } catch (error) {
+          if (error?.code === "QUOTA_PREDICTED") throw error;
+          // Estimates are advisory; the actual transaction remains authoritative.
+        }
+      }
+      const tx = database.transaction([STORE, BLOB_STORE], "readwrite");
+      const done = transactionDone(tx);
+      const store = tx.objectStore(STORE);
+      const existingChecks = prepared.map((item) =>
+        requestValue(store.index("sha256").get(item.sha256)),
+      );
+      const existing = await Promise.all(existingChecks);
+      if (existing.some(Boolean)) {
+        tx.abort();
+        try {
+          await done;
+        } catch {
+          /* abort is expected during duplicate preflight */
+        }
+        throw fault(
+          "DUPLICATE_CONTENT",
+          "Identical content already exists; existing resources were not changed",
+        );
+      }
+      for (const item of prepared) {
+        const { blob, ...metadata } = item;
+        store.add(metadata);
+        tx.objectStore(BLOB_STORE).add({ resourceId: item.resourceId, blob });
+      }
+      await done;
+      try {
+        const readBack = await Promise.all(
+          prepared.map((item) => get(item.resourceId)),
+        );
+        for (let index = 0; index < prepared.length; index++) {
+          const actual = readBack[index];
+          if (
+            !actual ||
+            actual.sha256 !== prepared[index].sha256 ||
+            actual.byteSize !== prepared[index].byteSize ||
+            actual.blob.size !== prepared[index].byteSize
+          )
+            throw fault(
+              "READBACK_MISMATCH",
+              "Resource readback verification failed",
+            );
+          if (
+            (await hash(new Uint8Array(await actual.blob.arrayBuffer()))) !==
+            prepared[index].sha256
+          )
+            throw fault(
+              "READBACK_MISMATCH",
+              "Resource bytes do not match their SHA-256 digest",
+            );
+        }
+        return readBack;
+      } catch (error) {
+        const rollback = database.transaction([STORE, BLOB_STORE], "readwrite");
+        const rollbackDone = transactionDone(rollback);
+        for (const item of prepared) {
+          rollback.objectStore(STORE).delete(item.resourceId);
+          rollback.objectStore(BLOB_STORE).delete(item.resourceId);
+        }
+        await rollbackDone;
+        throw error;
+      }
+    }
+
+    async function get(resourceId) {
+      const tx = database.transaction([STORE, BLOB_STORE], "readonly");
+      const done = transactionDone(tx);
+      const [metadata, storedBlob] = await Promise.all([
+        requestValue(tx.objectStore(STORE).get(resourceId)),
+        requestValue(tx.objectStore(BLOB_STORE).get(resourceId)),
+      ]);
+      await done;
+      return metadata && storedBlob
+        ? { ...metadata, blob: storedBlob.blob }
+        : null;
+    }
+
+    async function list(filter = {}) {
+      const tx = database.transaction(STORE, "readonly");
+      const done = transactionDone(tx);
+      const all = await requestValue(tx.objectStore(STORE).getAll());
+      await done;
+      const query = String(filter.query || "")
+        .trim()
+        .toLocaleLowerCase();
+      return all
+        .filter(
+          (item) =>
+            (!filter.profileId || item.profileId === filter.profileId) &&
+            (!filter.classroomId || item.classroomId === filter.classroomId) &&
+            (!filter.subjectId || item.subjectId === filter.subjectId),
+        )
+        .filter(
+          (item) =>
+            !query ||
+            [item.title, item.subjectId, item.fileName, ...item.tags].some(
+              (value) => value.toLocaleLowerCase().includes(query),
+            ),
+        )
+        .sort((left, right) => right.importedAt.localeCompare(left.importedAt));
+    }
+
+    async function remove(resourceId) {
+      const tx = database.transaction([STORE, BLOB_STORE], "readwrite");
+      const done = transactionDone(tx);
+      tx.objectStore(STORE).delete(resourceId);
+      tx.objectStore(BLOB_STORE).delete(resourceId);
+      await done;
+    }
+
+    async function exportAll(filter = {}) {
+      const metadata = await list(filter);
+      return Promise.all(metadata.map((item) => get(item.resourceId)));
+    }
+
+    return Object.freeze({
+      addBatch,
+      get,
+      list,
+      remove,
+      exportAll,
+      close: () => database.close(),
+    });
+  }
+
+  root.TeachingResourceRepository = Object.freeze({ DATABASE, open });
+})(globalThis);
+</script>
 <script>(function installTeachingWorkspace(root) {
   "use strict";
   const ACTIVE_CLASSROOM_KEY = "godpower_active_classroom_context_v1";
@@ -13809,6 +14466,488 @@ globalThis.StableIdentity = StableIdentity;
   }
 
   root.TeachingWorkspace = Object.freeze({
+    mount,
+    refresh: () => refreshers.forEach((refresh) => refresh()),
+  });
+})(globalThis);
+</script>
+<script>(function installTeachingResourceWorkspace(root) {
+  "use strict";
+
+  const ACTIVE_KEY = "godpower_active_classroom_context_v1";
+  const REFRESH_EVENT = "godpower:active-classroom-changed";
+  const refreshers = new Set();
+  const byId = (host, id) => host.querySelector(`#${id}`);
+  const make = (tag, value, className = "") => {
+    const node = document.createElement(tag);
+    node.textContent = value;
+    if (className) node.className = className;
+    return node;
+  };
+
+  function safeFileName(value) {
+    return value.replace(/[\\/\0]/g, "_").slice(0, 255) || "resource";
+  }
+
+  function toBase64(bytes) {
+    let binary = "";
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < bytes.length; offset += chunkSize)
+      binary += String.fromCharCode(
+        ...bytes.subarray(offset, offset + chunkSize),
+      );
+    return btoa(binary);
+  }
+
+  function fromBase64(value) {
+    if (
+      typeof value !== "string" ||
+      !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
+        value,
+      )
+    )
+      throw new TypeError("资源备份中的 Base64 数据无效");
+    const binary = atob(value);
+    return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  }
+
+  function mount(host, { storage = localStorage } = {}) {
+    if (!host)
+      throw new TypeError("teaching resource workspace host is required");
+    const rosterRepository =
+      root.ClassroomRosterRepository.createClassroomRosterRepository({
+        storage,
+      });
+    const section = document.createElement("section");
+    section.id = "teachingResourceWorkspace";
+    section.className = "ui-settings-group teaching-resource-workspace";
+    section.innerHTML = `<h4>离线学科资源库</h4><p class="ui-muted">资源保存在本机 IndexedDB。仅接受 PDF、TXT、JSON、PNG、JPEG、WebP；单文件最大 20 MiB。PDF 只显示元信息并下载，不嵌入页面预览。</p><div class="teaching-resource-scope"><label>教师档案<select id="teachingResourceProfile" aria-label="资源教师档案"></select></label><label>课堂<select id="teachingResourceClassroom" aria-label="资源所属课堂"></select></label><label>学科<input id="teachingResourceSubject" maxlength="80" placeholder="例如：政治"></label></div><div class="teaching-resource-import"><label>资源标题（单文件可自定义）<input id="teachingResourceTitle" maxlength="160" placeholder="留空时使用文件名"></label><label>标签（逗号分隔）<input id="teachingResourceTags" maxlength="500" placeholder="复习，必修"></label><label class="teaching-resource-file-label">选择本地资源<input id="teachingResourceFiles" type="file" accept=".pdf,.txt,.json,.png,.jpg,.jpeg,.webp,application/pdf,text/plain,application/json,image/png,image/jpeg,image/webp" multiple></label><button id="teachingResourceImport" type="button" class="btn btn-primary">导入资源</button><label class="teaching-resource-file-label">恢复资源备份<input id="teachingResourceRestoreFile" type="file" accept=".gpresources.json,application/json"></label><button id="teachingResourceRestore" type="button" class="btn">验证并恢复</button><button id="teachingResourceExport" type="button" class="btn">导出当前范围</button></div><div class="teaching-resource-filters"><label>搜索<input id="teachingResourceSearch" type="search" placeholder="标题、学科、文件名或标签"></label><label>学科筛选<input id="teachingResourceSubjectFilter" maxlength="80" placeholder="全部学科"></label><span id="teachingResourceCount" class="ui-muted" role="status">0 项资源</span></div><p id="teachingResourceStatus" class="ui-muted" role="status" aria-live="polite">正在打开本地资源库…</p><div id="teachingResourceList" class="teaching-resource-list"><p class="ui-muted">加载中…</p></div>`;
+    host.append(section);
+
+    let rosterResult = null;
+    let repository = null;
+    let resources = [];
+    let activeObjectUrl = "";
+
+    function setStatus(message, error = false) {
+      const status = byId(section, "teachingResourceStatus");
+      status.textContent = message;
+      status.dataset.state = error ? "error" : "ok";
+    }
+
+    function fillScope() {
+      const profile = byId(section, "teachingResourceProfile");
+      const classroom = byId(section, "teachingResourceClassroom");
+      const previousProfile = profile.value;
+      const previousClassroom = classroom.value;
+      profile.replaceChildren();
+      classroom.replaceChildren();
+      const profiles = rosterResult?.rosterData?.profiles || [];
+      const classrooms = rosterResult?.rosterData?.classrooms || [];
+      for (const item of profiles)
+        profile.append(new Option(item.displayName, item.userProfileId));
+      for (const item of classrooms)
+        classroom.append(new Option(item.name, item.classroomId));
+      let context = null;
+      try {
+        context = JSON.parse(storage.getItem(ACTIVE_KEY) || "null");
+      } catch {
+        /* invalid context is ignored */
+      }
+      profile.value = profiles.some(
+        (item) => item.userProfileId === previousProfile,
+      )
+        ? previousProfile
+        : profiles.some((item) => item.userProfileId === context?.userProfileId)
+          ? context.userProfileId
+          : profiles[0]?.userProfileId || "";
+      classroom.value = classrooms.some(
+        (item) => item.classroomId === previousClassroom,
+      )
+        ? previousClassroom
+        : classrooms.some((item) => item.classroomId === context?.classroomId)
+          ? context.classroomId
+          : classrooms[0]?.classroomId || "";
+      profile.disabled = !profiles.length;
+      classroom.disabled = !classrooms.length;
+      for (const id of [
+        "teachingResourceImport",
+        "teachingResourceRestore",
+        "teachingResourceExport",
+      ])
+        byId(section, id).disabled =
+          !repository || !profile.value || !classroom.value;
+    }
+
+    function matchingResource(resource, search, subject) {
+      const subjectMatches =
+        !subject || resource.subjectId.toLocaleLowerCase().includes(subject);
+      const queryMatches =
+        !search ||
+        [
+          resource.title,
+          resource.subjectId,
+          resource.fileName,
+          ...resource.tags,
+        ].some((value) => value.toLocaleLowerCase().includes(search));
+      return subjectMatches && queryMatches;
+    }
+
+    function download(resource, fileName = resource.fileName) {
+      const url = URL.createObjectURL(resource.blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = safeFileName(fileName);
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function releasePreview(dialog) {
+      dialog.remove();
+      if (activeObjectUrl) URL.revokeObjectURL(activeObjectUrl);
+      activeObjectUrl = "";
+    }
+
+    function closePreview(dialog) {
+      if (dialog.dataset.closing === "true") return;
+      dialog.dataset.closing = "true";
+      dialog.classList.add("is-closing");
+      setTimeout(() => {
+        if (dialog.open) dialog.close();
+        releasePreview(dialog);
+      }, 220);
+    }
+
+    async function preview(resource) {
+      const dialog = document.createElement("dialog");
+      dialog.className = "teaching-resource-preview ui-function-surface";
+      dialog.setAttribute("aria-labelledby", "teachingResourcePreviewTitle");
+      const header = document.createElement("header");
+      const title = make("h3", resource.title);
+      title.id = "teachingResourcePreviewTitle";
+      const close = make("button", "❌", "ui-window-close");
+      close.type = "button";
+      close.setAttribute("aria-label", "关闭资源预览");
+      close.onclick = () => closePreview(dialog);
+      header.append(title, close);
+      const body = document.createElement("div");
+      body.className = "teaching-resource-preview-body";
+      if (
+        resource.mimeType === "text/plain" ||
+        resource.mimeType === "application/json"
+      ) {
+        const pre = document.createElement("pre");
+        const text = await resource.blob.text();
+        if (resource.mimeType === "application/json") {
+          try {
+            pre.textContent = JSON.stringify(JSON.parse(text), null, 2);
+          } catch {
+            pre.textContent = text;
+          }
+        } else pre.textContent = text;
+        body.append(pre);
+      } else if (resource.mimeType.startsWith("image/")) {
+        const image = document.createElement("img");
+        activeObjectUrl = URL.createObjectURL(resource.blob);
+        image.src = activeObjectUrl;
+        image.alt = resource.title;
+        body.append(image);
+      } else {
+        body.append(
+          make(
+            "p",
+            "PDF 不会嵌入页面运行；可以下载后使用本机 PDF 阅读器打开。",
+            "ui-muted",
+          ),
+        );
+      }
+      const footer = document.createElement("footer");
+      footer.append(
+        make(
+          "span",
+          `${resource.fileName} · ${(resource.byteSize / 1024).toFixed(1)} KiB`,
+        ),
+      );
+      const save = make("button", "下载文件", "btn btn-primary");
+      save.type = "button";
+      save.onclick = () => download(resource);
+      footer.append(save);
+      dialog.append(header, body, footer);
+      dialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closePreview(dialog);
+      });
+      dialog.addEventListener("close", () => releasePreview(dialog), {
+        once: true,
+      });
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) closePreview(dialog);
+      });
+      document.body.append(dialog);
+      dialog.showModal();
+    }
+
+    function renderList() {
+      const list = byId(section, "teachingResourceList");
+      list.replaceChildren();
+      const search = byId(section, "teachingResourceSearch")
+        .value.trim()
+        .toLocaleLowerCase();
+      const subject = byId(section, "teachingResourceSubjectFilter")
+        .value.trim()
+        .toLocaleLowerCase();
+      const visible = resources.filter((item) =>
+        matchingResource(item, search, subject),
+      );
+      byId(section, "teachingResourceCount").textContent =
+        `${visible.length} 项资源（当前课堂共 ${resources.length} 项）`;
+      if (!visible.length) {
+        list.append(
+          make(
+            "p",
+            resources.length ? "没有匹配的资源。" : "此教师和课堂尚无资源。",
+            "ui-muted",
+          ),
+        );
+        return;
+      }
+      for (const item of visible) {
+        const card = document.createElement("article");
+        card.className = "teaching-resource-card";
+        const info = document.createElement("div");
+        info.className = "teaching-resource-card-info";
+        info.append(
+          make("strong", item.title),
+          make(
+            "span",
+            `${item.subjectId} · ${item.fileName} · ${(item.byteSize / 1024).toFixed(1)} KiB`,
+          ),
+        );
+        if (item.tags.length)
+          info.append(
+            make(
+              "span",
+              item.tags.map((tag) => `#${tag}`).join("  "),
+              "teaching-resource-tags",
+            ),
+          );
+        const actions = document.createElement("div");
+        actions.className = "teaching-resource-card-actions";
+        const previewButton = make("button", "预览", "btn btn-sm");
+        previewButton.type = "button";
+        previewButton.onclick = async () =>
+          repository
+            .get(item.resourceId)
+            .then((fullResource) => preview(fullResource))
+            .catch((error) => setStatus(`预览失败：${error.message}`, true));
+        const downloadButton = make("button", "下载", "btn btn-sm");
+        downloadButton.type = "button";
+        downloadButton.onclick = async () => {
+          try {
+            download(await repository.get(item.resourceId));
+          } catch (error) {
+            setStatus(`下载失败：${error.message}`, true);
+          }
+        };
+        const removeButton = make("button", "删除", "btn btn-sm btn-danger");
+        removeButton.type = "button";
+        removeButton.onclick = async () => {
+          if (
+            !root.confirm(
+              `确认删除“${item.title}”吗？删除前请先导出需要保留的资源。`,
+            )
+          )
+            return;
+          try {
+            await repository.remove(item.resourceId);
+            await refresh();
+            setStatus("资源已删除。");
+          } catch (error) {
+            setStatus(`删除失败：${error.message}`, true);
+          }
+        };
+        actions.append(previewButton, downloadButton, removeButton);
+        card.append(info, actions);
+        list.append(card);
+      }
+    }
+
+    async function refresh() {
+      rosterResult = rosterRepository.read();
+      if (!rosterResult.ok) {
+        setStatus("本机教师与课堂名单无法读取；资源未修改。", true);
+        return;
+      }
+      try {
+        repository ||= await root.TeachingResourceRepository.open();
+        fillScope();
+        resources = await repository.list({
+          profileId: byId(section, "teachingResourceProfile").value,
+          classroomId: byId(section, "teachingResourceClassroom").value,
+        });
+        renderList();
+        setStatus("资源仅保存在本机；没有上传到网络。");
+      } catch (error) {
+        setStatus(
+          `本机资源库不可用：${error.message}。名单和比赛数据未更改。`,
+          true,
+        );
+        byId(section, "teachingResourceList").replaceChildren(
+          make("p", "IndexedDB 不可用时，本地资源管理已停用。", "ui-muted"),
+        );
+      }
+      fillScope();
+    }
+
+    async function importFiles() {
+      const input = byId(section, "teachingResourceFiles");
+      const files = [...input.files];
+      if (!files.length) return setStatus("请先选择资源文件。", true);
+      if (
+        files.length > 100 ||
+        files.reduce((sum, item) => sum + item.size, 0) > 100 * 1024 * 1024
+      )
+        return setStatus("单次最多导入 100 个文件，合计不超过 100 MiB。", true);
+      const profileId = byId(section, "teachingResourceProfile").value;
+      const classroomId = byId(section, "teachingResourceClassroom").value;
+      const subjectId = byId(section, "teachingResourceSubject").value.trim();
+      if (!subjectId) return setStatus("请填写资源学科。", true);
+      const title = byId(section, "teachingResourceTitle").value.trim();
+      const tags = byId(section, "teachingResourceTags")
+        .value.split(/[，,]/)
+        .map((value) => value.trim())
+        .filter(Boolean);
+      setStatus(`正在验证 ${files.length} 个文件…`);
+      try {
+        await repository.addBatch(
+          files.map((file) => ({
+            file,
+            profileId,
+            classroomId,
+            subjectId,
+            title: files.length === 1 && title ? title : undefined,
+            tags,
+          })),
+        );
+        input.value = "";
+        byId(section, "teachingResourceTitle").value = "";
+        await refresh();
+        setStatus(`已验证并导入 ${files.length} 个资源。`);
+      } catch (error) {
+        setStatus(`资源未导入：${error.message}。现有资源保持不变。`, true);
+      }
+    }
+
+    async function exportPack() {
+      try {
+        const entries = await repository.exportAll({
+          profileId: byId(section, "teachingResourceProfile").value,
+          classroomId: byId(section, "teachingResourceClassroom").value,
+        });
+        const packed = [];
+        for (const entry of entries) {
+          const { blob, ...metadata } = entry;
+          packed.push({
+            ...metadata,
+            dataBase64: toBase64(new Uint8Array(await blob.arrayBuffer())),
+          });
+        }
+        const blob = new Blob(
+          [
+            JSON.stringify(
+              {
+                format: "godpower-teaching-resources",
+                schemaVersion: 1,
+                resources: packed,
+              },
+              null,
+              2,
+            ),
+          ],
+          { type: "application/json" },
+        );
+        download(
+          { blob, fileName: "godpower-resources.gpresources.json" },
+          "godpower-resources.gpresources.json",
+        );
+        setStatus(`已导出 ${packed.length} 个资源的本地备份。`);
+      } catch (error) {
+        setStatus(`资源备份导出失败：${error.message}`, true);
+      }
+    }
+
+    async function restorePack() {
+      const input = byId(section, "teachingResourceRestoreFile");
+      const file = input.files[0];
+      if (!file) return setStatus("请先选择资源备份文件。", true);
+      if (file.size > 150 * 1024 * 1024)
+        return setStatus("备份文件超过 150 MiB 上限。", true);
+      try {
+        const pack = JSON.parse(await file.text());
+        if (
+          pack?.format !== "godpower-teaching-resources" ||
+          pack.schemaVersion !== 1 ||
+          !Array.isArray(pack.resources) ||
+          !pack.resources.length
+        )
+          throw new TypeError("资源备份版本或结构无效");
+        if (pack.resources.length > 500)
+          throw new TypeError("单个备份最多包含 500 项资源");
+        if (
+          pack.resources.reduce(
+            (sum, entry) => sum + (Number(entry?.byteSize) || 0),
+            0,
+          ) >
+          100 * 1024 * 1024
+        )
+          throw new TypeError("备份中的资源合计超过 100 MiB");
+        const records = pack.resources.map((entry) => {
+          const bytes = fromBase64(entry.dataBase64);
+          const content = new Blob([bytes], { type: entry.mimeType });
+          const restoredFile = new File([content], entry.fileName, {
+            type: entry.mimeType,
+          });
+          return {
+            file: restoredFile,
+            resourceId: entry.resourceId,
+            profileId: entry.profileId,
+            classroomId: entry.classroomId,
+            subjectId: entry.subjectId,
+            title: entry.title,
+            tags: entry.tags,
+            importedAt: entry.importedAt,
+            expectedSha256: entry.sha256,
+            expectedByteSize: entry.byteSize,
+          };
+        });
+        setStatus(`正在预检 ${records.length} 个资源；校验完成前不会写入…`);
+        await repository.addBatch(records);
+        input.value = "";
+        await refresh();
+        setStatus(`已完整验证并恢复 ${records.length} 个资源。`);
+      } catch (error) {
+        setStatus(`备份未恢复：${error.message}。现有资源保持不变。`, true);
+      }
+    }
+
+    byId(section, "teachingResourceProfile").onchange = () =>
+      refresh().catch((error) => setStatus(error.message, true));
+    byId(section, "teachingResourceClassroom").onchange = () =>
+      refresh().catch((error) => setStatus(error.message, true));
+    byId(section, "teachingResourceSearch").oninput = renderList;
+    byId(section, "teachingResourceSubjectFilter").oninput = renderList;
+    byId(section, "teachingResourceImport").onclick = () => importFiles();
+    byId(section, "teachingResourceRestore").onclick = () => restorePack();
+    byId(section, "teachingResourceExport").onclick = () => exportPack();
+    root.addEventListener(REFRESH_EVENT, () => refresh());
+    refreshers.add(refresh);
+    refresh();
+    return Object.freeze({ refresh, repository: () => repository });
+  }
+
+  root.TeachingResourceWorkspace = Object.freeze({
     mount,
     refresh: () => refreshers.forEach((refresh) => refresh()),
   });
@@ -27024,7 +28163,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.35';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.36';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -29508,7 +30647,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.35",
+    appVersion: "V3.0.36",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -32122,6 +33261,13 @@ const DesktopUI = (() => {
       $("#teachingScheduleWorkspace"),
       $("#uiSettingsRoster"),
     );
+    TeachingResourceWorkspace.mount(sections.students, {
+      storage: localStorage,
+    });
+    sections.students.insertBefore(
+      $("#teachingResourceWorkspace"),
+      $("#uiSettingsRoster"),
+    );
     GodpowerTheme.mount(sections.appearance);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -32530,7 +33676,10 @@ const DesktopUI = (() => {
       renderFxSlotList();
       renderItemFxSoundListV26();
     }
-    if (activeSettings === "students") TeachingWorkspace.refresh();
+    if (activeSettings === "students") {
+      TeachingWorkspace.refresh();
+      TeachingResourceWorkspace.refresh();
+    }
     revealSettings(entering);
   }
   function setupDock() {

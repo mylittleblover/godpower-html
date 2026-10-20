@@ -233,3 +233,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 增加 profile/classroom 独立周课表：本机星期与分钟边界、跨日拒绝、同一教师跨课堂冲突检测；本地版本化 CAS 仓库执行保存读回校验，写失败回滚旧字节。设置页可新增、编辑、删除时段；当前课程只作为建议，教师明确点击后才写 `godpower_active_classroom_context_v1` 并同步名单工作区选择。课程表绝不触碰权威 `godpower_state_v2`，也不自动切换正式比赛。离线资源库仍未实现并列为 F2-001。
 
 验证：Node 单元/集成 289/289 PASS；课表模型 5/5 PASS；Chromium 1920×1080 覆盖新增/编辑/删除、重叠拒绝、当前课程显式选择、重载恢复以及比赛状态对象和存储字节不变；设置页回归13/13 PASS；14组布局 `1920 PASS`。`check`（108脚本块、27内置资源、141模块、版本与层边界）、`format:check`、`audit:hygiene` PASS。单文件构建 8,107,939 bytes，SHA-256 `19e6d76e12b206574bc8fb2c826133abbf829aac1a2a6552f7e645f24aa1a2d0`。
+
+## 3.0.36 — 离线学科资源库
+
+新增独立 IndexedDB `godpower_teaching_resources_v1`，元数据和 Blob 分处两个 object store 并在同一事务管理；列表只读取元数据，避免一次加载全部资源二进制。导入先验证整个批次、扩展名/MIME、大小与文件签名，计算 SHA-256 并拒绝重复内容；保存后读回重新核对摘要，失败时删除本批新记录。资源支持 profile/课堂/学科、标题/标签搜索，文本与 JSON 安全文本预览、图片 Blob URL 预览、PDF元信息与下载、单文件下载、本地 JSON 备份导出和全量校验恢复。文件只运行在本地，PDF不嵌入DOM；没有网络/CDN。
+
+验证：Node 单元/集成293/293 PASS；资源格式模型4/4 PASS；设置和资源 Chromium E2E 五项组全部 PASS：设置回归13/13、名单工作区、课表工作区、IndexedDB仓库（配额/重复/无数据库/批次失败）及资源UI（搜索、文本和图片预览与URL撤销、PDF不嵌入、下载、备份恢复与损坏包回滚）；14组布局在1920×1080 PASS。`check`（111脚本块、27嵌入资源、144模块、3.0.36版本及层边界）、`format:check`、`audit:hygiene` PASS。离线 `file://` 用例 BLOCKED：Playwright Chromium导航被环境策略返回`ERR_BLOCKED_BY_ADMINISTRATOR`，尚未执行其中业务断言。单文件构建8,148,440 bytes，SHA-256 `64e1e15d2bcf67191822963429e50aba212fa38f83a903e585c6dbd95091a9b0`。Electron同步与桌面回归待提交HTML后执行；Windows真机未测；未执行CircleCI。

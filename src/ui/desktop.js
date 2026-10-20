@@ -830,6 +830,13 @@ const DesktopUI = (() => {
       $("#teachingScheduleWorkspace"),
       $("#uiSettingsRoster"),
     );
+    TeachingResourceWorkspace.mount(sections.students, {
+      storage: localStorage,
+    });
+    sections.students.insertBefore(
+      $("#teachingResourceWorkspace"),
+      $("#uiSettingsRoster"),
+    );
     GodpowerTheme.mount(sections.appearance);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -1238,7 +1245,10 @@ const DesktopUI = (() => {
       renderFxSlotList();
       renderItemFxSoundListV26();
     }
-    if (activeSettings === "students") TeachingWorkspace.refresh();
+    if (activeSettings === "students") {
+      TeachingWorkspace.refresh();
+      TeachingResourceWorkspace.refresh();
+    }
     revealSettings(entering);
   }
   function setupDock() {

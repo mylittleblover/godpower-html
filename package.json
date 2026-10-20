@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.35",
+  "version": "3.0.36",
   "private": true,
   "type": "module",
   "scripts": {
@@ -25,7 +25,7 @@
     "test:welcome": "node tests/e2e/welcome-v2.mjs && node tests/e2e/welcome-v2-completion.mjs && node tests/e2e/welcome-v2-layout.mjs",
     "test:classroom-feedback": "node tests/e2e/classroom-feedback.mjs && node tests/e2e/audio-customization.mjs && node tests/e2e/multiple-audio.mjs && node tests/e2e/classroom-feedback-layout.mjs && node tests/e2e/classroom-feedback-restore.mjs && node tests/e2e/settings-behavior-alignment.mjs",
     "test:feedback": "node tests/e2e/welcome-feedback.mjs",
-    "test:settings": "node tests/e2e/settings-cleanup.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/teaching-workspace.mjs",
+    "test:settings": "node tests/e2e/settings-cleanup.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/teaching-workspace.mjs && node tests/e2e/teaching-resource-repository.mjs && node tests/e2e/teaching-resource-library.mjs",
     "test:surfaces": "node tests/e2e/visual-unification.mjs && node tests/e2e/archive-controls.mjs && node tests/e2e/motion-unification.mjs && node tests/e2e/warning-dialogs.mjs && node tests/e2e/admin-dialog.mjs",
     "test:battle-motion": "node tests/e2e/battle-motion.mjs",
     "audit:hygiene": "node scripts/repo-hygiene.mjs",

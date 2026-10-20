@@ -1,6 +1,6 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.35（M0–M4 插件/UI 基础；F0 证据审计；F1 本地名单工作区；F2 离线课程表建议）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单与课程表均为隔离的本地教学工作区数据。
+当前版本：3.0.36（M0–M4 插件/UI 基础；F0 证据审计；F1 本地名单工作区；F2 离线课程表与教学资源库）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单、课程表和教学资源均为隔离的本地教学工作区数据。
 
 ## V3 UI Shell、页面生命周期与插件中心（3.0.29，M1–M4）
 
@@ -47,7 +47,9 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 
 ## F2 离线课程表（3.0.35）
 
-`src/domain/teaching-schedule.js`验证稳定课程/教师/课堂身份、星期、半开本地分钟区间及同一教师的冲突；`src/infrastructure/teaching-schedule-repository.js`通过独立 localStorage 键`godpower_teaching_schedule_v1`提供CAS、读回与失败恢复。`src/ui/teaching-workspace.js`可新增、编辑、删除每周课表，显示当前时段建议。教师必须明确点击后才写入独立的`godpower_active_classroom_context_v1`教学上下文指针，并刷新名单工作区的教师/课堂选择；此动作不会加载或修改权威比赛状态。跨午夜时段拒绝，`24:00`是当天有效结束边界。学科资源库仍未实现，详见F2计划与维护项。
+`src/domain/teaching-schedule.js`验证稳定课程/教师/课堂身份、星期、半开本地分钟区间及同一教师的冲突；`src/infrastructure/teaching-schedule-repository.js`通过独立 localStorage 键`godpower_teaching_schedule_v1`提供CAS、读回与失败恢复。`src/ui/teaching-workspace.js`可新增、编辑、删除每周课表，显示当前时段建议。教师必须明确点击后才写入独立的`godpower_active_classroom_context_v1`教学上下文指针，并刷新名单工作区的教师/课堂选择；此动作不会加载或修改权威比赛状态。跨午夜时段拒绝，`24:00`是当天有效结束边界。
+
+教学资源由`src/domain/teaching-resource.js`执行 MIME、扩展名、签名、大小和元数据检查；`src/infrastructure/teaching-resource-repository.js`在独立 IndexedDB 数据库中用双 object store 保存元数据和 Blob。批量写入与删除保持事务性，写后读回 SHA-256 验证；元数据列表不加载二进制内容。`src/ui/teaching-resource-workspace.js`提供离线导入、搜索、筛选、文本/JSON节点预览、图片 Blob URL 预览、PDF信息、下载、备份与完整性恢复。PDF不内嵌运行。教学资源不访问比赛命令、存储或 Electron 主进程。
 
 ## 当前运行路径
 

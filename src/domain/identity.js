@@ -39,6 +39,7 @@ const StableIdentity = (() => {
   const createClassroomId = () => createUuid("classroom");
   const createStudentUid = () => createUuid("student");
   const createScheduleId = () => createUuid("schedule");
+  const createResourceId = () => createUuid("resource");
 
   function assignGroupUids(groups, idFactory = createGroupUid) {
     if (!Array.isArray(groups)) throw new TypeError("groups must be an array");
@@ -85,6 +86,7 @@ const StableIdentity = (() => {
     createClassroomId,
     createStudentUid,
     createScheduleId,
+    createResourceId,
     assignGroupUids,
     assignStudentUids: assignEntityUids(
       "studentUid",

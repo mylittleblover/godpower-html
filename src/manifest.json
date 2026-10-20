@@ -237,7 +237,22 @@
     },
     {
       "type": "script",
+      "path": "domain/teaching-resource.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/teaching-resource-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/teaching-workspace.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/teaching-resource-workspace.js",
       "attributes": ""
     },
     {

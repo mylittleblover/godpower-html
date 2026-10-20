@@ -14,7 +14,7 @@
 1. 课程安排使用本地 `godpower_teaching_schedule_v1`，按稳定 `classroomId` 关联名单库。每项包括星期、时段编号、开始/结束分钟、学科和可选备注。时间使用本机课堂所在时区；不持久化 UTC 偏移。
 2. 同一天、同一 profile 的时段不能重叠；跨午夜安排不允许。错误或重叠输入在保存前拒绝。
 3. “今日课堂”只显示当前时间命中的建议，不自动切换，不影响比赛。教师显式点选后只切换本地教学上下文；比赛数据映射/导入仍需单独的事务功能。
-4. 资源保存在独立 IndexedDB 数据库 `godpower_teaching_resources_v1`，元数据与 Blob 同记录；名单、比赛、插件和资源各自隔离。元数据包括稳定 ID、profile/classroom、subject、title、tags、原始文件名、MIME、字节数、SHA-256、导入时间及 schemaVersion。
+4. 资源保存在独立 IndexedDB 数据库 `godpower_teaching_resources_v1`，元数据与 Blob 分放于两个 object store、通过稳定 resourceId 关联，并在同一事务内增删；列表查询只读取元数据，避免批量读取大 Blob。名单、比赛、插件和资源各自隔离。元数据包括稳定 ID、profile/classroom、subject、title、tags、原始文件名、MIME、字节数、SHA-256、导入时间及 schemaVersion。
 5. 第一阶段接受 PDF、纯文本、JSON、PNG、JPEG、WebP。拒绝 HTML、SVG、JavaScript、可执行文件、宏文档、未知 MIME 和 MIME/扩展名不一致。单文件上限 20 MiB；不设虚假的总容量保证，保存前检查浏览器 `navigator.storage.estimate()`（若可用），写后读回；浏览器实际配额错误必须原样显示并保留原数据。
 6. 资源搜索只查元数据。预览使用文本节点显示 TXT/JSON、Blob URL 显示 PNG/JPEG/WebP；PDF 显示元信息并允许本地下载，本阶段不把任意 PDF 内容注入页面 DOM。对象 URL 在关闭预览时撤销。
 7. 每个资源支持下载、导出包、删除（确认）。资源仓库可按 profile/classroom 过滤。资源导入失败不提交部分列表；导出包括元数据和原始 Blob，重复 SHA-256 可提示重复而不覆盖。
