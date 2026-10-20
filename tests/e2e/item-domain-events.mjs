@@ -19,6 +19,121 @@ try {
     waitUntil: "domcontentloaded",
   });
   await setup(page, 4);
+  const acquiredReward = await page.evaluate(async () => {
+    state.isLocked = false;
+    state.achievementLedger = AchievementLedger.empty();
+    historyStack = [];
+    const group = state.groups[0];
+    const groupUid = group.groupUid;
+    const originalDraw = drawItemForGroup;
+    const originalFinalPick = pickItemForGroupV281;
+    drawItemForGroup = () => "coin";
+    pickItemForGroupV281 = () => "coin";
+    handRaiseGroupId = group.id;
+    const events = [];
+    window.addEventListener("godpower:domain-commit", (event) =>
+      events.push(...event.detail.events),
+    );
+    handDrawItem();
+    handItemDrawStartedAt = -10000;
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    const completion = await classroomCommands.whenIdle();
+    drawItemForGroup = originalDraw;
+    pickItemForGroupV281 = originalFinalPick;
+    return {
+      completion,
+      groupUid,
+      inventory: group.inventory.map((item) => item.key),
+      totalDraws: state.itemGlobal.totalDraws,
+      events,
+      ledger: state.achievementLedger,
+      persisted: JSON.parse(localStorage.getItem(Reliability.stateKey))
+        .achievementLedger,
+    };
+  });
+  assert.equal(acquiredReward.completion.persisted, true);
+  assert.deepEqual(acquiredReward.inventory, ["coin"]);
+  assert.equal(
+    acquiredReward.totalDraws,
+    1,
+    "the inventory helper counts the draw once",
+  );
+  assert.equal(acquiredReward.events.length, 1);
+  assert.equal(acquiredReward.events[0].type, "ITEM_ACQUIRED");
+  assert.equal(acquiredReward.events[0].aggregate.id, acquiredReward.groupUid);
+  assert.equal(acquiredReward.events[0].payload.itemKey, "coin");
+  assert.equal(
+    acquiredReward.ledger.groups[acquiredReward.groupUid].seasonCounters
+      .ITEM_ACQUIRED,
+    1,
+  );
+  assert.deepEqual(acquiredReward.persisted, acquiredReward.ledger);
+  const undoneAcquisition = await page.evaluate(async () => {
+    const accepted = await undoLast();
+    const completion = await classroomCommands.whenIdle();
+    return {
+      accepted,
+      persisted: completion.persisted,
+      inventory: state.groups[0].inventory.map((item) => item.key),
+      totalDraws: state.itemGlobal.totalDraws,
+      ledger: state.achievementLedger,
+      savedLedger: JSON.parse(localStorage.getItem(Reliability.stateKey))
+        .achievementLedger,
+    };
+  });
+  assert.equal(undoneAcquisition.accepted, true);
+  assert.equal(undoneAcquisition.persisted, true);
+  assert.deepEqual(undoneAcquisition.inventory, []);
+  assert.equal(undoneAcquisition.totalDraws, 0);
+  assert.deepEqual(undoneAcquisition.ledger, { schemaVersion: 1, groups: {} });
+  assert.deepEqual(undoneAcquisition.savedLedger, undoneAcquisition.ledger);
+  console.log(
+    "PASS formal hand-reward draw emits durable ITEM_ACQUIRED and undo restores its ledger",
+  );
+
+  await setup(page, 4);
+  const failedAcquisition = await page.evaluate(async () => {
+    state.isLocked = false;
+    state.achievementLedger = AchievementLedger.empty();
+    historyStack = [];
+    const group = state.groups[0];
+    const originalDraw = drawItemForGroup;
+    const originalFinalPick = pickItemForGroupV281;
+    const originalWrite = Reliability.writeVerified;
+    drawItemForGroup = () => "coin";
+    pickItemForGroupV281 = () => "coin";
+    Reliability.writeVerified = () => ({ ok: false, error: "injected quota" });
+    handRaiseGroupId = group.id;
+    const events = [];
+    window.addEventListener("godpower:domain-commit", (event) =>
+      events.push(...event.detail.events),
+    );
+    handDrawItem();
+    handItemDrawStartedAt = -10000;
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    const completion = await classroomCommands.whenIdle();
+    Reliability.writeVerified = originalWrite;
+    drawItemForGroup = originalDraw;
+    pickItemForGroupV281 = originalFinalPick;
+    return {
+      completion,
+      inventory: group.inventory.map((item) => item.key),
+      totalDraws: state.itemGlobal.totalDraws,
+      ledger: state.achievementLedger,
+      events,
+      savedInventory: JSON.parse(localStorage.getItem(Reliability.stateKey))
+        .groups[0].inventory.map((item) => item.key),
+    };
+  });
+  assert.equal(failedAcquisition.completion.ok, false);
+  assert.deepEqual(failedAcquisition.inventory, []);
+  assert.equal(failedAcquisition.totalDraws, 0);
+  assert.deepEqual(failedAcquisition.ledger, { schemaVersion: 1, groups: {} });
+  assert.deepEqual(failedAcquisition.events, []);
+  assert.deepEqual(failedAcquisition.savedInventory, []);
+  console.log("PASS failed acquisition persistence rolls back without a false event");
+
+  await setup(page, 4);
   const successfulUse = await page.evaluate(async () => {
     state.isLocked = false;
     state.achievementLedger = AchievementLedger.empty();

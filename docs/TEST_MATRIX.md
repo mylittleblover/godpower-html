@@ -2,7 +2,7 @@
 
 完整证据、条件与限制见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md)。历史矩阵保留在 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md)。
 
-## 官方玩法插件迁移（3.0.31）
+## 官方玩法插件迁移（3.0.31–3.0.52）
 
 ### 道具设置归属迁移（3.0.32）
 
@@ -19,7 +19,7 @@
 | 内置 `official.miyamotos-power` 安装、激活及 page/settings 贡献注册 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
 | 主设置及插件工作区移除旧道具总开关；插件百科保留26项，旧显式false只读兼容 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/workspace-v3.0.51.png` |
 | 道具百科读取当前 26 项实际定义 | Chromium E2E | PASS | 同上；检查 `ice_flower` 名称 |
-| 关闭道具、旧键保存、刷新后恢复关闭状态 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/disabled.png` |
+| 旧显式false兼容、刷新后仍保持禁用（值只读） | Chromium E2E | PASS | `artifacts/miyamoto-plugin/disabled.png` |
 | 停用玩法插件不清理或改写旧设置键 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
 | 新竞技规则及完整道具引擎迁移 | 规则/事务/Electron | BLOCKED | 先解决 `competition-rules-difference-matrix.md` 中 Needs review 项并冻结旧规则差分 |
 
@@ -160,3 +160,13 @@
 |经典/马克思切换及旧主题偏好刷新恢复|PASS|`tests/e2e/marx-theme.mjs`|
 |14小组比赛布局保持与主题差分验收|PASS|`tests/e2e/marx-theme.mjs`，Chromium 1920×1080 1x|
 |Electron浮窗、全屏特效主题一致性|NOT TESTED|HTML主题catalog尚未同步到Electron本阶段验证|
+
+### 道具成就事实事件切片（3.0.52）
+
+| 功能 × 场景 | 测试类型 | 结果 | 证据 |
+|---|---|---|---|
+| 举手奖励抽取成功后产生单个 ITEM_ACQUIRED 并写入同一主存档 | Chromium E2E 1920×1080 1x | PASS | `tests/e2e/item-domain-events.mjs` |
+| 撤销举手抽取同时恢复道具库存、抽取计数和成就账本 | Chromium E2E | PASS | 同上 |
+| 举手奖励写入失败时回滚，且不发布 ITEM_ACQUIRED | Chromium E2E | PASS | 同上；注入写入失败 |
+| 26 种道具精确库存撤销矩阵 | Chromium E2E | PASS | `tests/e2e/item-undo-matrix.mjs` |
+| 其他全局/管理/抽取流程的 ITEM_ACQUIRED 事件覆盖 | 自动化 | NOT TESTED | 留在 GP-011 后续范围 |

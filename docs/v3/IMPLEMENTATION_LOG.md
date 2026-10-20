@@ -335,3 +335,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 按产品补充，移除宫本茂插件工作区中的“共产主义模式/道具玩法总开关”卡片。道具模块配置、百科、自定义图标和道具音效工作台保持可用。为保护旧偏好，没有删除`politics_communism_mode`、没有把旧false改成true，也没有改变其既有道具启用逻辑；该键现在仅由兼容代码读取，UI不再提供编辑入口。
 
 验证：Chromium 1920×1080 1x检查主设置与插件工作区均无冗余开关、26项百科保留；注入旧key=false后刷新，`isCommunismMode()`仍为false且既有禁用展示保持；插件停用不重写该值，页面错误0。报告见`docs/validation/v3.0.51-remove-legacy-item-toggle.md`。
+
+## 3.0.52 — 举手奖励抽取接入持久成就事件
+
+将最终生效的举手奖励老虎机抽取流程接入现有课堂命令生命周期。动画结束后重新验证小组身份、负分限制与背包容量；道具成功入库时发出 `ITEM_ACQUIRED`，并与历史快照、抽取总数及成就账本同事务保存。只有持久化确认后才展示“获得道具”；该命令选择保存失败时回滚，回归验证无奖励、无成就事件并保留原存档。撤销测试确认库存、抽取计数与账本一并恢复。另移除该流程在 `addItemToGroup` 已递增总数之后的重复递增。没有更改掉落权重或道具规则。该事件切片只覆盖举手奖励老虎机，其他抽取路径仍待迁移。
+
+验证：`npm test` 310/310；`tests/e2e/item-domain-events.mjs`（ITEM_ACQUIRED、存储失败回滚、撤销与既有 ITEM_USED/ITEM_HIT）；`tests/e2e/item-undo-matrix.mjs`（26/26）；`tests/e2e/battle-layout.mjs`（1920×1080 1x PASS）；`npm run check` PASS。Chromium 页面错误0。
