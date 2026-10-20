@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.38</title>
+<title>上帝的力量 V3.0.39</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.38";
+    document.title = name() + " V3.0.39";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -11881,7 +11881,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.38</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.39</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -13281,6 +13281,30 @@ globalThis.StableIdentity = StableIdentity;
 <script>(function installClassroomRosterWorkspace(root) {
   "use strict";
   const clone = (value) => JSON.parse(JSON.stringify(value));
+  const toBase64 = (bytes) => {
+    let binary = "";
+    for (let offset = 0; offset < bytes.length; offset += 0x8000)
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + 0x8000));
+    return btoa(binary);
+  };
+  const fromBase64 = (value) => {
+    if (
+      typeof value !== "string" ||
+      !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
+        value,
+      )
+    )
+      throw new TypeError("头像备份中的 Base64 数据无效");
+    const binary = atob(value);
+    return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  };
+  const AVATAR_BACKUP_FORMAT = "godpower-classroom-roster-backup";
+  const MAX_AVATAR_BACKUP_BYTES = 50 * 1024 * 1024;
+  async function sha256(bytes) {
+    return [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))]
+      .map((value) => value.toString(16).padStart(2, "0"))
+      .join("");
+  }
   const text = (tag, value, className = "") => {
     const element = document.createElement(tag);
     element.textContent = value;
@@ -13300,7 +13324,7 @@ globalThis.StableIdentity = StableIdentity;
     const section = document.createElement("section");
     section.id = "classroomRosterWorkspace";
     section.className = "ui-settings-group roster-workspace";
-    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛；应用到比赛时仅更新成员姓名，其他比赛数据保持不变。头像只支持 PNG/JPEG/WebP，单张不超过 2 MiB，原文件保存于本机资源库。名单 JSON 只保存头像引用；迁移到另一设备时，请另外导出资源库文件。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th>头像</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn" id="rosterSave">保存名单</button><button type="button" class="btn btn-primary" id="rosterPreviewApply">预览并应用到比赛</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
+    section.innerHTML = `<h4>课堂名单工作区</h4><p class="ui-muted">本地档案用于整理教师、课堂与稳定学号。编辑和保存不会修改当前比赛；应用到比赛时仅更新成员姓名，其他比赛数据保持不变。头像只支持 PNG/JPEG/WebP，单张不超过 2 MiB。导出名单会将名单和头像打包为一个离线备份文件。</p><div class="roster-workspace-toolbar"><label>教师档案<select id="rosterProfileSelect" aria-label="教师档案"></select></label><label>课堂<select id="rosterClassroomSelect" aria-label="课堂"></select></label><button type="button" class="btn" id="rosterAddProfile">新增教师档案</button><button type="button" class="btn" id="rosterCreateFromLive">从当前比赛创建副本</button><button type="button" class="btn" id="rosterExport">导出名单</button><label class="btn roster-import-label">导入名单<input id="rosterImport" type="file" accept=".json,application/json" hidden></label></div><div id="rosterProfileForm" class="roster-profile-form" hidden><label>档案名称<input id="rosterProfileName" maxlength="80" autocomplete="off"></label><button type="button" class="btn btn-primary" id="rosterSaveProfile">创建档案</button><button type="button" class="btn" id="rosterCancelProfile">取消</button></div><div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>学生姓名</th><th>小组归属</th><th>头像</th><th aria-label="操作"></th></tr></thead><tbody id="rosterStudentRows"></tbody></table></div><div class="roster-workspace-footer"><button type="button" class="btn" id="rosterAddStudent">添加学生</button><button type="button" class="btn" id="rosterSave">保存名单</button><button type="button" class="btn btn-primary" id="rosterPreviewApply">预览并应用到比赛</button></div><p id="rosterStatus" class="ui-muted" role="status" aria-live="polite">尚未创建本地课堂名单。</p>`;
     host.append(section);
 
     const profileSelect = section.querySelector("#rosterProfileSelect");
@@ -13737,15 +13761,277 @@ globalThis.StableIdentity = StableIdentity;
       documentData.assignments.push(assignment);
       return root.ClassroomRoster.validateRosterDocument(documentData);
     }
-    function download() {
-      const payload = JSON.stringify(documentData, null, 2);
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(
-        new Blob([payload], { type: "application/json" }),
+    async function download() {
+      try {
+        const saved = repository.read();
+        if (!saved.ok || !saved.rosterData)
+          throw new Error("没有有效的已保存名单可导出");
+        const currentDraft = clone(documentData);
+        const existingDocument = documentData;
+        documentData = currentDraft;
+        let draft;
+        try {
+          draft = serializeRows();
+        } finally {
+          documentData = existingDocument;
+        }
+        if (JSON.stringify(draft) !== JSON.stringify(saved.rosterData))
+          throw new Error("名单有未保存的更改，请先保存后再导出");
+        const ids = [
+          ...new Set(
+            saved.rosterData.students
+              .map((student) => student.avatarResourceId)
+              .filter(Boolean),
+          ),
+        ];
+        const assets = [];
+        let totalBytes = 0;
+        if (ids.length) {
+          const avatarRepo = await getAvatarRepository();
+          for (const resourceId of ids) {
+            const asset = await avatarRepo.get(resourceId);
+            if (
+              !asset ||
+              asset.subjectId !== "student-avatar" ||
+              !asset.mimeType.startsWith("image/") ||
+              !saved.rosterData.students.some(
+                (student) =>
+                  student.avatarResourceId === resourceId &&
+                  student.classroomId === asset.classroomId,
+              )
+            )
+              throw new Error(`头像资源缺失或课堂不匹配：${resourceId}`);
+            const bytes = new Uint8Array(await asset.blob.arrayBuffer());
+            if (bytes.byteLength > 2 * 1024 * 1024)
+              throw new Error("头像资源超过 2 MiB，拒绝生成不完整备份");
+            totalBytes += bytes.byteLength;
+            if (totalBytes > MAX_AVATAR_BACKUP_BYTES)
+              throw new Error("头像总量超过 50 MiB，请先减少图片资源再导出");
+            const { blob, ...metadata } = asset;
+            assets.push({ ...metadata, bytesBase64: toBase64(bytes) });
+          }
+        }
+        const backup = {
+          format: AVATAR_BACKUP_FORMAT,
+          schemaVersion: 1,
+          exportedAt: new Date().toISOString(),
+          rosterData: saved.rosterData,
+          avatars: assets,
+        };
+        const payload = JSON.stringify(backup, null, 2);
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(
+          new Blob([payload], { type: "application/json" }),
+        );
+        link.download = "上帝的力量-课堂名单.gproster.json";
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        setStatus(`名单备份已导出，包含 ${assets.length} 个头像资源。`);
+      } catch (error) {
+        setStatus(`导出失败，未生成不完整备份：${error.message}`, true);
+      }
+    }
+    async function importRosterBackup(parsed) {
+      if (
+        !parsed ||
+        parsed.format !== AVATAR_BACKUP_FORMAT ||
+        parsed.schemaVersion !== 1 ||
+        !Array.isArray(parsed.avatars)
+      )
+        return {
+          rosterData: root.ClassroomRoster.validateRosterDocument(parsed),
+          createdResources: [],
+        };
+      const rosterData = root.ClassroomRoster.validateRosterDocument(
+        parsed.rosterData,
       );
-      link.download = "上帝的力量-课堂名单.json";
-      link.click();
-      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      if (parsed.avatars.length > 2000)
+        throw new Error("头像备份资源数量超出安全上限");
+      const referenced = new Set(
+        rosterData.students
+          .map((student) => student.avatarResourceId)
+          .filter(Boolean),
+      );
+      const avatarIds = new Set();
+      const profileIds = new Set(
+        rosterData.profiles.map((profile) => profile.userProfileId),
+      );
+      const classroomById = new Map(
+        rosterData.classrooms.map((classroom) => [
+          classroom.classroomId,
+          classroom,
+        ]),
+      );
+      const prepared = [];
+      let totalBytes = 0;
+      for (const entry of parsed.avatars) {
+        if (
+          !entry ||
+          typeof entry.resourceId !== "string" ||
+          avatarIds.has(entry.resourceId) ||
+          !referenced.has(entry.resourceId)
+        )
+          throw new Error("头像备份存在重复、未引用或无效资源 ID");
+        avatarIds.add(entry.resourceId);
+        if (
+          entry.subjectId !== "student-avatar" ||
+          !profileIds.has(entry.profileId) ||
+          !classroomById.has(entry.classroomId) ||
+          !["image/png", "image/jpeg", "image/webp"].includes(entry.mimeType)
+        )
+          throw new Error("头像资源的profile、课堂或图片类型无效");
+        const bytes = fromBase64(entry.bytesBase64);
+        if (!bytes.byteLength || bytes.byteLength > 2 * 1024 * 1024)
+          throw new Error("头像资源必须大于 0 且不超过 2 MiB");
+        totalBytes += bytes.byteLength;
+        if (totalBytes > MAX_AVATAR_BACKUP_BYTES)
+          throw new Error("头像备份总大小不能超过 50 MiB");
+        const ownerMatch = rosterData.students.some(
+          (student) =>
+            student.avatarResourceId === entry.resourceId &&
+            student.classroomId === entry.classroomId,
+        );
+        if (!ownerMatch) throw new Error("头像资源与学生课堂不匹配");
+        if ((await sha256(bytes)) !== entry.sha256?.toLowerCase())
+          throw new Error(`头像内容校验失败：${entry.resourceId}`);
+        const metadata = root.TeachingResource.validateFile(
+          {
+            ...entry,
+            byteSize: bytes.byteLength,
+            schemaVersion: 1,
+          },
+          bytes,
+        );
+        prepared.push({ metadata, bytes });
+      }
+      if (avatarIds.size !== referenced.size)
+        throw new Error("头像备份缺少名单引用的图片数据");
+      if (!prepared.length) return { rosterData, createdResources: [] };
+
+      const avatarRepo = await getAvatarRepository();
+      const existing = await avatarRepo.list();
+      const existingById = new Map(
+        existing.map((item) => [item.resourceId, item]),
+      );
+      const existingByHash = new Map(
+        existing.map((item) => [item.sha256, item]),
+      );
+      const importedByHash = new Map();
+      const mapping = new Map();
+      const toCreate = [];
+      for (const item of prepared) {
+        const { metadata, bytes } = item;
+        const sameId = existingById.get(metadata.resourceId);
+        if (sameId) {
+          const record = await avatarRepo.get(metadata.resourceId);
+          if (
+            sameId.sha256 === metadata.sha256 &&
+            sameId.byteSize === metadata.byteSize &&
+            sameId.subjectId === "student-avatar" &&
+            sameId.classroomId === metadata.classroomId &&
+            record?.blob.size === metadata.byteSize
+          ) {
+            mapping.set(metadata.resourceId, metadata.resourceId);
+            continue;
+          }
+        }
+        const sameHash = existingByHash.get(metadata.sha256);
+        if (sameHash) {
+          if (
+            sameHash.subjectId !== "student-avatar" ||
+            sameHash.classroomId !== metadata.classroomId
+          )
+            throw new Error("相同头像内容已属于其他课堂资源，未覆盖现有数据");
+          mapping.set(metadata.resourceId, sameHash.resourceId);
+          continue;
+        }
+        const batchDuplicate = importedByHash.get(metadata.sha256);
+        if (batchDuplicate) {
+          if (batchDuplicate.classroomId !== metadata.classroomId)
+            throw new Error("相同头像不能跨课堂共用");
+          mapping.set(metadata.resourceId, batchDuplicate.resourceId);
+          continue;
+        }
+        const resourceId = sameId
+          ? root.StableIdentity.createResourceId()
+          : metadata.resourceId;
+        const finalMetadata = root.TeachingResource.validateFile(
+          { ...metadata, resourceId },
+          bytes,
+        );
+        const file = new File([bytes], finalMetadata.fileName, {
+          type: finalMetadata.mimeType,
+        });
+        toCreate.push({
+          file,
+          resourceId,
+          profileId: finalMetadata.profileId,
+          classroomId: finalMetadata.classroomId,
+          subjectId: finalMetadata.subjectId,
+          title: finalMetadata.title,
+          tags: finalMetadata.tags,
+          importedAt: finalMetadata.importedAt,
+          expectedSha256: finalMetadata.sha256,
+          expectedByteSize: finalMetadata.byteSize,
+        });
+        importedByHash.set(metadata.sha256, {
+          resourceId,
+          classroomId: metadata.classroomId,
+        });
+        mapping.set(metadata.resourceId, resourceId);
+      }
+      const createdResources = toCreate.length
+        ? await avatarRepo.addBatch(toCreate)
+        : [];
+      for (const student of rosterData.students)
+        if (student.avatarResourceId)
+          student.avatarResourceId = mapping.get(student.avatarResourceId);
+      return { rosterData, createdResources };
+    }
+    async function rollbackImportedResources(resources) {
+      if (!resources.length) return;
+      const avatarRepo = await getAvatarRepository();
+      const failures = [];
+      for (const resource of resources) {
+        try {
+          await avatarRepo.remove(resource.resourceId);
+        } catch (error) {
+          failures.push(`${resource.resourceId}: ${error.message}`);
+        }
+      }
+      if (failures.length)
+        throw new Error(`新头像回滚不完整：${failures.join("；")}`);
+    }
+    async function commitRosterImport(parsed) {
+      const initialBytes = storage.getItem(repository.key);
+      const initial = repository.read();
+      if (!initial.ok || initial.revision !== revision)
+        throw new Error("本地名单版本已变化，请重新打开工作区后导入");
+      const result = await importRosterBackup(parsed);
+      try {
+        const latest = repository.read();
+        if (
+          !latest.ok ||
+          latest.revision !== initial.revision ||
+          storage.getItem(repository.key) !== initialBytes
+        )
+          throw new Error("名单在导入过程中已变化");
+        const saved = repository.write(result.rosterData, {
+          expectedRevision: initial.revision,
+        });
+        if (!saved.ok) throw new Error(saved.message || saved.code);
+        documentData = saved.rosterData;
+        revision = saved.revision;
+        render();
+        return result.createdResources.length;
+      } catch (error) {
+        try {
+          await rollbackImportedResources(result.createdResources);
+        } catch (rollbackError) {
+          throw new Error(`${error.message}；${rollbackError.message}`);
+        }
+        throw new Error(`${error.message}；新建头像资源已回滚`);
+      }
     }
 
     function closeApplyPreview() {
@@ -14058,9 +14344,9 @@ globalThis.StableIdentity = StableIdentity;
       const file = event.target.files?.[0];
       if (!file) return;
       try {
-        const imported = root.ClassroomRoster.validateRosterDocument(
-          JSON.parse(await file.text()),
-        );
+        if (file.size > 70 * 1024 * 1024)
+          throw new Error("备份文件超过 70 MiB，拒绝读取");
+        const parsed = JSON.parse(await file.text());
         if (
           (documentData.profiles.length ||
             documentData.classrooms.length ||
@@ -14070,8 +14356,10 @@ globalThis.StableIdentity = StableIdentity;
           )
         )
           return;
-        if (writeDocument(imported, "名单已校验并导入。"))
-          setStatus("名单已校验并导入。当前比赛数据未更改。");
+        const importedResources = await commitRosterImport(parsed);
+        setStatus(
+          `名单已校验并导入，恢复 ${importedResources} 个头像资源。当前比赛数据未更改。`,
+        );
       } catch (error) {
         setStatus(`导入失败，现有数据未更改：${error.message}`, true);
       } finally {
@@ -28754,7 +29042,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.38';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.39';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -31238,7 +31526,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.38",
+    appVersion: "V3.0.39",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { mkdir, readFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import { launch, setup } from "../fixtures/browser.mjs";
 
 const html = await readFile("dist/godpower.html");
@@ -155,6 +157,134 @@ try {
     path: "artifacts/f1-roster-workspace/avatars-1920x1080.png",
   });
 
+  const tempDir = await mkdtemp(
+    path.join(os.tmpdir(), "godpower-roster-backup-"),
+  );
+  try {
+    const avatarExport = page.waitForEvent("download");
+    await page.locator("#rosterExport").click();
+    const download = await avatarExport;
+    const backupPath = path.join(tempDir, download.suggestedFilename());
+    await download.saveAs(backupPath);
+    const bundle = JSON.parse(await readFile(backupPath, "utf8"));
+    assert.equal(bundle.format, "godpower-classroom-roster-backup");
+    assert.equal(bundle.schemaVersion, 1);
+    assert.equal(bundle.avatars.length, 1);
+    assert.equal(bundle.avatars[0].bytesBase64.length > 0, true);
+
+    page.on("dialog", (dialog) => dialog.accept());
+    await page.locator('[aria-label="清除 工作区测试姓名 头像"]').click();
+    await page.getByText("头像引用已清除", { exact: false }).waitFor();
+    const beforeBadBundle = await page.evaluate(() =>
+      localStorage.getItem("godpower_classroom_roster_v1"),
+    );
+    const corrupted = structuredClone(bundle);
+    const corruptedBytes = Buffer.from(
+      corrupted.avatars[0].bytesBase64,
+      "base64",
+    );
+    corruptedBytes[corruptedBytes.length - 1] ^= 0xff;
+    corrupted.avatars[0].bytesBase64 = corruptedBytes.toString("base64");
+    const corruptedPath = path.join(tempDir, "corrupt.gproster.json");
+    await writeFile(corruptedPath, JSON.stringify(corrupted));
+    await page.locator("#rosterImport").setInputFiles(corruptedPath);
+    await page.getByText(/导入失败/, { exact: false }).waitFor();
+    assert.equal(
+      await page.evaluate(() =>
+        localStorage.getItem("godpower_classroom_roster_v1"),
+      ),
+      beforeBadBundle,
+    );
+
+    await page.evaluate(async (resourceId) => {
+      const resources = await TeachingResourceRepository.open();
+      await resources.remove(resourceId);
+      resources.close();
+    }, avatarState.resourceId);
+    await page.evaluate(() => {
+      const originalSetItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (key, value) {
+        if (key === "godpower_classroom_roster_v1")
+          throw new Error("injected roster quota failure");
+        return originalSetItem.call(this, key, value);
+      };
+      window.__restoreStorageSetItem = () => {
+        Storage.prototype.setItem = originalSetItem;
+        delete window.__restoreStorageSetItem;
+      };
+    });
+    await page.locator("#rosterImport").setInputFiles(backupPath);
+    await page.waitForFunction(() =>
+      document
+        .querySelector("#rosterStatus")
+        ?.textContent.includes("injected roster quota failure"),
+    );
+    await page.evaluate(() => window.__restoreStorageSetItem());
+    const afterFailedCommit = await page.evaluate(async () => {
+      const resources = await TeachingResourceRepository.open();
+      const count = (await resources.list({ subjectId: "student-avatar" }))
+        .length;
+      resources.close();
+      return {
+        roster: localStorage.getItem("godpower_classroom_roster_v1"),
+        avatarCount: count,
+      };
+    });
+    assert.equal(afterFailedCommit.roster, beforeBadBundle);
+    assert.equal(afterFailedCommit.avatarCount, 0);
+
+    const conflictingBytes = Buffer.from(avatarBytes);
+    conflictingBytes[conflictingBytes.length - 1] ^= 0xff;
+    await page.evaluate(
+      async ({ resource, bytesBase64 }) => {
+        const repo = await TeachingResourceRepository.open();
+        const bytes = Uint8Array.from(atob(bytesBase64), (item) =>
+          item.charCodeAt(0),
+        );
+        await repo.addBatch([
+          {
+            resourceId: resource.resourceId,
+            file: new File([bytes], resource.fileName, {
+              type: resource.mimeType,
+            }),
+            profileId: resource.profileId,
+            classroomId: resource.classroomId,
+            subjectId: resource.subjectId,
+            title: "Conflicting avatar ID fixture",
+          },
+        ]);
+        repo.close();
+      },
+      {
+        resource: bundle.avatars[0],
+        bytesBase64: conflictingBytes.toString("base64"),
+      },
+    );
+
+    await page.locator("#rosterImport").setInputFiles(backupPath);
+    await page.getByText("名单已校验并导入", { exact: false }).waitFor();
+    const restoredAvatar = await page.evaluate(async () => {
+      const current = JSON.parse(
+        localStorage.getItem("godpower_classroom_roster_v1"),
+      );
+      const student = current.rosterData.students[0];
+      const resources = await TeachingResourceRepository.open();
+      const resource = await resources.get(student.avatarResourceId);
+      return {
+        avatarResourceId: student.avatarResourceId,
+        bytes: resource?.blob.size,
+        sha256: resource?.sha256,
+        count: (await resources.list({ subjectId: "student-avatar" })).length,
+      };
+    });
+    assert.notEqual(restoredAvatar.avatarResourceId, avatarState.resourceId);
+    assert.ok(restoredAvatar.bytes > 0);
+    assert.equal(restoredAvatar.sha256, bundle.avatars[0].sha256);
+    assert.equal(restoredAvatar.count, 2);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+
   await page.locator("#rosterAddProfile").click();
   await page.locator("#rosterProfileName").fill("第二位教师");
   await page.locator("#rosterSaveProfile").click();
@@ -200,7 +330,10 @@ try {
   assert.deepEqual(individualAssignment.groupAssignments, []);
   const downloadPromise = page.waitForEvent("download");
   await page.locator("#rosterExport").click();
-  assert.match((await downloadPromise).suggestedFilename(), /名单\.json$/);
+  assert.match(
+    (await downloadPromise).suggestedFilename(),
+    /名单\.gproster\.json$/,
+  );
 
   const beforeInvalidImport = await page.evaluate(() =>
     localStorage.getItem("godpower_classroom_roster_v1"),

@@ -251,3 +251,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 名单工作区使用已有离线资源仓库管理 PNG/JPEG/WebP 学生头像，单图上限2MiB并经过资源格式和签名校验。名单学生只新增 `avatarResourceId`，图片 Blob 不写入 localStorage。头像上传先验证名单草稿/仓库revision，再添加并读回资源，最后 CAS 更新引用；若名单写入失败，仅补偿删除本次新资源。清除/替换头像只解除旧引用，不删除源图。头像 Blob URL 在名单重新渲染时释放。界面明确提示名单JSON不包含媒体字节，跨设备迁移还需单独导出资源库。
 
 验证：Chromium 1920×1080 @1x 新增头像上传/资源内容/引用刷新测试；模拟名单存储 `QuotaExceededError` 后，头像引用保持旧值，本次孤立 Blob 被删除，已有资源数不变。名单应用事务、14组布局和原名单工作区均PASS。Node单元/集成296/296，`check`、`format:check`、`audit:hygiene` PASS。构建8,170,727 bytes，SHA-256 `beac59ae50b5365ad944a53d06ecd1d5a8b9976f43d5090eb35079c371482b72`。头像截图 `artifacts/f1-roster-workspace/avatars-1920x1080.png`。Electron同步与桌面验收待提交后进行；名单和头像组合备份、孤立资源回收、Windows真机及`file://`仍未完成/受阻；无CircleCI操作。
+
+## 3.0.39 — 名单与头像联合备份
+
+“导出名单”现生成版本化组合 JSON，包含 roster 与被引用的头像字节；旧版纯名单 JSON 仍可导入。组合导入先校验全部数据和资源，限制文件 ≤70 MiB、头像单个 ≤2 MiB/合计 ≤50 MiB，验证文件签名和 SHA-256，拒绝缺失/未引用头像与跨课堂资源。冲突资源 ID 使用新 ID 并重映射学生，而不覆盖旧 Blob。导入先写并验证 IndexedDB 资源，再 CAS 保存 localStorage roster；名单提交失败时删除本次新增头像，错误可见。清除/替换头像的旧资源回收仍然保留为后续工作。
+
+验证：新增 Chromium 1920×1080 流程覆盖备份格式、头像恢复、损坏头像摘要拒绝、名单存储失败保持原名单并回滚新资源、resourceId 冲突映射。`npm test` 296/296，`npm run test:settings` 全部通过，14 小组布局 1920×1080 PASS，`check`、`format:check`、`audit:hygiene` PASS。最终构建与 Electron 同步结果记录在 `docs/validation/v3.0.39-electron-sync.md`。未运行 CircleCI；Windows 真机 NOT TESTED；`file://` 仍受当前 Playwright 管理环境策略阻止。

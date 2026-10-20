@@ -171,7 +171,11 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 
 ## 3.0.38 学生头像引用
 
-学生 `avatarResourceId` 指向 `godpower_teaching_resources_v1` 中资源记录的 `resourceId`；资源元数据的 `subjectId` 固定为 `student-avatar`，媒体限定 PNG/JPEG/WebP、每个文件最多 2 MiB，并校验相应二进制签名。图片 Blob 继续由 IndexedDB `resourceBlobs` 保存；学生名单只保存资源 ID，不把二进制塞入 localStorage。头像替换前检查 profile/classroom、名单 revision 与原始字节；先添加并验证资源，再 CAS 保存名单引用，失败时删除本次新建孤立资源。头像清除/替换不会删除旧文件，待后续引用计数/清理工作。名单 JSON 只导出引用，不含头像 Blob；跨设备完整恢复需另外导出同课堂资源库备份，这一限制会在界面提示。
+学生 `avatarResourceId` 指向 `godpower_teaching_resources_v1` 中资源记录的 `resourceId`；资源元数据的 `subjectId` 固定为 `student-avatar`，媒体限定 PNG/JPEG/WebP、每个文件最多 2 MiB，并校验相应二进制签名。图片 Blob 继续由 IndexedDB `resourceBlobs` 保存；学生名单只保存资源 ID，不把二进制塞入 localStorage。头像替换前检查 profile/classroom、名单 revision 与原始字节；先添加并验证资源，再 CAS 保存名单引用，失败时删除本次新建孤立资源。头像清除/替换不会删除旧文件，待后续引用计数/清理工作。
+
+## 3.0.39 名单/头像联合备份格式
+
+设置页“导出名单”生成 JSON 容器：`format="godpower-classroom-roster-backup"`、`schemaVersion=1`、`exportedAt`、`rosterData` 与 `avatars[]`。头像记录保留教学资源元数据字段，并增加 `bytesBase64`；每图≤2 MiB，解码后总量≤50 MiB，导入容器≤70 MiB。导入支持该容器与旧版原始 roster 文档。联合包必须完整覆盖 roster 中被引用的头像 ID，不能包含重复/未引用记录；头像 `profileId`/`classroomId` 必须匹配名单身份，且扩展名、MIME、二进制签名、SHA-256 与声明大小都必须匹配。ID 同内容资源可复用；ID 冲突内容不同则创建新 `resourceId` 并重映射 roster，跨课堂或其他资源类型的同摘要冲突拒绝。IndexedDB 新增头像通过资源批次预检、事务与读回验证；名单再通过 revision CAS 写入。如果第二阶段失败，只回滚本次创建的头像，不删除已存在资源或修改原名单。
 
 ## 3.0.36 本地教学资源（F2）
 
