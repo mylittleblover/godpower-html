@@ -63,25 +63,23 @@ try {
       .count(),
     1,
   );
-  await page.waitForTimeout(3200);
   await page.screenshot({
-    path: "artifacts/miyamoto-plugin/workspace.png",
+    path: "artifacts/miyamoto-plugin/workspace-v3.0.51.png",
     fullPage: true,
   });
 
-  const toggle = page.getByRole("checkbox", { name: "启用道具玩法" });
-  await toggle.uncheck();
   assert.equal(
-    await page.evaluate(() => localStorage.getItem("politics_communism_mode")),
-    "false",
-    "plugin control writes the existing compatibility key",
+    await page.getByRole("checkbox", { name: "启用道具玩法" }).count(),
+    0,
+    "the migrated plugin workspace no longer exposes the redundant total toggle",
   );
   assert.equal(
-    await page.evaluate(() =>
-      document.body.classList.contains("items-disabled"),
-    ),
-    true,
-    "the existing item feature gate responds to the plugin setting",
+    await page.locator(".miyamoto-plugin-settings").count(),
+    0,
+    "the redundant item toggle panel is removed",
+  );
+  await page.evaluate(() =>
+    localStorage.setItem("politics_communism_mode", "false"),
   );
   await page.reload();
   await dismissStartup(page);
@@ -89,20 +87,33 @@ try {
     switchView("plugins/official.miyamotos-power/items"),
   );
   await page.waitForSelector(".miyamoto-plugin-workspace");
-  assert.equal(await toggle.isChecked(), false, "legacy value survives reload");
-  await page.waitForTimeout(3200);
+  assert.equal(
+    await page.getByRole("checkbox", { name: "启用道具玩法" }).count(),
+    0,
+  );
+  assert.equal(
+    await page.evaluate(() => isCommunismMode()),
+    false,
+    "the previously disabled legacy state remains disabled after the UI control is removed",
+  );
+  assert.equal(
+    await page.evaluate(() =>
+      document.body.classList.contains("items-disabled"),
+    ),
+    true,
+    "legacy disabled behavior is preserved without a redundant control",
+  );
   await page.screenshot({
-    path: "artifacts/miyamoto-plugin/disabled.png",
+    path: "artifacts/miyamoto-plugin/legacy-disabled-v3.0.51.png",
     fullPage: true,
   });
-  await toggle.check();
   await page.evaluate(() => {
     GodPowerPluginCenter.platform.deactivate("official.miyamotos-power");
     GodPowerPluginCenter.render();
   });
   assert.equal(
     await page.evaluate(() => localStorage.getItem("politics_communism_mode")),
-    "true",
+    "false",
     "plugin deactivation does not delete or rewrite the legacy feature setting",
   );
   assert.equal(errors.length, 0, errors.join("\n"));

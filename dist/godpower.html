@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.50</title>
+<title>上帝的力量 V3.0.51</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.50";
+    document.title = name() + " V3.0.51";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -2282,30 +2282,6 @@ window.GodpowerTheme = (() => {
     const intro = document.createElement("p");
     intro.textContent =
       "集中维护道具模块、图鉴与专属音效。比赛规则、库存、撤销和历史仍由原有业务内核负责。";
-    const settings = document.createElement("section");
-    settings.className = "miyamoto-plugin-settings";
-    const settingCopy = document.createElement("div");
-    const settingTitle = document.createElement("h4");
-    settingTitle.textContent = "道具玩法总开关";
-    const settingDescription = document.createElement("p");
-    settingDescription.textContent =
-      "关闭后隐藏道具槽、抽取和相关入口；已有道具与存档不会删除。设置继续兼容旧版 politics_communism_mode。";
-    settingCopy.append(settingTitle, settingDescription);
-    const toggleLabel = document.createElement("label");
-    toggleLabel.className = "miyamoto-toggle";
-    toggleLabel.setAttribute("aria-label", "启用道具玩法");
-    const toggle = document.createElement("input");
-    toggle.type = "checkbox";
-    toggle.checked = root.isCommunismMode();
-    toggle.addEventListener("change", () => {
-      root.setCommunismMode(toggle.checked);
-      toggle.checked = root.isCommunismMode();
-    });
-    const track = document.createElement("span");
-    track.className = "miyamoto-toggle-track";
-    toggleLabel.append(toggle, track);
-    settings.append(settingCopy, toggleLabel);
-
     const moduleSettings = workspaceSection(
       "道具模块工作台",
       "分别配置每种道具的抽取流程与使用流程；配置即时生效并继续保存在现有本地存储中。",
@@ -2348,15 +2324,7 @@ window.GodpowerTheme = (() => {
     }
     root.renderItemFxSoundListV26?.();
 
-    section.append(
-      eyebrow,
-      heading,
-      intro,
-      settings,
-      moduleSettings,
-      library,
-      itemAudio,
-    );
+    section.append(eyebrow, heading, intro, moduleSettings, library, itemAudio);
     host.append(section);
   }
   function workspaceSection(titleText, descriptionText) {
@@ -4324,16 +4292,6 @@ body.items-disabled .item-feature-only {
 body.items-disabled .group-row-card{min-height:unset}
 
 
-/* ===== V2.9.2 设置：共产主义模式真正归入“功能设置” ===== */
-.communism-mode-card{
-  display:flex!important;align-items:center!important;gap:18px!important;
-  padding:14px 16px!important;margin:0 0 14px!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(218,239,251,.78))!important;
-  border:1px solid rgba(123,181,216,.55)!important;border-radius:14px!important;
-  box-shadow:inset 0 1px 0 #fff,0 4px 12px rgba(43,103,140,.13)!important;
-}
-.communism-mode-copy{flex:1;min-width:0}
-.communism-mode-title{font-size:16px;font-weight:950;color:#173b59;margin-bottom:3px}
 .v292-switch{position:relative;display:inline-block;flex:0 0 auto;cursor:pointer}
 .v292-switch input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:1;cursor:pointer;pointer-events:auto}
 .v292-switch-track{
@@ -5178,7 +5136,7 @@ body.modern-flat-v217 .icon-setting-card,body.modern-flat-v217 .trim-row,
 body.modern-flat-v217 .history-item,body.modern-flat-v217 .hist-card,
 body.modern-flat-v217 .setting-section,body.modern-flat-v217 .settings-card,
 body.modern-flat-v217 .stat-card,body.modern-flat-v217 .sound-row,
-body.modern-flat-v217 .communism-mode-card,body.modern-flat-v217 .item-card{
+body.modern-flat-v217 .item-card{
   background:var(--ui-panel)!important;background-image:none!important;border:1px solid var(--ui-border)!important;
   border-radius:10px!important;box-shadow:var(--ui-shadow)!important;text-shadow:none!important;
 }
@@ -12185,13 +12143,11 @@ html[data-theme="marx"] {
   font-size: 28px;
 }
 .miyamoto-plugin-workspace > p,
-.miyamoto-plugin-settings p,
 .miyamoto-encyclopedia header p {
   margin: 0;
   color: var(--ui-muted, #647875);
   line-height: 1.65;
 }
-.miyamoto-plugin-settings,
 .miyamoto-encyclopedia {
   padding: 20px 22px;
   border: 1px solid var(--ui-border, #dce8e5);
@@ -12211,61 +12167,6 @@ html[data-theme="marx"] {
 .miyamoto-encyclopedia #v2ItemEncyclopedia,
 .miyamoto-encyclopedia #itemFxSoundListV26 {
   min-width: 0;
-}
-.miyamoto-plugin-settings {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-.miyamoto-plugin-settings h4,
-.miyamoto-encyclopedia h4 {
-  margin: 0 0 5px;
-  color: var(--ui-text, #173b38);
-  font-size: 17px;
-}
-.miyamoto-toggle {
-  position: relative;
-  display: inline-flex;
-  flex: 0 0 54px;
-  width: 54px;
-  height: 31px;
-  cursor: pointer;
-}
-.miyamoto-toggle input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-.miyamoto-toggle-track {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: #aebbb8;
-  transition: background 180ms ease;
-}
-.miyamoto-toggle-track::after {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
-  content: "";
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.miyamoto-toggle input:checked + .miyamoto-toggle-track {
-  background: var(--ui-primary, #168574);
-}
-.miyamoto-toggle input:checked + .miyamoto-toggle-track::after {
-  transform: translateX(23px);
-}
-.miyamoto-toggle input:focus-visible + .miyamoto-toggle-track {
-  outline: 3px solid #f0a28c;
-  outline-offset: 3px;
 }
 .miyamoto-item-grid {
   display: grid;
@@ -12338,7 +12239,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.50</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.51</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -30757,7 +30658,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.50';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.51';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -33294,7 +33195,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.50",
+    appVersion: "V3.0.51",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

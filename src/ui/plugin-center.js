@@ -136,30 +136,6 @@
     const intro = document.createElement("p");
     intro.textContent =
       "集中维护道具模块、图鉴与专属音效。比赛规则、库存、撤销和历史仍由原有业务内核负责。";
-    const settings = document.createElement("section");
-    settings.className = "miyamoto-plugin-settings";
-    const settingCopy = document.createElement("div");
-    const settingTitle = document.createElement("h4");
-    settingTitle.textContent = "道具玩法总开关";
-    const settingDescription = document.createElement("p");
-    settingDescription.textContent =
-      "关闭后隐藏道具槽、抽取和相关入口；已有道具与存档不会删除。设置继续兼容旧版 politics_communism_mode。";
-    settingCopy.append(settingTitle, settingDescription);
-    const toggleLabel = document.createElement("label");
-    toggleLabel.className = "miyamoto-toggle";
-    toggleLabel.setAttribute("aria-label", "启用道具玩法");
-    const toggle = document.createElement("input");
-    toggle.type = "checkbox";
-    toggle.checked = root.isCommunismMode();
-    toggle.addEventListener("change", () => {
-      root.setCommunismMode(toggle.checked);
-      toggle.checked = root.isCommunismMode();
-    });
-    const track = document.createElement("span");
-    track.className = "miyamoto-toggle-track";
-    toggleLabel.append(toggle, track);
-    settings.append(settingCopy, toggleLabel);
-
     const moduleSettings = workspaceSection(
       "道具模块工作台",
       "分别配置每种道具的抽取流程与使用流程；配置即时生效并继续保存在现有本地存储中。",
@@ -202,15 +178,7 @@
     }
     root.renderItemFxSoundListV26?.();
 
-    section.append(
-      eyebrow,
-      heading,
-      intro,
-      settings,
-      moduleSettings,
-      library,
-      itemAudio,
-    );
+    section.append(eyebrow, heading, intro, moduleSettings, library, itemAudio);
     host.append(section);
   }
   function workspaceSection(titleText, descriptionText) {

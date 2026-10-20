@@ -5,7 +5,7 @@
 ## 边界
 
 - 新增受信任内置声明式插件`official.miyamotos-power`，经既有PluginPlatform与ContributionRegistry注册一个玩法页及设置贡献。
-- 插件工作区总开关沿用`setCommunismMode()`和`politics_communism_mode`，是旧行为的UI搬迁，不新增插件存储副本。false、缺失（默认true）等语义由旧适配器继续解释。
+- 3.0.51已从插件工作区删除总开关控件；`politics_communism_mode`作为只读旧键继续保持false/缺失（默认true）语义，不创建新的插件存储副本。
 - 百科通过`GodpowerItemCatalog.list()`从真实`ITEM_DEFS`构造，并调用既有`itemVisual()`显示资源；页面不再维护平行道具数据。
 - 首页及旧入口`openItemEncyclopedia()`现在打开该插件工作区。
 - 主设置页不再注入总开关；设置调用保留`installCommunismModeSetting()`兼容入口，它只清理遗留DOM，不创建第二份控件。
@@ -17,7 +17,7 @@
 
 环境：Chromium，1920×1080，deviceScaleFactor=1，隔离浏览器上下文，HTTP本地服务。
 
-Chromium 1920×1080 1x隔离环境中，设置主分类、道具模块编辑、图鉴、30组道具音效槽、音频上传/导出/导入、图标恢复确认取消、旧总开关跨刷新及插件停用兼容均通过。测试脚本：`tests/e2e/item-modules.mjs`、`tests/e2e/miyamoto-plugin.mjs`、`tests/e2e/settings-cleanup.mjs`、`tests/e2e/motion-unification.mjs`、`tests/e2e/control-consistency.mjs`。最终结果见`docs/TEST_MATRIX.md`。截图：
+Chromium 1920×1080 1x隔离环境中，设置主分类、道具模块编辑、图鉴、30组道具音效槽、音频上传/导出/导入、图标恢复确认取消、移除总开关UI后的旧值只读兼容及插件停用均通过（3.0.51）。测试脚本：`tests/e2e/item-modules.mjs`、`tests/e2e/miyamoto-plugin.mjs`、`tests/e2e/settings-cleanup.mjs`、`tests/e2e/motion-unification.mjs`、`tests/e2e/control-consistency.mjs`。最终结果见`docs/TEST_MATRIX.md`。截图：
 
 3.0.32自包含单文件构建为8,051,677字节，两次连续构建SHA-256一致：`1abbe4dcf198c4226b2cac9fa1986e9886321bf10c3fa1c817af0c30a12c9e1d`。
 

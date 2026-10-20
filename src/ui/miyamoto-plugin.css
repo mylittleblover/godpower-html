@@ -9,13 +9,11 @@
   font-size: 28px;
 }
 .miyamoto-plugin-workspace > p,
-.miyamoto-plugin-settings p,
 .miyamoto-encyclopedia header p {
   margin: 0;
   color: var(--ui-muted, #647875);
   line-height: 1.65;
 }
-.miyamoto-plugin-settings,
 .miyamoto-encyclopedia {
   padding: 20px 22px;
   border: 1px solid var(--ui-border, #dce8e5);
@@ -35,61 +33,6 @@
 .miyamoto-encyclopedia #v2ItemEncyclopedia,
 .miyamoto-encyclopedia #itemFxSoundListV26 {
   min-width: 0;
-}
-.miyamoto-plugin-settings {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-.miyamoto-plugin-settings h4,
-.miyamoto-encyclopedia h4 {
-  margin: 0 0 5px;
-  color: var(--ui-text, #173b38);
-  font-size: 17px;
-}
-.miyamoto-toggle {
-  position: relative;
-  display: inline-flex;
-  flex: 0 0 54px;
-  width: 54px;
-  height: 31px;
-  cursor: pointer;
-}
-.miyamoto-toggle input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-.miyamoto-toggle-track {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: #aebbb8;
-  transition: background 180ms ease;
-}
-.miyamoto-toggle-track::after {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
-  content: "";
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.miyamoto-toggle input:checked + .miyamoto-toggle-track {
-  background: var(--ui-primary, #168574);
-}
-.miyamoto-toggle input:checked + .miyamoto-toggle-track::after {
-  transform: translateX(23px);
-}
-.miyamoto-toggle input:focus-visible + .miyamoto-toggle-track {
-  outline: 3px solid #f0a28c;
-  outline-offset: 3px;
 }
 .miyamoto-item-grid {
   display: grid;

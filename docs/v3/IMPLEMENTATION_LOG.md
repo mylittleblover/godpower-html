@@ -328,3 +328,10 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 这仍是兼容旧内容渲染器的宿主受限dataSelector适配，不执行插件脚本，也不允许任意DOM渲染；插件卡片的独立数据配置、通用第三方renderer、布局导入导出和模板仍未实现。
 
 验证：Chromium 1920×1080 1x E2E检查3种插件卡片归属、旧聚合容器迁移、停用占位/重新启用、移除/重新添加、统一网格无横向溢出、页面错误为空及课堂状态不变；Plugin platform install/grant/activate/navigate/deactivate/uninstall PASS。完整维护验证记录于 docs/validation/v3.0.50-home-plugin-cards.md。
+
+
+## 3.0.51 — 移除冗余道具总开关UI
+
+按产品补充，移除宫本茂插件工作区中的“共产主义模式/道具玩法总开关”卡片。道具模块配置、百科、自定义图标和道具音效工作台保持可用。为保护旧偏好，没有删除`politics_communism_mode`、没有把旧false改成true，也没有改变其既有道具启用逻辑；该键现在仅由兼容代码读取，UI不再提供编辑入口。
+
+验证：Chromium 1920×1080 1x检查主设置与插件工作区均无冗余开关、26项百科保留；注入旧key=false后刷新，`isCommunismMode()`仍为false且既有禁用展示保持；插件停用不重写该值，页面错误0。报告见`docs/validation/v3.0.51-remove-legacy-item-toggle.md`。

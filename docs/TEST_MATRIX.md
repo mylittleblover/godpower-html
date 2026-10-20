@@ -17,7 +17,7 @@
 | 功能 × 场景 | 测试类型 | 结果 | 证据 |
 |---|---|---|---|
 | 内置 `official.miyamotos-power` 安装、激活及 page/settings 贡献注册 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
-| 主设置移除旧道具总开关，插件工作区显示兼容状态 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/workspace.png` |
+| 主设置及插件工作区移除旧道具总开关；插件百科保留26项，旧显式false只读兼容 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/workspace-v3.0.51.png` |
 | 道具百科读取当前 26 项实际定义 | Chromium E2E | PASS | 同上；检查 `ice_flower` 名称 |
 | 关闭道具、旧键保存、刷新后恢复关闭状态 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/disabled.png` |
 | 停用玩法插件不清理或改写旧设置键 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |

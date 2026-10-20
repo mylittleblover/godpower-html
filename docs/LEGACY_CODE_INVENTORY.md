@@ -1135,7 +1135,7 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/ui/plugin-center.js:80|addButton|declaration|需要进一步测试|document.createElement, parent.append|
 |src/ui/plugin-center.js:90|contributionTitle|declaration|需要进一步测试||
 |src/ui/plugin-center.js:98|renderWorkspace|declaration|需要进一步测试|$, host.replaceChildren, root.GodPowerPageShell.resolvePage, renderMiyamotoWorkspace, document.createElement, contributionTitle, host.append|
-|src/ui/plugin-center.js:127|renderMiyamotoWorkspace|declaration|需要进一步测试|document.createElement, settingCopy.append, toggleLabel.setAttribute, root.isCommunismMode, toggle.addEventListener, root.setCommunismMode, toggleLabel.append, settings.append, workspaceSection, moduleSettings.append, root.ItemModuleSettings?.mount, document.querySelector, legacyLibraryContent.append, library.append, library.querySelector(":scope > .setting-section-title")?.remove, library.querySelector, root.renderItemEncyclopedia, legacyItemAudio         .querySelector(":scope > .setting-section-title")         ?.remove, legacyItemAudio         .querySelector, itemAudio.append, root.renderItemFxSoundListV26, section.append, host.append|
+|src/ui/plugin-center.js:127|renderMiyamotoWorkspace|declaration|需要进一步测试|workspaceSection, root.ItemModuleSettings?.mount, document.querySelector, legacyLibraryContent.append, root.renderItemEncyclopedia, root.renderItemFxSoundListV26, host.append|
 |src/ui/plugin-center.js:215|workspaceSection|declaration|需要进一步测试|document.createElement, card.append|
 |src/ui/plugin-center.js:226|render|declaration|需要进一步测试|$, host.replaceChildren, document.createElement, host.append, platform.list, empty.append, platform.inspect, identity.append, head.append, card.append, record.manifest.permissions.map((p) => ${labels[p.capability] ／／ p.capability}${p.required ? "（必需）" : "（可选）"}).join, record.manifest.permissions.map, addButton, root.GodPowerPageShell.listByPlugin, contributions.filter, contributions.some, root.GodPowerPageShell.listPages().filter, root.GodPowerPageShell.listPages, contributionTitle, renderWorkspace, root.GodPowerPluginAppearance?.sync|
 |src/ui/plugin-center.js:328|importManifest|declaration|需要进一步测试|file.text, JSON.parse, platform.install, status, render|
@@ -5356,9 +5356,7 @@ JSON 包含每个命名函数的调用依赖、变量初始化、计时器及监
 |src/style/00.css:1711|#v2ItemEncyclopedia .item-ency-grid|需要进一步测试|
 |src/style/00.css:1713|/* ===== V2.9.1 共产主义模式（道具系统总开关） ===== */ body.items-disabled .item-slot, body.items-disabled .item-bar, body.items-disabled .item-inventory, body.items-disabled .item-draw-spinning, body.items-disabled .card-item-roulette, body.items-disabled .god-item-tools, body.items-disabled .item-defense-toast, body.items-disabled #v2ItemPane, body.items-disabled [data-sp="items"], body.items-disabled [data-about="items"], body.items-disabled #itemWindowTabItems, body.items-disabled [data-item-feature], body.items-disabled .item-feature-only|需要进一步测试|
 |src/style/00.css:1732|body.items-disabled .group-row-card|需要进一步测试|
-|src/style/00.css:1733|/* ===== V2.9.2 设置：共产主义模式真正归入“功能设置” ===== */ .communism-mode-card|需要进一步测试|
-|src/style/00.css:1743|.communism-mode-copy|需要进一步测试|
-|src/style/00.css:1744|.communism-mode-title|需要进一步测试|
+|src/style/00.css:1733|旧总开关卡片 CSS（communism-mode-card / copy / title）|已在 V3.0.51 安全删除，DOM及 E2E 已证明无使用|
 |src/style/00.css:1745|.v292-switch|需要进一步测试|
 |src/style/00.css:1746|.v292-switch input|需要进一步测试|
 |src/style/00.css:1747|.v292-switch-track|需要进一步测试|
