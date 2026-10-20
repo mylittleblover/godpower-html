@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.52</title>
+<title>上帝的力量 V3.0.53</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.52";
+    document.title = name() + " V3.0.53";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -12239,7 +12239,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.52</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.53</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -17236,6 +17236,18 @@ const CompetitionRules = (() => {
   return { calculateRound };
 })();
 </script>
+<script>/* Compatibility projection for the persisted pre-state-machine round flags. */
+const CompetitionPhase = (() => {
+  function derive(round) {
+    if (!round.hasStartedOnce) return "NOT_STARTED";
+    if (!round.roundActive) return "FINISHED";
+    if (round.evaluated) return "SETTLED";
+    return round.correctAns ? "ANSWER_SELECTED" : "ANSWERING";
+  }
+
+  return { derive };
+})();
+</script>
 <script>/* Storage adapters own serialization and migration receipts; domain rules stay separate. */
 const ClassroomRepository = (() => {
   function writeVerified(storage, key, data) {
@@ -19740,10 +19752,7 @@ const Reliability = (() => {
   const writeVerified = ClassroomRepository.writeVerified;
   const appendArchive = ClassroomRepository.appendArchive;
   function phase(s) {
-    if (!s.hasStartedOnce) return "NOT_STARTED";
-    if (!s.roundActive) return "FINISHED";
-    if (s.evaluated) return "SETTLED";
-    return s.correctAns ? "ANSWER_SELECTED" : "ANSWERING";
+    return CompetitionPhase.derive(s);
   }
   function validateItem(s, g, index, enabled) {
     if (!enabled) return "共产主义模式已关闭";
@@ -30673,7 +30682,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.52';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.53';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -33210,7 +33219,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.52",
+    appVersion: "V3.0.53",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

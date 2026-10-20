@@ -341,3 +341,7 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 将最终生效的举手奖励老虎机抽取流程接入现有课堂命令生命周期。动画结束后重新验证小组身份、负分限制与背包容量；道具成功入库时发出 `ITEM_ACQUIRED`，并与历史快照、抽取总数及成就账本同事务保存。只有持久化确认后才展示“获得道具”；该命令选择保存失败时回滚，回归验证无奖励、无成就事件并保留原存档。撤销测试确认库存、抽取计数与账本一并恢复。另移除该流程在 `addItemToGroup` 已递增总数之后的重复递增。没有更改掉落权重或道具规则。该事件切片只覆盖举手奖励老虎机，其他抽取路径仍待迁移。
 
 验证：`npm test` 310/310；`tests/e2e/item-domain-events.mjs`（ITEM_ACQUIRED、存储失败回滚、撤销与既有 ITEM_USED/ITEM_HIT）；`tests/e2e/item-undo-matrix.mjs`（26/26）；`tests/e2e/battle-layout.mjs`（1920×1080 1x PASS）；`npm run check` PASS。Chromium 页面错误0。
+
+## 3.0.53 — 提取比赛阶段兼容投影
+
+新增纯领域模块 `src/domain/competition/phase.js`，集中表示旧持久标志到 NOT_STARTED/FINISHED/ANSWERING/ANSWER_SELECTED/SETTLED 的派生优先级；`Reliability.phase` 保留公共API并委托领域模块。单测穷举 16 组旧布尔字段和正确答案组合。该切片仅整理既有派生逻辑，不新增状态或改变比赛行为；初始化、结算busy状态和转移命令仍待 GP-012 后续处理。

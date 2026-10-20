@@ -215,10 +215,7 @@ const Reliability = (() => {
   const writeVerified = ClassroomRepository.writeVerified;
   const appendArchive = ClassroomRepository.appendArchive;
   function phase(s) {
-    if (!s.hasStartedOnce) return "NOT_STARTED";
-    if (!s.roundActive) return "FINISHED";
-    if (s.evaluated) return "SETTLED";
-    return s.correctAns ? "ANSWER_SELECTED" : "ANSWERING";
+    return CompetitionPhase.derive(s);
   }
   function validateItem(s, g, index, enabled) {
     if (!enabled) return "共产主义模式已关闭";

@@ -36,6 +36,31 @@ for (const [s, expected] of [
   [{ hasStartedOnce: true, roundActive: true, evaluated: true }, "SETTLED"],
 ])
   test(`phase ${expected}`, () => assert.equal(core.phase(s), expected));
+for (const hasStartedOnce of [false, true])
+  for (const roundActive of [false, true])
+    for (const evaluated of [false, true])
+      for (const correctAns of ["", "A"])
+        test(
+          `legacy phase precedence ${+hasStartedOnce}${+roundActive}${+evaluated}:${correctAns || "none"}`,
+          () => {
+            const round = {
+              hasStartedOnce,
+              roundActive,
+              evaluated,
+              correctAns,
+            };
+            const expected = !hasStartedOnce
+              ? "NOT_STARTED"
+              : !roundActive
+                ? "FINISHED"
+                : evaluated
+                  ? "SETTLED"
+                  : correctAns
+                    ? "ANSWER_SELECTED"
+                    : "ANSWERING";
+            assert.equal(core.phase(round), expected);
+          },
+        );
 for (const uri of [
   'x" onerror="alert(1)',
   "javascript:alert(1)",

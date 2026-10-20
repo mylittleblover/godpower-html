@@ -170,3 +170,10 @@
 | 举手奖励写入失败时回滚，且不发布 ITEM_ACQUIRED | Chromium E2E | PASS | 同上；注入写入失败 |
 | 26 种道具精确库存撤销矩阵 | Chromium E2E | PASS | `tests/e2e/item-undo-matrix.mjs` |
 | 其他全局/管理/抽取流程的 ITEM_ACQUIRED 事件覆盖 | 自动化 | NOT TESTED | 留在 GP-011 后续范围 |
+
+## 比赛阶段状态兼容（3.0.53）
+
+| 功能 × 场景 | 测试类型 | 结果 | 证据 |
+|---|---|---|---|
+| 持久旧字段组合到阶段名称的兼容优先级（16组组合） | Node unit | PASS | `tests/unit/reliability.test.mjs` |
+| 完整转场守卫/异步busy状态机 | E2E | NOT TESTED | GP-012 后续范围 |
