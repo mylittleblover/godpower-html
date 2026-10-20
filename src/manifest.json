@@ -212,6 +212,11 @@
     },
     {
       "type": "script",
+      "path": "domain/home-layout.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/classroom-roster.js",
       "attributes": ""
     },

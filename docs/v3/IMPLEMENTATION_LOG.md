@@ -281,3 +281,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 为公开 `useItem` 命令添加持久 `ITEM_USED` 事件。事件包含稳定小组 UID、赛季 ID、道具键、实例 ID 和使用次数前后值；只有实际执行产生效果且事务保存成功才进入账本，冻结取消不计为有效使用。撤销回滚成就统计并恢复道具与积分。该版本只接通使用事件，不声称攻击、防御、效果到期等事件已全部实现；GP-011 继续 PARTIAL。
 
 验证：`tests/e2e/item-domain-events.mjs` 覆盖 coin 成功使用/持久化/撤销和冰冻取消；全道具模块与兼容矩阵、299项Node单元/集成测试、静态检查和Chromium 1920×1080 @1x回归结果见 `docs/validation/v3.0.43-item-event.md`。CircleCI 未执行。
+
+## 3.0.44 — H1 首页布局纯数据服务
+
+新增 `HomeLayout` 纯域模块：独立的 schemaVersion 1 布局与卡片实例，12列整型网格，限制配置 JSON 深度/大小，拒绝非法原型字段、越界/重叠和重复实例；布局服务支持多实例限制、添加/复制/移除/隐藏/移动/缩放、确定性冲突挤推、草稿撤销重做、保存/取消。尚未接到欢迎页 DOM 和持久层，因此现有首页外观与卡片行为保持原样；下一步继续实现布局存储和兼容渲染，不把 H1 报告为完整自定义主页。
+
+验证：新增4项单元测试；全体 Node 单元/集成 303/303 PASS；Chromium 1920×1080 @1x 的14组比赛布局 PASS；`check`、格式检查和单文件构建 PASS。构建哈希/体积见 `docs/validation/v3.0.44-home-layout-domain.md`。
