@@ -6,6 +6,8 @@
 
 数据证据：artifacts/settings-cleanup/before/inventory.json、after/inventory.json。动态音乐槽位另外逐一切换8套比赛配乐与菜单套验证；道具音效从实际26种定义及4公共事件读取。
 
+后续变更（3.0.32）：此清单记录主设置重构时的历史布局基线。现在道具模块工作台、图鉴/自定义图标及逐道具音效已迁入`official.miyamotos-power`插件工作区；控制器和原存储不变。实时验收见`docs/ui-audit/M7-miyamoto-gameplay-plugin.md`。
+
 |原控件／操作|原分类 → 新分类|处理结果|
 |---|---|---|
 |exportAudioBundle()|共用页头／导航 → 音频|保留；折叠于 uiAudioTransfer|

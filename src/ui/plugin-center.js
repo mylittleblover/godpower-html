@@ -34,6 +34,8 @@
   let platform;
   let route = null;
   let readyError = null;
+  let legacyLibraryContent = null;
+  let legacyItemAudio = null;
   function status(message, kind = "info") {
     const node = $("#pluginCenterStatus");
     if (node) {
@@ -132,7 +134,7 @@
     heading.textContent = "宫本茂的力量";
     const intro = document.createElement("p");
     intro.textContent =
-      "道具玩法工作区。现阶段集中管理道具功能开关并展示实时道具百科；比赛规则、库存、撤销和历史仍由原有业务内核负责。";
+      "集中维护道具模块、图鉴与专属音效。比赛规则、库存、撤销和历史仍由原有业务内核负责。";
     const settings = document.createElement("section");
     settings.className = "miyamoto-plugin-settings";
     const settingCopy = document.createElement("div");
@@ -157,33 +159,69 @@
     toggleLabel.append(toggle, track);
     settings.append(settingCopy, toggleLabel);
 
-    const encyclopedia = document.createElement("section");
-    encyclopedia.className = "miyamoto-encyclopedia";
-    const encyclopediaHeader = document.createElement("div");
-    const title = document.createElement("h4");
-    title.textContent = `道具百科 · ${root.GodpowerItemCatalog?.list().length || 0} 种`;
-    const subtitle = document.createElement("p");
-    subtitle.textContent = "名称、图标与说明直接读取当前道具定义。";
-    encyclopediaHeader.append(title, subtitle);
-    const grid = document.createElement("div");
-    grid.className = "miyamoto-item-grid";
-    for (const definition of root.GodpowerItemCatalog?.list() || []) {
-      const card = document.createElement("article");
-      card.className = "miyamoto-item-card";
-      card.dataset.itemKey = definition.key;
-      const icon = document.createElement("span");
-      icon.className = "miyamoto-item-icon";
-      icon.innerHTML = root.itemVisual(definition.key);
-      const name = document.createElement("h5");
-      name.textContent = definition.name || definition.key;
-      const description = document.createElement("p");
-      description.textContent = definition.desc || "暂无说明";
-      card.append(icon, name, description);
-      grid.append(card);
+    const moduleSettings = workspaceSection(
+      "道具模块工作台",
+      "分别配置每种道具的抽取流程与使用流程；配置即时生效并继续保存在现有本地存储中。",
+    );
+    const moduleHost = document.createElement("div");
+    moduleHost.className = "miyamoto-module-host";
+    moduleSettings.append(moduleHost);
+    root.ItemModuleSettings?.mount(moduleHost);
+
+    const library = workspaceSection(
+      "道具百科与自定义图标",
+      "图鉴、图标包导入导出和单项图片继续使用原有兼容存储。",
+    );
+    if (!legacyLibraryContent) {
+      const legacyLibrary = document.querySelector("#settingsV26_items");
+      if (legacyLibrary) {
+        legacyLibraryContent = document.createElement("div");
+        while (legacyLibrary.firstChild)
+          legacyLibraryContent.append(legacyLibrary.firstChild);
+      }
     }
-    encyclopedia.append(encyclopediaHeader, grid);
-    section.append(eyebrow, heading, intro, settings, encyclopedia);
+    if (legacyLibraryContent) library.append(legacyLibraryContent);
+    library.querySelector(":scope > .setting-section-title")?.remove();
+    root.renderItemEncyclopedia?.();
+
+    const itemAudio = workspaceSection(
+      "道具音效",
+      "管理公共道具事件与每种道具的独立音效；音乐和基础操作音效仍留在音效与音乐设置。",
+    );
+    if (!legacyItemAudio)
+      legacyItemAudio = document.querySelector(
+        "#itemFxSoundListV26",
+      )?.parentElement;
+    if (legacyItemAudio) {
+      legacyItemAudio.hidden = false;
+      legacyItemAudio
+        .querySelector(":scope > .setting-section-title")
+        ?.remove();
+      itemAudio.append(legacyItemAudio);
+    }
+    root.renderItemFxSoundListV26?.();
+
+    section.append(
+      eyebrow,
+      heading,
+      intro,
+      settings,
+      moduleSettings,
+      library,
+      itemAudio,
+    );
     host.append(section);
+  }
+  function workspaceSection(titleText, descriptionText) {
+    const card = document.createElement("section");
+    card.className = "miyamoto-encyclopedia";
+    const title = document.createElement("h4");
+    title.textContent = titleText;
+    title.className = "miyamoto-section-title";
+    const description = document.createElement("p");
+    description.textContent = descriptionText;
+    card.append(title, description);
+    return card;
   }
   function render() {
     const host = $("#pluginCenterContent");

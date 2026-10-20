@@ -43,8 +43,13 @@ async function test(name, fn) {
   }
 }
 async function category(p, id) {
+  await p.evaluate(() => switchView("settings"));
   await p.locator(`[data-category="${id}"]`).click();
   await p.waitForFunction(() => DesktopUI.getSettingsMotionCount() === 0);
+}
+async function miyamoto(p) {
+  await p.evaluate(() => switchView("plugins/official.miyamotos-power/items"));
+  await p.waitForSelector(".miyamoto-plugin-workspace");
 }
 async function expand(p, id) {
   if (!(await p.locator("#" + id).evaluate((e) => e.open)))
@@ -55,7 +60,6 @@ const categories = [
   "appearance",
   "motion",
   "sound",
-  "items",
   "students",
   "welcome",
   "data",
@@ -149,7 +153,7 @@ try {
     }
   });
   for (const [width, height] of [[1920, 1080]])
-    await test(`Eight categories, normal and expanded maintenance, scrolling and keyboard ${width}x${height}`, async () => {
+    await test(`Seven settings categories, normal and expanded maintenance, scrolling and keyboard ${width}x${height}`, async () => {
       const { c, p } = await open(width, height);
       const measurements = [];
       try {
@@ -311,10 +315,11 @@ try {
           document.querySelectorAll("#bgmListContainer .sound-row").length ===
           SET_TRACK_TYPES.length,
       );
+      await miyamoto(p);
       const after = await p.evaluate(() =>
         [
           ...document.querySelectorAll(
-            "#view-settings button,#view-settings input,#view-settings select,#view-settings textarea",
+            "#view-settings button,#view-settings input,#view-settings select,#view-settings textarea,#pluginWorkspace button,#pluginWorkspace input,#pluginWorkspace select,#pluginWorkspace textarea",
           ),
         ].map((e) => ({
           id: e.id,
@@ -328,6 +333,7 @@ try {
         })),
       );
       for (const old of baseline.controls) {
+        if (old.id === "communismModeToggle") continue;
         if (old.id)
           assert.equal(after.filter((x) => x.id === old.id).length, 1, old.id);
         if (old.action)
@@ -346,6 +352,11 @@ try {
             (e) => e.closest("[data-category-panel]").dataset.categoryPanel,
           ),
         "appearance",
+      );
+      assert.equal(await p.locator("#pluginWorkspace .im-settings").count(), 1);
+      assert.equal(
+        await p.locator("#pluginWorkspace #v2ItemEncyclopedia").count(),
+        1,
       );
       assert.equal(
         await p
@@ -380,8 +391,12 @@ try {
       const groups = await p.evaluate(() => JSON.stringify(state.groups));
       await category(p, "rules");
       await p.locator("#cfgSaveAllIn").uncheck();
-      await p.locator("#communismModeToggle").uncheck();
-      assert.equal(await p.locator("#communismModeToggle").isChecked(), false);
+      await miyamoto(p);
+      await p.getByRole("checkbox", { name: "启用道具玩法" }).uncheck();
+      assert.equal(
+        await p.getByRole("checkbox", { name: "启用道具玩法" }).isChecked(),
+        false,
+      );
       await category(p, "appearance");
       await p.locator("#cfgColumnMode").selectOption("double");
       await p.locator("#cfgResizerEnabled").uncheck();
@@ -487,7 +502,7 @@ try {
           );
         }, i);
       }
-      await expand(p, "uiSettingsItemFx");
+      await miyamoto(p);
       assert.equal(
         await p
           .locator(
@@ -609,8 +624,7 @@ try {
   await test("All item icons retained; reset-all has confirmation and preserves custom image on cancel", async () => {
     const { c, p } = await open();
     try {
-      await category(p, "items");
-      await expand(p, "uiSettingsItemLibrary");
+      await miyamoto(p);
       const data =
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==";
       await p.evaluate((data) => {
@@ -701,7 +715,7 @@ try {
     let other;
     try {
       await category(p, "sound");
-      await expand(p, "uiSettingsItemFx");
+      await miyamoto(p);
       const wav = Buffer.alloc(44 + 4096);
       wav.write("RIFF");
       wav.writeUInt32LE(wav.length - 8, 4);
@@ -727,6 +741,7 @@ try {
         buffer: wav,
       });
       await p.waitForFunction(() => !!customFxBuffers.item_coin);
+      await category(p, "sound");
       await expand(p, "uiAudioTransfer");
       let archive;
       for (const [action, file] of [
@@ -765,7 +780,7 @@ try {
           `button[onclick="triggerUploadAudio('fx_item_coin')"]`,
         ),
       });
-      await expand(other.p, "uiSettingsItemFx");
+      await miyamoto(other.p);
       await row
         .locator('button[onclick^="deleteFxTrack"]')
         .waitFor({ state: "visible", timeout: 4000 });

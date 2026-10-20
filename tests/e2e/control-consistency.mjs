@@ -67,7 +67,6 @@ try {
       "appearance",
       "motion",
       "sound",
-      "items",
       "students",
       "welcome",
       "data",
@@ -147,7 +146,7 @@ try {
     ),
   );
   console.log(
-    "PASS controls: two themes, six core pages, eight settings categories, gold default+hover, shared switches, keyboard and persistence",
+    "PASS controls: two themes, six core pages, seven settings categories, gold default+hover, shared switches, keyboard and persistence",
   );
 } finally {
   await browser.close();

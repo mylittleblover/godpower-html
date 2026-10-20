@@ -4,6 +4,16 @@
 
 ## 官方玩法插件迁移（3.0.31）
 
+### 道具设置归属迁移（3.0.32）
+
+| 功能 × 场景 | 测试类型 | 结果 | 证据 |
+|---|---|---|---|
+| 主设置移除道具分类；旧导航兼容路由至插件工作区 | Chromium E2E 1920×1080 1x | PASS | `tests/e2e/item-modules.mjs`、`tests/e2e/settings-cleanup.mjs` |
+| 每种道具抽取/使用配置、存储和刷新恢复 | Chromium E2E | PASS | `npm run test:item-modules`（26项规则，448种抽取情形） |
+| 图鉴、图标维护和批量恢复取消确认 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs`、`tests/e2e/settings-cleanup.mjs` |
+| 30组道具音效、BIN导出与隔离上下文导入 | Chromium E2E | PASS | `tests/e2e/settings-cleanup.mjs` |
+| 插件页动画、设置与弹窗关闭动画 | Chromium E2E | PASS | `tests/e2e/motion-unification.mjs`（18/18） |
+
 | 功能 × 场景 | 测试类型 | 结果 | 证据 |
 |---|---|---|---|
 | 内置 `official.miyamotos-power` 安装、激活及 page/settings 贡献注册 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |

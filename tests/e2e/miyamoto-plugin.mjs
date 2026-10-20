@@ -52,12 +52,16 @@ try {
   );
   await page.getByRole("button", { name: "打开：道具百科与玩法" }).click();
   await page.waitForSelector(".miyamoto-plugin-workspace");
-  assert.equal(await page.locator(".miyamoto-item-card").count(), 26);
+  assert.equal(
+    await page.locator("#v2ItemEncyclopedia .item-ency-grid > *").count(),
+    26,
+  );
   assert.equal(
     await page
-      .locator('.miyamoto-item-card[data-item-key="ice_flower"] h5')
-      .textContent(),
-    "冰之花",
+      .locator("#v2ItemEncyclopedia .item-ency-grid")
+      .filter({ hasText: "冰之花" })
+      .count(),
+    1,
   );
   await page.waitForTimeout(3200);
   await page.screenshot({

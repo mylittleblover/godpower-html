@@ -71,7 +71,10 @@ try {
   await page.locator(".gp-daily-item summary").click();
   await page.getByRole("button", { name: "打开实际道具百科" }).click();
   assert.equal(await page.locator("#view-plugins").isVisible(), true);
-  assert.equal(await page.locator(".miyamoto-item-card").count(), 26);
+  assert.equal(
+    await page.locator("#v2ItemEncyclopedia .item-ency-grid > *").count(),
+    26,
+  );
   await page.evaluate(() => {
     switchView("settings");
     DesktopUI.selectSettings("welcome");

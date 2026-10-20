@@ -1016,6 +1016,9 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
   display: block;
   max-height: none;
 }
+.ui-settings-category .settings-v26-pane[hidden] {
+  display: none;
+}
 #view-history,
 #view-archives,
 #view-settings {

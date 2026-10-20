@@ -191,6 +191,8 @@ const DesktopUI = (() => {
           history: ".ui-collection-header",
           archives:
             ".ui-collection-header,#archiveClassStats,.ui-archive-filter",
+          plugins:
+            ".plugin-center-header,.plugin-center-status,.plugin-center-grid > *,#pluginWorkspace > *",
         };
         const host = $(`#view-${name}`);
         const targets = [
@@ -656,12 +658,6 @@ const DesktopUI = (() => {
       "日常音量在上方，音乐、音效和迁移维护按需展开",
     ],
     [
-      "items",
-      "gift",
-      "道具与图标",
-      "规则说明与专属图像维护；导航按钮图标已归入外观分类",
-    ],
-    [
       "students",
       "users",
       "学生与小组管理",
@@ -690,6 +686,7 @@ const DesktopUI = (() => {
     const classified = [...sc.querySelectorAll("[data-settings-category]")];
     for (const pane of sc.querySelectorAll(".settings-v26-pane")) {
       const id = pane.id.replace("settingsV26_", "");
+      if (id === "items") pane.hidden = true;
       (sections[id === "function" ? "rules" : id] || sections.rules).append(
         pane,
       );
@@ -821,7 +818,6 @@ const DesktopUI = (() => {
     };
     organizeSettings(sections, shell);
     GodpowerTheme.mount(sections.appearance);
-    if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
     structured.id = "uiStructuredBank";
@@ -1024,6 +1020,8 @@ const DesktopUI = (() => {
     );
     rosterTitle?.remove();
     const sound = $("#settingsV26_sound");
+    const itemSounds = $("#itemFxSoundListV26")?.parentElement;
+    if (itemSounds) itemSounds.hidden = true;
     group(
       sound,
       "uiSettingsVolume",
@@ -1047,27 +1045,9 @@ const DesktopUI = (() => {
       marked("basefx"),
       true,
     );
-    const itemSounds = $("#itemFxSoundListV26")?.parentElement;
-    if (itemSounds)
-      group(
-        sound,
-        "uiSettingsItemFx",
-        "道具音效",
-        "4 个公共事件 + 26 种道具独立发动音效",
-        [itemSounds],
-        true,
-      );
+    // Gameplay-specific item audio is owned by the Miyamoto plugin workspace.
     // Keep transfer at the end and never promote it into the global header.
     sound.append($("#uiAudioTransfer"));
-    const itemLibrary = $("#settingsV26_items");
-    group(
-      sections.items,
-      "uiSettingsItemLibrary",
-      "道具百科与自定义图片",
-      "26 种实际道具 · 图标包与单项图片维护",
-      [itemLibrary],
-      true,
-    );
     const editor = $("#uiBankEditor");
     const bankNodes = [
       editor.previousElementSibling.previousElementSibling,
@@ -1109,7 +1089,7 @@ const DesktopUI = (() => {
       true,
     );
     // Two UI-only destructive shortcuts lacked a confirmation. Preserve their commands.
-    shell.addEventListener(
+    document.addEventListener(
       "click",
       async (event) => {
         const button = event.target.closest("button");
@@ -1217,6 +1197,10 @@ const DesktopUI = (() => {
   }
   function selectSettings(id, entering = false) {
     if (!$("#uiSettingsShell")) return;
+    if (id === "items") {
+      switchView("plugins/official.miyamotos-power/items");
+      return;
+    }
     const aliases = { function: "rules" };
     activeSettings = aliases[id] || id;
     if (!categories.some((c) => c[0] === activeSettings))
@@ -1239,7 +1223,6 @@ const DesktopUI = (() => {
       renderFxSlotList();
       renderItemFxSoundListV26();
     }
-    if (activeSettings === "items") renderItemEncyclopedia();
     revealSettings(entering);
   }
   function setupDock() {

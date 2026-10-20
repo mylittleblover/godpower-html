@@ -23,6 +23,19 @@
   background: var(--ui-panel, #fff);
   box-shadow: 0 10px 28px rgb(23 59 56 / 5%);
 }
+.miyamoto-encyclopedia > h4,
+.miyamoto-section-title {
+  margin: 0 0 5px;
+  color: var(--ui-text, #173b38);
+  font-size: 17px;
+}
+.miyamoto-encyclopedia > p {
+  margin: 0 0 14px;
+}
+.miyamoto-encyclopedia #v2ItemEncyclopedia,
+.miyamoto-encyclopedia #itemFxSoundListV26 {
+  min-width: 0;
+}
 .miyamoto-plugin-settings {
   display: flex;
   align-items: center;
