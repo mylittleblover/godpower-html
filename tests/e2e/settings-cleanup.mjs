@@ -574,6 +574,8 @@ try {
     const { c, p } = await open();
     try {
       await category(p, "students");
+      if (!(await p.locator("#uiSettingsRoster").evaluate((e) => e.open)))
+        await p.locator("#uiSettingsRoster > summary").click();
       const old = await p.evaluate(() => JSON.stringify(state.groups));
       await p.locator("#settingsBatchMemberText").fill("测试 1 组: 张三, 李四");
       await p.locator('button[onclick="applySettingsBatchMembers()"]').click();

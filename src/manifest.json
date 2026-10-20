@@ -222,6 +222,11 @@
     },
     {
       "type": "script",
+      "path": "ui/classroom-roster-workspace.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/competition/ranking.js",
       "attributes": ""
     },

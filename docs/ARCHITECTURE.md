@@ -43,7 +43,7 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 
 `src/domain/identity.js`现提供`userProfileId`、`classroomId`、`studentUid`稳定标识生成器。`src/domain/classroom-roster.js`定义版本1的本地名单文档，并验证用户档案、课堂、学生与分组关系；可为旧`groups[].members`生成保留重复姓名的迁移预览，并按用户档案投影分组成员。投影返回副本，名称不是身份键。
 
-`src/infrastructure/classroom-roster-repository.js`使用独立键`godpower_classroom_roster_v1`保存名单文档，提供CAS revision、写后读回和失败回滚。当前没有连接设置页或当前比赛状态；主课堂仍唯一使用`godpower_state_v2`和旧小组成员数组。教师档案是本机工作区标识，不是登录认证/云同步。后续需完成教师切换、名单编辑/导入、头像资源管理、跨用户数据边界以及与旧备份的显式迁移 UI 后才能把F1标为完成。
+`src/infrastructure/classroom-roster-repository.js`使用独立键`godpower_classroom_roster_v1`保存名单文档，提供CAS revision、写后读回和失败回滚。`src/ui/classroom-roster-workspace.js`在设置的“学生与小组管理”页提供本地教师档案/课堂切换、分组与个人参与模式、学生增删改、导入导出，并能从当前比赛生成一个独立名单副本。它只调用隔离名单仓库；主课堂仍唯一使用`godpower_state_v2`和旧小组成员数组，名单编辑不会同步修改比赛。教师档案是本机工作区标识，不是登录认证/云同步。当前仍缺少进入比赛前的差异预览/双存储事务应用流程、头像资源管理和完整跨用户设置隔离，因此F1尚未完成。
 
 ## 当前运行路径
 

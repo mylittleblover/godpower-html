@@ -817,6 +817,14 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    ClassroomRosterWorkspace.mount(sections.students, {
+      storage: localStorage,
+      getGroups: () => state.groups,
+    });
+    sections.students.insertBefore(
+      $("#classroomRosterWorkspace"),
+      $("#uiSettingsRoster"),
+    );
     GodpowerTheme.mount(sections.appearance);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -1011,9 +1019,11 @@ const DesktopUI = (() => {
     group(
       sections.students,
       "uiSettingsRoster",
-      "小组与成员名单",
-      "按组名匹配已有小组；未列出的组不保留，重命名可能建立新组。请先备份后应用。",
+      "旧版文本重建（兼容）",
+      "危险操作 · 按文本直接重建比赛小组。名单工作区适合日常整理；仅需重建比赛结构时再展开此旧入口。",
       marked("roster"),
+      true,
+      true,
     );
     const rosterTitle = $(
       "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",

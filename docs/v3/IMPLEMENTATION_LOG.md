@@ -221,3 +221,9 @@ Added stable local profile, classroom, and student IDs; a validated version-1 ro
 New tests cover ID stability, duplicate-name preservation, profile isolation, group/individual mode validation, invalid references, immutable projections, revision conflicts, storage failure, corrupted storage, and preservation of legacy classroom bytes. Full regression and Electron sync are recorded after final verification.
 
 Final 3.0.33 verification: Node unit/integration 284/284 PASS; build 8,065,192 bytes, SHA-256 `664ee78bba4847972399e7d39fb07cc1b978c0599718d7070837dc5700efc5cd`; `check`, `format:check`, hygiene PASS. Chromium 1920×1080 @1x: 14-group fit, plugin lifecycle, and 26-item Miyamoto workspace PASS, browser errors=[]. Current F1 work is a data foundation only; profile/roster UI, avatar asset management and integrated rollback UI remain OPEN. Windows native execution NOT TESTED.
+
+## 3.0.34 — F1 隔离名单工作区
+
+设置页增加本地教师档案/课堂名单工作区，支持从当前比赛创建副本、增删改学生、profile 独立小组分配、个人参与模式、课堂新建、JSON 导入导出。名单保存在 `godpower_classroom_roster_v1`；正式比赛仍使用 `godpower_state_v2`。为避免两个独立存储键产生半提交，本阶段没有“应用到比赛”入口。损坏/不兼容 JSON 在仓库写入前拒绝。
+
+TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorkspace` 按预期失败；实现后通过。测试覆盖14组/28名副本、名单改名分组、双教师隔离、新课堂、个人模式、导出、损坏导入保留仓库字节以及比赛状态无变化。环境范围 Chromium 1920×1080 @1x。Node 单元/集成284/284 PASS；原设置页回归13/13 PASS；新名单工作区 E2E PASS；构建、静态检查、格式与仓库卫生 PASS。最终资源包构建与 Electron 同步、桌面回归尚待本切片收尾。
