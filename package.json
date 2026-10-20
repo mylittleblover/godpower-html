@@ -1,13 +1,13 @@
 {
   "name": "godpower-html",
-  "version": "3.0.24",
+  "version": "3.0.25",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
-    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs && npm run test:commands",
+    "test:e2e": "node tests/e2e/run.mjs && node tests/e2e/rules.mjs && node tests/e2e/scoring-persistence.mjs && node tests/e2e/defense-lifecycle.mjs && node tests/e2e/quick-person-scoring.mjs && npm run test:contributions && npm run test:commands",
     "verify": "npm run build && npm run check && npm run format:check && npm run audit:hygiene && npm test && npm run test:e2e && npm run test:ui && npm run test:refactor",
     "audit": "node scripts/audit.mjs",
     "audit:ui": "node scripts/ui-ownership.mjs",
@@ -16,6 +16,7 @@
     "test:file": "node tests/e2e/file.mjs",
     "test:ui": "node tests/e2e/battle-layout.mjs && node tests/e2e/desktop-ui.mjs && node tests/e2e/desktop-interactions.mjs && node tests/e2e/desktop-modal-matrix.mjs && node tests/e2e/release-smoke.mjs && npm run test:welcome && npm run test:settings && npm run test:surfaces && npm run test:feedback && npm run test:classroom-feedback && npm run test:battle-motion && node tests/e2e/design-regressions.mjs",
     "test:ui-governance-baseline": "node tests/e2e/ui-governance-baseline.mjs",
+    "test:contributions": "node tests/e2e/contribution-registry.mjs",
     "format:ui": "prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs",
     "test:refactor": "node tests/e2e/defense-command.mjs && node tests/e2e/legacy-differential.mjs && node tests/e2e/refactor-layout.mjs && node tests/e2e/refactor-performance.mjs",
     "audit:legacy": "node scripts/legacy-inventory.mjs",

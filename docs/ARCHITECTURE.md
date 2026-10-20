@@ -1,6 +1,16 @@
 # GodPower V3 当前架构
 
-更新日期：2026-10-19。应用版本：3.0.24。当前处于渐进迁移中；成就引擎只评估学习表现类 ACH-001～012，其他48项仍未评估。
+## V3 UI Shell 与贡献注册（3.0.25，M1）
+
+UI源文件仍按 `src/manifest.json` 声明顺序嵌入单文件HTML。`ui/contribution-registry.js` 在早期建立宿主拥有的路由表，五个既有页面是不可覆盖的core routes；`switchView` 仍是旧导航调用方的兼容入口，但有效页面名取自注册表。`GodPowerPageShell.navigate()` 将core route委派给兼容入口，插件route只返回 `workspace-required` 描述，不在本阶段运行插件代码或改变DOM。
+
+唯一 `ContributionRegistry` 接收JSON描述符批次，使用宿主创建的activation capability绑定pluginId、权限和作用域。整个批次先验证后提交；未知kind/slot/renderer、权限缺失、重复ID/route、可执行字段和插件自报身份均拒绝。`dispose(activationId)` 只撤销对应activation的贡献，并可重复调用。页面route由宿主生成 `plugins/<pluginId>/<localId>`；插件页仅允许宿主workspace renderer。卡片只可注册到 `home.cards`，面板/设置等使用规格白名单slots和renderer keys。
+
+插件协议目前是宿主侧基础设施；还没有插件安装器、隔离sandbox、权限持久授予UI或workspace renderer。不要将 `GodPowerPageShell` 暴露给第三方同realm脚本。后续plugin runtime应通过隔离消息通道调用它，并在Electron使用窄preload/provider；不能放宽CSP或让插件取得主DOM、主状态、数据库或通用IPC。实现证据及边界测试见 `src/ui/contribution-registry.js` 和 `tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`。
+
+M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui-audit/M0-baseline.md` 和 `artifacts/ui-governance-m0/`。M0/M1均未改变比赛业务规则、battle布局或数据schema。
+
+更新日期：2026-10-20。应用版本：3.0.25。当前处于渐进迁移中；成就引擎只评估学习表现类 ACH-001～012，其他48项仍未评估。
 
 ## 分层与职责
 

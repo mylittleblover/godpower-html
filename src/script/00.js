@@ -3088,7 +3088,9 @@ function escapeHtml(str) {
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
-const VIEW_NAMES = ['welcome', 'battle', 'history', 'archives', 'settings'];
+const VIEW_NAMES = window.GodPowerPageShell?.listPages()
+  .filter(page => page.core)
+  .map(page => page.route) || ['welcome', 'battle', 'history', 'archives', 'settings'];
 let currentView = 'welcome';
 let audioUnlocked = false;
 
@@ -3100,7 +3102,8 @@ function ensureAudioUnlocked() {
 function switchView(name) {
   GodpowerTheme.cancel();
   window.GodpowerTooltips?.cancel();
-  if (!VIEW_NAMES.includes(name)) name = 'welcome';
+  const route = window.GodPowerPageShell?.resolvePage(name);
+  if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
   if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);

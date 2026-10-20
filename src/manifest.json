@@ -2,6 +2,11 @@
   "blocks": [
     {
       "type": "script",
+      "path": "ui/contribution-registry.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/themes.js",
       "attributes": ""
     },

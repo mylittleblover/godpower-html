@@ -1227,9 +1227,9 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：架构/可测试性
 - 优先级：P1
-- 状态：DONE（2026-10-20，提交 `1b95aae` 记录计划；M0实现与验收待本阶段提交）
+- 状态：DONE（2026-10-20，计划 `1b95aae`，M0实现 `fd57f6a`）
 - 问题描述：模板按manifest嵌入125块脚本/样式，跨文件DOM、事件和CSS ownership没有可重复的统一快照。
-- 证据：`scripts/ui-ownership.mjs`；`docs/ui-audit/M0-baseline.md`；`artifacts/ui-governance-m0/ownership.json`
+- 证据：`scripts/ui-ownership.mjs`；`docs/ui-audit/M0-baseline.md`；`artifacts/ui-governance-m0/ownership.json`。M0测试：单测248/248、Chromium基线和14组fixture均PASS。
 - 影响范围：后续页面生命周期、插件贡献、CSS与事件迁移。
 - 建议方案：保持审计输出只作为线索；运行时reachability、级联与实际视觉必须浏览器验证。
 - 依赖：无。
@@ -1241,15 +1241,15 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：架构/插件平台
 - 优先级：P1
-- 状态：OPEN
+- 状态：DONE（2026-10-20，提交待生成）
 - 问题描述：插件页面协议需要在页面模块化前固定，避免后续增加另一套页面注册机制。
-- 证据：`src/ui/render.js`、`src/ui/model.js`、`docs/superpowers/specs/SP03-B-ui-contribution-design.md`。
+- 证据：`src/ui/contribution-registry.js`、`src/script/00.js`、`tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`、`docs/ui-audit/M1-contribution-registry.md`。
 - 影响范围：五个默认页面、导航、后续插件页面与管理页。
 - 建议方案：单一注册表采用声明式descriptor、原子批次校验、activation绑定和幂等dispose；五个默认页面通过宿主route适配，不接受插件mount函数。
 - 依赖：UI-M0。
 - 复杂度：中；风险：中。
 - 验收：无插件默认五页可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
-- 推荐测试：Node单测＋Chromium 1920×1080导航/回退。
+- 推荐测试：已执行Node单测5项、Chromium 1920×1080导航/注册/拒绝/撤销；全量单元集成253项；14组fixture PASS。后续isolated workspace依然待测。
 
 ### UI-M2 — 页面与组件Disposable生命周期
 

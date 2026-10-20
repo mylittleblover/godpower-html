@@ -61,6 +61,18 @@
 | M0 14组浏览器几何 | `node tests/e2e/battle-layout.mjs` | PASS；Chromium 1920×1080 1x；自动fixture，非用户私有设置 |
 | 五页/Picker基线截图 | `npm run test:ui-governance-baseline` | PASS；Chromium 1920×1080 1x，零pageerror；见 `artifacts/ui-governance-m0/` |
 | 旧 desktop-ui 全流程 | 曾启动但未完成 | INCOMPLETE；一个抽签断言未在隔离复测复现；Escape断言未等待关闭动效，M2需用动画结束信号重测 |
-| M1/M2 页面注册与dispose | 未实施 | NOT TESTED |
-| 插件运行与权限/数据 | 未实施 | NOT TESTED |
-| Electron/Windows | 未在M0实施范围运行 | NOT TESTED |
+| M1 页面注册协议 | 见下方 M1 已执行矩阵 | PASS |
+| M2 页面dispose与动画清理 | 未实施 | NOT TESTED |
+| 插件安装runtime与权限/数据 | 未实施 | NOT TESTED |
+| Electron/Windows | M1源代码同步待执行 | NOT TESTED |
+
+### M1 已执行
+
+| 场景 | 命令/证据 | 结果 |
+|---|---|---|
+| 注册表原子批次、scope、权限、字段/renderer allowlist、撤销 | `tests/unit/contribution-registry.test.mjs` | PASS 5项 |
+| 五个core routes与plugin route声明/拒绝/撤销 | `npm run test:contributions` | PASS；Chromium 1920×1080 1x，0 pageerror，业务state不变 |
+| 旧页面与14组几何回归 | `UI_GOVERNANCE_ARTIFACT_DIR=artifacts/ui-governance-m1 npm run test:ui-governance-baseline && node tests/e2e/battle-layout.mjs` | PASS；用户实际私有14组配置仍未验证 |
+| M1全量单元/集成 | `npm test` | PASS 253/253 |
+| M1构建/manifest/版本/资源 | `npm run build && npm run check` | PASS；版本3.0.25，产物SHA见`docs/ui-audit/M1-contribution-registry.md` |
+| 页面lifecycle dispose、动画清理、插件中心 | 后续M2/SP05实现后执行 | NOT TESTED |
