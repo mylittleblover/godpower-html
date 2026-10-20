@@ -1,6 +1,6 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.42（M0–M4 插件/UI 基础；F0 证据审计；F1 本地名单工作区、安全应用及名单/头像联合备份；F2 离线课程表与教学资源库；GP-016 损坏主快照恢复；GP-017 全道具撤销矩阵）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单、课程表和教学资源均为隔离的本地教学工作区数据。
+当前版本：3.0.43（M0–M4 插件/UI 基础；F0 证据审计；F1 本地名单工作区、安全应用及名单/头像联合备份；F2 离线课程表与教学资源库；GP-016 损坏主快照恢复；GP-017 全道具撤销矩阵；GP-011 道具使用持久事件切片）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单、课程表和教学资源均为隔离的本地教学工作区数据。
 
 ## V3 UI Shell、页面生命周期与插件中心（3.0.29，M1–M4）
 
@@ -121,7 +121,7 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 
 ### 3.0.5道具单一执行入口
 
-公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；原14层legacyUseItem链已移除，仅保留legacyUseItem→useItem兼容转发。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。
+公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；当前仅保留legacyUseItem→useItem兼容转发。成功使用并经事务持久化后产生ITEM_USED领域事件，由AchievementLedger累计；撤销按操作前快照回退事件统计。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。攻击命中、防御结算和持续效果事件仍需逐类补齐。
 
 ### 3.0.6领域排序与目标选择
 

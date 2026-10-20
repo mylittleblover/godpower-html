@@ -275,3 +275,9 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 没有修改规则；新增运行时读取全部 26 个 `ITEM_KEYS` 的端到端测试，逐项验证道具使用与撤销均持久化，且小组积分/库存/效果、全局计数、点名和回合字段恢复到规范化操作前快照。矩阵加入 `npm run test:item-modules`。GP-017 仍未完成，尚有防御交互、持续效果到期、冷却统计、按钮音效、批量名单等维度。
 
 验证：Chromium 1920×1080 @1x 道具撤销矩阵 26/26 PASS，Node 单元/集成 299/299 PASS，构建/check/format PASS。构建大小及SHA见 `docs/validation/v3.0.42-item-undo-matrix.md`。CircleCI 未执行。
+
+## 3.0.43 — 道具使用领域事件切片
+
+为公开 `useItem` 命令添加持久 `ITEM_USED` 事件。事件包含稳定小组 UID、赛季 ID、道具键、实例 ID 和使用次数前后值；只有实际执行产生效果且事务保存成功才进入账本，冻结取消不计为有效使用。撤销回滚成就统计并恢复道具与积分。该版本只接通使用事件，不声称攻击、防御、效果到期等事件已全部实现；GP-011 继续 PARTIAL。
+
+验证：`tests/e2e/item-domain-events.mjs` 覆盖 coin 成功使用/持久化/撤销和冰冻取消；全道具模块与兼容矩阵、299项Node单元/集成测试、静态检查和Chromium 1920×1080 @1x回归结果见 `docs/validation/v3.0.43-item-event.md`。CircleCI 未执行。
