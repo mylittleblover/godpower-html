@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.32</title>
+<title>上帝的力量 V3.0.33</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.32";
+    document.title = name() + " V3.0.33";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -11367,7 +11367,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.32</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.33</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -12259,6 +12259,9 @@ const StableIdentity = (() => {
   const createItemInstanceId = () => createUuid("item");
   const createSeasonId = () => createUuid("season");
   const createCommandId = () => createUuid("command");
+  const createUserProfileId = () => createUuid("profile");
+  const createClassroomId = () => createUuid("classroom");
+  const createStudentUid = () => createUuid("student");
 
   function assignGroupUids(groups, idFactory = createGroupUid) {
     if (!Array.isArray(groups)) throw new TypeError("groups must be an array");
@@ -12291,13 +12294,412 @@ const StableIdentity = (() => {
       isValidGroupUid(value) && value.startsWith("item-"),
     isValidSeasonId: (value) =>
       isValidGroupUid(value) && value.startsWith("season-"),
+    isValidUserProfileId: (value) =>
+      isValidGroupUid(value) && value.startsWith("profile-"),
+    isValidClassroomId: (value) =>
+      isValidGroupUid(value) && value.startsWith("classroom-"),
+    isValidStudentUid: (value) =>
+      isValidGroupUid(value) && value.startsWith("student-"),
     createGroupUid,
     createItemInstanceId,
     createSeasonId,
     createCommandId,
+    createUserProfileId,
+    createClassroomId,
+    createStudentUid,
     assignGroupUids,
+    assignStudentUids: assignEntityUids(
+      "studentUid",
+      "student-",
+      createStudentUid,
+    ),
   };
+
+  function assignEntityUids(field, prefix, idFactory) {
+    return (items, makeId = idFactory) => {
+      if (!Array.isArray(items)) throw new TypeError("items must be an array");
+      if (typeof makeId !== "function")
+        throw new TypeError("idFactory must be a function");
+      const used = new Set();
+      return items.map((item) => {
+        const copy =
+          item && typeof item === "object" && !Array.isArray(item)
+            ? { ...item }
+            : {};
+        let uid =
+          typeof copy[field] === "string" &&
+          copy[field].startsWith(prefix) &&
+          isValidGroupUid(copy[field]) &&
+          !used.has(copy[field])
+            ? copy[field]
+            : "";
+        for (let attempt = 0; !uid && attempt < 100; attempt++) {
+          const candidate = makeId();
+          if (
+            typeof candidate === "string" &&
+            candidate.startsWith(prefix) &&
+            isValidGroupUid(candidate) &&
+            !used.has(candidate)
+          )
+            uid = candidate;
+        }
+        if (!uid)
+          throw new Error(`Could not produce a unique ${field} identity`);
+        used.add(uid);
+        copy[field] = uid;
+        return copy;
+      });
+    };
+  }
 })();
+globalThis.StableIdentity = StableIdentity;
+</script>
+<script>(function installClassroomRoster(root) {
+  "use strict";
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  const fail = (message) => {
+    throw new TypeError(message);
+  };
+  const validId = (value, check) => root.StableIdentity[check](value);
+
+  function validateRosterDocument(input) {
+    if (
+      !input ||
+      typeof input !== "object" ||
+      Array.isArray(input) ||
+      input.schemaVersion !== 1
+    )
+      fail("roster schemaVersion must be 1");
+    for (const key of ["profiles", "classrooms", "students", "assignments"])
+      if (!Array.isArray(input[key])) fail(`roster ${key} must be an array`);
+    const profileIds = new Set();
+    for (const profile of input.profiles) {
+      if (
+        !profile ||
+        !validId(profile.userProfileId, "isValidUserProfileId") ||
+        profileIds.has(profile.userProfileId)
+      )
+        fail("invalid or duplicate user profile identity");
+      if (
+        typeof profile.displayName !== "string" ||
+        !profile.displayName.trim()
+      )
+        fail("profile displayName is required");
+      if (profile.subjectId != null && typeof profile.subjectId !== "string")
+        fail("profile subjectId must be a string or null");
+      profileIds.add(profile.userProfileId);
+    }
+    const classrooms = new Map();
+    for (const classroom of input.classrooms) {
+      if (
+        !classroom ||
+        !validId(classroom.classroomId, "isValidClassroomId") ||
+        classrooms.has(classroom.classroomId)
+      )
+        fail("invalid or duplicate classroom identity");
+      if (
+        typeof classroom.name !== "string" ||
+        !classroom.name.trim() ||
+        !Array.isArray(classroom.studentIds)
+      )
+        fail("invalid classroom fields");
+      if (
+        new Set(classroom.studentIds).size !== classroom.studentIds.length ||
+        classroom.studentIds.some((id) => !validId(id, "isValidStudentUid"))
+      )
+        fail("invalid or duplicate student reference in classroom");
+      classrooms.set(classroom.classroomId, classroom);
+    }
+    const students = new Map();
+    for (const student of input.students) {
+      if (
+        !student ||
+        !validId(student.studentUid, "isValidStudentUid") ||
+        students.has(student.studentUid)
+      )
+        fail("invalid or duplicate student identity");
+      if (
+        !classrooms.has(student.classroomId) ||
+        typeof student.displayName !== "string" ||
+        !student.displayName.trim()
+      )
+        fail("invalid student classroom reference or displayName");
+      if (student.number != null && typeof student.number !== "string")
+        fail("student number must be a string or null");
+      if (
+        student.avatarResourceId != null &&
+        typeof student.avatarResourceId !== "string"
+      )
+        fail("avatarResourceId must be a string or null");
+      students.set(student.studentUid, student);
+    }
+    for (const [classroomId, classroom] of classrooms) {
+      for (const studentUid of classroom.studentIds) {
+        if (students.get(studentUid)?.classroomId !== classroomId)
+          fail("student reference is missing or belongs to another classroom");
+      }
+    }
+    for (const student of students.values()) {
+      if (
+        !classrooms
+          .get(student.classroomId)
+          .studentIds.includes(student.studentUid)
+      )
+        fail("student is not listed in its classroom roster");
+    }
+    const assignmentKeys = new Set();
+    for (const assignment of input.assignments) {
+      if (
+        !assignment ||
+        !profileIds.has(assignment.userProfileId) ||
+        !classrooms.has(assignment.classroomId)
+      )
+        fail("assignment profile or classroom reference is invalid");
+      if (assignment.mode !== "group" && assignment.mode !== "individual")
+        fail("assignment mode must be group or individual");
+      if (!Array.isArray(assignment.groupAssignments))
+        fail("groupAssignments must be an array");
+      const key = `${assignment.userProfileId}\u0000${assignment.classroomId}`;
+      if (assignmentKeys.has(key))
+        fail("duplicate profile classroom assignment");
+      assignmentKeys.add(key);
+      const assignedStudents = new Set();
+      for (const item of assignment.groupAssignments) {
+        if (assignment.mode === "individual")
+          fail("individual mode cannot require group assignments");
+        if (
+          !item ||
+          !validId(item.studentUid, "isValidStudentUid") ||
+          !validId(item.groupUid, "isValidGroupUid") ||
+          assignedStudents.has(item.studentUid)
+        )
+          fail("invalid or duplicate group assignment");
+        if (
+          students.get(item.studentUid)?.classroomId !== assignment.classroomId
+        )
+          fail("assignment student belongs to another classroom");
+        assignedStudents.add(item.studentUid);
+      }
+    }
+    return clone(input);
+  }
+
+  function createRosterDocument(input) {
+    return validateRosterDocument({
+      schemaVersion: 1,
+      profiles: [],
+      classrooms: [],
+      students: [],
+      assignments: [],
+      ...clone(input),
+    });
+  }
+
+  function previewLegacyRoster({
+    classroomId,
+    userProfileId,
+    classroomName = "课堂",
+    profileName = "教师",
+    mode = "group",
+    groups,
+    idFactory = root.StableIdentity.createStudentUid,
+  }) {
+    if (
+      !validId(classroomId, "isValidClassroomId") ||
+      !validId(userProfileId, "isValidUserProfileId")
+    )
+      fail("classroom or profile identity is invalid");
+    if (!Array.isArray(groups)) fail("groups must be an array");
+    if (mode !== "group" && mode !== "individual")
+      fail("mode must be group or individual");
+    const students = [];
+    const studentIds = [];
+    const groupAssignments = [];
+    const seenGroups = new Set();
+    for (const group of groups) {
+      if (
+        !group ||
+        !validId(group.groupUid, "isValidGroupUid") ||
+        seenGroups.has(group.groupUid)
+      )
+        fail("legacy group identity is invalid or duplicated");
+      seenGroups.add(group.groupUid);
+      if (!Array.isArray(group.members))
+        fail("legacy group members must be an array");
+      for (const member of group.members) {
+        if (typeof member !== "string" || !member.trim())
+          fail("legacy member name is invalid");
+        const studentUid = idFactory();
+        if (
+          !validId(studentUid, "isValidStudentUid") ||
+          studentIds.includes(studentUid)
+        )
+          fail("student identity factory returned an invalid or duplicate ID");
+        students.push({
+          studentUid,
+          classroomId,
+          displayName: member,
+          number: null,
+          avatarResourceId: null,
+        });
+        studentIds.push(studentUid);
+        if (mode === "group")
+          groupAssignments.push({ studentUid, groupUid: group.groupUid });
+      }
+    }
+    return createRosterDocument({
+      profiles: [{ userProfileId, displayName: profileName, subjectId: null }],
+      classrooms: [{ classroomId, name: classroomName, studentIds }],
+      students,
+      assignments: [
+        {
+          userProfileId,
+          classroomId,
+          mode,
+          groupAssignments: mode === "group" ? groupAssignments : [],
+        },
+      ],
+    });
+  }
+
+  function projectLegacyMembers({
+    groups,
+    rosterData,
+    userProfileId,
+    classroomId,
+  }) {
+    const valid = validateRosterDocument(rosterData);
+    const assignment = valid.assignments.find(
+      (entry) =>
+        entry.userProfileId === userProfileId &&
+        entry.classroomId === classroomId,
+    );
+    if (!assignment) fail("profile classroom assignment was not found");
+    const availableGroups = new Set(groups.map((group) => group.groupUid));
+    const byGroup = new Map();
+    for (const item of assignment.groupAssignments) {
+      if (!availableGroups.has(item.groupUid))
+        fail("assignment references an unknown group");
+      const student = valid.students.find(
+        (entry) => entry.studentUid === item.studentUid,
+      );
+      const names = byGroup.get(item.groupUid) || [];
+      names.push(student.displayName);
+      byGroup.set(item.groupUid, names);
+    }
+    return groups.map((group) => ({
+      ...group,
+      members: [...(byGroup.get(group.groupUid) || [])],
+    }));
+  }
+
+  root.ClassroomRoster = Object.freeze({
+    validateRosterDocument,
+    createRosterDocument,
+    previewLegacyRoster,
+    projectLegacyMembers,
+  });
+})(globalThis);
+</script>
+<script>(function installClassroomRosterRepository(root) {
+  "use strict";
+  const KEY = "godpower_classroom_roster_v1";
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+
+  function createClassroomRosterRepository({ storage, key = KEY }) {
+    if (
+      !storage ||
+      typeof storage.getItem !== "function" ||
+      typeof storage.setItem !== "function" ||
+      typeof storage.removeItem !== "function"
+    )
+      throw new TypeError("roster storage is unavailable");
+    function read() {
+      const raw = storage.getItem(key);
+      if (raw === null) return { ok: true, revision: 0, rosterData: null };
+      try {
+        const envelope = JSON.parse(raw);
+        if (
+          !envelope ||
+          envelope.schemaVersion !== 1 ||
+          !Number.isSafeInteger(envelope.revision) ||
+          envelope.revision < 1
+        )
+          return { ok: false, code: "CORRUPT_REPOSITORY" };
+        return {
+          ok: true,
+          revision: envelope.revision,
+          rosterData: root.ClassroomRoster.validateRosterDocument(
+            envelope.rosterData,
+          ),
+        };
+      } catch (_) {
+        return { ok: false, code: "CORRUPT_REPOSITORY" };
+      }
+    }
+    function write(rosterData, { expectedRevision } = {}) {
+      const current = read();
+      if (!current.ok) return current;
+      if (
+        !Number.isSafeInteger(expectedRevision) ||
+        current.revision !== expectedRevision
+      )
+        return {
+          ok: false,
+          code: "REVISION_CONFLICT",
+          revision: current.revision,
+        };
+      let valid;
+      try {
+        valid = root.ClassroomRoster.validateRosterDocument(rosterData);
+      } catch (error) {
+        return { ok: false, code: "INVALID_DOCUMENT", message: error.message };
+      }
+      const previous = storage.getItem(key);
+      const revision = current.revision + 1;
+      const encoded = JSON.stringify({
+        schemaVersion: 1,
+        revision,
+        rosterData: valid,
+      });
+      try {
+        storage.setItem(key, encoded);
+        if (storage.getItem(key) !== encoded)
+          throw new Error("roster readback verification failed");
+        return { ok: true, revision, rosterData: clone(valid) };
+      } catch (error) {
+        try {
+          if (previous === null) storage.removeItem(key);
+          else storage.setItem(key, previous);
+          if (storage.getItem(key) !== previous)
+            throw new Error("rollback readback verification failed");
+        } catch (rollbackError) {
+          return {
+            ok: false,
+            code: "ROLLBACK_FAILED",
+            message: `${error.message}; ${rollbackError.message}`,
+          };
+        }
+        return {
+          ok: false,
+          code: "STORAGE_WRITE_FAILED",
+          message: error.message,
+        };
+      }
+    }
+    return Object.freeze({
+      key,
+      read,
+      write,
+      previewMigration: root.ClassroomRoster.previewLegacyRoster,
+    });
+  }
+
+  root.ClassroomRosterRepository = Object.freeze({
+    key: KEY,
+    createClassroomRosterRepository,
+  });
+})(globalThis);
 </script>
 <script>/* Stable score ordering; no rank-rule changes or mutation of caller data. */
 const RankingRules = (() => {
@@ -25509,7 +25911,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.32';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.33';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -27993,7 +28395,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.32",
+    appVersion: "V3.0.33",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

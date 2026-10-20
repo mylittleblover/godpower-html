@@ -211,3 +211,13 @@ Reached the point explicitly deferred by the user and opened `GodPower_Competiti
 将每道具抽取/使用模块工作台、图鉴与自定义图标、逐道具与公共事件音效管理从主设置页搬入`official.miyamotos-power`工作区。删除设置中的道具分类和道具音效分组，保留音乐、基础音效与音频包维护。继续使用既有道具模块配置、`politics_item_icons`及原音频存储；未改业务规则、平衡参数和持久化格式。旧`selectSettings("items")`路由转至插件入口。发现并修复图标批量恢复确认只绑定设置容器、迁移后失效的问题，确认现在通过document委托生效。
 
 浏览器回归使用Chromium 1920×1080 1x；检查配置保存/刷新、图鉴、音频上传/导出/导入、隔离上下文数据与危险操作取消。规则、旧存档全矩阵和Electron同步验收仍待处理。
+
+## 3.0.33 — F0 handoff evidence and F1 roster foundation
+
+Downloaded and CRC-checked all nine ZIPs from the linked Drive folder, read all eight native Google Docs, and recorded the authoritative replacement handoff and R01–R20 evidence snapshot in `docs/v3/F0-handoff-audit-2026-10-21.md`. The current repository still has no profile/classroom/student identity model beyond stable group IDs and legacy member-name arrays.
+
+Added stable local profile, classroom, and student IDs; a validated version-1 roster document; a duplicate-preserving legacy roster migration preview; profile-scoped group assignment projections; and a separate compare-and-swap local roster repository with readback and rollback. The model is additive and not yet wired to settings or the active competition state. Duplicate names are deliberately not merged, individual mode keeps students as independent participants without requiring a group, and legacy `groups[].members`/`godpower_state_v2` remain untouched. No cloud identity, schedule, scoring, or item rules are claimed.
+
+New tests cover ID stability, duplicate-name preservation, profile isolation, group/individual mode validation, invalid references, immutable projections, revision conflicts, storage failure, corrupted storage, and preservation of legacy classroom bytes. Full regression and Electron sync are recorded after final verification.
+
+Final 3.0.33 verification: Node unit/integration 284/284 PASS; build 8,065,192 bytes, SHA-256 `664ee78bba4847972399e7d39fb07cc1b978c0599718d7070837dc5700efc5cd`; `check`, `format:check`, hygiene PASS. Chromium 1920×1080 @1x: 14-group fit, plugin lifecycle, and 26-item Miyamoto workspace PASS, browser errors=[]. Current F1 work is a data foundation only; profile/roster UI, avatar asset management and integrated rollback UI remain OPEN. Windows native execution NOT TESTED.

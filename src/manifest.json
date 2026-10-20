@@ -212,6 +212,16 @@
     },
     {
       "type": "script",
+      "path": "domain/classroom-roster.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/classroom-roster-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/competition/ranking.js",
       "attributes": ""
     },
