@@ -115,3 +115,14 @@
 | Chromium插件安装、授权、主题/文案应用、停用后恢复 | `tests/e2e/plugin-platform.mjs` | PASS；1920×1080、1x、0 pageerror |
 | 六页基线、14组布局、离线操作及旧Marx主题 | `ui-governance-baseline.mjs`、`battle-layout.mjs`、`release-smoke.mjs`、`marx-theme.mjs` | PASS；见 M4 审查记录 |
 | 主题预览、完整scope层级、contrast检查、全量locale与Electron主题DTO | 尚未实现 | NOT TESTED；后续主题引擎任务 |
+
+## 插件依赖版本约束（3.0.29）
+
+|场景|结果|证据|
+|---|---|---|
+|非法/含糊依赖范围和同一依赖同时声明required/optional|PASS|`tests/unit/plugin-platform.test.mjs`|
+|required依赖未启用、版本不符、跨版本激活|PASS|`tests/unit/plugin-platform.test.mjs`|
+|`^` / `~` / `>= lower < upper`边界、零主版本caret、构建元数据比较|PASS|`tests/unit/plugin-platform.test.mjs`|
+|被已安装插件引用的provider卸载保护|PASS|`tests/unit/plugin-platform.test.mjs`|
+|插件中心受限JSON声明安装流程|PASS|`tests/e2e/plugin-platform.mjs`，Chromium 1920×1080 1x|
+|Electron共享依赖范围合同|NOT TESTED|当前实现尚未提取到HTML/Electron共享协议包|

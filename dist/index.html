@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.28</title>
+<title>上帝的力量 V3.0.29</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -582,7 +582,7 @@
   const ID = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/;
   const LOCAL_ID = /^[a-z0-9][a-z0-9._-]{0,63}$/;
   const SEMVER =
-    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?$/;
+    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9]\d*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+[0-9A-Za-z.-]+)?$/;
   const SAFE_KEY = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$/;
   const MANIFEST_FIELDS = new Set([
     "manifestVersion",
@@ -608,6 +608,85 @@
   const fail = (message) => {
     throw new TypeError(message);
   };
+
+  function parseSemver(value) {
+    if (typeof value !== "string" || !SEMVER.test(value)) return null;
+    const [buildless] = value.split("+");
+    const [core, prerelease = ""] = buildless.split("-");
+    return {
+      core: core.split(".").map(Number),
+      prerelease: prerelease ? prerelease.split(".") : [],
+    };
+  }
+  function compareSemver(left, right) {
+    const a = parseSemver(left),
+      b = parseSemver(right);
+    if (!a || !b) fail("invalid semantic version");
+    for (let i = 0; i < 3; i++)
+      if (a.core[i] !== b.core[i]) return a.core[i] < b.core[i] ? -1 : 1;
+    if (!a.prerelease.length || !b.prerelease.length)
+      return a.prerelease.length === b.prerelease.length
+        ? 0
+        : a.prerelease.length
+          ? -1
+          : 1;
+    const length = Math.max(a.prerelease.length, b.prerelease.length);
+    for (let i = 0; i < length; i++) {
+      if (a.prerelease[i] === undefined || b.prerelease[i] === undefined)
+        return a.prerelease[i] === undefined ? -1 : 1;
+      const an = /^(0|[1-9]\d*)$/.test(a.prerelease[i]),
+        bn = /^(0|[1-9]\d*)$/.test(b.prerelease[i]);
+      if (an && bn && Number(a.prerelease[i]) !== Number(b.prerelease[i]))
+        return Number(a.prerelease[i]) < Number(b.prerelease[i]) ? -1 : 1;
+      if (an !== bn) return an ? -1 : 1;
+      if (a.prerelease[i] !== b.prerelease[i])
+        return a.prerelease[i] < b.prerelease[i] ? -1 : 1;
+    }
+    return 0;
+  }
+  function dependencyRange(value) {
+    if (typeof value !== "string" || value.length > 80) return null;
+    const exact = value.match(
+      /^((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?)$/,
+    );
+    if (exact && SEMVER.test(exact[1]))
+      return { lower: exact[1], upper: exact[1], exact: true };
+    const operator = value.match(
+      /^([~^])((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?)$/,
+    );
+    if (operator && SEMVER.test(operator[2])) {
+      const [major, minor, patch] = operator[2]
+        .split("-")[0]
+        .split(".")
+        .map(Number);
+      let upper;
+      if (operator[1] === "~") upper = `${major}.${minor + 1}.0`;
+      else if (major > 0) upper = `${major + 1}.0.0`;
+      else if (minor > 0) upper = `0.${minor + 1}.0`;
+      else upper = `0.0.${patch + 1}`;
+      return { lower: operator[2], upper };
+    }
+    const bounds = value.match(
+      /^>=(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?) <(\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?)$/,
+    );
+    if (
+      bounds &&
+      SEMVER.test(bounds[1]) &&
+      SEMVER.test(bounds[2]) &&
+      compareSemver(bounds[1], bounds[2]) < 0
+    )
+      return { lower: bounds[1], upper: bounds[2] };
+    return null;
+  }
+  function satisfiesRange(version, range) {
+    const parsed = dependencyRange(range);
+    if (!parsed || !parseSemver(version)) return false;
+    if (parsed.exact) return compareSemver(version, parsed.lower) === 0;
+    return (
+      compareSemver(version, parsed.lower) >= 0 &&
+      compareSemver(version, parsed.upper) < 0
+    );
+  }
 
   function plainJson(value, path = "value", depth = 0) {
     if (depth > 32) fail(`${path} exceeds maximum JSON depth`);
@@ -778,10 +857,16 @@
         )
           fail(`${field} must be an object`);
         for (const [id, range] of Object.entries(input[field]))
-          if (!ID.test(id) || typeof range !== "string" || range.length > 80)
+          if (!ID.test(id) || id === input.id || !dependencyRange(range))
             fail(`${field} contains invalid dependency`);
       }
     }
+    if (
+      Object.keys(input.dependencies || {}).some((id) =>
+        Object.hasOwn(input.optionalDependencies || {}, id),
+      )
+    )
+      fail("dependency cannot be both required and optional");
     if (
       !Array.isArray(input.contributes || []) ||
       (input.contributes || []).length > 100
@@ -1011,7 +1096,14 @@
         );
       for (const dependency of Object.keys(record.manifest.dependencies)) {
         const provider = read(dependency);
-        if (provider?.state !== "active" || provider.activeScopeKey !== key)
+        const range = record.manifest.dependencies[dependency];
+        if (!provider || provider.state === "uninstalled")
+          fail(`required dependency is not installed: ${dependency}`);
+        if (!satisfiesRange(provider.manifest.version, range))
+          fail(
+            `required dependency version mismatch: ${dependency} ${range} does not include ${provider.manifest.version}`,
+          );
+        if (provider.state !== "active" || provider.activeScopeKey !== key)
           fail(`required dependency is inactive in this scope: ${dependency}`);
       }
       const activation = registry.activate(record.manifest.id, {
@@ -1562,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.28";
+    document.title = name() + " V3.0.29";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -10850,7 +10942,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.28</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.29</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -25007,7 +25099,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.28';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.29';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -27491,7 +27583,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.28",
+    appVersion: "V3.0.29",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

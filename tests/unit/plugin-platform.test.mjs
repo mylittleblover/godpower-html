@@ -89,6 +89,153 @@ test("validates manifests and rejects executable entries, unsafe IDs and unknown
     () => platform.install(manifest({ sdk: ">=2.0.0 <3.0.0" })),
     /SDK|compatible/i,
   );
+  assert.throws(
+    () =>
+      platform.install(
+        manifest({ dependencies: { "community.provider": ">=1.0.0" } }),
+      ),
+    /invalid dependency/i,
+  );
+  assert.throws(
+    () =>
+      platform.install(
+        manifest({
+          dependencies: { "community.provider": "^1.0.0" },
+          optionalDependencies: { "community.provider": "~1.0.0" },
+        }),
+      ),
+    /both required and optional/i,
+  );
+});
+
+test("required plugin dependencies enforce semantic version ranges and block unsafe uninstall", () => {
+  const { platform } = setup();
+  const provider = manifest({
+    id: "community.provider",
+    version: "2.4.1+build.7",
+    permissions: [],
+    contributes: [],
+  });
+  platform.install(provider);
+  platform.install(
+    manifest({
+      id: "community.consumer",
+      dependencies: { "community.provider": "^2.3.0" },
+    }),
+  );
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.throws(
+    () => platform.activate("community.consumer"),
+    /inactive in this scope/i,
+  );
+  platform.activate("community.provider");
+  assert.equal(platform.activate("community.consumer").state, "active");
+  platform.deactivate("community.consumer");
+  platform.deactivate("community.provider");
+  assert.throws(
+    () => platform.uninstall("community.provider"),
+    /required by community.consumer/i,
+  );
+  assert.throws(
+    () => platform.activate("community.consumer"),
+    /inactive in this scope/i,
+  );
+  platform.uninstall("community.consumer");
+  assert.equal(platform.uninstall("community.provider"), true);
+  platform.install(
+    manifest({
+      id: "community.consumer",
+      dependencies: { "community.provider": "^2.3.0" },
+    }),
+  );
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.throws(
+    () => platform.activate("community.consumer"),
+    /not installed/i,
+  );
+});
+
+test("semver dependency ranges handle zero-major caret, tilde and incompatible versions", () => {
+  const { platform } = setup();
+  const provider = (version) =>
+    manifest({
+      id: "community.provider",
+      version,
+      permissions: [],
+      contributes: [],
+    });
+  platform.install(provider("0.2.4"));
+  platform.activate("community.provider");
+  platform.install(
+    manifest({
+      id: "community.consumer",
+      dependencies: { "community.provider": "^0.2.3" },
+    }),
+  );
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.equal(platform.activate("community.consumer").state, "active");
+  platform.deactivate("community.consumer");
+  platform.uninstall("community.consumer");
+  platform.install(
+    manifest({
+      id: "community.consumer",
+      dependencies: { "community.provider": "~0.3.0" },
+    }),
+  );
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.throws(
+    () => platform.activate("community.consumer"),
+    /version mismatch/i,
+  );
+});
+
+test("exact and bounded dependency ranges use inclusive lower and exclusive upper limits", () => {
+  const { platform } = setup();
+  const provider = manifest({
+    id: "community.provider",
+    version: "1.2.3",
+    permissions: [],
+    contributes: [],
+  });
+  platform.install(provider);
+  platform.activate("community.provider");
+  const consumer = (range) =>
+    manifest({
+      id: "community.consumer",
+      dependencies: { "community.provider": range },
+    });
+  platform.install(consumer(">=1.2.3 <1.2.4"));
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.equal(platform.activate("community.consumer").state, "active");
+  platform.deactivate("community.consumer");
+  platform.uninstall("community.consumer");
+  platform.install(consumer("1.2.3"));
+  platform.grantPermissions("community.consumer", [
+    "ui.page.register",
+    "plugin.storage",
+  ]);
+  assert.equal(platform.activate("community.consumer").state, "active");
+  platform.deactivate("community.consumer");
+  platform.uninstall("community.consumer");
+  assert.throws(
+    () => platform.install(consumer(">=1.2.3 <1.2.3")),
+    /invalid dependency/i,
+  );
 });
 
 test("installation is inert; activation requires explicit grants and contributions commit atomically", () => {

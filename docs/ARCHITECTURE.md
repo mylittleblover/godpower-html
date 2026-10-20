@@ -1,14 +1,14 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.28（插件平台基础与主题/文案扩展阶段）。
+当前版本：3.0.29（插件依赖版本约束阶段；首页可自定义布局暂缓独立设计）。
 
-## V3 UI Shell、页面生命周期与插件中心（3.0.28，M1–M4）
+## V3 UI Shell、页面生命周期与插件中心（3.0.29，M1–M4）
 
 UI源文件仍按 `src/manifest.json` 声明顺序嵌入单文件HTML。`ui/contribution-registry.js` 在早期建立宿主拥有的路由表，欢迎、比赛、历史、档案、插件、设置六个页面是不可覆盖的core routes；`switchView` 仍是旧导航调用方的兼容入口，但有效页面名取自注册表。插件贡献route会由宿主切换到插件中心工作区，不创建任意DOM，也不接收插件回调。
 
 唯一 `ContributionRegistry` 接收JSON描述符批次，使用宿主创建的activation capability绑定pluginId、权限和作用域。整个批次先验证后提交；未知kind/slot/renderer、权限缺失、重复ID/route、可执行字段和插件自报身份均拒绝。`dispose(activationId)` 只撤销对应activation的贡献，并可重复调用。页面route由宿主生成 `plugins/<pluginId>/<localId>`；插件页仅允许宿主workspace renderer。卡片只可注册到 `home.cards`，面板/设置等使用规格白名单slots和renderer keys。
 
-`application/plugin-platform.js`提供宿主管理的manifest校验、安装/启停/暂停/隔离/卸载状态、scope绑定权限、权限更新、依赖启用检查和CAS私有存储。`infrastructure/plugin-local-repository.js`把插件记录与课堂存档分键持久化，并执行写后读回；损坏或配额错误会显式失败，不覆盖源。当前插件包仅允许JSON声明和宿主白名单renderer，不能带可执行入口，也没有启用第三方脚本sandbox；插件中心UI会明示此边界。卸载默认保留命名空间，授权按本地课堂scope分开保存。
+`application/plugin-platform.js`提供宿主管理的manifest校验、安装/启停/暂停/隔离/卸载状态、scope绑定权限、权限更新、语义版本依赖范围检查（exact、`^`、`~`、`>= lower < upper`）、依赖启用检查和CAS私有存储。依赖必须在同一scope处于active且版本满足范围；必需依赖缺失/版本不符会阻止激活，存在已安装依赖者时阻止卸载提供方。`infrastructure/plugin-local-repository.js`把插件记录与课堂存档分键持久化，并执行写后读回；损坏或配额错误会显式失败，不覆盖源。当前插件包仅允许JSON声明和宿主白名单renderer，不能带可执行入口，也没有启用第三方脚本sandbox；插件中心UI会明示此边界。卸载默认保留命名空间，授权按本地课堂scope分开保存。
 
 M4 增加 `theme` 与 `textBundle` 两类声明式贡献。主题只能覆盖宿主固定的12个十六进制颜色Token；布局尺寸、字体、动画、正负分、警告/危险语义色均不开放。文案包只能覆盖有限的稳定Key，值必须是有长度上限的纯文本；权限、删除、数据丢失和事务安全说明不属于开放Key。`ui/plugin-appearance.js`通过宿主DOM目标与CSS变量应用主题/文案，插件停用时恢复初始显示，外观偏好独立存储，不改课堂数据。该实现是受控扩展基础，不等于SP03-D完整主题引擎：尚未有多层scope选择、对比度分析、主题预览/版本/导入导出、页面级主题及完整locale占位符服务。
 

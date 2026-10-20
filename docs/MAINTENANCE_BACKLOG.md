@@ -1274,11 +1274,11 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 - 证据：`src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`、`src/ui/plugin-center.js`、`tests/unit/plugin-platform.test.mjs`、`tests/unit/plugin-local-repository.test.mjs`、`tests/e2e/plugin-platform.mjs`、`docs/ui-audit/M3-plugin-platform-foundation.md`。
 - 影响范围：第三方/官方插件、Electron主进程能力、安全与持久化。
 - 已实现：严格manifest校验、安装/启用/暂停/恢复/停用/隔离/卸载状态、scope授权、显式权限、核心贡献批次原子注册、scope切换撤权、私有数据CAS/单scope 10MiB软上限、启动时不自动恢复active态、卸载默认留数据。插件中心仅导入JSON声明，JS入口与伪造official ID会被拒绝。
-- 尚缺：实际zip文件扫描/路径和签名验证、安装版本摘要/依赖范围求解、隔离iframe+Worker协议、速率/时间/内存资源预算、崩溃自动隔离/恢复UI、独立IndexedDB私有数据库与数据导出、Electron窄preload broker、网络/文件/音频等能力执行接口。浏览器localStorage实际配额可能低于10MiB，写失败会显示错误并保留旧记录。
+- 尚缺：实际zip文件扫描/路径和签名验证、依赖拓扑排序及可选依赖降级策略、安装版本摘要/升级求解、隔离iframe+Worker协议、速率/时间/内存资源预算、崩溃自动隔离/恢复UI、独立IndexedDB私有数据库与数据导出、Electron窄preload broker、网络/文件/音频等能力执行接口。浏览器localStorage实际配额可能低于10MiB，写失败会显示错误并保留旧记录。
 - 依赖：UI-M1、UI-M2及HTML/Electron共享协议复核。
 - 复杂度：高；风险：高。
-- 当前验收：manifest恶意ID/可执行入口/未知权限、显式授权、scope撤销、贡献批次原子失败、失活handle、启动恢复、卸载留存/清除、损坏存储与写失败均有测试；Chromium 1920×1080插件中心流程PASS，14组布局PASS。
-- 剩余验收：安全sandbox、签名安装、完整依赖/升级/回滚及Electron broker尚未测试；不得把当前JSON声明能力宣传为已安全运行不可信代码。
+- 当前验收：manifest恶意ID/可执行入口/未知权限、显式授权、scope撤销、贡献批次原子失败、失活handle、启动恢复、卸载留存/清除、损坏存储与写失败均有测试；依赖支持exact、`^`、`~`、`>= lower < upper` SemVer范围，激活时验证提供方版本、激活状态和scope，卸载受依赖引用保护。Chromium 1920×1080插件中心流程PASS，14组布局PASS。
+- 剩余验收：安全sandbox、签名安装、依赖拓扑排序/可选依赖降级、升级/回滚及Electron broker尚未测试；不得把当前JSON声明能力宣传为已安全运行不可信代码。
 - 推荐测试：继续执行本节下方PLUG-M2～M5。
 
 ### PLUG-M2 — HTML隔离执行宿主与消息协议
