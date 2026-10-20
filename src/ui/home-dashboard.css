@@ -216,3 +216,20 @@ body.gp-intro-reveal #view-welcome #homeDashboardGrid [data-home-plugin-owner] {
     min-height: 112px;
   }
 }
+
+.home-plugin-inactive-placeholder {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px dashed var(--ui-border-strong);
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.home-plugin-inactive-placeholder p,
+.plugin-card-contributions {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: 0.9rem;
+}

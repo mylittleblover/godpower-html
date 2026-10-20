@@ -51,6 +51,7 @@
     const builtins = [
       root.GodpowerMarxThemePlugin?.manifest,
       root.GodpowerMiyamotoPlugin?.manifest,
+      root.GodpowerMarxPoliticsPlugin?.manifest,
     ].filter(Boolean);
     const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
@@ -298,6 +299,17 @@
         addButton(actions, "卸载", "uninstall", plugin.id, "danger");
       const contributions = root.GodPowerPageShell.listByPlugin(plugin.id);
       if (plugin.state === "active") {
+        const homeCards = contributions.filter(
+          (entry) =>
+            entry.kind === "card" && entry.descriptor.slot === "home.cards",
+        );
+        if (homeCards.length) {
+          const summary = document.createElement("p");
+          summary.className = "plugin-card-contributions";
+          summary.textContent = `主页卡片：${homeCards.length} 项`;
+          card.append(summary);
+          addButton(actions, "管理主页卡片", "home-cards", plugin.id);
+        }
         for (const item of contributions.filter(
           (entry) => entry.kind === "theme",
         ))
@@ -324,6 +336,7 @@
     }
     renderWorkspace();
     root.GodPowerPluginAppearance?.sync();
+    document.dispatchEvent(new Event("godpower:plugin-contributions-changed"));
   }
   async function importManifest(file) {
     const text = await file.text();
@@ -341,6 +354,11 @@
     try {
       if (action === "import") {
         $("#pluginManifestFile")?.click();
+        return;
+      }
+      if (action === "home-cards") {
+        root.switchView("welcome");
+        setTimeout(() => root.HomeDashboard?.beginEdit(), 320);
         return;
       }
       if (action === "theme") {

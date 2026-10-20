@@ -319,3 +319,12 @@ TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorksp
 将公开道具操作事务中“本次操作是否真实造成其他小组失分”的纯事实投影提取到 `src/domain/items/impact-facts.js`。道具操作在 commit hook 中对操作前后小组的稳定身份与积分作差；只对非施术组、积分确实下降且分值为安全整数的目标产生 `ITEM_HIT`，不会从动画、点击或预期目标推断命中。hook 在异步防御完成后运行，事件与 `ITEM_USED`、成就账本一同持久化；操作取消/保存回滚不会记入账本，历史撤销会恢复原账本。此切片不覆盖道具抽取获得、防御事件和持续状态到期事件，GP-011仍为PARTIAL。
 
 验证：新增纯事实投影测试；扩展 Chromium `item-domain-events`：金币正常使用与撤销、冰冻取消、刺龟壳实际扣分目标及账本保存均PASS。单元/集成310/310 PASS，源码边界/单文件构建PASS；道具模块专项规则26/26、448个固定随机数抽取差分、全部26道具撤销快照PASS；Chromium 1920×1080 14组布局PASS。
+
+
+## 3.0.50 — 首页卡片交给插件贡献注册表
+
+保持欢迎标题卡固定；比赛统计、排名、课堂动态、小组展示、历史荣誉仍由主程序卡片目录管理。将首页道具知识卡注册到official.miyamotos-power，将政治知识点与课堂挑战注册到独立official.marx-politics manifest。HomeDashboard通过贡献注册表确认权限、slot和renderer，并将原内容节点移入统一Dashboard Grid，使其可独立排序、隐藏、移除、恢复与保存。已有3.0.47布局自动补入新的插件卡片实例且不覆盖用户已有布局。插件停用后显示停用占位，布局配置保留；重新启用恢复原卡片。插件中心为已启用的卡片插件提供“管理主页卡片”快捷入口。
+
+这仍是兼容旧内容渲染器的宿主受限dataSelector适配，不执行插件脚本，也不允许任意DOM渲染；插件卡片的独立数据配置、通用第三方renderer、布局导入导出和模板仍未实现。
+
+验证：Chromium 1920×1080 1x E2E检查3种插件卡片归属、旧聚合容器迁移、停用占位/重新启用、移除/重新添加、统一网格无横向溢出、页面错误为空及课堂状态不变；Plugin platform install/grant/activate/navigate/deactivate/uninstall PASS。完整维护验证记录于 docs/validation/v3.0.50-home-plugin-cards.md。

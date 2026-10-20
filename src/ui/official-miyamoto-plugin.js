@@ -20,6 +20,7 @@
     permissions: [
       { capability: "ui.page.register", required: true },
       { capability: "ui.settings.register", required: true },
+      { capability: "ui.card.register", required: true },
     ],
     dependencies: {},
     optionalDependencies: {},
@@ -40,6 +41,18 @@
           renderer: "builtin.plugin-workspace",
           titleKey: "plugin.miyamoto.settings",
           schema: { type: "object", properties: {} },
+        },
+      },
+      {
+        localId: "daily-item-tip",
+        kind: "card",
+        descriptor: {
+          slot: "home.cards",
+          renderer: "builtin.dashboard-card",
+          titleKey: "home.card.miyamoto.dailyItem",
+          dataSelector: ".gp-daily-item",
+          recommendedSize: { w: 6, h: 6 },
+          emptyState: "当前没有可展示的道具知识。",
         },
       },
     ],

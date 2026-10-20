@@ -30,18 +30,21 @@ try {
     renderAll();
   });
   await page.waitForFunction(
-    () => document.querySelectorAll("#uiDailyGrid > article").length >= 3,
+    () =>
+      document.querySelectorAll(
+        "#homeDashboardGrid [data-home-plugin-card-type]",
+      ).length >= 3,
   );
 
   const state = await page.evaluate(() => {
     const grid = document.getElementById("homeDashboardGrid");
     const hero = document.querySelector("#view-welcome .gp-hero");
-    const core = [...grid.querySelectorAll("[data-home-card-type]")].map(
-      (node) => ({
+    const core = [...grid.querySelectorAll("[data-home-card-type]")]
+      .filter((node) => node.dataset.homeCardType.startsWith("core."))
+      .map((node) => ({
         type: node.dataset.homeCardType,
         parent: node.parentElement.id,
-      }),
-    );
+      }));
     const plugin = [...grid.querySelectorAll("[data-home-plugin-owner]")].map(
       (node) => ({
         owner: node.dataset.homePluginOwner,
@@ -55,7 +58,7 @@ try {
       plugin,
       groupCount: grid.querySelectorAll(".gp-kpi").length,
       rankingRows: grid.querySelectorAll("#gpRankList .gp-rank-row").length,
-      dailyCount: grid.querySelectorAll("#uiDailyGrid article").length,
+      dailyCount: grid.querySelectorAll("[data-home-plugin-card-type]").length,
       pageWidth: document.documentElement.scrollWidth,
       viewportWidth: innerWidth,
       layoutRevision: grid.dataset.layoutRevision,
@@ -84,20 +87,47 @@ try {
     state.plugin.filter((item) => item.owner === "official.marx-politics")
       .length >= 2,
   );
-  assert.ok(
-    state.plugin.every((item) => item.type === null),
-    "plugin-owned content is not misregistered as a core card",
+  assert.ok(state.plugin.every((item) => item.type?.startsWith("plugin.")));
+  assert.equal(
+    await page.locator("#uiDailyGrid").evaluate((node) => node.hidden),
+    true,
+    "plugin content is moved out of its legacy aggregate container",
   );
   assert.ok(state.pageWidth <= state.viewportWidth + 1);
   assert.deepEqual(errors, []);
   await mkdir("artifacts/home-dashboard", { recursive: true });
   await page.screenshot({
-    path: "artifacts/home-dashboard/v3.0.47-home-dashboard-1920x1080.png",
+    path: "artifacts/home-dashboard/v3.0.50-home-dashboard-1920x1080.png",
     fullPage: true,
   });
 
   const classroomBefore = await page.evaluate(() =>
     localStorage.getItem("godpower_state_v2"),
+  );
+  const pluginItemType = await page
+    .locator(".gp-daily-item")
+    .getAttribute("data-home-plugin-card-type");
+  await page.evaluate(() => {
+    const platform = GodPowerPluginCenter.platform;
+    platform.deactivate("official.miyamotos-power");
+    GodPowerPluginCenter.render();
+  });
+  assert.equal(
+    await page.locator(".gp-daily-item").evaluate((node) => node.hidden),
+    true,
+  );
+  assert.equal(
+    await page.locator(`[data-home-card-type="${pluginItemType}"]`).count(),
+    1,
+    "inactive plugin card has a visible retained-layout placeholder",
+  );
+  await page.evaluate(() => {
+    GodPowerPluginCenter.platform.activate("official.miyamotos-power");
+    GodPowerPluginCenter.render();
+  });
+  assert.equal(
+    await page.locator(".gp-daily-item").evaluate((node) => node.hidden),
+    false,
   );
   const ranking = page.locator(".gp-rank-panel");
   const start = await ranking.evaluate((node) => ({
@@ -167,6 +197,12 @@ try {
     await page.locator('[data-add-card-type="core.history-honor"]').click();
     assert.equal(await honorCard.evaluate((node) => node.hidden), false);
   }
+  const pluginCard = page.locator(".gp-daily-item");
+  await pluginCard.locator('[data-home-card-action="remove"]').click();
+  assert.equal(await pluginCard.evaluate((node) => node.hidden), true);
+  await page.locator('[data-home-action="add"]').click();
+  await page.locator(`[data-add-card-type="${pluginItemType}"]`).click();
+  assert.equal(await pluginCard.evaluate((node) => node.hidden), false);
   await page.locator('[data-home-action="save"]').click();
   const persisted = await page.evaluate(() => ({
     classroom: localStorage.getItem("godpower_state_v2"),
@@ -191,6 +227,16 @@ try {
     savedLayoutBytes,
     "cancel discards the draft without rewriting the saved layout",
   );
+  await page.evaluate((savedBytes) => {
+    const priorLayout = JSON.parse(savedBytes);
+    priorLayout.layout.instances = priorLayout.layout.instances.filter(
+      (instance) => !instance.typeId.startsWith("plugin."),
+    );
+    localStorage.setItem(
+      "godpower_home_layout_v1",
+      JSON.stringify(priorLayout),
+    );
+  }, savedLayoutBytes);
   await page.reload({ waitUntil: "domcontentloaded" });
   await page.locator("#gpIntroSkip").click();
   await page.waitForFunction(
@@ -199,6 +245,21 @@ try {
   assert.equal(
     await page.locator(".gp-group-section").evaluate((node) => node.hidden),
     false,
+  );
+  const upgraded = await page.evaluate(() => ({
+    pluginCards: [...document.querySelectorAll("[data-home-plugin-card-type]")]
+      .filter((node) => !node.hidden)
+      .map((node) => node.dataset.homePluginCardType),
+    layoutTypes: HomeDashboard.getStatus().layout.instances.map(
+      (instance) => instance.typeId,
+    ),
+  }));
+  assert.equal(upgraded.pluginCards.length, 3);
+  assert.ok(upgraded.layoutTypes.includes("core.live-ranking"));
+  assert.equal(
+    upgraded.layoutTypes.filter((type) => type.startsWith("plugin.")).length,
+    3,
+    "a saved pre-plugin layout gets missing official cards without losing core layout",
   );
   assert.deepEqual(errors, []);
   console.log(

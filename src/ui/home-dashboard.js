@@ -19,10 +19,31 @@
     ["core.group-showcase", ".gp-group-section", 12, 4],
     ["core.history-honor", ".gp-daily-honors", 6, 6],
   ];
-  const PLUGIN_CARDS = [
-    ["official.marx-politics", ".gp-daily-knowledge"],
-    ["official.miyamotos-power", ".gp-daily-item"],
-    ["official.marx-politics", ".gp-daily-challenge"],
+  const PLUGIN_CARD_DEFS = [
+    {
+      pluginId: "official.marx-politics",
+      localId: "daily-knowledge",
+      selector: ".gp-daily-knowledge",
+      w: 6,
+      h: 6,
+      title: "政治知识点",
+    },
+    {
+      pluginId: "official.miyamotos-power",
+      localId: "daily-item-tip",
+      selector: ".gp-daily-item",
+      w: 6,
+      h: 6,
+      title: "道具小知识",
+    },
+    {
+      pluginId: "official.marx-politics",
+      localId: "daily-challenge",
+      selector: ".gp-daily-challenge",
+      w: 6,
+      h: 6,
+      title: "课堂挑战",
+    },
   ];
   const SIZE = (w, h) => ({
     minW: w === 3 ? 2 : 4,
@@ -32,13 +53,43 @@
     maxW: 12,
     maxH: 12,
   });
-  const catalog = TYPES.map(([typeId, , w, h]) => ({
-    typeId,
-    source: "core",
-    supportsMultipleInstances: false,
-    configSchemaVersion: 1,
-    size: SIZE(w, h),
-  }));
+  const typeForPluginCard = (card) =>
+    `plugin.${card.pluginId.replace(/[^a-z0-9]+/g, ".")}.${card.localId}`;
+  const catalog = [
+    ...TYPES.map(([typeId, , w, h]) => ({
+      typeId,
+      source: "core",
+      supportsMultipleInstances: false,
+      configSchemaVersion: 1,
+      size: SIZE(w, h),
+    })),
+    ...PLUGIN_CARD_DEFS.map((card) => ({
+      typeId: typeForPluginCard(card),
+      source: card.pluginId,
+      supportsMultipleInstances: false,
+      configSchemaVersion: 1,
+      size: SIZE(card.w, card.h),
+    })),
+  ];
+  function registeredPluginCards() {
+    const registry = root.GodPowerPageShell;
+    if (!registry?.listByPlugin) return [];
+    return PLUGIN_CARD_DEFS.filter((card) =>
+      registry
+        .listByPlugin(card.pluginId)
+        .some(
+          (entry) =>
+            entry.kind === "card" &&
+            entry.localId === card.localId &&
+            entry.descriptor.slot === "home.cards" &&
+            entry.descriptor.renderer === "builtin.dashboard-card" &&
+            entry.descriptor.dataSelector === card.selector,
+        ),
+    );
+  }
+  function activePluginCardTypes() {
+    return new Set(registeredPluginCards().map(typeForPluginCard));
+  }
   let initialized = false;
   let observer = null;
   let currentLayout = null;
@@ -80,6 +131,20 @@
       catalog,
       createId,
     );
+  }
+
+  function completeLegacyLayout(layout) {
+    const present = new Set(layout.instances.map((item) => item.typeId));
+    const service = root.HomeLayout.createLayoutService({
+      catalog,
+      initial: layout,
+      makeInstanceId: () => `home-migrated-${++instanceSequence}`,
+    });
+    for (const card of PLUGIN_CARD_DEFS) {
+      const typeId = typeForPluginCard(card);
+      if (!present.has(typeId)) service.add(typeId);
+    }
+    return service.getDraft();
   }
 
   function createToolbar(grid) {
@@ -161,12 +226,15 @@
     panel.replaceChildren();
     const draft = layoutService.getDraft();
     const current = new Set(draft.instances.map((item) => item.typeId));
-    const available = TYPES.filter(([typeId]) => !current.has(typeId));
+    const availableCore = TYPES.filter(([typeId]) => !current.has(typeId));
+    const activePluginCards = registeredPluginCards().filter(
+      (card) => !current.has(typeForPluginCard(card)),
+    );
     const heading = document.createElement("strong");
-    heading.textContent = "可添加的主程序卡片";
+    heading.textContent = "可添加的主程序与插件卡片";
     panel.append(heading);
     const hidden = draft.instances.filter((item) => !item.visible);
-    if (!available.length && !hidden.length) {
+    if (!availableCore.length && !activePluginCards.length && !hidden.length) {
       const note = document.createElement("span");
       note.textContent = "当前主程序卡片均已在布局中。插件卡片由对应插件提供。";
       panel.append(note);
@@ -179,11 +247,19 @@
       button.textContent = `恢复 ${instance.typeId.replace("core.", "")}`;
       panel.append(button);
     }
-    for (const [typeId] of available) {
+    for (const [typeId] of availableCore) {
       const button = document.createElement("button");
       button.type = "button";
       button.dataset.addCardType = typeId;
       button.textContent = typeId.replace("core.", "");
+      panel.append(button);
+    }
+    for (const card of activePluginCards) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.addCardType = typeForPluginCard(card);
+      button.dataset.pluginId = card.pluginId;
+      button.textContent = `${card.title} · ${card.pluginId}`;
       panel.append(button);
     }
   }
@@ -451,17 +527,24 @@
       const match = TYPES.find(([, selector]) => selector === `#${value}`);
       if (match) node.dataset.homeCardType = match[0];
     });
-    grid.querySelectorAll("#uiDailyGrid > article").forEach((node) => {
-      const pluginOwner = PLUGIN_CARDS.find(([, selector]) =>
-        node.matches(selector),
-      );
-      if (pluginOwner) {
-        node.dataset.homePluginOwner = pluginOwner[0];
-        node.classList.add("gp-reveal");
-      } else if (node.matches(".gp-daily-honors")) {
-        node.dataset.homeCardType = "core.history-honor";
+    const daily = grid.querySelector("#uiDailyGrid");
+    if (daily) {
+      for (const node of [...daily.children]) {
+        const pluginCard = PLUGIN_CARD_DEFS.find((card) =>
+          node.matches(card.selector),
+        );
+        if (pluginCard) {
+          node.dataset.homePluginOwner = pluginCard.pluginId;
+          node.dataset.homePluginCardType = typeForPluginCard(pluginCard);
+          node.classList.add("gp-reveal");
+          grid.append(node);
+        } else if (node.matches(".gp-daily-honors")) {
+          node.dataset.homeCardType = "core.history-honor";
+          grid.append(node);
+        }
       }
-    });
+      daily.hidden = true;
+    }
   }
 
   function applyLayout(grid, layout) {
@@ -469,6 +552,40 @@
     const byType = new Map(
       validated.instances.map((instance) => [instance.typeId, instance]),
     );
+    const activePluginTypes = activePluginCardTypes();
+    grid
+      .querySelectorAll(".home-plugin-inactive-placeholder")
+      .forEach((node) => node.remove());
+    grid.querySelectorAll("[data-home-plugin-card-type]").forEach((node) => {
+      const typeId = node.dataset.homePluginCardType;
+      const instance = byType.get(typeId);
+      const active = activePluginTypes.has(typeId);
+      node.removeAttribute("data-home-card-type");
+      node.hidden = true;
+      delete node.dataset.homeCardInstance;
+      if (!instance) return;
+      if (active) {
+        node.dataset.homeCardType = typeId;
+        node.hidden = !instance.visible;
+        node.dataset.homeCardInstance = instance.instanceId;
+        return;
+      }
+      const def = PLUGIN_CARD_DEFS.find(
+        (card) => typeForPluginCard(card) === typeId,
+      );
+      if (!instance.visible || !def) return;
+      const placeholder = document.createElement("article");
+      placeholder.className = "ui-panel home-plugin-inactive-placeholder";
+      placeholder.dataset.homeCardType = typeId;
+      placeholder.dataset.homeCardInstance = instance.instanceId;
+      placeholder.setAttribute("aria-label", def.title);
+      const title = document.createElement("strong");
+      title.textContent = def.title;
+      const note = document.createElement("p");
+      note.textContent = `${def.pluginId} 已停用；此卡片与布局设置已保留。`;
+      placeholder.append(title, note);
+      grid.append(placeholder);
+    });
     grid.querySelectorAll("[data-home-card-type]").forEach((node) => {
       const instance = byType.get(node.dataset.homeCardType);
       if (!instance) {
@@ -490,6 +607,13 @@
     currentLayout = validated;
     grid.dataset.layoutId = validated.layoutId;
     grid.dataset.layoutRevision = String(validated.revision);
+  }
+
+  function refreshPluginContributions() {
+    if (!initialized || !gridElement || !currentLayout) return;
+    bindLegacyNodes(gridElement);
+    applyLayout(gridElement, currentLayout);
+    renderEditorControls();
   }
 
   function init() {
@@ -528,7 +652,7 @@
       applyLayout(grid, defaultLayout());
     } else if (stored.layout) {
       repositoryRevision = stored.revision;
-      applyLayout(grid, stored.layout);
+      applyLayout(grid, completeLegacyLayout(stored.layout));
     } else applyLayout(grid, defaultLayout());
     renderEditorControls();
     observer = new MutationObserver(() => {
@@ -541,15 +665,22 @@
         subtree: true,
         childList: true,
       });
+    document.addEventListener(
+      "godpower:plugin-contributions-changed",
+      refreshPluginContributions,
+    );
   }
 
   root.HomeDashboard = Object.freeze({
     init,
+    beginEdit,
     getCardOwnership: () => ({
       core: TYPES.map(([typeId]) => typeId),
-      plugin: PLUGIN_CARDS.map(([pluginId, selector]) => ({
-        pluginId,
-        selector,
+      plugin: registeredPluginCards().map((card) => ({
+        pluginId: card.pluginId,
+        localId: card.localId,
+        selector: card.selector,
+        typeId: typeForPluginCard(card),
       })),
     }),
     getStatus: () => ({
@@ -559,6 +690,7 @@
         ? root.HomeLayout.validateLayout(currentLayout)
         : null,
     }),
+    refreshPluginContributions,
   });
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", init, { once: true });

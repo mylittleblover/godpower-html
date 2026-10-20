@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.49</title>
+<title>上帝的力量 V3.0.50</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -1654,7 +1654,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.49";
+    document.title = name() + " V3.0.50";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -2051,6 +2051,7 @@ window.GodpowerTheme = (() => {
     permissions: [
       { capability: "ui.page.register", required: true },
       { capability: "ui.settings.register", required: true },
+      { capability: "ui.card.register", required: true },
     ],
     dependencies: {},
     optionalDependencies: {},
@@ -2073,10 +2074,74 @@ window.GodpowerTheme = (() => {
           schema: { type: "object", properties: {} },
         },
       },
+      {
+        localId: "daily-item-tip",
+        kind: "card",
+        descriptor: {
+          slot: "home.cards",
+          renderer: "builtin.dashboard-card",
+          titleKey: "home.card.miyamoto.dailyItem",
+          dataSelector: ".gp-daily-item",
+          recommendedSize: { w: 6, h: 6 },
+          emptyState: "当前没有可展示的道具知识。",
+        },
+      },
     ],
     data: { schemaVersion: 1 },
   };
   root.GodpowerMiyamotoPlugin = Object.freeze({ manifest });
+})(globalThis);
+</script>
+<script>/* Declarative card contribution for the existing offline subject content. */
+(function installOfficialMarxPoliticsPlugin(root) {
+  "use strict";
+  const manifest = {
+    manifestVersion: 1,
+    id: "official.marx-politics",
+    name: { "zh-CN": "马克思的力量 · 思政课堂", en: "Marx Politics" },
+    description: {
+      "zh-CN": "管理首页的政治知识点与课堂挑战卡片。",
+      en: "Owns the politics knowledge and classroom challenge cards on Home.",
+    },
+    author: { name: "GodPower Official" },
+    version: "1.0.0",
+    sdk: ">=1.0.0 <2.0.0",
+    types: ["subject"],
+    subjects: ["politics"],
+    platforms: ["html", "electron"],
+    entry: { content: "subjects/politics.json" },
+    permissions: [{ capability: "ui.card.register", required: true }],
+    dependencies: {},
+    optionalDependencies: {},
+    contributes: [
+      {
+        localId: "daily-knowledge",
+        kind: "card",
+        descriptor: {
+          slot: "home.cards",
+          renderer: "builtin.dashboard-card",
+          titleKey: "home.card.politics.knowledge",
+          dataSelector: ".gp-daily-knowledge",
+          recommendedSize: { w: 6, h: 6 },
+          emptyState: "没有可审核的知识点内容。",
+        },
+      },
+      {
+        localId: "daily-challenge",
+        kind: "card",
+        descriptor: {
+          slot: "home.cards",
+          renderer: "builtin.dashboard-card",
+          titleKey: "home.card.politics.challenge",
+          dataSelector: ".gp-daily-challenge",
+          recommendedSize: { w: 6, h: 6 },
+          emptyState: "没有可用的课堂挑战。",
+        },
+      },
+    ],
+    data: { schemaVersion: 1 },
+  };
+  root.GodpowerMarxPoliticsPlugin = Object.freeze({ manifest });
 })(globalThis);
 </script>
 <script>(function installPluginCenter(root) {
@@ -2132,6 +2197,7 @@ window.GodpowerTheme = (() => {
     const builtins = [
       root.GodpowerMarxThemePlugin?.manifest,
       root.GodpowerMiyamotoPlugin?.manifest,
+      root.GodpowerMarxPoliticsPlugin?.manifest,
     ].filter(Boolean);
     const platform = root.GodPowerPluginPlatform.createPluginPlatform({
       contributions: root.GodPowerPageShell,
@@ -2379,6 +2445,17 @@ window.GodpowerTheme = (() => {
         addButton(actions, "卸载", "uninstall", plugin.id, "danger");
       const contributions = root.GodPowerPageShell.listByPlugin(plugin.id);
       if (plugin.state === "active") {
+        const homeCards = contributions.filter(
+          (entry) =>
+            entry.kind === "card" && entry.descriptor.slot === "home.cards",
+        );
+        if (homeCards.length) {
+          const summary = document.createElement("p");
+          summary.className = "plugin-card-contributions";
+          summary.textContent = `主页卡片：${homeCards.length} 项`;
+          card.append(summary);
+          addButton(actions, "管理主页卡片", "home-cards", plugin.id);
+        }
         for (const item of contributions.filter(
           (entry) => entry.kind === "theme",
         ))
@@ -2405,6 +2482,7 @@ window.GodpowerTheme = (() => {
     }
     renderWorkspace();
     root.GodPowerPluginAppearance?.sync();
+    document.dispatchEvent(new Event("godpower:plugin-contributions-changed"));
   }
   async function importManifest(file) {
     const text = await file.text();
@@ -2422,6 +2500,11 @@ window.GodpowerTheme = (() => {
     try {
       if (action === "import") {
         $("#pluginManifestFile")?.click();
+        return;
+      }
+      if (action === "home-cards") {
+        root.switchView("welcome");
+        setTimeout(() => root.HomeDashboard?.beginEdit(), 320);
         return;
       }
       if (action === "theme") {
@@ -11535,6 +11618,23 @@ body.gp-intro-reveal #view-welcome #homeDashboardGrid [data-home-plugin-owner] {
     min-height: 112px;
   }
 }
+
+.home-plugin-inactive-placeholder {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px dashed var(--ui-border-strong);
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.home-plugin-inactive-placeholder p,
+.plugin-card-contributions {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: 0.9rem;
+}
 </style>
 <style id="global-tooltip-style">.gp-hover-tooltip {
   position: fixed;
@@ -12238,7 +12338,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.49</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.50</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -30657,7 +30757,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.49';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.50';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -33194,7 +33294,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.49",
+    appVersion: "V3.0.50",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -38179,10 +38279,31 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
     ["core.group-showcase", ".gp-group-section", 12, 4],
     ["core.history-honor", ".gp-daily-honors", 6, 6],
   ];
-  const PLUGIN_CARDS = [
-    ["official.marx-politics", ".gp-daily-knowledge"],
-    ["official.miyamotos-power", ".gp-daily-item"],
-    ["official.marx-politics", ".gp-daily-challenge"],
+  const PLUGIN_CARD_DEFS = [
+    {
+      pluginId: "official.marx-politics",
+      localId: "daily-knowledge",
+      selector: ".gp-daily-knowledge",
+      w: 6,
+      h: 6,
+      title: "政治知识点",
+    },
+    {
+      pluginId: "official.miyamotos-power",
+      localId: "daily-item-tip",
+      selector: ".gp-daily-item",
+      w: 6,
+      h: 6,
+      title: "道具小知识",
+    },
+    {
+      pluginId: "official.marx-politics",
+      localId: "daily-challenge",
+      selector: ".gp-daily-challenge",
+      w: 6,
+      h: 6,
+      title: "课堂挑战",
+    },
   ];
   const SIZE = (w, h) => ({
     minW: w === 3 ? 2 : 4,
@@ -38192,13 +38313,43 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
     maxW: 12,
     maxH: 12,
   });
-  const catalog = TYPES.map(([typeId, , w, h]) => ({
-    typeId,
-    source: "core",
-    supportsMultipleInstances: false,
-    configSchemaVersion: 1,
-    size: SIZE(w, h),
-  }));
+  const typeForPluginCard = (card) =>
+    `plugin.${card.pluginId.replace(/[^a-z0-9]+/g, ".")}.${card.localId}`;
+  const catalog = [
+    ...TYPES.map(([typeId, , w, h]) => ({
+      typeId,
+      source: "core",
+      supportsMultipleInstances: false,
+      configSchemaVersion: 1,
+      size: SIZE(w, h),
+    })),
+    ...PLUGIN_CARD_DEFS.map((card) => ({
+      typeId: typeForPluginCard(card),
+      source: card.pluginId,
+      supportsMultipleInstances: false,
+      configSchemaVersion: 1,
+      size: SIZE(card.w, card.h),
+    })),
+  ];
+  function registeredPluginCards() {
+    const registry = root.GodPowerPageShell;
+    if (!registry?.listByPlugin) return [];
+    return PLUGIN_CARD_DEFS.filter((card) =>
+      registry
+        .listByPlugin(card.pluginId)
+        .some(
+          (entry) =>
+            entry.kind === "card" &&
+            entry.localId === card.localId &&
+            entry.descriptor.slot === "home.cards" &&
+            entry.descriptor.renderer === "builtin.dashboard-card" &&
+            entry.descriptor.dataSelector === card.selector,
+        ),
+    );
+  }
+  function activePluginCardTypes() {
+    return new Set(registeredPluginCards().map(typeForPluginCard));
+  }
   let initialized = false;
   let observer = null;
   let currentLayout = null;
@@ -38240,6 +38391,20 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
       catalog,
       createId,
     );
+  }
+
+  function completeLegacyLayout(layout) {
+    const present = new Set(layout.instances.map((item) => item.typeId));
+    const service = root.HomeLayout.createLayoutService({
+      catalog,
+      initial: layout,
+      makeInstanceId: () => `home-migrated-${++instanceSequence}`,
+    });
+    for (const card of PLUGIN_CARD_DEFS) {
+      const typeId = typeForPluginCard(card);
+      if (!present.has(typeId)) service.add(typeId);
+    }
+    return service.getDraft();
   }
 
   function createToolbar(grid) {
@@ -38321,12 +38486,15 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
     panel.replaceChildren();
     const draft = layoutService.getDraft();
     const current = new Set(draft.instances.map((item) => item.typeId));
-    const available = TYPES.filter(([typeId]) => !current.has(typeId));
+    const availableCore = TYPES.filter(([typeId]) => !current.has(typeId));
+    const activePluginCards = registeredPluginCards().filter(
+      (card) => !current.has(typeForPluginCard(card)),
+    );
     const heading = document.createElement("strong");
-    heading.textContent = "可添加的主程序卡片";
+    heading.textContent = "可添加的主程序与插件卡片";
     panel.append(heading);
     const hidden = draft.instances.filter((item) => !item.visible);
-    if (!available.length && !hidden.length) {
+    if (!availableCore.length && !activePluginCards.length && !hidden.length) {
       const note = document.createElement("span");
       note.textContent = "当前主程序卡片均已在布局中。插件卡片由对应插件提供。";
       panel.append(note);
@@ -38339,11 +38507,19 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
       button.textContent = `恢复 ${instance.typeId.replace("core.", "")}`;
       panel.append(button);
     }
-    for (const [typeId] of available) {
+    for (const [typeId] of availableCore) {
       const button = document.createElement("button");
       button.type = "button";
       button.dataset.addCardType = typeId;
       button.textContent = typeId.replace("core.", "");
+      panel.append(button);
+    }
+    for (const card of activePluginCards) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.addCardType = typeForPluginCard(card);
+      button.dataset.pluginId = card.pluginId;
+      button.textContent = `${card.title} · ${card.pluginId}`;
       panel.append(button);
     }
   }
@@ -38611,17 +38787,24 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
       const match = TYPES.find(([, selector]) => selector === `#${value}`);
       if (match) node.dataset.homeCardType = match[0];
     });
-    grid.querySelectorAll("#uiDailyGrid > article").forEach((node) => {
-      const pluginOwner = PLUGIN_CARDS.find(([, selector]) =>
-        node.matches(selector),
-      );
-      if (pluginOwner) {
-        node.dataset.homePluginOwner = pluginOwner[0];
-        node.classList.add("gp-reveal");
-      } else if (node.matches(".gp-daily-honors")) {
-        node.dataset.homeCardType = "core.history-honor";
+    const daily = grid.querySelector("#uiDailyGrid");
+    if (daily) {
+      for (const node of [...daily.children]) {
+        const pluginCard = PLUGIN_CARD_DEFS.find((card) =>
+          node.matches(card.selector),
+        );
+        if (pluginCard) {
+          node.dataset.homePluginOwner = pluginCard.pluginId;
+          node.dataset.homePluginCardType = typeForPluginCard(pluginCard);
+          node.classList.add("gp-reveal");
+          grid.append(node);
+        } else if (node.matches(".gp-daily-honors")) {
+          node.dataset.homeCardType = "core.history-honor";
+          grid.append(node);
+        }
       }
-    });
+      daily.hidden = true;
+    }
   }
 
   function applyLayout(grid, layout) {
@@ -38629,6 +38812,40 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
     const byType = new Map(
       validated.instances.map((instance) => [instance.typeId, instance]),
     );
+    const activePluginTypes = activePluginCardTypes();
+    grid
+      .querySelectorAll(".home-plugin-inactive-placeholder")
+      .forEach((node) => node.remove());
+    grid.querySelectorAll("[data-home-plugin-card-type]").forEach((node) => {
+      const typeId = node.dataset.homePluginCardType;
+      const instance = byType.get(typeId);
+      const active = activePluginTypes.has(typeId);
+      node.removeAttribute("data-home-card-type");
+      node.hidden = true;
+      delete node.dataset.homeCardInstance;
+      if (!instance) return;
+      if (active) {
+        node.dataset.homeCardType = typeId;
+        node.hidden = !instance.visible;
+        node.dataset.homeCardInstance = instance.instanceId;
+        return;
+      }
+      const def = PLUGIN_CARD_DEFS.find(
+        (card) => typeForPluginCard(card) === typeId,
+      );
+      if (!instance.visible || !def) return;
+      const placeholder = document.createElement("article");
+      placeholder.className = "ui-panel home-plugin-inactive-placeholder";
+      placeholder.dataset.homeCardType = typeId;
+      placeholder.dataset.homeCardInstance = instance.instanceId;
+      placeholder.setAttribute("aria-label", def.title);
+      const title = document.createElement("strong");
+      title.textContent = def.title;
+      const note = document.createElement("p");
+      note.textContent = `${def.pluginId} 已停用；此卡片与布局设置已保留。`;
+      placeholder.append(title, note);
+      grid.append(placeholder);
+    });
     grid.querySelectorAll("[data-home-card-type]").forEach((node) => {
       const instance = byType.get(node.dataset.homeCardType);
       if (!instance) {
@@ -38650,6 +38867,13 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
     currentLayout = validated;
     grid.dataset.layoutId = validated.layoutId;
     grid.dataset.layoutRevision = String(validated.revision);
+  }
+
+  function refreshPluginContributions() {
+    if (!initialized || !gridElement || !currentLayout) return;
+    bindLegacyNodes(gridElement);
+    applyLayout(gridElement, currentLayout);
+    renderEditorControls();
   }
 
   function init() {
@@ -38688,7 +38912,7 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
       applyLayout(grid, defaultLayout());
     } else if (stored.layout) {
       repositoryRevision = stored.revision;
-      applyLayout(grid, stored.layout);
+      applyLayout(grid, completeLegacyLayout(stored.layout));
     } else applyLayout(grid, defaultLayout());
     renderEditorControls();
     observer = new MutationObserver(() => {
@@ -38701,15 +38925,22 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
         subtree: true,
         childList: true,
       });
+    document.addEventListener(
+      "godpower:plugin-contributions-changed",
+      refreshPluginContributions,
+    );
   }
 
   root.HomeDashboard = Object.freeze({
     init,
+    beginEdit,
     getCardOwnership: () => ({
       core: TYPES.map(([typeId]) => typeId),
-      plugin: PLUGIN_CARDS.map(([pluginId, selector]) => ({
-        pluginId,
-        selector,
+      plugin: registeredPluginCards().map((card) => ({
+        pluginId: card.pluginId,
+        localId: card.localId,
+        selector: card.selector,
+        typeId: typeForPluginCard(card),
       })),
     }),
     getStatus: () => ({
@@ -38719,6 +38950,7 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
         ? root.HomeLayout.validateLayout(currentLayout)
         : null,
     }),
+    refreshPluginContributions,
   });
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", init, { once: true });
