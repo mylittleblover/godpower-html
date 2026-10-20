@@ -57,6 +57,20 @@
     let revision = 0;
     let selectedProfile = "";
     let selectedClassroom = "";
+    let activeClassroomContext = null;
+    try {
+      const savedContext = JSON.parse(
+        storage.getItem("godpower_active_classroom_context_v1") || "null",
+      );
+      if (
+        savedContext?.schemaVersion === 1 &&
+        root.StableIdentity.isValidUserProfileId(savedContext.userProfileId) &&
+        root.StableIdentity.isValidClassroomId(savedContext.classroomId)
+      )
+        activeClassroomContext = savedContext;
+    } catch (_) {
+      activeClassroomContext = null;
+    }
 
     function setStatus(message, error = false) {
       status.textContent = message;
@@ -181,12 +195,22 @@
         (item) => item.userProfileId === selectedProfile,
       )
         ? selectedProfile
-        : documentData.profiles[0]?.userProfileId || "";
+        : documentData.profiles.some(
+              (item) =>
+                item.userProfileId === activeClassroomContext?.userProfileId,
+            )
+          ? activeClassroomContext.userProfileId
+          : documentData.profiles[0]?.userProfileId || "";
       selectedClassroom = documentData.classrooms.some(
         (item) => item.classroomId === selectedClassroom,
       )
         ? selectedClassroom
-        : documentData.classrooms[0]?.classroomId || "";
+        : documentData.classrooms.some(
+              (item) =>
+                item.classroomId === activeClassroomContext?.classroomId,
+            )
+          ? activeClassroomContext.classroomId
+          : documentData.classrooms[0]?.classroomId || "";
       profileSelect.value = selectedProfile;
       classroomSelect.value = selectedClassroom;
       const hasRoster = Boolean(selectedProfile && selectedClassroom);
@@ -391,6 +415,12 @@
         event.target.value = "";
       }
     };
+    root.addEventListener("godpower:active-classroom-changed", (event) => {
+      activeClassroomContext = event.detail;
+      selectedProfile = event.detail.userProfileId;
+      selectedClassroom = event.detail.classroomId;
+      render();
+    });
     render();
     return Object.freeze({ refresh: render, repository });
   }

@@ -227,3 +227,9 @@ Final 3.0.33 verification: Node unit/integration 284/284 PASS; build 8,065,192 b
 设置页增加本地教师档案/课堂名单工作区，支持从当前比赛创建副本、增删改学生、profile 独立小组分配、个人参与模式、课堂新建、JSON 导入导出。名单保存在 `godpower_classroom_roster_v1`；正式比赛仍使用 `godpower_state_v2`。为避免两个独立存储键产生半提交，本阶段没有“应用到比赛”入口。损坏/不兼容 JSON 在仓库写入前拒绝。
 
 TDD：新增 Chromium E2E 后先在旧构建中因缺少 `#classroomRosterWorkspace` 按预期失败；实现后通过。测试覆盖14组/28名副本、名单改名分组、双教师隔离、新课堂、个人模式、导出、损坏导入保留仓库字节以及比赛状态无变化。环境范围 Chromium 1920×1080 @1x。Node 单元/集成284/284 PASS；原设置页回归13/13 PASS；新名单工作区 E2E PASS；构建、静态检查、格式与仓库卫生 PASS。最终资源包构建与 Electron 同步、桌面回归尚待本切片收尾。
+
+## 3.0.35 — F2 本地周课表与教学上下文
+
+增加 profile/classroom 独立周课表：本机星期与分钟边界、跨日拒绝、同一教师跨课堂冲突检测；本地版本化 CAS 仓库执行保存读回校验，写失败回滚旧字节。设置页可新增、编辑、删除时段；当前课程只作为建议，教师明确点击后才写 `godpower_active_classroom_context_v1` 并同步名单工作区选择。课程表绝不触碰权威 `godpower_state_v2`，也不自动切换正式比赛。离线资源库仍未实现并列为 F2-001。
+
+验证：Node 单元/集成 289/289 PASS；课表模型 5/5 PASS；Chromium 1920×1080 覆盖新增/编辑/删除、重叠拒绝、当前课程显式选择、重载恢复以及比赛状态对象和存储字节不变；设置页回归13/13 PASS；14组布局 `1920 PASS`。`check`（108脚本块、27内置资源、141模块、版本与层边界）、`format:check`、`audit:hygiene` PASS。单文件构建 8,107,939 bytes，SHA-256 `19e6d76e12b206574bc8fb2c826133abbf829aac1a2a6552f7e645f24aa1a2d0`。

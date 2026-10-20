@@ -154,6 +154,17 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 
 目标校验逐条比较snapshot、archive、resource的完整hash，并检查receipt计数；音频ArrayBuffer与壁纸Blob参与字节校验。校验失败只报告暂存副本无效，原存储和当前课堂不切换。
 
+## 3.0.35 本地教学上下文
+
+以下数据独立于 `godpower_state_v2`，不参与计分、回合、道具或封神榜快照。
+
+| 存储键                                 | Schema                                                              | 主要字段                                                                                                                                   | 默认与恢复                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `godpower_teaching_schedule_v1`        | envelope `schemaVersion:1`，`revision >= 1`；文档 `schemaVersion:1` | `entries[]`: `scheduleId`, `userProfileId`, `classroomId`, `weekday`(0–6), `startMinute`(0–1439), `endMinute`(1–1440), `subjectId`, `note` | 键缺失时是空课程表 revision 0；profile同一星期课程时间段不得重叠；跨午夜范围拒绝；写入CAS、读回验证和原字节回滚。 |
+| `godpower_active_classroom_context_v1` | `schemaVersion:1`                                                   | `userProfileId`, `classroomId`, `sourceScheduleId`                                                                                         | 必须教师显式选择当前课表建议后写入；只驱动名单工作区本机选择；无效值不应用到比赛。                                |
+
+`TeachingSchedule.findCurrentLesson`使用浏览器本机星期/分钟，区间为`startMinute <= now < endMinute`。时钟只用于显示建议；没有自动切换比赛状态的定时器。学科资源仓库格式仍待后续F2实现。
+
 3.0.4只整理判题职责和共享基础计算，没有改变Schema2字段、旧存档转换或道具平衡参数。
 
 ### 迁移回执verification（3.0.7）

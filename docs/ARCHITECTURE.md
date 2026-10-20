@@ -1,6 +1,6 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.33（M0–M4 插件/UI 基础与道具设置工作区已落地；F0 证据审计完成；F1 身份/名单仅完成可回滚领域与存储基础，尚未接入用户界面或课堂权威状态）。
+当前版本：3.0.35（M0–M4 插件/UI 基础；F0 证据审计；F1 本地名单工作区；F2 离线课程表建议）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单与课程表均为隔离的本地教学工作区数据。
 
 ## V3 UI Shell、页面生命周期与插件中心（3.0.29，M1–M4）
 
@@ -43,7 +43,11 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 
 `src/domain/identity.js`现提供`userProfileId`、`classroomId`、`studentUid`稳定标识生成器。`src/domain/classroom-roster.js`定义版本1的本地名单文档，并验证用户档案、课堂、学生与分组关系；可为旧`groups[].members`生成保留重复姓名的迁移预览，并按用户档案投影分组成员。投影返回副本，名称不是身份键。
 
-`src/infrastructure/classroom-roster-repository.js`使用独立键`godpower_classroom_roster_v1`保存名单文档，提供CAS revision、写后读回和失败回滚。`src/ui/classroom-roster-workspace.js`在设置的“学生与小组管理”页提供本地教师档案/课堂切换、分组与个人参与模式、学生增删改、导入导出，并能从当前比赛生成一个独立名单副本。它只调用隔离名单仓库；主课堂仍唯一使用`godpower_state_v2`和旧小组成员数组，名单编辑不会同步修改比赛。教师档案是本机工作区标识，不是登录认证/云同步。当前仍缺少进入比赛前的差异预览/双存储事务应用流程、头像资源管理和完整跨用户设置隔离，因此F1尚未完成。
+`src/infrastructure/classroom-roster-repository.js`使用独立键`godpower_classroom_roster_v1`保存名单文档，提供CAS revision、写后读回和失败回滚。`src/ui/classroom-roster-workspace.js`在设置的“学生与小组管理”页提供本地教师档案/课堂切换、分组与个人参与模式、学生增删改、导入导出，并能从当前比赛生成一个独立名单副本。它只调用隔离名单仓库；名单编辑不会同步修改比赛。教师档案是本机工作区标识，不是登录认证/云同步。F1仍缺少名单应用到比赛前的差异预览/双存储事务、头像资源管理和完整跨教师设置隔离。
+
+## F2 离线课程表（3.0.35）
+
+`src/domain/teaching-schedule.js`验证稳定课程/教师/课堂身份、星期、半开本地分钟区间及同一教师的冲突；`src/infrastructure/teaching-schedule-repository.js`通过独立 localStorage 键`godpower_teaching_schedule_v1`提供CAS、读回与失败恢复。`src/ui/teaching-workspace.js`可新增、编辑、删除每周课表，显示当前时段建议。教师必须明确点击后才写入独立的`godpower_active_classroom_context_v1`教学上下文指针，并刷新名单工作区的教师/课堂选择；此动作不会加载或修改权威比赛状态。跨午夜时段拒绝，`24:00`是当天有效结束边界。学科资源库仍未实现，详见F2计划与维护项。
 
 ## 当前运行路径
 

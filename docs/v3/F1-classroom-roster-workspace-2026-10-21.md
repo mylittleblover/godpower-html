@@ -37,7 +37,7 @@
 - 操作前后权威比赛小组与回合状态序列化完全相等。
 - 工作区不产生水平溢出；截图保存在 `artifacts/f1-roster-workspace/1920x1080.png`。
 
-本切片验收：284/284 Node 单元/集成测试 PASS；旧设置页 Chromium 回归13/13 PASS；名单工作区 Chromium E2E PASS；14组比赛布局 Chromium PASS；`check`、`format:check`、`audit:hygiene` PASS。HTML 单文件 8,085,024 bytes，SHA-256 `433edc24880d4fabdf942f07542a2ec51908a1b1aa2a02141ee365a3f242b372`。Electron同步与桌面测试在这份报告创建时仍待执行。
+本切片验收：284/284 Node 单元/集成测试 PASS；旧设置页 Chromium 回归13/13 PASS；名单工作区 Chromium E2E PASS；14组比赛布局 Chromium PASS；`check`、`format:check`、`audit:hygiene` PASS。HTML 单文件 8,085,024 bytes，SHA-256 `433edc24880d4fabdf942f07542a2ec51908a1b1aa2a02141ee365a3f242b372`。Electron 源码同步、bundle SHA 校验、Node 测试20/20、smoke 与桌面16场景均 PASS；运行环境为 Electron44.9.0/Linux/Chromium152，1920×1080 @1x。Windows 真机安装/运行 NOT TESTED；无 CircleCI 操作。
 
 ## 尚未完成
 

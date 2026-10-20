@@ -1258,3 +1258,80 @@ summary:focus-visible {
 #rosterStatus[data-state="error"] {
   color: var(--ui-danger, #a43d30);
 }
+.teaching-schedule-workspace {
+  margin-top: 16px;
+}
+.teaching-current,
+.teaching-schedule-form,
+.teaching-schedule-toolbar,
+.teaching-schedule-actions {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+}
+.teaching-current {
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-soft);
+}
+.teaching-current > span {
+  color: var(--ui-text);
+  font-weight: 700;
+}
+.teaching-schedule-form label,
+.teaching-schedule-toolbar label {
+  display: grid;
+  gap: 5px;
+  color: var(--ui-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.teaching-schedule-form input,
+.teaching-schedule-form select,
+.teaching-schedule-toolbar select {
+  box-sizing: border-box;
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 9px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  font: inherit;
+}
+.teaching-schedule-form input[type="text"] {
+  min-width: 140px;
+}
+.teaching-schedule-list {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+}
+.teaching-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.teaching-schedule-table th,
+.teaching-schedule-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--ui-border);
+  text-align: left;
+}
+.teaching-schedule-table th {
+  position: sticky;
+  top: 0;
+  color: var(--ui-muted);
+  background: var(--ui-soft);
+}
+.teaching-schedule-actions {
+  justify-content: space-between;
+  align-items: center;
+}
+#teachingScheduleStatus[data-state="error"] {
+  color: var(--ui-danger, #a43d30);
+}

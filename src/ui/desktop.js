@@ -825,6 +825,11 @@ const DesktopUI = (() => {
       $("#classroomRosterWorkspace"),
       $("#uiSettingsRoster"),
     );
+    TeachingWorkspace.mount(sections.students, { storage: localStorage });
+    sections.students.insertBefore(
+      $("#teachingScheduleWorkspace"),
+      $("#uiSettingsRoster"),
+    );
     GodpowerTheme.mount(sections.appearance);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -1233,6 +1238,7 @@ const DesktopUI = (() => {
       renderFxSlotList();
       renderItemFxSoundListV26();
     }
+    if (activeSettings === "students") TeachingWorkspace.refresh();
     revealSettings(entering);
   }
   function setupDock() {

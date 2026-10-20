@@ -227,6 +227,21 @@
     },
     {
       "type": "script",
+      "path": "domain/teaching-schedule.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/teaching-schedule-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/teaching-workspace.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/competition/ranking.js",
       "attributes": ""
     },
