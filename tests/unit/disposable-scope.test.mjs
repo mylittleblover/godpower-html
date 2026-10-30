@@ -118,3 +118,34 @@ test("page lifecycle replaces the previous route scope exactly once", () => {
   lifecycle.dispose();
   assert.equal(lifecycle.current(), null);
 });
+
+test("once listeners release their scope entry immediately after dispatch", () => {
+  const scope = api().createDisposableScope("once");
+  const target = new EventTarget();
+  let calls = 0;
+  scope.listen(target, "change", () => calls++, { once: true });
+  target.dispatchEvent(new Event("change"));
+  target.dispatchEvent(new Event("change"));
+  assert.equal(calls, 1);
+  assert.equal(scope.size, 0);
+});
+
+test("listener removal retains the registered capture value when options mutate", () => {
+  const scope = api().createDisposableScope("capture");
+  let registered;
+  let removed;
+  const target = {
+    addEventListener(type, listener, options) {
+      registered = options.capture;
+    },
+    removeEventListener(type, listener, capture) {
+      removed = capture;
+    },
+  };
+  const options = { capture: true };
+  scope.listen(target, "change", () => {}, options);
+  options.capture = false;
+  scope.dispose();
+  assert.equal(registered, true);
+  assert.equal(removed, true);
+});

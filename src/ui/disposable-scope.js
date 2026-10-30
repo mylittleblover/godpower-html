@@ -39,8 +39,22 @@
         );
       }
       if (disposed) return () => {};
-      target.addEventListener(type, listener, options);
-      return add(() => target.removeEventListener(type, listener, options));
+      // Removal matches capture at registration time, not a mutable options object.
+      const capture =
+        typeof options === "boolean" ? options : !!options?.capture;
+      let release;
+      const registered = options?.once
+        ? function (event) {
+            release();
+            if (typeof listener === "function") listener.call(this, event);
+            else listener?.handleEvent(event);
+          }
+        : listener;
+      target.addEventListener(type, registered, options);
+      release = add(() =>
+        target.removeEventListener(type, registered, capture),
+      );
+      return release;
     }
 
     function timeout(callback, delay = 0) {

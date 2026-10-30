@@ -1,3 +1,5 @@
+> 当前无插件过渡版执行范围已由 [2026-10-30治理方案](../plans/2026-10-30-standalone-ui-governance.md) 取代。本文保留历史设计，不能据此恢复插件功能或独立普通弹窗。
+
 # GodPower V3 UI 治理设计规格
 
 日期：2026-10-20。类别：Superpowers Architectural。状态：**设计待用户审阅；不是实施计划**。适用分支：feat/v3-foundation-sp01-sp02。产品版本3.0.24。

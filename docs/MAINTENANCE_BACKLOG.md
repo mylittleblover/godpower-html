@@ -1291,3 +1291,13 @@ P1/UI；根因：badgeColors为了白字对比度压暗饱和组色，积分直�
 ## WEB-AUDIO-001 — 独立背景音乐音量（DONE，3.0.56）
 
 P2/音频；菜单、比赛、思考、开场、过门、结算和音乐试听加入独立总线。设置音效与音乐中新增滑条，偏好本机保存，不改课堂状态。证据：script/00.js与index.template.html。实测音频图、25%音量、静音和刷新恢复通过；音效与主音量保持不变。人工听感未测试。
+
+## 2026-10-30 无插件 UI 治理
+
+- G1 DONE：DisposableScope一次性监听器及时清理、capture注册值固定；回归见 disposable-scope.test.mjs。
+- G2 TODO：设置/内部窗口刷新owner与输入焦点保护。
+- G3 TODO：比赛局部刷新与动画租约，保持14组几何。
+- G4 TODO：按当前CSS归属和两主题层叠证据逐组件治理。
+- G5 TODO：稳定批次同步Electron并按发布规范更新版本。
+
+执行细节见 docs/superpowers/plans/2026-10-30-standalone-ui-governance.md。
