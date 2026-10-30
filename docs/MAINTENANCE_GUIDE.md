@@ -113,3 +113,16 @@ HTTP 浏览器测试服务统一返回 `Cache-Control: no-store`，可使用 Pla
 音频迁移只补缺失，不覆盖现有用户音效；完成标记只能在目标事务提交且读回确认后写。旧源保留，失败可重试。
 
 UI验证按当前用户范围只用Chromium1920×1080、1×；不执行CircleCI。存储事务测试属于功能验证，不以截图替代。
+
+
+## V3.0.60 起的源码与测试约束
+
+所有旧编号JS/CSS已迁出。编辑src/runtime或src/styles对应职责文件，映射见SOURCE_MIGRATION_MAP；不能重新创建src/script、src/style或在文件尾追加版本补丁。
+
+同一个script/style标签可能包含多个SOURCE片段。它们是一个executionGroup，构建仍在原标签里顺序拼接。移动到另一标签或改成独立module会改变函数提升、初始化和词法作用域，必须先设计依赖端口并证明兼容，不能作为普通文件移动处理。
+
+源码清单只由scripts/source-manifest解析，修改模板后运行sync-source-manifest；审计按manifest取文件，不写死旧目录。新增脚本必须有实际行为，不添加空壳转发文件。
+
+按用户最新要求：完成一个完整职责模块后集中测试；不逐文件重复全量测试。浏览器固定Chromium 1920×1080 1x。结构迁移采用AST等价、CSS覆盖见证和相关浏览器差分；失败只重跑关联模块及必要跨模块检查。原有全面verify命令仍保留，但不在每批自动执行。不要操作CircleCI。
+
+CSS删除须有层叠条件与后续覆盖证据，媒体/关键帧/特殊状态不能从简单重复计数推出可删。JS删除须检查捕获别名与实际生效实现。Windows硬件未运行仍标NOT TESTED。
