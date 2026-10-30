@@ -1,0 +1,7 @@
+{
+  "status": "BLOCKED",
+  "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at file:///workspace/godpower-html-electron-020/dist/godpower.html\nCall log:\n\u001b[2m  - navigating to \"file:///workspace/godpower-html-electron-020/dist/godpower.html\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at /workspace/godpower-html-electron-020/tests/e2e/file.mjs:9:10",
+  "browser": "141.0.7390.37",
+  "offline": true,
+  "results": []
+}

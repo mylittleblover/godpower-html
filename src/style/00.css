@@ -1125,7 +1125,7 @@
     }
   }
 
-  /* ================= SPA 五页面视图架构 v3 ================= */
+  /* ================= SPA core view architecture v3 ================= */
   .view { display: none; min-height: calc(100vh - 96px); }
   .view.active { display: flex; flex-direction: column; }
 
@@ -1733,16 +1733,6 @@ body.items-disabled .item-feature-only {
 body.items-disabled .group-row-card{min-height:unset}
 
 
-/* ===== V2.9.2 设置：共产主义模式真正归入“功能设置” ===== */
-.communism-mode-card{
-  display:flex!important;align-items:center!important;gap:18px!important;
-  padding:14px 16px!important;margin:0 0 14px!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(218,239,251,.78))!important;
-  border:1px solid rgba(123,181,216,.55)!important;border-radius:14px!important;
-  box-shadow:inset 0 1px 0 #fff,0 4px 12px rgba(43,103,140,.13)!important;
-}
-.communism-mode-copy{flex:1;min-width:0}
-.communism-mode-title{font-size:16px;font-weight:950;color:#173b59;margin-bottom:3px}
 .v292-switch{position:relative;display:inline-block;flex:0 0 auto;cursor:pointer}
 .v292-switch input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:1;cursor:pointer;pointer-events:auto}
 .v292-switch-track{

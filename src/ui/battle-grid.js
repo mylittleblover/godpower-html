@@ -134,6 +134,8 @@ function renderBattleGridCards() {
     }
     if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
   });
+  if (typeof ClassroomAvatarDisplay !== "undefined")
+    ClassroomAvatarDisplay.decorateGroupCards(ordered);
 
   if (state.editingScoreId != null) {
     const input = document.getElementById(

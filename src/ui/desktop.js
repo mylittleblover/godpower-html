@@ -655,17 +655,18 @@ const DesktopUI = (() => {
       "音效与音乐",
       "日常音量在上方，音乐、音效和迁移维护按需展开",
     ],
-    [
-      "items",
-      "gift",
-      "道具与图标",
-      "规则说明与专属图像维护；导航按钮图标已归入外观分类",
-    ],
+    ["items", "gift", "道具与图标", "道具流程配置、百科与自定义图片"],
     [
       "students",
       "users",
       "学生与小组管理",
       "查看并维护整班小组名单，重建前会再次确认",
+    ],
+    [
+      "teaching",
+      "book",
+      "课程表与教学资源",
+      "本地课程安排、课堂上下文与离线资源管理",
     ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
@@ -690,6 +691,7 @@ const DesktopUI = (() => {
     const classified = [...sc.querySelectorAll("[data-settings-category]")];
     for (const pane of sc.querySelectorAll(".settings-v26-pane")) {
       const id = pane.id.replace("settingsV26_", "");
+
       (sections[id === "function" ? "rules" : id] || sections.rules).append(
         pane,
       );
@@ -820,6 +822,20 @@ const DesktopUI = (() => {
       }
     };
     organizeSettings(sections, shell);
+    ClassroomRosterWorkspace.mount(sections.students, {
+      storage: localStorage,
+      getGroups: () => state.groups,
+    });
+    sections.students.insertBefore(
+      $("#classroomRosterWorkspace"),
+      $("#uiSettingsRoster"),
+    );
+    TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
+
+    TeachingResourceWorkspace.mount(sections.teaching, {
+      storage: localStorage,
+    });
+
     GodpowerTheme.mount(sections.appearance);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
@@ -1015,15 +1031,18 @@ const DesktopUI = (() => {
     group(
       sections.students,
       "uiSettingsRoster",
-      "小组与成员名单",
-      "按组名匹配已有小组；未列出的组不保留，重命名可能建立新组。请先备份后应用。",
+      "旧版文本重建（兼容）",
+      "危险操作 · 按文本直接重建比赛小组。名单工作区适合日常整理；仅需重建比赛结构时再展开此旧入口。",
       marked("roster"),
+      true,
+      true,
     );
     const rosterTitle = $(
       "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",
     );
     rosterTitle?.remove();
     const sound = $("#settingsV26_sound");
+
     group(
       sound,
       "uiSettingsVolume",
@@ -1109,7 +1128,7 @@ const DesktopUI = (() => {
       true,
     );
     // Two UI-only destructive shortcuts lacked a confirmation. Preserve their commands.
-    shell.addEventListener(
+    document.addEventListener(
       "click",
       async (event) => {
         const button = event.target.closest("button");
@@ -1239,7 +1258,10 @@ const DesktopUI = (() => {
       renderFxSlotList();
       renderItemFxSoundListV26();
     }
-    if (activeSettings === "items") renderItemEncyclopedia();
+    if (activeSettings === "teaching") {
+      TeachingWorkspace.refresh();
+      TeachingResourceWorkspace.refresh();
+    }
     revealSettings(entering);
   }
   function setupDock() {

@@ -159,3 +159,9 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 ### 迁移回执verification（3.0.7）
 
 迁移库migrations记录保留complete/aggregateId/sourceHash/archives/resources/completedAt。新增verification对象：status枚举VERIFYING、VERIFIED、DESTINATION_INVALID、STAGED_SOURCE_CHANGED、CANCELLED_STAGED；checkedAt为ISO字符串；sourceHash字符串；sourceRechecked布尔；authorityChanged固定false；integrity为实际读回结果或null。旧无verification回执只证明复制，重新检查后补齐，不作成功推断。
+
+## V3.0.55 网页过渡版的恢复模块
+
+恢复的名单、课程表、教学资源、主页布局维持V3.0.53既有独立仓库，不修改课堂权威存档键。主页仓库为 `godpower_home_layout_v1`，版本1 envelope 保存revision与layout，卡片实例保留ID、position、visible及config；三种历史官方卡片类型映射到core.daily-knowledge/core.daily-item-tip/core.daily-challenge。转换不清空存储、不删除隐藏实例，也不自动重新加入已移除实例。保存使用原仓库revision检查和读回验证。
+
+名单与资源工作区通过稳定身份引用头像；资源仓库仍校验类型、摘要和容量。课程与教学资源通过教师/课堂上下文隔离；切换教学上下文不自动替换比赛数据。

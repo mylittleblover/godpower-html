@@ -132,7 +132,7 @@ const ClassroomFeedback = (() => {
         root.querySelector(".cf-show-particles")?.replaceChildren();
       });
   }
-  function show({ type, title, subtitle, value }) {
+  function show({ type, title, subtitle, value, avatars = [] }) {
     if (
       !allowed() ||
       (type === "pick" ? !options.pickEffects : !options.scoreEffects)
@@ -178,6 +178,17 @@ const ClassroomFeedback = (() => {
     root.querySelector(".cf-show-title").textContent = title;
     root.querySelector(".cf-show-subtitle").textContent = subtitle || "";
     root.querySelector(".cf-show-value").textContent = value || "";
+    const avatarStack = root.querySelector(".cf-show-avatar-stack");
+    avatarStack.replaceChildren();
+    for (const src of avatars.slice(0, 4)) {
+      if (typeof src !== "string" || !src.startsWith("blob:")) continue;
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.draggable = false;
+      avatarStack.append(image);
+    }
+    avatarStack.hidden = !avatarStack.childElementCount;
     const particles = root.querySelector(".cf-show-particles");
     const simple = DesktopUI.getPreferences().motion === "simple";
     if (!simple)
@@ -225,6 +236,16 @@ const ClassroomFeedback = (() => {
           ? "本次抽中小组"
           : `${group?.name || ""}${student?.number != null ? " · 学号 " + student.number : ""}`,
       value: mode === "group" ? "LUCKY TEAM" : "就是你",
+      avatars:
+        mode === "group"
+          ? window.ClassroomAvatarDisplay?.groupUrls(group) || []
+          : [
+              window.ClassroomAvatarDisplay?.studentUrl(
+                group,
+                win.memberName,
+                win.memberIndex,
+              ) || "",
+            ],
     });
   }
   function syncSettings() {
@@ -354,7 +375,7 @@ const ClassroomFeedback = (() => {
     }
     document.body.insertAdjacentHTML(
       "beforeend",
-      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
+      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><div class="cf-show-avatar-stack" hidden></div><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
     );
     bindButtonSound();
     Reliability.onDefenseInvalidation(() => {

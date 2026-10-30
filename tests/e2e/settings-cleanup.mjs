@@ -380,8 +380,11 @@ try {
       const groups = await p.evaluate(() => JSON.stringify(state.groups));
       await category(p, "rules");
       await p.locator("#cfgSaveAllIn").uncheck();
-      await p.locator("#communismModeToggle").uncheck();
-      assert.equal(await p.locator("#communismModeToggle").isChecked(), false);
+      assert.equal(await p.locator("#communismModeToggle").count(), 0);
+      await p.evaluate(() => {
+        STORAGE.setJSON("politics_communism_mode", false);
+        applyCommunismMode();
+      });
       await category(p, "appearance");
       await p.locator("#cfgColumnMode").selectOption("double");
       await p.locator("#cfgResizerEnabled").uncheck();

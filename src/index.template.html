@@ -76,6 +76,7 @@
 <style id="battle-motion-style">@@SOURCE:ui/battle-motion.css@@</style>
 <style>@@SOURCE:ui/item-modules.css@@</style>
 <style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
+<style id="home-dashboard-style">@@SOURCE:ui/home-dashboard.css@@</style>
 <style id="global-tooltip-style">@@SOURCE:ui/tooltips.css@@</style>
 <style id="application-themes">@@SOURCE:ui/themes.css@@</style>
 </head>
@@ -112,6 +113,21 @@
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
   <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
+  <section id="classroomRecoveryTools" class="classroom-recovery-tools" hidden aria-labelledby="classroomRecoveryTitle">
+    <strong id="classroomRecoveryTitle">存档恢复</strong>
+    <span>原始存档已保护。先导出损坏原文，再只读扫描可用旧副本；恢复前会显示内容摘要并要求确认。</span>
+    <div class="classroom-recovery-actions">
+      <button id="classroomRecoveryExportRaw" type="button" class="btn btn-warning">导出损坏原文</button>
+      <button id="classroomRecoveryScan" type="button" class="btn btn-primary">扫描可恢复副本</button>
+    </div>
+    <div id="classroomRecoveryStatus" role="status" aria-live="polite"></div>
+    <div id="classroomRecoveryCandidates"></div>
+    <div id="classroomRecoveryPreview" hidden>
+      <p id="classroomRecoveryPreviewText"></p>
+      <button id="classroomRecoveryRestore" type="button" class="btn btn-danger">确认恢复此副本</button>
+      <button id="classroomRecoveryCancel" type="button" class="btn btn-secondary">取消</button>
+    </div>
+  </section>
 </div>
 <div id="view-welcome" class="view active">
   <main class="ui-page gp-home" aria-label="上帝的力量首页">
@@ -619,9 +635,22 @@
 
   <script>@@SOURCE:ui/model.js@@</script>
 <script>@@SOURCE:domain/identity.js@@</script>
+<script>@@SOURCE:domain/home-layout.js@@</script>
+<script>@@SOURCE:infrastructure/home-layout-repository.js@@</script>
+<script>@@SOURCE:domain/classroom-roster.js@@</script>
+<script>@@SOURCE:infrastructure/classroom-roster-repository.js@@</script>
+<script>@@SOURCE:ui/classroom-roster-workspace.js@@</script>
+<script>@@SOURCE:ui/classroom-avatar-display.js@@</script>
+<script>@@SOURCE:domain/teaching-schedule.js@@</script>
+<script>@@SOURCE:infrastructure/teaching-schedule-repository.js@@</script>
+<script>@@SOURCE:domain/teaching-resource.js@@</script>
+<script>@@SOURCE:infrastructure/teaching-resource-repository.js@@</script>
+<script>@@SOURCE:ui/teaching-workspace.js@@</script>
+<script>@@SOURCE:ui/teaching-resource-workspace.js@@</script>
 <script>@@SOURCE:domain/competition/ranking.js@@</script>
 <script>@@SOURCE:domain/competition/score-adjustments.js@@</script>
 <script>@@SOURCE:domain/competition/rules.js@@</script>
+<script>@@SOURCE:domain/competition/phase.js@@</script>
 <script>@@SOURCE:infrastructure/legacy/classroom-repository.js@@</script>
 <script>@@SOURCE:infrastructure/indexeddb/repository.js@@</script>
 <script>@@SOURCE:infrastructure/legacy/schema-migrations.js@@</script>
@@ -823,6 +852,7 @@
 <script>@@SOURCE:ui/render.js@@</script>
 <script>@@SOURCE:items/catalog.js@@</script>
 <script>@@SOURCE:core/item-modules.js@@</script>
+<script>@@SOURCE:domain/items/impact-facts.js@@</script>
 <script>@@SOURCE:domain/items/targets.js@@</script>
 <script>@@SOURCE:items/operation.js@@</script>
 <script>@@SOURCE:items/round-effects.js@@</script>
@@ -835,6 +865,7 @@
 <script>@@SOURCE:application/answer-commands.js@@</script>
 <script>@@SOURCE:application/manual-score-commands.js@@</script>
 <script>@@SOURCE:application/legacy-classroom-adapter.js@@</script>
+<script>@@SOURCE:ui/classroom-recovery.js@@</script>
 <script>@@SOURCE:ui/classroom-feedback.js@@</script>
 <script>@@SOURCE:ui/battle-motion.js@@</script>
 <script>@@SOURCE:ui/item-modules.js@@</script>
@@ -842,6 +873,7 @@
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
+<script>@@SOURCE:ui/home-dashboard.js@@</script>
 <script>@@SOURCE:core/picker-bridge.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>
 <script>@@SOURCE:ui/electron-windows.js@@</script>

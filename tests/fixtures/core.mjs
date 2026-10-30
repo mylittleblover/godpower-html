@@ -9,6 +9,8 @@ vm.runInContext(
     "\n" +
     readFileSync("src/domain/competition/rules.js", "utf8") +
     "\n" +
+    readFileSync("src/domain/competition/phase.js", "utf8") +
+    "\n" +
     readFileSync("src/core/reliability.js", "utf8") +
     "\nglobalThis.api=Reliability",
   c,
