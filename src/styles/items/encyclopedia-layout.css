@@ -1,0 +1,126 @@
+/* ===== V2.17.0：道具百科固定左图右文 ===== */
+#aboutMain .v2170-ency-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  margin-bottom: 14px !important;
+}
+#aboutMain .v2170-ency-head h2 {
+  margin: 0 !important;
+  color: var(--window-head-text, var(--ui-text, #17302d)) !important;
+}
+#aboutMain .v2170-ency-sub {
+  margin-top: 4px !important;
+  color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;
+  font-size: 12px !important;
+}
+#aboutMain .v2170-ency-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
+  width: 100% !important;
+}
+#aboutMain .v2170-ency-row {
+  display: grid !important;
+  grid-template-columns: 88px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-height: 96px !important;
+  padding: 9px 14px !important;
+  border: 1px solid var(--ui-border, #c9dcd8) !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+#aboutMain .v2170-ency-icon {
+  width: 78px !important;
+  height: 78px !important;
+  min-width: 78px !important;
+  min-height: 78px !important;
+  max-width: 78px !important;
+  max-height: 78px !important;
+  border-radius: 50% !important;
+  background: #f3f8f7 !important;
+  border: 1px solid #d8e5e2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  font-size: 44px !important;
+  line-height: 1 !important;
+}
+#aboutMain .v2170-ency-icon .v2170-ency-img,
+#aboutMain .v2170-ency-icon img {
+  width: 62px !important;
+  height: 62px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 62px !important;
+  max-height: 62px !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+#aboutMain .v2170-ency-copy {
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 5px !important;
+}
+#aboutMain .v2170-ency-name {
+  color: var(--ui-text, #17302d) !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+#aboutMain .v2170-ency-desc {
+  color: var(--ui-muted, #607773) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */
+#aboutMain {
+  min-width: 0 !important;
+}
+#aboutMain img {
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  #aboutMain .v2170-ency-row {
+    grid-template-columns: 66px minmax(0, 1fr) !important;
+    min-height: 78px !important;
+    gap: 10px !important;
+    padding: 8px 10px !important;
+  }
+  #aboutMain .v2170-ency-icon {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+  }
+  #aboutMain .v2170-ency-icon .v2170-ency-img,
+  #aboutMain .v2170-ency-icon img {
+    width: 46px !important;
+    height: 46px !important;
+    max-width: 46px !important;
+    max-height: 46px !important;
+  }
+  #aboutMain .v2170-ency-name {
+    font-size: 14px !important;
+  }
+  #aboutMain .v2170-ency-desc {
+    font-size: 12px !important;
+  }
+}

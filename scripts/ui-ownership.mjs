@@ -15,6 +15,7 @@ export async function createUiOwnershipReport() {
       type: block.type,
       path: block.path,
       attributes: block.attributes || "",
+      executionGroup: block.executionGroup || null,
       bytes: Buffer.byteLength(source),
     };
     if (block.type === "script") {
@@ -103,11 +104,9 @@ export async function createUiOwnershipReport() {
   const topLevelBindingCandidates = Object.fromEntries(
     [...repeatedBindings].filter(([, paths]) => paths.length > 1),
   );
-  const stylePaths = (await readdir(new URL("src/style/", root))).filter(
-    (path) => path.endsWith(".css"),
-  );
+  const stylePaths = cssSources.map((block) => block.path);
   const cssContents = await Promise.all(
-    stylePaths.map((path) => read(`src/style/${path}`)),
+    stylePaths.map((path) => read(`src/${path}`)),
   );
 
   return {

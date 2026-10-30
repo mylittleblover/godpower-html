@@ -1,0 +1,1000 @@
+/* ===== V2.17：唯一启用的青绿珊瑚扁平主题 ===== */
+:root {
+  --ui-wall: none;
+  --ui-wall-veil: linear-gradient(transparent, transparent);
+}
+html {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  background-color: var(--theme-tone-f3f7f6, #f3f7f6) !important;
+  background-image: var(--ui-wall-veil), var(--ui-wall) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+body.modern-flat-v217 {
+  --ui-bg: var(--theme-tone-f3f7f6, #f3f7f6);
+  --ui-panel: #ffffff;
+  --ui-soft: var(--theme-tone-ecf7f5, #ecf7f5);
+  --ui-soft-2: var(--theme-tone-f7faf9, #f7faf9);
+  --ui-primary: var(--theme-tone-0f766e, #0f766e);
+  --ui-primary-hover: var(--theme-tone-115e59, #115e59);
+  --ui-secondary: #0891b2;
+  --ui-accent: #f97316;
+  --ui-accent-hover: #ea580c;
+  --ui-text: var(--theme-tone-17302d, #17302d);
+  --ui-muted: var(--theme-tone-496e5c, #496e5c);
+  --ui-border: var(--theme-tone-c9dcd8, #c9dcd8);
+  --ui-border-strong: var(--theme-tone-afc9c3, #afc9c3);
+  --ui-success: #15803d;
+  --ui-warning: #d97706;
+  --ui-warning-text: #0f172a;
+  --ui-danger: #dc2626;
+  --ui-shadow: 0 2px 8px rgba(23, 48, 45, 0.08);
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  background: transparent !important;
+  color: var(--ui-text) !important;
+}
+body.modern-flat-v217 *,
+body.modern-flat-v217 *::before,
+body.modern-flat-v217 *::after {
+}
+body.modern-flat-v217 .view,
+body.modern-flat-v217 .main-viewport,
+body.modern-flat-v217 #view-battle,
+body.modern-flat-v217 #view-history,
+body.modern-flat-v217 #view-archives,
+body.modern-flat-v217 #view-settings {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  background: var(--ui-bg) !important;
+  background-image: none !important;
+}
+body.modern-flat-v217 #groupList {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  contain: paint;
+}
+
+/* 顶栏、底栏与稳定布局 */
+body.modern-flat-v217 .app-topnav {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 800 !important;
+  display: grid !important;
+  grid-template-columns: minmax(190px, 1fr) auto minmax(100px, 1fr);
+  align-items: center !important;
+  height: 59px;
+  box-sizing: border-box;
+  gap: 14px !important;
+  padding: 10px 20px !important;
+  background: var(--chrome-bg, var(--ui-panel)) !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  border-radius: 0 !important;
+  box-shadow: var(--chrome-shadow, none) !important;
+}
+body.modern-flat-v217 .app-topnav .header-title {
+  justify-self: start !important;
+  color: var(--ui-text) !important;
+}
+body.modern-flat-v217 .app-topnav .header-title small,
+body.modern-flat-v217 .app-topnav .header-stats {
+  color: var(--ui-muted) !important;
+}
+body.modern-flat-v217 .app-topnav .nav-tabs {
+  justify-self: center !important;
+  display: flex !important;
+  gap: 6px !important;
+  flex-wrap: nowrap !important;
+}
+body.modern-flat-v217 .app-topnav .header-stats {
+  justify-self: end;
+  text-align: right;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body.modern-flat-v217 .bottom-dock {
+  background: var(--chrome-bg, var(--ui-panel)) !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ui-border) !important;
+  border-radius: 0 !important;
+  box-shadow: var(
+    --chrome-shadow,
+    0 -2px 8px rgba(23, 48, 45, 0.06)
+  ) !important;
+}
+@media (min-width: 701px) {
+  body.modern-flat-v217 .bottom-dock {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    overflow-x: clip;
+    overflow-y: visible;
+    height: 67px;
+    box-sizing: border-box;
+  }
+  body.modern-flat-v217 .dock-left {
+    gap: 6px !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+  }
+  body.modern-flat-v217 .dock-right {
+    gap: 5px !important;
+    flex-shrink: 1 !important;
+  }
+  body.modern-flat-v217 .bottom-dock .btn {
+    padding-left: 13px !important;
+    padding-right: 13px !important;
+  }
+}
+
+/* 统一窗口尺寸：窗口自适应内容，只有主体区域滚动。 */
+body.modern-flat-v217 .score-modal-backdrop,
+body.modern-flat-v217 .modal-overlay,
+body.modern-flat-v217 .member-search-backdrop,
+body.modern-flat-v217 .item-modal-backdrop,
+body.modern-flat-v217 .classroom-backdrop,
+body.modern-flat-v217 .about-backdrop {
+  padding: 24px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+body.modern-flat-v217 .score-modal-card,
+body.modern-flat-v217 .program-confirm-window,
+body.modern-flat-v217 #pwdModal .modal-box,
+body.modern-flat-v217 #settlementNameModal .modal-box {
+  width: min(var(--notice-width, 480px), calc(100vw - 48px)) !important;
+  height: auto !important;
+  max-height: 70dvh !important;
+  overflow: auto !important;
+}
+body.modern-flat-v217 .member-search-card,
+body.modern-flat-v217 #batchImportModal .modal-box,
+body.modern-flat-v217 .modal-box.large {
+  width: min(680px, calc(100vw - 48px)) !important;
+  height: auto !important;
+  max-height: 76dvh !important;
+  overflow: auto !important;
+}
+body.modern-flat-v217 .item-window,
+body.modern-flat-v217 .about-window,
+body.modern-flat-v217 .classroom-window,
+body.modern-flat-v217 .item-draw-board {
+  width: min(920px, calc(100vw - 48px)) !important;
+  height: auto !important;
+  max-height: 82dvh !important;
+  overflow: hidden !important;
+}
+body.modern-flat-v217 .item-window {
+  grid-template-columns: 180px minmax(0, 1fr) !important;
+}
+body.modern-flat-v217 #pickerModal .modal-box {
+  width: min(var(--modal-lg), calc(100vw - 48px));
+  max-height: calc(var(--ui-viewport-height, 100dvh) - 64px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+body.modern-flat-v217 .item-draw-board {
+  overflow: auto !important;
+  overscroll-behavior: contain !important;
+}
+body.modern-flat-v217 .about-main,
+body.modern-flat-v217 .classroom-body,
+body.modern-flat-v217 #itemWindowBody {
+  min-height: 0 !important;
+  overflow: auto !important;
+  overscroll-behavior: contain !important;
+}
+body.modern-flat-v217:has(.modal-overlay.active),
+body.modern-flat-v217:has(.score-modal-backdrop.active),
+body.modern-flat-v217:has(.item-modal-backdrop.active),
+body.modern-flat-v217:has(.classroom-backdrop.active),
+body.modern-flat-v217:has(.about-backdrop.active),
+body.modern-flat-v217:has(.member-search-backdrop.active) {
+  overflow: hidden !important;
+}
+
+/* 卡片、面板和弹窗 */
+body.modern-flat-v217 .chart-container,
+body.modern-flat-v217 .dashboard-summary-container,
+body.modern-flat-v217 .quick-batch-bar,
+body.modern-flat-v217 .fullview-header,
+body.modern-flat-v217 .fullview-body,
+body.modern-flat-v217 .settings-scroll:not(.ui-settings-host),
+body.modern-flat-v217 .welcome-card,
+body.modern-flat-v217 .history-card,
+body.modern-flat-v217 .archive-card,
+body.modern-flat-v217 .setting-card,
+body.modern-flat-v217 .setting-item,
+body.modern-flat-v217 .setting-row,
+body.modern-flat-v217 .guide-block,
+body.modern-flat-v217 .ency-card,
+body.modern-flat-v217 .ency-v213-card,
+body.modern-flat-v217 .sound-setting-card,
+body.modern-flat-v217 .icon-setting-card,
+body.modern-flat-v217 .trim-row,
+body.modern-flat-v217 .history-item,
+body.modern-flat-v217 .hist-card,
+body.modern-flat-v217 .setting-section,
+body.modern-flat-v217 .settings-card,
+body.modern-flat-v217 .stat-card,
+body.modern-flat-v217 .sound-row,
+body.modern-flat-v217 .item-card {
+  background: var(--ui-panel) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--ui-shadow) !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217
+  .group-row-card:not(.card-use-fx):not(.card-hit-fx):not(.card-defend-fx):not(
+    .card-heal-fx
+  ) {
+  background: var(--battle-card-bg, var(--ui-panel)) !important;
+  background-image: none !important;
+  border-top: 1px solid var(--ui-border) !important;
+  border-right: 1px solid var(--ui-border) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  border-left: 4px solid var(--group-color, var(--theme-tone-78958f, #78958f)) !important;
+  border-radius: var(--battle-card-radius, 10px) !important;
+  box-shadow: var(--battle-card-shadow, var(--ui-shadow)) !important;
+}
+body.modern-flat-v217
+  .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover {
+  box-shadow: 0 3px 10px rgba(23, 48, 45, 0.11) !important;
+  transform: none;
+}
+body.modern-flat-v217 .modal-box,
+body.modern-flat-v217 .score-modal-card,
+body.modern-flat-v217 .member-search-card,
+body.modern-flat-v217 .vista-window,
+body.modern-flat-v217 .item-window,
+body.modern-flat-v217 .picker-window,
+body.modern-flat-v217 .picker-modal,
+body.modern-flat-v217 .about-window,
+body.modern-flat-v217 .classroom-window,
+body.modern-flat-v217 .hand-window,
+body.modern-flat-v217 .item-draw-board,
+body.modern-flat-v217 .welcome-modal-card {
+  background: var(--ui-panel) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border-strong) !important;
+  outline: 0 !important;
+  border-radius: var(--window-radius, 12px) !important;
+  box-shadow: var(
+    --window-shadow,
+    0 8px 24px rgba(23, 48, 45, 0.14)
+  ) !important;
+}
+body.modern-flat-v217 .modal-overlay,
+body.modern-flat-v217 .score-modal-backdrop,
+body.modern-flat-v217 .member-search-backdrop,
+body.modern-flat-v217 .welcome-modal,
+body.modern-flat-v217 .item-modal-backdrop,
+body.modern-flat-v217 .item-draw-overlay,
+body.modern-flat-v217 .classroom-backdrop,
+body.modern-flat-v217 .about-backdrop {
+  background: var(--window-overlay, rgba(23, 48, 45, 0.42)) !important;
+}
+body.modern-flat-v217 .item-side,
+body.modern-flat-v217 .about-side,
+body.modern-flat-v217 .picker-left-v2,
+body.modern-flat-v217 .picker-center-v2,
+body.modern-flat-v217 .picker-right-v2,
+body.modern-flat-v217 .classroom-head,
+body.modern-flat-v217 .about-head,
+body.modern-flat-v217 .settings-v2-tabs,
+body.modern-flat-v217 .settings-v26-tabs,
+body.modern-flat-v217 .item-sidebar,
+body.modern-flat-v217 .item-tabs,
+body.modern-flat-v217 .about-tabs,
+body.modern-flat-v217 .window-titlebar {
+  background: var(--window-side-bg, var(--ui-soft-2)) !important;
+  background-image: none !important;
+  border-color: var(--ui-border) !important;
+  box-shadow: none !important;
+}
+
+/* 按钮和交互状态 */
+body.modern-flat-v217 .btn,
+body.modern-flat-v217 .nav-tab,
+body.modern-flat-v217 .icon-btn,
+body.modern-flat-v217 .more-btn,
+body.modern-flat-v217 .opt-btn,
+body.modern-flat-v217 .ans-btn,
+body.modern-flat-v217 .allin-toggle-btn,
+body.modern-flat-v217 .item-tab,
+body.modern-flat-v217 .picker-vtab,
+body.modern-flat-v217 .picker-info-tabs button,
+body.modern-flat-v217 .settings-v2-tabs button,
+body.modern-flat-v217 .settings-v26-tabs button,
+body.modern-flat-v217 .item-global-btn,
+body.modern-flat-v217 .hand-group {
+  background: var(--control-bg, var(--ui-soft-2)) !important;
+  background-image: none !important;
+  color: var(--control-text, var(--ui-text)) !important;
+  border: 1px solid var(--control-border, var(--ui-border-strong)) !important;
+  border-radius: var(--control-radius, 8px) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+body.modern-flat-v217
+  .btn:not(.btn-primary):not(.btn-success):not(.btn-warning):not(
+    .btn-danger
+  ):not(:disabled):hover,
+body.modern-flat-v217 .nav-tab:not(.active):not(:disabled):hover,
+body.modern-flat-v217 .icon-btn:not(:disabled):hover,
+body.modern-flat-v217 .more-btn:not(:disabled):hover,
+body.modern-flat-v217 .ans-btn:not(.selected):not(:disabled):hover {
+  background: var(--ui-soft) !important;
+  color: var(--ui-primary-hover) !important;
+  border-color: var(--ui-primary) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+body.modern-flat-v217 .nav-tab.active,
+body.modern-flat-v217 .btn-primary,
+body.modern-flat-v217 .item-tab.active,
+body.modern-flat-v217 .picker-vtab.active,
+body.modern-flat-v217 .picker-info-tabs button.active,
+body.modern-flat-v217 .settings-v2-tabs button.active,
+body.modern-flat-v217 .settings-v26-tabs button.active,
+body.modern-flat-v217 .ans-btn.selected {
+  background: var(--control-active-bg, var(--ui-primary)) !important;
+  background-image: none !important;
+  color: var(--control-active-text, #fff) !important;
+  border-color: var(--control-active-border, var(--ui-primary)) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .ans-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+}
+body.modern-flat-v217 .btn-success {
+  background: var(--control-success-bg, var(--ui-success)) !important;
+  color: var(--control-success-text, #fff) !important;
+  border-color: var(--control-success-border, var(--ui-success)) !important;
+}
+body.modern-flat-v217 .btn-warning {
+  background: var(--ui-warning) !important;
+  color: var(--ui-warning-text) !important;
+  border-color: var(--ui-warning) !important;
+}
+body.modern-flat-v217 .btn-danger {
+  background: var(--control-danger-bg, var(--ui-danger)) !important;
+  color: var(--control-danger-text, #fff) !important;
+  border-color: var(--control-danger-border, var(--ui-danger)) !important;
+}
+body.modern-flat-v217 .allin-toggle-btn.active {
+  background: var(--ui-accent) !important;
+  color: var(--ui-text) !important;
+  border-color: var(--ui-accent-hover) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .opt-btn.active:not(.correct):not(.wrong) {
+  background: var(--ui-primary) !important;
+  color: #fff !important;
+  border-color: var(--ui-primary) !important;
+}
+body.modern-flat-v217 .opt-btn.correct {
+  background: var(--ui-success) !important;
+  color: #fff !important;
+  border-color: var(--ui-success) !important;
+}
+body.modern-flat-v217 .opt-btn.wrong {
+  background: var(--ui-danger) !important;
+  color: #fff !important;
+  border-color: var(--ui-danger) !important;
+}
+body.modern-flat-v217 .btn:disabled,
+body.modern-flat-v217 button:disabled,
+body.modern-flat-v217 .locked-disabled,
+body.modern-flat-v217 .round-disabled {
+  background: var(--theme-tone-e7efed, #e7efed) !important;
+  background-image: none !important;
+  color: var(--theme-tone-839791, #839791) !important;
+  border-color: var(--theme-tone-d5e2df, #d5e2df) !important;
+  opacity: 0.72 !important;
+  box-shadow: none !important;
+}
+
+/* 主操作：青绿；结算与重要提醒：珊瑚 */
+body.modern-flat-v217 #btnMainAction,
+body.modern-flat-v217 .welcome-enter-btn {
+  background: var(--ui-primary) !important;
+  background-image: none !important;
+  color: #fff !important;
+  border: 1px solid var(--ui-primary) !important;
+  border-radius: var(--control-radius, 8px) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217 #btnMainAction:hover,
+body.modern-flat-v217 .welcome-enter-btn:hover {
+  background: var(--ui-primary-hover) !important;
+  transform: none !important;
+}
+body.modern-flat-v217 #btnNextRound:not(.locked-disabled) {
+  background: var(--ui-success) !important;
+  background-image: none !important;
+  color: #fff !important;
+  border-color: var(--ui-success) !important;
+}
+body.modern-flat-v217 #btnForceEnd:not(.locked-disabled) {
+  background: var(--end-round-bg) !important;
+  background-image: none !important;
+  color: #fff !important;
+  border-color: var(--end-round-bg) !important;
+  box-shadow: none !important;
+}
+
+/* Theme-independent archive action: gold always means the final honor archive. */
+body.modern-flat-v217 #btnFinalSettlement {
+  background: linear-gradient(
+    135deg,
+    var(--honor-gold-light),
+    var(--honor-gold)
+  ) !important;
+  background-image: linear-gradient(
+    135deg,
+    var(--honor-gold-light),
+    var(--honor-gold)
+  ) !important;
+  color: var(--honor-ink) !important;
+  border-color: var(--honor-border) !important;
+  box-shadow:
+    0 0 14px var(--honor-glow),
+    inset 0 1px 0 #fff8 !important;
+  font-weight: 800;
+}
+/* 表单、道具格与菜单 */
+body.modern-flat-v217 input:not([type="checkbox"]),
+body.modern-flat-v217 textarea,
+body.modern-flat-v217 select {
+  background: #fff !important;
+  background-image: none !important;
+  color: var(--ui-text) !important;
+  border: 1px solid var(--ui-border-strong) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 input:focus,
+body.modern-flat-v217 textarea:focus,
+body.modern-flat-v217 select:focus {
+  outline: 2px solid rgba(15, 118, 110, 0.18) !important;
+  border-color: var(--ui-primary) !important;
+}
+body.modern-flat-v217 .item-slot,
+body.modern-flat-v217 .item-big,
+body.modern-flat-v217 .item-stat,
+body.modern-flat-v217 .item-members,
+body.modern-flat-v217 .picker-target,
+body.modern-flat-v217 .hand-rewards,
+body.modern-flat-v217 .item-draw-card,
+body.modern-flat-v217 .icon-custom-card,
+body.modern-flat-v217 .wmp-item {
+  background: #fff !important;
+  background-image: none !important;
+  border-color: var(--ui-border) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .queue-main-slot,
+body.modern-flat-v217 .queue-secondary-slot {
+  background: var(--ui-soft-2) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 #v2ItemEncyclopedia .ency-card {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border) !important;
+  box-shadow: var(--ui-shadow) !important;
+  border-radius: 10px !important;
+}
+body.modern-flat-v217 .ency-v213-icon-disc {
+  background: var(--ui-soft) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .hand-item-draw-stage {
+  background: var(--ui-soft-2) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .hand-item-capsule {
+  background: var(--ui-soft) !important;
+  background-image: none !important;
+  border: 2px solid var(--ui-primary) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .v213-number {
+  color: var(--group-contrast, #fff) !important;
+  background: var(
+    --group-badge-color,
+    var(--group-color, var(--theme-tone-607773, #607773))
+  ) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217 .v213-name,
+body.modern-flat-v217 .dashboard-card-title,
+body.modern-flat-v217 .welcome-card-title,
+body.modern-flat-v217 .setting-section-title {
+  color: var(--ui-text) !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217 .v213-name-sub,
+body.modern-flat-v217 .fullview-sub,
+body.modern-flat-v217 .metric-label {
+  color: var(--ui-muted) !important;
+}
+
+/* 排名和图表 */
+body.modern-flat-v217 .podium-col {
+  background: var(--ui-soft-2) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .podium-col::before,
+body.modern-flat-v217 .quick-batch-bar::before {
+  display: none !important;
+}
+body.modern-flat-v217 .podium-col.rank-1 {
+  background: #fff7ed !important;
+  border-color: #fdba74 !important;
+}
+body.modern-flat-v217 .podium-col.rank-2 {
+  background: var(--theme-tone-f2f7f6, #f2f7f6) !important;
+  border-color: var(--theme-tone-afc9c3, #afc9c3) !important;
+}
+body.modern-flat-v217 .podium-col.rank-3 {
+  background: #fff1eb !important;
+  border-color: #fb923c !important;
+}
+body.modern-flat-v217 .chart-track {
+  background: var(--theme-tone-dceae7, #dceae7) !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .chart-bar {
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+body.modern-flat-v217 .welcome-clock {
+  color: var(--ui-primary) !important;
+  text-shadow: none !important;
+}
+
+/* 程序确认弹窗：替换最后一处 Vista 标题栏与警告球 */
+body.modern-flat-v217 .program-confirm-overlay {
+  background: var(--window-overlay, rgba(23, 48, 45, 0.42)) !important;
+  animation: pcFadeIn 0.16s ease-out both;
+}
+body.modern-flat-v217 .program-confirm-window {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border-strong) !important;
+  outline: 0 !important;
+  border-radius: var(--window-radius, 12px) !important;
+  box-shadow: var(
+    --window-shadow,
+    0 8px 24px rgba(23, 48, 45, 0.14)
+  ) !important;
+}
+body.modern-flat-v217 .program-confirm-titlebar {
+  background: var(--notice-head-bg, var(--ui-soft)) !important;
+  background-image: none !important;
+  color: var(--notice-head-text, var(--ui-text)) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217 .program-confirm-icon {
+  background: var(--notice-icon-bg, #ffedd5) !important;
+  background-image: none !important;
+  color: var(--notice-icon-text, #c2410c) !important;
+  border: 1px solid var(--notice-icon-border, #fdba74) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .program-confirm-text {
+  color: var(--ui-text) !important;
+}
+body.modern-flat-v217 .program-confirm-actions {
+  background: #fff !important;
+  background-image: none !important;
+  border-top: 1px solid var(--ui-border) !important;
+}
+body.modern-flat-v217 .program-confirm-actions button {
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* 设置开关：纯色轨道和滑块 */
+body.modern-flat-v217 .v292-switch-track {
+  background: var(--theme-tone-dce7e4, #dce7e4) !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border-strong) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .v292-switch-knob {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid var(--ui-border-strong) !important;
+  box-shadow: none !important;
+}
+body.modern-flat-v217 .v292-switch input:checked + .v292-switch-track {
+  background: var(--ui-primary) !important;
+  background-image: none !important;
+  border-color: var(--ui-primary) !important;
+  box-shadow: none !important;
+}
+
+/* V2.16 欢迎页布局迁移，不再依赖 legacy 主题类 */
+body.modern-flat-v217 .battle-main-v216 {
+  padding-top: 14px !important;
+}
+body.modern-flat-v217 .battle-main-v216 > .top-dashboard-grid {
+  display: none !important;
+}
+body.modern-flat-v217 .welcome-card-title-row-v216 {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+body.modern-flat-v217 .welcome-stat-grid-v216 > div,
+body.modern-flat-v217 .welcome-extra-metrics-v216 .metric-box {
+  background: var(--ui-soft-2) !important;
+  background-image: none !important;
+}
+body.modern-flat-v217 .welcome-extra-metrics-v216 {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 6px !important;
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+  border-top: 1px solid var(--ui-border) !important;
+}
+body.modern-flat-v217 .welcome-chart-wrapper-v216 {
+  min-height: 226px !important;
+  max-height: 270px !important;
+  overflow-y: auto !important;
+  padding-right: 4px !important;
+}
+
+/* 常驻 UI 禁止材质效果；功能性道具动画类不在此清单中 */
+body.modern-flat-v217 .status-badge,
+body.modern-flat-v217 .metric-box,
+body.modern-flat-v217 .wmp-tag,
+body.modern-flat-v217 .row-score,
+body.modern-flat-v217 .welcome-modal-btn {
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+body.modern-flat-v217 .item-use-banner-v216 {
+  background: var(--ui-text) !important;
+  border: 1px solid var(--theme-tone-284a46, #284a46) !important;
+  box-shadow: 0 2px 8px rgba(23, 48, 45, 0.12) !important;
+}
+body.modern-flat-v217 .audio-hint-bar {
+  background: var(--ui-accent) !important;
+  background-image: none !important;
+  color: var(--ui-text) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--ui-shadow) !important;
+  text-shadow: none !important;
+}
+
+/* 道具图片尺寸由使用组件决定，原始 PNG 永远不能撑开页面。 */
+.item-slot img {
+  display: block !important;
+  width: 26px !important;
+  height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  object-fit: contain !important;
+}
+.item-big-icon img {
+  display: block !important;
+  width: 58px !important;
+  height: 58px !important;
+  max-width: 58px !important;
+  max-height: 58px !important;
+  object-fit: contain !important;
+}
+.attack-hit-badge-v2116 span {
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex: 0 0 24px !important;
+}
+.attack-hit-badge-v2116 span img {
+  display: block !important;
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  object-fit: contain !important;
+}
+.card-fx-badge .cfi {
+  width: 30px !important;
+  height: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex: 0 0 30px !important;
+}
+.card-fx-badge .cfi img {
+  display: block !important;
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
+  object-fit: contain !important;
+}
+.item-use-banner-v216 {
+  position: fixed;
+  z-index: 19050;
+  left: 50%;
+  top: 76px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  max-width: min(440px, calc(100vw - 28px));
+  padding: 8px 13px;
+  border-radius: 10px;
+  color: #fff;
+  pointer-events: none;
+  animation: itemUseBannerV216 3.8s ease both;
+}
+.item-use-banner-v216 .iub-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.item-use-banner-v216 .iub-icon img {
+  display: block !important;
+  width: 34px !important;
+  height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  object-fit: contain !important;
+}
+.item-use-banner-v216 .iub-main {
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-use-banner-v216 .iub-sub {
+  margin-top: 1px;
+  font-size: 10px;
+  color: var(--theme-tone-c9dcd8, #c9dcd8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@keyframes itemUseBannerV216 {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10px) scale(0.96);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  76% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -7px) scale(0.98);
+  }
+}
+
+/* 小组详情内嵌编辑。 */
+.group-detail-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+.group-detail-section {
+  padding: 14px;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-soft-2);
+}
+.group-detail-section h4 {
+  margin: 0 0 10px;
+  color: var(--ui-text);
+  font-size: 14px;
+}
+.group-detail-fields {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 10px;
+}
+.group-detail-field {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.group-detail-field label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ui-muted);
+}
+.group-detail-field input,
+.group-detail-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border-radius: 8px;
+}
+.group-detail-field textarea {
+  min-height: 112px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.group-color-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.group-color-control input[type="color"] {
+  width: 54px !important;
+  height: 38px;
+  padding: 3px !important;
+  flex: 0 0 54px;
+}
+.group-color-preview {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--ui-border-strong);
+}
+.group-detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.group-detail-lock {
+  padding: 10px 12px;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  background: #fffbeb;
+  color: #92400e;
+  font-weight: 800;
+  font-size: 12px;
+}
+.group-detail-danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+.group-detail-danger p {
+  margin: 0 0 10px;
+  color: #991b1b;
+  font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+}
+/* Dock layout has one responsive owner. Narrow windows keep all actions reachable. */
+body.modern-flat-v217 {
+  padding-bottom: calc(var(--dock-height, 78px) + 16px);
+}
+body.modern-flat-v217 button:focus-visible,
+body.modern-flat-v217 input:focus-visible,
+body.modern-flat-v217 textarea:focus-visible {
+  outline: 3px solid var(--ui-secondary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.modern-flat-v217 *,
+  body.modern-flat-v217 *::before,
+  body.modern-flat-v217 *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+.classroom-save-warning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: #fff7db;
+  color: #713f12;
+  border-bottom: 1px solid #f5cc71;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.classroom-save-warning[hidden] {
+  display: none;
+}
+.classroom-recovery-tools {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e7b85a;
+  border-radius: 12px;
+  background: #fffdf5;
+}
+.classroom-recovery-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#classroomRecoveryCandidates {
+  display: grid;
+  gap: 8px;
+}
+#classroomRecoveryCandidates article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid #eadfca;
+  border-radius: 9px;
+  background: #fff;
+}
+#classroomRecoveryCandidates p,
+#classroomRecoveryPreview p {
+  margin: 0;
+}
+#classroomRecoveryPreview {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-left: 3px solid #d39b32;
+  background: #fff8e7;
+}
+#classroomRecoveryPreview[hidden] {
+  display: none;
+}

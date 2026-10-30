@@ -1,3 +1,4 @@
+import { parseSourceBlocks } from "./source-manifest.mjs";
 /** Read-only repository hygiene inventory. Nothing here deletes release or test evidence. */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, statSync } from "node:fs";
@@ -21,7 +22,7 @@ export function mergeFileLists(tracked, untracked) {
 
 export function findCommentOnlyScripts(entries) {
   return entries
-    .filter(({ path }) => /^src\/script\/\d+\.js$/.test(path))
+    .filter(({ path }) => /^src\/(?:script|runtime)\/.*\.js$/.test(path))
     .filter(
       ({ content }) =>
         !content
@@ -34,11 +35,7 @@ export function findCommentOnlyScripts(entries) {
 }
 
 export function manifestIssues(template, manifest, availablePaths) {
-  const blocks = [
-    ...template.matchAll(
-      /<(script|style)\b([^>]*)>\s*@@SOURCE:([^@]+)@@\s*<\/\1>/g,
-    ),
-  ].map(([, type, attributes, path]) => ({ type, path, attributes }));
+  const blocks = parseSourceBlocks(template);
   const resources = [
     ...new Set(
       [...template.matchAll(/@@RESOURCE:([^@]+)@@/g)].map((match) => match[1]),
@@ -78,7 +75,7 @@ function inspect() {
     .map((path) => ({ path, bytes: statSync(path).size }));
   const present = new Set(entries.map(({ path }) => path));
   const source = entries
-    .filter(({ path }) => /^src\/script\/\d+\.js$/.test(path))
+    .filter(({ path }) => /^src\/(?:script|runtime)\/.*\.js$/.test(path))
     .map(({ path }) => ({ path, content: readFileSync(path, "utf8") }));
   const issues = manifestIssues(
     readFileSync("src/index.template.html", "utf8"),

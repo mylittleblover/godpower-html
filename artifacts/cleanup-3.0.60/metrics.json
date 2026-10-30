@@ -1,0 +1,15 @@
+{
+  "baseline": "48c199f",
+  "retiredNumberedFiles": 66,
+  "runtimeFiles": 101,
+  "stylesFiles": 38,
+  "scriptExecutionUnits": 117,
+  "sourceBlocks": 224,
+  "retiredDrawStatements": 24,
+  "removedDrawBytesBeforeFormatting": 24861,
+  "removedCssDeclarations": 33,
+  "baselineBuildBytes": 8198634,
+  "buildBytes": 8226621,
+  "sha256": "130080d925248178c64dbac5aee7c0ac9419393e2b2c836b4792816a6ad2caaf",
+  "performance": "NOT TESTED; formatting and source movement are not performance measurements"
+}

@@ -1,0 +1,172 @@
+.settings-v26-tabs {
+  display: flex;
+  gap: 7px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding: 9px;
+  background: rgba(245, 250, 255, 0.96);
+  border-bottom: 1px solid #bfdbfe;
+  overflow-x: auto;
+}
+.settings-v26-tabs button {
+  flex: 0 0 auto;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  background: linear-gradient(#fff, #eff6ff);
+  padding: 9px 14px;
+  font-weight: 900;
+  color: #334155;
+}
+.settings-v26-tabs button.active {
+  background: linear-gradient(#38bdf8, #0284c7);
+  color: #fff;
+  box-shadow: 0 4px 12px #0284c744;
+}
+.settings-v26-pane {
+  display: none;
+  padding: 8px 2px 22px;
+}
+.settings-v26-pane.active {
+  display: block;
+}
+.icon-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+.icon-custom-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #fff;
+}
+.icon-preview {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eff6ff;
+  font-size: 25px;
+  overflow: hidden;
+}
+.icon-preview img,
+.custom-ui-icon {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+.custom-ui-icon {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.18em;
+}
+
+/* ===== V2.8 程序样式确认弹窗 ===== */
+.program-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: rgba(15, 30, 45, 0.3);
+
+  animation: pcFadeIn 0.16s ease-out both;
+}
+.program-confirm-window {
+  width: min(430px, calc(100vw - 28px));
+  max-height: calc(var(--vvh, 100dvh) - 28px);
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(249, 253, 255, 0.96),
+    rgba(210, 233, 249, 0.91)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.98);
+  outline: 1px solid rgba(91, 150, 190, 0.55);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 22px 55px rgba(12, 35, 55, 0.38);
+  animation: pcPopIn 0.22s cubic-bezier(0.2, 0.85, 0.25, 1.08) both;
+}
+.program-confirm-titlebar {
+  padding: 11px 15px;
+  font-weight: 950;
+  color: #17486b;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(189, 224, 247, 0.84) 48%,
+    rgba(143, 201, 236, 0.7) 52%,
+    rgba(224, 244, 255, 0.9)
+  );
+  border-bottom: 1px solid rgba(90, 151, 190, 0.45);
+  text-shadow: 0 1px 0 #fff;
+}
+.program-confirm-body {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 22px 20px 18px;
+  overflow: auto;
+}
+.program-confirm-icon {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+  background: linear-gradient(#fff7c8, #f6c945);
+  border: 1px solid #d3a920;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 3px 10px rgba(120, 85, 0, 0.18);
+}
+.program-confirm-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #26384a;
+  font-weight: 700;
+}
+.program-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 11px 16px 15px;
+  border-top: 1px solid rgba(130, 174, 204, 0.3);
+  background: rgba(239, 248, 254, 0.55);
+}
+.program-confirm-actions button {
+  min-width: 86px;
+}
+@keyframes pcFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pcPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ===== V2.8.1 道具抽取结果：左图标 + 右名称 ===== */

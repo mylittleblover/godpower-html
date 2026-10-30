@@ -1,0 +1,45 @@
+/* ===== V2.17.35：顶部提示统一样式 + 自动错层 ===== */
+.top-notice-stack-v21735 {
+  position: fixed;
+  z-index: 19060;
+  left: 50%;
+  top: 76px;
+  transform: translateX(-50%);
+  width: min(440px, calc(100vw - 28px));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  pointer-events: none;
+}
+
+/* 放进堆栈后，顶部道具提示不再自己 fixed，否则会互相盖住 */
+.top-notice-stack-v21735 .item-use-banner-v216 {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+/* 防御提示直接复用顶部道具提示的结构和视觉 */
+.item-defense-banner-v21735 {
+  background: var(--ui-text, #17302d) !important;
+  border: 1px solid #284a46 !important;
+  box-shadow: 0 2px 8px rgba(23, 48, 45, 0.12) !important;
+}
+.item-defense-banner-v21735 .iub-icon {
+  font-size: 24px;
+}
+.item-defense-banner-v21735 .iub-main {
+  white-space: normal !important;
+  line-height: 1.35;
+}
+
+@media (max-width: 700px) {
+  .top-notice-stack-v21735 {
+    top: 64px;
+  }
+}

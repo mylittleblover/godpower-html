@@ -1,0 +1,64 @@
+
+> godpower-html@3.0.60 audit:hygiene
+> node scripts/repo-hygiene.mjs
+
+{
+  "inspectedFiles": 3053,
+  "categories": {
+    ".github": {
+      "files": 1,
+      "bytes": 790
+    },
+    ".gitignore": {
+      "files": 1,
+      "bytes": 27
+    },
+    ".openai": {
+      "files": 1,
+      "bytes": 106
+    },
+    "README.md": {
+      "files": 1,
+      "bytes": 2716
+    },
+    "artifacts": {
+      "files": 2549,
+      "bytes": 372690547
+    },
+    "baseline": {
+      "files": 1,
+      "bytes": 7546905
+    },
+    "dist": {
+      "files": 2,
+      "bytes": 16453242
+    },
+    "docs": {
+      "files": 88,
+      "bytes": 1588118
+    },
+    "package-lock.json": {
+      "files": 1,
+      "bytes": 2703
+    },
+    "package.json": {
+      "files": 1,
+      "bytes": 5109
+    },
+    "scripts": {
+      "files": 20,
+      "bytes": 133336
+    },
+    "src": {
+      "files": 254,
+      "bytes": 8266700
+    },
+    "tests": {
+      "files": 133,
+      "bytes": 735681
+    }
+  },
+  "commentOnlyLegacyScripts": [],
+  "sourceManifestIssues": [],
+  "note": "Comment-only files are removal candidates; preserve screenshot baselines and other evidence until consumers are checked."
+}

@@ -40,7 +40,7 @@ for name,fn,trigger,inp,out,dep,persist,risk,tests,status in features:s+='| '+' 
 s+='\n## 所有实际道具\n\n以下来自运行时ITEM_KEYS／ITEM_DEFS，不由需求清单猜测。详细效果以原定义、GROUP_ITEM_DESC和26条预期断言为证据。每项触发均为主栏主动使用或对应被动防御；输入含库存、排名与目标状态；依赖共同命令、计分、防御、视觉及音效，持久化inventory/itemEffect/itemStats/itemGlobal，风险均高。\n\n| key | 名称 | 默认次数 | 源码 | 获取／使用／消耗／撤销 | 共用守门／冻结／恢复 | 积分与初始效果oracle |\n|---|---|---|---|---|---|---|\n'
 for it in items:
  k=it['key'];o=next(x for x in oracles if x['key']==k)
- s+=f"| {k} | {it['name']} | {it['charges']} | src/script/00.js:ITEM_DEFS；36.js；42.js | PASS | PASS | {o['status']} |\n"
+ s+=f"| {k} | {it['name']} | {it['charges']} | src/runtime/items/definitions-and-state.js；encyclopedia-rules.js；flower-copy-and-limits.js | PASS | PASS | {o['status']} |\n"
 s+='\n## 隐藏入口、设置、存储、动画与资源\n\nSOURCE_CATALOG.md列出所有命名函数及覆盖定义、输入、返回、副作用字段、调用依赖、风险、事件入口、存储键和88个原动画名；artifacts/static-inventory.json保留机器可读AST结果。静态模板／动态字符串事件均扫描，含解锁后管理、设置控制的道具模式、三重续用、首次举手抽取、刺龟壳防御选择等条件分支。\n\n不能据此声称所有二／三级菜单和所有条件都经过浏览器操作。SOURCE_CATALOG 的单实现 NOT TESTED 与本表集成PASS分开记录，避免以调用存在冒充覆盖。\n'
 Path('docs/audit/FEATURE_INVENTORY.md').write_text(s)
 # One row per executed scenario, plus honest gaps.
@@ -103,7 +103,7 @@ s=f'''# V2.18.15 综合验收报告
 - 修复分支：fix/html-reliability-audit；报告生成时实现提交：{code_sha}（之后仅文档／产物提交）。
 - 最终应用：V2.18.15；单文件 `dist/godpower.html`，{bytesize:,}字节，SHA-256 `{sha}`。
 - 27个原版内置data URI逐字保持；原版无内嵌可播放音轨。自定义音频仍在用户IndexedDB，需原有音频包备份。
-- 目录／修改文件：src/core两服务、src/script原脚本拆分及修复、src/style原样式拆分与主题修复、模板／27资源文件、scripts、tests、docs、artifacts、dist、README、package锁文件，以及仅手动触发的GitHub Actions配置。完整名单以git log --stat为准。
+- 目录／修改文件：src/core两服务、src/runtime职责脚本、src/styles职责样式、模板／27资源文件、scripts、tests、docs、artifacts、dist、README、package锁文件，以及仅手动触发的GitHub Actions配置。完整名单以git log --stat为准。
 
 ## 修复与架构变化
 

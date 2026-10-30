@@ -1,0 +1,13 @@
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.66149ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (0.723139ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.995274ms)
+✔ UI ownership report follows the build manifest and records the five default pages (93.061497ms)
+✔ manifest order and file byte evidence are deterministic (127.678314ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.663956

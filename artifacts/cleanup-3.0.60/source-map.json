@@ -1,0 +1,975 @@
+[
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/window-visibility.js",
+    "fromLine": 1,
+    "toLine": 15,
+    "bytes": 490
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/core/state-and-preferences.js",
+    "fromLine": 15,
+    "toLine": 237,
+    "bytes": 10293
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/archives/settlement-actions.js",
+    "fromLine": 237,
+    "toLine": 490,
+    "bytes": 9616
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/session-cache.js",
+    "fromLine": 490,
+    "toLine": 571,
+    "bytes": 2106
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/history/compatibility-ui.js",
+    "fromLine": 571,
+    "toLine": 597,
+    "bytes": 571
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/resource-loading.js",
+    "fromLine": 597,
+    "toLine": 890,
+    "bytes": 9692
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/sound-playback.js",
+    "fromLine": 890,
+    "toLine": 1044,
+    "bytes": 6692
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/battle-playback.js",
+    "fromLine": 1044,
+    "toLine": 1417,
+    "bytes": 12362
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/toast.js",
+    "fromLine": 1417,
+    "toLine": 1435,
+    "bytes": 523
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/storage/classroom-save.js",
+    "fromLine": 1435,
+    "toLine": 1484,
+    "bytes": 2269
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/battle-layout-controls.js",
+    "fromLine": 1484,
+    "toLine": 1560,
+    "bytes": 1935
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/admin-lock.js",
+    "fromLine": 1560,
+    "toLine": 1611,
+    "bytes": 1420
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/competition/round-actions.js",
+    "fromLine": 1611,
+    "toLine": 1798,
+    "bytes": 5755
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/classroom/roster-settings-actions.js",
+    "fromLine": 1798,
+    "toLine": 1848,
+    "bytes": 1811
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/score-dialog-and-animation.js",
+    "fromLine": 1848,
+    "toLine": 2012,
+    "bytes": 5055
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/competition/answer-adapter.js",
+    "fromLine": 2012,
+    "toLine": 2075,
+    "bytes": 1733
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/member-search.js",
+    "fromLine": 2075,
+    "toLine": 2144,
+    "bytes": 2243
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/competition-summary.js",
+    "fromLine": 2144,
+    "toLine": 2352,
+    "bytes": 7955
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/picker/selection-engine.js",
+    "fromLine": 2352,
+    "toLine": 2664,
+    "bytes": 13550
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/classroom/roster-text-import.js",
+    "fromLine": 2664,
+    "toLine": 2702,
+    "bytes": 1399
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/storage/classroom-transfer.js",
+    "fromLine": 2702,
+    "toLine": 2728,
+    "bytes": 1147
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/classroom/group-actions.js",
+    "fromLine": 2728,
+    "toLine": 2802,
+    "bytes": 2120
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/settings-and-transfer.js",
+    "fromLine": 2802,
+    "toLine": 3109,
+    "bytes": 13636
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/navigation-and-clock.js",
+    "fromLine": 3109,
+    "toLine": 3241,
+    "bytes": 5985
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/menu-patterns.js",
+    "fromLine": 3241,
+    "toLine": 3375,
+    "bytes": 6342
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/menu-synthesis.js",
+    "fromLine": 3375,
+    "toLine": 3482,
+    "bytes": 4535
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/menu-transport.js",
+    "fromLine": 3482,
+    "toLine": 3702,
+    "bytes": 8184
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/menu-settings.js",
+    "fromLine": 3702,
+    "toLine": 3788,
+    "bytes": 6065
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/picker-roll.js",
+    "fromLine": 3788,
+    "toLine": 3847,
+    "bytes": 1812
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/wallpaper.js",
+    "fromLine": 3847,
+    "toLine": 3961,
+    "bytes": 4248
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/bootstrap/classroom-startup.js",
+    "fromLine": 3961,
+    "toLine": 4041,
+    "bytes": 3066
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/definitions-and-state.js",
+    "fromLine": 4041,
+    "toLine": 4118,
+    "bytes": 6633
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/ranking-and-drop-legacy.js",
+    "fromLine": 4118,
+    "toLine": 4241,
+    "bytes": 5251
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/attack-legacy.js",
+    "fromLine": 4241,
+    "toLine": 4257,
+    "bytes": 2064
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/group-window.js",
+    "fromLine": 4257,
+    "toLine": 4389,
+    "bytes": 10783
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/picker/classroom-tools.js",
+    "fromLine": 4389,
+    "toLine": 4445,
+    "bytes": 6716
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/encyclopedia-and-icons.js",
+    "fromLine": 4445,
+    "toLine": 4458,
+    "bytes": 2796
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/settings-and-about.js",
+    "fromLine": 4458,
+    "toLine": 4501,
+    "bytes": 6361
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/hand-reward-lifecycle.js",
+    "fromLine": 4501,
+    "toLine": 4559,
+    "bytes": 2459
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/feedback-and-icons.js",
+    "fromLine": 4559,
+    "toLine": 4638,
+    "bytes": 3465
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/card-effects-legacy.js",
+    "fromLine": 4638,
+    "toLine": 4711,
+    "bytes": 4171
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/history/boot-and-settings-compat.js",
+    "fromLine": 4711,
+    "toLine": 4738,
+    "bytes": 953
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/audio/item-sound-settings.js",
+    "fromLine": 4738,
+    "toLine": 4771,
+    "bytes": 2333
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/icon-settings.js",
+    "fromLine": 4771,
+    "toLine": 4810,
+    "bytes": 3183
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/settings-navigation-compat.js",
+    "fromLine": 4810,
+    "toLine": 4875,
+    "bytes": 4880
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/persistent-state-repair.js",
+    "fromLine": 4875,
+    "toLine": 4884,
+    "bytes": 272
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/program-confirmation.js",
+    "fromLine": 4884,
+    "toLine": 4927,
+    "bytes": 2646
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/weighted-selection.js",
+    "fromLine": 4927,
+    "toLine": 5004,
+    "bytes": 3982
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/effect-palette-and-preview.js",
+    "fromLine": 5004,
+    "toLine": 5031,
+    "bytes": 875
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/catalog-adapters.js",
+    "fromLine": 5031,
+    "toLine": 5167,
+    "bytes": 7027
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/catalog-refresh.js",
+    "fromLine": 5167,
+    "toLine": 5220,
+    "bytes": 2320
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/feature-switch.js",
+    "fromLine": 5220,
+    "toLine": 5277,
+    "bytes": 2029
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/ui/chart-and-window-polish.js",
+    "fromLine": 5277,
+    "toLine": 5346,
+    "bytes": 2225
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/lightning-and-hit-legacy.js",
+    "fromLine": 5346,
+    "toLine": 5482,
+    "bytes": 5283
+  },
+  {
+    "from": "script/00.js",
+    "to": "runtime/items/queue-adapters.js",
+    "fromLine": 5482,
+    "toLine": 5643,
+    "bytes": 7867
+  },
+  {
+    "from": "script/10.js",
+    "to": "runtime/audio/fx-bundle-transfer.js",
+    "fromLine": 1,
+    "toLine": 102,
+    "bytes": 3030
+  },
+  {
+    "from": "script/11.js",
+    "to": "runtime/audio/effects-volume.js",
+    "fromLine": 1,
+    "toLine": 120,
+    "bytes": 3673
+  },
+  {
+    "from": "script/12.js",
+    "to": "runtime/items/round-use-lock.js",
+    "fromLine": 1,
+    "toLine": 88,
+    "bytes": 3029
+  },
+  {
+    "from": "script/13.js",
+    "to": "runtime/competition/batch-all-in-guard.js",
+    "fromLine": 1,
+    "toLine": 66,
+    "bytes": 1882
+  },
+  {
+    "from": "script/14.js",
+    "to": "runtime/items/draw-throttle-legacy.js",
+    "fromLine": 1,
+    "toLine": 173,
+    "bytes": 7155
+  },
+  {
+    "from": "script/15.js",
+    "to": "runtime/items/draw-session-throttle.js",
+    "fromLine": 1,
+    "toLine": 221,
+    "bytes": 7428
+  },
+  {
+    "from": "script/16.js",
+    "to": "runtime/items/draw-flow.js",
+    "fromLine": 1,
+    "toLine": 292,
+    "bytes": 10103
+  },
+  {
+    "from": "script/17.js",
+    "to": "runtime/ui/attack-reorder-scheduling.js",
+    "fromLine": 1,
+    "toLine": 46,
+    "bytes": 1665
+  },
+  {
+    "from": "script/18.js",
+    "to": "runtime/items/encyclopedia-effects.js",
+    "fromLine": 1,
+    "toLine": 70,
+    "bytes": 5318
+  },
+  {
+    "from": "script/19.js",
+    "to": "runtime/classroom/group-palette.js",
+    "fromLine": 1,
+    "toLine": 15,
+    "bytes": 447
+  },
+  {
+    "from": "script/20.js",
+    "to": "runtime/items/spiny-cooldown.js",
+    "fromLine": 1,
+    "toLine": 71,
+    "bytes": 2353
+  },
+  {
+    "from": "script/21.js",
+    "to": "runtime/items/inventory-recovery.js",
+    "fromLine": 1,
+    "toLine": 47,
+    "bytes": 1547
+  },
+  {
+    "from": "script/22.js",
+    "to": "runtime/items/flower-charges-recovery.js",
+    "fromLine": 1,
+    "toLine": 34,
+    "bytes": 1027
+  },
+  {
+    "from": "script/23.js",
+    "to": "runtime/ui/card-transform-repair.js",
+    "fromLine": 1,
+    "toLine": 11,
+    "bytes": 365
+  },
+  {
+    "from": "script/24.js",
+    "to": "runtime/ui/rank-preview.js",
+    "fromLine": 1,
+    "toLine": 52,
+    "bytes": 1793
+  },
+  {
+    "from": "script/27.js",
+    "to": "runtime/ui/battle-sort-contract.js",
+    "fromLine": 1,
+    "toLine": 52,
+    "bytes": 2006
+  },
+  {
+    "from": "script/28.js",
+    "to": "runtime/ui/round-flip.js",
+    "fromLine": 1,
+    "toLine": 67,
+    "bytes": 2110
+  },
+  {
+    "from": "script/30.js",
+    "to": "runtime/ui/theme-dialog.js",
+    "fromLine": 1,
+    "toLine": 87,
+    "bytes": 2877
+  },
+  {
+    "from": "script/31.js",
+    "to": "runtime/ui/score-motion.js",
+    "fromLine": 1,
+    "toLine": 172,
+    "bytes": 7003
+  },
+  {
+    "from": "script/32.js",
+    "to": "runtime/items/status-normalization.js",
+    "fromLine": 1,
+    "toLine": 54,
+    "bytes": 1470
+  },
+  {
+    "from": "script/34.js",
+    "to": "runtime/ui/notice-duration.js",
+    "fromLine": 1,
+    "toLine": 18,
+    "bytes": 626
+  },
+  {
+    "from": "script/35.js",
+    "to": "runtime/ui/defense-notices.js",
+    "fromLine": 1,
+    "toLine": 99,
+    "bytes": 3677
+  },
+  {
+    "from": "script/37.js",
+    "to": "runtime/items/group-encyclopedia.js",
+    "fromLine": 1,
+    "toLine": 121,
+    "bytes": 6532
+  },
+  {
+    "from": "script/38.js",
+    "to": "runtime/items/encyclopedia-copy.js",
+    "fromLine": 1,
+    "toLine": 99,
+    "bytes": 8220
+  },
+  {
+    "from": "script/39.js",
+    "to": "runtime/ui/dock-tooltips.js",
+    "fromLine": 1,
+    "toLine": 111,
+    "bytes": 6624
+  },
+  {
+    "from": "script/40.js",
+    "to": "runtime/bootstrap/version.js",
+    "fromLine": 1,
+    "toLine": 2,
+    "bytes": 45
+  },
+  {
+    "from": "script/41.js",
+    "to": "runtime/ui/interface-copy.js",
+    "fromLine": 1,
+    "toLine": 102,
+    "bytes": 5461
+  },
+  {
+    "from": "script/42.js",
+    "to": "runtime/items/flower-copy-and-limits.js",
+    "fromLine": 1,
+    "toLine": 31,
+    "bytes": 2519
+  },
+  {
+    "from": "script/43.js",
+    "to": "runtime/ui/about-copy.js",
+    "fromLine": 1,
+    "toLine": 23,
+    "bytes": 780
+  },
+  {
+    "from": "script/44.js",
+    "to": "runtime/competition/season-cleanup.js",
+    "fromLine": 1,
+    "toLine": 121,
+    "bytes": 3963
+  },
+  {
+    "from": "script/45.js",
+    "to": "runtime/archives/full-settlement.js",
+    "fromLine": 1,
+    "toLine": 294,
+    "bytes": 12047
+  },
+  {
+    "from": "script/01.js",
+    "to": "runtime/ui/battle-order-compat.js",
+    "fromLine": 1,
+    "toLine": 71,
+    "bytes": 3523
+  },
+  {
+    "from": "script/02.js",
+    "to": "runtime/ui/battle-appearance-and-hand-rewards.js",
+    "fromLine": 1,
+    "toLine": 84,
+    "bytes": 5325
+  },
+  {
+    "from": "script/03.js",
+    "to": "runtime/ui/welcome-score-sync.js",
+    "fromLine": 1,
+    "toLine": 64,
+    "bytes": 2721
+  },
+  {
+    "from": "script/04.js",
+    "to": "runtime/audio/item-sound-bindings.js",
+    "fromLine": 1,
+    "toLine": 145,
+    "bytes": 4661
+  },
+  {
+    "from": "script/05.js",
+    "to": "runtime/items/defense-chain-compat.js",
+    "fromLine": 1,
+    "toLine": 181,
+    "bytes": 8386
+  },
+  {
+    "from": "script/06.js",
+    "to": "runtime/audio/draw-audio-lifecycle.js",
+    "fromLine": 1,
+    "toLine": 122,
+    "bytes": 3693
+  },
+  {
+    "from": "script/07.js",
+    "to": "runtime/items/drop-uniqueness-and-reset.js",
+    "fromLine": 1,
+    "toLine": 245,
+    "bytes": 7822
+  },
+  {
+    "from": "script/08.js",
+    "to": "runtime/items/drop-midfield-weights.js",
+    "fromLine": 1,
+    "toLine": 137,
+    "bytes": 3387
+  },
+  {
+    "from": "script/09.js",
+    "to": "runtime/audio/item-sound-map.js",
+    "fromLine": 1,
+    "toLine": 188,
+    "bytes": 6978
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/classroom/student-labels-and-search.js",
+    "fromLine": 1,
+    "toLine": 97,
+    "bytes": 4311
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/classroom/quick-person-score.js",
+    "fromLine": 97,
+    "toLine": 224,
+    "bytes": 7264
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/items/triple-defense-helpers.js",
+    "fromLine": 224,
+    "toLine": 274,
+    "bytes": 2043
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/items/first-hand-pool.js",
+    "fromLine": 274,
+    "toLine": 300,
+    "bytes": 864
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/classroom/hand-reward-controls.js",
+    "fromLine": 300,
+    "toLine": 379,
+    "bytes": 4046
+  },
+  {
+    "from": "script/36.js",
+    "to": "runtime/items/encyclopedia-rules.js",
+    "fromLine": 379,
+    "toLine": 460,
+    "bytes": 6088
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/base/reset-and-header.css",
+    "fromLine": 1,
+    "toLine": 49,
+    "bytes": 988
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/battle/overview-and-resizer.css",
+    "fromLine": 49,
+    "toLine": 246,
+    "bytes": 5188
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/battle/group-cards.css",
+    "fromLine": 246,
+    "toLine": 534,
+    "bytes": 6840
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/dialogs/score-and-member-search.css",
+    "fromLine": 534,
+    "toLine": 717,
+    "bytes": 4525
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/shell/dock-and-buttons.css",
+    "fromLine": 717,
+    "toLine": 831,
+    "bytes": 3162
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/dialogs/settlement-and-core.css",
+    "fromLine": 831,
+    "toLine": 1140,
+    "bytes": 8829
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/shell/navigation-and-welcome.css",
+    "fromLine": 1140,
+    "toLine": 1280,
+    "bytes": 13847
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/inventory-and-roulette.css",
+    "fromLine": 1280,
+    "toLine": 1482,
+    "bytes": 20831
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/settings/tabs-and-confirmation.css",
+    "fromLine": 1482,
+    "toLine": 1530,
+    "bytes": 3055
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/roulette-result-and-flowers.css",
+    "fromLine": 1530,
+    "toLine": 1631,
+    "bytes": 4501
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/catalog-and-management.css",
+    "fromLine": 1631,
+    "toLine": 1730,
+    "bytes": 3829
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/feature-visibility.css",
+    "fromLine": 1730,
+    "toLine": 1756,
+    "bytes": 1292
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/battle/score-and-state.css",
+    "fromLine": 1756,
+    "toLine": 2136,
+    "bytes": 14934
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/attack-feedback.css",
+    "fromLine": 2136,
+    "toLine": 2249,
+    "bytes": 7553
+  },
+  {
+    "from": "style/00.css",
+    "to": "styles/items/queue-and-image-constraints.css",
+    "fromLine": 2249,
+    "toLine": 2386,
+    "bytes": 3587
+  },
+  {
+    "from": "style/10.css",
+    "to": "styles/battle/round-item-locks.css",
+    "fromLine": 1,
+    "toLine": 25,
+    "bytes": 593
+  },
+  {
+    "from": "style/11.css",
+    "to": "styles/items/cooldown-notes.css",
+    "fromLine": 1,
+    "toLine": 23,
+    "bytes": 369
+  },
+  {
+    "from": "style/12.css",
+    "to": "styles/items/draw-flow.css",
+    "fromLine": 1,
+    "toLine": 97,
+    "bytes": 2560
+  },
+  {
+    "from": "style/13.css",
+    "to": "styles/battle/quick-batch.css",
+    "fromLine": 1,
+    "toLine": 31,
+    "bytes": 899
+  },
+  {
+    "from": "style/14.css",
+    "to": "styles/classroom/group-palette.css",
+    "fromLine": 1,
+    "toLine": 66,
+    "bytes": 2730
+  },
+  {
+    "from": "style/15.css",
+    "to": "styles/ui/flat-controls-and-scrolling.css",
+    "fromLine": 1,
+    "toLine": 328,
+    "bytes": 15464
+  },
+  {
+    "from": "style/16.css",
+    "to": "styles/battle/rank-preview.css",
+    "fromLine": 1,
+    "toLine": 106,
+    "bytes": 3309
+  },
+  {
+    "from": "style/17.css",
+    "to": "styles/dialogs/theme-confirmation.css",
+    "fromLine": 1,
+    "toLine": 47,
+    "bytes": 1971
+  },
+  {
+    "from": "style/18.css",
+    "to": "styles/battle/score-feedback.css",
+    "fromLine": 1,
+    "toLine": 77,
+    "bytes": 2165
+  },
+  {
+    "from": "style/19.css",
+    "to": "styles/ui/defense-notices.css",
+    "fromLine": 1,
+    "toLine": 47,
+    "bytes": 1101
+  },
+  {
+    "from": "style/20.css",
+    "to": "styles/classroom/student-picker-hand.css",
+    "fromLine": 1,
+    "toLine": 96,
+    "bytes": 5288
+  },
+  {
+    "from": "style/21.css",
+    "to": "styles/items/group-rule-copy.css",
+    "fromLine": 1,
+    "toLine": 7,
+    "bytes": 211
+  },
+  {
+    "from": "style/22.css",
+    "to": "styles/ui/dock-tooltips.css",
+    "fromLine": 1,
+    "toLine": 11,
+    "bytes": 534
+  },
+  {
+    "from": "style/23.css",
+    "to": "styles/ui/interface-copy.css",
+    "fromLine": 1,
+    "toLine": 6,
+    "bytes": 144
+  },
+  {
+    "from": "style/01.css",
+    "to": "styles/items/catalog-and-card-compat.css",
+    "fromLine": 1,
+    "toLine": 85,
+    "bytes": 8429
+  },
+  {
+    "from": "style/02.css",
+    "to": "styles/themes/flat-foundation.css",
+    "fromLine": 1,
+    "toLine": 290,
+    "bytes": 27539
+  },
+  {
+    "from": "style/03.css",
+    "to": "styles/ui/readability-and-effect-layers.css",
+    "fromLine": 1,
+    "toLine": 119,
+    "bytes": 4016
+  },
+  {
+    "from": "style/04.css",
+    "to": "styles/items/draw-clipping.css",
+    "fromLine": 1,
+    "toLine": 178,
+    "bytes": 6398
+  },
+  {
+    "from": "style/05.css",
+    "to": "styles/items/roulette-position.css",
+    "fromLine": 1,
+    "toLine": 48,
+    "bytes": 1656
+  },
+  {
+    "from": "style/06.css",
+    "to": "styles/items/encyclopedia-layout.css",
+    "fromLine": 1,
+    "toLine": 119,
+    "bytes": 3327
+  },
+  {
+    "from": "style/07.css",
+    "to": "styles/settings/clear-items.css",
+    "fromLine": 1,
+    "toLine": 40,
+    "bytes": 688
+  },
+  {
+    "from": "style/08.css",
+    "to": "styles/audio/item-sounds.css",
+    "fromLine": 1,
+    "toLine": 106,
+    "bytes": 2272
+  },
+  {
+    "from": "style/09.css",
+    "to": "styles/audio/fx-transfer.css",
+    "fromLine": 1,
+    "toLine": 41,
+    "bytes": 694
+  }
+]

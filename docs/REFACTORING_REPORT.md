@@ -1,3 +1,5 @@
+> V3.0.60最新清理与验收见 [CSS_JS_CLEANUP_3.0.60](validation/CSS_JS_CLEANUP_3.0.60.md)，旧编号源码映射见 [SOURCE_MIGRATION_MAP](SOURCE_MIGRATION_MAP.md)。以下保留历史记录。
+
 # 当前治理结果索引
 
 最新一轮：基于 `9e1be3c` 的 [渲染所有者与生命周期治理验收](reports/STRUCTURE_REFACTOR_ACCEPTANCE.md)。本轮实际完成renderAll 3→1、renderGrid 11→1、移除4个失效/空脚本、修复失效回调覆盖引起的导入回滚；下面保留上一轮历史报告，数字和测试证据不能代替当前结果。

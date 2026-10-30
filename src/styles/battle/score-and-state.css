@@ -1,0 +1,503 @@
+.group-list[data-column-mode="single"] .group-row-card {
+  position: relative !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .action-score-col {
+  position: absolute !important;
+  right: 18px !important;
+  top: 48px !important;
+  min-width: 72px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  z-index: 5 !important;
+  pointer-events: auto !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .row-score {
+  display: block !important;
+  width: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  text-align: right !important;
+  font-size: clamp(24px, 4.3vw, 34px) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .score-input {
+  width: min(180px, 100%) !important;
+  font-size: 24px !important;
+  text-align: right !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .card-action-row {
+  position: relative !important;
+  min-height: 29px !important;
+}
+/* 右侧给分数预留空间，底部操作按钮仍按原卡片尺寸排列 */
+.group-list[data-column-mode="single"] .group-row-card .action-controls-col {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+}
+/* 极窄设备上将分数放到道具槽右侧，仍不增加卡片高度 */
+@media (max-width: 520px) {
+  .group-list[data-column-mode="single"] .group-row-card .action-score-col {
+    right: 12px !important;
+    top: 50px !important;
+    width: 38% !important;
+    max-width: 38% !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .row-score {
+    font-size: clamp(22px, 7vw, 30px) !important;
+  }
+}
+/* 多列模式继续使用 V2.9.2 的行内布局，不受本次修复影响 */
+
+/* ===== V2.9.4 大数显示优化 ===== */
+
+/* 条形图：数字单独占固定列，绝不再把分数挤成竖排。 */
+.chart-row {
+  display: grid !important;
+  grid-template-columns: 28px minmax(72px, 110px) minmax(0, 1fr) minmax(
+      74px,
+      112px
+    ) !important;
+  align-items: center !important;
+  column-gap: 9px !important;
+}
+.chart-row .chart-rank,
+.chart-row .chart-name,
+.chart-row .chart-score {
+  min-width: 0 !important;
+}
+.chart-row .chart-score {
+  display: block !important;
+  width: 100% !important;
+  max-width: 112px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: right !important;
+  font-variant-numeric: tabular-nums !important;
+  font-size: 13px !important;
+  line-height: 1.15 !important;
+  writing-mode: horizontal-tb !important;
+  word-break: keep-all !important;
+}
+.chart-row .chart-track {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+/* 如果旧布局不是 grid，仍强制最后的数字保持水平。 */
+.chart-score {
+  white-space: nowrap !important;
+  writing-mode: horizontal-tb !important;
+  word-break: keep-all !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 小组卡：保证 7 位整数完整显示。
+   7 位以内不给 ellipsis；8 位以上才允许逐级缩小/省略。 */
+.group-row-card .row-score {
+  min-width: 7.2ch !important;
+  font-variant-numeric: tabular-nums !important;
+}
+.group-row-card .action-score-col {
+  min-width: 8.2ch !important;
+}
+
+/* 多列卡片为右侧按钮保留空间，同时确保 7 位数字区域。 */
+.group-list:not([data-column-mode="single"]) .group-row-card .action-score-col {
+  flex: 0 1 9.2ch !important;
+  width: 9.2ch !important;
+  max-width: 9.2ch !important;
+  min-width: 8.2ch !important;
+}
+.group-list:not([data-column-mode="single"]) .group-row-card .row-score {
+  width: 100% !important;
+  max-width: 100% !important;
+  font-size: clamp(17px, 2vw, 29px) !important;
+}
+
+/* 单栏模式空间充足，至少给 7 位数约 10ch 的显示区。 */
+.group-list[data-column-mode="single"] .group-row-card .action-score-col {
+  min-width: 10ch !important;
+  width: min(42%, 320px) !important;
+  max-width: min(42%, 320px) !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .row-score {
+  min-width: 7.2ch !important;
+}
+
+/* 7 位数在常见横屏 4 列下也保持完整。 */
+@media (orientation: landscape) and (min-width: 700px) {
+  .group-list:not([data-column-mode="single"]) .group-row-card .row-score {
+    font-size: clamp(16px, 1.7vw, 27px) !important;
+  }
+}
+
+/* 很窄的竖屏才允许进一步缩小，但仍优先保住 7 位。 */
+@media (max-width: 520px) {
+  .group-row-card .action-score-col {
+    min-width: 7.8ch !important;
+  }
+  .group-row-card .row-score {
+    min-width: 7ch !important;
+    font-size: clamp(16px, 6vw, 25px) !important;
+  }
+}
+
+/* 2) 单栏模式：取消手机媒体查询把操作行纵向堆叠造成的巨大空白。
+   单栏卡片重新压到紧凑高度，名称/分数放大，但不改变多列模式。 */
+.group-list[data-column-mode="single"] {
+  gap: 10px !important;
+}
+.group-list[data-column-mode="single"] .group-row-card {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 12px 14px 10px !important;
+  display: grid !important;
+  grid-template-rows: auto auto auto !important;
+  row-gap: 7px !important;
+  overflow: hidden !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .card-header-row {
+  min-height: 28px !important;
+  margin: 0 !important;
+  align-items: center !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .header-name-col {
+  min-width: 0 !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .name-input {
+  font-size: 21px !important;
+  line-height: 1.1 !important;
+  font-weight: 950 !important;
+  padding: 0 2px !important;
+  height: 29px !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .header-meta-col {
+  font-size: 14px !important;
+}
+
+/* 道具槽紧凑排列，不再把卡片中间撑出一大片空白 */
+.group-list[data-column-mode="single"] .group-row-card .item-row,
+.group-list[data-column-mode="single"] .group-row-card .item-slots-row,
+.group-list[data-column-mode="single"] .group-row-card .inventory-row {
+  min-height: 34px !important;
+  margin: 0 !important;
+  align-items: center !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .item-slot {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+}
+
+/* 分数回到底部操作行左侧，不再漂在卡片中部。
+   这样单栏会更紧凑，而且能给分数更大的字号。 */
+.group-list[data-column-mode="single"] .group-row-card .card-action-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  min-height: 40px !important;
+  margin-top: 0 !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .action-score-col {
+  position: static !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 8.4ch !important;
+  overflow: hidden !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .row-score {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  font-size: 32px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  text-align: left !important;
+  letter-spacing: -0.025em !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .score-input {
+  position: static !important;
+  width: min(220px, 100%) !important;
+  font-size: 28px !important;
+  text-align: left !important;
+}
+
+/* 右侧答案/All In/更多保持一行，永远不被分数挤掉 */
+.group-list[data-column-mode="single"] .group-row-card .action-controls-col {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: max-content !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-left: auto !important;
+}
+.group-list[data-column-mode="single"] .group-row-card .opt-btn,
+.group-list[data-column-mode="single"] .group-row-card .allin-toggle-btn,
+.group-list[data-column-mode="single"] .group-row-card .more-btn {
+  flex: 0 0 auto !important;
+}
+
+/* 关键：覆盖旧的 max-width:640px 规则，单栏时禁止 card-action-row 变纵向 */
+@media (max-width: 640px) {
+  .group-list[data-column-mode="single"] .group-row-card {
+    padding: 10px 12px 9px !important;
+    row-gap: 6px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .card-action-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 7px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .action-controls-col {
+    width: auto !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .name-input {
+    font-size: 20px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .row-score {
+    font-size: 29px !important;
+  }
+}
+
+/* 横屏窄高时再压一点，但仍保持“大组名 + 大分数”。 */
+@media (orientation: landscape) and (max-height: 650px) {
+  .group-list[data-column-mode="single"] .group-row-card {
+    padding: 9px 12px 8px !important;
+    row-gap: 5px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .name-input {
+    font-size: 19px !important;
+    height: 26px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .row-score {
+    font-size: 28px !important;
+  }
+  .group-list[data-column-mode="single"] .group-row-card .card-action-row {
+    min-height: 35px !important;
+  }
+}
+
+#groupList.group-list[data-column-mode="single"] {
+  align-content: start !important;
+  align-items: start !important;
+  grid-auto-rows: max-content !important;
+  grid-template-rows: none !important;
+  gap: 8px !important;
+}
+#groupList.group-list[data-column-mode="single"] > .group-row-card {
+  align-self: start !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  padding: 10px 12px 9px !important;
+  gap: 6px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: visible !important;
+}
+#groupList.group-list[data-column-mode="single"]
+  > .group-row-card
+  .card-header-row {
+  min-height: 28px !important;
+  height: auto !important;
+  padding-bottom: 3px !important;
+  margin: 0 !important;
+}
+#groupList.group-list[data-column-mode="single"] > .group-row-card .name-input {
+  font-size: 22px !important;
+  line-height: 1.05 !important;
+  height: 30px !important;
+  font-weight: 950 !important;
+  max-width: 320px !important;
+}
+#groupList.group-list[data-column-mode="single"] > .group-row-card .item-slots {
+  min-height: 32px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  gap: 5px !important;
+  align-items: center !important;
+}
+#groupList.group-list[data-column-mode="single"] > .group-row-card .item-slot {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+}
+#groupList.group-list[data-column-mode="single"]
+  > .group-row-card
+  .card-action-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 38px !important;
+  height: auto !important;
+  gap: 8px !important;
+  margin: 0 !important;
+}
+#groupList.group-list[data-column-mode="single"]
+  > .group-row-card
+  .action-score-col {
+  position: static !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 8.2ch !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  justify-content: flex-start !important;
+}
+#groupList.group-list[data-column-mode="single"] > .group-row-card .row-score {
+  font-size: 34px !important;
+  line-height: 1 !important;
+  font-weight: 950 !important;
+  text-align: left !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+#groupList.group-list[data-column-mode="single"]
+  > .group-row-card
+  .action-controls-col {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 5px !important;
+  margin-left: auto !important;
+}
+@media (max-width: 640px) {
+  #groupList.group-list[data-column-mode="single"] > .group-row-card {
+    padding: 9px 10px 8px !important;
+    gap: 5px !important;
+  }
+  #groupList.group-list[data-column-mode="single"]
+    > .group-row-card
+    .name-input {
+    font-size: 21px !important;
+    height: 28px !important;
+  }
+  #groupList.group-list[data-column-mode="single"]
+    > .group-row-card
+    .row-score {
+    font-size: 31px !important;
+  }
+  #groupList.group-list[data-column-mode="single"]
+    > .group-row-card
+    .card-action-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    min-height: 35px !important;
+  }
+  #groupList.group-list[data-column-mode="single"]
+    > .group-row-card
+    .action-controls-col {
+    width: auto !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+  }
+}
+
+/* ===== V2.11.3：巨大蘑菇持续状态 · 橙色发光 ===== */
+.group-row-card.effect-mega {
+  animation: none !important;
+  border-color: #f97316 !important;
+}
+@keyframes megaOrangeGlowV2113 {
+  from {
+    box-shadow:
+      0 0 0 3px rgba(249, 115, 22, 0.82),
+      0 0 14px rgba(249, 115, 22, 0.58),
+      0 8px 22px rgba(249, 115, 22, 0.22);
+    filter: brightness(1.02);
+  }
+  to {
+    box-shadow:
+      0 0 0 4px rgba(251, 146, 60, 0.98),
+      0 0 30px rgba(249, 115, 22, 0.92),
+      0 10px 32px rgba(249, 115, 22, 0.34);
+    filter: brightness(1.08);
+  }
+}
+
+/* ===== V2.11.4：作答选中 / All In 可读性 + 冰冻蓝色发光 ===== */
+/* 普通扁平模式：选中后必须真的改变按钮底色，而不是只把字变白。 */
+.group-row-card .opt-btn.active:not(.correct):not(.wrong) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #168fc7 !important;
+  background-image: linear-gradient(
+    180deg,
+    #45c7f0 0%,
+    #139dce 48%,
+    #0879ad 52%,
+    #24aee0 100%
+  ) !important;
+  border-color: #0876a7 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 8px rgba(14, 165, 233, 0.38) !important;
+  text-shadow: 0 1px 1px rgba(0, 65, 98, 0.55) !important;
+}
+
+.group-row-card .allin-toggle-btn.active {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #dc2626 !important;
+  background-image: linear-gradient(
+    180deg,
+    #ff8b82 0%,
+    #ef4b43 47%,
+    #c92121 52%,
+    #ed5148 100%
+  ) !important;
+  border-color: #ad1d1d !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    0 0 9px rgba(220, 38, 38, 0.46) !important;
+  text-shadow: 0 1px 1px rgba(104, 0, 0, 0.62) !important;
+}
+
+/* 冰之花冻结：冻结期间整张小组卡片持续蓝色脉冲发光。 */
+.group-row-card.effect-ice {
+  animation: none !important;
+}
+@keyframes iceLockBlueGlowV2114 {
+  from {
+    box-shadow:
+      0 0 0 3px rgba(56, 189, 248, 0.72),
+      0 0 14px rgba(56, 189, 248, 0.48),
+      0 7px 20px rgba(14, 116, 144, 0.18) !important;
+    filter: brightness(1.02) saturate(1.04);
+  }
+  to {
+    box-shadow:
+      0 0 0 4px rgba(125, 211, 252, 0.98),
+      0 0 30px rgba(14, 165, 233, 0.86),
+      0 9px 30px rgba(2, 132, 199, 0.3) !important;
+    filter: brightness(1.08) saturate(1.12);
+  }
+}
+
+/* ===== V2.11.6：不同攻击拥有不同受击动画 ===== */

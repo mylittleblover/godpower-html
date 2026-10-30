@@ -3,11 +3,19 @@ import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { execFileSync } from "node:child_process";
 import { launch, setup } from "../fixtures/browser.mjs";
-const before = execFileSync("git", ["show", "b9c6276:dist/godpower.html"], {
-  maxBuffer: 20e6,
-});
+const before = execFileSync(
+  "git",
+  [
+    "show",
+    `${process.env.GOVERNANCE_BASELINE || "b9c6276"}:dist/godpower.html`,
+  ],
+  {
+    maxBuffer: 20e6,
+  },
+);
 const after = await readFile("dist/godpower.html");
-const root = "artifacts/ui-governance-3.0.59";
+const root =
+  process.env.GOVERNANCE_ARTIFACTS || "artifacts/ui-governance-3.0.59";
 await mkdir(root, { recursive: true });
 const server = createServer((q, r) => {
   r.setHeader("content-type", "text/html;charset=utf-8");

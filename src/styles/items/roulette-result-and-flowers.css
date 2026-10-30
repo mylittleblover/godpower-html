@@ -1,0 +1,214 @@
+.card-item-roulette {
+  flex-direction: row !important;
+  gap: clamp(16px, 4vw, 34px) !important;
+  padding: 18px clamp(18px, 5vw, 42px) !important;
+}
+.card-item-roulette .r-icon {
+  flex: 0 0 clamp(88px, 24vw, 126px) !important;
+  width: clamp(88px, 24vw, 126px) !important;
+  height: clamp(88px, 24vw, 126px) !important;
+  border-radius: 28px !important;
+}
+.card-item-roulette .r-icon > img {
+  max-width: 88% !important;
+  max-height: 88% !important;
+}
+.card-item-roulette .r-name {
+  margin-top: 0 !important;
+  min-width: 0 !important;
+  max-width: 58% !important;
+  padding: 9px 16px !important;
+  font-size: clamp(22px, 5.2vw, 34px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.02em;
+  white-space: normal !important;
+  text-align: left !important;
+  border-radius: 16px !important;
+}
+.card-item-roulette .r-hint {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 11px !important;
+  transform: translateX(-50%) !important;
+  margin: 0 !important;
+  white-space: nowrap;
+  font-size: 10px !important;
+  opacity: 0.72;
+}
+.card-item-roulette:before {
+  left: clamp(8px, 4vw, 32px) !important;
+  width: clamp(130px, 34vw, 170px) !important;
+  height: clamp(130px, 34vw, 170px) !important;
+}
+.card-item-roulette.reveal:before {
+  animation: rouletteRevealRingLeftV281 0.8s ease-out both !important;
+}
+@keyframes rouletteRevealRingLeftV281 {
+  from {
+    transform: translateY(-50%) scale(0.7);
+    opacity: 0.4;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50%) scale(1.2);
+    opacity: 0.08;
+  }
+}
+@media (max-width: 520px) {
+  .card-item-roulette {
+    gap: 14px !important;
+    padding: 14px 16px !important;
+  }
+  .card-item-roulette .r-icon {
+    flex-basis: 92px !important;
+    width: 92px !important;
+    height: 92px !important;
+  }
+  .card-item-roulette .r-name {
+    font-size: 23px !important;
+    max-width: 60% !important;
+    padding: 8px 12px !important;
+  }
+}
+
+/* 举手抽取也采用横向结果语言 */
+.hand-item-draw-stage.v281-horizontal {
+  display: grid !important;
+  grid-template-columns: minmax(92px, 126px) 1fr !important;
+  grid-template-areas: "head head" "icon name" "progress progress" "actions actions" !important;
+  gap: 12px 18px !important;
+  align-items: center !important;
+}
+.hand-item-draw-stage.v281-horizontal .hand-draw-head {
+  grid-area: head;
+}
+.hand-item-draw-stage.v281-horizontal .hand-item-capsule {
+  grid-area: icon;
+  margin: 0 !important;
+}
+.hand-item-draw-stage.v281-horizontal .hand-draw-copy {
+  grid-area: name;
+  text-align: left !important;
+}
+.hand-item-draw-stage.v281-horizontal .hand-item-draw-name {
+  font-size: clamp(22px, 5vw, 32px) !important;
+  line-height: 1.15 !important;
+}
+.hand-item-draw-stage.v281-horizontal .hand-item-progress {
+  grid-area: progress;
+}
+.hand-item-draw-stage.v281-horizontal .hand-item-result-actions {
+  grid-area: actions;
+}
+
+/* ===== V2.8.2：修正轮盘光环定位 ===== */
+.card-item-roulette {
+  position: absolute !important;
+}
+.card-item-roulette:before {
+  left: clamp(18px, 5vw, 44px) !important;
+  top: 50% !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  transform-origin: center !important;
+}
+.card-item-roulette .r-icon {
+  position: relative !important;
+  z-index: 3 !important;
+}
+.card-item-roulette .r-name {
+  position: relative !important;
+  z-index: 3 !important;
+}
+@media (max-width: 520px) {
+  .card-item-roulette:before {
+    left: 7px !important;
+    width: 128px !important;
+    height: 128px !important;
+  }
+}
+
+/* 新增四种道具的卡片发动色彩 */
+.group-row-card.cfx-feather {
+  --fxc: #f8fafc;
+  --fxc2: #bae6fd;
+  animation: cfxFeatherV282 1.8s ease-out both;
+}
+.group-row-card.cfx-fireflower {
+  --fxc: #f97316;
+  --fxc2: #fde047;
+  animation: cfxFireFlowerV282 1.8s ease-out both;
+}
+.group-row-card.cfx-iceflower {
+  --fxc: #38bdf8;
+  --fxc2: #e0f2fe;
+  animation: cfxIceFlowerV282 1.8s ease-out both;
+}
+.group-row-card.cfx-boomerang {
+  --fxc: #3b82f6;
+  --fxc2: #f8fafc;
+  animation: cfxBoomerangV282 1.8s ease-out both;
+}
+@keyframes cfxFeatherV282 {
+  0%,
+  100% {
+    filter: none;
+  }
+  22% {
+    filter: brightness(1.16) drop-shadow(0 0 10px #bae6fd);
+  }
+  55% {
+    filter: brightness(1.03);
+  }
+}
+@keyframes cfxFireFlowerV282 {
+  0%,
+  100% {
+    filter: none;
+  }
+  18% {
+    filter: brightness(1.25) drop-shadow(0 0 13px #fb923c);
+  }
+  42% {
+    filter: brightness(1.05);
+  }
+}
+@keyframes cfxIceFlowerV282 {
+  0%,
+  100% {
+    filter: none;
+  }
+  18% {
+    filter: brightness(1.18) saturate(0.75) drop-shadow(0 0 14px #7dd3fc);
+  }
+  50% {
+    filter: brightness(1.04);
+  }
+}
+@keyframes cfxBoomerangV282 {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-1deg) translateX(-5px);
+  }
+  42% {
+    transform: rotate(1deg) translateX(6px);
+  }
+}
+
+/* V2.8.3 新增道具在上帝模式中的按钮布局 */
+.item-admin-add-v283 {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+}
+.item-admin-add-v283 img {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain !important;
+}

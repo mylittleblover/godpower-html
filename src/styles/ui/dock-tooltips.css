@@ -1,0 +1,30 @@
+.dock-humor-tip-v2185 {
+  position: fixed;
+  z-index: 280000;
+  pointer-events: none;
+  width: max-content;
+  max-width: min(330px, calc(100vw - 24px));
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: rgba(23, 48, 45, 0.96);
+  color: #fff;
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.24);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: 0.14s ease;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.dock-humor-tip-v2185.show {
+  opacity: 1;
+  transform: none;
+}
+.dock-humor-tip-v2185 b {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+  color: #dff7f1;
+}
+.dock-humor-tip-v2185 span {
+  color: #d4e5e1;
+}

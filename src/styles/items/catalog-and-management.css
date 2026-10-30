@@ -1,0 +1,136 @@
+.encyclopedia-item img {
+  width: 28px !important;
+  height: 28px !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
+}
+
+/* ===== V2.8.4 统一 26 道具设置 UI ===== */
+.v283-added {
+  display: none !important;
+} /* 移除 V2.8.3 那四个孤零零追加到功能页的临时行 */
+
+/* 设置页道具卡统一网格，不再把新增四项塞在顶部 */
+#v2ItemEncyclopedia .item-ency-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 12px !important;
+}
+#v2ItemEncyclopedia .ency-card {
+  min-width: 0 !important;
+  height: auto !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.84),
+    rgba(225, 241, 252, 0.68)
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 5px 14px rgba(55, 100, 130, 0.12) !important;
+  border-radius: 16px !important;
+}
+#v2ItemEncyclopedia .ency-icon img {
+  max-width: 58px !important;
+  max-height: 58px !important;
+  object-fit: contain !important;
+}
+
+/* 上帝模式管理区必须自己滚动，不能把整个窗口撑成截图里那条细缝 */
+.god-item-tools {
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+.god-item-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr)) !important;
+  gap: 7px !important;
+  max-height: clamp(150px, 35dvh, 330px) !important;
+  overflow: auto !important;
+  padding: 4px 6px 8px !important;
+  scrollbar-gutter: stable;
+}
+.god-item-grid .btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+}
+
+/* 小组控制台：竖屏保留顶部标签；横屏改为左侧标签 + 右侧内容 */
+@media (orientation: landscape) and (max-height: 650px) {
+  #itemWindow,
+  .item-window,
+  .group-control-window,
+  .group-modal-window {
+    width: min(980px, calc(100vw - 24px)) !important;
+    height: min(520px, calc(100dvh - 20px)) !important;
+    max-height: calc(100dvh - 20px) !important;
+  }
+  #itemWindowBody,
+  .item-window-body {
+    min-height: 0 !important;
+    overflow: auto !important;
+  }
+  .item-window-tabs,
+  .group-control-tabs {
+    flex: 0 0 190px !important;
+    width: 190px !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+    border-right: 1px solid rgba(105, 155, 190, 0.35) !important;
+    border-bottom: 0 !important;
+    padding: 10px !important;
+  }
+  .item-window-tabs button,
+  .group-control-tabs button {
+    width: 100% !important;
+    min-height: 48px !important;
+    text-align: left !important;
+  }
+}
+
+/* 针对当前实际窗口结构：横屏时避免 tab + 内容把高度全部吃掉 */
+@media (orientation: landscape) and (max-height: 650px) {
+  .vista-window:has(#itemWindowBody) {
+    max-height: calc(100dvh - 18px) !important;
+  }
+  .vista-window:has(#itemWindowBody) #itemWindowBody {
+    max-height: calc(100dvh - 105px) !important;
+    overflow: auto !important;
+  }
+}
+
+/* 横屏设置页：内容区横向利用空间，底部 tabs 固定而不是挤进内容 */
+@media (orientation: landscape) and (max-height: 650px) {
+  #view-settings .settings-scroll {
+    padding-bottom: 88px !important;
+  }
+  #view-settings .settings-v26-tabs,
+  #view-settings .settings-tabs-v26,
+  #view-settings #settingsV2Tabs {
+    position: sticky !important;
+    bottom: 6px !important;
+    z-index: 12 !important;
+  }
+  #v2ItemEncyclopedia .item-ency-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+/* ===== V2.9.1 共产主义模式（道具系统总开关） ===== */
+body.items-disabled .item-slot,
+body.items-disabled .item-bar,
+body.items-disabled .item-inventory,
+body.items-disabled .item-draw-spinning,
+body.items-disabled .card-item-roulette,
+body.items-disabled .god-item-tools,
+body.items-disabled .item-defense-toast,
+body.items-disabled #v2ItemPane,
+body.items-disabled [data-sp="items"],
+body.items-disabled [data-about="items"],
+body.items-disabled #itemWindowTabItems,
+body.items-disabled [data-item-feature],
+body.items-disabled .item-feature-only {
+  display: none !important;
+}

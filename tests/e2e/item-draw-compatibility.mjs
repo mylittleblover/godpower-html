@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { sourceAt } from "../fixtures/source-at.mjs";
 import { launch, setup } from "../fixtures/browser.mjs";
-const baseline = "d2b1bc9",
+const baseline = process.env.DRAW_BASELINE || "d2b1bc9",
   before = sourceAt(baseline),
   after = await readFile("dist/godpower.html");
 const server = createServer((q, r) => {
@@ -69,9 +69,10 @@ try {
     await p.close();
   }
   assert.deepEqual(results.after, results.before);
-  await mkdir("artifacts/item-modules", { recursive: true });
+  const artifactRoot = process.env.DRAW_ARTIFACTS || "artifacts/item-modules";
+  await mkdir(artifactRoot, { recursive: true });
   await writeFile(
-    "artifacts/item-modules/draw-compatibility.json",
+    `${artifactRoot}/draw-compatibility.json`,
     JSON.stringify(
       {
         status: "PASS",

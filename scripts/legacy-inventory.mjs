@@ -13,11 +13,10 @@ const files = execFileSync(
 )
   .trim()
   .split("\n")
-  .filter((f) => /src\/(script|core|ui|style)\/.*\.(js|css)$/.test(f));
+  .filter((f) => /src\/.*\.(js|css)$/.test(f));
 const baselineFiles=new Set(files);
-for(const dir of ['src/core','src/script','src/style','src/ui']){
-  for(const file of await readdir(dir))if(/\.(?:js|css)$/.test(file)&&!files.includes(dir+'/'+file))files.push(dir+'/'+file);
-}
+const currentManifest = JSON.parse(await readFile('src/manifest.json','utf8'));
+for(const {path} of currentManifest.blocks)if(!files.includes('src/'+path))files.push('src/'+path);
 function walk(n, visit) {
   if (!n || typeof n !== "object") return;
   visit(n);

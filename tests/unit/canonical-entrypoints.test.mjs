@@ -5,6 +5,8 @@ import { readFileSync, readdirSync } from "node:fs";
 const canonical = new Map(
   [
     "renderAll",
+    "globalItemDraw",
+    "handDrawItem",
     "renderGrid",
     "useItem",
     "selectGroupOpt",

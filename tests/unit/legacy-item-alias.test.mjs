@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { parse } from "acorn";
 import vm from "node:vm";
 test("deprecated item alias forwards one public command and preserves its result", () => {
-  const source = readFileSync("src/script/00.js", "utf8");
+  const source = readFileSync("src/runtime/items/attack-legacy.js", "utf8");
   const node = parse(source, { ecmaVersion: "latest" }).body.find(
     (n) => n.type === "FunctionDeclaration" && n.id.name === "legacyUseItem",
   );

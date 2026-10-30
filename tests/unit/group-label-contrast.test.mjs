@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import vm from "node:vm";
 import { readFileSync } from "node:fs";
 import { parse } from "acorn";
-const source = readFileSync("src/script/00.js", "utf8");
+const source = readFileSync("src/runtime/core/state-and-preferences.js", "utf8");
 const node = parse(source, { ecmaVersion: "latest" }).body.find(
   (n) =>
     n.type === "FunctionDeclaration" && n.id.name === "readableTextOnColor",

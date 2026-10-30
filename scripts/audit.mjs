@@ -1,8 +1,9 @@
 import {parse} from 'acorn';import {readFile,readdir,writeFile} from 'node:fs/promises';
+const manifest=JSON.parse(await readFile('src/manifest.json','utf8'));
 const entries=[],keys=new Set(),frames=new Set(),counts={},handlers=new Set(),fields=new Set();
 const textSource=[];
-for(const dir of ['src/script','src/core','src/ui'])for(const f of await readdir(dir)){
- if(!f.endsWith('.js'))continue;const path=`${dir}/${f}`,s=await readFile(path,'utf8');textSource.push(s);
+for(const {path:relative} of manifest.blocks.filter(b=>b.type==='script')){
+ const path='src/'+relative,s=await readFile(path,'utf8');textSource.push(s);
  for(const m of s.matchAll(/['"]((?:politics|godpower)_[a-zA-Z0-9_]+)['"]/g))keys.add(m[1]);
  for(const m of s.matchAll(/(?:state|g)\.([a-zA-Z_][a-zA-Z0-9_]*)\s*=/g))fields.add(m[1]);
  for(const m of s.matchAll(/on(?:click|change|input|keydown)=["']([^"']+)/g))handlers.add(m[1]);
@@ -14,10 +15,10 @@ for(const dir of ['src/script','src/core','src/ui'])for(const f of await readdir
  if(fn){counts[name]=(counts[name]||0)+1;entries.push({name,file:path,line:n.loc.start.line,params:fn.params.map(x=>s.slice(x.start,x.end)),...collect(fn)})}
  for(const v of Object.values(n))if(Array.isArray(v))v.forEach(walk);else if(v&&typeof v==='object'&&v.type)walk(v)}walk(ast);
 }
-for(const f of await readdir('src/style'))for(const m of (await readFile('src/style/'+f,'utf8')).matchAll(/@keyframes\s+([\w-]+)/g))frames.add(m[1]);
+for(const {path} of manifest.blocks.filter(b=>b.type==='style'))for(const m of (await readFile('src/'+path,'utf8')).matchAll(/@keyframes\s+([\w-]+)/g))frames.add(m[1]);
 const template=await readFile('src/index.template.html','utf8');for(const m of template.matchAll(/on(?:click|change|input|keydown)="([^"]+)"/g))handlers.add(m[1]);
 const ids=[...template.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
-const summary={definitions:entries.length,uniqueFunctions:Object.keys(counts).length,redefinitions:Object.fromEntries(Object.entries(counts).filter(([,v])=>v>1)),storageKeys:[...keys].sort(),fields:[...fields].sort(),keyframes:[...frames].sort(),handlers:[...handlers].sort(),duplicateStaticIds:ids.filter((x,i)=>ids.indexOf(x)!==i),importantCount:textSource.length&& (await Promise.all((await readdir('src/style')).map(f=>readFile('src/style/'+f,'utf8')))).join('').match(/!important/g).length};
+const summary={definitions:entries.length,uniqueFunctions:Object.keys(counts).length,redefinitions:Object.fromEntries(Object.entries(counts).filter(([,v])=>v>1)),storageKeys:[...keys].sort(),fields:[...fields].sort(),keyframes:[...frames].sort(),handlers:[...handlers].sort(),duplicateStaticIds:ids.filter((x,i)=>ids.indexOf(x)!==i),importantCount:textSource.length&& (await Promise.all(manifest.blocks.filter(b=>b.type==='style').map(b=>readFile('src/'+b.path,'utf8')))).join('').match(/!important/g).length};
 await writeFile('artifacts/static-inventory.json',JSON.stringify({summary,entries},null,2));
 const clean=x=>String(x).replaceAll('|','／').replaceAll('\n',' ').replaceAll('`','');
 let md='# 自动源码目录\n\n由 `npm run audit` 生成。此目录包含旧实现和覆盖层，不能把定义存在视为功能通过。测试覆盖见 TEST_MATRIX.md。\n\n';

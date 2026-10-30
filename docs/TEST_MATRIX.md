@@ -1,3 +1,5 @@
+> V3.0.60最新清理与验收见 [CSS_JS_CLEANUP_3.0.60](validation/CSS_JS_CLEANUP_3.0.60.md)，旧编号源码映射见 [SOURCE_MIGRATION_MAP](SOURCE_MIGRATION_MAP.md)。以下保留历史记录。
+
 # 遗留治理最新测试矩阵
 
 完整证据、条件与限制见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md)。历史矩阵保留在 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md)。

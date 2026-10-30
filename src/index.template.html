@@ -9,66 +9,66 @@
 <script>@@SOURCE:ui/themes.js@@</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
-  <style>@@SOURCE:style/00.css@@</style>
-<style>@@SOURCE:style/01.css@@</style>
+  <style>@@SOURCE:styles/base/reset-and-header.css@@@@SOURCE:styles/battle/overview-and-resizer.css@@@@SOURCE:styles/battle/group-cards.css@@@@SOURCE:styles/dialogs/score-and-member-search.css@@@@SOURCE:styles/shell/dock-and-buttons.css@@@@SOURCE:styles/dialogs/settlement-and-core.css@@@@SOURCE:styles/shell/navigation-and-welcome.css@@@@SOURCE:styles/items/inventory-and-roulette.css@@@@SOURCE:styles/settings/tabs-and-confirmation.css@@@@SOURCE:styles/items/roulette-result-and-flowers.css@@@@SOURCE:styles/items/catalog-and-management.css@@@@SOURCE:styles/items/feature-visibility.css@@@@SOURCE:styles/battle/score-and-state.css@@@@SOURCE:styles/items/attack-feedback.css@@@@SOURCE:styles/items/queue-and-image-constraints.css@@</style>
+<style>@@SOURCE:styles/items/catalog-and-card-compat.css@@</style>
 
 
 
 
-<style id="modernFlatV217Style">@@SOURCE:style/02.css@@</style>
+<style id="modernFlatV217Style">@@SOURCE:styles/themes/flat-foundation.css@@</style>
 
 
-<style id="v2161Fixes">@@SOURCE:style/03.css@@</style>
+<style id="v2161Fixes">@@SOURCE:styles/ui/readability-and-effect-layers.css@@</style>
 
 
-<style id="v2162DrawAndMaskFix">@@SOURCE:style/04.css@@</style>
+<style id="v2162DrawAndMaskFix">@@SOURCE:styles/items/draw-clipping.css@@</style>
 
 
-<style id="v2163RoulettePositionFix">@@SOURCE:style/05.css@@</style>
+<style id="v2163RoulettePositionFix">@@SOURCE:styles/items/roulette-position.css@@</style>
 
 
-<style id="v2170EncyclopediaStyle">@@SOURCE:style/06.css@@</style>
+<style id="v2170EncyclopediaStyle">@@SOURCE:styles/items/encyclopedia-layout.css@@</style>
 
 
-<style id="v2172ItemDataStyle">@@SOURCE:style/07.css@@</style>
+<style id="v2172ItemDataStyle">@@SOURCE:styles/settings/clear-items.css@@</style>
 
 
-<style id="v2174PerItemSoundStyle">@@SOURCE:style/08.css@@</style>
+<style id="v2174PerItemSoundStyle">@@SOURCE:styles/audio/item-sounds.css@@</style>
 
 
-<style id="v2175FxBinStyle">@@SOURCE:style/09.css@@</style>
+<style id="v2175FxBinStyle">@@SOURCE:styles/audio/fx-transfer.css@@</style>
 
 
-<style id="v2177RoundItemUseLimitStyle">@@SOURCE:style/10.css@@</style>
+<style id="v2177RoundItemUseLimitStyle">@@SOURCE:styles/battle/round-item-locks.css@@</style>
 
 
-<style id="v2179CooldownStyle">@@SOURCE:style/11.css@@</style>
+<style id="v2179CooldownStyle">@@SOURCE:styles/items/cooldown-notes.css@@</style>
 
 
-<style id="v21712FastItemFlowStyle">@@SOURCE:style/12.css@@</style>
+<style id="v21712FastItemFlowStyle">@@SOURCE:styles/items/draw-flow.css@@</style>
 
 
-<style id="v21714QuickBarBottomStyle">@@SOURCE:style/13.css@@</style>
+<style id="v21714QuickBarBottomStyle">@@SOURCE:styles/battle/quick-batch.css@@</style>
 
 
-<style id="v21716GroupPaletteStyle">@@SOURCE:style/14.css@@</style>
+<style id="v21716GroupPaletteStyle">@@SOURCE:styles/classroom/group-palette.css@@</style>
 
-<style id="v21719FlatUiConsistencyFix">@@SOURCE:style/15.css@@</style>
-
-
-<style id="v21721BattleRankPreviewStyle">@@SOURCE:style/16.css@@</style>
+<style id="v21719FlatUiConsistencyFix">@@SOURCE:styles/ui/flat-controls-and-scrolling.css@@</style>
 
 
-<style id="v21727ThemeDialogStyle">@@SOURCE:style/17.css@@</style>
+<style id="v21721BattleRankPreviewStyle">@@SOURCE:styles/battle/rank-preview.css@@</style>
 
 
-<style id="v21730ItemScoreFxStyle">@@SOURCE:style/18.css@@</style>
+<style id="v21727ThemeDialogStyle">@@SOURCE:styles/dialogs/theme-confirmation.css@@</style>
 
 
-<style id="v21735TopNoticeStackStyle">@@SOURCE:style/19.css@@</style>
+<style id="v21730ItemScoreFxStyle">@@SOURCE:styles/battle/score-feedback.css@@</style>
 
 
-<style id="v2180PlanStyle">@@SOURCE:style/20.css@@</style>
+<style id="v21735TopNoticeStackStyle">@@SOURCE:styles/ui/defense-notices.css@@</style>
+
+
+<style id="v2180PlanStyle">@@SOURCE:styles/classroom/student-picker-hand.css@@</style>
 
 <style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
 <style>@@SOURCE:ui/roster-workspace.css@@</style>
@@ -677,80 +677,80 @@
 <script>@@SOURCE:application/item-defense-adapter.js@@</script>
 <script>@@SOURCE:core/item-score.js@@</script>
 <script>@@SOURCE:core/action-sounds.js@@</script>
-<script>@@SOURCE:script/00.js@@</script>
-<script>@@SOURCE:script/01.js@@</script>
-<script>@@SOURCE:script/02.js@@</script>
+<script>@@SOURCE:runtime/ui/window-visibility.js@@@@SOURCE:runtime/core/state-and-preferences.js@@@@SOURCE:runtime/archives/settlement-actions.js@@@@SOURCE:runtime/audio/session-cache.js@@@@SOURCE:runtime/history/compatibility-ui.js@@@@SOURCE:runtime/audio/resource-loading.js@@@@SOURCE:runtime/audio/sound-playback.js@@@@SOURCE:runtime/audio/battle-playback.js@@@@SOURCE:runtime/ui/toast.js@@@@SOURCE:runtime/storage/classroom-save.js@@@@SOURCE:runtime/ui/battle-layout-controls.js@@@@SOURCE:runtime/ui/admin-lock.js@@@@SOURCE:runtime/competition/round-actions.js@@@@SOURCE:runtime/classroom/roster-settings-actions.js@@@@SOURCE:runtime/ui/score-dialog-and-animation.js@@@@SOURCE:runtime/competition/answer-adapter.js@@@@SOURCE:runtime/ui/member-search.js@@@@SOURCE:runtime/ui/competition-summary.js@@@@SOURCE:runtime/picker/selection-engine.js@@@@SOURCE:runtime/classroom/roster-text-import.js@@@@SOURCE:runtime/storage/classroom-transfer.js@@@@SOURCE:runtime/classroom/group-actions.js@@@@SOURCE:runtime/audio/settings-and-transfer.js@@@@SOURCE:runtime/ui/navigation-and-clock.js@@@@SOURCE:runtime/audio/menu-patterns.js@@@@SOURCE:runtime/audio/menu-synthesis.js@@@@SOURCE:runtime/audio/menu-transport.js@@@@SOURCE:runtime/audio/menu-settings.js@@@@SOURCE:runtime/audio/picker-roll.js@@@@SOURCE:runtime/ui/wallpaper.js@@@@SOURCE:runtime/bootstrap/classroom-startup.js@@@@SOURCE:runtime/items/definitions-and-state.js@@@@SOURCE:runtime/items/ranking-and-drop-legacy.js@@@@SOURCE:runtime/items/attack-legacy.js@@@@SOURCE:runtime/items/group-window.js@@@@SOURCE:runtime/picker/classroom-tools.js@@@@SOURCE:runtime/items/encyclopedia-and-icons.js@@@@SOURCE:runtime/ui/settings-and-about.js@@@@SOURCE:runtime/items/hand-reward-lifecycle.js@@@@SOURCE:runtime/items/feedback-and-icons.js@@@@SOURCE:runtime/items/card-effects-legacy.js@@@@SOURCE:runtime/history/boot-and-settings-compat.js@@@@SOURCE:runtime/audio/item-sound-settings.js@@@@SOURCE:runtime/ui/icon-settings.js@@@@SOURCE:runtime/ui/settings-navigation-compat.js@@@@SOURCE:runtime/items/persistent-state-repair.js@@@@SOURCE:runtime/ui/program-confirmation.js@@@@SOURCE:runtime/items/weighted-selection.js@@@@SOURCE:runtime/items/effect-palette-and-preview.js@@@@SOURCE:runtime/items/catalog-adapters.js@@@@SOURCE:runtime/items/catalog-refresh.js@@@@SOURCE:runtime/items/feature-switch.js@@@@SOURCE:runtime/ui/chart-and-window-polish.js@@@@SOURCE:runtime/items/lightning-and-hit-legacy.js@@@@SOURCE:runtime/items/queue-adapters.js@@</script>
+<script>@@SOURCE:runtime/ui/battle-order-compat.js@@</script>
+<script>@@SOURCE:runtime/ui/battle-appearance-and-hand-rewards.js@@</script>
 
-<script>@@SOURCE:script/03.js@@</script>
-
-
-<script id="v2164PowerAndItemAudioFix">@@SOURCE:script/04.js@@</script>
+<script>@@SOURCE:runtime/ui/welcome-score-sync.js@@</script>
 
 
-<script id="v2170DefenseChainAndEncyclopedia">@@SOURCE:script/05.js@@</script>
+<script id="v2164PowerAndItemAudioFix">@@SOURCE:runtime/audio/item-sound-bindings.js@@</script>
 
 
-<script id="v2171DrawAudioStopFix">@@SOURCE:script/06.js@@</script>
+<script id="v2170DefenseChainAndEncyclopedia">@@SOURCE:runtime/items/defense-chain-compat.js@@</script>
 
 
-<script id="v2172ItemWeightsAndClear">@@SOURCE:script/07.js@@</script>
+<script id="v2171DrawAudioStopFix">@@SOURCE:runtime/audio/draw-audio-lifecycle.js@@</script>
 
 
-<script id="v2173ItemWeightTuning">@@SOURCE:script/08.js@@</script>
+<script id="v2172ItemWeightsAndClear">@@SOURCE:runtime/items/drop-uniqueness-and-reset.js@@</script>
 
 
-<script id="v2174PerItemSounds">@@SOURCE:script/09.js@@</script>
+<script id="v2173ItemWeightTuning">@@SOURCE:runtime/items/drop-midfield-weights.js@@</script>
 
 
-<script id="v2175FxBinExport">@@SOURCE:script/10.js@@</script>
+<script id="v2174PerItemSounds">@@SOURCE:runtime/audio/item-sound-map.js@@</script>
 
 
-<script id="v2176SfxVolume">@@SOURCE:script/11.js@@</script>
+<script id="v2175FxBinExport">@@SOURCE:runtime/audio/fx-bundle-transfer.js@@</script>
 
 
-<script id="v2177RoundItemUseLimit">@@SOURCE:script/12.js@@</script>
+<script id="v2176SfxVolume">@@SOURCE:runtime/audio/effects-volume.js@@</script>
 
 
-<script id="v2178BatchAllInLimitFix">@@SOURCE:script/13.js@@</script>
+<script id="v2177RoundItemUseLimit">@@SOURCE:runtime/items/round-use-lock.js@@</script>
 
 
-<script id="v2179ItemDrawCooldownRules">@@SOURCE:script/14.js@@</script>
+<script id="v2178BatchAllInLimitFix">@@SOURCE:runtime/competition/batch-all-in-guard.js@@</script>
 
 
-<script id="v21710GlobalDrawSessionCooldownFix">@@SOURCE:script/15.js@@</script>
+<script id="v2179ItemDrawCooldownRules">@@SOURCE:runtime/items/draw-throttle-legacy.js@@</script>
 
 
-<script id="v21712FastItemFlow">@@SOURCE:script/16.js@@</script>
+<script id="v21710GlobalDrawSessionCooldownFix">@@SOURCE:runtime/items/draw-session-throttle.js@@</script>
 
 
-<script id="v21713AttackFxOrdering">@@SOURCE:script/17.js@@</script>
+<script id="v21712FastItemFlow">@@SOURCE:runtime/items/draw-flow.js@@</script>
 
 
-<script id="v21715EncyclopediaEffectOnly">@@SOURCE:script/18.js@@</script>
+<script id="v21713AttackFxOrdering">@@SOURCE:runtime/ui/attack-reorder-scheduling.js@@</script>
 
 
-<script id="v21716GroupPaletteLogic">@@SOURCE:script/19.js@@</script>
+<script id="v21715EncyclopediaEffectOnly">@@SOURCE:runtime/items/encyclopedia-effects.js@@</script>
 
 
-<script id="v21717SpinyCooldown">@@SOURCE:script/20.js@@</script>
+<script id="v21716GroupPaletteLogic">@@SOURCE:runtime/classroom/group-palette.js@@</script>
 
 
-<script id="v21718NoDuplicateInventory">@@SOURCE:script/21.js@@</script>
+<script id="v21717SpinyCooldown">@@SOURCE:runtime/items/spiny-cooldown.js@@</script>
 
 
-<script id="v21719FlowerPersistenceGuard">@@SOURCE:script/22.js@@</script>
+<script id="v21718NoDuplicateInventory">@@SOURCE:runtime/items/inventory-recovery.js@@</script>
 
 
-<script id="v21720CardReorderRepair">@@SOURCE:script/23.js@@</script>
+<script id="v21719FlowerPersistenceGuard">@@SOURCE:runtime/items/flower-charges-recovery.js@@</script>
 
 
-<script id="v21721BattleRankPreviewLogic">@@SOURCE:script/24.js@@</script>
+<script id="v21720CardReorderRepair">@@SOURCE:runtime/ui/card-transform-repair.js@@</script>
 
 
-<script id="v21724SortingContractFix">@@SOURCE:script/27.js@@</script>
+<script id="v21721BattleRankPreviewLogic">@@SOURCE:runtime/ui/rank-preview.js@@</script>
 
 
-<script id="v21725RoundStateFlip">@@SOURCE:script/28.js@@</script>
+<script id="v21724SortingContractFix">@@SOURCE:runtime/ui/battle-sort-contract.js@@</script>
+
+
+<script id="v21725RoundStateFlip">@@SOURCE:runtime/ui/round-flip.js@@</script>
 
 
 <!-- V2.17.27 统一主题弹窗 -->
@@ -766,19 +766,19 @@
 </div>
 
 
-<script id="v21727ThemeDialogLogic">@@SOURCE:script/30.js@@</script>
+<script id="v21727ThemeDialogLogic">@@SOURCE:runtime/ui/theme-dialog.js@@</script>
 
 
-<script id="v21732ItemScoreAnimation">@@SOURCE:script/31.js@@</script>
+<script id="v21732ItemScoreAnimation">@@SOURCE:runtime/ui/score-motion.js@@</script>
 
 
-<script id="v21731ItemStatusRepair">@@SOURCE:script/32.js@@</script>
+<script id="v21731ItemStatusRepair">@@SOURCE:runtime/items/status-normalization.js@@</script>
 
 
-<script id="v21734NoticeDurationSync">@@SOURCE:script/34.js@@</script>
+<script id="v21734NoticeDurationSync">@@SOURCE:runtime/ui/notice-duration.js@@</script>
 
 
-<script id="v21735DefenseNoticeStack">@@SOURCE:script/35.js@@</script>
+<script id="v21735DefenseNoticeStack">@@SOURCE:runtime/ui/defense-notices.js@@</script>
 
 
 <div id="quickPersonBackdropV218" class="quick-person-backdrop-v218" onclick="if(event.target===this)closeQuickPersonScoreV218()">
@@ -823,37 +823,37 @@
 </div>
 
 
-<script id="v2180HandwrittenPlanLogic">@@SOURCE:script/36.js@@</script>
+<script id="v2180HandwrittenPlanLogic">@@SOURCE:runtime/classroom/student-labels-and-search.js@@@@SOURCE:runtime/classroom/quick-person-score.js@@@@SOURCE:runtime/items/triple-defense-helpers.js@@@@SOURCE:runtime/items/first-hand-pool.js@@@@SOURCE:runtime/classroom/hand-reward-controls.js@@@@SOURCE:runtime/items/encyclopedia-rules.js@@</script>
 
 
-<style id="v2182GroupItemSyncStyle">@@SOURCE:style/21.css@@</style>
-<script id="v2182GroupItemSync">@@SOURCE:script/37.js@@</script>
+<style id="v2182GroupItemSyncStyle">@@SOURCE:styles/items/group-rule-copy.css@@</style>
+<script id="v2182GroupItemSync">@@SOURCE:runtime/items/group-encyclopedia.js@@</script>
 
 
-<script id="v2184FunnyEncyclopediaCopy">@@SOURCE:script/38.js@@</script>
+<script id="v2184FunnyEncyclopediaCopy">@@SOURCE:runtime/items/encyclopedia-copy.js@@</script>
 
 
-<style id="v2185DockHumorStyle">@@SOURCE:style/22.css@@</style>
+<style id="v2185DockHumorStyle">@@SOURCE:styles/ui/dock-tooltips.css@@</style>
 
-<script id="v2185DockHumor">@@SOURCE:script/39.js@@</script>
-
-
-<script id="v2186OpenFixMarker">@@SOURCE:script/40.js@@</script>
-
-<style id="v2187CopyPolishStyle">@@SOURCE:style/23.css@@</style>
-<script id="v2187CopyAuditAndHumor">@@SOURCE:script/41.js@@</script>
+<script id="v2185DockHumor">@@SOURCE:runtime/ui/dock-tooltips.js@@</script>
 
 
-<script id="v2189FlowerBalancePatch">@@SOURCE:script/42.js@@</script>
+<script id="v2186OpenFixMarker">@@SOURCE:runtime/bootstrap/version.js@@</script>
+
+<style id="v2187CopyPolishStyle">@@SOURCE:styles/ui/interface-copy.css@@</style>
+<script id="v2187CopyAuditAndHumor">@@SOURCE:runtime/ui/interface-copy.js@@</script>
 
 
-<script id="v21811VisibleCopyGuard">@@SOURCE:script/43.js@@</script>
+<script id="v2189FlowerBalancePatch">@@SOURCE:runtime/items/flower-copy-and-limits.js@@</script>
 
 
-<script id="v21812SettlementFullReset">@@SOURCE:script/44.js@@</script>
+<script id="v21811VisibleCopyGuard">@@SOURCE:runtime/ui/about-copy.js@@</script>
 
 
-<script id="v21813FullSettlementArchive">@@SOURCE:script/45.js@@</script>
+<script id="v21812SettlementFullReset">@@SOURCE:runtime/competition/season-cleanup.js@@</script>
+
+
+<script id="v21813FullSettlementArchive">@@SOURCE:runtime/archives/full-settlement.js@@</script>
 
 <script>@@SOURCE:ui/battle-card-view.js@@</script>
 <script>@@SOURCE:ui/battle-grid.js@@</script>

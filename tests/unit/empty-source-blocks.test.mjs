@@ -3,11 +3,13 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { parse } from "acorn";
 test("production template contains no empty legacy scripts", () => {
-  const files = readdirSync("src/script").filter((x) => x.endsWith(".js"));
+  const files = JSON.parse(readFileSync("src/manifest.json", "utf8"))
+    .blocks.filter((b) => b.type === "script")
+    .map((b) => "src/" + b.path);
   const empty = files.filter(
     (f) =>
-      parse(readFileSync("src/script/" + f, "utf8"), { ecmaVersion: "latest" })
-        .body.length === 0,
+      parse(readFileSync(f, "utf8"), { ecmaVersion: "latest" }).body.length ===
+      0,
   );
   assert.deepEqual(
     empty,

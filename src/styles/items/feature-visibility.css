@@ -1,0 +1,63 @@
+body.items-disabled .group-row-card {
+  min-height: unset;
+}
+
+.v292-switch {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+.v292-switch input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.v292-switch-track {
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  display: block;
+  position: relative;
+  background: linear-gradient(#d7e3eb, #f8fbfd);
+  border: 1px solid #91afc2;
+  box-shadow:
+    inset 0 2px 4px rgba(54, 88, 108, 0.22),
+    0 1px 0 #fff;
+  transition: 0.2s ease;
+}
+.v292-switch-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  background: linear-gradient(#fff, #dbe8f0);
+  border: 1px solid #9eb6c6;
+  box-shadow:
+    0 2px 4px rgba(30, 60, 80, 0.28),
+    inset 0 1px 0 #fff;
+  transition: 0.2s ease;
+}
+.v292-switch input:checked + .v292-switch-track {
+  background: linear-gradient(#64d9ff, #0aa7df 55%, #078bc4);
+  border-color: #087faf;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 72, 108, 0.35),
+    0 0 9px rgba(20, 181, 238, 0.35);
+}
+.v292-switch input:checked + .v292-switch-track .v292-switch-knob {
+  left: 26px;
+}
+
+/* ===== V2.9.3 单栏模式分数显示修复 =====
+   单栏卡片仍保持原高度。分数在单栏时脱离底部按钮行，
+   固定放到卡片右侧中部，避免被 A/B/C/D、All In 和更多按钮挤到 0 宽。
+*/

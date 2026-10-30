@@ -1,0 +1,170 @@
+[
+  {
+    "path": "src/script/00.js",
+    "line": 4255,
+    "bytes": 1363,
+    "reason": "superseded or no remaining caller",
+    "head": "function globalItemDraw(){\n  ensureItemState();if(itemDrawBusy)return;const eligible=state.groups.fi"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4442,
+    "bytes": 333,
+    "reason": "superseded or no remaining caller",
+    "head": "function handDrawItem(){const g=state.groups.find(x=>x.id===handRaiseGroupId);if(!g)return;if(!eligi"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4446,
+    "bytes": 1604,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(){\n  ensureV2State();if(itemDrawBusy)return;const eligible=state.groups.filt"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4549,
+    "bytes": 2962,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(){\n  ensureV2State();\n  const g=state.groups.find(x=>x.id===handRaiseGroupId);"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4691,
+    "bytes": 2460,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(){\n  ensureV2State();if(itemDrawBusy)return;\n  const eligible=state.groups.f"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4745,
+    "bytes": 3155,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(){\n  ensureV2State();const g=state.groups.find(x=>x.id===handRaiseGroupId);if("
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4932,
+    "bytes": 271,
+    "reason": "superseded or no remaining caller",
+    "head": "function startDrawSoundBedV26(ms=3600){\n playSound('item_draw_start');let n=0;\n const timer=setInter"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4937,
+    "bytes": 36,
+    "reason": "capture used only by superseded wrapper",
+    "head": "const _v26GlobalDraw=globalItemDraw;"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4937,
+    "bytes": 94,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(){if(!itemDrawBusy)startDrawSoundBedV26(3600);return _v26GlobalDraw()}"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4938,
+    "bytes": 32,
+    "reason": "capture used only by superseded wrapper",
+    "head": "const _v26HandDraw=handDrawItem;"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 4938,
+    "bytes": 95,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(){if(!handItemDrawTimer)startDrawSoundBedV26(3600);return _v26HandDraw()}"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5124,
+    "bytes": 2344,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(){\n  ensureV2State();if(itemDrawBusy)return;\n  const eligible=state.groups.f"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5183,
+    "bytes": 3083,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(){\n  ensureV2State();const g=state.groups.find(x=>x.id===handRaiseGroupId);if("
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5288,
+    "bytes": 107,
+    "reason": "superseded or no remaining caller",
+    "head": "function updateAllRoulettePreviewLogicV282(){\n /* 标记函数供重写后的 draw 使用 */\n return roulettePreviewPickV2"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5294,
+    "bytes": 2180,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(){\n ensureV2State();if(itemDrawBusy)return;\n const eligible=state.groups.fil"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5343,
+    "bytes": 2932,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(){\n ensureV2State();const g=state.groups.find(x=>x.id===handRaiseGroupId);if(!"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5614,
+    "bytes": 41,
+    "reason": "capture used only by superseded wrapper",
+    "head": "const _v291GlobalItemDraw=globalItemDraw;"
+  },
+  {
+    "path": "src/script/00.js",
+    "line": 5615,
+    "bytes": 133,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(...a){\n  if(!isCommunismMode()){showToast('共产主义模式已关闭');return}\n  return _v29"
+  },
+  {
+    "path": "src/script/04.js",
+    "line": 142,
+    "bytes": 450,
+    "reason": "wrapper overwritten by final draw flow",
+    "head": "if (typeof globalItemDraw === 'function') {\n  const _v2164GlobalItemDraw = globalItemDraw;\n  globalI"
+  },
+  {
+    "path": "src/script/04.js",
+    "line": 153,
+    "bytes": 423,
+    "reason": "wrapper overwritten by final draw flow",
+    "head": "if (typeof handDrawItem === 'function') {\n  const _v2164HandDrawItem = handDrawItem;\n  handDrawItem "
+  },
+  {
+    "path": "src/script/15.js",
+    "line": 154,
+    "bytes": 43,
+    "reason": "capture used only by superseded wrapper",
+    "head": "const _v21710GlobalItemDraw=globalItemDraw;"
+  },
+  {
+    "path": "src/script/15.js",
+    "line": 155,
+    "bytes": 334,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "globalItemDraw=function(...args){\n  ensureV2State();\n\n  const eligible=state.groups.filter(\n    g=>e"
+  },
+  {
+    "path": "src/script/15.js",
+    "line": 170,
+    "bytes": 39,
+    "reason": "capture used only by superseded wrapper",
+    "head": "const _v21710HandDrawItem=handDrawItem;"
+  },
+  {
+    "path": "src/script/15.js",
+    "line": 171,
+    "bytes": 347,
+    "reason": "superseded by final draw flow before interaction",
+    "head": "handDrawItem=function(...args){\n  ensureV2State();\n\n  const g=state.groups.find(x=>x.id===handRaiseG"
+  }
+]

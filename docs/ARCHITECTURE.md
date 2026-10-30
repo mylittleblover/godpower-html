@@ -1,4 +1,4 @@
-# 独立网页版架构 V3.0.59
+# 独立网页版架构 V3.0.60
 
 此分支是无插件的网页版过渡发行，基础来自 V3.0.26，恢复了后续 V3.0.53 中已实现的非插件功能和可靠性修复。desktop/Electron 由独立项目继续演进。
 
@@ -40,3 +40,16 @@ DesktopUI仍是兼容组合入口，未新增同名覆盖链：
 普通窗口没有data-native-detached写入方；已移除失效的焦点/动画/滚动分支。data-external-picker仍保留，避免隐藏的原点名弹窗抢焦点。
 
 尚未实施全量比赛DOM增量协调。FLIP、攻击等待与计分输入相关刷新必须在独立验证下处理，不能为了减少innerHTML直接改变时序。
+
+
+## 3.0.60：旧编号源码全部退役
+
+- `src/script/`、`src/style/`不再存在。
+- `src/runtime/`按core/bootstrap、classroom、competition、items、picker、audio、archives、history、storage、ui划分兼容运行职责；这不是第二套业务内核。
+- `src/styles/`按base、shell、battle、dialogs、items、settings、audio、classroom、themes、ui划分样式责任。
+- 55个主脚本片段和6个学生/举手片段保持在各自原script标签内，确保函数提升、词法绑定及初始化时序不变；基础CSS的15段保持同一style单元及原层叠顺序。
+- manifest的executionGroup明确同一执行单元内的有序片段；构建仍全部内联，单文件不需要开发服务器或CDN。
+- 全局/举手抽取各有一个具名函数定义，位于runtime/items/draw-flow.js。旧版24处失效实现/捕获/包装/辅助代码已删除，不再依赖覆盖顺序选择抽取实现。
+- CSS只删除33条被后续同选择器、同属性、同值及优先级无条件覆盖的声明；条件规则、关键帧和无法证明失效的兼容层保留。
+
+逐源映射见SOURCE_MIGRATION_MAP.md，原审计工具改为按manifest扫描，不能再只遍历旧script/style目录。测试中的历史路径fixture仍可保留，用于验证旧版数据和仓库扫描兼容。

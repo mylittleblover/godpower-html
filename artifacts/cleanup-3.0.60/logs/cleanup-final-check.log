@@ -1,0 +1,14 @@
+
+> godpower-html@3.0.60 check
+> node scripts/check.mjs
+
+117 script blocks parse; all 27 original embedded resources preserved
+224 source blocks match the manifest and template
+file:///workspace/godpower-html-electron-020/scripts/check.mjs:23
+if(!s.includes(`window.__GOD_POWER_VERSION__='V${version}'`) || !s.includes(`<small>V${version}</small>`) || !s.includes(`<title>上帝的力量 V${version}</title>`) || !appVersions.includes('V'+version))throw Error('Visible/internal/package version mismatch');
+                                                                                                                                                                                                         ^
+
+Error: Visible/internal/package version mismatch
+    at file:///workspace/godpower-html-electron-020/scripts/check.mjs:23:202
+
+Node.js v24.19.0

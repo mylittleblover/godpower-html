@@ -1,0 +1,12 @@
+✔ all 117 script execution units preserve their AST except the explicitly retired draw chain (703.070542ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.813098ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (0.765111ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.529181ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 833.358082

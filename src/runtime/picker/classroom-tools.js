@@ -1,0 +1,206 @@
+let pickerInfoTab = "history",
+  handRaiseGroupId = null,
+  pendingItemIconKey = null;
+function ensureV2State() {
+  ensureItemState();
+  if (!state.itemGlobal.pickerHistory) state.itemGlobal.pickerHistory = [];
+  if (!state.itemGlobal.handRaiseHistory)
+    state.itemGlobal.handRaiseHistory = [];
+  if (!state.itemGlobal.handRaiseTotal) state.itemGlobal.handRaiseTotal = 0;
+  if (!state.itemGlobal.pkTotal) state.itemGlobal.pkTotal = 0;
+  if (!state.itemGlobal.customIcons)
+    state.itemGlobal.customIcons = STORAGE.getJSON("politics_item_icons", {});
+}
+const BUILTIN_ITEM_ICONS_V2121 = {
+  green: "@@RESOURCE:asset-000.txt@@",
+  triple_green: "@@RESOURCE:asset-001.txt@@",
+  red: "@@RESOURCE:asset-002.txt@@",
+  triple_red: "@@RESOURCE:asset-003.txt@@",
+  spiny: "@@RESOURCE:asset-004.txt@@",
+  banana: "@@RESOURCE:asset-005.txt@@",
+  triple_banana: "@@RESOURCE:asset-006.txt@@",
+  horn: "@@RESOURCE:asset-007.txt@@",
+  bomb: "@@RESOURCE:asset-008.txt@@",
+  hammer: "@@RESOURCE:asset-009.txt@@",
+  coin: "@@RESOURCE:asset-010.txt@@",
+  coin_shell: "@@RESOURCE:asset-011.txt@@",
+  question: "@@RESOURCE:asset-012.txt@@",
+  mushroom: "@@RESOURCE:asset-013.txt@@",
+  triple_mushroom: "@@RESOURCE:asset-014.txt@@",
+  boo: "@@RESOURCE:asset-015.txt@@",
+  blooper: "@@RESOURCE:asset-016.txt@@",
+  lightning: "@@RESOURCE:asset-017.txt@@",
+  star: "@@RESOURCE:asset-018.txt@@",
+  mega: "@@RESOURCE:asset-019.txt@@",
+  bullet: "@@RESOURCE:asset-020.txt@@",
+  power: "@@RESOURCE:asset-021.txt@@",
+  feather: "@@RESOURCE:asset-022.txt@@",
+  fire_flower: "@@RESOURCE:asset-023.txt@@",
+  ice_flower: "@@RESOURCE:asset-024.txt@@",
+  boomerang_flower: "@@RESOURCE:asset-025.txt@@",
+};
+const BUILTIN_ITEM_BOX_V2121 = "@@RESOURCE:asset-026.txt@@";
+function itemVisual(key, cls = "") {
+  ensureV2State();
+  const d = ITEM_DEFS[key],
+    custom = state.itemGlobal.customIcons[key],
+    builtin = BUILTIN_ITEM_ICONS_V2121[key];
+  const src = Reliability.safeImage(custom) || builtin;
+  return src
+    ? `<img class="${cls}" src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}">`
+    : d.icon;
+}
+function itemBoxVisualV2121(cls = "") {
+  return BUILTIN_ITEM_BOX_V2121
+    ? `<img class="${cls}" src="${BUILTIN_ITEM_BOX_V2121}" alt="道具箱">`
+    : "❔";
+}
+function setPickerInfoTab(tab) {
+  pickerInfoTab = tab;
+  document
+    .getElementById("pickerStatsBtn")
+    ?.classList.toggle("active", tab === "stats");
+  document
+    .getElementById("pickerHistoryBtn")
+    ?.classList.toggle("active", tab === "history");
+  renderPickerInfo();
+}
+function renderPickerInfo() {
+  ensureV2State();
+  const box = document.getElementById("pickerInfoBox");
+  if (!box) return;
+  if (pickerInfoTab === "stats") {
+    const a = state.groups.reduce(
+      (n, g) => n + (g.itemStats?.correct || 0) + (g.itemStats?.wrong || 0),
+      0,
+    );
+    box.innerHTML = `<div class="guide-block"><b>课堂作答</b><br>${a} 次</div><div class="guide-block"><b>答题轮次</b><br>${state.itemGlobal.pkTotal || 0} 轮</div><div class="guide-block"><b>全局道具发放</b><br>${state.itemGlobal.totalDraws || 0} 件</div><div class="guide-block"><b>手动举手</b><br>${state.itemGlobal.handRaiseTotal || 0} 次</div>`;
+  } else {
+    const arr = state.itemGlobal.pickerHistory || [];
+    box.innerHTML = arr.length
+      ? arr
+          .slice(-30)
+          .reverse()
+          .map(
+            (x) =>
+              `<div class="picker-log">${escapeHtml(x.text)}<br><small>${new Date(x.time).toLocaleTimeString()}</small></div>`,
+          )
+          .join("")
+      : "暂无抽签记录";
+  }
+}
+const _v2OpenPicker = openPickerModal;
+openPickerModal = function (...args) {
+  ensureV2State();
+  pickerInfoTab = "history";
+  _v2OpenPicker(...args);
+  setPickerInfoTab("history");
+  syncPickerScoreTarget();
+};
+function syncPickerScoreTarget() {
+  const el = document.getElementById("pickerScoreTarget"),
+    w = slotEngine.chosenResult;
+  if (!el) return;
+  if (!w) {
+    el.textContent = "抽中学生或小组后，可直接给所属小组赋分。";
+    return;
+  }
+  const g = state.picker.mode === "group" ? w : w.group;
+  el.innerHTML = `<b>${escapeHtml(g.name)}</b>${state.picker.mode === "group" ? "" : `<br>${escapeHtml(w.memberName)}`}<br>当前 ${g.score} 分`;
+}
+function pickerTargetGroup() {
+  const w = slotEngine.chosenResult;
+  if (!w) return null;
+  return state.picker.mode === "group" ? w : w.group;
+}
+function scorePickerTarget(n) {
+  const g = pickerTargetGroup();
+  if (!g) {
+    showToast("请先完成一次抽签");
+    return;
+  }
+  applyScoreDelta(g.id, n);
+  syncPickerScoreTarget();
+}
+function scorePickerCustom() {
+  const n = Math.round(
+    Number(document.getElementById("pickerCustomScore")?.value),
+  );
+  if (!Number.isFinite(n) || n === 0) return;
+  scorePickerTarget(n);
+}
+
+/* 手动举手 */
+function openHandRaise() {
+  ensureV2State();
+  handRaiseGroupId = null;
+  showClassroomWindow(document.getElementById("handRaiseBackdrop"));
+  renderHandRaise();
+}
+function closeHandRaise() {
+  hideClassroomWindow(document.getElementById("handRaiseBackdrop"));
+}
+function renderHandRaise() {
+  const box = document.getElementById("handGroupGrid");
+  if (!box) return;
+  box.innerHTML = state.groups
+    .map(
+      (g) =>
+        `<button class="hand-group ${g.id === handRaiseGroupId ? "selected" : ""}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>`,
+    )
+    .join("");
+  document.getElementById("handRewardBox").innerHTML = "";
+}
+function selectHandGroup(id) {
+  handRaiseGroupId = id;
+  renderHandRaise();
+  document
+    .querySelectorAll(".hand-group")
+    .forEach((b) => b.classList.remove("selected"));
+  const arr = [...document.querySelectorAll(".hand-group")],
+    idx = state.groups.findIndex((g) => g.id === id);
+  if (arr[idx]) arr[idx].classList.add("selected");
+}
+function judgeHandRaise(correct) {
+  ensureV2State();
+  const g = state.groups.find((x) => x.id === handRaiseGroupId);
+  if (!g) {
+    showToast("先选择举手小组");
+    return;
+  }
+  recordHistory(`${g.name} 手动举手：${correct ? "正确" : "错误"}`);
+  g.itemStats.correct += correct ? 1 : 0;
+  g.itemStats.wrong += correct ? 0 : 1;
+  state.itemGlobal.handRaiseTotal++;
+  state.itemGlobal.handRaiseHistory.push({
+    time: Date.now(),
+    groupId: g.id,
+    correct,
+  });
+  saveState();
+  renderAll();
+  const box = document.getElementById("handRewardBox");
+  if (!correct) {
+    box.innerHTML =
+      '<div class="hand-rewards"><b>已记录错误，本次不发放奖励。</b></div>';
+    return;
+  }
+  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b>${ClassroomFeedback.slotMarkup("hand")}<div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
+}
+function handQuickScore(n) {
+  if (handRaiseGroupId != null) applyScoreDelta(handRaiseGroupId, n);
+}
+
+function handUseItem() {
+  const g = state.groups.find((x) => x.id === handRaiseGroupId);
+  if (!g || !g.inventory.length) {
+    showToast("该组没有可用道具");
+    return;
+  }
+  closeHandRaise();
+  openItemWindow(g.id, "items");
+}
+
+/* 全局抽取：直接在比赛卡片内部滚动，不再弹窗 */
+
+/* 道具图鉴与自定义图标 */

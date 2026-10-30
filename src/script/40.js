@@ -1,1 +1,0 @@
-window.__GOD_POWER_VERSION__='V@@VERSION@@';
