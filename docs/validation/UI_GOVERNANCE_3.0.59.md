@@ -23,7 +23,7 @@
 ## 实际验证
 
 - 最终npm test：319 PASS / 0 FAIL。
-- build/check/format：PASS，151源块、116脚本块解析，27份原始内嵌资源保留，版本字段3.0.59一致。
+- build/check/format：PASS，151源块、117脚本块解析，27份原始内嵌资源保留，版本字段3.0.59一致。
 - standalone-governance：五页、两主题、九类设置、草稿DOM节点保持；比较抽样几何/颜色/样式均一致。欢迎页比较固定hero，整页截图中的重复卡片消除是预期缺陷修复，不要求保留错误页面高度。
 - battle-layout：以b9c6276为基线，14组位置/尺寸/底栏/垫片/滚动及按钮界限PASS。未读取用户真实设备配置。
 - welcome-content-editor：独立知识轮换、答题门槛、不加比赛分、26道具百科、结构化CRUD、非法导入不变/有效导入/导出PASS。
