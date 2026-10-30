@@ -73,6 +73,21 @@ try {
   await page.evaluate(() => openPickerModal());
   await page.waitForTimeout(200);
   assert.ok(await page.evaluate(() => window.testPickerOpen > 0));
+  await page.evaluate(() => {
+    switchView("settings");
+    DesktopUI.selectSettings("welcome");
+    document.getElementById("uiSettingsBank").open = true;
+  });
+  await page.waitForTimeout(600);
+  await page.locator("#uiBankEditor").focus();
+  await page.keyboard.insertText("test");
+  assert.equal(
+    await page.evaluate(
+      () => document.activeElement === document.getElementById("uiBankEditor"),
+    ),
+    true,
+    "hidden external picker cannot trap focus away from settings",
+  );
   assert.deepEqual(errors, []);
   console.log(
     "PASS live internal password input survives every character, no clone publication, settings navigation and external picker entry",

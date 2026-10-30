@@ -1562,6 +1562,7 @@ const DesktopUI = (() => {
         if (!el) continue;
         const visible =
           !el.hasAttribute("data-native-detached") &&
+          !el.hasAttribute("data-external-picker") &&
           (el.open ||
             el.classList.contains("active") ||
             el.classList.contains("show") ||
@@ -1676,7 +1677,12 @@ const DesktopUI = (() => {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["class", "style", "data-native-detached"],
+      attributeFilter: [
+        "class",
+        "style",
+        "data-native-detached",
+        "data-external-picker",
+      ],
     });
     document.addEventListener(
       "keydown",
