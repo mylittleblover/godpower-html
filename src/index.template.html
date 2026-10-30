@@ -546,6 +546,11 @@
       <input type="range" id="cfgMasterVolume" min="0" max="1" step="0.05" style="width: 160px;" oninput="updateMasterVolume(this.value)">
     </div>
 
+    <div class="setting-item" data-settings-category="sound" data-settings-group="volume">
+      <span class="setting-label">背景音乐音量 (<span id="bgmVolLabel">100%</span>)<small class="ui-muted">独立控制菜单、思考、比赛及结算音乐，不改变音效音量。</small></span>
+      <input type="range" id="cfgBgmVolume" aria-label="背景音乐音量" min="0" max="1" step="0.01" style="width:160px" oninput="updateBgmVolume(this.value)">
+    </div>
+
     <div class="setting-item" data-settings-category="sound" data-settings-group="music">
       <span class="setting-label">音乐节拍与循环说明</span>
       <div style="font-size:13px; color:#64748b; font-weight:700;" id="cfgSetBpmDesc">

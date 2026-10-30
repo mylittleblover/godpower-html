@@ -201,6 +201,10 @@ let historyStack = [];
 
 let audioCtx = null;
 let masterGainNode = null;
+let musicGainNode = null;
+let bgmVolume = Number(STORAGE.get('politics_bgm_volume', '1'));
+if(!Number.isFinite(bgmVolume)) bgmVolume=1;
+bgmVolume=Math.max(0,Math.min(1,bgmVolume));
 let db = null;
 let customFxBuffers = {};
 let customFxVariants = Object.create(null);
@@ -654,10 +658,13 @@ async function getAudioContext() {
     masterGainNode.gain.setValueAtTime(state.masterVolume, audioCtx.currentTime);
     masterGainNode.connect(audioCtx.destination);
 
+    musicGainNode = audioCtx.createGain();
+    musicGainNode.gain.setValueAtTime(bgmVolume, audioCtx.currentTime);
+    musicGainNode.connect(masterGainNode);
     bgmEngine.battleGain = audioCtx.createGain();
     bgmEngine.thinkingGain = audioCtx.createGain();
-    bgmEngine.battleGain.connect(masterGainNode);
-    bgmEngine.thinkingGain.connect(masterGainNode);
+    bgmEngine.battleGain.connect(musicGainNode);
+    bgmEngine.thinkingGain.connect(musicGainNode);
   }
   if (audioCtx.state === 'suspended') {
     try {
@@ -1129,7 +1136,7 @@ async function bgmStartNewRoundMusicWithProgress(onProgress) {
     if (introBuf) {
       const introSrc = audioCtx.createBufferSource();
       introSrc.buffer = introBuf;
-      introSrc.connect(masterGainNode);
+      introSrc.connect(musicGainNode);
       introSrc.start(now);
       bgmEngine.activeNodes.push(introSrc);
     }
@@ -1214,7 +1221,7 @@ function bgmTransitionThinkingToBattle() {
     if (transBuf) {
       const transSrc = audioCtx.createBufferSource();
       transSrc.buffer = transBuf;
-      transSrc.connect(masterGainNode);
+      transSrc.connect(musicGainNode);
       transSrc.start(triggerTime);
       bgmEngine.activeNodes.push(transSrc);
     }
@@ -1340,7 +1347,7 @@ function bgmTriggerVictory(callback) {
       const victorySrc = audioCtx.createBufferSource();
       victorySrc.buffer = victoryBuf;
       victorySrc.loop = false;
-      victorySrc.connect(masterGainNode);
+      victorySrc.connect(musicGainNode);
       victorySrc.start(triggerTime);
       bgmEngine.victoryNode = victorySrc;
       bgmEngine.state = 'VICTORY';
@@ -2813,6 +2820,8 @@ function syncSettingsControls() {
   document.getElementById('cfgResizerEnabled').checked = state.resizerEnabled;
   document.getElementById('cfgSaveAllIn').checked = state.saveAllIn;
   document.getElementById('cfgColumnMode').value = state.columnMode;
+  document.getElementById('cfgBgmVolume').value = bgmVolume;
+  document.getElementById('bgmVolLabel').textContent = `${Math.round(bgmVolume*100)}%`;
   document.getElementById('cfgMasterVolume').value = state.masterVolume;
   document.getElementById('volLabel').innerText = `${Math.round(state.masterVolume * 100)}%`;
   const summaryText = state.groups.map(g => `${g.name}: ${(g.members || []).join(', ')}`).join('\n');
@@ -2826,6 +2835,17 @@ function updateMasterVolume(vol) {
     masterGainNode.gain.setValueAtTime(state.masterVolume, audioCtx.currentTime);
   }
   saveState();
+}
+
+function updateBgmVolume(value) {
+  const parsed=Number(value);
+  if(!Number.isFinite(parsed))return false;
+  bgmVolume=Math.max(0,Math.min(1,parsed));
+  document.getElementById('cfgBgmVolume').value=bgmVolume;
+  document.getElementById('bgmVolLabel').textContent=`${Math.round(bgmVolume*100)}%`;
+  if(musicGainNode&&audioCtx)musicGainNode.gain.setTargetAtTime(bgmVolume,audioCtx.currentTime,.025);
+  if(!STORAGE.set('politics_bgm_volume',bgmVolume))showToast('音乐音量仅在本次生效，偏好保存失败');
+  return true;
 }
 
 let bgmSlotRenderGeneration = 0;
@@ -2915,7 +2935,7 @@ async function previewBgmTrack(slotId) {
           const decoded = await ctx.decodeAudioData(req.result.arrayBuffer.slice(0));
           const src = ctx.createBufferSource();
           src.buffer = decoded;
-          src.connect(masterGainNode);
+          src.connect(musicGainNode);
           src.start(0);
         } catch(e) {}
       }
@@ -3394,7 +3414,7 @@ function menuEnsureGraph() {
   if (!menuBgm.outGain) {
     menuBgm.outGain = audioCtx.createGain();
     menuBgm.outGain.gain.setValueAtTime(0.7, audioCtx.currentTime);
-    menuBgm.outGain.connect(masterGainNode);
+    menuBgm.outGain.connect(musicGainNode);
   }
   return true;
 }

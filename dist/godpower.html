@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.55</title>
+<title>上帝的力量 V3.0.56</title>
 <script>/* Host-owned, declarative UI contributions. Plugin code never receives DOM callbacks here. */
 (function installGodPowerContributionRegistry(root) {
   "use strict";
@@ -683,7 +683,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.55";
+    document.title = name() + " V3.0.56";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -7075,6 +7075,17 @@ body {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
+#groupList .row-score.row-score-light {
+  background-color: var(--group-color);
+  border-radius: 4px;
+  color: #fff;
+  text-shadow:
+    0 1px 2px #000b,
+    1px 0 1px #0008,
+    -1px 0 1px #0008;
+  -webkit-text-stroke: 0.3px #0008;
+  box-shadow: inset 0 0 0 1px #0002;
+}
 #groupList .member-count-tag {
   color: var(--theme-tone-527165, #527165);
   background: var(--theme-tone-f0f6f2, #f0f6f2);
@@ -10232,7 +10243,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.55</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.56</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -10787,6 +10798,11 @@ html[data-theme="marx"] {
       <input type="range" id="cfgMasterVolume" min="0" max="1" step="0.05" style="width: 160px;" oninput="updateMasterVolume(this.value)">
     </div>
 
+    <div class="setting-item" data-settings-category="sound" data-settings-group="volume">
+      <span class="setting-label">背景音乐音量 (<span id="bgmVolLabel">100%</span>)<small class="ui-muted">独立控制菜单、思考、比赛及结算音乐，不改变音效音量。</small></span>
+      <input type="range" id="cfgBgmVolume" aria-label="背景音乐音量" min="0" max="1" step="0.01" style="width:160px" oninput="updateBgmVolume(this.value)">
+    </div>
+
     <div class="setting-item" data-settings-category="sound" data-settings-group="music">
       <span class="setting-label">音乐节拍与循环说明</span>
       <div style="font-size:13px; color:#64748b; font-weight:700;" id="cfgSetBpmDesc">
@@ -11048,7 +11064,7 @@ html[data-theme="marx"] {
       leader: ordered[0]?.name ?? "—",
     };
   }
-  // Badge-only shade: keep group colors in state intact and prefer white on saturated hues.
+  // Preserve the selected paint; only the foreground changes for pale fills.
   function badgeColors(color) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
@@ -11058,24 +11074,18 @@ html[data-theme="marx"] {
         .join("");
     if (!/^[a-f0-9]{6}$/i.test(raw))
       return { background: "#607773", foreground: "#FFFFFF" };
-    const rgb = raw.match(/../g).map((v) => parseInt(v, 16));
-    const luminance = (values) =>
-      values
-        .map((v) => v / 255)
-        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
-    const saturated = Math.max(...rgb) - Math.min(...rgb) >= 40;
-    let shade = [...rgb];
-    if (saturated || luminance(rgb) < 0.18) {
-      while (1.05 / (luminance(shade) + 0.05) < 4.5)
-        shade = shade.map((v) => Math.floor(v * 0.97));
-      return {
-        background:
-          "#" + shade.map((v) => v.toString(16).padStart(2, "0")).join(""),
-        foreground: "#FFFFFF",
-      };
-    }
-    return { background: "#" + raw, foreground: "#17302D" };
+    const linear = raw
+      .match(/../g)
+      .map((v) => parseInt(v, 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    const luminance = linear.reduce(
+      (sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i],
+      0,
+    );
+    return {
+      background: "#" + raw,
+      foreground: luminance > 0.45 ? "#000000" : "#FFFFFF",
+    };
   }
   root.GodpowerUIModel = {
     examples,
@@ -18706,6 +18716,10 @@ let historyStack = [];
 
 let audioCtx = null;
 let masterGainNode = null;
+let musicGainNode = null;
+let bgmVolume = Number(STORAGE.get('politics_bgm_volume', '1'));
+if(!Number.isFinite(bgmVolume)) bgmVolume=1;
+bgmVolume=Math.max(0,Math.min(1,bgmVolume));
 let db = null;
 let customFxBuffers = {};
 let customFxVariants = Object.create(null);
@@ -19159,10 +19173,13 @@ async function getAudioContext() {
     masterGainNode.gain.setValueAtTime(state.masterVolume, audioCtx.currentTime);
     masterGainNode.connect(audioCtx.destination);
 
+    musicGainNode = audioCtx.createGain();
+    musicGainNode.gain.setValueAtTime(bgmVolume, audioCtx.currentTime);
+    musicGainNode.connect(masterGainNode);
     bgmEngine.battleGain = audioCtx.createGain();
     bgmEngine.thinkingGain = audioCtx.createGain();
-    bgmEngine.battleGain.connect(masterGainNode);
-    bgmEngine.thinkingGain.connect(masterGainNode);
+    bgmEngine.battleGain.connect(musicGainNode);
+    bgmEngine.thinkingGain.connect(musicGainNode);
   }
   if (audioCtx.state === 'suspended') {
     try {
@@ -19634,7 +19651,7 @@ async function bgmStartNewRoundMusicWithProgress(onProgress) {
     if (introBuf) {
       const introSrc = audioCtx.createBufferSource();
       introSrc.buffer = introBuf;
-      introSrc.connect(masterGainNode);
+      introSrc.connect(musicGainNode);
       introSrc.start(now);
       bgmEngine.activeNodes.push(introSrc);
     }
@@ -19719,7 +19736,7 @@ function bgmTransitionThinkingToBattle() {
     if (transBuf) {
       const transSrc = audioCtx.createBufferSource();
       transSrc.buffer = transBuf;
-      transSrc.connect(masterGainNode);
+      transSrc.connect(musicGainNode);
       transSrc.start(triggerTime);
       bgmEngine.activeNodes.push(transSrc);
     }
@@ -19845,7 +19862,7 @@ function bgmTriggerVictory(callback) {
       const victorySrc = audioCtx.createBufferSource();
       victorySrc.buffer = victoryBuf;
       victorySrc.loop = false;
-      victorySrc.connect(masterGainNode);
+      victorySrc.connect(musicGainNode);
       victorySrc.start(triggerTime);
       bgmEngine.victoryNode = victorySrc;
       bgmEngine.state = 'VICTORY';
@@ -21318,6 +21335,8 @@ function syncSettingsControls() {
   document.getElementById('cfgResizerEnabled').checked = state.resizerEnabled;
   document.getElementById('cfgSaveAllIn').checked = state.saveAllIn;
   document.getElementById('cfgColumnMode').value = state.columnMode;
+  document.getElementById('cfgBgmVolume').value = bgmVolume;
+  document.getElementById('bgmVolLabel').textContent = `${Math.round(bgmVolume*100)}%`;
   document.getElementById('cfgMasterVolume').value = state.masterVolume;
   document.getElementById('volLabel').innerText = `${Math.round(state.masterVolume * 100)}%`;
   const summaryText = state.groups.map(g => `${g.name}: ${(g.members || []).join(', ')}`).join('\n');
@@ -21331,6 +21350,17 @@ function updateMasterVolume(vol) {
     masterGainNode.gain.setValueAtTime(state.masterVolume, audioCtx.currentTime);
   }
   saveState();
+}
+
+function updateBgmVolume(value) {
+  const parsed=Number(value);
+  if(!Number.isFinite(parsed))return false;
+  bgmVolume=Math.max(0,Math.min(1,parsed));
+  document.getElementById('cfgBgmVolume').value=bgmVolume;
+  document.getElementById('bgmVolLabel').textContent=`${Math.round(bgmVolume*100)}%`;
+  if(musicGainNode&&audioCtx)musicGainNode.gain.setTargetAtTime(bgmVolume,audioCtx.currentTime,.025);
+  if(!STORAGE.set('politics_bgm_volume',bgmVolume))showToast('音乐音量仅在本次生效，偏好保存失败');
+  return true;
 }
 
 let bgmSlotRenderGeneration = 0;
@@ -21420,7 +21450,7 @@ async function previewBgmTrack(slotId) {
           const decoded = await ctx.decodeAudioData(req.result.arrayBuffer.slice(0));
           const src = ctx.createBufferSource();
           src.buffer = decoded;
-          src.connect(masterGainNode);
+          src.connect(musicGainNode);
           src.start(0);
         } catch(e) {}
       }
@@ -21899,7 +21929,7 @@ function menuEnsureGraph() {
   if (!menuBgm.outGain) {
     menuBgm.outGain = audioCtx.createGain();
     menuBgm.outGain.gain.setValueAtTime(0.7, audioCtx.currentTime);
-    menuBgm.outGain.connect(masterGainNode);
+    menuBgm.outGain.connect(musicGainNode);
   }
   return true;
 }
@@ -28661,7 +28691,7 @@ if(typeof renderLockState==='function'){
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.55';
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__='V3.0.56';
 </script>
 
 <style id="v2187CopyPolishStyle">
@@ -29320,7 +29350,7 @@ function renderBattleGridCards() {
     const scoreHtml =
       state.editingScoreId === g.id
         ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-        : `<span class="row-score ${editCls}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
+        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${badge.foreground === "#000000" ? "#fff" : g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
     const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
     const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
     const lockAttr = state.isLocked ? "locked-disabled" : "";
@@ -31198,7 +31228,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.55",
+    appVersion: "V3.0.56",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),

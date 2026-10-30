@@ -152,3 +152,18 @@ for (const mutate of [
       assert.equal(JSON.stringify(candidate), before);
     },
   );
+
+test("group badges retain exact group colors and use black ink on light fills", () => {
+  for (const color of [
+    "#ffff00",
+    "#fff2cc",
+    "#aaffcc",
+    "#ffffff",
+    "#0f766e",
+    "#ff6600",
+  ])
+    assert.equal(M.badgeColors(color).background.toLowerCase(), color);
+  for (const color of ["#ffff00", "#fff2cc", "#aaffcc", "#ffffff"])
+    assert.equal(M.badgeColors(color).foreground, "#000000");
+  assert.equal(M.badgeColors("#0f766e").foreground, "#FFFFFF");
+});

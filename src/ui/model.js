@@ -172,7 +172,7 @@
       leader: ordered[0]?.name ?? "—",
     };
   }
-  // Badge-only shade: keep group colors in state intact and prefer white on saturated hues.
+  // Preserve the selected paint; only the foreground changes for pale fills.
   function badgeColors(color) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
@@ -182,24 +182,18 @@
         .join("");
     if (!/^[a-f0-9]{6}$/i.test(raw))
       return { background: "#607773", foreground: "#FFFFFF" };
-    const rgb = raw.match(/../g).map((v) => parseInt(v, 16));
-    const luminance = (values) =>
-      values
-        .map((v) => v / 255)
-        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
-    const saturated = Math.max(...rgb) - Math.min(...rgb) >= 40;
-    let shade = [...rgb];
-    if (saturated || luminance(rgb) < 0.18) {
-      while (1.05 / (luminance(shade) + 0.05) < 4.5)
-        shade = shade.map((v) => Math.floor(v * 0.97));
-      return {
-        background:
-          "#" + shade.map((v) => v.toString(16).padStart(2, "0")).join(""),
-        foreground: "#FFFFFF",
-      };
-    }
-    return { background: "#" + raw, foreground: "#17302D" };
+    const linear = raw
+      .match(/../g)
+      .map((v) => parseInt(v, 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    const luminance = linear.reduce(
+      (sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i],
+      0,
+    );
+    return {
+      background: "#" + raw,
+      foreground: luminance > 0.45 ? "#000000" : "#FFFFFF",
+    };
   }
   root.GodpowerUIModel = {
     examples,

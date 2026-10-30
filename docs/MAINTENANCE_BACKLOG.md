@@ -1283,3 +1283,11 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 - 复杂度：高；风险：高。
 - 验收：权限拒绝/跨scope/重复请求/停用token/崩溃隔离均有回归测试，旧存档和课堂事务不变。
 - 推荐测试：schema与权限单测、隔离frame E2E、Electron preload allowlist合同测试。
+
+## WEB-COLOR-001 — 小组原色与浅色显示（DONE，3.0.56）
+
+P1/UI；根因：badgeColors为了白字对比度压暗饱和组色，积分直接使用浅色文字。现在编号背景保留实际组色，线性亮度大于0.45改黑字；同一浅色判定对积分使用原色矩形底、白字及深色描边。证据：ui/model.js、ui/battle-grid.js、ui/application-surfaces.css。验收：两主题6种颜色与14卡片几何、312单测通过；详见3.0.56验收报告。
+
+## WEB-AUDIO-001 — 独立背景音乐音量（DONE，3.0.56）
+
+P2/音频；菜单、比赛、思考、开场、过门、结算和音乐试听加入独立总线。设置音效与音乐中新增滑条，偏好本机保存，不改课堂状态。证据：script/00.js与index.template.html。实测音频图、25%音量、静音和刷新恢复通过；音效与主音量保持不变。人工听感未测试。

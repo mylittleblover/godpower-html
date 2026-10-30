@@ -165,3 +165,7 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 恢复的名单、课程表、教学资源、主页布局维持V3.0.53既有独立仓库，不修改课堂权威存档键。主页仓库为 `godpower_home_layout_v1`，版本1 envelope 保存revision与layout，卡片实例保留ID、position、visible及config；三种历史官方卡片类型映射到core.daily-knowledge/core.daily-item-tip/core.daily-challenge。转换不清空存储、不删除隐藏实例，也不自动重新加入已移除实例。保存使用原仓库revision检查和读回验证。
 
 名单与资源工作区通过稳定身份引用头像；资源仓库仍校验类型、摘要和容量。课程与教学资源通过教师/课堂上下文隔离；切换教学上下文不自动替换比赛数据。
+
+### V3.0.56 独立背景音乐音量
+
+`politics_bgm_volume`：本机偏好，0到1的十进制数，缺失或非法内容默认1。仅改变音乐总线增益，不进入比赛快照、历史或课堂JSON备份，不影响计分/撤销。主音量仍作为音乐及音效的共同上级增益。

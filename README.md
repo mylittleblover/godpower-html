@@ -1,4 +1,4 @@
-> **V3.0.55 独立网页版过渡版**：不含插件安装、启停及插件中心；恢复新版可编辑主页、名单头像、课程表、教学资源和存档恢复。入口与实测结果见 [过渡版验收](docs/validation/WEB_TRANSITION_FEATURES.md)。完整回归命令：`npm run test:web-transition`。
+> **V3.0.56 独立网页版过渡版**：不含插件安装、启停及插件中心；恢复新版可编辑主页、名单头像、课程表、教学资源和存档恢复。入口与实测结果见 [过渡版验收](docs/validation/WEB_TRANSITION_FEATURES.md)。完整回归命令：`npm run test:web-transition`。
 
 # 上帝的力量 HTML
 
