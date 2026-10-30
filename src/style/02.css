@@ -71,9 +71,9 @@ body.modern-flat-v217 .about-main,
 body.modern-flat-v217 .classroom-body,body.modern-flat-v217 #itemWindowBody{
   min-height:0!important;overflow:auto!important;overscroll-behavior:contain!important;
 }
-body.modern-flat-v217:has(.modal-overlay.active:not([data-native-detached])),body.modern-flat-v217:has(.score-modal-backdrop.active:not([data-native-detached])),
-body.modern-flat-v217:has(.item-modal-backdrop.active:not([data-native-detached])),body.modern-flat-v217:has(.classroom-backdrop.active:not([data-native-detached])),
-body.modern-flat-v217:has(.about-backdrop.active:not([data-native-detached])),body.modern-flat-v217:has(.member-search-backdrop.active:not([data-native-detached])){overflow:hidden!important}
+body.modern-flat-v217:has(.modal-overlay.active),body.modern-flat-v217:has(.score-modal-backdrop.active),
+body.modern-flat-v217:has(.item-modal-backdrop.active),body.modern-flat-v217:has(.classroom-backdrop.active),
+body.modern-flat-v217:has(.about-backdrop.active),body.modern-flat-v217:has(.member-search-backdrop.active){overflow:hidden!important}
 
 /* 卡片、面板和弹窗 */
 body.modern-flat-v217 .chart-container,body.modern-flat-v217 .dashboard-summary-container,

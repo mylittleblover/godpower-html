@@ -49,49 +49,24 @@ function renderBattleGridCards() {
     const badge = GodpowerUIModel.badgeColors(g.color);
     rowCard.style.setProperty("--group-contrast", badge.foreground);
     rowCard.style.setProperty("--group-badge-color", badge.background);
-    const roundClass =
-      state.roundActive && !state.evaluated ? "" : "round-disabled";
-    const optionsHtml = ["A", "B", "C", "D"]
-      .map((opt) => {
-        let cls = "opt-btn";
-        if (g.selectedOpt === opt) cls += " active";
-        if (state.evaluated && g.selectedOpt === opt) {
-          cls +=
-            " flip-reveal " + (opt === state.correctAns ? "correct" : "wrong");
-        }
-        return `<button class="${cls} ${roundClass}" onclick="selectGroupOpt(${g.id},'${opt}')" ${state.evaluated ? "disabled" : ""}>${opt}</button>`;
-      })
-      .join("");
-
-    const rawScore = g.displayScore !== undefined ? g.displayScore : g.score;
-    const editCls = state.isLocked ? "" : "editable";
-    const scoreHtml =
-      state.editingScoreId === g.id
-        ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${badge.foreground === "#000000" ? "#fff" : g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
-    const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
-    const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
-    const lockAttr = state.isLocked ? "locked-disabled" : "";
-
-    const slotsHtml = [0, 1, 2]
-      .map((i) => {
-        const it = g.inventory?.[i];
-        return it
-          ? `<div class="item-slot ${i === 0 ? "queue-main-slot" : "queue-secondary-slot"}" title="${escapeHtml(ITEM_DEFS[it.key]?.name || "道具")}">${itemVisual(it.key)}${it.charges > 1 ? `<span class="charges">${it.charges}</span>` : ""}</div>`
-          : `<div class="item-slot ${i === 0 ? "queue-main-slot" : "queue-secondary-slot"} empty">＋</div>`;
-      })
-      .join("");
-
-    rowCard.innerHTML = `
-      <div class="milestone-banner-overlay">分数位数增加！</div>
-      <div class="card-header-row">
-        <div class="v213-number" title="小组编号">${groupNoTextV213(g)}</div>
-        <div class="v213-name-wrap"><div class="v213-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="v213-name-sub">小组名称 · 当前按${currentCardSortLabelV213()}排列</div></div>
-        <div class="item-slots">${slotsHtml}</div>
-        <div class="v213-score-wrap">${scoreHtml}</div>
-        <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
-      </div>
-      <div class="card-action-row"><div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : `主要道具可直接点击使用`}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
+    rowCard.innerHTML = GodPowerBattleCardView.render(
+      g,
+      {
+        roundActive: state.roundActive,
+        evaluated: state.evaluated,
+        correctAns: state.correctAns,
+        isLocked: state.isLocked,
+        editingScoreId: state.editingScoreId,
+        sortLabel: currentCardSortLabelV213(),
+      },
+      {
+        badge,
+        escapeHtml,
+        itemVisual,
+        itemName: (key) => ITEM_DEFS[key]?.name,
+        groupNumber: groupNoTextV213,
+      },
+    );
     grid.appendChild(rowCard);
   });
 

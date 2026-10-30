@@ -1,0 +1,13 @@
+{
+  "sha256": "3b1d7ca6b6614b1f33c7f6774a7d11b37a1d6cbd7e2815580b7f5a1d08882cf9",
+  "results": [
+    {
+      "name": "Daily knowledge and all eight settings disclosure groups animate open/close, keyboard and rapid interruption",
+      "status": "PASS",
+      "evidence": {
+        "groups": 8
+      }
+    }
+  ],
+  "errors": []
+}

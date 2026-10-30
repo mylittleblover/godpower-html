@@ -57,6 +57,7 @@
   }));
   let initialized = false;
   let observer = null;
+  let dailyRevision = null;
   let currentLayout = null;
   let repository = null;
   let repositoryRevision = 0;
@@ -484,8 +485,21 @@
       if (match) node.dataset.homeCardType = match[0];
     });
     const daily = grid.querySelector("#uiDailyGrid");
-    if (daily) {
-      for (const node of [...daily.children]) {
+    if (daily && daily.dataset.dailyRevision !== dailyRevision) {
+      dailyRevision = daily.dataset.dailyRevision;
+      const incoming = [...daily.children];
+      // Daily rendering owns content; dashboard owns placement. Replace the prior
+      // generation once, including cards disabled in preferences, without changing layout.
+      const dailyTypes = new Set(
+        TYPES.filter(([, selector]) => selector.startsWith(".gp-daily-")).map(
+          ([typeId]) => typeId,
+        ),
+      );
+      for (const node of grid.querySelectorAll("[data-home-card-type]")) {
+        if (dailyTypes.has(node.dataset.homeCardType) && !daily.contains(node))
+          node.remove();
+      }
+      for (const node of incoming) {
         const match = TYPES.find(
           ([, selector]) => !selector.startsWith("#") && node.matches(selector),
         );

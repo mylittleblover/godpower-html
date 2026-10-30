@@ -1,0 +1,14 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.textContent: Error: strict mode violation: locator('.gp-daily-knowledge h3') resolved to 2 elements:
+    1) <h3>权利与义务</h3> aka getByRole('heading', { name: '权利与义务' })
+    2) <h3>宪法的地位</h3> aka getByRole('heading', { name: '宪法的地位' })
+
+Call log:
+[2m  - waiting for locator('.gp-daily-knowledge h3')[22m
+
+    at /workspace/godpower-html-electron-020/tests/e2e/welcome-content-editor.mjs:42:50
+
+Node.js v24.19.0

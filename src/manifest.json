@@ -127,6 +127,16 @@
     },
     {
       "type": "style",
+      "path": "ui/roster-workspace.css",
+      "attributes": ""
+    },
+    {
+      "type": "style",
+      "path": "ui/teaching-workspace.css",
+      "attributes": ""
+    },
+    {
+      "type": "style",
       "path": "ui/application-surfaces.css",
       "attributes": " id=\"application-surfaces\""
     },
@@ -577,6 +587,11 @@
     },
     {
       "type": "script",
+      "path": "ui/battle-card-view.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/battle-grid.js",
       "attributes": ""
     },
@@ -684,6 +699,26 @@
       "type": "script",
       "path": "ui/tooltips.js",
       "attributes": " id=\"global-tooltips\""
+    },
+    {
+      "type": "script",
+      "path": "ui/content-bank-editor.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/settings-layout.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/window-motion.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/disclosure-motion.js",
+      "attributes": ""
     },
     {
       "type": "script",

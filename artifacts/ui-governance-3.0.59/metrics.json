@@ -1,0 +1,55 @@
+{
+  "src/ui/desktop.js": {
+    "beforeLines": 2163,
+    "afterLines": 1754,
+    "beforeBytes": 84000,
+    "afterBytes": 68486
+  },
+  "src/ui/battle-grid.js": {
+    "beforeLines": 242,
+    "afterLines": 217,
+    "beforeBytes": 10524,
+    "afterBytes": 8018
+  },
+  "src/ui/desktop.css": {
+    "beforeLines": 1686,
+    "afterLines": 1172,
+    "beforeBytes": 35590,
+    "afterBytes": 24505
+  },
+  "newOwners": {
+    "src/ui/settings-layout.js": {
+      "lines": 193,
+      "bytes": 5990
+    },
+    "src/ui/window-motion.js": {
+      "lines": 103,
+      "bytes": 3272
+    },
+    "src/ui/disclosure-motion.js": {
+      "lines": 80,
+      "bytes": 2841
+    },
+    "src/ui/content-bank-editor.js": {
+      "lines": 143,
+      "bytes": 7026
+    },
+    "src/ui/battle-card-view.js": {
+      "lines": 47,
+      "bytes": 3131
+    },
+    "src/ui/roster-workspace.css": {
+      "lines": 237,
+      "bytes": 4850
+    },
+    "src/ui/teaching-workspace.css": {
+      "lines": 277,
+      "bytes": 6235
+    }
+  },
+  "build": {
+    "bytes": 8198634,
+    "sha256": "3b1d7ca6b6614b1f33c7f6774a7d11b37a1d6cbd7e2815580b7f5a1d08882cf9"
+  },
+  "performance": "NOT TESTED; source organization is not a runtime performance measurement"
+}

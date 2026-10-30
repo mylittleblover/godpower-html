@@ -400,6 +400,9 @@ const DesktopUI = (() => {
     if (preferences.challenge)
       html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div><button class="btn btn-sm" id="uiNextChallenge" disabled>答对后下一题</button>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
+    host.dataset.dailyRevision = String(
+      Number(host.dataset.dailyRevision || 0) + 1,
+    );
     host.dataset.cardCount = host.querySelectorAll("article").length;
     for (const [selector, kind] of [
       ["#uiNextKnowledge", "knowledge"],
@@ -420,11 +423,12 @@ const DesktopUI = (() => {
             .forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
           quizAttempt.answer = Number(b.dataset.quizAnswer);
           quizAttempt.correct ||= quizAttempt.answer === quiz.answer;
+          const card = b.closest(".gp-daily-challenge");
           if (quizAttempt.correct) {
-            host.querySelector("#uiNextChallenge").disabled = false;
-            host.querySelector("#uiNextChallenge").textContent = "下一题";
+            card.querySelector("#uiNextChallenge").disabled = false;
+            card.querySelector("#uiNextChallenge").textContent = "下一题";
           }
-          host.querySelector(".ui-quiz-result").textContent =
+          card.querySelector(".ui-quiz-result").textContent =
             (Number(b.dataset.quizAnswer) === quiz.answer
               ? "回答正确。"
               : "再想一想，正确答案是 " + "ABCD"[quiz.answer] + "。") +
@@ -645,32 +649,7 @@ const DesktopUI = (() => {
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  const categories = [
-    ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
-    ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
-    ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
-    [
-      "sound",
-      "sound",
-      "音效与音乐",
-      "日常音量在上方，音乐、音效和迁移维护按需展开",
-    ],
-    ["items", "gift", "道具与图标", "道具流程配置、百科与自定义图片"],
-    [
-      "students",
-      "users",
-      "学生与小组管理",
-      "查看并维护整班小组名单，重建前会再次确认",
-    ],
-    [
-      "teaching",
-      "book",
-      "课程表与教学资源",
-      "本地课程安排、课堂上下文与离线资源管理",
-    ],
-    ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
-    ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
-  ];
+  const categories = GodPowerSettingsLayout.categories;
   function setupSettings() {
     const sc = $("#view-settings .settings-scroll");
     if (!sc || $("#uiSettingsShell")) return;
@@ -821,7 +800,8 @@ const DesktopUI = (() => {
         $("#uiBankStatus").textContent = "恢复失败：" + e.message;
       }
     };
-    organizeSettings(sections, shell);
+    GodPowerSettingsLayout.organize(sections, shell, { query: $, escape: E });
+    installSettingsSafetyGuard();
     ClassroomRosterWorkspace.mount(sections.students, {
       storage: localStorage,
       getGroups: () => state.groups,
@@ -856,277 +836,16 @@ const DesktopUI = (() => {
     renderDaily();
     renderBankEditor();
   }
-  function renderBankEditor() {
-    const host = $("#uiStructuredBank");
-    if (!host) return;
-    host.innerHTML = `<p class="ui-muted">知识 ${bank.knowledge.length} 条 · 挑战 ${bank.challenges.length} 条，合计最多 500 条。保存后立即生效，不影响课堂积分。</p><div class="ui-toolbar"><button class="btn" data-bank-add="knowledge">添加知识</button><button class="btn" data-bank-add="challenges">添加挑战</button><label class="btn" for="uiBankFile">导入 JSON 文件</label><input id="uiBankFile" type="file" accept=".json,application/json" aria-label="导入题库 JSON 文件"></div><div id="uiBankForm"></div>${["knowledge", "challenges"].map((kind) => `<section><h4>${kind === "knowledge" ? "知识卡片" : "课堂挑战"}</h4>${bank[kind].length ? bank[kind].map((row, index) => `<div class="ui-settings-row"><div><b>${E(row.title)}</b><p class="ui-muted">${E(row.subject)} · ${E(row.id)}</p></div><div class="ui-toolbar"><button class="btn btn-sm" data-bank-edit="${kind}" data-index="${index}">编辑</button><button class="btn btn-sm btn-danger" data-bank-delete="${kind}" data-index="${index}">删除</button></div></div>`).join("") : '<p class="ui-muted">暂无内容，点击上方按钮添加。</p>'}</section>`).join("")}`;
-    host
-      .querySelectorAll("[data-bank-add]")
-      .forEach(
-        (button) =>
-          (button.onclick = () => editBankRow(button.dataset.bankAdd)),
-      );
-    host
-      .querySelectorAll("[data-bank-edit]")
-      .forEach(
-        (button) =>
-          (button.onclick = () =>
-            editBankRow(button.dataset.bankEdit, Number(button.dataset.index))),
-      );
-    host.querySelectorAll("[data-bank-delete]").forEach(
-      (button) =>
-        (button.onclick = async () => {
-          const kind = button.dataset.bankDelete,
-            index = Number(button.dataset.index),
-            row = bank[kind][index];
-          if (
-            !(await themeConfirm("删除“" + row.title + "”？", {
-              title: "删除题库内容",
-              danger: true,
-            }))
-          )
-            return;
-          try {
-            const next = JSON.parse(JSON.stringify(bank));
-            // Resolve by id after confirmation in case another edit changed ordering.
-            next[kind] = next[kind].filter((value) => value.id !== row.id);
-            saveContentBank(next);
-            $("#uiBankStatus").textContent = "内容已删除。";
-          } catch (error) {
-            $("#uiBankStatus").textContent = "删除失败：" + error.message;
-          }
-        }),
-    );
-    $("#uiBankFile").onchange = async (event) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      try {
-        if (file.size > 16 * 1024 * 1024) throw Error("文件不能超过 16 MB");
-        saveContentBank(JSON.parse(await file.text()));
-        $("#uiBankStatus").textContent = "文件已验证并导入。";
-      } catch (error) {
-        $("#uiBankStatus").textContent =
-          "未导入，现有题库保持原样：" + error.message;
-        event.target.value = "";
-      }
-    };
-  }
-  function editBankRow(kind, index = -1) {
-    const row =
-      index < 0
-        ? {
-            id: "",
-            subject: preferences.subject,
-            title: "",
-            source: "",
-            options: ["", "", "", ""],
-            answer: 0,
-          }
-        : bank[kind][index];
-    const fields =
-      kind === "knowledge"
-        ? [
-            ["id", "唯一 ID"],
-            ["subject", "学科"],
-            ["title", "知识标题"],
-            ["module", "模块"],
-            ["summary", "知识摘要"],
-            ["mistake", "易错点"],
-            ["detail", "详细解释"],
-            ["source", "来源"],
-          ]
-        : [
-            ["id", "唯一 ID"],
-            ["subject", "学科"],
-            ["title", "题目"],
-            ["source", "来源"],
-            ["explanation", "答案解析"],
-          ];
-    const host = $("#uiBankForm");
-    host.innerHTML = `<form class="ui-panel" id="uiBankRowForm"><h4>${index < 0 ? "添加" : "编辑"}${kind === "knowledge" ? "知识" : "挑战"}</h4>${fields.map(([key, label]) => `<label class="ui-settings-row" for="uiBankField-${key}"><span>${label}</span><textarea class="ui-bank-field" style="width:65%;min-height:44px;resize:vertical" id="uiBankField-${key}" name="${key}" maxlength="10000" ${["id", "subject", "title", "source"].includes(key) ? "required" : ""}>${E(row[key] || "")}</textarea></label>`).join("")}${kind === "challenges" ? row.options.map((value, i) => `<label class="ui-settings-row" for="uiBankOption-${i}"><span>选项 ${"ABCD"[i]}</span><input id="uiBankOption-${i}" name="option${i}" value="${E(value)}" maxlength="10000" required></label>`).join("") + `<label class="ui-settings-row" for="uiBankAnswer"><span>正确答案</span><select id="uiBankAnswer" name="answer">${[0, 1, 2, 3].map((i) => `<option value="${i}" ${row.answer === i ? "selected" : ""}>${"ABCD"[i]}</option>`).join("")}</select></label>` : ""}<div class="ui-toolbar"><button class="btn btn-primary" type="submit">保存内容</button><button class="btn" type="button" id="uiBankCancel">取消</button></div><p id="uiBankFormStatus" role="status"></p></form>`;
-    $("#uiBankCancel").onclick = () => host.replaceChildren();
-    $("#uiBankRowForm").onsubmit = (event) => {
-      event.preventDefault();
-      try {
-        const data = new FormData(event.target),
-          edited = { ...row };
-        fields.forEach(([key]) => (edited[key] = String(data.get(key)).trim()));
-        if (kind === "challenges") {
-          edited.options = [0, 1, 2, 3].map((i) =>
-            String(data.get("option" + i)).trim(),
-          );
-          edited.answer = Number(data.get("answer"));
-        }
-        const next = JSON.parse(JSON.stringify(bank));
-        if (index < 0) next[kind].push(edited);
-        else next[kind][index] = edited;
-        saveContentBank(next);
-        $("#uiBankStatus").textContent = "内容已保存。";
-      } catch (error) {
-        $("#uiBankFormStatus").textContent = "未保存：" + error.message;
-      }
-    };
-    $("#uiBankField-title").focus();
-  }
-  function organizeSettings(sections, shell) {
-    function group(
-      parent,
-      id,
-      title,
-      description,
-      nodes,
-      collapsed = false,
-      danger = false,
-    ) {
-      const box = document.createElement(collapsed ? "details" : "div");
-      box.id = id;
-      box.className = collapsed
-        ? "ui-settings-disclosure"
-        : "ui-settings-group";
-      if (danger) box.classList.add("ui-danger-zone");
-      box.innerHTML = collapsed
-        ? `<summary><b>${E(title)}</b><span>${E(description)}</span></summary><div class="ui-settings-detail-body"></div>`
-        : `<h4>${E(title)}</h4><p class="ui-muted">${E(description)}</p><div></div>`;
-      const body = box.lastElementChild;
-      nodes.filter(Boolean).forEach((node) => body.append(node));
-      parent.append(box);
-      return box;
-    }
-    const marked = (name) => [
-      ...shell.querySelectorAll(`[data-settings-group="${name}"]`),
-    ];
-    group(
-      sections.rules,
-      "uiSettingsRules",
-      "课堂行为",
-      "沿用原道具开关与 All In 保留规则，修改后即时保存。",
-      [$("#settingsV26_function"), ...marked("rules")],
-    );
-    group(
-      sections.appearance,
-      "uiSettingsWallpaper",
-      "界面壁纸",
-      "图片与浅色遮罩保存在本机。",
-      marked("wallpaper"),
-    );
-    // The standalone legacy heading duplicated the new group title.
-    $("#uiSettingsWallpaper .setting-section-title")?.remove();
-    group(
-      sections.appearance,
-      "uiSettingsLayout",
-      "比赛显示与空间",
-      "沿用原分栏、缩放与可拖拽高度垫片，不改变比赛页尺寸。",
-      marked("layout"),
-    );
-    const icons = $("#uiIconManagerV26")?.parentElement;
-    if (icons)
-      group(
-        sections.appearance,
-        "uiSettingsButtonIcons",
-        "按钮图标自定义",
-        "低频维护 · 导航与课堂工具图标",
-        [icons],
-        true,
-      );
-    group(
-      sections.students,
-      "uiSettingsRoster",
-      "旧版文本重建（兼容）",
-      "危险操作 · 按文本直接重建比赛小组。名单工作区适合日常整理；仅需重建比赛结构时再展开此旧入口。",
-      marked("roster"),
-      true,
-      true,
-    );
-    const rosterTitle = $(
-      "#uiSettingsRoster [data-settings-group='roster']:not(.setting-item)",
-    );
-    rosterTitle?.remove();
-    const sound = $("#settingsV26_sound");
-
-    group(
-      sound,
-      "uiSettingsVolume",
-      "日常音量",
-      "主音量控制全部声音，音效音量在主音量基础上单独调整。",
-      [...marked("volume"), $("#sfxVolumeRowV2176")],
-    );
-    group(
-      sound,
-      "uiSettingsMusic",
-      "音乐套与音轨",
-      "维护 8 套比赛配乐或菜单配乐 · 展开后选择音乐套",
-      marked("music"),
-      true,
-    );
-    group(
-      sound,
-      "uiSettingsBaseFx",
-      "基础操作与欢庆音效",
-      "试听、上传及还原各个基础音效",
-      marked("basefx"),
-      true,
-    );
-    const itemSounds = $("#itemFxSoundListV26")?.parentElement;
-    if (itemSounds)
-      group(
-        sound,
-        "uiSettingsItemFx",
-        "道具音效",
-        "4 个公共事件 + 26 种道具独立发动音效",
-        [itemSounds],
-        true,
-      );
-    // Keep transfer at the end and never promote it into the global header.
-    sound.append($("#uiAudioTransfer"));
-    const itemLibrary = $("#settingsV26_items");
-    group(
-      sections.items,
-      "uiSettingsItemLibrary",
-      "道具百科与自定义图片",
-      "26 种实际道具 · 图标包与单项图片维护",
-      [itemLibrary],
-      true,
-    );
-    const editor = $("#uiBankEditor");
-    const bankNodes = [
-      editor.previousElementSibling.previousElementSibling,
-      editor.previousElementSibling,
-      editor,
-      editor.nextElementSibling,
-      $("#uiBankStatus"),
-    ];
-    group(
-      sections.welcome,
-      "uiSettingsBank",
-      "本地题库维护",
-      "低频维护 · 编辑、导出或恢复内置示例",
-      bankNodes,
-      true,
-    );
-    const data = $("#settingsV26_data");
-    group(
-      data,
-      "uiSettingsBackup",
-      "课堂数据备份",
-      "换设备或执行危险操作前，先导出课堂 JSON 备份。",
-      marked("backup"),
-    );
-    group(
-      data,
-      "uiSettingsLock",
-      "管理口令",
-      "仅用于本机防误操作。",
-      marked("lock"),
-    );
-    group(
-      data,
-      "uiSettingsDanger",
-      "危险操作",
-      "积分清零与道具清空 · 操作前请备份",
-      [...marked("danger"), $("#clearAllItemsV2172")],
-      true,
-      true,
-    );
+  const contentBankEditor = GodPowerContentBankEditor.create({
+    query: $,
+    escape: E,
+    getBank: () => bank,
+    getSubject: () => preferences.subject,
+    saveContentBank,
+    themeConfirm: (...args) => themeConfirm(...args),
+  });
+  const renderBankEditor = contentBankEditor.render;
+  function installSettingsSafetyGuard() {
     // Two UI-only destructive shortcuts lacked a confirmation. Preserve their commands.
     document.addEventListener(
       "click",
@@ -1343,61 +1062,12 @@ const DesktopUI = (() => {
       : original;
     button.setAttribute("aria-label", label);
   }
-  const disclosureMotions = new Map();
-  function settleDisclosure(details) {
-    const entry = disclosureMotions.get(details);
-    if (!entry) return;
-    disclosureMotions.delete(details);
-    entry.animation?.cancel();
-    details.style.overflow = entry.overflow;
-    details.open = entry.open;
-  }
-  function settleDisclosures() {
-    for (const details of disclosureMotions.keys()) settleDisclosure(details);
-  }
-  function setupDisclosures() {
-    document.addEventListener("click", (event) => {
-      const summary = event.target.closest("summary");
-      const details = summary?.parentElement;
-      if (
-        !details ||
-        details.tagName !== "DETAILS" ||
-        details.classList.contains("ui-dock-menu")
-      )
-        return;
-      if (event.target.closest("a,button,input,select,textarea")) return;
-      if (!canAnimate()) return;
-      event.preventDefault();
-      const nextOpen = !(disclosureMotions.get(details)?.open ?? details.open);
-      const from = details.getBoundingClientRect().height;
-      settleDisclosure(details);
-      const overflow = details.style.overflow;
-      details.open = false;
-      const collapsed = details.getBoundingClientRect().height;
-      details.open = true;
-      const expanded = details.getBoundingClientRect().height;
-      details.style.overflow = "clip";
-      const entry = { open: nextOpen, overflow, animation: null };
-      disclosureMotions.set(details, entry);
-      entry.animation = animate(
-        details,
-        [
-          { height: from + "px" },
-          { height: (nextOpen ? expanded : collapsed) + "px" },
-        ],
-        {
-          duration:
-            (preferences.motion === "simple" ? 140 : 280) / preferences.speed,
-          easing: "cubic-bezier(.16,1,.3,1)",
-        },
-      );
-      const finish = () => {
-        if (disclosureMotions.get(details) === entry) settleDisclosure(details);
-      };
-      if (entry.animation) entry.animation.finished.then(finish, finish);
-      else finish();
-    });
-  }
+  const disclosureMotion = GodPowerDisclosureMotion.create({
+    animate,
+    canAnimate,
+    getPreferences: () => preferences,
+  });
+  const { settleDisclosures, setupDisclosures } = disclosureMotion;
   const modalClosers = {
     classroomShowcase: () => ClassroomFeedback.dismiss(),
     programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),
@@ -1415,94 +1085,21 @@ const DesktopUI = (() => {
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
   };
-  // Exit animations have one owner and one completion. No scoring or random decisions here.
-  const closingWindows = new Map();
-  function finishWindowClose(root) {
-    const pending = closingWindows.get(root);
-    if (!pending) return;
-    closingWindows.delete(root);
-    pending.animation?.cancel();
-    pending.backdrop?.cancel();
-    root.inert = pending.inert;
-    delete root.dataset.uiClosing;
-    pending.finish();
-  }
-  function cancelWindowClose(root) {
-    const pending = closingWindows.get(root);
-    if (!pending) return;
-    closingWindows.delete(root);
-    pending.animation?.cancel();
-    pending.backdrop?.cancel();
-    root.inert = pending.inert;
-    delete root.dataset.uiClosing;
-  }
-  function dismissWindow(root, finish) {
-    if (closingWindows.has(root)) return;
-    const surface = root.querySelector(".ui-function-surface");
-    if (
-      !surface ||
-      !root.getClientRects().length ||
-      !canAnimate() ||
-      !preferences.pageMotion
-    ) {
-      finish();
-      return;
-    }
-    // Snapshot before cancelling entrance, so an early close never jumps to fully open.
-    const visual = getComputedStyle(surface);
-    const from = {
-      opacity: visual.opacity,
-      translate: visual.translate,
-      scale: visual.scale,
-    };
-    const backdropOpacity = getComputedStyle(root).opacity;
-    surface.getAnimations().forEach((a) => a.cancel());
-    const pending = {
-      finish,
-      inert: root.inert,
-      animation: null,
-      backdrop: null,
-    };
-    closingWindows.set(root, pending);
-    root.inert = true;
-    root.dataset.uiClosing = "true";
-    pending.animation = animate(
-      surface,
-      [
-        from,
-        {
-          opacity: 0,
-          translate: preferences.motion === "full" ? "0 64px" : "0 10px",
-          scale: preferences.motion === "full" ? ".97" : "1",
-        },
-      ],
-      {
-        duration:
-          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
-        easing: motionEase(),
-        fill: "forwards",
-      },
-    );
-    pending.backdrop = animate(
-      root,
-      [
-        { opacity: root.tagName === "DIALOG" ? 1 : backdropOpacity },
-        { opacity: 0 },
-      ],
-      {
-        duration:
-          (preferences.motion === "full" ? 280 : 120) / preferences.speed,
-        easing: motionEase(),
-        fill: "forwards",
-        ...(root.tagName === "DIALOG" ? { pseudoElement: "::backdrop" } : {}),
-      },
-    );
-    pending.animation.finished
-      .catch(() => {})
-      .finally(() => {
-        if (closingWindows.get(root) === pending) finishWindowClose(root);
-      });
-  }
+  const windowMotion = GodPowerWindowMotion.create({
+    animate,
+    canAnimate,
+    motionEase,
+    getPreferences: () => preferences,
+  });
+  const { dismissWindow, cancelWindowClose, finishWindowClose } = windowMotion;
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      disclosureMotion.dispose();
+      windowMotion.dispose();
+    },
+    { once: true },
+  );
   let openStack = [],
     modalLayer = 300000;
   function setupModals() {
@@ -1549,7 +1146,7 @@ const DesktopUI = (() => {
         !item.focus.closest(".view:not(.active)")
       )
         item.focus.focus({ preventScroll: true });
-      if (!item?.el?.hasAttribute("data-native-detached")) cancelAnimations();
+      cancelAnimations();
     }
     function scan() {
       for (const [id, close] of Object.entries(modalClosers)) {
@@ -1561,7 +1158,6 @@ const DesktopUI = (() => {
           forgetModal(id);
         if (!el) continue;
         const visible =
-          !el.hasAttribute("data-native-detached") &&
           !el.hasAttribute("data-external-picker") &&
           (el.open ||
             el.classList.contains("active") ||
@@ -1677,12 +1273,7 @@ const DesktopUI = (() => {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: [
-        "class",
-        "style",
-        "data-native-detached",
-        "data-external-picker",
-      ],
+      attributeFilter: ["class", "style", "data-external-picker"],
     });
     document.addEventListener(
       "keydown",
@@ -2123,7 +1714,7 @@ const DesktopUI = (() => {
     dismissWindow,
     cancelWindowClose,
     finishWindowClose,
-    getClosingWindowCount: () => closingWindows.size,
+    getClosingWindowCount: windowMotion.count,
     settleFromUI,
     prepareSettlement,
     cancelSettlement,
@@ -2156,7 +1747,7 @@ const DesktopUI = (() => {
     getAnimationCount: () =>
       animations.size + (pageMotionFrame !== null ? 1 : 0),
     getSettingsMotionCount: () => settingsAnimations.size,
-    getDisclosureMotionCount: () => disclosureMotions.size,
+    getDisclosureMotionCount: disclosureMotion.count,
     isPickerRevealing: () => pickerRevealing,
   };
 })();

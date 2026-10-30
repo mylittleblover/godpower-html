@@ -1,4 +1,4 @@
-# 独立网页版架构 V3.0.57
+# 独立网页版架构 V3.0.59
 
 此分支是无插件的网页版过渡发行，基础来自 V3.0.26，恢复了后续 V3.0.53 中已实现的非插件功能和可靠性修复。desktop/Electron 由独立项目继续演进。
 
@@ -22,3 +22,21 @@
 V3.0.56 将菜单、思考、比赛、开场、过门、结算及BGM试听统一接入独立 musicGainNode，然后进入 masterGainNode。音效保持 fxGainNodeV2176 → masterGainNode，音乐滑条不会改变音效或主音量。音乐偏好独立存于 politics_bgm_volume，缺失默认为1。
 
 V3.0.57的Electron页面适配只负责外部点名入口；普通弹窗不再克隆、隐藏或通过IPC回放输入。它们继续由原有内部弹窗生命周期管理。
+
+
+## 3.0.59 UI 所有权治理
+
+DesktopUI仍是兼容组合入口，未新增同名覆盖链：
+
+- settings-layout.js：九类设置元数据、现有节点的移动与分组；不保存数据、不克隆输入。
+- content-bank-editor.js：知识/挑战表单、导入交互和错误显示；通过注入的实时读取与保存端口访问题库，验证/持久化仍由原saveContentBank负责。
+- window-motion.js：窗口退出Map、唯一结束/取消回调、卸载清理；不执行积分或随机判定。
+- disclosure-motion.js：展开动画、重复安装保护、监听器作用域与清理。
+- battle-card-view.js：只读小组卡片HTML投影；battle-grid.js保留DOM、装饰、头像、FLIP与排序适配，render.js仍是唯一全局刷新owner。
+- desktop.css → roster-workspace.css → teaching-workspace.css：原CSS连续分段，加载位置和规则顺序不变；没有用追加important修补布局。
+
+每日内容由DesktopUI生成，HomeDashboard仅接管布局。dailyRevision标识内容代次；一次替换上一代，清除停用类别的旧卡片，不修改卡片实例配置。答题反馈相对于所属卡片查找，不依赖卡片移动前的容器。
+
+普通窗口没有data-native-detached写入方；已移除失效的焦点/动画/滚动分支。data-external-picker仍保留，避免隐藏的原点名弹窗抢焦点。
+
+尚未实施全量比赛DOM增量协调。FLIP、攻击等待与计分输入相关刷新必须在独立验证下处理，不能为了减少innerHTML直接改变时序。
