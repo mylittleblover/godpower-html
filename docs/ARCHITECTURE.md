@@ -1,4 +1,4 @@
-# 独立网页版架构 V3.0.56
+# 独立网页版架构 V3.0.57
 
 此分支是无插件的网页版过渡发行，基础来自 V3.0.26，恢复了后续 V3.0.53 中已实现的非插件功能和可靠性修复。desktop/Electron 由独立项目继续演进。
 
@@ -20,3 +20,5 @@
 验证与入口清单见 `docs/validation/WEB_TRANSITION_FEATURES.md`。可重复验证：`npm run test:web-transition`。
 
 V3.0.56 将菜单、思考、比赛、开场、过门、结算及BGM试听统一接入独立 musicGainNode，然后进入 masterGainNode。音效保持 fxGainNodeV2176 → masterGainNode，音乐滑条不会改变音效或主音量。音乐偏好独立存于 politics_bgm_volume，缺失默认为1。
+
+V3.0.57的Electron页面适配只负责外部点名入口；普通弹窗不再克隆、隐藏或通过IPC回放输入。它们继续由原有内部弹窗生命周期管理。
