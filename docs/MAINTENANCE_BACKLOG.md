@@ -4,99 +4,7 @@
 
 ## 下一阶段直接领取顺序
 
-GP-016 → GP-017 → GP-011（当前继续）→ GP-012 → GP-013 → RF-001 → RF-002 → GP-015 → RF-003 → GP-020。GP-010 已完成本轮公开道具命令的异步事务治理。GP-014 随组件迁移推进，不能抢在数据与规则之前。
-
-V3 handoff F1 当前状态：本地名单工作区、正式比赛安全应用、本机头像资源链接、名单/头像联合备份与防止删除仍被名单引用的头像资源已完成基础版；3.0.48 增加竞赛卡片、老虎机和全屏揭晓的头像展示。头像资源引用计数/孤立资源安全清理与 profile 偏好隔离仍 OPEN。F2 课程表与离线资源库已完成首版（3.0.36）；跨教师权限策略细化与更完整 PDF 活动内容审计仍为维护事项。F0 追踪矩阵见 `docs/v3/F0-handoff-audit-2026-10-21.md`。业务规则未定的 F4 项目保持 BLOCKED-DESIGN。
-
-## HOME-001 首页可配置卡片系统
-
-- 分类：主页架构
-- 优先级：P1
-- 状态：PARTIAL（3.0.47完成H1-H3；3.0.50完成已登记官方插件卡片的独立布局实例、停用占位与插件中心入口。实例内容配置、第三方卡片renderer、布局预设/导入导出仍未完成）
-- 问题描述：主页绿色欢迎标题卡以下内容尚未由统一可配置卡片目录及布局驱动，用户无法安全添加、隐藏、调整、复制和保存卡片布局。
-- 证据：`src/domain/home-layout.js`、`src/infrastructure/home-layout-repository.js`、`src/ui/home-dashboard.js`、`tests/unit/home-layout*.test.mjs`、`tests/e2e/home-dashboard.mjs`、`artifacts/home-dashboard/v3.0.50-home-dashboard-1920x1080.png`。
-- 影响范围：首页的 KPI、排名/动态、组卡、荣誉、道具提示、每日知识与问答；明确不涉及比赛页布局、14组显示或课堂权威状态。
-- 建议修复方案：已完成统一网格与本机隔离布局编辑（添加、隐藏、移除、恢复、键盘移动、拖动、缩放、撤销/重做、默认布局、保存/取消）；3.0.50由插件贡献注册表控制道具/学科卡片归属、可添加性和停用占位。下一步为插件卡片受限内容配置、旧布局升级回归，再完成布局预设、导入导出、恢复/故障/减少动态效果验收。
-- 依赖：H2前复核插件卡片合同与Electron存储同步策略；模型本身已完成。
-- 复杂度：高
-- 风险：中高（迁移错误可能改变首页信息顺序或导致卡片配置丢失；必须可撤销并保留旧布局）。
-- 验收标准：Chromium实测标题卡固定、核心卡单一网格及插件卡归属标记；布局可保存/刷新恢复/取消无副作用；编辑撤销、键盘移动、拖动、缩放和课堂状态隔离通过。已完成插件停用占位及插件中心入口；待完成插件实例内容配置、布局预设/导入导出；1/2/4/8/16个组卡及14组比赛布局无回归。
-- 推荐测试：`npm run test:home-layout`、`npm run test:home-dashboard`、隔离存储单测、Chromium 1920×1080 1x视觉和14组比赛布局E2E。
-
-## F1-001 名单变更的原子应用与回滚
-
-- 分类：身份与工作区
-- 优先级：P1
-- 状态：DONE（3.0.37）
-- 问题描述：3.0.34 的隔离名单无法安全应用到正式比赛。
-- 证据：`src/ui/classroom-roster-workspace.js`、`src/domain/classroom-roster.js`、`src/application/legacy-classroom-adapter.js`；`tests/e2e/roster-competition-apply.mjs`。
-- 影响范围：本地 roster 按稳定 `groupUid` 更新现有比赛组的 `members`，不新增、删除或重排比赛组，也不触碰分数、道具、回合或 roster 仓库。
-- 已完成方案：逐组展示当前/目标成员并显式确认；只用课堂命令生命周期创建历史快照和保存唯一权威课堂存档；预览、确认和事务内再次检查比赛指纹、赛季、profile/classroom、名单仓库原始字节及 revision。保存未确认时命令回滚比赛状态与历史；本地名单字节始终不变。相同姓名保留为不同成员顺序，并将点名防重复键改为小组内序号，同时兼容已有名称键。
-- 依赖：无；使用现有 classroom command 生命周期作为唯一权威写入口。
-- 复杂度：高
-- 风险：跨存储并无物理原子事务；本实现避免双写，将名单作为读取源，比赛仍是唯一提交目标。
-- 验收标准：已通过差异预览、显式确认、存储失败精确回滚、刷新恢复、重复姓名保留、历史撤销、名单原始字节不变和陈旧预览拒绝。
-- 推荐测试：`node tests/e2e/roster-competition-apply.mjs`（Chromium 1920×1080 @1x）。
-
-## F1-002 本地名单工作区的完整性与资源管理
-
-- 分类：数据兼容
-- 优先级：P1
-- 状态：PARTIAL（3.0.39 完成联合备份和导入恢复）
-- 问题描述：3.0.34 已能创建隔离名单工作区，3.0.37 增加安全应用，3.0.38 增加头像资源链接，3.0.39 增加名单与头像合并备份及带补偿回滚的恢复，3.0.40 阻止资源库删除仍被名单引用的头像。仍缺显式预览的孤立头像回收，以及 profile 级偏好隔离。
-- 证据：`src/ui/classroom-roster-workspace.js`复用`TeachingResourceRepository`保存头像资源；`tests/e2e/classroom-roster-workspace.mjs`注入名单写入失败并验证资源补偿删除；`docs/v3/F1-classroom-roster-workspace-2026-10-21.md`。
-- 影响范围：名单视觉识别、迁移审阅和不同教师界面偏好。
-- 建议方案：为头像资源建立引用核验/延迟清理机制，先扫描全部 roster 与教学资源引用，再回收无人引用资源；把 profile 级设置迁移作为独立、带回执的数据迁移处理。
-- 依赖：无；头像资源存储依赖资源仓库设计。
-- 复杂度：中
-- 风险：名字重复无法可靠认定为同一学生，必须保留独立身份且不合并。
-- 验收标准：已通过相同姓名不合并、头像跨刷新、头像数据包含 SHA-256/签名校验、资源 ID 冲突映射、旧名单 JSON 兼容、名单提交失败不改原名单且回滚新增资源、组合备份恢复图像和稳定 ID、资源库不能删除被学生引用的图像。后续需验证孤立资源扫描不会误删共享资源，并为偏好迁移提供回执。
-- 推荐测试：重复姓名/头像 MIME 与 2MiB 上限/名单写入失败补偿/备份恢复/导入冲突夹具、Chromium 1920×1080。
-
-## F2-001 离线学科资源库
-
-- 分类：本地教学资源
-- 优先级：P1
-- 状态：DONE（3.0.36）
-- 问题描述：课程表已落地，缺少按学科/课堂整理、搜索、预览和导出本地教学文件的能力。
-- 证据：已增加 `src/domain/teaching-resource.js`、`src/infrastructure/teaching-resource-repository.js`、`src/ui/teaching-resource-workspace.js` 与隔离 Chromium 测试。
-- 影响范围：语文、数学、英语、物理、化学、生物、历史、政治、地理、美术、音乐的离线课堂资料。
-- 建议方案：按F2规格建立独立 IndexedDB Blob 仓库；只允许PDF/TXT/JSON/PNG/JPEG/WebP，单文件20 MiB；类型伪装、主动内容、配额/读回失败均拒绝；先全量预检、再批量事务提交。
-- 依赖：名单工作区F1身份模型；共享资源数据合同。
-- 复杂度：高
-- 风险：任意文件预览产生XSS、导入部分成功、浏览器配额差异或二进制丢失。
-- 验收标准：六种允许格式和拒绝类型覆盖；元数据搜索过滤、离线预览/下载/导出导入、摘要去重；任一批次失败保留既有资源。
-- 推荐测试：已通过 MIME 与扩展名夹具、IndexedDB 重复/配额/禁用、Chromium 1920×1080、Electron bundle/smoke；后续对压缩 PDF 内部动作分析继续做更强安全审计。
-
-## F2-002 课程表建议与当前教学上下文
-
-- 分类：教学流程
-- 优先级：P2
-- 状态：DONE（3.0.35）
-- 问题描述：旧版本没有课程日程和当前教学上下文切换。
-- 证据：`src/domain/teaching-schedule.js`、`src/infrastructure/teaching-schedule-repository.js`、`src/ui/teaching-workspace.js`、`tests/e2e/teaching-workspace.mjs`。
-- 影响范围：每周课堂选择和教师profile/课堂工作区。
-- 建议方案：通过本地版本化课程表显示时段建议，必须显式点击后写本机上下文指针；绝不自动切换比赛数据。
-- 依赖：F1 本地profile/classroom/roster。
-- 复杂度：中
-- 风险：本机时区/DST变化或教师把教学上下文误当正式比赛切换。
-- 验收标准：重叠排课被拒、profile隔离、刷新持久化、当前建议显式确认、14组/比赛快照字节不变。
-- 推荐测试：纯模型边界测试、storage故障注入、Chromium 1920×1080、Electron同步。
-
-## F2-003 PDF 压缩对象活动内容审计
-
-- 分类：本地资源安全
-- 优先级：P2
-- 状态：OPEN
-- 问题描述：当前 PDF 校验会拒绝字节流中可见的 `/JavaScript`、`/OpenAction`、`/AA`、`/Launch` 等标记，但不解压 PDF object stream，无法证明压缩对象中不存在活动动作。
-- 证据或源码：`src/domain/teaching-resource.js` 的 PDF 签名与原始字节扫描；PDF 不嵌入本程序 DOM，只提供元信息及本地下载。
-- 影响范围：教师导入、备份恢复及之后用外部 PDF 阅读器打开的文件。
-- 建议修复方案：评估可离线内置的 PDF parser 扫描全部对象、解压流和动作字典；若维护成本过高，改为对带 `/Filter` 或 `/ObjStm` 的 PDF 采取拒绝策略，并清楚提示限制。
-- 依赖任务：F2-001。
-- 预计复杂度：高。
-- 风险：误报拒绝正常 PDF，或漏报压缩/混淆的活动动作。
-- 验收标准：包含压缩 JavaScript、OpenAction、Launch 的 PDF 夹具全部被拒；合法静态 PDF 可按既定策略接受；任何 PDF 仍不内嵌执行。
-- 推荐测试方法：离线 PDF 夹具单元测试与 Chromium 下载/打开行为检查；不把文本标记扫描通过解释为完整恶意文件检测。
+GP-016 → GP-017 → GP-011 → GP-012 → GP-013 → RF-001 → RF-002 → GP-015 → RF-003 → GP-020。GP-010 已完成本轮公开道具命令的异步事务治理。GP-014 随组件迁移推进，不能抢在数据与规则之前。
 
 ## GP-001 归档保存失败阻止清零
 
@@ -253,29 +161,29 @@ V3 handoff F1 当前状态：本地名单工作区、正式比赛安全应用、
 - 分类：架构
 - 优先级：P1
 - 状态：PARTIAL
-- 问题：本条最初记录的“legacyUseItem 有14个定义”已过时。当前源码只有一个 `legacyUseItem → useItem` 兼容转发；公开 `useItem` 由 ItemModules/ItemOperationBlocks 执行。攻防与持续效果的部分真实规则仍在旧适配模块内，效果事件覆盖也未完成。
+- 问题：applyItemScore 已由 6 个定义收敛为 1 个，tryDefend 由 3 个收敛为 1 个；legacyUseItem 仍有 14 个命名定义，目标选择及道具激活分支尚待迁移。
 - 证据／源码：src/script/00.js、05.js、36.js、42.js；SOURCE_CATALOG
 - 影响范围：全部道具
-- 建议／已完成方案：保留 464 场景固定时钟／随机数差分、26 精确结果 oracle 和单一定义架构守卫。3.0.43 起，有效道具使用在事务确认后产生 `ITEM_USED` 持久事件，撤销会同步回退；冰冻取消等未产生效果的尝试不产生事件。3.0.49 增加纯函数 `ItemImpactFacts`，对公开道具命令的事务前后分数作差，仅在其他小组真实失分时发出 `ITEM_HIT`，事件在异步防御结束后的 commit hook 内加入同一持久化事务。3.0.52 将举手奖励抽取作为首个正式获得来源迁入事务并发出 `ITEM_ACQUIRED`；存档确认后才显示奖励，撤销同时恢复抽取计数和成就账本。其他抽取/管理入口仍未迁移，防御成功事件、状态应用/到期事件及适配模块规则也仍待推进。
+- 建议／已完成方案：已建立 464 场景固定时钟／随机数差分、26 精确结果 oracle 和单一定义架构守卫；继续按攻击、增益、持续状态分批迁移 legacyUseItem 的有效规则。
 - 依赖：GP-010
 - 复杂度：高
 - 风险：平衡规则与隐藏例外多
 - 验收标准：公开入口只有一个；移除的覆盖链有清单；26种19维用例逐项PASS或明确N/A。
-- 推荐测试：`tests/e2e/item-domain-events.mjs`（含获得成功/写入失败/撤销）、全局道具获得迁移、逐分支固定随机数对照、`npm run test:item-modules`
+- 推荐测试：逐分支对照原版与seed测试
 
 ## GP-012 建立显式比赛状态机并移除布尔状态分叉
 
 - 分类：架构
 - 优先级：P1
-- 状态：PARTIAL（3.0.53：纯阶段派生已提取，转场命令尚未迁移）
-- 问题：`CompetitionPhase.derive` 已从核心可靠性模块提取，并以穷举布尔组合锁定兼容优先级；它仍只是兼容投影，未覆盖初始化／结算中独立状态，多旧入口仍直接写布尔值。
-- 证据／源码：`src/domain/competition/phase.js`、`src/core/reliability.js:phase`；`src/script/00.js:startRound/nextRound`
+- 状态：OPEN
+- 问题：phase是派生视图，未涵盖初始化／结算中独立状态，多旧入口直接写布尔值。
+- 证据／源码：src/core/reliability.js:phase；src/script/00.js:startRound/nextRound
 - 影响范围：开始、作答、公布答案、判定、最终结算
-- 建议／已完成方案：下一步定义转移表、守卫和异步busy生命周期，逐入口迁移；兼容旧schema1。当前只提取派生逻辑，没有改变现有状态输出或命令行为。
+- 建议／已完成方案：定义转移表、守卫和异步busy生命周期，逐入口迁移；兼容旧schema1。
 - 依赖：GP-010
 - 复杂度：高
 - 风险：音频和卡片排序依赖旧标志
-- 已验收：旧阶段派生 16 组布尔/正解组合及已有阶段样例均通过；当前比赛与14组布局回归通过。剩余验收：所有允许／拒绝转移有测试；无多个矛盾标志；重复点击结果唯一。
+- 验收标准：所有允许／拒绝转移有测试；无多个矛盾标志；重复点击结果唯一。
 - 推荐测试：表驱动单元＋真实键盘和快速点击
 
 ## GP-013 统一音频、抽取和弹窗的可取消任务
@@ -327,23 +235,22 @@ V3 handoff F1 当前状态：本地名单工作区、正式比赛安全应用、
 
 - 分类：兼容／安全
 - 优先级：P1
-- 状态：DONE（3.0.41）
+- 状态：OPEN
 - 问题：损坏主快照会阻止自动覆盖，但没有正式UI导出原始值／选择旧镜像恢复；嵌套冷却与历史校验还需扩大。
 - 证据／源码：src/core/classroom.js:启动恢复/applyClassroomBackup；src/core/reliability.js:validateBackup
 - 影响范围：存档损坏、恶意备份、旧镜像
-- 建议／已完成方案：3.0.41 增加损坏主存档原文下载、只读扫描 V1／旧版分散镜像／恢复前副本、组数与积分差异预览及教师确认后的事务式恢复；扩展点名数组、抽取冷却、工具历史和历史快照嵌套校验。
+- 建议／已完成方案：提供只读原文下载、镜像差异预览与显式恢复命令；将冷却、历史、picker数组定义为严格schema。
 - 依赖：GP-003
 - 复杂度：中
 - 风险：选择错误镜像可能回退课堂进度
-- 验收标准：损坏原文可按原始文本导出；只读扫描与取消不改写主快照或页面状态；确认恢复后主存档可在刷新后重新加载；恶意嵌套数据在状态变更前拒绝。
-- 验收证据：`tests/e2e/classroom-recovery.mjs`、`tests/unit/reliability.test.mjs`、`docs/validation/v3.0.41-corrupt-snapshot-recovery.md`
+- 验收标准：损坏原文始终可导出；导入恶意嵌套对象不执行脚本、不部分更新；成功恢复后允许正常保存。
 - 推荐测试：损坏主键＋旧镜像＋属性fuzz
 
 ## GP-017 补齐未执行的道具和课堂工具组合
 
 - 分类：测试
 - 优先级：P1
-- 状态：PARTIAL（3.0.42：26种道具的提交与撤销精确快照矩阵完成；防御/到期/音效/冷却/批量名单等其余维度仍开放）
+- 状态：OPEN
 - 问题：当前每道具测获取使用撤销和共用守门，未覆盖全部防御组合、到期、动画音效及冷却统计oracle。批量名单、快按人加分尚缺全面流程。
 - 证据／源码：TEST_MATRIX；tests/e2e/run.mjs；SOURCE_CATALOG
 - 影响范围：26道具×19维、名单、快速按人、冷却
@@ -351,8 +258,7 @@ V3 handoff F1 当前状态：本地名单工作区、正式比赛安全应用、
 - 依赖：GP-010
 - 复杂度：高
 - 风险：未经oracle的重构可能回归
-- 验收标准：每一维PASS/FAIL/N/A有证据；无NOT TESTED被计入通过。已完成维度：26/26道具使用提交后撤销并恢复分数、库存、持续状态、全局道具统计和回合数据。
-- 已完成证据：`tests/e2e/item-undo-matrix.mjs`、`docs/validation/v3.0.42-item-undo-matrix.md`
+- 验收标准：每一维PASS/FAIL/N/A有证据；无NOT TESTED被计入通过。
 - 推荐测试：种子控制、模拟时间、实际DOM与音效事件
 
 ## GP-018 稳定视觉差异门禁与完整可访问性验收
@@ -1335,21 +1241,21 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：架构/插件平台
 - 优先级：P1
-- 状态：DONE（2026-10-20，提交 `e0dc04e`）
+- 状态：DONE（2026-10-20，提交待生成）
 - 问题描述：插件页面协议需要在页面模块化前固定，避免后续增加另一套页面注册机制。
-- 证据：`src/ui/contribution-registry.js`、`src/script/00.js`、`tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`、`docs/ui-audit/M1-contribution-registry.md`。M3将原五个core route扩展为含插件中心的六个route。
-- 影响范围：六个core页面、导航、插件页面与管理页。
+- 证据：`src/ui/contribution-registry.js`、`src/script/00.js`、`tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`、`docs/ui-audit/M1-contribution-registry.md`。
+- 影响范围：五个默认页面、导航、后续插件页面与管理页。
 - 建议方案：单一注册表采用声明式descriptor、原子批次校验、activation绑定和幂等dispose；五个默认页面通过宿主route适配，不接受插件mount函数。
 - 依赖：UI-M0。
 - 复杂度：中；风险：中。
-- 验收：六个core页面可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
+- 验收：无插件默认五页可用；未知/重复route/slot及权限不足批次整体拒绝；核心route不能被覆盖；注册与注销只影响对应activation。
 - 推荐测试：已执行Node单测5项、Chromium 1920×1080导航/注册/拒绝/撤销；全量单元集成253项；14组fixture PASS。后续isolated workspace依然待测。
 
 ### UI-M2 — 页面与组件Disposable生命周期
 
 - 分类：架构/交互可靠性
 - 优先级：P1
-- 状态：DONE（2026-10-20，提交 `42789c1`）
+- 状态：DONE（2026-10-20；实现提交待生成）
 - 问题描述：页面mount/unmount尚无统一的事件、timer、observer和动画租约释放协议。
 - 证据：`src/ui/desktop.js`、`src/ui/welcome-v2.js`、`src/ui/battle-motion.js`；M0的listener/timer词法清单只作初筛。
 - 影响范围：快速切页、弹窗/动画、未来插件停用和错误恢复。
@@ -1363,89 +1269,12 @@ GP-V3-ARCHIVE-RETRY-IMMUTABILITY completed3.0.19: identical retry is no-write su
 
 - 分类：安全/架构
 - 优先级：P1
-- 状态：PARTIAL（2026-10-20，HTML基础已实现；安全执行host未实现）
-- 问题描述：插件管理与声明式贡献已由宿主管理，但可执行第三方脚本隔离、签名包验证、服务broker和Electron插件host尚不存在。当前版本不可执行插件JS。
-- 证据：`src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`、`src/ui/plugin-center.js`、`tests/unit/plugin-platform.test.mjs`、`tests/unit/plugin-local-repository.test.mjs`、`tests/e2e/plugin-platform.mjs`、`docs/ui-audit/M3-plugin-platform-foundation.md`。
+- 状态：OPEN
+- 问题描述：当前无宿主强制校验的统一插件安装、启停、scope、权限与故障隔离runtime。
+- 证据：已批准 `docs/superpowers/specs/SP03-A-plugin-runtime-design.md`，当前尚未实现。
 - 影响范围：第三方/官方插件、Electron主进程能力、安全与持久化。
-- 已实现：严格manifest校验、安装/启用/暂停/恢复/停用/隔离/卸载状态、scope授权、显式权限、核心贡献批次原子注册、scope切换撤权、私有数据CAS/单scope 10MiB软上限、启动时不自动恢复active态、卸载默认留数据。插件中心仅导入JSON声明，JS入口与伪造official ID会被拒绝。
-- 尚缺：实际zip文件扫描/路径和签名验证、依赖拓扑排序及可选依赖降级策略、安装版本摘要/升级求解、隔离iframe+Worker协议、速率/时间/内存资源预算、崩溃自动隔离/恢复UI、独立IndexedDB私有数据库与数据导出、Electron窄preload broker、网络/文件/音频等能力执行接口。浏览器localStorage实际配额可能低于10MiB，写失败会显示错误并保留旧记录。
+- 建议方案：先建立JSON Schema manifest、受限消息协议、宿主身份绑定、默认拒绝权限和插件私有存储；不暴露Node、主DOM或课堂主数据库。
 - 依赖：UI-M1、UI-M2及HTML/Electron共享协议复核。
 - 复杂度：高；风险：高。
-- 当前验收：manifest恶意ID/可执行入口/未知权限、显式授权、scope撤销、贡献批次原子失败、失活handle、启动恢复、卸载留存/清除、损坏存储与写失败均有测试；依赖支持exact、`^`、`~`、`>= lower < upper` SemVer范围，激活时验证提供方版本、激活状态和scope，卸载受依赖引用保护。Chromium 1920×1080插件中心流程PASS，14组布局PASS。
-- 剩余验收：安全sandbox、签名安装、依赖拓扑排序/可选依赖降级、升级/回滚及Electron broker尚未测试；不得把当前JSON声明能力宣传为已安全运行不可信代码。
-- 推荐测试：继续执行本节下方PLUG-M2～M5。
-
-### PLUG-M2 — HTML隔离执行宿主与消息协议
-
-- 分类：安全/运行时；优先级：P0；状态：OPEN。
-- 问题：当前只接受声明式JSON，不能运行需要逻辑Worker的教学/玩法插件。
-- 证据：`src/application/plugin-platform.js` `safePackagePath()`只接受JSON入口；Plugin Center有“不会运行JavaScript”说明。
-- 影响：主题/卡片/页面等声明扩展可用范围有限；任何当前导入的代码文件都必须拒绝。
-- 方案：按照`SP03-A`使用opaque sandbox frame+Worker+宿主建立MessageChannel，身份绑定activation/scope/epoch；不授予same-origin、主DOM、网络直连或任意导航。
-- 依赖：PLUG-M1；HTML file://与HTTP隔离策略复核。
-- 复杂度：高；风险：高。
-- 验收：恶意导航、重放、伪造身份、权限撤销、timeout和worker terminate均拒绝；主页面/CSP保持原状，业务快照hash不变。
-- 测试：Chromium 1920×1080协议E2E，Worker消息攻击用隔离context及种子随机。
-
-### PLUG-M3 — 插件包验证、签名、迁移与私有数据导出
-
-- 分类：安全/数据；优先级：P1；状态：OPEN。
-- 问题：插件中心当前导入的是JSON manifest，不是带摘要、文件路径、版本和内容的真实离线包；localStorage配额有限，没有插件数据导出/迁移。
-- 证据：`src/ui/plugin-center.js` `importManifest()`；`src/infrastructure/plugin-local-repository.js`使用独立localStorage键。
-- 影响：无法验证entry文件存在、包完整性、压缩炸弹、升级来源及私有题库长期容量。
-- 方案：实现有界ZIP解析、规范路径/总解压量/文件数验证、哈希/签名信任分层、staging迁移和IndexedDB隔离插件命名空间；失败不覆盖旧包/课堂数据。
-- 依赖：PLUG-M2之前先冻结manifest包格式；IndexedDB既有repository能力评估。
-- 复杂度：高；风险：高。
-- 验收：目录穿越/大小写冲突/重复路径/炸弹/损坏摘要均拒绝；升级中断回滚、数据导出可读回。
-- 测试：恶意fixture、quota故障注入、关闭/重开恢复、旧包兼容。
-
-### PLUG-M4 — 插件管理授权、诊断与安全维护UI
-
-- 分类：产品/可访问性；优先级：P1；状态：OPEN。
-- 问题：当前权限批准使用浏览器原生confirm；错误诊断及卸载删除数据选项有限，缺少隔离插件恢复/权限撤销/依赖视图。
-- 证据：`src/ui/plugin-center.js` `onClick()`；`tests/e2e/plugin-platform.mjs`。
-- 影响：权限变更透明度、键盘操作、数据保留决策和故障恢复体验。
-- 方案：建立符合当前设计系统的权限详情对话框、按学科/课堂管理scope、导出私有数据、状态筛选与诊断列表；危险删除明确二次确认。
-- 依赖：PLUG-M1；不等待代码sandbox。
-- 复杂度：中；风险：低。
-- 验收：键盘/焦点/缩放可用；可只撤销一项可选权限；卸载与清数据为不同明确操作。
-- 测试：Chromium 1920×1080安装/授权/撤销/恢复流程与空、已安装、大量插件截图。
-
-### PLUG-M5 — Electron插件broker与安全一致性
-
-- 分类：Electron安全；优先级：P1；状态：OPEN。
-- 问题：Electron目前尚未同步3.0.27，也没有插件隔离窗口/provider权限合同。
-- 证据：Electron `docs/validation/v3.0.26-electron-sync.md`。
-- 影响：桌面版插件能力和HTML权限边界不一致；不应暴露通用IPC。
-- 方案：共享manifest/SDK契约，在主进程实现窄白名单能力broker、独立partition插件host和preload最小API；保持课堂主窗口CSP `frame-src 'none'`。
-- 依赖：PLUG-M2协议冻结；Electron安全合同测试。
-- 复杂度：高；风险：高。
-- 验收：webContents/mainFrame/url/epoch/permission四重校验；任意IPC、跨scope、过期activation拒绝；原浮窗/全屏点名不退化。
-- 测试：Electron权限/隔离测试；Windows真机需单独记录，不用Linux结果代替。
-
-### PLUG-M6 — 完整主题与文案扩展引擎
-
-- 分类：插件/界面；优先级：P1；状态：PARTIAL（M4有限Token/Text基础；3.0.30已迁移马克思主题Token catalog）
-- 问题：当前不支持主题预览、低对比度拒绝、页面级作用域、个人覆盖、占位符格式化、多语言回退、资源句柄与版本/导入导出；`GodpowerTheme`仍直接维护classic/Marx品牌、图标、旧CSS别名和转场。
-- 证据：`src/ui/plugin-appearance.js`、`src/ui/themes.js`、`docs/ui-audit/M4-theme-text-contributions.md`。
-- 影响：官方主题迁移、第三方主题易用性和HTML/Electron一致性。
-- 已实现：`official.marx-theme`在宿主启动时以受信任内置manifest安装/激活，主题贡献经唯一ContributionRegistry注册；旧偏好`godpower_appearance_v1`仍为选择权威，内置主题token作为视觉适配层应用，切回经典会撤销token并清理扩展主题覆盖。旧CSS/品牌图标适配保留。
-- 建议：冻结Design Token schema和对比度计算；增加preview lease和scope/CAS selection，再迁移旧CSS别名、品牌图标/装饰及Electron浮窗/全屏主题。
-- 依赖：PLUG-M1、M4基础；Electron DTO能力由PLUG-M5。
-- 复杂度：高；风险：中（品牌、图标和旧偏好兼容）。
-- 验收：停用和预览中断无遗留Token；正文/大字/焦点对比度达到设计门槛；旧classic/Marx设置迁移可恢复；所有窗口外观一致。
-- 测试：纯函数Token/locale单测；Chromium 1920×1080 1x主页面和弹窗截图；Electron桌面/浮窗/特效对照。3.0.30已在HTML Chromium验证token应用、切换回退、刷新恢复及14组布局；Electron同步待执行。
-
-### PLUG-M7 — 将道具设置与玩法百科迁入竞技插件
-
-- 分类：设置迁移/兼容性；优先级：P1；状态：PARTIAL（3.0.32迁移道具设置与百科入口；3.0.51按产品要求移除冗余总开关UI，保留旧值只读兼容；规则执行迁移仍待差异裁定）
-- 问题：现有“共产主义模式”实际承担道具功能开关，不是独立主题。插件化后继续把它留在主程序设置会造成设置职责重复和误解。
-- 证据：`src/script/00.js` 的`COMMUNISM_MODE_KEY=politics_communism_mode`及`applyCommunismMode()`；`src/ui/official-miyamoto-plugin.js`、`src/ui/plugin-center.js`、`src/ui/miyamoto-plugin.css`、`tests/e2e/miyamoto-plugin.mjs`。
-- 影响：旧道具行为、旧设置存档、主程序/插件职责边界。
-- 已实现：每道具抽取/使用配置、图鉴与自定义图标、公共事件和逐道具音效管理全部归入插件工作区；冗余“共产主义模式”总开关控件已从插件UI删除，旧key只读并保留显式false行为，不自动篡改旧偏好。沿用既有模块配置、`politics_item_icons`和音频仓储，不创建插件副本或改变格式；旧设置路由兼容转入插件。图标批量恢复确认在跨页面移动后仍有效。Chromium回归覆盖设置/刷新、音频包导入导出和取消恢复。
-- 后续方案：先完成竞技规则差异裁定与26道具基线差分，再迁移道具规则执行器、状态机和管理命令；达到同事务读回后再评估插件专属规则状态。当前未改任何竞技规则、道具参数或数据格式。
-- 依赖：SP03-C/竞技玩法迁移设计裁决、插件设置贡献、完整26道具行为差分测试；总开关UI切片不依赖核心规则裁决。
-- 复杂度：中；风险：高（错误默认会改变课堂规则/旧用户行为）。
-- 验收：旧启用/关闭状态精确保留；主设置中不再显示旧开关；插件停用时主程序基础答题正常且道具状态不丢；重新启用后行为一致。
-- 已测试：Chromium 1920×1080 1x，默认值、主设置移除、百科26项、旧key读写、关闭后的刷新恢复、插件停用保留值；页面错误为0。
-- 待测/阻塞：旧存档显式true/false导入矩阵中true场景待补；明确false已覆盖。完整26道具功能禁用差分、卸载留存/重启重新启用、Electron插件工作区同步验收仍待完成；完整玩法引擎迁移须先裁定差异矩阵。
+- 验收：权限拒绝/跨scope/重复请求/停用token/崩溃隔离均有回归测试，旧存档和课堂事务不变。
+- 推荐测试：schema与权限单测、隔离frame E2E、Electron preload allowlist合同测试。

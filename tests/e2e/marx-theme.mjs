@@ -66,43 +66,6 @@ try {
   await page.evaluate(() => GodpowerTheme.set("marx"));
   await page.waitForFunction(() => !GodpowerTheme.isSwitching());
   assert.equal(await page.evaluate(() => GodpowerTheme.get()), "marx");
-  await page.waitForFunction(
-    () => GodPowerPluginAppearance?.applied?.pluginId === "official.marx-theme",
-  );
-  assert.equal(
-    await page.evaluate(() =>
-      document.body.style.getPropertyValue("--ui-primary"),
-    ),
-    "#a91e2c",
-    "the official theme contribution supplies the Marx primary token",
-  );
-  await page.evaluate(() => {
-    GodPowerPluginCenter.platform.deactivate("official.marx-theme");
-    GodPowerPluginCenter.render();
-  });
-  assert.equal(
-    await page.evaluate(() => document.body.classList.contains("theme-marx")),
-    true,
-    "the legacy visual adapter remains available while the plugin is inactive",
-  );
-  assert.equal(
-    await page.evaluate(() =>
-      document.body.style.getPropertyValue("--ui-primary"),
-    ),
-    "",
-    "deactivation removes the plugin token layer",
-  );
-  await page.evaluate(() => {
-    GodPowerPluginCenter.platform.activate("official.marx-theme");
-    GodPowerPluginCenter.render();
-  });
-  assert.equal(
-    await page.evaluate(() =>
-      document.body.style.getPropertyValue("--ui-primary"),
-    ),
-    "#a91e2c",
-    "reactivation restores the declarative theme contribution",
-  );
   const semanticColors = await page.evaluate(async () => {
     const button = document.querySelector(".opt-btn");
     button.classList.add("correct");
@@ -160,17 +123,10 @@ try {
     .evaluateAll((es) => es.map((e) => e.getAttribute("d")));
   assert.equal(
     new Set(paths).size,
-    6,
+    5,
     "functional icons must remain distinguishable",
   );
-  for (const view of [
-    "welcome",
-    "battle",
-    "history",
-    "archives",
-    "plugins",
-    "settings",
-  ]) {
+  for (const view of ["welcome", "battle", "history", "archives", "settings"]) {
     await page.evaluate((view) => {
       switchView(view);
       if (view === "settings") DesktopUI.selectSettings("appearance");
@@ -195,9 +151,6 @@ try {
   assert.equal(await page.locator("#gpThemeTransition").count(), 0);
   await page.reload();
   await page.waitForFunction(() => window.GodpowerTheme?.get() === "marx");
-  await page.waitForFunction(
-    () => GodPowerPluginAppearance?.applied?.pluginId === "official.marx-theme",
-  );
   assert.equal(
     await page.locator("#gpThemeTransition").count(),
     0,
@@ -206,13 +159,6 @@ try {
   await setup(page, 14);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.evaluate(() => GodpowerTheme.set("classic"));
-  assert.equal(
-    await page.evaluate(() =>
-      document.body.style.getPropertyValue("--ui-primary"),
-    ),
-    "",
-    "switching to classic restores the host token cascade",
-  );
   assert.equal(await page.locator("#gpThemeTransition").count(), 0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.evaluate(() => {

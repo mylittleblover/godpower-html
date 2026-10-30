@@ -43,7 +43,7 @@ async function shot(p, name) {
 }
 try {
   const { context, p } = await open();
-  await test("UI boot and page dock isolation (including programmatic stale-button clicks)", async () => {
+  await test("UI boot and five-page dock isolation (including programmatic stale-button clicks)", async () => {
     assert.equal(await p.locator("#uiSettingsShell").count(), 1);
     for (const view of [
       "welcome",
@@ -457,7 +457,7 @@ try {
   for (const [width, height] of [[1920, 1080]])
     for (const zoom of [1]) {
       const { context, p } = await open({ width, height });
-      await test(`Desktop ${width}x${height} app zoom ${zoom} core pages bounds/navigation`, async () => {
+      await test(`Desktop ${width}x${height} app zoom ${zoom} five pages bounds/navigation`, async () => {
         await p.evaluate((z) => {
           applyZoom(z);
         }, zoom);
@@ -466,7 +466,6 @@ try {
           "battle",
           "history",
           "archives",
-          "plugins",
           "settings",
         ]) {
           await p.locator(`.nav-tab[data-view="${view}"]`).click();

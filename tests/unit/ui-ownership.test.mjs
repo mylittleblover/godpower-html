@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createUiOwnershipReport } from "../../scripts/ui-ownership.mjs";
 
-test("UI ownership report follows the build manifest and records the default pages", async () => {
+test("UI ownership report follows the build manifest and records the five default pages", async () => {
   const report = await createUiOwnershipReport();
   assert.ok(report.manifestBlocks >= 125);
   assert.deepEqual(report.pages, [
@@ -10,7 +10,6 @@ test("UI ownership report follows the build manifest and records the default pag
     "view-battle",
     "view-archives",
     "view-history",
-    "view-plugins",
     "view-settings",
   ]);
   assert.equal(report.duplicateStaticIds.length, 0);

@@ -2,29 +2,6 @@
 
 完整证据、条件与限制见 [REFACTORING_REPORT.md](REFACTORING_REPORT.md)。历史矩阵保留在 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md)。
 
-## 官方玩法插件迁移（3.0.31–3.0.52）
-
-### 道具设置归属迁移（3.0.32）
-
-| 功能 × 场景 | 测试类型 | 结果 | 证据 |
-|---|---|---|---|
-| 主设置移除道具分类；旧导航兼容路由至插件工作区 | Chromium E2E 1920×1080 1x | PASS | `tests/e2e/item-modules.mjs`、`tests/e2e/settings-cleanup.mjs` |
-| 每种道具抽取/使用配置、存储和刷新恢复 | Chromium E2E | PASS | `npm run test:item-modules`（26项规则，448种抽取情形） |
-| 图鉴、图标维护和批量恢复取消确认 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs`、`tests/e2e/settings-cleanup.mjs` |
-| 30组道具音效、BIN导出与隔离上下文导入 | Chromium E2E | PASS | `tests/e2e/settings-cleanup.mjs` |
-| 插件页动画、设置与弹窗关闭动画 | Chromium E2E | PASS | `tests/e2e/motion-unification.mjs`（18/18） |
-
-| 功能 × 场景 | 测试类型 | 结果 | 证据 |
-|---|---|---|---|
-| 内置 `official.miyamotos-power` 安装、激活及 page/settings 贡献注册 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
-| 主设置及插件工作区移除旧道具总开关；插件百科保留26项，旧显式false只读兼容 | Chromium E2E | PASS | `artifacts/miyamoto-plugin/workspace-v3.0.51.png` |
-| 道具百科读取当前 26 项实际定义 | Chromium E2E | PASS | 同上；检查 `ice_flower` 名称 |
-| 旧显式false兼容、刷新后仍保持禁用（值只读） | Chromium E2E | PASS | `artifacts/miyamoto-plugin/disabled.png` |
-| 停用玩法插件不清理或改写旧设置键 | Chromium E2E | PASS | `tests/e2e/miyamoto-plugin.mjs` |
-| 新竞技规则及完整道具引擎迁移 | 规则/事务/Electron | BLOCKED | 先解决 `competition-rules-difference-matrix.md` 中 Needs review 项并冻结旧规则差分 |
-
-本阶段 UI 浏览器只测 Chromium 1920×1080、deviceScaleFactor=1；不运行 CircleCI。
-
 |测试类型／场景|实际通过数|结果|证据|
 |---|---:|---|---|
 |Node 原生单元／集成及架构守卫|87|PASS|artifacts/refactor/final-verify.log|
@@ -86,11 +63,8 @@
 | 旧 desktop-ui 全流程 | 曾启动但未完成 | INCOMPLETE；一个抽签断言未在隔离复测复现；Escape断言未等待关闭动效，M2需用动画结束信号重测 |
 | M1 页面注册协议 | 见下方 M1 已执行矩阵 | PASS |
 | M2 页面dispose与动画清理 | `docs/ui-audit/M2-page-lifecycle.md` | PASS；详见下方 M2 已执行矩阵 |
-| 声明式插件manifest/权限/生命周期/私有数据 | `tests/unit/plugin-platform.test.mjs`、`tests/unit/plugin-local-repository.test.mjs`、`tests/e2e/plugin-platform.mjs` | PASS；仅声明式JSON，不执行外部代码 |
-| HTML六入口与14组布局 | `artifacts/ui-governance-m3/`、`tests/e2e/desktop-ui.mjs` | PASS；Chromium 1920×1080 1x |
-| 可执行插件隔离沙箱/安装包签名/依赖迁移 | 尚未实现 | NOT TESTED |
-| Electron插件broker/插件窗口 | 尚未同步此版本 | NOT TESTED |
-| Electron/Windows | M2 HTML已同步至3.0.26；M3 HTML源代码待同步 | NOT TESTED |
+| 插件安装runtime与权限/数据 | 未实施 | NOT TESTED |
+| Electron/Windows | M2 HTML源代码同步待执行 | NOT TESTED |
 
 ### M1 已执行
 
@@ -114,66 +88,3 @@
 | M2全量单元/集成 | `npm test` | PASS 257/257 |
 | M2 HTML构建/检查 | `npm run build && npm run check` | PASS；版本3.0.26 |
 | Electron同版同步/插件中心/隔离sandbox | 下阶段同步或实现 | NOT TESTED |
-
-### M3 插件平台基础（声明式）
-
-| 场景 | 命令/证据 | 结果 |
-|---|---|---|
-| Manifest ID/SDK/平台/权限/路径/类型校验、拒绝JS入口和官方ID伪造 | `tests/unit/plugin-platform.test.mjs` | PASS |
-| 默认拒绝、权限显式授予、注册批次失败无部分路由、scope切换撤销 | `tests/unit/plugin-platform.test.mjs` | PASS；7项 |
-| 生命周期安装/启用/停用/恢复/隔离/卸载保留或清除私有数据 | `tests/unit/plugin-platform.test.mjs` | PASS |
-| 私有数据revision冲突、10MiB/scope限额、失活token和启动恢复 | `tests/unit/plugin-platform.test.mjs` | PASS |
-| localStorage读写回读、损坏数据不覆盖、写入失败可见 | `tests/unit/plugin-local-repository.test.mjs` | PASS 3项 |
-| Plugin Center导入→审阅必需权限→启用→导航→停用→卸载 | `npm run test:plugins` | PASS；Chromium 1920×1080 1x；无pageerror |
-| 六core routes与既有14组布局/全桌面交互 | `test:contributions`、`test:ui-governance-baseline`、`battle-layout`、`desktop-ui` | PASS；desktop-ui 23/23 |
-| M3全量单元/集成 | `npm test` | PASS 268/268 |
-| 可执行第三方JS、zip安装/签名、Electron隔离插件host | 未实现 | NOT TESTED；插件中心明示目前仅JSON声明 |
-
-### M4 主题 Token 与安全文案贡献
-
-| 场景 | 命令/证据 | 结果 |
-|---|---|---|
-| 固定主题颜色Token与hex值校验，拒绝CSS/URL/布局Token | `tests/unit/contribution-registry.test.mjs` | PASS |
-| 有限文案Key、纯文本/长度限制及安全命名空间保护 | `tests/unit/contribution-registry.test.mjs` | PASS |
-| Chromium插件安装、授权、主题/文案应用、停用后恢复 | `tests/e2e/plugin-platform.mjs` | PASS；1920×1080、1x、0 pageerror |
-| 六页基线、14组布局、离线操作及旧Marx主题 | `ui-governance-baseline.mjs`、`battle-layout.mjs`、`release-smoke.mjs`、`marx-theme.mjs` | PASS；见 M4 审查记录 |
-| 主题预览、完整scope层级、contrast检查、全量locale与Electron主题DTO | 尚未实现 | NOT TESTED；后续主题引擎任务 |
-
-## 插件依赖版本约束（3.0.29）
-
-|场景|结果|证据|
-|---|---|---|
-|非法/含糊依赖范围和同一依赖同时声明required/optional|PASS|`tests/unit/plugin-platform.test.mjs`|
-|required依赖未启用、版本不符、跨版本激活|PASS|`tests/unit/plugin-platform.test.mjs`|
-|`^` / `~` / `>= lower < upper`边界、零主版本caret、构建元数据比较|PASS|`tests/unit/plugin-platform.test.mjs`|
-|被已安装插件引用的provider卸载保护|PASS|`tests/unit/plugin-platform.test.mjs`|
-|插件中心受限JSON声明安装流程|PASS|`tests/e2e/plugin-platform.mjs`，Chromium 1920×1080 1x|
-|Electron共享依赖范围合同|NOT TESTED|当前实现尚未提取到HTML/Electron共享协议包|
-
-
-## 官方马克思主题插件迁移（3.0.30）
-
-|场景|结果|证据|
-|---|---|---|
-|官方manifest受信任安装、权限授予和激活|PASS|`tests/e2e/plugin-platform.mjs`，Chromium 1920×1080 1x|
-|主题贡献只通过宿主白名单token注册|PASS|`tests/e2e/plugin-platform.mjs`、`tests/e2e/marx-theme.mjs`|
-|经典/马克思切换及旧主题偏好刷新恢复|PASS|`tests/e2e/marx-theme.mjs`|
-|14小组比赛布局保持与主题差分验收|PASS|`tests/e2e/marx-theme.mjs`，Chromium 1920×1080 1x|
-|Electron浮窗、全屏特效主题一致性|NOT TESTED|HTML主题catalog尚未同步到Electron本阶段验证|
-
-### 道具成就事实事件切片（3.0.52）
-
-| 功能 × 场景 | 测试类型 | 结果 | 证据 |
-|---|---|---|---|
-| 举手奖励抽取成功后产生单个 ITEM_ACQUIRED 并写入同一主存档 | Chromium E2E 1920×1080 1x | PASS | `tests/e2e/item-domain-events.mjs` |
-| 撤销举手抽取同时恢复道具库存、抽取计数和成就账本 | Chromium E2E | PASS | 同上 |
-| 举手奖励写入失败时回滚，且不发布 ITEM_ACQUIRED | Chromium E2E | PASS | 同上；注入写入失败 |
-| 26 种道具精确库存撤销矩阵 | Chromium E2E | PASS | `tests/e2e/item-undo-matrix.mjs` |
-| 其他全局/管理/抽取流程的 ITEM_ACQUIRED 事件覆盖 | 自动化 | NOT TESTED | 留在 GP-011 后续范围 |
-
-## 比赛阶段状态兼容（3.0.53）
-
-| 功能 × 场景 | 测试类型 | 结果 | 证据 |
-|---|---|---|---|
-| 持久旧字段组合到阶段名称的兼容优先级（16组组合） | Node unit | PASS | `tests/unit/reliability.test.mjs` |
-| 完整转场守卫/异步busy状态机 | E2E | NOT TESTED | GP-012 后续范围 |

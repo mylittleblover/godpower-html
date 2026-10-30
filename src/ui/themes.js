@@ -97,7 +97,6 @@ window.GodpowerTheme = (() => {
         String(button.dataset.appearanceTheme === theme),
       );
     if (typeof updateWelcomeClock === "function") updateWelcomeClock();
-    window.GodPowerPluginAppearance?.selectBuiltinTheme?.(theme);
     // Dedicated event is consumed by presentation transports only.
     window.dispatchEvent(
       new CustomEvent("godpower:theme", { detail: { theme, name: name() } }),

@@ -1,20 +1,12 @@
 # GodPower V3 当前架构
 
-当前版本：3.0.53（M0–M4 插件/UI 基础；F0证据审计；F1本地名单工作区、安全应用及名单/头像联合备份；F2离线课程表与教学资源库；GP-016损坏主快照恢复；GP-017全道具撤销矩阵；GP-011道具使用与获得持久事件切片；H1布局模型、H2隔离存储、统一渲染与可撤销首页布局编辑；F1名单头像展示；GP-011道具实际伤害及举手奖励获得事件切片；HOME-001插件卡片贡献生命周期切片；PLUG-M7移除冗余玩法总开关UI；GP-012阶段派生提取）。正式比赛仍以 `godpower_state_v2` 为唯一课堂快照；名单、课程表、教学资源与首页布局均为隔离的本地偏好/教学工作区数据。 `ui/classroom-avatar-display.js` 通过显式活动课堂上下文，把名单中的稳定学生/小组身份解析到本地资源库头像，只负责展示：小组卡片在原编号区域拼接最多4张头像并将组号置于下方，点名转轮在姓名左侧展示头像，全屏揭晓使用更大的头像画面。缺头像时保留原编号/文本回退。资源仅在可信本地上下文和图片 MIME 校验后生成 Blob URL；传往 Electron 全屏窗口时仅传有尺寸上限的缩略 WebP data URL，不改变随机抽选或业务数据。 `domain/items/impact-facts.js` 是道具操作事务的纯事实投影：比较命令前后使用稳定 `groupUid` 对应小组的安全整数积分，只为施术组以外的真实积分下降生成候选 `ITEM_HIT`。`useItem` 在命令 commit hook（包含异步防御决议之后、持久化之前）发出事件，因此被拦截/取消、没有实际扣分的攻击不被误记；账本随同一主存档事务保存并随撤销恢复。该切片尚不表示所有道具获得、防御、状态生效/到期事件已迁移。 首页核心卡片由主程序目录提供；道具小知识与政治知识/挑战卡片改由受信任的官方插件 manifest 注册。HomeDashboard仅接受宿主已知的builtin.dashboard-card renderer 和精确 selector 映射，将内容节点提到统一网格成为可单独编辑的卡片；停用插件时以占位卡显示，并保留其布局实例。插件卡片贡献不允许任意DOM回调。
+## V3 UI Shell 与贡献注册（3.0.26，M1–M2）
 
-## V3 UI Shell、页面生命周期与插件中心（3.0.29，M1–M4）
-
-UI源文件仍按 `src/manifest.json` 声明顺序嵌入单文件HTML。`ui/contribution-registry.js` 在早期建立宿主拥有的路由表，欢迎、比赛、历史、档案、插件、设置六个页面是不可覆盖的core routes；`switchView` 仍是旧导航调用方的兼容入口，但有效页面名取自注册表。插件贡献route会由宿主切换到插件中心工作区，不创建任意DOM，也不接收插件回调。
+UI源文件仍按 `src/manifest.json` 声明顺序嵌入单文件HTML。`ui/contribution-registry.js` 在早期建立宿主拥有的路由表，五个既有页面是不可覆盖的core routes；`switchView` 仍是旧导航调用方的兼容入口，但有效页面名取自注册表。`GodPowerPageShell.navigate()` 将core route委派给兼容入口，插件route只返回 `workspace-required` 描述，不在本阶段运行插件代码或改变DOM。
 
 唯一 `ContributionRegistry` 接收JSON描述符批次，使用宿主创建的activation capability绑定pluginId、权限和作用域。整个批次先验证后提交；未知kind/slot/renderer、权限缺失、重复ID/route、可执行字段和插件自报身份均拒绝。`dispose(activationId)` 只撤销对应activation的贡献，并可重复调用。页面route由宿主生成 `plugins/<pluginId>/<localId>`；插件页仅允许宿主workspace renderer。卡片只可注册到 `home.cards`，面板/设置等使用规格白名单slots和renderer keys。
 
-`application/plugin-platform.js`提供宿主管理的manifest校验、安装/启停/暂停/隔离/卸载状态、scope绑定权限、权限更新、语义版本依赖范围检查（exact、`^`、`~`、`>= lower < upper`）、依赖启用检查和CAS私有存储。依赖必须在同一scope处于active且版本满足范围；必需依赖缺失/版本不符会阻止激活，存在已安装依赖者时阻止卸载提供方。`infrastructure/plugin-local-repository.js`把插件记录与课堂存档分键持久化，并执行写后读回；损坏或配额错误会显式失败，不覆盖源。当前插件包仅允许JSON声明和宿主白名单renderer，不能带可执行入口，也没有启用第三方脚本sandbox；插件中心UI会明示此边界。卸载默认保留命名空间，授权按本地课堂scope分开保存。
-
-M4 增加 `theme` 与 `textBundle` 两类声明式贡献。3.0.30新增受信任内置插件 `official.marx-theme`，将马克思主题的12个开放Design Token注册进唯一ContributionRegistry；`GodpowerTheme`继续负责兼容旧`godpower_appearance_v1`、品牌名称、图标及主题转场，并通过适配器选择内置主题贡献。首次启动会将内置主题插件独立安装/激活到插件命名空间，课堂存档不变。主题只能覆盖宿主固定的12个十六进制颜色Token；布局尺寸、字体、动画、正负分、警告/危险语义色均不开放。文案包只能覆盖有限的稳定Key，值必须是有长度上限的纯文本；权限、删除、数据丢失和事务安全说明不属于开放Key。`ui/plugin-appearance.js`通过宿主DOM目标与CSS变量应用主题/文案，插件停用时恢复初始显示，外观偏好独立存储，不改课堂数据。该实现是受控扩展基础，不等于SP03-D完整主题引擎：尚未有多层scope选择、对比度分析、主题预览/版本/导入导出、页面级主题及完整locale占位符服务。
-
-“共产主义模式”原本是兼容中的道具功能总开关，不是外观选项。3.0.51已按产品要求移除设置UI与专属CSS；`politics_communism_mode`保留为只读兼容值，缺失默认启用、显式false继续禁用，不自动修改存量课堂偏好。
-
-不得把 `GodPowerPageShell` 暴露给第三方同realm脚本。后续plugin runtime应通过隔离消息通道调用它，并在Electron使用窄preload/provider；不能放宽CSP或让插件取得主DOM、主状态、数据库或通用IPC。实现证据及边界测试见 `src/application/plugin-platform.js`、`src/ui/contribution-registry.js`、`src/ui/plugin-center.js` 和对应unit/E2E。
+插件协议目前是宿主侧基础设施；还没有插件安装器、隔离sandbox、权限持久授予UI或workspace renderer。不要将 `GodPowerPageShell` 暴露给第三方同realm脚本。后续plugin runtime应通过隔离消息通道调用它，并在Electron使用窄preload/provider；不能放宽CSP或让插件取得主DOM、主状态、数据库或通用IPC。实现证据及边界测试见 `src/ui/contribution-registry.js` 和 `tests/unit/contribution-registry.test.mjs`、`tests/e2e/contribution-registry.mjs`。
 
 `ui/disposable-scope.js`提供一次性DisposableScope和页面路由生命周期。`DesktopUI.viewChanged`将页面进入动画的RAF/WAAPI绑定到当前scope；跨页后先释放旧scope，再建立新scope。页面DOM仍保持静态并由已有renderer更新；这个scope不拥有课堂命令或数据，也不在视图切换时销毁业务组件。应用级监听器仍在DesktopUI/WelcomeV2初始化时登记；新增页面和插件renderer须使用scope注册其私有副作用。
 
@@ -30,7 +22,6 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 | 旧命令生命周期   | `src/application/command-lifecycle.js`                                                                                       | 注入host的命令生命周期，管理快照、异步防御、取消、提交钩子和持久化结果                                 |
 | 旧程序适配       | `src/application/legacy-classroom-adapter.js`                                                                                | 唯一公开useItem/judgeRound与备份/导入接口；目前仍连接全局state和旧执行器，逐命令迁出                   |
 | 旧存储基础设施   | `src/infrastructure/legacy/`                                                                                                 | v1→v2纯转换、源数据保留、读回校验、迁移回执、旧音频安全复制                                            |
-| 插件平台         | `src/application/plugin-platform.js`、`src/infrastructure/plugin-local-repository.js`                                        | 声明式manifest、宿主权限/生命周期、scope私有数据；当前拒绝可执行入口，尚无脚本sandbox                  |
 | 事务存储基础设施 | `src/infrastructure/indexeddb/repository.js`                                                                                 | 同一事务保存聚合、事件、命令去重、档案；资源和迁移回执可原子导入。已做隔离浏览器验证，尚未成为生产权威 |
 | 存储预检         | `src/infrastructure/legacy/inventory.js`                                                                                     | 只读枚举项目localStorage与四个已知IndexedDB，计算SHA-256并生成完整迁移计划；不自动删除来源             |
 | 兼容核心         | `src/core/`                                                                                                                  | 尚未迁出的规则、防御令牌、历史、道具配置与音效分类；Reliability中的存储接口委托仓库，保留旧调用兼容    |
@@ -38,18 +29,6 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 | 遗留实现         | `src/script/`、`src/style/`                                                                                                  | 仍包含有效计分/道具/音频规则及CSS。编号不代表无效；每族通过差分测试后再删除                            |
 
 领域层依赖标准JavaScript与可注入的时间/身份来源。应用层通过仓库和表现适配器执行副作用；基础设施不得调用渲染函数。普通内联脚本的构建顺序由模板和manifest显式记录，最终不需要模块服务器。
-
-## F1 身份与名单基础（3.0.33）
-
-`src/domain/identity.js`现提供`userProfileId`、`classroomId`、`studentUid`稳定标识生成器。`src/domain/classroom-roster.js`定义版本1的本地名单文档，并验证用户档案、课堂、学生与分组关系；可为旧`groups[].members`生成保留重复姓名的迁移预览，并按用户档案投影分组成员。投影返回副本，名称不是身份键。
-
-`src/infrastructure/classroom-roster-repository.js`使用独立键`godpower_classroom_roster_v1`保存名单文档，提供CAS revision、写后读回和失败回滚。`src/ui/classroom-roster-workspace.js`在设置的“学生与小组管理”页提供本地教师档案/课堂切换、分组与个人参与模式、学生增删改、导入导出，并能从当前比赛生成一个独立名单副本。名单应用先以稳定 `groupUid` 生成差异预览，显式确认后通过 `runClassroomCommand` 只更新权威比赛组的 `members` 列表；比赛快照、历史、保存和失败恢复都归课堂命令生命周期管理，名单仓库是只读来源。预览到事务执行时复核比赛状态指纹、season、profile/classroom、名单 revision 和原始字节，过期确认拒绝。比赛组成员顺序和同名成员在规范化中保留；抽签的防重复标识使用组内位置，并继续兼容旧名称键。教师档案是本机工作区标识，不是登录认证/云同步。F1剩余头像资源、旧名单迁移回执和profile级设置隔离。
-
-## F2 离线课程表（3.0.35）
-
-`src/domain/teaching-schedule.js`验证稳定课程/教师/课堂身份、星期、半开本地分钟区间及同一教师的冲突；`src/infrastructure/teaching-schedule-repository.js`通过独立 localStorage 键`godpower_teaching_schedule_v1`提供CAS、读回与失败恢复。`src/ui/teaching-workspace.js`可新增、编辑、删除每周课表，显示当前时段建议。教师必须明确点击后才写入独立的`godpower_active_classroom_context_v1`教学上下文指针，并刷新名单工作区的教师/课堂选择；此动作不会加载或修改权威比赛状态。跨午夜时段拒绝，`24:00`是当天有效结束边界。
-
-教学资源由`src/domain/teaching-resource.js`执行 MIME、扩展名、签名、大小和元数据检查；`src/infrastructure/teaching-resource-repository.js`在独立 IndexedDB 数据库中用双 object store 保存元数据和 Blob。批量写入与删除保持事务性，写后读回 SHA-256 验证；元数据列表不加载二进制内容。`src/ui/teaching-resource-workspace.js`提供离线导入、搜索、筛选、文本/JSON节点预览、图片 Blob URL 预览、PDF信息、下载、备份与完整性恢复。PDF不内嵌运行。教学资源不访问比赛命令、存储或 Electron 主进程。
 
 ## 当前运行路径
 
@@ -63,7 +42,7 @@ M0基线（CSS/页面截图、14组DOM测量、静态资产清单）见 `docs/ui
 
 1. 当前课堂主键为`godpower_state_v2`，envelope schemaVersion=2。新增字段achievementLedger.schemaVersion=1为加法字段，旧`godpower_state_v1`保留迁移时的原始字节。
 2. 启动优先读取并验证v2；只有v2不存在才读取v1，或旧镜像键。纯转换补齐groupUid、itemInstanceId、seasonId后，复制到v2并读回校验。
-3. 当前主存档损坏时阻止自动覆盖，不能静默回退成更旧的课堂。欢迎页警告提供只读扫描 V1、旧版分散镜像及恢复前副本；原始`godpower_state_v2`可按未解析文本下载。预览小组数/积分差异并经教师确认后，仍由`importClassroomData`在恢复前保存损坏原文、校验并写入主快照。
+3. 当前主存档损坏时阻止自动覆盖，不能静默回退成更旧的课堂。明确导入恢复前把损坏原文保存到`godpower_recovery_before_import_v2`。
 4. 迁移复制失败时保留来源；已验证的旧课堂可在内存使用并导出。完成回执最后写入，回执写入失败可重试。
 5. 兼容镜像仍在主快照成功后更新。归档目前仍位于`politics_settlement_history`，与课堂清零尚非跨键事务；保存失败恢复原课堂，seasonId用于防重复。
 6. 新IndexedDB事务仓库已验证原子提交、修订冲突、命令去重、崩溃后重开与资源导入。切换生产权威前，必须完成异步应用命令入口、来源冻结和完整迁移读回验证，不能长期维持两个权威源。
@@ -86,12 +65,6 @@ v1来源是迁移前基线，不代表迁移后每次操作的最新副本。回
 `renderAll/renderGrid`由`ui/render.js`唯一拥有，卡片由`ui/battle-grid.js`构建；现有攻击延迟、FLIP和显示分数保持逻辑继续使用。14组几何、垫片、列模式和缩放必须按同一配置比较。新成就不向比赛卡片增加常驻占位。
 
 Electron主窗口继续拥有唯一课堂状态和抽选结果。悬浮点名、独立功能窗口与全屏特效通过安全preload/白名单IPC交互，不重新抽选或重复赋分。迁移期间不改变该所有权。
-
-### 官方玩法插件迁移状态（3.0.32）
-
-`official.miyamotos-power`已作为受信任内置的声明式Gameplay插件进入插件生命周期，注册玩法百科页面和设置贡献。百科由宿主通过`GodpowerItemCatalog`读取26项实时道具定义；插件不执行任意脚本，也不拥有或直接写入课堂状态。道具命令、库存、随机目标、撤销、计分、异步防御仍归现有主程序执行器所有。
-
-每道具抽取/使用模块配置、图鉴与自定义图标、道具专属音效管理均归入该插件工作区；主设置保留一般音频设置。配置继续使用已有模块配置、图标存储和音频资源，不创建重复存储或更改数据格式。`politics_communism_mode`仅作为旧版只读兼容值：缺失时仍默认开启、显式false继续禁用；新UI不提供编辑控件，插件停用不删除旧值和道具库存。道具功能选项已不再作为主设置分类展示，旧导航调用`DesktopUI.selectSettings("items")`兼容转入插件页面。新计分/状态/事件规则的迁移被竞技差异矩阵中尚待裁定的规则阻塞，详见`docs/superpowers/specs/competition-rules-difference-matrix.md`与`docs/ui-audit/M7-miyamoto-gameplay-plugin.md`。
 
 ## 构建和验证
 
@@ -121,9 +94,7 @@ Electron同步必须从已提交的HTML源码构建并记录commit、SHA-256和�
 
 ### 3.0.5道具单一执行入口
 
-公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；当前仅保留legacyUseItem→useItem兼容转发。成功使用并经事务持久化后产生ITEM_USED领域事件，由AchievementLedger累计；撤销按操作前快照回退事件统计。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。攻击命中、防御结算和持续效果事件仍需逐类补齐。
-
-首页统一卡片工作在 `src/domain/home-layout.js` 中提供12列逻辑网格、版本化实例模型、重叠/非法配置校验、确定性挤推、添加/复制/移除/隐藏/移动/缩放、草稿撤销重做和保存/取消。`src/infrastructure/home-layout-repository.js` 用独立 `godpower_home_layout_v1` 偏好键进行版本读写、revision冲突检测、读回校验和回滚；旧固定首页只生成不落盘的迁移预览。`src/ui/home-dashboard.js` 将原 KPI、排行榜、课堂动态、小组展示、荣誉及每日卡片归入标题卡下的同一 CSS Grid，维持旧 DOM 节点/ID及数据渲染链；H3 已提供卡片添加/移除/隐藏/恢复、键盘移动、拖动、调整尺寸、草稿撤销重做、默认布局重置、保存/取消及本机布局恢复，编辑不会写入课堂快照。核心类型目录只收纳主程序基础统计、排行榜、动态、小组展示和荣誉；道具提示归 `official.miyamotos-power`，知识及学科问答归 `official.marx-politics` 这类学科插件。当前后二类仍由旧兼容渲染器产出并带有插件所有者标记，尚未变为可由活跃插件贡献注册表添加/停用的卡片类型；H4需完成这步及插件生命周期联动。首页布局从未写课堂快照。
+公开useItem负责通用验证与命令生命周期，ItemModules执行配置，ItemOperationBlocks计算实际效果；原14层legacyUseItem链已移除，仅保留legacyUseItem→useItem兼容转发。共享attack/defense/视觉调度仍由既有模块提供，不能因旧版号删除。
 
 ### 3.0.6领域排序与目标选择
 
@@ -168,9 +139,3 @@ setCorrectAns唯一入口转发AnswerCommands.correct，复用现有programConfi
 3.0.18：startRound在音频初始化开始前捕获轮次令牌，所有无音频、初始化异常、成功/失败播放分支在复位前复核。RoundSettlement.start负责新回合全部字段及道具锁的一次命令提交；删除script12重复包装。命令持久化后再执行UI渲染与FLIP。
 
 3.0.19：同一seasonId归档已存在时，比较稳定赛季快照（小组、回合、全局道具与点名池）。相同快照作为无写入的幂等重试；不同或旧版缺少可比较快照则拒绝覆盖。此规则保护“归档写入成功、课堂清零保存失败”后的既有正式结果。
-
-GP-011 的持久事件仍按单一命令事务进入存档。3.0.52 将举手奖励抽取结果加入 `ITEM_ACQUIRED` 事件，并在存档确认后展示结果；撤销恢复背包、抽取统计和成就账本。此事件来源目前只覆盖举手奖励抽取，其他抽取和管理入口仍未迁移。
-
-## 比赛阶段兼容投影
-
-`domain/competition/phase.js` 将旧 `hasStartedOnce`、`roundActive`、`evaluated` 与 `correctAns` 的阶段优先级集中为纯派生函数，`Reliability.phase` 仅委托该模块。3.0.53穷举 16 种布尔/答案组合验证输出与旧逻辑一致。此模块不代表完整状态机：开始/下一题/强制结束中的异步busy状态和合法转移仍由现有命令逐步迁移。

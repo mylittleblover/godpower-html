@@ -272,13 +272,9 @@ function useItem(groupId, index) {
   }
   return runClassroomCommand(
     `${g.name} 使用道具：${ITEM_DEFS[key]?.name || key}`,
-    (context) => {
+    () => {
       ensureV2State();
       const beforeValue = itemCommandSnapshot();
-      const beforeGroups = JSON.parse(beforeValue).groups;
-      const usedItem = g.inventory[index];
-      const itemInstanceId = usedItem.itemInstanceId || null;
-      const chargesBefore = Number(usedItem.charges) || 1;
       if (g.itemEffect?.iceLock) {
         delete g.itemEffect.iceLock;
         delete g.itemEffect.iceRoundsLeftV218;
@@ -293,25 +289,6 @@ function useItem(groupId, index) {
       if (result === false || itemCommandSnapshot() === beforeValue)
         return false;
       markItemUsedThisRoundV2177(groupId);
-      context.emit(
-        "ITEM_USED",
-        { type: "group", id: g.groupUid },
-        {
-          seasonId: state.seasonId,
-          itemKey: key,
-          itemInstanceId,
-          chargesBefore,
-          chargesAfter: Number(g.inventory[index]?.charges) || 0,
-        },
-      );
-      context.onCommit((commit) => {
-        for (const fact of ItemImpactFacts.scoreLosses(
-          beforeGroups,
-          state.groups,
-          { actorGroupUid: g.groupUid, itemKey: key, seasonId: state.seasonId },
-        ))
-          commit.emit("ITEM_HIT", fact.aggregate, fact.payload);
-      });
       return true;
     },
   );

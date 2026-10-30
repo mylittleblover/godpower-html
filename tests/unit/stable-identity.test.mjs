@@ -96,34 +96,3 @@ test("fallback identity generation never consumes the gameplay random generator"
   assert.ok(item.startsWith("item-"));
   assert.notEqual(isolated.api.createGroupUid(), group);
 });
-
-test("creates distinct user profile, classroom and student identities", () => {
-  const userProfileId = scope.api.createUserProfileId();
-  const classroomId = scope.api.createClassroomId();
-  const studentUid = scope.api.createStudentUid();
-  assert.match(userProfileId, /^profile-/);
-  assert.match(classroomId, /^classroom-/);
-  assert.match(studentUid, /^student-/);
-  assert.equal(scope.api.isValidUserProfileId(userProfileId), true);
-  assert.equal(scope.api.isValidClassroomId(classroomId), true);
-  assert.equal(scope.api.isValidStudentUid(studentUid), true);
-});
-
-test("assignStudentUids preserves valid IDs, repairs duplicates, and clones input", () => {
-  let id = 0;
-  const input = [
-    { displayName: "A" },
-    { displayName: "B", studentUid: "student-old" },
-    { displayName: "C", studentUid: "student-old" },
-  ];
-  const result = scope.api.assignStudentUids(
-    input,
-    () => `student-test-${++id}`,
-  );
-  assert.deepEqual(
-    result.map((student) => student.studentUid),
-    ["student-test-1", "student-old", "student-test-2"],
-  );
-  assert.equal(input[0].studentUid, undefined);
-  assert.equal(result[0] === input[0], false);
-});

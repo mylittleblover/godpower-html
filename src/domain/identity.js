@@ -35,11 +35,6 @@ const StableIdentity = (() => {
   const createItemInstanceId = () => createUuid("item");
   const createSeasonId = () => createUuid("season");
   const createCommandId = () => createUuid("command");
-  const createUserProfileId = () => createUuid("profile");
-  const createClassroomId = () => createUuid("classroom");
-  const createStudentUid = () => createUuid("student");
-  const createScheduleId = () => createUuid("schedule");
-  const createResourceId = () => createUuid("resource");
 
   function assignGroupUids(groups, idFactory = createGroupUid) {
     if (!Array.isArray(groups)) throw new TypeError("groups must be an array");
@@ -72,64 +67,10 @@ const StableIdentity = (() => {
       isValidGroupUid(value) && value.startsWith("item-"),
     isValidSeasonId: (value) =>
       isValidGroupUid(value) && value.startsWith("season-"),
-    isValidUserProfileId: (value) =>
-      isValidGroupUid(value) && value.startsWith("profile-"),
-    isValidClassroomId: (value) =>
-      isValidGroupUid(value) && value.startsWith("classroom-"),
-    isValidStudentUid: (value) =>
-      isValidGroupUid(value) && value.startsWith("student-"),
     createGroupUid,
     createItemInstanceId,
     createSeasonId,
     createCommandId,
-    createUserProfileId,
-    createClassroomId,
-    createStudentUid,
-    createScheduleId,
-    createResourceId,
     assignGroupUids,
-    assignStudentUids: assignEntityUids(
-      "studentUid",
-      "student-",
-      createStudentUid,
-    ),
   };
-
-  function assignEntityUids(field, prefix, idFactory) {
-    return (items, makeId = idFactory) => {
-      if (!Array.isArray(items)) throw new TypeError("items must be an array");
-      if (typeof makeId !== "function")
-        throw new TypeError("idFactory must be a function");
-      const used = new Set();
-      return items.map((item) => {
-        const copy =
-          item && typeof item === "object" && !Array.isArray(item)
-            ? { ...item }
-            : {};
-        let uid =
-          typeof copy[field] === "string" &&
-          copy[field].startsWith(prefix) &&
-          isValidGroupUid(copy[field]) &&
-          !used.has(copy[field])
-            ? copy[field]
-            : "";
-        for (let attempt = 0; !uid && attempt < 100; attempt++) {
-          const candidate = makeId();
-          if (
-            typeof candidate === "string" &&
-            candidate.startsWith(prefix) &&
-            isValidGroupUid(candidate) &&
-            !used.has(candidate)
-          )
-            uid = candidate;
-        }
-        if (!uid)
-          throw new Error(`Could not produce a unique ${field} identity`);
-        used.add(uid);
-        copy[field] = uid;
-        return copy;
-      });
-    };
-  }
 })();
-globalThis.StableIdentity = StableIdentity;

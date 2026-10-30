@@ -235,51 +235,36 @@ handDrawItem=function(){
     const k=pickItemForGroupV281(live,new Set());
     handItemPendingKey=k;
 
-    const groupUid=live.groupUid;
-    const accepted=runClassroomCommand(`${live.name} 举手奖励抽取 ${ITEM_DEFS[k].name}`,context=>{
-      const current=state.groups.find(x=>x.groupUid===groupUid);
-      if(!current||!eligibleForItems(current)||current.inventory.length>=3)return false;
-      if(!addItemToGroup(current,k))return false;
-      const acquired=current.inventory[current.inventory.length-1];
-      context.emit('ITEM_ACQUIRED',{type:'group',id:current.groupUid},{
-        seasonId:state.seasonId,
-        itemKey:k,
-        itemInstanceId:acquired?.itemInstanceId||null,
-        source:'hand-raise-reward'
-      });
-      return true;
-    },{retainOnPersistenceFailure:false});
-    if(!accepted){cancelHandItemDraw(true);showToast('道具加入失败');renderHandRaise();return}
+    recordHistory(`${live.name} 举手奖励抽取 ${ITEM_DEFS[k].name}`);
 
-    classroomCommands.whenIdle().then(result=>{
-      if(!result?.ok||!result.persisted){
-        v213SuppressReorderAnimation=false;
-        cancelHandItemDraw(true);
-        showToast('道具奖励未能保存，已恢复原状态');
-        renderHandRaise();
-        return;
-      }
-      v213SkipNextReorderAnimation=true;
-      v213SuppressReorderAnimation=true;
-      renderAll();
-      v213SuppressReorderAnimation=false;
+    if(!addItemToGroup(live,k)){
+      cancelHandItemDraw(true);
+      showToast('道具加入失败');
+      renderHandRaise();
+      return;
+    }
 
-      const current=state.groups.find(x=>x.groupUid===groupUid);
-      const slot=Math.max(0,(current?.inventory.length||1)-1);
-      box.innerHTML=`<div class="hand-item-draw-stage v281-horizontal">
-        <div class="hand-draw-head" style="font-weight:950;color:#16a34a">🎁 获得道具</div>
-        <div class="hand-item-capsule reveal">${itemVisual(k)}</div>
-        <div class="hand-draw-copy">
-          <div class="hand-item-draw-name">${ITEM_DEFS[k].name}</div>
-          <div class="hand-item-draw-sub">已放入 ${escapeHtml(current?.name||live.name)} 的${slot===0?'主要道具栏':'次要道具栏 '+slot}</div>
-        </div>
-        <div class="hand-item-result-actions">
-          <button class="btn btn-primary" onclick="handUseNewItem()">🎒 查看道具</button>
-          <button class="btn btn-success" onclick="finishHandItemReward()">✓ 完成</button>
-        </div>
-      </div>`;
-      BattleMotion.enterDrawContent(box.firstElementChild);
-    });
+    state.itemGlobal.totalDraws=(state.itemGlobal.totalDraws||0)+1;
+    saveState();
+    v213SkipNextReorderAnimation=true;
+    v213SuppressReorderAnimation=true;
+    renderAll();
+    v213SuppressReorderAnimation=false;
+
+    const slot=live.inventory.length-1;
+    box.innerHTML=`<div class="hand-item-draw-stage v281-horizontal">
+      <div class="hand-draw-head" style="font-weight:950;color:#16a34a">🎁 获得道具</div>
+      <div class="hand-item-capsule reveal">${itemVisual(k)}</div>
+      <div class="hand-draw-copy">
+        <div class="hand-item-draw-name">${ITEM_DEFS[k].name}</div>
+        <div class="hand-item-draw-sub">已放入 ${escapeHtml(live.name)} 的${slot===0?'主要道具栏':'次要道具栏 '+slot}</div>
+      </div>
+      <div class="hand-item-result-actions">
+        <button class="btn btn-primary" onclick="handUseNewItem()">🎒 查看道具</button>
+        <button class="btn btn-success" onclick="finishHandItemReward()">✓ 完成</button>
+      </div>
+    </div>`;
+    BattleMotion.enterDrawContent(box.firstElementChild);
   }
 
   requestAnimationFrame(frame);

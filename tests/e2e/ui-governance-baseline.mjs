@@ -40,14 +40,7 @@ try {
   );
 
   const views = {};
-  for (const view of [
-    "welcome",
-    "battle",
-    "history",
-    "archives",
-    "plugins",
-    "settings",
-  ]) {
+  for (const view of ["welcome", "battle", "history", "archives", "settings"]) {
     await page.evaluate((value) => switchView(value), view);
     await page.waitForTimeout(250);
     const element = page.locator(`#view-${view}`);
@@ -99,7 +92,6 @@ try {
       "battle.png",
       "history.png",
       "archives.png",
-      "plugins.png",
       "settings.png",
       "picker.png",
       "battle-14.png",

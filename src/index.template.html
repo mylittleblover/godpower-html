@@ -5,15 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>上帝的力量 V@@VERSION@@</title>
 <script>@@SOURCE:ui/contribution-registry.js@@</script>
-<script>@@SOURCE:application/plugin-platform.js@@</script>
-<script>@@SOURCE:infrastructure/plugin-local-repository.js@@</script>
 <script>@@SOURCE:ui/disposable-scope.js@@</script>
 <script>@@SOURCE:ui/themes.js@@</script>
-<script>@@SOURCE:ui/plugin-appearance.js@@</script>
-<script>@@SOURCE:ui/official-marx-theme.js@@</script>
-<script>@@SOURCE:ui/official-miyamoto-plugin.js@@</script>
-<script>@@SOURCE:ui/official-marx-politics-plugin.js@@</script>
-<script>@@SOURCE:ui/plugin-center.js@@</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230f766e%22%2F%3E%3Cpath%20d%3D%22m16%205%203%208%208%203-8%203-3%208-3-8-8-3%208-3Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E">
 
   <style>@@SOURCE:style/00.css@@</style>
@@ -83,11 +76,8 @@
 <style id="battle-motion-style">@@SOURCE:ui/battle-motion.css@@</style>
 <style>@@SOURCE:ui/item-modules.css@@</style>
 <style id="gp-home-redesign">@@SOURCE:ui/welcome-v2.css@@</style>
-<style id="home-dashboard-style">@@SOURCE:ui/home-dashboard.css@@</style>
 <style id="global-tooltip-style">@@SOURCE:ui/tooltips.css@@</style>
 <style id="application-themes">@@SOURCE:ui/themes.css@@</style>
-<style id="plugin-center-style">@@SOURCE:ui/plugin-center.css@@</style>
-<style id="miyamoto-plugin-style">@@SOURCE:ui/miyamoto-plugin.css@@</style>
 </head>
 <body class="modern-flat-v217">
 <script>GodpowerTheme.boot();</script>
@@ -99,7 +89,6 @@
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
-    <button type="button" class="nav-tab" data-view="plugins" onclick="switchView('plugins')">🧩 插件</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
   </div>
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
@@ -123,21 +112,6 @@
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
   <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
-  <section id="classroomRecoveryTools" class="classroom-recovery-tools" hidden aria-labelledby="classroomRecoveryTitle">
-    <strong id="classroomRecoveryTitle">存档恢复</strong>
-    <span>原始存档已保护。先导出损坏原文，再只读扫描可用旧副本；恢复前会显示内容摘要并要求确认。</span>
-    <div class="classroom-recovery-actions">
-      <button id="classroomRecoveryExportRaw" type="button" class="btn btn-warning">导出损坏原文</button>
-      <button id="classroomRecoveryScan" type="button" class="btn btn-primary">扫描可恢复副本</button>
-    </div>
-    <div id="classroomRecoveryStatus" role="status" aria-live="polite"></div>
-    <div id="classroomRecoveryCandidates"></div>
-    <div id="classroomRecoveryPreview" hidden>
-      <p id="classroomRecoveryPreviewText"></p>
-      <button id="classroomRecoveryRestore" type="button" class="btn btn-danger">确认恢复此副本</button>
-      <button id="classroomRecoveryCancel" type="button" class="btn btn-secondary">取消</button>
-    </div>
-  </section>
 </div>
 <div id="view-welcome" class="view active">
   <main class="ui-page gp-home" aria-label="上帝的力量首页">
@@ -145,8 +119,8 @@
       <div class="gp-hero-copy">
         <div class="gp-eyebrow">WELCOME TO YOUR ARENA · 课堂竞技系统</div>
         <h1>课堂竞技，<em>一目了然。</em></h1>
-        <p id="welcomeGreeting" class="gp-greeting" data-plugin-text-key="home.greeting">欢迎回到课堂</p>
-        <p class="gp-hero-description" data-plugin-text-key="home.description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
+        <p id="welcomeGreeting" class="gp-greeting">欢迎回到课堂</p>
+        <p class="gp-hero-description">实时掌握小组积分与赛场动态，让每一次参与都变成看得见的成长。</p>
         <div class="gp-actions">
           <button class="gp-button-primary welcome-enter-btn" type="button" onclick="enterBattleFromWelcome()">进入比赛 <span aria-hidden="true">↗</span></button>
           <button class="gp-button-outline" type="button" id="gpReplayIntro">▷ &nbsp;重播入场动画</button>
@@ -398,19 +372,6 @@
   </div>
 </div>
 
-<div id="view-plugins" class="view">
-  <section class="plugin-center-page">
-    <header class="plugin-center-header">
-      <div><span class="ui-settings-eyebrow">PLUGIN WORKSPACE · 离线扩展</span><h2>插件中心</h2><p>管理扩展、独立工作区与授权范围。</p></div>
-      <div class="plugin-center-actions"><button type="button" class="btn btn-primary" data-plugin-action="import">导入声明式插件</button><input id="pluginManifestFile" type="file" accept="application/json,.json" hidden></div>
-    </header>
-    <div class="plugin-safety-note"><strong>当前安全边界</strong><span>此版本仅接受受限 JSON 声明，不会运行插件 JavaScript；可执行插件代码的隔离沙箱尚未启用。</span></div>
-    <div id="pluginCenterStatus" class="plugin-center-status" role="status" aria-live="polite"></div>
-    <div id="pluginCenterContent" class="plugin-center-grid"></div>
-    <section id="pluginWorkspace" class="plugin-workspace" hidden></section>
-  </section>
-</div>
-
 <div id="pickerModal" class="modal-overlay">
   <div class="modal-box slot-modal ui-function-surface" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
     <div class="picker-layout-v2">
@@ -658,22 +619,9 @@
 
   <script>@@SOURCE:ui/model.js@@</script>
 <script>@@SOURCE:domain/identity.js@@</script>
-<script>@@SOURCE:domain/home-layout.js@@</script>
-<script>@@SOURCE:infrastructure/home-layout-repository.js@@</script>
-<script>@@SOURCE:domain/classroom-roster.js@@</script>
-<script>@@SOURCE:infrastructure/classroom-roster-repository.js@@</script>
-<script>@@SOURCE:ui/classroom-roster-workspace.js@@</script>
-<script>@@SOURCE:ui/classroom-avatar-display.js@@</script>
-<script>@@SOURCE:domain/teaching-schedule.js@@</script>
-<script>@@SOURCE:infrastructure/teaching-schedule-repository.js@@</script>
-<script>@@SOURCE:domain/teaching-resource.js@@</script>
-<script>@@SOURCE:infrastructure/teaching-resource-repository.js@@</script>
-<script>@@SOURCE:ui/teaching-workspace.js@@</script>
-<script>@@SOURCE:ui/teaching-resource-workspace.js@@</script>
 <script>@@SOURCE:domain/competition/ranking.js@@</script>
 <script>@@SOURCE:domain/competition/score-adjustments.js@@</script>
 <script>@@SOURCE:domain/competition/rules.js@@</script>
-<script>@@SOURCE:domain/competition/phase.js@@</script>
 <script>@@SOURCE:infrastructure/legacy/classroom-repository.js@@</script>
 <script>@@SOURCE:infrastructure/indexeddb/repository.js@@</script>
 <script>@@SOURCE:infrastructure/legacy/schema-migrations.js@@</script>
@@ -875,7 +823,6 @@
 <script>@@SOURCE:ui/render.js@@</script>
 <script>@@SOURCE:items/catalog.js@@</script>
 <script>@@SOURCE:core/item-modules.js@@</script>
-<script>@@SOURCE:domain/items/impact-facts.js@@</script>
 <script>@@SOURCE:domain/items/targets.js@@</script>
 <script>@@SOURCE:items/operation.js@@</script>
 <script>@@SOURCE:items/round-effects.js@@</script>
@@ -888,7 +835,6 @@
 <script>@@SOURCE:application/answer-commands.js@@</script>
 <script>@@SOURCE:application/manual-score-commands.js@@</script>
 <script>@@SOURCE:application/legacy-classroom-adapter.js@@</script>
-<script>@@SOURCE:ui/classroom-recovery.js@@</script>
 <script>@@SOURCE:ui/classroom-feedback.js@@</script>
 <script>@@SOURCE:ui/battle-motion.js@@</script>
 <script>@@SOURCE:ui/item-modules.js@@</script>
@@ -896,7 +842,6 @@
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
-<script>@@SOURCE:ui/home-dashboard.js@@</script>
 <script>@@SOURCE:core/picker-bridge.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>
 <script>@@SOURCE:ui/electron-windows.js@@</script>

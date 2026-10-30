@@ -130,92 +130,6 @@ body {
   outline: 2px solid #ffcfb5;
   outline-offset: 1px;
 }
-
-/* Optional roster avatars occupy the original number badge footprint. */
-body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
-  width: 40px !important;
-  height: 45px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important;
-  gap: 1px !important;
-  overflow: visible !important;
-  color: var(--group-color) !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  border-radius: 0 !important;
-  font-size: 10px !important;
-}
-.v213-group-avatar-stack {
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1px;
-  overflow: hidden;
-  border: 1.5px solid var(--group-color, #78909c);
-  border-radius: 8px;
-  background: #fff;
-}
-.v213-group-avatar-stack img {
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  object-fit: cover;
-}
-.v213-group-avatar-stack.count-1 img {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-}
-.v213-group-number-below-avatar {
-  height: 12px;
-  line-height: 12px;
-  font-size: 10px;
-  font-weight: 950;
-  font-variant-numeric: tabular-nums;
-  color: var(--group-color, #607d8b);
-}
-.picker-avatar-reel-content {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  max-width: 100%;
-}
-.picker-avatar-reel-content img {
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
-  object-fit: cover;
-  border: 3px solid rgba(255, 255, 255, 0.82);
-  border-radius: 50%;
-  box-shadow: 0 5px 16px rgba(4, 37, 33, 0.22);
-}
-.picker-avatar-reel-content > span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .v213-group-avatar-stack img {
-    animation: roster-avatar-arrive 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-  @keyframes roster-avatar-arrive {
-    from {
-      opacity: 0.45;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-}
 /* The same palette, with content-specific structures retained for each window. */
 .ui-function-surface,
 .item-draw-board,
@@ -634,9 +548,6 @@ body.modern-flat-v217 {
   background: var(--theme-tone-f1f9f2, #f1f9f2);
 }
 .ui-slot-stage .slot-reel-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   padding: 8px;
   text-align: center;

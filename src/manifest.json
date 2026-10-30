@@ -7,47 +7,12 @@
     },
     {
       "type": "script",
-      "path": "application/plugin-platform.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/plugin-local-repository.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
       "path": "ui/disposable-scope.js",
       "attributes": ""
     },
     {
       "type": "script",
       "path": "ui/themes.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/plugin-appearance.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/official-marx-theme.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/official-miyamoto-plugin.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/official-marx-politics-plugin.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/plugin-center.js",
       "attributes": ""
     },
     {
@@ -187,11 +152,6 @@
     },
     {
       "type": "style",
-      "path": "ui/home-dashboard.css",
-      "attributes": " id=\"home-dashboard-style\""
-    },
-    {
-      "type": "style",
       "path": "ui/tooltips.css",
       "attributes": " id=\"global-tooltip-style\""
     },
@@ -201,16 +161,6 @@
       "attributes": " id=\"application-themes\""
     },
     {
-      "type": "style",
-      "path": "ui/plugin-center.css",
-      "attributes": " id=\"plugin-center-style\""
-    },
-    {
-      "type": "style",
-      "path": "ui/miyamoto-plugin.css",
-      "attributes": " id=\"miyamoto-plugin-style\""
-    },
-    {
       "type": "script",
       "path": "ui/model.js",
       "attributes": ""
@@ -218,66 +168,6 @@
     {
       "type": "script",
       "path": "domain/identity.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "domain/home-layout.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/home-layout-repository.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "domain/classroom-roster.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/classroom-roster-repository.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/classroom-roster-workspace.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/classroom-avatar-display.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "domain/teaching-schedule.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/teaching-schedule-repository.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "domain/teaching-resource.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/teaching-resource-repository.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/teaching-workspace.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/teaching-resource-workspace.js",
       "attributes": ""
     },
     {
@@ -293,11 +183,6 @@
     {
       "type": "script",
       "path": "domain/competition/rules.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "domain/competition/phase.js",
       "attributes": ""
     },
     {
@@ -642,11 +527,6 @@
     },
     {
       "type": "script",
-      "path": "domain/items/impact-facts.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
       "path": "domain/items/targets.js",
       "attributes": ""
     },
@@ -707,11 +587,6 @@
     },
     {
       "type": "script",
-      "path": "ui/classroom-recovery.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
       "path": "ui/classroom-feedback.js",
       "attributes": ""
     },
@@ -743,11 +618,6 @@
     {
       "type": "script",
       "path": "ui/welcome-v2.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "ui/home-dashboard.js",
       "attributes": ""
     },
     {

@@ -31,12 +31,12 @@ try {
     switchView("settings");
     DesktopUI.selectSettings("items");
   });
-  await page.waitForSelector(".miyamoto-plugin-workspace");
   assert.equal(await page.locator(".im-settings").count(), 1);
-  assert.equal(await page.locator('[data-category="items"]').count(), 0);
   assert.equal(
-    await page.locator("#view-settings #settingsV26_items").isVisible(),
-    false,
+    await page
+      .locator('[data-category-panel="items"] .ui-settings-title')
+      .count(),
+    1,
   );
   await page.locator('[data-item-key="coin"]').click();
   await page.locator('[name="coin.draw.weight"]').fill("2");
@@ -171,6 +171,9 @@ try {
     ItemModules.update(ItemModules.defaults());
     switchView("settings");
     DesktopUI.selectSettings("items");
+    ItemModuleSettings.mount(
+      document.querySelector('[data-category-panel="items"]'),
+    );
   });
   await page.waitForFunction(() => DesktopUI.getSettingsMotionCount() === 0);
   assert.equal(await page.locator(".im-settings").isVisible(), true);
@@ -179,10 +182,7 @@ try {
     true,
   );
   await mkdir("artifacts/item-modules", { recursive: true });
-  await page.screenshot({
-    path: "artifacts/item-modules/plugin-workspace.png",
-    fullPage: true,
-  });
+  await page.screenshot({ path: "artifacts/item-modules/settings.png" });
   await writeFile(
     "artifacts/item-modules/result.json",
     JSON.stringify(

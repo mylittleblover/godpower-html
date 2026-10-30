@@ -1,6 +1,6 @@
 # 数据结构与兼容策略
 
-Schema Version 为 2，应用版本 3.0.43。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。主快照损坏时不会自动覆盖；GP-016 恢复面板可原样导出损坏文本，只读扫描旧副本并预览小组数和积分差异，明确确认后才走课堂导入事务。成就账本仍随课堂快照持久化；3.0.43 对实际生效的道具使用记录 `ITEM_USED`，事件只有在命令成功保存后才形成统计事实，撤销会由快照恢复回退，不改变现有存档主结构及 Schema 版本。
+Schema Version 为 2，应用版本 3.0.24。`godpower_state_v2` 为当前主课堂快照；版本1及无 schemaVersion 的 V2 JSON 经过显式迁移后导入，未来未知版本拒绝。旧 `godpower_state_v1` 保留迁移前原文。原始文件 SHA-256：`5beddb36a1abd2746e7c63f29916a3bda355ede09bc8987800c80a4e1c20ed90`。
 
 | 字段                                                    | 类型／默认值                                                   | 持久化与规则                                                                                                                                     |
 | ------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -18,11 +18,11 @@ Schema Version 为 2，应用版本 3.0.43。`godpower_state_v2` 为当前主课
 | booShield / booRoundsLeftV218                           | 数值／0                                                        | 后者已加入规范化，保留幽灵三次答题时效                                                                                                           |
 | itemUsedThisRound                                       | 布尔／false                                                    | 新格式恢复；新题重置                                                                                                                             |
 | roundItemContinuationKeyV218                            | 字符串／空                                                     | 保留三重道具同题续用身份                                                                                                                         |
-| picker                                                  | mode/antiRepeat 和三类 ID/key 数组                             | mode 只允许 individual/group/two_tier；数组最多10000项且只接受有限长度字符串或安全整数                                                                 |
-| itemGlobal                                              | 对象                                                           | 计数、冷却序号为非负安全整数；点名/举手历史限制数组大小并验证时间、文本、小组ID和布尔结果；两版抽取冷却对象的嵌套序号均验证                           |
+| picker                                                  | mode/antiRepeat 和三类 ID/key 数组                             | mode 只允许 individual/group/two_tier；已抽池耗尽按原规则重置                                                                                    |
+| itemGlobal                                              | 对象                                                           | blooperUntil/totalDraws/handRaiseTotal/pkTotal 非负安全整数；pickerHistory/handRaiseHistory 数组；两版抽取冷却对象保留                           |
 | itemGlobal.customIcons                                  | key → raster data URI                                          | 只允许 PNG/JPEG/WebP/GIF base64；SVG、网络 URL、属性注入拒绝；原图片保留                                                                         |
 | round                                                   | roundActive/evaluated/correctAns/hasStartedOnce/lastRoundAllIn | 启动在所有旧适配器就绪后恢复，避免先重置再覆盖                                                                                                   |
-| history                                                 | 至多40节点                                                     | groups、picker、回合字段、itemGlobal 操作前快照；校验每节点嵌套状态且拒绝多层递归；不存整套配置、音频                                                        |
+| history                                                 | 至多40节点                                                     | groups、picker、回合字段、itemGlobal 操作前快照；导入验证每节点 group；不存整套配置、音频                                                        |
 | firstHandDrawPending                                    | 布尔／true                                                     | 主存档保存首次举手特殊抽取状态                                                                                                                   |
 | adminPin                                                | 字符串／原有1234                                               | 本地防误触配置，可读可改，绝不是远程身份认证                                                                                                     |
 | masterVolume / sfxVolume / zoomLevel                    | 数值／原默认值                                                 | 迁移钳制0–1／0–1／0.4–2                                                                                                                          |
@@ -153,35 +153,6 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 完整迁移计划对缺失的旧身份使用来源hash和有序序号生成稳定ID，保留已有身份；重复预检不生成不同赛季/组/道具ID。实际完成时间记录在目标迁移回执，不伪造历史发生时间。来源不支持的对象类型/循环或非有限数值会阻止预检，不按空对象计算hash。
 
 目标校验逐条比较snapshot、archive、resource的完整hash，并检查receipt计数；音频ArrayBuffer与壁纸Blob参与字节校验。校验失败只报告暂存副本无效，原存储和当前课堂不切换。
-
-## 3.0.35 本地教学上下文
-
-以下数据独立于 `godpower_state_v2`，不参与计分、回合、道具或封神榜快照。
-
-| 存储键                                 | Schema                                                              | 主要字段                                                                                                                                   | 默认与恢复                                                                                                        |
-| -------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `godpower_teaching_schedule_v1`        | envelope `schemaVersion:1`，`revision >= 1`；文档 `schemaVersion:1` | `entries[]`: `scheduleId`, `userProfileId`, `classroomId`, `weekday`(0–6), `startMinute`(0–1439), `endMinute`(1–1440), `subjectId`, `note` | 键缺失时是空课程表 revision 0；profile同一星期课程时间段不得重叠；跨午夜范围拒绝；写入CAS、读回验证和原字节回滚。 |
-| `godpower_active_classroom_context_v1` | `schemaVersion:1`                                                   | `userProfileId`, `classroomId`, `sourceScheduleId`                                                                                         | 必须教师显式选择当前课表建议后写入；只驱动名单工作区本机选择；无效值不应用到比赛。                                |
-
-`TeachingSchedule.findCurrentLesson`使用浏览器本机星期/分钟，区间为`startMinute <= now < endMinute`。时钟只用于显示建议；没有自动切换比赛状态的定时器。
-
-## 3.0.37 名单应用与成员顺序
-
-名单来源仍存放于 `godpower_classroom_roster_v1`，正式比赛仍只持久化在既有 `godpower_state_v2`。确认应用时，事务目标字段仅为每个稳定 `groupUid` 对应的 `groups[].members: string[]`；字段顺序即 roster assignment 的学生顺序，成员名称相同也保留为多个数组项。`normalizeGroup` 保留姓名数组顺序与重复值。个人参与模式、缺失/未知小组身份、陈旧预览、无活动小组及未保存的名单均拒绝应用。应用操作记录现有历史快照并通过统一课堂命令保存；主存档没有持久化确认时回滚内存和历史。名单仓库不随应用写入，因此没有双键部分提交。点名 `pickedStudentKeys` 新条目用 `groupId__memberIndex__name` 区分同名成员；读取筛选时仍检查旧 `groupId__name` 键，以兼容此前防重复记录。
-
-## 3.0.38 学生头像引用
-
-学生 `avatarResourceId` 指向 `godpower_teaching_resources_v1` 中资源记录的 `resourceId`；资源元数据的 `subjectId` 固定为 `student-avatar`，媒体限定 PNG/JPEG/WebP、每个文件最多 2 MiB，并校验相应二进制签名。图片 Blob 继续由 IndexedDB `resourceBlobs` 保存；学生名单只保存资源 ID，不把二进制塞入 localStorage。头像替换前检查 profile/classroom、名单 revision 与原始字节；先添加并验证资源，再 CAS 保存名单引用，失败时删除本次新建孤立资源。头像清除/替换不会删除旧文件，待后续引用计数/清理工作。
-
-## 3.0.39 名单/头像联合备份格式
-
-设置页“导出名单”生成 JSON 容器：`format="godpower-classroom-roster-backup"`、`schemaVersion=1`、`exportedAt`、`rosterData` 与 `avatars[]`。头像记录保留教学资源元数据字段，并增加 `bytesBase64`；每图≤2 MiB，解码后总量≤50 MiB，导入容器≤70 MiB。导入支持该容器与旧版原始 roster 文档。联合包必须完整覆盖 roster 中被引用的头像 ID，不能包含重复/未引用记录；头像 `profileId`/`classroomId` 必须匹配名单身份，且扩展名、MIME、二进制签名、SHA-256 与声明大小都必须匹配。ID 同内容资源可复用；ID 冲突内容不同则创建新 `resourceId` 并重映射 roster，跨课堂或其他资源类型的同摘要冲突拒绝。IndexedDB 新增头像通过资源批次预检、事务与读回验证；名单再通过 revision CAS 写入。如果第二阶段失败，只回滚本次创建的头像，不删除已存在资源或修改原名单。
-
-## 3.0.36 本地教学资源（F2）
-
-数据库：`godpower_teaching_resources_v1`，schema version 1。`resources` object store 保存元数据，`resourceBlobs` 保存 `{resourceId, blob}`；两者以稳定 resourceId 关联，写入/删除同一 IndexedDB 事务执行。SHA-256 唯一索引用于重复内容拒绝。列表读取只加载元数据，预览、下载或备份时才读取 Blob。
-
-元数据字段：`resourceId`（resource- 稳定 ID）、`profileId`、`classroomId`、`subjectId`、`title`、`tags[]`、`fileName`（仅基本文件名）、`mimeType`、`byteSize`、`sha256`、`importedAt`、`schemaVersion:1`。允许 PDF、TXT、JSON、PNG、JPEG、WebP，单文件上限 20 MiB。类型扩展名和 MIME 必须匹配；JSON 必须可解析；文本按 UTF-8 解码；图像和 PDF 检查基本签名，PDF 中可见的 JavaScript/Launch/OpenAction 等活动操作会被拒绝，并且 PDF 只提供元信息与下载、不嵌入 DOM。JSON 备份格式为 `godpower-teaching-resources`/版本1，包含每条记录元数据与 Base64 原始字节；恢复逐条校验身份、大小、签名和 SHA-256，批次失败不写入任何新记录。IndexedDB 不可用、配额不足或读回失败会显示错误，不触碰名单/比赛存储。
 
 3.0.4只整理判题职责和共享基础计算，没有改变Schema2字段、旧存档转换或道具平衡参数。
 

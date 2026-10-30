@@ -24,13 +24,8 @@
     },
     {
       "theme": "classic",
-      "view": "plugins",
-      "checkboxes": 0
-    },
-    {
-      "theme": "classic",
       "view": "settings",
-      "checkboxes": 13
+      "checkboxes": 15
     },
     {
       "theme": "marx",
@@ -54,13 +49,8 @@
     },
     {
       "theme": "marx",
-      "view": "plugins",
-      "checkboxes": 0
-    },
-    {
-      "theme": "marx",
       "view": "settings",
-      "checkboxes": 13
+      "checkboxes": 15
     }
   ],
   "controls": [
@@ -68,6 +58,15 @@
       "theme": "classic",
       "category": "rules",
       "controls": [
+        {
+          "id": "communismModeToggle",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        },
         {
           "id": "cfgSaveAllIn",
           "kind": "shared-track",
@@ -155,6 +154,21 @@
           "width": 52,
           "height": 28,
           "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "classic",
+      "category": "items",
+      "controls": [
+        {
+          "id": "green.draw.enabled",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
           "checked": true,
           "disabled": false
         }
@@ -226,6 +240,15 @@
       "category": "rules",
       "controls": [
         {
+          "id": "communismModeToggle",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
+          "checked": true,
+          "disabled": false
+        },
+        {
           "id": "cfgSaveAllIn",
           "kind": "shared-track",
           "width": 52,
@@ -312,6 +335,21 @@
           "width": 52,
           "height": 28,
           "appearance": "none",
+          "checked": true,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "theme": "marx",
+      "category": "items",
+      "controls": [
+        {
+          "id": "green.draw.enabled",
+          "kind": "shared-track",
+          "width": 52,
+          "height": 28,
+          "appearance": "auto",
           "checked": true,
           "disabled": false
         }

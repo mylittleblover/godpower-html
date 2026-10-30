@@ -15,19 +15,14 @@ export function classifyTrackedFiles(entries) {
   return summary;
 }
 
-export function mergeFileLists(tracked, untracked) {
-  return [...new Set([...tracked, ...untracked])].sort();
-}
-
 export function findCommentOnlyScripts(entries) {
   return entries
     .filter(({ path }) => /^src\/script\/\d+\.js$/.test(path))
-    .filter(
-      ({ content }) =>
-        !content
-          .replace(/\/\*[\s\S]*?\*\//g, "")
-          .replace(/^\s*\/\/[^\n]*$/gm, "")
-          .trim(),
+    .filter(({ content }) =>
+      !content
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/^\s*\/\/[^\n]*$/gm, "")
+        .trim(),
     )
     .map(({ path }) => path)
     .sort();
@@ -35,9 +30,7 @@ export function findCommentOnlyScripts(entries) {
 
 export function manifestIssues(template, manifest, availablePaths) {
   const blocks = [
-    ...template.matchAll(
-      /<(script|style)\b([^>]*)>\s*@@SOURCE:([^@]+)@@\s*<\/\1>/g,
-    ),
+    ...template.matchAll(/<(script|style)\b([^>]*)>\s*@@SOURCE:([^@]+)@@\s*<\/\1>/g),
   ].map(([, type, attributes, path]) => ({ type, path, attributes }));
   const resources = [
     ...new Set(
@@ -51,8 +44,7 @@ export function manifestIssues(template, manifest, availablePaths) {
   if (resources.some((path) => !declaredResources.includes(path)))
     issues.push("Resource manifest drift");
   for (const { path } of blocks)
-    if (!availablePaths.has("src/" + path))
-      issues.push("Missing source: " + path);
+    if (!availablePaths.has("src/" + path)) issues.push("Missing source: " + path);
   for (const path of declaredResources)
     if (!availablePaths.has("src/resources/" + path))
       issues.push("Missing resource: " + path);
@@ -60,19 +52,11 @@ export function manifestIssues(template, manifest, availablePaths) {
 }
 
 function inspect() {
-  const tracked = execFileSync("git", ["ls-files", "--cached", "-z"], {
+  const paths = execFileSync("git", ["ls-files", "-z"], {
     encoding: "utf8",
   })
     .split("\0")
     .filter(Boolean);
-  const untracked = execFileSync(
-    "git",
-    ["ls-files", "--others", "--exclude-standard", "-z"],
-    { encoding: "utf8" },
-  )
-    .split("\0")
-    .filter(Boolean);
-  const paths = mergeFileLists(tracked, untracked);
   const entries = paths
     .filter((path) => existsSync(path))
     .map((path) => ({ path, bytes: statSync(path).size }));
@@ -86,7 +70,7 @@ function inspect() {
     present,
   );
   const result = {
-    inspectedFiles: entries.length,
+    trackedFiles: entries.length,
     categories: classifyTrackedFiles(entries),
     commentOnlyLegacyScripts: findCommentOnlyScripts(source),
     sourceManifestIssues: issues,
@@ -96,8 +80,5 @@ function inspect() {
   if (issues.length) process.exitCode = 1;
 }
 
-if (
-  process.argv[1] &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-)
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url))
   inspect();

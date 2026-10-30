@@ -136,7 +136,7 @@ function normalizeGroup(raw, index = 0) {
   const color = /^#[0-9a-fA-F]{6}$/.test(String(source.color || ''))
     ? String(source.color) : DEFAULT_COLORS[index % DEFAULT_COLORS.length];
   const members = Array.isArray(source.members)
-    ? source.members.map(v => String(v ?? '').trim()).filter(Boolean)
+    ? Array.from(new Set(source.members.map(v => String(v ?? '').trim()).filter(Boolean)))
     : [];
   return {
     id,
@@ -2463,10 +2463,10 @@ function getAvailablePool() {
     }
     let students = [];
     grps.forEach(g => {
-      (g.members || []).forEach((m, index) => students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` }));
+      (g.members || []).forEach(m => students.push({ group: g, memberName: m, key: g.id + '__' + m }));
     });
     if (state.picker.antiRepeat) {
-      const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
+      const filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key));
       if (filtered.length === 0 && students.length > 0) {
         state.picker.pickedStudentKeys = [];
         return { type: 'students', list: students, total: students.length };
@@ -2478,12 +2478,12 @@ function getAvailablePool() {
 
   let students = [];
   state.groups.forEach(g => {
-      (g.members || []).forEach((m, index) => {
-      students.push({ group: g, memberName: m, memberIndex: index, key: `${g.id}__${index}__${m}`, legacyKey: `${g.id}__${m}` });
+    (g.members || []).forEach(m => {
+      students.push({ group: g, memberName: m, key: `${g.id}__${m}` });
     });
   });
   if (state.picker.antiRepeat) {
-    let filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key) && !state.picker.pickedStudentKeys.includes(s.legacyKey));
+    let filtered = students.filter(s => !state.picker.pickedStudentKeys.includes(s.key));
     if (filtered.length === 0 && students.length > 0) {
       state.picker.pickedStudentKeys = [];
       filtered = students;
@@ -2516,7 +2516,6 @@ async function startSlotSpin() {
     themeAlert('奖池空了');
     return;
   }
-  await window.ClassroomAvatarDisplay?.prepare(state.groups);
   await getAudioContext();
   if(slotEngine.isSpinning||(uiGeneration!==null&&!DesktopUI.isPickerCurrent(uiGeneration)))return false;
   startRollLoop();
@@ -2537,7 +2536,7 @@ async function startSlotSpin() {
   const allGroups = state.groups;
   let allStudents = [];
   state.groups.forEach(g => {
-    (g.members || []).forEach((m, memberIndex) => allStudents.push({ group: g, name: m, memberIndex }));
+    (g.members || []).forEach(m => allStudents.push({ group: g, name: m }));
   });
   if (allGroups.length === 0) allGroups.push({ name: '默认组' });
   if (allStudents.length === 0) allStudents = [{ group: { name: '默认组' }, name: '学生' }];
@@ -2563,7 +2562,7 @@ async function startSlotSpin() {
   if (reelGrpText) {
     slotEngine.timerGroup = setInterval(() => {
       const randomGrp = reelGrps[Math.floor(Math.random() * reelGrps.length)];
-      window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, randomGrp);
+      reelGrpText.innerText = randomGrp.name;
     }, 70);
   }
 
@@ -2571,8 +2570,7 @@ async function startSlotSpin() {
   if (reelStuText) {
     slotEngine.timerStudent = setInterval(() => {
       const randomStu = reelStus[Math.floor(Math.random() * reelStus.length)];
-      window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, randomStu.group, randomStu.name, randomStu.memberIndex);
-      if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.textContent = randomStu.name;
+      reelStuText.innerHTML = studentLabelHTMLV218(randomStu.name, randomStu.group);
     }, 50);
   }
   ClassroomFeedback.startLive();
@@ -2598,26 +2596,20 @@ function stopSlotSpin() {
   const resultHeadline = document.getElementById('resultHeadline');
 
   if (state.picker.mode === 'group') {
-    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win);
-    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelGrpText.textContent = win.name;
+    reelGrpText.innerText = win.name;
     badge.innerText = `小组抽签`;
     resultHeadline.innerText = `抽中：${win.name}`;
     if (state.picker.antiRepeat) state.picker.pickedGroupIds.push(win.id);
   } else if (state.picker.mode === 'two_tier') {
-    window.ClassroomAvatarDisplay?.renderRaffleReel(reelGrpText, win.group);
-    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
-    if (typeof window.ClassroomAvatarDisplay === 'undefined') {
-      reelGrpText.textContent = win.group.name;
-      reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
-    }
+    reelGrpText.innerText = win.group.name;
+    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
     badge.innerText = `双层联动：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) {
       state.picker.pickedStudentKeys.push(win.key);
     }
   } else {
-    window.ClassroomAvatarDisplay?.renderRaffleReel(reelStuText, win.group, win.memberName, win.memberIndex);
-    if (typeof window.ClassroomAvatarDisplay === 'undefined') reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
+    reelStuText.innerHTML = studentLabelHTMLV218(win.memberName,win.group);
     badge.innerText = `所属：${win.group.name}`;
     resultHeadline.innerHTML = `抽中：${studentLabelHTMLV218(win.memberName,win.group)} <span style="color:#64748b">(${escapeHtml(win.group.name)})</span>`;
     if (state.picker.antiRepeat) state.picker.pickedStudentKeys.push(win.key);
@@ -3092,7 +3084,7 @@ function escapeHtml(str) {
 
 
 /* ================================================================
- * v3：六个core view（含插件中心）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
+ * v3：五页面 SPA 视图导航 + 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
@@ -3111,10 +3103,7 @@ function switchView(name) {
   GodpowerTheme.cancel();
   window.GodpowerTooltips?.cancel();
   const route = window.GodPowerPageShell?.resolvePage(name);
-  if (route && !route.core && String(name).startsWith('plugins/')) {
-    window.GodPowerPluginCenter?.showRoute(name);
-    name = 'plugins';
-  } else if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
+  if (!VIEW_NAMES.includes(name) || !route?.core) name = 'welcome';
   ensureAudioUnlocked();
   currentView = name;
   if(typeof DesktopUI!=='undefined')DesktopUI.viewChanged(name);
@@ -3127,7 +3116,6 @@ function switchView(name) {
   if (name === 'welcome') { renderWelcomePage(); updateWelcomeTrackIfNeeded(); }
   if (name === 'history') renderHistoryList();
   if (name === 'archives') renderSettlementHistoryList();
-  if (name === 'plugins') window.GodPowerPluginCenter?.render();
   if (name === 'settings') { syncSettingsControls(); renderBgmSlotList(); renderFxSlotList(); renderBgmEngineConsole(); }
   if (name === 'battle') {
     menuFadeOut();
@@ -3150,7 +3138,6 @@ function getMenuTrackKeyForView(name) {
   if (name === 'welcome') return getWelcomeTrackKey();
   if (name === 'history') return 'aux_history';
   if (name === 'archives') return 'aux_archives';
-  if (name === 'plugins') return 'aux_settings';
   if (name === 'settings') return 'aux_settings';
   return null;
 }
@@ -4050,9 +4037,6 @@ const ITEM_DEFS = {
   boomerang_flower:{name:'回旋镖花',icon:'🪃',kind:'attack',charges:3,slots:1,desc:'3 次回旋镖。每次命中当前排名紧邻自己的上一组和下一组，各扣当前积分 1/5。'}
 };
 let ITEM_KEYS = Object.keys(ITEM_DEFS);
-globalThis.GodpowerItemCatalog = Object.freeze({
-  list: () => ITEM_KEYS.map(key => Object.freeze({ key, name: ITEM_DEFS[key].name, desc: ITEM_DEFS[key].desc, kind: ITEM_DEFS[key].kind, charges: ITEM_DEFS[key].charges })),
-});
 const ITEM_DEFENSE_KEYS = new Set(['green','triple_green','red','triple_red','banana','triple_banana','horn']);
 let activeItemGroupId = null, activeItemTab = 'detail', itemDrawBusy = false, bulletTimer = null;
 
@@ -4920,7 +4904,7 @@ const _v26HandDraw=handDrawItem;handDrawItem=function(){if(!handItemDrawTimer)st
 /* 4. 顶部导航 + 底部主要功能按钮图标自定义 */
 const UI_ICON_TARGETS=[
  ['nav_welcome','欢迎','[data-view="welcome"]','🏠'],['nav_battle','比赛','[data-view="battle"]','⚔️'],
- ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_plugins','插件','[data-view="plugins"]','🧩'],['nav_settings','设置','[data-view="settings"]','⚙️'],
+ ['nav_history','历史','[data-view="history"]','📜'],['nav_archives','档案','[data-view="archives"]','🗄️'],['nav_settings','设置','[data-view="settings"]','⚙️'],
  ['dock_item','全局道具抽取','button[onclick="globalItemDraw()"]','🎁'],['dock_hand','举手办案处','button[onclick="openHandRaise()"]','✋'],
  ['dock_picker','点名抽签','button[onclick="openPickerModal()"]','🎰'],['dock_about','关于','button[onclick="openAbout()"]','ⓘ'],
  ['dock_search','人肉搜索（文明版）','button[onclick="openMemberSearchModal()"]','😎'],['dock_undo','撤销','button[onclick="undoLast()"]','↩️'],
@@ -5608,8 +5592,26 @@ if(typeof openItemWindow==='function'){
 
 /* Add the switch to Function Settings using the same setting-card language. */
 function installCommunismModeSetting(){
-  /* UI moved to the built-in gameplay plugin; legacy key remains authoritative. */
-  document.getElementById('communismModeSetting')?.remove();
+  let card=document.getElementById('communismModeSetting');
+  const pane=document.getElementById('settingsV26_function');
+  if(!pane)return;
+  if(!card){
+    card=document.createElement('div');
+    card.id='communismModeSetting';
+    card.className='setting-card setting-row ui-rule-card';
+    card.innerHTML=`<div class="ui-rule-copy">
+        <label class="ui-rule-title" for="communismModeToggle">☭ 共产主义模式</label>
+        <div class="setting-note">道具功能总开关。关闭后，道具槽、道具抽取、道具管理、道具百科和相关入口都会隐藏；已有道具不会被删除。</div>
+      </div>
+      <label class="v292-switch" title="共产主义模式">
+        <input id="communismModeToggle" type="checkbox" onchange="setCommunismMode(this.checked)">
+        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
+      </label>`;
+  }
+  /* 必须属于“功能设置”pane，而不是 tabs 与 pane 之间的公共区域。 */
+  if(card.parentElement!==pane) pane.prepend(card);
+  const cb=card.querySelector('#communismModeToggle');
+  if(cb)cb.checked=isCommunismMode();
 }
 window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{
   installCommunismModeSetting();

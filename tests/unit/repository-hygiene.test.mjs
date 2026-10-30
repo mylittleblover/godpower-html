@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 import {
   classifyTrackedFiles,
   findCommentOnlyScripts,
-  mergeFileLists,
   manifestIssues,
 } from "../../scripts/repo-hygiene.mjs";
 
@@ -49,11 +48,7 @@ test("checks source and resource references without a fixed legacy block count",
   assert.deepEqual(manifestIssues(template, manifest, paths), []);
   // Original assets can be referenced by an embedded source block, not the template.
   assert.deepEqual(
-    manifestIssues(
-      template.replace("@@RESOURCE:asset-000.txt@@", ""),
-      manifest,
-      paths,
-    ),
+    manifestIssues(template.replace("@@RESOURCE:asset-000.txt@@", ""), manifest, paths),
     [],
   );
   paths.delete("src/script/01.js");
@@ -65,17 +60,4 @@ test("checks source and resource references without a fixed legacy block count",
     manifestIssues(template, { ...manifest, resources: [] }, paths).join("\n"),
     /Resource manifest drift/,
   );
-});
-
-test("includes new non-ignored worktree files when checking the source manifest", () => {
-  const paths = mergeFileLists(
-    ["src/index.template.html", "src/script/00.js"],
-    ["src/domain/new-module.js", "src/domain/new-module.js", "scratch.tmp"],
-  );
-  assert.deepEqual(paths, [
-    "scratch.tmp",
-    "src/domain/new-module.js",
-    "src/index.template.html",
-    "src/script/00.js",
-  ]);
 });

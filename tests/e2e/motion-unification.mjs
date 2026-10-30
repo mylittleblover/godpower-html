@@ -67,34 +67,14 @@ try {
       return a;
     };
   });
-  await test("All core pages produce layered, cancellable actual WAAPI entry animations", async () => {
+  await test("All five pages produce layered, cancellable actual WAAPI entry animations", async () => {
     const evidence = [];
-    await p.evaluate(() => switchView("battle"));
-    await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
-    for (const v of [
-      "welcome",
-      "battle",
-      "history",
-      "archives",
-      "plugins",
-      "settings",
-    ]) {
+    for (const v of ["welcome", "battle", "history", "archives", "settings"]) {
       await p.evaluate((v) => {
         motionProbe = [];
         switchView(v);
       }, v);
-      await p
-        .waitForFunction(() => motionProbe.length > 0, { timeout: 3000 })
-        .catch(() => {
-          return p
-            .locator(".view.active")
-            .getAttribute("id")
-            .then((active) => {
-              throw new Error(
-                `No captured WAAPI entry for ${v}; active=${active}`,
-              );
-            });
-        });
+      await p.waitForFunction(() => motionProbe.length > 0);
       const probe = await p.evaluate(() => motionProbe);
       assert.ok(probe.some((x) => x.frames.some((f) => f.opacity < 1)));
       evidence.push({ view: v, count: probe.length });
@@ -147,7 +127,7 @@ try {
       await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
       return probe;
     });
-  await test("Daily knowledge and seven settings disclosure groups animate open/close, keyboard and rapid interruption", async () => {
+  await test("Daily knowledge and all eight settings disclosure groups animate open/close, keyboard and rapid interruption", async () => {
     await p.evaluate(() => switchView("welcome"));
     await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
     const knowledge = p.locator("#uiDailyGrid details").first();
@@ -162,7 +142,9 @@ try {
       ["appearance", "uiSettingsButtonIcons"],
       ["sound", "uiSettingsMusic"],
       ["sound", "uiSettingsBaseFx"],
+      ["sound", "uiSettingsItemFx"],
       ["sound", "uiAudioTransfer"],
+      ["items", "uiSettingsItemLibrary"],
       ["welcome", "uiSettingsBank"],
       ["data", "uiSettingsDanger"],
     ];
@@ -178,13 +160,6 @@ try {
       await p.waitForFunction(() => DesktopUI.getDisclosureMotionCount() === 0);
       assert.equal(await d.evaluate((e) => e.open), false);
     }
-    await p.evaluate(() =>
-      switchView("plugins/official.miyamotos-power/items"),
-    );
-    await p.waitForSelector(".miyamoto-plugin-workspace");
-    assert.equal(await p.locator(".im-settings").count(), 1);
-    assert.equal(await p.locator("#itemFxSoundListV26 .sound-row").count(), 30);
-    assert.equal(await p.locator("#v2ItemEncyclopedia").count(), 1);
     await p.evaluate(() => {
       const d = document.getElementById("uiSettingsDanger");
       d.querySelector("summary").click();
@@ -284,31 +259,43 @@ try {
       await p.locator("#pickerModal [data-ui-window-close]").click();
       return { durationAfterProbe: duration, row, screenshot };
     });
-  await test("Compact SVG cabinet and lever fit the 1920x1080 1x acceptance viewport", async () => {
+  await test("Compact SVG cabinet and lever fit three desktop sizes at 80/100/125 percent app zoom", async () => {
+    const checks = [];
+    for (const [width, height] of [
+      [1366, 768],
+      [1920, 1080],
+      [2560, 1440],
+    ]) {
+      await p.setViewportSize({ width, height });
+      for (const zoom of [0.8, 1, 1.25]) {
+        await p.evaluate((z) => {
+          applyZoom(z);
+          openPickerModal();
+          setPickerMode("two_tier");
+        }, zoom);
+        await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
+        const bounds = await p.evaluate(() => {
+          const lever = document
+            .getElementById("btnSlotTrigger")
+            .getBoundingClientRect();
+          const surface = document
+            .querySelector("#pickerModal .modal-box")
+            .getBoundingClientRect();
+          return { lever: lever.toJSON(), surface: surface.toJSON() };
+        });
+        assert.ok(bounds.surface.y >= 0 && bounds.surface.bottom <= height + 1);
+        assert.ok(
+          bounds.lever.y >= bounds.surface.y &&
+            bounds.lever.bottom <= bounds.surface.bottom,
+        );
+        if (zoom === 1) await shot("compact-cabinet-" + width);
+        checks.push({ width, height, zoom, ...bounds });
+        await p.keyboard.press("Escape");
+      }
+    }
     await p.setViewportSize({ width: 1920, height: 1080 });
-    await p.evaluate(() => {
-      applyZoom(1);
-      openPickerModal();
-      setPickerMode("two_tier");
-    });
-    await p.waitForFunction(() => DesktopUI.getAnimationCount() === 0);
-    const bounds = await p.evaluate(() => {
-      const lever = document
-        .getElementById("btnSlotTrigger")
-        .getBoundingClientRect();
-      const surface = document
-        .querySelector("#pickerModal .modal-box")
-        .getBoundingClientRect();
-      return { lever: lever.toJSON(), surface: surface.toJSON() };
-    });
-    assert.ok(bounds.surface.y >= 0 && bounds.surface.bottom <= 1081);
-    assert.ok(
-      bounds.lever.y >= bounds.surface.y &&
-        bounds.lever.bottom <= bounds.surface.bottom,
-    );
-    const screenshot = await shot("compact-cabinet-1920-1x");
-    await p.keyboard.press("Escape");
-    return { width: 1920, height: 1080, zoom: 1, ...bounds, screenshot };
+    await p.evaluate(() => applyZoom(1));
+    return checks;
   });
   await test("Theme confirmation and archived celebration use the same round close without changing dismissal semantics", async () => {
     await p.evaluate(() => {
