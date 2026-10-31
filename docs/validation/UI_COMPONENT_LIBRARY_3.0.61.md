@@ -34,3 +34,7 @@
 ## 持续维护
 
 CSS变化后执行node scripts/component-inventory.mjs，再格式化生成文件；npm check会验证目录覆盖，遗漏时失败。npm run test:component-library用于单独验收。3.0.60 AST和3.0.59 CSS拆分断言保持原预期并绑定已验证历史检查点，新增功能用独立测试，不更新旧预期掩盖回归。
+
+## 同轮复查修复
+
+全局道具重复计数和撤销后过期回调已复现并修复；Chromium四场景回归通过，完整记录见audit/POST_CLEANUP_CODE_REVIEW_3.0.61.md及artifacts/code-review-3.0.61/draw-after.json。没有扩大为未经验证的抽取事务重写。

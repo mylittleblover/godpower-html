@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "scenario": "one count per awarded item",
+      "result": {
+        "awarded": 4,
+        "countDelta": 4
+      }
+    },
+    {
+      "scenario": "undo at 100ms",
+      "result": {
+        "restored": true,
+        "inventory": 0,
+        "busy": false,
+        "overlays": 0
+      }
+    },
+    {
+      "scenario": "undo at 1800ms",
+      "result": {
+        "restored": true,
+        "inventory": 0,
+        "busy": false,
+        "overlays": 0
+      }
+    },
+    {
+      "scenario": "old owner cannot cancel newer draw",
+      "result": {
+        "revealed": {
+          "inventory": 4,
+          "total": 4,
+          "busy": true
+        },
+        "busy": false,
+        "overlays": 0
+      }
+    }
+  ],
+  "errors": []
+}

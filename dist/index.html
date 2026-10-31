@@ -33967,6 +33967,7 @@ const ITEM_DRAW_DURATION_V21712 = 1500;
 const ITEM_DRAW_RESULT_HOLD_V21712 = 900;
 const ITEM_DRAW_FADE_V21712 = 620;
 const ITEM_FX_DURATION_V21712 = 1700;
+let activeGlobalItemDraw = null;
 
 /* 抽取音效与新的 1.5s 抽取动画同步。 */
 startDrawSoundBedV2164 = function () {
@@ -34003,7 +34004,7 @@ startDrawSoundBedV2164 = function () {
 
 /* 全局抽取：
    原流程约 3.6s 滚动 + 3s 定格等待 + 淡出。
-   新流程约 1.5s 滚动 + 0.52s 看结果 + 0.15s 淡出。 */
+   现行流程约 1.5s 滚动 + 0.9s 看结果 + 0.62s 淡出。 */
 function globalItemDraw() {
   ensureV2State();
   if (itemDrawBusy) return;
@@ -34026,6 +34027,8 @@ function globalItemDraw() {
     switchView("battle");
   }
 
+  recordHistory("全局道具抽取");
+
   /* V2.17.10：一次按钮操作只算 1 个全局抽取轮次。 */
   if (typeof beginDrawSessionV21710 === "function")
     beginDrawSessionV21710("global");
@@ -34036,11 +34039,40 @@ function globalItemDraw() {
     startDrawSoundBedV2164();
   } catch (e) {}
 
-  recordHistory("全局道具抽取");
   itemDrawBusy = true;
   renderGrid();
 
   const overlays = new Map();
+  const context = { state, groups: state.groups, seasonId: state.seasonId };
+  activeGlobalItemDraw = context;
+
+  function removeOverlay(id, node) {
+    const parent = node?.parentElement;
+    node?.remove();
+    if (!parent?.querySelector(".card-item-roulette"))
+      parent?.classList.remove("item-draw-spinning", "bm-draw-fading");
+    BattleMotion.releaseDraw(id, node);
+  }
+
+  function isCurrent() {
+    if (
+      activeGlobalItemDraw === context &&
+      state === context.state &&
+      state.groups === context.groups &&
+      state.seasonId === context.seasonId
+    )
+      return true;
+
+    overlays.forEach((node, id) => removeOverlay(id, node));
+    if (activeGlobalItemDraw === context) {
+      activeGlobalItemDraw = null;
+      itemDrawBusy = false;
+      v213SuppressReorderAnimation = false;
+      stopActiveDrawAudioV2171();
+    }
+    return false;
+  }
+
   const start = performance.now();
   const total = ITEM_DRAW_DURATION_V21712;
 
@@ -34063,6 +34095,7 @@ function globalItemDraw() {
   const lastUpdate = new Map();
 
   function frame(now) {
+    if (!isCurrent()) return;
     const t = Math.min(1, (now - start) / total);
 
     /* 约 55ms -> 145ms，仍保留“先快后慢”，但不磨课堂时间。 */
@@ -34086,7 +34119,6 @@ function globalItemDraw() {
       const k = pickItemForGroupV281(g, batchUsed);
       if (k && addItemToGroup(g, k)) {
         batchUsed.add(k);
-        state.itemGlobal.totalDraws = (state.itemGlobal.totalDraws || 0) + 1;
 
         const o = overlays.get(g.id);
         if (o) {
@@ -34103,28 +34135,18 @@ function globalItemDraw() {
     renderGrid();
 
     setTimeout(() => {
-      eligible.forEach((g) => {
-        const c = document.querySelector(
-          `.group-row-card[data-group-id="${g.id}"]`,
-        );
-        if (!c) return;
-
-        const o = c.querySelector(".card-item-roulette");
-        if (o) {
-          BattleMotion.fadeDraw(o);
-        }
-
+      if (!isCurrent()) return;
+      overlays.forEach((node, id) => {
+        BattleMotion.fadeDraw(node);
         setTimeout(() => {
-          o?.parentElement?.classList.remove(
-            "item-draw-spinning",
-            "bm-draw-fading",
-          );
-          o?.remove();
-          BattleMotion.releaseDraw(g.id, o);
+          if (!isCurrent()) return;
+          removeOverlay(id, node);
         }, ITEM_DRAW_FADE_V21712 + 20);
       });
 
       setTimeout(() => {
+        if (!isCurrent()) return;
+        activeGlobalItemDraw = null;
         itemDrawBusy = false;
         v213SkipNextReorderAnimation = true;
         renderAll();
