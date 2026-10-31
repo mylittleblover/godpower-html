@@ -1,10 +1,12 @@
+> V3.0.61：新增现行 UI 组件库（设置 → 外观与界面 → 界面维护参考），统一开关样式，修复道具发放重复计数和撤销后过期回调。[本轮审查](docs/audit/POST_CLEANUP_CODE_REVIEW_3.0.61.md) · [下载](https://drive.google.com/drive/folders/1Y3h3rt3-L8xOqgdF1ISg4sBkq8IG9NT5)。
+
 > V3.0.60：全部旧编号JS/CSS文件已按职责迁出，映射见 [SOURCE_MIGRATION_MAP](docs/SOURCE_MIGRATION_MAP.md)。保持原执行单元、离线单文件、14组布局和现有功能。
 
 > **V3.0.60 独立网页版过渡版**：不含插件安装、启停及插件中心；恢复新版可编辑主页、名单头像、课程表、教学资源和存档恢复。入口与实测结果见 [过渡版验收](docs/validation/WEB_TRANSITION_FEATURES.md)。完整回归命令：`npm run test:web-transition`。
 
 # 上帝的力量 HTML
 
-课堂竞技系统，当前源码版本 V3.0.4（迁移开发中），沿用 V2.18.13 的课堂规则与旧数据兼容。直接打开 `dist/godpower.html`，支持离线资源；课堂数据按浏览器和文件／站点来源保存，迁移前请导出备份。
+课堂竞技系统，当前源码版本 V3.0.61（无插件过渡版），沿用 V2.18.13 的课堂规则与旧数据兼容。直接打开 `dist/godpower.html`，支持离线资源；课堂数据按浏览器和文件／站点来源保存，迁移前请导出备份。
 
 ```sh
 npm ci
