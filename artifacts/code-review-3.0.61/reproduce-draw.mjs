@@ -1,5 +1,7 @@
+// Historical reproducer: intentionally uses the pre-fix committed build.
+import {sourceAt} from '../../tests/fixtures/source-at.mjs';
 import {createServer}from'node:http';import{readFile,writeFile}from'node:fs/promises';import{launch,setup}from'../../tests/fixtures/browser.mjs';
-const html=await readFile('dist/godpower.html');const server=createServer((_,r)=>r.end(html));await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await launch();
+const html=sourceAt('10246aa');const server=createServer((_,r)=>r.end(html));await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await launch();
 try{const page=await browser.newPage({viewport:{width:1920,height:1080}});await page.goto(`http://127.0.0.1:${server.address().port}`);await setup(page,4);
  const normal=await page.evaluate(async()=>{const before=state.itemGlobal.totalDraws;globalItemDraw();await new Promise(r=>setTimeout(r,1800));return{awarded:state.groups.reduce((n,g)=>n+g.inventory.length,0),countDelta:state.itemGlobal.totalDraws-before};});
  await page.waitForFunction(()=>!itemDrawBusy);await setup(page,4);
