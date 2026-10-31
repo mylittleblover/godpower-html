@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.60",
+  "version": "3.0.61",
   "private": true,
   "type": "module",
   "scripts": {
@@ -40,7 +40,8 @@
     "test:home-dashboard": "node tests/e2e/home-dashboard.mjs",
     "test:home-layout": "node --test tests/unit/home-layout*.test.mjs",
     "test:web-transition": "npm run build && npm run check && npm test && node tests/e2e/home-dashboard.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/teaching-workspace.mjs && node tests/e2e/teaching-resource-library.mjs && node tests/e2e/classroom-recovery.mjs && node tests/e2e/item-domain-events.mjs && node tests/e2e/battle-layout.mjs",
-    "test:group-colors-bgm": "node tests/e2e/group-colors-bgm.mjs"
+    "test:group-colors-bgm": "node tests/e2e/group-colors-bgm.mjs",
+    "test:component-library": "node scripts/component-inventory.mjs --check && node tests/e2e/component-library.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

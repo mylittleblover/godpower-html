@@ -1,4 +1,4 @@
-# 独立网页版架构 V3.0.60
+# 独立网页版架构 V3.0.61
 
 此分支是无插件的网页版过渡发行，基础来自 V3.0.26，恢复了后续 V3.0.53 中已实现的非插件功能和可靠性修复。Electron 壳从同一 HTML 构建同步；另一套 desktop 重置项目不在本分支范围内。
 
@@ -53,3 +53,10 @@ DesktopUI仍是兼容组合入口，未新增同名覆盖链：
 - CSS只删除33条被后续同选择器、同属性、同值及优先级无条件覆盖的声明；条件规则、关键帧和无法证明失效的兼容层保留。
 
 逐源映射见SOURCE_MIGRATION_MAP.md，原审计工具改为按manifest扫描，不能再只遍历旧script/style目录。测试中的历史路径fixture仍可保留，用于验证旧版数据和仓库扫描兼容。
+
+
+## 3.0.61 维护组件库
+
+component-library为只读维护窗口；component-catalog是从所有CSS生成的数据；component-preview-style只重写根选择器上下文而不序列化丢失声明。封闭Shadow DOM和inert克隆不参与命令，不开放原生权限。入口只挂载外观分类的折叠维护区，关闭复用DesktopUI已知窗口栈。
+
+目录完整性由check及component-catalog测试强制验证，具体覆盖和限制见validation/UI_COMPONENT_LIBRARY_3.0.61.md。开关皮肤由styles/items/feature-visibility与现行tokens统一拥有，不再维护旧渐变与多层important覆盖。

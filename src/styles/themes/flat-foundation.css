@@ -635,26 +635,6 @@ body.modern-flat-v217 .program-confirm-actions button {
   background-image: none !important;
 }
 
-/* 设置开关：纯色轨道和滑块 */
-body.modern-flat-v217 .v292-switch-track {
-  background: var(--theme-tone-dce7e4, #dce7e4) !important;
-  background-image: none !important;
-  border: 1px solid var(--ui-border-strong) !important;
-  box-shadow: none !important;
-}
-body.modern-flat-v217 .v292-switch-knob {
-  background: #fff !important;
-  background-image: none !important;
-  border: 1px solid var(--ui-border-strong) !important;
-  box-shadow: none !important;
-}
-body.modern-flat-v217 .v292-switch input:checked + .v292-switch-track {
-  background: var(--ui-primary) !important;
-  background-image: none !important;
-  border-color: var(--ui-primary) !important;
-  box-shadow: none !important;
-}
-
 /* V2.16 欢迎页布局迁移，不再依赖 legacy 主题类 */
 body.modern-flat-v217 .battle-main-v216 {
   padding-top: 14px !important;

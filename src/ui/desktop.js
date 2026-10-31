@@ -817,6 +817,7 @@ const DesktopUI = (() => {
     });
 
     GodpowerTheme.mount(sections.appearance);
+    UIComponentLibrary.mount(sections.appearance);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
@@ -1069,6 +1070,7 @@ const DesktopUI = (() => {
   });
   const { settleDisclosures, setupDisclosures } = disclosureMotion;
   const modalClosers = {
+    componentLibraryModal: () => UIComponentLibrary.close(),
     classroomShowcase: () => ClassroomFeedback.dismiss(),
     programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),
     welcomeModal: () => closeWelcomeModal(),

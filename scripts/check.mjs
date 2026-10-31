@@ -73,3 +73,9 @@ if (lock.version !== version || lock.packages?.[""]?.version !== version)
 console.log(`Package lock version matches: ${version}`);
 
 await import("./check-boundaries.mjs");
+
+const { verifyComponentInventory } = await import("./component-inventory.mjs");
+await verifyComponentInventory();
+console.log(
+  "Component catalog covers all shipped classes, tokens and animations",
+);

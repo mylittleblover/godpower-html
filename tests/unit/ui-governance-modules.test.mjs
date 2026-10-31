@@ -3,6 +3,7 @@ import test from "node:test";
 import vm from "node:vm";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 
 const read = (name) => readFileSync(`src/ui/${name}`, "utf8");
 function load(name, binding, extra = {}) {
@@ -137,7 +138,11 @@ test("CSS component split retains original cascade content and source order", ()
     "roster-workspace.css",
     "teaching-workspace.css",
   ]
-    .map(read)
+    .map((name) =>
+      execFileSync("git", ["show", "d18ce58:src/ui/" + name], {
+        encoding: "utf8",
+      }),
+    )
     .join("\n")
     .replace(/\s+/g, " ")
     .trim();

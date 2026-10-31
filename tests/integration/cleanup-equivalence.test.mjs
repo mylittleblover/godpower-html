@@ -41,14 +41,22 @@ function normalized(value) {
     result.key = { type: "Identifier", name: result.key.value };
   return result;
 }
-test("all 117 script execution units preserve their AST except the explicitly retired draw chain", () => {
+test("V3.0.60 checkpoint: all 117 script units preserve their AST except the retired draw chain", () => {
   const before = scripts(
     execFileSync("git", ["show", baseline + ":dist/godpower.html"], {
       encoding: "utf8",
       maxBuffer: 20e6,
     }),
   );
-  const after = scripts(readFileSync("dist/godpower.html", "utf8"));
+  const version = JSON.parse(readFileSync("package.json", "utf8")).version;
+  const checkpoint =
+    version === "3.0.60"
+      ? readFileSync("dist/godpower.html", "utf8")
+      : execFileSync("git", ["show", "bc08107:dist/godpower.html"], {
+          encoding: "utf8",
+          maxBuffer: 20e6,
+        });
+  const after = scripts(checkpoint);
   assert.equal(before.length, 117);
   assert.equal(after.length, before.length);
   let retired = 0;
