@@ -14,6 +14,6 @@ Further user amendments: hand-page item use replaces its result banner with a fu
 - [x] Integrate round scoring, freeze use cancellation, individual/batch All In denial, status views and resets.
 - [x] Primary audit of encyclopedia/copy/settings/audio/icons/achievement collection/backup and legacy lists; DeepSeek blocked by Windows 1909, inspected empty diff and discarded; no completed independent audit claimed.
 - [x] Browser transaction/undo/reload/defense/failure and ranking tests; build/check and existing test regression.
-- [ ] Sync committed candidate to isolated Electron candidate, verify provenance and tests, export test HTML and report actual limits.
+- [x] Sync committed candidate to isolated Electron candidate, verify provenance and 35 tests, export test HTML and report actual limits. Final metadata is stored in the external candidate.json and Electron resources/BUILD_INFO.json.
 
 Choices: new keys kamek/item_box; midfield weight 7 each, zero elsewhere. Negative-state durations: burn2/freeze2/paralysis2/poison3/dizziness2. New icons retain exact input bytes. Existing permanently unlocked achievements remain unlocked; existing 60 achievement IDs are preserved, no invented exclusive achievements for the new items. No pushes or automatic integration.

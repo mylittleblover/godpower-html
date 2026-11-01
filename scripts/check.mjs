@@ -2,6 +2,8 @@ import { parseSourceBlocks } from "./source-manifest.mjs";
 import { readFile } from "node:fs/promises";
 import { parse } from "acorn";
 const s = await readFile("dist/godpower.html", "utf8");
+if (!/<meta charset="UTF-8">/.test(s.slice(0, 1024)))
+  throw Error("UTF-8 declaration must precede scripts within the first 1024 bytes");
 let count = 0;
 const appVersions = [];
 const visibleVersionAssignments = [];
