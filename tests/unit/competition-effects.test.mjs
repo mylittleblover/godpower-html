@@ -11,15 +11,15 @@ const load = () => {
   );
   return c.api;
 };
-test("statuses refresh and normalize old data, and defensive states block them", () => {
+test("only one status is active at a time; the same one refreshes", () => {
   const e = load(),
     g = {};
-  e.apply(g, "burn");
-  e.apply(g, "poison");
-  e.apply(g, "burn", 1);
-  // Re-applying refreshes to the longer duration instead of stacking counts.
+  assert.equal(e.apply(g, "burn"), true, "the first status applies");
+  assert.equal(e.apply(g, "poison"), false, "a second status is refused");
+  assert.deepEqual(Object.keys(g.competitionEffects), ["burn"]);
+  // Re-applying the same status keeps it and refreshes to the longer duration.
+  assert.equal(e.apply(g, "burn", 1), true);
   assert.equal(g.competitionEffects.burn.remaining, 2);
-  assert.equal(Object.keys(g.competitionEffects).length, 2);
   e.cleanse(g);
   assert.deepEqual(Object.keys(g.competitionEffects), []);
 
@@ -37,27 +37,27 @@ test("statuses refresh and normalize old data, and defensive states block them",
   assert.equal(e.has({}, "burn"), false);
   assert.equal(e.apply(g, "unknown"), false);
 });
-test("bonus uses independent base; freeze caps before poison and burn", () => {
+test("freeze caps the answer gain it is the only active status", () => {
   const e = load(),
     g = { score: 10 };
-  for (const k of ["invincible", "mega", "freeze", "burn", "poison"])
-    e.apply(g, k);
+  // Defensive states are refused by apply(); negative ones are exclusive.
+  e.apply(g, "freeze");
   const result = e.answer(g, 10, 20, () => 0);
-  assert.equal(result.answerDelta, 1);
-  assert.equal(result.postDelta, -3);
-  assert.equal(result.score, 8);
+  assert.equal(result.answerDelta, 1, "freeze caps the gain at +1");
+  assert.equal(result.postDelta, 0, "no burn or poison while frozen");
+  assert.equal(result.score, 11);
   assert.equal(g.competitionEffects.freeze.remaining, 1);
-  e.answer(g, 8, 10, () => 0);
-  assert.equal(e.has(g, "freeze"), false);
-  assert.equal(g.competitionEffects.poison.remaining, 1);
+  e.answer(g, 11, 12, () => 0);
+  assert.equal(e.has(g, "freeze"), false, "freeze expires after two answers");
 });
 test("paralysis cancels answer only and unanswered does not expire", () => {
   const e = load(),
     g = {};
   e.apply(g, "paralysis");
-  e.apply(g, "poison");
+  // A different status cannot join it.
+  assert.equal(e.apply(g, "poison"), false);
   const r = e.answer(g, 10, 0, () => 0);
-  assert.equal(r.score, 8);
+  assert.equal(r.score, 10, "paralysis has no damage of its own");
   assert.equal(r.answerDelta, 0);
 });
 test("star and mega multiply total score 2x/3x and preserve wrong-answer scores until defenses expire", () => {

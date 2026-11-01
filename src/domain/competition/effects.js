@@ -40,7 +40,10 @@ globalThis.CompetitionEffects = (() => {
     // Invincible and mega block every ordinary status, including negative ones.
     if (has(group, "invincible") || has(group, "mega")) return false;
     const effects = normalize(group);
-    // An existing status never stacks: the longer remaining duration wins.
+    /* Only one status may be active at a time: a different status is refused
+       rather than coexisting. Re-applying the same one refreshes its timer. */
+    const others = Object.keys(effects).filter((name) => name !== key);
+    if (others.length) return false;
     effects[key] = {
       remaining: Math.max(
         effects[key]?.remaining || 0,

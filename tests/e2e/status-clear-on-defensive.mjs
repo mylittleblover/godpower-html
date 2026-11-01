@@ -32,14 +32,19 @@ try {
     g.itemEffect = null;
     g.competitionEffects = {};
     CompetitionEffects.apply(g, "burn", 3);
-    CompetitionEffects.apply(g, "dizziness", 3);
+    // Only one status may be active, so a second one is refused by design.
+    const secondRefused = CompetitionEffects.apply(g, "dizziness", 3) === false;
     renderGrid();
-    return { id: g.id, negatives: Object.keys(g.competitionEffects).sort() };
+    return {
+      id: g.id,
+      secondRefused,
+      negatives: Object.keys(g.competitionEffects).sort(),
+    };
   });
-  assert.deepEqual(bench.negatives, ["burn", "dizziness"]);
+  assert.deepEqual(bench.negatives, ["burn"], "a single status is active");
+  assert.equal(bench.secondRefused, true, "a second status cannot join");
   const before = await ringsOf(bench.id);
   assert.ok(before.includes("aura-burn"), "burn shows before the item");
-  assert.ok(before.includes("aura-dizziness"));
 
   const star = await page.evaluate(async (id) => {
     const g = state.groups.find((x) => x.id === id);
@@ -66,7 +71,6 @@ try {
     g.itemEffect = null;
     g.competitionEffects = {};
     CompetitionEffects.apply(g, "poison", 3);
-    CompetitionEffects.apply(g, "dizziness", 3);
     renderGrid();
     g.inventory = [ItemModules.inventory("mega")];
     g.itemUsedThisRound = false;
@@ -87,7 +91,7 @@ try {
   assert.equal(mega.type, "mega");
   assert.deepEqual(mega.keys, []);
   assert.deepEqual(mega.rings, ["aura-mega"], "only the mega ring remains");
-  assert.doesNotMatch(mega.text, /中毒|眩晕/);
+  assert.doesNotMatch(mega.text, /中毒/);
 
   await page.screenshot({ path: `${root}/cleared.png` });
   assert.deepEqual(errors, []);

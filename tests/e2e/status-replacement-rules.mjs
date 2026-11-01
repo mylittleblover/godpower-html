@@ -86,16 +86,19 @@ try {
   assert.equal(out.starOverMega.accepted, false, "invincible cannot replace mega");
   assert.equal(out.afterStarOverMega, "mega", "mega survives");
 
-  // 4) negative statuses respect the defensive guard and never stack.
+  // 4) Negative statuses are exclusive and respect the defensive guard.
   const negative = await run(() => {
     const group = state.groups[1];
     group.itemEffect = null;
     group.competitionEffects = {};
     const out = {};
     out.first = CompetitionEffects.apply(group, "burn", 2);
-    out.stack = CompetitionEffects.apply(group, "burn", 2);
+    out.sameStatus = CompetitionEffects.apply(group, "burn", 2);
     out.remaining = group.competitionEffects.burn.remaining;
-    // Longest remaining wins instead of adding charges.
+    // A different status is refused while one is active.
+    out.otherStatus = CompetitionEffects.apply(group, "poison", 3);
+    out.keys = Object.keys(group.competitionEffects).sort();
+    // Re-applying the same status refreshes instead of adding charges.
     CompetitionEffects.apply(group, "burn", 5);
     out.extended = group.competitionEffects.burn.remaining;
     // Defensive states block ordinary statuses.
@@ -107,8 +110,10 @@ try {
     return out;
   });
   assert.equal(negative.first, true);
-  assert.equal(negative.stack, true, "re-applying refreshes rather than stacks");
+  assert.equal(negative.sameStatus, true, "the same status refreshes");
   assert.equal(negative.remaining, 2, "duration is not added");
+  assert.equal(negative.otherStatus, false, "a second status is refused");
+  assert.deepEqual(negative.keys, ["burn"], "only one status is active");
   assert.equal(negative.extended, 5, "the longer duration wins");
   assert.equal(negative.blockedByStar, false, "invincible blocks a negative status");
   assert.equal(negative.noFreeze, true);
@@ -121,7 +126,8 @@ try {
     group.itemEffect = null;
     group.competitionEffects = {};
     CompetitionEffects.apply(group, "burn", 3);
-    CompetitionEffects.apply(group, "poison", 3);
+    // Only one status is active; a second is refused.
+    const secondRefused = CompetitionEffects.apply(group, "poison", 3) === false;
     const beforeKeys = Object.keys(group.competitionEffects).sort();
     group.inventory = [ItemModules.inventory("star")];
     group.itemUsedThisRound = false;
@@ -143,9 +149,10 @@ try {
       keys: Object.keys(group.competitionEffects || {}).sort(),
       type: group.itemEffect?.type,
     };
-    return { beforeKeys, afterStar, afterMega };
+    return { beforeKeys, secondRefused, afterStar, afterMega };
   });
-  assert.deepEqual(cleared.beforeKeys, ["burn", "poison"]);
+  assert.deepEqual(cleared.beforeKeys, ["burn"], "one status before the item");
+  assert.equal(cleared.secondRefused, true, "a second status cannot join");
   assert.equal(cleared.afterStar.type, "star");
   assert.deepEqual(
     cleared.afterStar.keys,
