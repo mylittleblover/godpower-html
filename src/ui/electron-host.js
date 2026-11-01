@@ -147,6 +147,19 @@
   desktop.onUnlockRequest(() => {
     if (state.isLocked) openPwdModal();
   });
+  /* The dock owns the hand selection. When it changes, mirror it here so the
+     floating menu sends a token that is still valid. */
+  globalThis.ClassroomHandSync?.subscribe(async (next) => {
+    if (!next || !Number.isSafeInteger(next.groupId)) return;
+    const snapshot = hand.getSnapshot?.();
+    if (snapshot?.groupId === next.groupId) return;
+    try {
+      await hand.command("handSelect", { groupId: next.groupId });
+      publish();
+    } catch (error) {
+      console.warn("Hand selection sync failed", error);
+    }
+  });
   window.addEventListener(
     "DOMContentLoaded",
     () => {

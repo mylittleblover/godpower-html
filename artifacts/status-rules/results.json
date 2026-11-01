@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "rules": {
+    "ordinaryOverOrdinary": {
+      "accepted": false,
+      "changed": false,
+      "effect": {
+        "type": "power",
+        "roundsLeft": 2
+      }
+    },
+    "starOverOrdinary": {
+      "accepted": true,
+      "changed": true,
+      "effect": {
+        "type": "star",
+        "hitsLeft": 3,
+        "startedAt": 1793538984898
+      }
+    },
+    "starOverStar": {
+      "accepted": false,
+      "changed": false,
+      "effect": {
+        "type": "star",
+        "hitsLeft": 3,
+        "startedAt": 1793538984898
+      }
+    },
+    "megaOverStar": {
+      "accepted": false,
+      "changed": false,
+      "effect": {
+        "type": "star",
+        "hitsLeft": 3,
+        "startedAt": 1793538984898
+      }
+    },
+    "afterMegaOverStar": "star",
+    "megaOverOrdinary": {
+      "accepted": true,
+      "changed": true,
+      "effect": {
+        "type": "mega",
+        "hitsLeft": 3,
+        "startedAt": 1793538985224
+      }
+    },
+    "starOverMega": {
+      "accepted": false,
+      "changed": false,
+      "effect": {
+        "type": "mega",
+        "hitsLeft": 3,
+        "startedAt": 1793538985224
+      }
+    },
+    "afterStarOverMega": "mega"
+  },
+  "negative": {
+    "first": true,
+    "stack": true,
+    "remaining": 2,
+    "extended": 5,
+    "blockedByStar": false,
+    "noFreeze": true,
+    "blockedByMega": false
+  }
+}

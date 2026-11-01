@@ -40,6 +40,9 @@ function handUseOneV218() {
   }
   const key = it.key,
     before = scoreSnapshotV218();
+  // Using from the dock hand panel also plays the full-screen cinematic, the
+  // same as the floating window's hand menu.
+  globalThis.HandItemCinematic?.mark(g.id);
   const ok = useItem(g.id, 0);
   if (ok !== false) setTimeout(() => showHandEffectV218(key, before), 60);
   renderHandRewardControlsV218();
@@ -55,6 +58,8 @@ function handUseAllTripleV218() {
     before = scoreSnapshotV218();
   let left = Math.min(3, Number(it.charges) || 0);
   handEffectSuppressV218 = true;
+  // The first shot of a triple volley drives the cinematic; the rest just fire.
+  globalThis.HandItemCinematic?.mark(g.id);
   const fire = () => {
     const live = state.groups.find((x) => x.id === handRaiseGroupId);
     if (!live?.inventory?.[0] || live.inventory[0].key !== key || left <= 0) {

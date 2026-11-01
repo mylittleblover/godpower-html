@@ -27,8 +27,23 @@ const BattleMotion = (() => {
     badge.className = "bm-badge";
     badge.innerHTML = `<span>${ITEM_DEFS[session.key] ? itemVisual(session.key) : "✦"}</span><b>${escapeHtml(session.label)}</b>`;
     node.append(badge);
-    card.append(node);
     const simple = DesktopUI.getPreferences().motion === "simple";
+    // Two extra layers give every family weight: a shockwave that escapes the
+    // card, and shards that fly outward and fade.
+    if (!simple) {
+      const wave = document.createElement("i");
+      wave.className = "bm-wave";
+      const shards = document.createElement("i");
+      shards.className = "bm-shards";
+      for (let n = 0; n < 10; n++) {
+        const shard = document.createElement("u");
+        shard.style.setProperty("--a", `${n * 36}deg`);
+        shard.style.setProperty("--d", `${0.7 + (n % 4) * 0.12}s`);
+        shards.append(shard);
+      }
+      node.append(wave, shards);
+    }
+    card.append(node);
     node.animate(
       simple
         ? [
@@ -81,9 +96,16 @@ const BattleMotion = (() => {
                           ? "hammer"
                           : /bullet/.test(key)
                             ? "bullet"
-                            : /star|mega|power|mushroom|feather|coin/.test(key)
-                              ? "buff"
-                              : "pulse";
+                            : /kamek/.test(key)
+                              ? "kamek"
+                              : /item_?box/.test(key)
+                                ? "box"
+                                : /question/.test(key)
+                                  ? "mystery"
+                                  : /star|mega|power|mushroom|feather|coin/
+                                      .test(key)
+                                    ? "buff"
+                                    : "pulse";
     const aliases = {
       green: "green_shell",
       red: "red_shell",

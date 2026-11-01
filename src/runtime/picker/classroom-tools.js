@@ -144,6 +144,9 @@ function openHandRaise() {
   handRaiseGroupId = null;
   showClassroomWindow(document.getElementById("handRaiseBackdrop"));
   renderHandRaise();
+  // The floating hand menu follows the dock: a stale selection there would make
+  // every later gesture fail with "举手小组已变化".
+  globalThis.ClassroomHandSync?.notify({ groupId: null });
 }
 function closeHandRaise() {
   hideClassroomWindow(document.getElementById("handRaiseBackdrop"));
@@ -168,6 +171,7 @@ function selectHandGroup(id) {
   const arr = [...document.querySelectorAll(".hand-group")],
     idx = state.groups.findIndex((g) => g.id === id);
   if (arr[idx]) arr[idx].classList.add("selected");
+  globalThis.ClassroomHandSync?.notify({ groupId: id });
 }
 function judgeHandRaise(correct) {
   ensureV2State();

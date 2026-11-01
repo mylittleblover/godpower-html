@@ -21,7 +21,43 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "bmFlash",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmFrost",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmGift",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
       "name": "bmMist",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmMystery",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmShardFly",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmSpell",
       "sources": [
         "src/ui/battle-motion.css"
       ]
@@ -40,6 +76,12 @@ const GodPowerComponentCatalog = {
     },
     {
       "name": "bmTurn",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bmWaveOut",
       "sources": [
         "src/ui/battle-motion.css"
       ]
@@ -1028,6 +1070,18 @@ const GodPowerComponentCatalog = {
     },
     {
       "name": "bm-layer",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bm-shards",
+      "sources": [
+        "src/ui/battle-motion.css"
+      ]
+    },
+    {
+      "name": "bm-wave",
       "sources": [
         "src/ui/battle-motion.css"
       ]

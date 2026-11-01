@@ -36,7 +36,10 @@ globalThis.CompetitionEffects = (() => {
     if (key === "invincible" || key === "mega") return false; // Only the corresponding inventory item grants these states.
     if (!definitions[key] || !Number.isSafeInteger(duration) || duration <= 0)
       return false;
+    // Invincible and mega block every ordinary status, including negative ones.
+    if (has(group, "invincible") || has(group, "mega")) return false;
     const effects = normalize(group);
+    // An existing status never stacks: the longer remaining duration wins.
     effects[key] = {
       remaining: Math.max(
         effects[key]?.remaining || 0,

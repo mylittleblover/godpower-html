@@ -1236,6 +1236,11 @@
     },
     {
       "type": "script",
+      "path": "application/hand-selection-sync.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/hand-raise-port.js",
       "attributes": ""
     },

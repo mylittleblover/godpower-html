@@ -110,11 +110,14 @@ function animateScores(scoreUpdates, onComplete) {
   }
   const startTime = performance.now();
   const duration = 950;
+  /* Ease-out quint: fast start, long gentle settle. A pure linear ramp reads as
+     stepping and a cubic curve still snaps at the end. */
+  const easeScore = (p) => 1 - Math.pow(1 - Math.min(1, Math.max(0, p)), 5);
 
   function tick(now) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1 - progress, 3);
+    const ease = easeScore(progress);
 
     scoreUpdates.forEach((item) => {
       const cur = Math.round(item.start + (item.target - item.start) * ease);

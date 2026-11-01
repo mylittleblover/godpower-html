@@ -161,17 +161,41 @@ const ItemOperationBlocks = (() => {
       return true;
     },
     status(c) {
-      if (c.group.itemEffect) {
-        showToast("已有持续型状态，当前不能激活新的持续道具");
+      /* Status rules:
+         - An existing status cannot stack a second one.
+         - The two defensive states (invincible/star and mega) force-replace any
+           ordinary status.
+         - They never replace each other, so neither can be overwritten. */
+      const mine = c.blueprint.type;
+      const holds = (type) => c.group.itemEffect?.type === type;
+      const current = c.group.itemEffect?.type || null;
+      const defensive = mine === "star" || mine === "mega";
+      const currentDefensive = current === "star" || current === "mega";
+      if (current === mine) {
+        showToast("该状态已经生效，不能重复叠加");
         return false;
       }
+      if (current && !defensive) {
+        showToast(
+          currentDefensive
+            ? "当前处于无敌或巨大化，无法被其他状态替换"
+            : "已有持续型状态，当前不能叠加新的状态",
+        );
+        return false;
+      }
+      if (defensive && currentDefensive) {
+        showToast("无敌与巨大化不能互相替换");
+        return false;
+      }
+      // A defensive state replaces an ordinary one; both charge counters reset.
       c.group.itemEffect = {
-        type: c.blueprint.type,
+        type: mine,
         ...(c.blueprint.hits
           ? { hitsLeft: c.blueprint.hits }
           : { roundsLeft: c.blueprint.rounds }),
         startedAt: Date.now(),
       };
+      if (current) c.replacedStatus = current;
       return true;
     },
     dodge(c) {

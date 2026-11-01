@@ -188,13 +188,16 @@ globalThis.ScoreCardMotion = (() => {
     const update = () => {
       if (sessions.get(String(session.id)) !== session || !number.isConnected)
         return;
-      const t = Math.min(
+      const raw = Math.min(
         1,
         Math.max(0, (performance.now() - session.started - 600) / 650),
       );
+      // Ease-out quint: the counter decelerates into its final value instead of
+      // stepping at a constant rate, so the last digits settle gently.
+      const t = 1 - Math.pow(1 - raw, 5);
       number.firstChild.textContent = `${Math.round(session.from + (session.to - session.from) * t)}分`;
-      number.lastChild.style.opacity = t > 0 ? "1" : "0";
-      if (t < 1) requestAnimationFrame(update);
+      number.lastChild.style.opacity = raw > 0 ? "1" : "0";
+      if (raw < 1) requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
   }
