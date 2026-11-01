@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "roster-import-then-draw",
+      "imported": {
+        "groups": 14,
+        "total": 56,
+        "missingUid": 0,
+        "uniqueUid": 14,
+        "safeIds": true,
+        "normalized": true
+      },
+      "draw": {
+        "shown": true,
+        "log": [],
+        "busy": false,
+        "awarded": 14,
+        "unsaved": false
+      }
+    }
+  ]
+}

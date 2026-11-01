@@ -25903,7 +25903,9 @@ function applySettingsBatchMembers() {
 
       const existing = state.groups.find((g) => g.name.trim() === grpName);
       newGroups.push({
+        // Keep the stable group identity; a renamed group is still the same group.
         id: existing ? existing.id : Date.now() + index,
+        groupUid: existing ? existing.groupUid : undefined,
         name: grpName || `第 ${index + 1} 组`,
         color: existing
           ? existing.color
@@ -25920,7 +25922,9 @@ function applySettingsBatchMembers() {
   });
 
   if (newGroups.length > 0) {
-    state.groups = newGroups;
+    // Import is a roster change, not a raw state assignment: normalizing here
+    // grants every new group its required groupUid and keeps persisted fields.
+    state.groups = normalizeAllGroups(newGroups);
     saveState();
     renderAll();
     updatePickerPoolUI();
