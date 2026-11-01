@@ -28939,6 +28939,8 @@ Object.assign(ITEM_DEFS, {
   },
 });
 let ITEM_KEYS = Object.keys(ITEM_DEFS);
+// UI sorting must not change the cumulative weight order of existing draws.
+const ITEM_DRAW_KEYS = Object.freeze([...ITEM_KEYS]);
 globalThis.GodpowerItemCatalog = Object.freeze({
   list: () =>
     ITEM_KEYS.map((key) =>
@@ -29335,6 +29337,7 @@ function openItemWindow(groupId, tab = "detail") {
   renderItemWindow();
 }
 function closeItemWindow() {
+  globalThis.HandItemCinematic?.take(null);
   hideClassroomWindow(document.getElementById("itemModalBackdrop"));
   activeItemGroupId = null;
 }
@@ -32972,7 +32975,7 @@ itemDropWeights = function (pos, total) {
   const put = (k, w) => {
     W[k] = Math.max(0, Number(w) || 0);
   };
-  ITEM_KEYS.forEach((k) => put(k, 0));
+  ITEM_DRAW_KEYS.forEach((k) => put(k, 0));
 
   if (band === "front") {
     /* 前三名：继续以基础防御、低收益和轻量资源为主。 */
@@ -33115,7 +33118,7 @@ const GENERIC_ITEM_USE_SOUNDS_V2174 = new Set([
 function playPerItemFallbackV2174(key) {
   if (!audioCtx || !masterGainNode) return;
 
-  const idx = Math.max(0, ITEM_KEYS.indexOf(key));
+  const idx = Math.max(0, ITEM_DRAW_KEYS.indexOf(key));
   const now = audioCtx.currentTime + 0.005;
   const kind = ITEM_DEFS[key]?.kind || "tactic";
 
@@ -38620,7 +38623,7 @@ const ItemOperationBlocks = (() => {
       showToast("当前没有可用目标");
       return false;
     }
-    const targeted = ["fraction", "freeze", "steal"].includes(blueprint.effect);
+    const targeted = ["fraction", "freeze"].includes(blueprint.effect);
     if (CompetitionEffects.redirect(group, targeted, () => Math.random())) {
       if (!eligibleForItems(group)) return false;
       context.targets = [group];
@@ -40573,6 +40576,7 @@ function useItem(groupId, index) {
   if (window.itemCommandActive) return false;
   Reliability.invalidateDefenseDecisions();
   const g = state.groups.find((x) => x.id === groupId);
+  const fromHand = globalThis.HandItemCinematic?.take(groupId);
   const reason = Reliability.validateItem(state, g, index, isCommunismMode());
   closeItemWindowForFx();
   if (reason) {
@@ -40581,7 +40585,7 @@ function useItem(groupId, index) {
   }
   const key = g.inventory[index].key;
   const presentation = {
-    fromHand: globalThis.HandItemCinematic?.take(groupId),
+    fromHand,
   };
   if (!ItemModules.canUse(key)) {
     showToast("该道具的主动使用积木已关闭");
@@ -49778,6 +49782,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    globalThis.HandItemCinematic?.dismiss();
     const pageScope = window.GodPowerPageLifecycle?.enter(name).scope;
     ClassroomFeedback.cancel();
     BattleMotion.clear();
@@ -51038,6 +51043,7 @@ const DesktopUI = (() => {
       ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {
+      globalThis.HandItemCinematic?.dismiss();
       ClassroomFeedback.clearLive();
       complete();
       return;
