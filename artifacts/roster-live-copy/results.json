@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "open": {
+        "hasButton": true,
+        "status": "尚未创建本地课堂名单。"
+      },
+      "first": {
+        "status": "已从当前比赛创建本地副本；可编辑后保存。比赛数据未更改。",
+        "isError": false
+      },
+      "second": {
+        "status": "已把当前比赛添加为新课堂「当前课堂副本 2」；原有名单保持不变。",
+        "isError": false
+      },
+      "third": {
+        "status": "已把当前比赛添加为新课堂「当前课堂副本 3」；原有名单保持不变。",
+        "isError": false
+      },
+      "state": {
+        "key": "godpower_classroom_roster_v1",
+        "topKeys": [
+          "schemaVersion",
+          "revision",
+          "rosterData"
+        ],
+        "hasDocument": true,
+        "classrooms": 3,
+        "names": [
+          "当前课堂副本",
+          "当前课堂副本 2",
+          "当前课堂副本 3"
+        ],
+        "students": 84,
+        "assignments": 3,
+        "profiles": 3,
+        "rows": 28,
+        "classroomOptions": [
+          "当前课堂副本",
+          "当前课堂副本 2",
+          "当前课堂副本 3"
+        ]
+      },
+      "applied": {
+        "status": "名单有未保存的编辑，请先保存再预览应用。"
+      }
+    }
+  ]
+}
