@@ -27,6 +27,15 @@ window.GodpowerPicker = (() => {
       avatarDataUrl,
       memberName: state.picker.mode === 'group' ? null : win.memberName };
   }
+  /* Ten presentations; a reveal picks one at random so the show stays varied.
+     The saved setting chooses the pool: "aurora"/"burst" now mean "any". */
+  const EFFECT_STYLES = ['aurora', 'burst', 'ripple', 'starlight', 'spotlight',
+    'confetti', 'vortex', 'prism', 'bloom', 'comet'];
+  function randomEffectStyle() {
+    return EFFECT_STYLES[Math.floor(Math.random() * EFFECT_STYLES.length)];
+  }
+  globalThis.randomEffectStyle = randomEffectStyle;
+  globalThis.EFFECT_STYLES = EFFECT_STYLES;
   function getSnapshot() {
     const actual = slotEngine.isSpinning ? 'rolling' : phase;
     const result = ['settling', 'revealed'].includes(actual) ? currentResult() : null;
@@ -44,7 +53,7 @@ window.GodpowerPicker = (() => {
       result, slots: options.slots,
       history: (state.itemGlobal?.pickerHistory || []).slice(-30).map(x => ({ text: x.text, time: x.time })),
       locked: !!state.isLocked, unsaved: !!window.classroomUnsavedChanges,
-      effects: { enabled: effectEnabled, style: options.style, duration: options.duration } };
+      effects: { enabled: effectEnabled, style: randomEffectStyle(), duration: options.duration } };
   }
   function cancel() {
     clearInterval(slotEngine.timerGroup); clearInterval(slotEngine.timerStudent);

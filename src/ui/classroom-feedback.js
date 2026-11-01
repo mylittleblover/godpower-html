@@ -158,7 +158,8 @@ const ClassroomFeedback = (() => {
         delta: Number(String(value).replace("−", "-")),
         effects: {
           enabled: true,
-          style: options.style,
+          // Ten presentations rotate at random; the setting only picks the pool.
+          style: randomEffectStyle(),
           duration: options.duration,
         },
       });

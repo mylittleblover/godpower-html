@@ -58,7 +58,13 @@ globalThis.HandItemCinematic = (() => {
       const data = payload(result);
       window.godpowerDesktop.showItemFx({
         ...data,
-        effects: { style: "aurora", duration: p.speed >= 1.5 ? 1200 : 2600 },
+        effects: {
+          style:
+            typeof globalThis.randomEffectStyle === "function"
+              ? globalThis.randomEffectStyle()
+              : "aurora",
+          duration: p.speed >= 1.5 ? 1200 : 2600,
+        },
       });
       return;
     }
