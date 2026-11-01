@@ -19,6 +19,9 @@ try {
   await page.goto(`http://127.0.0.1:${server.address().port}`);
   await setup(page, 4);
   const success = await page.evaluate(async () => {
+    const ledgerBeforeDraw = JSON.parse(
+      JSON.stringify(state.achievementLedger),
+    );
     const transactions = [];
     const listener = (event) => transactions.push(event.detail);
     window.addEventListener("godpower:domain-commit", listener);
@@ -55,6 +58,7 @@ try {
       ).ledger;
       return {
         accepted,
+        ledgerBeforeDraw,
         duplicate,
         handAttempt,
         pending,
@@ -105,6 +109,24 @@ try {
     scenario:
       "single durable command, safe pending backup and idempotent events",
     result: success,
+  });
+  const undone = await page.evaluate(async () => {
+    await undoLast();
+    return {
+      ledger: state.achievementLedger,
+      inventory: state.groups.reduce(
+        (sum, group) => sum + group.inventory.length,
+        0,
+      ),
+      total: state.itemGlobal.totalDraws,
+    };
+  });
+  assert.deepEqual(undone.ledger, success.ledgerBeforeDraw);
+  assert.equal(undone.inventory, 0);
+  assert.equal(undone.total, 0);
+  results.push({
+    scenario: "real undo restores committed acquisition ledger receipts",
+    result: undone,
   });
   await page.waitForFunction(() => !itemDrawBusy);
   await setup(page, 4);
