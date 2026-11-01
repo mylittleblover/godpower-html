@@ -403,17 +403,14 @@ if (classroomStoredState !== null) {
 }
 window.classroomReady = true;
 
-/* Desktop hydration: a fixed save file is authoritative when localStorage is
-   empty or unreadable. An existing browser save always wins to avoid data loss. */
+/* Desktop hydration. The fixed save file is the classroom's durable home, so it
+   wins over the browser cache whenever it holds a valid envelope: editing or
+   copying that file is how a teacher moves a classroom between machines. A file
+   that is missing or unreadable leaves the browser cache untouched. */
 if (globalThis.ClassroomSaveFile?.available?.()) {
-  const browserStored = classroomStoredState !== null;
   ClassroomSaveFile.hydrate().then((result) => {
     window.classroomSaveFileStatus = result.status;
     if (result.status !== "loaded") return;
-    if (browserStored) {
-      window.classroomSaveFileStatus = "skipped-local-present";
-      return;
-    }
     try {
       applyClassroomBackup(result.data);
       saveState();
