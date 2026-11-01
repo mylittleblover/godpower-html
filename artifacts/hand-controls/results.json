@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "desktop-hand-port",
+      "selected": true,
+      "scoreDelta": 5,
+      "drawnItem": "三重香蕉皮",
+      "quotaRollback": true,
+      "lockedDenied": true,
+      "reloadPreserved": true
+    }
+  ],
+  "errors": []
+}

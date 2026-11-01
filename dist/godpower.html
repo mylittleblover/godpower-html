@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.63</title>
+<title>上帝的力量 V3.0.64</title>
 <script>/* Additive status state; legacy itemEffect owns defense charges independently. */
 globalThis.CompetitionEffects = (() => {
   const definitions = Object.freeze({
@@ -813,7 +813,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.63";
+    document.title = name() + " V3.0.64";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -15272,7 +15272,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.63</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.64</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -26422,10 +26422,15 @@ function renderControls() {
   updateQuickBatchBar();
 }
 function openPickerModal({ internal = false } = {}) {
+  // The desktop dock entry opens the floating picker directly; the in-page
+  // modal only serves as the hidden drawing engine for that external window.
   if (!internal && window.godpowerDesktop?.role === "main") {
     window.godpowerDesktop.openPicker();
     return;
   }
+  const external = internal && window.godpowerDesktop?.role === "main";
+  document.getElementById("pickerModal").toggleAttribute("data-external-picker", !!external);
+  window.GodpowerPicker?.setExternalPresentation(!!external);
   if (
     document.getElementById("pickerModal").classList.contains("active") &&
     !document.getElementById("pickerModal").dataset.uiClosing
@@ -26442,7 +26447,10 @@ function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if (typeof DesktopUI !== "undefined") DesktopUI.cancelPickerPreparation();
   window.GodpowerPicker?.notify("idle");
-  hideClassroomWindow(document.getElementById("pickerModal"));
+  window.GodpowerPicker?.setExternalPresentation(false);
+  const modal = document.getElementById("pickerModal");
+  modal?.removeAttribute("data-external-picker");
+  hideClassroomWindow(modal);
   document.getElementById("slotResultPanel").classList.remove("show");
 }
 
@@ -30117,6 +30125,39 @@ judgeHandRaise = function (correct) {
     }
   }
 };
+
+/* Floating-window hand reward: same pool, throttle and eligibility rules as
+   handDrawItem, but the presentation belongs to the caller's own surface. */
+function drawHandRewardForPort(group, context) {
+  if (!group || handItemDrawTimer || itemDrawBusy) return null;
+  if (!eligibleForItems(group)) return null;
+  if (!Array.isArray(group.inventory) || group.inventory.length >= 3) return null;
+  if (typeof beginDrawSessionV21710 === "function")
+    beginDrawSessionV21710("hand");
+  const previousGroup = handItemDrawGroupId,
+    previousKey = handItemPendingKey;
+  handItemDrawGroupId = group.id;
+  handItemPendingKey = null;
+  try {
+    const key = pickItemForGroupV281(group, new Set());
+    if (!key || !addItemToGroup(group, key)) return null;
+    const acquired = group.inventory[group.inventory.length - 1];
+    context.emit(
+      "ITEM_ACQUIRED",
+      { type: "group", id: group.groupUid },
+      {
+        seasonId: state.seasonId,
+        itemKey: key,
+        itemInstanceId: acquired?.itemInstanceId || null,
+        source: "hand-raise-reward",
+      },
+    );
+    return { key, name: ITEM_DEFS[key]?.name || key };
+  } finally {
+    handItemDrawGroupId = previousGroup;
+    handItemPendingKey = previousKey;
+  }
+}
 
 function finishHandItemReward() {
   handItemDrawGroupId = null;
@@ -36973,7 +37014,7 @@ if (typeof renderLockState === "function") {
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.63";
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.64";
 </script>
 
 <style id="v2187CopyPolishStyle">.copy-kicker-v2187 {
@@ -40321,7 +40362,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.63",
+    appVersion: "V3.0.64",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -52826,7 +52867,7 @@ window.addEventListener("DOMContentLoaded", MigrationPanel.init, {
 <script>/* Authoritative, presentation-neutral picker port. All commands reuse the existing classroom engine. */
 window.GodpowerPicker = (() => {
   'use strict';
-  let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false;
+  let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false, externalEffects = true;
   const listeners = new Set();
   function notify(next) {
     if (next === 'rolling') resultId = `pick-${Date.now()}-${++serial}`;
@@ -52857,6 +52898,7 @@ window.GodpowerPicker = (() => {
     const result = ['settling', 'revealed'].includes(actual) ? currentResult() : null;
     const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
     const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
+      (window.godpowerDesktop?.role !== 'main' || (external && externalEffects)) &&
       !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
     return { protocolVersion: 1, theme: window.GodpowerTheme?.get() || 'classic', phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
       mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
@@ -52887,7 +52929,7 @@ window.GodpowerPicker = (() => {
     if (action === 'start') {
       preparing = true; notify('preparing');
       try {
-        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal({internal:true});
+        openPickerModal({internal:true});
         await DesktopUI.togglePicker();
         return { ok: slotEngine.isSpinning, error: slotEngine.isSpinning ? undefined : 'NOT_STARTED' };
       } finally { preparing = false; if (!slotEngine.isSpinning) notify('idle'); }
@@ -52915,7 +52957,196 @@ window.GodpowerPicker = (() => {
   }
   return Object.freeze({ invalidate: cancel, command, getSnapshot, notify, isSettling: () => phase === 'settling',
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
+    setExternalEffectsEnabled(value) { externalEffects = value === true; },
     setExternalPresentation(value) { external = value === true; }, isExternalPresentation: () => external });
+})();
+</script>
+<script>/* Floating hand controls operate the main classroom; no renderer-owned scores.
+   The host owns classroom state, transactions and persistence; this port only
+   validates the hand session token and orders one atomic command per gesture. */
+globalThis.HandRaisePort = (() => {
+  'use strict';
+  function create(host) {
+    let session = null,
+      running = false;
+    function current() {
+      let state;
+      try { state = host.getState(); } catch { session = null; return null; }
+      const group = state.groups.find((g) => g.id === session?.groupId);
+      if (
+        !session ||
+        session.owner !== state ||
+        session.season !== state.seasonId ||
+        !group ||
+        (session.groupUid && group.groupUid !== session.groupUid)
+      ) {
+        session = null;
+        return null;
+      }
+      return group;
+    }
+    function busy() {
+      return running || !!host.busy();
+    }
+    function getSnapshot() {
+      const state = host.getState();
+      const group = current();
+      const isBusy = busy();
+      const locked = !!state.isLocked;
+      const inventoryCount = group?.inventory?.length || 0;
+      const answerCorrect = session?.correct === true;
+      return {
+        selectionId: session?.id || null,
+        groupId: group?.id ?? null,
+        groupName: group?.name || '',
+        correct: session?.correct ?? null,
+        itemRewarded: !!session?.itemRewarded,
+        busy: isBusy,
+        locked,
+        inventoryCount,
+        canDraw: !!(
+          group &&
+          answerCorrect &&
+          !session.itemRewarded &&
+          !isBusy &&
+          !locked &&
+          host.enabled() &&
+          host.eligible(group) &&
+          inventoryCount < 3
+        ),
+        canScore: !!(group && answerCorrect && !isBusy && !locked),
+        itemName: session?.itemName || '',
+      };
+    }
+    async function command(action, payload = {}) {
+      if (busy()) return { ok: false, error: 'BUSY' };
+      const state = host.getState();
+      if (action === 'handSelect') {
+        if (!Number.isSafeInteger(payload.groupId))
+          return { ok: false, error: 'INVALID_GROUP' };
+        const group = state.groups.find((g) => g.id === payload.groupId);
+        if (!group) return { ok: false, error: 'INVALID_GROUP' };
+        session = {
+          owner: state,
+          season: state.seasonId,
+          groupId: group.id,
+          groupUid: group.groupUid,
+          id: host.id(),
+          correct: null,
+          itemRewarded: false,
+          itemName: '',
+        };
+        return { ok: true, session: { selectionId: session.id, groupId: group.id } };
+      }
+      const group = current();
+      const expected = session;
+      if (!group || payload.groupId !== group.id)
+        return { ok: false, error: 'STALE_HAND_SESSION' };
+      if (action !== 'handSelect' && payload.selectionId !== session.id)
+        return { ok: false, error: 'STALE_HAND_SESSION' };
+      if (state.isLocked) return { ok: false, error: 'LOCKED' };
+      if (action === 'handJudge') {
+        if (typeof payload.correct !== 'boolean')
+          return { ok: false, error: 'INVALID_VALUE' };
+        if (session.correct !== null) return { ok: false, error: 'ALREADY_JUDGED' };
+      } else if (action === 'handScore' || action === 'handDraw') {
+        if (session.correct !== true) return { ok: false, error: 'ANSWER_NOT_CORRECT' };
+        if (
+          action === 'handScore' &&
+          (!Number.isSafeInteger(payload.delta) || !payload.delta)
+        )
+          return { ok: false, error: 'INVALID_SCORE' };
+        if (action === 'handDraw' && !getSnapshot().canDraw)
+          return {
+            ok: false,
+            error: session.itemRewarded ? 'REWARD_ALREADY_GIVEN' : 'NO_DRAW',
+          };
+      } else return { ok: false, error: 'UNKNOWN_COMMAND' };
+      let plan, itemName = '', runtime;
+      try {
+        if (action === 'handScore') plan = host.planScore(group, payload.delta);
+      } catch {
+        return { ok: false, error: 'INVALID_SCORE' };
+      }
+      if (action === 'handDraw') runtime = host.captureRuntime?.();
+      running = true;
+      try {
+        let drawn = null;
+        const accepted = host.run(
+          `${group.name} 悬浮举手：${
+            action === 'handJudge'
+              ? payload.correct
+                ? '回答正确'
+                : '回答错误'
+              : action === 'handScore'
+                ? '积分奖励'
+                : '道具奖励'
+          }`,
+          (context) => {
+            if (action === 'handJudge') {
+              group.itemStats ||= { correct: 0, wrong: 0, draws: 0, used: 0 };
+              const key = payload.correct ? 'correct' : 'wrong';
+              group.itemStats[key] = (Number(group.itemStats[key]) || 0) + 1;
+              state.itemGlobal.handRaiseTotal =
+                (Number(state.itemGlobal.handRaiseTotal) || 0) + 1;
+              state.itemGlobal.handRaiseHistory ||= [];
+              state.itemGlobal.handRaiseHistory.push({
+                time: Date.now(),
+                groupId: group.id,
+                correct: payload.correct,
+              });
+              return true;
+            }
+            if (action === 'handScore') {
+              group.score = plan.after;
+              group.displayScore = group.score;
+              return true;
+            }
+            drawn = host.draw(group, context);
+            if (!drawn) return false;
+            itemName = drawn.name || '';
+            return true;
+          },
+          { retainOnPersistenceFailure: false, source: 'manual' },
+        );
+        if (!accepted) {
+          if (action === 'handDraw') host.restoreRuntime?.(runtime);
+          return { ok: false, persisted: false, error: 'COMMAND_REJECTED' };
+        }
+        const result = await host.whenIdle();
+        if (!result?.ok || result.persisted !== true) {
+          if (action === 'handDraw') host.restoreRuntime?.(runtime);
+          return {
+            ok: false,
+            persisted: false,
+            error:
+              action === 'handDraw' && !drawn ? 'NO_DRAW' : 'SAVE_FAILED',
+          };
+        }
+        if (session === expected && current()) {
+          if (action === 'handJudge') session.correct = payload.correct;
+          if (action === 'handDraw') {
+            session.itemRewarded = true;
+            session.itemName = itemName;
+          }
+        }
+        try {
+          host.feedback?.(action, group, plan, drawn);
+        } catch {}
+        return { ok: true, persisted: true, ...(drawn ? { itemName } : {}) };
+      } finally {
+        running = false;
+      }
+    }
+    return {
+      command,
+      getSnapshot,
+      invalidate() {
+        session = null;
+      },
+    };
+  }
+  return { create };
 })();
 </script>
 <script>/* Transport only. Standalone HTML has no desktop bridge and keeps all existing behavior. */
@@ -52926,9 +53157,59 @@ window.GodpowerPicker = (() => {
   let last = "",
     timer,
     soundedReveal = null;
+
+  /* Authoritative hand port: the main renderer owns the classroom transaction,
+     the floating window only sends a gesture with its selection token. */
+  const hand = globalThis.HandRaisePort?.create({
+    getState: () => state,
+    busy: () => !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
+    id: () => StableIdentity.createCommandId(),
+    enabled: () => !state.isLocked,
+    eligible: (group) => eligibleForItems(group),
+    planScore: (group, delta) => ScoreAdjustments.delta(group, delta),
+    captureRuntime: () => ({
+      session: activeDrawSessionV21710,
+      pending:
+        typeof firstHandDrawPendingV218 !== "undefined"
+          ? firstHandDrawPendingV218
+          : null,
+    }),
+    restoreRuntime: (runtime) => {
+      if (!runtime) return;
+      activeDrawSessionV21710 = runtime.session;
+      if (runtime.pending !== null) firstHandDrawPendingV218 = runtime.pending;
+    },
+    draw: (group, context) => drawHandRewardForPort(group, context),
+    run: (label, operation, options) =>
+      runClassroomCommand(label, operation, options),
+    whenIdle: () => classroomCommands.whenIdle(),
+    feedback: (action, group, plan, drawn) => {
+      if (action === "handScore" && plan && Number.isFinite(group?.score)) {
+        ClassroomFeedback.score(group.name, plan.after - plan.before);
+        void playSound(plan.after >= plan.before ? "score_add" : "score_sub");
+      }
+      if (action === "handDraw" && drawn) void playSound("big_win");
+    },
+  });
+
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
-      json = JSON.stringify(snapshot);
+      handSnapshot = hand?.getSnapshot() || null;    const payload = {
+      ...snapshot,
+      hand: handSnapshot
+        ? {
+            selectionId: handSnapshot.selectionId,
+            groupId: handSnapshot.groupId,
+            correct: handSnapshot.correct,
+            itemRewarded: handSnapshot.itemRewarded,
+            busy: handSnapshot.busy,
+            inventoryCount: handSnapshot.inventoryCount,
+            canDraw: handSnapshot.canDraw,
+            itemName: handSnapshot.itemName,
+          }
+        : null,
+    };
+    const json = JSON.stringify(payload);
     if (
       snapshot.phase === "revealed" &&
       snapshot.result?.id !== soundedReveal
@@ -52939,9 +53220,24 @@ window.GodpowerPicker = (() => {
     }
     if (json !== last) {
       last = json;
-      desktop.publish(snapshot);
+      desktop.publish(payload);
     }
   };
+
+  const sounds = {
+    start: "pick_start",
+    stop: "pick_stop",
+    cancel: "cancel",
+    resetPool: "danger",
+    mode: "settings",
+    antiRepeat: "settings",
+    preselect: "settings",
+    handSelect: "ui_click",
+    handJudge: "ui_click",
+    handScore: "settings",
+    handDraw: "settings",
+  };
+
   desktop.onExecute(async ({ id, action, payload }) => {
     if (!completed.has(id)) {
       // Remote controls use the same configurable sound slots as the classroom buttons.
@@ -52950,19 +53246,21 @@ window.GodpowerPicker = (() => {
           ? payload.delta > 0
             ? "positive"
             : "negative"
-          : {
-              start: "pick_start",
-              stop: "pick_stop",
-              cancel: "cancel",
-              resetPool: "danger",
-              mode: "settings",
-              antiRepeat: "settings",
-              preselect: "settings",
-            }[action];
+          : sounds[action];
       if (buttonSound) void playSound("ui_button_" + buttonSound);
-      const promise = GodpowerPicker.command(action, payload).catch(
-        (error) => ({ ok: false, error: error.message }),
-      );
+      const promise =
+        action === "handSelect" ||
+        action === "handJudge" ||
+        action === "handScore" ||
+        action === "handDraw"
+          ? hand.command(action, payload).catch((error) => ({
+              ok: false,
+              error: error.message,
+            }))
+          : GodpowerPicker.command(action, payload).catch((error) => ({
+              ok: false,
+              error: error.message,
+            }));
       completed.set(id, promise);
       if (completed.size > 256) completed.delete(completed.keys().next().value);
     }
@@ -52971,7 +53269,7 @@ window.GodpowerPicker = (() => {
     desktop.reply({ id, result });
   });
   desktop.onShellState((shell) =>
-    GodpowerPicker.setExternalPresentation(shell.effectsEnabled),
+    GodpowerPicker.setExternalEffectsEnabled(shell.effectsEnabled),
   );
   desktop.onUnlockRequest(() => {
     if (state.isLocked) openPwdModal();
@@ -52997,52 +53295,12 @@ window.GodpowerPicker = (() => {
   });
 })();
 </script>
-<script>/* Only the picker has an external window; functional dialogs keep their live DOM. */
+<script>/* Only engine calls marked external hide their DOM. Dock controls stay internal. */
 (() => {
-  const desktop = window.godpowerDesktop;
-  if (!desktop || desktop.role !== "main") return;
-  function install() {
-    const picker = document.getElementById("pickerModal");
-    if (!picker) return;
-    const style = document.createElement("style");
-    style.textContent =
-      "#pickerModal[data-external-picker]{visibility:hidden!important;pointer-events:none!important}";
-    document.head.append(style);
-    let opened = false;
-    const sync = () => {
-      const visible =
-        picker.classList.contains("active") || picker.style.display === "flex";
-      picker.toggleAttribute("data-external-picker", visible);
-      if (visible && !opened) desktop.openPicker();
-      opened = visible;
-    };
-    // Repeated presses must reopen a collapsed picker even if the hidden
-    // legacy picker modal was already active and its class does not change.
-    const fromControl = (event) => {
-      if (event.target.closest('[onclick*="openPickerModal"]'))
-        void desktop.openPicker();
-    };
-    document.addEventListener("click", fromControl);
-    const observer = new MutationObserver(sync);
-    observer.observe(picker, {
-      attributes: true,
-      attributeFilter: ["class", "style"],
-    });
-    sync();
-    window.addEventListener(
-      "beforeunload",
-      () => {
-        observer.disconnect();
-        document.removeEventListener("click", fromControl);
-      },
-      {
-        once: true,
-      },
-    );
-  }
-  if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", install, { once: true });
-  else install();
+  if (window.godpowerDesktop?.role !== 'main') return;
+  const style = document.createElement('style');
+  style.textContent = '#pickerModal[data-external-picker]{visibility:hidden!important;pointer-events:none!important}';
+  document.head.append(style);
 })();
 </script>
 </body>

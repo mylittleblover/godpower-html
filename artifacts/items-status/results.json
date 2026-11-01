@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "name": "catalog-midfield-kamek-persistence",
+      "affected": [
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "name": "defense-fire-freeze-allin-round",
+      "score": 8
+    },
+    {
+      "name": "box-atomic-distribution",
+      "events": 4
+    },
+    {
+      "name": "box-quota-rollback"
+    },
+    {
+      "name": "dizziness-self-hit-single-consumption"
+    },
+    {
+      "name": "boomerang-undo-positive-rules-expiry",
+      "reloadId": 3
+    },
+    {
+      "name": "real-reload-preserves-new-items-and-status"
+    }
+  ],
+  "errors": []
+}

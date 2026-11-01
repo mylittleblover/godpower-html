@@ -1,8 +1,13 @@
 function openPickerModal({ internal = false } = {}) {
+  // The desktop dock entry opens the floating picker directly; the in-page
+  // modal only serves as the hidden drawing engine for that external window.
   if (!internal && window.godpowerDesktop?.role === "main") {
     window.godpowerDesktop.openPicker();
     return;
   }
+  const external = internal && window.godpowerDesktop?.role === "main";
+  document.getElementById("pickerModal").toggleAttribute("data-external-picker", !!external);
+  window.GodpowerPicker?.setExternalPresentation(!!external);
   if (
     document.getElementById("pickerModal").classList.contains("active") &&
     !document.getElementById("pickerModal").dataset.uiClosing
@@ -19,7 +24,10 @@ function closePickerModal() {
   if (slotEngine.isSpinning) stopSlotSpin();
   if (typeof DesktopUI !== "undefined") DesktopUI.cancelPickerPreparation();
   window.GodpowerPicker?.notify("idle");
-  hideClassroomWindow(document.getElementById("pickerModal"));
+  window.GodpowerPicker?.setExternalPresentation(false);
+  const modal = document.getElementById("pickerModal");
+  modal?.removeAttribute("data-external-picker");
+  hideClassroomWindow(modal);
   document.getElementById("slotResultPanel").classList.remove("show");
 }
 

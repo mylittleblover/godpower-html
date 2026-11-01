@@ -53,6 +53,39 @@ judgeHandRaise = function (correct) {
   }
 };
 
+/* Floating-window hand reward: same pool, throttle and eligibility rules as
+   handDrawItem, but the presentation belongs to the caller's own surface. */
+function drawHandRewardForPort(group, context) {
+  if (!group || handItemDrawTimer || itemDrawBusy) return null;
+  if (!eligibleForItems(group)) return null;
+  if (!Array.isArray(group.inventory) || group.inventory.length >= 3) return null;
+  if (typeof beginDrawSessionV21710 === "function")
+    beginDrawSessionV21710("hand");
+  const previousGroup = handItemDrawGroupId,
+    previousKey = handItemPendingKey;
+  handItemDrawGroupId = group.id;
+  handItemPendingKey = null;
+  try {
+    const key = pickItemForGroupV281(group, new Set());
+    if (!key || !addItemToGroup(group, key)) return null;
+    const acquired = group.inventory[group.inventory.length - 1];
+    context.emit(
+      "ITEM_ACQUIRED",
+      { type: "group", id: group.groupUid },
+      {
+        seasonId: state.seasonId,
+        itemKey: key,
+        itemInstanceId: acquired?.itemInstanceId || null,
+        source: "hand-raise-reward",
+      },
+    );
+    return { key, name: ITEM_DEFS[key]?.name || key };
+  } finally {
+    handItemDrawGroupId = previousGroup;
+    handItemPendingKey = previousKey;
+  }
+}
+
 function finishHandItemReward() {
   handItemDrawGroupId = null;
   handItemPendingKey = null;

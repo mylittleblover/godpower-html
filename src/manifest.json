@@ -1231,6 +1231,11 @@
     },
     {
       "type": "script",
+      "path": "application/hand-raise-port.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/electron-host.js",
       "attributes": ""
     },

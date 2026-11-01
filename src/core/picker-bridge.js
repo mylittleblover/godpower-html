@@ -1,7 +1,7 @@
 /* Authoritative, presentation-neutral picker port. All commands reuse the existing classroom engine. */
 window.GodpowerPicker = (() => {
   'use strict';
-  let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false;
+  let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false, externalEffects = true;
   const listeners = new Set();
   function notify(next) {
     if (next === 'rolling') resultId = `pick-${Date.now()}-${++serial}`;
@@ -32,6 +32,7 @@ window.GodpowerPicker = (() => {
     const result = ['settling', 'revealed'].includes(actual) ? currentResult() : null;
     const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
     const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
+      (window.godpowerDesktop?.role !== 'main' || (external && externalEffects)) &&
       !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
     return { protocolVersion: 1, theme: window.GodpowerTheme?.get() || 'classic', phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
       mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
@@ -62,7 +63,7 @@ window.GodpowerPicker = (() => {
     if (action === 'start') {
       preparing = true; notify('preparing');
       try {
-        if (!document.getElementById('pickerModal').classList.contains('active')) openPickerModal({internal:true});
+        openPickerModal({internal:true});
         await DesktopUI.togglePicker();
         return { ok: slotEngine.isSpinning, error: slotEngine.isSpinning ? undefined : 'NOT_STARTED' };
       } finally { preparing = false; if (!slotEngine.isSpinning) notify('idle'); }
@@ -90,5 +91,6 @@ window.GodpowerPicker = (() => {
   }
   return Object.freeze({ invalidate: cancel, command, getSnapshot, notify, isSettling: () => phase === 'settling',
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
+    setExternalEffectsEnabled(value) { externalEffects = value === true; },
     setExternalPresentation(value) { external = value === true; }, isExternalPresentation: () => external });
 })();
