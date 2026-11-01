@@ -175,7 +175,18 @@
       status.dataset.state = error ? "error" : "ok";
     }
     function writeDocument(next, message = "名单已保存") {
-      const result = repository.write(next, { expectedRevision: revision });
+      let result = repository.write(next, { expectedRevision: revision });
+      /* The stored revision can move without this workspace knowing: another tab
+         writes, or the document is cleared/replaced outside the page. A single
+         re-read keeps the write instead of failing forever with
+         REVISION_CONFLICT. */
+      if (!result.ok && result.code === "REVISION_CONFLICT") {
+        const fresh = repository.read();
+        if (fresh.ok) {
+          revision = fresh.revision;
+          result = repository.write(next, { expectedRevision: revision });
+        }
+      }
       if (!result.ok) {
         setStatus(`保存失败：${result.message || result.code}`, true);
         return false;
