@@ -199,6 +199,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/inventory-and-roulette.css"],
     },
     {
+      name: "hic-enter",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
       name: "hitBananaSweepV2116",
       sources: ["src/styles/items/attack-feedback.css"],
     },
@@ -1180,6 +1184,14 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/battle/group-cards.css"],
     },
     {
+      name: "competition-status",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
+      name: "competition-status-guide",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
       name: "component-library-content",
       sources: ["src/ui/component-library.css"],
     },
@@ -2041,6 +2053,10 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "hand-item-cinematic",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
       name: "hand-item-draw-name",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
@@ -2129,6 +2145,22 @@ const GodPowerComponentCatalog = {
     {
       name: "height-resizer-dock",
       sources: ["src/styles/battle/overview-and-resizer.css"],
+    },
+    {
+      name: "hic-arrow",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
+      name: "hic-icon",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
+      name: "hic-surface",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
+      name: "hic-targets",
+      sources: ["src/ui/item-score-cinematics.css"],
     },
     {
       name: "hist-actions",
@@ -3534,6 +3566,14 @@ const GodPowerComponentCatalog = {
       sources: ["src/ui/application-surfaces.css"],
     },
     {
+      name: "score-card-number",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
+      name: "score-card-wash",
+      sources: ["src/ui/item-score-cinematics.css"],
+    },
+    {
       name: "score-input",
       sources: [
         "src/styles/battle/group-cards.css",
@@ -3576,6 +3616,10 @@ const GodPowerComponentCatalog = {
         "src/styles/dialogs/score-and-member-search.css",
         "src/ui/application-surfaces.css",
       ],
+    },
+    {
+      name: "score-motion-hidden",
+      sources: ["src/ui/item-score-cinematics.css"],
     },
     {
       name: "score-roll-ghost-v21730",

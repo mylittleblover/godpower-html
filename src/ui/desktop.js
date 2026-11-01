@@ -148,6 +148,7 @@ const DesktopUI = (() => {
     archiveEntryPending = false;
   function viewChanged(name) {
     if (!ready) return;
+    globalThis.HandItemCinematic?.dismiss();
     const pageScope = window.GodPowerPageLifecycle?.enter(name).scope;
     ClassroomFeedback.cancel();
     BattleMotion.clear();
@@ -1408,6 +1409,7 @@ const DesktopUI = (() => {
       ClassroomFeedback.picked(win, state.picker.mode);
     };
     if (!canAnimate()) {
+      globalThis.HandItemCinematic?.dismiss();
       ClassroomFeedback.clearLive();
       complete();
       return;

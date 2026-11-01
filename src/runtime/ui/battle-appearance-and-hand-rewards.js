@@ -19,11 +19,11 @@ renderAbout = function (tab) {
   const m = document.getElementById("aboutMain");
   if (!m) return;
   if (tab === "info") {
-    m.innerHTML = `<div class="v214-about-head"><h2>上帝（马克思）的力量</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="guide-block"><b>课堂积分与道具系统</b><br>包含课堂积分、随机点名、手动举手、26 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">当前界面采用现代扁平风格，保留必要的状态动画与道具演出。</div>`;
+    m.innerHTML = `<div class="v214-about-head"><h2>上帝（马克思）的力量</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="guide-block"><b>课堂积分与道具系统</b><br>包含课堂积分、随机点名、手动举手、${ITEM_KEYS.length} 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">当前界面采用现代扁平风格，保留必要的状态动画与道具演出。</div>`;
     return;
   }
   if (tab === "items") {
-    m.innerHTML = `<div class="v214-about-head"><h2>26 种道具百科</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="v214-about-item-list">${ITEM_KEYS.map(
+    m.innerHTML = `<div class="v214-about-head"><h2>${ITEM_KEYS.length} 种道具百科</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="v214-about-item-list">${ITEM_KEYS.map(
       (k) => {
         const d = ITEM_DEFS[k];
         return `<div class="v214-about-item"><div class="v214-about-item-disc">${itemVisual(k, "v214-about-item-img")}</div><div class="v214-about-item-info"><div class="v214-about-item-name">${escapeHtml(d.name)}</div><div class="v214-about-item-desc">${escapeHtml(d.desc || "")}</div></div></div>`;

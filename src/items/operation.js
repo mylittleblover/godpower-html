@@ -1,4 +1,5 @@
 /* Operation pipeline. Draw policy has no access to this executor. */
+globalThis.RedirectedItemInstances = new WeakSet();
 const ItemOperationBlocks = (() => {
   const targets = Object.fromEntries(
     [
@@ -25,13 +26,102 @@ const ItemOperationBlocks = (() => {
     ]),
   );
   const effects = {
+    kamek(c) {
+      const pool = [...c.others];
+      if (!pool.length) return false;
+      const count = 1 + Math.floor(Math.random() * Math.min(3, pool.length));
+      c.targets = [];
+      for (let i = 0; i < count; i++) {
+        const target = pool.splice(
+          Math.floor(Math.random() * pool.length),
+          1,
+        )[0];
+        c.targets.push(target);
+        if (tryDefend(target, "kamek")) {
+          c.blocked.add(target.id);
+          continue;
+        }
+        const key =
+          CompetitionEffects.negative[
+            Math.floor(Math.random() * CompetitionEffects.negative.length)
+          ];
+        CompetitionEffects.apply(target, key);
+      }
+      return true;
+    },
+    itemBox(c) {
+      // Free the caster's consumed slot before distributing; one session, one transaction.
+      consumeInventoryItem(c.group, c.index, 1);
+      c.consumed = true;
+      const previous = activeDrawSessionV21710;
+      const t = ensureDrawSessionThrottleV21710();
+      activeDrawSessionV21710 = {
+        no: ++t.sessionNo,
+        kind: "item-box",
+        selectedGlobalUnique: new Set(),
+      };
+      const batch = new Set();
+      c.targets = [];
+      try {
+        const recipients = state.groups
+          .filter((g) => eligibleForItems(g) && g.inventory.length < 3)
+          .sort((a, b) =>
+            String(a.groupUid || a.id).localeCompare(
+              String(b.groupUid || b.id),
+            ),
+          );
+        for (const group of recipients) {
+          const key = pickItemForGroupV281(group, batch);
+          if (!key) continue;
+          if (!addItemToGroup(group, key)) throw Error("道具箱分发失败");
+          batch.add(key);
+          c.targets.push(group);
+          const acquired = group.inventory.at(-1);
+          c.command?.emit(
+            "ITEM_ACQUIRED",
+            { type: "group", id: group.groupUid },
+            {
+              seasonId: state.seasonId,
+              itemKey: key,
+              itemInstanceId: acquired?.itemInstanceId || null,
+              source: "item-box",
+            },
+          );
+        }
+      } finally {
+        activeDrawSessionV21710 = previous;
+      }
+      return true;
+    },
     fraction(c) {
       for (const target of c.targets) {
+        let result;
         if (c.blueprint.denominator === 5) {
           const amount = Math.round(Math.max(0, Number(target.score) || 0) / 5);
-          if (amount > 0) applyItemScore(target, -amount, c.group.id, c.key);
+          result =
+            amount > 0
+              ? applyItemScore(target, -amount, c.group.id, c.key)
+              : { blocked: tryDefend(target, c.key) };
         } else
-          damageFraction(target, c.blueprint.denominator, c.group.id, c.key);
+          result = damageFraction(
+            target,
+            c.blueprint.denominator,
+            c.group.id,
+            c.key,
+          );
+        if (
+          c.key === "fire_flower" &&
+          !result?.blocked &&
+          !result?.changed &&
+          roundQuarter(target.score) === 0
+        )
+          result = { ...result, blocked: tryDefend(target, c.key) };
+        if (result?.blocked) c.blocked.add(target.id);
+        if (!result?.blocked) {
+          if (c.key === "fire_flower") CompetitionEffects.apply(target, "burn");
+          if (c.key === "boomerang_flower")
+            CompetitionEffects.apply(target, "dizziness");
+        }
         if (c.key === "bomb") flashBomb(target.id);
       }
       return true;
@@ -53,13 +143,9 @@ const ItemOperationBlocks = (() => {
         const result =
           amount > 0
             ? applyItemScore(t, -amount, c.group.id, c.key)
-            : { changed: false };
-        if (!result.blocked)
-          t.itemEffect = {
-            ...(t.itemEffect || {}),
-            iceLock: 1,
-            iceRoundsLeftV218: c.blueprint.rounds,
-          };
+            : { changed: false, blocked: tryDefend(t, c.key) };
+        if (result.blocked) c.blocked.add(t.id);
+        if (!result.blocked) CompetitionEffects.apply(t, "freeze");
       }
       return true;
     },
@@ -69,7 +155,9 @@ const ItemOperationBlocks = (() => {
       return true;
     },
     lightning(c) {
-      c.targets.forEach((t) => applyLightningHitV2116(c.group, t));
+      c.targets.forEach((t) => {
+        if (!applyLightningHitV2116(c.group, t)) c.blocked.add(t.id);
+      });
       return true;
     },
     status(c) {
@@ -131,7 +219,7 @@ const ItemOperationBlocks = (() => {
       return true;
     },
   };
-  function run(key, group, index) {
+  function run(key, group, index, command, presentation = {}) {
     const blueprint = ItemBlueprints[key];
     if (!blueprint) throw Error("道具模块未注册：" + key);
     const ordered = ranking(),
@@ -147,6 +235,8 @@ const ItemOperationBlocks = (() => {
         (g) => g.id !== group.id && eligibleForItems(g),
       ),
       consumed: false,
+      command,
+      blocked: new Set(),
     };
     context.targets =
       targets[blueprint.target](context).filter(eligibleForItems);
@@ -154,10 +244,39 @@ const ItemOperationBlocks = (() => {
       showToast("当前没有可用目标");
       return false;
     }
+    const targeted = ["fraction", "freeze"].includes(blueprint.effect);
+    if (CompetitionEffects.redirect(group, targeted, () => Math.random())) {
+      if (!eligibleForItems(group)) return false;
+      context.targets = [group];
+      context.redirectedItem = group.inventory[index];
+      RedirectedItemInstances.add(context.redirectedItem);
+    }
     const before = snapshotScoresV21732();
+    const beforeEffects = new Map(
+      state.groups.map((g) => [
+        g.id,
+        JSON.stringify(g.competitionEffects || {}),
+      ]),
+    );
     itemScoreBatchDepthV21732++;
     try {
       if (effects[blueprint.effect](context) === false) return false;
+      Object.assign(presentation, {
+        key,
+        caster: { id: group.id, name: group.name },
+        targets: context.targets.map((target) => ({
+          id: target.id,
+          name: target.name,
+          blocked: context.blocked.has(target.id),
+          delta:
+            Number(target.score) -
+            (before.get(String(target.id)) ?? Number(target.score)),
+          status: CompetitionEffects.labels(target).join("；"),
+          effectChanged:
+            beforeEffects.get(target.id) !==
+            JSON.stringify(target.competitionEffects || {}),
+        })),
+      });
       if (!context.consumed && !blueprint.retain)
         consumeInventoryItem(group, index, 1);
       group.itemStats = group.itemStats || {};
@@ -176,16 +295,20 @@ const ItemOperationBlocks = (() => {
           group.id,
           ordered.map((g) => g.id),
         );
-      showItemUseFx(
-        key,
-        group.id,
-        context.targets.length
-          ? "目标：" + context.targets.map((g) => g.name).join("、")
-          : "没有可用目标 · 本次已消耗",
-      );
-      showToast(`${group.name} 使用了 ${ITEM_DEFS[key].name}`);
+      if (!presentation.fromHand)
+        showItemUseFx(
+          key,
+          group.id,
+          context.targets.length
+            ? "目标：" + context.targets.map((g) => g.name).join("、")
+            : "没有可用目标 · 本次已消耗",
+        );
+      if (!presentation.fromHand)
+        showToast(`${group.name} 使用了 ${ITEM_DEFS[key].name}`);
       return true;
     } finally {
+      if (context.redirectedItem)
+        RedirectedItemInstances.delete(context.redirectedItem);
       itemScoreBatchDepthV21732 = Math.max(0, itemScoreBatchDepthV21732 - 1);
       queueItemScoreChangesV21732(before);
     }

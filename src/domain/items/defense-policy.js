@@ -1,9 +1,13 @@
 /* Existing defense precedence only; consumption, effects and dialogs belong to application. */
 const DefensePolicy = (() => {
-  function choose(g, attackType, { eligible, shellAttack }) {
+  function choose(
+    g,
+    attackType,
+    { eligible, shellAttack, ignorePrimary = false },
+  ) {
     if (Number(g?.booRoundsLeftV218 || 0) > 0 && Number(g?.booShield || 0) > 0)
       return "timed-ghost";
-    const main = g?.inventory?.[0];
+    const main = ignorePrimary ? undefined : g?.inventory?.[0];
     if (
       attackType === "spiny" &&
       g?.__spinyHornDeclinedV218 &&

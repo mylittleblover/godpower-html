@@ -2,6 +2,7 @@
 function tryDefend(g, attackType) {
   const kind = DefensePolicy.choose(g, attackType, {
     eligible: eligibleForItems(g),
+    ignorePrimary: !!globalThis.RedirectedItemInstances?.has(g?.inventory?.[0]),
     shellAttack:
       g?.inventory?.[0]?.key === "bomb" &&
       SHELL_ATTACK_KEYS_V2170.has(attackType),

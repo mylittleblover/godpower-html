@@ -101,13 +101,15 @@ function renderBattleGridCards() {
     if (g.itemEffect?.type === "star") aura = "star";
     else if (g.itemEffect?.type === "mega") aura = "mega";
     else if (g.itemEffect?.type === "power") aura = "power";
-    else if (g.itemEffect?.iceLock) aura = "ice";
+    else if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
+      aura = "ice";
     if (aura) {
       const a = document.createElement("div");
       a.className = `persistent-aura-v213 aura-${aura}`;
       card.appendChild(a);
     }
     if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
+    globalThis.ScoreCardMotion?.restore(card, g.id);
   });
   if (typeof ClassroomAvatarDisplay !== "undefined")
     ClassroomAvatarDisplay.decorateGroupCards(ordered);

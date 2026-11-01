@@ -20,7 +20,7 @@ const GodPowerBattleCardView = Object.freeze({
     const scoreHtml =
       state.editingScoreId === g.id
         ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${badge.foreground === "#000000" ? "#fff" : g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
+        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
     const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
     const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
 
@@ -42,6 +42,6 @@ const GodPowerBattleCardView = Object.freeze({
         <div class="v213-score-wrap">${scoreHtml}</div>
         <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
       </div>
-      <div class="card-action-row"><div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : `主要道具可直接点击使用`}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
+      <div class="card-action-row"><div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : `主要道具可直接点击使用`}${typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length ? `<span class="competition-status" title="${escapeHtml(CompetitionEffects.labels(g).join("；"))}">${escapeHtml(CompetitionEffects.labels(g).join(" · "))}</span>` : ""}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
   },
 });

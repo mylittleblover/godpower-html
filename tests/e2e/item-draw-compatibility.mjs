@@ -3,7 +3,8 @@ import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { sourceAt } from "../fixtures/source-at.mjs";
 import { launch, setup } from "../fixtures/browser.mjs";
-const baseline = process.env.DRAW_BASELINE || "d2b1bc9",
+const baseline =
+    process.env.DRAW_BASELINE || "d97b44dfff2a3c647d3e9f4b34ebbffc31122deb",
   before = sourceAt(baseline),
   after = await readFile("dist/godpower.html");
 const server = createServer((q, r) => {
@@ -22,6 +23,15 @@ try {
     await p.goto(`http://127.0.0.1:${server.address().port}/${version}`);
     await setup(p, 14);
     results[version] = await p.evaluate(() => {
+      // Explicit approved extensions change the live pool. This differential
+      // proves unchanged legacy draws when the two new modules are disabled;
+      // items-status.mjs separately tests their enabled midfield behavior.
+      if (globalThis.ItemModules) {
+        const config = ItemModules.configuration();
+        for (const key of ["kamek", "item_box"])
+          if (config.items[key]) config.items[key].draw.enabled = false;
+        ItemModules.update(config);
+      }
       const output = [];
       const rng = Math.random;
       const original = JSON.parse(JSON.stringify(state.groups));
@@ -77,6 +87,7 @@ try {
       {
         status: "PASS",
         baseline,
+        extensionsDisabled: ["kamek", "item_box"],
         cases: results.after.length,
         viewport: "1920x1080 1x",
       },
@@ -84,7 +95,11 @@ try {
       2,
     ),
   );
-  console.log("PASS draw compatibility", results.after.length, "seeded cases");
+  console.log(
+    "PASS legacy draw compatibility with new extensions disabled",
+    results.after.length,
+    "seeded cases",
+  );
 } finally {
   await browser.close();
   server.close();

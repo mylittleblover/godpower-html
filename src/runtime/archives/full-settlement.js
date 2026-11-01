@@ -142,7 +142,7 @@ function inventoryTextV21813(inv) {
     .join(" / ");
 }
 function effectTextV21813(g) {
-  const out = [];
+  const out = CompetitionEffects.labels(g);
   if (g.itemEffect?.type) {
     const d = ITEM_DEFS?.[g.itemEffect.type]?.name || g.itemEffect.type;
     out.push(

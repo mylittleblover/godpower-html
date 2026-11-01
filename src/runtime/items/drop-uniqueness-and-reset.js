@@ -201,6 +201,7 @@ async function clearAllItemsV2172() {
   state.groups.forEach((g) => {
     g.inventory = [];
     g.itemEffect = null;
+    g.competitionEffects = {};
     g.booShield = 0;
     if ("iceLock" in g) g.iceLock = 0;
   });

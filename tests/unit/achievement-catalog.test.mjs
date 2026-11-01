@@ -55,7 +55,10 @@ test("all 26 actual item keys have one exclusive achievement mapping", () => {
     "ice_flower",
     "boomerang_flower",
   ];
-  assert.deepEqual([...scope.api.itemKeys()].sort(), [...itemKeys].sort());
+  assert.deepEqual(
+    [...scope.api.itemKeys()].sort(),
+    [...itemKeys, "kamek", "item_box"].sort(),
+  );
   const mapped = scope.api
     .list()
     .filter((entry) => entry.itemKey)

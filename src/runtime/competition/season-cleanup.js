@@ -17,6 +17,7 @@ function resetCompetitionDataAfterSettlementV21812() {
     g.inventory = [];
     g.itemStats = { correct: 0, wrong: 0, draws: 0, used: 0 };
     g.itemEffect = null;
+    g.competitionEffects = {};
     g.booShield = 0;
     g.itemUsedThisRound = false;
 

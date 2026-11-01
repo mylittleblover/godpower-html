@@ -34,7 +34,7 @@ async function exportFxBundleV2175() {
        这同时包含：
        - 系统交互音效
        - 道具抽取/防御音效
-       - 26 个独立道具音效 fx_item_xxx
+       - 28 个独立道具音效 fx_item_xxx
     */
     const fxRecords = allRecords
       .filter(

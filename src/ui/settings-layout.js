@@ -130,7 +130,7 @@ const GodPowerSettingsLayout = (() => {
         sound,
         "uiSettingsItemFx",
         "道具音效",
-        "4 个公共事件 + 26 种道具独立发动音效",
+        "4 个公共事件 + 28 种道具独立发动音效",
         [itemSounds],
         true,
       );
@@ -141,7 +141,7 @@ const GodPowerSettingsLayout = (() => {
       sections.items,
       "uiSettingsItemLibrary",
       "道具百科与自定义图片",
-      "26 种实际道具 · 图标包与单项图片维护",
+      "28 种实际道具 · 图标包与单项图片维护",
       [itemLibrary],
       true,
     );

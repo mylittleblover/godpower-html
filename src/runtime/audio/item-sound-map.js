@@ -1,4 +1,4 @@
-/* ===== V2.17.4：26 种道具独立音效 =====
+/* ===== V2.17.4：28 种道具独立音效 =====
    抽取启动 / 滚动 / 定格和“防御成功”仍保留为公共事件音效；
    每一种具体道具的发动音效则完全拆分，可分别上传、试听、还原。 */
 
@@ -17,7 +17,7 @@ const GENERIC_ITEM_USE_SOUNDS_V2174 = new Set([
 function playPerItemFallbackV2174(key) {
   if (!audioCtx || !masterGainNode) return;
 
-  const idx = Math.max(0, ITEM_KEYS.indexOf(key));
+  const idx = Math.max(0, ITEM_DRAW_KEYS.indexOf(key));
   const now = audioCtx.currentTime + 0.005;
   const kind = ITEM_DEFS[key]?.kind || "tactic";
 
@@ -187,7 +187,7 @@ renderItemFxSoundListV26 = function () {
     ${common.map((x) => rowHtml(x.id, x.name, x.desc)).join("")}
 
     <div class="v2174-audio-head v2174-item-head">
-      <b>26 种道具独立发动音效</b>
+      <b>28 种道具独立发动音效</b>
       <span>每个道具使用自己的音频槽，不再共享“攻击 / 强化 / 状态”等通用音效。</span>
     </div>
     <div class="v2174-item-sound-grid">

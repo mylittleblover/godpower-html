@@ -1,5 +1,7 @@
 /* Each item is an independent composition of target/effect/consumption blocks. */
 globalThis.ItemBlueprints = Object.freeze({
+  kamek: { target: "randomOther", effect: "kamek", punishOvertake: false },
+  item_box: { target: "self", effect: "itemBox", punishOvertake: false },
   green: { target: "randomOther", effect: "fraction", denominator: 4 },
   triple_green: {
     target: "randomOther",

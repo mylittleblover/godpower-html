@@ -309,6 +309,11 @@ function normalizeGroup(raw, index = 0) {
       : [],
     itemStats: Reliability.normalizeStats(source.itemStats),
     itemEffect: Reliability.normalizeEffect(source.itemEffect),
+    competitionEffects: globalThis.CompetitionEffects
+      ? CompetitionEffects.normalize({
+          competitionEffects: source.competitionEffects,
+        })
+      : {},
     booShield: Number.isFinite(Number(source.booShield))
       ? Number(source.booShield)
       : 0,

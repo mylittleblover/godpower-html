@@ -12,6 +12,8 @@ const ITEM_ORDER_V218 = [
   "fire_flower",
   "ice_flower",
   "boomerang_flower",
+  "kamek",
+  "item_box",
   "bomb",
   "hammer",
   "spiny",
@@ -66,7 +68,7 @@ renderAbout = function (tab) {
   const m = document.getElementById("aboutMain");
   if (!m) return;
   m.innerHTML = `<div class="v2170-ency-head">
-    <div><h2>26 种道具百科</h2><div class="v2170-ency-sub">功能说明 + 实战使用技巧</div></div>
+    <div><h2>28 种道具百科</h2><div class="v2170-ency-sub">功能说明 + 实战使用技巧</div></div>
     <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
   </div>
   <div class="v218-ency-general">

@@ -81,6 +81,7 @@ function handUseNewItem() {
   handItemDrawStartedAt = 0;
   closeHandRaise();
   openItemWindow(g.id, "items");
+  globalThis.HandItemCinematic?.mark(g.id);
   setTimeout(() => {
     const cards = [...document.querySelectorAll("#itemWindowBody .item-card")];
     if (cards[idx]) {

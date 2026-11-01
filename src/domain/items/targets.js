@@ -23,7 +23,13 @@ const ItemTargets = (() => {
           .sort(() => random() - 0.5)
           .slice(0, 3),
       randomUnfrozen: (c) =>
-        randomOne(c.others.filter((t) => !t.itemEffect?.iceLock)),
+        randomOne(
+          c.others.filter(
+            (t) =>
+              !t.itemEffect?.iceLock &&
+              !globalThis.CompetitionEffects?.has(t, "freeze"),
+          ),
+        ),
       blast: (c) => {
         const [center] = randomOne(c.others);
         if (!center) return [];

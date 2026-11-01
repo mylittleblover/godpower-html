@@ -40,12 +40,22 @@ const resources = (x) =>
       /data:[a-zA-Z0-9.+/-]+(?:;[a-zA-Z0-9=.+-]+)*;base64,[a-zA-Z0-9+/=\s]+/g,
     ),
   ].map((m) => m[0]);
-if (JSON.stringify(resources(s)) !== JSON.stringify(resources(baseline)))
+const additions = ["item_box", "kamek"];
+const addedResources = await Promise.all(
+  additions.map((key) => readFile("src/resources/" + key + ".txt", "utf8")),
+);
+const currentResources = resources(s);
+for (const resource of addedResources) {
+  const index = currentResources.indexOf(resource);
+  if (index < 0) throw Error("New item icon missing");
+  currentResources.splice(index, 1);
+}
+if (JSON.stringify(currentResources) !== JSON.stringify(resources(baseline)))
   throw Error("Embedded resources changed");
 if (/<(?:script|link)[^>]+(?:src|href)=["']https?:/i.test(s))
   throw Error("External runtime dependency");
 console.log(
-  `${count} script blocks parse; all ${resources(s).length} original embedded resources preserved`,
+  `${count} script blocks parse; all ${resources(baseline).length} original embedded resources preserved plus ${addedResources.length} new item icons`,
 );
 const template = await readFile("src/index.template.html", "utf8");
 const expectedBlocks = parseSourceBlocks(template);

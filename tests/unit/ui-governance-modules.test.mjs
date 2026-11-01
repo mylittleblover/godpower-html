@@ -45,7 +45,7 @@ test("battle presenter preserves answer, score, queue and All In markup without 
   });
   const result = view.render(group, context, ports);
   assert.match(result, /row-score-light/);
-  assert.match(result, /style="color:#fff"/);
+  assert.match(result, /style="color:#eeeeee"/);
   assert.match(result, />120分<\/span>/);
   assert.match(result, /opt-btn active/);
   assert.match(result, /queue-main-slot/);

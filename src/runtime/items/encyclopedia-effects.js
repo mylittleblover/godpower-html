@@ -62,7 +62,7 @@ renderAbout = function (tab) {
 
   m.innerHTML = `<div class="v2170-ency-head">
       <div>
-        <h2>26 种道具百科</h2>
+        <h2>28 种道具百科</h2>
         <div class="v2170-ency-sub">仅介绍道具功能与实际效果。</div>
       </div>
       <button class="btn btn-sm" onclick="closeAbout()">关闭</button>

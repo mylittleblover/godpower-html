@@ -196,7 +196,25 @@ const ITEM_DEFS = {
     desc: "3 次回旋镖。每次命中当前排名紧邻自己的上一组和下一组，各扣当前积分 1/5。",
   },
 };
+Object.assign(ITEM_DEFS, {
+  kamek: {
+    name: "卡美克",
+    icon: "🔮",
+    kind: "attack",
+    charges: 1,
+    desc: "中游抽取。随机选择 1～3 个不同的其他小组，各施加一种随机负面状态；现有防御可抵挡。",
+  },
+  item_box: {
+    name: "道具箱",
+    icon: "🎁",
+    kind: "tactic",
+    charges: 1,
+    desc: "中游抽取。为全部符合条件的小组按各自排名抽取一个道具；负分、库存已满者跳过。",
+  },
+});
 let ITEM_KEYS = Object.keys(ITEM_DEFS);
+// UI sorting must not change the cumulative weight order of existing draws.
+const ITEM_DRAW_KEYS = Object.freeze([...ITEM_KEYS]);
 globalThis.GodpowerItemCatalog = Object.freeze({
   list: () =>
     ITEM_KEYS.map((key) =>
@@ -276,6 +294,8 @@ function normalizeInventoryV21718(inventory) {
 
 function ensureItemState() {
   state.groups.forEach((g) => {
+    if (typeof CompetitionEffects !== "undefined")
+      CompetitionEffects.normalize(g);
     if (!Array.isArray(g.inventory)) g.inventory = [];
     g.inventory = normalizeInventoryV21718(g.inventory);
     if (!g.itemStats || typeof g.itemStats !== "object")

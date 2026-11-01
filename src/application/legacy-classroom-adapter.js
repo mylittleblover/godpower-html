@@ -259,6 +259,7 @@ function useItem(groupId, index) {
   if (window.itemCommandActive) return false;
   Reliability.invalidateDefenseDecisions();
   const g = state.groups.find((x) => x.id === groupId);
+  const fromHand = globalThis.HandItemCinematic?.take(groupId);
   const reason = Reliability.validateItem(state, g, index, isCommunismMode());
   closeItemWindowForFx();
   if (reason) {
@@ -266,11 +267,14 @@ function useItem(groupId, index) {
     return false;
   }
   const key = g.inventory[index].key;
+  const presentation = {
+    fromHand,
+  };
   if (!ItemModules.canUse(key)) {
     showToast("该道具的主动使用积木已关闭");
     return false;
   }
-  return runClassroomCommand(
+  const accepted = runClassroomCommand(
     `${g.name} 使用道具：${ITEM_DEFS[key]?.name || key}`,
     (context) => {
       ensureV2State();
@@ -279,16 +283,19 @@ function useItem(groupId, index) {
       const usedItem = g.inventory[index];
       const itemInstanceId = usedItem.itemInstanceId || null;
       const chargesBefore = Number(usedItem.charges) || 1;
+      if (CompetitionEffects.cancelUse(g)) {
+        showToast(g.name + " 冰冻已解除，本次道具使用取消");
+        return true;
+      }
       if (g.itemEffect?.iceLock) {
         delete g.itemEffect.iceLock;
         delete g.itemEffect.iceRoundsLeftV218;
         if (!Object.keys(g.itemEffect).length) g.itemEffect = null;
-        markItemUsedThisRoundV2177(groupId);
         showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
         return true;
       }
       const result = ItemModules.execute(key, () =>
-        ItemOperationBlocks.run(key, g, index),
+        ItemOperationBlocks.run(key, g, index, context, presentation),
       );
       if (result === false || itemCommandSnapshot() === beforeValue)
         return false;
@@ -305,6 +312,22 @@ function useItem(groupId, index) {
         },
       );
       context.onCommit((commit) => {
+        if (presentation.targets) {
+          presentation.targets = presentation.targets.map((target) => {
+            const before = beforeGroups.find((group) => group.id === target.id);
+            const after = state.groups.find((group) => group.id === target.id);
+            const delta =
+              after && before ? after.score - before.score : target.delta;
+            return {
+              ...target,
+              delta,
+              blocked: delta < 0 ? false : target.blocked,
+              status: after
+                ? CompetitionEffects.labels(after).join("；")
+                : target.status,
+            };
+          });
+        }
         for (const fact of ItemImpactFacts.scoreLosses(
           beforeGroups,
           state.groups,
@@ -314,7 +337,17 @@ function useItem(groupId, index) {
       });
       return true;
     },
+    { retainOnPersistenceFailure: false },
   );
+  if (accepted && presentation.fromHand && presentation.caster) {
+    classroomCommands.whenIdle().then((result) => {
+      if (!result.ok) return;
+      playSound("item_use");
+      playSound(itemSoundCategoryV26(key));
+      HandItemCinematic.present(presentation);
+    });
+  }
+  return accepted;
 }
 // Read access denial is a browser capability limitation, not a corrupt save.
 // Leave stored data untouched and keep ordinary classroom actions usable in RAM.

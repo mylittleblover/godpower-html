@@ -29,7 +29,7 @@ const ITEM_FUNNY_COPY_V2184 = {
     "只打排名比自己高的组，而且最多随机挑三个。终于有一件道具理解了追赶机制，而不是第十二名转头暴打第十四名。",
   spiny:
     "它不关心第二名是谁，也不接受调解。它只知道排行榜最上面住着一个需要被重点关照的对象。第一名的快乐通常到听见它出场为止。",
-  coin: "没有随机，没有防御，没有状态栏。+2，然后结束。26 种道具里难得有一个愿意尊重大家的阅读时间。",
+  coin: "没有随机，没有防御，没有状态栏。+2，然后结束。28 种道具里难得有一个愿意尊重大家的阅读时间。",
   coin_shell:
     "自己涨分还不忘带着前面所有人一起涨。看起来非常慷慨，直到你发现自己可能亲手把第一名送得更远。",
   question:
@@ -88,15 +88,16 @@ renderAbout = function (tab) {
   const m = document.getElementById("aboutMain");
   if (!m) return;
   m.innerHTML = `<div class="v2170-ency-head">
-    <div><h2>26 种道具百科</h2><div class="v2170-ency-sub">规则很严肃，介绍决定不配合。</div></div>
+    <div><h2>28 种道具百科</h2><div class="v2170-ency-sub">规则很严肃，介绍决定不配合。</div></div>
     <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
   </div>
   <div class="v218-ency-general">
     <b>📖 百科阅读须知：</b>
-    这里的吐槽负责让你愿意把 26 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
+    这里的吐槽负责让你愿意把 28 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
     第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>
+  ${competitionStatusGuideMarkup()}
   <div class="v2170-ency-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {

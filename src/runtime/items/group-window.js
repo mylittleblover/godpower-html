@@ -1,4 +1,5 @@
 function openItemWindow(groupId, tab = "detail") {
+  globalThis.HandItemCinematic?.take(null);
   ensureItemState();
   activeItemGroupId = groupId;
   activeItemTab = tab;
@@ -6,6 +7,7 @@ function openItemWindow(groupId, tab = "detail") {
   renderItemWindow();
 }
 function closeItemWindow() {
+  globalThis.HandItemCinematic?.take(null);
   hideClassroomWindow(document.getElementById("itemModalBackdrop"));
   activeItemGroupId = null;
 }
@@ -30,7 +32,7 @@ function renderItemWindow() {
     const st = g.itemStats || {},
       total = (st.correct || 0) + (st.wrong || 0),
       rate = total ? Math.round(((st.correct || 0) / total) * 100) : 0;
-    const statusParts = [];
+    const statusParts = CompetitionEffects.labels(g);
     if (g.itemEffect && typeof g.itemEffect === "object") {
       const type = g.itemEffect.type;
       if (type) {
@@ -226,7 +228,8 @@ function enhanceItemCards() {
     const firstDef = g.inventory.find((it) => ITEM_DEFS[it.key]?.def);
     if (firstDef) c.classList.add("item-def-" + ITEM_DEFS[firstDef.key].def);
     if (g.itemEffect?.type) c.classList.add("effect-" + g.itemEffect.type);
-    if (g.itemEffect?.iceLock) c.classList.add("effect-ice");
+    if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
+      c.classList.add("effect-ice");
     if (g.booShield > 0) c.classList.add("effect-boo");
     const head = c.querySelector(".card-header-row");
     if (head && !c.querySelector(".item-slots")) {

@@ -26,7 +26,7 @@ try {
       throw Error("public pipeline must not call legacy dispatcher");
     };
   });
-  assert.equal(await page.evaluate(() => ItemModules.catalog().length), 26);
+  assert.equal(await page.evaluate(() => ItemModules.catalog().length), 28);
   await page.evaluate(() => {
     switchView("settings");
     DesktopUI.selectSettings("items");
@@ -132,7 +132,7 @@ try {
     return {
       score: t.score,
       defense: t.inventory.length,
-      ice: !!t.itemEffect?.iceLock,
+      ice: CompetitionEffects.has(t, "freeze"),
     };
   });
   assert.deepEqual(zero, { score: 100, defense: 0, ice: false });
@@ -177,6 +177,7 @@ try {
   });
   await page.waitForFunction(() => DesktopUI.getSettingsMotionCount() === 0);
   assert.equal(await page.locator(".im-settings").isVisible(), true);
+  await page.locator('[data-item-key="green"]').click();
   assert.equal(
     await page.locator('[name="green.draw.enabled"]').isChecked(),
     true,
@@ -190,7 +191,7 @@ try {
         status: "PASS",
         viewport: "1920x1080 1x",
         checks: [
-          "26 independent configs",
+          "28 independent configs",
           "two pipeline settings",
           "weight save",
           "coin multiplier",

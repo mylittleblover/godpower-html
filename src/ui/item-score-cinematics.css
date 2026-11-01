@@ -1,0 +1,119 @@
+.hand-item-cinematic {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(ellipse at center, #244a66, #071924 75%);
+  color: #fff;
+  overflow: auto;
+}
+.hand-item-cinematic::backdrop {
+  background: #071924;
+}
+.hic-surface {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 4vw;
+  padding: 8vh 7vw;
+  box-sizing: border-box;
+  text-align: center;
+}
+.hic-surface h2 {
+  font-size: clamp(28px, 4vw, 72px);
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+.hic-surface small {
+  letter-spacing: 0.12em;
+  opacity: 0.8;
+}
+.hic-icon img {
+  width: min(23vw, 280px);
+  height: min(27vh, 280px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 24px #ffffff50);
+}
+.hic-targets strong {
+  display: block;
+  font-size: clamp(24px, 4vw, 64px);
+  color: #fff3ad;
+}
+.hic-arrow {
+  font-size: 5vw;
+  color: #9de8ff;
+}
+.hic-targets {
+  animation: hic-enter 0.35s ease-out;
+}
+@keyframes hic-enter {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.score-motion-hidden {
+  visibility: hidden !important;
+}
+.score-card-wash {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 35;
+  pointer-events: none;
+}
+.score-card-number {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 36;
+  text-align: center;
+  font-size: clamp(28px, 3vw, 56px);
+  line-height: 1;
+  font-weight: 900;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.score-card-number small {
+  display: block;
+  font-size: 0.48em;
+  margin-top: 8px;
+}
+.competition-status {
+  display: block;
+  font-size: 11px;
+  line-height: 1.3;
+  max-width: 28vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.competition-status-guide {
+  padding: 16px;
+  margin: 12px 0;
+  border: 1px solid currentColor;
+  border-radius: 12px;
+}
+.competition-status-guide dt {
+  font-weight: 800;
+  margin-top: 10px;
+}
+.competition-status-guide dd {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hic-targets {
+    animation: none;
+  }
+}

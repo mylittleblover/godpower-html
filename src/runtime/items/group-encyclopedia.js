@@ -13,6 +13,8 @@ const GROUP_ITEM_ORDER_V2182 = [
   "fire_flower",
   "ice_flower",
   "boomerang_flower",
+  "kamek",
+  "item_box",
   "bomb",
   "hammer",
   "spiny",

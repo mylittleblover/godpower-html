@@ -133,7 +133,7 @@ const AchievementCatalog = (() => {
       "全图鉴制霸",
       "collection",
       "传奇",
-      "历史累计获得全部 26 种不同道具",
+      "历史累计获得全部 28 种不同道具",
     ],
     [
       "ACH-027",
@@ -391,7 +391,14 @@ const AchievementCatalog = (() => {
   return {
     list: () => entries.map((entry) => ({ ...entry })),
     get: (id) => (byId.has(id) ? { ...byId.get(id) } : null),
-    itemKeys: () =>
-      entries.filter((entry) => entry.itemKey).map((entry) => entry.itemKey),
+    itemKeys: () => [
+      ...new Set([
+        ...entries
+          .filter((entry) => entry.itemKey)
+          .map((entry) => entry.itemKey),
+        "kamek",
+        "item_box",
+      ]),
+    ],
   };
 })();

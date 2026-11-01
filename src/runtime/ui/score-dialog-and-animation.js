@@ -102,6 +102,8 @@ function cancelScoreAnimationAndSync() {
 }
 
 function animateScores(scoreUpdates, onComplete) {
+  if (globalThis.ScoreCardMotion)
+    return ScoreCardMotion.play(scoreUpdates, onComplete);
   if (activeScoreAnimId) {
     cancelAnimationFrame(activeScoreAnimId);
     activeScoreAnimId = null;

@@ -61,6 +61,21 @@ const Reliability = (() => {
         (typeof g.itemEffect !== "object" || Array.isArray(g.itemEffect))
       )
         throw Error("持续状态格式无效");
+      if (g.competitionEffects != null) {
+        if (
+          typeof g.competitionEffects !== "object" ||
+          Array.isArray(g.competitionEffects)
+        )
+          throw Error("竞技状态格式无效");
+        for (const effect of Object.values(g.competitionEffects))
+          if (
+            !effect ||
+            !Number.isSafeInteger(effect.remaining) ||
+            effect.remaining < 1 ||
+            effect.remaining > 999
+          )
+            throw Error("竞技状态次数无效");
+      }
     });
     if (data.picker != null) {
       if (typeof data.picker !== "object" || Array.isArray(data.picker))

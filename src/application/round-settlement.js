@@ -3,6 +3,8 @@ const RoundSettlement = (() => {
   function execute() {
     if (!state.roundActive || state.evaluated || !state.correctAns)
       return false;
+    for (const group of state.groups)
+      if (CompetitionEffects.blockedAllIn(group)) group.allIn = false;
     const context = {
       rankingsBefore: ranking().map((group) => group.id),
       groupsBefore: state.groups.map((group) => ({
@@ -42,6 +44,17 @@ const RoundSettlement = (() => {
     };
     return {
       ...presentation,
+      scoreUpdates: context.groupsBefore
+        .filter((before) =>
+          state.groups.some(
+            (g) => g.id === before.id && g.score !== before.score,
+          ),
+        )
+        .map((before) => ({
+          groupId: before.id,
+          start: before.score,
+          target: state.groups.find((g) => g.id === before.id).score,
+        })),
       powerBefore: context.powerBefore,
       roundFacts: context.answersBefore.map((answer) => {
         const group = state.groups.find(

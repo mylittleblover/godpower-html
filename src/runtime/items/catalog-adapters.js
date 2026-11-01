@@ -25,6 +25,8 @@ const ITEM_ORDER_V283 = [
   "fire_flower",
   "ice_flower",
   "boomerang_flower",
+  "kamek",
+  "item_box",
 ];
 
 /* 统一枚举器。旧页面有若干处把 26 种道具写死在 HTML 中，

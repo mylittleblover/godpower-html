@@ -26,6 +26,10 @@ const AnswerCommands = (() => {
       return false;
     }
     if (!state.roundActive || state.evaluated || !group) return;
+    if (!group.allIn && CompetitionEffects.blockedAllIn(group)) {
+      showToast(group.name + " 冰冻或麻痹期间不能 All In");
+      return false;
+    }
     playSound("ui_click");
     const committed = runClassroomCommand(
       `${group.name} 切换 All In`,
@@ -81,7 +85,10 @@ const AnswerCommands = (() => {
       "批量切换 All In",
       () => {
         state.groups.forEach((group) => {
-          group.allIn = targetState;
+          group.allIn =
+            targetState &&
+            !CompetitionEffects.blockedAllIn(group) &&
+            !group.itemUsedThisRound;
         });
         return true;
       },

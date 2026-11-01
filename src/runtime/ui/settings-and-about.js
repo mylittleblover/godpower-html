@@ -10,7 +10,7 @@ function installSettingsTabs() {
   item.id = "v2ItemPane";
   item.className = "v2-settings-pane";
   item.innerHTML =
-    '<div class="setting-section-title">🎁 26 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
+    '<div class="setting-section-title">🎁 28 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
   sc.appendChild(item);
   renderItemEncyclopedia();
 }
@@ -52,9 +52,9 @@ function renderAbout(tab) {
     .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
   const m = document.getElementById("aboutMain");
   if (tab === "info")
-    m.innerHTML = `<h2>上帝（马克思）的力量</h2><div class="guide-block"><b>课堂积分与道具系统 V2</b><br>包含课堂积分、随机点名、手动举手、26 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">普通教学模式限制高风险编辑；解锁后可进行管理操作。道具的负分保护、三重耐久和持续状态仍遵循比赛规则。</div><button class="btn" onclick="closeAbout()">关闭</button>`;
+    m.innerHTML = `<h2>上帝（马克思）的力量</h2><div class="guide-block"><b>课堂积分与道具系统 V2</b><br>包含课堂积分、随机点名、手动举手、28 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">普通教学模式限制高风险编辑；解锁后可进行管理操作。道具的负分保护、三重耐久和持续状态仍遵循比赛规则。</div><button class="btn" onclick="closeAbout()">关闭</button>`;
   else if (tab === "items")
-    m.innerHTML = `<h2>26 种道具百科</h2>${ITEM_KEYS.map((k) => `<div class="guide-block"><b>${itemVisual(k)} ${ITEM_DEFS[k].name}</b><br>${ITEM_DEFS[k].desc}</div>`).join("")}`;
+    m.innerHTML = `<h2>28 种道具百科</h2>${ITEM_KEYS.map((k) => `<div class="guide-block"><b>${itemVisual(k)} ${ITEM_DEFS[k].name}</b><br>${ITEM_DEFS[k].desc}</div>`).join("")}`;
   else
     m.innerHTML = `<h2>核心功能指南</h2><div class="guide-block"><b>PK：</b>各组作答后统一判定，每次 PK 都计入课堂统计。</div><div class="guide-block"><b>全局道具抽取：</b>点击底部 🎁 后，各个符合条件的小组卡片直接原地滚动 3 秒，再显示结果 3 秒。满背包与负分组不参与。</div><div class="guide-block"><b>手动举手：</b>底部 ✋ 选择小组并判定正误，正确后可赋分、抽道具或直接使用道具。</div><div class="guide-block"><b>随机点名：</b>🎰 提供个人、小组、双层联动三种模式，右侧可即时赋分。</div><div class="guide-block"><b>管理：</b>解锁后可自由赋分，并在小组道具页强制增删道具。</div>`;
 }
@@ -98,6 +98,7 @@ function godClearItems(id) {
   recordHistory(`${g.name} 上帝模式清空道具`);
   g.inventory = [];
   g.itemEffect = null;
+  g.competitionEffects = {};
   g.booShield = 0;
   saveState();
   renderAll();

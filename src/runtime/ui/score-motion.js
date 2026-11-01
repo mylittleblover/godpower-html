@@ -6,6 +6,7 @@ function scheduleScoreEffect(fn, delay) {
   }, delay);
 }
 function cancelItemScoreAnimations() {
+  globalThis.ScoreCardMotion?.cancel();
   scoreAnimationEpoch++;
   activeScoreRollsV21732.clear();
   document.querySelectorAll(".score-roll-host-v21730").forEach((el) => {
@@ -182,6 +183,12 @@ function queueItemScoreChangesV21732(beforeMap) {
         return;
       }
 
+      if (globalThis.ScoreCardMotion) {
+        ScoreCardMotion.play([
+          { groupId: c.groupId, start: c.old, target: finalScore },
+        ]);
+        return;
+      }
       /* 先只显示 +N / -N，卡片分数仍停留在旧值。 */
       showDeltaOnlyV21732(c.groupId, delta);
 

@@ -21,7 +21,7 @@ function queueUseStateV2120(g, index) {
   if (state.isLocked) return { usable: false, label: "请先解锁管理口令" };
   const reason = Reliability.validateItem(state, g, index, isCommunismMode());
   if (reason) return { usable: false, label: reason };
-  if (g.itemEffect?.iceLock)
+  if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
     return { usable: true, label: "解除冻结（本次不发动）" };
   return { usable: true, label: "使用主要道具" };
 }
@@ -55,6 +55,7 @@ function godClearQueueItemsV2120(gid) {
   recordHistory(`${g.name} 上帝模式清空道具队列`);
   g.inventory = [];
   g.itemEffect = null;
+  g.competitionEffects = {};
   g.booShield = 0;
   saveState();
   renderAll();
@@ -193,6 +194,7 @@ handUseNewItem = function () {
   }
   closeHandRaise();
   openItemWindow(g.id, "items");
+  globalThis.HandItemCinematic?.mark(g.id);
   if (g.inventory.length > 1)
     showToast("新道具已进入次要道具栏，需要等待主要道具用完");
 };

@@ -19,7 +19,9 @@ await p.goto(`http://127.0.0.1:${server.address().port}`, {
 await p.waitForTimeout(400);
 // All 26 public commands must work without entering the superseded dispatcher.
 await p.evaluate(() => {
-  legacyUseItem = () => { throw Error("public pipeline entered superseded dispatcher"); };
+  legacyUseItem = () => {
+    throw Error("public pipeline entered superseded dispatcher");
+  };
 });
 const expected = {
   green: [75, 140, 180, 220],
@@ -73,6 +75,7 @@ for (const [key, scores] of Object.entries(expected)) {
         effect: g.itemEffect,
         ghost: g.booRoundsLeftV218,
         targetEffect: state.groups[0].itemEffect,
+        targetStatuses: state.groups[0].competitionEffects,
         masked: state.itemGlobal.blooperUntil > Date.now(),
       };
     }, key);
@@ -95,8 +98,7 @@ for (const [key, scores] of Object.entries(expected)) {
       assert.equal(r.inventory[0].charges, 2);
     } else assert.equal(r.inventory.length, 0);
     if (key === "ice_flower") {
-      assert.equal(r.targetEffect.iceLock, 1);
-      assert.equal(r.targetEffect.iceRoundsLeftV218, 3);
+      assert.equal(r.targetStatuses.freeze.remaining, 2);
     }
     if (["star", "mega"].includes(key)) assert.equal(r.effect.hitsLeft, 3);
     if (key === "power") assert.equal(r.effect.roundsLeft, 3);

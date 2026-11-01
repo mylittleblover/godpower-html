@@ -51,7 +51,7 @@ function rebuildSettingsV26() {
   panes.function.appendChild(ui);
   const item = document.createElement("div");
   item.innerHTML =
-    '<div class="setting-section-title">🎁 26 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
+    '<div class="setting-section-title">🎁 28 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
   panes.items.appendChild(item);
   const fx = document.createElement("div");
   fx.innerHTML =

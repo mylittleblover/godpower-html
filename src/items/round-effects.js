@@ -28,6 +28,24 @@ const RoundItemEffects = (() => {
           group.itemEffect = null;
         }
       }
+      if (
+        CompetitionEffects.has(group, "invincible") ||
+        CompetitionEffects.has(group, "mega")
+      )
+        group.resultText = answer.correct
+          ? answer.allIn
+            ? "状态答对（总分×3）"
+            : "状态答对（总分×2）"
+          : "状态保护（答错保分）";
+      const result = CompetitionEffects.answer(
+        group,
+        answer.scoreBefore,
+        group.score,
+        () => Math.random(),
+        answer,
+      );
+      group.score = result.score;
+      group.displayScore = group.score;
       detectOvertakePunish(group.id, rankingsBefore);
     });
     return true;

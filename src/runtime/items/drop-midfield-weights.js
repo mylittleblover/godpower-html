@@ -14,7 +14,7 @@ itemDropWeights = function (pos, total) {
   const put = (k, w) => {
     W[k] = Math.max(0, Number(w) || 0);
   };
-  ITEM_KEYS.forEach((k) => put(k, 0));
+  ITEM_DRAW_KEYS.forEach((k) => put(k, 0));
 
   if (band === "front") {
     /* 前三名：继续以基础防御、低收益和轻量资源为主。 */
@@ -47,6 +47,8 @@ itemDropWeights = function (pos, total) {
       put("red", 11);
     }
 
+    put("kamek", 7);
+    put("item_box", 7);
     put("horn", 9);
     put("bomb", 10);
     put("hammer", 8);

@@ -12,6 +12,8 @@ function ensureV2State() {
     state.itemGlobal.customIcons = STORAGE.getJSON("politics_item_icons", {});
 }
 const BUILTIN_ITEM_ICONS_V2121 = {
+  item_box: "@@RESOURCE:item_box.txt@@",
+  kamek: "@@RESOURCE:kamek.txt@@",
   green: "@@RESOURCE:asset-000.txt@@",
   triple_green: "@@RESOURCE:asset-001.txt@@",
   red: "@@RESOURCE:asset-002.txt@@",
@@ -199,6 +201,7 @@ function handUseItem() {
   }
   closeHandRaise();
   openItemWindow(g.id, "items");
+  globalThis.HandItemCinematic?.mark(g.id);
 }
 
 /* 全局抽取：直接在比赛卡片内部滚动，不再弹窗 */
