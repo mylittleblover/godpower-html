@@ -47,8 +47,9 @@ itemDropWeights = function (pos, total) {
       put("red", 11);
     }
 
-    put("kamek", 7);
-    put("item_box", 7);
+    /* 卡美克与道具箱影响面很大，权重从 7 降到 3/4，避免一局接连出现。 */
+    put("kamek", 3);
+    put("item_box", 4);
     put("horn", 9);
     put("bomb", 10);
     put("hammer", 8);
@@ -132,6 +133,9 @@ itemDropWeights = function (pos, total) {
   /* 场上唯一性继续保留。 */
   if (itemExistsOnFieldV2172("blooper")) W.blooper = 0;
   if (itemExistsOnFieldV2172("lightning")) W.lightning = 0;
+  /* 卡美克与道具箱同样全场只能存在一个。 */
+  if (itemExistsOnFieldV2172("kamek")) W.kamek = 0;
+  if (itemExistsOnFieldV2172("item_box")) W.item_box = 0;
 
   return W;
 };

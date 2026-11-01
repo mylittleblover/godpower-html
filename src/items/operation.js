@@ -30,12 +30,25 @@ const ItemOperationBlocks = (() => {
       const pool = [...c.others];
       if (!pool.length) return false;
       const count = 1 + Math.floor(Math.random() * Math.min(3, pool.length));
+      /* Statuses are exclusive, so a target that already carries one would just
+         eat the curse for nothing. Prefer clean groups and only fall back to
+         occupied ones once the clean pool is exhausted. */
+      const hasStatus = (g) =>
+        CompetitionEffects.negative.some((k) => CompetitionEffects.has(g, k)) ||
+        CompetitionEffects.has(g, "invincible") ||
+        CompetitionEffects.has(g, "mega");
+      const clean = pool.filter((g) => !hasStatus(g));
+      const pickFrom = (list) => list.splice(Math.floor(Math.random() * list.length), 1)[0];
       c.targets = [];
       for (let i = 0; i < count; i++) {
-        const target = pool.splice(
-          Math.floor(Math.random() * pool.length),
-          1,
-        )[0];
+        const candidates = clean.length ? clean : pool;
+        if (!candidates.length) break;
+        const target = pickFrom(candidates);
+        // Keep the two pools in sync so a group is never chosen twice.
+        const mirrored = pool.indexOf(target);
+        if (mirrored >= 0) pool.splice(mirrored, 1);
+        const cleanIndex = clean.indexOf(target);
+        if (cleanIndex >= 0) clean.splice(cleanIndex, 1);
         c.targets.push(target);
         if (tryDefend(target, "kamek")) {
           c.blocked.add(target.id);
