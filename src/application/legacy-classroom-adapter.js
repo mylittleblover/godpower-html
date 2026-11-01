@@ -403,6 +403,32 @@ if (classroomStoredState !== null) {
 }
 window.classroomReady = true;
 
+/* Desktop hydration: a fixed save file is authoritative when localStorage is
+   empty or unreadable. An existing browser save always wins to avoid data loss. */
+if (globalThis.ClassroomSaveFile?.available?.()) {
+  const browserStored = classroomStoredState !== null;
+  ClassroomSaveFile.hydrate().then((result) => {
+    window.classroomSaveFileStatus = result.status;
+    if (result.status !== "loaded") return;
+    if (browserStored) {
+      window.classroomSaveFileStatus = "skipped-local-present";
+      return;
+    }
+    try {
+      applyClassroomBackup(result.data);
+      saveState();
+      renderAll();
+      updatePickerPoolUI();
+      window.classroomSaveFileStatus = "restored";
+      showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
+    } catch (error) {
+      window.classroomSaveFileStatus = "restore-failed";
+      console.error("存档文件恢复失败", error);
+      showToast("存档文件无法恢复，已保留本机数据：" + error.message);
+    }
+  });
+}
+
 function legacyJudgeRound() {
   return RoundSettlement.execute();
 }

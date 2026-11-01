@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "save-file",
+      "mirrored": {
+        "writes": 4,
+        "groups": 4,
+        "score": 42,
+        "schema": 2,
+        "hasUid": true
+      },
+      "panel": {
+        "before": "C:\\GodPower\\saves\\classroom-save.json",
+        "after": "D:\\课堂存档\\七年级.json",
+        "status": "OK"
+      },
+      "rejected": {
+        "status": "ERROR",
+        "text": "无法使用该路径：INVALID_PATH",
+        "path": "D:\\课堂存档\\七年级.json"
+      },
+      "reloaded": {
+        "before": 140,
+        "after": 777,
+        "status": "OK"
+      }
+    }
+  ]
+}

@@ -64,6 +64,8 @@ function saveState(transaction) {
   }
   if (failed.length)
     showToast("主存档已保存，旧版兼容副本写入失败。请导出 JSON 备份。");
+  // The desktop build also mirrors the same envelope to the fixed save file.
+  globalThis.ClassroomSaveFile?.write(payload);
   return {
     ...result,
     legacyMirrorFailures: failed,

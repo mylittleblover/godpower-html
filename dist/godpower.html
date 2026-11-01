@@ -15929,6 +15929,22 @@ html[data-theme="marx"] {
       </div>
     </div>
 
+    <div class="setting-item" data-settings-category="data" data-settings-group="savefile">
+      <span class="setting-label">固定存档位置（桌面版）</span>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:640px;">
+        <p class="ui-muted" style="margin:0">每次改动都会同步写入此文件，启动时也能从它恢复课堂。换机器只需复制该 JSON。浏览器版不适用。</p>
+        <code id="saveFilePath" style="display:block;padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#1e293b;font-size:12px;word-break:break-all;">未初始化</code>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button class="btn btn-sm btn-primary" onclick="chooseSaveFileLocation()">更改位置…</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="applySaveFileLocation()">使用输入的路径</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="loadFromSaveFile()">从文件读取</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="resetSaveFileLocation()">恢复默认位置</button>
+        </div>
+        <input id="saveFilePathInput" type="text" spellcheck="false" placeholder="或直接填写完整 .json 路径" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#1e293b;font-size:12px;width:100%;">
+        <p id="saveFileStatus" role="status" aria-live="polite" class="ui-muted" style="margin:0" data-status="IDLE">尚未检测。</p>
+      </div>
+    </div>
+
     <details id="v3MigrationTools" class="ui-settings-disclosure" data-settings-category="data">
       <summary><b>迁移预检与副本验证</b><span>高级维护 · 保留原数据，不切换当前课堂</span></summary>
       <div class="ui-settings-detail-body">
@@ -25542,6 +25558,8 @@ function saveState(transaction) {
   }
   if (failed.length)
     showToast("主存档已保存，旧版兼容副本写入失败。请导出 JSON 备份。");
+  // The desktop build also mirrors the same envelope to the fixed save file.
+  globalThis.ClassroomSaveFile?.write(payload);
   return {
     ...result,
     legacyMirrorFailures: failed,
@@ -40861,6 +40879,32 @@ if (classroomStoredState !== null) {
 }
 window.classroomReady = true;
 
+/* Desktop hydration: a fixed save file is authoritative when localStorage is
+   empty or unreadable. An existing browser save always wins to avoid data loss. */
+if (globalThis.ClassroomSaveFile?.available?.()) {
+  const browserStored = classroomStoredState !== null;
+  ClassroomSaveFile.hydrate().then((result) => {
+    window.classroomSaveFileStatus = result.status;
+    if (result.status !== "loaded") return;
+    if (browserStored) {
+      window.classroomSaveFileStatus = "skipped-local-present";
+      return;
+    }
+    try {
+      applyClassroomBackup(result.data);
+      saveState();
+      renderAll();
+      updatePickerPoolUI();
+      window.classroomSaveFileStatus = "restored";
+      showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
+    } catch (error) {
+      window.classroomSaveFileStatus = "restore-failed";
+      console.error("存档文件恢复失败", error);
+      showToast("存档文件无法恢复，已保留本机数据：" + error.message);
+    }
+  });
+}
+
 function legacyJudgeRound() {
   return RoundSettlement.execute();
 }
@@ -55053,6 +55097,152 @@ window.GodpowerPicker = (() => {
     setExternalPresentation(value) { external = value === true; }, isExternalPresentation: () => external });
 })();
 </script>
+<script>/* A fixed on-disk save file for the desktop build. localStorage stays the
+   synchronous cache the classroom already relies on; this module mirrors the
+   same envelope to a real file and can hydrate it at startup. */
+globalThis.ClassroomSaveFile = (() => {
+  "use strict";
+  const bridge = () => globalThis.godpowerDesktop;
+  let info = null;
+  let ready = false;
+  let lastError = null;
+
+  function available() {
+    const desktop = bridge();
+    return !!(
+      desktop &&
+      desktop.role === "main" &&
+      typeof desktop.saveFileWrite === "function"
+    );
+  }
+
+  async function refreshInfo() {
+    if (!available()) return null;
+    try {
+      info = await bridge().saveFileInfo();
+      ready = true;
+      return info;
+    } catch (error) {
+      lastError = String(error?.message || error);
+      return null;
+    }
+  }
+
+  /* Startup hydration: the file wins only when it holds a valid envelope and
+     localStorage has nothing usable, so an existing browser save is never lost. */
+  async function hydrate() {
+    if (!available()) return { status: "unavailable" };
+    const current = await refreshInfo();
+    if (!current) return { status: "unavailable", error: lastError };
+    let result;
+    try {
+      result = await bridge().saveFileRead();
+    } catch (error) {
+      return { status: "error", error: String(error?.message || error) };
+    }
+    if (!result?.ok) return { status: "error", error: result?.error || "读取失败" };
+    if (!result.present) return { status: "empty", info: current };
+    try {
+      Reliability.validateBackup(result.data);
+    } catch (error) {
+      return { status: "invalid", error: String(error?.message || error) };
+    }
+    return { status: "loaded", data: result.data, info: current, bytes: result.bytes };
+  }
+
+  function write(payload) {
+    if (!available()) return { ok: true, skipped: true };
+    // Fire and forget: a classroom command must not await disk I/O, and the
+    // localStorage envelope already carries the durable confirmation.
+    Promise.resolve()
+      .then(() => bridge().saveFileWrite(payload))
+      .then((result) => {
+        if (result?.ok) {
+          lastError = null;
+          if (result.info) info = result.info;
+        } else {
+          lastError = result?.error || "存档文件写入失败";
+          showClassroomSaveWarning("存档文件未写入：" + lastError);
+        }
+      })
+      .catch((error) => {
+        lastError = String(error?.message || error);
+        showClassroomSaveWarning("存档文件未写入：" + lastError);
+      });
+    return { ok: true, async: true };
+  }
+
+  async function choose() {
+    if (!available()) return { ok: false, error: "仅桌面版可用" };
+    try {
+      const result = await bridge().saveFileChoose();
+      if (result?.ok) {
+        info = result.info;
+        return result;
+      }
+      return result || { ok: false };
+    } catch (error) {
+      return { ok: false, error: String(error?.message || error) };
+    }
+  }
+
+  async function setPath(value) {
+    if (!available()) return { ok: false, error: "仅桌面版可用" };
+    try {
+      const result = await bridge().saveFileSet(value);
+      if (result?.ok) info = result.info;
+      return result;
+    } catch (error) {
+      return { ok: false, error: String(error?.message || error) };
+    }
+  }
+
+  async function reset() {
+    if (!available()) return { ok: false, error: "仅桌面版可用" };
+    try {
+      const result = await bridge().saveFileReset();
+      if (result?.ok) info = result.info;
+      return result;
+    } catch (error) {
+      return { ok: false, error: String(error?.message || error) };
+    }
+  }
+
+  /* Reading the file back is destructive only for the in-memory classroom, so
+     the caller must confirm first and export a backup. */
+  async function loadFromFile() {
+    if (!available()) return { status: "unavailable" };
+    let result;
+    try {
+      result = await bridge().saveFileRead();
+    } catch (error) {
+      return { status: "error", error: String(error?.message || error) };
+    }
+    if (!result?.ok) return { status: "error", error: result?.error };
+    if (!result.present) return { status: "empty" };
+    try {
+      Reliability.validateBackup(result.data);
+    } catch (error) {
+      return { status: "invalid", error: String(error?.message || error) };
+    }
+    return { status: "loaded", data: result.data };
+  }
+
+  return {
+    available,
+    hydrate,
+    write,
+    choose,
+    setPath,
+    reset,
+    loadFromFile,
+    refreshInfo,
+    info: () => info,
+    lastError: () => lastError,
+    isReady: () => ready,
+  };
+})();
+</script>
 <script>/* Floating hand controls operate the main classroom; no renderer-owned scores.
    The host owns classroom state, transactions and persistence; this port only
    validates the hand session token and orders one atomic command per gesture. */
@@ -55448,6 +55638,150 @@ globalThis.HandRaisePort = (() => {
   window.addEventListener("beforeunload", () => clearInterval(timer), {
     once: true,
   });
+})();
+</script>
+<script>/* Settings UI for the fixed desktop save file. Reads and writes stay in the
+   Infrastructure bridge; this module only reflects state and asks for input. */
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  let busy = false;
+
+  function status(text, kind = "IDLE") {
+    const node = $("saveFileStatus");
+    if (!node) return;
+    node.textContent = text;
+    node.dataset.status = kind;
+  }
+
+  function paint(info) {
+    const path = $("saveFilePath");
+    const input = $("saveFilePathInput");
+    if (!path) return;
+    if (!info || !info.path) {
+      path.textContent = "未初始化";
+      if (input) input.value = "";
+      return;
+    }
+    path.textContent = info.path;
+    if (input && document.activeElement !== input) input.value = info.path;
+    const size =
+      info.bytes > 0 ? `${(info.bytes / 1024).toFixed(1)} KB` : "尚未写入";
+    status(
+      `${info.exists ? "文件存在" : "文件尚未创建"} · ${size}${info.isDefault ? " · 默认位置" : " · 自定义位置"}`,
+      info.exists ? "OK" : "MISSING",
+    );
+  }
+
+  async function refresh() {
+    if (!globalThis.ClassroomSaveFile?.available?.()) {
+      status("浏览器版把课堂保存在浏览器存储中，此项仅在桌面版可用。", "UNAVAILABLE");
+      paint(null);
+      return;
+    }
+    const info = await ClassroomSaveFile.refreshInfo();
+    paint(info);
+  }
+
+  function guard() {
+    if (busy) return false;
+    if (!globalThis.ClassroomSaveFile?.available?.()) {
+      status("此项仅在桌面版可用。", "UNAVAILABLE");
+      return false;
+    }
+    return true;
+  }
+
+  globalThis.chooseSaveFileLocation = async () => {
+    if (!guard()) return;
+    busy = true;
+    try {
+      status("等待选择位置…", "PENDING");
+      const result = await ClassroomSaveFile.choose();
+      if (result?.ok) {
+        paint(result.info);
+        status("已切换存档位置：" + result.info.path, "OK");
+      } else if (result?.canceled) status("已取消。", "IDLE");
+      else status("无法使用该位置：" + (result?.error || "未知原因"), "ERROR");
+    } finally {
+      busy = false;
+    }
+  };
+
+  globalThis.applySaveFileLocation = async () => {
+    if (!guard()) return;
+    const value = $("saveFilePathInput")?.value?.trim();
+    if (!value) {
+      status("请先填写完整的 .json 路径。", "ERROR");
+      return;
+    }
+    busy = true;
+    try {
+      const result = await ClassroomSaveFile.setPath(value);
+      if (result?.ok) {
+        paint(result.info);
+        status("已切换存档位置：" + result.info.path, "OK");
+      } else status("无法使用该路径：" + (result?.error || "未知原因"), "ERROR");
+    } finally {
+      busy = false;
+    }
+  };
+
+  globalThis.resetSaveFileLocation = async () => {
+    if (!guard()) return;
+    busy = true;
+    try {
+      const result = await ClassroomSaveFile.reset();
+      if (result?.ok) {
+        paint(result.info);
+        status("已恢复默认位置。", "OK");
+      } else status("恢复失败：" + (result?.error || "未知原因"), "ERROR");
+    } finally {
+      busy = false;
+    }
+  };
+
+  globalThis.loadFromSaveFile = async () => {
+    if (!guard()) return;
+    const accepted = await programConfirmV28(
+      "从存档文件读取会替换当前课堂（小组、积分、道具、历史）。\n建议先导出备份。确定继续？",
+      { title: "从文件读取课堂", okText: "读取并替换", cancelText: "取消" },
+    );
+    if (!accepted) return;
+    busy = true;
+    try {
+      status("正在读取…", "PENDING");
+      const result = await ClassroomSaveFile.loadFromFile();
+      if (result.status === "empty") {
+        status("存档文件尚未创建。", "MISSING");
+        return;
+      }
+      if (result.status !== "loaded") {
+        status("读取失败：" + (result.error || "未知原因"), "ERROR");
+        return;
+      }
+      applyClassroomBackup(result.data);
+      saveState();
+      renderAll();
+      updatePickerPoolUI();
+      status("已从文件恢复课堂。", "OK");
+      showToast("已从存档文件恢复课堂");
+    } catch (error) {
+      status("恢复失败：" + error.message, "ERROR");
+    } finally {
+      busy = false;
+    }
+  };
+
+  window.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      refresh();
+      // The settings page may mount after this script runs.
+      setTimeout(refresh, 600);
+    },
+    { once: true },
+  );
 })();
 </script>
 <script>/* Only engine calls marked external hide their DOM. Dock controls stay internal. */

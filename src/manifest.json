@@ -1231,12 +1231,22 @@
     },
     {
       "type": "script",
+      "path": "infrastructure/save-file-bridge.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/hand-raise-port.js",
       "attributes": ""
     },
     {
       "type": "script",
       "path": "ui/electron-host.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/save-file-settings.js",
       "attributes": ""
     },
     {

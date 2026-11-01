@@ -604,6 +604,22 @@
       </div>
     </div>
 
+    <div class="setting-item" data-settings-category="data" data-settings-group="savefile">
+      <span class="setting-label">固定存档位置（桌面版）</span>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:640px;">
+        <p class="ui-muted" style="margin:0">每次改动都会同步写入此文件，启动时也能从它恢复课堂。换机器只需复制该 JSON。浏览器版不适用。</p>
+        <code id="saveFilePath" style="display:block;padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#1e293b;font-size:12px;word-break:break-all;">未初始化</code>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button class="btn btn-sm btn-primary" onclick="chooseSaveFileLocation()">更改位置…</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="applySaveFileLocation()">使用输入的路径</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="loadFromSaveFile()">从文件读取</button>
+          <button class="btn btn-sm" style="background:#e2e8f0;color:#1e293b;" onclick="resetSaveFileLocation()">恢复默认位置</button>
+        </div>
+        <input id="saveFilePathInput" type="text" spellcheck="false" placeholder="或直接填写完整 .json 路径" style="padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#1e293b;font-size:12px;width:100%;">
+        <p id="saveFileStatus" role="status" aria-live="polite" class="ui-muted" style="margin:0" data-status="IDLE">尚未检测。</p>
+      </div>
+    </div>
+
     <details id="v3MigrationTools" class="ui-settings-disclosure" data-settings-category="data">
       <summary><b>迁移预检与副本验证</b><span>高级维护 · 保留原数据，不切换当前课堂</span></summary>
       <div class="ui-settings-detail-body">
@@ -893,8 +909,10 @@
 <script>@@SOURCE:ui/welcome-v2.js@@</script>
 <script>@@SOURCE:ui/home-dashboard.js@@</script>
 <script>@@SOURCE:core/picker-bridge.js@@</script>
+<script>@@SOURCE:infrastructure/save-file-bridge.js@@</script>
 <script>@@SOURCE:application/hand-raise-port.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>
+<script>@@SOURCE:ui/save-file-settings.js@@</script>
 <script>@@SOURCE:ui/electron-windows.js@@</script>
 </body>
 </html>
