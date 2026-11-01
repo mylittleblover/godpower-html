@@ -140,6 +140,7 @@ const ClassroomFeedback = (() => {
       return;
     if (
       window.godpowerDesktop?.role === "main" &&
+      type === "pick" &&
       !window.GodpowerPicker?.isExternalPresentation()
     )
       return;
@@ -225,7 +226,7 @@ const ClassroomFeedback = (() => {
     });
   }
   function picked(win, mode) {
-    if (!win || window.GodpowerPicker?.isExternalPresentation()) return;
+    if (!win || window.godpowerDesktop?.role === "main") return;
     const group = mode === "group" ? win : win.group;
     const student = mode === "group" ? null : parseStudentV218(win.memberName);
     show({

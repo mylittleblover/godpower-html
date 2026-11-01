@@ -32,7 +32,7 @@ window.GodpowerPicker = (() => {
     const result = ['settling', 'revealed'].includes(actual) ? currentResult() : null;
     const options = ClassroomFeedback.getOptions(), motion = DesktopUI.getPreferences();
     const effectEnabled = options.pickEffects && motion.motion !== 'off' &&
-      (window.godpowerDesktop?.role !== 'main' || (external && externalEffects)) &&
+      (window.godpowerDesktop?.role !== 'main' || externalEffects) &&
       !(motion.systemMotion && matchMedia('(prefers-reduced-motion: reduce)').matches);
     return { protocolVersion: 1, theme: window.GodpowerTheme?.get() || 'classic', phase: !slotEngine.isSpinning && !slotEngine.chosenResult && !preparing ? 'idle' : actual,
       mode: state.picker.mode, antiRepeat: !!state.picker.antiRepeat,
@@ -92,5 +92,6 @@ window.GodpowerPicker = (() => {
   return Object.freeze({ invalidate: cancel, command, getSnapshot, notify, isSettling: () => phase === 'settling',
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
     setExternalEffectsEnabled(value) { externalEffects = value === true; },
+    effectsAllowed: () => externalEffects,
     setExternalPresentation(value) { external = value === true; }, isExternalPresentation: () => external });
 })();

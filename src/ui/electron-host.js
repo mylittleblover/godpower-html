@@ -64,8 +64,7 @@
       snapshot.result?.id !== soundedReveal
     ) {
       soundedReveal = snapshot.result?.id;
-      if (snapshot.effects.enabled && GodpowerPicker.isExternalPresentation())
-        void playSound("fullscreen_pick");
+      if (snapshot.effects.enabled) void playSound("fullscreen_pick");
     }
     if (json !== last) {
       last = json;
@@ -117,9 +116,11 @@
     publish();
     desktop.reply({ id, result });
   });
-  desktop.onShellState((shell) =>
-    GodpowerPicker.setExternalEffectsEnabled(shell.effectsEnabled),
-  );
+  desktop.onShellState((shell) => {
+    // The shell switch gates native reveals; it is not the presentation marker
+    // of the hidden in-page drawing engine.
+    GodpowerPicker.setExternalEffectsEnabled(shell.effectsEnabled);
+  });
   desktop.onUnlockRequest(() => {
     if (state.isLocked) openPwdModal();
   });

@@ -193,10 +193,11 @@ try {
 
   const closeReload = await page.evaluate(() => {
     state.isLocked = false;
+    ClassroomFeedback.cancel();
     saveState();
     return { score: state.groups[0].score };
   });
-  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.reload({ waitUntil: "domcontentloaded", timeout: 90000 });
   await page.waitForFunction(() => window.classroomReady);
   const restored = await page.evaluate(() => ({
     score: state.groups[0].score,
