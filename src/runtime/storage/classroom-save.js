@@ -28,6 +28,10 @@ function saveState(transaction) {
     ).ledger;
   }
   const payload = buildClassroomBackup();
+  // Until startup hydration finishes, the file is still the source of truth;
+  // writing now would overwrite a classroom the user copied in.
+  if (globalThis.ClassroomSaveFile?.isHydrating?.())
+    return { ok: true, deferred: true };
   const result = Reliability.writeVerified(
     CLASSROOM_STORAGE,
     Reliability.stateKey,

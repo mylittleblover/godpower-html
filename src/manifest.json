@@ -1138,6 +1138,11 @@
     },
     {
       "type": "script",
+      "path": "infrastructure/save-file-bridge.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/legacy-classroom-adapter.js",
       "attributes": ""
     },
@@ -1190,19 +1195,19 @@
       "type": "script",
       "path": "ui/component-catalog.js",
       "attributes": "",
-      "executionGroup": "script-149"
+      "executionGroup": "script-150"
     },
     {
       "type": "script",
       "path": "ui/component-preview-style.js",
       "attributes": "",
-      "executionGroup": "script-149"
+      "executionGroup": "script-150"
     },
     {
       "type": "script",
       "path": "ui/component-library.js",
       "attributes": "",
-      "executionGroup": "script-149"
+      "executionGroup": "script-150"
     },
     {
       "type": "script",
@@ -1227,11 +1232,6 @@
     {
       "type": "script",
       "path": "core/picker-bridge.js",
-      "attributes": ""
-    },
-    {
-      "type": "script",
-      "path": "infrastructure/save-file-bridge.js",
       "attributes": ""
     },
     {

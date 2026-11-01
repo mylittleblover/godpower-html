@@ -7,6 +7,10 @@ globalThis.ClassroomSaveFile = (() => {
   let info = null;
   let ready = false;
   let lastError = null;
+  // True while startup reads the file; classroom saves wait so the file is not
+  // overwritten before we know what it holds.
+  let hydrating = true;
+  let hydrateSettled = false;
 
   function available() {
     const desktop = bridge();
@@ -29,26 +33,41 @@ globalThis.ClassroomSaveFile = (() => {
     }
   }
 
-  /* Startup hydration: the file wins only when it holds a valid envelope and
-     localStorage has nothing usable, so an existing browser save is never lost. */
+  /* Startup hydration: the file is the classroom's durable home, so it wins
+     whenever it holds a valid envelope. Writes are held off until this settles. */
   async function hydrate() {
-    if (!available()) return { status: "unavailable" };
-    const current = await refreshInfo();
-    if (!current) return { status: "unavailable", error: lastError };
-    let result;
-    try {
-      result = await bridge().saveFileRead();
-    } catch (error) {
-      return { status: "error", error: String(error?.message || error) };
+    if (!available()) {
+      hydrating = false;
+      hydrateSettled = true;
+      return { status: "unavailable" };
     }
-    if (!result?.ok) return { status: "error", error: result?.error || "读取失败" };
-    if (!result.present) return { status: "empty", info: current };
     try {
-      Reliability.validateBackup(result.data);
-    } catch (error) {
-      return { status: "invalid", error: String(error?.message || error) };
+      const current = await refreshInfo();
+      if (!current) return { status: "unavailable", error: lastError };
+      let result;
+      try {
+        result = await bridge().saveFileRead();
+      } catch (error) {
+        return { status: "error", error: String(error?.message || error) };
+      }
+      if (!result?.ok)
+        return { status: "error", error: result?.error || "读取失败" };
+      if (!result.present) return { status: "empty", info: current };
+      try {
+        Reliability.validateBackup(result.data);
+      } catch (error) {
+        return { status: "invalid", error: String(error?.message || error) };
+      }
+      return {
+        status: "loaded",
+        data: result.data,
+        info: current,
+        bytes: result.bytes,
+      };
+    } finally {
+      hydrating = false;
+      hydrateSettled = true;
     }
-    return { status: "loaded", data: result.data, info: current, bytes: result.bytes };
   }
 
   function write(payload) {
@@ -141,5 +160,12 @@ globalThis.ClassroomSaveFile = (() => {
     info: () => info,
     lastError: () => lastError,
     isReady: () => ready,
+    isHydrating: () => hydrating,
+    hasHydrated: () => hydrateSettled,
+    /* Called by the browser build, which has no file to wait for. */
+    markHydrated() {
+      hydrating = false;
+      hydrateSettled = true;
+    },
   };
 })();

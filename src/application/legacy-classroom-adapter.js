@@ -405,14 +405,16 @@ window.classroomReady = true;
 
 /* Desktop hydration. The fixed save file is the classroom's durable home, so it
    wins over the browser cache whenever it holds a valid envelope: editing or
-   copying that file is how a teacher moves a classroom between machines. A file
-   that is missing or unreadable leaves the browser cache untouched. */
+   copying that file is how a teacher moves a classroom between machines. Saves
+   are held off until this settles (ClassroomSaveFile.isHydrating). */
 if (globalThis.ClassroomSaveFile?.available?.()) {
   ClassroomSaveFile.hydrate().then((result) => {
     window.classroomSaveFileStatus = result.status;
     if (result.status !== "loaded") return;
     try {
       applyClassroomBackup(result.data);
+      // Hydration is settled now, so this write mirrors the restored classroom
+      // back to both localStorage and the file.
       saveState();
       renderAll();
       updatePickerPoolUI();
@@ -424,6 +426,9 @@ if (globalThis.ClassroomSaveFile?.available?.()) {
       showToast("存档文件无法恢复，已保留本机数据：" + error.message);
     }
   });
+} else {
+  // The browser build has no file bridge, so nothing waits.
+  ClassroomSaveFile?.markHydrated?.();
 }
 
 function legacyJudgeRound() {

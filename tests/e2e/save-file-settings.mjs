@@ -68,6 +68,13 @@ try {
   await page.goto(`http://127.0.0.1:${server.address().port}`);
   await setup(page, 4);
 
+  // Startup hydration holds writes until the file has been read.
+  await page.waitForFunction(
+    () => globalThis.ClassroomSaveFile?.hasHydrated?.() === true,
+    null,
+    { timeout: 15000 },
+  );
+
   // Every classroom change mirrors the envelope to the file.
   const mirrored = await page.evaluate(async () => {
     state.groups[0].score = 42;
