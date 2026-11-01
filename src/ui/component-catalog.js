@@ -1866,7 +1866,8 @@ const GodPowerComponentCatalog = {
     {
       "name": "empty",
       "sources": [
-        "src/styles/shell/navigation-and-welcome.css"
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/ui/application-surfaces.css"
       ]
     },
     {
@@ -2570,6 +2571,42 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/draw-clipping.css"
+      ]
+    },
+    {
+      "name": "group-avatar-actions-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-copy-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-preview-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-row-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-section-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-upload-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
       ]
     },
     {
@@ -5763,6 +5800,12 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/items/draw-flow.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "v213-group-avatar-single",
+      "sources": [
         "src/ui/application-surfaces.css"
       ]
     },

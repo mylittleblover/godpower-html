@@ -32,26 +32,26 @@ function renderItemWindow() {
     const st = g.itemStats || {},
       total = (st.correct || 0) + (st.wrong || 0),
       rate = total ? Math.round(((st.correct || 0) / total) * 100) : 0;
+    // CompetitionEffects.labels already yields "名称 · 剩余 N 轮/次"; only the
+    // legacy itemEffect extras that it does not cover are appended here.
     const statusParts = CompetitionEffects.labels(g);
     if (g.itemEffect && typeof g.itemEffect === "object") {
       const type = g.itemEffect.type;
-      if (type) {
-        const def = ITEM_DEFS[type];
-        if (def?.name) statusParts.push(def.name);
-        else statusParts.push(String(type));
-      }
+      if (
+        type &&
+        type !== "star" &&
+        type !== "mega" &&
+        !ITEM_DEFS[type]?.name
+      )
+        statusParts.push(String(type));
       if (Number(g.itemEffect.featherDodge || 0) > 0) {
         statusParts.push(`羽毛闪避 ×${Number(g.itemEffect.featherDodge || 0)}`);
       }
       if (Number(g.itemEffect.iceLock || 0) > 0) {
         statusParts.push("冰冻：下一次主动道具使用将被取消");
       }
-      if (type === "star" && Number(g.itemEffect.hitsLeft || 0) > 0) {
-        statusParts.push(`剩余防御 ${Number(g.itemEffect.hitsLeft || 0)} 次`);
-      } else if (type === "mega" && Number(g.itemEffect.hitsLeft || 0) > 0) {
-        statusParts.push(`剩余防御 ${Number(g.itemEffect.hitsLeft || 0)} 次`);
-      } else if (type === "power" && Number(g.itemEffect.roundsLeft || 0) > 0) {
-        statusParts.push(`剩余 ${Number(g.itemEffect.roundsLeft || 0)} 轮`);
+      if (type === "power" && Number(g.itemEffect.roundsLeft || 0) > 0) {
+        statusParts.push(`力量 · 剩余 ${Number(g.itemEffect.roundsLeft || 0)} 轮`);
       }
     }
     if (Number(g.booShield || 0) > 0) {
@@ -60,6 +60,30 @@ function renderItemWindow() {
     const status = statusParts.length ? statusParts.join(" · ") : "无";
     body.innerHTML = `
       ${locked ? '<div class="group-detail-lock">🔒 当前处于锁定状态，可查看信息，但不能编辑、赋分、使用道具或删除小组。</div>' : ""}
+      <section class="group-detail-section group-avatar-section-v2200">
+        <h4>小组头像</h4>
+        <div class="group-avatar-row-v2200">
+          <div class="group-avatar-preview-v2200 ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
+            ${
+              g.groupAvatar
+                ? `<img src="${escapeHtml(g.groupAvatar)}" alt="${escapeHtml(g.name)} 头像">`
+                : `<span>${escapeHtml(String(g.groupNo || "?"))}</span>`
+            }
+          </div>
+          <div class="group-avatar-copy-v2200">
+            <b>${g.groupAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
+            <span>支持 PNG、JPEG、WebP，单张不超过 512 KiB。未设置时沿用成员头像堆叠。</span>
+            <div class="group-avatar-actions-v2200">
+              <label class="btn btn-sm group-avatar-upload-v2200" ${locked ? 'aria-disabled="true"' : ""}>
+                ${g.groupAvatar ? "更换图片" : "选择图片"}
+                <input type="file" accept="image/png,image/jpeg,image/webp" hidden ${disabled} onchange="pickGroupAvatarV2200(${g.id},this)">
+              </label>
+              ${g.groupAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
+            </div>
+            <p id="groupAvatarStatusV2200" class="ui-muted" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
       <div class="item-stat-grid">
         <div class="item-stat"><b>${g.score}</b><span>当前积分</span></div>
         <div class="item-stat"><b>${rate}%</b><span>答题正确率</span></div>
@@ -257,6 +281,91 @@ function enhanceItemCards() {
     }
   });
   applyBlooperMask();
+}
+
+/* ===== 小组头像（V2.20.0） =====
+   详情页最顶端的一项：读取本地图片为 data URL，校验后写入 state.groups，
+   与其它课堂字段一起保存。未设置时卡片沿用成员头像堆叠。 */
+const GROUP_AVATAR_LIMIT_V2200 = 512 * 1024;
+function groupAvatarStatusV2200(text, kind = "") {
+  const node = document.getElementById("groupAvatarStatusV2200");
+  if (!node) return;
+  node.textContent = text;
+  node.dataset.status = kind;
+}
+function pickGroupAvatarV2200(groupId, input) {
+  const file = input?.files?.[0];
+  if (!file) return;
+  const g = state.groups.find((x) => x.id === groupId);
+  if (!g) return;
+  if (state.isLocked) {
+    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
+    input.value = "";
+    return;
+  }
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
+    groupAvatarStatusV2200("只接受 PNG、JPEG 或 WebP 图片。", "ERROR");
+    input.value = "";
+    return;
+  }
+  if (file.size > GROUP_AVATAR_LIMIT_V2200) {
+    groupAvatarStatusV2200("图片不能超过 512 KiB，请先压缩。", "ERROR");
+    input.value = "";
+    return;
+  }
+  groupAvatarStatusV2200("正在读取…", "PENDING");
+  const reader = new FileReader();
+  reader.onerror = () => {
+    groupAvatarStatusV2200("读取失败，请重试。", "ERROR");
+    input.value = "";
+  };
+  reader.onload = () => {
+    const dataUrl = String(reader.result || "");
+    if (!normalizeGroupAvatarV2200(dataUrl)) {
+      groupAvatarStatusV2200("图片格式无法识别，未保存。", "ERROR");
+      input.value = "";
+      return;
+    }
+    const accepted = runClassroomCommand(`设置 ${g.name} 的小组头像`, () => {
+      const live = state.groups.find((x) => x.id === groupId);
+      if (live) live.groupAvatar = dataUrl;
+      return true;
+    });
+    input.value = "";
+    if (accepted === false) {
+      groupAvatarStatusV2200("头像未保存，已恢复原状态。", "ERROR");
+      return;
+    }
+    renderAll();
+    renderItemWindow();
+    const next = document.getElementById("groupAvatarStatusV2200");
+    if (next) {
+      next.textContent = "头像已保存。";
+      next.dataset.status = "OK";
+    }
+  };
+  reader.readAsDataURL(file);
+}
+function clearGroupAvatarV2200(groupId) {
+  const target = state.groups.find((x) => x.id === groupId);
+  if (!target) return;
+  if (state.isLocked) {
+    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
+    return;
+  }
+  const accepted = runClassroomCommand(`清除 ${target.name} 的小组头像`, () => {
+    const live = state.groups.find((x) => x.id === groupId);
+    if (live) live.groupAvatar = "";
+    return true;
+  });
+  if (accepted === false) return;
+  renderAll();
+  if (activeItemGroupId === groupId) renderItemWindow();
+  const next = document.getElementById("groupAvatarStatusV2200");
+  if (next) {
+    next.textContent = "头像已清除，卡片恢复成员头像。";
+    next.dataset.status = "OK";
+  }
 }
 
 const savedItemGlobal = STORAGE.getJSON("politics_item_global", null);

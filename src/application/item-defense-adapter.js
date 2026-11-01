@@ -32,18 +32,8 @@ function tryDefend(g, attackType) {
     case "persistent": {
       const type = g.itemEffect.type;
       tinyDefenseToast(`对方持有防御：${ITEM_DEFS[type]?.name || "持续状态"}`);
-      g.itemEffect.hitsLeft = Math.max(
-        0,
-        Number(g.itemEffect.hitsLeft || 0) - 1,
-      );
-      if (g.itemEffect.hitsLeft <= 0) {
-        /* 无敌星已不在道具栏；巨大蘑菇仍是卡手主要道具，需要释放。 */
-        if (type === "mega") {
-          const ix = g.inventory.findIndex((x) => x.key === "mega");
-          if (ix >= 0) g.inventory.splice(ix, 1);
-        }
-        g.itemEffect = null;
-      }
+      /* 无敌与巨大化按答题轮次计时，抵挡攻击本身不再扣减次数：
+         只要还在有效期内，每次攻击都会被挡下。 */
       return true;
     }
     case "ghost": {

@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "info": {
+    "guideIsLast": true,
+    "guideAfterItems": true,
+    "rows": 7,
+    "names": [
+      "灼烧 持续扣分",
+      "冰冻 限制 All In",
+      "麻痹 得失归零",
+      "中毒 稳定掉分",
+      "眩晕 目标反转",
+      "无敌 无敌星",
+      "巨大化 巨大蘑菇"
+    ],
+    "hasIcon": true,
+    "hasExact": true,
+    "hasTip": true,
+    "hasHumourLink": true,
+    "firstRowStyle": "grid",
+    "itemRowStyle": "grid",
+    "guideIcons": [
+      "v2170-ency-icon status-icon-burn",
+      "v2170-ency-icon status-icon-freeze",
+      "v2170-ency-icon status-icon-paralysis",
+      "v2170-ency-icon status-icon-poison",
+      "v2170-ency-icon status-icon-dizziness",
+      "v2170-ency-icon status-icon-invincible",
+      "v2170-ency-icon status-icon-mega"
+    ],
+    "oldDlGone": true,
+    "textLength": [
+      53,
+      78,
+      67,
+      49,
+      66,
+      83,
+      61
+    ]
+  }
+}

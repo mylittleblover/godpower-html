@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "opened": {
+        "id": 3,
+        "title": "测试 3 组",
+        "firstBlockIsAvatar": true,
+        "stateFirstIsAvatar": true,
+        "hasPreview": true,
+        "hasUpload": true,
+        "sectionStyle": "10px",
+        "otherSectionStyle": "10px"
+      },
+      "saved": {
+        "hasAvatar": true,
+        "cardImage": true,
+        "cardSrc": "data:image/png;base64",
+        "preview": true,
+        "persisted": true
+      },
+      "afterReload": {
+        "kept": true,
+        "valid": true
+      },
+      "rejected": {
+        "bigStatus": "ERROR",
+        "svgStatus": "ERROR",
+        "unchanged": true
+      },
+      "cleared": {
+        "preAvatar": true,
+        "empty": true,
+        "cellGone": true
+      }
+    }
+  ]
+}

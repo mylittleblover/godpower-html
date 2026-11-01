@@ -118,7 +118,6 @@ renderAbout = function (tab) {
     第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>
-  ${competitionStatusGuideMarkup()}
   <div class="v2170-ency-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
@@ -149,5 +148,6 @@ renderAbout = function (tab) {
       </div>`;
       })
       .join("")}
-  </div>`;
+  </div>
+  ${competitionStatusGuideMarkup()}`;
 };

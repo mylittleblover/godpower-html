@@ -15,6 +15,10 @@ globalThis.CompetitionEffects = (() => {
     invincible: { name: "无敌", duration: 3 },
     mega: { name: "巨大化", duration: 3 },
   });
+  /* Invincible and mega last a fixed number of answer rounds, not a number of
+     attacks absorbed: a defense that never gets attacked still expires. */
+  const DEFENSIVE_ROUNDS = 3;
+  const defensiveType = (key) => (key === "invincible" ? "star" : key === "mega" ? "mega" : null);
   const negative = Object.keys(definitions).filter(
     (k) => definitions[k].negative,
   );
@@ -32,10 +36,7 @@ globalThis.CompetitionEffects = (() => {
   }
   function has(group, key) {
     if (key === "invincible" || key === "mega")
-      return (
-        group?.itemEffect?.type === (key === "invincible" ? "star" : "mega") &&
-        Number(group.itemEffect.hitsLeft) > 0
-      );
+      return group?.itemEffect?.type === defensiveType(key);
     return Number(group?.competitionEffects?.[key]?.remaining) > 0;
   }
   function apply(group, key, duration = definitions[key]?.duration) {
@@ -55,11 +56,43 @@ globalThis.CompetitionEffects = (() => {
     if (key === "freeze" || key === "paralysis") group.allIn = false;
     return true;
   }
+  /* Grants a defensive state on the round-based clock. */
+  function arm(group, type) {
+    const rounds = DEFENSIVE_ROUNDS;
+    group.itemEffect = {
+      ...(group.itemEffect || {}),
+      type,
+      roundsLeft: rounds,
+      startedAt: Date.now(),
+    };
+    delete group.itemEffect.hitsLeft;
+    return group.itemEffect;
+  }
+  /* Ends a defensive state, releasing the mega item it keeps in the main slot. */
+  function release(group) {
+    const type = group?.itemEffect?.type;
+    if (type !== "star" && type !== "mega") return false;
+    if (type === "mega") {
+      const ix = (group.inventory || []).findIndex((x) => x.key === "mega");
+      if (ix >= 0) group.inventory.splice(ix, 1);
+    }
+    group.itemEffect = null;
+    return true;
+  }
   function tick(group, key) {
     if (key === "invincible" || key === "mega") return;
     if (!has(group, key)) return;
     if (--group.competitionEffects[key].remaining <= 0)
       delete group.competitionEffects[key];
+  }
+  /* One answer round passes for a defensive state. */
+  function tickDefensive(group) {
+    const type = group?.itemEffect?.type;
+    if (type !== "star" && type !== "mega") return;
+    const left = Number(group.itemEffect.roundsLeft);
+    const next = (Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS) - 1;
+    if (next <= 0) return release(group);
+    group.itemEffect.roundsLeft = next;
   }
   function cleanse(group) {
     const effects = normalize(group);
@@ -97,23 +130,33 @@ globalThis.CompetitionEffects = (() => {
     if (has(group, "poison")) postDelta -= 2;
     for (const key of Object.keys(definitions))
       if (key !== "dizziness") tick(group, key);
+    // The defensive clock advances once per answered round.
+    tickDefensive(group);
     return { answerDelta, postDelta, score: before + answerDelta + postDelta };
   }
+  /* Card and tooltip labels stay minimal: a status is its name plus how long it
+     has left. The full rules live in the encyclopedia, not on the card. */
   function labels(group) {
     return Object.entries(definitions)
       .filter(([key]) => has(group, key))
-      .map(([key, d]) =>
-        key === "invincible" || key === "mega"
-          ? `${d.name} · 剩余 ${group.itemEffect.hitsLeft} 次防御 · 答对总分×2 / All In答对×3 · 答错保分`
-          : `${d.name} · 剩余 ${group.competitionEffects[key].remaining} 次${key === "dizziness" ? "定向道具尝试" : "答题"}`,
-      );
+      .map(([key, d]) => {
+        if (key === "invincible" || key === "mega") {
+          const left = Number(group.itemEffect?.roundsLeft);
+          return `${d.name} · 剩余 ${Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS} 轮`;
+        }
+        return `${d.name} · 剩余 ${group.competitionEffects[key].remaining} 次`;
+      });
   }
   return {
     definitions,
     negative,
+    DEFENSIVE_ROUNDS,
     normalize,
     has,
     apply,
+    arm,
+    release,
+    tickDefensive,
     cleanse,
     blockedAllIn,
     cancelUse,
@@ -12053,6 +12096,87 @@ body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 }
+/* A teacher-chosen group avatar fills the same badge footprint as the stack.
+   The badge itself already switches to the flexible column layout through
+   .v213-number-avatar, so the image must match the stack box exactly. */
+.v213-group-avatar-single,
+body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  flex: 0 0 30px !important;
+  display: block !important;
+  object-fit: cover !important;
+  border: 1.5px solid var(--group-color, #78909c) !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+/* ===== 小组头像设置（详情页最顶端） ===== */
+.group-avatar-section-v2200 .group-avatar-row-v2200 {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.group-avatar-preview-v2200 {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 2px solid var(--ui-border);
+  background: var(--ui-soft-2);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--ui-muted-text, #64748b);
+}
+.group-avatar-preview-v2200 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.group-avatar-preview-v2200.empty {
+  border-style: dashed;
+}
+.group-avatar-copy-v2200 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+.group-avatar-copy-v2200 b {
+  font-size: 13px;
+  color: var(--ui-text);
+}
+.group-avatar-copy-v2200 > span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ui-muted-text, #64748b);
+}
+.group-avatar-actions-v2200 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+.group-avatar-upload-v2200 {
+  cursor: pointer;
+}
+.group-avatar-copy-v2200 p {
+  margin: 0;
+  font-size: 12px;
+}
+.group-avatar-copy-v2200 p[data-status="ERROR"] {
+  color: #b91c1c;
+}
+.group-avatar-copy-v2200 p[data-status="OK"] {
+  color: #047857;
+}
 .v213-group-number-below-avatar {
   height: 12px;
   line-height: 12px;
@@ -18861,10 +18985,32 @@ globalThis.StableIdentity = StableIdentity;
 
   function decorateGroupCards(groups) {
     const taskGeneration = generation;
+    // A teacher-chosen group avatar wins over the member stack.
+    for (const group of groups) {
+      if (!group.groupAvatar) continue;
+      const card = root.document.querySelector(
+        `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
+      );
+      const badge = card?.querySelector(".v213-number");
+      if (!badge || badge.dataset.avatarDecorated === "group") continue;
+      badge.dataset.avatarDecorated = "group";
+      badge.classList.add("v213-number-avatar");
+      badge.replaceChildren();
+      const image = root.document.createElement("img");
+      image.className = "v213-group-avatar-single";
+      image.src = group.groupAvatar;
+      image.alt = `${group.name} 头像`;
+      image.draggable = false;
+      const number = root.document.createElement("span");
+      number.className = "v213-group-number-below-avatar";
+      number.textContent = groupNoTextV213(group);
+      badge.append(image, number);
+    }
     readIndex().then(() => {
       if (taskGeneration !== generation && taskGeneration !== generation - 1)
         return;
       for (const group of groups) {
+        if (group.groupAvatar) continue;
         const card = root.document.querySelector(
           `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
         );
@@ -23541,18 +23687,8 @@ function tryDefend(g, attackType) {
     case "persistent": {
       const type = g.itemEffect.type;
       tinyDefenseToast(`对方持有防御：${ITEM_DEFS[type]?.name || "持续状态"}`);
-      g.itemEffect.hitsLeft = Math.max(
-        0,
-        Number(g.itemEffect.hitsLeft || 0) - 1,
-      );
-      if (g.itemEffect.hitsLeft <= 0) {
-        /* 无敌星已不在道具栏；巨大蘑菇仍是卡手主要道具，需要释放。 */
-        if (type === "mega") {
-          const ix = g.inventory.findIndex((x) => x.key === "mega");
-          if (ix >= 0) g.inventory.splice(ix, 1);
-        }
-        g.itemEffect = null;
-      }
+      /* 无敌与巨大化按答题轮次计时，抵挡攻击本身不再扣减次数：
+         只要还在有效期内，每次攻击都会被挡下。 */
       return true;
     }
     case "ghost": {
@@ -24112,6 +24248,17 @@ if (!Array.isArray(state.groups) || state.groups.length === 0) {
   ];
 }
 
+/* A group avatar must be a small, local raster image reference. Anything else
+   (remote URL, SVG, oversized payload) is dropped rather than trusted. */
+const GROUP_AVATAR_MAX_BYTES_V2200 = 512 * 1024;
+function normalizeGroupAvatarV2200(value) {
+  if (typeof value !== "string" || !value) return "";
+  if (value.length > GROUP_AVATAR_MAX_BYTES_V2200 * 1.4) return "";
+  if (!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(value))
+    return "";
+  return value;
+}
+
 function normalizeGroup(raw, index = 0) {
   const source = raw && typeof raw === "object" ? raw : {};
   const numericScore = Number(source.score);
@@ -24143,6 +24290,9 @@ function normalizeGroup(raw, index = 0) {
     resultText: String(source.resultText ?? ""),
     animState: "",
     members,
+    /* Group avatar: a small local data URL chosen by the teacher. Empty means the
+       card keeps showing its member stack as before. */
+    groupAvatar: normalizeGroupAvatarV2200(source.groupAvatar),
     /* V2.8: these fields are persistent classroom data, not session-only UI state. */
     inventory: Array.isArray(source.inventory)
       ? source.inventory.map((it) => ({ ...it }))
@@ -29639,26 +29789,26 @@ function renderItemWindow() {
     const st = g.itemStats || {},
       total = (st.correct || 0) + (st.wrong || 0),
       rate = total ? Math.round(((st.correct || 0) / total) * 100) : 0;
+    // CompetitionEffects.labels already yields "名称 · 剩余 N 轮/次"; only the
+    // legacy itemEffect extras that it does not cover are appended here.
     const statusParts = CompetitionEffects.labels(g);
     if (g.itemEffect && typeof g.itemEffect === "object") {
       const type = g.itemEffect.type;
-      if (type) {
-        const def = ITEM_DEFS[type];
-        if (def?.name) statusParts.push(def.name);
-        else statusParts.push(String(type));
-      }
+      if (
+        type &&
+        type !== "star" &&
+        type !== "mega" &&
+        !ITEM_DEFS[type]?.name
+      )
+        statusParts.push(String(type));
       if (Number(g.itemEffect.featherDodge || 0) > 0) {
         statusParts.push(`羽毛闪避 ×${Number(g.itemEffect.featherDodge || 0)}`);
       }
       if (Number(g.itemEffect.iceLock || 0) > 0) {
         statusParts.push("冰冻：下一次主动道具使用将被取消");
       }
-      if (type === "star" && Number(g.itemEffect.hitsLeft || 0) > 0) {
-        statusParts.push(`剩余防御 ${Number(g.itemEffect.hitsLeft || 0)} 次`);
-      } else if (type === "mega" && Number(g.itemEffect.hitsLeft || 0) > 0) {
-        statusParts.push(`剩余防御 ${Number(g.itemEffect.hitsLeft || 0)} 次`);
-      } else if (type === "power" && Number(g.itemEffect.roundsLeft || 0) > 0) {
-        statusParts.push(`剩余 ${Number(g.itemEffect.roundsLeft || 0)} 轮`);
+      if (type === "power" && Number(g.itemEffect.roundsLeft || 0) > 0) {
+        statusParts.push(`力量 · 剩余 ${Number(g.itemEffect.roundsLeft || 0)} 轮`);
       }
     }
     if (Number(g.booShield || 0) > 0) {
@@ -29667,6 +29817,30 @@ function renderItemWindow() {
     const status = statusParts.length ? statusParts.join(" · ") : "无";
     body.innerHTML = `
       ${locked ? '<div class="group-detail-lock">🔒 当前处于锁定状态，可查看信息，但不能编辑、赋分、使用道具或删除小组。</div>' : ""}
+      <section class="group-detail-section group-avatar-section-v2200">
+        <h4>小组头像</h4>
+        <div class="group-avatar-row-v2200">
+          <div class="group-avatar-preview-v2200 ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
+            ${
+              g.groupAvatar
+                ? `<img src="${escapeHtml(g.groupAvatar)}" alt="${escapeHtml(g.name)} 头像">`
+                : `<span>${escapeHtml(String(g.groupNo || "?"))}</span>`
+            }
+          </div>
+          <div class="group-avatar-copy-v2200">
+            <b>${g.groupAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
+            <span>支持 PNG、JPEG、WebP，单张不超过 512 KiB。未设置时沿用成员头像堆叠。</span>
+            <div class="group-avatar-actions-v2200">
+              <label class="btn btn-sm group-avatar-upload-v2200" ${locked ? 'aria-disabled="true"' : ""}>
+                ${g.groupAvatar ? "更换图片" : "选择图片"}
+                <input type="file" accept="image/png,image/jpeg,image/webp" hidden ${disabled} onchange="pickGroupAvatarV2200(${g.id},this)">
+              </label>
+              ${g.groupAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
+            </div>
+            <p id="groupAvatarStatusV2200" class="ui-muted" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
       <div class="item-stat-grid">
         <div class="item-stat"><b>${g.score}</b><span>当前积分</span></div>
         <div class="item-stat"><b>${rate}%</b><span>答题正确率</span></div>
@@ -29864,6 +30038,91 @@ function enhanceItemCards() {
     }
   });
   applyBlooperMask();
+}
+
+/* ===== 小组头像（V2.20.0） =====
+   详情页最顶端的一项：读取本地图片为 data URL，校验后写入 state.groups，
+   与其它课堂字段一起保存。未设置时卡片沿用成员头像堆叠。 */
+const GROUP_AVATAR_LIMIT_V2200 = 512 * 1024;
+function groupAvatarStatusV2200(text, kind = "") {
+  const node = document.getElementById("groupAvatarStatusV2200");
+  if (!node) return;
+  node.textContent = text;
+  node.dataset.status = kind;
+}
+function pickGroupAvatarV2200(groupId, input) {
+  const file = input?.files?.[0];
+  if (!file) return;
+  const g = state.groups.find((x) => x.id === groupId);
+  if (!g) return;
+  if (state.isLocked) {
+    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
+    input.value = "";
+    return;
+  }
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
+    groupAvatarStatusV2200("只接受 PNG、JPEG 或 WebP 图片。", "ERROR");
+    input.value = "";
+    return;
+  }
+  if (file.size > GROUP_AVATAR_LIMIT_V2200) {
+    groupAvatarStatusV2200("图片不能超过 512 KiB，请先压缩。", "ERROR");
+    input.value = "";
+    return;
+  }
+  groupAvatarStatusV2200("正在读取…", "PENDING");
+  const reader = new FileReader();
+  reader.onerror = () => {
+    groupAvatarStatusV2200("读取失败，请重试。", "ERROR");
+    input.value = "";
+  };
+  reader.onload = () => {
+    const dataUrl = String(reader.result || "");
+    if (!normalizeGroupAvatarV2200(dataUrl)) {
+      groupAvatarStatusV2200("图片格式无法识别，未保存。", "ERROR");
+      input.value = "";
+      return;
+    }
+    const accepted = runClassroomCommand(`设置 ${g.name} 的小组头像`, () => {
+      const live = state.groups.find((x) => x.id === groupId);
+      if (live) live.groupAvatar = dataUrl;
+      return true;
+    });
+    input.value = "";
+    if (accepted === false) {
+      groupAvatarStatusV2200("头像未保存，已恢复原状态。", "ERROR");
+      return;
+    }
+    renderAll();
+    renderItemWindow();
+    const next = document.getElementById("groupAvatarStatusV2200");
+    if (next) {
+      next.textContent = "头像已保存。";
+      next.dataset.status = "OK";
+    }
+  };
+  reader.readAsDataURL(file);
+}
+function clearGroupAvatarV2200(groupId) {
+  const target = state.groups.find((x) => x.id === groupId);
+  if (!target) return;
+  if (state.isLocked) {
+    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
+    return;
+  }
+  const accepted = runClassroomCommand(`清除 ${target.name} 的小组头像`, () => {
+    const live = state.groups.find((x) => x.id === groupId);
+    if (live) live.groupAvatar = "";
+    return true;
+  });
+  if (accepted === false) return;
+  renderAll();
+  if (activeItemGroupId === groupId) renderItemWindow();
+  const next = document.getElementById("groupAvatarStatusV2200");
+  if (next) {
+    next.textContent = "头像已清除，卡片恢复成员头像。";
+    next.dataset.status = "OK";
+  }
 }
 
 const savedItemGlobal = STORAGE.getJSON("politics_item_global", null);
@@ -31863,19 +32122,7 @@ function tryDefendLightningV2116(target) {
   if (!["star", "mega"].includes(type)) return false;
 
   const name = ITEM_DEFS[type]?.name || "持续状态";
-  target.itemEffect.hitsLeft = Math.max(
-    0,
-    Number(target.itemEffect.hitsLeft || 0) - 1,
-  );
-
-  if (target.itemEffect.hitsLeft <= 0) {
-    if (["mega", "star"].includes(type)) {
-      const ix = target.inventory.findIndex((x) => x.key === type);
-      if (ix >= 0) target.inventory.splice(ix, 1);
-    }
-    target.itemEffect = null;
-  }
-
+  // 防御按答题轮次计时，挡下闪电不消耗轮次。
   tinyDefenseToast(`${target.name} 的${name}阻挡了闪电`);
   setTimeout(() => playAttackTargetFxV2116(target.id, "lightning", true), 120);
   return true;
@@ -32816,17 +33063,7 @@ tryDefendLightningV2116 = function (target) {
   if (!["star", "mega"].includes(type)) return false;
 
   const name = ITEM_DEFS[type]?.name || "持续状态";
-  target.itemEffect.hitsLeft = Math.max(
-    0,
-    Number(target.itemEffect.hitsLeft || 0) - 1,
-  );
-  if (target.itemEffect.hitsLeft <= 0) {
-    if (type === "mega") {
-      const ix = target.inventory.findIndex((x) => x.key === "mega");
-      if (ix >= 0) target.inventory.splice(ix, 1);
-    }
-    target.itemEffect = null;
-  }
+  // 防御按答题轮次计时，挡下闪电不消耗轮次。
   tinyDefenseToast(`${target.name} 的${name}阻挡了闪电`);
   setTimeout(() => playAttackTargetFxV2116(target.id, "lightning", true), 120);
   return true;
@@ -37071,7 +37308,6 @@ renderAbout = function (tab) {
     第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>
-  ${competitionStatusGuideMarkup()}
   <div class="v2170-ency-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
@@ -37102,7 +37338,8 @@ renderAbout = function (tab) {
       </div>`;
       })
       .join("")}
-  </div>`;
+  </div>
+  ${competitionStatusGuideMarkup()}`;
 };
 </script>
 
@@ -38113,7 +38350,7 @@ const GodPowerBattleCardView = Object.freeze({
         <div class="v213-score-wrap">${scoreHtml}</div>
         <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
       </div>
-      <div class="card-action-row"><div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : `主要道具可直接点击使用`}${typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length ? `<span class="competition-status" title="${escapeHtml(CompetitionEffects.labels(g).join("；"))}">${escapeHtml(CompetitionEffects.labels(g).join(" · "))}</span>` : ""}</div><div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
+      <div class="card-action-row">${g.resultText || (typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length) ? `<div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : ""}${typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length ? `<span class="competition-status" title="${escapeHtml(CompetitionEffects.labels(g).join("；"))}">${escapeHtml(CompetitionEffects.labels(g).join(" · "))}</span>` : ""}</div>` : ""}<div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
   },
 });
 </script>
@@ -38487,32 +38724,91 @@ function refreshBattleGrid() {
   });
 })();
 
+/* 七种状态的说明改成与道具卡片同构的列表：图标位 + 名称/标签 + 实际效果 + 使用要点。
+   文案只保留规则要点，不再复述通用解释。 */
 function competitionStatusGuideMarkup() {
   const rows = [
-    ["灼烧", "接下来 2 次答题结算后各扣 1～3 分；可与中毒并存。"],
-    [
-      "冰冻",
-      "禁止 All In；答题正向收益最多 +1；2 次答题或取消一次道具使用后解除，取消时原道具不消耗。",
-    ],
-    [
-      "麻痹",
-      "接下来 2 次答题有 50% 概率取消答题得失；禁止 All In；不抵消后置灼烧、中毒扣分。",
-    ],
-    ["中毒", "接下来 3 次答题结算后各扣 2 分。"],
-    [
-      "眩晕",
-      "接下来 2 次定向道具尝试，有 50% 概率把目标改为自己；非定向、全局道具不触发。",
-    ],
-    [
-      "无敌",
-      "由无敌星触发，防御 3 次攻击；普通答对总分×2，All In 答对总分×3；答错保分、All In 失败不清零。防御耗尽后结束。",
-    ],
-    [
-      "巨大化",
-      "由巨大蘑菇触发，防御及答题规则同无敌；保留主要道具占位，防御耗尽后释放。",
-    ],
+    {
+      key: "burn",
+      name: "灼烧",
+      tag: "持续扣分",
+      exact: "接下来 2 次答题结算后各扣 1～3 分。",
+      tip: "与中毒可并存，两者扣分各自独立计算。",
+    },
+    {
+      key: "freeze",
+      name: "冰冻",
+      tag: "限制 All In",
+      exact: "禁止 All In；正向答题收益最多 +1。",
+      tip: "2 次答题后自动解除；若中途尝试使用道具，该次使用作废并立刻解冻（道具不消耗）。",
+    },
+    {
+      key: "paralysis",
+      name: "麻痹",
+      tag: "得失归零",
+      exact: "接下来 2 次答题各有 50% 概率取消答题得失，并禁止 All In。",
+      tip: "只影响答题得失，不抵消灼烧与中毒的扣分。",
+    },
+    {
+      key: "poison",
+      name: "中毒",
+      tag: "稳定掉分",
+      exact: "接下来 3 次答题结算后各扣 2 分。",
+      tip: "持续最久，适合在对手追分阶段施加。",
+    },
+    {
+      key: "dizziness",
+      name: "眩晕",
+      tag: "目标反转",
+      exact: "接下来 2 次定向道具尝试，各有 50% 概率把目标改为自己。",
+      tip: "只对定向道具生效；非定向与全局道具不触发。",
+    },
+    {
+      key: "invincible",
+      name: "无敌",
+      tag: "无敌星",
+      exact: "持续 3 轮答题：期间抵挡全部攻击，答对总分×2、All In 答对×3，答错保分。",
+      tip: "按答题轮次计时，与是否被攻击无关；同时清空已有的负面状态。",
+    },
+    {
+      key: "mega",
+      name: "巨大化",
+      tag: "巨大蘑菇",
+      exact: "持续 3 轮答题：防御与得分规则同无敌。",
+      tip: "按答题轮次计时；占用主要道具栏，到期后自动释放。",
+    },
   ];
-  return `<section class="competition-status-guide"><h3>七种状态效果</h3><p>不同负面状态可并存，同种状态刷新剩余次数、不叠伤害。仅实际作答递减答题次数；状态扣分与答题得失独立。无敌、巨大化保留现有防御规则；倍率按总分计算，不叠乘。道具顺序按资源、常规攻击、控制、特殊状态分组。</p><dl>${rows.map(([name, desc]) => `<dt>${escapeHtml(name)}</dt><dd>${escapeHtml(desc)}</dd>`).join("")}</dl></section>`;
+  return `<section class="competition-status-guide">
+    <h3>七种状态效果</h3>
+    <p class="competition-status-guide-sub">负面状态可以并存；同种状态刷新剩余次数而不叠加伤害。答题次数只在真正作答时递减。</p>
+    <div class="v2170-ency-list competition-status-list">
+      ${rows
+        .map(
+          (row) => `<div class="v2170-ency-row">
+        <div class="v2170-ency-icon status-icon-${row.key}"><span>${statusGuideGlyph(row.key)}</span></div>
+        <div class="v2170-ency-copy">
+          <div class="v2170-ency-name">${escapeHtml(row.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(row.tag)}</span></div>
+          <div class="v218-ency-tip"><b>实际效果：</b>${escapeHtml(row.exact)}</div>
+          <div class="v218-ency-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用要点：</b>${escapeHtml(row.tip)}</div>
+        </div>
+      </div>`,
+        )
+        .join("")}
+    </div>
+  </section>`;
+}
+function statusGuideGlyph(key) {
+  return (
+    {
+      burn: "🔥",
+      freeze: "❄",
+      paralysis: "⚡",
+      poison: "☠",
+      dizziness: "💫",
+      invincible: "⭐",
+      mega: "🍄",
+    }[key] || "◆"
+  );
 }
 </script>
 <script>/* Each item is an independent composition of target/effect/consumption blocks. */
@@ -38929,13 +39225,18 @@ const ItemOperationBlocks = (() => {
         return false;
       }
       // A defensive state replaces an ordinary one; both charge counters reset.
-      c.group.itemEffect = {
-        type: mine,
-        ...(c.blueprint.hits
-          ? { hitsLeft: c.blueprint.hits }
-          : { roundsLeft: c.blueprint.rounds }),
-        startedAt: Date.now(),
-      };
+      if (defensive && globalThis.CompetitionEffects?.arm) {
+        // Defensive states live on the round clock, not on absorbed attacks.
+        CompetitionEffects.arm(c.group, mine);
+      } else {
+        c.group.itemEffect = {
+          type: mine,
+          ...(c.blueprint.hits
+            ? { hitsLeft: c.blueprint.hits }
+            : { roundsLeft: c.blueprint.rounds }),
+          startedAt: Date.now(),
+        };
+      }
       if (current) c.replacedStatus = current;
       /* 无敌/巨大化是「强制替换」：它不仅要挡住之后施加的状态，还必须把这一刻
          已经挂在小组上的灼烧、冰冻、麻痹、中毒、眩晕全部清掉，否则界面会同时
@@ -39072,16 +39373,13 @@ const ItemOperationBlocks = (() => {
           group.id,
           ordered.map((g) => g.id),
         );
+      // The card animation still plays; the small text toast under it is gone.
       if (!presentation.fromHand)
         showItemUseFx(
           key,
           group.id,
-          context.targets.length
-            ? "目标：" + context.targets.map((g) => g.name).join("、")
-            : "没有可用目标 · 本次已消耗",
+          "",
         );
-      if (!presentation.fromHand)
-        showToast(`${group.name} 使用了 ${ITEM_DEFS[key].name}`);
       return true;
     } finally {
       if (context.redirectedItem)
@@ -45428,7 +45726,8 @@ const GodPowerComponentCatalog = {
     {
       "name": "empty",
       "sources": [
-        "src/styles/shell/navigation-and-welcome.css"
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/ui/application-surfaces.css"
       ]
     },
     {
@@ -46132,6 +46431,42 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/draw-clipping.css"
+      ]
+    },
+    {
+      "name": "group-avatar-actions-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-copy-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-preview-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-row-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-section-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "group-avatar-upload-v2200",
+      "sources": [
+        "src/ui/application-surfaces.css"
       ]
     },
     {
@@ -49325,6 +49660,12 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/items/draw-flow.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "v213-group-avatar-single",
+      "sources": [
         "src/ui/application-surfaces.css"
       ]
     },

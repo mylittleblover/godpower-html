@@ -187,13 +187,18 @@ const ItemOperationBlocks = (() => {
         return false;
       }
       // A defensive state replaces an ordinary one; both charge counters reset.
-      c.group.itemEffect = {
-        type: mine,
-        ...(c.blueprint.hits
-          ? { hitsLeft: c.blueprint.hits }
-          : { roundsLeft: c.blueprint.rounds }),
-        startedAt: Date.now(),
-      };
+      if (defensive && globalThis.CompetitionEffects?.arm) {
+        // Defensive states live on the round clock, not on absorbed attacks.
+        CompetitionEffects.arm(c.group, mine);
+      } else {
+        c.group.itemEffect = {
+          type: mine,
+          ...(c.blueprint.hits
+            ? { hitsLeft: c.blueprint.hits }
+            : { roundsLeft: c.blueprint.rounds }),
+          startedAt: Date.now(),
+        };
+      }
       if (current) c.replacedStatus = current;
       /* 无敌/巨大化是「强制替换」：它不仅要挡住之后施加的状态，还必须把这一刻
          已经挂在小组上的灼烧、冰冻、麻痹、中毒、眩晕全部清掉，否则界面会同时
@@ -330,16 +335,13 @@ const ItemOperationBlocks = (() => {
           group.id,
           ordered.map((g) => g.id),
         );
+      // The card animation still plays; the small text toast under it is gone.
       if (!presentation.fromHand)
         showItemUseFx(
           key,
           group.id,
-          context.targets.length
-            ? "目标：" + context.targets.map((g) => g.name).join("、")
-            : "没有可用目标 · 本次已消耗",
+          "",
         );
-      if (!presentation.fromHand)
-        showToast(`${group.name} 使用了 ${ITEM_DEFS[key].name}`);
       return true;
     } finally {
       if (context.redirectedItem)

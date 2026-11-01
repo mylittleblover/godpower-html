@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "start": {
+        "type": "star",
+        "roundsLeft": 3,
+        "hasHits": false,
+        "label": [
+          "无敌 · 剩余 3 轮"
+        ]
+      },
+      "absorbed": {
+        "roundsLeft": 3,
+        "type": "star"
+      },
+      "rounds": [
+        {
+          "type": "star",
+          "roundsLeft": 2
+        },
+        {
+          "type": "star",
+          "roundsLeft": 1
+        },
+        {
+          "type": null,
+          "roundsLeft": null
+        }
+      ],
+      "mega": {
+        "armed": {
+          "type": "mega",
+          "roundsLeft": 3
+        },
+        "slotHeld": true,
+        "after": null,
+        "slotFreed": true
+      }
+    }
+  ]
+}

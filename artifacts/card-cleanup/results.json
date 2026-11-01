@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "clean": {
+        "hint": false,
+        "hasResultRow": false,
+        "resultText": ""
+      },
+      "used": {
+        "animated": true,
+        "hasTargetLine": false,
+        "cardHasUseLine": false,
+        "resultRowGone": true
+      },
+      "avatar": {
+        "hasImage": true,
+        "numberBelow": true,
+        "badgeHasAvatarClass": true,
+        "numberText": "02",
+        "imgSrc": "data:image/png;base64"
+      }
+    }
+  ]
+}

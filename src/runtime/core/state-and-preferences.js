@@ -272,6 +272,17 @@ if (!Array.isArray(state.groups) || state.groups.length === 0) {
   ];
 }
 
+/* A group avatar must be a small, local raster image reference. Anything else
+   (remote URL, SVG, oversized payload) is dropped rather than trusted. */
+const GROUP_AVATAR_MAX_BYTES_V2200 = 512 * 1024;
+function normalizeGroupAvatarV2200(value) {
+  if (typeof value !== "string" || !value) return "";
+  if (value.length > GROUP_AVATAR_MAX_BYTES_V2200 * 1.4) return "";
+  if (!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(value))
+    return "";
+  return value;
+}
+
 function normalizeGroup(raw, index = 0) {
   const source = raw && typeof raw === "object" ? raw : {};
   const numericScore = Number(source.score);
@@ -303,6 +314,9 @@ function normalizeGroup(raw, index = 0) {
     resultText: String(source.resultText ?? ""),
     animState: "",
     members,
+    /* Group avatar: a small local data URL chosen by the teacher. Empty means the
+       card keeps showing its member stack as before. */
+    groupAvatar: normalizeGroupAvatarV2200(source.groupAvatar),
     /* V2.8: these fields are persistent classroom data, not session-only UI state. */
     inventory: Array.isArray(source.inventory)
       ? source.inventory.map((it) => ({ ...it }))

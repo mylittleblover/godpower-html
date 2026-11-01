@@ -9,6 +9,10 @@ globalThis.CompetitionEffects = (() => {
     invincible: { name: "无敌", duration: 3 },
     mega: { name: "巨大化", duration: 3 },
   });
+  /* Invincible and mega last a fixed number of answer rounds, not a number of
+     attacks absorbed: a defense that never gets attacked still expires. */
+  const DEFENSIVE_ROUNDS = 3;
+  const defensiveType = (key) => (key === "invincible" ? "star" : key === "mega" ? "mega" : null);
   const negative = Object.keys(definitions).filter(
     (k) => definitions[k].negative,
   );
@@ -26,10 +30,7 @@ globalThis.CompetitionEffects = (() => {
   }
   function has(group, key) {
     if (key === "invincible" || key === "mega")
-      return (
-        group?.itemEffect?.type === (key === "invincible" ? "star" : "mega") &&
-        Number(group.itemEffect.hitsLeft) > 0
-      );
+      return group?.itemEffect?.type === defensiveType(key);
     return Number(group?.competitionEffects?.[key]?.remaining) > 0;
   }
   function apply(group, key, duration = definitions[key]?.duration) {
@@ -49,11 +50,43 @@ globalThis.CompetitionEffects = (() => {
     if (key === "freeze" || key === "paralysis") group.allIn = false;
     return true;
   }
+  /* Grants a defensive state on the round-based clock. */
+  function arm(group, type) {
+    const rounds = DEFENSIVE_ROUNDS;
+    group.itemEffect = {
+      ...(group.itemEffect || {}),
+      type,
+      roundsLeft: rounds,
+      startedAt: Date.now(),
+    };
+    delete group.itemEffect.hitsLeft;
+    return group.itemEffect;
+  }
+  /* Ends a defensive state, releasing the mega item it keeps in the main slot. */
+  function release(group) {
+    const type = group?.itemEffect?.type;
+    if (type !== "star" && type !== "mega") return false;
+    if (type === "mega") {
+      const ix = (group.inventory || []).findIndex((x) => x.key === "mega");
+      if (ix >= 0) group.inventory.splice(ix, 1);
+    }
+    group.itemEffect = null;
+    return true;
+  }
   function tick(group, key) {
     if (key === "invincible" || key === "mega") return;
     if (!has(group, key)) return;
     if (--group.competitionEffects[key].remaining <= 0)
       delete group.competitionEffects[key];
+  }
+  /* One answer round passes for a defensive state. */
+  function tickDefensive(group) {
+    const type = group?.itemEffect?.type;
+    if (type !== "star" && type !== "mega") return;
+    const left = Number(group.itemEffect.roundsLeft);
+    const next = (Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS) - 1;
+    if (next <= 0) return release(group);
+    group.itemEffect.roundsLeft = next;
   }
   function cleanse(group) {
     const effects = normalize(group);
@@ -91,23 +124,33 @@ globalThis.CompetitionEffects = (() => {
     if (has(group, "poison")) postDelta -= 2;
     for (const key of Object.keys(definitions))
       if (key !== "dizziness") tick(group, key);
+    // The defensive clock advances once per answered round.
+    tickDefensive(group);
     return { answerDelta, postDelta, score: before + answerDelta + postDelta };
   }
+  /* Card and tooltip labels stay minimal: a status is its name plus how long it
+     has left. The full rules live in the encyclopedia, not on the card. */
   function labels(group) {
     return Object.entries(definitions)
       .filter(([key]) => has(group, key))
-      .map(([key, d]) =>
-        key === "invincible" || key === "mega"
-          ? `${d.name} · 剩余 ${group.itemEffect.hitsLeft} 次防御 · 答对总分×2 / All In答对×3 · 答错保分`
-          : `${d.name} · 剩余 ${group.competitionEffects[key].remaining} 次${key === "dizziness" ? "定向道具尝试" : "答题"}`,
-      );
+      .map(([key, d]) => {
+        if (key === "invincible" || key === "mega") {
+          const left = Number(group.itemEffect?.roundsLeft);
+          return `${d.name} · 剩余 ${Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS} 轮`;
+        }
+        return `${d.name} · 剩余 ${group.competitionEffects[key].remaining} 次`;
+      });
   }
   return {
     definitions,
     negative,
+    DEFENSIVE_ROUNDS,
     normalize,
     has,
     apply,
+    arm,
+    release,
+    tickDefensive,
     cleanse,
     blockedAllIn,
     cancelUse,

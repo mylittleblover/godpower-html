@@ -80,19 +80,7 @@ function tryDefendLightningV2116(target) {
   if (!["star", "mega"].includes(type)) return false;
 
   const name = ITEM_DEFS[type]?.name || "持续状态";
-  target.itemEffect.hitsLeft = Math.max(
-    0,
-    Number(target.itemEffect.hitsLeft || 0) - 1,
-  );
-
-  if (target.itemEffect.hitsLeft <= 0) {
-    if (["mega", "star"].includes(type)) {
-      const ix = target.inventory.findIndex((x) => x.key === type);
-      if (ix >= 0) target.inventory.splice(ix, 1);
-    }
-    target.itemEffect = null;
-  }
-
+  // 防御按答题轮次计时，挡下闪电不消耗轮次。
   tinyDefenseToast(`${target.name} 的${name}阻挡了闪电`);
   setTimeout(() => playAttackTargetFxV2116(target.id, "lightning", true), 120);
   return true;

@@ -182,6 +182,87 @@ body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 }
+/* A teacher-chosen group avatar fills the same badge footprint as the stack.
+   The badge itself already switches to the flexible column layout through
+   .v213-number-avatar, so the image must match the stack box exactly. */
+.v213-group-avatar-single,
+body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  flex: 0 0 30px !important;
+  display: block !important;
+  object-fit: cover !important;
+  border: 1.5px solid var(--group-color, #78909c) !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  box-shadow: none !important;
+}
+/* ===== 小组头像设置（详情页最顶端） ===== */
+.group-avatar-section-v2200 .group-avatar-row-v2200 {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.group-avatar-preview-v2200 {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 2px solid var(--ui-border);
+  background: var(--ui-soft-2);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--ui-muted-text, #64748b);
+}
+.group-avatar-preview-v2200 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.group-avatar-preview-v2200.empty {
+  border-style: dashed;
+}
+.group-avatar-copy-v2200 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+.group-avatar-copy-v2200 b {
+  font-size: 13px;
+  color: var(--ui-text);
+}
+.group-avatar-copy-v2200 > span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ui-muted-text, #64748b);
+}
+.group-avatar-actions-v2200 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+.group-avatar-upload-v2200 {
+  cursor: pointer;
+}
+.group-avatar-copy-v2200 p {
+  margin: 0;
+  font-size: 12px;
+}
+.group-avatar-copy-v2200 p[data-status="ERROR"] {
+  color: #b91c1c;
+}
+.group-avatar-copy-v2200 p[data-status="OK"] {
+  color: #047857;
+}
 .v213-group-number-below-avatar {
   height: 12px;
   line-height: 12px;

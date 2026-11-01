@@ -256,10 +256,32 @@
 
   function decorateGroupCards(groups) {
     const taskGeneration = generation;
+    // A teacher-chosen group avatar wins over the member stack.
+    for (const group of groups) {
+      if (!group.groupAvatar) continue;
+      const card = root.document.querySelector(
+        `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
+      );
+      const badge = card?.querySelector(".v213-number");
+      if (!badge || badge.dataset.avatarDecorated === "group") continue;
+      badge.dataset.avatarDecorated = "group";
+      badge.classList.add("v213-number-avatar");
+      badge.replaceChildren();
+      const image = root.document.createElement("img");
+      image.className = "v213-group-avatar-single";
+      image.src = group.groupAvatar;
+      image.alt = `${group.name} 头像`;
+      image.draggable = false;
+      const number = root.document.createElement("span");
+      number.className = "v213-group-number-below-avatar";
+      number.textContent = groupNoTextV213(group);
+      badge.append(image, number);
+    }
     readIndex().then(() => {
       if (taskGeneration !== generation && taskGeneration !== generation - 1)
         return;
       for (const group of groups) {
+        if (group.groupAvatar) continue;
         const card = root.document.querySelector(
           `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
         );
