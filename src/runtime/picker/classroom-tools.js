@@ -191,6 +191,13 @@ function judgeHandRaise(correct) {
   });
   saveState();
   renderAll();
+  // Hand the judged session to the floating menu so its reward controls unlock
+  // without re-judging (which would double-count the raise).
+  globalThis.ClassroomHandSync?.notify({
+    groupId: g.id,
+    correct,
+    judged: true,
+  });
   const box = document.getElementById("handRewardBox");
   if (!correct) {
     box.innerHTML =

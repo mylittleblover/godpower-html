@@ -87,6 +87,25 @@ globalThis.HandRaisePort = (() => {
         };
         return { ok: true, session: { selectionId: session.id, groupId: group.id } };
       }
+      /* The dock already performed the raise. Adopting its session keeps the
+         floating menu usable without recording a second history entry. */
+      if (action === 'handAdopt') {
+        if (!Number.isSafeInteger(payload.groupId))
+          return { ok: false, error: 'INVALID_GROUP' };
+        const group = state.groups.find((g) => g.id === payload.groupId);
+        if (!group) return { ok: false, error: 'INVALID_GROUP' };
+        session = {
+          owner: state,
+          season: state.seasonId,
+          groupId: group.id,
+          groupUid: group.groupUid,
+          id: typeof payload.selectionId === 'string' ? payload.selectionId : host.id(),
+          correct: payload.correct === true ? true : payload.correct === false ? false : null,
+          itemRewarded: false,
+          itemName: '',
+        };
+        return { ok: true, session: { selectionId: session.id, groupId: group.id } };
+      }
       const group = current();
       const expected = session;
       if (!group || payload.groupId !== group.id)
