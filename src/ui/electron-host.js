@@ -29,6 +29,22 @@
       if (runtime.pending !== null) firstHandDrawPendingV218 = runtime.pending;
     },
     draw: (group, context) => drawHandRewardForPort(group, context),
+    /* Using an item from the hand panel runs the same classroom command as the
+       dock button, and marks the origin so the cinematic is presented. */
+    use: (group, context) => {
+      const index = 0;
+      const item = group.inventory?.[index];
+      if (!item) return null;
+      globalThis.HandItemCinematic?.mark(group.id);
+      const accepted = useItem(group.id, index);
+      if (accepted === false) {
+        globalThis.HandItemCinematic?.take(null);
+        return null;
+      }
+      void context;
+      return { key: item.key, name: ITEM_DEFS[item.key]?.name || item.key };
+    },
+    itemName: (key) => ITEM_DEFS[key]?.name || key,
     run: (label, operation, options) =>
       runClassroomCommand(label, operation, options),
     whenIdle: () => classroomCommands.whenIdle(),
@@ -43,7 +59,8 @@
 
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
-      handSnapshot = hand?.getSnapshot() || null;    const payload = {
+      handSnapshot = hand?.getSnapshot() || null;
+    const payload = {
       ...snapshot,
       hand: handSnapshot
         ? {
@@ -54,6 +71,8 @@
             busy: handSnapshot.busy,
             inventoryCount: handSnapshot.inventoryCount,
             canDraw: handSnapshot.canDraw,
+            canUse: handSnapshot.canUse,
+            mainItemName: handSnapshot.mainItemName,
             itemName: handSnapshot.itemName,
           }
         : null,
@@ -72,6 +91,13 @@
     }
   };
 
+  const handActions = new Set([
+    "handSelect",
+    "handJudge",
+    "handScore",
+    "handDraw",
+    "handUse",
+  ]);
   const sounds = {
     start: "pick_start",
     stop: "pick_stop",
@@ -84,6 +110,7 @@
     handJudge: "ui_click",
     handScore: "settings",
     handDraw: "settings",
+    handUse: "settings",
   };
 
   desktop.onExecute(async ({ id, action, payload }) => {
@@ -96,19 +123,15 @@
             : "negative"
           : sounds[action];
       if (buttonSound) void playSound("ui_button_" + buttonSound);
-      const promise =
-        action === "handSelect" ||
-        action === "handJudge" ||
-        action === "handScore" ||
-        action === "handDraw"
-          ? hand.command(action, payload).catch((error) => ({
-              ok: false,
-              error: error.message,
-            }))
-          : GodpowerPicker.command(action, payload).catch((error) => ({
-              ok: false,
-              error: error.message,
-            }));
+      const promise = handActions.has(action)
+        ? hand.command(action, payload).catch((error) => ({
+            ok: false,
+            error: error.message,
+          }))
+        : GodpowerPicker.command(action, payload).catch((error) => ({
+            ok: false,
+            error: error.message,
+          }));
       completed.set(id, promise);
       if (completed.size > 256) completed.delete(completed.keys().next().value);
     }

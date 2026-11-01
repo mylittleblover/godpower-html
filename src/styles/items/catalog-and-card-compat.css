@@ -329,6 +329,54 @@
     0 0 23px rgba(56, 189, 248, 0.55);
   animation: v213AuraBreath 2.8s ease-in-out infinite;
 }
+/* 七种状态的持续光环，沿用 star/mega 的呼吸节奏，仅换颜色与色相。 */
+.persistent-aura-v213.aura-burn {
+  border-color: #ef4444;
+  box-shadow:
+    0 0 13px #ef4444,
+    0 0 25px rgba(248, 113, 113, 0.6);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+.persistent-aura-v213.aura-freeze {
+  border-color: #22d3ee;
+  box-shadow:
+    0 0 13px #22d3ee,
+    0 0 25px rgba(34, 211, 238, 0.6);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+.persistent-aura-v213.aura-paralysis {
+  border-color: #a855f7;
+  box-shadow:
+    0 0 13px #a855f7,
+    0 0 25px rgba(168, 85, 247, 0.6);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+.persistent-aura-v213.aura-poison {
+  border-color: #65a30d;
+  box-shadow:
+    0 0 13px #84cc16,
+    0 0 25px rgba(101, 163, 13, 0.6);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+.persistent-aura-v213.aura-dizziness {
+  border-color: #e879f9;
+  box-shadow:
+    0 0 13px #e879f9,
+    0 0 25px rgba(232, 121, 249, 0.6);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+.persistent-aura-v213.aura-invincible {
+  border-color: #ff4d6d;
+  box-shadow:
+    0 0 14px #ff4d6d,
+    0 0 26px rgba(67, 97, 238, 0.52);
+  animation: v213AuraBreath 2.8s ease-in-out infinite;
+}
+/* A second status shares the card: stagger a thinner ring just inside the first. */
+.persistent-aura-v213.aura-stacked {
+  inset: -9px;
+  border-width: 2px;
+}
 @keyframes v213StarAura {
   0% {
     filter: hue-rotate(0deg);

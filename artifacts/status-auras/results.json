@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "status-auras-and-hand-item-fx",
+      "distinctStatusRings": 7,
+      "stacked": true,
+      "handItemFx": "绿龟壳"
+    }
+  ]
+}

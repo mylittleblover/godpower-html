@@ -52,6 +52,12 @@ function itemVisual(key, cls = "") {
     ? `<img class="${cls}" src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}">`
     : d.icon;
 }
+/* Raw icon for surfaces outside this document (the native reveal window). */
+function itemIconDataUrl(key) {
+  ensureV2State();
+  const custom = state.itemGlobal.customIcons?.[key];
+  return Reliability.safeImage(custom) || BUILTIN_ITEM_ICONS_V2121[key] || "";
+}
 function itemBoxVisualV2121(cls = "") {
   return BUILTIN_ITEM_BOX_V2121
     ? `<img class="${cls}" src="${BUILTIN_ITEM_BOX_V2121}" alt="道具箱">`

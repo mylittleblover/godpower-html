@@ -22,12 +22,46 @@ globalThis.HandItemCinematic = (() => {
     if (priorFocus?.isConnected) priorFocus.focus();
     priorFocus = null;
   }
+  /* The native reveal window cannot decode this document's DOM, so the
+     cinematic travels as plain validated data. */
+  function payload(result) {
+    const targets = result.targets?.length
+      ? result.targets
+      : [{ name: "无可用目标", delta: 0 }];
+    return {
+      key: result.key,
+      caster: result.caster?.name || "",
+      itemName: ITEM_DEFS[result.key]?.name || result.key,
+      icon:
+        typeof itemIconDataUrl === "function" ? itemIconDataUrl(result.key) : "",
+      targets: targets.slice(0, 16).map((target) => ({
+        name: String(target.name || ""),
+        delta: Number.isSafeInteger(target.delta) ? target.delta : 0,
+        blocked: !!target.blocked,
+        effectChanged: !!target.effectChanged,
+        status: String(target.status || ""),
+      })),
+    };
+  }
   function present(result) {
     dismiss();
     const p = DesktopUI.getPreferences();
     if (!p.itemFx || p.motion === "off" || !ItemModules.feedback(result.key))
       return;
     priorFocus = document.activeElement;
+    // A docked main window may be hidden while the floating panel drives the
+    // lesson, so the cinematic also runs on the native full-screen surface.
+    if (
+      window.godpowerDesktop?.role === "main" &&
+      typeof window.godpowerDesktop.showItemFx === "function"
+    ) {
+      const data = payload(result);
+      window.godpowerDesktop.showItemFx({
+        ...data,
+        effects: { style: "aurora", duration: p.speed >= 1.5 ? 1200 : 2600 },
+      });
+      return;
+    }
     dialog = document.createElement("dialog");
     dialog.className = "hand-item-cinematic";
     dialog.setAttribute("aria-label", "道具使用结果");
@@ -65,7 +99,7 @@ globalThis.HandItemCinematic = (() => {
     if (document.hidden) dismiss();
   });
   Reliability.onDefenseInvalidation(dismiss);
-  return { mark, take, present, dismiss };
+  return { mark, take, present, dismiss, payload };
 })();
 
 globalThis.ScoreCardMotion = (() => {

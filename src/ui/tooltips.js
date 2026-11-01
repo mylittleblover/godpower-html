@@ -19,7 +19,14 @@
       tooltip.className = "gp-hover-tooltip";
       tooltip.setAttribute("role", "tooltip");
       tooltip.hidden = true;
-      document.body.append(tooltip);
+      // The shadow host keeps the bubble outside `body`'s zoom, so viewport
+      // coordinates from getBoundingClientRect apply unchanged at any zoom.
+      const host = document.createElement("div");
+      host.id = "godpower-hover-tooltip-host";
+      host.style.cssText =
+        "position:fixed;inset:0;width:0;height:0;overflow:visible;pointer-events:none;zoom:1";
+      host.append(tooltip);
+      document.documentElement.append(host);
     }
     return tooltip;
   }

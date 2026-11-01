@@ -90,6 +90,9 @@ function handUsePrimaryV214() {
   }
   const gid = g.id;
   closeHandRaise();
+  // Use from the hand panel also presents the full-screen cinematic, exactly
+  // like the floating window's hand menu.
+  globalThis.HandItemCinematic?.mark(gid);
   setTimeout(() => useItem(gid, 0), 0);
 }
 

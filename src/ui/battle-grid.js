@@ -97,17 +97,23 @@ function renderBattleGridCards() {
       };
     }
     card.querySelectorAll(".persistent-aura-v213").forEach((x) => x.remove());
-    let aura = "";
-    if (g.itemEffect?.type === "star") aura = "star";
-    else if (g.itemEffect?.type === "mega") aura = "mega";
-    else if (g.itemEffect?.type === "power") aura = "power";
-    else if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
-      aura = "ice";
-    if (aura) {
+    /* Every active status gets its own ring in that item's colour. The first
+       ring keeps the classic band; extra rings stack just outside it. */
+    const auras = [];
+    if (g.itemEffect?.type === "star" || CompetitionEffects.has(g, "invincible"))
+      auras.push("invincible");
+    if (g.itemEffect?.type === "mega" || CompetitionEffects.has(g, "mega"))
+      auras.push("mega");
+    if (g.itemEffect?.type === "power") auras.push("power");
+    if (g.itemEffect?.iceLock) auras.push("ice");
+    for (const key of CompetitionEffects.negative)
+      if (CompetitionEffects.has(g, key)) auras.push(key);
+    auras.forEach((aura, index) => {
       const a = document.createElement("div");
-      a.className = `persistent-aura-v213 aura-${aura}`;
+      a.className = `persistent-aura-v213 aura-${aura}${index ? " aura-stacked" : ""}`;
+      a.style.inset = `${-4 - index * 5}px`;
       card.appendChild(a);
-    }
+    });
     if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
     globalThis.ScoreCardMotion?.restore(card, g.id);
   });

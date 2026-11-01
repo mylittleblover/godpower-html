@@ -32,6 +32,7 @@ globalThis.HandRaisePort = (() => {
       const locked = !!state.isLocked;
       const inventoryCount = group?.inventory?.length || 0;
       const answerCorrect = session?.correct === true;
+      const mainItem = group?.inventory?.[0] || null;
       return {
         selectionId: session?.id || null,
         groupId: group?.id ?? null,
@@ -41,6 +42,17 @@ globalThis.HandRaisePort = (() => {
         busy: isBusy,
         locked,
         inventoryCount,
+        canUse: !!(
+          mainItem &&
+          answerCorrect &&
+          !isBusy &&
+          !locked &&
+          host.enabled() &&
+          host.eligible(group)
+        ),
+        mainItemName: mainItem?.key
+          ? host.itemName?.(mainItem.key) || mainItem.key
+          : '',
         canDraw: !!(
           group &&
           answerCorrect &&
@@ -82,11 +94,10 @@ globalThis.HandRaisePort = (() => {
       if (action !== 'handSelect' && payload.selectionId !== session.id)
         return { ok: false, error: 'STALE_HAND_SESSION' };
       if (state.isLocked) return { ok: false, error: 'LOCKED' };
-      if (action === 'handJudge') {
-        if (typeof payload.correct !== 'boolean')
+      if (action === 'handJudge') {        if (typeof payload.correct !== 'boolean')
           return { ok: false, error: 'INVALID_VALUE' };
         if (session.correct !== null) return { ok: false, error: 'ALREADY_JUDGED' };
-      } else if (action === 'handScore' || action === 'handDraw') {
+      } else if (action === 'handScore' || action === 'handDraw' || action === 'handUse') {
         if (session.correct !== true) return { ok: false, error: 'ANSWER_NOT_CORRECT' };
         if (
           action === 'handScore' &&
@@ -98,12 +109,36 @@ globalThis.HandRaisePort = (() => {
             ok: false,
             error: session.itemRewarded ? 'REWARD_ALREADY_GIVEN' : 'NO_DRAW',
           };
+        if (action === 'handUse') {
+          if (!group.inventory?.length) return { ok: false, error: 'NO_ITEM' };
+          if (!host.enabled() || !host.eligible(group))
+            return { ok: false, error: 'NO_ITEM' };
+        }
       } else return { ok: false, error: 'UNKNOWN_COMMAND' };
       let plan, itemName = '', runtime;
       try {
         if (action === 'handScore') plan = host.planScore(group, payload.delta);
       } catch {
         return { ok: false, error: 'INVALID_SCORE' };
+      }
+      // Using an item is its own classroom transaction on the host side, so it
+      // must not be nested inside a second one here.
+      if (action === 'handUse') {
+        if (!group.inventory?.length) return { ok: false, error: 'NO_ITEM' };
+        running = true;
+        try {
+          const used = host.use(group);
+          if (!used) return { ok: false, persisted: false, error: 'ITEM_NOT_USED' };
+          const result = await host.whenIdle();
+          if (!result?.ok || result.persisted !== true)
+            return { ok: false, persisted: false, error: 'SAVE_FAILED' };
+          try {
+            host.feedback?.(action, group, null, null, used);
+          } catch {}
+          return { ok: true, persisted: true, used: used.name || '' };
+        } finally {
+          running = false;
+        }
       }
       if (action === 'handDraw') runtime = host.captureRuntime?.();
       running = true;
@@ -170,7 +205,11 @@ globalThis.HandRaisePort = (() => {
         try {
           host.feedback?.(action, group, plan, drawn);
         } catch {}
-        return { ok: true, persisted: true, ...(drawn ? { itemName } : {}) };
+        return {
+          ok: true,
+          persisted: true,
+          ...(drawn ? { itemName } : {}),
+        };
       } finally {
         running = false;
       }
