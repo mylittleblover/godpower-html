@@ -114,6 +114,51 @@ try {
   assert.equal(negative.noFreeze, true);
   assert.equal(negative.blockedByMega, false, "mega blocks a negative status");
 
+  // A defensive state must also clear negative statuses that are already
+  // ticking, not merely block new ones.
+  const cleared = await run(async () => {
+    const group = state.groups[2];
+    group.itemEffect = null;
+    group.competitionEffects = {};
+    CompetitionEffects.apply(group, "burn", 3);
+    CompetitionEffects.apply(group, "poison", 3);
+    const beforeKeys = Object.keys(group.competitionEffects).sort();
+    group.inventory = [ItemModules.inventory("star")];
+    group.itemUsedThisRound = false;
+    useItem(group.id, 0);
+    await classroomCommands.whenIdle();
+    const afterStar = {
+      keys: Object.keys(group.competitionEffects || {}).sort(),
+      type: group.itemEffect?.type,
+    };
+    // Mega must do the same.
+    group.itemEffect = null;
+    group.competitionEffects = {};
+    CompetitionEffects.apply(group, "dizziness", 3);
+    group.inventory = [ItemModules.inventory("mega")];
+    group.itemUsedThisRound = false;
+    useItem(group.id, 0);
+    await classroomCommands.whenIdle();
+    const afterMega = {
+      keys: Object.keys(group.competitionEffects || {}).sort(),
+      type: group.itemEffect?.type,
+    };
+    return { beforeKeys, afterStar, afterMega };
+  });
+  assert.deepEqual(cleared.beforeKeys, ["burn", "poison"]);
+  assert.equal(cleared.afterStar.type, "star");
+  assert.deepEqual(
+    cleared.afterStar.keys,
+    [],
+    "invincible clears every negative status",
+  );
+  assert.equal(cleared.afterMega.type, "mega");
+  assert.deepEqual(
+    cleared.afterMega.keys,
+    [],
+    "mega clears every negative status",
+  );
+
   // A defensive aura must still render exactly one ring for its own state.
   const ring = await run(() => {
     const group = state.groups[2];

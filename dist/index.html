@@ -38905,11 +38905,10 @@ const ItemOperationBlocks = (() => {
     status(c) {
       /* Status rules:
          - An existing status cannot stack a second one.
-         - The two defensive states (invincible/star and mega) force-replace any
-           ordinary status.
+         - Invincible and mega replace the existing state outright, including
+           every negative status already ticking on the group.
          - They never replace each other, so neither can be overwritten. */
       const mine = c.blueprint.type;
-      const holds = (type) => c.group.itemEffect?.type === type;
       const current = c.group.itemEffect?.type || null;
       const defensive = mine === "star" || mine === "mega";
       const currentDefensive = current === "star" || current === "mega";
@@ -38938,6 +38937,18 @@ const ItemOperationBlocks = (() => {
         startedAt: Date.now(),
       };
       if (current) c.replacedStatus = current;
+      /* 无敌/巨大化是「强制替换」：它不仅要挡住之后施加的状态，还必须把这一刻
+         已经挂在小组上的灼烧、冰冻、麻痹、中毒、眩晕全部清掉，否则界面会同时
+         显示负面状态与无敌光环。 */
+      if (defensive && c.group.competitionEffects) {
+        const cleared = Object.keys(c.group.competitionEffects).filter(
+          (name) => c.group.competitionEffects[name],
+        );
+        if (cleared.length) {
+          c.group.competitionEffects = {};
+          c.clearedStatuses = cleared;
+        }
+      }
       return true;
     },
     dodge(c) {

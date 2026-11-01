@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "count": 1,
+      "caster": "第 1 组",
+      "items": 1,
+      "head": "影响 1 个小组",
+      "columns": 1,
+      "scrolls": false,
+      "overflow": "visible",
+      "boxBottom": 747,
+      "lastBottom": 726,
+      "viewport": {
+        "vw": 1920,
+        "vh": 1040
+      },
+      "lastInside": true,
+      "fontSize": "36px"
+    },
+    {
+      "count": 4,
+      "caster": "第 1 组",
+      "items": 4,
+      "head": "影响 4 个小组",
+      "columns": 2,
+      "scrolls": false,
+      "overflow": "visible",
+      "boxBottom": 800,
+      "lastBottom": 779,
+      "viewport": {
+        "vw": 1920,
+        "vh": 1040
+      },
+      "lastInside": true,
+      "fontSize": "36px"
+    },
+    {
+      "count": 12,
+      "caster": "第 1 组",
+      "items": 12,
+      "head": "影响 12 个小组",
+      "columns": 4,
+      "scrolls": false,
+      "overflow": "visible",
+      "boxBottom": 815,
+      "lastBottom": 794,
+      "viewport": {
+        "vw": 1920,
+        "vh": 1040
+      },
+      "lastInside": true,
+      "fontSize": "25px"
+    }
+  ]
+}

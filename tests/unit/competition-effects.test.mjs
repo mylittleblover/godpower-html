@@ -11,17 +11,29 @@ const load = () => {
   );
   return c.api;
 };
-test("statuses refresh, coexist, normalize old data and cleanse only negatives", () => {
+test("statuses refresh and normalize old data, and defensive states block them", () => {
   const e = load(),
-    g = { itemEffect: { type: "star", hitsLeft: 3 } };
+    g = {};
   e.apply(g, "burn");
   e.apply(g, "poison");
   e.apply(g, "burn", 1);
+  // Re-applying refreshes to the longer duration instead of stacking counts.
   assert.equal(g.competitionEffects.burn.remaining, 2);
   assert.equal(Object.keys(g.competitionEffects).length, 2);
   e.cleanse(g);
   assert.deepEqual(Object.keys(g.competitionEffects), []);
-  assert.equal(e.has(g, "invincible"), true);
+
+  // Invincible and mega force-replace ordinary statuses: while either is active
+  // a new negative status is refused outright.
+  const guarded = { itemEffect: { type: "star", hitsLeft: 3 } };
+  assert.equal(e.apply(guarded, "burn"), false);
+  assert.equal(e.has(guarded, "burn"), false);
+  assert.equal(guarded.itemEffect.type, "star", "the defensive state survives");
+  const mega = { itemEffect: { type: "mega", hitsLeft: 3 } };
+  assert.equal(e.apply(mega, "freeze"), false);
+  assert.equal(e.has(mega, "freeze"), false);
+
+  assert.equal(e.has(guarded, "invincible"), true);
   assert.equal(e.has({}, "burn"), false);
   assert.equal(e.apply(g, "unknown"), false);
 });

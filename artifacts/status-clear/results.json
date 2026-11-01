@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "bench": {
+        "id": 8,
+        "negatives": [
+          "burn",
+          "dizziness"
+        ]
+      },
+      "before": [
+        "aura-burn",
+        "aura-dizziness"
+      ],
+      "star": {
+        "type": "star",
+        "keys": [],
+        "text": "08\n测试 8 组\n当前按编号排列\n第7名\n主\n＋\n＋\n＋\n380分\n···\n主要道具可直接点击使用\n无敌 · 剩余 3 次防御 · 答对总分×2 / All In答对×3 · 答错保分\nA\nB\nC\nD\nALL IN\n发动 · 无敌星\n持续状态已更新"
+      },
+      "after": [
+        "aura-invincible"
+      ],
+      "mega": {
+        "id": 10,
+        "type": "mega",
+        "keys": [],
+        "rings": [
+          "aura-mega"
+        ],
+        "text": "10\n测试 10 组\n当前按编号排列\n第5名\n主\n＋\n＋\n460分\n···\n主要道具可直接点击使用\n巨大化 · 剩余 3 次防御 · 答对总分×2 / All In答对×3 · 答错保分\nA\nB\nC\nD\nALL IN\n发动 · 巨大蘑菇\n持续状态已更新"
+      }
+    }
+  ]
+}
