@@ -43,9 +43,13 @@ startDrawSoundBedV2164 = function () {
    现行流程约 1.5s 滚动 + 0.9s 看结果 + 0.62s 淡出。 */
 function globalItemDraw() {
   ensureV2State();
-  if (itemDrawBusy) return;
+  if (
+    itemDrawBusy ||
+    (typeof handItemDrawTimer !== "undefined" && handItemDrawTimer)
+  )
+    return false;
 
-  const eligible = state.groups.filter(
+  let eligible = state.groups.filter(
     (g) =>
       eligibleForItems(g) &&
       Array.isArray(g.inventory) &&
@@ -56,31 +60,13 @@ function globalItemDraw() {
     return;
   }
 
-  /* 抽取入口可能先从其他页面切回比赛页；必须在 switchView/renderAll 之前
-     就关闭布局 FLIP，否则切页生成的旧坐标仍会让卡片从下向上收紧。 */
-  v213SuppressReorderAnimation = true;
-  if (!document.getElementById("view-battle")?.classList.contains("active")) {
-    switchView("battle");
-  }
-
-  recordHistory("全局道具抽取");
-
-  /* V2.17.10：一次按钮操作只算 1 个全局抽取轮次。 */
-  if (typeof beginDrawSessionV21710 === "function")
-    beginDrawSessionV21710("global");
-  if (typeof DesktopUI !== "undefined")
-    DesktopUI.visualEvent("ITEM_DRAW_START", { scope: "global" });
-
-  try {
-    startDrawSoundBedV2164();
-  } catch (e) {}
-
-  itemDrawBusy = true;
-  renderGrid();
-
   const overlays = new Map();
-  const context = { state, groups: state.groups, seasonId: state.seasonId };
-  activeGlobalItemDraw = context;
+  const awards = [];
+  let context = null;
+  let resolveReveal;
+  const revealReady = new Promise((resolve) => {
+    resolveReveal = resolve;
+  });
 
   function removeOverlay(id, node) {
     const parent = node?.parentElement;
@@ -92,6 +78,7 @@ function globalItemDraw() {
 
   function isCurrent() {
     if (
+      context &&
       activeGlobalItemDraw === context &&
       state === context.state &&
       state.groups === context.groups &&
@@ -99,12 +86,25 @@ function globalItemDraw() {
     )
       return true;
 
+    cleanup(false);
+    return false;
+  }
+
+  function cleanup(restoreSession) {
     overlays.forEach((node, id) => removeOverlay(id, node));
-    if (activeGlobalItemDraw === context) {
+    if (context && activeGlobalItemDraw === context) {
+      if (
+        restoreSession &&
+        state === context.state &&
+        activeDrawSessionV21710 === context.session
+      ) {
+        activeDrawSessionV21710 = context.previousSession;
+      }
       activeGlobalItemDraw = null;
       itemDrawBusy = false;
       v213SuppressReorderAnimation = false;
       stopActiveDrawAudioV2171();
+      return true;
     }
     return false;
   }
@@ -112,21 +112,23 @@ function globalItemDraw() {
   const start = performance.now();
   const total = ITEM_DRAW_DURATION_V21712;
 
-  eligible.forEach((g) => {
-    const c = document.querySelector(
-      `.group-row-card[data-group-id="${g.id}"]`,
-    );
-    if (!c) return;
-    c.classList.add("item-draw-spinning");
+  function mountOverlays() {
+    eligible.forEach((g) => {
+      const c = document.querySelector(
+        `.group-row-card[data-group-id="${g.id}"]`,
+      );
+      if (!c) return;
+      c.classList.add("item-draw-spinning");
 
-    const o = document.createElement("div");
-    o.className = "card-item-roulette";
-    o.innerHTML =
-      '<div class="r-icon">❔</div><div class="r-name">道具抽取中</div><div class="r-hint">ITEM ROULETTE</div>';
-    c.appendChild(o);
-    overlays.set(g.id, o);
-    BattleMotion.trackDraw(g.id, o);
-  });
+      const o = document.createElement("div");
+      o.className = "card-item-roulette";
+      o.innerHTML =
+        '<div class="r-icon">❔</div><div class="r-name">道具抽取中</div><div class="r-hint">ITEM ROULETTE</div>';
+      c.appendChild(o);
+      overlays.set(g.id, o);
+      BattleMotion.trackDraw(g.id, o);
+    });
+  }
 
   const lastUpdate = new Map();
 
@@ -150,23 +152,19 @@ function globalItemDraw() {
       return;
     }
 
-    const batchUsed = new Set();
-    eligible.forEach((g) => {
-      const k = pickItemForGroupV281(g, batchUsed);
-      if (k && addItemToGroup(g, k)) {
-        batchUsed.add(k);
+    // Resolving a promise is idempotent, even if a stale frame is replayed.
+    resolveReveal();
+  }
 
-        const o = overlays.get(g.id);
-        if (o) {
-          updateCardRouletteVisual(o, k);
-          o.classList.add("reveal");
-          const hint = o.querySelector(".r-hint");
-          if (hint) hint.textContent = "获得道具";
-        }
-      }
-    });
-
-    saveState();
+  function presentCommittedAwards() {
+    for (const { id, key } of awards) {
+      const node = overlays.get(id);
+      if (!node) continue;
+      updateCardRouletteVisual(node, key);
+      node.classList.add("reveal");
+      const hint = node.querySelector(".r-hint");
+      if (hint) hint.textContent = "获得道具";
+    }
     // Refresh awarded slots underneath the still-visible reveal overlay.
     renderGrid();
 
@@ -191,11 +189,107 @@ function globalItemDraw() {
     }, ITEM_DRAW_RESULT_HOLD_V21712);
   }
 
-  requestAnimationFrame(frame);
+  const accepted = runClassroomCommand(
+    "全局道具抽取",
+    (command) => {
+      // Cancelling an older command can restore a different groups array.
+      eligible = state.groups.filter(
+        (group) =>
+          eligibleForItems(group) &&
+          Array.isArray(group.inventory) &&
+          group.inventory.length < 3,
+      );
+      if (!eligible.length) return false;
+      context = {
+        state,
+        groups: state.groups,
+        seasonId: state.seasonId,
+        previousSession: activeDrawSessionV21710,
+      };
+      activeGlobalItemDraw = context;
+      if (typeof beginDrawSessionV21710 === "function")
+        beginDrawSessionV21710("global");
+      context.session = activeDrawSessionV21710;
+      classroomCommands.defer(
+        revealReady,
+        () => {
+          if (
+            eligible.some(
+              (group) =>
+                !state.groups.includes(group) ||
+                !eligibleForItems(group) ||
+                group.inventory.length >= 3,
+            )
+          ) {
+            throw Error("抽取对象已变化");
+          }
+          const batchUsed = new Set();
+          for (const group of eligible) {
+            const key = pickItemForGroupV281(group, batchUsed);
+            if (!key) continue;
+            if (!addItemToGroup(group, key)) throw Error("道具加入失败");
+            batchUsed.add(key);
+            const acquired = group.inventory[group.inventory.length - 1];
+            command.emit(
+              "ITEM_ACQUIRED",
+              { type: "group", id: group.groupUid },
+              {
+                seasonId: state.seasonId,
+                itemKey: key,
+                itemInstanceId: acquired?.itemInstanceId || null,
+                source: "global-draw",
+              },
+            );
+            awards.push({ id: group.id, key });
+          }
+        },
+        isCurrent,
+      );
+
+      // Suppress FLIP before switching to the battle page, preserving geometry.
+      v213SuppressReorderAnimation = true;
+      if (!document.getElementById("view-battle")?.classList.contains("active"))
+        switchView("battle");
+      if (typeof DesktopUI !== "undefined")
+        DesktopUI.visualEvent("ITEM_DRAW_START", { scope: "global" });
+      try {
+        startDrawSoundBedV2164();
+      } catch (_) {}
+      itemDrawBusy = true;
+      renderGrid();
+      mountOverlays();
+      requestAnimationFrame(frame);
+      return true;
+    },
+    { retainOnPersistenceFailure: false },
+  );
+  if (!accepted) {
+    cleanup(true);
+    return false;
+  }
+  classroomCommands.whenIdle().then((result) => {
+    if (!result?.ok || !result.persisted) {
+      if (cleanup(true)) showToast("道具抽取未能提交，已恢复原状态");
+      return;
+    }
+    try {
+      if (isCurrent()) presentCommittedAwards();
+    } catch (error) {
+      // Presentation cannot undo a durable award or leave its owner busy forever.
+      cleanup(false);
+      console.error("道具抽取已提交，界面反馈失败", error);
+      showToast("道具已保存，但界面反馈失败。请导出备份后重试。");
+    }
+  });
+  return true;
 }
 
 /* 举手奖励抽取同样压缩到 1.5s。 */
 function handDrawItem() {
+  if (itemDrawBusy) {
+    showToast("请等待当前道具抽取完成");
+    return false;
+  }
   ensureV2State();
   const g = state.groups.find((x) => x.id === handRaiseGroupId);
   if (!g) return;

@@ -22,6 +22,7 @@ npm run audit
 - [架构审查](docs/audit/ARCHITECTURE_AUDIT.md)
 - [功能清单](docs/audit/FEATURE_INVENTORY.md)
 - [维护任务](docs/MAINTENANCE_BACKLOG.md)
+- [V3.0.62 本地治理候选：全局抽取命令](docs/validation/GLOBAL_DRAW_COMMAND_3.0.62.md)
 - [维护说明](docs/MAINTENANCE_GUIDE.md)
 - [存档规则](docs/DATA_SCHEMA.md)
 

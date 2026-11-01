@@ -4,6 +4,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { launch, setup } from '../fixtures/browser.mjs';
 
 const html = await readFile('dist/godpower.html');
+const evidenceRoot = process.env.GLOBAL_DRAW_ARTIFACT_DIR || 'artifacts/code-review-3.0.61';
 const server = createServer((_, response) => response.end(html));
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const browser = await launch();
@@ -51,8 +52,8 @@ try {
   assert.deepEqual(overlap, { revealed: { inventory: 4, total: 4, busy: true }, busy: false, overlays: 0 });
   results.push({ scenario: 'old owner cannot cancel newer draw', result: overlap });
   assert.deepEqual(errors, []);
-  await mkdir('artifacts/code-review-3.0.61', { recursive: true });
-  await writeFile('artifacts/code-review-3.0.61/draw-after.json', JSON.stringify({ results, errors }, null, 2));
+  await mkdir(evidenceRoot, { recursive: true });
+  await writeFile(`${evidenceRoot}/draw-after.json`, JSON.stringify({ results, errors }, null, 2));
   console.log(JSON.stringify({ status: 'PASS', results }));
 } finally {
   await browser.close();
