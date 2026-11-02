@@ -118,7 +118,7 @@ const DesktopUI = (() => {
         clearAttackHitFxV2116(card);
     });
     document
-      .querySelectorAll(".card-fx-badge,.attack-hit-badge-v2116")
+      .querySelectorAll(".card-fx-badge,.attack-hit-badge")
       .forEach((el) => el.remove());
     document.querySelectorAll(".ui-fx-layer").forEach((x) => x.remove());
   }
@@ -176,7 +176,7 @@ const DesktopUI = (() => {
       );
     });
     $(".ui-dock-menu")?.removeAttribute("open");
-    $(".dock-humor-tip-v2185")?.classList.remove("show");
+    $(".dock-humor-tip")?.classList.remove("show");
     cancelAnimations();
     historyEntryPending = name === "history";
     archiveEntryPending = name === "archives";
@@ -669,7 +669,7 @@ const DesktopUI = (() => {
     installSfxVolumeSliderV2176();
     installClearItemsSettingV2172();
     const classified = [...sc.querySelectorAll("[data-settings-category]")];
-    for (const pane of sc.querySelectorAll(".settings-v26-pane")) {
+    for (const pane of sc.querySelectorAll(".legacy-settings-pane")) {
       const id = pane.id.replace("settingsV26_", "");
 
       (sections[id === "function" ? "rules" : id] || sections.rules).append(
@@ -922,7 +922,7 @@ const DesktopUI = (() => {
     if (!panel) return;
     const content = [...panel.children]
       .flatMap((node) =>
-        node.matches(".settings-v26-pane") ? [...node.children] : [node],
+        node.matches(".legacy-settings-pane") ? [...node.children] : [node],
       )
       .filter((node) => !node.hidden);
     const targets = entering
@@ -1503,8 +1503,8 @@ const DesktopUI = (() => {
       );
   }
   function setupPicker() {
-    const left = $(".picker-left-v2"),
-      right = $(".picker-right-v2");
+    const left = $(".picker-left"),
+      right = $(".picker-right");
     const options = $(".slot-options-row");
     left.append(options);
     const tabs = $(".picker-info-tabs"),

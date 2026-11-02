@@ -60,22 +60,22 @@ renderAbout = function (tab) {
     return _v21715RenderAbout.call(this, tab);
   }
 
-  m.innerHTML = `<div class="v2170-ency-head">
+  m.innerHTML = `<div class="item-reference-head">
       <div>
         <h2>28 种道具百科</h2>
-        <div class="v2170-ency-sub">仅介绍道具功能与实际效果。</div>
+        <div class="item-reference-sub">仅介绍道具功能与实际效果。</div>
       </div>
       <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
     </div>
-    <div class="v2170-ency-list">
+    <div class="item-reference-list">
       ${ITEM_KEYS.map((k) => {
         const d = ITEM_DEFS[k];
         const desc = ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k] || d.desc || "";
-        return `<div class="v2170-ency-row">
-          <div class="v2170-ency-icon">${itemVisual(k, "v2170-ency-img")}</div>
-          <div class="v2170-ency-copy">
-            <div class="v2170-ency-name">${escapeHtml(d.name)}</div>
-            <div class="v2170-ency-desc">${escapeHtml(desc)}</div>
+        return `<div class="item-reference-row">
+          <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
+          <div class="item-reference-copy">
+            <div class="item-reference-name">${escapeHtml(d.name)}</div>
+            <div class="item-reference-desc">${escapeHtml(desc)}</div>
           </div>
         </div>`;
       }).join("")}

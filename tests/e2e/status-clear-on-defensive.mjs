@@ -20,7 +20,7 @@ try {
   const ringsOf = (id) =>
     page.evaluate((id) => {
       const card = document.querySelector(`.group-row-card[data-group-id="${id}"]`);
-      return [...card.querySelectorAll(".persistent-aura-v213")].map((a) =>
+      return [...card.querySelectorAll(".persistent-aura")].map((a) =>
         [...a.classList]
           .filter((c) => c.startsWith("aura-") && c !== "aura-stacked")
           .join(""),
@@ -82,7 +82,7 @@ try {
       id: g.id,
       type: g.itemEffect?.type,
       keys: Object.keys(g.competitionEffects || {}).sort(),
-      rings: [...card.querySelectorAll(".persistent-aura-v213")].map((a) =>
+      rings: [...card.querySelectorAll(".persistent-aura")].map((a) =>
         [...a.classList].filter((c) => c.startsWith("aura-") && c !== "aura-stacked").join(""),
       ),
       text: card.innerText,

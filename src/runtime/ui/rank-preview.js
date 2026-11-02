@@ -33,10 +33,10 @@ function renderBattleRankPreviewV21721() {
             : rank === 3
               ? "🥉"
               : String(rank);
-      return `<div class="battle-rank-chip-v21721 ${rank === 1 ? "rank-1" : ""}" style="--rank-group-color:${g.color || "#0F766E"}" title="第 ${rank} 名 · ${escapeHtml(g.name)} · 第 ${no} 组 · ${g.score} 分">
-      <div class="battle-rank-no-v21721">${medal}</div>
-      <div class="battle-rank-name-v21721">${escapeHtml(g.name)}</div>
-      <div class="battle-rank-score-v21721">${g.score}分</div>
+      return `<div class="battle-rank-chip ${rank === 1 ? "rank-1" : ""}" style="--rank-group-color:${g.color || "#0F766E"}" title="第 ${rank} 名 · ${escapeHtml(g.name)} · 第 ${no} 组 · ${g.score} 分">
+      <div class="battle-rank-no">${medal}</div>
+      <div class="battle-rank-name">${escapeHtml(g.name)}</div>
+      <div class="battle-rank-score">${g.score}分</div>
     </div>`;
     })
     .join("");

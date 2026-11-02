@@ -41,9 +41,9 @@
   height: clamp(130px, 34vw, 170px) !important;
 }
 .card-item-roulette.reveal:before {
-  animation: rouletteRevealRingLeftV281 0.8s ease-out both !important;
+  animation: rouletteRevealRingLeft 0.8s ease-out both !important;
 }
-@keyframes rouletteRevealRingLeftV281 {
+@keyframes rouletteRevealRingLeft {
   from {
     transform: translateY(-50%) scale(0.7);
     opacity: 0.4;
@@ -74,32 +74,32 @@
 }
 
 /* 举手抽取也采用横向结果语言 */
-.hand-item-draw-stage.v281-horizontal {
+.hand-item-draw-stage.hand-draw-horizontal {
   display: grid !important;
   grid-template-columns: minmax(92px, 126px) 1fr !important;
   grid-template-areas: "head head" "icon name" "progress progress" "actions actions" !important;
   gap: 12px 18px !important;
   align-items: center !important;
 }
-.hand-item-draw-stage.v281-horizontal .hand-draw-head {
+.hand-item-draw-stage.hand-draw-horizontal .hand-draw-head {
   grid-area: head;
 }
-.hand-item-draw-stage.v281-horizontal .hand-item-capsule {
+.hand-item-draw-stage.hand-draw-horizontal .hand-item-capsule {
   grid-area: icon;
   margin: 0 !important;
 }
-.hand-item-draw-stage.v281-horizontal .hand-draw-copy {
+.hand-item-draw-stage.hand-draw-horizontal .hand-draw-copy {
   grid-area: name;
   text-align: left !important;
 }
-.hand-item-draw-stage.v281-horizontal .hand-item-draw-name {
+.hand-item-draw-stage.hand-draw-horizontal .hand-item-draw-name {
   font-size: clamp(22px, 5vw, 32px) !important;
   line-height: 1.15 !important;
 }
-.hand-item-draw-stage.v281-horizontal .hand-item-progress {
+.hand-item-draw-stage.hand-draw-horizontal .hand-item-progress {
   grid-area: progress;
 }
-.hand-item-draw-stage.v281-horizontal .hand-item-result-actions {
+.hand-item-draw-stage.hand-draw-horizontal .hand-item-result-actions {
   grid-area: actions;
 }
 
@@ -134,24 +134,24 @@
 .group-row-card.cfx-feather {
   --fxc: #f8fafc;
   --fxc2: #bae6fd;
-  animation: cfxFeatherV282 1.8s ease-out both;
+  animation: cfxFeather 1.8s ease-out both;
 }
 .group-row-card.cfx-fireflower {
   --fxc: #f97316;
   --fxc2: #fde047;
-  animation: cfxFireFlowerV282 1.8s ease-out both;
+  animation: cfxFireFlower 1.8s ease-out both;
 }
 .group-row-card.cfx-iceflower {
   --fxc: #38bdf8;
   --fxc2: #e0f2fe;
-  animation: cfxIceFlowerV282 1.8s ease-out both;
+  animation: cfxIceFlower 1.8s ease-out both;
 }
 .group-row-card.cfx-boomerang {
   --fxc: #3b82f6;
   --fxc2: #f8fafc;
-  animation: cfxBoomerangV282 1.8s ease-out both;
+  animation: cfxBoomerang 1.8s ease-out both;
 }
-@keyframes cfxFeatherV282 {
+@keyframes cfxFeather {
   0%,
   100% {
     filter: none;
@@ -163,7 +163,7 @@
     filter: brightness(1.03);
   }
 }
-@keyframes cfxFireFlowerV282 {
+@keyframes cfxFireFlower {
   0%,
   100% {
     filter: none;
@@ -175,7 +175,7 @@
     filter: brightness(1.05);
   }
 }
-@keyframes cfxIceFlowerV282 {
+@keyframes cfxIceFlower {
   0%,
   100% {
     filter: none;
@@ -187,7 +187,7 @@
     filter: brightness(1.04);
   }
 }
-@keyframes cfxBoomerangV282 {
+@keyframes cfxBoomerang {
   0%,
   100% {
     transform: rotate(0);
@@ -201,13 +201,13 @@
 }
 
 /* V2.8.3 新增道具在上帝模式中的按钮布局 */
-.item-admin-add-v283 {
+.item-admin-add {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
   gap: 5px !important;
 }
-.item-admin-add-v283 img {
+.item-admin-add img {
   width: 22px !important;
   height: 22px !important;
   object-fit: contain !important;

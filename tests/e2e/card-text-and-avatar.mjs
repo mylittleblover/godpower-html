@@ -25,8 +25,8 @@ try {
     const text = card.innerText;
     return {
       hint: text.includes("主要道具可直接点击使用"),
-      hasResultRow: !!card.querySelector(".v213-result"),
-      resultText: card.querySelector(".v213-result")?.textContent?.trim() ?? "",
+      hasResultRow: !!card.querySelector(".battle-result"),
+      resultText: card.querySelector(".battle-result")?.textContent?.trim() ?? "",
     };
   });
   assert.equal(clean.hint, false, "the idle hint is gone");
@@ -46,7 +46,7 @@ try {
       animated: document.querySelectorAll(".bm-layer").length > beforeLayers,
       hasTargetLine: /目标：/.test(card.innerText),
       cardHasUseLine: /使用了|目标：/.test(card.innerText),
-      resultRowGone: !card.querySelector(".v213-result"),
+      resultRowGone: !card.querySelector(".battle-result"),
     };
   });
   assert.equal(used.animated, true, "the card animation still plays");
@@ -62,15 +62,15 @@ try {
     await renderAll();
     await new Promise((r) => setTimeout(r, 350));
     const card = document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
-    const badge = card.querySelector(".v213-number");
-    const img = badge.querySelector(".v213-group-avatar-single");
-    const num = badge.querySelector(".v213-group-number-below-avatar");
+    const badge = card.querySelector(".battle-group-number");
+    const img = badge.querySelector(".battle-group-avatar-single");
+    const num = badge.querySelector(".battle-group-number-below-avatar");
     const imgRect = img?.getBoundingClientRect();
     const numRect = num?.getBoundingClientRect();
     return {
       hasImage: !!img,
       numberBelow: !!imgRect && !!numRect && numRect.top >= imgRect.bottom - 1,
-      badgeHasAvatarClass: badge.classList.contains("v213-number-avatar"),
+      badgeHasAvatarClass: badge.classList.contains("battle-number-avatar"),
       numberText: num?.textContent?.trim() ?? "",
       imgSrc: img?.src?.slice(0, 21) ?? "",
     };

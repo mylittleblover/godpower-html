@@ -1,4 +1,4 @@
-.v2179-cooldown-note {
+.cooldown-note {
   margin-top: 10px;
   padding: 10px 12px;
   border: 1px solid #dbe7e4;
@@ -11,11 +11,11 @@
   font-size: 11px;
   line-height: 1.5;
 }
-.v2179-cooldown-note b {
+.cooldown-note b {
   color: #17302d;
   font-size: 12px;
 }
-.v2179-cooldown-note small {
+.cooldown-note small {
   margin-top: 2px;
   color: #829590;
 }

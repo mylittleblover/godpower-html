@@ -155,20 +155,20 @@ renderItemFxSoundListV26 = function () {
       !!customFxBuffers[id] ||
       !!customFxVariants[id]?.length ||
       hasSound("fx_" + id);
-    const itemClass = visual ? " v2174-item-sound-card" : "";
+    const itemClass = visual ? " item-sound-card" : "";
     const description = visual
-      ? `<div class="sound-desc v2174-item-sound-desc">
+      ? `<div class="sound-desc item-sound-desc">
           ${visual}
-          <div class="v2174-item-sound-copy">
+          <div class="item-sound-copy">
             <div class="sound-name">${escapeHtml(name)}</div>
             <div class="sound-tag">${custom ? "已载入独立音频" : escapeHtml(desc)}</div>
           </div>
         </div>`
       : `<div class="sound-desc">
-          <div class="sound-name v2174-sound-name">${escapeHtml(name)}</div>
+          <div class="sound-name item-audio-sound-name">${escapeHtml(name)}</div>
           <div class="sound-tag">${custom ? "已载入独立音频" : escapeHtml(desc)}</div>
         </div>`;
-    return `<div class="sound-row v2174-sound-row${itemClass}">
+    return `<div class="sound-row item-audio-sound-row${itemClass}">
       ${description}
       <div class="sound-controls">
         <button class="btn btn-sm" data-sound-preview onclick="playSound('${id}')">试听</button>
@@ -180,20 +180,20 @@ renderItemFxSoundListV26 = function () {
   };
 
   box.innerHTML = `
-    <div class="v2174-audio-head">
+    <div class="audio-head">
       <b>公共道具事件</b>
       <span>抽取过程与统一防御提示</span>
     </div>
     ${common.map((x) => rowHtml(x.id, x.name, x.desc)).join("")}
 
-    <div class="v2174-audio-head v2174-item-head">
+    <div class="audio-head item-head">
       <b>28 种道具独立发动音效</b>
       <span>每个道具使用自己的音频槽，不再共享“攻击 / 强化 / 状态”等通用音效。</span>
     </div>
-    <div class="v2174-item-sound-grid">
+    <div class="item-sound-grid">
       ${ITEM_KEYS.map((k) => {
         const d = ITEM_DEFS[k];
-        const visual = `<span class="v2174-item-audio-icon">${itemVisual(k, "v2174-item-audio-img")}</span>`;
+        const visual = `<span class="item-audio-icon">${itemVisual(k, "item-audio-img")}</span>`;
         return rowHtml(`item_${k}`, d.name, "默认：该道具独立合成音", visual);
       }).join("")}
     </div>

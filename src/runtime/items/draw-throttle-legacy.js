@@ -156,7 +156,7 @@ function installDrawCooldownInfoV2179() {
   const t = ensureDrawThrottleV2179();
   const info = document.createElement("div");
   info.id = "drawCooldownInfoV2179";
-  info.className = "v2179-cooldown-note";
+  info.className = "cooldown-note";
   info.innerHTML = `
     <b>抽取冷却规则</b>
     <span>闪电 / 鱿鱿：全局每次抽中后间隔 4 次其他抽取，第 5 次重新开放。</span>

@@ -84,7 +84,7 @@
 <style>@@SOURCE:ui/component-library.css@@</style>
 <style id="application-themes">@@SOURCE:ui/themes.css@@</style>
 </head>
-<body class="modern-flat-v217">
+<body class="modern-flat">
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
@@ -197,14 +197,14 @@
 </div>
 
 <div id="view-battle" class="view">
-<div class="main-viewport battle-main-v216">
-  <div id="heightResizerDock" class="height-resizer-dock battle-rank-dock-v21721" style="display: none; height: 120px;">
-    <div class="battle-rank-preview-v21721">
-      <div class="battle-rank-preview-head-v21721">
-        <span class="battle-rank-preview-title-v21721">🏁 当前排名</span>
-        <span class="battle-rank-preview-note-v21721">卡片保持按编号排列</span>
+<div class="main-viewport battle-main">
+  <div id="heightResizerDock" class="height-resizer-dock battle-rank-dock" style="display: none; height: 120px;">
+    <div class="battle-rank-preview">
+      <div class="battle-rank-preview-head">
+        <span class="battle-rank-preview-title">🏁 当前排名</span>
+        <span class="battle-rank-preview-note">卡片保持按编号排列</span>
       </div>
-      <div id="battleRankPreviewGridV21721" class="battle-rank-preview-grid-v21721"></div>
+      <div id="battleRankPreviewGridV21721" class="battle-rank-preview-grid"></div>
     </div>
     <div class="resizer-handle" id="resizerHandle" title="按住上下拖拽调整排名预览高度">
       <span>上下拖拽调整排名预览高度 (大屏友好)</span>
@@ -214,7 +214,7 @@
   <div id="groupList" class="group-list"></div>
 
   <!-- 快速操作栏：V2.17.14 移到小组卡片下方 -->
-  <div id="quickBatchBar" class="quick-batch-bar quick-batch-bar-bottom-v21714">
+  <div id="quickBatchBar" class="quick-batch-bar quick-batch-bar-bottom">
     <div class="batch-bar-title">⚡ 批量偷懒区</div>
     <div class="batch-buttons-group">
       <button class="batch-opt-btn" onclick="batchSelectOption('A')">全员选 A</button>
@@ -394,8 +394,8 @@
 
 <div id="pickerModal" class="modal-overlay">
   <div class="modal-box slot-modal ui-function-surface" style="width:min(1120px,96vw);max-width:none;padding:0;overflow:hidden;">
-    <div class="picker-layout-v2">
-      <aside class="picker-left-v2">
+    <div class="picker-layout">
+      <aside class="picker-left">
         <h3 style="margin:0 0 13px">🎰 天选之人</h3>
         <button class="picker-vtab active" id="btnModeInd" onclick="setPickerMode('individual')">👤 全班命运混抽</button>
         <button class="picker-vtab" id="btnModeGrp" onclick="setPickerMode('group')">👥 小组集体听天由命</button>
@@ -406,7 +406,7 @@
         </div>
         <div id="pickerInfoBox"></div>
       </aside>
-      <main class="picker-center-v2">
+      <main class="picker-center">
         <div id="twoTierGroupSelect" class="two-tier-group-select" style="display:none;margin:8px 0 12px">
           <div style="font-size:12px;color:#475569;font-weight:700;margin-bottom:6px">预选小组（可多选）</div>
           <div id="twoTierGroupChips" class="two-tier-chips"></div>
@@ -442,7 +442,7 @@
         <div id="slotResultPanel" class="slot-result-panel"><div id="resultHeadline" style="font-size:16px;font-weight:800;color:#0284c7">等待抽签</div></div>
         <div style="text-align:center;margin-top:12px"><button class="btn" style="background:#e2e8f0;color:#1e293b" onclick="closePickerModal()">退出</button></div>
       </main>
-      <aside class="picker-right-v2">
+      <aside class="picker-right">
         <b style="font-size:17px">⚡ 当场发钱</b>
         <div id="pickerScoreTarget" class="picker-target">抽中学生或小组后，可直接给所属小组赋分。</div>
         <div class="picker-score-grid" data-score-slots="picker" role="group" aria-label="六个快捷赋分槽位"></div>
@@ -523,9 +523,9 @@
 
     <div class="setting-item ui-rule-card" data-settings-category="rules" data-settings-group="rules">
       <div class="ui-rule-copy"><label class="ui-rule-title" for="cfgSaveAllIn">跨局保留上一轮 All In 状态</label><p class="setting-note" id="saveAllInDescription">控制跨回合时是否保留 All In 选择，修改后立即保存。</p></div>
-      <label class="v292-switch" title="跨局保留 All In">
+      <label class="ui-toggle" title="跨局保留 All In">
         <input type="checkbox" id="cfgSaveAllIn" aria-describedby="saveAllInDescription" onchange="toggleSaveAllIn(this.checked)">
-        <span class="v292-switch-track"><span class="v292-switch-knob"></span></span>
+        <span class="ui-toggle-track"><span class="ui-toggle-knob"></span></span>
       </label>
     </div>
 
@@ -772,14 +772,14 @@
 
 
 <!-- V2.17.27 统一主题弹窗 -->
-<div id="themeDialogV21727" class="theme-dialog-v21727" aria-hidden="true">
-  <div class="theme-dialog-card-v21727 ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
-    <div class="theme-dialog-head-v21727">
-      <div id="themeDialogIconV21727" class="theme-dialog-icon-v21727">ℹ️</div>
-      <div id="themeDialogTitleV21727" class="theme-dialog-title-v21727">提示</div>
+<div id="themeDialogV21727" class="theme-dialog" aria-hidden="true">
+  <div class="theme-dialog-card ui-function-surface" role="dialog" aria-modal="true" aria-labelledby="themeDialogTitleV21727">
+    <div class="theme-dialog-head">
+      <div id="themeDialogIconV21727" class="theme-dialog-icon">ℹ️</div>
+      <div id="themeDialogTitleV21727" class="theme-dialog-title">提示</div>
     </div>
-    <div id="themeDialogBodyV21727" class="theme-dialog-body-v21727"></div>
-    <div id="themeDialogActionsV21727" class="theme-dialog-actions-v21727"></div>
+    <div id="themeDialogBodyV21727" class="theme-dialog-body"></div>
+    <div id="themeDialogActionsV21727" class="theme-dialog-actions"></div>
   </div>
 </div>
 
@@ -799,45 +799,45 @@
 <script id="v21735DefenseNoticeStack">@@SOURCE:runtime/ui/defense-notices.js@@</script>
 
 
-<div id="quickPersonBackdropV218" class="quick-person-backdrop-v218" onclick="if(event.target===this)closeQuickPersonScoreV218()">
-  <div class="quick-person-card-v218 ui-function-surface">
-    <div class="quick-person-head-v218">
+<div id="quickPersonBackdropV218" class="quick-person-backdrop" onclick="if(event.target===this)closeQuickPersonScoreV218()">
+  <div class="quick-person-card ui-function-surface">
+    <div class="quick-person-head">
       <b>🤑 快速按人加分</b>
       <button class="btn" onclick="closeQuickPersonScoreV218()">关闭</button>
     </div>
-    <div class="quick-person-filters-v218">
-      <div class="qp-row-v218">
+    <div class="quick-person-filters">
+      <div class="quick-person-row">
         <span>搜索</span>
-        <input id="qpSearchV218" class="qp-input-v218" placeholder="姓名或学号" oninput="renderQuickPersonListV218()">
-        <span class="qp-search-hint-v218">支持直接输入学号</span>
+        <input id="qpSearchV218" class="quick-person-input" placeholder="姓名或学号" oninput="renderQuickPersonListV218()">
+        <span class="quick-person-search-hint">支持直接输入学号</span>
       </div>
-      <div class="qp-row-v218">
+      <div class="quick-person-row">
         <span>学号段</span>
         <div id="qpNumberBandsV218"></div>
       </div>
-      <div class="qp-row-v218">
+      <div class="quick-person-row">
         <span>小组</span>
         <div id="qpGroupFiltersV218"></div>
       </div>
-      <div class="qp-row-v218">
+      <div class="quick-person-row">
         <span>姓名首字母</span>
         <div id="qpLetterFiltersV218"></div>
       </div>
     </div>
-    <div id="quickPersonListV218" class="quick-person-list-v218"></div>
-    <div class="quick-person-actions-v218">
-      <div id="qpSelectedCountV218" class="qp-selected-count-v218">已选择 0 人</div>
-      <div class="qp-score-actions-v218">
+    <div id="quickPersonListV218" class="quick-person-list"></div>
+    <div class="quick-person-actions">
+      <div id="qpSelectedCountV218" class="quick-person-selected-count">已选择 0 人</div>
+      <div class="quick-person-score-actions">
         <div data-score-slots="person" class="cf-score-slots" role="group" aria-label="六个快捷赋分槽位"></div>
-        <input id="qpCustomScoreV218" type="number" class="qp-input-v218" placeholder="自定义" style="width:105px">
+        <input id="qpCustomScoreV218" type="number" class="quick-person-input" placeholder="自定义" style="width:105px">
         <button class="btn btn-primary" onclick="applyQuickPersonCustomV218()">应用</button>
       </div>
     </div>
   </div>
 </div>
 
-<div id="handEffectOverlayV218" class="hand-effect-overlay-v218">
-  <div id="handEffectCardV218" class="hand-effect-card-v218"></div>
+<div id="handEffectOverlayV218" class="hand-effect-overlay">
+  <div id="handEffectCardV218" class="hand-effect-card"></div>
 </div>
 
 

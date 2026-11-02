@@ -172,7 +172,7 @@
       button.className = "btn btn-primary";
       button.textContent = "独立点名悬浮窗";
       button.addEventListener("click", () => desktop.openPicker());
-      document.querySelector("#pickerModal .picker-left-v2")?.append(button);
+      document.querySelector("#pickerModal .picker-left")?.append(button);
       GodpowerPicker.subscribe(publish);
       timer = setInterval(publish, 120);
       publish();

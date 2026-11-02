@@ -234,8 +234,8 @@ function installClearItemsSettingV2172() {
   section.id = "clearAllItemsV2172";
   section.innerHTML = `
     <div class="setting-section-title">🎁 道具数据</div>
-    <div class="v2172-clear-items-row">
-      <div class="v2172-clear-items-copy">
+    <div class="clear-items-row">
+      <div class="clear-items-copy">
         <b>一键清空所有道具</b>
         <span>清除所有小组背包、道具持续状态、害羞幽灵防护与当前鱿鱿效果；不会修改积分、成员或道具统计。</span>
       </div>

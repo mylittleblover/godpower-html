@@ -9,8 +9,8 @@ function cancelItemScoreAnimations() {
   globalThis.ScoreCardMotion?.cancel();
   scoreAnimationEpoch++;
   activeScoreRollsV21732.clear();
-  document.querySelectorAll(".score-roll-host-v21730").forEach((el) => {
-    el.classList.remove("score-roll-host-v21730");
+  document.querySelectorAll(".score-roll-host").forEach((el) => {
+    el.classList.remove("score-roll-host");
     const g = state.groups.find((g) => String(g.id) === el.id.slice(10));
     if (g) el.textContent = `${g.score}分`;
   });
@@ -25,7 +25,7 @@ function cancelItemScoreAnimations() {
     g.displayScore = g.score;
     const el = document.getElementById(`score-val-${g.id}`);
     if (el) {
-      el.classList.remove("score-roll-host-v21730");
+      el.classList.remove("score-roll-host");
       el.textContent = `${g.score}分`;
     }
   });
@@ -67,11 +67,11 @@ function showDeltaOnlyV21732(groupId, delta) {
   if (!scoreEl || !delta) return;
 
   scoreEl
-    .querySelectorAll(".item-score-delta-v21730")
+    .querySelectorAll(".item-score-delta")
     .forEach((x) => x.remove());
 
   const deltaEl = document.createElement("span");
-  deltaEl.className = `item-score-delta-v21730 ${delta > 0 ? "gain" : "loss"}`;
+  deltaEl.className = `item-score-delta ${delta > 0 ? "gain" : "loss"}`;
   deltaEl.textContent = delta > 0 ? `+${delta}` : `${delta}`;
   scoreEl.appendChild(deltaEl);
   requestAnimationFrame(() => deltaEl.classList.add("play"));
@@ -84,13 +84,13 @@ function showDeltaOnlyV21732(groupId, delta) {
 function mountScoreRollV21732(scoreEl, g, session) {
   scoreEl.textContent = `${session.from}分`;
   scoreEl.style.setProperty("--score-text-color", g.color || "#17302D");
-  scoreEl.classList.add("score-roll-host-v21730");
+  scoreEl.classList.add("score-roll-host");
   for (const [kind, value] of [
     ["old", session.from],
     ["new", session.to],
   ]) {
     const ghost = document.createElement("span");
-    ghost.className = `score-roll-ghost-v21730 score-roll-${kind}-v21730`;
+    ghost.className = `score-roll-ghost score-roll-${kind}`;
     ghost.textContent = `${value}分`;
     ghost.style.animationDelay = `-${Math.max(0, performance.now() - session.started)}ms`;
     scoreEl.append(ghost);
@@ -114,7 +114,7 @@ function rollThenCommitScoreV21732(groupId, from, to) {
     g.displayScore = g.score;
     const el = getScoreElementV21732(groupId);
     if (el) {
-      el.classList.remove("score-roll-host-v21730");
+      el.classList.remove("score-roll-host");
       el.textContent = `${g.score}分`;
     }
     renderChart();
@@ -211,7 +211,7 @@ function queueItemScoreChangesV21732(beforeMap) {
 function restoreHeldScoreElementsV21732() {
   itemScoreDisplayHoldV21732.forEach((old, key) => {
     const el = getScoreElementV21732(key);
-    if (el && !el.classList.contains("score-roll-host-v21730")) {
+    if (el && !el.classList.contains("score-roll-host")) {
       const session = activeScoreRollsV21732.get(String(key));
       const g = state.groups.find((x) => String(x.id) === String(key));
       if (session && g) mountScoreRollV21732(el, g, session);

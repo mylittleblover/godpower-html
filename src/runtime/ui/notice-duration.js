@@ -8,7 +8,7 @@ const NOTICE_DURATION_V21734 = 3800;
   const style = document.createElement("style");
   style.id = "v21734NoticeDurationStyle";
   style.textContent = `
-    .item-use-banner-v216{
+    .item-use-banner{
       animation-duration:${NOTICE_DURATION_V21734}ms!important;
     }
   `;

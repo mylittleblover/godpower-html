@@ -57,7 +57,7 @@ function renderQuickPersonFiltersV218() {
       bands
         .map(
           (x) =>
-            `<button class="qp-chip-v218 ${qpStateV218.bands.has(x) ? "active" : ""}" onclick="toggleQPSetV218('bands','${x}')">${x}</button>`,
+            `<button class="quick-person-chip ${qpStateV218.bands.has(x) ? "active" : ""}" onclick="toggleQPSetV218('bands','${x}')">${x}</button>`,
         )
         .join(" ") ||
       '<span style="font-size:11px;color:#94a3b8">名单未识别到学号</span>';
@@ -67,7 +67,7 @@ function renderQuickPersonFiltersV218() {
     gb.innerHTML = state.groups
       .map(
         (g) =>
-          `<button class="qp-chip-v218 ${qpStateV218.groups.has(g.id) ? "active" : ""}" style="${qpStateV218.groups.has(g.id) ? `background:${g.color};border-color:${g.color}` : ""}" onclick="toggleQPSetV218('groups',${g.id})">${escapeHtml(g.name)}</button>`,
+          `<button class="quick-person-chip ${qpStateV218.groups.has(g.id) ? "active" : ""}" style="${qpStateV218.groups.has(g.id) ? `background:${g.color};border-color:${g.color}` : ""}" onclick="toggleQPSetV218('groups',${g.id})">${escapeHtml(g.name)}</button>`,
       )
       .join(" ");
 
@@ -77,7 +77,7 @@ function renderQuickPersonFiltersV218() {
     lb.innerHTML = letters
       .map(
         (x) =>
-          `<button class="qp-chip-v218 qp-letter-v218 ${qpStateV218.letters.has(x) ? "active" : ""}" onclick="toggleQPSetV218('letters','${x}')">${x}</button>`,
+          `<button class="quick-person-chip quick-person-letter ${qpStateV218.letters.has(x) ? "active" : ""}" onclick="toggleQPSetV218('letters','${x}')">${x}</button>`,
       )
       .join("");
 }
@@ -115,10 +115,10 @@ function renderQuickPersonListV218() {
     ? list
         .map(
           (s) => `
-    <button class="quick-person-entry-v218 ${qpStateV218.selected.has(s.key) ? "selected" : ""}" onclick="toggleQuickPersonV218('${escapeHtml(s.key).replace(/'/g, "&#39;")}')">
-      ${s.p.number != null ? `<span class="student-no-v218" style="background:${s.group.color}">${escapeHtml(s.p.numberText)}</span>` : '<span class="student-no-v218" style="background:#94a3b8">—</span>'}
-      <span class="student-name-v218">${escapeHtml(s.p.name)}</span>
-      <span class="qp-group-v218" title="${escapeHtml(s.group.name)}">${escapeHtml(s.group.name)}</span>
+    <button class="quick-person-entry ${qpStateV218.selected.has(s.key) ? "selected" : ""}" onclick="toggleQuickPersonV218('${escapeHtml(s.key).replace(/'/g, "&#39;")}')">
+      ${s.p.number != null ? `<span class="student-no" style="background:${s.group.color}">${escapeHtml(s.p.numberText)}</span>` : '<span class="student-no" style="background:#94a3b8">—</span>'}
+      <span class="student-name">${escapeHtml(s.p.name)}</span>
+      <span class="quick-person-group" title="${escapeHtml(s.group.name)}">${escapeHtml(s.group.name)}</span>
     </button>`,
         )
         .join("")

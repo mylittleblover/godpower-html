@@ -147,15 +147,15 @@ function competitionStatusGuideMarkup() {
   return `<section class="competition-status-guide">
     <h3>七种状态效果</h3>
     <p class="competition-status-guide-sub">同一时间只能有一种状态：已有状态时不会再叠加新的状态；同种状态重复施加只刷新剩余时间。负面状态按「答题次数」递减，无敌与巨大化按「答题轮次」计时。</p>
-    <div class="v2170-ency-list competition-status-list">
+    <div class="item-reference-list competition-status-list">
       ${rows
         .map(
-          (row) => `<div class="v2170-ency-row">
-        <div class="v2170-ency-icon status-icon-${row.key}"><span>${statusGuideGlyph(row.key)}</span></div>
-        <div class="v2170-ency-copy">
-          <div class="v2170-ency-name">${escapeHtml(row.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(row.tag)}</span></div>
-          <div class="v218-ency-tip"><b>实际效果：</b>${escapeHtml(row.exact)}</div>
-          <div class="v218-ency-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用要点：</b>${escapeHtml(row.tip)}</div>
+          (row) => `<div class="item-reference-row">
+        <div class="item-reference-icon status-icon-${row.key}"><span>${statusGuideGlyph(row.key)}</span></div>
+        <div class="item-reference-copy">
+          <div class="item-reference-name">${escapeHtml(row.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(row.tag)}</span></div>
+          <div class="item-reference-tip"><b>实际效果：</b>${escapeHtml(row.exact)}</div>
+          <div class="item-reference-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用要点：</b>${escapeHtml(row.tip)}</div>
         </div>
       </div>`,
         )

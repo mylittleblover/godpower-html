@@ -19,7 +19,7 @@ function rebuildSettingsV26() {
   };
   Object.entries(panes).forEach(([k, p]) => {
     p.id = "settingsV26_" + k;
-    p.className = "settings-v26-pane";
+    p.className = "legacy-settings-pane";
   });
   let mode = "function";
   original.forEach((el) => {
@@ -41,7 +41,7 @@ function rebuildSettingsV26() {
   });
   const tabs = document.createElement("div");
   tabs.id = "settingsV26Tabs";
-  tabs.className = "settings-v26-tabs";
+  tabs.className = "legacy-settings-tabs";
   tabs.innerHTML = `<button data-v26="function" onclick="showSettingsV26('function')">⚙️ 功能设置</button><button data-v26="sound" onclick="showSettingsV26('sound')">🔊 音效与音乐</button><button data-v26="items" onclick="showSettingsV26('items')">🎁 道具与图标</button><button data-v26="data" onclick="showSettingsV26('data')">💾 数据与管理</button>`;
   sc.append(tabs, panes.function, panes.sound, panes.items, panes.data);
 
@@ -76,7 +76,7 @@ function showSettingsV26(which) {
     return;
   }
   document
-    .querySelectorAll(".settings-v26-pane")
+    .querySelectorAll(".legacy-settings-pane")
     .forEach((p) =>
       p.classList.toggle("active", p.id === "settingsV26_" + which),
     );

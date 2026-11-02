@@ -43,7 +43,7 @@ try {
             return {
               card: rect(el),
               title: rect(el.querySelector(".ui-rule-title")),
-              switch: rect(el.querySelector(".v292-switch-track")),
+              switch: rect(el.querySelector(".ui-toggle-track")),
             };
           },
         ),

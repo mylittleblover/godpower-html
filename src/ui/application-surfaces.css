@@ -143,7 +143,7 @@ body {
 }
 
 /* Optional roster avatars occupy the original number badge footprint. */
-body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
+body.modern-flat .battle-card .battle-group-number.battle-number-avatar {
   width: 40px !important;
   height: 45px !important;
   display: flex !important;
@@ -158,7 +158,7 @@ body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
   border-radius: 0 !important;
   font-size: 10px !important;
 }
-.v213-group-avatar-stack {
+.battle-group-avatar-stack {
   width: 30px;
   height: 30px;
   flex: 0 0 30px;
@@ -171,22 +171,22 @@ body.modern-flat-v217 .v213-card .v213-number.v213-number-avatar {
   border-radius: 8px;
   background: #fff;
 }
-.v213-group-avatar-stack img {
+.battle-group-avatar-stack img {
   width: 100%;
   height: 100%;
   min-width: 0;
   min-height: 0;
   object-fit: cover;
 }
-.v213-group-avatar-stack.count-1 img {
+.battle-group-avatar-stack.count-1 img {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 }
 /* A teacher-chosen group avatar fills the same badge footprint as the stack.
    The badge itself already switches to the flexible column layout through
-   .v213-number-avatar, so the image must match the stack box exactly. */
-.v213-group-avatar-single,
-body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
+   .battle-number-avatar, so the image must match the stack box exactly. */
+.battle-group-avatar-single,
+body.modern-flat .battle-card .battle-group-number .battle-group-avatar-single {
   width: 30px !important;
   height: 30px !important;
   min-width: 30px !important;
@@ -200,12 +200,12 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
   box-shadow: none !important;
 }
 /* ===== 小组头像设置（详情页最顶端） ===== */
-.group-avatar-section-v2200 .group-avatar-row-v2200 {
+.group-avatar-section .group-avatar-row {
   display: flex;
   align-items: flex-start;
   gap: 14px;
 }
-.group-avatar-preview-v2200 {
+.group-avatar-preview {
   width: 72px;
   height: 72px;
   flex: 0 0 72px;
@@ -220,50 +220,50 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
   font-weight: 900;
   color: var(--ui-muted-text, #64748b);
 }
-.group-avatar-preview-v2200 img {
+.group-avatar-preview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.group-avatar-preview-v2200.empty {
+.group-avatar-preview.empty {
   border-style: dashed;
 }
-.group-avatar-copy-v2200 {
+.group-avatar-copy {
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 0;
   flex: 1;
 }
-.group-avatar-copy-v2200 b {
+.group-avatar-copy b {
   font-size: 13px;
   color: var(--ui-text);
 }
-.group-avatar-copy-v2200 > span {
+.group-avatar-copy > span {
   font-size: 12px;
   line-height: 1.5;
   color: var(--ui-muted-text, #64748b);
 }
-.group-avatar-actions-v2200 {
+.group-avatar-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 2px;
 }
-.group-avatar-upload-v2200 {
+.group-avatar-upload {
   cursor: pointer;
 }
-.group-avatar-copy-v2200 p {
+.group-avatar-copy p {
   margin: 0;
   font-size: 12px;
 }
-.group-avatar-copy-v2200 p[data-status="ERROR"] {
+.group-avatar-copy p[data-status="ERROR"] {
   color: #b91c1c;
 }
-.group-avatar-copy-v2200 p[data-status="OK"] {
+.group-avatar-copy p[data-status="OK"] {
   color: #047857;
 }
-.v213-group-number-below-avatar {
+.battle-group-number-below-avatar {
   height: 12px;
   line-height: 12px;
   font-size: 10px;
@@ -294,7 +294,7 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
   white-space: nowrap;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .v213-group-avatar-stack img {
+  .battle-group-avatar-stack img {
     animation: roster-avatar-arrive 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
   @keyframes roster-avatar-arrive {
@@ -345,7 +345,7 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
     h3,
     .score-modal-title,
     .member-search-title,
-    .theme-dialog-title-v21727
+    .theme-dialog-title
   ) {
   letter-spacing: -0.02em;
 }
@@ -354,11 +354,11 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
   border-top: 3px solid var(--theme-tone-13816b, #13816b);
 }
 .ui-function-surface
-  :is(.item-main-head, .classroom-head, .quick-person-head-v218) {
+  :is(.item-main-head, .classroom-head, .quick-person-head) {
   background: var(--surface-hero);
   color: #fff;
 }
-.ui-function-surface :is(.classroom-head, .quick-person-head-v218) .btn {
+.ui-function-surface :is(.classroom-head, .quick-person-head) .btn {
   --control-bg: #fff;
   --control-text: var(--theme-tone-185547, #185547);
 }
@@ -371,13 +371,13 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
     background var(--motion-fast),
     color var(--motion-fast);
 }
-.ui-function-surface .picker-left-v2 {
+.ui-function-surface .picker-left {
   border-right: 1px solid var(--surface-line);
 }
-.ui-function-surface .picker-right-v2 {
+.ui-function-surface .picker-right {
   border-left: 1px solid var(--surface-line);
 }
-.ui-function-surface .picker-center-v2 {
+.ui-function-surface .picker-center {
   --window-side-bg: #fff;
 }
 .ui-function-surface .slot-reel-frame {
@@ -391,19 +391,19 @@ body.modern-flat-v217 .v213-card .v213-number .v213-group-avatar-single {
 .ui-function-surface .queue-role-badge {
   letter-spacing: 0.03em;
 }
-.ui-function-surface .theme-dialog-icon-v21727 {
+.ui-function-surface .theme-dialog-icon {
   background: var(--theme-tone-e2f3e9, #e2f3e9);
   border-radius: 12px;
 }
-.theme-dialog-card-v21727,
-.quick-person-card-v218,
+.theme-dialog-card,
+.quick-person-card,
 .grand-card {
   border-color: var(--surface-line);
   border-radius: var(--window-radius);
   box-shadow: var(--window-shadow);
 }
-.theme-dialog-v21727,
-.quick-person-backdrop-v218 {
+.theme-dialog,
+.quick-person-backdrop {
   background: var(--window-overlay);
 }
 /* Collection pages share the welcome hero, not a generic white fullview box. */
@@ -542,18 +542,18 @@ body[data-current-view="archives"] {
   border-color: var(--theme-tone-d7e6db, #d7e6db);
   background: #fff;
 }
-body.modern-flat-v217 {
+body.modern-flat {
   --ui-accent: #f2836d;
   --ui-accent-hover: #dd6c57;
 }
 .ui-function-surface .classroom-head {
   --window-side-bg: var(--theme-tone-0d6862, #0d6862);
 }
-.ui-function-surface .quick-person-head-v218 b,
+.ui-function-surface .quick-person-head b,
 .ui-function-surface .item-main-head h3 {
   color: #fff;
 }
-.ui-function-surface :is(.v214-about-head, .v2170-ency-head) {
+.ui-function-surface :is(.about-heading, .item-reference-head) {
   padding: 20px;
   border-radius: 14px;
   background: var(--surface-hero);
@@ -683,14 +683,14 @@ body.modern-flat-v217 {
   color: #a74431;
 }
 .ui-function-surface > :is(h3, .score-modal-title, .member-search-title),
-.ui-function-surface .theme-dialog-head-v21727,
-.ui-function-surface .quick-person-head-v218,
+.ui-function-surface .theme-dialog-head,
+.ui-function-surface .quick-person-head,
 .ui-function-surface .classroom-head,
-.ui-function-surface .v214-about-head,
-.ui-function-surface .v2170-ency-head {
+.ui-function-surface .about-heading,
+.ui-function-surface .item-reference-head {
   padding-right: 52px;
 }
-.ui-function-surface .picker-right-v2 > b {
+.ui-function-surface .picker-right > b {
   display: block;
   padding-right: 26px;
 }
@@ -826,18 +826,18 @@ body.modern-flat-v217 {
 }
 
 /* Bound the cabinet and all three scroll panes to the scaled desktop viewport. */
-#pickerModal .picker-layout-v2 {
+#pickerModal .picker-layout {
   height: min(620px, calc(var(--ui-viewport-height, 100dvh) - 64px));
   min-height: 0;
   grid-template-rows: minmax(0, 1fr);
 }
-#pickerModal :is(.picker-left-v2, .picker-center-v2, .picker-right-v2) {
+#pickerModal :is(.picker-left, .picker-center, .picker-right) {
   min-height: 0;
   max-height: 100%;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
-#pickerModal .picker-center-v2 {
+#pickerModal .picker-center {
   justify-content: flex-start;
 }
 #pickerModal .ui-slot-stage {
@@ -891,25 +891,25 @@ body.modern-flat-v217 {
   gap: 12px;
   padding: 18px 24px 22px;
 }
-.theme-dialog-card-v21727 .theme-dialog-head-v21727 {
+.theme-dialog-card .theme-dialog-head {
   gap: 14px;
   margin-bottom: 18px;
 }
-.theme-dialog-card-v21727 .theme-dialog-title-v21727 {
+.theme-dialog-card .theme-dialog-title {
   font-size: 20px;
   line-height: 1.45;
 }
-.theme-dialog-card-v21727 .theme-dialog-body-v21727 {
+.theme-dialog-card .theme-dialog-body {
   padding: 0 2px;
   line-height: 1.85;
 }
-.theme-dialog-card-v21727 .theme-dialog-actions-v21727 {
+.theme-dialog-card .theme-dialog-actions {
   padding-top: 18px;
   margin-top: 22px;
   border-top: 1px solid var(--surface-line);
   gap: 12px;
 }
-#themeDialogV21727[data-ui-notice="danger"] .theme-dialog-icon-v21727 {
+#themeDialogV21727[data-ui-notice="danger"] .theme-dialog-icon {
   background: #fff0e9;
   color: #ba543c;
 }

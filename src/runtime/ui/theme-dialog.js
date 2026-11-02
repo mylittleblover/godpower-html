@@ -44,14 +44,14 @@ function openThemeDialogV21727(message, opts = {}) {
     if (opts.confirm) {
       const cancel = document.createElement("button");
       cancel.type = "button";
-      cancel.className = "theme-dialog-btn-v21727 secondary";
+      cancel.className = "theme-dialog-btn secondary";
       cancel.textContent = opts.cancelText || "取消";
       cancel.onclick = () => closeThemeDialogV21727(false);
       actions.appendChild(cancel);
 
       const ok = document.createElement("button");
       ok.type = "button";
-      ok.className = `theme-dialog-btn-v21727 ${opts.danger ? "danger" : "primary"}`;
+      ok.className = `theme-dialog-btn ${opts.danger ? "danger" : "primary"}`;
       ok.textContent = opts.confirmText || "确认";
       ok.onclick = () => closeThemeDialogV21727(true);
       actions.appendChild(ok);
@@ -59,7 +59,7 @@ function openThemeDialogV21727(message, opts = {}) {
     } else {
       const ok = document.createElement("button");
       ok.type = "button";
-      ok.className = "theme-dialog-btn-v21727 primary";
+      ok.className = "theme-dialog-btn primary";
       ok.textContent = opts.confirmText || "知道了";
       ok.onclick = () => closeThemeDialogV21727(true);
       actions.appendChild(ok);

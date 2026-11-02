@@ -1,4 +1,4 @@
-.v2174-audio-head {
+.audio-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -9,23 +9,23 @@
   background: #f3f8f7;
   color: var(--ui-text, #17302d);
 }
-.v2174-audio-head b {
+.audio-head b {
   font-size: 13px;
 }
-.v2174-audio-head span {
+.audio-head span {
   color: var(--ui-muted, #607773);
   font-size: 11px;
   text-align: right;
 }
-.v2174-item-head {
+.item-head {
   margin-top: 18px;
 }
-.v2174-item-sound-grid {
+.item-sound-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
-.v2174-item-sound-grid .v2174-item-sound-card {
+.item-sound-grid .item-sound-card {
   min-width: 0;
   min-height: 74px;
   margin: 0 !important;
@@ -35,25 +35,25 @@
   align-items: center;
   gap: 10px;
 }
-.v2174-item-sound-desc {
+.item-sound-desc {
   min-width: 0;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
 }
-.v2174-item-sound-copy {
+.item-sound-copy {
   min-width: 0;
 }
-.v2174-item-sound-copy .sound-name {
+.item-sound-copy .sound-name {
   overflow-wrap: anywhere;
   line-height: 1.3;
 }
-.v2174-item-sound-copy .sound-tag {
+.item-sound-copy .sound-tag {
   margin-top: 3px;
   line-height: 1.35;
 }
-.v2174-item-sound-card .sound-controls {
+.item-sound-card .sound-controls {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -61,15 +61,15 @@
   flex-wrap: wrap;
   min-width: 0;
 }
-.v2174-item-sound-card .sound-controls .btn {
+.item-sound-card .sound-controls .btn {
   flex: 0 0 auto;
 }
-.v2174-sound-name {
+.item-audio-sound-name {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.v2174-item-audio-icon {
+.item-audio-icon {
   width: 44px;
   height: 44px;
   min-width: 44px;
@@ -81,8 +81,8 @@
   justify-content: center;
   overflow: hidden;
 }
-.v2174-item-audio-icon img,
-.v2174-item-audio-img {
+.item-audio-icon img,
+.item-audio-img {
   width: 34px !important;
   height: 34px !important;
   max-width: 34px !important;
@@ -90,26 +90,26 @@
   object-fit: contain !important;
 }
 @media (max-width: 1500px) {
-  .v2174-item-sound-grid {
+  .item-sound-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 700px) {
-  .v2174-audio-head {
+  .audio-head {
     align-items: flex-start;
     flex-direction: column;
     gap: 3px;
   }
-  .v2174-audio-head span {
+  .audio-head span {
     text-align: left;
   }
-  .v2174-item-sound-grid {
+  .item-sound-grid {
     grid-template-columns: 1fr;
   }
-  .v2174-item-sound-grid .v2174-item-sound-card {
+  .item-sound-grid .item-sound-card {
     grid-template-columns: minmax(0, 1fr);
   }
-  .v2174-item-sound-card .sound-controls {
+  .item-sound-card .sound-controls {
     justify-content: flex-start;
     padding-left: 54px;
   }

@@ -81,7 +81,7 @@ try {
     const switches = await page.evaluate(() => {
       const root = window.__libraryShadows.at(-1);
       const inputs = root.querySelectorAll("input[type=checkbox]");
-      const tracks = root.querySelectorAll(".v292-switch-track");
+      const tracks = root.querySelectorAll(".ui-toggle-track");
       const style = (n) => {
         const s = getComputedStyle(n),
           r = n.getBoundingClientRect();

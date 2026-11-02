@@ -424,7 +424,7 @@
   animation: none !important;
   border-color: #f97316 !important;
 }
-@keyframes megaOrangeGlowV2113 {
+@keyframes megaOrangeGlow {
   from {
     box-shadow:
       0 0 0 3px rgba(249, 115, 22, 0.82),
@@ -483,7 +483,7 @@
 .group-row-card.effect-ice {
   animation: none !important;
 }
-@keyframes iceLockBlueGlowV2114 {
+@keyframes iceLockBlueGlow {
   from {
     box-shadow:
       0 0 0 3px rgba(56, 189, 248, 0.72),

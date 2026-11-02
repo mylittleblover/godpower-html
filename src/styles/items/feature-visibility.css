@@ -2,13 +2,13 @@ body.items-disabled .group-row-card {
   min-height: unset;
 }
 
-.v292-switch {
+.ui-toggle {
   position: relative;
   display: inline-block;
   flex: 0 0 auto;
   cursor: pointer;
 }
-.v292-switch input {
+.ui-toggle input {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -19,7 +19,7 @@ body.items-disabled .group-row-card {
   cursor: pointer;
   pointer-events: auto;
 }
-.v292-switch-track {
+.ui-toggle-track {
   box-sizing: content-box;
   width: 52px;
   height: 28px;
@@ -33,7 +33,7 @@ body.items-disabled .group-row-card {
     background var(--motion-fast),
     border-color var(--motion-fast);
 }
-.v292-switch-knob {
+.ui-toggle-knob {
   box-sizing: content-box;
   width: 22px;
   height: 22px;
@@ -46,24 +46,24 @@ body.items-disabled .group-row-card {
   box-shadow: none;
   transition: transform var(--motion-fast) var(--motion-ease);
 }
-.v292-switch input:checked + .v292-switch-track {
+.ui-toggle input:checked + .ui-toggle-track {
   background: var(--ui-primary);
   border-color: var(--ui-primary);
 }
-.v292-switch input:checked + .v292-switch-track .v292-switch-knob {
+.ui-toggle input:checked + .ui-toggle-track .ui-toggle-knob {
   transform: translateX(24px);
 }
-.v292-switch input:disabled + .v292-switch-track {
+.ui-toggle input:disabled + .ui-toggle-track {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.v292-switch:has(input:disabled),
-.v292-switch input:disabled {
+.ui-toggle:has(input:disabled),
+.ui-toggle input:disabled {
   cursor: not-allowed;
 }
 @media (prefers-reduced-motion: reduce) {
-  .v292-switch-track,
-  .v292-switch-knob {
+  .ui-toggle-track,
+  .ui-toggle-knob {
     transition: none;
   }
 }

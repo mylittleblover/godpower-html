@@ -40,13 +40,13 @@
 }
 
 /* ===== 完整课堂版 V2：其余工作台 ===== */
-.picker-layout-v2 {
+.picker-layout {
   grid-template-columns: 185px minmax(360px, 1fr) 235px;
   gap: 0;
   min-height: 555px;
 }
-.picker-left-v2,
-.picker-right-v2 {
+.picker-left,
+.picker-right {
   padding: 16px;
   background: linear-gradient(
     180deg,
@@ -54,13 +54,13 @@
     rgba(248, 250, 252, 0.94)
   );
 }
-.picker-left-v2 {
+.picker-left {
   border-right: 1px solid #cbd5e1;
 }
-.picker-right-v2 {
+.picker-right {
   border-left: 1px solid #cbd5e1;
 }
-.picker-center-v2 {
+.picker-center {
   padding: 18px;
 }
 .picker-vtab {
@@ -189,7 +189,7 @@
   border-radius: 12px;
   background: #f8fafc;
 }
-.settings-v2-tabs {
+.item-settings-tabs {
   display: flex;
   gap: 6px;
   position: sticky;
@@ -199,7 +199,7 @@
   background: rgba(248, 250, 252, 0.94);
   border-bottom: 1px solid #e2e8f0;
 }
-.settings-v2-tabs button {
+.item-settings-tabs button {
   border: 1px solid #bfdbfe;
   border-radius: 9px;
   background: #fff;
@@ -207,14 +207,14 @@
   font-weight: 850;
   cursor: pointer;
 }
-.settings-v2-tabs button.active {
+.item-settings-tabs button.active {
   background: #0284c7;
   color: #fff;
 }
-.v2-settings-pane {
+.item-settings-pane {
   display: none;
 }
-.v2-settings-pane.active {
+.item-settings-pane.active {
   display: block;
 }
 .item-ency-grid {
@@ -355,11 +355,11 @@
   animation: itemPop 0.24s cubic-bezier(0.2, 0.9, 0.25, 1.2);
 }
 @media (max-width: 850px) {
-  .picker-layout-v2 {
+  .picker-layout {
     grid-template-columns: 1fr;
   }
-  .picker-left-v2,
-  .picker-right-v2 {
+  .picker-left,
+  .picker-right {
     border: 0;
     border-bottom: 1px solid #cbd5e1;
   }
@@ -749,7 +749,7 @@
   animation: handIconFloat 0.18s ease-out;
 }
 .hand-item-capsule.reveal {
-  animation: handRevealV24 0.62s cubic-bezier(0.16, 0.82, 0.2, 1.15) !important;
+  animation: handReveal 0.62s cubic-bezier(0.16, 0.82, 0.2, 1.15) !important;
 }
 .hand-item-progress {
   height: 8px !important;
@@ -779,7 +779,7 @@
     transform: scale(1);
   }
 }
-@keyframes handRevealV24 {
+@keyframes handReveal {
   0% {
     transform: scale(0.82);
     filter: brightness(1.4);

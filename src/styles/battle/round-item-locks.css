@@ -1,13 +1,13 @@
-.group-row-card .allin-toggle-btn.v2177-round-locked {
+.group-row-card .allin-toggle-btn.round-action-locked {
   opacity: 0.42 !important;
   cursor: not-allowed !important;
   filter: grayscale(0.35) !important;
 }
-.group-row-card .v213-main-item.v2177-round-item-locked {
+.group-row-card .battle-main-item.round-item-locked {
   opacity: 0.58 !important;
   cursor: not-allowed !important;
 }
-.group-row-card .v213-main-item.v2177-round-item-locked::after {
+.group-row-card .battle-main-item.round-item-locked::after {
   content: "本题已使用";
   position: absolute;
   inset: auto 2px 2px 2px;

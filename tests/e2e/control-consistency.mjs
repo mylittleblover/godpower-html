@@ -78,8 +78,8 @@ try {
         .evaluateAll((inputs) =>
           inputs.map((e) => {
             const track = e
-              .closest(".v292-switch")
-              ?.querySelector(".v292-switch-track");
+              .closest(".ui-toggle")
+              ?.querySelector(".ui-toggle-track");
             const paint = track || e,
               cs = getComputedStyle(paint);
             return {

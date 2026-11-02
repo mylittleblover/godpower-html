@@ -4,12 +4,12 @@
 #pwdModal {
   z-index: var(--ui-modal-layer, 300500) !important;
 }
-.theme-dialog-v21727 {
+.theme-dialog {
   z-index: var(--ui-modal-layer, 299000) !important;
 }
 
 /* 底栏快速按人加分 */
-.quick-person-backdrop-v218 {
+.quick-person-backdrop {
   display: none;
   position: fixed;
   inset: 0;
@@ -20,10 +20,10 @@
   justify-content: center;
   padding: 16px;
 }
-.quick-person-backdrop-v218.active {
+.quick-person-backdrop.active {
   display: flex;
 }
-.quick-person-card-v218 {
+.quick-person-card {
   width: min(980px, 96vw);
   max-height: 88vh;
   overflow: hidden;
@@ -34,7 +34,7 @@
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   box-shadow: 0 18px 60px rgba(15, 23, 42, 0.25);
 }
-.quick-person-head-v218 {
+.quick-person-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,49 +42,49 @@
   padding: 16px 18px;
   border-bottom: 1px solid var(--ui-border, #d8e5e2);
 }
-.quick-person-head-v218 b {
+.quick-person-head b {
   font-size: 18px;
   color: var(--ui-text, #17302d);
 }
-.quick-person-filters-v218 {
+.quick-person-filters {
   padding: 12px 16px;
   background: #f7faf9;
   border-bottom: 1px solid #e3ecea;
   display: grid;
   gap: 10px;
 }
-.qp-row-v218 {
+.quick-person-row {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   align-items: start;
   gap: 8px;
 }
-.qp-row-v218 > div {
+.quick-person-row > div {
   min-width: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
 }
-.qp-row-v218 > span:first-child {
+.quick-person-row > span:first-child {
   padding-top: 8px;
 }
-.qp-row-v218:first-child {
+.quick-person-row:first-child {
   grid-template-columns: 72px minmax(180px, 300px) minmax(0, 1fr);
   align-items: center;
 }
-.qp-search-hint-v218 {
+.quick-person-search-hint {
   font-size: var(--font-xs, 12px);
   color: var(--ui-muted, #496e5c);
   line-height: 1.5;
 }
-.qp-row-v218 > span:first-child {
+.quick-person-row > span:first-child {
   font-size: 12px;
   font-weight: 900;
   color: #607773;
   min-width: 72px;
 }
-.qp-input-v218 {
+.quick-person-input {
   height: 36px;
   padding: 0 10px;
   border: 1px solid #bfd0cc;
@@ -92,7 +92,7 @@
   font-size: 14px;
   min-width: 120px;
 }
-.qp-chip-v218 {
+.quick-person-chip {
   border: 1px solid #bfd0cc;
   background: #fff;
   color: #425e59;
@@ -102,12 +102,12 @@
   font-weight: 800;
   cursor: pointer;
 }
-.qp-chip-v218.active {
+.quick-person-chip.active {
   background: #0f766e;
   color: #fff;
   border-color: #0f766e;
 }
-.qp-letter-v218 {
+.quick-person-letter {
   width: 30px;
   height: 30px;
   padding: 0;
@@ -115,7 +115,7 @@
   align-items: center;
   justify-content: center;
 }
-.quick-person-list-v218 {
+.quick-person-list {
   overflow: auto;
   padding: 12px 16px;
   display: grid;
@@ -123,7 +123,7 @@
   gap: 8px;
   align-content: start;
 }
-.quick-person-entry-v218 {
+.quick-person-entry {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -135,11 +135,11 @@
   cursor: pointer;
   text-align: left;
 }
-.quick-person-entry-v218.selected {
+.quick-person-entry.selected {
   box-shadow: inset 0 0 0 2px #0f766e;
   background: #f0f9f7;
 }
-.student-no-v218 {
+.student-no {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
@@ -153,7 +153,7 @@
   font-weight: 950;
   font-variant-numeric: tabular-nums;
 }
-.student-name-v218 {
+.student-name {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -161,11 +161,11 @@
   font-weight: 850;
   color: #17302d;
 }
-.student-no-inline-v218 {
+.student-no-inline {
   font-weight: 950;
   margin-right: 5px;
 }
-.qp-group-v218 {
+.quick-person-group {
   margin-left: auto;
   min-width: 0;
   max-width: 45%;
@@ -175,7 +175,7 @@
   color: var(--ui-muted, #496e5c);
   white-space: nowrap;
 }
-.quick-person-actions-v218 {
+.quick-person-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -185,20 +185,20 @@
   border-top: 1px solid #d8e5e2;
   background: #fbfdfc;
 }
-.qp-score-actions-v218 {
+.quick-person-score-actions {
   display: flex;
   gap: 7px;
   flex-wrap: wrap;
   align-items: center;
 }
-.qp-selected-count-v218 {
+.quick-person-selected-count {
   font-size: 12px;
   font-weight: 850;
   color: #607773;
 }
 
 /* 手动举手使用道具后的中央结算卡 */
-.hand-effect-overlay-v218 {
+.hand-effect-overlay {
   position: fixed;
   inset: 0;
   z-index: 23000;
@@ -209,10 +209,10 @@
   background: rgba(15, 23, 42, 0.22);
   pointer-events: none;
 }
-.hand-effect-overlay-v218.active {
+.hand-effect-overlay.active {
   display: flex;
 }
-.hand-effect-card-v218 {
+.hand-effect-card {
   width: min(560px, 92vw);
   background: #fff;
   border: 2px solid #0f766e;
@@ -220,9 +220,9 @@
   box-shadow: 0 18px 60px rgba(15, 23, 42, 0.25);
   padding: 20px;
   text-align: center;
-  animation: handEffectInV218 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: handEffectIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-@keyframes handEffectInV218 {
+@keyframes handEffectIn {
   from {
     opacity: 0;
     transform: scale(0.94) translateY(8px);
@@ -232,22 +232,22 @@
     transform: none;
   }
 }
-.hand-effect-icon-v218 {
+.hand-effect-icon {
   font-size: 56px;
   line-height: 1.1;
 }
-.hand-effect-name-v218 {
+.hand-effect-name {
   font-size: 22px;
   font-weight: 950;
   color: #17302d;
   margin-top: 7px;
 }
-.hand-effect-lines-v218 {
+.hand-effect-lines {
   margin-top: 12px;
   display: grid;
   gap: 7px;
 }
-.hand-effect-line-v218 {
+.hand-effect-line {
   padding: 8px 10px;
   border-radius: 9px;
   background: #f5f9f8;
@@ -255,13 +255,13 @@
   font-weight: 800;
   color: #425e59;
 }
-.hand-effect-line-v218.pos {
+.hand-effect-line.pos {
   color: #15803d;
 }
-.hand-effect-line-v218.neg {
+.hand-effect-line.neg {
   color: #dc2626;
 }
-.hand-effect-line-v218.neutral {
+.hand-effect-line.neutral {
   color: #64748b;
 }
 
@@ -271,7 +271,7 @@
 }
 
 /* 百科技巧块 */
-.v218-ency-tip {
+.item-reference-tip {
   margin-top: 8px;
   padding: 8px 10px;
   border-radius: 8px;
@@ -280,10 +280,10 @@
   font-size: 12px;
   line-height: 1.55;
 }
-.v218-ency-tip b {
+.item-reference-tip b {
   color: #0f766e;
 }
-.v218-ency-general {
+.item-reference-general {
   margin: 0 0 12px;
   padding: 12px 14px;
   border: 1px solid #cfe2de;
@@ -295,13 +295,13 @@
 
 /* 小屏 */
 @media (max-width: 700px) {
-  .quick-person-card-v218 {
+  .quick-person-card {
     max-height: 92vh;
   }
-  .quick-person-list-v218 {
+  .quick-person-list {
     grid-template-columns: 1fr;
   }
-  .quick-person-actions-v218 {
+  .quick-person-actions {
     align-items: stretch;
   }
 }

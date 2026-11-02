@@ -4,13 +4,13 @@ function attackHitClassV2116(key) {
   if (key === "spiny") return "hit-spiny";
   if (["banana", "triple_banana"].includes(key)) return "hit-banana";
   if (key === "horn") return "hit-horn";
-  if (key === "bomb") return "hit-bomb-v2116";
+  if (key === "bomb") return "hit-bomb";
   if (key === "hammer") return "hit-hammer";
   if (key === "lightning") return "hit-lightning";
   if (key === "fire_flower") return "hit-fire";
   if (key === "ice_flower") return "hit-ice";
   if (key === "boomerang_flower") return "hit-boomerang";
-  return "hit-generic-v2116";
+  return "hit-generic";
 }
 
 function clearAttackHitFxV2116(card) {
@@ -47,7 +47,7 @@ function playAttackTargetFxV2116(groupId, key, defended = false) {
   if (defended) card.classList.add("card-defend-fx");
 
   const badge = document.createElement("div");
-  badge.className = "attack-hit-badge-v2116";
+  badge.className = "attack-hit-badge";
   const d = ITEM_DEFS[key];
   badge.innerHTML = `<span>${itemVisual(key)}</span><b>${defended ? "已防御" : "受到 " + (d?.name || "攻击")}</b>`;
   card.appendChild(badge);

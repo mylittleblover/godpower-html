@@ -21,7 +21,7 @@ const UIComponentLibrary = (() => {
       "switches",
       "基础控件",
       "统一开关及禁用状态",
-      ".v292-switch",
+      ".ui-toggle",
       "ui/desktop.css",
       "switches",
     ],
@@ -564,7 +564,7 @@ const UIComponentLibrary = (() => {
         '<section id="view-settings"><div class="ui-settings-row"><label>文本输入</label><input placeholder="请输入内容"></div><div class="ui-settings-row"><label>数值输入</label><input type="number" value="5"></div><div class="ui-settings-row"><label>下拉选择</label><select><option>标准</option><option>舒缓</option></select></div><div class="ui-settings-row"><label>音量滑条</label><input type="range" value="65"></div><textarea aria-label="多行输入">多行文本示例</textarea></section>';
     else if (entry.sample === "switches")
       wrap.innerHTML =
-        '<section id="view-settings"><div class="ui-settings-row"><span>原生偏好开关 · 开</span><input type="checkbox" checked></div><div class="ui-settings-row"><span>兼容结构 · 开</span><label class="v292-switch"><input type="checkbox" checked><span class="v292-switch-track"><span class="v292-switch-knob"></span></span></label></div><div class="ui-settings-row"><span>原生开关 · 关/禁用</span><input type="checkbox" disabled></div><div class="ui-settings-row"><span>兼容结构 · 关/禁用</span><label class="v292-switch"><input type="checkbox" disabled><span class="v292-switch-track"><span class="v292-switch-knob"></span></span></label></div></section>';
+        '<section id="view-settings"><div class="ui-settings-row"><span>原生偏好开关 · 开</span><input type="checkbox" checked></div><div class="ui-settings-row"><span>兼容结构 · 开</span><label class="ui-toggle"><input type="checkbox" checked><span class="ui-toggle-track"><span class="ui-toggle-knob"></span></span></label></div><div class="ui-settings-row"><span>原生开关 · 关/禁用</span><input type="checkbox" disabled></div><div class="ui-settings-row"><span>兼容结构 · 关/禁用</span><label class="ui-toggle"><input type="checkbox" disabled><span class="ui-toggle-track"><span class="ui-toggle-knob"></span></span></label></div></section>';
     else if (entry.sample === "chips")
       wrap.innerHTML =
         '<span class="ui-chip">状态标签</span><p class="ui-snapshot-note">提示信息示例</p><p class="ui-positive">+5 分</p><p class="ui-negative">−5 分</p>';
@@ -600,7 +600,7 @@ const UIComponentLibrary = (() => {
         : "ui-panel";
       wrap.append(create("p", entry.name + " · 结构示例"));
       if (/^(effect-|cfx-|hit-|bm-)/.test(wrap.className))
-        wrap.classList.add("group-row-card", "v213-card");
+        wrap.classList.add("group-row-card", "battle-card");
     }
     return {
       tree: sanitize(wrap),

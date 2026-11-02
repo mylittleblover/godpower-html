@@ -1,27 +1,27 @@
 /* ===== V2.17.0：道具百科固定左图右文 ===== */
-#aboutMain .v2170-ency-head {
+#aboutMain .item-reference-head {
   display: flex !important;
   align-items: flex-start !important;
   justify-content: space-between !important;
   gap: 16px !important;
   margin-bottom: 14px !important;
 }
-#aboutMain .v2170-ency-head h2 {
+#aboutMain .item-reference-head h2 {
   margin: 0 !important;
   color: var(--window-head-text, var(--ui-text, #17302d)) !important;
 }
-#aboutMain .v2170-ency-sub {
+#aboutMain .item-reference-sub {
   margin-top: 4px !important;
   color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;
   font-size: 12px !important;
 }
-#aboutMain .v2170-ency-list {
+#aboutMain .item-reference-list {
   display: flex !important;
   flex-direction: column !important;
   gap: 9px !important;
   width: 100% !important;
 }
-#aboutMain .v2170-ency-row {
+#aboutMain .item-reference-row {
   display: grid !important;
   grid-template-columns: 88px minmax(0, 1fr) !important;
   align-items: center !important;
@@ -35,7 +35,7 @@
   box-shadow: none !important;
   overflow: hidden !important;
 }
-#aboutMain .v2170-ency-icon {
+#aboutMain .item-reference-icon {
   width: 78px !important;
   height: 78px !important;
   min-width: 78px !important;
@@ -52,8 +52,8 @@
   font-size: 44px !important;
   line-height: 1 !important;
 }
-#aboutMain .v2170-ency-icon .v2170-ency-img,
-#aboutMain .v2170-ency-icon img {
+#aboutMain .item-reference-icon .item-reference-img,
+#aboutMain .item-reference-icon img {
   width: 62px !important;
   height: 62px !important;
   min-width: 0 !important;
@@ -66,20 +66,20 @@
   padding: 0 !important;
   transform: none !important;
 }
-#aboutMain .v2170-ency-copy {
+#aboutMain .item-reference-copy {
   min-width: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   gap: 5px !important;
 }
-#aboutMain .v2170-ency-name {
+#aboutMain .item-reference-name {
   color: var(--ui-text, #17302d) !important;
   font-size: 15px !important;
   font-weight: 900 !important;
   line-height: 1.25 !important;
 }
-#aboutMain .v2170-ency-desc {
+#aboutMain .item-reference-desc {
   color: var(--ui-muted, #607773) !important;
   font-size: 13px !important;
   line-height: 1.6 !important;
@@ -96,13 +96,13 @@
 }
 
 @media (max-width: 640px) {
-  #aboutMain .v2170-ency-row {
+  #aboutMain .item-reference-row {
     grid-template-columns: 66px minmax(0, 1fr) !important;
     min-height: 78px !important;
     gap: 10px !important;
     padding: 8px 10px !important;
   }
-  #aboutMain .v2170-ency-icon {
+  #aboutMain .item-reference-icon {
     width: 58px !important;
     height: 58px !important;
     min-width: 58px !important;
@@ -110,17 +110,17 @@
     max-width: 58px !important;
     max-height: 58px !important;
   }
-  #aboutMain .v2170-ency-icon .v2170-ency-img,
-  #aboutMain .v2170-ency-icon img {
+  #aboutMain .item-reference-icon .item-reference-img,
+  #aboutMain .item-reference-icon img {
     width: 46px !important;
     height: 46px !important;
     max-width: 46px !important;
     max-height: 46px !important;
   }
-  #aboutMain .v2170-ency-name {
+  #aboutMain .item-reference-name {
     font-size: 14px !important;
   }
-  #aboutMain .v2170-ency-desc {
+  #aboutMain .item-reference-desc {
     font-size: 12px !important;
   }
 }

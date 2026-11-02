@@ -190,7 +190,7 @@ try {
       await p.waitForFunction(() => slotEngine.isSpinning);
       if (mode !== "group")
         await p.waitForSelector(
-          "#reelFrameStudent .cf-live-reel .student-no-inline-v218",
+          "#reelFrameStudent .cf-live-reel .student-no-inline",
         );
       const picked = await p.evaluate(() =>
         JSON.stringify(slotEngine.chosenResult),
@@ -221,7 +221,7 @@ try {
         const visual = await p.evaluate(() => {
           const winner = slotEngine.chosenResult;
           const number = document.querySelector(
-            "#reelFrameStudent .ui-slot-deceleration > span:last-child .student-no-inline-v218",
+            "#reelFrameStudent .ui-slot-deceleration > span:last-child .student-no-inline",
           );
           const expected = document.createElement("span");
           expected.style.color = winner.group.color;

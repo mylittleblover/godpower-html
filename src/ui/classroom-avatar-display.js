@@ -262,18 +262,18 @@
       const card = root.document.querySelector(
         `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
       );
-      const badge = card?.querySelector(".v213-number");
+      const badge = card?.querySelector(".battle-group-number");
       if (!badge || badge.dataset.avatarDecorated === "group") continue;
       badge.dataset.avatarDecorated = "group";
-      badge.classList.add("v213-number-avatar");
+      badge.classList.add("battle-number-avatar");
       badge.replaceChildren();
       const image = root.document.createElement("img");
-      image.className = "v213-group-avatar-single";
+      image.className = "battle-group-avatar-single";
       image.src = group.groupAvatar;
       image.alt = `${group.name} 头像`;
       image.draggable = false;
       const number = root.document.createElement("span");
-      number.className = "v213-group-number-below-avatar";
+      number.className = "battle-group-number-below-avatar";
       number.textContent = groupNoTextV213(group);
       badge.append(image, number);
     }
@@ -285,15 +285,15 @@
         const card = root.document.querySelector(
           `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
         );
-        const badge = card?.querySelector(".v213-number");
+        const badge = card?.querySelector(".battle-group-number");
         if (!badge || badge.dataset.avatarDecorated === "true") continue;
         const images = groupUrls(group);
         if (!images.length) continue;
         badge.dataset.avatarDecorated = "true";
-        badge.classList.add("v213-number-avatar");
+        badge.classList.add("battle-number-avatar");
         badge.replaceChildren();
         const stack = root.document.createElement("span");
-        stack.className = `v213-group-avatar-stack count-${images.length}`;
+        stack.className = `battle-group-avatar-stack count-${images.length}`;
         stack.setAttribute("aria-label", `${group.name} 小组头像`);
         for (const url of images) {
           const image = root.document.createElement("img");
@@ -303,7 +303,7 @@
           stack.append(image);
         }
         const number = root.document.createElement("span");
-        number.className = "v213-group-number-below-avatar";
+        number.className = "battle-group-number-below-avatar";
         number.textContent = groupNoTextV213(group);
         badge.append(stack, number);
       }
@@ -323,13 +323,13 @@
       const parsed = root.parseStudentV218(studentName);
       if (parsed.numberText) {
         const number = root.document.createElement("span");
-        number.className = "student-no-inline-v218";
+        number.className = "student-no-inline";
         number.style.color = group?.color || "#0f766e";
         number.textContent = parsed.numberText;
         label.append(number);
       }
       const name = root.document.createElement("span");
-      name.className = "student-name-v218";
+      name.className = "student-name";
       name.textContent = parsed.name;
       label.append(name);
     } else label.textContent = group?.name || "";

@@ -106,7 +106,7 @@ try {
           a.pause();
           a.currentTime = 460;
         }
-        const ghost = el.querySelector(".score-roll-new-v21730"),
+        const ghost = el.querySelector(".score-roll-new"),
           mid = {
             color: getComputedStyle(ghost).color,
             right: ghost.getBoundingClientRect().right,
@@ -118,7 +118,7 @@ try {
           before,
           mid,
           redrawCount: document.querySelectorAll(
-            "#score-val-1 .score-roll-new-v21730",
+            "#score-val-1 .score-roll-new",
           ).length,
         };
       }, zoom);
@@ -130,7 +130,7 @@ try {
         () =>
           !document
             .querySelector("#score-val-1")
-            .classList.contains("score-roll-host-v21730"),
+            .classList.contains("score-roll-host"),
       );
       const after = await page.locator("#score-val-1").boundingBox();
       assert.ok(
@@ -255,7 +255,7 @@ try {
       g.itemEffect = { type: "mega", hitsLeft: 3 };
       renderGrid();
       const card = document.querySelector('#groupList [data-group-id="1"]'),
-        aura = card.querySelector(".persistent-aura-v213");
+        aura = card.querySelector(".persistent-aura");
       playCasterCardFx("mega", 1);
       return {
         transform: getComputedStyle(card).transform,
@@ -267,7 +267,7 @@ try {
       r.transform === "none" || r.transform === "matrix(1, 0, 0, 1, 0, 0)",
       r.transform,
     );
-    assert.equal(r.animation, "v213AuraBreath");
+    assert.equal(r.animation, "auraBreath");
     assert.equal(r.duration, "2.8s");
     await page.evaluate(() => switchView("history"));
     assert.equal(await page.locator(".bm-layer").count(), 0);
@@ -307,7 +307,7 @@ try {
       switchView("history");
       switchView("battle");
     });
-    assert.equal(await page.locator(".score-roll-ghost-v21730").count(), 0);
+    assert.equal(await page.locator(".score-roll-ghost").count(), 0);
     assert.equal(await page.locator("#score-val-1").textContent(), "400分");
     await page.evaluate(() => {
       recordHistory("动画中撤销");
@@ -321,7 +321,7 @@ try {
     });
     assert.equal(await page.locator("#score-val-1").textContent(), "400分");
     assert.equal(
-      await page.locator(".bm-layer,.score-roll-ghost-v21730").count(),
+      await page.locator(".bm-layer,.score-roll-ghost").count(),
       0,
     );
   });

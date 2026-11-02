@@ -182,12 +182,12 @@
   color: var(--ui-text);
   padding: 6px;
 }
-body[data-motion="off"] .persistent-aura-v213,
-body[data-motion="simple"] .persistent-aura-v213 {
+body[data-motion="off"] .persistent-aura,
+body[data-motion="simple"] .persistent-aura {
   animation: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-system-motion="true"] .persistent-aura-v213 {
+  body[data-system-motion="true"] .persistent-aura {
     animation: none;
   }
 }

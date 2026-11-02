@@ -55,7 +55,7 @@ try {
     group.itemEffect = { type: "star", hitsLeft: 2 };
     renderGrid();
     const card = document.querySelector(`.group-row-card[data-group-id="${group.id}"]`);
-    return [...card.querySelectorAll(".persistent-aura-v213")].map((a) => ({
+    return [...card.querySelectorAll(".persistent-aura")].map((a) => ({
       cls: a.className,
       border: getComputedStyle(a).borderTopColor,
       inset: a.style.inset,
@@ -86,12 +86,12 @@ try {
       CompetitionEffects.apply(group, key, 2);
     renderGrid();
     const card = document.querySelector(`.group-row-card[data-group-id="${group.id}"]`);
-    const rings = [...card.querySelectorAll(".persistent-aura-v213")];
+    const rings = [...card.querySelectorAll(".persistent-aura")];
     return {
       count: rings.length,
       colors: rings.map((a) => getComputedStyle(a).borderTopColor),
       animated: rings.every(
-        (a) => getComputedStyle(a).animationName === "v213AuraBreath",
+        (a) => getComputedStyle(a).animationName === "auraBreath",
       ),
     };
   });
@@ -109,7 +109,7 @@ try {
     CompetitionEffects.apply(group, "freeze", 2);
     renderGrid();
     const card = document.querySelector(`.group-row-card[data-group-id="${group.id}"]`);
-    return [...card.querySelectorAll(".persistent-aura-v213")].map(
+    return [...card.querySelectorAll(".persistent-aura")].map(
       (a) => getComputedStyle(a).borderTopColor,
     );
   });
@@ -123,7 +123,7 @@ try {
       group.itemEffect = null;
     });
     renderGrid();
-    return document.querySelectorAll(".persistent-aura-v213").length;
+    return document.querySelectorAll(".persistent-aura").length;
   });
   assert.equal(beforeClear, 0, "clearing all statuses removes every ring");
 

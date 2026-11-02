@@ -3,12 +3,12 @@ function installSettingsTabs() {
   if (!sc || document.getElementById("settingsV2Tabs")) return;
   const tabs = document.createElement("div");
   tabs.id = "settingsV2Tabs";
-  tabs.className = "settings-v2-tabs";
+  tabs.className = "item-settings-tabs";
   tabs.innerHTML = `<button class="active" data-sp="function" onclick="showSettingsV2('function')">功能设置</button><button data-sp="sound" onclick="showSettingsV2('sound')">声音设置</button><button data-sp="data" onclick="showSettingsV2('data')">数据备份 / 导出</button><button data-sp="items" onclick="showSettingsV2('items')">道具百科</button>`;
   sc.prepend(tabs);
   const item = document.createElement("div");
   item.id = "v2ItemPane";
-  item.className = "v2-settings-pane";
+  item.className = "item-settings-pane";
   item.innerHTML =
     '<div class="setting-section-title">🎁 28 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
   sc.appendChild(item);

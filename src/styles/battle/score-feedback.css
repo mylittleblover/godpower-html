@@ -9,7 +9,7 @@
 }
 
 /* +N / -N 为绝对定位，不再占据 flex 布局空间，也不会把右侧按钮顶开 */
-.item-score-delta-v21730 {
+.item-score-delta {
   position: absolute;
   left: calc(100% + 7px);
   top: 50%;
@@ -23,16 +23,16 @@
   opacity: 0;
   transform: translateY(6px);
 }
-.item-score-delta-v21730.gain {
+.item-score-delta.gain {
   color: #15803d;
 }
-.item-score-delta-v21730.loss {
+.item-score-delta.loss {
   color: #dc2626;
 }
-.item-score-delta-v21730.play {
-  animation: itemDeltaFloatV21730 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+.item-score-delta.play {
+  animation: itemDeltaFloat 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
-@keyframes itemDeltaFloatV21730 {
+@keyframes itemDeltaFloat {
   0% {
     opacity: 0;
     transform: translateY(8px);
@@ -53,7 +53,7 @@
 
 /* 真实分数保持最终值，不再“回退到旧值再播一遍”。
    动画只叠加旧值 / 新值两层幽灵数字。 */
-.score-roll-ghost-v21730 {
+.score-roll-ghost {
   position: absolute;
   right: 0;
   top: 0;
@@ -63,15 +63,15 @@
   color: var(--score-text-color, var(--group-color, #17302d)) !important;
   opacity: 1;
 }
-.score-roll-old-v21730 {
-  animation: scoreRollOldV21730 0.92s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+.score-roll-old {
+  animation: scoreRollOld 0.92s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
-.score-roll-new-v21730 {
+.score-roll-new {
   transform: translateY(105%);
   opacity: 0;
-  animation: scoreRollNewV21730 0.92s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: scoreRollNew 0.92s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
-@keyframes scoreRollOldV21730 {
+@keyframes scoreRollOld {
   0% {
     transform: translateY(0);
     opacity: 1;
@@ -81,7 +81,7 @@
     opacity: 0;
   }
 }
-@keyframes scoreRollNewV21730 {
+@keyframes scoreRollNew {
   0% {
     transform: translateY(105%);
     opacity: 0;
@@ -94,12 +94,12 @@
     opacity: 1;
   }
 }
-.row-score.score-roll-host-v21730 {
+.row-score.score-roll-host {
   color: transparent !important;
   text-shadow: none !important;
   overflow: visible !important;
 }
-.row-score.score-roll-host-v21730 .score-roll-ghost-v21730 {
+.row-score.score-roll-host .score-roll-ghost {
   color: var(--score-text-color, var(--group-color, #17302d)) !important;
   visibility: visible !important;
 }

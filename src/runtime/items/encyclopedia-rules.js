@@ -67,17 +67,17 @@ renderAbout = function (tab) {
     .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
   const m = document.getElementById("aboutMain");
   if (!m) return;
-  m.innerHTML = `<div class="v2170-ency-head">
-    <div><h2>28 种道具百科</h2><div class="v2170-ency-sub">功能说明 + 实战使用技巧</div></div>
+  m.innerHTML = `<div class="item-reference-head">
+    <div><h2>28 种道具百科</h2><div class="item-reference-sub">功能说明 + 实战使用技巧</div></div>
     <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
   </div>
-  <div class="v218-ency-general">
+  <div class="item-reference-general">
     <b>课堂小技巧：</b>
     每次打开课堂后，第一次“手动举手”道具抽取会从九种基础 / 防御道具中等概率获得，适合让最先答对的组争取更稳定的资源。
     答题期间一旦主动使用道具，就不能再 All In；但三重绿龟壳、三重红龟壳、三重香蕉皮、三重蘑菇在第一次使用后，可继续使用同一枚道具的剩余次数。
     同一小组抽取时不会重复获得已经持有的同种道具。
   </div>
-  <div class="v2170-ency-list">
+  <div class="item-reference-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
         const d = ITEM_DEFS[k],
@@ -86,12 +86,12 @@ renderAbout = function (tab) {
               ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k]) ||
             d.desc ||
             "";
-        return `<div class="v2170-ency-row">
-        <div class="v2170-ency-icon">${itemVisual(k, "v2170-ency-img")}</div>
-        <div class="v2170-ency-copy">
-          <div class="v2170-ency-name">${escapeHtml(d.name)}</div>
-          <div class="v2170-ency-desc">${escapeHtml(desc)}</div>
-          <div class="v218-ency-tip"><b>使用技巧：</b>${escapeHtml(ITEM_TIPS_V218[k] || "根据当前排名、道具栏与答题阶段灵活使用。")}</div>
+        return `<div class="item-reference-row">
+        <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
+        <div class="item-reference-copy">
+          <div class="item-reference-name">${escapeHtml(d.name)}</div>
+          <div class="item-reference-desc">${escapeHtml(desc)}</div>
+          <div class="item-reference-tip"><b>使用技巧：</b>${escapeHtml(ITEM_TIPS_V218[k] || "根据当前排名、道具栏与答题阶段灵活使用。")}</div>
         </div>
       </div>`;
       })

@@ -6,7 +6,7 @@
   contain:paint 会把任何超出小组列表绘制边界的内容直接裁掉，
   看起来就像卡片下方盖着一层不可穿透的遮罩，也会连带裁掉道具特效。
 */
-body.modern-flat-v217 #groupList {
+body.modern-flat #groupList {
   overflow: visible !important;
   overflow-x: visible !important;
   overflow-y: visible !important;
@@ -17,8 +17,8 @@ body.modern-flat-v217 #groupList {
 }
 
 /* 比赛主体自身也不要裁剪卡片演出。 */
-body.modern-flat-v217 #view-battle,
-body.modern-flat-v217 .battle-main-v216 {
+body.modern-flat #view-battle,
+body.modern-flat .battle-main {
   overflow: visible !important;
   contain: none !important;
 }
@@ -27,12 +27,12 @@ body.modern-flat-v217 .battle-main-v216 {
   卡片内道具轮盘不再铺满整张卡片。
   改成居中的紧凑横条，保持原卡片轮廓和周围信息可辨识。
 */
-body.modern-flat-v217 .group-row-card.item-draw-spinning {
+body.modern-flat .group-row-card.item-draw-spinning {
   overflow: visible !important;
   isolation: isolate !important;
 }
 
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
+body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette {
   inset: auto 10px auto 10px !important;
   width: auto !important;
   height: 56px !important;
@@ -57,10 +57,10 @@ body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
 }
 
 /* 去掉旧水晶轮盘留下的大圆、扫光和其他伪元素。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette::before,
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette::after {
   content: none !important;
@@ -68,7 +68,7 @@ body.modern-flat-v217
 }
 
 /* 图标严格锁定，不再拿原始 PNG 尺寸撑卡片。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette
   .r-icon {
@@ -91,7 +91,7 @@ body.modern-flat-v217
   align-items: center !important;
   justify-content: center !important;
 }
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette
   .r-icon
@@ -105,7 +105,7 @@ body.modern-flat-v217
 }
 
 /* 名称缩小并限定在一行，不再出现截图里那种巨大两三行标题。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette
   .r-name {
@@ -130,7 +130,7 @@ body.modern-flat-v217
 }
 
 /* 轮盘提示只保留极小辅助字，不占主要空间。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette
   .r-hint {
@@ -138,19 +138,19 @@ body.modern-flat-v217
 }
 
 /* 抽取期间只轻微降低原卡片信息，不再模糊成一整块“遮罩”。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning:not(.bm-draw-fading)
   .card-header-row,
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning:not(.bm-draw-fading)
   .answer-zone,
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning:not(.bm-draw-fading)
   .score-zone,
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning:not(.bm-draw-fading)
   .group-actions,
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning:not(.bm-draw-fading)
   .card-action-row {
   opacity: 0.28 !important;
@@ -158,15 +158,15 @@ body.modern-flat-v217
 }
 
 /* reveal 时只做轻微缩放，绝不再次撑满卡片。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette.reveal {
   height: 56px !important;
   min-height: 56px !important;
   max-height: 56px !important;
-  animation: v2162RouletteReveal 0.26s ease-out both !important;
+  animation: cardRouletteReveal 0.26s ease-out both !important;
 }
-@keyframes v2162RouletteReveal {
+@keyframes cardRouletteReveal {
   0% {
     opacity: 0.7;
     transform: translateY(-50%) scale(0.96);
@@ -182,17 +182,17 @@ body.modern-flat-v217
 }
 
 /* 防止道具特效再次被列表裁掉。 */
-body.modern-flat-v217 #groupList .group-row-card.card-use-fx,
-body.modern-flat-v217 #groupList .group-row-card.card-hit-fx,
-body.modern-flat-v217 #groupList .group-row-card.card-defend-fx,
-body.modern-flat-v217 #groupList .group-row-card.card-heal-fx {
+body.modern-flat #groupList .group-row-card.card-use-fx,
+body.modern-flat #groupList .group-row-card.card-hit-fx,
+body.modern-flat #groupList .group-row-card.card-defend-fx,
+body.modern-flat #groupList .group-row-card.card-heal-fx {
   overflow: visible !important;
   contain: none !important;
   z-index: 700 !important;
 }
 
 @media (max-width: 640px) {
-  body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
+  body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette {
     left: 6px !important;
     right: 6px !important;
     inset: auto 6px auto 6px !important;
@@ -203,7 +203,7 @@ body.modern-flat-v217 #groupList .group-row-card.card-heal-fx {
     gap: 7px !important;
     padding: 4px 8px !important;
   }
-  body.modern-flat-v217
+  body.modern-flat
     .group-row-card.item-draw-spinning
     .card-item-roulette
     .r-icon {
@@ -214,7 +214,7 @@ body.modern-flat-v217 #groupList .group-row-card.card-heal-fx {
     max-width: 40px !important;
     max-height: 40px !important;
   }
-  body.modern-flat-v217
+  body.modern-flat
     .group-row-card.item-draw-spinning
     .card-item-roulette
     .r-icon
@@ -224,7 +224,7 @@ body.modern-flat-v217 #groupList .group-row-card.card-heal-fx {
     max-width: 35px !important;
     max-height: 35px !important;
   }
-  body.modern-flat-v217
+  body.modern-flat
     .group-row-card.item-draw-spinning
     .card-item-roulette
     .r-name {

@@ -67,10 +67,10 @@ renderItemEncyclopedia = function () {
     <button class="btn btn-sm" onclick="resetAllItemIcons()">恢复全部默认图标</button>
   </div><div class="item-ency-grid">${ITEM_KEYS.map((k) => {
     const d = ITEM_DEFS[k];
-    return `<div class="ency-v213-card">
-    <div class="ency-v213-icon-disc">${itemVisual(k, "ency-v213-img")}</div>
-    <div class="ency-v213-info"><div class="ency-v213-name">${escapeHtml(d.name)}</div><div class="ency-v213-desc">${escapeHtml(d.desc)}</div></div>
-    <div class="ency-v213-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div>
+    return `<div class="item-encyclopedia-card">
+    <div class="item-encyclopedia-icon-disc">${itemVisual(k, "item-encyclopedia-img")}</div>
+    <div class="item-encyclopedia-info"><div class="item-encyclopedia-name">${escapeHtml(d.name)}</div><div class="item-encyclopedia-desc">${escapeHtml(d.desc)}</div></div>
+    <div class="item-encyclopedia-actions"><button class="btn btn-sm btn-primary" onclick="chooseItemIcon('${k}')">上传图片</button><button class="btn btn-sm" onclick="resetItemIcon('${k}')">恢复默认</button></div>
   </div>`;
   }).join("")}</div>`;
 };

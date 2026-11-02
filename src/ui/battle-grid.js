@@ -42,7 +42,7 @@ function renderBattleGridCards() {
 
   ordered.forEach((g) => {
     const rowCard = document.createElement("div");
-    rowCard.className = `group-row-card v213-card ${g.animState || ""}`;
+    rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
     rowCard.dataset.groupId = g.id;
     rowCard.style.borderLeftColor = g.color;
     rowCard.style.setProperty("--group-color", g.color);
@@ -96,7 +96,7 @@ function renderBattleGridCards() {
         openItemWindow(g.id, "detail");
       };
     }
-    card.querySelectorAll(".persistent-aura-v213").forEach((x) => x.remove());
+    card.querySelectorAll(".persistent-aura").forEach((x) => x.remove());
     /* Every active status gets its own ring in that item's colour. The first
        ring keeps the classic band; extra rings stack just outside it. */
     const auras = [];
@@ -110,7 +110,7 @@ function renderBattleGridCards() {
       if (CompetitionEffects.has(g, key)) auras.push(key);
     auras.forEach((aura, index) => {
       const a = document.createElement("div");
-      a.className = `persistent-aura-v213 aura-${aura}${index ? " aura-stacked" : ""}`;
+      a.className = `persistent-aura aura-${aura}${index ? " aura-stacked" : ""}`;
       a.style.inset = `${-4 - index * 5}px`;
       card.appendChild(a);
     });
@@ -181,19 +181,19 @@ function renderBattleGridCards() {
 function decorateBattleRanks() {
   const ranks = new Map(ranking().map((g, i) => [g.id, i + 1]));
   document
-    .querySelectorAll(".group-row-card.v213-card[data-group-id]")
+    .querySelectorAll(".group-row-card.battle-card[data-group-id]")
     .forEach((card) => {
       const id = Number(card.dataset.groupId),
-        wrap = card.querySelector(".v213-name-wrap");
+        wrap = card.querySelector(".battle-group-heading");
       if (!wrap) return;
-      let badge = wrap.querySelector(".v214-rank-badge");
+      let badge = wrap.querySelector(".rank-badge");
       if (!badge) {
         badge = document.createElement("span");
-        badge.className = "v214-rank-badge";
+        badge.className = "rank-badge";
         wrap.appendChild(badge);
       }
       badge.textContent = `第${ranks.get(id) || "-"}名`;
-      const sub = wrap.querySelector(".v213-name-sub");
+      const sub = wrap.querySelector(".battle-group-subtitle");
       if (sub) sub.textContent = `当前按${currentCardSortLabelV213()}排列`;
     });
 }
@@ -211,13 +211,13 @@ function decorateRoundItemLocks() {
       const allIn = card.querySelector(".allin-toggle-btn");
       if (allIn) {
         allIn.disabled = true;
-        allIn.classList.add("v2177-round-locked");
+        allIn.classList.add("round-action-locked");
         allIn.title = "本题已经使用过道具，不能再 All In";
       }
 
-      const main = card.querySelector(".v213-main-item");
+      const main = card.querySelector(".battle-main-item");
       if (main) {
-        main.classList.add("v2177-round-item-locked");
+        main.classList.add("round-item-locked");
         main.title = "本题已经使用过一次道具";
       }
     });

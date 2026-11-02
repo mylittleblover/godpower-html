@@ -150,12 +150,12 @@ try {
       await p.evaluate(() => DesktopUI.cancelAnimations());
       assert.equal(
         await p
-          .locator(".card-fx-badge,.attack-hit-badge-v2116,.bm-layer")
+          .locator(".card-fx-badge,.attack-hit-badge,.bm-layer")
           .count(),
         0,
         JSON.stringify(
           await p
-            .locator(".bm-layer,.card-fx-badge,.attack-hit-badge-v2116")
+            .locator(".bm-layer,.card-fx-badge,.attack-hit-badge")
             .evaluateAll((nodes) =>
               nodes.map((el) => ({
                 class: el.className,
@@ -181,7 +181,7 @@ try {
     });
     assert.equal(
       await p
-        .locator(".card-fx-badge,.attack-hit-badge-v2116,.bm-layer")
+        .locator(".card-fx-badge,.attack-hit-badge,.bm-layer")
         .count(),
       0,
     );

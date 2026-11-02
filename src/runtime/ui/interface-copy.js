@@ -4,7 +4,7 @@
 function polishVisibleCopyV2187() {
   /* 🤑 快速按人加分 */
   const qp = document.querySelector(
-    "#quickPersonBackdropV218 .quick-person-head-v218 b",
+    "#quickPersonBackdropV218 .quick-person-head b",
   );
   if (qp) qp.textContent = "🤑 精准撒币";
 
@@ -22,14 +22,14 @@ function polishVisibleCopyV2187() {
 
   /* 上帝模式管理区 */
   document
-    .querySelectorAll(".god-item-tools b,.queue-god-tools-v2120 b")
+    .querySelectorAll(".god-item-tools b,.queue-admin-tools b")
     .forEach((el) => {
       if (/上帝模式/.test(el.textContent || ""))
         el.textContent = "🔓 上帝模式 · 现实编辑器";
     });
   document
     .querySelectorAll(
-      ".god-item-tools .btn-danger,.queue-god-tools-v2120 .btn-danger",
+      ".god-item-tools .btn-danger,.queue-admin-tools .btn-danger",
     )
     .forEach((el) => {
       if (/清空/.test(el.textContent || ""))
@@ -37,7 +37,7 @@ function polishVisibleCopyV2187() {
     });
 
   /* 一些还可能被旧 renderer 重建的固定标题 */
-  const pickerTitle = document.querySelector("#pickerModal .picker-left-v2 h3");
+  const pickerTitle = document.querySelector("#pickerModal .picker-left h3");
   if (pickerTitle) pickerTitle.textContent = "🎰 天选之人";
   const handTitle = document.querySelector(
     "#handRaiseBackdrop .classroom-head b",
@@ -60,7 +60,7 @@ renderAbout = function (tab) {
   if (!m) return;
 
   if (tab === "info") {
-    m.innerHTML = `<div class="v214-about-head">
+    m.innerHTML = `<div class="about-heading">
       <h2>这玩意儿到底是什么</h2>
       <button class="btn btn-sm" onclick="closeAbout()">看懂了，撤</button>
     </div>
@@ -75,7 +75,7 @@ renderAbout = function (tab) {
     return;
   }
 
-  m.innerHTML = `<div class="v214-about-head">
+  m.innerHTML = `<div class="about-heading">
     <h2>别乱按指南</h2>
     <button class="btn btn-sm" onclick="closeAbout()">我大概会了</button>
   </div>

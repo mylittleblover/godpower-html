@@ -30,11 +30,11 @@ try {
     return {
       id: g.id,
       title: document.getElementById("itemWindowTitle").textContent,
-      firstBlockIsAvatar: !!first && first.classList.contains("group-avatar-section-v2200"),
+      firstBlockIsAvatar: !!first && first.classList.contains("group-avatar-section"),
       stateFirstIsAvatar: !!firstSection &&
-        firstSection.classList.contains("group-avatar-section-v2200"),
+        firstSection.classList.contains("group-avatar-section"),
       hasPreview: !!document.getElementById("groupAvatarPreview"),
-      hasUpload: !!document.querySelector(".group-avatar-upload-v2200 input[type=file]"),
+      hasUpload: !!document.querySelector(".group-avatar-upload input[type=file]"),
       sectionStyle: getComputedStyle(firstSection).borderRadius,
       otherSectionStyle: getComputedStyle(
         body.querySelectorAll(".group-detail-section")[2],
@@ -55,7 +55,7 @@ try {
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
     "base64",
   );
-  await page.setInputFiles(".group-avatar-upload-v2200 input[type=file]", {
+  await page.setInputFiles(".group-avatar-upload input[type=file]", {
     name: "avatar.png",
     mimeType: "image/png",
     buffer: png,
@@ -70,8 +70,8 @@ try {
     const card = document.querySelector(`.group-row-card[data-group-id="${id}"]`);
     return {
       hasAvatar: typeof g.groupAvatar === "string" && g.groupAvatar.startsWith("data:image/png;base64,"),
-      cardImage: !!card.querySelector(".v213-group-avatar-single"),
-      cardSrc: card.querySelector(".v213-group-avatar-single")?.src?.slice(0, 21),
+      cardImage: !!card.querySelector(".battle-group-avatar-single"),
+      cardSrc: card.querySelector(".battle-group-avatar-single")?.src?.slice(0, 21),
       preview: !!document.querySelector("#groupAvatarPreview img"),
       persisted: !!JSON.parse(localStorage.getItem(Reliability.stateKey) || "{}")
         .groups?.find((x) => x.id === id)?.groupAvatar,
@@ -98,7 +98,7 @@ try {
     const g = state.groups.find((x) => x.id === id);
     openItemWindow(id, "detail");
     const big = new File([new Uint8Array(600 * 1024)], "big.png", { type: "image/png" });
-    const input = document.querySelector(".group-avatar-upload-v2200 input[type=file]");
+    const input = document.querySelector(".group-avatar-upload input[type=file]");
     const dt = new DataTransfer();
     dt.items.add(big);
     input.files = dt.files;
@@ -145,7 +145,7 @@ try {
     return {
       preAvatar,
       empty: g.groupAvatar === "",
-      cellGone: !card.querySelector(".v213-group-avatar-single"),
+      cellGone: !card.querySelector(".battle-group-avatar-single"),
     };
   }, opened.id);
 

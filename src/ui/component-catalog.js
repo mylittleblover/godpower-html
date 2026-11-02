@@ -3,9 +3,15 @@ const GodPowerComponentCatalog = {
   "schemaVersion": 1,
   "animations": [
     {
-      "name": "attackHitBadgeV2116",
+      "name": "attackHitBadge",
       "sources": [
         "src/styles/items/attack-feedback.css"
+      ]
+    },
+    {
+      "name": "auraBreath",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
       ]
     },
     {
@@ -129,6 +135,12 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "cardRouletteReveal",
+      "sources": [
+        "src/styles/items/draw-clipping.css"
+      ]
+    },
+    {
       "name": "cardShield",
       "sources": [
         "src/styles/items/inventory-and-roulette.css"
@@ -171,7 +183,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "cfxBoomerangV282",
+      "name": "cfxBoomerang",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css"
       ]
@@ -195,13 +207,13 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "cfxFeatherV282",
+      "name": "cfxFeather",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css"
       ]
     },
     {
-      "name": "cfxFireFlowerV282",
+      "name": "cfxFireFlower",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css"
       ]
@@ -225,7 +237,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "cfxIceFlowerV282",
+      "name": "cfxIceFlower",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css"
       ]
@@ -321,7 +333,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "handEffectInV218",
+      "name": "handEffectIn",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
@@ -333,7 +345,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "handRevealV24",
+      "name": "handReveal",
       "sources": [
         "src/styles/items/inventory-and-roulette.css"
       ]
@@ -345,139 +357,145 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "hitBananaSweepV2116",
+      "name": "hitBanana",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitBananaV2116",
+      "name": "hitBananaSweep",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitBombFlashV2116",
+      "name": "hitBomb",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitBombV2116",
+      "name": "hitBombFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitBoomerangSweepV2116",
+      "name": "hitBoomerang",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitBoomerangV2116",
+      "name": "hitBoomerangSweep",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitFireFlashV2116",
+      "name": "hitFire",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitFireV2116",
+      "name": "hitFireFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitGreenRingV2116",
+      "name": "hitGreenRing",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitGreenShellV2116",
+      "name": "hitGreenShell",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitHammerFlashV2116",
+      "name": "hitHammer",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitHammerV2116",
+      "name": "hitHammerFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitHornV2116",
+      "name": "hitHorn",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitHornWaveV2116",
+      "name": "hitHornWave",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitIceFlashV2116",
+      "name": "hitIce",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitIceV2116",
+      "name": "hitIceFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitLightningFlashV2116",
+      "name": "hitLightning",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitLightningV2116",
+      "name": "hitLightningFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitRedLockV2116",
+      "name": "hitRedLock",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitRedShellV2116",
+      "name": "hitRedShell",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitSpinyFlashV2116",
+      "name": "hitSpiny",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "hitSpinyV2116",
+      "name": "hitSpinyFlash",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
     },
     {
-      "name": "iceLockBlueGlowV2114",
+      "name": "iceAura",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "iceLockBlueGlow",
       "sources": [
         "src/styles/battle/score-and-state.css"
       ]
@@ -489,7 +507,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "itemDeltaFloatV21730",
+      "name": "itemDeltaFloat",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
@@ -525,13 +543,19 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "itemUseBannerV216",
+      "name": "itemUseBanner",
       "sources": [
         "src/styles/themes/flat-foundation.css"
       ]
     },
     {
-      "name": "megaOrangeGlowV2113",
+      "name": "megaAura",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "megaOrangeGlow",
       "sources": [
         "src/styles/battle/score-and-state.css"
       ]
@@ -549,7 +573,13 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "queuePromoteV2120",
+      "name": "powerAura",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "queuePromote",
       "sources": [
         "src/styles/items/queue-and-image-constraints.css"
       ]
@@ -591,7 +621,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "rouletteRevealRingLeftV281",
+      "name": "rouletteRevealRingLeft",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css"
       ]
@@ -615,13 +645,13 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "scoreRollNewV21730",
+      "name": "scoreRollNew",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
     },
     {
-      "name": "scoreRollOldV21730",
+      "name": "scoreRollOld",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
@@ -630,6 +660,12 @@ const GodPowerComponentCatalog = {
       "name": "shakeTremor",
       "sources": [
         "src/styles/battle/group-cards.css"
+      ]
+    },
+    {
+      "name": "starAura",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
       ]
     },
     {
@@ -651,7 +687,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "themeDialogInV21727",
+      "name": "themeDialogIn",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css"
       ]
@@ -660,42 +696,6 @@ const GodPowerComponentCatalog = {
       "name": "ui-menu-reveal",
       "sources": [
         "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213AuraBreath",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213IceAura",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213MegaAura",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213PowerAura",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213StarAura",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v2162RouletteReveal",
-      "sources": [
-        "src/styles/items/draw-clipping.css"
       ]
     }
   ],
@@ -712,6 +712,13 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "about-heading",
+      "sources": [
+        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/ui/application-surfaces.css"
       ]
     },
     {
@@ -877,12 +884,18 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "attack-hit-badge-v2116",
+      "name": "attack-hit-badge",
       "sources": [
         "src/styles/items/attack-feedback.css",
         "src/styles/themes/flat-foundation.css",
         "src/styles/ui/readability-and-effect-layers.css",
         "src/styles/items/draw-flow.css"
+      ]
+    },
+    {
+      "name": "audio-head",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
       ]
     },
     {
@@ -984,10 +997,70 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "battle-main-v216",
+      "name": "battle-card",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/items/draw-flow.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-group-avatar-single",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-group-avatar-stack",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-group-heading",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "battle-group-name",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "battle-group-number",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-group-number-below-avatar",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-group-subtitle",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "battle-main",
       "sources": [
         "src/styles/themes/flat-foundation.css",
         "src/styles/items/draw-clipping.css"
+      ]
+    },
+    {
+      "name": "battle-main-item",
+      "sources": [
+        "src/styles/battle/round-item-locks.css"
       ]
     },
     {
@@ -997,63 +1070,81 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "battle-rank-chip-v21721",
+      "name": "battle-number-avatar",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "battle-rank-chip",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-dock-v21721",
+      "name": "battle-rank-dock",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-name-v21721",
+      "name": "battle-rank-name",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-no-v21721",
+      "name": "battle-rank-no",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-preview-grid-v21721",
+      "name": "battle-rank-preview",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-preview-head-v21721",
+      "name": "battle-rank-preview-grid",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-preview-note-v21721",
+      "name": "battle-rank-preview-head",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-preview-title-v21721",
+      "name": "battle-rank-preview-note",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-preview-v21721",
+      "name": "battle-rank-preview-title",
       "sources": [
         "src/styles/battle/rank-preview.css"
       ]
     },
     {
-      "name": "battle-rank-score-v21721",
+      "name": "battle-rank-score",
       "sources": [
         "src/styles/battle/rank-preview.css"
+      ]
+    },
+    {
+      "name": "battle-result",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "battle-score-container",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
       ]
     },
     {
@@ -1600,6 +1691,18 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "clear-items-copy",
+      "sources": [
+        "src/styles/settings/clear-items.css"
+      ]
+    },
+    {
+      "name": "clear-items-row",
+      "sources": [
+        "src/styles/settings/clear-items.css"
+      ]
+    },
+    {
       "name": "color-picker",
       "sources": [
         "src/styles/battle/group-cards.css"
@@ -1702,7 +1805,13 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "copy-kicker-v2187",
+      "name": "cooldown-note",
+      "sources": [
+        "src/styles/items/cooldown-notes.css"
+      ]
+    },
+    {
+      "name": "copy-kicker",
       "sources": [
         "src/styles/ui/interface-copy.css"
       ]
@@ -1726,6 +1835,12 @@ const GodPowerComponentCatalog = {
       "name": "current",
       "sources": [
         "src/styles/shell/navigation-and-welcome.css"
+      ]
+    },
+    {
+      "name": "custom-item-icon-row",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
       ]
     },
     {
@@ -1773,7 +1888,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "dock-humor-tip-v2185",
+      "name": "dock-humor-tip",
       "sources": [
         "src/styles/ui/dock-tooltips.css"
       ]
@@ -1906,61 +2021,6 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "ency-v213-actions",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
-      ]
-    },
-    {
-      "name": "ency-v213-card",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
-      ]
-    },
-    {
-      "name": "ency-v213-desc",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
-      ]
-    },
-    {
-      "name": "ency-v213-icon",
-      "sources": [
-        "src/ui/desktop.css"
-      ]
-    },
-    {
-      "name": "ency-v213-icon-disc",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css"
-      ]
-    },
-    {
-      "name": "ency-v213-img",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "ency-v213-info",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
-      ]
-    },
-    {
-      "name": "ency-v213-name",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
-      ]
-    },
-    {
       "name": "encyclopedia-item",
       "sources": [
         "src/styles/items/catalog-and-management.css"
@@ -2009,6 +2069,18 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "fx-bundle-copy",
+      "sources": [
+        "src/styles/audio/fx-transfer.css"
+      ]
+    },
+    {
+      "name": "fx-bundle-toolbar",
+      "sources": [
+        "src/styles/audio/fx-transfer.css"
       ]
     },
     {
@@ -2574,37 +2646,37 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "group-avatar-actions-v2200",
+      "name": "group-avatar-actions",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "group-avatar-copy-v2200",
+      "name": "group-avatar-copy",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "group-avatar-preview-v2200",
+      "name": "group-avatar-preview",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "group-avatar-row-v2200",
+      "name": "group-avatar-row",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "group-avatar-section-v2200",
+      "name": "group-avatar-section",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "group-avatar-upload-v2200",
+      "name": "group-avatar-upload",
       "sources": [
         "src/ui/application-surfaces.css"
       ]
@@ -2616,31 +2688,31 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "group-color-control-v21716",
+      "name": "group-color-editor",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
     },
     {
-      "name": "group-color-field-v21716",
+      "name": "group-color-field",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
     },
     {
-      "name": "group-color-free-copy-v21716",
+      "name": "group-color-free",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
     },
     {
-      "name": "group-color-free-v21716",
+      "name": "group-color-free-copy",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
     },
     {
-      "name": "group-color-preset-grid-v21716",
+      "name": "group-color-preset-grid",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
@@ -2652,7 +2724,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "group-color-swatch-v21716",
+      "name": "group-color-swatch",
       "sources": [
         "src/styles/classroom/group-palette.css"
       ]
@@ -2775,37 +2847,43 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "hand-effect-card-v218",
+      "name": "hand-draw-horizontal",
+      "sources": [
+        "src/styles/items/roulette-result-and-flowers.css"
+      ]
+    },
+    {
+      "name": "hand-effect-card",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "hand-effect-icon-v218",
+      "name": "hand-effect-icon",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "hand-effect-line-v218",
+      "name": "hand-effect-line",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "hand-effect-lines-v218",
+      "name": "hand-effect-lines",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "hand-effect-name-v218",
+      "name": "hand-effect-name",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "hand-effect-overlay-v218",
+      "name": "hand-effect-overlay",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
@@ -3059,7 +3137,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "hit-bomb-v2116",
+      "name": "hit-bomb",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
@@ -3077,7 +3155,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "hit-generic-v2116",
+      "name": "hit-generic",
       "sources": [
         "src/styles/items/attack-feedback.css"
       ]
@@ -3413,10 +3491,28 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "item-admin-add-v283",
+      "name": "item-admin-add",
       "sources": [
         "src/styles/items/roulette-result-and-flowers.css",
         "src/styles/items/queue-and-image-constraints.css"
+      ]
+    },
+    {
+      "name": "item-audio-icon",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
+      "name": "item-audio-img",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
+      "name": "item-audio-sound-name",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
       ]
     },
     {
@@ -3492,7 +3588,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "item-defense-banner-v21735",
+      "name": "item-defense-banner",
       "sources": [
         "src/styles/ui/defense-notices.css"
       ]
@@ -3557,6 +3653,61 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "item-encyclopedia-actions",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-card",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-desc",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-icon",
+      "sources": [
+        "src/ui/desktop.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-icon-disc",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-img",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-info",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
+      "name": "item-encyclopedia-name",
+      "sources": [
+        "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
       "name": "item-feature-only",
       "sources": [
         "src/styles/items/catalog-and-management.css"
@@ -3567,6 +3718,12 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "item-head",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
       ]
     },
     {
@@ -3613,13 +3770,87 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "item-reference-copy",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-desc",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-general",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "item-reference-head",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "item-reference-icon",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-img",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-list",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-name",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-row",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-sub",
+      "sources": [
+        "src/styles/items/encyclopedia-layout.css"
+      ]
+    },
+    {
+      "name": "item-reference-tip",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
       "name": "item-row",
       "sources": [
         "src/styles/battle/score-and-state.css"
       ]
     },
     {
-      "name": "item-score-delta-v21730",
+      "name": "item-rule",
+      "sources": [
+        "src/styles/items/group-rule-copy.css"
+      ]
+    },
+    {
+      "name": "item-score-delta",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
@@ -3629,6 +3860,19 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/shell/navigation-and-welcome.css",
         "src/ui/classroom-feedback.css"
+      ]
+    },
+    {
+      "name": "item-settings-pane",
+      "sources": [
+        "src/styles/items/inventory-and-roulette.css"
+      ]
+    },
+    {
+      "name": "item-settings-tabs",
+      "sources": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/themes/flat-foundation.css"
       ]
     },
     {
@@ -3684,6 +3928,30 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "item-sound-card",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
+      "name": "item-sound-copy",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
+      "name": "item-sound-desc",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
+      "name": "item-sound-grid",
+      "sources": [
+        "src/styles/audio/item-sounds.css"
+      ]
+    },
+    {
       "name": "item-stat",
       "sources": [
         "src/styles/shell/navigation-and-welcome.css",
@@ -3720,7 +3988,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "item-use-banner-v216",
+      "name": "item-use-banner",
       "sources": [
         "src/styles/themes/flat-foundation.css",
         "src/styles/ui/readability-and-effect-layers.css",
@@ -3785,6 +4053,29 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "legacy-settings-pane",
+      "sources": [
+        "src/styles/settings/tabs-and-confirmation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/ui/desktop.css"
+      ]
+    },
+    {
+      "name": "legacy-settings-tabbar",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ]
+    },
+    {
+      "name": "legacy-settings-tabs",
+      "sources": [
+        "src/styles/settings/tabs-and-confirmation.css",
+        "src/styles/items/catalog-and-management.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
       ]
     },
     {
@@ -3974,7 +4265,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "modern-flat-v217",
+      "name": "modern-flat",
       "sources": [
         "src/styles/themes/flat-foundation.css",
         "src/styles/ui/readability-and-effect-layers.css",
@@ -4054,7 +4345,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "persistent-aura-v213",
+      "name": "persistent-aura",
       "sources": [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/ui/readability-and-effect-layers.css",
@@ -4069,7 +4360,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "picker-center-v2",
+      "name": "picker-center",
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/themes/flat-foundation.css",
@@ -4086,7 +4377,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "picker-layout-v2",
+      "name": "picker-layout",
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/ui/desktop.css",
@@ -4094,7 +4385,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "picker-left-v2",
+      "name": "picker-left",
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/themes/flat-foundation.css",
@@ -4115,7 +4406,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "picker-right-v2",
+      "name": "picker-right",
       "sources": [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/themes/flat-foundation.css",
@@ -4256,68 +4547,19 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "qp-chip-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-group-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-input-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-letter-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-row-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-score-actions-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css",
-        "src/ui/classroom-feedback.css"
-      ]
-    },
-    {
-      "name": "qp-search-hint-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "qp-selected-count-v218",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
       "name": "queue-empty-plus",
       "sources": [
         "src/styles/items/queue-and-image-constraints.css"
       ]
     },
     {
-      "name": "queue-help-v2120",
+      "name": "queue-help",
       "sources": [
         "src/styles/items/queue-and-image-constraints.css"
       ]
     },
     {
-      "name": "queue-inventory-grid-v2120",
+      "name": "queue-inventory-grid",
       "sources": [
         "src/styles/items/queue-and-image-constraints.css"
       ]
@@ -4346,7 +4588,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "queue-negative-note-v2120",
+      "name": "queue-negative-note",
       "sources": [
         "src/styles/items/queue-and-image-constraints.css"
       ]
@@ -4407,52 +4649,101 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "quick-batch-bar-bottom-v21714",
+      "name": "quick-batch-bar-bottom",
       "sources": [
         "src/styles/battle/quick-batch.css"
       ]
     },
     {
-      "name": "quick-person-actions-v218",
+      "name": "quick-person-actions",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "quick-person-backdrop-v218",
+      "name": "quick-person-backdrop",
       "sources": [
         "src/styles/classroom/student-picker-hand.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "quick-person-card-v218",
+      "name": "quick-person-card",
       "sources": [
         "src/styles/classroom/student-picker-hand.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "quick-person-entry-v218",
+      "name": "quick-person-chip",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "quick-person-filters-v218",
+      "name": "quick-person-entry",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "quick-person-head-v218",
+      "name": "quick-person-filters",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-group",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-head",
       "sources": [
         "src/styles/classroom/student-picker-hand.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "quick-person-list-v218",
+      "name": "quick-person-input",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-letter",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-list",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-row",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-score-actions",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css",
+        "src/ui/classroom-feedback.css"
+      ]
+    },
+    {
+      "name": "quick-person-search-hint",
+      "sources": [
+        "src/styles/classroom/student-picker-hand.css"
+      ]
+    },
+    {
+      "name": "quick-person-selected-count",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
@@ -4503,6 +4794,12 @@ const GodPowerComponentCatalog = {
       "sources": [
         "src/styles/battle/overview-and-resizer.css",
         "src/styles/themes/flat-foundation.css"
+      ]
+    },
+    {
+      "name": "rank-badge",
+      "sources": [
+        "src/styles/ui/readability-and-effect-layers.css"
       ]
     },
     {
@@ -4665,11 +4962,23 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "round-action-locked",
+      "sources": [
+        "src/styles/battle/round-item-locks.css"
+      ]
+    },
+    {
       "name": "round-disabled",
       "sources": [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/themes/flat-foundation.css",
         "src/styles/ui/flat-controls-and-scrolling.css"
+      ]
+    },
+    {
+      "name": "round-item-locked",
+      "sources": [
+        "src/styles/battle/round-item-locks.css"
       ]
     },
     {
@@ -4760,25 +5069,25 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "score-roll-ghost-v21730",
+      "name": "score-roll-ghost",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
     },
     {
-      "name": "score-roll-host-v21730",
+      "name": "score-roll-host",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
     },
     {
-      "name": "score-roll-new-v21730",
+      "name": "score-roll-new",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
     },
     {
-      "name": "score-roll-old-v21730",
+      "name": "score-roll-old",
       "sources": [
         "src/styles/battle/score-feedback.css"
       ]
@@ -4871,39 +5180,9 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "settings-tabs-v26",
-      "sources": [
-        "src/styles/items/catalog-and-management.css"
-      ]
-    },
-    {
       "name": "settings-toolbar",
       "sources": [
         "src/styles/shell/navigation-and-welcome.css"
-      ]
-    },
-    {
-      "name": "settings-v2-tabs",
-      "sources": [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css"
-      ]
-    },
-    {
-      "name": "settings-v26-pane",
-      "sources": [
-        "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css"
-      ]
-    },
-    {
-      "name": "settings-v26-tabs",
-      "sources": [
-        "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css"
       ]
     },
     {
@@ -5043,19 +5322,19 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "student-name-v218",
+      "name": "student-name",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "student-no-inline-v218",
+      "name": "student-no",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
     },
     {
-      "name": "student-no-v218",
+      "name": "student-no-inline",
       "sources": [
         "src/styles/classroom/student-picker-hand.css"
       ]
@@ -5175,58 +5454,58 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "theme-dialog-actions-v21727",
+      "name": "theme-dialog",
+      "sources": [
+        "src/styles/dialogs/theme-confirmation.css",
+        "src/styles/classroom/student-picker-hand.css",
+        "src/ui/application-surfaces.css"
+      ]
+    },
+    {
+      "name": "theme-dialog-actions",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "theme-dialog-body-v21727",
+      "name": "theme-dialog-body",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "theme-dialog-btn-v21727",
+      "name": "theme-dialog-btn",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css"
       ]
     },
     {
-      "name": "theme-dialog-card-v21727",
+      "name": "theme-dialog-card",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "theme-dialog-head-v21727",
+      "name": "theme-dialog-head",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "theme-dialog-icon-v21727",
+      "name": "theme-dialog-icon",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
         "src/ui/application-surfaces.css"
       ]
     },
     {
-      "name": "theme-dialog-title-v21727",
+      "name": "theme-dialog-title",
       "sources": [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "theme-dialog-v21727",
-      "sources": [
-        "src/styles/dialogs/theme-confirmation.css",
-        "src/styles/classroom/student-picker-hand.css",
         "src/ui/application-surfaces.css"
       ]
     },
@@ -5251,7 +5530,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "top-notice-stack-v21735",
+      "name": "top-notice-stack",
       "sources": [
         "src/styles/ui/defense-notices.css"
       ]
@@ -5759,6 +6038,27 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
+      "name": "ui-toggle",
+      "sources": [
+        "src/styles/items/feature-visibility.css",
+        "src/ui/desktop.css",
+        "src/ui/item-modules.css"
+      ]
+    },
+    {
+      "name": "ui-toggle-knob",
+      "sources": [
+        "src/styles/items/feature-visibility.css"
+      ]
+    },
+    {
+      "name": "ui-toggle-track",
+      "sources": [
+        "src/styles/items/feature-visibility.css",
+        "src/ui/desktop.css"
+      ]
+    },
+    {
       "name": "ui-toolbar",
       "sources": [
         "src/ui/desktop.css"
@@ -5787,306 +6087,6 @@ const GodPowerComponentCatalog = {
       "name": "unlocked",
       "sources": [
         "src/styles/shell/dock-and-buttons.css"
-      ]
-    },
-    {
-      "name": "v2-settings-pane",
-      "sources": [
-        "src/styles/items/inventory-and-roulette.css"
-      ]
-    },
-    {
-      "name": "v213-card",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/items/draw-flow.css",
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-group-avatar-single",
-      "sources": [
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-group-avatar-stack",
-      "sources": [
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-group-number-below-avatar",
-      "sources": [
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-main-item",
-      "sources": [
-        "src/styles/battle/round-item-locks.css"
-      ]
-    },
-    {
-      "name": "v213-name",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css"
-      ]
-    },
-    {
-      "name": "v213-name-sub",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css"
-      ]
-    },
-    {
-      "name": "v213-name-wrap",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213-number",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-number-avatar",
-      "sources": [
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v213-result",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v213-score-wrap",
-      "sources": [
-        "src/styles/items/catalog-and-card-compat.css"
-      ]
-    },
-    {
-      "name": "v214-about-head",
-      "sources": [
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v214-rank-badge",
-      "sources": [
-        "src/styles/ui/readability-and-effect-layers.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-copy",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-desc",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-head",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-icon",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-img",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-list",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-name",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-row",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2170-ency-sub",
-      "sources": [
-        "src/styles/items/encyclopedia-layout.css"
-      ]
-    },
-    {
-      "name": "v2172-clear-items-copy",
-      "sources": [
-        "src/styles/settings/clear-items.css"
-      ]
-    },
-    {
-      "name": "v2172-clear-items-row",
-      "sources": [
-        "src/styles/settings/clear-items.css"
-      ]
-    },
-    {
-      "name": "v2174-audio-head",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-audio-icon",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-audio-img",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-head",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-sound-card",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-sound-copy",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-sound-desc",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-item-sound-grid",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2174-sound-name",
-      "sources": [
-        "src/styles/audio/item-sounds.css"
-      ]
-    },
-    {
-      "name": "v2175-fx-bundle-copy",
-      "sources": [
-        "src/styles/audio/fx-transfer.css"
-      ]
-    },
-    {
-      "name": "v2175-fx-bundle-toolbar",
-      "sources": [
-        "src/styles/audio/fx-transfer.css"
-      ]
-    },
-    {
-      "name": "v2177-round-item-locked",
-      "sources": [
-        "src/styles/battle/round-item-locks.css"
-      ]
-    },
-    {
-      "name": "v2177-round-locked",
-      "sources": [
-        "src/styles/battle/round-item-locks.css"
-      ]
-    },
-    {
-      "name": "v2179-cooldown-note",
-      "sources": [
-        "src/styles/items/cooldown-notes.css"
-      ]
-    },
-    {
-      "name": "v218-ency-general",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "v218-ency-tip",
-      "sources": [
-        "src/styles/classroom/student-picker-hand.css"
-      ]
-    },
-    {
-      "name": "v2182-item-rule",
-      "sources": [
-        "src/styles/items/group-rule-copy.css"
-      ]
-    },
-    {
-      "name": "v281-horizontal",
-      "sources": [
-        "src/styles/items/roulette-result-and-flowers.css"
-      ]
-    },
-    {
-      "name": "v283-added",
-      "sources": [
-        "src/styles/items/catalog-and-management.css"
-      ]
-    },
-    {
-      "name": "v292-switch",
-      "sources": [
-        "src/styles/items/feature-visibility.css",
-        "src/ui/desktop.css",
-        "src/ui/item-modules.css"
-      ]
-    },
-    {
-      "name": "v292-switch-knob",
-      "sources": [
-        "src/styles/items/feature-visibility.css"
-      ]
-    },
-    {
-      "name": "v292-switch-track",
-      "sources": [
-        "src/styles/items/feature-visibility.css",
-        "src/ui/desktop.css"
       ]
     },
     {
@@ -6144,7 +6144,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "welcome-card-title-row-v216",
+      "name": "welcome-card-title-row",
       "sources": [
         "src/styles/themes/flat-foundation.css"
       ]
@@ -6156,7 +6156,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "welcome-chart-wrapper-v216",
+      "name": "welcome-chart-wrapper",
       "sources": [
         "src/styles/themes/flat-foundation.css"
       ]
@@ -6189,7 +6189,7 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "welcome-extra-metrics-v216",
+      "name": "welcome-extra-metrics",
       "sources": [
         "src/styles/themes/flat-foundation.css"
       ]
@@ -6269,16 +6269,16 @@ const GodPowerComponentCatalog = {
       ]
     },
     {
-      "name": "welcome-stat-grid-v216",
-      "sources": [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css"
-      ]
-    },
-    {
       "name": "welcome-sub",
       "sources": [
         "src/styles/shell/navigation-and-welcome.css"
+      ]
+    },
+    {
+      "name": "welcome-summary-grid",
+      "sources": [
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/readability-and-effect-layers.css"
       ]
     },
     {

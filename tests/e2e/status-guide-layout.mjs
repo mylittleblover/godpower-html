@@ -21,22 +21,22 @@ try {
     renderAbout("items");
     const main = document.getElementById("aboutMain");
     const guide = main.querySelector(".competition-status-guide");
-    const itemList = main.querySelector(".v2170-ency-list:not(.competition-status-list)");
-    const rows = [...guide.querySelectorAll(".v2170-ency-row")];
-    const lastItemRow = itemList.querySelector(".v2170-ency-row:last-child");
+    const itemList = main.querySelector(".item-reference-list:not(.competition-status-list)");
+    const rows = [...guide.querySelectorAll(".item-reference-row")];
+    const lastItemRow = itemList.querySelector(".item-reference-row:last-child");
     return {
       guideIsLast: main.lastElementChild.classList.contains("competition-status-guide"),
       guideAfterItems:
         !!(itemList.compareDocumentPosition(guide) & Node.DOCUMENT_POSITION_FOLLOWING),
       rows: rows.length,
-      names: rows.map((r) => r.querySelector(".v2170-ency-name").textContent.replace(/\s+/g, " ").trim()),
-      hasIcon: rows.every((r) => !!r.querySelector(".v2170-ency-icon")),
+      names: rows.map((r) => r.querySelector(".item-reference-name").textContent.replace(/\s+/g, " ").trim()),
+      hasIcon: rows.every((r) => !!r.querySelector(".item-reference-icon")),
       hasExact: rows.every((r) => /实际效果：/.test(r.textContent)),
       hasTip: rows.every((r) => /使用要点：/.test(r.textContent)),
       hasHumourLink: rows.every((r) => !/百科阅读须知/.test(r.textContent)),
       firstRowStyle: getComputedStyle(rows[0]).display,
       itemRowStyle: getComputedStyle(lastItemRow).display,
-      guideIcons: rows.map((r) => r.querySelector(".v2170-ency-icon").className),
+      guideIcons: rows.map((r) => r.querySelector(".item-reference-icon").className),
       oldDlGone: !guide.querySelector("dl"),
       textLength: rows.map((r) => r.textContent.replace(/\s+/g, "").length),
     };

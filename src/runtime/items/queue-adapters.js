@@ -107,16 +107,16 @@ renderItemWindow = function () {
     })
     .join("");
 
-  body.innerHTML = `<div class="queue-help-v2120">
+  body.innerHTML = `<div class="queue-help">
       <b>道具队列</b>
       <span>最先获得的道具为主要道具。必须彻底用完主要道具后，次要道具才会按获得顺序自动晋升。</span>
     </div>
-    <div class="item-inventory-grid queue-inventory-grid-v2120">${cards}</div>
-    ${g.score < 0 ? '<div class="queue-negative-note-v2120">负分保护生效：禁止使用或受到任何道具影响。</div>' : ""}`;
+    <div class="item-inventory-grid queue-inventory-grid">${cards}</div>
+    ${g.score < 0 ? '<div class="queue-negative-note">负分保护生效：禁止使用或受到任何道具影响。</div>' : ""}`;
 
   if (!state.isLocked) {
     const admin = document.createElement("div");
-    admin.className = "god-item-tools queue-god-tools-v2120";
+    admin.className = "god-item-tools queue-admin-tools";
     admin.innerHTML = `<b>🔓 上帝模式 · 现实编辑器</b>
       <div class="god-item-grid" style="margin-top:8px">
         ${Object.keys(ITEM_DEFS)

@@ -2,7 +2,7 @@
    目标：保留“看得懂发生了什么”，砍掉纯等待时间。 */
 
 /* 排名 / 编号重排保留完整移动过程，与开始答题、道具排序逻辑一致。 */
-.group-row-card.v213-card {
+.group-row-card.battle-card {
   transition:
     transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 0.3s ease,
@@ -86,12 +86,12 @@
 .group-row-card.card-hit-fx:before {
   animation-duration: 0.65s !important;
 }
-.attack-hit-badge-v2116 {
+.attack-hit-badge {
   animation-duration: 0.72s !important;
 }
 
 /* 顶部“某组使用某道具”横幅。 */
-.item-use-banner-v216 {
+.item-use-banner {
   animation-duration: 0.82s !important;
 }
 

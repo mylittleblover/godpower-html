@@ -52,7 +52,7 @@ try {
       const after = rects();
       const records = state.groups.slice(0, 6).map((g) => {
         const card = document.querySelector(`[data-group-id="${g.id}"]`),
-          badge = card.querySelector(".v213-number"),
+          badge = card.querySelector(".battle-group-number"),
           score = card.querySelector(".row-score");
         const rgb = GodpowerUIModel.badgeColors(g.color);
         return {

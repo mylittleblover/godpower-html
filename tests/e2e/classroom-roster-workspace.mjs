@@ -145,14 +145,14 @@ try {
     renderGrid();
   });
   const groupAvatar = page.locator(
-    '.group-row-card[data-group-id="1"] .v213-number-avatar .v213-group-avatar-stack img',
+    '.group-row-card[data-group-id="1"] .battle-number-avatar .battle-group-avatar-stack img',
   );
   await groupAvatar.waitFor({ state: "visible" });
   assert.match(await groupAvatar.getAttribute("src"), /^blob:/);
   assert.equal(
     await page
       .locator(
-        '.group-row-card[data-group-id="1"] .v213-group-number-below-avatar',
+        '.group-row-card[data-group-id="1"] .battle-group-number-below-avatar',
       )
       .innerText(),
     "01",

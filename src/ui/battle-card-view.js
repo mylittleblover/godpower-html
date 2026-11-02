@@ -36,12 +36,12 @@ const GodPowerBattleCardView = Object.freeze({
     return `
       <div class="milestone-banner-overlay">分数位数增加！</div>
       <div class="card-header-row">
-        <div class="v213-number" title="小组编号">${groupNumber(g)}</div>
-        <div class="v213-name-wrap"><div class="v213-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="v213-name-sub">小组名称 · 当前按${state.sortLabel}排列</div></div>
+        <div class="battle-group-number" title="小组编号">${groupNumber(g)}</div>
+        <div class="battle-group-heading"><div class="battle-group-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="battle-group-subtitle">小组名称 · 当前按${state.sortLabel}排列</div></div>
         <div class="item-slots">${slotsHtml}</div>
-        <div class="v213-score-wrap">${scoreHtml}</div>
+        <div class="battle-score-container">${scoreHtml}</div>
         <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>
       </div>
-      <div class="card-action-row">${g.resultText || (typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length) ? `<div class="v213-result">${g.resultText ? escapeHtml(g.resultText) : ""}${typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length ? `<span class="competition-status" title="${escapeHtml(CompetitionEffects.labels(g).join("；"))}">${escapeHtml(CompetitionEffects.labels(g).join(" · "))}</span>` : ""}</div>` : ""}<div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
+      <div class="card-action-row">${g.resultText || (typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length) ? `<div class="battle-result">${g.resultText ? escapeHtml(g.resultText) : ""}${typeof CompetitionEffects !== "undefined" && CompetitionEffects.labels(g).length ? `<span class="competition-status" title="${escapeHtml(CompetitionEffects.labels(g).join("；"))}">${escapeHtml(CompetitionEffects.labels(g).join(" · "))}</span>` : ""}</div>` : ""}<div class="action-controls-col"><div class="opt-group">${optionsHtml}</div><button class="${allInClass} ${roundClass}" onclick="toggleAllInCard(${g.id})" ${state.evaluated ? "disabled" : ""}>${allInText}</button></div></div>`;
   },
 });

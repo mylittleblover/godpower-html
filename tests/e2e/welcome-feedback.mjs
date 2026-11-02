@@ -40,10 +40,10 @@ try {
       renderAbout("items");
     });
     await p.waitForSelector("#aboutMain h2");
-    const colors = await p.locator(".v2170-ency-head").evaluate((e) => ({
+    const colors = await p.locator(".item-reference-head").evaluate((e) => ({
       bg: getComputedStyle(e).backgroundImage,
       title: getComputedStyle(e.querySelector("h2")).color,
-      sub: getComputedStyle(e.querySelector(".v2170-ency-sub")).color,
+      sub: getComputedStyle(e.querySelector(".item-reference-sub")).color,
     }));
     const ratio = (a, b) => {
       const lum = (s) => {

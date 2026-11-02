@@ -30,7 +30,7 @@
     if (!d) return;
 
     document
-      .querySelectorAll(".item-use-banner-v216")
+      .querySelectorAll(".item-use-banner")
       .forEach((x) => x.remove());
 
     try {
@@ -70,7 +70,7 @@
 
     const caster = state.groups?.find((g) => g.id === casterId);
     const banner = document.createElement("div");
-    banner.className = "item-use-banner-v216";
+    banner.className = "item-use-banner";
     banner.innerHTML = `<span class="iub-icon">${itemVisual(key)}</span><span style="min-width:0"><div class="iub-main">${caster ? escapeHtml(caster.name) + " 使用了 " : ""}${escapeHtml(d.name)}</div>${targetText ? `<div class="iub-sub">${escapeHtml(targetText)}</div>` : ""}</span>`;
     document.body.appendChild(banner);
     const remove = () => banner.isConnected && banner.remove();

@@ -237,10 +237,10 @@ const ItemModuleSettings = (() => {
       }
       if (numeric) block.append(text, input);
       else {
-        const toggle = node("span", "v292-switch");
-        const track = node("span", "v292-switch-track");
+        const toggle = node("span", "ui-toggle");
+        const track = node("span", "ui-toggle-track");
         track.setAttribute("aria-hidden", "true");
-        track.append(node("span", "v292-switch-knob"));
+        track.append(node("span", "ui-toggle-knob"));
         toggle.append(input, track);
         block.append(text, toggle);
       }

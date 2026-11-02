@@ -173,7 +173,7 @@ try {
     group.itemEffect = { type: "mega", hitsLeft: 3 };
     renderGrid();
     const card = document.querySelector(`.group-row-card[data-group-id="${group.id}"]`);
-    return [...card.querySelectorAll(".persistent-aura-v213")].map(
+    return [...card.querySelectorAll(".persistent-aura")].map(
       (a) => a.className,
     );
   });

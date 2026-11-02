@@ -1,5 +1,5 @@
 /* ===== V2.17.14：快速操作栏放到小组卡片下方 ===== */
-body.modern-flat-v217 .quick-batch-bar-bottom-v21714 {
+body.modern-flat .quick-batch-bar-bottom {
   margin-top: 12px !important;
   margin-bottom: 8px !important;
   width: 100% !important;
@@ -8,7 +8,7 @@ body.modern-flat-v217 .quick-batch-bar-bottom-v21714 {
 
 /* 大屏继续保持标题在左、操作按钮靠右。 */
 @media (min-width: 701px) {
-  body.modern-flat-v217 .quick-batch-bar-bottom-v21714.active {
+  body.modern-flat .quick-batch-bar-bottom.active {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -17,13 +17,13 @@ body.modern-flat-v217 .quick-batch-bar-bottom-v21714 {
 
 /* 小屏下改成上下两行，避免按钮硬挤。 */
 @media (max-width: 700px) {
-  body.modern-flat-v217 .quick-batch-bar-bottom-v21714.active {
+  body.modern-flat .quick-batch-bar-bottom.active {
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
   }
-  body.modern-flat-v217 .quick-batch-bar-bottom-v21714 .batch-buttons-group {
+  body.modern-flat .quick-batch-bar-bottom .batch-buttons-group {
     justify-content: flex-start !important;
   }
 }

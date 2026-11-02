@@ -2,11 +2,11 @@
    V2.16.2 中先写了 top:50%，随后又用了 inset:auto 10px auto 10px，
    inset 简写把 top 重新覆盖成 auto，导致绝对定位元素跑回“静态位置”。
    现在直接用明确的 top/left/right/bottom，避免人类最喜欢的 CSS 自相残杀。 */
-body.modern-flat-v217 .group-row-card.item-draw-spinning {
+body.modern-flat .group-row-card.item-draw-spinning {
   position: relative !important;
 }
 
-body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
+body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette {
   position: absolute !important;
   top: 50% !important;
   left: 10px !important;
@@ -22,7 +22,7 @@ body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
 }
 
 /* reveal 状态同样锁定在卡片正中央。 */
-body.modern-flat-v217
+body.modern-flat
   .group-row-card.item-draw-spinning
   .card-item-roulette.reveal {
   top: 50% !important;
@@ -33,7 +33,7 @@ body.modern-flat-v217
 }
 
 @media (max-width: 640px) {
-  body.modern-flat-v217 .group-row-card.item-draw-spinning .card-item-roulette {
+  body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette {
     top: 50% !important;
     left: 6px !important;
     right: 6px !important;

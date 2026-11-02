@@ -121,7 +121,7 @@ try {
     });
     await p.waitForTimeout(500);
     const x = await p
-      .locator("#quickPersonFiltersV218 .qp-row-v218")
+      .locator("#quickPersonFiltersV218 .quick-person-row")
       .evaluateAll((rows) =>
         rows.map((e) => e.children[1]?.getBoundingClientRect().left),
       );
@@ -129,7 +129,7 @@ try {
     const lefts = x.length
       ? x
       : await p
-          .locator(".quick-person-filters-v218 .qp-row-v218")
+          .locator(".quick-person-filters .quick-person-row")
           .evaluateAll((rows) =>
             rows.map((e) => e.children[1]?.getBoundingClientRect().left),
           );
@@ -145,7 +145,7 @@ try {
     await p.evaluate(() => openQuickPersonScoreV218());
     await p.waitForTimeout(450);
     const r = await p
-      .locator(".quick-person-filters-v218 .qp-row-v218")
+      .locator(".quick-person-filters .quick-person-row")
       .first()
       .evaluate((e) =>
         [...e.children].map((x) => x.getBoundingClientRect().toJSON()),
@@ -247,9 +247,9 @@ try {
     await p.locator("#memberSearchBackdrop").waitFor({ state: "hidden" });
     await p.evaluate(() => openQuickPersonScoreV218());
     await p.waitForTimeout(450);
-    assert.ok((await contrast(".qp-group-v218")) >= 4.5);
+    assert.ok((await contrast(".quick-person-group")) >= 4.5);
     const label = await p
-      .locator(".qp-group-v218")
+      .locator(".quick-person-group")
       .first()
       .evaluate((e) => ({
         title: e.title,

@@ -60,21 +60,21 @@ function renderItemWindow() {
     const status = statusParts.length ? statusParts.join(" · ") : "无";
     body.innerHTML = `
       ${locked ? '<div class="group-detail-lock">🔒 当前处于锁定状态，可查看信息，但不能编辑、赋分、使用道具或删除小组。</div>' : ""}
-      <section class="group-detail-section group-avatar-section-v2200">
+      <section class="group-detail-section group-avatar-section">
         <h4>小组头像</h4>
-        <div class="group-avatar-row-v2200">
-          <div class="group-avatar-preview-v2200 ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
+        <div class="group-avatar-row">
+          <div class="group-avatar-preview ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
             ${
               g.groupAvatar
                 ? `<img src="${escapeHtml(g.groupAvatar)}" alt="${escapeHtml(g.name)} 头像">`
                 : `<span>${escapeHtml(String(g.groupNo || "?"))}</span>`
             }
           </div>
-          <div class="group-avatar-copy-v2200">
+          <div class="group-avatar-copy">
             <b>${g.groupAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
             <span>支持 PNG、JPEG、WebP，单张不超过 512 KiB。未设置时沿用成员头像堆叠。</span>
-            <div class="group-avatar-actions-v2200">
-              <label class="btn btn-sm group-avatar-upload-v2200" ${locked ? 'aria-disabled="true"' : ""}>
+            <div class="group-avatar-actions">
+              <label class="btn btn-sm group-avatar-upload" ${locked ? 'aria-disabled="true"' : ""}>
                 ${g.groupAvatar ? "更换图片" : "选择图片"}
                 <input type="file" accept="image/png,image/jpeg,image/webp" hidden ${disabled} onchange="pickGroupAvatarV2200(${g.id},this)">
               </label>
@@ -97,14 +97,14 @@ function renderItemWindow() {
             <div class="group-detail-field"><label for="groupDetailNumber">小组编号</label><input id="groupDetailNumber" type="number" min="1" step="1" value="${g.groupNo}" ${disabled}></div>
             <div class="group-detail-field"><label for="groupDetailName">小组名称</label><input id="groupDetailName" type="text" value="${escapeHtml(g.name)}" ${disabled}></div>
           </div>
-          <div class="group-detail-field group-color-field-v21716" style="margin-top:10px">
+          <div class="group-detail-field group-color-field" style="margin-top:10px">
             <label>小组配色</label>
-            <div class="group-color-preset-grid-v21716" role="group" aria-label="16种预设配色">
-              ${DEFAULT_COLORS.map((color, idx) => `<button type="button" class="group-color-swatch-v21716 ${String(g.color).toUpperCase() === color.toUpperCase() ? "selected" : ""}" style="--swatch:${color}" title="预设 ${idx + 1} · ${color}" ${disabled} onclick="selectGroupPresetColorV21716(${g.id},'${color}')"><span>${String(g.color).toUpperCase() === color.toUpperCase() ? "✓" : ""}</span></button>`).join("")}
+            <div class="group-color-preset-grid" role="group" aria-label="16种预设配色">
+              ${DEFAULT_COLORS.map((color, idx) => `<button type="button" class="group-color-swatch ${String(g.color).toUpperCase() === color.toUpperCase() ? "selected" : ""}" style="--swatch:${color}" title="预设 ${idx + 1} · ${color}" ${disabled} onclick="selectGroupPresetColorV21716(${g.id},'${color}')"><span>${String(g.color).toUpperCase() === color.toUpperCase() ? "✓" : ""}</span></button>`).join("")}
             </div>
-            <div class="group-color-free-v21716">
-              <div class="group-color-free-copy-v21716"><b>自由颜色</b><span>16 种预设之外，可自行选择任意颜色</span></div>
-              <div class="group-color-control group-color-control-v21716">
+            <div class="group-color-free">
+              <div class="group-color-free-copy"><b>自由颜色</b><span>16 种预设之外，可自行选择任意颜色</span></div>
+              <div class="group-color-control group-color-editor">
                 <input id="groupDetailColor" type="color" value="${g.color}" ${disabled} oninput="previewItemDetailColorV21716(this.value)" onchange="saveItemDetailColor(${g.id},this.value)">
                 <span id="groupDetailColorPreview" class="group-color-preview" style="background:${g.color}"></span>
                 <span id="groupDetailColorHexV21716">${escapeHtml(g.color.toUpperCase())}</span>

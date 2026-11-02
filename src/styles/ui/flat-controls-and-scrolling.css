@@ -1,39 +1,39 @@
 /* ===== V2.17.19：扁平 UI 一致性、可读性与滚动区修复 ===== */
-body.modern-flat-v217 {
+body.modern-flat {
   --ui-focus: rgba(8, 145, 178, 0.28);
   --ui-disabled-bg: #e7efed;
   --ui-disabled-text: #667c77;
 }
 
 /* 文本始终保持横排和可读，允许在真实单词边界或必要位置换行。 */
-body.modern-flat-v217 .about-main,
-body.modern-flat-v217 .settings-scroll,
-body.modern-flat-v217 .settings-v26-pane,
-body.modern-flat-v217 .item-main,
-body.modern-flat-v217 #itemWindowBody {
+body.modern-flat .about-main,
+body.modern-flat .settings-scroll,
+body.modern-flat .legacy-settings-pane,
+body.modern-flat .item-main,
+body.modern-flat #itemWindowBody {
   color: var(--ui-text) !important;
   writing-mode: horizontal-tb !important;
   word-break: normal !important;
   overflow-wrap: break-word;
 }
-body.modern-flat-v217 ::placeholder {
+body.modern-flat ::placeholder {
   color: #718681 !important;
   opacity: 1 !important;
 }
 
 /* 中性按钮与语义按钮分别处理，避免通用 hover 把白字按钮洗成白底。 */
-body.modern-flat-v217
+body.modern-flat
   .btn:not(.btn-primary):not(.btn-success):not(.btn-warning):not(
     .btn-danger
   ):not(:disabled):hover,
-body.modern-flat-v217 .nav-tab:not(.active):not(:disabled):hover,
-body.modern-flat-v217 .icon-btn:not(:disabled):hover,
-body.modern-flat-v217 .more-btn:not(:disabled):hover,
-body.modern-flat-v217 .ans-btn:not(.selected):not(:disabled):hover,
-body.modern-flat-v217 .item-tab:not(.active):not(:disabled):hover,
-body.modern-flat-v217 .picker-vtab:not(.active):not(:disabled):hover,
-body.modern-flat-v217
-  .settings-v26-tabs
+body.modern-flat .nav-tab:not(.active):not(:disabled):hover,
+body.modern-flat .icon-btn:not(:disabled):hover,
+body.modern-flat .more-btn:not(:disabled):hover,
+body.modern-flat .ans-btn:not(.selected):not(:disabled):hover,
+body.modern-flat .item-tab:not(.active):not(:disabled):hover,
+body.modern-flat .picker-vtab:not(.active):not(:disabled):hover,
+body.modern-flat
+  .legacy-settings-tabs
   button:not(.active):not(:disabled):hover {
   background: var(--ui-soft) !important;
   background-color: var(--ui-soft) !important;
@@ -42,53 +42,53 @@ body.modern-flat-v217
   box-shadow: none !important;
   transform: none !important;
 }
-body.modern-flat-v217 .btn-primary:not(:disabled):hover,
-body.modern-flat-v217 .nav-tab.active:not(:disabled):hover,
-body.modern-flat-v217 .item-tab.active:not(:disabled):hover,
-body.modern-flat-v217 .picker-vtab.active:not(:disabled):hover,
-body.modern-flat-v217 .settings-v26-tabs button.active:not(:disabled):hover,
-body.modern-flat-v217 .ans-btn.selected:not(:disabled):hover,
-body.modern-flat-v217 #welcomeModal .welcome-modal-btn:not(:disabled):hover {
+body.modern-flat .btn-primary:not(:disabled):hover,
+body.modern-flat .nav-tab.active:not(:disabled):hover,
+body.modern-flat .item-tab.active:not(:disabled):hover,
+body.modern-flat .picker-vtab.active:not(:disabled):hover,
+body.modern-flat .legacy-settings-tabs button.active:not(:disabled):hover,
+body.modern-flat .ans-btn.selected:not(:disabled):hover,
+body.modern-flat #welcomeModal .welcome-modal-btn:not(:disabled):hover {
   background: var(--ui-primary-hover) !important;
   background-color: var(--ui-primary-hover) !important;
   color: #fff !important;
   border-color: var(--ui-primary-hover) !important;
 }
-body.modern-flat-v217 .btn-success:not(:disabled):hover {
+body.modern-flat .btn-success:not(:disabled):hover {
   background: #15803d !important;
   background-color: #15803d !important;
   color: #fff !important;
   border-color: #15803d !important;
 }
-body.modern-flat-v217 .btn-warning:not(:disabled):hover {
+body.modern-flat .btn-warning:not(:disabled):hover {
   background: #b45309 !important;
   background-color: #b45309 !important;
   color: #fff !important;
   border-color: #b45309 !important;
 }
-body.modern-flat-v217 .btn-danger:not(:disabled):hover {
+body.modern-flat .btn-danger:not(:disabled):hover {
   background: #b91c1c !important;
   background-color: #b91c1c !important;
   color: #fff !important;
   border-color: #b91c1c !important;
 }
-body.modern-flat-v217 #btnForceEnd:not(.locked-disabled):hover {
+body.modern-flat #btnForceEnd:not(.locked-disabled):hover {
   background: var(--end-round-hover) !important;
   background-color: var(--end-round-hover) !important;
   color: #fff !important;
   border-color: var(--end-round-hover) !important;
 }
-body.modern-flat-v217 button:focus-visible,
-body.modern-flat-v217 input:focus-visible,
-body.modern-flat-v217 textarea:focus-visible,
-body.modern-flat-v217 select:focus-visible {
+body.modern-flat button:focus-visible,
+body.modern-flat input:focus-visible,
+body.modern-flat textarea:focus-visible,
+body.modern-flat select:focus-visible {
   outline: 3px solid var(--ui-focus) !important;
   outline-offset: 2px !important;
 }
-body.modern-flat-v217 button:disabled,
-body.modern-flat-v217 .btn:disabled,
-body.modern-flat-v217 .locked-disabled,
-body.modern-flat-v217 .round-disabled {
+body.modern-flat button:disabled,
+body.modern-flat .btn:disabled,
+body.modern-flat .locked-disabled,
+body.modern-flat .round-disabled {
   background: var(--ui-disabled-bg) !important;
   color: var(--ui-disabled-text) !important;
   border-color: #cad9d6 !important;
@@ -97,56 +97,56 @@ body.modern-flat-v217 .round-disabled {
 }
 
 /* 欢迎弹窗与普通工作窗口共用扁平表面。 */
-body.modern-flat-v217 .welcome-modal-card {
+body.modern-flat .welcome-modal-card {
   width: min(528px, calc(100vw - 48px)) !important;
   max-height: calc(100dvh - 48px) !important;
   overflow: auto !important;
   padding: 28px 32px 24px !important;
 }
-body.modern-flat-v217 .welcome-modal-title {
+body.modern-flat .welcome-modal-title {
   color: var(--ui-text) !important;
   text-shadow: none !important;
 }
-body.modern-flat-v217 .welcome-modal-sub,
-body.modern-flat-v217 .welcome-modal-hint {
+body.modern-flat .welcome-modal-sub,
+body.modern-flat .welcome-modal-hint {
   color: var(--ui-muted) !important;
 }
-body.modern-flat-v217 .wmp-item {
+body.modern-flat .wmp-item {
   color: #304945 !important;
   min-width: 0 !important;
 }
-body.modern-flat-v217 .welcome-modal-btn {
+body.modern-flat .welcome-modal-btn {
   border-radius: 8px !important;
   color: #fff !important;
 }
 
 /* 关于窗口：程序信息、指南与百科使用完全相同的标题和内容骨架。 */
-body.modern-flat-v217 .about-window {
+body.modern-flat .about-window {
   display: grid !important;
   grid-template-columns: 196px minmax(0, 1fr) !important;
   width: min(1010px, calc(100vw - 48px)) !important;
   max-height: 82dvh !important;
 }
-body.modern-flat-v217 .about-side {
+body.modern-flat .about-side {
   min-width: 0 !important;
   padding: 14px !important;
 }
-body.modern-flat-v217 .about-side button {
+body.modern-flat .about-side button {
   color: var(--ui-text) !important;
   background: transparent !important;
   border: 1px solid transparent !important;
   border-radius: 8px !important;
 }
-body.modern-flat-v217 .about-side button:hover {
+body.modern-flat .about-side button:hover {
   background: var(--ui-soft) !important;
   color: var(--ui-primary-hover) !important;
 }
-body.modern-flat-v217 .about-side button.active {
+body.modern-flat .about-side button.active {
   background: #fff !important;
   color: var(--ui-primary) !important;
   border-color: var(--ui-border) !important;
 }
-body.modern-flat-v217 .about-main {
+body.modern-flat .about-main {
   min-width: 0 !important;
   max-height: 82dvh !important;
   padding: 22px 24px 28px !important;
@@ -154,21 +154,21 @@ body.modern-flat-v217 .about-main {
   overflow-x: hidden !important;
   scrollbar-gutter: stable;
 }
-body.modern-flat-v217 .v214-about-head,
-body.modern-flat-v217 .v2170-ency-head {
+body.modern-flat .about-heading,
+body.modern-flat .item-reference-head {
   display: flex !important;
   align-items: flex-start !important;
   justify-content: space-between !important;
   gap: 16px !important;
   margin: 0 0 16px !important;
 }
-body.modern-flat-v217 .v214-about-head h2,
-body.modern-flat-v217 .v2170-ency-head h2 {
+body.modern-flat .about-heading h2,
+body.modern-flat .item-reference-head h2 {
   margin: 0 !important;
   color: var(--window-head-text, var(--ui-text)) !important;
   line-height: 1.25 !important;
 }
-body.modern-flat-v217 .about-main .guide-block {
+body.modern-flat .about-main .guide-block {
   margin: 0 0 10px !important;
   padding: 13px 14px !important;
   color: #304945 !important;
@@ -179,7 +179,7 @@ body.modern-flat-v217 .about-main .guide-block {
 }
 
 /* 小组控制台只有正文滚动；标题与左侧标签始终稳定。 */
-body.modern-flat-v217 .item-window {
+body.modern-flat .item-window {
   display: grid !important;
   grid-template-columns: 196px minmax(0, 1fr) !important;
   width: min(960px, calc(100vw - 48px)) !important;
@@ -190,11 +190,11 @@ body.modern-flat-v217 .item-window {
   ) !important;
   overflow: hidden !important;
 }
-body.modern-flat-v217 .item-side {
+body.modern-flat .item-side {
   min-height: 0 !important;
   overflow: hidden !important;
 }
-body.modern-flat-v217 .item-main {
+body.modern-flat .item-main {
   display: flex !important;
   flex-direction: column !important;
   min-width: 0 !important;
@@ -206,7 +206,7 @@ body.modern-flat-v217 .item-main {
   padding: 0 !important;
   overflow: hidden !important;
 }
-body.modern-flat-v217 .item-main-head {
+body.modern-flat .item-main-head {
   flex: 0 0 auto !important;
   margin: 0 !important;
   padding: 18px 20px 14px !important;
@@ -215,7 +215,7 @@ body.modern-flat-v217 .item-main-head {
   border-bottom: 1px solid var(--ui-border) !important;
   z-index: 2;
 }
-body.modern-flat-v217 #itemWindowBody {
+body.modern-flat #itemWindowBody {
   flex: 1 1 auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -229,25 +229,25 @@ body.modern-flat-v217 #itemWindowBody {
   scrollbar-gutter: stable;
   -webkit-overflow-scrolling: touch;
 }
-body.modern-flat-v217 .group-detail-form {
+body.modern-flat .group-detail-form {
   padding-bottom: 0 !important;
 }
 
 /* 设置页：标签固定，当前面板独立滚动。 */
-body.modern-flat-v217:has(#view-settings.active) {
+body.modern-flat:has(#view-settings.active) {
   height: var(--ui-viewport-height, 100dvh) !important;
   min-height: 0 !important;
   padding-bottom: 0;
   overflow: hidden !important;
 }
-body.modern-flat-v217 #view-settings.active {
+body.modern-flat #view-settings.active {
   flex: 1 1 auto !important;
   height: auto !important;
   min-height: 0 !important;
   max-height: none !important;
   overflow: hidden !important;
 }
-body.modern-flat-v217 #view-settings .settings-scroll {
+body.modern-flat #view-settings .settings-scroll {
   display: flex !important;
   flex-direction: column !important;
   min-width: 0 !important;
@@ -258,14 +258,14 @@ body.modern-flat-v217 #view-settings .settings-scroll {
 /* 设置组件的文字、分组和表单样式统一归 ui/desktop.css。 */
 
 /* 道具管理固定为宽卡；禁止图标和按钮把中文说明压成单字列。 */
-body.modern-flat-v217 #settingsV26_items .item-ency-grid {
+body.modern-flat #settingsV26_items .item-ency-grid {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) !important;
   gap: 10px !important;
   width: 100% !important;
   min-width: 0 !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-card {
+body.modern-flat #settingsV26_items .item-encyclopedia-card {
   display: grid !important;
   grid-template-columns: 72px minmax(0, 1fr) minmax(176px, auto) !important;
   align-items: center !important;
@@ -279,24 +279,24 @@ body.modern-flat-v217 #settingsV26_items .ency-v213-card {
   border-radius: 10px !important;
   box-shadow: none !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-info {
+body.modern-flat #settingsV26_items .item-encyclopedia-info {
   min-width: 0 !important;
   width: auto !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-name,
-body.modern-flat-v217 #settingsV26_items .ency-v213-desc {
+body.modern-flat #settingsV26_items .item-encyclopedia-name,
+body.modern-flat #settingsV26_items .item-encyclopedia-desc {
   writing-mode: horizontal-tb !important;
   word-break: normal !important;
   overflow-wrap: break-word !important;
   white-space: normal !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-name {
+body.modern-flat #settingsV26_items .item-encyclopedia-name {
   color: var(--ui-text) !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-desc {
+body.modern-flat #settingsV26_items .item-encyclopedia-desc {
   color: var(--ui-muted) !important;
 }
-body.modern-flat-v217 #settingsV26_items .ency-v213-actions {
+body.modern-flat #settingsV26_items .item-encyclopedia-actions {
   display: flex !important;
   justify-content: flex-end !important;
   gap: 7px !important;
@@ -307,13 +307,13 @@ body.modern-flat-v217 #settingsV26_items .ency-v213-actions {
 }
 
 /* 自定义按钮图标：宽屏多列，中屏双列，窄屏单列。 */
-body.modern-flat-v217 #view-settings .icon-custom-grid {
+body.modern-flat #view-settings .icon-custom-grid {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 10px !important;
   min-width: 0 !important;
 }
-body.modern-flat-v217 #view-settings .icon-custom-card {
+body.modern-flat #view-settings .icon-custom-card {
   display: grid !important;
   grid-template-columns: 44px minmax(0, 1fr) auto auto !important;
   align-items: center !important;
@@ -321,18 +321,18 @@ body.modern-flat-v217 #view-settings .icon-custom-card {
   gap: 10px !important;
   padding: 11px !important;
 }
-body.modern-flat-v217 #view-settings .icon-custom-card > div:nth-child(2) {
+body.modern-flat #view-settings .icon-custom-card > div:nth-child(2) {
   min-width: 0 !important;
 }
 
 /* 手动举手的小组选择器复用“预选小组”的紧凑胶囊语言。 */
-body.modern-flat-v217 #handGroupGrid.hand-grid {
+body.modern-flat #handGroupGrid.hand-grid {
   display: flex !important;
   flex-wrap: wrap !important;
   align-content: flex-start !important;
   gap: 8px !important;
 }
-body.modern-flat-v217 #handGroupGrid .hand-group {
+body.modern-flat #handGroupGrid .hand-group {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -350,61 +350,61 @@ body.modern-flat-v217 #handGroupGrid .hand-group {
   line-height: 1.2 !important;
   outline: 0 !important;
 }
-body.modern-flat-v217 #handGroupGrid .hand-group small {
+body.modern-flat #handGroupGrid .hand-group small {
   font-size: 11px !important;
   font-weight: 400 !important;
   color: var(--ui-muted) !important;
 }
-body.modern-flat-v217 #handGroupGrid .hand-group:not(.selected):hover {
+body.modern-flat #handGroupGrid .hand-group:not(.selected):hover {
   background: var(--ui-soft) !important;
   border-color: var(--ui-primary) !important;
   color: var(--ui-primary-hover) !important;
 }
-body.modern-flat-v217 #handGroupGrid .hand-group.selected {
+body.modern-flat #handGroupGrid .hand-group.selected {
   background: var(--hand-color, var(--ui-primary)) !important;
   color: var(--hand-contrast, #fff) !important;
   border-color: var(--hand-color, var(--ui-primary)) !important;
 }
-body.modern-flat-v217 #handGroupGrid .hand-group.selected small {
+body.modern-flat #handGroupGrid .hand-group.selected small {
   color: inherit !important;
   opacity: 0.78 !important;
 }
 
 /* 档案页承接原点名窗口中的课堂累计统计。 */
-body.modern-flat-v217 .archive-class-stats {
+body.modern-flat .archive-class-stats {
   margin-bottom: 14px !important;
 }
-body.modern-flat-v217 .archive-stats-head {
+body.modern-flat .archive-stats-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 9px;
 }
-body.modern-flat-v217 .archive-stats-head h3 {
+body.modern-flat .archive-stats-head h3 {
   margin: 0;
   color: var(--ui-text);
   font-size: 15px;
   font-weight: 850;
 }
-body.modern-flat-v217 .archive-stats-head span {
+body.modern-flat .archive-stats-head span {
   color: var(--ui-muted);
   font-size: 12px;
   font-weight: 400;
 }
-body.modern-flat-v217 .archive-stats-grid {
+body.modern-flat .archive-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
-body.modern-flat-v217 .archive-stat-card {
+body.modern-flat .archive-stat-card {
   padding: 13px 14px;
   background: var(--ui-soft-2);
   border: 1px solid var(--ui-border);
   border-radius: 10px;
   min-width: 0;
 }
-body.modern-flat-v217 .archive-stat-card b {
+body.modern-flat .archive-stat-card b {
   display: block;
   color: var(--ui-primary);
   font-size: 22px;
@@ -412,13 +412,13 @@ body.modern-flat-v217 .archive-stat-card b {
   font-variant-numeric: tabular-nums;
   line-height: 1.15;
 }
-body.modern-flat-v217 .archive-stat-card b small {
+body.modern-flat .archive-stat-card b small {
   margin-left: 3px;
   font-size: 12px;
   font-weight: 500;
   color: var(--ui-muted);
 }
-body.modern-flat-v217 .archive-stat-card span {
+body.modern-flat .archive-stat-card span {
   display: block;
   margin-top: 4px;
   color: var(--ui-muted);
@@ -427,24 +427,24 @@ body.modern-flat-v217 .archive-stat-card span {
 }
 
 @media (max-width: 1050px) {
-  body.modern-flat-v217 #view-settings .icon-custom-grid {
+  body.modern-flat #view-settings .icon-custom-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 @media (max-width: 700px) {
-  body.modern-flat-v217 .welcome-modal-card {
+  body.modern-flat .welcome-modal-card {
     width: calc(100vw - 16px) !important;
     max-height: calc(100dvh - 16px) !important;
     padding: 22px 18px !important;
   }
-  body.modern-flat-v217 .about-window,
-  body.modern-flat-v217 .item-window {
+  body.modern-flat .about-window,
+  body.modern-flat .item-window {
     width: calc(100vw - 16px) !important;
     max-height: calc(100dvh - 16px) !important;
     grid-template-columns: 1fr !important;
   }
-  body.modern-flat-v217 .about-side,
-  body.modern-flat-v217 .item-side {
+  body.modern-flat .about-side,
+  body.modern-flat .item-side {
     display: flex !important;
     gap: 6px !important;
     overflow-x: auto !important;
@@ -453,53 +453,53 @@ body.modern-flat-v217 .archive-stat-card span {
     border-bottom: 1px solid var(--ui-border) !important;
     padding: 9px !important;
   }
-  body.modern-flat-v217 .about-side button,
-  body.modern-flat-v217 .item-side button {
+  body.modern-flat .about-side button,
+  body.modern-flat .item-side button {
     flex: 0 0 auto !important;
     width: auto !important;
     white-space: nowrap !important;
     margin: 0 !important;
   }
-  body.modern-flat-v217 .item-side-title {
+  body.modern-flat .item-side-title {
     display: none !important;
   }
-  body.modern-flat-v217 .item-main {
+  body.modern-flat .item-main {
     max-height: calc(100dvh - 72px) !important;
   }
-  body.modern-flat-v217 #itemWindowBody {
+  body.modern-flat #itemWindowBody {
     max-height: calc(100dvh - 134px) !important;
     padding: 14px 14px 38px !important;
   }
-  body.modern-flat-v217 .about-main {
+  body.modern-flat .about-main {
     max-height: calc(100dvh - 70px) !important;
     padding: 18px 14px 28px !important;
   }
-  body.modern-flat-v217 #view-settings .icon-custom-grid {
+  body.modern-flat #view-settings .icon-custom-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
-  body.modern-flat-v217 #settingsV26_items .ency-v213-card {
+  body.modern-flat #settingsV26_items .item-encyclopedia-card {
     grid-template-columns: 60px minmax(0, 1fr) !important;
     gap: 10px !important;
     padding: 10px !important;
   }
-  body.modern-flat-v217 #settingsV26_items .ency-v213-actions {
+  body.modern-flat #settingsV26_items .item-encyclopedia-actions {
     grid-column: 2 !important;
     justify-content: flex-start !important;
     min-width: 0 !important;
   }
-  body.modern-flat-v217 #settingsV26_data .setting-item {
+  body.modern-flat #settingsV26_data .setting-item {
     align-items: stretch !important;
     flex-direction: column !important;
   }
-  body.modern-flat-v217 #settingsV26_data .setting-item > div {
+  body.modern-flat #settingsV26_data .setting-item > div {
     justify-content: flex-start !important;
   }
-  body.modern-flat-v217 .archive-stats-grid {
+  body.modern-flat .archive-stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
-body.modern-flat-v217 #btnFinalSettlement:not(:disabled):hover {
+body.modern-flat #btnFinalSettlement:not(:disabled):hover {
   background: linear-gradient(
     135deg,
     var(--honor-gold-light),

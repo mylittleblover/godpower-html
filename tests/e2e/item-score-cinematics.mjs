@@ -51,7 +51,7 @@ try {
   const hand = await page.evaluate(() => ({
     left: document.querySelector(".hic-attacker h2").textContent,
     right: document.querySelector(".hic-targets h2").textContent,
-    banners: document.querySelectorAll(".item-use-banner-v216").length,
+    banners: document.querySelectorAll(".item-use-banner").length,
     modal: document
       .getElementById("itemModalBackdrop")
       .classList.contains("active"),
@@ -156,7 +156,7 @@ try {
     renderAbout("items");
   });
   const encyclopedia = await page.evaluate(() => ({
-    count: document.querySelectorAll(".v2170-ency-row").length,
+    count: document.querySelectorAll(".item-reference-row").length,
     text: document.getElementById("aboutMain").textContent,
     keys: ITEM_KEYS,
   }));

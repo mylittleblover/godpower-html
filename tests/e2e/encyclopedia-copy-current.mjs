@@ -23,31 +23,31 @@ try {
     renderAbout("items");
     const main = document.getElementById("aboutMain");
     const guide = main.querySelector(".competition-status-guide");
-    const rows = [...guide.querySelectorAll(".v2170-ency-row")];
+    const rows = [...guide.querySelectorAll(".item-reference-row")];
     const byName = (name) =>
-      rows.find((r) => r.querySelector(".v2170-ency-name").textContent.includes(name));
+      rows.find((r) => r.querySelector(".item-reference-name").textContent.includes(name));
     const starRow = byName("无敌");
     const megaRow = byName("巨大化");
     // The item list is the 28 道具 cards.
-    const itemList = main.querySelector(".v2170-ency-list:not(.competition-status-list)");
+    const itemList = main.querySelector(".item-reference-list:not(.competition-status-list)");
     const itemRow = (name) =>
-      [...itemList.querySelectorAll(".v2170-ency-row")].find((r) =>
-        r.querySelector(".v2170-ency-name").textContent.includes(name),
+      [...itemList.querySelectorAll(".item-reference-row")].find((r) =>
+        r.querySelector(".item-reference-name").textContent.includes(name),
       );
     const starItem = itemRow("无敌星");
     const megaItem = itemRow("巨大蘑菇");
     return {
       guideSub: guide.querySelector(".competition-status-guide-sub").textContent.trim(),
-      starExact: starRow.querySelector(".v218-ency-tip").textContent.trim(),
-      starTip: starRow.querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
-      megaExact: megaRow.querySelector(".v218-ency-tip").textContent.trim(),
-      megaTip: megaRow.querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
-      starItemExact: starItem.querySelector(".v218-ency-tip").textContent.trim(),
-      starItemTip: starItem.querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
-      megaItemExact: megaItem.querySelector(".v218-ency-tip").textContent.trim(),
-      megaItemTip: megaItem.querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
-      burnTip: byName("灼烧").querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
-      paralysisTip: byName("麻痹").querySelectorAll(".v218-ency-tip")[1].textContent.trim(),
+      starExact: starRow.querySelector(".item-reference-tip").textContent.trim(),
+      starTip: starRow.querySelectorAll(".item-reference-tip")[1].textContent.trim(),
+      megaExact: megaRow.querySelector(".item-reference-tip").textContent.trim(),
+      megaTip: megaRow.querySelectorAll(".item-reference-tip")[1].textContent.trim(),
+      starItemExact: starItem.querySelector(".item-reference-tip").textContent.trim(),
+      starItemTip: starItem.querySelectorAll(".item-reference-tip")[1].textContent.trim(),
+      megaItemExact: megaItem.querySelector(".item-reference-tip").textContent.trim(),
+      megaItemTip: megaItem.querySelectorAll(".item-reference-tip")[1].textContent.trim(),
+      burnTip: byName("灼烧").querySelectorAll(".item-reference-tip")[1].textContent.trim(),
+      paralysisTip: byName("麻痹").querySelectorAll(".item-reference-tip")[1].textContent.trim(),
       allText: main.innerText,
     };
   });

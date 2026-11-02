@@ -37,7 +37,7 @@ function itemKeysV283() {
 
 function itemAdminButtonV283(k, gid) {
   const d = ITEM_DEFS[k];
-  return `<button class="btn item-admin-add-v283" onclick="godAddItemV283(${gid},'${k}')">${itemVisual(k)} <span>${escapeHtml(d.name)}</span></button>`;
+  return `<button class="btn item-admin-add" onclick="godAddItemV283(${gid},'${k}')">${itemVisual(k)} <span>${escapeHtml(d.name)}</span></button>`;
 }
 function godAddItemV283(gid, key) {
   const g = state.groups.find((x) => x.id === gid);
@@ -190,7 +190,7 @@ function patchItemIconSettingsV283() {
     const d = ITEM_DEFS[k];
     if (txt.includes(d.name)) return;
     const row = document.createElement("div");
-    row.className = "setting-row item-icon-row v283-added";
+    row.className = "setting-row item-icon-row custom-item-icon-row";
     row.innerHTML = `<div><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><div class="setting-note">可使用自定义图片覆盖默认图标</div></div>
    <label class="btn">选择图片<input type="file" accept="image/*" hidden onchange="handleItemIconUpload('${k}',this)"></label>`;
     region.appendChild(row);

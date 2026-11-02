@@ -1,10 +1,10 @@
 /* ===== V2.17.21：比赛页顶部当前排名预览 ===== */
-body.modern-flat-v217 .battle-rank-dock-v21721 {
+body.modern-flat .battle-rank-dock {
   overflow: hidden !important;
   padding: 0 !important;
   justify-content: flex-start !important;
 }
-body.modern-flat-v217 .battle-rank-preview-v21721 {
+body.modern-flat .battle-rank-preview {
   flex: 1 1 auto !important;
   width: 100% !important;
   min-height: 0 !important;
@@ -14,7 +14,7 @@ body.modern-flat-v217 .battle-rank-preview-v21721 {
   gap: 7px !important;
   background: rgba(255, 255, 255, 0.72) !important;
 }
-body.modern-flat-v217 .battle-rank-preview-head-v21721 {
+body.modern-flat .battle-rank-preview-head {
   flex: 0 0 auto !important;
   display: flex !important;
   align-items: center !important;
@@ -22,17 +22,17 @@ body.modern-flat-v217 .battle-rank-preview-head-v21721 {
   gap: 10px !important;
   min-height: 22px !important;
 }
-body.modern-flat-v217 .battle-rank-preview-title-v21721 {
+body.modern-flat .battle-rank-preview-title {
   font-size: 13px !important;
   font-weight: 950 !important;
   color: #17302d !important;
 }
-body.modern-flat-v217 .battle-rank-preview-note-v21721 {
+body.modern-flat .battle-rank-preview-note {
   font-size: 11px !important;
   font-weight: 700 !important;
   color: #607773 !important;
 }
-body.modern-flat-v217 .battle-rank-preview-grid-v21721 {
+body.modern-flat .battle-rank-preview-grid {
   flex: 1 1 auto !important;
   min-height: 0 !important;
   overflow-y: auto !important;
@@ -43,7 +43,7 @@ body.modern-flat-v217 .battle-rank-preview-grid-v21721 {
   gap: 6px !important;
   align-content: start !important;
 }
-body.modern-flat-v217 .battle-rank-chip-v21721 {
+body.modern-flat .battle-rank-chip {
   min-width: 0 !important;
   height: 100% !important;
   min-height: 38px !important;
@@ -58,19 +58,19 @@ body.modern-flat-v217 .battle-rank-chip-v21721 {
   background: #fff !important;
   box-shadow: 0 1px 3px rgba(23, 48, 45, 0.06) !important;
 }
-body.modern-flat-v217 .battle-rank-chip-v21721.rank-1 {
+body.modern-flat .battle-rank-chip.rank-1 {
   background: #fffbeb !important;
   border-color: #f3d58a !important;
   border-left-color: var(--rank-group-color, #c58b14) !important;
 }
-body.modern-flat-v217 .battle-rank-no-v21721 {
+body.modern-flat .battle-rank-no {
   font-size: 13px !important;
   font-weight: 950 !important;
   color: #0f766e !important;
   text-align: center !important;
   font-variant-numeric: tabular-nums !important;
 }
-body.modern-flat-v217 .battle-rank-name-v21721 {
+body.modern-flat .battle-rank-name {
   min-width: 0 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -79,28 +79,28 @@ body.modern-flat-v217 .battle-rank-name-v21721 {
   font-weight: 900 !important;
   color: #17302d !important;
 }
-body.modern-flat-v217 .battle-rank-score-v21721 {
+body.modern-flat .battle-rank-score {
   white-space: nowrap !important;
   font-size: 11px !important;
   font-weight: 900 !important;
   color: var(--rank-group-color, #0f766e) !important;
   font-variant-numeric: tabular-nums !important;
 }
-body.modern-flat-v217 .battle-rank-dock-v21721 .resizer-handle {
+body.modern-flat .battle-rank-dock .resizer-handle {
   flex: 0 0 32px !important;
   height: 32px !important;
   min-height: 32px !important;
 }
 @media (max-width: 1200px) {
-  body.modern-flat-v217 .battle-rank-preview-grid-v21721 {
+  body.modern-flat .battle-rank-preview-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 }
 @media (max-width: 700px) {
-  body.modern-flat-v217 .battle-rank-preview-note-v21721 {
+  body.modern-flat .battle-rank-preview-note {
     display: none !important;
   }
-  body.modern-flat-v217 .battle-rank-preview-grid-v21721 {
+  body.modern-flat .battle-rank-preview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }

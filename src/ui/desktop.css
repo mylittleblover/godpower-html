@@ -538,7 +538,7 @@ body {
 /* Boolean controls share v292's track/knob geometry; selection checkboxes outside
    settings remain checkboxes. Native inputs preserve labels, keyboard and handlers. */
 :is(#view-settings, .ui-settings-row)
-  input[type="checkbox"]:not(.v292-switch input),
+  input[type="checkbox"]:not(.ui-toggle input),
 #chkAntiRepeat {
   appearance: none;
   position: relative;
@@ -559,7 +559,7 @@ body {
     border-color var(--motion-fast);
 }
 :is(#view-settings, .ui-settings-row)
-  input[type="checkbox"]:not(.v292-switch input)::after,
+  input[type="checkbox"]:not(.ui-toggle input)::after,
 #chkAntiRepeat::after {
   content: "";
   position: absolute;
@@ -574,18 +574,18 @@ body {
   transition: transform var(--motion-fast) var(--motion-ease);
 }
 :is(#view-settings, .ui-settings-row)
-  input[type="checkbox"]:not(.v292-switch input):checked,
+  input[type="checkbox"]:not(.ui-toggle input):checked,
 #chkAntiRepeat:checked {
   background: var(--ui-primary);
   border-color: var(--ui-primary);
 }
 :is(#view-settings, .ui-settings-row)
-  input[type="checkbox"]:not(.v292-switch input):checked::after,
+  input[type="checkbox"]:not(.ui-toggle input):checked::after,
 #chkAntiRepeat:checked::after {
   transform: translateX(24px);
 }
 :is(#view-settings, .ui-settings-row)
-  input[type="checkbox"]:not(.v292-switch input):disabled,
+  input[type="checkbox"]:not(.ui-toggle input):disabled,
 #chkAntiRepeat:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -821,10 +821,10 @@ body {
   margin: 0;
   line-height: 1.7;
 }
-.ui-rule-card .v292-switch {
+.ui-rule-card .ui-toggle {
   margin-top: 0;
 }
-.v292-switch input:focus-visible + .v292-switch-track {
+.ui-toggle input:focus-visible + .ui-toggle-track {
   outline: 3px solid var(--ui-primary);
   outline-offset: 3px;
 }
@@ -956,12 +956,12 @@ body[data-motion="off"] *::after {
   transition-duration: 0.001ms;
   scroll-behavior: auto;
 }
-body[data-motion="simple"] .persistent-aura-v213,
-body[data-item-fx="off"] .persistent-aura-v213 {
+body[data-motion="simple"] .persistent-aura,
+body[data-item-fx="off"] .persistent-aura {
   animation: none;
 }
 body[data-item-fx="off"] .card-fx-layer,
-body[data-item-fx="off"] .item-use-banner-v216 {
+body[data-item-fx="off"] .item-use-banner {
   visibility: hidden;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -989,7 +989,7 @@ body[data-item-fx="off"] .item-use-banner-v216 {
   }
 }
 
-body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
+body.modern-flat[data-current-view]:not([data-current-view="battle"]) {
   padding-bottom: 0;
 }
 .nav-tab {
@@ -1006,13 +1006,13 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
   border: 0;
   box-shadow: none;
 }
-.ui-settings-category .settings-v26-pane {
+.ui-settings-category .legacy-settings-pane {
   padding: 0;
   overflow: visible;
   display: block;
   max-height: none;
 }
-.ui-settings-category .settings-v26-pane[hidden] {
+.ui-settings-category .legacy-settings-pane[hidden] {
   display: none;
 }
 #view-history,
@@ -1020,26 +1020,26 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
 #view-settings {
   box-sizing: border-box;
 }
-.picker-layout-v2 {
+.picker-layout {
   display: grid;
   grid-template-columns: 210px minmax(0, 1fr) 240px;
   min-height: 500px;
 }
-.picker-left-v2,
-.picker-right-v2 {
+.picker-left,
+.picker-right {
   min-width: 0;
   padding: 24px;
   overflow: auto;
   max-height: calc(100dvh - 52px);
 }
-.picker-center-v2 {
+.picker-center {
   min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 24px;
 }
-.picker-left-v2 .slot-options-row {
+.picker-left .slot-options-row {
   flex-direction: column;
   align-items: flex-start;
   margin-top: 24px;
@@ -1070,7 +1070,7 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
   overflow-wrap: anywhere;
   line-height: 1.6;
 }
-.picker-right-v2 .picker-info-tabs {
+.picker-right .picker-info-tabs {
   margin-top: 24px;
 }
 .ui-settings-category #bgmListContainer {
@@ -1082,7 +1082,7 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
 }
 .ui-settings-category #uiIconManagerV26 img,
 .item-big-icon img,
-.ency-v213-icon img,
+.item-encyclopedia-icon img,
 .ency-icon img {
   max-width: 64px;
   max-height: 64px;
@@ -1116,7 +1116,7 @@ body.modern-flat-v217[data-current-view]:not([data-current-view="battle"]) {
 .queue-main-card .queue-role-badge {
   color: var(--ui-primary);
 }
-.ui-settings-row input:not(.v292-switch input):disabled,
+.ui-settings-row input:not(.ui-toggle input):disabled,
 .ui-settings-row select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -1136,12 +1136,12 @@ summary:focus-visible {
   .app-topnav .header-stats {
     display: none;
   }
-  .picker-layout-v2 {
+  .picker-layout {
     grid-template-columns: 185px minmax(0, 1fr) 210px;
   }
-  .picker-left-v2,
-  .picker-right-v2,
-  .picker-center-v2 {
+  .picker-left,
+  .picker-right,
+  .picker-center {
     padding: 16px;
   }
 }

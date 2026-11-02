@@ -6,7 +6,7 @@
 }
 
 /* ===== V2.8.4 统一 26 道具设置 UI ===== */
-.v283-added {
+.custom-item-icon-row {
   display: none !important;
 } /* 移除 V2.8.3 那四个孤零零追加到功能页的临时行 */
 
@@ -106,8 +106,8 @@
   #view-settings .settings-scroll {
     padding-bottom: 88px !important;
   }
-  #view-settings .settings-v26-tabs,
-  #view-settings .settings-tabs-v26,
+  #view-settings .legacy-settings-tabs,
+  #view-settings .legacy-settings-tabbar,
   #view-settings #settingsV2Tabs {
     position: sticky !important;
     bottom: 6px !important;

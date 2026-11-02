@@ -77,7 +77,7 @@ let dockHumorTipV2185 = null;
 function ensureDockHumorTipV2185() {
   if (dockHumorTipV2185) return dockHumorTipV2185;
   const el = document.createElement("div");
-  el.className = "dock-humor-tip-v2185";
+  el.className = "dock-humor-tip";
   document.body.appendChild(el);
   dockHumorTipV2185 = el;
   return el;

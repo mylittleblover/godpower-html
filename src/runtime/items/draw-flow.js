@@ -319,7 +319,7 @@ function handDrawItem() {
   handItemDrawStartedAt = performance.now();
 
   const box = document.getElementById("handRewardBox");
-  box.innerHTML = `<div class="hand-item-draw-stage v281-horizontal">
+  box.innerHTML = `<div class="hand-item-draw-stage hand-draw-horizontal">
     <div class="hand-draw-head" style="font-weight:950;color:#0369a1">${escapeHtml(g.name)} · 道具抽取</div>
     <div id="handItemCapsule" class="hand-item-capsule spinning">❔</div>
     <div class="hand-draw-copy">
@@ -432,7 +432,7 @@ function handDrawItem() {
 
       const current = state.groups.find((x) => x.groupUid === groupUid);
       const slot = Math.max(0, (current?.inventory.length || 1) - 1);
-      box.innerHTML = `<div class="hand-item-draw-stage v281-horizontal">
+      box.innerHTML = `<div class="hand-item-draw-stage hand-draw-horizontal">
         <div class="hand-draw-head" style="font-weight:950;color:#16a34a">🎁 获得道具</div>
         <div class="hand-item-capsule reveal">${itemVisual(k)}</div>
         <div class="hand-draw-copy">

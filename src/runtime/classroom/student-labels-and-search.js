@@ -16,8 +16,8 @@ function parseStudentV218(raw) {
 function studentLabelHTMLV218(raw, g) {
   const p = parseStudentV218(raw);
   if (p.number == null)
-    return `<span class="student-name-v218">${escapeHtml(p.name)}</span>`;
-  return `<span class="student-no-inline-v218" style="color:${g?.color || "#0f766e"}">${escapeHtml(p.numberText)}</span><span class="student-name-v218">${escapeHtml(p.name)}</span>`;
+    return `<span class="student-name">${escapeHtml(p.name)}</span>`;
+  return `<span class="student-no-inline" style="color:${g?.color || "#0f766e"}">${escapeHtml(p.numberText)}</span><span class="student-name">${escapeHtml(p.name)}</span>`;
 }
 function pinyinInitialV218(raw) {
   const name = parseStudentV218(raw).name.trim();
@@ -75,7 +75,7 @@ renderBattleRankPreviewV21721 = function () {
   if (active) {
     document
       .querySelectorAll(
-        "#battleRankPreviewGridV21721 .battle-rank-score-v21721",
+        "#battleRankPreviewGridV21721 .battle-rank-score",
       )
       .forEach((el) => (el.textContent = "???"));
   }

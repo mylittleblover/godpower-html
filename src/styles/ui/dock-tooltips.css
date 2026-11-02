@@ -1,4 +1,4 @@
-.dock-humor-tip-v2185 {
+.dock-humor-tip {
   position: fixed;
   z-index: 280000;
   pointer-events: none;
@@ -15,16 +15,16 @@
   font-size: 12px;
   line-height: 1.45;
 }
-.dock-humor-tip-v2185.show {
+.dock-humor-tip.show {
   opacity: 1;
   transform: none;
 }
-.dock-humor-tip-v2185 b {
+.dock-humor-tip b {
   display: block;
   font-size: 13px;
   margin-bottom: 2px;
   color: #dff7f1;
 }
-.dock-humor-tip-v2185 span {
+.dock-humor-tip span {
   color: #d4e5e1;
 }

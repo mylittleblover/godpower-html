@@ -1,6 +1,6 @@
 function refresh26ItemInterfacesV284() {
   ITEM_KEYS = Object.keys(ITEM_DEFS);
-  document.querySelectorAll(".v283-added").forEach((x) => x.remove());
+  document.querySelectorAll(".custom-item-icon-row").forEach((x) => x.remove());
 
   // 设置页标题
   document.querySelectorAll(".setting-section-title,h1,h2,h3").forEach((x) => {

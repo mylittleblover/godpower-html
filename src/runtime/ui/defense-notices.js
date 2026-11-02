@@ -6,7 +6,7 @@ function getTopNoticeStackV21735() {
 
   stack = document.createElement("div");
   stack.id = "topNoticeStackV21735";
-  stack.className = "top-notice-stack-v21735";
+  stack.className = "top-notice-stack";
   document.body.appendChild(stack);
   return stack;
 }
@@ -80,7 +80,7 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
 
   const caster = state.groups?.find((g) => g.id === casterId);
   const banner = document.createElement("div");
-  banner.className = "item-use-banner-v216";
+  banner.className = "item-use-banner";
   banner.innerHTML =
     `<span class="iub-icon">${itemVisual(key)}</span>` +
     `<span style="min-width:0">` +
@@ -102,7 +102,7 @@ tinyDefenseToast = function (msg) {
   } catch (e) {}
 
   const banner = document.createElement("div");
-  banner.className = "item-use-banner-v216 item-defense-banner-v21735";
+  banner.className = "item-use-banner item-defense-banner";
   banner.innerHTML =
     `<span class="iub-icon">🛡️</span>` +
     `<span style="min-width:0">` +

@@ -14,16 +14,16 @@ function showHandEffectV218(key, before, note = "") {
       delta = now - old;
     if (delta)
       lines.push(
-        `<div class="hand-effect-line-v218 ${delta > 0 ? "pos" : "neg"}">${escapeHtml(g.name)}：${delta > 0 ? "+" : ""}${delta} 分</div>`,
+        `<div class="hand-effect-line ${delta > 0 ? "pos" : "neg"}">${escapeHtml(g.name)}：${delta > 0 ? "+" : ""}${delta} 分</div>`,
       );
   });
   if (!lines.length)
     lines.push(
-      `<div class="hand-effect-line-v218 neutral">${escapeHtml(note || "本次道具未造成直接分数变化")}</div>`,
+      `<div class="hand-effect-line neutral">${escapeHtml(note || "本次道具未造成直接分数变化")}</div>`,
     );
-  box.innerHTML = `<div class="hand-effect-icon-v218">${itemVisual(key)}</div>
-    <div class="hand-effect-name-v218">${escapeHtml(ITEM_DEFS[key]?.name || "道具")}</div>
-    <div class="hand-effect-lines-v218">${lines.join("")}</div>`;
+  box.innerHTML = `<div class="hand-effect-icon">${itemVisual(key)}</div>
+    <div class="hand-effect-name">${escapeHtml(ITEM_DEFS[key]?.name || "道具")}</div>
+    <div class="hand-effect-lines">${lines.join("")}</div>`;
   overlay.classList.add("active");
   clearTimeout(showHandEffectV218._timer);
   showHandEffectV218._timer = setTimeout(
