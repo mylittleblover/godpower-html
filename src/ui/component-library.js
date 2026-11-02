@@ -48,7 +48,7 @@ const UIComponentLibrary = (() => {
       ".bottom-dock",
       "ui/application-surfaces.css",
     ],
-    ["hero", "主页", "欢迎标题卡", ".gp-hero", "ui/welcome-v2.css"],
+    ["hero", "主页", "欢迎标题卡", ".gp-hero", "ui/welcome-dashboard.css"],
     [
       "home-layout",
       "主页",
@@ -258,7 +258,7 @@ const UIComponentLibrary = (() => {
       "窗口与反馈",
       "启动欢迎窗口",
       "#welcomeModal",
-      "ui/welcome-v2.js",
+      "ui/welcome-dashboard.js",
     ],
     [
       "theme-confirm",

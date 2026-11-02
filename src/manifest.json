@@ -247,7 +247,7 @@
     },
     {
       "type": "style",
-      "path": "ui/welcome-v2.css",
+      "path": "ui/welcome-dashboard.css",
       "attributes": " id=\"gp-home-redesign\""
     },
     {
@@ -1221,7 +1221,7 @@
     },
     {
       "type": "script",
-      "path": "ui/welcome-v2.js",
+      "path": "ui/welcome-dashboard.js",
       "attributes": ""
     },
     {

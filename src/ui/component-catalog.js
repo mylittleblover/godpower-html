@@ -204,11 +204,11 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-content-reveal",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-nav-reveal",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "grandScaleUp",
@@ -558,7 +558,7 @@ const GodPowerComponentCatalog = {
         "src/styles/classroom/student-picker-hand.css",
         "src/ui/desktop.css",
         "src/ui/application-surfaces.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
         "src/ui/component-library.css",
       ],
     },
@@ -604,7 +604,7 @@ const GodPowerComponentCatalog = {
         "src/styles/themes/flat-foundation.css",
         "src/ui/desktop.css",
         "src/ui/application-surfaces.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
       ],
     },
     {
@@ -868,7 +868,7 @@ const GodPowerComponentCatalog = {
         "src/ui/application-surfaces.css",
         "src/ui/classroom-feedback.css",
         "src/ui/item-modules.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
       ],
     },
     {
@@ -1453,7 +1453,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "departing",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "dock-humor-tip",
@@ -1480,7 +1480,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "dragging",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "draw-name",
@@ -1634,131 +1634,131 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-actions",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-blue",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-bottom-heading",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-brand-mount",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-button-outline",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-button-primary",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-compact-track",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-daily-challenge",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-daily-grid",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-daily-honors",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-daily-item",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-existing-metrics",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-eyebrow",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-feed-copy",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-feed-icon",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-feed-list",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-feed-row",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-feed-time",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-footnote",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-gold",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-greeting",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-group-head",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-group-live",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-group-section",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-heading-bar",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero-clock",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero-copy",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero-date",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero-description",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hero-status",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-home",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-hover-tooltip",
@@ -1766,175 +1766,175 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-intro",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-active",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-backdrop",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-caption",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-logo",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-reveal",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-intro-skip",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-stage",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-intro-title",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-kpi",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-kpi-icon",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-kpi-number",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-kpis",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-live-pill",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-main-grid",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-match-status",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-medal",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-panel",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-panel-footer",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-panel-tag",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-panel-title",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-purple",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-bar",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-empty",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-head",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-index",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-list",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-rank-name",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-points",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-row",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-rank-state",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-reveal",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-second",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-section-heading",
-      sources: ["src/ui/welcome-v2.css", "src/ui/home-dashboard.css"],
+      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
     },
     {
       name: "gp-slider",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-slider-fill",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-slider-hint",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-slider-knob",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-soft-tag",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-status-foot",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-status-orb",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-status-separator",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-status-top",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "gp-theme-card",
@@ -1962,7 +1962,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-third",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "grand-card",
@@ -3735,7 +3735,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ready",
-      sources: ["src/ui/welcome-v2.css"],
+      sources: ["src/ui/welcome-dashboard.css"],
     },
     {
       name: "resizer-handle",
@@ -4373,7 +4373,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/ui/desktop.css",
         "src/ui/application-surfaces.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
       ],
     },
     {
@@ -4429,7 +4429,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/ui/desktop.css",
         "src/ui/roster-workspace.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
       ],
     },
     {
@@ -4442,19 +4442,19 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-group-card",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-group-repeat",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-group-score",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-group-title",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-group-track",
@@ -4470,7 +4470,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-item-tip-icon",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-modal-close",
@@ -4478,7 +4478,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-muted",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-negative",
@@ -4501,7 +4501,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/ui/desktop.css",
         "src/ui/application-surfaces.css",
-        "src/ui/welcome-v2.css",
+        "src/ui/welcome-dashboard.css",
       ],
     },
     {
@@ -4514,7 +4514,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-quiz-options",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-quiz-result",
@@ -4618,7 +4618,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-source",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-v2.css"],
+      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
     },
     {
       name: "ui-table",

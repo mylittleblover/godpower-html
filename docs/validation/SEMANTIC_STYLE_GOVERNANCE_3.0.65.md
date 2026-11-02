@@ -4,7 +4,7 @@
 
 ## 已实施
 
-- 152个版本化CSS类名改为语义名称，44个动效名去除版本号；保留一一映射scripts/semantic-style-names.json。源HTML、JS模板、CSS、动态score-roll类、测试选择器及组件目录同步。目标名与已有名称冲突时单独命名，未把两个不同组件合并。
+- 152个版本化CSS类名改为语义名称，44个动效名去除版本号；保留一一映射scripts/semantic-style-names.json。原welcome-v2.js/css文件改为welcome-dashboard.js/css，源码映射同步。源HTML、JS模板、CSS、动态score-roll类、测试选择器及组件目录同步。目标名与已有名称冲突时单独命名，未把两个不同组件合并。
 - 77条旧CSS声明移除。每条有同条件、同选择器、同属性、优先级不低的后续声明证据；值不同的删除仅允许长期支持的简单字面量，并实际用Chromium CSS.supports核验。变量、CSS回退关键字、动画、复杂资源值及未知条件不做推测删除。清空的普通规则一并删除，保留keyframes/layer等有独立语义的at-rule。
 - renderAbout从9个声明/赋值实现降为1个入口；最终关于信息、指南和百科渲染由ui/about-view.js持有，规则描述/技巧数据留在原数据模块。删除旧捕获链，而不是再新增外层包装。
 - 其他JS已全量静态复查：renderAll/renderGrid/saveState/useItem当前各一个定义。捕获兼容别名60→53；其余不能因V命名判死。具体位置见audit/JS_OVERRIDE_INVENTORY_3.0.65.md。

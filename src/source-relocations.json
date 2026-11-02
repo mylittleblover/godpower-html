@@ -1,3 +1,5 @@
 {
-  "runtime/ui/about-copy.js": "ui/about-view.js"
+  "runtime/ui/about-copy.js": "ui/about-view.js",
+  "ui/welcome-v2.js": "ui/welcome-dashboard.js",
+  "ui/welcome-v2.css": "ui/welcome-dashboard.css"
 }
