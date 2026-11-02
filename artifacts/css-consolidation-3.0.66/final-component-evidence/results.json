@@ -1,0 +1,98 @@
+{
+  "evidence": {
+    "catalog": {
+      "components": 93,
+      "styles": 738,
+      "animations": 105,
+      "tokens": 266,
+      "mode": "components",
+      "selected": "buttons",
+      "previewActive": true,
+      "closedShadow": true
+    },
+    "classic": {
+      "native": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(15, 118, 110)",
+        "border": "rgb(15, 118, 110)",
+        "radius": "999px",
+        "opacity": "1"
+      },
+      "compat": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(15, 118, 110)",
+        "border": "rgb(15, 118, 110)",
+        "radius": "999px",
+        "opacity": "1"
+      },
+      "nativeDisabled": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(236, 247, 245)",
+        "border": "rgb(175, 201, 195)",
+        "radius": "999px",
+        "opacity": "0.5"
+      },
+      "compatDisabled": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(236, 247, 245)",
+        "border": "rgb(175, 201, 195)",
+        "radius": "999px",
+        "opacity": "0.5"
+      },
+      "hiddenOpacity": "0",
+      "shadowOpen": false
+    },
+    "marx": {
+      "native": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(169, 30, 44)",
+        "border": "rgb(169, 30, 44)",
+        "radius": "999px",
+        "opacity": "1"
+      },
+      "compat": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(169, 30, 44)",
+        "border": "rgb(169, 30, 44)",
+        "radius": "999px",
+        "opacity": "1"
+      },
+      "nativeDisabled": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(249, 234, 230)",
+        "border": "rgb(197, 157, 142)",
+        "radius": "999px",
+        "opacity": "0.5"
+      },
+      "compatDisabled": {
+        "width": 54,
+        "height": 30,
+        "background": "rgb(249, 234, 230)",
+        "border": "rgb(197, 157, 142)",
+        "radius": "999px",
+        "opacity": "0.5"
+      },
+      "hiddenOpacity": "0",
+      "shadowOpen": false
+    },
+    "safety": {
+      "scripts": 0,
+      "events": 0,
+      "password": "",
+      "inert": true,
+      "triggered": false
+    },
+    "buttons": {
+      "background": "rgb(169, 30, 44)",
+      "expected": "rgb(169, 30, 44)"
+    }
+  },
+  "errors": []
+}

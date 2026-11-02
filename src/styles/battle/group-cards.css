@@ -13,16 +13,12 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  position: relative;
   overflow: visible; /* 关键：确保下拉菜单不被卡片边框切断 */
   min-width: 0; /* 关键：阻止内部内容把整列卡片撑宽 */
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
     border-color 0.4s ease;
-}
-.group-row-card.menu-active {
-  z-index: 120; /* 弹出菜单时提升层级，防止被下方卡片遮挡 */
 }
 
 .group-row-card.anim-win {
@@ -112,76 +108,6 @@
   gap: 10px;
 }
 
-.header-name-col {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: flex-end;
-}
-
-.name-input {
-  border: 1px solid transparent;
-  padding: 2px 4px;
-  font-size: 15px;
-  font-weight: 800;
-  width: 100%;
-  max-width: 240px;
-  border-radius: 4px;
-  background: transparent;
-  color: #1e293b;
-  text-align: left;
-}
-.name-input:not([readonly]):hover,
-.name-input:not([readonly]):focus {
-  border-color: #cbd5e1;
-  background: #f8fafc;
-}
-
-.header-meta-col {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.member-count-tag {
-  font-size: 11px;
-  color: #64748b;
-  background: #f1f5f9;
-  padding: 2px 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  line-height: 1.3;
-}
-.member-count-tag:hover {
-  color: #0284c7;
-}
-
-.color-picker {
-  width: 18px;
-  height: 18px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: none;
-  margin-bottom: 1px;
-}
-
-.del-btn {
-  border: none;
-  background: none;
-  color: #94a3b8;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: bold;
-  line-height: 1;
-  padding: 0 2px;
-}
-.del-btn:hover {
-  color: #e11d48;
-}
-
 /* 操作行强制单行展示，杜绝任何换行挤压 */
 .card-action-row {
   display: flex;
@@ -190,14 +116,6 @@
   width: 100%;
   gap: 6px;
   flex-wrap: nowrap;
-  min-width: 0;
-}
-
-.action-score-col {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  flex: 1;
   min-width: 0;
 }
 
@@ -251,13 +169,9 @@
   width: 29px;
   height: 29px;
   text-align: center;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  background: #ffffff;
   cursor: pointer;
   font-weight: 800;
   font-size: 13px;
-  color: #64748b;
   transition: all 0.15s;
   display: flex;
   align-items: center;
@@ -269,25 +183,11 @@
   color: #fff;
   border-color: #475569;
 }
-.opt-btn.correct {
-  background: #16a34a !important;
-  color: #fff !important;
-  border-color: #16a34a !important;
-}
-.opt-btn.wrong {
-  background: #dc2626 !important;
-  color: #fff !important;
-  border-color: #dc2626 !important;
-}
 
 .allin-toggle-btn {
   width: 68px;
   height: 29px;
   padding: 0;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #64748b;
   font-weight: 800;
   font-size: 12px;
   cursor: pointer;
@@ -298,35 +198,10 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.allin-toggle-btn.active {
-  background: #dc2626;
-  border-color: #b91c1c;
-  color: #ffffff;
-  box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
-}
-
-.result-msg-box {
-  text-align: center;
-  flex-shrink: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 12px;
-  font-weight: 700;
-  color: #475569;
-  max-width: 66px;
-}
-.result-msg-box:empty {
-  display: none;
-}
 
 .more-btn {
   width: 29px;
   height: 29px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #475569;
   font-size: 14px;
   font-weight: 900;
   cursor: pointer;

@@ -1,3 +1,5 @@
+> V3.0.66 CSS治理：统一样式目录、清除已证明冗余与旧界面样式。[开发须知](DEVELOPMENT.md) · [本轮验证](docs/validation/CSS_CONSOLIDATION_3.0.66.md)。
+
 > V3.0.65：样式语义化治理（152类/44动效）、77条覆盖声明删除、关于/百科单一渲染入口。[实际验收与限制](docs/validation/SEMANTIC_STYLE_GOVERNANCE_3.0.65.md) · [剩余JS覆盖清单](docs/audit/JS_OVERRIDE_INVENTORY_3.0.65.md)。
 
 > V3.0.61：新增现行 UI 组件库（设置 → 外观与界面 → 界面维护参考），统一开关样式，修复道具发放重复计数和撤销后过期回调。[本轮审查](docs/audit/POST_CLEANUP_CODE_REVIEW_3.0.61.md) · [下载](https://drive.google.com/drive/folders/1Y3h3rt3-L8xOqgdF1ISg4sBkq8IG9NT5)。

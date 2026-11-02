@@ -1,8 +1,5 @@
 /* ===== V2.17.30：道具分数动画不重复、不挤布局 ===== */
-.action-score-col {
-  position: relative !important;
-  overflow: visible !important;
-}
+
 .row-score {
   position: relative !important;
   overflow: visible !important;

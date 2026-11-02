@@ -1,13 +1,7 @@
 .group-list[data-column-mode="single"] .group-row-card {
   position: relative !important;
 }
-.group-list[data-column-mode="single"] .group-row-card .action-score-col {
-  right: 18px !important;
-  top: 48px !important;
-  display: flex !important;
-  z-index: 5 !important;
-  pointer-events: auto !important;
-}
+
 .group-list[data-column-mode="single"] .group-row-card .row-score {
   display: block !important;
   width: auto !important;
@@ -15,9 +9,7 @@
   opacity: 1 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) !important;
 }
-.group-list[data-column-mode="single"] .group-row-card .score-input {
-  width: min(180px, 100%) !important;
-}
+
 .group-list[data-column-mode="single"] .group-row-card .card-action-row {
   position: relative !important;
 }
@@ -27,12 +19,6 @@
 }
 /* 极窄设备上将分数放到道具槽右侧，仍不增加卡片高度 */
 @media (max-width: 520px) {
-  .group-list[data-column-mode="single"] .group-row-card .action-score-col {
-    right: 12px !important;
-    top: 50px !important;
-    width: 38% !important;
-    max-width: 38% !important;
-  }
   .group-list[data-column-mode="single"] .group-row-card .row-score {
     font-size: clamp(22px, 7vw, 30px) !important;
   }
@@ -90,17 +76,9 @@
   min-width: 7.2ch !important;
   font-variant-numeric: tabular-nums !important;
 }
-.group-row-card .action-score-col {
-  min-width: 8.2ch !important;
-}
 
 /* 多列卡片为右侧按钮保留空间，同时确保 7 位数字区域。 */
-.group-list:not([data-column-mode="single"]) .group-row-card .action-score-col {
-  flex: 0 1 9.2ch !important;
-  width: 9.2ch !important;
-  max-width: 9.2ch !important;
-  min-width: 8.2ch !important;
-}
+
 .group-list:not([data-column-mode="single"]) .group-row-card .row-score {
   width: 100% !important;
   max-width: 100% !important;
@@ -108,8 +86,6 @@
 }
 
 /* 单栏模式空间充足，至少给 7 位数约 10ch 的显示区。 */
-
-
 
 /* 7 位数在常见横屏 4 列下也保持完整。 */
 @media (orientation: landscape) and (min-width: 700px) {
@@ -120,9 +96,6 @@
 
 /* 很窄的竖屏才允许进一步缩小，但仍优先保住 7 位。 */
 @media (max-width: 520px) {
-  .group-row-card .action-score-col {
-    min-width: 7.8ch !important;
-  }
   .group-row-card .row-score {
     min-width: 7ch !important;
     font-size: clamp(16px, 6vw, 25px) !important;
@@ -148,28 +121,9 @@
   margin: 0 !important;
   align-items: center !important;
 }
-.group-list[data-column-mode="single"] .group-row-card .header-name-col {
-  min-width: 0 !important;
-}
-.group-list[data-column-mode="single"] .group-row-card .name-input {
-  font-size: 21px !important;
-  line-height: 1.1 !important;
-  font-weight: 950 !important;
-  padding: 0 2px !important;
-  height: 29px !important;
-}
-.group-list[data-column-mode="single"] .group-row-card .header-meta-col {
-  font-size: 14px !important;
-}
 
 /* 道具槽紧凑排列，不再把卡片中间撑出一大片空白 */
-.group-list[data-column-mode="single"] .group-row-card .item-row,
-.group-list[data-column-mode="single"] .group-row-card .item-slots-row,
-.group-list[data-column-mode="single"] .group-row-card .inventory-row {
-  min-height: 34px !important;
-  margin: 0 !important;
-  align-items: center !important;
-}
+
 .group-list[data-column-mode="single"] .group-row-card .item-slot {
   width: 34px !important;
   height: 34px !important;
@@ -188,16 +142,7 @@
   min-height: 40px !important;
   margin-top: 0 !important;
 }
-.group-list[data-column-mode="single"] .group-row-card .action-score-col {
-  position: static !important;
-  flex: 1 1 auto !important;
-  width: auto !important;
-  max-width: none !important;
-  min-width: 8.4ch !important;
-  overflow: hidden !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
-}
+
 .group-list[data-column-mode="single"] .group-row-card .row-score {
   min-width: 0 !important;
   max-width: 100% !important;
@@ -251,9 +196,7 @@
     justify-content: flex-end !important;
     gap: 4px !important;
   }
-  .group-list[data-column-mode="single"] .group-row-card .name-input {
-    font-size: 20px !important;
-  }
+
   .group-list[data-column-mode="single"] .group-row-card .row-score {
     font-size: 29px !important;
   }
@@ -265,10 +208,7 @@
     padding: 9px 12px 8px !important;
     row-gap: 5px !important;
   }
-  .group-list[data-column-mode="single"] .group-row-card .name-input {
-    font-size: 19px !important;
-    height: 26px !important;
-  }
+
   .group-list[data-column-mode="single"] .group-row-card .row-score {
     font-size: 28px !important;
   }
@@ -303,13 +243,7 @@
   padding-bottom: 3px !important;
   margin: 0 !important;
 }
-#groupList.group-list[data-column-mode="single"] > .group-row-card .name-input {
-  font-size: 22px !important;
-  line-height: 1.05 !important;
-  height: 30px !important;
-  font-weight: 950 !important;
-  max-width: 320px !important;
-}
+
 #groupList.group-list[data-column-mode="single"] > .group-row-card .item-slots {
   min-height: 32px !important;
   height: 32px !important;
@@ -335,17 +269,7 @@
   gap: 8px !important;
   margin: 0 !important;
 }
-#groupList.group-list[data-column-mode="single"]
-  > .group-row-card
-  .action-score-col {
-  position: static !important;
-  flex: 1 1 auto !important;
-  width: auto !important;
-  min-width: 8.2ch !important;
-  max-width: none !important;
-  overflow: hidden !important;
-  justify-content: flex-start !important;
-}
+
 #groupList.group-list[data-column-mode="single"] > .group-row-card .row-score {
   font-size: 34px !important;
   line-height: 1 !important;
@@ -376,12 +300,7 @@
     padding: 9px 10px 8px !important;
     gap: 5px !important;
   }
-  #groupList.group-list[data-column-mode="single"]
-    > .group-row-card
-    .name-input {
-    font-size: 21px !important;
-    height: 28px !important;
-  }
+
   #groupList.group-list[data-column-mode="single"]
     > .group-row-card
     .row-score {
@@ -407,22 +326,6 @@
 .group-row-card.effect-mega {
   animation: none !important;
   border-color: #f97316 !important;
-}
-@keyframes megaOrangeGlow {
-  from {
-    box-shadow:
-      0 0 0 3px rgba(249, 115, 22, 0.82),
-      0 0 14px rgba(249, 115, 22, 0.58),
-      0 8px 22px rgba(249, 115, 22, 0.22);
-    filter: brightness(1.02);
-  }
-  to {
-    box-shadow:
-      0 0 0 4px rgba(251, 146, 60, 0.98),
-      0 0 30px rgba(249, 115, 22, 0.92),
-      0 10px 32px rgba(249, 115, 22, 0.34);
-    filter: brightness(1.08);
-  }
 }
 
 /* ===== V2.11.4：作答选中 / All In 可读性 + 冰冻蓝色发光 ===== */
@@ -466,22 +369,6 @@
 /* 冰之花冻结：冻结期间整张小组卡片持续蓝色脉冲发光。 */
 .group-row-card.effect-ice {
   animation: none !important;
-}
-@keyframes iceLockBlueGlow {
-  from {
-    box-shadow:
-      0 0 0 3px rgba(56, 189, 248, 0.72),
-      0 0 14px rgba(56, 189, 248, 0.48),
-      0 7px 20px rgba(14, 116, 144, 0.18) !important;
-    filter: brightness(1.02) saturate(1.04);
-  }
-  to {
-    box-shadow:
-      0 0 0 4px rgba(125, 211, 252, 0.98),
-      0 0 30px rgba(14, 165, 233, 0.86),
-      0 9px 30px rgba(2, 132, 199, 0.3) !important;
-    filter: brightness(1.08) saturate(1.12);
-  }
 }
 
 /* ===== V2.11.6：不同攻击拥有不同受击动画 ===== */

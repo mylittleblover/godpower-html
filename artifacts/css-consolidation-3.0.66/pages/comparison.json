@@ -1,0 +1,1369 @@
+{
+  "results": {
+    "before": {
+      "classic/welcome": [
+        {
+          "selector": ".gp-hero",
+          "box": [
+            274,
+            83,
+            1372,
+            262.02
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "display": "flex",
+          "gap": "26px",
+          "padding": "32px 38px",
+          "border": "21px"
+        }
+      ],
+      "classic/battle": [
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": ".bottom-dock",
+          "box": [
+            0,
+            1013,
+            1920,
+            67
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "8px",
+          "padding": "8px 12px",
+          "border": "0px"
+        }
+      ],
+      "classic/history": [
+        {
+          "selector": "#view-history",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(24, 62, 57)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "classic/archives": [
+        {
+          "selector": "#view-archives",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(24, 62, 57)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "classic/settings": [
+        {
+          "selector": "#view-settings",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-shell",
+          "box": [
+            24,
+            244,
+            1872,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(23, 48, 45)",
+          "display": "grid",
+          "gap": "24px",
+          "padding": "0px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-nav",
+          "box": [
+            24,
+            244,
+            220,
+            794
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "6px",
+          "padding": "14px",
+          "border": "16px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-body",
+          "box": [
+            268,
+            244,
+            1628,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(23, 48, 45)",
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px 0px 24px",
+          "border": "0px"
+        }
+      ],
+      "marx/welcome": [
+        {
+          "selector": ".gp-hero",
+          "box": [
+            274,
+            83,
+            1372,
+            262.02
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "display": "flex",
+          "gap": "26px",
+          "padding": "32px 38px",
+          "border": "21px"
+        }
+      ],
+      "marx/battle": [
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": ".bottom-dock",
+          "box": [
+            0,
+            1013,
+            1920,
+            67
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "8px",
+          "padding": "8px 12px",
+          "border": "0px"
+        }
+      ],
+      "marx/history": [
+        {
+          "selector": "#view-history",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(62, 24, 27)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "marx/archives": [
+        {
+          "selector": "#view-archives",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(62, 24, 27)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "marx/settings": [
+        {
+          "selector": "#view-settings",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-shell",
+          "box": [
+            24,
+            244,
+            1872,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(56, 38, 36)",
+          "display": "grid",
+          "gap": "24px",
+          "padding": "0px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-nav",
+          "box": [
+            24,
+            244,
+            220,
+            794
+          ],
+          "background": "rgb(255, 253, 250)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "6px",
+          "padding": "14px",
+          "border": "16px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-body",
+          "box": [
+            268,
+            244,
+            1628,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(56, 38, 36)",
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px 0px 24px",
+          "border": "0px"
+        }
+      ]
+    },
+    "after": {
+      "classic/welcome": [
+        {
+          "selector": ".gp-hero",
+          "box": [
+            274,
+            83,
+            1372,
+            262.02
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "display": "flex",
+          "gap": "26px",
+          "padding": "32px 38px",
+          "border": "21px"
+        }
+      ],
+      "classic/battle": [
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": ".bottom-dock",
+          "box": [
+            0,
+            1013,
+            1920,
+            67
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "8px",
+          "padding": "8px 12px",
+          "border": "0px"
+        }
+      ],
+      "classic/history": [
+        {
+          "selector": "#view-history",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(24, 62, 57)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "classic/archives": [
+        {
+          "selector": "#view-archives",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(24, 62, 57)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "classic/settings": [
+        {
+          "selector": "#view-settings",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(243, 247, 246)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-shell",
+          "box": [
+            24,
+            244,
+            1872,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(23, 48, 45)",
+          "display": "grid",
+          "gap": "24px",
+          "padding": "0px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-nav",
+          "box": [
+            24,
+            244,
+            220,
+            794
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(23, 48, 45)",
+          "display": "flex",
+          "gap": "6px",
+          "padding": "14px",
+          "border": "16px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-body",
+          "box": [
+            268,
+            244,
+            1628,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(23, 48, 45)",
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px 0px 24px",
+          "border": "0px"
+        }
+      ],
+      "marx/welcome": [
+        {
+          "selector": ".gp-hero",
+          "box": [
+            274,
+            83,
+            1372,
+            262.02
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(255, 255, 255)",
+          "display": "flex",
+          "gap": "26px",
+          "padding": "32px 38px",
+          "border": "21px"
+        }
+      ],
+      "marx/battle": [
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            73,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            191.84,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            966,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            1441,
+            310.69,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            16,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": "#groupList > .group-row-card",
+          "box": [
+            491,
+            429.53,
+            463,
+            106.84
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "5px",
+          "padding": "7px 9px",
+          "border": "14px"
+        },
+        {
+          "selector": ".bottom-dock",
+          "box": [
+            0,
+            1013,
+            1920,
+            67
+          ],
+          "background": "rgb(255, 255, 255)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "8px",
+          "padding": "8px 12px",
+          "border": "0px"
+        }
+      ],
+      "marx/history": [
+        {
+          "selector": "#view-history",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(62, 24, 27)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "marx/archives": [
+        {
+          "selector": "#view-archives",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(62, 24, 27)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        }
+      ],
+      "marx/settings": [
+        {
+          "selector": "#view-settings",
+          "box": [
+            0,
+            59,
+            1920,
+            1021
+          ],
+          "background": "rgb(250, 246, 241)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "0px",
+          "padding": "24px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-shell",
+          "box": [
+            24,
+            244,
+            1872,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(56, 38, 36)",
+          "display": "grid",
+          "gap": "24px",
+          "padding": "0px",
+          "border": "0px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-nav",
+          "box": [
+            24,
+            244,
+            220,
+            794
+          ],
+          "background": "rgb(255, 253, 250)",
+          "color": "rgb(56, 38, 36)",
+          "display": "flex",
+          "gap": "6px",
+          "padding": "14px",
+          "border": "16px"
+        },
+        {
+          "selector": "#view-settings .ui-settings-body",
+          "box": [
+            268,
+            244,
+            1628,
+            794
+          ],
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(56, 38, 36)",
+          "display": "block",
+          "gap": "normal",
+          "padding": "0px 0px 24px",
+          "border": "0px"
+        }
+      ]
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,4 @@
+src/ui/component-catalog.js 202ms
+tests/unit/source-maintenance.test.mjs 23ms
+tests/integration/css-consolidation.test.mjs 59ms
+scripts/style-retirement-evidence.mjs 10ms (unchanged)

@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+'0.5' !== '0'
+
+    at file:///workspace/godpower-html-electron-020/tests/e2e/component-library.mjs:108:12 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '0.5',
+  expected: '0',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

@@ -135,11 +135,21 @@ export function scanDeclarations(body) {
 
 // Empty ordinary rules have no cascade effect. Keep keyframes, layers and other
 // at-rules intact; their presence/order can itself be meaningful.
-export function removeEmptyStyleRules(source) {
+export function removeEmptyStyleRules(
+  source,
+  { dropEmptyConditions = false } = {},
+) {
   let result = source;
   for (const rule of scanCssBlocks(source).toReversed()) {
     if (/^@(media|supports|container)\b/.test(rule.prelude)) {
-      const body = removeEmptyStyleRules(rule.body);
+      const body = removeEmptyStyleRules(rule.body, { dropEmptyConditions });
+      if (
+        dropEmptyConditions &&
+        !body.replace(/\/\*[\s\S]*?\*\//g, "").trim()
+      ) {
+        result = result.slice(0, rule.start) + result.slice(rule.end);
+        continue;
+      }
       result =
         result.slice(0, rule.open + 1) + body + result.slice(rule.end - 1);
     } else if (!rule.prelude.startsWith("@") && !rule.body.trim()) {
@@ -147,4 +157,45 @@ export function removeEmptyStyleRules(source) {
     }
   }
   return result;
+}
+
+// Only classes outside functional pseudo arguments and attributes are mandatory
+// for this selector branch. Never treat :not(.old) or :is(.old,.live) as dead DOM.
+export function mandatorySelectorClasses(selector) {
+  const classes = new Set();
+  let quote = null,
+    parens = 0,
+    brackets = 0;
+  for (let i = 0; i < selector.length; i++) {
+    const ch = selector[i];
+    if (quote) {
+      if (ch === "\\") i++;
+      else if (ch === quote) quote = null;
+      continue;
+    }
+    if (ch === "\\") {
+      i++;
+      continue;
+    }
+    if (ch === '"' || ch === "'") {
+      quote = ch;
+      continue;
+    }
+    if (selector.startsWith("/*", i)) {
+      const end = selector.indexOf("*/", i + 2);
+      if (end < 0) break;
+      i = end + 1;
+      continue;
+    }
+    if (ch === "(") parens++;
+    else if (ch === ")") parens--;
+    else if (ch === "[") brackets++;
+    else if (ch === "]") brackets--;
+    else if (ch === "." && !parens && !brackets) {
+      const match = selector.slice(i + 1).match(/^[a-zA-Z_][\w-]*/);
+      if (match && selector[i + 1 + match[0].length] !== "\\")
+        classes.add(match[0]);
+    }
+  }
+  return [...classes];
 }

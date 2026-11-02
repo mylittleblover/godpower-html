@@ -1,0 +1,13 @@
+{
+  "path": "src/styles/items/catalog-and-management.css",
+  "sourceHash": "1b156ef2713703adcbd594d2fa9b9bb792b0802738e5663f43a82b85d3fc4068",
+  "edits": [
+    {
+      "start": 3047,
+      "end": 3087,
+      "original": "body.items-disabled #itemWindowTabItems,",
+      "replacement": "",
+      "id": "itemWindowTabItems"
+    }
+  ]
+}

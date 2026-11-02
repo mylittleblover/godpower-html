@@ -1,0 +1,75 @@
+{
+  "removed": [
+    {
+      "name": "itemMega",
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 9905,
+      "end": 10082,
+      "text": "@keyframes itemMega {\n  from {\n    box-shadow:\n      0 0 0 4px #ef4444,\n      0 0 18px #ef4444;\n  }\n  to {\n    box-shadow:\n      0 0 0 4px #facc15,\n      0 0 26px #facc15;\n  }\n}"
+    },
+    {
+      "name": "rouletteRevealRing",
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "start": 12070,
+      "end": 12246,
+      "text": "@keyframes rouletteRevealRing {\n  from {\n    transform: scale(0.7);\n    opacity: 0.4;\n  }\n  55% {\n    opacity: 1;\n  }\n  to {\n    transform: scale(1.25);\n    opacity: 0.1;\n  }\n}"
+    },
+    {
+      "name": "handCapsulePulse",
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "start": 6962,
+      "end": 7160,
+      "text": "@keyframes handCapsulePulse {\n  from {\n    transform: scale(0.96) rotate(-2deg);\n    filter: brightness(0.95);\n  }\n  to {\n    transform: scale(1.04) rotate(2deg);\n    filter: brightness(1.12);\n  }\n}"
+    },
+    {
+      "name": "iceLockBlueGlow",
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 13767,
+      "end": 14216,
+      "text": "@keyframes iceLockBlueGlow {\n  from {\n    box-shadow:\n      0 0 0 3px rgba(56, 189, 248, 0.72),\n      0 0 14px rgba(56, 189, 248, 0.48),\n      0 7px 20px rgba(14, 116, 144, 0.18) !important;\n    filter: brightness(1.02) saturate(1.04);\n  }\n  to {\n    box-shadow:\n      0 0 0 4px rgba(125, 211, 252, 0.98),\n      0 0 30px rgba(14, 165, 233, 0.86),\n      0 9px 30px rgba(2, 132, 199, 0.3) !important;\n    filter: brightness(1.08) saturate(1.12);\n  }\n}"
+    },
+    {
+      "name": "megaOrangeGlow",
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 12187,
+      "end": 12585,
+      "text": "@keyframes megaOrangeGlow {\n  from {\n    box-shadow:\n      0 0 0 3px rgba(249, 115, 22, 0.82),\n      0 0 14px rgba(249, 115, 22, 0.58),\n      0 8px 22px rgba(249, 115, 22, 0.22);\n    filter: brightness(1.02);\n  }\n  to {\n    box-shadow:\n      0 0 0 4px rgba(251, 146, 60, 0.98),\n      0 0 30px rgba(249, 115, 22, 0.92),\n      0 10px 32px rgba(249, 115, 22, 0.34);\n    filter: brightness(1.08);\n  }\n}"
+    },
+    {
+      "name": "iceAura",
+      "path": "src/styles/items/catalog-and-card-compat.css",
+      "start": 9703,
+      "end": 9865,
+      "text": "@keyframes iceAura {\n  from {\n    opacity: 0.55;\n  }\n  to {\n    opacity: 1;\n    box-shadow:\n      0 0 17px #38bdf8,\n      0 0 28px rgba(14, 165, 233, 0.68);\n  }\n}"
+    },
+    {
+      "name": "powerAura",
+      "path": "src/styles/items/catalog-and-card-compat.css",
+      "start": 9538,
+      "end": 9702,
+      "text": "@keyframes powerAura {\n  from {\n    opacity: 0.65;\n  }\n  to {\n    opacity: 1;\n    box-shadow:\n      0 0 18px #fde047,\n      0 0 30px rgba(250, 204, 21, 0.72);\n  }\n}"
+    },
+    {
+      "name": "megaAura",
+      "path": "src/styles/items/catalog-and-card-compat.css",
+      "start": 9294,
+      "end": 9537,
+      "text": "@keyframes megaAura {\n  from {\n    opacity: 0.72;\n    box-shadow:\n      0 0 9px #f97316,\n      0 0 18px rgba(249, 115, 22, 0.42);\n  }\n  to {\n    opacity: 1;\n    box-shadow:\n      0 0 17px #fb923c,\n      0 0 31px rgba(251, 146, 60, 0.72);\n  }\n}"
+    },
+    {
+      "name": "starAura",
+      "path": "src/styles/items/catalog-and-card-compat.css",
+      "start": 8948,
+      "end": 9293,
+      "text": "@keyframes starAura {\n  0% {\n    filter: hue-rotate(0deg);\n    box-shadow:\n      0 0 12px #ff3b30,\n      0 0 24px #ff3b30;\n  }\n  50% {\n    filter: hue-rotate(180deg);\n    box-shadow:\n      0 0 15px #34c759,\n      0 0 30px #0a84ff;\n  }\n  100% {\n    filter: hue-rotate(360deg);\n    box-shadow:\n      0 0 12px #bf5af2,\n      0 0 24px #ff375f;\n  }\n}"
+    },
+    {
+      "name": "gp-nav-reveal",
+      "path": "src/ui/welcome-dashboard.css",
+      "start": 21518,
+      "end": 21602,
+      "text": "@keyframes gp-nav-reveal {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}"
+    }
+  ],
+  "scope": "all manifest CSS and JS, excluding generated preview catalog; dynamic CSS named animation use reviewed separately"
+}

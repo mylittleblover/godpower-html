@@ -1,0 +1,13 @@
+{
+  "target": "src/styles/items/draw-layout.css",
+  "sources": [
+    "src/styles/items/draw-clipping.css",
+    "src/styles/items/roulette-position.css"
+  ],
+  "prefix": "/* Item draw layout owner: clipping, compact overlay geometry and logical positioning.\n   Keep card geometry and animation layers independent of the business result. */\n",
+  "separator": "\n/* Logical insets restore the center after resetting inherited physical insets. */\n",
+  "stripBefore": [
+    "body.modern-flat #groupList",
+    "body.modern-flat .group-row-card.item-draw-spinning"
+  ]
+}

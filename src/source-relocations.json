@@ -1,5 +1,25 @@
 {
   "runtime/ui/about-copy.js": "ui/about-view.js",
   "ui/welcome-v2.js": "ui/welcome-dashboard.js",
-  "ui/welcome-v2.css": "ui/welcome-dashboard.css"
+  "ui/welcome-v2.css": "ui/welcome-dashboard.css",
+  "styles/items/draw-clipping.css": "styles/items/draw-layout.css",
+  "styles/items/roulette-position.css": "styles/items/draw-layout.css",
+  "ui/classroom-feedback.css": "styles/feedback/classroom-effects.css",
+  "ui/item-score-cinematics.css": "styles/feedback/item-score-cinematics.css",
+  "ui/application-surfaces.css": "styles/components/application-surfaces.css",
+  "ui/teaching-workspace.css": "styles/teaching/workspace.css",
+  "ui/themes.css": "styles/themes/tokens-and-presets.css",
+  "ui/home-dashboard.css": "styles/home/dashboard-layout.css",
+  "ui/roster-workspace.css": "styles/classroom/roster-workspace.css",
+  "ui/battle-motion.css": "styles/battle/motion.css",
+  "ui/item-modules.css": "styles/settings/item-modules.css",
+  "ui/tooltips.css": "styles/components/tooltips.css",
+  "ui/component-library.css": "styles/settings/component-library.css",
+  "ui/welcome-dashboard.css": "styles/home/welcome.css",
+  "ui/desktop.css": "styles/components/desktop-shell.css",
+  "styles/ui/defense-notices.css": "styles/feedback/defense-notices.css",
+  "styles/ui/dock-tooltips.css": "styles/shell/dock-tooltips.css",
+  "styles/ui/readability-and-effect-layers.css": "styles/components/readability-and-layers.css",
+  "styles/ui/flat-controls-and-scrolling.css": "styles/components/controls-and-scrolling.css",
+  "styles/themes/flat-foundation.css": "styles/base/desktop-foundation.css"
 }

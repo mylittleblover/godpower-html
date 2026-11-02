@@ -36,7 +36,6 @@
   opacity: 0.72;
 }
 .card-item-roulette:before {
-  left: clamp(8px, 4vw, 32px) !important;
   width: clamp(130px, 34vw, 170px) !important;
   height: clamp(130px, 34vw, 170px) !important;
 }

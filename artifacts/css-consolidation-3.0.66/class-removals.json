@@ -1,0 +1,2165 @@
+{
+  "baseline": "fc81d1f",
+  "before": 849,
+  "after": 738,
+  "removed": [
+    {
+      "name": "about-head",
+      "sources": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/inventory-and-roulette.css",
+          "selectors": [
+            ".about-head"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .about-head"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "about-side-title",
+      "sources": [
+        "src/ui/application-surfaces.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/application-surfaces.css",
+          "selectors": [
+            ".ui-function-surface :is(.item-side-title, .about-side-title)"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "about-tabs",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .about-tabs"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "action-score-col",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css",
+        "src/styles/battle/score-feedback.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-row-card .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-row-card .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            "#groupList.group-list[data-column-mode=\"single\"]\n  > .group-row-card\n  .action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-feedback.css",
+          "selectors": [
+            ".action-score-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list:not([data-column-mode=\"single\"]) .group-row-card .action-score-col"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "answer-zone",
+      "sources": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/items/draw-clipping.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/inventory-and-roulette.css",
+          "selectors": [
+            ".group-row-card.item-draw-spinning .answer-zone"
+          ]
+        },
+        {
+          "path": "src/styles/items/draw-layout.css",
+          "selectors": [
+            "body.modern-flat\n  .group-row-card.item-draw-spinning:not(.bm-draw-fading)\n  .answer-zone"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "archive-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .archive-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "battle-metrics-row",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".battle-metrics-row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "card-fx-layer",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            "body[data-item-fx=\"off\"] .card-fx-layer"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chart-container",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".chart-container"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .chart-container"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chart-wrapper",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".chart-wrapper"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "sources": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".color-picker"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "component-library-token",
+      "sources": [
+        "src/ui/component-library.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/component-library.css",
+          "selectors": [
+            ".component-library-token"
+          ]
+        },
+        {
+          "path": "src/ui/component-library.css",
+          "selectors": [
+            ".component-library-token code"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "component-library-tokens",
+      "sources": [
+        "src/ui/component-library.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/component-library.css",
+          "selectors": [
+            ".component-library-tokens"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "copy-kicker",
+      "sources": [
+        "src/styles/ui/interface-copy.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/ui/interface-copy.css",
+          "selectors": [
+            ".copy-kicker"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dashboard-card-title",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".dashboard-card-title"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .dashboard-card-title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dashboard-summary-container",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".dashboard-summary-container"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .dashboard-summary-container"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "del-btn",
+      "sources": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".del-btn"
+          ]
+        },
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".del-btn:hover"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "draw-name",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card .draw-name"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "expanded",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-node.expanded .hist-compare"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "full",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card.full"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fullview-body",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".fullview-body"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .fullview-body"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fullview-header",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".fullview-header"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".fullview-header h2"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .fullview-header"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fx-bundle-copy",
+      "sources": [
+        "src/styles/audio/fx-transfer.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-copy"
+          ]
+        },
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-copy b"
+          ]
+        },
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-copy span"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fx-bundle-toolbar",
+      "sources": [
+        "src/styles/audio/fx-transfer.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-toolbar"
+          ]
+        },
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-toolbar .btn"
+          ]
+        },
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-toolbar"
+          ]
+        },
+        {
+          "path": "src/styles/audio/fx-transfer.css",
+          "selectors": [
+            ".fx-bundle-toolbar .btn"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "group-control-tabs",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".group-control-tabs"
+          ]
+        },
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".group-control-tabs button"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "group-control-window",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".group-control-window"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "group-modal-window",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".group-modal-window"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hand-window",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .hand-window"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "header-meta-col",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".header-meta-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .header-meta-col"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "header-name-col",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".header-name-col"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .header-name-col"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-actions",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-actions"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-card",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-card"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-card:hover"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .hist-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-card-top",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-card-top"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-compare",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-compare"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-node.expanded .hist-compare"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-compare-table",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-compare-table"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-compare-table th",
+            ".hist-compare-table td"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-compare-table th"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-delta-neg",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-delta-neg"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-delta-pos",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-delta-pos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-delta-zero",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-delta-zero"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-desc",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-desc"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hist-time",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".hist-time"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "history-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .history-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "history-item",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".history-item"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .history-item"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "icon-setting-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .icon-setting-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inventory-row",
+      "sources": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .inventory-row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-bar",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            "body.items-disabled .item-bar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-draw-board",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-board"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-draw-board"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-draw-board"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-draw-board"
+          ]
+        },
+        {
+          "path": "src/ui/application-surfaces.css",
+          "selectors": [
+            ".item-draw-board"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-draw-card",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card .roulette"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card .draw-name"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card.full"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card.reveal"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-draw-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-draw-grid",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-grid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-draw-overlay",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-overlay"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-overlay.active"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-draw-overlay"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-draw-title",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-encyclopedia-icon",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".item-encyclopedia-icon img"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-feature-only",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            "body.items-disabled .item-feature-only"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-inventory",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            "body.items-disabled .item-inventory"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-members",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-members"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-members"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-row",
+      "sources": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .item-row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-rule",
+      "sources": [
+        "src/styles/items/group-rule-copy.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/group-rule-copy.css",
+          "selectors": [
+            ".item-rule"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-sidebar",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-sidebar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-slots-row",
+      "sources": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .item-slots-row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-tabs",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .item-tabs"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-window-body",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".item-window-body"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "item-window-tabs",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".item-window-tabs"
+          ]
+        },
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            ".item-window-tabs button"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "legacy-settings-tabbar",
+      "sources": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/catalog-and-management.css",
+          "selectors": [
+            "#view-settings .legacy-settings-tabbar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "member-count-tag",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".member-count-tag"
+          ]
+        },
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".member-count-tag:hover"
+          ]
+        },
+        {
+          "path": "src/ui/application-surfaces.css",
+          "selectors": [
+            "#groupList .member-count-tag"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "member-search-fab",
+      "sources": [
+        "src/styles/dialogs/score-and-member-search.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/score-and-member-search.css",
+          "selectors": [
+            ".member-search-fab"
+          ]
+        },
+        {
+          "path": "src/styles/dialogs/score-and-member-search.css",
+          "selectors": [
+            ".member-search-fab:hover"
+          ]
+        },
+        {
+          "path": "src/styles/dialogs/score-and-member-search.css",
+          "selectors": [
+            ".member-search-fab:active"
+          ]
+        },
+        {
+          "path": "src/styles/dialogs/score-and-member-search.css",
+          "selectors": [
+            ".member-search-fab"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "menu-active",
+      "sources": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".group-row-card.menu-active"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "metric-box",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".metric-box"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-extra-metrics .metric-box"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .metric-box"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "metric-label",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".metric-label"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .metric-label"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "metric-value",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".metric-value"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "name-input",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            "#groupList.group-list[data-column-mode=\"single\"] > .group-row-card .name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/score-and-state.css",
+          "selectors": [
+            "#groupList.group-list[data-column-mode=\"single\"]\n    > .group-row-card\n    .name-input"
+          ]
+        },
+        {
+          "path": "src/ui/application-surfaces.css",
+          "selectors": [
+            "#groupList .name-input"
+          ]
+        },
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".name-input:not([readonly]):hover",
+            ".name-input:not([readonly]):focus"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "picker-modal",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .picker-modal"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "picker-window",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .picker-window"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "result-msg-box",
+      "sources": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".result-msg-box"
+          ]
+        },
+        {
+          "path": "src/styles/battle/group-cards.css",
+          "selectors": [
+            ".result-msg-box:empty"
+          ]
+        },
+        {
+          "path": "src/styles/items/catalog-and-card-compat.css",
+          "selectors": [
+            ".battle-card .result-msg-box"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "roulette",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/items/queue-and-image-constraints.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".item-draw-card .roulette"
+          ]
+        },
+        {
+          "path": "src/styles/items/queue-and-image-constraints.css",
+          "selectors": [
+            ".roulette img"
+          ]
+        },
+        {
+          "path": "src/styles/items/queue-and-image-constraints.css",
+          "selectors": [
+            ".roulette img"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "score-zone",
+      "sources": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/items/draw-clipping.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/items/inventory-and-roulette.css",
+          "selectors": [
+            ".group-row-card.item-draw-spinning .score-zone"
+          ]
+        },
+        {
+          "path": "src/styles/items/draw-layout.css",
+          "selectors": [
+            "body.modern-flat\n  .group-row-card.item-draw-spinning:not(.bm-draw-fading)\n  .score-zone"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setting-section",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .setting-section"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "settings-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .settings-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sound-setting-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .sound-setting-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "squid-score-mask",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".squid-score-mask::after"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".squid-score-mask"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .stat-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "top-dashboard-grid",
+      "sources": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/battle/overview-and-resizer.css",
+          "selectors": [
+            ".top-dashboard-grid"
+          ]
+        },
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".top-dashboard-grid"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .battle-main > .top-dashboard-grid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-clock",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-clock"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-modal-close",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-modal-close"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-page-head",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-page-head"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-section-title",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-section-title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ui-welcome-time",
+      "sources": [
+        "src/ui/desktop.css"
+      ],
+      "proof": [
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-welcome-time"
+          ]
+        },
+        {
+          "path": "src/ui/desktop.css",
+          "selectors": [
+            ".ui-welcome-time .welcome-enter-btn"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "w-stat-label",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/ui/readability-and-effect-layers.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".w-stat-label"
+          ]
+        },
+        {
+          "path": "src/styles/ui/readability-and-effect-layers.css",
+          "selectors": [
+            "body.modern-flat .welcome-summary-grid .w-stat-label"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-card",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-card"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-card-title",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-card-title"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-card-title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-card-title-row",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-card-title-row"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-cards",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-cards"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-cards"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-chart-wrapper",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-chart-wrapper"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-clock",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-clock"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-clock"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-clock"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-date",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-date"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-enter-wrap",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-enter-wrap"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-extra-metrics",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-extra-metrics .metric-box"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-extra-metrics"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-greeting",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-greeting"
+          ]
+        },
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-greeting"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-hero",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-hero"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal"
+          ]
+        },
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal.active"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-btn",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-btn"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-btn"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-btn"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat #welcomeModal .welcome-modal-btn:not(:disabled):hover"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-card",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-card"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-card"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-card"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-card"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-head",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-head"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-hint",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-hint"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-hint"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-pages",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-pages"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-sub",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-sub"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-sub"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-modal-title",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".welcome-modal-title"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .welcome-modal-title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-stat-grid",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-stat-grid"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-sub",
+      "sources": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/shell/navigation-and-welcome.css",
+          "selectors": [
+            ".welcome-sub"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "welcome-summary-grid",
+      "sources": [
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/readability-and-effect-layers.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .welcome-summary-grid > div"
+          ]
+        },
+        {
+          "path": "src/styles/ui/readability-and-effect-layers.css",
+          "selectors": [
+            "body.modern-flat .welcome-summary-grid .w-stat-num"
+          ]
+        },
+        {
+          "path": "src/styles/ui/readability-and-effect-layers.css",
+          "selectors": [
+            "body.modern-flat .welcome-summary-grid .w-stat-label"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "window-titlebar",
+      "sources": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .window-titlebar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wmp-item",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".wmp-item"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .wmp-item"
+          ]
+        },
+        {
+          "path": "src/styles/ui/flat-controls-and-scrolling.css",
+          "selectors": [
+            "body.modern-flat .wmp-item"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wmp-tag",
+      "sources": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "proof": [
+        {
+          "path": "src/styles/dialogs/settlement-and-core.css",
+          "selectors": [
+            ".wmp-tag"
+          ]
+        },
+        {
+          "path": "src/styles/themes/flat-foundation.css",
+          "selectors": [
+            "body.modern-flat .wmp-tag"
+          ]
+        }
+      ]
+    }
+  ]
+}

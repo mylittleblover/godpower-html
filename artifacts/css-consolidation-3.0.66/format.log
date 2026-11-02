@@ -1,0 +1,7 @@
+src/ui/component-catalog.js 161ms
+src/ui/welcome-dashboard.css 118ms (unchanged)
+src/ui/application-surfaces.css 79ms (unchanged)
+scripts/prune-supported-cascade.mjs 50ms
+scripts/prune-reset-longhands.mjs 21ms
+scripts/prune-retired-selectors.mjs 25ms
+tests/integration/cascade-governance.test.mjs 11ms

@@ -12,55 +12,55 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "bmBurst",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmFlame",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmFlash",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmFrost",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmGift",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmMist",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmMystery",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmShardFly",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmSpell",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmStrike",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmSweep",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmTurn",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bmWaveOut",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bounceTrophy",
@@ -92,7 +92,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "cardRouletteReveal",
-      sources: ["src/styles/items/draw-clipping.css"],
+      sources: ["src/styles/items/draw-layout.css"],
     },
     {
       name: "cardShield",
@@ -100,19 +100,19 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "cf-avatar-arrive",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-name",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-orbit",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-spark",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cfxBomb",
@@ -204,19 +204,11 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-content-reveal",
-      sources: ["src/ui/welcome-dashboard.css"],
-    },
-    {
-      name: "gp-nav-reveal",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "grandScaleUp",
       sources: ["src/styles/dialogs/settlement-and-core.css"],
-    },
-    {
-      name: "handCapsulePulse",
-      sources: ["src/styles/items/inventory-and-roulette.css"],
     },
     {
       name: "handCrystalFloat",
@@ -236,7 +228,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hic-enter",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hitBanana",
@@ -327,24 +319,12 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/attack-feedback.css"],
     },
     {
-      name: "iceAura",
-      sources: ["src/styles/items/catalog-and-card-compat.css"],
-    },
-    {
-      name: "iceLockBlueGlow",
-      sources: ["src/styles/battle/score-and-state.css"],
-    },
-    {
       name: "itemBombHit",
       sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
       name: "itemDeltaFloat",
       sources: ["src/styles/battle/score-feedback.css"],
-    },
-    {
-      name: "itemMega",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
       name: "itemPop",
@@ -355,24 +335,12 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
-      name: "itemReveal",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
       name: "itemRouletteRevealFlat",
       sources: ["src/styles/items/draw-flow.css"],
     },
     {
       name: "itemUseBanner",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "megaAura",
-      sources: ["src/styles/items/catalog-and-card-compat.css"],
-    },
-    {
-      name: "megaOrangeGlow",
-      sources: ["src/styles/battle/score-and-state.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "pcFadeIn",
@@ -383,24 +351,20 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/tabs-and-confirmation.css"],
     },
     {
-      name: "powerAura",
-      sources: ["src/styles/items/catalog-and-card-compat.css"],
-    },
-    {
       name: "queuePromote",
       sources: ["src/styles/items/queue-and-image-constraints.css"],
     },
     {
       name: "roster-apply-backdrop-in",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-card-in",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-avatar-arrive",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "rouletteEnter",
@@ -408,10 +372,6 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "rouletteReveal",
-      sources: ["src/styles/items/inventory-and-roulette.css"],
-    },
-    {
-      name: "rouletteRevealRing",
       sources: ["src/styles/items/inventory-and-roulette.css"],
     },
     {
@@ -443,20 +403,16 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/battle/group-cards.css"],
     },
     {
-      name: "starAura",
-      sources: ["src/styles/items/catalog-and-card-compat.css"],
-    },
-    {
       name: "teaching-resource-arrive",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-modal-enter",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-modal-exit",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "themeDialogIn",
@@ -464,7 +420,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-menu-reveal",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
   ],
   classes: [
@@ -472,54 +428,37 @@ const GodPowerComponentCatalog = {
       name: "about-backdrop",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "about-head",
-      sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "about-heading",
       sources: [
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "about-main",
       sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "about-side",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
-    },
-    {
-      name: "about-side-title",
-      sources: ["src/ui/application-surfaces.css"],
-    },
-    {
-      name: "about-tabs",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "about-window",
       sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -529,14 +468,6 @@ const GodPowerComponentCatalog = {
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-      ],
-    },
-    {
-      name: "action-score-col",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/styles/battle/score-and-state.css",
-        "src/styles/battle/score-feedback.css",
       ],
     },
     {
@@ -551,15 +482,15 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/settings/tabs-and-confirmation.css",
         "src/styles/battle/score-and-state.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/battle/quick-batch.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
         "src/styles/dialogs/theme-confirmation.css",
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/welcome-dashboard.css",
-        "src/ui/component-library.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/home/welcome.css",
+        "src/styles/settings/component-library.css",
       ],
     },
     {
@@ -568,9 +499,9 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/battle/round-item-locks.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -585,15 +516,8 @@ const GodPowerComponentCatalog = {
       name: "ans-btn",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "answer-zone",
-      sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -601,31 +525,26 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/welcome-dashboard.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/home/welcome.css",
       ],
     },
     {
-      name: "archive-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
       name: "archive-class-stats",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "archive-stat-card",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "archive-stats-grid",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "archive-stats-head",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "archives-list",
@@ -635,8 +554,8 @@ const GodPowerComponentCatalog = {
       name: "attack-hit-badge",
       sources: [
         "src/styles/items/attack-feedback.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -648,7 +567,7 @@ const GodPowerComponentCatalog = {
       name: "audio-hint-bar",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -719,16 +638,16 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/items/draw-flow.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "battle-group-avatar-single",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "battle-group-avatar-stack",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "battle-group-heading",
@@ -738,33 +657,33 @@ const GodPowerComponentCatalog = {
       name: "battle-group-name",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "battle-group-number",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "battle-group-number-below-avatar",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "battle-group-subtitle",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "battle-main",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/items/draw-layout.css",
       ],
     },
     {
@@ -772,12 +691,8 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/battle/round-item-locks.css"],
     },
     {
-      name: "battle-metrics-row",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
-    },
-    {
       name: "battle-number-avatar",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "battle-rank-chip",
@@ -829,30 +744,30 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "bm-badge",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bm-draw-fading",
-      sources: ["src/styles/items/draw-clipping.css"],
+      sources: ["src/styles/items/draw-layout.css"],
     },
     {
       name: "bm-layer",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bm-shards",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bm-wave",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "bottom-dock",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -861,32 +776,31 @@ const GodPowerComponentCatalog = {
         "src/styles/dialogs/score-and-member-search.css",
         "src/styles/shell/dock-and-buttons.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/audio/item-sounds.css",
-        "src/styles/audio/fx-transfer.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/classroom-feedback.css",
-        "src/ui/item-modules.css",
-        "src/ui/welcome-dashboard.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/feedback/classroom-effects.css",
+        "src/styles/settings/item-modules.css",
+        "src/styles/home/welcome.css",
       ],
     },
     {
       name: "btn-danger",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
         "src/styles/settings/clear-items.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "btn-primary",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -897,16 +811,16 @@ const GodPowerComponentCatalog = {
       name: "btn-success",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "btn-warning",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -916,17 +830,17 @@ const GodPowerComponentCatalog = {
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/items/draw-clipping.css",
-        "src/ui/battle-motion.css",
+        "src/styles/items/draw-layout.css",
+        "src/styles/battle/motion.css",
       ],
     },
     {
       name: "card-defend-fx",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -935,14 +849,10 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/queue-and-image-constraints.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
         "src/styles/items/draw-flow.css",
       ],
-    },
-    {
-      name: "card-fx-layer",
-      sources: ["src/ui/desktop.css"],
     },
     {
       name: "card-header-row",
@@ -951,17 +861,17 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/items/draw-clipping.css",
-        "src/ui/battle-motion.css",
+        "src/styles/items/draw-layout.css",
+        "src/styles/battle/motion.css",
       ],
     },
     {
       name: "card-heal-fx",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -969,9 +879,9 @@ const GodPowerComponentCatalog = {
       name: "card-hit-fx",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -981,8 +891,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/items/draw-clipping.css",
-        "src/styles/items/roulette-position.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -990,81 +899,81 @@ const GodPowerComponentCatalog = {
       name: "card-use-fx",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
     {
       name: "cf-audio-choice",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-audio-choices",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-score-slots",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-settings",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-avatar-stack",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-copy",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-eyebrow",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-orbit",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-particles",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-subtitle",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-surface",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-title",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-show-value",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-simple",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-slot-editor",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "cf-sound-category",
-      sources: ["src/ui/battle-motion.css"],
+      sources: ["src/styles/battle/motion.css"],
     },
     {
       name: "cfi",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -1225,14 +1134,7 @@ const GodPowerComponentCatalog = {
       name: "chart-bar",
       sources: [
         "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "chart-container",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -1268,53 +1170,46 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/battle/overview-and-resizer.css",
         "src/styles/battle/score-and-state.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
-    },
-    {
-      name: "chart-wrapper",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
     },
     {
       name: "classroom-backdrop",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "classroom-body",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "classroom-head",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "classroom-recovery-actions",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "classroom-recovery-tools",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "classroom-save-warning",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "classroom-window",
-      sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "clear-items-copy",
@@ -1325,93 +1220,76 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/clear-items.css"],
     },
     {
-      name: "color-picker",
-      sources: ["src/styles/battle/group-cards.css"],
-    },
-    {
       name: "competition-status",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "competition-status-guide",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "component-library-content",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-count",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-detail",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-header",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-list",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-note",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-overlay",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-preview",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-source",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-surface",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-swatch",
-      sources: ["src/ui/component-library.css"],
-    },
-    {
-      name: "component-library-token",
-      sources: ["src/ui/component-library.css"],
-    },
-    {
-      name: "component-library-tokens",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "component-library-toolbar",
-      sources: ["src/ui/component-library.css"],
+      sources: ["src/styles/settings/component-library.css"],
     },
     {
       name: "cooldown-note",
       sources: ["src/styles/items/cooldown-notes.css"],
     },
     {
-      name: "copy-kicker",
-      sources: ["src/styles/ui/interface-copy.css"],
-    },
-    {
       name: "correct",
       sources: [
-        "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "count-1",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "current",
@@ -1434,44 +1312,26 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/theme-confirmation.css"],
     },
     {
-      name: "dashboard-card-title",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "dashboard-summary-container",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "del-btn",
-      sources: ["src/styles/battle/group-cards.css"],
-    },
-    {
       name: "departing",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "dock-humor-tip",
-      sources: ["src/styles/ui/dock-tooltips.css"],
+      sources: ["src/styles/shell/dock-tooltips.css"],
     },
     {
       name: "dock-left",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "dock-right",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -1480,11 +1340,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "dragging",
-      sources: ["src/ui/welcome-dashboard.css"],
-    },
-    {
-      name: "draw-name",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "editable",
@@ -1512,7 +1368,6 @@ const GodPowerComponentCatalog = {
     {
       name: "effect-mega",
       sources: [
-        "src/styles/shell/navigation-and-welcome.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
       ],
@@ -1532,7 +1387,7 @@ const GodPowerComponentCatalog = {
       name: "empty",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -1545,7 +1400,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/catalog-and-management.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -1557,7 +1412,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/catalog-and-management.css",
-        "src/ui/desktop.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
@@ -1577,41 +1432,11 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
-      name: "expanded",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "full",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "fullview-body",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "fullview-header",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
       name: "fullview-sub",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
-    },
-    {
-      name: "fx-bundle-copy",
-      sources: ["src/styles/audio/fx-transfer.css"],
-    },
-    {
-      name: "fx-bundle-toolbar",
-      sources: ["src/styles/audio/fx-transfer.css"],
     },
     {
       name: "gain",
@@ -1634,341 +1459,374 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-actions",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-blue",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-bottom-heading",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-brand-mount",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-button-outline",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-button-primary",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-compact-track",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-daily-challenge",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-daily-grid",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-daily-honors",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-daily-item",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-existing-metrics",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-eyebrow",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-feed-copy",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-feed-icon",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-feed-list",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-feed-row",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-feed-time",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-footnote",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-gold",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-greeting",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-group-head",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-group-live",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-group-section",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-heading-bar",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero-clock",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero-copy",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero-date",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero-description",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hero-status",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-home",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-hover-tooltip",
-      sources: ["src/ui/tooltips.css"],
+      sources: ["src/styles/components/tooltips.css"],
     },
     {
       name: "gp-intro",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-active",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-backdrop",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-caption",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-logo",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-reveal",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-intro-skip",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-stage",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-intro-title",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-kpi",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-kpi-icon",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-kpi-number",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-kpis",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-live-pill",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-main-grid",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-match-status",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-medal",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-panel",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-panel-footer",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-panel-tag",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-panel-title",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-purple",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-bar",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-empty",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-head",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-index",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-list",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-rank-name",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-points",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-row",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-rank-state",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-reveal",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-second",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-section-heading",
-      sources: ["src/ui/welcome-dashboard.css", "src/ui/home-dashboard.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/home/dashboard-layout.css",
+      ],
     },
     {
       name: "gp-slider",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-slider-fill",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-slider-hint",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-slider-knob",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-soft-tag",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-status-foot",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-status-orb",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-status-separator",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-status-top",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "gp-theme-card",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-theme-options",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-theme-ribbon",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-theme-swatch",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-theme-transition",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-theme-transition-content",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "gp-third",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "grand-card",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -1987,36 +1845,36 @@ const GodPowerComponentCatalog = {
       name: "group-actions",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/items/draw-layout.css",
       ],
     },
     {
       name: "group-avatar-actions",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-avatar-copy",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-avatar-preview",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-avatar-row",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-avatar-section",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-avatar-upload",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "group-color-control",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-color-editor",
@@ -2040,53 +1898,45 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "group-color-preview",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-color-swatch",
       sources: ["src/styles/classroom/group-palette.css"],
     },
     {
-      name: "group-control-tabs",
-      sources: ["src/styles/items/catalog-and-management.css"],
-    },
-    {
-      name: "group-control-window",
-      sources: ["src/styles/items/catalog-and-management.css"],
-    },
-    {
       name: "group-detail-actions",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-detail-danger",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
       ],
     },
     {
       name: "group-detail-field",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-detail-fields",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-detail-form",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "group-detail-lock",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-detail-section",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "group-list",
@@ -2094,12 +1944,8 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/group-cards.css",
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/battle/score-and-state.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/components/readability-and-layers.css",
       ],
-    },
-    {
-      name: "group-modal-window",
-      sources: ["src/styles/items/catalog-and-management.css"],
     },
     {
       name: "group-row-card",
@@ -2112,10 +1958,9 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/score-and-state.css",
         "src/styles/items/attack-feedback.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
-        "src/styles/items/roulette-position.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/battle/round-item-locks.css",
         "src/styles/items/draw-flow.css",
       ],
@@ -2124,8 +1969,8 @@ const GodPowerComponentCatalog = {
       name: "guide-block",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -2172,15 +2017,15 @@ const GodPowerComponentCatalog = {
       name: "hand-grid",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "hand-group",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -2189,12 +2034,12 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
         "src/styles/items/queue-and-image-constraints.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "hand-item-cinematic",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hand-item-draw-name",
@@ -2208,7 +2053,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -2234,43 +2079,23 @@ const GodPowerComponentCatalog = {
       name: "hand-rewards",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/classroom-feedback.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/feedback/classroom-effects.css",
       ],
-    },
-    {
-      name: "hand-window",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "header-banner",
       sources: [
         "src/styles/base/reset-and-header.css",
-        "src/ui/application-surfaces.css",
-      ],
-    },
-    {
-      name: "header-meta-col",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/styles/battle/score-and-state.css",
-      ],
-    },
-    {
-      name: "header-name-col",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/styles/battle/score-and-state.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "header-stats",
       sources: [
         "src/styles/base/reset-and-header.css",
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -2278,8 +2103,8 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/base/reset-and-header.css",
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -2288,77 +2113,23 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hic-arrow",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hic-icon",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hic-surface",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hic-targets",
-      sources: ["src/ui/item-score-cinematics.css"],
-    },
-    {
-      name: "hist-actions",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-card",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "hist-card-top",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-compare",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-compare-table",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-delta-neg",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-delta-pos",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-delta-zero",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-desc",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "hist-node",
       sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "hist-time",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "history-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "history-item",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
     },
     {
       name: "history-list",
@@ -2418,62 +2189,62 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "home-card-drag-handle",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-card-editor-controls",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-card-resize-handle",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-dashboard-add-panel",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-dashboard-status",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-dashboard-toolbar",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-dashboard-toolbar-actions",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-dashboard-toolbar-copy",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "home-layout-editing",
-      sources: ["src/ui/home-dashboard.css"],
+      sources: ["src/styles/home/dashboard-layout.css"],
     },
     {
       name: "icon-btn",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
       name: "icon-custom-card",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "icon-custom-grid",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -2481,140 +2252,132 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/tabs-and-confirmation.css"],
     },
     {
-      name: "icon-setting-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
       name: "im-actions",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-block",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-block-copy",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-block-number",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-blocks",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-count",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-editor",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-editor-header",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-editor-icon",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-empty",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-error",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-heading",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-item",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-item-icon",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-item-image",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-item-name",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-item-state",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-kind",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-layout",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-list",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-muted",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-pipeline-note",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-reference",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-search",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-settings",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-sidebar",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-status",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-tab",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "im-tabs",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "invalid",
       sources: ["src/styles/dialogs/score-and-member-search.css"],
     },
     {
-      name: "inventory-row",
-      sources: ["src/styles/battle/score-and-state.css"],
-    },
-    {
       name: "is-closing",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "is-selected",
-      sources: ["src/ui/item-modules.css"],
+      sources: ["src/styles/settings/item-modules.css"],
     },
     {
       name: "item-admin-add",
@@ -2636,21 +2399,17 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/audio/item-sounds.css"],
     },
     {
-      name: "item-bar",
-      sources: ["src/styles/items/catalog-and-management.css"],
-    },
-    {
       name: "item-big",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "item-big-desc",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/ui/desktop.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
@@ -2659,8 +2418,8 @@ const GodPowerComponentCatalog = {
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/queue-and-image-constraints.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
@@ -2669,7 +2428,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "item-close",
@@ -2693,7 +2452,7 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-defense-banner",
-      sources: ["src/styles/ui/defense-notices.css"],
+      sources: ["src/styles/feedback/defense-notices.css"],
     },
     {
       name: "item-defense-toast",
@@ -2703,43 +2462,12 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
-      name: "item-draw-board",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
-      ],
-    },
-    {
-      name: "item-draw-card",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "item-draw-grid",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "item-draw-overlay",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
       name: "item-draw-spinning",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/items/draw-clipping.css",
-        "src/styles/items/roulette-position.css",
+        "src/styles/items/draw-layout.css",
       ],
-    },
-    {
-      name: "item-draw-title",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
       name: "item-ency-grid",
@@ -2747,40 +2475,36 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/catalog-and-management.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "item-encyclopedia-actions",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "item-encyclopedia-card",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "item-encyclopedia-desc",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
-    },
-    {
-      name: "item-encyclopedia-icon",
-      sources: ["src/ui/desktop.css"],
     },
     {
       name: "item-encyclopedia-icon-disc",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -2791,34 +2515,26 @@ const GodPowerComponentCatalog = {
       name: "item-encyclopedia-info",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "item-encyclopedia-name",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
-    },
-    {
-      name: "item-feature-only",
-      sources: ["src/styles/items/catalog-and-management.css"],
     },
     {
       name: "item-global-btn",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "item-head",
       sources: ["src/styles/audio/item-sounds.css"],
-    },
-    {
-      name: "item-inventory",
-      sources: ["src/styles/items/catalog-and-management.css"],
     },
     {
       name: "item-inventory-grid",
@@ -2829,32 +2545,22 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-main",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "item-main-head",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
-      ],
-    },
-    {
-      name: "item-members",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "item-modal-backdrop",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
       ],
     },
     {
@@ -2873,8 +2579,8 @@ const GodPowerComponentCatalog = {
       name: "item-reference-head",
       sources: [
         "src/styles/items/encyclopedia-layout.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -2906,14 +2612,6 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
     {
-      name: "item-row",
-      sources: ["src/styles/battle/score-and-state.css"],
-    },
-    {
-      name: "item-rule",
-      sources: ["src/styles/items/group-rule-copy.css"],
-    },
-    {
       name: "item-score-delta",
       sources: ["src/styles/battle/score-feedback.css"],
     },
@@ -2921,7 +2619,7 @@ const GodPowerComponentCatalog = {
       name: "item-score-panel",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/ui/classroom-feedback.css",
+        "src/styles/feedback/classroom-effects.css",
       ],
     },
     {
@@ -2932,30 +2630,24 @@ const GodPowerComponentCatalog = {
       name: "item-settings-tabs",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "item-side",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
       name: "item-side-title",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
-    },
-    {
-      name: "item-sidebar",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "item-slot",
@@ -2966,8 +2658,8 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/score-and-state.css",
         "src/styles/items/queue-and-image-constraints.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -2978,10 +2670,6 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
       ],
-    },
-    {
-      name: "item-slots-row",
-      sources: ["src/styles/battle/score-and-state.css"],
     },
     {
       name: "item-sound-card",
@@ -3003,7 +2691,7 @@ const GodPowerComponentCatalog = {
       name: "item-stat",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3018,14 +2706,10 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
-    },
-    {
-      name: "item-tabs",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "item-use",
@@ -3034,31 +2718,22 @@ const GodPowerComponentCatalog = {
     {
       name: "item-use-banner",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
         "src/styles/items/draw-flow.css",
-        "src/styles/ui/defense-notices.css",
-        "src/ui/desktop.css",
+        "src/styles/feedback/defense-notices.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
       name: "item-window",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
-    },
-    {
-      name: "item-window-body",
-      sources: ["src/styles/items/catalog-and-management.css"],
-    },
-    {
-      name: "item-window-tabs",
-      sources: ["src/styles/items/catalog-and-management.css"],
     },
     {
       name: "items-disabled",
@@ -3071,47 +2746,43 @@ const GodPowerComponentCatalog = {
     {
       name: "iub-icon",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/defense-notices.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/feedback/defense-notices.css",
       ],
     },
     {
       name: "iub-main",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/defense-notices.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/feedback/defense-notices.css",
       ],
     },
     {
       name: "iub-sub",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "large",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "legacy-settings-pane",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/desktop-shell.css",
       ],
-    },
-    {
-      name: "legacy-settings-tabbar",
-      sources: ["src/styles/items/catalog-and-management.css"],
     },
     {
       name: "legacy-settings-tabs",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -3122,8 +2793,8 @@ const GodPowerComponentCatalog = {
       name: "locked-disabled",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -3134,40 +2805,29 @@ const GodPowerComponentCatalog = {
       name: "main-viewport",
       sources: [
         "src/styles/base/reset-and-header.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "marx",
-      sources: ["src/ui/themes.css"],
-    },
-    {
-      name: "member-count-tag",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/ui/application-surfaces.css",
-      ],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "member-search-backdrop",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "member-search-card",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "member-search-empty",
-      sources: ["src/styles/dialogs/score-and-member-search.css"],
-    },
-    {
-      name: "member-search-fab",
       sources: ["src/styles/dialogs/score-and-member-search.css"],
     },
     {
@@ -3206,30 +2866,8 @@ const GodPowerComponentCatalog = {
       name: "member-search-title",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
-    },
-    {
-      name: "menu-active",
-      sources: ["src/styles/battle/group-cards.css"],
-    },
-    {
-      name: "metric-box",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "metric-label",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "metric-value",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
     },
     {
       name: "milestone-banner-overlay",
@@ -3243,14 +2881,14 @@ const GodPowerComponentCatalog = {
       name: "modal-actions",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "modal-box",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3261,22 +2899,21 @@ const GodPowerComponentCatalog = {
       name: "modal-overlay",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "modern-flat",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/styles/items/draw-clipping.css",
-        "src/styles/items/roulette-position.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/battle/quick-batch.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
         "src/styles/battle/rank-preview.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/themes.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/themes/tokens-and-presets.css",
       ],
     },
     {
@@ -3285,34 +2922,26 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/application-surfaces.css",
-      ],
-    },
-    {
-      name: "name-input",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/styles/battle/score-and-state.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "nav-tab",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "nav-tabs",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3329,8 +2958,8 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3344,46 +2973,46 @@ const GodPowerComponentCatalog = {
       name: "persistent-aura",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-        "src/ui/desktop.css",
-        "src/ui/battle-motion.css",
+        "src/styles/components/readability-and-layers.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/battle/motion.css",
       ],
     },
     {
       name: "picker-avatar-reel-content",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "picker-center",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "picker-info-tabs",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
       name: "picker-layout",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "picker-left",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3391,16 +3020,12 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/inventory-and-roulette.css"],
     },
     {
-      name: "picker-modal",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
       name: "picker-right",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3411,22 +3036,18 @@ const GodPowerComponentCatalog = {
       name: "picker-target",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "picker-vtab",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/desktop-shell.css",
       ],
-    },
-    {
-      name: "picker-window",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "play",
@@ -3440,7 +3061,7 @@ const GodPowerComponentCatalog = {
       name: "podium-col",
       sources: [
         "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3467,54 +3088,54 @@ const GodPowerComponentCatalog = {
       name: "program-confirm-actions",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "program-confirm-body",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "program-confirm-icon",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "program-confirm-overlay",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "program-confirm-text",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "program-confirm-titlebar",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "program-confirm-window",
       sources: [
         "src/styles/settings/tabs-and-confirmation.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3533,15 +3154,15 @@ const GodPowerComponentCatalog = {
       name: "queue-item-card",
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "queue-main-card",
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
-        "src/ui/desktop.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
@@ -3549,7 +3170,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3568,15 +3189,15 @@ const GodPowerComponentCatalog = {
       name: "queue-role-badge",
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "queue-secondary-card",
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
-        "src/ui/desktop.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
@@ -3588,7 +3209,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3602,7 +3223,7 @@ const GodPowerComponentCatalog = {
       name: "quick-batch-bar",
       sources: [
         "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3617,14 +3238,14 @@ const GodPowerComponentCatalog = {
       name: "quick-person-backdrop",
       sources: [
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "quick-person-card",
       sources: [
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3647,7 +3268,7 @@ const GodPowerComponentCatalog = {
       name: "quick-person-head",
       sources: [
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -3670,7 +3291,7 @@ const GodPowerComponentCatalog = {
       name: "quick-person-score-actions",
       sources: [
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/classroom-feedback.css",
+        "src/styles/feedback/classroom-effects.css",
       ],
     },
     {
@@ -3686,7 +3307,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/items/draw-layout.css",
       ],
     },
     {
@@ -3695,7 +3316,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
         "src/styles/items/queue-and-image-constraints.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
@@ -3704,38 +3325,31 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
-        "src/styles/items/draw-clipping.css",
+        "src/styles/items/draw-layout.css",
       ],
     },
     {
       name: "rank-1",
       sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/battle/rank-preview.css",
       ],
     },
     {
       name: "rank-2",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "rank-3",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "rank-badge",
-      sources: ["src/styles/ui/readability-and-effect-layers.css"],
+      sources: ["src/styles/components/readability-and-layers.css"],
     },
     {
       name: "ready",
-      sources: ["src/ui/welcome-dashboard.css"],
+      sources: ["src/styles/home/welcome.css"],
     },
     {
       name: "resizer-handle",
@@ -3745,105 +3359,89 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
-      name: "result-msg-box",
-      sources: [
-        "src/styles/battle/group-cards.css",
-        "src/styles/items/catalog-and-card-compat.css",
-      ],
-    },
-    {
       name: "reveal",
       sources: [
-        "src/styles/shell/navigation-and-welcome.css",
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
-        "src/styles/items/draw-clipping.css",
-        "src/styles/items/roulette-position.css",
+        "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
       ],
     },
     {
       name: "roster-apply-actions",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-backdrop",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-card",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-summary",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-table",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-table-wrap",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-apply-warning",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-avatar-editor",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-avatar-label",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-avatar-placeholder",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-avatar-upload",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-import-label",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-profile-form",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-student-avatar",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-table",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-table-wrap",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-workspace",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-workspace-footer",
-      sources: ["src/ui/roster-workspace.css"],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roster-workspace-toolbar",
-      sources: ["src/ui/roster-workspace.css"],
-    },
-    {
-      name: "roulette",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/items/queue-and-image-constraints.css",
-      ],
+      sources: ["src/styles/classroom/roster-workspace.css"],
     },
     {
       name: "roulette-swap",
@@ -3860,8 +3458,8 @@ const GodPowerComponentCatalog = {
       name: "round-disabled",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -3874,22 +3472,22 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
         "src/styles/items/catalog-and-card-compat.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/battle/score-feedback.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "row-score-light",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "score-card-number",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "score-card-wash",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "score-input",
@@ -3906,7 +3504,7 @@ const GodPowerComponentCatalog = {
       name: "score-modal-backdrop",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3917,7 +3515,7 @@ const GodPowerComponentCatalog = {
       name: "score-modal-card",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -3932,12 +3530,12 @@ const GodPowerComponentCatalog = {
       name: "score-modal-title",
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "score-motion-hidden",
-      sources: ["src/ui/item-score-cinematics.css"],
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
       name: "score-roll-ghost",
@@ -3956,13 +3554,6 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/battle/score-feedback.css"],
     },
     {
-      name: "score-zone",
-      sources: [
-        "src/styles/items/inventory-and-roulette.css",
-        "src/styles/items/draw-clipping.css",
-      ],
-    },
-    {
       name: "secondary",
       sources: ["src/styles/dialogs/theme-confirmation.css"],
     },
@@ -3971,60 +3562,55 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/items/inventory-and-roulette.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
         "src/styles/classroom/group-palette.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/components/controls-and-scrolling.css",
         "src/styles/classroom/student-picker-hand.css",
       ],
     },
     {
       name: "setting-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "setting-item",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
       name: "setting-label",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "setting-note",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "setting-row",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/desktop.css"],
-    },
-    {
-      name: "setting-section",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+      ],
     },
     {
       name: "setting-section-title",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
       ],
-    },
-    {
-      name: "settings-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
     },
     {
       name: "settings-scroll",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/controls-and-scrolling.css",
       ],
     },
     {
@@ -4036,15 +3622,15 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/battle/group-cards.css",
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/desktop.css",
-        "src/styles/ui/dock-tooltips.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/shell/dock-tooltips.css",
       ],
     },
     {
       name: "slot-machine-case",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -4053,27 +3639,27 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "slot-options-row",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "slot-reel-frame",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "slot-reel-text",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "slot-result-panel",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "sound-controls",
@@ -4081,24 +3667,26 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "sound-name",
-      sources: ["src/styles/audio/item-sounds.css", "src/ui/desktop.css"],
+      sources: [
+        "src/styles/audio/item-sounds.css",
+        "src/styles/components/desktop-shell.css",
+      ],
     },
     {
       name: "sound-row",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-        "src/ui/classroom-feedback.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/feedback/classroom-effects.css",
       ],
     },
     {
-      name: "sound-setting-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
       name: "sound-tag",
-      sources: ["src/styles/audio/item-sounds.css", "src/ui/desktop.css"],
+      sources: [
+        "src/styles/audio/item-sounds.css",
+        "src/styles/components/desktop-shell.css",
+      ],
     },
     {
       name: "spinning",
@@ -4106,10 +3694,6 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "squid-hidden-score",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "squid-score-mask",
       sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
@@ -4121,22 +3705,18 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/settlement-and-core.css"],
     },
     {
-      name: "stat-card",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
       name: "status-badge",
       sources: [
         "src/styles/shell/dock-and-buttons.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "stop",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -4153,100 +3733,100 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "teaching-current",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-card",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-card-actions",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-card-info",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-file-label",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-filters",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-import",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-list",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-preview",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-preview-body",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-scope",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-tags",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-resource-workspace",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-actions",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-form",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-list",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-table",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-toolbar",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "teaching-schedule-workspace",
-      sources: ["src/ui/teaching-workspace.css"],
+      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "theme-dialog",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
         "src/styles/classroom/student-picker-hand.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-dialog-actions",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-dialog-body",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -4257,49 +3837,41 @@ const GodPowerComponentCatalog = {
       name: "theme-dialog-card",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-dialog-head",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-dialog-icon",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-dialog-title",
       sources: [
         "src/styles/dialogs/theme-confirmation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
       name: "theme-marx",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "toast",
       sources: ["src/styles/dialogs/settlement-and-core.css"],
     },
     {
-      name: "top-dashboard-grid",
-      sources: [
-        "src/styles/battle/overview-and-resizer.css",
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
       name: "top-notice-stack",
-      sources: ["src/styles/ui/defense-notices.css"],
+      sources: ["src/styles/feedback/defense-notices.css"],
     },
     {
       name: "trim-grid",
@@ -4313,7 +3885,7 @@ const GodPowerComponentCatalog = {
       name: "trim-row",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
@@ -4334,314 +3906,355 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-archive-actions",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-archive-card",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-archive-emblem",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-archive-filter",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-archive-list",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-archive-search",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-archive-sort",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-archive-summary",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-bank-editor",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-chip",
       sources: [
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/welcome-dashboard.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/home/welcome.css",
       ],
     },
     {
       name: "ui-cinematic-skip",
       sources: [
-        "src/ui/desktop.css",
-        "src/ui/classroom-feedback.css",
-        "src/ui/themes.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/feedback/classroom-effects.css",
+        "src/styles/themes/tokens-and-presets.css",
       ],
     },
     {
-      name: "ui-clock",
-      sources: ["src/ui/desktop.css"],
-    },
-    {
       name: "ui-collection-body",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-collection-header",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-collection-sub",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-daily-grid",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-danger-zone",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-dock-answers",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-dock-menu",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-dock-menu-body",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-empty",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-eyebrow",
       sources: [
-        "src/ui/desktop.css",
-        "src/ui/roster-workspace.css",
-        "src/ui/welcome-dashboard.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/classroom/roster-workspace.css",
+        "src/styles/home/welcome.css",
       ],
     },
     {
       name: "ui-few",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-function-surface",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-group-card",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-group-repeat",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-group-score",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-group-title",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-group-track",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-history",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-icon",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-item-tip-icon",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
-    },
-    {
-      name: "ui-modal-close",
-      sources: ["src/ui/desktop.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-muted",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-negative",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-overview",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-page",
-      sources: ["src/ui/desktop.css"],
-    },
-    {
-      name: "ui-page-head",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-panel",
       sources: [
-        "src/ui/desktop.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/welcome-dashboard.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/home/welcome.css",
       ],
     },
     {
       name: "ui-podium",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-positive",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-quiz-options",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-quiz-result",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-record-count",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-rule-card",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-rule-copy",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-rule-title",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-scroll-buttons",
-      sources: ["src/ui/desktop.css"],
-    },
-    {
-      name: "ui-section-title",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-body",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-category",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-detail-body",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-disclosure",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-eyebrow",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-group",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-header",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-host",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/desktop.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/desktop-shell.css",
+      ],
     },
     {
       name: "ui-settings-nav",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-row",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-shell",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-status",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-settings-title",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-slot-cabinet",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-slot-deceleration",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-slot-hint",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-slot-stage",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "ui-snapshot-note",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-source",
-      sources: ["src/ui/desktop.css", "src/ui/welcome-dashboard.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/home/welcome.css",
+      ],
     },
     {
       name: "ui-table",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-table-wrap",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-timeline",
-      sources: ["src/ui/desktop.css", "src/ui/application-surfaces.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/application-surfaces.css",
+      ],
     },
     {
       name: "ui-toast",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-toggle",
       sources: [
         "src/styles/items/feature-visibility.css",
-        "src/ui/desktop.css",
-        "src/ui/item-modules.css",
+        "src/styles/components/desktop-shell.css",
+        "src/styles/settings/item-modules.css",
       ],
     },
     {
@@ -4652,26 +4265,22 @@ const GodPowerComponentCatalog = {
       name: "ui-toggle-track",
       sources: [
         "src/styles/items/feature-visibility.css",
-        "src/ui/desktop.css",
+        "src/styles/components/desktop-shell.css",
       ],
     },
     {
       name: "ui-toolbar",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-welcome-head",
-      sources: ["src/ui/desktop.css"],
-    },
-    {
-      name: "ui-welcome-time",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "ui-window-close",
       sources: [
-        "src/ui/roster-workspace.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/classroom/roster-workspace.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -4682,29 +4291,19 @@ const GodPowerComponentCatalog = {
       name: "view",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "vista-window",
       sources: [
         "src/styles/items/catalog-and-management.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "w-stat-label",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/ui/readability-and-effect-layers.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "w-stat-num",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-      ],
+      sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
       name: "wall-actions",
@@ -4715,159 +4314,18 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/shell/navigation-and-welcome.css"],
     },
     {
-      name: "welcome-card",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "welcome-card-title",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "welcome-card-title-row",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "welcome-cards",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-chart-wrapper",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "welcome-clock",
-      sources: [
-        "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "welcome-date",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
       name: "welcome-enter-btn",
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/desktop.css",
-      ],
-    },
-    {
-      name: "welcome-enter-wrap",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-extra-metrics",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "welcome-greeting",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-hero",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-modal",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-      ],
-    },
-    {
-      name: "welcome-modal-btn",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "welcome-modal-card",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "welcome-modal-head",
-      sources: ["src/styles/dialogs/settlement-and-core.css"],
-    },
-    {
-      name: "welcome-modal-hint",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "welcome-modal-pages",
-      sources: ["src/styles/dialogs/settlement-and-core.css"],
-    },
-    {
-      name: "welcome-modal-sub",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "welcome-modal-title",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "welcome-stat-grid",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-sub",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
-    },
-    {
-      name: "welcome-summary-grid",
-      sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/readability-and-effect-layers.css",
-      ],
-    },
-    {
-      name: "window-titlebar",
-      sources: ["src/styles/themes/flat-foundation.css"],
-    },
-    {
-      name: "wmp-item",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/styles/ui/flat-controls-and-scrolling.css",
-      ],
-    },
-    {
-      name: "wmp-tag",
-      sources: [
-        "src/styles/dialogs/settlement-and-core.css",
-        "src/styles/themes/flat-foundation.css",
+        "src/styles/base/desktop-foundation.css",
       ],
     },
     {
       name: "wrong",
       sources: [
-        "src/styles/battle/group-cards.css",
         "src/styles/battle/score-and-state.css",
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/application-surfaces.css",
       ],
     },
     {
@@ -4886,15 +4344,15 @@ const GodPowerComponentCatalog = {
   tokens: [
     {
       name: "--battle-card-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--battle-card-radius",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--battle-card-shadow",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--c-border",
@@ -4934,103 +4392,109 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--cf-accent",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--cf-glow",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--chrome-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--chrome-shadow",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-active-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-active-border",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-active-text",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-border",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-danger-bg",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-danger-border",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-danger-text",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-radius",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--control-success-bg",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-success-border",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-success-text",
-      sources: ["src/ui/classroom-feedback.css"],
+      sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
       name: "--control-text",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--dock-height",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--end-round-bg",
-      sources: ["src/ui/desktop.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--end-round-hover",
-      sources: ["src/ui/desktop.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--font-lg",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--font-md",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--font-sm",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--font-xl",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--font-xs",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--fxc",
@@ -5052,915 +4516,952 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--honor-border",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--honor-glow",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--honor-gold",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--honor-gold-hover",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--honor-gold-light",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--honor-ink",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--menu-reveal-duration",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--modal-lg",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--modal-md",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--modal-sm",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--motion-ease",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--motion-fast",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--motion-normal",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--nav-height",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--notice-head-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--notice-head-text",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--notice-icon-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--notice-icon-border",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--notice-icon-text",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--notice-width",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--radius-lg",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--radius-md",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--radius-sm",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--shadow-card",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--shadow-float",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-1",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-2",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-3",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-4",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-5",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--space-6",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--surface-hero",
-      sources: ["src/ui/application-surfaces.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--surface-ink",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--surface-line",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--surface-muted",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--surface-soft",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--theme-tone-003a341d",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-04504721",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-063b3412",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-063b3426",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-074d3b12",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-075a54",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-07746114",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-084c4c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-086b5a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-087b6c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-0b5352",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-0d6862",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-0e7e70",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-0f766e",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-0f80693b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-114c3f08",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-115e59",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-123d35",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-12624f",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-128a7b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-133f3608",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-133f3609",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-13816b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-13816c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-13816d",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-138878",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-145c4c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-148978",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-153e3759",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-154a42",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-15594a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-155b47",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-155d4b19",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-15998866",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-164d3e0c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-16816a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-16816a30",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-168c79",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-17302d",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-17302d08",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-17302d26",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-174b3a06",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-174b3a08",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-183634",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-183e39",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-185547",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-188466",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-19755a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-20423b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-20443b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-213e35",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-21433b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-24463e",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-246553",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-284a46",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-31544a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-315c4c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-35b69a",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-39be96",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-39be9627",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-3d7261",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-3e675b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-41705c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-47c1a7",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-496e5c",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-527165",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-607773",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-618779",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-6effd83f",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-78958f",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-839791",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-86a79b",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-88ada1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-8fffe211",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-91aaa0",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-94ada3",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-96d6c7",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-a3d3bf",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-a5edde",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-a7bcb2",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-acffdf",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-afc9c3",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-b4d8c3",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-bee8df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c1e8e1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c3ffdd",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c6e7db",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c8e5df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c9dcd8",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c9e3d5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-c9e7d8",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-cddfd4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d0eadf",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d0ece5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d3e8df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d4e8df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d4eee9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d5e2df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d6e5db",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d6e6dc",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d6eee8",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d7e6db",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d9e7de",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d9e7df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-d9f1ec",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-daf8ef",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dce7df",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dce7e4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dce8e0",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dce8e1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dceae7",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-deebe3",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-defff2",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-dfeae5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e0f6ee",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e2f3e9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e4ede9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e4f4ec",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e4fff7",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e5f1e9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e6eeeb",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e6f0ec",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e7efed",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e8f5eb",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e8f7f0",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e9f7f3",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-e9f8f2",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eaf5ed",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eaf5ee",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eaf6f1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eafff8",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-ebf8f1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-ecf3ef",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-ecf7f5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eef8f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eff4f1",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-eff8f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f0f6f2",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f1f5f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f1f8f5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f1f9f2",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f2f7f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f2f7f6",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f2f8f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f2f8f5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f2f9f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f3f7f6",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f3f8f4",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f4f8f5",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f4f9f6",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f5f8f7",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f5f9f6",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f6fffc",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f7faf8",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f7faf9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-f7fbf9",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--theme-tone-fbfefd",
-      sources: ["src/ui/themes.css"],
+      sources: ["src/styles/themes/tokens-and-presets.css"],
     },
     {
       name: "--ui-accent",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/themes.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/themes/tokens-and-presets.css",
       ],
     },
     {
       name: "--ui-accent-hover",
       sources: [
-        "src/styles/themes/flat-foundation.css",
-        "src/ui/application-surfaces.css",
-        "src/ui/themes.css",
+        "src/styles/components/application-surfaces.css",
+        "src/styles/themes/tokens-and-presets.css",
       ],
     },
     {
       name: "--ui-bg",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-border",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-border-strong",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-danger",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-disabled-bg",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "--ui-disabled-text",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "--ui-focus",
-      sources: ["src/styles/ui/flat-controls-and-scrolling.css"],
+      sources: ["src/styles/components/controls-and-scrolling.css"],
     },
     {
       name: "--ui-muted",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-panel",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-primary",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-primary-hover",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-secondary",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-shadow",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-soft",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-soft-2",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-success",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-text",
-      sources: ["src/styles/themes/flat-foundation.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--ui-wall",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-wall-veil",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-warning",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--ui-warning-text",
-      sources: ["src/styles/themes/flat-foundation.css"],
+      sources: ["src/styles/base/desktop-foundation.css"],
     },
     {
       name: "--weight-body",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--weight-heading",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--weight-label",
-      sources: ["src/ui/desktop.css"],
+      sources: ["src/styles/components/desktop-shell.css"],
     },
     {
       name: "--window-head-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--window-head-subtext",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--window-head-text",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--window-overlay",
-      sources: ["src/ui/application-surfaces.css", "src/ui/themes.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/themes/tokens-and-presets.css",
+      ],
     },
     {
       name: "--window-radius",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--window-shadow",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "--window-side-bg",
-      sources: ["src/ui/application-surfaces.css"],
+      sources: ["src/styles/components/application-surfaces.css"],
     },
   ],
 };

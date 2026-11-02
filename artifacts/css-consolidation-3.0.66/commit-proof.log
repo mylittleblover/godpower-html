@@ -1,0 +1,14 @@
+✔ 3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority (1166.101251ms)
+✔ about renderer has one declaration, no override chain, and retains non-view code (209.651557ms)
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2911.659696ms)
+✔ retired screen classes have no business or preview references; scripts retain statements except declared presentation metadata (3273.600636ms)
+✔ semantic style names are unique and contain no release numbers (4.749382ms)
+✔ naming checkpoint 645ea0f preserves all original scripts outside the declared style-name migration (844.162263ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8796.434763

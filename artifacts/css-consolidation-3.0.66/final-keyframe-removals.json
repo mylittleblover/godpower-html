@@ -1,0 +1,16 @@
+{
+  "path": "src/styles/shell/navigation-and-welcome.css",
+  "sourceHash": "da15c12b9ecdc574857b8e23164c018f86da4ed9354dbc338a773a20667e374a",
+  "removed": [
+    {
+      "start": 10540,
+      "open": 10562,
+      "end": 10639,
+      "prelude": "@keyframes itemReveal",
+      "body": "\n  50% {\n    transform: scale(1.08);\n    box-shadow: 0 0 28px #60a5fa;\n  }\n",
+      "line": 605,
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "text": "@keyframes itemReveal {\n  50% {\n    transform: scale(1.08);\n    box-shadow: 0 0 28px #60a5fa;\n  }\n}"
+    }
+  ]
+}

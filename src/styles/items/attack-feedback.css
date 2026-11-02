@@ -14,7 +14,6 @@
 
 .attack-hit-badge {
   position: absolute;
-  z-index: 40;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

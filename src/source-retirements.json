@@ -1,0 +1,23 @@
+{
+  "styles/audio/fx-transfer.css": {
+    "owners": [
+      "styles/components/desktop-shell.css"
+    ],
+    "reason": "Retired markup has no producer; current shared desktop components own presentation. Business APIs and settings are retained.",
+    "evidence": "artifacts/css-consolidation-3.0.66/file-retirements.json"
+  },
+  "styles/items/group-rule-copy.css": {
+    "owners": [
+      "styles/components/desktop-shell.css"
+    ],
+    "reason": "Retired markup has no producer; current shared desktop components own presentation. Business APIs and settings are retained.",
+    "evidence": "artifacts/css-consolidation-3.0.66/file-retirements.json"
+  },
+  "styles/ui/interface-copy.css": {
+    "owners": [
+      "styles/components/desktop-shell.css"
+    ],
+    "reason": "Retired markup has no producer; current shared desktop components own presentation. Business APIs and settings are retained.",
+    "evidence": "artifacts/css-consolidation-3.0.66/file-retirements.json"
+  }
+}

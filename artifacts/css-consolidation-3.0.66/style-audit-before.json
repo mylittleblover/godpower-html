@@ -1,0 +1,1681 @@
+{
+  "cssFiles": 51,
+  "cssBytes": 335838,
+  "important": 1633,
+  "classNames": 849,
+  "keyframes": 116,
+  "declarations": 7701,
+  "repeatedSelectorProperties": [
+    [
+      {
+        "path": "src/styles/shell/navigation-and-welcome.css",
+        "conditions": [],
+        "selector": ".group-row-card.effect-mega",
+        "property": "animation",
+        "value": "itemMega 1s ease-in-out infinite alternate"
+      },
+      {
+        "path": "src/styles/battle/score-and-state.css",
+        "conditions": [],
+        "selector": ".group-row-card.effect-mega",
+        "property": "animation",
+        "value": "none !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".picker-layout",
+        "property": "grid-template-columns",
+        "value": "185px minmax(360px, 1fr) 235px"
+      },
+      {
+        "path": "src/ui/desktop.css",
+        "conditions": [],
+        "selector": ".picker-layout",
+        "property": "grid-template-columns",
+        "value": "210px minmax(0, 1fr) 240px"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".item-ency-grid",
+        "property": "grid-template-columns",
+        "value": "repeat(auto-fit, minmax(235px, 1fr))"
+      },
+      {
+        "path": "src/styles/items/catalog-and-card-compat.css",
+        "conditions": [],
+        "selector": ".item-ency-grid",
+        "property": "grid-template-columns",
+        "value": "1fr !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".god-item-grid",
+        "property": "max-height",
+        "value": "170px"
+      },
+      {
+        "path": "src/styles/items/catalog-and-management.css",
+        "conditions": [],
+        "selector": ".god-item-grid",
+        "property": "max-height",
+        "value": "clamp(150px, 35dvh, 330px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".group-row-card.item-draw-spinning .card-header-row,\n.group-row-card.item-draw-spinning .item-slots,\n.group-row-card.item-draw-spinning .answer-zone,\n.group-row-card.item-draw-spinning .score-zone,\n.group-row-card.item-draw-spinning .group-actions",
+        "property": "filter",
+        "value": "blur(2px)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".group-row-card.item-draw-spinning .card-header-row,\n.group-row-card.item-draw-spinning .item-slots,\n.group-row-card.item-draw-spinning .answer-zone,\n.group-row-card.item-draw-spinning .score-zone,\n.group-row-card.item-draw-spinning .group-actions",
+        "property": "filter",
+        "value": "blur(2.5px) saturate(0.7) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette",
+        "property": "inset",
+        "value": "0"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette",
+        "property": "inset",
+        "value": "8px !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette",
+        "property": "background",
+        "value": "rgba(239, 246, 255, 0.88)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette",
+        "property": "background",
+        "value": "radial-gradient(\n    circle at 50% 42%,\n    rgba(255, 255, 255, 0.98) 0 7%,\n    rgba(224, 242, 254, 0.9) 29%,\n    rgba(186, 230, 253, 0.68) 52%,\n    rgba(147, 197, 253, 0.34) 72%,\n    rgba(255, 255, 255, 0.55) 100%\n  ) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal",
+        "property": "background",
+        "value": "rgba(255, 255, 255, 0.94)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal",
+        "property": "background",
+        "value": "radial-gradient(\n    circle at 50% 42%,\n    #fff 0 9%,\n    #fef9c3 32%,\n    rgba(186, 230, 253, 0.82) 64%,\n    rgba(255, 255, 255, 0.88) 100%\n  ) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal",
+        "property": "animation",
+        "value": "itemPop 0.24s cubic-bezier(0.2, 0.9, 0.25, 1.2)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal",
+        "property": "animation",
+        "value": "rouletteReveal 0.58s cubic-bezier(0.15, 0.8, 0.2, 1.15) both !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-draw-stage",
+        "property": "background",
+        "value": "linear-gradient(\n    180deg,\n    rgba(239, 246, 255, 0.97),\n    rgba(255, 255, 255, 0.96)\n  )"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-draw-stage",
+        "property": "background",
+        "value": "radial-gradient(\n    circle at 50% 38%,\n    #fff 0 8%,\n    #eff6ff 40%,\n    #dbeafe 78%,\n    #fff 100%\n  ) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule",
+        "property": "background",
+        "value": "radial-gradient(\n    circle at 35% 25%,\n    #fff 0 10%,\n    #bae6fd 35%,\n    #60a5fa 70%,\n    #2563eb 100%\n  )"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule",
+        "property": "background",
+        "value": "radial-gradient(\n    circle at 38% 25%,\n    #fff 0 8%,\n    #e0f2fe 30%,\n    #7dd3fc 64%,\n    #3b82f6 100%\n  ) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule",
+        "property": "box-shadow",
+        "value": "inset 0 0 20px #ffffffcc,\n    0 10px 30px #2563eb40"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule",
+        "property": "box-shadow",
+        "value": "inset 0 0 24px #ffffffdd,\n    0 0 0 8px rgba(255, 255, 255, 0.42),\n    0 13px 35px rgba(37, 99, 235, 0.22) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule.spinning",
+        "property": "animation",
+        "value": "handCapsulePulse 0.18s ease-in-out infinite alternate"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule.spinning",
+        "property": "animation",
+        "value": "handCrystalFloat 0.65s ease-in-out infinite alternate !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule.reveal",
+        "property": "animation",
+        "value": "itemPop 0.32s cubic-bezier(0.2, 0.9, 0.25, 1.2)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-capsule.reveal",
+        "property": "animation",
+        "value": "handReveal 0.62s cubic-bezier(0.16, 0.82, 0.2, 1.15) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress",
+        "property": "background",
+        "value": "#dbeafe"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress",
+        "property": "background",
+        "value": "rgba(191, 219, 254, 0.65) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress > div",
+        "property": "background",
+        "value": "linear-gradient(90deg, #38bdf8, #2563eb)"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress > div",
+        "property": "background",
+        "value": "linear-gradient(90deg, #7dd3fc, #3b82f6, #8b5cf6) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress > div",
+        "property": "transition",
+        "value": "width 0.09s linear"
+      },
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".hand-item-progress > div",
+        "property": "transition",
+        "value": "width 0.08s linear !important"
+      },
+      {
+        "path": "src/styles/items/draw-flow.css",
+        "conditions": [],
+        "selector": ".hand-item-progress > div",
+        "property": "transition",
+        "value": "width 0.035s linear !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "width",
+        "value": "145px"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "width",
+        "value": "clamp(130px, 34vw, 170px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "height",
+        "value": "145px"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "height",
+        "value": "clamp(130px, 34vw, 170px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "width",
+        "value": "94px"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "width",
+        "value": "clamp(88px, 24vw, 126px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "height",
+        "value": "94px"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "height",
+        "value": "clamp(88px, 24vw, 126px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "transition",
+        "value": "transform 0.11s cubic-bezier(0.2, 0.8, 0.3, 1),\n    opacity 0.09s ease,\n    filter 0.12s ease"
+      },
+      {
+        "path": "src/styles/items/draw-flow.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-icon",
+        "property": "transition",
+        "value": "transform 0.055s cubic-bezier(0.2, 0.8, 0.3, 1),\n    opacity 0.05s ease,\n    filter 0.06s ease !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-name",
+        "property": "font-size",
+        "value": "14px !important"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette .r-name",
+        "property": "font-size",
+        "value": "clamp(22px, 5.2vw, 34px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal:before",
+        "property": "animation",
+        "value": "rouletteRevealRing 0.8s ease-out both"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette.reveal:before",
+        "property": "animation",
+        "value": "rouletteRevealRingLeft 0.8s ease-out both !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "left",
+        "value": "clamp(8px, 4vw, 32px) !important"
+      },
+      {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "conditions": [],
+        "selector": ".card-item-roulette:before",
+        "property": "left",
+        "value": "clamp(18px, 5vw, 44px) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/battle/score-and-state.css",
+        "conditions": [],
+        "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .score-input",
+        "property": "width",
+        "value": "min(180px, 100%) !important"
+      },
+      {
+        "path": "src/styles/battle/score-and-state.css",
+        "conditions": [],
+        "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .score-input",
+        "property": "width",
+        "value": "min(220px, 100%) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/queue-and-image-constraints.css",
+        "conditions": [],
+        "selector": ".queue-main-card .queue-role-badge",
+        "property": "color",
+        "value": "#075985"
+      },
+      {
+        "path": "src/ui/desktop.css",
+        "conditions": [],
+        "selector": ".queue-main-card .queue-role-badge",
+        "property": "color",
+        "value": "var(--ui-primary)"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/catalog-and-card-compat.css",
+        "conditions": [],
+        "selector": ".group-row-card.battle-card",
+        "property": "transition",
+        "value": "transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),\n    box-shadow 0.3s ease,\n    border-color 0.35s ease"
+      },
+      {
+        "path": "src/styles/items/draw-flow.css",
+        "conditions": [],
+        "selector": ".group-row-card.battle-card",
+        "property": "transition",
+        "value": "transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),\n    box-shadow 0.3s ease,\n    border-color 0.35s ease !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/themes/flat-foundation.css",
+        "conditions": [],
+        "selector": "body.modern-flat",
+        "property": "--ui-accent",
+        "value": "#f97316"
+      },
+      {
+        "path": "src/ui/application-surfaces.css",
+        "conditions": [],
+        "selector": "body.modern-flat",
+        "property": "--ui-accent",
+        "value": "#f2836d"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/themes/flat-foundation.css",
+        "conditions": [],
+        "selector": "body.modern-flat",
+        "property": "--ui-accent-hover",
+        "value": "#ea580c"
+      },
+      {
+        "path": "src/ui/application-surfaces.css",
+        "conditions": [],
+        "selector": "body.modern-flat",
+        "property": "--ui-accent-hover",
+        "value": "#dd6c57"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/themes/flat-foundation.css",
+        "conditions": [],
+        "selector": "body.modern-flat #groupList",
+        "property": "contain",
+        "value": "paint"
+      },
+      {
+        "path": "src/styles/items/draw-clipping.css",
+        "conditions": [],
+        "selector": "body.modern-flat #groupList",
+        "property": "contain",
+        "value": "none !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/themes/flat-foundation.css",
+        "conditions": [],
+        "selector": "body.modern-flat .item-window",
+        "property": "grid-template-columns",
+        "value": "180px minmax(0, 1fr) !important"
+      },
+      {
+        "path": "src/styles/ui/flat-controls-and-scrolling.css",
+        "conditions": [],
+        "selector": "body.modern-flat .item-window",
+        "property": "grid-template-columns",
+        "value": "196px minmax(0, 1fr) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/ui/readability-and-effect-layers.css",
+        "conditions": [],
+        "selector": "body.modern-flat .item-window",
+        "property": "max-height",
+        "value": "min(82dvh, 760px) !important"
+      },
+      {
+        "path": "src/styles/ui/flat-controls-and-scrolling.css",
+        "conditions": [],
+        "selector": "body.modern-flat .item-window",
+        "property": "max-height",
+        "value": "min(\n    82dvh,\n    calc(var(--ui-viewport-height, 100dvh) - 48px)\n  ) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/draw-clipping.css",
+        "conditions": [],
+        "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+        "property": "inset",
+        "value": "auto 10px auto 10px !important"
+      },
+      {
+        "path": "src/styles/items/roulette-position.css",
+        "conditions": [],
+        "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+        "property": "inset",
+        "value": "auto !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/items/draw-clipping.css",
+        "conditions": [
+          "@media (max-width: 640px)"
+        ],
+        "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+        "property": "inset",
+        "value": "auto 6px auto 6px !important"
+      },
+      {
+        "path": "src/styles/items/roulette-position.css",
+        "conditions": [
+          "@media (max-width: 640px)"
+        ],
+        "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+        "property": "inset",
+        "value": "auto !important"
+      }
+    ],
+    [
+      {
+        "path": "src/styles/dialogs/theme-confirmation.css",
+        "conditions": [],
+        "selector": ".theme-dialog",
+        "property": "z-index",
+        "value": "200000"
+      },
+      {
+        "path": "src/styles/classroom/student-picker-hand.css",
+        "conditions": [],
+        "selector": ".theme-dialog",
+        "property": "z-index",
+        "value": "var(--ui-modal-layer, 299000) !important"
+      }
+    ],
+    [
+      {
+        "path": "src/ui/desktop.css",
+        "conditions": [],
+        "selector": ".ui-podium > div:first-child",
+        "property": "background",
+        "value": "var(--ui-soft)"
+      },
+      {
+        "path": "src/ui/application-surfaces.css",
+        "conditions": [],
+        "selector": ".ui-podium > div:first-child",
+        "property": "background",
+        "value": "var(--theme-tone-e8f5eb, #e8f5eb)"
+      }
+    ],
+    [
+      {
+        "path": "src/ui/desktop.css",
+        "conditions": [],
+        "selector": ".ui-dock-menu-body",
+        "property": "box-shadow",
+        "value": "var(--shadow-float)"
+      },
+      {
+        "path": "src/ui/application-surfaces.css",
+        "conditions": [],
+        "selector": ".ui-dock-menu-body",
+        "property": "box-shadow",
+        "value": "var(--window-shadow)"
+      }
+    ]
+  ],
+  "unreferencedKeyframes": [
+    {
+      "name": "iceLockBlueGlow",
+      "path": "src/styles/battle/score-and-state.css"
+    },
+    {
+      "name": "megaOrangeGlow",
+      "path": "src/styles/battle/score-and-state.css"
+    },
+    {
+      "name": "iceAura",
+      "path": "src/styles/items/catalog-and-card-compat.css"
+    },
+    {
+      "name": "powerAura",
+      "path": "src/styles/items/catalog-and-card-compat.css"
+    },
+    {
+      "name": "megaAura",
+      "path": "src/styles/items/catalog-and-card-compat.css"
+    },
+    {
+      "name": "starAura",
+      "path": "src/styles/items/catalog-and-card-compat.css"
+    },
+    {
+      "name": "gp-nav-reveal",
+      "path": "src/ui/welcome-dashboard.css"
+    }
+  ],
+  "unresolvedLiteralReferences": [
+    {
+      "name": "top-dashboard-grid",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "chart-container",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "dashboard-card-title",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "chart-wrapper",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "dashboard-summary-container",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "battle-metrics-row",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "metric-box",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "metric-label",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "metric-value",
+      "paths": [
+        "src/styles/battle/overview-and-resizer.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "menu-active",
+      "paths": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "header-name-col",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "name-input",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "header-meta-col",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "member-count-tag",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "color-picker",
+      "paths": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "del-btn",
+      "paths": [
+        "src/styles/battle/group-cards.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "action-score-col",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/battle/score-and-state.css",
+        "src/styles/battle/score-feedback.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "result-msg-box",
+      "paths": [
+        "src/styles/battle/group-cards.css",
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "member-search-fab",
+      "paths": [
+        "src/styles/dialogs/score-and-member-search.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "history-item",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-card",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-head",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-title",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-sub",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-pages",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "wmp-item",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "wmp-tag",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-btn",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-modal-hint",
+      "paths": [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/ui/flat-controls-and-scrolling.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-hero",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-clock",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-date",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-greeting",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-sub",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-cards",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-card",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-card-title",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-stat-grid",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "w-stat-label",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/ui/readability-and-effect-layers.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-enter-wrap",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "fullview-header",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "fullview-body",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-card",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-card-top",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-desc",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-time",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-compare",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-compare-table",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-delta-pos",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-delta-neg",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-delta-zero",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hist-actions",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-members",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-draw-overlay",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-draw-board",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css",
+        "src/ui/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-draw-title",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-draw-grid",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-draw-card",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "roulette",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/items/queue-and-image-constraints.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "draw-name",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "squid-score-mask",
+      "paths": [
+        "src/styles/shell/navigation-and-welcome.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "about-head",
+      "paths": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "answer-zone",
+      "paths": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/items/draw-clipping.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "score-zone",
+      "paths": [
+        "src/styles/items/inventory-and-roulette.css",
+        "src/styles/items/draw-clipping.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "group-control-window",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "group-modal-window",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-window-body",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-window-tabs",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "group-control-tabs",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "legacy-settings-tabbar",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-bar",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-inventory",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-feature-only",
+      "paths": [
+        "src/styles/items/catalog-and-management.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-row",
+      "paths": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-slots-row",
+      "paths": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "inventory-row",
+      "paths": [
+        "src/styles/battle/score-and-state.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "aura-star",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-mega",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-power",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-ice",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-burn",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-freeze",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-paralysis",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-poison",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-dizziness",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-invincible",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "history-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "archive-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "sound-setting-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "icon-setting-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "setting-section",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "settings-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "stat-card",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "picker-window",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "picker-modal",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "hand-window",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-sidebar",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-tabs",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "about-tabs",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "window-titlebar",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-card-title-row",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-summary-grid",
+      "paths": [
+        "src/styles/themes/flat-foundation.css",
+        "src/styles/ui/readability-and-effect-layers.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-extra-metrics",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "welcome-chart-wrapper",
+      "paths": [
+        "src/styles/themes/flat-foundation.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "fx-bundle-toolbar",
+      "paths": [
+        "src/styles/audio/fx-transfer.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "fx-bundle-copy",
+      "paths": [
+        "src/styles/audio/fx-transfer.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "score-roll-old",
+      "paths": [
+        "src/styles/battle/score-feedback.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "score-roll-new",
+      "paths": [
+        "src/styles/battle/score-feedback.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "ui-page-head",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "ui-clock",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "ui-welcome-time",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "ui-section-title",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "ui-modal-close",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "card-fx-layer",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-encyclopedia-icon",
+      "paths": [
+        "src/ui/desktop.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "count-1",
+      "paths": [
+        "src/ui/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "about-side-title",
+      "paths": [
+        "src/ui/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "component-library-tokens",
+      "paths": [
+        "src/ui/component-library.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "component-library-token",
+      "paths": [
+        "src/ui/component-library.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "item-rule",
+      "paths": [
+        "src/styles/items/group-rule-copy.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    },
+    {
+      "name": "copy-kicker",
+      "paths": [
+        "src/styles/ui/interface-copy.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "No full literal reference is not a reachability proof; trace renderer and compatibility context first"
+    }
+  ]
+}

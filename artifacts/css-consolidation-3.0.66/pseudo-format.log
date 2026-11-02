@@ -1,0 +1,5 @@
+scripts/css-source.mjs 203ms
+scripts/prune-retired-selectors.mjs 85ms
+tests/integration/css-consolidation.test.mjs 103ms
+tests/unit/source-maintenance.test.mjs 63ms
+src/ui/component-catalog.js 338ms

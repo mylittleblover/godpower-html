@@ -15,16 +15,6 @@
   gap: 13px;
   min-height: 92px;
   padding: 10px 12px;
-  border: 1px solid rgba(125, 169, 197, 0.45);
-  border-radius: 13px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(228, 242, 251, 0.86)
-  );
-  box-shadow:
-    inset 0 1px 0 #fff,
-    0 2px 8px rgba(43, 91, 121, 0.09);
 }
 .item-encyclopedia-icon-disc {
   width: 66px;
@@ -33,16 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    circle at 34% 28%,
-    #fff 0 20%,
-    #d8edf9 58%,
-    #b8d8ea 100%
-  );
-  border: 1px solid rgba(93, 151, 186, 0.55);
-  box-shadow:
-    inset 0 1px 2px #fff,
-    0 3px 10px rgba(49, 105, 139, 0.17);
   overflow: hidden;
   justify-self: center;
 }
@@ -126,11 +106,6 @@
   font-size: 18px;
   font-weight: 1000;
   letter-spacing: 0.5px;
-  color: #fff;
-  background: var(--group-color, #64748b);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 2px 7px rgba(15, 23, 42, 0.18);
   font-variant-numeric: tabular-nums;
 }
 .battle-group-heading {
@@ -139,7 +114,6 @@
 .battle-group-name {
   font-size: 14px;
   font-weight: 950;
-  color: #17314a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -147,7 +121,6 @@
 }
 .battle-group-subtitle {
   font-size: 9px;
-  color: #8aa0b2;
   margin-top: 3px;
   white-space: nowrap;
 }
@@ -275,16 +248,10 @@
   line-height: 23px !important;
   white-space: nowrap !important;
 }
-.battle-card .result-msg-box {
-  display: none !important;
-}
+
 /* 排序 FLIP 动画由 JS 写入 transform；默认时长与开始答题、道具重排保持一致。 */
 .group-row-card.battle-card {
   will-change: transform;
-  transition:
-    transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.3s ease,
-    border-color 0.35s ease;
 }
 
 /* 持续状态改成独立光环层，不再与一次性道具动画争夺 animation 属性 */
@@ -296,8 +263,6 @@
   position: absolute;
   inset: -4px;
   border-radius: 14px;
-  pointer-events: none;
-  z-index: 70;
   border: 3px solid transparent;
   box-sizing: border-box;
 }
@@ -376,62 +341,6 @@
 .persistent-aura.aura-stacked {
   inset: -9px;
   border-width: 2px;
-}
-@keyframes starAura {
-  0% {
-    filter: hue-rotate(0deg);
-    box-shadow:
-      0 0 12px #ff3b30,
-      0 0 24px #ff3b30;
-  }
-  50% {
-    filter: hue-rotate(180deg);
-    box-shadow:
-      0 0 15px #34c759,
-      0 0 30px #0a84ff;
-  }
-  100% {
-    filter: hue-rotate(360deg);
-    box-shadow:
-      0 0 12px #bf5af2,
-      0 0 24px #ff375f;
-  }
-}
-@keyframes megaAura {
-  from {
-    opacity: 0.72;
-    box-shadow:
-      0 0 9px #f97316,
-      0 0 18px rgba(249, 115, 22, 0.42);
-  }
-  to {
-    opacity: 1;
-    box-shadow:
-      0 0 17px #fb923c,
-      0 0 31px rgba(251, 146, 60, 0.72);
-  }
-}
-@keyframes powerAura {
-  from {
-    opacity: 0.65;
-  }
-  to {
-    opacity: 1;
-    box-shadow:
-      0 0 18px #fde047,
-      0 0 30px rgba(250, 204, 21, 0.72);
-  }
-}
-@keyframes iceAura {
-  from {
-    opacity: 0.55;
-  }
-  to {
-    opacity: 1;
-    box-shadow:
-      0 0 17px #38bdf8,
-      0 0 28px rgba(14, 165, 233, 0.68);
-  }
 }
 
 body.items-disabled .battle-card .item-slots {

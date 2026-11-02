@@ -1,0 +1,16 @@
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (5691.018254ms)
+✔ retired screen classes have no business or preview references; scripts retain their exact source (986.987555ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.773354ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (2.613071ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.12082ms)
+✔ empty rule cleanup preserves keyframes, layers and quoted declarations (0.459944ms)
+✔ empty conditional scopes can be removed without dropping layer or keyframe semantics (0.336067ms)
+✔ retired selectors only match mandatory classes outside pseudo functions (0.361375ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7308.248077

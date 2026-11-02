@@ -117,23 +117,18 @@
     },
     {
       "type": "style",
-      "path": "styles/themes/flat-foundation.css",
+      "path": "styles/base/desktop-foundation.css",
       "attributes": " id=\"modernFlatV217Style\""
     },
     {
       "type": "style",
-      "path": "styles/ui/readability-and-effect-layers.css",
+      "path": "styles/components/readability-and-layers.css",
       "attributes": " id=\"v2161Fixes\""
     },
     {
       "type": "style",
-      "path": "styles/items/draw-clipping.css",
-      "attributes": " id=\"v2162DrawAndMaskFix\""
-    },
-    {
-      "type": "style",
-      "path": "styles/items/roulette-position.css",
-      "attributes": " id=\"v2163RoulettePositionFix\""
+      "path": "styles/items/draw-layout.css",
+      "attributes": " id=\"itemDrawLayoutStyle\""
     },
     {
       "type": "style",
@@ -149,11 +144,6 @@
       "type": "style",
       "path": "styles/audio/item-sounds.css",
       "attributes": " id=\"v2174PerItemSoundStyle\""
-    },
-    {
-      "type": "style",
-      "path": "styles/audio/fx-transfer.css",
-      "attributes": " id=\"v2175FxBinStyle\""
     },
     {
       "type": "style",
@@ -182,7 +172,7 @@
     },
     {
       "type": "style",
-      "path": "styles/ui/flat-controls-and-scrolling.css",
+      "path": "styles/components/controls-and-scrolling.css",
       "attributes": " id=\"v21719FlatUiConsistencyFix\""
     },
     {
@@ -202,7 +192,7 @@
     },
     {
       "type": "style",
-      "path": "styles/ui/defense-notices.css",
+      "path": "styles/feedback/defense-notices.css",
       "attributes": " id=\"v21735TopNoticeStackStyle\""
     },
     {
@@ -212,62 +202,62 @@
     },
     {
       "type": "style",
-      "path": "ui/desktop.css",
+      "path": "styles/components/desktop-shell.css",
       "attributes": " id=\"desktop-design-system\""
     },
     {
       "type": "style",
-      "path": "ui/roster-workspace.css",
+      "path": "styles/classroom/roster-workspace.css",
       "attributes": ""
     },
     {
       "type": "style",
-      "path": "ui/teaching-workspace.css",
+      "path": "styles/teaching/workspace.css",
       "attributes": ""
     },
     {
       "type": "style",
-      "path": "ui/application-surfaces.css",
+      "path": "styles/components/application-surfaces.css",
       "attributes": " id=\"application-surfaces\""
     },
     {
       "type": "style",
-      "path": "ui/classroom-feedback.css",
+      "path": "styles/feedback/classroom-effects.css",
       "attributes": " id=\"classroom-feedback-style\""
     },
     {
       "type": "style",
-      "path": "ui/battle-motion.css",
+      "path": "styles/battle/motion.css",
       "attributes": " id=\"battle-motion-style\""
     },
     {
       "type": "style",
-      "path": "ui/item-modules.css",
+      "path": "styles/settings/item-modules.css",
       "attributes": ""
     },
     {
       "type": "style",
-      "path": "ui/welcome-dashboard.css",
+      "path": "styles/home/welcome.css",
       "attributes": " id=\"gp-home-redesign\""
     },
     {
       "type": "style",
-      "path": "ui/home-dashboard.css",
+      "path": "styles/home/dashboard-layout.css",
       "attributes": " id=\"home-dashboard-style\""
     },
     {
       "type": "style",
-      "path": "ui/tooltips.css",
+      "path": "styles/components/tooltips.css",
       "attributes": " id=\"global-tooltip-style\""
     },
     {
       "type": "style",
-      "path": "ui/component-library.css",
+      "path": "styles/settings/component-library.css",
       "attributes": ""
     },
     {
       "type": "style",
-      "path": "ui/themes.css",
+      "path": "styles/themes/tokens-and-presets.css",
       "attributes": " id=\"application-themes\""
     },
     {
@@ -459,331 +449,331 @@
       "type": "script",
       "path": "runtime/ui/window-visibility.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/core/state-and-preferences.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/archives/settlement-actions.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/session-cache.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/history/compatibility-ui.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/resource-loading.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/sound-playback.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/battle-playback.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/toast.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/storage/classroom-save.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/battle-layout-controls.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/admin-lock.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/competition/round-actions.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/classroom/roster-settings-actions.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/score-dialog-and-animation.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/competition/answer-adapter.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/member-search.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/competition-summary.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/picker/selection-engine.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/classroom/roster-text-import.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/storage/classroom-transfer.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/classroom/group-actions.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/settings-and-transfer.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/navigation-and-clock.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-patterns.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-synthesis.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-transport.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-settings.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/picker-roll.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/wallpaper.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/bootstrap/classroom-startup.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/definitions-and-state.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/ranking-and-drop-legacy.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/attack-legacy.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/group-window.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/picker/classroom-tools.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/encyclopedia-and-icons.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/settings-and-about.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/hand-reward-lifecycle.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/feedback-and-icons.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/card-effects-legacy.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/history/boot-and-settings-compat.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/audio/item-sound-settings.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/icon-settings.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/settings-navigation-compat.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/persistent-state-repair.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/program-confirmation.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/weighted-selection.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/effect-palette-and-preview.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/catalog-adapters.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/catalog-refresh.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/feature-switch.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/ui/chart-and-window-polish.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/lightning-and-hit-legacy.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
       "path": "runtime/items/queue-adapters.js",
       "attributes": "",
-      "executionGroup": "script-74"
+      "executionGroup": "script-72"
     },
     {
       "type": "script",
@@ -944,42 +934,37 @@
       "type": "script",
       "path": "runtime/classroom/student-labels-and-search.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
       "path": "runtime/classroom/quick-person-score.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
       "path": "runtime/items/triple-defense-helpers.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
       "path": "runtime/items/first-hand-pool.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
       "path": "runtime/classroom/hand-reward-controls.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
       "path": "runtime/items/encyclopedia-rules.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-106"
-    },
-    {
-      "type": "style",
-      "path": "styles/items/group-rule-copy.css",
-      "attributes": " id=\"v2182GroupItemSyncStyle\""
+      "executionGroup": "script-104"
     },
     {
       "type": "script",
@@ -993,7 +978,7 @@
     },
     {
       "type": "style",
-      "path": "styles/ui/dock-tooltips.css",
+      "path": "styles/shell/dock-tooltips.css",
       "attributes": " id=\"v2185DockHumorStyle\""
     },
     {
@@ -1005,11 +990,6 @@
       "type": "script",
       "path": "runtime/bootstrap/version.js",
       "attributes": " id=\"v2186OpenFixMarker\""
-    },
-    {
-      "type": "style",
-      "path": "styles/ui/interface-copy.css",
-      "attributes": " id=\"v2187CopyPolishStyle\""
     },
     {
       "type": "script",
@@ -1128,7 +1108,7 @@
     },
     {
       "type": "style",
-      "path": "ui/item-score-cinematics.css",
+      "path": "styles/feedback/item-score-cinematics.css",
       "attributes": ""
     },
     {
@@ -1195,19 +1175,19 @@
       "type": "script",
       "path": "ui/component-catalog.js",
       "attributes": "",
-      "executionGroup": "script-150"
+      "executionGroup": "script-146"
     },
     {
       "type": "script",
       "path": "ui/component-preview-style.js",
       "attributes": "",
-      "executionGroup": "script-150"
+      "executionGroup": "script-146"
     },
     {
       "type": "script",
       "path": "ui/component-library.js",
       "attributes": "",
-      "executionGroup": "script-150"
+      "executionGroup": "script-146"
     },
     {
       "type": "script",

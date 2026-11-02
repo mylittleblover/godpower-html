@@ -153,9 +153,9 @@ test("CSS component split retains original cascade content and source order", ()
   );
   const template = readFileSync("src/index.template.html", "utf8");
   const positions = [
-    "ui/desktop.css",
-    "ui/roster-workspace.css",
-    "ui/teaching-workspace.css",
+    "styles/components/desktop-shell.css",
+    "styles/classroom/roster-workspace.css",
+    "styles/teaching/workspace.css",
   ].map((x) => template.indexOf(`@@SOURCE:${x}@@`));
   assert.ok(positions.every((x) => x > 0));
   assert.ok(positions[0] < positions[1] && positions[1] < positions[2]);

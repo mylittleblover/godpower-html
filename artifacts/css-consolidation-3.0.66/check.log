@@ -1,0 +1,13 @@
+
+> godpower-html@3.0.66 check
+> node scripts/check.mjs
+
+125 script blocks parse; all 27 original embedded resources preserved plus 2 new item icons
+file:///workspace/godpower-html-latest/scripts/check.mjs:66
+  throw Error(
+        ^
+
+Error: Source manifest drift; run node scripts/sync-source-manifest.mjs
+    at file:///workspace/godpower-html-latest/scripts/check.mjs:66:9
+
+Node.js v24.19.0

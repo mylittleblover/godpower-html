@@ -1,0 +1,3 @@
+src/ui/component-library.js 112ms
+src/ui/component-catalog.js 108ms
+tests/integration/css-consolidation.test.mjs 36ms

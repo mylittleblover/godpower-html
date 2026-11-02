@@ -1,0 +1,116 @@
+{
+  "removed": [
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "top",
+      "value": "50% !important",
+      "start": 390,
+      "end": 413,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "left",
+      "value": "10px !important",
+      "start": 413,
+      "end": 438,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "right",
+      "value": "10px !important",
+      "start": 438,
+      "end": 464,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "bottom",
+      "value": "auto !important",
+      "start": 464,
+      "end": 491,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "top",
+      "value": "50% !important",
+      "start": 1152,
+      "end": 1177,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "left",
+      "value": "6px !important",
+      "start": 1177,
+      "end": 1203,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "right",
+      "value": "6px !important",
+      "start": 1203,
+      "end": 1230,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "bottom",
+      "value": "auto !important",
+      "start": 1230,
+      "end": 1259,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    }
+  ]
+}

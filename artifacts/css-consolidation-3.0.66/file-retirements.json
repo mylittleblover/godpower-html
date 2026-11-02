@@ -1,0 +1,19 @@
+{
+  "retired": [
+    {
+      "path": "src/styles/audio/fx-transfer.css",
+      "sourceHash": "ab4e7736b676cdbbe31515847d7349ab2e4048aca3227941c1e1759bae7d08a1",
+      "remainingText": "\n\n\n\n\n@media (max-width: 700px) {\n  \n  \n}\n"
+    },
+    {
+      "path": "src/styles/items/group-rule-copy.css",
+      "sourceHash": "1642f79321b1a1cf9c03edf838b94a113ab519e7ae9af613807dde5c17be31b2",
+      "remainingText": "/* V2.18.2 小组信息道具区同步新版规则 */\n\n"
+    },
+    {
+      "path": "src/styles/ui/interface-copy.css",
+      "sourceHash": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "remainingText": "\n"
+    }
+  ]
+}

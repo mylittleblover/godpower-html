@@ -1,0 +1,13 @@
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2667.753952ms)
+✔ retired screen classes have no business or preview references; scripts retain their exact source (735.891967ms)
+✔ component catalog includes every shipped CSS class, token and animation with source owners (137.416484ms)
+✔ component reference has no direct command, persistence or native authority (0.852156ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.489709ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3935.104128

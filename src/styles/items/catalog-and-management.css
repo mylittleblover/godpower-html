@@ -19,16 +19,6 @@
 #v2ItemEncyclopedia .ency-card {
   min-width: 0 !important;
   height: auto !important;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.84),
-    rgba(225, 241, 252, 0.68)
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.95) !important;
-  box-shadow:
-    inset 0 1px 0 #fff,
-    0 5px 14px rgba(55, 100, 130, 0.12) !important;
-  border-radius: 16px !important;
 }
 #v2ItemEncyclopedia .ency-icon img {
   max-width: 58px !important;
@@ -60,33 +50,10 @@
 /* 小组控制台：竖屏保留顶部标签；横屏改为左侧标签 + 右侧内容 */
 @media (orientation: landscape) and (max-height: 650px) {
   #itemWindow,
-  .item-window,
-  .group-control-window,
-  .group-modal-window {
+  .item-window {
     width: min(980px, calc(100vw - 24px)) !important;
     height: min(520px, calc(100dvh - 20px)) !important;
     max-height: calc(100dvh - 20px) !important;
-  }
-  #itemWindowBody,
-  .item-window-body {
-    min-height: 0 !important;
-    overflow: auto !important;
-  }
-  .item-window-tabs,
-  .group-control-tabs {
-    flex: 0 0 190px !important;
-    width: 190px !important;
-    flex-direction: column !important;
-    align-self: stretch !important;
-    border-right: 1px solid rgba(105, 155, 190, 0.35) !important;
-    border-bottom: 0 !important;
-    padding: 10px !important;
-  }
-  .item-window-tabs button,
-  .group-control-tabs button {
-    width: 100% !important;
-    min-height: 48px !important;
-    text-align: left !important;
   }
 }
 
@@ -107,7 +74,6 @@
     padding-bottom: 88px !important;
   }
   #view-settings .legacy-settings-tabs,
-  #view-settings .legacy-settings-tabbar,
   #view-settings #settingsV2Tabs {
     position: sticky !important;
     bottom: 6px !important;
@@ -120,8 +86,6 @@
 
 /* ===== V2.9.1 共产主义模式（道具系统总开关） ===== */
 body.items-disabled .item-slot,
-body.items-disabled .item-bar,
-body.items-disabled .item-inventory,
 body.items-disabled .item-draw-spinning,
 body.items-disabled .card-item-roulette,
 body.items-disabled .god-item-tools,
@@ -129,8 +93,6 @@ body.items-disabled .item-defense-toast,
 body.items-disabled #v2ItemPane,
 body.items-disabled [data-sp="items"],
 body.items-disabled [data-about="items"],
-body.items-disabled #itemWindowTabItems,
-body.items-disabled [data-item-feature],
-body.items-disabled .item-feature-only {
+body.items-disabled [data-item-feature] {
   display: none !important;
 }

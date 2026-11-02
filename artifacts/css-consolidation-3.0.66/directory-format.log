@@ -1,0 +1,5 @@
+src/ui/component-catalog.js 142ms
+tests/integration/css-consolidation.test.mjs 57ms
+tests/unit/component-catalog.test.mjs 8ms
+tests/unit/source-maintenance.test.mjs 11ms
+scripts/style-retirement-evidence.mjs 9ms

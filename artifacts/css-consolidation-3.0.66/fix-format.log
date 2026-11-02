@@ -1,0 +1,3 @@
+tests/e2e/css-consolidation.mjs 73ms
+tests/integration/css-consolidation.test.mjs 30ms
+tests/integration/cascade-governance.test.mjs 16ms

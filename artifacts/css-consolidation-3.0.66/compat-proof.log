@@ -1,0 +1,198 @@
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2278.88698ms)
+✔ retired screen classes have no business or preview references; scripts retain their exact source (686.404683ms)
+✖ component catalog includes every shipped CSS class, token and animation with source owners (90.452477ms)
+✔ component reference has no direct command, persistence or native authority (1.718242ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.418259ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.761377ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (1.701356ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.161553ms)
+✔ empty rule cleanup preserves keyframes, layers and quoted declarations (0.345291ms)
+✔ empty conditional scopes can be removed without dropping layer or keyframe semantics (0.325832ms)
+✔ retired selectors only match mandatory classes outside pseudo functions (0.35111ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3462.577778
+
+✖ failing tests:
+
+test at tests/unit/component-catalog.test.mjs:7:1
+✖ component catalog includes every shipped CSS class, token and animation with source owners (90.452477ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+
+    [
+  +   'about-head',
+  +   'about-tabs',
+      'action-score-col',
+  +   'answer-zone',
+  +   'archive-card',
+      'battle-metrics-row',
+  +   'card-fx-layer',
+      'chart-container',
+      'chart-wrapper',
+      'color-picker',
+  +   'component-library-token',
+  +   'component-library-tokens',
+  +   'copy-kicker',
+      'dashboard-card-title',
+      'dashboard-summary-container',
+      'del-btn',
+      'draw-name',
+      'expanded',
+      'full',
+  +   'fullview-body',
+  +   'fullview-header',
+  +   'fx-bundle-copy',
+  +   'fx-bundle-toolbar',
+  +   'group-control-tabs',
+  +   'group-control-window',
+  +   'group-modal-window',
+  +   'hand-window',
+      'header-meta-col',
+      'header-name-col',
+      'hist-actions',
+      'hist-card',
+      'hist-card-top',
+  ...
+      'hist-time',
+  +   'history-card',
+  +   'history-item',
+  +   'icon-setting-card',
+  +   'inventory-row',
+  +   'item-bar',
+      'item-draw-board',
+      'item-draw-card',
+      'item-draw-grid',
+      'item-draw-overlay',
+      'item-draw-title',
+  +   'item-encyclopedia-icon',
+  +   'item-feature-only',
+  +   'item-inventory',
+  +   'item-members',
+  +   'item-row',
+  +   'item-rule',
+  +   'item-sidebar',
+  +   'item-slots-row',
+  +   'item-tabs',
+  +   'item-window-body',
+  +   'item-window-tabs',
+  +   'legacy-settings-tabbar',
+      'member-count-tag',
+  +   'member-search-fab',
+      'menu-active',
+      'metric-box',
+      'metric-label',
+      'metric-value',
+      'name-input',
+  +   'picker-modal',
+  +   'picker-window',
+      'result-msg-box',
+  +   'roulette',
+  +   'score-zone',
+  +   'setting-section',
+  +   'settings-card',
+  +   'sound-setting-card',
+  +   'squid-score-mask',
+  +   'stat-card',
+      'top-dashboard-grid',
+  +   'ui-clock',
+  +   'ui-modal-close',
+  +   'ui-page-head',
+  +   'ui-section-title',
+  +   'ui-welcome-time',
+      'w-stat-label',
+      'welcome-card',
+      'welcome-card-title',
+      'welcome-card-title-row',
+      'welcome-cards',
+  ...
+      'welcome-summary-grid',
+  +   'window-titlebar',
+      'wmp-item',
+      'wmp-tag'
+    ]
+
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/component-catalog.test.mjs:32:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [
+      'about-head',             'about-tabs',              'action-score-col',
+      'answer-zone',            'archive-card',            'battle-metrics-row',
+      'card-fx-layer',          'chart-container',         'chart-wrapper',
+      'color-picker',           'component-library-token', 'component-library-tokens',
+      'copy-kicker',            'dashboard-card-title',    'dashboard-summary-container',
+      'del-btn',                'draw-name',               'expanded',
+      'full',                   'fullview-body',           'fullview-header',
+      'fx-bundle-copy',         'fx-bundle-toolbar',       'group-control-tabs',
+      'group-control-window',   'group-modal-window',      'hand-window',
+      'header-meta-col',        'header-name-col',         'hist-actions',
+      'hist-card',              'hist-card-top',           'hist-compare',
+      'hist-compare-table',     'hist-delta-neg',          'hist-delta-pos',
+      'hist-delta-zero',        'hist-desc',               'hist-time',
+      'history-card',           'history-item',            'icon-setting-card',
+      'inventory-row',          'item-bar',                'item-draw-board',
+      'item-draw-card',         'item-draw-grid',          'item-draw-overlay',
+      'item-draw-title',        'item-encyclopedia-icon',  'item-feature-only',
+      'item-inventory',         'item-members',            'item-row',
+      'item-rule',              'item-sidebar',            'item-slots-row',
+      'item-tabs',              'item-window-body',        'item-window-tabs',
+      'legacy-settings-tabbar', 'member-count-tag',        'member-search-fab',
+      'menu-active',            'metric-box',              'metric-label',
+      'metric-value',           'name-input',              'picker-modal',
+      'picker-window',          'result-msg-box',          'roulette',
+      'score-zone',             'setting-section',         'settings-card',
+      'sound-setting-card',     'squid-score-mask',        'stat-card',
+      'top-dashboard-grid',     'ui-clock',                'ui-modal-close',
+      'ui-page-head',           'ui-section-title',        'ui-welcome-time',
+      'w-stat-label',           'welcome-card',            'welcome-card-title',
+      'welcome-card-title-row', 'welcome-cards',           'welcome-chart-wrapper',
+      'welcome-clock',          'welcome-date',            'welcome-enter-wrap',
+      'welcome-extra-metrics',  'welcome-greeting',        'welcome-hero',
+      'welcome-modal',          'welcome-modal-btn',       'welcome-modal-card',
+      'welcome-modal-head',
+      ... 10 more items
+    ],
+    expected: [
+      'action-score-col',            'battle-metrics-row',
+      'chart-container',             'chart-wrapper',
+      'color-picker',                'dashboard-card-title',
+      'dashboard-summary-container', 'del-btn',
+      'draw-name',                   'expanded',
+      'full',                        'header-meta-col',
+      'header-name-col',             'hist-actions',
+      'hist-card',                   'hist-card-top',
+      'hist-compare',                'hist-compare-table',
+      'hist-delta-neg',              'hist-delta-pos',
+      'hist-delta-zero',             'hist-desc',
+      'hist-time',                   'item-draw-board',
+      'item-draw-card',              'item-draw-grid',
+      'item-draw-overlay',           'item-draw-title',
+      'member-count-tag',            'menu-active',
+      'metric-box',                  'metric-label',
+      'metric-value',                'name-input',
+      'result-msg-box',              'top-dashboard-grid',
+      'w-stat-label',                'welcome-card',
+      'welcome-card-title',          'welcome-card-title-row',
+      'welcome-cards',               'welcome-chart-wrapper',
+      'welcome-clock',               'welcome-date',
+      'welcome-enter-wrap',          'welcome-extra-metrics',
+      'welcome-greeting',            'welcome-hero',
+      'welcome-modal',               'welcome-modal-btn',
+      'welcome-modal-card',          'welcome-modal-head',
+      'welcome-modal-hint',          'welcome-modal-pages',
+      'welcome-modal-sub',           'welcome-modal-title',
+      'welcome-stat-grid',           'welcome-sub',
+      'welcome-summary-grid',        'wmp-item',
+      'wmp-tag'
+    ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

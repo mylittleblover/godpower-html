@@ -1,0 +1,19 @@
+{
+  "path": "src/ui/application-surfaces.css",
+  "sourceHash": "9eae850bfa705f7609800b1aface7fcffbef9d048d868465ca6facf8b21180be",
+  "edits": [
+    {
+      "start": 9233,
+      "end": 9294,
+      "original": ".ui-function-surface :is(.item-side-title, .about-side-title)",
+      "replacement": ".ui-function-surface .item-side-title",
+      "removedClass": "about-side-title",
+      "retainedClass": "item-side-title",
+      "specificity": [
+        0,
+        2,
+        0
+      ]
+    }
+  ]
+}

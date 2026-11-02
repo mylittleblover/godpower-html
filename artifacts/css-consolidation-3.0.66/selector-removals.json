@@ -1,0 +1,561 @@
+{
+  "contract": {
+    "welcome": {
+      "replacement": "ui/welcome-dashboard.js and ui/home-dashboard.js (.gp-* dashboard)",
+      "classes": [
+        "welcome-hero",
+        "welcome-clock",
+        "welcome-date",
+        "welcome-greeting",
+        "welcome-sub",
+        "welcome-cards",
+        "welcome-card",
+        "welcome-card-title",
+        "welcome-stat-grid",
+        "welcome-enter-wrap"
+      ]
+    },
+    "history": {
+      "replacement": "DesktopUI.renderHistory in ui/desktop.js (.ui-timeline); legacy renderHistoryList delegates to this owner",
+      "classes": [
+        "hist-card",
+        "hist-card-top",
+        "hist-desc",
+        "hist-time",
+        "hist-compare",
+        "hist-compare-table",
+        "hist-delta-pos",
+        "hist-delta-neg",
+        "hist-delta-zero",
+        "hist-actions"
+      ]
+    },
+    "globalDraw": {
+      "replacement": "runtime/items/draw-flow.js canonical card-item-roulette flow; old global draw board removed in 3.0.60",
+      "classes": [
+        "item-draw-overlay",
+        "item-draw-board",
+        "item-draw-title",
+        "item-draw-grid",
+        "item-draw-card",
+        "draw-name"
+      ]
+    }
+  },
+  "sourceHashes": {
+    "src/styles/base/reset-and-header.css": "0a6487abd730a46b13f139478eadcd657324a40867e3d7792fabbe201d1560cb",
+    "src/styles/battle/overview-and-resizer.css": "95eab3798b516a04ba1015d50652bc913eedc66072eac21199d0f8dd19eb18c7",
+    "src/styles/battle/group-cards.css": "6ef2d8a2605df170d305f0fd9113f0c1aaf9c53b2d5746626d908061447e1ab9",
+    "src/styles/dialogs/score-and-member-search.css": "bf5e9ae15b0f82f53290621a9fe4ab7a5137353a4277b908d50165afe22d8d45",
+    "src/styles/shell/dock-and-buttons.css": "39c52962cbfecec228b9e7cb525f7014aa52885c5bfa84f6a3420a381256d8b5",
+    "src/styles/dialogs/settlement-and-core.css": "872412e9db5dfac4715ea82213c127970ff8b24094ca90685f68f645dfb4e5d3",
+    "src/styles/shell/navigation-and-welcome.css": "e32d5f6153469264820d3cbc9db97b1dd924aab9d8acd2e840b6097ba0f07d9e",
+    "src/styles/items/inventory-and-roulette.css": "4f9501b4b1e26ac89e4c17d5e8b8a23e110be5010440c439068b86272d6f8e75",
+    "src/styles/settings/tabs-and-confirmation.css": "2f39d34b4abc3ea7b21bb3358b30ab4bbf68fc3d1bdd4acd095418b4f82eb0cc",
+    "src/styles/items/roulette-result-and-flowers.css": "51c7742c238d4ec4b4a55de995252bd2905bfe8517037d04829847c14c6e2b78",
+    "src/styles/items/catalog-and-management.css": "048e6925818bd7da75bd5f02f37ecf1a90712a36eaf1a9698fff53689f472a19",
+    "src/styles/items/feature-visibility.css": "0b0cf5f7580ad535e2f521f8a820d02c8742f6faf38759e819d899497ddfe8e7",
+    "src/styles/battle/score-and-state.css": "8933b8ebbd6967c526943bcb02b3f101677d86dd9df5528bb3e3dc0658930a1d",
+    "src/styles/items/attack-feedback.css": "62924fd119b23f6a16dcc1cea134795a069d81a729dcf0b18e848f8032a4d104",
+    "src/styles/items/queue-and-image-constraints.css": "1ae5a15e12365284f0d8c22862a63f0f3bc5559afedf1e9f7346a2653427a154",
+    "src/styles/items/catalog-and-card-compat.css": "363d46877be55469057267340c7ebc2041d3ec6563115d5fe81ea2094d90e667",
+    "src/styles/themes/flat-foundation.css": "f5ebcbb2c069d91765f42ebee3553b4cb0fd21984957e98306eec21d7095034c",
+    "src/styles/ui/readability-and-effect-layers.css": "bce1b6a91125449664f86d6ceaadc0bc7de4ccc8f93b592928cf57f9526a133a",
+    "src/styles/items/draw-layout.css": "1479b8b60ec8b6bdccf45f000cada754c163d7b6fbf8cc4e887430f575826601",
+    "src/styles/items/encyclopedia-layout.css": "f2768b5bba16d735e6b0a3694037fd36e7200586bef8dda5adb468134e200f72",
+    "src/styles/settings/clear-items.css": "99701fe9f24bc6603231242ef561eeaa5db650ac18d1c2979a95ea1ed3b80742",
+    "src/styles/audio/item-sounds.css": "02acb3a6e6ef5496f14ce46e96641572e6ee8cc90ca7f0ce4d9126ea9ad099ed",
+    "src/styles/audio/fx-transfer.css": "b5e0304b75e16571fa179bfeadb6124fd289a77577e3a5b9643d85f5f56fe3a1",
+    "src/styles/battle/round-item-locks.css": "34e2a94f897f0bbd72e6ce388411864bbbd01507024cf1d916179ff1c4b53eae",
+    "src/styles/items/cooldown-notes.css": "3ef00e556285b07aef1a5e4ae3de76415caf8d1afd60705212aaa3e3c513ede0",
+    "src/styles/items/draw-flow.css": "8650794a3296e1e32cfaef0b6da22aef47dc6fe120a3e73fba2f391f27cde58b",
+    "src/styles/battle/quick-batch.css": "9456e0421bf2dd6f40a843e420a8567cf71a34b4c6aa9f1ff69b6d8de8f574a9",
+    "src/styles/classroom/group-palette.css": "d37210823cb2729382da6cc8898708b12be12fcd45207a6fcee11393e9e56c4f",
+    "src/styles/ui/flat-controls-and-scrolling.css": "6191ee4ed1923aa12ba79f6095936c5d53eb03ccce1f1e77f0050781b66c1ceb",
+    "src/styles/battle/rank-preview.css": "11cfc7c4482defa2ccf523e7ea4d4ccf028cc856e4e365af0c3008ccfbe3f279",
+    "src/styles/dialogs/theme-confirmation.css": "8e25b3b20ca758b7787c660cf57e1d5117091ed6ee32f7717cd05993486cf449",
+    "src/styles/battle/score-feedback.css": "9106ddf1284f9d47e84497a316d0a704b19fd498be9e3ab90893a0b581070822",
+    "src/styles/ui/defense-notices.css": "1adefb02e6bc9bf1a1b81285cb193b599e528f5dc4d254fa28a98548a3a31a98",
+    "src/styles/classroom/student-picker-hand.css": "3bbda3af87a2fe5b836840f740917797bf8c5652e52125d19911811fe984afaa",
+    "src/ui/desktop.css": "dd7f3393521d0c6e5bd85d48d307f381837197047917041f7b1ccf366b39852d",
+    "src/ui/roster-workspace.css": "7f15c3d115480292329972dc543693565bb1bd565a4ef5f521048f2669f1909a",
+    "src/ui/teaching-workspace.css": "33022cb1197942d2da5e329a84b21251c43ea1b0a04590d44fc7fabd64c6188f",
+    "src/ui/application-surfaces.css": "fb0c889300d0e57b65b4a699c12fa3698dcf851fa4b69dc32bb266e3cffba172",
+    "src/ui/classroom-feedback.css": "4f42df21ded975b6bb6208ad37926e49caa2cf9d6bef4bde231aa243a09865d0",
+    "src/ui/battle-motion.css": "2ca224461afee3b355845b6ee8575d15dace1f535a1f8256397065fac68c1146",
+    "src/ui/item-modules.css": "5d96937571021998bc2ad991a3492454761b89f571571d554cf1396bc8ae2e50",
+    "src/ui/welcome-dashboard.css": "cb7861daab4138635eb30fa6d1037465924f7bb6918ab3130af5763602a48732",
+    "src/ui/home-dashboard.css": "610eb827e26708595f09f34fa999ffe2e81e581e76b7a2fc9466a73c11325f45",
+    "src/ui/tooltips.css": "199af0df74b1d69a75c0e7d15157aa85623d02787c9f87dd4bcdbff8800e6eac",
+    "src/ui/component-library.css": "3e05663afec8e11b2d8cf5cf4c5a41fbe74fdc48c09cb1dfb78743a57188d43c",
+    "src/ui/themes.css": "90c7fc5d684e043a176df6dc79946ca678577db18fd9a0b24d3939ce770c0072",
+    "src/styles/items/group-rule-copy.css": "4e1d217c6bf6fbe57228fcbe43ff3ca046d371b8bfd0881eba9d07edb9c0615c",
+    "src/styles/ui/dock-tooltips.css": "42fac59a9a523171f5b539af3e1f4dfa09df9a6c30286def61236bf0d93f2460",
+    "src/styles/ui/interface-copy.css": "d1af6e54a205ca45eb8ccdfcbefe80d7b8955cab4b194781ad5686c06a68b647",
+    "src/ui/item-score-cinematics.css": "c221eba6391e1c2528a6c3d0c5a5205849ab001a922c05eaa850dc9d6772f11e"
+  },
+  "edits": [
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 773,
+      "end": 1317,
+      "original": ".welcome-hero {\n  min-height: calc(100vh - 96px);\n  background:\n    radial-gradient(\n      1200px 500px at 85% -10%,\n      rgba(245, 158, 11, 0.22),\n      transparent 60%\n    ),\n    radial-gradient(\n      900px 420px at 10% 110%,\n      rgba(2, 132, 199, 0.25),\n      transparent 60%\n    ),\n    linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0b1120 100%);\n  color: #fff;\n  padding: 40px 28px 56px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 22px;\n  text-align: center;\n  position: relative;\n  overflow: hidden;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-hero"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1318,
+      "end": 1524,
+      "original": ".welcome-clock {\n  font-size: 58px;\n  font-weight: 900;\n  letter-spacing: 2px;\n  font-variant-numeric: tabular-nums;\n  color: #fbbf24;\n  text-shadow: 0 0 30px rgba(251, 191, 36, 0.35);\n  line-height: 1.1;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-clock"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1525,
+      "end": 1618,
+      "original": ".welcome-date {\n  font-size: 17px;\n  color: #cbd5e1;\n  margin-top: 6px;\n  font-weight: 600;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-date"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1619,
+      "end": 1721,
+      "original": ".welcome-greeting {\n  font-size: 30px;\n  font-weight: 900;\n  letter-spacing: 6px;\n  margin-top: 8px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-greeting"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1722,
+      "end": 1775,
+      "original": ".welcome-sub {\n  font-size: 15px;\n  color: #94a3b8;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-sub"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1776,
+      "end": 1919,
+      "original": ".welcome-cards {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 18px;\n  width: 100%;\n  max-width: 880px;\n  margin-top: 8px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-cards"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 1920,
+      "end": 2089,
+      "original": ".welcome-card {\n  background: rgba(255, 255, 255, 0.05);\n  border: 1px solid rgba(255, 255, 255, 0.1);\n  border-radius: 16px;\n  padding: 18px 20px;\n  text-align: left;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-card"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 2090,
+      "end": 2216,
+      "original": ".welcome-card-title {\n  font-size: 15px;\n  font-weight: 900;\n  color: #fbbf24;\n  margin-bottom: 12px;\n  letter-spacing: 1px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-card-title"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 2217,
+      "end": 2310,
+      "original": ".welcome-stat-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 12px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-stat-grid"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 2540,
+      "end": 2583,
+      "original": ".welcome-enter-wrap {\n  margin-top: 10px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-enter-wrap"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4371,
+      "end": 4526,
+      "original": ".hist-card {\n  background: #f8fafc;\n  border: 1px solid #e2e8f0;\n  border-radius: 10px;\n  padding: 12px 16px;\n  cursor: pointer;\n  transition: all 0.15s;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-card"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4527,
+      "end": 4595,
+      "original": ".hist-card:hover {\n  border-color: #bae6fd;\n  background: #f0f9ff;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-card:hover"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4596,
+      "end": 4720,
+      "original": ".hist-card-top {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 10px;\n  flex-wrap: wrap;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-card-top"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4721,
+      "end": 4792,
+      "original": ".hist-desc {\n  font-weight: 800;\n  color: #1e293b;\n  font-size: 14px;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-desc"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4793,
+      "end": 4882,
+      "original": ".hist-time {\n  font-size: 12px;\n  color: #64748b;\n  font-variant-numeric: tabular-nums;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-time"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4883,
+      "end": 4992,
+      "original": ".hist-compare {\n  display: none;\n  margin-top: 10px;\n  border-top: 1px dashed #cbd5e1;\n  padding-top: 10px;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-compare"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 4993,
+      "end": 5048,
+      "original": ".hist-node.expanded .hist-compare {\n  display: block;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-node.expanded .hist-compare"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5049,
+      "end": 5158,
+      "original": ".hist-compare-table {\n  width: 100%;\n  border-collapse: collapse;\n  font-size: 12px;\n  table-layout: fixed;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-compare-table"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5159,
+      "end": 5285,
+      "original": ".hist-compare-table th,\n.hist-compare-table td {\n  padding: 5px 8px;\n  border-bottom: 1px solid #f1f5f9;\n  text-align: left;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-compare-table th",
+        ".hist-compare-table td"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5286,
+      "end": 5350,
+      "original": ".hist-compare-table th {\n  color: #64748b;\n  font-weight: 700;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-compare-table th"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5351,
+      "end": 5408,
+      "original": ".hist-delta-pos {\n  color: #059669;\n  font-weight: 800;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-delta-pos"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5409,
+      "end": 5466,
+      "original": ".hist-delta-neg {\n  color: #dc2626;\n  font-weight: 800;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-delta-neg"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5467,
+      "end": 5505,
+      "original": ".hist-delta-zero {\n  color: #94a3b8;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-delta-zero"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 5506,
+      "end": 5600,
+      "original": ".hist-actions {\n  margin-top: 8px;\n  display: flex;\n  gap: 8px;\n  justify-content: flex-end;\n}",
+      "replacement": "",
+      "retired": [
+        ".hist-actions"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 7050,
+      "end": 7102,
+      "original": ".welcome-cards {\n    grid-template-columns: 1fr;\n  }",
+      "replacement": "",
+      "retired": [
+        ".welcome-cards"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 7105,
+      "end": 7146,
+      "original": ".welcome-clock {\n    font-size: 40px;\n  }",
+      "replacement": "",
+      "retired": [
+        ".welcome-clock"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 7270,
+      "end": 7339,
+      "original": ".welcome-greeting {\n    font-size: 22px;\n    letter-spacing: 3px;\n  }",
+      "replacement": "",
+      "retired": [
+        ".welcome-greeting"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 13486,
+      "end": 13677,
+      "original": ".item-draw-overlay {\n  display: none;\n  position: fixed;\n  inset: 0;\n  z-index: 12500;\n  background: rgba(2, 6, 23, 0.78);\n  align-items: center;\n  justify-content: center;\n  padding: 20px;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-overlay"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 13678,
+      "end": 13724,
+      "original": ".item-draw-overlay.active {\n  display: flex;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-overlay.active"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 13725,
+      "end": 13925,
+      "original": ".item-draw-board {\n  width: min(1100px, 96vw);\n  max-height: 90vh;\n  overflow: auto;\n  background: rgba(240, 249, 255, 0.96);\n  border-radius: 20px;\n  padding: 22px;\n  box-shadow: 0 24px 80px #0008;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-board"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 13926,
+      "end": 14030,
+      "original": ".item-draw-title {\n  text-align: center;\n  font-size: 24px;\n  font-weight: 900;\n  margin-bottom: 16px;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-title"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14031,
+      "end": 14143,
+      "original": ".item-draw-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: 12px;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-grid"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14144,
+      "end": 14274,
+      "original": ".item-draw-card {\n  background: #fff;\n  border: 1px solid #bfdbfe;\n  border-radius: 14px;\n  padding: 15px;\n  text-align: center;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-card"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14275,
+      "end": 14339,
+      "original": ".item-draw-card .roulette {\n  font-size: 46px;\n  height: 58px;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-card .roulette"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14340,
+      "end": 14409,
+      "original": ".item-draw-card .draw-name {\n  font-weight: 900;\n  margin-top: 4px;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-card .draw-name"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14410,
+      "end": 14451,
+      "original": ".item-draw-card.full {\n  opacity: 0.55;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-card.full"
+      ]
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "start": 14452,
+      "end": 14514,
+      "original": ".item-draw-card.reveal {\n  animation: itemReveal 0.35s ease;\n}",
+      "replacement": "",
+      "retired": [
+        ".item-draw-card.reveal"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 4787,
+      "end": 4920,
+      "original": "body.modern-flat .item-window,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window,\nbody.modern-flat .item-draw-board ",
+      "replacement": "body.modern-flat .item-window,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window ",
+      "retired": [
+        "body.modern-flat .item-draw-board"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 5277,
+      "end": 5386,
+      "original": "body.modern-flat .item-draw-board {\n  overflow: auto !important;\n  overscroll-behavior: contain !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .item-draw-board"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 5936,
+      "end": 6790,
+      "original": "body.modern-flat .chart-container,\nbody.modern-flat .dashboard-summary-container,\nbody.modern-flat .quick-batch-bar,\nbody.modern-flat .fullview-header,\nbody.modern-flat .fullview-body,\nbody.modern-flat .settings-scroll:not(.ui-settings-host),\nbody.modern-flat .welcome-card,\nbody.modern-flat .history-card,\nbody.modern-flat .archive-card,\nbody.modern-flat .setting-card,\nbody.modern-flat .setting-item,\nbody.modern-flat .setting-row,\nbody.modern-flat .guide-block,\nbody.modern-flat .ency-card,\nbody.modern-flat .item-encyclopedia-card,\nbody.modern-flat .sound-setting-card,\nbody.modern-flat .icon-setting-card,\nbody.modern-flat .trim-row,\nbody.modern-flat .history-item,\nbody.modern-flat .hist-card,\nbody.modern-flat .setting-section,\nbody.modern-flat .settings-card,\nbody.modern-flat .stat-card,\nbody.modern-flat .sound-row,\nbody.modern-flat .item-card ",
+      "replacement": "body.modern-flat .chart-container,\nbody.modern-flat .dashboard-summary-container,\nbody.modern-flat .quick-batch-bar,\nbody.modern-flat .fullview-header,\nbody.modern-flat .fullview-body,\nbody.modern-flat .settings-scroll:not(.ui-settings-host),\nbody.modern-flat .history-card,\nbody.modern-flat .archive-card,\nbody.modern-flat .setting-card,\nbody.modern-flat .setting-item,\nbody.modern-flat .setting-row,\nbody.modern-flat .guide-block,\nbody.modern-flat .ency-card,\nbody.modern-flat .item-encyclopedia-card,\nbody.modern-flat .sound-setting-card,\nbody.modern-flat .icon-setting-card,\nbody.modern-flat .trim-row,\nbody.modern-flat .history-item,\nbody.modern-flat .setting-section,\nbody.modern-flat .settings-card,\nbody.modern-flat .stat-card,\nbody.modern-flat .sound-row,\nbody.modern-flat .item-card ",
+      "retired": [
+        "body.modern-flat .welcome-card",
+        "body.modern-flat .hist-card"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 7802,
+      "end": 8204,
+      "original": "body.modern-flat .modal-box,\nbody.modern-flat .score-modal-card,\nbody.modern-flat .member-search-card,\nbody.modern-flat .vista-window,\nbody.modern-flat .item-window,\nbody.modern-flat .picker-window,\nbody.modern-flat .picker-modal,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window,\nbody.modern-flat .hand-window,\nbody.modern-flat .item-draw-board,\nbody.modern-flat .welcome-modal-card ",
+      "replacement": "body.modern-flat .modal-box,\nbody.modern-flat .score-modal-card,\nbody.modern-flat .member-search-card,\nbody.modern-flat .vista-window,\nbody.modern-flat .item-window,\nbody.modern-flat .picker-window,\nbody.modern-flat .picker-modal,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window,\nbody.modern-flat .hand-window,\nbody.modern-flat .welcome-modal-card ",
+      "retired": [
+        "body.modern-flat .item-draw-board"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 8518,
+      "end": 8813,
+      "original": "body.modern-flat .modal-overlay,\nbody.modern-flat .score-modal-backdrop,\nbody.modern-flat .member-search-backdrop,\nbody.modern-flat .welcome-modal,\nbody.modern-flat .item-modal-backdrop,\nbody.modern-flat .item-draw-overlay,\nbody.modern-flat .classroom-backdrop,\nbody.modern-flat .about-backdrop ",
+      "replacement": "body.modern-flat .modal-overlay,\nbody.modern-flat .score-modal-backdrop,\nbody.modern-flat .member-search-backdrop,\nbody.modern-flat .welcome-modal,\nbody.modern-flat .item-modal-backdrop,\nbody.modern-flat .classroom-backdrop,\nbody.modern-flat .about-backdrop ",
+      "retired": [
+        "body.modern-flat .item-draw-overlay"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 15387,
+      "end": 15667,
+      "original": "body.modern-flat .item-slot,\nbody.modern-flat .item-big,\nbody.modern-flat .item-stat,\nbody.modern-flat .item-members,\nbody.modern-flat .picker-target,\nbody.modern-flat .hand-rewards,\nbody.modern-flat .item-draw-card,\nbody.modern-flat .icon-custom-card,\nbody.modern-flat .wmp-item ",
+      "replacement": "body.modern-flat .item-slot,\nbody.modern-flat .item-big,\nbody.modern-flat .item-stat,\nbody.modern-flat .item-members,\nbody.modern-flat .picker-target,\nbody.modern-flat .hand-rewards,\nbody.modern-flat .icon-custom-card,\nbody.modern-flat .wmp-item ",
+      "retired": [
+        "body.modern-flat .item-draw-card"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 17169,
+      "end": 17324,
+      "original": "body.modern-flat .battle-group-name,\nbody.modern-flat .dashboard-card-title,\nbody.modern-flat .welcome-card-title,\nbody.modern-flat .setting-section-title ",
+      "replacement": "body.modern-flat .battle-group-name,\nbody.modern-flat .dashboard-card-title,\nbody.modern-flat .setting-section-title ",
+      "retired": [
+        "body.modern-flat .welcome-card-title"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 18554,
+      "end": 18660,
+      "original": "body.modern-flat .welcome-clock {\n  color: var(--ui-primary) !important;\n  text-shadow: none !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-clock"
+      ]
+    },
+    {
+      "path": "src/ui/application-surfaces.css",
+      "start": 8124,
+      "end": 8188,
+      "original": ".ui-function-surface,\n.item-draw-board,\n.program-confirm-window ",
+      "replacement": ".ui-function-surface,\n.program-confirm-window ",
+      "retired": [
+        ".item-draw-board"
+      ]
+    }
+  ]
+}

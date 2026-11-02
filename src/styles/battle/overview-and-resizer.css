@@ -1,36 +1,5 @@
-.top-dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 14px;
-}
-
-.chart-container {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 14px 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.dashboard-card-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 /* 条形图容器：支持绝对定位与平滑上下位移重排 */
-.chart-wrapper {
-  position: relative;
-  max-height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: height 0.3s ease;
-}
+
 .chart-row {
   position: absolute;
   left: 0;
@@ -57,7 +26,6 @@
 }
 .chart-track {
   flex: 1;
-  background: #f1f5f9;
   border-radius: 6px;
   height: 12px;
   overflow: hidden;
@@ -78,16 +46,6 @@
   color: #1e293b;
 }
 
-.dashboard-summary-container {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 14px 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-}
 .podium-deck {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -96,8 +54,6 @@
   margin-top: 4px;
 }
 .podium-col {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 8px;
   text-align: center;
@@ -105,18 +61,7 @@
   flex-direction: column;
   gap: 4px;
 }
-.podium-col.rank-1 {
-  border-color: #fde047;
-  background: #fefce8;
-}
-.podium-col.rank-2 {
-  border-color: #cbd5e1;
-  background: #f8fafc;
-}
-.podium-col.rank-3 {
-  border-color: #fdba74;
-  background: #fff7ed;
-}
+
 .podium-badge {
   font-size: 11px;
   font-weight: 900;
@@ -132,29 +77,6 @@
   font-size: 16px;
   font-weight: 900;
   font-variant-numeric: tabular-nums;
-}
-
-.battle-metrics-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  border-top: 1px dashed #e2e8f0;
-  padding-top: 8px;
-}
-.metric-box {
-  text-align: center;
-  background: #f8fafc;
-  border-radius: 6px;
-  padding: 6px 4px;
-}
-.metric-label {
-  font-size: 11px;
-  color: #64748b;
-}
-.metric-value {
-  font-size: 14px;
-  font-weight: 800;
-  color: #0284c7;
 }
 
 .height-resizer-dock {
@@ -196,10 +118,7 @@
 }
 
 .quick-batch-bar {
-  background: #ffffff;
-  border-radius: 10px;
   padding: 10px 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: none;
   align-items: center;
   justify-content: space-between;

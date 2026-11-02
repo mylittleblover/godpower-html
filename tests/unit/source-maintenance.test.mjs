@@ -6,6 +6,7 @@ import {
   scanCssBlocks,
   scanDeclarations,
   removeEmptyStyleRules,
+  mandatorySelectorClasses,
 } from "../../scripts/css-source.mjs";
 
 test("grouped sources remain one execution unit with ordered immutable provenance", () => {
@@ -56,6 +57,9 @@ test("all numbered source files are retired and all replacement owners are inclu
   const relocations = JSON.parse(
     readFileSync("src/source-relocations.json", "utf8"),
   );
+  const retirements = JSON.parse(
+    readFileSync("src/source-retirements.json", "utf8"),
+  );
   for (const row of map) {
     let path = row.to;
     const visited = new Set();
@@ -68,6 +72,17 @@ test("all numbered source files are retired and all replacement owners are inclu
         "Retired source must be absent",
       );
       path = relocations[path];
+    }
+    if (retirements[path]) {
+      const receipt = retirements[path];
+      assert.equal(existsSync("src/" + path), false);
+      assert.ok(
+        receipt.reason && receipt.evidence && existsSync(receipt.evidence),
+      );
+      assert.ok(receipt.owners.length);
+      for (const owner of receipt.owners)
+        assert.ok(sources.has(owner) && existsSync("src/" + owner));
+      continue;
     }
     assert.ok(sources.has(path), path);
     assert.ok(existsSync("src/" + path), path);
@@ -85,4 +100,44 @@ test("empty rule cleanup preserves keyframes, layers and quoted declarations", (
   assert.ok(result.includes('.live {content:"{}"}'));
   assert.ok(result.includes("@keyframes hold {from {} to {opacity:1}}"));
   assert.ok(result.includes("@layer reserved {}"));
+});
+
+test("empty conditional scopes can be removed without dropping layer or keyframe semantics", () => {
+  const source =
+    "@media (width>1px){/* old scope */ .gone {}} @supports (display:grid){@media (width>2px){}} @layer reserved {} @keyframes still {from {} to {opacity:1}}";
+  const result = removeEmptyStyleRules(source, { dropEmptyConditions: true });
+  assert.ok(!result.includes("@media"));
+  assert.ok(!result.includes("@supports"));
+  assert.ok(result.includes("@layer reserved {}"));
+  assert.ok(result.includes("@keyframes still {from {} to {opacity:1}}"));
+});
+
+test("retired selectors only match mandatory classes outside pseudo functions", () => {
+  assert.deepEqual(
+    mandatorySelectorClasses('.group:not([data-mode="single"]) .old:hover'),
+    ["group", "old"],
+  );
+  assert.deepEqual(mandatorySelectorClasses(":not(.old) :is(.old,.live)"), []);
+  assert.deepEqual(mandatorySelectorClasses('[data-label=".old"] .live'), [
+    "live",
+  ]);
+  assert.deepEqual(mandatorySelectorClasses(".old\\:variant .live"), ["live"]);
+});
+
+test("all shipped CSS has a single canonical styles root", () => {
+  const manifest = JSON.parse(readFileSync("src/manifest.json"));
+  assert.ok(
+    manifest.blocks
+      .filter((b) => b.type === "style")
+      .every((b) => b.path.startsWith("styles/")),
+  );
+  const moves = JSON.parse(
+    readFileSync(
+      "artifacts/css-consolidation-3.0.66/style-directory-moves.json",
+    ),
+  );
+  for (const [oldPath, newPath] of Object.entries(moves.moves)) {
+    assert.equal(existsSync("src/" + oldPath), false);
+    assert.ok(existsSync("src/" + newPath));
+  }
 });

@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
+import { execFileSync } from "node:child_process";
 import { createComponentInventory } from "../../scripts/component-inventory.mjs";
 test("component catalog includes every shipped CSS class, token and animation with source owners", async () => {
   const generated = await createComponentInventory();
@@ -10,7 +11,51 @@ test("component catalog includes every shipped CSS class, token and animation wi
       "\nGodPowerComponentCatalog",
   );
   assert.deepEqual(JSON.parse(JSON.stringify(shipped)), generated);
-  assert.ok(generated.classes.length > 800);
+  // A raw minimum count rewards retaining dead CSS. Instead account for every
+  // original class, and require per-owner deletion evidence for every retirement.
+  const proof = JSON.parse(
+    readFileSync(
+      "artifacts/css-consolidation-3.0.66/class-removals.json",
+      "utf8",
+    ),
+  );
+  const baseline = vm.runInNewContext(
+    execFileSync(
+      "git",
+      ["show", proof.baseline + ":src/ui/component-catalog.js"],
+      { encoding: "utf8", maxBuffer: 2e6 },
+    ) + "\nGodPowerComponentCatalog",
+  );
+  const missing = baseline.classes.filter(
+    (item) => !generated.classes.some((current) => current.name === item.name),
+  );
+  assert.deepEqual(
+    Array.from(missing, (item) => item.name).sort(),
+    proof.removed.map((item) => item.name).sort(),
+  );
+  const relocations = JSON.parse(readFileSync("src/source-relocations.json"));
+  const currentOwner = (path) => {
+    let next = path.slice(4);
+    const seen = new Set();
+    while (relocations[next]) {
+      assert.ok(!seen.has(next));
+      seen.add(next);
+      next = relocations[next];
+    }
+    return "src/" + next;
+  };
+  for (const item of proof.removed)
+    for (const path of item.sources) {
+      const owner = item.proof.find(
+        (row) => currentOwner(row.path) === currentOwner(path),
+      );
+      assert.ok(owner && owner.selectors.length, item.name + " in " + path);
+      assert.ok(
+        owner.selectors.every((selector) =>
+          new RegExp("\\." + item.name + "(?![\\w-])").test(selector),
+        ),
+      );
+    }
   assert.ok(generated.tokens.length > 250);
   assert.ok(generated.animations.length > 50);
   for (const list of [

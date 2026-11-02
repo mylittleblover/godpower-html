@@ -1,0 +1,10 @@
+{
+  "edits": [
+    {
+      "path": "src/ui/component-library.js",
+      "original": "category: \"26种道具\"",
+      "replacement": "category: \"道具图鉴\"",
+      "reason": "The current definition contains 28 items; a semantic category must not keep a stale count."
+    }
+  ]
+}

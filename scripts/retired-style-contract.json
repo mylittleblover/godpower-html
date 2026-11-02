@@ -1,0 +1,147 @@
+{
+  "welcome": {
+    "replacement": "ui/welcome-dashboard.js and ui/home-dashboard.js (.gp-* dashboard)",
+    "classes": [
+      "welcome-hero",
+      "welcome-clock",
+      "welcome-date",
+      "welcome-greeting",
+      "welcome-sub",
+      "welcome-cards",
+      "welcome-card",
+      "welcome-card-title",
+      "welcome-stat-grid",
+      "welcome-enter-wrap",
+      "w-stat-label",
+      "welcome-card-title-row",
+      "welcome-summary-grid",
+      "welcome-extra-metrics",
+      "welcome-chart-wrapper"
+    ]
+  },
+  "history": {
+    "replacement": "DesktopUI.renderHistory in ui/desktop.js (.ui-timeline); legacy renderHistoryList delegates to this owner",
+    "classes": [
+      "hist-card",
+      "hist-card-top",
+      "hist-desc",
+      "hist-time",
+      "hist-compare",
+      "hist-compare-table",
+      "hist-delta-pos",
+      "hist-delta-neg",
+      "hist-delta-zero",
+      "hist-actions"
+    ]
+  },
+  "globalDraw": {
+    "replacement": "runtime/items/draw-flow.js canonical card-item-roulette flow; old global draw board removed in 3.0.60",
+    "classes": [
+      "item-draw-overlay",
+      "item-draw-board",
+      "item-draw-title",
+      "item-draw-grid",
+      "item-draw-card",
+      "draw-name"
+    ]
+  },
+  "dashboard": {
+    "replacement": "current gp-* dashboard and chart renderers; no old top-dashboard/metric DOM producers",
+    "classes": [
+      "top-dashboard-grid",
+      "chart-container",
+      "dashboard-card-title",
+      "chart-wrapper",
+      "dashboard-summary-container",
+      "battle-metrics-row",
+      "metric-box",
+      "metric-label",
+      "metric-value"
+    ]
+  },
+  "battleEditor": {
+    "replacement": "ui/battle-card-view.js fixed card-header-row/battle-group-heading/battle-score-container, details in item window",
+    "classes": [
+      "menu-active",
+      "header-name-col",
+      "name-input",
+      "header-meta-col",
+      "member-count-tag",
+      "color-picker",
+      "del-btn",
+      "action-score-col",
+      "result-msg-box"
+    ]
+  },
+  "legacyWelcomeModal": {
+    "replacement": "ui/welcome-dashboard.js gpIntro; old welcomeModal id remains a null-safe compatibility entry with no DOM producer",
+    "classes": [
+      "welcome-modal",
+      "welcome-modal-card",
+      "welcome-modal-head",
+      "welcome-modal-title",
+      "welcome-modal-sub",
+      "welcome-modal-pages",
+      "wmp-item",
+      "wmp-tag",
+      "welcome-modal-btn",
+      "welcome-modal-hint",
+      "wmp-tag"
+    ]
+  },
+  "retiredCompatibility": {
+    "replacement": "Closed current renderers verified: ui/desktop.js, ui/battle-card-view.js, ui/battle-motion.js, runtime/items/group-window.js, runtime/audio/fx-bundle-transfer.js, ui/component-library.js; generic old shape aliases are not emitted. Native renderer CSS lives separately.",
+    "classes": [
+      "member-search-fab",
+      "history-item",
+      "fullview-header",
+      "fullview-body",
+      "item-members",
+      "squid-score-mask",
+      "about-head",
+      "answer-zone",
+      "score-zone",
+      "group-control-window",
+      "group-modal-window",
+      "item-window-body",
+      "item-window-tabs",
+      "group-control-tabs",
+      "legacy-settings-tabbar",
+      "item-bar",
+      "item-inventory",
+      "item-feature-only",
+      "item-row",
+      "item-slots-row",
+      "inventory-row",
+      "roulette",
+      "history-card",
+      "archive-card",
+      "sound-setting-card",
+      "icon-setting-card",
+      "setting-section",
+      "settings-card",
+      "stat-card",
+      "picker-window",
+      "picker-modal",
+      "hand-window",
+      "item-sidebar",
+      "item-tabs",
+      "about-tabs",
+      "window-titlebar",
+      "fx-bundle-toolbar",
+      "fx-bundle-copy",
+      "ui-page-head",
+      "ui-clock",
+      "ui-welcome-time",
+      "ui-section-title",
+      "ui-modal-close",
+      "card-fx-layer",
+      "item-encyclopedia-icon",
+      "about-side-title",
+      "component-library-tokens",
+      "component-library-token",
+      "item-rule",
+      "copy-kicker"
+    ]
+  }
+}

@@ -1,0 +1,796 @@
+{
+  "contract": {
+    "welcome": {
+      "replacement": "ui/welcome-dashboard.js and ui/home-dashboard.js (.gp-* dashboard)",
+      "classes": [
+        "welcome-hero",
+        "welcome-clock",
+        "welcome-date",
+        "welcome-greeting",
+        "welcome-sub",
+        "welcome-cards",
+        "welcome-card",
+        "welcome-card-title",
+        "welcome-stat-grid",
+        "welcome-enter-wrap"
+      ]
+    },
+    "history": {
+      "replacement": "DesktopUI.renderHistory in ui/desktop.js (.ui-timeline); legacy renderHistoryList delegates to this owner",
+      "classes": [
+        "hist-card",
+        "hist-card-top",
+        "hist-desc",
+        "hist-time",
+        "hist-compare",
+        "hist-compare-table",
+        "hist-delta-pos",
+        "hist-delta-neg",
+        "hist-delta-zero",
+        "hist-actions"
+      ]
+    },
+    "globalDraw": {
+      "replacement": "runtime/items/draw-flow.js canonical card-item-roulette flow; old global draw board removed in 3.0.60",
+      "classes": [
+        "item-draw-overlay",
+        "item-draw-board",
+        "item-draw-title",
+        "item-draw-grid",
+        "item-draw-card",
+        "draw-name"
+      ]
+    },
+    "dashboard": {
+      "replacement": "current gp-* dashboard and chart renderers; no old top-dashboard/metric DOM producers",
+      "classes": [
+        "top-dashboard-grid",
+        "chart-container",
+        "dashboard-card-title",
+        "chart-wrapper",
+        "dashboard-summary-container",
+        "battle-metrics-row",
+        "metric-box",
+        "metric-label",
+        "metric-value"
+      ]
+    },
+    "battleEditor": {
+      "replacement": "ui/battle-card-view.js fixed card-header-row/battle-group-heading/battle-score-container, details in item window",
+      "classes": [
+        "menu-active",
+        "header-name-col",
+        "name-input",
+        "header-meta-col",
+        "member-count-tag",
+        "color-picker",
+        "del-btn",
+        "action-score-col",
+        "result-msg-box"
+      ]
+    },
+    "legacyWelcomeModal": {
+      "replacement": "ui/welcome-dashboard.js gpIntro; old welcomeModal id remains a null-safe compatibility entry with no DOM producer",
+      "classes": [
+        "welcome-modal",
+        "welcome-modal-card",
+        "welcome-modal-head",
+        "welcome-modal-title",
+        "welcome-modal-sub",
+        "welcome-modal-pages",
+        "wmp-item",
+        "wmp-tag",
+        "welcome-modal-btn",
+        "welcome-modal-hint"
+      ]
+    }
+  },
+  "sourceHashes": {
+    "src/styles/base/reset-and-header.css": "0a6487abd730a46b13f139478eadcd657324a40867e3d7792fabbe201d1560cb",
+    "src/styles/battle/overview-and-resizer.css": "95eab3798b516a04ba1015d50652bc913eedc66072eac21199d0f8dd19eb18c7",
+    "src/styles/battle/group-cards.css": "6ef2d8a2605df170d305f0fd9113f0c1aaf9c53b2d5746626d908061447e1ab9",
+    "src/styles/dialogs/score-and-member-search.css": "bf5e9ae15b0f82f53290621a9fe4ab7a5137353a4277b908d50165afe22d8d45",
+    "src/styles/shell/dock-and-buttons.css": "39c52962cbfecec228b9e7cb525f7014aa52885c5bfa84f6a3420a381256d8b5",
+    "src/styles/dialogs/settlement-and-core.css": "872412e9db5dfac4715ea82213c127970ff8b24094ca90685f68f645dfb4e5d3",
+    "src/styles/shell/navigation-and-welcome.css": "3da04d5f6cccbaa9632d20f8d618f6a063d061909c39ed5d0f7114dc679c2858",
+    "src/styles/items/inventory-and-roulette.css": "24bf803e2e0e08e038198288aa4961f6754f201a70f65db3ef8e96ec0e554b6a",
+    "src/styles/settings/tabs-and-confirmation.css": "2f39d34b4abc3ea7b21bb3358b30ab4bbf68fc3d1bdd4acd095418b4f82eb0cc",
+    "src/styles/items/roulette-result-and-flowers.css": "51c7742c238d4ec4b4a55de995252bd2905bfe8517037d04829847c14c6e2b78",
+    "src/styles/items/catalog-and-management.css": "048e6925818bd7da75bd5f02f37ecf1a90712a36eaf1a9698fff53689f472a19",
+    "src/styles/items/feature-visibility.css": "0b0cf5f7580ad535e2f521f8a820d02c8742f6faf38759e819d899497ddfe8e7",
+    "src/styles/battle/score-and-state.css": "bbafd146ae0a9c70ff23635acba88dafe5c56d2e33076858525fadd1c7854160",
+    "src/styles/items/attack-feedback.css": "62924fd119b23f6a16dcc1cea134795a069d81a729dcf0b18e848f8032a4d104",
+    "src/styles/items/queue-and-image-constraints.css": "ec00101509e98c0814c188d98a107eb846185715ce93ff7e8894adb8ee6bd133",
+    "src/styles/items/catalog-and-card-compat.css": "f2b433c92f1e26495ad3c2d86b4fbaf5a816f68a89294edec07010fe82d60f38",
+    "src/styles/themes/flat-foundation.css": "4e925fd837d7a6f052a13522f863bd01ab3488664e4ca3fa82366e7bc801f43b",
+    "src/styles/ui/readability-and-effect-layers.css": "bce1b6a91125449664f86d6ceaadc0bc7de4ccc8f93b592928cf57f9526a133a",
+    "src/styles/items/draw-layout.css": "d6fc70e16dca71d883dc0fa2ee9f16c7a92803b2c88e3310402e4b7f2ce57cad",
+    "src/styles/items/encyclopedia-layout.css": "f2768b5bba16d735e6b0a3694037fd36e7200586bef8dda5adb468134e200f72",
+    "src/styles/settings/clear-items.css": "99701fe9f24bc6603231242ef561eeaa5db650ac18d1c2979a95ea1ed3b80742",
+    "src/styles/audio/item-sounds.css": "02acb3a6e6ef5496f14ce46e96641572e6ee8cc90ca7f0ce4d9126ea9ad099ed",
+    "src/styles/audio/fx-transfer.css": "b5e0304b75e16571fa179bfeadb6124fd289a77577e3a5b9643d85f5f56fe3a1",
+    "src/styles/battle/round-item-locks.css": "34e2a94f897f0bbd72e6ce388411864bbbd01507024cf1d916179ff1c4b53eae",
+    "src/styles/items/cooldown-notes.css": "3ef00e556285b07aef1a5e4ae3de76415caf8d1afd60705212aaa3e3c513ede0",
+    "src/styles/items/draw-flow.css": "8650794a3296e1e32cfaef0b6da22aef47dc6fe120a3e73fba2f391f27cde58b",
+    "src/styles/battle/quick-batch.css": "9456e0421bf2dd6f40a843e420a8567cf71a34b4c6aa9f1ff69b6d8de8f574a9",
+    "src/styles/classroom/group-palette.css": "d37210823cb2729382da6cc8898708b12be12fcd45207a6fcee11393e9e56c4f",
+    "src/styles/ui/flat-controls-and-scrolling.css": "6191ee4ed1923aa12ba79f6095936c5d53eb03ccce1f1e77f0050781b66c1ceb",
+    "src/styles/battle/rank-preview.css": "11cfc7c4482defa2ccf523e7ea4d4ccf028cc856e4e365af0c3008ccfbe3f279",
+    "src/styles/dialogs/theme-confirmation.css": "8e25b3b20ca758b7787c660cf57e1d5117091ed6ee32f7717cd05993486cf449",
+    "src/styles/battle/score-feedback.css": "9106ddf1284f9d47e84497a316d0a704b19fd498be9e3ab90893a0b581070822",
+    "src/styles/ui/defense-notices.css": "1adefb02e6bc9bf1a1b81285cb193b599e528f5dc4d254fa28a98548a3a31a98",
+    "src/styles/classroom/student-picker-hand.css": "3bbda3af87a2fe5b836840f740917797bf8c5652e52125d19911811fe984afaa",
+    "src/ui/desktop.css": "dd7f3393521d0c6e5bd85d48d307f381837197047917041f7b1ccf366b39852d",
+    "src/ui/roster-workspace.css": "7f15c3d115480292329972dc543693565bb1bd565a4ef5f521048f2669f1909a",
+    "src/ui/teaching-workspace.css": "33022cb1197942d2da5e329a84b21251c43ea1b0a04590d44fc7fabd64c6188f",
+    "src/ui/application-surfaces.css": "55d1ed4fdcc6b7b897da8bbd782df83d9c0aeb4ed79ffcc41d0ff7fcb02030db",
+    "src/ui/classroom-feedback.css": "4f42df21ded975b6bb6208ad37926e49caa2cf9d6bef4bde231aa243a09865d0",
+    "src/ui/battle-motion.css": "2ca224461afee3b355845b6ee8575d15dace1f535a1f8256397065fac68c1146",
+    "src/ui/item-modules.css": "5d96937571021998bc2ad991a3492454761b89f571571d554cf1396bc8ae2e50",
+    "src/ui/welcome-dashboard.css": "cb7861daab4138635eb30fa6d1037465924f7bb6918ab3130af5763602a48732",
+    "src/ui/home-dashboard.css": "610eb827e26708595f09f34fa999ffe2e81e581e76b7a2fc9466a73c11325f45",
+    "src/ui/tooltips.css": "199af0df74b1d69a75c0e7d15157aa85623d02787c9f87dd4bcdbff8800e6eac",
+    "src/ui/component-library.css": "3e05663afec8e11b2d8cf5cf4c5a41fbe74fdc48c09cb1dfb78743a57188d43c",
+    "src/ui/themes.css": "90c7fc5d684e043a176df6dc79946ca678577db18fd9a0b24d3939ce770c0072",
+    "src/styles/items/group-rule-copy.css": "4e1d217c6bf6fbe57228fcbe43ff3ca046d371b8bfd0881eba9d07edb9c0615c",
+    "src/styles/ui/dock-tooltips.css": "42fac59a9a523171f5b539af3e1f4dfa09df9a6c30286def61236bf0d93f2460",
+    "src/styles/ui/interface-copy.css": "d1af6e54a205ca45eb8ccdfcbefe80d7b8955cab4b194781ad5686c06a68b647",
+    "src/ui/item-score-cinematics.css": "c221eba6391e1c2528a6c3d0c5a5205849ab001a922c05eaa850dc9d6772f11e"
+  },
+  "edits": [
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 0,
+      "end": 116,
+      "original": ".top-dashboard-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));\n  gap: 14px;\n}",
+      "replacement": "",
+      "retired": [
+        ".top-dashboard-grid"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 118,
+      "end": 329,
+      "original": ".chart-container {\n  background: #ffffff;\n  border-radius: 12px;\n  padding: 14px 18px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}",
+      "replacement": "",
+      "retired": [
+        ".chart-container"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 330,
+      "end": 509,
+      "original": ".dashboard-card-title {\n  font-size: 14px;\n  font-weight: 800;\n  color: #1e293b;\n  margin-bottom: 10px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}",
+      "replacement": "",
+      "retired": [
+        ".dashboard-card-title"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 539,
+      "end": 674,
+      "original": ".chart-wrapper {\n  position: relative;\n  max-height: 200px;\n  overflow-y: auto;\n  overflow-x: hidden;\n  transition: height 0.3s ease;\n}",
+      "replacement": "",
+      "retired": [
+        ".chart-wrapper"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 1498,
+      "end": 1734,
+      "original": ".dashboard-summary-container {\n  background: #ffffff;\n  border-radius: 12px;\n  padding: 14px 18px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  gap: 10px;\n}",
+      "replacement": "",
+      "retired": [
+        ".dashboard-summary-container"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 2541,
+      "end": 2688,
+      "original": ".battle-metrics-row {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 8px;\n  border-top: 1px dashed #e2e8f0;\n  padding-top: 8px;\n}",
+      "replacement": "",
+      "retired": [
+        ".battle-metrics-row"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 2689,
+      "end": 2791,
+      "original": ".metric-box {\n  text-align: center;\n  background: #f8fafc;\n  border-radius: 6px;\n  padding: 6px 4px;\n}",
+      "replacement": "",
+      "retired": [
+        ".metric-box"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 2792,
+      "end": 2846,
+      "original": ".metric-label {\n  font-size: 11px;\n  color: #64748b;\n}",
+      "replacement": "",
+      "retired": [
+        ".metric-label"
+      ]
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "start": 2847,
+      "end": 2921,
+      "original": ".metric-value {\n  font-size: 14px;\n  font-weight: 800;\n  color: #0284c7;\n}",
+      "replacement": "",
+      "retired": [
+        ".metric-value"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 532,
+      "end": 605,
+      "original": ".group-row-card.menu-active {\n  z-index: 120; /* 弹出菜单时提升层级，防止被下方卡片遮挡 */\n}",
+      "replacement": "",
+      "retired": [
+        ".group-row-card.menu-active"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 2272,
+      "end": 2361,
+      "original": ".header-name-col {\n  flex: 1;\n  min-width: 0;\n  display: flex;\n  align-items: flex-end;\n}",
+      "replacement": "",
+      "retired": [
+        ".header-name-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 2363,
+      "end": 2592,
+      "original": ".name-input {\n  border: 1px solid transparent;\n  padding: 2px 4px;\n  font-size: 15px;\n  font-weight: 800;\n  width: 100%;\n  max-width: 240px;\n  border-radius: 4px;\n  background: transparent;\n  color: #1e293b;\n  text-align: left;\n}",
+      "replacement": "",
+      "retired": [
+        ".name-input"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 2715,
+      "end": 2807,
+      "original": ".header-meta-col {\n  display: flex;\n  align-items: flex-end;\n  gap: 6px;\n  flex-shrink: 0;\n}",
+      "replacement": "",
+      "retired": [
+        ".header-meta-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 2809,
+      "end": 2994,
+      "original": ".member-count-tag {\n  font-size: 11px;\n  color: #64748b;\n  background: #f1f5f9;\n  padding: 2px 6px;\n  border-radius: 4px;\n  cursor: pointer;\n  white-space: nowrap;\n  line-height: 1.3;\n}",
+      "replacement": "",
+      "retired": [
+        ".member-count-tag"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 2995,
+      "end": 3040,
+      "original": ".member-count-tag:hover {\n  color: #0284c7;\n}",
+      "replacement": "",
+      "retired": [
+        ".member-count-tag:hover"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 3042,
+      "end": 3189,
+      "original": ".color-picker {\n  width: 18px;\n  height: 18px;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  background: none;\n  margin-bottom: 1px;\n}",
+      "replacement": "",
+      "retired": [
+        ".color-picker"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 3191,
+      "end": 3352,
+      "original": ".del-btn {\n  border: none;\n  background: none;\n  color: #94a3b8;\n  cursor: pointer;\n  font-size: 15px;\n  font-weight: bold;\n  line-height: 1;\n  padding: 0 2px;\n}",
+      "replacement": "",
+      "retired": [
+        ".del-btn"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 3353,
+      "end": 3389,
+      "original": ".del-btn:hover {\n  color: #e11d48;\n}",
+      "replacement": "",
+      "retired": [
+        ".del-btn:hover"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 3576,
+      "end": 3678,
+      "original": ".action-score-col {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n  flex: 1;\n  min-width: 0;\n}",
+      "replacement": "",
+      "retired": [
+        ".action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 5578,
+      "end": 5783,
+      "original": ".result-msg-box {\n  text-align: center;\n  flex-shrink: 0;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 12px;\n  font-weight: 700;\n  color: #475569;\n  max-width: 66px;\n}",
+      "replacement": "",
+      "retired": [
+        ".result-msg-box"
+      ]
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "start": 5784,
+      "end": 5826,
+      "original": ".result-msg-box:empty {\n  display: none;\n}",
+      "replacement": "",
+      "retired": [
+        ".result-msg-box:empty"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5155,
+      "end": 5326,
+      "original": ".welcome-modal {\n  position: fixed;\n  inset: 0;\n  z-index: 3000;\n  background: rgba(15, 23, 42, 0.72);\n  display: none;\n  align-items: center;\n  justify-content: center;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5327,
+      "end": 5369,
+      "original": ".welcome-modal.active {\n  display: flex;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal.active"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5370,
+      "end": 5603,
+      "original": ".welcome-modal-card {\n  width: min(480px, 92vw);\n  background: linear-gradient(160deg, #ffffff 0%, #f1f5f9 100%);\n  border-radius: 20px;\n  padding: 28px 30px 24px;\n  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);\n  text-align: center;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-card"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5604,
+      "end": 5650,
+      "original": ".welcome-modal-head {\n  margin-bottom: 14px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-head"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5651,
+      "end": 5755,
+      "original": ".welcome-modal-title {\n  font-size: 24px;\n  font-weight: 900;\n  color: #1e293b;\n  letter-spacing: 2px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-title"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5756,
+      "end": 5834,
+      "original": ".welcome-modal-sub {\n  margin-top: 6px;\n  font-size: 13px;\n  color: #64748b;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-sub"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5835,
+      "end": 5931,
+      "original": ".welcome-modal-pages {\n  display: grid;\n  gap: 8px;\n  text-align: left;\n  margin: 16px 0 20px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-pages"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 5932,
+      "end": 6148,
+      "original": ".wmp-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  background: #fff;\n  border: 1px solid #e2e8f0;\n  border-radius: 10px;\n  padding: 8px 12px;\n  font-size: 14px;\n  color: #334155;\n  font-weight: 600;\n}",
+      "replacement": "",
+      "retired": [
+        ".wmp-item"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 6149,
+      "end": 6273,
+      "original": ".wmp-tag {\n  flex: none;\n  color: #fff;\n  font-size: 12px;\n  font-weight: 800;\n  padding: 2px 10px;\n  border-radius: 20px;\n}",
+      "replacement": "",
+      "retired": [
+        ".wmp-tag"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 6274,
+      "end": 6370,
+      "original": ".welcome-modal-btn {\n  width: 100%;\n  padding: 14px;\n  font-size: 18px;\n  border-radius: 14px;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-btn"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 6371,
+      "end": 6451,
+      "original": ".welcome-modal-hint {\n  margin-top: 10px;\n  font-size: 12px;\n  color: #94a3b8;\n}",
+      "replacement": "",
+      "retired": [
+        ".welcome-modal-hint"
+      ]
+    },
+    {
+      "path": "src/styles/dialogs/settlement-and-core.css",
+      "start": 7873,
+      "end": 7930,
+      "original": ".top-dashboard-grid {\n    grid-template-columns: 1fr;\n  }",
+      "replacement": "",
+      "retired": [
+        ".top-dashboard-grid"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 92,
+      "end": 306,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col {\n  right: 18px !important;\n  top: 48px !important;\n  display: flex !important;\n  z-index: 5 !important;\n  pointer-events: auto !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 866,
+      "end": 1056,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col {\n    right: 12px !important;\n    top: 50px !important;\n    width: 38% !important;\n    max-width: 38% !important;\n  }",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 2532,
+      "end": 2600,
+      "original": ".group-row-card .action-score-col {\n  min-width: 8.2ch !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-row-card .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 3337,
+      "end": 3409,
+      "original": ".group-row-card .action-score-col {\n    min-width: 7.8ch !important;\n  }",
+      "replacement": "",
+      "retired": [
+        ".group-row-card .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 4121,
+      "end": 4223,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .header-name-col {\n  min-width: 0 !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .header-name-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 4224,
+      "end": 4442,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .name-input {\n  font-size: 21px !important;\n  line-height: 1.1 !important;\n  font-weight: 950 !important;\n  padding: 0 2px !important;\n  height: 29px !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 4443,
+      "end": 4548,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .header-meta-col {\n  font-size: 14px !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .header-meta-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 5418,
+      "end": 5748,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col {\n  position: static !important;\n  flex: 1 1 auto !important;\n  width: auto !important;\n  max-width: none !important;\n  min-width: 8.4ch !important;\n  overflow: hidden !important;\n  justify-content: flex-start !important;\n  align-items: center !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 7543,
+      "end": 7647,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .name-input {\n    font-size: 20px !important;\n  }",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 7980,
+      "end": 8113,
+      "original": ".group-list[data-column-mode=\"single\"] .group-row-card .name-input {\n    font-size: 19px !important;\n    height: 26px !important;\n  }",
+      "replacement": "",
+      "retired": [
+        ".group-list[data-column-mode=\"single\"] .group-row-card .name-input"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 9115,
+      "end": 9348,
+      "original": "#groupList.group-list[data-column-mode=\"single\"] > .group-row-card .name-input {\n  font-size: 22px !important;\n  line-height: 1.05 !important;\n  height: 30px !important;\n  font-weight: 950 !important;\n  max-width: 320px !important;\n}",
+      "replacement": "",
+      "retired": [
+        "#groupList.group-list[data-column-mode=\"single\"] > .group-row-card .name-input"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 10105,
+      "end": 10417,
+      "original": "#groupList.group-list[data-column-mode=\"single\"]\n  > .group-row-card\n  .action-score-col {\n  position: static !important;\n  flex: 1 1 auto !important;\n  width: auto !important;\n  min-width: 8.2ch !important;\n  max-width: none !important;\n  overflow: hidden !important;\n  justify-content: flex-start !important;\n}",
+      "replacement": "",
+      "retired": [
+        "#groupList.group-list[data-column-mode=\"single\"]\n  > .group-row-card\n  .action-score-col"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "start": 11358,
+      "end": 11511,
+      "original": "#groupList.group-list[data-column-mode=\"single\"]\n    > .group-row-card\n    .name-input {\n    font-size: 21px !important;\n    height: 28px !important;\n  }",
+      "replacement": "",
+      "retired": [
+        "#groupList.group-list[data-column-mode=\"single\"]\n    > .group-row-card\n    .name-input"
+      ]
+    },
+    {
+      "path": "src/styles/items/catalog-and-card-compat.css",
+      "start": 6427,
+      "end": 6487,
+      "original": ".battle-card .result-msg-box {\n  display: none !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".battle-card .result-msg-box"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 5792,
+      "end": 6585,
+      "original": "body.modern-flat .chart-container,\nbody.modern-flat .dashboard-summary-container,\nbody.modern-flat .quick-batch-bar,\nbody.modern-flat .fullview-header,\nbody.modern-flat .fullview-body,\nbody.modern-flat .settings-scroll:not(.ui-settings-host),\nbody.modern-flat .history-card,\nbody.modern-flat .archive-card,\nbody.modern-flat .setting-card,\nbody.modern-flat .setting-item,\nbody.modern-flat .setting-row,\nbody.modern-flat .guide-block,\nbody.modern-flat .ency-card,\nbody.modern-flat .item-encyclopedia-card,\nbody.modern-flat .sound-setting-card,\nbody.modern-flat .icon-setting-card,\nbody.modern-flat .trim-row,\nbody.modern-flat .history-item,\nbody.modern-flat .setting-section,\nbody.modern-flat .settings-card,\nbody.modern-flat .stat-card,\nbody.modern-flat .sound-row,\nbody.modern-flat .item-card ",
+      "replacement": "body.modern-flat .quick-batch-bar,\nbody.modern-flat .fullview-header,\nbody.modern-flat .fullview-body,\nbody.modern-flat .settings-scroll:not(.ui-settings-host),\nbody.modern-flat .history-card,\nbody.modern-flat .archive-card,\nbody.modern-flat .setting-card,\nbody.modern-flat .setting-item,\nbody.modern-flat .setting-row,\nbody.modern-flat .guide-block,\nbody.modern-flat .ency-card,\nbody.modern-flat .item-encyclopedia-card,\nbody.modern-flat .sound-setting-card,\nbody.modern-flat .icon-setting-card,\nbody.modern-flat .trim-row,\nbody.modern-flat .history-item,\nbody.modern-flat .setting-section,\nbody.modern-flat .settings-card,\nbody.modern-flat .stat-card,\nbody.modern-flat .sound-row,\nbody.modern-flat .item-card ",
+      "retired": [
+        "body.modern-flat .chart-container",
+        "body.modern-flat .dashboard-summary-container"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 7595,
+      "end": 7962,
+      "original": "body.modern-flat .modal-box,\nbody.modern-flat .score-modal-card,\nbody.modern-flat .member-search-card,\nbody.modern-flat .vista-window,\nbody.modern-flat .item-window,\nbody.modern-flat .picker-window,\nbody.modern-flat .picker-modal,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window,\nbody.modern-flat .hand-window,\nbody.modern-flat .welcome-modal-card ",
+      "replacement": "body.modern-flat .modal-box,\nbody.modern-flat .score-modal-card,\nbody.modern-flat .member-search-card,\nbody.modern-flat .vista-window,\nbody.modern-flat .item-window,\nbody.modern-flat .picker-window,\nbody.modern-flat .picker-modal,\nbody.modern-flat .about-window,\nbody.modern-flat .classroom-window,\nbody.modern-flat .hand-window ",
+      "retired": [
+        "body.modern-flat .welcome-modal-card"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 8276,
+      "end": 8534,
+      "original": "body.modern-flat .modal-overlay,\nbody.modern-flat .score-modal-backdrop,\nbody.modern-flat .member-search-backdrop,\nbody.modern-flat .welcome-modal,\nbody.modern-flat .item-modal-backdrop,\nbody.modern-flat .classroom-backdrop,\nbody.modern-flat .about-backdrop ",
+      "replacement": "body.modern-flat .modal-overlay,\nbody.modern-flat .score-modal-backdrop,\nbody.modern-flat .member-search-backdrop,\nbody.modern-flat .item-modal-backdrop,\nbody.modern-flat .classroom-backdrop,\nbody.modern-flat .about-backdrop ",
+      "retired": [
+        "body.modern-flat .welcome-modal"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 15108,
+      "end": 15354,
+      "original": "body.modern-flat .item-slot,\nbody.modern-flat .item-big,\nbody.modern-flat .item-stat,\nbody.modern-flat .item-members,\nbody.modern-flat .picker-target,\nbody.modern-flat .hand-rewards,\nbody.modern-flat .icon-custom-card,\nbody.modern-flat .wmp-item ",
+      "replacement": "body.modern-flat .item-slot,\nbody.modern-flat .item-big,\nbody.modern-flat .item-stat,\nbody.modern-flat .item-members,\nbody.modern-flat .picker-target,\nbody.modern-flat .hand-rewards,\nbody.modern-flat .icon-custom-card ",
+      "retired": [
+        "body.modern-flat .wmp-item"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 16856,
+      "end": 16973,
+      "original": "body.modern-flat .battle-group-name,\nbody.modern-flat .dashboard-card-title,\nbody.modern-flat .setting-section-title ",
+      "replacement": "body.modern-flat .battle-group-name,\nbody.modern-flat .setting-section-title ",
+      "retired": [
+        "body.modern-flat .dashboard-card-title"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 17045,
+      "end": 17149,
+      "original": "body.modern-flat .battle-group-subtitle,\nbody.modern-flat .fullview-sub,\nbody.modern-flat .metric-label ",
+      "replacement": "body.modern-flat .battle-group-subtitle,\nbody.modern-flat .fullview-sub ",
+      "retired": [
+        "body.modern-flat .metric-label"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 19866,
+      "end": 19949,
+      "original": "body.modern-flat .battle-main > .top-dashboard-grid {\n  display: none !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .battle-main > .top-dashboard-grid"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 20126,
+      "end": 20224,
+      "original": "body.modern-flat .welcome-summary-grid > div,\nbody.modern-flat .welcome-extra-metrics .metric-box ",
+      "replacement": "body.modern-flat .welcome-summary-grid > div ",
+      "retired": [
+        "body.modern-flat .welcome-extra-metrics .metric-box"
+      ]
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "start": 20767,
+      "end": 20921,
+      "original": "body.modern-flat .status-badge,\nbody.modern-flat .metric-box,\nbody.modern-flat .wmp-tag,\nbody.modern-flat .row-score,\nbody.modern-flat .welcome-modal-btn ",
+      "replacement": "body.modern-flat .status-badge,\nbody.modern-flat .row-score ",
+      "retired": [
+        "body.modern-flat .metric-box",
+        "body.modern-flat .wmp-tag",
+        "body.modern-flat .welcome-modal-btn"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 3472,
+      "end": 3677,
+      "original": "body.modern-flat .welcome-modal-card {\n  width: min(528px, calc(100vw - 48px)) !important;\n  max-height: calc(100dvh - 48px) !important;\n  overflow: auto !important;\n  padding: 28px 32px 24px !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-modal-card"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 3678,
+      "end": 3787,
+      "original": "body.modern-flat .welcome-modal-title {\n  color: var(--ui-text) !important;\n  text-shadow: none !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-modal-title"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 3788,
+      "end": 3902,
+      "original": "body.modern-flat .welcome-modal-sub,\nbody.modern-flat .welcome-modal-hint {\n  color: var(--ui-muted) !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-modal-sub",
+        "body.modern-flat .welcome-modal-hint"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 3903,
+      "end": 3989,
+      "original": "body.modern-flat .wmp-item {\n  color: #304945 !important;\n  min-width: 0 !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .wmp-item"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 3990,
+      "end": 4088,
+      "original": "body.modern-flat .welcome-modal-btn {\n  border-radius: 8px !important;\n  color: #fff !important;\n}",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-modal-btn"
+      ]
+    },
+    {
+      "path": "src/styles/ui/flat-controls-and-scrolling.css",
+      "start": 13186,
+      "end": 13353,
+      "original": "body.modern-flat .welcome-modal-card {\n    width: calc(100vw - 16px) !important;\n    max-height: calc(100dvh - 16px) !important;\n    padding: 22px 18px !important;\n  }",
+      "replacement": "",
+      "retired": [
+        "body.modern-flat .welcome-modal-card"
+      ]
+    },
+    {
+      "path": "src/styles/battle/score-feedback.css",
+      "start": 42,
+      "end": 128,
+      "original": ".action-score-col {\n  position: relative !important;\n  overflow: visible !important;\n}",
+      "replacement": "",
+      "retired": [
+        ".action-score-col"
+      ]
+    },
+    {
+      "path": "src/ui/application-surfaces.css",
+      "start": 3077,
+      "end": 3178,
+      "original": "#groupList .name-input {\n  color: var(--surface-ink);\n  font-weight: 800;\n  letter-spacing: 0.01em;\n}",
+      "replacement": "",
+      "retired": [
+        "#groupList .name-input"
+      ]
+    },
+    {
+      "path": "src/ui/application-surfaces.css",
+      "start": 3521,
+      "end": 3697,
+      "original": "#groupList .member-count-tag {\n  color: var(--theme-tone-527165, #527165);\n  background: var(--theme-tone-f0f6f2, #f0f6f2);\n  border-color: var(--theme-tone-dce7df, #dce7df);\n}",
+      "replacement": "",
+      "retired": [
+        "#groupList .member-count-tag"
+      ]
+    }
+  ]
+}

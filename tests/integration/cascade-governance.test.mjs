@@ -44,8 +44,12 @@ function declarationAt(path, start) {
   }
   return parsed.get(path).find((row) => row.start === start);
 }
-test("each removed CSS declaration has a later equally scoped witness and no stronger priority", async () => {
-  const manifest = JSON.parse(readFileSync("src/manifest.json"));
+test("3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority", async () => {
+  const manifest = JSON.parse(
+    execFileSync("git", ["show", report.baseline + ":src/manifest.json"], {
+      encoding: "utf8",
+    }),
+  );
   const order = new Map(manifest.blocks.map((b, i) => ["src/" + b.path, i]));
   assert.equal(report.removed.length, 77);
   for (const row of report.removed) {
@@ -85,7 +89,13 @@ test("each removed CSS declaration has a later equally scoped witness and no str
       .sort((a, b) => b.start - a.start))
       expected = expected.slice(0, row.start) + expected.slice(row.end);
     assert.equal(
-      await format(readFileSync(path, "utf8"), { parser: "css" }),
+      await format(
+        execFileSync("git", ["show", "fc81d1f:" + path], {
+          encoding: "utf8",
+          maxBuffer: 2e6,
+        }),
+        { parser: "css" },
+      ),
       await format(removeEmptyStyleRules(expected), { parser: "css" }),
       path,
     );

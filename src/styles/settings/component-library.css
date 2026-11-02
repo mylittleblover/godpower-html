@@ -1,0 +1,157 @@
+/* Maintenance-only component reference. Reuses the application tokens. */
+.component-library-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: var(--window-overlay, #17302d66);
+}
+.component-library-overlay.active {
+  display: flex;
+}
+.component-library-surface {
+  width: min(1580px, 96vw);
+  height: min(900px, calc(100vh - 48px));
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  box-shadow: var(--shadow-float);
+}
+.component-library-header {
+  padding: 24px 64px 20px 24px;
+  border-bottom: 1px solid var(--ui-border);
+}
+.component-library-header h2 {
+  margin: 0 0 6px;
+  font-size: 23px;
+}
+.component-library-header p {
+  color: var(--ui-muted);
+  margin: 0;
+  font-size: var(--font-sm);
+}
+.component-library-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--ui-border);
+}
+.component-library-toolbar input {
+  flex: 1;
+  min-width: 120px;
+}
+.component-library-toolbar :is(input, select) {
+  padding: 9px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+}
+.component-library-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-sm);
+  color: var(--ui-muted);
+}
+.component-library-content {
+  display: grid;
+  grid-template-columns: 285px minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+.component-library-list {
+  overflow: auto;
+  padding: 12px;
+  border-right: 1px solid var(--ui-border);
+  background: var(--ui-soft-2, var(--ui-soft));
+}
+.component-library-list button {
+  width: 100%;
+  text-align: left;
+  padding: 11px 12px;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ui-text);
+  cursor: pointer;
+}
+.component-library-list button[aria-current="true"] {
+  background: var(--ui-soft);
+  border-color: var(--ui-primary);
+  color: var(--ui-primary);
+}
+.component-library-list button:hover {
+  background: var(--ui-soft);
+}
+.component-library-list small {
+  display: block;
+  color: var(--ui-muted);
+  font-size: 11px;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.component-library-detail {
+  min-width: 0;
+  overflow: auto;
+  padding: 22px;
+}
+.component-library-detail h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+.component-library-source {
+  font-size: 12px;
+  color: var(--ui-muted);
+  margin: 8px 0 18px;
+  overflow-wrap: anywhere;
+}
+.component-library-preview {
+  position: relative;
+  contain: layout paint;
+  isolation: isolate;
+  overflow: auto;
+  height: 440px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-bg);
+}
+.component-library-note {
+  padding: 12px 14px;
+  margin: 12px 0;
+  border-radius: var(--radius-sm);
+  background: var(--ui-soft);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ui-muted);
+}
+
+.component-library-swatch {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 7px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.component-library-detail :is(button, input, select):focus-visible,
+.component-library-toolbar :is(input, select):focus-visible,
+.component-library-list button:focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 2px;
+}
+.component-library-count {
+  font-size: 12px;
+  color: var(--ui-muted);
+  white-space: nowrap;
+}

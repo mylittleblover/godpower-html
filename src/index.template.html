@@ -16,16 +16,16 @@
 
 
 
-<style id="modernFlatV217Style">@@SOURCE:styles/themes/flat-foundation.css@@</style>
+<style id="modernFlatV217Style">@@SOURCE:styles/base/desktop-foundation.css@@</style>
 
 
-<style id="v2161Fixes">@@SOURCE:styles/ui/readability-and-effect-layers.css@@</style>
+<style id="v2161Fixes">@@SOURCE:styles/components/readability-and-layers.css@@</style>
 
 
-<style id="v2162DrawAndMaskFix">@@SOURCE:styles/items/draw-clipping.css@@</style>
+<style id="itemDrawLayoutStyle">@@SOURCE:styles/items/draw-layout.css@@</style>
 
 
-<style id="v2163RoulettePositionFix">@@SOURCE:styles/items/roulette-position.css@@</style>
+
 
 
 <style id="v2170EncyclopediaStyle">@@SOURCE:styles/items/encyclopedia-layout.css@@</style>
@@ -37,7 +37,7 @@
 <style id="v2174PerItemSoundStyle">@@SOURCE:styles/audio/item-sounds.css@@</style>
 
 
-<style id="v2175FxBinStyle">@@SOURCE:styles/audio/fx-transfer.css@@</style>
+
 
 
 <style id="v2177RoundItemUseLimitStyle">@@SOURCE:styles/battle/round-item-locks.css@@</style>
@@ -54,7 +54,7 @@
 
 <style id="v21716GroupPaletteStyle">@@SOURCE:styles/classroom/group-palette.css@@</style>
 
-<style id="v21719FlatUiConsistencyFix">@@SOURCE:styles/ui/flat-controls-and-scrolling.css@@</style>
+<style id="v21719FlatUiConsistencyFix">@@SOURCE:styles/components/controls-and-scrolling.css@@</style>
 
 
 <style id="v21721BattleRankPreviewStyle">@@SOURCE:styles/battle/rank-preview.css@@</style>
@@ -66,23 +66,23 @@
 <style id="v21730ItemScoreFxStyle">@@SOURCE:styles/battle/score-feedback.css@@</style>
 
 
-<style id="v21735TopNoticeStackStyle">@@SOURCE:styles/ui/defense-notices.css@@</style>
+<style id="v21735TopNoticeStackStyle">@@SOURCE:styles/feedback/defense-notices.css@@</style>
 
 
 <style id="v2180PlanStyle">@@SOURCE:styles/classroom/student-picker-hand.css@@</style>
 
-<style id="desktop-design-system">@@SOURCE:ui/desktop.css@@</style>
-<style>@@SOURCE:ui/roster-workspace.css@@</style>
-<style>@@SOURCE:ui/teaching-workspace.css@@</style>
-<style id="application-surfaces">@@SOURCE:ui/application-surfaces.css@@</style>
-<style id="classroom-feedback-style">@@SOURCE:ui/classroom-feedback.css@@</style>
-<style id="battle-motion-style">@@SOURCE:ui/battle-motion.css@@</style>
-<style>@@SOURCE:ui/item-modules.css@@</style>
-<style id="gp-home-redesign">@@SOURCE:ui/welcome-dashboard.css@@</style>
-<style id="home-dashboard-style">@@SOURCE:ui/home-dashboard.css@@</style>
-<style id="global-tooltip-style">@@SOURCE:ui/tooltips.css@@</style>
-<style>@@SOURCE:ui/component-library.css@@</style>
-<style id="application-themes">@@SOURCE:ui/themes.css@@</style>
+<style id="desktop-design-system">@@SOURCE:styles/components/desktop-shell.css@@</style>
+<style>@@SOURCE:styles/classroom/roster-workspace.css@@</style>
+<style>@@SOURCE:styles/teaching/workspace.css@@</style>
+<style id="application-surfaces">@@SOURCE:styles/components/application-surfaces.css@@</style>
+<style id="classroom-feedback-style">@@SOURCE:styles/feedback/classroom-effects.css@@</style>
+<style id="battle-motion-style">@@SOURCE:styles/battle/motion.css@@</style>
+<style>@@SOURCE:styles/settings/item-modules.css@@</style>
+<style id="gp-home-redesign">@@SOURCE:styles/home/welcome.css@@</style>
+<style id="home-dashboard-style">@@SOURCE:styles/home/dashboard-layout.css@@</style>
+<style id="global-tooltip-style">@@SOURCE:styles/components/tooltips.css@@</style>
+<style>@@SOURCE:styles/settings/component-library.css@@</style>
+<style id="application-themes">@@SOURCE:styles/themes/tokens-and-presets.css@@</style>
 </head>
 <body class="modern-flat">
 <script>GodpowerTheme.boot();</script>
@@ -844,21 +844,21 @@
 <script id="v2180HandwrittenPlanLogic">@@SOURCE:runtime/classroom/student-labels-and-search.js@@@@SOURCE:runtime/classroom/quick-person-score.js@@@@SOURCE:runtime/items/triple-defense-helpers.js@@@@SOURCE:runtime/items/first-hand-pool.js@@@@SOURCE:runtime/classroom/hand-reward-controls.js@@@@SOURCE:runtime/items/encyclopedia-rules.js@@</script>
 
 
-<style id="v2182GroupItemSyncStyle">@@SOURCE:styles/items/group-rule-copy.css@@</style>
+
 <script id="v2182GroupItemSync">@@SOURCE:runtime/items/group-encyclopedia.js@@</script>
 
 
 <script id="v2184FunnyEncyclopediaCopy">@@SOURCE:runtime/items/encyclopedia-copy.js@@</script>
 
 
-<style id="v2185DockHumorStyle">@@SOURCE:styles/ui/dock-tooltips.css@@</style>
+<style id="v2185DockHumorStyle">@@SOURCE:styles/shell/dock-tooltips.css@@</style>
 
 <script id="v2185DockHumor">@@SOURCE:runtime/ui/dock-tooltips.js@@</script>
 
 
 <script id="v2186OpenFixMarker">@@SOURCE:runtime/bootstrap/version.js@@</script>
 
-<style id="v2187CopyPolishStyle">@@SOURCE:styles/ui/interface-copy.css@@</style>
+
 <script id="v2187CopyAuditAndHumor">@@SOURCE:runtime/ui/interface-copy.js@@</script>
 
 
@@ -891,7 +891,7 @@
 <script>@@SOURCE:application/migration-coordinator.js@@</script>
 <script>@@SOURCE:application/answer-commands.js@@</script>
 <script>@@SOURCE:application/manual-score-commands.js@@</script>
-<style>@@SOURCE:ui/item-score-cinematics.css@@</style>
+<style>@@SOURCE:styles/feedback/item-score-cinematics.css@@</style>
 <script>@@SOURCE:ui/item-score-cinematics.js@@</script>
 <script>@@SOURCE:infrastructure/save-file-bridge.js@@</script>
 <script>@@SOURCE:application/legacy-classroom-adapter.js@@</script>

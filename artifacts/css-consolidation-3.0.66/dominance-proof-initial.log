@@ -1,0 +1,35 @@
+file:///workspace/godpower-html-latest/tests/integration/css-consolidation.test.mjs:250
+  const indexed = new Map([...stages].map(([p, s]) => [p, rules(s)]));
+        ^
+
+SyntaxError: Identifier 'indexed' has already been declared
+    at compileSourceTextModule (node:internal/modules/esm/utils:318:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:89:18)
+    at #translate (node:internal/modules/esm/loader:434:20)
+    at afterLoad (node:internal/modules/esm/loader:502:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+    at afterResolve (node:internal/modules/esm/loader:607:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12)
+    at node:internal/modules/esm/loader:632:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:362:14)
+
+Node.js v24.19.0
+✖ tests/integration/css-consolidation.test.mjs (31.550161ms)
+✔ component catalog includes every shipped CSS class, token and animation with source owners (118.702481ms)
+✔ component reference has no direct command, persistence or native authority (1.062232ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.787877ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 220.666009
+
+✖ failing tests:
+
+test at tests/integration/css-consolidation.test.mjs:1:1
+✖ tests/integration/css-consolidation.test.mjs (31.550161ms)
+  'test failed'

@@ -1,0 +1,116 @@
+{
+  "cssFiles": 47,
+  "cssBytes": 299636,
+  "important": 1490,
+  "classNames": 738,
+  "keyframes": 105,
+  "declarations": 6816,
+  "repeatedSelectorProperties": [],
+  "unreferencedKeyframes": [],
+  "unresolvedLiteralReferences": [
+    {
+      "name": "aura-star",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-mega",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-power",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-ice",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-burn",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-freeze",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-paralysis",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-poison",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-dizziness",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "aura-invincible",
+      "paths": [
+        "src/styles/items/catalog-and-card-compat.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "score-roll-old",
+      "paths": [
+        "src/styles/battle/score-feedback.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "score-roll-new",
+      "paths": [
+        "src/styles/battle/score-feedback.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    },
+    {
+      "name": "count-1",
+      "paths": [
+        "src/styles/components/application-surfaces.css"
+      ],
+      "status": "REVIEW_REQUIRED",
+      "note": "Known dynamically assembled class family; retain"
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "sourceHashes": {
+    "src/styles/base/reset-and-header.css": "0a6487abd730a46b13f139478eadcd657324a40867e3d7792fabbe201d1560cb",
+    "src/styles/battle/overview-and-resizer.css": "95eab3798b516a04ba1015d50652bc913eedc66072eac21199d0f8dd19eb18c7",
+    "src/styles/battle/group-cards.css": "6ef2d8a2605df170d305f0fd9113f0c1aaf9c53b2d5746626d908061447e1ab9",
+    "src/styles/dialogs/score-and-member-search.css": "bf5e9ae15b0f82f53290621a9fe4ab7a5137353a4277b908d50165afe22d8d45",
+    "src/styles/shell/dock-and-buttons.css": "39c52962cbfecec228b9e7cb525f7014aa52885c5bfa84f6a3420a381256d8b5",
+    "src/styles/dialogs/settlement-and-core.css": "872412e9db5dfac4715ea82213c127970ff8b24094ca90685f68f645dfb4e5d3",
+    "src/styles/shell/navigation-and-welcome.css": "e32d5f6153469264820d3cbc9db97b1dd924aab9d8acd2e840b6097ba0f07d9e",
+    "src/styles/items/inventory-and-roulette.css": "4f9501b4b1e26ac89e4c17d5e8b8a23e110be5010440c439068b86272d6f8e75",
+    "src/styles/settings/tabs-and-confirmation.css": "2f39d34b4abc3ea7b21bb3358b30ab4bbf68fc3d1bdd4acd095418b4f82eb0cc",
+    "src/styles/items/roulette-result-and-flowers.css": "51c7742c238d4ec4b4a55de995252bd2905bfe8517037d04829847c14c6e2b78",
+    "src/styles/items/catalog-and-management.css": "048e6925818bd7da75bd5f02f37ecf1a90712a36eaf1a9698fff53689f472a19",
+    "src/styles/items/feature-visibility.css": "0b0cf5f7580ad535e2f521f8a820d02c8742f6faf38759e819d899497ddfe8e7",
+    "src/styles/battle/score-and-state.css": "8933b8ebbd6967c526943bcb02b3f101677d86dd9df5528bb3e3dc0658930a1d",
+    "src/styles/items/attack-feedback.css": "62924fd119b23f6a16dcc1cea134795a069d81a729dcf0b18e848f8032a4d104",
+    "src/styles/items/queue-and-image-constraints.css": "1ae5a15e12365284f0d8c22862a63f0f3bc5559afedf1e9f7346a2653427a154",
+    "src/styles/items/catalog-and-card-compat.css": "363d46877be55469057267340c7ebc2041d3ec6563115d5fe81ea2094d90e667",
+    "src/styles/themes/flat-foundation.css": "f5ebcbb2c069d91765f42ebee3553b4cb0fd21984957e98306eec21d7095034c",
+    "src/styles/ui/readability-and-effect-layers.css": "bce1b6a91125449664f86d6ceaadc0bc7de4ccc8f93b592928cf57f9526a133a",
+    "src/styles/items/draw-clipping.css": "455636601a1964d9426d15c6f2f9cf7ac323bd69473b80c1486771a144d76f86",
+    "src/styles/items/roulette-position.css": "7083bf8945b036fe7175dd625dfd3bb907ba010bee94dda6b526d9970e2f7ba3",
+    "src/styles/items/encyclopedia-layout.css": "f2768b5bba16d735e6b0a3694037fd36e7200586bef8dda5adb468134e200f72",
+    "src/styles/settings/clear-items.css": "99701fe9f24bc6603231242ef561eeaa5db650ac18d1c2979a95ea1ed3b80742",
+    "src/styles/audio/item-sounds.css": "02acb3a6e6ef5496f14ce46e96641572e6ee8cc90ca7f0ce4d9126ea9ad099ed",
+    "src/styles/audio/fx-transfer.css": "b5e0304b75e16571fa179bfeadb6124fd289a77577e3a5b9643d85f5f56fe3a1",
+    "src/styles/battle/round-item-locks.css": "34e2a94f897f0bbd72e6ce388411864bbbd01507024cf1d916179ff1c4b53eae",
+    "src/styles/items/cooldown-notes.css": "3ef00e556285b07aef1a5e4ae3de76415caf8d1afd60705212aaa3e3c513ede0",
+    "src/styles/items/draw-flow.css": "8650794a3296e1e32cfaef0b6da22aef47dc6fe120a3e73fba2f391f27cde58b",
+    "src/styles/battle/quick-batch.css": "9456e0421bf2dd6f40a843e420a8567cf71a34b4c6aa9f1ff69b6d8de8f574a9",
+    "src/styles/classroom/group-palette.css": "d37210823cb2729382da6cc8898708b12be12fcd45207a6fcee11393e9e56c4f",
+    "src/styles/ui/flat-controls-and-scrolling.css": "6191ee4ed1923aa12ba79f6095936c5d53eb03ccce1f1e77f0050781b66c1ceb",
+    "src/styles/battle/rank-preview.css": "11cfc7c4482defa2ccf523e7ea4d4ccf028cc856e4e365af0c3008ccfbe3f279",
+    "src/styles/dialogs/theme-confirmation.css": "8e25b3b20ca758b7787c660cf57e1d5117091ed6ee32f7717cd05993486cf449",
+    "src/styles/battle/score-feedback.css": "9106ddf1284f9d47e84497a316d0a704b19fd498be9e3ab90893a0b581070822",
+    "src/styles/ui/defense-notices.css": "1adefb02e6bc9bf1a1b81285cb193b599e528f5dc4d254fa28a98548a3a31a98",
+    "src/styles/classroom/student-picker-hand.css": "3bbda3af87a2fe5b836840f740917797bf8c5652e52125d19911811fe984afaa",
+    "src/ui/desktop.css": "dd7f3393521d0c6e5bd85d48d307f381837197047917041f7b1ccf366b39852d",
+    "src/ui/roster-workspace.css": "7f15c3d115480292329972dc543693565bb1bd565a4ef5f521048f2669f1909a",
+    "src/ui/teaching-workspace.css": "33022cb1197942d2da5e329a84b21251c43ea1b0a04590d44fc7fabd64c6188f",
+    "src/ui/application-surfaces.css": "fb0c889300d0e57b65b4a699c12fa3698dcf851fa4b69dc32bb266e3cffba172",
+    "src/ui/classroom-feedback.css": "4f42df21ded975b6bb6208ad37926e49caa2cf9d6bef4bde231aa243a09865d0",
+    "src/ui/battle-motion.css": "2ca224461afee3b355845b6ee8575d15dace1f535a1f8256397065fac68c1146",
+    "src/ui/item-modules.css": "5d96937571021998bc2ad991a3492454761b89f571571d554cf1396bc8ae2e50",
+    "src/ui/welcome-dashboard.css": "cb7861daab4138635eb30fa6d1037465924f7bb6918ab3130af5763602a48732",
+    "src/ui/home-dashboard.css": "610eb827e26708595f09f34fa999ffe2e81e581e76b7a2fc9466a73c11325f45",
+    "src/ui/tooltips.css": "199af0df74b1d69a75c0e7d15157aa85623d02787c9f87dd4bcdbff8800e6eac",
+    "src/ui/component-library.css": "3e05663afec8e11b2d8cf5cf4c5a41fbe74fdc48c09cb1dfb78743a57188d43c",
+    "src/ui/themes.css": "90c7fc5d684e043a176df6dc79946ca678577db18fd9a0b24d3939ce770c0072",
+    "src/styles/items/group-rule-copy.css": "4e1d217c6bf6fbe57228fcbe43ff3ca046d371b8bfd0881eba9d07edb9c0615c",
+    "src/styles/ui/dock-tooltips.css": "42fac59a9a523171f5b539af3e1f4dfa09df9a6c30286def61236bf0d93f2460",
+    "src/styles/ui/interface-copy.css": "d1af6e54a205ca45eb8ccdfcbefe80d7b8955cab4b194781ad5686c06a68b647",
+    "src/ui/item-score-cinematics.css": "c221eba6391e1c2528a6c3d0c5a5205849ab001a922c05eaa850dc9d6772f11e"
+  },
+  "removed": [
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "top",
+      "value": "50% !important",
+      "start": 390,
+      "end": 413,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "left",
+      "value": "10px !important",
+      "start": 413,
+      "end": 438,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "right",
+      "value": "10px !important",
+      "start": 438,
+      "end": 464,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "bottom",
+      "value": "auto !important",
+      "start": 464,
+      "end": 491,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 491,
+        "end": 517
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "top",
+      "value": "50% !important",
+      "start": 1152,
+      "end": 1177,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "left",
+      "value": "6px !important",
+      "start": 1177,
+      "end": 1203,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "right",
+      "value": "6px !important",
+      "start": 1203,
+      "end": 1230,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    },
+    {
+      "path": "src/styles/items/roulette-position.css",
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "bottom",
+      "value": "auto !important",
+      "start": 1230,
+      "end": 1259,
+      "coveredBy": {
+        "property": "inset",
+        "value": "auto !important",
+        "start": 1259,
+        "end": 1287
+      }
+    }
+  ]
+}

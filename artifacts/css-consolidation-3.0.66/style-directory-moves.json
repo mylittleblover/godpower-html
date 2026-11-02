@@ -1,0 +1,42 @@
+{
+  "moves": {
+    "ui/classroom-feedback.css": "styles/feedback/classroom-effects.css",
+    "ui/item-score-cinematics.css": "styles/feedback/item-score-cinematics.css",
+    "ui/application-surfaces.css": "styles/components/application-surfaces.css",
+    "ui/teaching-workspace.css": "styles/teaching/workspace.css",
+    "ui/themes.css": "styles/themes/tokens-and-presets.css",
+    "ui/home-dashboard.css": "styles/home/dashboard-layout.css",
+    "ui/roster-workspace.css": "styles/classroom/roster-workspace.css",
+    "ui/battle-motion.css": "styles/battle/motion.css",
+    "ui/item-modules.css": "styles/settings/item-modules.css",
+    "ui/tooltips.css": "styles/components/tooltips.css",
+    "ui/component-library.css": "styles/settings/component-library.css",
+    "ui/welcome-dashboard.css": "styles/home/welcome.css",
+    "ui/desktop.css": "styles/components/desktop-shell.css",
+    "styles/ui/defense-notices.css": "styles/feedback/defense-notices.css",
+    "styles/ui/dock-tooltips.css": "styles/shell/dock-tooltips.css",
+    "styles/ui/readability-and-effect-layers.css": "styles/components/readability-and-layers.css",
+    "styles/ui/flat-controls-and-scrolling.css": "styles/components/controls-and-scrolling.css",
+    "styles/themes/flat-foundation.css": "styles/base/desktop-foundation.css"
+  },
+  "sourceHashes": {
+    "ui/classroom-feedback.css": "4f42df21ded975b6bb6208ad37926e49caa2cf9d6bef4bde231aa243a09865d0",
+    "ui/item-score-cinematics.css": "c221eba6391e1c2528a6c3d0c5a5205849ab001a922c05eaa850dc9d6772f11e",
+    "ui/application-surfaces.css": "203115ddad5c03b2421c2f642552b2ac080dca559683bd34792554ed74b59f35",
+    "ui/teaching-workspace.css": "33022cb1197942d2da5e329a84b21251c43ea1b0a04590d44fc7fabd64c6188f",
+    "ui/themes.css": "90c7fc5d684e043a176df6dc79946ca678577db18fd9a0b24d3939ce770c0072",
+    "ui/home-dashboard.css": "610eb827e26708595f09f34fa999ffe2e81e581e76b7a2fc9466a73c11325f45",
+    "ui/roster-workspace.css": "7f15c3d115480292329972dc543693565bb1bd565a4ef5f521048f2669f1909a",
+    "ui/battle-motion.css": "2ca224461afee3b355845b6ee8575d15dace1f535a1f8256397065fac68c1146",
+    "ui/item-modules.css": "5d96937571021998bc2ad991a3492454761b89f571571d554cf1396bc8ae2e50",
+    "ui/tooltips.css": "199af0df74b1d69a75c0e7d15157aa85623d02787c9f87dd4bcdbff8800e6eac",
+    "ui/component-library.css": "54f5e34eaf7c81c1f0b81316bd084668496abeecfb36c8e391f066dd2b96439f",
+    "ui/welcome-dashboard.css": "cb7861daab4138635eb30fa6d1037465924f7bb6918ab3130af5763602a48732",
+    "ui/desktop.css": "531fbad21894f2edc9f574cbe2055880c95bfc9e30b5141acda0481a5a659d4a",
+    "styles/ui/defense-notices.css": "1adefb02e6bc9bf1a1b81285cb193b599e528f5dc4d254fa28a98548a3a31a98",
+    "styles/ui/dock-tooltips.css": "42fac59a9a523171f5b539af3e1f4dfa09df9a6c30286def61236bf0d93f2460",
+    "styles/ui/readability-and-effect-layers.css": "47287d309bad93ab599cd612c46cdd094ca110653da834dd3fc28dc3cbf15961",
+    "styles/ui/flat-controls-and-scrolling.css": "ece5371151f22228dc3ced6f6111d515b9c3aa8573fb4401d17ed73b4b6b9b94",
+    "styles/themes/flat-foundation.css": "da12ca8be4d0c04e8e067f3641ebdbeb1f7025577f329dcd08802f75b20865b3"
+  }
+}

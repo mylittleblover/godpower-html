@@ -1,0 +1,10 @@
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2989.120093ms)
+✔ retired screen classes have no business or preview references; scripts retain statements except declared presentation metadata (3235.908487ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6452.200966

@@ -1,0 +1,20 @@
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2819.488376ms)
+✔ retired screen classes have no business or preview references; scripts retain statements except declared presentation metadata (3634.974224ms)
+✔ component catalog includes every shipped CSS class, token and animation with source owners (124.382357ms)
+✔ component reference has no direct command, persistence or native authority (0.660597ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.222055ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.658374ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (1.598924ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.202496ms)
+✔ empty rule cleanup preserves keyframes, layers and quoted declarations (0.44407ms)
+✔ empty conditional scopes can be removed without dropping layer or keyframe semantics (0.281866ms)
+✔ retired selectors only match mandatory classes outside pseudo functions (0.33757ms)
+✔ all shipped CSS has a single canonical styles root (0.597342ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6950.482711

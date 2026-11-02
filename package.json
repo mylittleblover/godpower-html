@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.65",
+  "version": "3.0.66",
   "private": true,
   "type": "module",
   "scripts": {
@@ -29,7 +29,7 @@
     "test:battle-motion": "node tests/e2e/battle-motion.mjs",
     "audit:hygiene": "node scripts/repo-hygiene.mjs",
     "format:core": "prettier --check src/domain src/application src/infrastructure src/core/action-sounds.js src/core/history.js src/core/item-score.js",
-    "format:check": "npm run format:ui && npm run format:core",
+    "format:check": "npm run format:ui && npm run format:styles && npm run format:core",
     "test:design": "node tests/e2e/design-regressions.mjs && node tests/e2e/design-review.mjs",
     "test:fullscreen-audio": "node tests/e2e/fullscreen-audio.mjs",
     "test:item-modules": "node tests/e2e/item-modules.mjs && node tests/e2e/item-draw-compatibility.mjs && node tests/e2e/rules.mjs",
@@ -43,7 +43,10 @@
     "test:group-colors-bgm": "node tests/e2e/group-colors-bgm.mjs",
     "test:component-library": "node scripts/component-inventory.mjs --check && node tests/e2e/component-library.mjs",
     "test:global-draw": "node tests/e2e/global-draw-lifecycle.mjs && node tests/e2e/global-draw-command.mjs",
-    "test:items-status": "node tests/e2e/items-status.mjs && node tests/e2e/item-score-cinematics.mjs"
+    "test:items-status": "node tests/e2e/items-status.mjs && node tests/e2e/item-score-cinematics.mjs",
+    "audit:styles": "node scripts/style-governance-audit.mjs",
+    "test:css-governance": "node --test tests/integration/css-consolidation.test.mjs tests/integration/cascade-governance.test.mjs tests/integration/semantic-style-names.test.mjs && node tests/e2e/css-consolidation.mjs",
+    "format:styles": "prettier --check src/styles"
   },
   "devDependencies": {
     "acorn": "8.15.0",
