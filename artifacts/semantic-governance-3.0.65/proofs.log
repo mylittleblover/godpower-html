@@ -1,0 +1,12 @@
+✔ each removed CSS declaration has a later equally scoped witness and no stronger priority (1258.039332ms)
+✔ about renderer has one declaration, no override chain, and retains non-view code (203.308541ms)
+✔ semantic style names are unique and contain no release numbers (7.491812ms)
+✔ naming checkpoint 645ea0f preserves all original scripts outside the declared style-name migration (1120.157275ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2760.296465

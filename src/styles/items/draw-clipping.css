@@ -193,8 +193,6 @@ body.modern-flat #groupList .group-row-card.card-heal-fx {
 
 @media (max-width: 640px) {
   body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette {
-    left: 6px !important;
-    right: 6px !important;
     inset: auto 6px auto 6px !important;
     height: 50px !important;
     min-height: 50px !important;

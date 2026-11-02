@@ -33,7 +33,10 @@
 
   async function refresh() {
     if (!globalThis.ClassroomSaveFile?.available?.()) {
-      status("浏览器版把课堂保存在浏览器存储中，此项仅在桌面版可用。", "UNAVAILABLE");
+      status(
+        "浏览器版把课堂保存在浏览器存储中，此项仅在桌面版可用。",
+        "UNAVAILABLE",
+      );
       paint(null);
       return;
     }
@@ -79,7 +82,8 @@
       if (result?.ok) {
         paint(result.info);
         status("已切换存档位置：" + result.info.path, "OK");
-      } else status("无法使用该路径：" + (result?.error || "未知原因"), "ERROR");
+      } else
+        status("无法使用该路径：" + (result?.error || "未知原因"), "ERROR");
     } finally {
       busy = false;
     }

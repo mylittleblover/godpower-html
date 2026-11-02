@@ -195,38 +195,8 @@ tryDefendLightningV2116 = function (target) {
 };
 
 /* 百科重新接管为固定左图 + 右文。 */
-const _v2170RenderAboutFallback = renderAbout;
-renderAbout = function (tab) {
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
 
-  if (tab !== "items") {
-    return _v2170RenderAboutFallback.call(this, tab);
-  }
 
-  m.innerHTML = `<div class="item-reference-head">
-      <div>
-        <h2>28 种道具百科</h2>
-        <div class="item-reference-sub">图标固定尺寸展示，下方直接说明实际效果。</div>
-      </div>
-      <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
-    </div>
-    <div class="item-reference-list">
-      ${ITEM_KEYS.map((k) => {
-        const d = ITEM_DEFS[k];
-        return `<div class="item-reference-row">
-          <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
-          <div class="item-reference-copy">
-            <div class="item-reference-name">${escapeHtml(d.name)}</div>
-            <div class="item-reference-desc">${escapeHtml(d.desc || "")}</div>
-          </div>
-        </div>`;
-      }).join("")}
-    </div>`;
-};
 
 /* 已打开百科时即时刷新一次。 */
 try {

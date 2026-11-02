@@ -132,3 +132,19 @@ export function scanDeclarations(body) {
   }
   return declarations;
 }
+
+// Empty ordinary rules have no cascade effect. Keep keyframes, layers and other
+// at-rules intact; their presence/order can itself be meaningful.
+export function removeEmptyStyleRules(source) {
+  let result = source;
+  for (const rule of scanCssBlocks(source).toReversed()) {
+    if (/^@(media|supports|container)\b/.test(rule.prelude)) {
+      const body = removeEmptyStyleRules(rule.body);
+      result =
+        result.slice(0, rule.open + 1) + body + result.slice(rule.end - 1);
+    } else if (!rule.prelude.startsWith("@") && !rule.body.trim()) {
+      result = result.slice(0, rule.start) + result.slice(rule.end);
+    }
+  }
+  return result;
+}

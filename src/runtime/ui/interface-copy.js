@@ -50,43 +50,8 @@ function polishVisibleCopyV2187() {
 }
 
 /* About 最终版：把旧版术语 / 旧道具数量 / 公务员腔一次性赶出用户视野。 */
-const _v2187RenderAbout = renderAbout;
-renderAbout = function (tab) {
-  if (tab === "items") return _v2187RenderAbout.call(this, tab);
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
 
-  if (tab === "info") {
-    m.innerHTML = `<div class="about-heading">
-      <h2>这玩意儿到底是什么</h2>
-      <button class="btn btn-sm" onclick="closeAbout()">看懂了，撤</button>
-    </div>
-    <div class="guide-block">
-      <b>“上帝（马克思）的力量”课堂积分与道具系统</b><br>
-      负责记分、PK、随机点名、举手奖励、28 种道具、历史回滚、结算档案、音效音乐和名单管理。
-      该复杂的地方交给后台，该按一下解决的事情就别逼老师开三层菜单。
-    </div>
-    <div class="guide-block">
-      平时尽量一键操作，复杂东西藏到后台。功能确实不少，毕竟课堂一旦开始认真做需求，按钮就会像蘑菇一样自己长出来。
-    </div>`;
-    return;
-  }
 
-  m.innerHTML = `<div class="about-heading">
-    <h2>别乱按指南</h2>
-    <button class="btn btn-sm" onclick="closeAbout()">我大概会了</button>
-  </div>
-  <div class="guide-block"><b>🧠 PK：</b>各组答完统一判定。知识负责决定对错，系统负责把对错变成分数和排名。</div>
-  <div class="guide-block"><b>🎁 命运批发部：</b>给符合条件的小组统一抽道具。满背包和负分保护组会自动退出这场命运分配。</div>
-  <div class="guide-block"><b>✋ 举手办案处：</b>选举手小组、判正误、加分、抽道具、用道具，一条龙处理，省得老师在五个窗口之间练手速。</div>
-  <div class="guide-block"><b>🎰 天选之人：</b>个人、小组、先组后人都能抽。算法没有私人恩怨，被点到纯属数学。</div>
-  <div class="guide-block"><b>🤑 精准撒币：</b>按学号、姓名首字母或小组筛人，批量给所属小组加分。多人同组会累计，钱终于有账可查。</div>
-  <div class="guide-block"><b>🔒 上帝模式：</b>需要密码后才能改那些正常比赛不该随便碰的东西。不是因为系统怀疑你，只是因为“手滑”在人类历史上战绩辉煌。</div>
-  <div class="guide-block"><b>↩️ 时间倒流：</b>历史记录能回滚。犯错不可怕，可怕的是犯错以后还没有撤销按钮。</div>`;
-};
 
 /* 上帝模式提示统一改成有点人味的版本。 */
 const _v2187OpenPwdModal = openPwdModal;

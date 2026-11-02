@@ -41,34 +41,8 @@ window.addEventListener("DOMContentLoaded", () =>
 );
 
 /* About 每次切到百科时，修正标题；原静态百科后追加四项，但保持完全相同 guide-block 样式。 */
-const _v284RenderAbout = renderAbout;
-renderAbout = function (tab) {
-  const r = _v284RenderAbout(tab);
-  if (tab === "items") {
-    const m = document.getElementById("aboutMain");
-    if (m) {
-      m.querySelectorAll("h1,h2,h3").forEach(
-        (h) =>
-          (h.textContent = h.textContent.replace(
-            "26 种道具百科",
-            "26 种道具百科",
-          )),
-      );
-      const txt = m.innerText || "";
-      ["feather", "fire_flower", "ice_flower", "boomerang_flower"].forEach(
-        (k) => {
-          const d = ITEM_DEFS[k];
-          if (txt.includes(d.name)) return;
-          const el = document.createElement("div");
-          el.className = "guide-block";
-          el.innerHTML = `<b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc)}`;
-          m.appendChild(el);
-        },
-      );
-    }
-  }
-  return r;
-};
+
+
 
 /* ===== V2.9.1 共产主义模式：道具功能总开关 =====
    名称按产品设定保留；实际行为只是控制整个道具系统是否启用/显示。

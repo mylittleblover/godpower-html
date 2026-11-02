@@ -2,7 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { parseSourceBlocks } from "../../scripts/source-manifest.mjs";
-import { scanCssBlocks, scanDeclarations } from "../../scripts/css-source.mjs";
+import {
+  scanCssBlocks,
+  scanDeclarations,
+  removeEmptyStyleRules,
+} from "../../scripts/css-source.mjs";
 
 test("grouped sources remain one execution unit with ordered immutable provenance", () => {
   const blocks = parseSourceBlocks(
@@ -49,10 +53,36 @@ test("all numbered source files are retired and all replacement owners are inclu
   );
   const blocks = JSON.parse(readFileSync("src/manifest.json", "utf8")).blocks;
   const sources = new Set(blocks.map((b) => b.path));
+  const relocations = JSON.parse(
+    readFileSync("src/source-relocations.json", "utf8"),
+  );
   for (const row of map) {
-    assert.ok(sources.has(row.to), row.to);
-    assert.ok(existsSync("src/" + row.to), row.to);
+    let path = row.to;
+    const visited = new Set();
+    while (relocations[path]) {
+      assert.ok(!visited.has(path), "Cyclic source relocation: " + path);
+      visited.add(path);
+      assert.equal(
+        existsSync("src/" + path),
+        false,
+        "Retired source must be absent",
+      );
+      path = relocations[path];
+    }
+    assert.ok(sources.has(path), path);
+    assert.ok(existsSync("src/" + path), path);
   }
   assert.equal(map.filter((row) => row.from === "script/00.js").length, 55);
   assert.equal(new Set(map.map((row) => row.from)).size, 66);
+});
+
+test("empty rule cleanup preserves keyframes, layers and quoted declarations", () => {
+  const input =
+    '.empty {} @media (width > 1px) {.nested {} .live {content:"{}"}} @keyframes hold {from {} to {opacity:1}} @layer reserved {}';
+  const result = removeEmptyStyleRules(input);
+  assert.ok(!result.includes(".empty"));
+  assert.ok(!result.includes(".nested"));
+  assert.ok(result.includes('.live {content:"{}"}'));
+  assert.ok(result.includes("@keyframes hold {from {} to {opacity:1}}"));
+  assert.ok(result.includes("@layer reserved {}"));
 });

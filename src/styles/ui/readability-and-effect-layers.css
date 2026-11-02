@@ -48,9 +48,7 @@ body.modern-flat #itemWindowBody {
   padding-bottom: 34px !important;
   scroll-padding-bottom: 34px !important;
 }
-body.modern-flat .group-detail-form {
-  padding-bottom: 18px !important;
-}
+
 body.modern-flat .group-detail-danger {
   margin-bottom: 10px !important;
   padding-bottom: 16px !important;

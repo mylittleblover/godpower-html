@@ -11,7 +11,8 @@
      the floating window only sends a gesture with its selection token. */
   const hand = globalThis.HandRaisePort?.create({
     getState: () => state,
-    busy: () => !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
+    busy: () =>
+      !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
     id: () => StableIdentity.createCommandId(),
     enabled: () => !state.isLocked,
     eligible: (group) => eligibleForItems(group),

@@ -47,37 +47,3 @@ const ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 = {
 };
 
 /* 重新接管百科渲染，其他“程序信息 / 核心功能指南”页保持原样。 */
-const _v21715RenderAbout = renderAbout;
-renderAbout = function (tab) {
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
-
-  if (tab !== "items") {
-    return _v21715RenderAbout.call(this, tab);
-  }
-
-  m.innerHTML = `<div class="item-reference-head">
-      <div>
-        <h2>28 种道具百科</h2>
-        <div class="item-reference-sub">仅介绍道具功能与实际效果。</div>
-      </div>
-      <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
-    </div>
-    <div class="item-reference-list">
-      ${ITEM_KEYS.map((k) => {
-        const d = ITEM_DEFS[k];
-        const desc = ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k] || d.desc || "";
-        return `<div class="item-reference-row">
-          <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
-          <div class="item-reference-copy">
-            <div class="item-reference-name">${escapeHtml(d.name)}</div>
-            <div class="item-reference-desc">${escapeHtml(desc)}</div>
-          </div>
-        </div>`;
-      }).join("")}
-    </div>`;
-};

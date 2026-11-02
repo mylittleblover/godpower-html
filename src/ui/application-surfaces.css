@@ -340,21 +340,14 @@ body.modern-flat .battle-card .battle-group-number .battle-group-avatar-single {
   margin-top: var(--space-5);
 }
 .ui-function-surface
-  :is(
-    h2,
-    h3,
-    .score-modal-title,
-    .member-search-title,
-    .theme-dialog-title
-  ) {
+  :is(h2, h3, .score-modal-title, .member-search-title, .theme-dialog-title) {
   letter-spacing: -0.02em;
 }
 .ui-function-surface > :is(h3, .score-modal-title, .member-search-title) {
   padding-top: 10px;
   border-top: 3px solid var(--theme-tone-13816b, #13816b);
 }
-.ui-function-surface
-  :is(.item-main-head, .classroom-head, .quick-person-head) {
+.ui-function-surface :is(.item-main-head, .classroom-head, .quick-person-head) {
   background: var(--surface-hero);
   color: #fff;
 }

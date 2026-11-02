@@ -53,13 +53,13 @@
     const cloneOf = (value) => JSON.parse(JSON.stringify(value));
     const merged = cloneOf(existing);
     for (const profile of incoming.profiles)
-      if (!merged.profiles.some((p) => p.userProfileId === profile.userProfileId))
+      if (
+        !merged.profiles.some((p) => p.userProfileId === profile.userProfileId)
+      )
         merged.profiles.push(cloneOf(profile));
     for (const classroom of incoming.classrooms)
       if (
-        !merged.classrooms.some(
-          (c) => c.classroomId === classroom.classroomId,
-        )
+        !merged.classrooms.some((c) => c.classroomId === classroom.classroomId)
       )
         merged.classrooms.push(cloneOf(classroom));
     for (const student of incoming.students)
@@ -1008,7 +1008,8 @@
          current match to an existing workspace. */
       try {
         const groups = root.StableIdentity.assignGroupUids(getGroups());
-        const existing = documentData.profiles.length || documentData.classrooms.length;
+        const existing =
+          documentData.profiles.length || documentData.classrooms.length;
         const migrated = repository.previewMigration({
           classroomId: root.StableIdentity.createClassroomId(),
           userProfileId: root.StableIdentity.createUserProfileId(),

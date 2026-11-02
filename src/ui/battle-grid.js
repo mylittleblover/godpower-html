@@ -100,7 +100,10 @@ function renderBattleGridCards() {
     /* Every active status gets its own ring in that item's colour. The first
        ring keeps the classic band; extra rings stack just outside it. */
     const auras = [];
-    if (g.itemEffect?.type === "star" || CompetitionEffects.has(g, "invincible"))
+    if (
+      g.itemEffect?.type === "star" ||
+      CompetitionEffects.has(g, "invincible")
+    )
       auras.push("invincible");
     if (g.itemEffect?.type === "mega" || CompetitionEffects.has(g, "mega"))
       auras.push("mega");

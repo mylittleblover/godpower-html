@@ -12,7 +12,8 @@ globalThis.CompetitionEffects = (() => {
   /* Invincible and mega last a fixed number of answer rounds, not a number of
      attacks absorbed: a defense that never gets attacked still expires. */
   const DEFENSIVE_ROUNDS = 3;
-  const defensiveType = (key) => (key === "invincible" ? "star" : key === "mega" ? "mega" : null);
+  const defensiveType = (key) =>
+    key === "invincible" ? "star" : key === "mega" ? "mega" : null;
   const negative = Object.keys(definitions).filter(
     (k) => definitions[k].negative,
   );
@@ -87,7 +88,8 @@ globalThis.CompetitionEffects = (() => {
     const type = group?.itemEffect?.type;
     if (type !== "star" && type !== "mega") return;
     const left = Number(group.itemEffect.roundsLeft);
-    const next = (Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS) - 1;
+    const next =
+      (Number.isSafeInteger(left) && left > 0 ? left : DEFENSIVE_ROUNDS) - 1;
     if (next <= 0) return release(group);
     group.itemEffect.roundsLeft = next;
   }

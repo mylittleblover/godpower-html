@@ -102,8 +102,9 @@ const BattleMotion = (() => {
                                 ? "box"
                                 : /question/.test(key)
                                   ? "mystery"
-                                  : /star|mega|power|mushroom|feather|coin/
-                                      .test(key)
+                                  : /star|mega|power|mushroom|feather|coin/.test(
+                                        key,
+                                      )
                                     ? "buff"
                                     : "pulse";
     const aliases = {

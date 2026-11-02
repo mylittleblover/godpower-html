@@ -7,7 +7,6 @@ html {
   width: 100%;
   max-width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
   overflow-x: clip;
   background-color: var(--theme-tone-f3f7f6, #f3f7f6) !important;
   background-image: var(--ui-wall-veil), var(--ui-wall) !important;
@@ -37,15 +36,11 @@ body.modern-flat {
   --ui-shadow: 0 2px 8px rgba(23, 48, 45, 0.08);
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
   overflow-x: clip;
   background: transparent !important;
   color: var(--ui-text) !important;
 }
-body.modern-flat *,
-body.modern-flat *::before,
-body.modern-flat *::after {
-}
+
 body.modern-flat .view,
 body.modern-flat .main-viewport,
 body.modern-flat #view-battle,
@@ -54,7 +49,6 @@ body.modern-flat #view-archives,
 body.modern-flat #view-settings {
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
   overflow-x: clip;
   background: var(--ui-bg) !important;
   background-image: none !important;
@@ -62,8 +56,6 @@ body.modern-flat #view-settings {
 body.modern-flat #groupList {
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
-  overflow-x: clip;
   contain: paint;
 }
 

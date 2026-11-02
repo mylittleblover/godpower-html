@@ -1,0 +1,19 @@
+
+> godpower-html@3.0.65 format:check
+> npm run format:ui && npm run format:core
+
+
+> godpower-html@3.0.65 format:ui
+> prettier --check src/ui tests/unit/ui-model.test.mjs tests/e2e/desktop-ui.mjs tests/e2e/battle-layout.mjs tests/fixtures/battle14.mjs
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> godpower-html@3.0.65 format:core
+> prettier --check src/domain src/application src/infrastructure src/core/action-sounds.js src/core/history.js src/core/item-score.js
+
+Checking formatting...
+[warn] src/domain/competition/effects.js
+[warn] src/application/hand-raise-port.js
+[warn] src/application/hand-selection-sync.js
+[warn] Code style issues found in 3 files. Run Prettier with --write to fix.

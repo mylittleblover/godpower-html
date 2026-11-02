@@ -1,0 +1,1399 @@
+{
+  "baseline": "645ea0f",
+  "removed": [
+    {
+      "path": "src/ui/desktop.css",
+      "line": 898,
+      "conditions": [],
+      "selector": ".ui-dock-menu-body",
+      "property": "border-radius",
+      "value": "14px",
+      "start": 19083,
+      "end": 19106,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/application-surfaces.css",
+        "line": 90,
+        "start": 2653,
+        "value": "16px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/draw-clipping.css",
+      "line": 195,
+      "conditions": [
+        "@media (max-width: 640px)"
+      ],
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "right",
+      "value": "6px !important",
+      "start": 5176,
+      "end": 5203,
+      "proof": "identical",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-position.css",
+        "line": 36,
+        "start": 1203,
+        "value": "6px !important",
+        "conditions": [
+          "@media (max-width: 640px)"
+        ]
+      }
+    },
+    {
+      "path": "src/styles/items/draw-clipping.css",
+      "line": 195,
+      "conditions": [
+        "@media (max-width: 640px)"
+      ],
+      "selector": "body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette",
+      "property": "left",
+      "value": "6px !important",
+      "start": 5150,
+      "end": 5176,
+      "proof": "identical",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-position.css",
+        "line": 36,
+        "start": 1177,
+        "value": "6px !important",
+        "conditions": [
+          "@media (max-width: 640px)"
+        ]
+      }
+    },
+    {
+      "path": "src/styles/ui/readability-and-effect-layers.css",
+      "line": 51,
+      "conditions": [],
+      "selector": "body.modern-flat .group-detail-form",
+      "property": "padding-bottom",
+      "value": "18px !important",
+      "start": 1563,
+      "end": 1598,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/ui/flat-controls-and-scrolling.css",
+        "line": 232,
+        "start": 7380,
+        "value": "0 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "line": 62,
+      "conditions": [],
+      "selector": "body.modern-flat #groupList",
+      "property": "overflow-x",
+      "value": "clip",
+      "start": 1922,
+      "end": 1942,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/draw-clipping.css",
+        "line": 9,
+        "start": 259,
+        "value": "visible !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "line": 62,
+      "conditions": [],
+      "selector": "body.modern-flat #groupList",
+      "property": "overflow-x",
+      "value": "hidden",
+      "start": 1900,
+      "end": 1922,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/draw-clipping.css",
+        "line": 9,
+        "start": 259,
+        "value": "visible !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "line": 49,
+      "conditions": [],
+      "selector": "body.modern-flat .view,\nbody.modern-flat .main-viewport,\nbody.modern-flat #view-battle,\nbody.modern-flat #view-history,\nbody.modern-flat #view-archives,\nbody.modern-flat #view-settings",
+      "property": "overflow-x",
+      "value": "hidden",
+      "start": 1715,
+      "end": 1737,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 49,
+        "start": 1737,
+        "value": "clip",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "line": 19,
+      "conditions": [],
+      "selector": "body.modern-flat",
+      "property": "overflow-x",
+      "value": "hidden",
+      "start": 1297,
+      "end": 1319,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 19,
+        "start": 1319,
+        "value": "clip",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/themes/flat-foundation.css",
+      "line": 6,
+      "conditions": [],
+      "selector": "html",
+      "property": "overflow-x",
+      "value": "hidden",
+      "start": 188,
+      "end": 210,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 6,
+        "start": 210,
+        "value": "clip",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 179,
+      "conditions": [],
+      "selector": ".item-big-icon img",
+      "property": "height",
+      "value": "72px",
+      "start": 3713,
+      "end": 3729,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 704,
+        "start": 22605,
+        "value": "58px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 179,
+      "conditions": [],
+      "selector": ".item-big-icon img",
+      "property": "width",
+      "value": "72px",
+      "start": 3698,
+      "end": 3713,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 704,
+        "start": 22579,
+        "value": "58px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 175,
+      "conditions": [],
+      "selector": ".item-slot img",
+      "property": "height",
+      "value": "30px",
+      "start": 3659,
+      "end": 3675,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 696,
+        "start": 22405,
+        "value": "26px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 175,
+      "conditions": [],
+      "selector": ".item-slot img",
+      "property": "width",
+      "value": "30px",
+      "start": 3644,
+      "end": 3659,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/themes/flat-foundation.css",
+        "line": 696,
+        "start": 22379,
+        "value": "26px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 58,
+      "conditions": [],
+      "selector": ".queue-secondary-card",
+      "property": "opacity",
+      "value": "0.68",
+      "start": 1128,
+      "end": 1145,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1107,
+        "start": 23140,
+        "value": "1",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/queue-and-image-constraints.css",
+      "line": 36,
+      "conditions": [],
+      "selector": ".queue-role-badge",
+      "property": "font-weight",
+      "value": "900",
+      "start": 780,
+      "end": 800,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1113,
+        "start": 23219,
+        "value": "800",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 126,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .row-score",
+      "property": "min-width",
+      "value": "7.2ch !important",
+      "start": 3750,
+      "end": 3781,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 217,
+        "start": 6545,
+        "value": "0 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 121,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "max-width",
+      "value": "min(42%, 320px) !important",
+      "start": 3639,
+      "end": 3680,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6307,
+        "value": "none !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 121,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "width",
+      "value": "min(42%, 320px) !important",
+      "start": 3602,
+      "end": 3639,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6281,
+        "value": "auto !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 121,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "min-width",
+      "value": "10ch !important",
+      "start": 3572,
+      "end": 3602,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6337,
+        "value": "8.4ch !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 33,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-controls-col",
+      "property": "max-width",
+      "value": "100% !important",
+      "start": 1184,
+      "end": 1214,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 237,
+        "start": 7237,
+        "value": "none !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 33,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-controls-col",
+      "property": "width",
+      "value": "100% !important",
+      "start": 1158,
+      "end": 1184,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 237,
+        "start": 7211,
+        "value": "auto !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 28,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .card-action-row",
+      "property": "min-height",
+      "value": "29px !important",
+      "start": 1015,
+      "end": 1046,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 198,
+        "start": 6085,
+        "value": "40px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 23,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .score-input",
+      "property": "text-align",
+      "value": "right !important",
+      "start": 874,
+      "end": 906,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 229,
+        "start": 7036,
+        "value": "left !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 23,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .score-input",
+      "property": "font-size",
+      "value": "24px !important",
+      "start": 844,
+      "end": 874,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 229,
+        "start": 7006,
+        "value": "28px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 14,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .row-score",
+      "property": "font-size",
+      "value": "clamp(24px, 4.3vw, 34px) !important",
+      "start": 623,
+      "end": 673,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 217,
+        "start": 6602,
+        "value": "32px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 14,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .row-score",
+      "property": "text-align",
+      "value": "right !important",
+      "start": 591,
+      "end": 623,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 217,
+        "start": 6692,
+        "value": "left !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 4,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "justify-content",
+      "value": "flex-end !important",
+      "start": 307,
+      "end": 347,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6399,
+        "value": "flex-start !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 4,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "min-width",
+      "value": "72px !important",
+      "start": 249,
+      "end": 279,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6337,
+        "value": "8.4ch !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/score-and-state.css",
+      "line": 4,
+      "conditions": [],
+      "selector": ".group-list[data-column-mode=\"single\"] .group-row-card .action-score-col",
+      "property": "position",
+      "value": "absolute !important",
+      "start": 166,
+      "end": 199,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 207,
+        "start": 6221,
+        "value": "static !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 618,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-hint",
+      "property": "font-size",
+      "value": "10px",
+      "start": 12976,
+      "end": 12995,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 28,
+        "start": 1013,
+        "value": "10px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 618,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-hint",
+      "property": "position",
+      "value": "relative",
+      "start": 12921,
+      "end": 12943,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 28,
+        "start": 840,
+        "value": "absolute !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "text-align",
+      "value": "center",
+      "start": 12803,
+      "end": 12825,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 743,
+        "value": "left !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "min-width",
+      "value": "90px",
+      "start": 12784,
+      "end": 12803,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 513,
+        "value": "0 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "border-radius",
+      "value": "999px",
+      "start": 12583,
+      "end": 12607,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 774,
+        "value": "16px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "padding",
+      "value": "5px 11px",
+      "start": 12562,
+      "end": 12583,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 569,
+        "value": "9px 16px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "margin-top",
+      "value": "10px !important",
+      "start": 12531,
+      "end": 12562,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 485,
+        "value": "0 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "z-index",
+      "value": "2",
+      "start": 12517,
+      "end": 12531,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 121,
+        "start": 3329,
+        "value": "3 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 601,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "position",
+      "value": "relative",
+      "start": 12495,
+      "end": 12517,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 121,
+        "start": 3296,
+        "value": "relative !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 577,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "border-radius",
+      "value": "24px",
+      "start": 11944,
+      "end": 11967,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 6,
+        "start": 322,
+        "value": "28px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 577,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "z-index",
+      "value": "2",
+      "start": 11899,
+      "end": 11913,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 117,
+        "start": 3239,
+        "value": "3 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 577,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "position",
+      "value": "relative",
+      "start": 11877,
+      "end": 11899,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 117,
+        "start": 3206,
+        "value": "relative !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 525,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "flex-direction",
+      "value": "column !important",
+      "start": 10519,
+      "end": 10556,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 1,
+        "start": 21,
+        "value": "row !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 489,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon > img",
+      "property": "max-height",
+      "value": "86px !important",
+      "start": 9524,
+      "end": 9555,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 12,
+        "start": 423,
+        "value": "88% !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 489,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon > img",
+      "property": "max-width",
+      "value": "86px !important",
+      "start": 9494,
+      "end": 9524,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 12,
+        "start": 394,
+        "value": "88% !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 485,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "height",
+      "value": "92px",
+      "start": 9440,
+      "end": 9456,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 577,
+        "start": 11928,
+        "value": "94px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 485,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "width",
+      "value": "92px",
+      "start": 9425,
+      "end": 9440,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 577,
+        "start": 11913,
+        "value": "94px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 435,
+      "conditions": [],
+      "selector": ".hand-item-progress",
+      "property": "height",
+      "value": "7px",
+      "start": 8331,
+      "end": 8346,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 754,
+        "start": 15649,
+        "value": "8px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 397,
+      "conditions": [],
+      "selector": ".hand-item-capsule",
+      "property": "border-radius",
+      "value": "28px",
+      "start": 7580,
+      "end": 7603,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 727,
+        "start": 15020,
+        "value": "34px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 397,
+      "conditions": [],
+      "selector": ".hand-item-capsule",
+      "property": "height",
+      "value": "116px",
+      "start": 7538,
+      "end": 7555,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 727,
+        "start": 14992,
+        "value": "126px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 397,
+      "conditions": [],
+      "selector": ".hand-item-capsule",
+      "property": "width",
+      "value": "116px",
+      "start": 7522,
+      "end": 7538,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 727,
+        "start": 14965,
+        "value": "126px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 348,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "color",
+      "value": "#334155",
+      "start": 6574,
+      "end": 6592,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 601,
+        "start": 12668,
+        "value": "#1e3a8a !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 348,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "font-size",
+      "value": "15px",
+      "start": 6555,
+      "end": 6574,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 601,
+        "start": 12607,
+        "value": "14px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 348,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-name",
+      "property": "margin-top",
+      "value": "7px",
+      "start": 6536,
+      "end": 6555,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 16,
+        "start": 485,
+        "value": "0 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 345,
+      "conditions": [],
+      "selector": ".card-item-roulette .r-icon",
+      "property": "font-size",
+      "value": "50px",
+      "start": 6485,
+      "end": 6504,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 577,
+        "start": 12034,
+        "value": "62px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "justify-content",
+      "value": "center",
+      "start": 6365,
+      "end": 6392,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 525,
+        "start": 10590,
+        "value": "center !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "align-items",
+      "value": "center",
+      "start": 6342,
+      "end": 6365,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 525,
+        "start": 10556,
+        "value": "center !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "flex-direction",
+      "value": "column",
+      "start": 6316,
+      "end": 6342,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 1,
+        "start": 21,
+        "value": "row !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "display",
+      "value": "flex",
+      "start": 6299,
+      "end": 6316,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 525,
+        "start": 10491,
+        "value": "flex !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "z-index",
+      "value": "20",
+      "start": 6284,
+      "end": 6299,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 525,
+        "start": 10431,
+        "value": "30 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 334,
+      "conditions": [],
+      "selector": ".card-item-roulette",
+      "property": "position",
+      "value": "absolute",
+      "start": 6250,
+      "end": 6272,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/roulette-result-and-flowers.css",
+        "line": 107,
+        "start": 2939,
+        "value": "absolute !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 322,
+      "conditions": [],
+      "selector": ".group-row-card.item-draw-spinning .card-header-row,\n.group-row-card.item-draw-spinning .item-slots,\n.group-row-card.item-draw-spinning .answer-zone,\n.group-row-card.item-draw-spinning .score-zone,\n.group-row-card.item-draw-spinning .group-actions",
+      "property": "opacity",
+      "value": "0.08",
+      "start": 6107,
+      "end": 6124,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/inventory-and-roulette.css",
+        "line": 514,
+        "start": 10234,
+        "value": "0.13 !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 312,
+      "conditions": [],
+      "selector": ".god-item-grid",
+      "property": "overflow",
+      "value": "auto",
+      "start": 5792,
+      "end": 5810,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-management.css",
+        "line": 45,
+        "start": 1342,
+        "value": "auto !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 312,
+      "conditions": [],
+      "selector": ".god-item-grid",
+      "property": "gap",
+      "value": "5px",
+      "start": 5740,
+      "end": 5752,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-management.css",
+        "line": 45,
+        "start": 1266,
+        "value": "7px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 312,
+      "conditions": [],
+      "selector": ".god-item-grid",
+      "property": "display",
+      "value": "flex",
+      "start": 5723,
+      "end": 5740,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-management.css",
+        "line": 45,
+        "start": 1164,
+        "value": "grid !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 226,
+      "conditions": [],
+      "selector": ".ency-card",
+      "property": "display",
+      "value": "grid",
+      "start": 4196,
+      "end": 4213,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-card-compat.css",
+        "line": 8,
+        "start": 213,
+        "value": "none !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 220,
+      "conditions": [],
+      "selector": ".item-ency-grid",
+      "property": "gap",
+      "value": "10px",
+      "start": 4148,
+      "end": 4161,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-card-compat.css",
+        "line": 3,
+        "start": 175,
+        "value": "9px !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 220,
+      "conditions": [],
+      "selector": ".item-ency-grid",
+      "property": "display",
+      "value": "grid",
+      "start": 4068,
+      "end": 4085,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/items/catalog-and-card-compat.css",
+        "line": 3,
+        "start": 106,
+        "value": "grid !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 100,
+      "conditions": [],
+      "selector": "#pickerInfoBox",
+      "property": "max-height",
+      "value": "220px",
+      "start": 1869,
+      "end": 1890,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1058,
+        "start": 22247,
+        "value": "240px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 100,
+      "conditions": [],
+      "selector": "#pickerInfoBox",
+      "property": "margin-top",
+      "value": "9px",
+      "start": 1813,
+      "end": 1832,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1058,
+        "start": 22286,
+        "value": "12px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 63,
+      "conditions": [],
+      "selector": ".picker-center",
+      "property": "padding",
+      "value": "18px",
+      "start": 1152,
+      "end": 1169,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1035,
+        "start": 21907,
+        "value": "24px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 48,
+      "conditions": [],
+      "selector": ".picker-left,\n.picker-right",
+      "property": "padding",
+      "value": "16px",
+      "start": 903,
+      "end": 920,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1028,
+        "start": 21732,
+        "value": "24px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/items/inventory-and-roulette.css",
+      "line": 43,
+      "conditions": [],
+      "selector": ".picker-layout",
+      "property": "min-height",
+      "value": "555px",
+      "start": 850,
+      "end": 871,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1023,
+        "start": 21663,
+        "value": "500px",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/shell/navigation-and-welcome.css",
+      "line": 695,
+      "conditions": [],
+      "selector": ".item-big-desc",
+      "property": "line-height",
+      "value": "1.45",
+      "start": 13059,
+      "end": 13080,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/ui/desktop.css",
+        "line": 1101,
+        "start": 23038,
+        "value": "1.7",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "line": 205,
+      "conditions": [],
+      "selector": ".row-score",
+      "property": "overflow",
+      "value": "hidden",
+      "start": 3889,
+      "end": 3909,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-feedback.css",
+        "line": 6,
+        "start": 174,
+        "value": "visible !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/group-cards.css",
+      "line": 196,
+      "conditions": [],
+      "selector": ".action-score-col",
+      "property": "overflow",
+      "value": "hidden",
+      "start": 3676,
+      "end": 3696,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-feedback.css",
+        "line": 2,
+        "start": 94,
+        "value": "visible !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "line": 34,
+      "conditions": [],
+      "selector": ".chart-row",
+      "property": "align-items",
+      "value": "center",
+      "start": 765,
+      "end": 788,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 55,
+        "start": 1883,
+        "value": "center !important",
+        "conditions": []
+      }
+    },
+    {
+      "path": "src/styles/battle/overview-and-resizer.css",
+      "line": 34,
+      "conditions": [],
+      "selector": ".chart-row",
+      "property": "display",
+      "value": "flex",
+      "start": 748,
+      "end": 765,
+      "proof": "later-valid-literal",
+      "coveredBy": {
+        "path": "src/styles/battle/score-and-state.css",
+        "line": 55,
+        "start": 1740,
+        "value": "grid !important",
+        "conditions": []
+      }
+    }
+  ]
+}

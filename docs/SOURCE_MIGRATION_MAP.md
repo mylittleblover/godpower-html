@@ -93,7 +93,7 @@
 |script/40.js|1–2|runtime/bootstrap/version.js|
 |script/41.js|1–102|runtime/ui/interface-copy.js|
 |script/42.js|1–31|runtime/items/flower-copy-and-limits.js|
-|script/43.js|1–23|runtime/ui/about-copy.js|
+|script/43.js|1–23|ui/about-view.js|
 |script/44.js|1–121|runtime/competition/season-cleanup.js|
 |script/45.js|1–294|runtime/archives/full-settlement.js|
 |script/01.js|1–71|runtime/ui/battle-order-compat.js|
@@ -149,3 +149,5 @@
 |style/07.css|1–40|styles/settings/clear-items.css|
 |style/08.css|1–106|styles/audio/item-sounds.css|
 |style/09.css|1–41|styles/audio/fx-transfer.css|
+
+3.0.65：历史script/43.js的文案清理职责迁入ui/about-view.js，关于/百科显示统一由此文件及唯一renderAbout入口负责。原3.0.60机器映射不改写，通过src/source-relocations.json追踪后续迁移。

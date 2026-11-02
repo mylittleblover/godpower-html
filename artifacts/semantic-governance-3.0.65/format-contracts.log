@@ -1,0 +1,5 @@
+src/domain/competition/effects.js 81ms
+src/application/hand-raise-port.js 28ms
+src/application/hand-selection-sync.js 6ms
+tests/e2e/battle-motion.mjs 56ms
+tests/e2e/semantic-governance.mjs 12ms

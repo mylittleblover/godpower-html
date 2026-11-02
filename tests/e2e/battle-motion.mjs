@@ -43,7 +43,7 @@ try {
   await page.goto(`http://127.0.0.1:${server.address().port}`, {
     waitUntil: "domcontentloaded",
   });
-  await test("All 26 item effects retain geometry, survive redraw, have a real fade tail and clean up", async () => {
+  await test("All current item effects retain geometry, survive redraw, have a real fade tail and clean up", async () => {
     const keys = await page.evaluate(() => ITEM_KEYS);
     const audit = [];
     for (const key of keys) {
@@ -117,9 +117,8 @@ try {
         return {
           before,
           mid,
-          redrawCount: document.querySelectorAll(
-            "#score-val-1 .score-roll-new",
-          ).length,
+          redrawCount: document.querySelectorAll("#score-val-1 .score-roll-new")
+            .length,
         };
       }, zoom);
       assert.equal(mid.color, "rgb(185, 59, 101)");
@@ -320,10 +319,7 @@ try {
       undoLast();
     });
     assert.equal(await page.locator("#score-val-1").textContent(), "400分");
-    assert.equal(
-      await page.locator(".bm-layer,.score-roll-ghost").count(),
-      0,
-    );
+    assert.equal(await page.locator(".bm-layer,.score-roll-ghost").count(), 0);
   });
   await test("Skipping acknowledges committed visual state without suppressing the next operation", async () => {
     await page.evaluate(() => {
@@ -387,7 +383,17 @@ try {
     });
     assert.equal(audit.slots.length, 22);
     assert.ok(audit.slots.every((x) => x.listed));
-    assert.equal(audit.categories.length, 7);
+    // Match the full, independently verified 3.0.64 category contract, not only a count.
+    assert.deepEqual(audit.categories, [
+      "全屏演出 · 3 个音效槽",
+      "导航与窗口 · 4 个音效槽",
+      "答题与回合 · 6 个音效槽",
+      "道具与课堂工具 · 6 个音效槽",
+      "设置与数据 · 6 个音效槽",
+      "计分与比赛结果 · 7 个音效槽",
+      "通用按钮默认音效 · 1 个音效槽",
+      "点名过程与结果 · 3 个音效槽",
+    ]);
     await page.locator("#buttonSlotProbe").click();
     await page.waitForFunction(() =>
       buttonProbe.includes(customFxBuffers.ui_button_positive),

@@ -1,0 +1,547 @@
+{
+  "baseline": "bab0792",
+  "before": {
+    "sourceBytes": 1676331,
+    "sourceLines": 55923,
+    "functionDefinitions": 1352,
+    "duplicateNames": 137,
+    "extraDefinitions": 300,
+    "capturedWrapperAliases": 60,
+    "timerAndListenerCalls": 367,
+    "cssLeafRules": 2275,
+    "exactRepeatedCssBodies": 61,
+    "important": 1658,
+    "buildBytes": 11506606
+  },
+  "after": {
+    "sourceBytes": 1642332,
+    "sourceLines": 53713,
+    "functionDefinitions": 1346,
+    "duplicateNames": 136,
+    "extraDefinitions": 292,
+    "capturedWrapperAliases": 53,
+    "timerAndListenerCalls": 367,
+    "cssLeafRules": 2275,
+    "exactRepeatedCssBodies": 62,
+    "important": 1637,
+    "buildBytes": 11472486
+  },
+  "remainingCapturedAliases": [
+    {
+      "file": "src/runtime/audio/draw-audio-lifecycle.js",
+      "line": 126,
+      "name": "_v2171CancelHandItemDraw",
+      "initializer": "cancelHandItemDraw",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/effects-volume.js",
+      "line": 81,
+      "name": "_v2176SyncSettingsControls",
+      "initializer": "syncSettingsControls",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/effects-volume.js",
+      "line": 96,
+      "name": "_v2176RebuildSettingsV26",
+      "initializer": "rebuildSettingsV26",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/effects-volume.js",
+      "line": 105,
+      "name": "_v2176ShowSettingsV26",
+      "initializer": "showSettingsV26",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-bindings.js",
+      "line": 109,
+      "name": "_v2164PlaySoundBase",
+      "initializer": "playSound",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-map.js",
+      "line": 81,
+      "name": "_v2174PlaySound",
+      "initializer": "playSound",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-map.js",
+      "line": 129,
+      "name": "_v2174ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-map.js",
+      "line": 204,
+      "name": "_v2174HandleSoundFileUpload",
+      "initializer": "handleSoundFileUpload",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-map.js",
+      "line": 215,
+      "name": "_v2174DeleteFxTrack",
+      "initializer": "deleteFxTrack",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-settings.js",
+      "line": 58,
+      "name": "_v26ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/audio/item-sound-settings.js",
+      "line": 64,
+      "name": "_v26TinyDefense",
+      "initializer": "tinyDefenseToast",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/classroom/hand-reward-controls.js",
+      "line": 97,
+      "name": "_v218JudgeHandRaise",
+      "initializer": "judgeHandRaise",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/classroom/student-labels-and-search.js",
+      "line": 71,
+      "name": "_v218RenderBattleRankPreview",
+      "initializer": "renderBattleRankPreviewV21721",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/card-effects-legacy.js",
+      "line": 143,
+      "name": "_v25ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/catalog-adapters.js",
+      "line": 205,
+      "name": "_v283OpenGroupModal",
+      "initializer": "openGroupModal",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/catalog-adapters.js",
+      "line": 213,
+      "name": "_v283RenderGroupModal",
+      "initializer": "renderGroupModal",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/draw-session-throttle.js",
+      "line": 185,
+      "name": "_v21710InstallInfo",
+      "initializer": "installDrawCooldownInfoV2179",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/draw-session-throttle.js",
+      "line": 194,
+      "name": "_v21710ShowSettings",
+      "initializer": "showSettingsV26",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/draw-throttle-legacy.js",
+      "line": 170,
+      "name": "_v2179InstallClearItems",
+      "initializer": "installClearItemsSettingV2172",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/drop-uniqueness-and-reset.js",
+      "line": 155,
+      "name": "_v2172AddItemToGroup",
+      "initializer": "addItemToGroup",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/drop-uniqueness-and-reset.js",
+      "line": 249,
+      "name": "_v2172RebuildSettingsV26",
+      "initializer": "rebuildSettingsV26",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/drop-uniqueness-and-reset.js",
+      "line": 257,
+      "name": "_v2172ShowSettingsV26",
+      "initializer": "showSettingsV26",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/feature-switch.js",
+      "line": 43,
+      "name": "_v291OpenItemWindow",
+      "initializer": "openItemWindow",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/first-hand-pool.js",
+      "line": 15,
+      "name": "_v218ItemDropWeights",
+      "initializer": "itemDropWeights",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/first-hand-pool.js",
+      "line": 28,
+      "name": "_v218PickItem",
+      "initializer": "pickItemForGroupV281",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/group-encyclopedia.js",
+      "line": 140,
+      "name": "_v2182RenderItemWindow",
+      "initializer": "renderItemWindow",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/group-encyclopedia.js",
+      "line": 149,
+      "name": "_v2182AdminAddItem",
+      "initializer": "adminAddItem",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/hand-reward-lifecycle.js",
+      "line": 23,
+      "name": "_v21CloseHandRaise",
+      "initializer": "closeHandRaise",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/hand-reward-lifecycle.js",
+      "line": 29,
+      "name": "_v21SelectHandGroup",
+      "initializer": "selectHandGroup",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/hand-reward-lifecycle.js",
+      "line": 38,
+      "name": "_v21JudgeHandRaise",
+      "initializer": "judgeHandRaise",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/lightning-and-hit-legacy.js",
+      "line": 116,
+      "name": "_v2116ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/queue-adapters.js",
+      "line": 74,
+      "name": "_v2120RenderItemWindow",
+      "initializer": "renderItemWindow",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/queue-adapters.js",
+      "line": 135,
+      "name": "_v2120EnhanceItemCards",
+      "initializer": "enhanceItemCards",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/queue-adapters.js",
+      "line": 184,
+      "name": "_v2120HandUseNewItem",
+      "initializer": "handUseNewItem",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/round-use-lock.js",
+      "line": 57,
+      "name": "_v2177ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/round-use-lock.js",
+      "line": 71,
+      "name": "_v2177QueueUseState",
+      "initializer": "queueUseStateV2120",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/spiny-cooldown.js",
+      "line": 20,
+      "name": "_v21717SessionRestrictedWeights",
+      "initializer": "sessionRestrictedWeightsV21710",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/spiny-cooldown.js",
+      "line": 35,
+      "name": "_v21717CommitSessionDraw",
+      "initializer": "commitSessionDrawV21710",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/spiny-cooldown.js",
+      "line": 47,
+      "name": "_v21717RefreshCooldownInfo",
+      "initializer": "refreshDrawCooldownInfoV21710",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/status-normalization.js",
+      "line": 40,
+      "name": "_v21731EnsureItemState",
+      "initializer": "ensureItemState",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/items/triple-defense-helpers.js",
+      "line": 31,
+      "name": "_v218QueueState",
+      "initializer": "queueUseStateV2120",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/picker/classroom-tools.js",
+      "line": 100,
+      "name": "_v2OpenPicker",
+      "initializer": "openPickerModal",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/attack-reorder-scheduling.js",
+      "line": 25,
+      "name": "_v21713ApplyLightningHit",
+      "initializer": "applyLightningHitV2116",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/battle-appearance-and-hand-rewards.js",
+      "line": 58,
+      "name": "_v214JudgeHandRaise",
+      "initializer": "judgeHandRaise",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/battle-order-compat.js",
+      "line": 82,
+      "name": "_v213Batch",
+      "initializer": "applySettingsBatchMembers",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/defense-notices.js",
+      "line": 29,
+      "name": "_v21735ShowItemUseFx",
+      "initializer": "showItemUseFx",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/dock-tooltips.js",
+      "line": 179,
+      "name": "_v2185RenderLockState",
+      "initializer": "renderLockState",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/interface-copy.js",
+      "line": 57,
+      "name": "_v2187OpenPwdModal",
+      "initializer": "openPwdModal",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/settings-and-about.js",
+      "line": 57,
+      "name": "_v2RenderItemWindow",
+      "initializer": "renderItemWindow",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/settings-and-about.js",
+      "line": 103,
+      "name": "_v2Enhance",
+      "initializer": "enhanceItemCards",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/settings-and-about.js",
+      "line": 121,
+      "name": "_v2RenderItemWindowIcons",
+      "initializer": "renderItemWindow",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/settings-and-about.js",
+      "line": 143,
+      "name": "_v2SwitchView",
+      "initializer": "switchView",
+      "classification": "需要进一步测试"
+    },
+    {
+      "file": "src/runtime/ui/welcome-score-sync.js",
+      "line": 17,
+      "name": "oldSwitchV216",
+      "initializer": "switchView",
+      "classification": "需要进一步测试"
+    }
+  ],
+  "namedFunctionLocations": {
+    "renderAll": [
+      {
+        "file": "src/ui/render.js",
+        "line": 4,
+        "kind": "declaration"
+      }
+    ],
+    "renderGrid": [
+      {
+        "file": "src/ui/render.js",
+        "line": 35,
+        "kind": "declaration"
+      }
+    ],
+    "saveState": [
+      {
+        "file": "src/runtime/storage/classroom-save.js",
+        "line": 11,
+        "kind": "declaration"
+      }
+    ],
+    "useItem": [
+      {
+        "file": "src/application/legacy-classroom-adapter.js",
+        "line": 258,
+        "kind": "declaration"
+      }
+    ],
+    "renderAbout": [
+      {
+        "file": "src/runtime/ui/settings-and-about.js",
+        "line": 49,
+        "kind": "declaration"
+      }
+    ],
+    "switchView": [
+      {
+        "file": "src/runtime/ui/navigation-and-clock.js",
+        "line": 38,
+        "kind": "declaration"
+      },
+      {
+        "file": "src/runtime/ui/rank-preview.js",
+        "line": 50,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/settings-and-about.js",
+        "line": 144,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/welcome-score-sync.js",
+        "line": 18,
+        "kind": "assignment"
+      }
+    ],
+    "showItemUseFx": [
+      {
+        "file": "src/runtime/audio/item-sound-map.js",
+        "line": 130,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/audio/item-sound-settings.js",
+        "line": 59,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/items/card-effects-legacy.js",
+        "line": 144,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/items/feedback-and-icons.js",
+        "line": 1,
+        "kind": "declaration"
+      },
+      {
+        "file": "src/runtime/items/lightning-and-hit-legacy.js",
+        "line": 117,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/items/round-use-lock.js",
+        "line": 58,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/defense-notices.js",
+        "line": 30,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/welcome-score-sync.js",
+        "line": 28,
+        "kind": "assignment"
+      }
+    ],
+    "playSound": [
+      {
+        "file": "src/runtime/audio/item-sound-bindings.js",
+        "line": 110,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/audio/item-sound-map.js",
+        "line": 82,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/audio/sound-playback.js",
+        "line": 172,
+        "kind": "declaration"
+      }
+    ],
+    "renderItemWindow": [
+      {
+        "file": "src/runtime/items/group-encyclopedia.js",
+        "line": 141,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/items/group-window.js",
+        "line": 18,
+        "kind": "declaration"
+      },
+      {
+        "file": "src/runtime/items/queue-adapters.js",
+        "line": 75,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/settings-and-about.js",
+        "line": 58,
+        "kind": "assignment"
+      },
+      {
+        "file": "src/runtime/ui/settings-and-about.js",
+        "line": 122,
+        "kind": "assignment"
+      }
+    ]
+  }
+}

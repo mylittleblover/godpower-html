@@ -199,7 +199,6 @@
   gap: 4px;
   flex: 1;
   min-width: 0;
-  overflow: hidden;
 }
 
 .row-score {
@@ -211,7 +210,6 @@
   border-radius: 4px;
   line-height: 1;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 .row-score.editable:hover {

@@ -1,0 +1,9 @@
+src/ui/application-surfaces.css 706ms
+src/ui/battle-grid.js 408ms
+src/ui/battle-motion.js 172ms
+src/ui/classroom-roster-workspace.js 523ms
+src/ui/electron-host.js 69ms
+src/ui/electron-windows.js 6ms
+src/ui/item-score-cinematics.js 88ms
+src/ui/save-file-settings.js 22ms
+tests/unit/source-maintenance.test.mjs 18ms

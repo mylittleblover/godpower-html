@@ -33,7 +33,9 @@ globalThis.HandItemCinematic = (() => {
       caster: result.caster?.name || "",
       itemName: ITEM_DEFS[result.key]?.name || result.key,
       icon:
-        typeof itemIconDataUrl === "function" ? itemIconDataUrl(result.key) : "",
+        typeof itemIconDataUrl === "function"
+          ? itemIconDataUrl(result.key)
+          : "",
       targets: targets.slice(0, 16).map((target) => ({
         name: String(target.name || ""),
         delta: Number.isSafeInteger(target.delta) ? target.delta : 0,

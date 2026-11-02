@@ -1,3 +1,5 @@
+> 当前补充清单：见 [3.0.65 JS覆盖链审计](audit/JS_OVERRIDE_INVENTORY_3.0.65.md) 和 [治理验收](validation/SEMANTIC_STYLE_GOVERNANCE_3.0.65.md)。下列大清单为3.0.60历史快照，不能将其中about-copy等旧路径视作现行文件。
+
 # 遗留代码依赖与治理清单
 
 基线：`48c199f`。由 `node scripts/legacy-inventory.mjs` 生成。范围：全部旧版脚本、core、UI 与 CSS；资源内容另由构建完整性检查验证。

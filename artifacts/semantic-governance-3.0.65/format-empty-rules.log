@@ -1,0 +1,5 @@
+src/ui/component-catalog.js 163ms
+scripts/css-source.mjs 26ms
+scripts/prune-covered-css.mjs 15ms
+tests/integration/cascade-governance.test.mjs 16ms
+tests/unit/source-maintenance.test.mjs 7ms

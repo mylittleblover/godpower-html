@@ -60,3 +60,7 @@ DesktopUI仍是兼容组合入口，未新增同名覆盖链：
 component-library为只读维护窗口；component-catalog是从所有CSS生成的数据；component-preview-style只重写根选择器上下文而不序列化丢失声明。封闭Shadow DOM和inert克隆不参与命令，不开放原生权限。入口只挂载外观分类的折叠维护区，关闭复用DesktopUI已知窗口栈。
 
 目录完整性由check及component-catalog测试强制验证，具体覆盖和限制见validation/UI_COMPONENT_LIBRARY_3.0.61.md。开关皮肤由styles/items/feature-visibility与现行tokens统一拥有，不再维护旧渐变与多层important覆盖。
+
+### 3.0.65 样式与关于视图边界
+
+表现层类名/动画以职责命名（152/44迁移）；映射scripts/semantic-style-names.json。renderAbout在runtime/ui/settings-and-about.js保留单一兼容入口，调用ui/about-view.js的info/items视图及文案清理；原百科数据表只供读取。原about-copy.js退役路径通过source-relocations.json追踪。现行覆盖链与后续归属见audit/JS_OVERRIDE_INVENTORY_3.0.65.md；本轮不宣称全局状态或全部CSS已解耦。

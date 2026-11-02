@@ -2,12 +2,9 @@
   position: relative !important;
 }
 .group-list[data-column-mode="single"] .group-row-card .action-score-col {
-  position: absolute !important;
   right: 18px !important;
   top: 48px !important;
-  min-width: 72px !important;
   display: flex !important;
-  justify-content: flex-end !important;
   z-index: 5 !important;
   pointer-events: auto !important;
 }
@@ -16,23 +13,16 @@
   width: auto !important;
   visibility: visible !important;
   opacity: 1 !important;
-  text-align: right !important;
-  font-size: clamp(24px, 4.3vw, 34px) !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.92) !important;
 }
 .group-list[data-column-mode="single"] .group-row-card .score-input {
   width: min(180px, 100%) !important;
-  font-size: 24px !important;
-  text-align: right !important;
 }
 .group-list[data-column-mode="single"] .group-row-card .card-action-row {
   position: relative !important;
-  min-height: 29px !important;
 }
 /* 右侧给分数预留空间，底部操作按钮仍按原卡片尺寸排列 */
 .group-list[data-column-mode="single"] .group-row-card .action-controls-col {
-  width: 100% !important;
-  max-width: 100% !important;
   padding-right: 0 !important;
 }
 /* 极窄设备上将分数放到道具槽右侧，仍不增加卡片高度 */
@@ -118,14 +108,8 @@
 }
 
 /* 单栏模式空间充足，至少给 7 位数约 10ch 的显示区。 */
-.group-list[data-column-mode="single"] .group-row-card .action-score-col {
-  min-width: 10ch !important;
-  width: min(42%, 320px) !important;
-  max-width: min(42%, 320px) !important;
-}
-.group-list[data-column-mode="single"] .group-row-card .row-score {
-  min-width: 7.2ch !important;
-}
+
+
 
 /* 7 位数在常见横屏 4 列下也保持完整。 */
 @media (orientation: landscape) and (min-width: 700px) {

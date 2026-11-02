@@ -12,27 +12,7 @@ function rankOfGroupV214(id) {
 /* 在 V2.13 卡片的固定布局上补充实时排名，不增加卡片总体高度。 */
 
 /* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */
-renderAbout = function (tab) {
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
-  if (tab === "info") {
-    m.innerHTML = `<div class="about-heading"><h2>上帝（马克思）的力量</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="guide-block"><b>课堂积分与道具系统</b><br>包含课堂积分、随机点名、手动举手、${ITEM_KEYS.length} 种排名权重道具、历史回滚、档案与音效与音乐管理。</div><div class="guide-block">当前界面采用现代扁平风格，保留必要的状态动画与道具演出。</div>`;
-    return;
-  }
-  if (tab === "items") {
-    m.innerHTML = `<div class="about-heading"><h2>${ITEM_KEYS.length} 种道具百科</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="about-item-list">${ITEM_KEYS.map(
-      (k) => {
-        const d = ITEM_DEFS[k];
-        return `<div class="about-item"><div class="about-item-disc">${itemVisual(k, "about-item-img")}</div><div class="about-item-info"><div class="about-item-name">${escapeHtml(d.name)}</div><div class="about-item-desc">${escapeHtml(d.desc || "")}</div></div></div>`;
-      },
-    ).join("")}</div>`;
-    return;
-  }
-  m.innerHTML = `<div class="about-heading"><h2>核心功能指南</h2><button class="btn btn-sm" onclick="closeAbout()">关闭</button></div><div class="guide-block"><b>PK：</b>各组作答后统一判定，每次 PK 都计入课堂统计。</div><div class="guide-block"><b>全局道具抽取：</b>符合条件的小组卡片原地滚动并获得道具；满背包与负分组不参与。</div><div class="guide-block"><b>手动举手：</b>选择小组并判定正误，正确后可直接加分、抽取道具，或立即使用当前主要道具。</div><div class="guide-block"><b>随机点名：</b>提供个人、小组、双层联动三种模式，并支持即时赋分。</div>`;
-};
+
 
 /* 举手窗口的组按钮加 data 属性，便于分数变化时原位刷新。 */
 renderHandRaise = function () {

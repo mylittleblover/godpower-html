@@ -43,11 +43,9 @@
 .picker-layout {
   grid-template-columns: 185px minmax(360px, 1fr) 235px;
   gap: 0;
-  min-height: 555px;
 }
 .picker-left,
 .picker-right {
-  padding: 16px;
   background: linear-gradient(
     180deg,
     rgba(219, 234, 254, 0.92),
@@ -60,9 +58,7 @@
 .picker-right {
   border-left: 1px solid #cbd5e1;
 }
-.picker-center {
-  padding: 18px;
-}
+
 .picker-vtab {
   display: block;
   border: 0;
@@ -98,10 +94,8 @@
   color: #fff;
 }
 #pickerInfoBox {
-  margin-top: 9px;
   font-size: 12px;
   color: #475569;
-  max-height: 220px;
 }
 .picker-log {
   padding: 6px 0;
@@ -218,13 +212,10 @@
   display: block;
 }
 .item-ency-grid {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-  gap: 10px;
   margin-top: 12px;
 }
 .ency-card {
-  display: grid;
   grid-template-columns: 55px 1fr;
   gap: 10px;
   padding: 12px;
@@ -310,11 +301,8 @@
   background: #fffbeb;
 }
 .god-item-grid {
-  display: flex;
-  gap: 5px;
   flex-wrap: wrap;
   max-height: 170px;
-  overflow: auto;
 }
 .god-item-grid button {
   font-size: 11px;
@@ -324,7 +312,6 @@
 .group-row-card.item-draw-spinning .answer-zone,
 .group-row-card.item-draw-spinning .score-zone,
 .group-row-card.item-draw-spinning .group-actions {
-  opacity: 0.08;
   filter: blur(2px);
 }
 .group-row-card.item-draw-spinning {
@@ -332,24 +319,12 @@
   overflow: hidden;
 }
 .card-item-roulette {
-  position: absolute;
   inset: 0;
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background: rgba(239, 246, 255, 0.88);
   font-weight: 900;
 }
-.card-item-roulette .r-icon {
-  font-size: 50px;
-}
-.card-item-roulette .r-name {
-  margin-top: 7px;
-  font-size: 15px;
-  color: #334155;
-}
+
+
 .card-item-roulette.reveal {
   background: rgba(255, 255, 255, 0.94);
   animation: itemPop 0.24s cubic-bezier(0.2, 0.9, 0.25, 1.2);
@@ -395,10 +370,7 @@
   position: relative;
 }
 .hand-item-capsule {
-  width: 116px;
-  height: 116px;
   margin: 4px auto 12px;
-  border-radius: 28px;
   border: 2px solid rgba(255, 255, 255, 0.95);
   background: radial-gradient(
     circle at 35% 25%,
@@ -433,7 +405,6 @@
   margin-top: 5px;
 }
 .hand-item-progress {
-  height: 7px;
   background: #dbeafe;
   border-radius: 999px;
   overflow: hidden;
@@ -482,14 +453,8 @@
   object-position: center !important;
   margin: auto !important;
 }
-.card-item-roulette .r-icon {
-  width: 92px;
-  height: 92px;
-}
-.card-item-roulette .r-icon > img {
-  max-width: 86px !important;
-  max-height: 86px !important;
-}
+
+
 .hand-item-capsule > img {
   max-width: 82px !important;
   max-height: 82px !important;
@@ -527,7 +492,6 @@
   z-index: 30 !important;
   border-radius: 18px !important;
   display: flex !important;
-  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
@@ -575,11 +539,8 @@
   z-index: -1;
 }
 .card-item-roulette .r-icon {
-  position: relative;
-  z-index: 2;
   width: 94px;
   height: 94px;
-  border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -599,27 +560,18 @@
   animation: rouletteSwap 0.115s cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 .card-item-roulette .r-name {
-  position: relative;
-  z-index: 2;
-  margin-top: 10px !important;
-  padding: 5px 11px;
-  border-radius: 999px;
   font-size: 14px !important;
   font-weight: 950 !important;
   color: #1e3a8a !important;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  min-width: 90px;
-  text-align: center;
   transition:
     opacity 0.12s ease,
     transform 0.12s ease;
 }
 .card-item-roulette .r-hint {
-  position: relative;
   z-index: 2;
   margin-top: 5px;
-  font-size: 10px;
   font-weight: 800;
   color: #64748b;
   letter-spacing: 0.08em;
