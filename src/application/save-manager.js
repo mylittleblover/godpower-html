@@ -15,6 +15,8 @@
     Object.fromEntries(SaveSchema.appPreferenceKeys.map((k) => [k, state[k]]));
   function notify(detail) {
     currentStatus = detail;
+    if (typeof refreshClassroomSaveWarning === "function")
+      refreshClassroomSaveWarning();
     root.dispatchEvent(new CustomEvent("godpower:save-status", { detail }));
   }
   function applyDocument(doc) {
@@ -185,6 +187,17 @@
     const result = await session.update(
       async (doc) => {
         const projected = await SaveProjection.fromRuntime(doc, snapshot);
+        if (
+          doc.match.pendingSettlement &&
+          doc.match.season.seasonId === projected.document.match.season.seasonId
+        ) {
+          const before = SaveSchema.clone(doc.match),
+            after = SaveSchema.clone(projected.document.match);
+          delete before.pendingSettlement;
+          delete after.pendingSettlement;
+          if (JSON.stringify(before) !== JSON.stringify(after))
+            throw Error("本届已归档，请先完成新一届初始化");
+        }
         return {
           ...projected,
           assets: [
@@ -330,6 +343,7 @@
   root.SaveManager = Object.freeze({
     ready,
     blocked: () => libraryBlocked,
+    pendingSettlement: () => !!currentStatus.pendingSettlement,
     retry: () => {
       if (starting) return ready();
       readyPromise = null;
@@ -433,8 +447,24 @@
     },
     archive: (record) =>
       session.update((doc) => {
-        if (!doc.archives.some((a) => a.seasonId === record.seasonId))
-          doc.archives.unshift(SaveSchema.clone(record));
+        if (record.seasonId !== doc.match.season.seasonId)
+          throw Error("归档赛季已变化");
+        const existing = doc.archives.find(
+          (a) => a.seasonId === record.seasonId,
+        );
+        if (existing && !doc.match.pendingSettlement)
+          throw Error("本届已有归档，请先检查档案");
+        if (!existing)
+          doc.archives.unshift(
+            SaveSchema.clone({
+              ...record,
+              schemaVersion: Reliability.schemaVersion,
+            }),
+          );
+        doc.match.pendingSettlement = {
+          seasonId: record.seasonId,
+          recordId: (existing || record).id,
+        };
         return { document: doc };
       }),
     removeArchive: (id) =>

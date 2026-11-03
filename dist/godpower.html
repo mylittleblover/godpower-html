@@ -14132,7 +14132,8 @@ html[data-theme="marx"] {
 </div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
-  <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
+  <span id="classroomSaveWarningText">本页有尚未保存的课堂数据。关闭或刷新前，请先导出备份。</span>
+  <button id="classroomSettlementResume" type="button" class="btn btn-primary" onclick="resumeFinalSettlement()" hidden>完成新一届初始化</button>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
   <section id="classroomRecoveryTools" class="classroom-recovery-tools" hidden aria-labelledby="classroomRecoveryTitle">
     <strong id="classroomRecoveryTitle">存档恢复</strong>
@@ -15128,6 +15129,20 @@ globalThis.StableIdentity = StableIdentity;
       if (!object(archive)) fail("invalid archive entry");
       if (archive.groups !== undefined) validateGroups(archive.groups, false);
     }
+    if (input.match.pendingSettlement !== undefined) {
+      const pending = input.match.pendingSettlement;
+      if (
+        !object(pending) ||
+        !(typeof pending.recordId === "string"
+          ? pending.recordId.length > 0
+          : Number.isSafeInteger(pending.recordId)) ||
+        pending.seasonId !== input.match.season.seasonId ||
+        !input.archives.some(
+          (a) => a.id === pending.recordId && a.seasonId === pending.seasonId,
+        )
+      )
+        fail("invalid pending settlement");
+    }
     const students = unique(input.roster.students, "studentUid", "student");
     const groups = unique(input.roster.groups, "groupUid", "roster group");
     if (students.size > 100000 || groups.size > 1000)
@@ -16047,6 +16062,7 @@ globalThis.StableIdentity = StableIdentity;
           phase,
           saveId: current.saveId,
           revision: current.revision,
+          pendingSettlement: !!current.match.pendingSettlement,
           generation: index.generation,
           error,
         });
@@ -16282,6 +16298,11 @@ globalThis.StableIdentity = StableIdentity;
         ]),
       ],
     };
+    if (
+      current.match.pendingSettlement &&
+      current.match.season.seasonId === document.match.season.seasonId
+    )
+      document.match.pendingSettlement = copy(current.match.pendingSettlement);
     const refs = new Set(document.assetReferences);
     for (const group of [
       ...document.match.groups,
@@ -23188,6 +23209,12 @@ const ClassroomWriteBarrier = {
         reason: "library-unavailable",
         error: "存档库未成功读取，已暂停修改以保护原数据。",
       };
+    if (globalThis.SaveManager?.pendingSettlement?.())
+      return {
+        ok: false,
+        reason: "settlement-recovery",
+        error: "本届已归档，请先完成新一届初始化后再操作。",
+      };
     if (typeof settlementSaving !== "undefined" && settlementSaving)
       return {
         ok: false,
@@ -24273,6 +24300,29 @@ let settlementSaving = false;
 async function confirmFinalSettlement(){
   if(settlementSaving)return {ok:false,reason:"busy"};
   try{return await performFinalSettlement();}finally{settlementSaving=false;}
+}
+async function resumeFinalSettlement() {
+  if (settlementSaving || !globalThis.SaveManager?.pendingSettlement?.()) return {ok:false,reason:"not-pending"};
+  if (state.isLocked) { openPwdModal(); return {ok:false,reason:"locked"}; }
+  if (classroomCommands.isPending() || SaveManager.isStarting() || SaveManager.isSwitching()) return {ok:false,reason:"busy"};
+  settlementSaving = true;
+  const before = clone(state), history = clone(historyStack);
+  try {
+    Reliability.invalidateDefenseDecisions();
+    resetCompetitionDataAfterSettlementV21812();
+    const pending = saveState();
+    const result = await (pending?.completion || pending);
+    if (!result?.ok) {
+      state = before; historyStack = history;
+      showClassroomSaveWarning("新一届初始化未保存，原赛季和归档均保留，请重试。");
+    } else { showToast("新一届初始化已完成，原档案保留。"); }
+    renderAll(); refreshClassroomSaveWarning();
+    return result;
+  } catch (error) {
+    state = before; historyStack = history; renderAll();
+    showClassroomSaveWarning(error.message);
+    return {ok:false,error:error.message};
+  } finally { settlementSaving = false; }
 }
 async function performFinalSettlement() {
   const conflict = ClassroomWriteBarrier.conflict();
@@ -26086,6 +26136,7 @@ function forceEndRound() {
   return RoundSettlement.forceEnd();
 }
 function applySettingsBatchMembers() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -26721,6 +26772,7 @@ function closePickerModal() {
 }
 
 function setPickerMode(mode) {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   if (slotEngine.isSpinning || window.GodpowerPicker?.isSettling()) return;
   if (typeof DesktopUI !== "undefined") DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
@@ -26826,12 +26878,14 @@ function resetSlotDisplay() {
 }
 
 function toggleAntiRepeat(checked) {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   state.picker.antiRepeat = checked;
   saveState();
   updatePickerPoolUI();
 }
 
 function resetPickerPool() {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   state.picker.pickedStudentKeys = [];
   state.picker.pickedGroupIds = [];
   saveState();
@@ -26934,6 +26988,7 @@ function toggleSlotSpin() {
 }
 
 async function startSlotSpin() {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   const uiGeneration =
     typeof DesktopUI !== "undefined" ? DesktopUI.getPickerGeneration() : null;
   const pool = getAvailablePool();
@@ -27217,6 +27272,7 @@ function handleFileImport(event) {
   reader.readAsText(file);
 }
 function addGroup() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -27244,6 +27300,7 @@ function addGroup() {
 }
 
 async function deleteGroup(groupId) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -27256,6 +27313,7 @@ async function deleteGroup(groupId) {
       confirmText: "删除",
     })
   ) {
+    if (!ClassroomWriteBarrier.allow()) return false;
     recordHistory(`删除小组 (${target ? target.name : ""})`);
     state.groups = state.groups.filter((x) => x.id !== groupId);
     saveState();
@@ -27264,6 +27322,7 @@ async function deleteGroup(groupId) {
 }
 
 function updateGroupName(groupId, newName) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) return;
   const g = state.groups.find((x) => x.id === groupId);
   if (!g) return;
@@ -27275,6 +27334,7 @@ function updateGroupName(groupId, newName) {
 }
 
 function updateGroupColor(groupId, newColor) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) return;
   const g = state.groups.find((x) => x.id === groupId);
   if (!g) return;
@@ -27284,6 +27344,7 @@ function updateGroupColor(groupId, newColor) {
 }
 
 async function resetAllScores() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   cancelScoreAnimationAndSync();
   if (state.isLocked) {
     openPwdModal();
@@ -27296,6 +27357,7 @@ async function resetAllScores() {
       confirmText: "全部清零",
     })
   ) {
+    if (!ClassroomWriteBarrier.allow()) return false;
     recordHistory("全局重置所有小组积分");
     const updates = [];
     state.groups.forEach((g) => {
@@ -29763,6 +29825,7 @@ function saveItemDetailColor(id, value) {
   renderItemWindow();
 }
 function saveItemGroupDetail(id) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -30140,6 +30203,7 @@ function renderHandRaise() {
   document.getElementById("handRewardBox").innerHTML = "";
 }
 function selectHandGroup(id) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   handRaiseGroupId = id;
   renderHandRaise();
   document
@@ -40957,6 +41021,8 @@ globalThis.ClassroomSaveFile = (() => {
     Object.fromEntries(SaveSchema.appPreferenceKeys.map((k) => [k, state[k]]));
   function notify(detail) {
     currentStatus = detail;
+    if (typeof refreshClassroomSaveWarning === "function")
+      refreshClassroomSaveWarning();
     root.dispatchEvent(new CustomEvent("godpower:save-status", { detail }));
   }
   function applyDocument(doc) {
@@ -41127,6 +41193,17 @@ globalThis.ClassroomSaveFile = (() => {
     const result = await session.update(
       async (doc) => {
         const projected = await SaveProjection.fromRuntime(doc, snapshot);
+        if (
+          doc.match.pendingSettlement &&
+          doc.match.season.seasonId === projected.document.match.season.seasonId
+        ) {
+          const before = SaveSchema.clone(doc.match),
+            after = SaveSchema.clone(projected.document.match);
+          delete before.pendingSettlement;
+          delete after.pendingSettlement;
+          if (JSON.stringify(before) !== JSON.stringify(after))
+            throw Error("本届已归档，请先完成新一届初始化");
+        }
         return {
           ...projected,
           assets: [
@@ -41272,6 +41349,7 @@ globalThis.ClassroomSaveFile = (() => {
   root.SaveManager = Object.freeze({
     ready,
     blocked: () => libraryBlocked,
+    pendingSettlement: () => !!currentStatus.pendingSettlement,
     retry: () => {
       if (starting) return ready();
       readyPromise = null;
@@ -41375,8 +41453,24 @@ globalThis.ClassroomSaveFile = (() => {
     },
     archive: (record) =>
       session.update((doc) => {
-        if (!doc.archives.some((a) => a.seasonId === record.seasonId))
-          doc.archives.unshift(SaveSchema.clone(record));
+        if (record.seasonId !== doc.match.season.seasonId)
+          throw Error("归档赛季已变化");
+        const existing = doc.archives.find(
+          (a) => a.seasonId === record.seasonId,
+        );
+        if (existing && !doc.match.pendingSettlement)
+          throw Error("本届已有归档，请先检查档案");
+        if (!existing)
+          doc.archives.unshift(
+            SaveSchema.clone({
+              ...record,
+              schemaVersion: Reliability.schemaVersion,
+            }),
+          );
+        doc.match.pendingSettlement = {
+          seasonId: record.seasonId,
+          recordId: (existing || record).id,
+        };
         return { document: doc };
       }),
     removeArchive: (id) =>
@@ -41573,6 +41667,22 @@ function importClassroomData(data) {
 function itemCommandSnapshot() {
   return JSON.stringify({ groups: state.groups, itemGlobal: state.itemGlobal });
 }
+function refreshClassroomSaveWarning() {
+  const warning = document.getElementById("classroomSaveWarning");
+  if (!warning) return;
+  const pending = !!globalThis.SaveManager?.pendingSettlement?.(),
+    blocked = !!globalThis.SaveManager?.blocked?.();
+  warning.hidden = !pending && !blocked && !window.classroomUnsavedChanges;
+  const text = document.getElementById("classroomSaveWarningText");
+  if (text)
+    text.textContent = pending
+      ? "本届档案已安全保存，新一届初始化尚未完成。已暂停课堂修改，请完成初始化；也可先导出备份。"
+      : blocked
+        ? "存档库未成功读取，已暂停修改保护原数据。请重试或导出当前显示的数据。"
+        : "本页有尚未保存的课堂数据。关闭或刷新前，请先导出备份。";
+  const resume = document.getElementById("classroomSettlementResume");
+  if (resume) resume.hidden = !pending;
+}
 function showClassroomSaveWarning(error) {
   const alreadyUnsaved = !!window.classroomUnsavedChanges;
   window.classroomUnsavedChanges = true;
@@ -41582,6 +41692,7 @@ function showClassroomSaveWarning(error) {
     warning.hidden = false;
     warning.dataset.reason = String(error || "保存不可用");
   }
+  refreshClassroomSaveWarning();
   if (!alreadyUnsaved) showToast("更改仅保存在本页。关闭或刷新前请导出备份。");
 }
 // Only this adapter touches global classroom state; the controller is pure/testable.
@@ -54381,6 +54492,8 @@ window.GodpowerPicker = (() => {
       cancel();
       return { ok: true };
     }
+    if (globalThis.SaveManager?.pendingSettlement?.())
+      return { ok: false, error: "SETTLEMENT_RECOVERY" };
     if (action === "stop") {
       if (preparing) cancel();
       else if (slotEngine.isSpinning) stopSlotSpin();

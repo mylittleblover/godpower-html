@@ -156,6 +156,7 @@ function saveItemDetailColor(id, value) {
   renderItemWindow();
 }
 function saveItemGroupDetail(id) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;

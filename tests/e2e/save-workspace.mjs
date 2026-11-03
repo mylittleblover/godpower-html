@@ -281,7 +281,55 @@ try {
   assert.equal(archiveFailure.ok, false);
   assert.deepEqual(archiveFailure.before, archiveFailure.after);
   assert.equal(archiveFailure.archives, 0);
-  const completed = await page.evaluate(() => confirmFinalSettlement());
+  const resetFailure = await page.evaluate(async () => {
+    const before = state.groups.map((g) => g.score),
+      original = IDBObjectStore.prototype.put;
+    let writes = 0;
+    IDBObjectStore.prototype.put = function (...args) {
+      const req = original.apply(this, args);
+      if (this.name === "documents" && ++writes === 2) this.transaction.abort();
+      return req;
+    };
+    let failed;
+    try {
+      failed = await confirmFinalSettlement();
+    } finally {
+      IDBObjectStore.prototype.put = original;
+    }
+    closeThemeDialogV21727();
+    closeGrandSettlementModal();
+    const attempted = runClassroomCommand("已归档赛季不得继续计分", () => {
+      state.groups[0].score += 99;
+      return true;
+    });
+    await classroomCommands.whenIdle();
+    return {
+      ok: failed.ok,
+      attempted,
+      before,
+      after: state.groups.map((g) => g.score),
+      archives: SaveManager.snapshot().archives.length,
+    };
+  });
+  assert.equal(resetFailure.ok, false);
+  assert.equal(resetFailure.archives, 1);
+  assert.equal(
+    resetFailure.attempted,
+    false,
+    "archive succeeded but reset failed: freeze that season until initialization resumes",
+  );
+  assert.deepEqual(resetFailure.after, resetFailure.before);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.evaluate(() => SaveManager.ready());
+  await dismissStartup(page);
+  assert.equal(
+    await page.evaluate(() => SaveManager.pendingSettlement()),
+    true,
+  );
+  const completed = await page.evaluate(() => {
+    state.isLocked = false;
+    return resumeFinalSettlement();
+  });
   assert.equal(completed.ok, true);
   const archive = await page.evaluate(() => SaveManager.snapshot());
   assert.equal(archive.archives.length, 1);

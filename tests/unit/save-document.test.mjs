@@ -52,6 +52,15 @@ test("malformed canonical archives and roster/match metadata are rejected before
     (d) => (d.match.picker = "bad"),
     (d) => (d.achievements = null),
     (d) => (d.perSaveOptions = []),
+    (d) =>
+      (d.match.pendingSettlement = {
+        seasonId: d.match.season.seasonId,
+        recordId: 999,
+      }),
+    (d) => {
+      d.archives = [{ seasonId: d.match.season.seasonId }];
+      d.match.pendingSettlement = { seasonId: d.match.season.seasonId };
+    },
   ]) {
     const bad = structuredClone(doc);
     mutate(bad);

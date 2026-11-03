@@ -109,6 +109,11 @@
         ]),
       ],
     };
+    if (
+      current.match.pendingSettlement &&
+      current.match.season.seasonId === document.match.season.seasonId
+    )
+      document.match.pendingSettlement = copy(current.match.pendingSettlement);
     const refs = new Set(document.assetReferences);
     for (const group of [
       ...document.match.groups,

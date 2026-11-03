@@ -163,6 +163,7 @@ function renderHandRaise() {
   document.getElementById("handRewardBox").innerHTML = "";
 }
 function selectHandGroup(id) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   handRaiseGroupId = id;
   renderHandRaise();
   document

@@ -73,3 +73,21 @@ test("legacy membership updates preserve existing students and retain removed me
     false,
   );
 });
+
+test("pending archived season survives same-season projection and clears only on new season", async () => {
+  const { projection, document, schema } = await fixture();
+  document.archives = [
+    { id: 17, seasonId: document.match.season.seasonId, groups: [] },
+  ];
+  document.match.pendingSettlement = {
+    recordId: 17,
+    seasonId: document.match.season.seasonId,
+  };
+  const runtime = projection.toRuntime(document);
+  const same = await projection.fromRuntime(document, runtime);
+  assert.equal(same.document.match.pendingSettlement.recordId, 17);
+  runtime.seasonId = "season-new-after-archive";
+  const next = await projection.fromRuntime(document, runtime);
+  assert.equal(next.document.match.pendingSettlement, undefined);
+  assert.equal(next.document.archives.length, 1);
+});

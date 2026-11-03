@@ -107,6 +107,20 @@
       if (!object(archive)) fail("invalid archive entry");
       if (archive.groups !== undefined) validateGroups(archive.groups, false);
     }
+    if (input.match.pendingSettlement !== undefined) {
+      const pending = input.match.pendingSettlement;
+      if (
+        !object(pending) ||
+        !(typeof pending.recordId === "string"
+          ? pending.recordId.length > 0
+          : Number.isSafeInteger(pending.recordId)) ||
+        pending.seasonId !== input.match.season.seasonId ||
+        !input.archives.some(
+          (a) => a.id === pending.recordId && a.seasonId === pending.seasonId,
+        )
+      )
+        fail("invalid pending settlement");
+    }
     const students = unique(input.roster.students, "studentUid", "student");
     const groups = unique(input.roster.groups, "groupUid", "roster group");
     if (students.size > 100000 || groups.size > 1000)

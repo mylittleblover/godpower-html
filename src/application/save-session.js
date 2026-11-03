@@ -26,6 +26,7 @@
           phase,
           saveId: current.saveId,
           revision: current.revision,
+          pendingSettlement: !!current.match.pendingSettlement,
           generation: index.generation,
           error,
         });

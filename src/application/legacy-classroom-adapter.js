@@ -169,6 +169,22 @@ function importClassroomData(data) {
 function itemCommandSnapshot() {
   return JSON.stringify({ groups: state.groups, itemGlobal: state.itemGlobal });
 }
+function refreshClassroomSaveWarning() {
+  const warning = document.getElementById("classroomSaveWarning");
+  if (!warning) return;
+  const pending = !!globalThis.SaveManager?.pendingSettlement?.(),
+    blocked = !!globalThis.SaveManager?.blocked?.();
+  warning.hidden = !pending && !blocked && !window.classroomUnsavedChanges;
+  const text = document.getElementById("classroomSaveWarningText");
+  if (text)
+    text.textContent = pending
+      ? "本届档案已安全保存，新一届初始化尚未完成。已暂停课堂修改，请完成初始化；也可先导出备份。"
+      : blocked
+        ? "存档库未成功读取，已暂停修改保护原数据。请重试或导出当前显示的数据。"
+        : "本页有尚未保存的课堂数据。关闭或刷新前，请先导出备份。";
+  const resume = document.getElementById("classroomSettlementResume");
+  if (resume) resume.hidden = !pending;
+}
 function showClassroomSaveWarning(error) {
   const alreadyUnsaved = !!window.classroomUnsavedChanges;
   window.classroomUnsavedChanges = true;
@@ -178,6 +194,7 @@ function showClassroomSaveWarning(error) {
     warning.hidden = false;
     warning.dataset.reason = String(error || "保存不可用");
   }
+  refreshClassroomSaveWarning();
   if (!alreadyUnsaved) showToast("更改仅保存在本页。关闭或刷新前请导出备份。");
 }
 // Only this adapter touches global classroom state; the controller is pure/testable.

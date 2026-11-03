@@ -51,6 +51,29 @@ async function confirmFinalSettlement(){
   if(settlementSaving)return {ok:false,reason:"busy"};
   try{return await performFinalSettlement();}finally{settlementSaving=false;}
 }
+async function resumeFinalSettlement() {
+  if (settlementSaving || !globalThis.SaveManager?.pendingSettlement?.()) return {ok:false,reason:"not-pending"};
+  if (state.isLocked) { openPwdModal(); return {ok:false,reason:"locked"}; }
+  if (classroomCommands.isPending() || SaveManager.isStarting() || SaveManager.isSwitching()) return {ok:false,reason:"busy"};
+  settlementSaving = true;
+  const before = clone(state), history = clone(historyStack);
+  try {
+    Reliability.invalidateDefenseDecisions();
+    resetCompetitionDataAfterSettlementV21812();
+    const pending = saveState();
+    const result = await (pending?.completion || pending);
+    if (!result?.ok) {
+      state = before; historyStack = history;
+      showClassroomSaveWarning("新一届初始化未保存，原赛季和归档均保留，请重试。");
+    } else { showToast("新一届初始化已完成，原档案保留。"); }
+    renderAll(); refreshClassroomSaveWarning();
+    return result;
+  } catch (error) {
+    state = before; historyStack = history; renderAll();
+    showClassroomSaveWarning(error.message);
+    return {ok:false,error:error.message};
+  } finally { settlementSaving = false; }
+}
 async function performFinalSettlement() {
   const conflict = ClassroomWriteBarrier.conflict();
   if (conflict) {

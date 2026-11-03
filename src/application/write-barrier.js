@@ -13,6 +13,12 @@ const ClassroomWriteBarrier = {
         reason: "library-unavailable",
         error: "存档库未成功读取，已暂停修改以保护原数据。",
       };
+    if (globalThis.SaveManager?.pendingSettlement?.())
+      return {
+        ok: false,
+        reason: "settlement-recovery",
+        error: "本届已归档，请先完成新一届初始化后再操作。",
+      };
     if (typeof settlementSaving !== "undefined" && settlementSaving)
       return {
         ok: false,

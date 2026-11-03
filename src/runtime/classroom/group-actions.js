@@ -1,4 +1,5 @@
 function addGroup() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -26,6 +27,7 @@ function addGroup() {
 }
 
 async function deleteGroup(groupId) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;
@@ -38,6 +40,7 @@ async function deleteGroup(groupId) {
       confirmText: "删除",
     })
   ) {
+    if (!ClassroomWriteBarrier.allow()) return false;
     recordHistory(`删除小组 (${target ? target.name : ""})`);
     state.groups = state.groups.filter((x) => x.id !== groupId);
     saveState();
@@ -46,6 +49,7 @@ async function deleteGroup(groupId) {
 }
 
 function updateGroupName(groupId, newName) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) return;
   const g = state.groups.find((x) => x.id === groupId);
   if (!g) return;
@@ -57,6 +61,7 @@ function updateGroupName(groupId, newName) {
 }
 
 function updateGroupColor(groupId, newColor) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) return;
   const g = state.groups.find((x) => x.id === groupId);
   if (!g) return;
@@ -66,6 +71,7 @@ function updateGroupColor(groupId, newColor) {
 }
 
 async function resetAllScores() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   cancelScoreAnimationAndSync();
   if (state.isLocked) {
     openPwdModal();
@@ -78,6 +84,7 @@ async function resetAllScores() {
       confirmText: "全部清零",
     })
   ) {
+    if (!ClassroomWriteBarrier.allow()) return false;
     recordHistory("全局重置所有小组积分");
     const updates = [];
     state.groups.forEach((g) => {

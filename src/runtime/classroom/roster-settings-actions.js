@@ -1,4 +1,5 @@
 function applySettingsBatchMembers() {
+  if (!ClassroomWriteBarrier.allow()) return false;
   if (state.isLocked) {
     openPwdModal();
     return;

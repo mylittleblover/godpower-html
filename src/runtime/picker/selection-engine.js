@@ -32,6 +32,7 @@ function closePickerModal() {
 }
 
 function setPickerMode(mode) {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   if (slotEngine.isSpinning || window.GodpowerPicker?.isSettling()) return;
   if (typeof DesktopUI !== "undefined") DesktopUI.cancelPickerPreparation();
   state.picker.mode = mode;
@@ -137,12 +138,14 @@ function resetSlotDisplay() {
 }
 
 function toggleAntiRepeat(checked) {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   state.picker.antiRepeat = checked;
   saveState();
   updatePickerPoolUI();
 }
 
 function resetPickerPool() {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   state.picker.pickedStudentKeys = [];
   state.picker.pickedGroupIds = [];
   saveState();
@@ -245,6 +248,7 @@ function toggleSlotSpin() {
 }
 
 async function startSlotSpin() {
+  if (globalThis.SaveManager?.pendingSettlement?.()) { showToast("请先完成新一届初始化"); return false; }
   const uiGeneration =
     typeof DesktopUI !== "undefined" ? DesktopUI.getPickerGeneration() : null;
   const pool = getAvailablePool();

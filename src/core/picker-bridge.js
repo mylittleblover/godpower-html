@@ -150,6 +150,8 @@ window.GodpowerPicker = (() => {
       cancel();
       return { ok: true };
     }
+    if (globalThis.SaveManager?.pendingSettlement?.())
+      return { ok: false, error: "SETTLEMENT_RECOVERY" };
     if (action === "stop") {
       if (preparing) cancel();
       else if (slotEngine.isSpinning) stopSlotSpin();

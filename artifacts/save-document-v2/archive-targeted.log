@@ -1,0 +1,16 @@
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (4.007831ms)
+✔ new save validates stable identities, revisions and roster references (9.903148ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (3.581888ms)
+✔ malformed canonical archives and roster/match metadata are rejected before activation (3.84138ms)
+✔ runtime projection carries small resource references without decoding inline avatars into history (16.257267ms)
+✔ score-only persistence keeps student identities and roster revision stable (5.402288ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (4.26484ms)
+✔ pending archived season survives same-season projection and clears only on new season (6.612154ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 182.433862

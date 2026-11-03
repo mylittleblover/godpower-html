@@ -197,3 +197,7 @@ SaveIndex使用kind godpower.save-index、schemaVersion2，包含revision、gene
 AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/masterVolume/sfxVolume/zoomLevel/resizerEnabled/resizerHeight/columnMode；其余主题、动效、音频/题库等既有全局键暂保留原位置，不随切档改写，后续再渐进归并。原localStorage不清空。
 
 可移植发行存档使用kind godpower.save-bundle、schemaVersion2、documents和assets；每项asset为resourceId/mimeType/sha256/byteLength/dataBase64。导入验证资源摘要和引用。源文件以独立原文及摘要保存；实际迁移的原文件另在私有交付目录保留。冲突导入建立独立副本，不覆盖当前课堂；源摘要回执保证重复导入幂等。
+
+### 归档后初始化恢复标记
+
+`match.pendingSettlement?: {seasonId, recordId}` 与正式档案在同一文档事务中提交，只能引用当前赛季真实档案。保存新赛季成功后移除。同赛季投影保留该标记；中央命令及遗留名单/小组/点名入口禁止继续修改，避免归档后新增数据被下一次清零遗漏。刷新后显示“完成新一届初始化”，继续使用原清场规则且不重复颁发归档。

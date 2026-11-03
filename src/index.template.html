@@ -115,7 +115,8 @@
 </div>
 <!-- ===== 视图：欢迎界面 ===== -->
 <div id="classroomSaveWarning" class="classroom-save-warning" role="status" hidden>
-  <span>本页有尚未保存的课堂数据，计分可以继续。关闭或刷新前，请先导出备份。</span>
+  <span id="classroomSaveWarningText">本页有尚未保存的课堂数据。关闭或刷新前，请先导出备份。</span>
+  <button id="classroomSettlementResume" type="button" class="btn btn-primary" onclick="resumeFinalSettlement()" hidden>完成新一届初始化</button>
   <button type="button" class="btn btn-warning" onclick="exportData()">导出当前课堂备份</button>
   <section id="classroomRecoveryTools" class="classroom-recovery-tools" hidden aria-labelledby="classroomRecoveryTitle">
     <strong id="classroomRecoveryTitle">存档恢复</strong>
