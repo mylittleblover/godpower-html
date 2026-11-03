@@ -138,6 +138,14 @@ test("all shipped CSS has a single canonical styles root", () => {
   );
   for (const [oldPath, newPath] of Object.entries(moves.moves)) {
     assert.equal(existsSync("src/" + oldPath), false);
-    assert.ok(existsSync("src/" + newPath));
+    if (existsSync("src/" + newPath)) continue;
+    const receipt = JSON.parse(
+      readFileSync("src/source-retirements.json", "utf8"),
+    )[newPath];
+    assert.ok(
+      receipt && existsSync(receipt.evidence),
+      `missing replacement or retirement: ${newPath}`,
+    );
+    assert.ok(receipt.owners.every((owner) => existsSync("src/" + owner)));
   }
 });

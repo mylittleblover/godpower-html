@@ -39,7 +39,7 @@
     "test:commands": "node tests/e2e/manual-command.mjs && node tests/e2e/answer-commands.mjs && node tests/e2e/defense-generation.mjs && node tests/e2e/destructive-barrier.mjs && node tests/e2e/history-commands.mjs && node tests/e2e/correct-answer-command.mjs && node tests/e2e/force-end-command.mjs && node tests/e2e/next-round-command.mjs && node tests/e2e/start-round-command.mjs && node tests/e2e/batch-answer-command.mjs && node tests/e2e/settlement-command.mjs && node tests/e2e/round-feedback-lifecycle.mjs && node tests/e2e/achievement-command.mjs",
     "test:home-dashboard": "node tests/e2e/home-dashboard.mjs",
     "test:home-layout": "node --test tests/unit/home-layout*.test.mjs",
-    "test:web-transition": "npm run build && npm run check && npm test && node tests/e2e/home-dashboard.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/teaching-workspace.mjs && node tests/e2e/teaching-resource-library.mjs && node tests/e2e/classroom-recovery.mjs && node tests/e2e/item-domain-events.mjs && node tests/e2e/battle-layout.mjs",
+    "test:web-transition": "npm run build && npm run check && npm test && node tests/e2e/home-dashboard.mjs && node tests/e2e/classroom-roster-workspace.mjs && node tests/e2e/legacy-teaching-retirement.mjs && node tests/e2e/classroom-recovery.mjs && node tests/e2e/item-domain-events.mjs && node tests/e2e/battle-layout.mjs",
     "test:group-colors-bgm": "node tests/e2e/group-colors-bgm.mjs",
     "test:component-library": "node scripts/component-inventory.mjs --check && node tests/e2e/component-library.mjs",
     "test:global-draw": "node tests/e2e/global-draw-lifecycle.mjs && node tests/e2e/global-draw-command.mjs",

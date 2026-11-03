@@ -118,11 +118,11 @@ test("window motion finishes exactly once, cancellation never invokes close comm
   assert.equal(closes, 1);
 });
 
-test("settings categories preserve all nine existing entries with immutable metadata", () => {
+test("settings categories preserve current entries, About and retirement backup route with immutable metadata", () => {
   const layout = load("settings-layout.js", "GodPowerSettingsLayout");
   assert.equal(
     Array.from(layout.categories, (row) => row[0]).join(","),
-    "rules,appearance,motion,sound,items,students,teaching,welcome,data",
+    "rules,appearance,motion,sound,items,students,welcome,data,about",
   );
   assert.equal(Object.isFrozen(layout.categories), true);
   assert.equal(Object.isFrozen(layout.categories[0]), true);
@@ -155,10 +155,16 @@ test("CSS component split retains original cascade content and source order", ()
   const positions = [
     "styles/components/desktop-shell.css",
     "styles/classroom/roster-workspace.css",
-    "styles/teaching/workspace.css",
   ].map((x) => template.indexOf(`@@SOURCE:${x}@@`));
   assert.ok(positions.every((x) => x > 0));
-  assert.ok(positions[0] < positions[1] && positions[1] < positions[2]);
+  assert.ok(positions[0] < positions[1]);
+  // Historical split hash above is immutable. The approved timetable UI retirement
+  // retains its receipt and shared model/repository, rather than phantom CSS.
+  assert.ok(!template.includes("@@SOURCE:styles/teaching/workspace.css@@"));
+  const retirements = JSON.parse(
+    readFileSync("src/source-retirements.json", "utf8"),
+  );
+  assert.ok(retirements["styles/teaching/workspace.css"]);
 });
 
 test("disclosure setup is idempotent and disposal releases listener and active animation", () => {

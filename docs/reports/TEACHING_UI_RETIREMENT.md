@@ -1,0 +1,11 @@
+# M4.2 — 旧教学界面退役
+
+仅退役原课程表/资源库编辑器，不删除用户数据。原UI只有desktop.js挂载/刷新，没有其他产品调用者；原styles/teaching/workspace.css规则全部位于teaching-*作用域。入口改为设置→数据与安全→旧教学数据备份。
+
+保留原storage键：godpower_teaching_schedule_v1、godpower_active_classroom_context_v1、godpower_classroom_roster_v1；保留godpower_teaching_resources_v1数据库、resources/resourceBlobs对象仓库。SaveManager旧名单/头像迁移和ClassroomAvatarDisplay兼容读取仍依赖共享domain/infrastructure，因此没有删除这些模块。
+
+新备份格式godpower-legacy-teaching-backup/schemaVersion=1包含rawStorage原始字符串（包括损坏JSON）及resources元信息、SHA256和dataBase64。只读导出全部范围，不创建虚假空资源；缺失/损坏blob、拒绝存储、超过128MiB均失败，不下载半份备份。数据不自动删除。resources数组可供未来桌面独立版本按既有资源schema验证恢复；新版网页不提供旧编辑器的恢复入口。
+
+旧UI测试保留为历史证据，不再作为现行入口测试；test:web-transition改用真实备份/存储不变回归，名单和旧格式模型测试仍保留。Electron共享的HTML同步后同样退役编辑器；原生存档/音频/浮窗不受影响，未来桌面重置版可独立接管原始资料，不能假设数据已被删除。
+
+验证结果见进度账本和artifacts/legacy-teaching-retirement。Windows真机 NOT TESTED。

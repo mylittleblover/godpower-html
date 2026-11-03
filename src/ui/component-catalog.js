@@ -407,18 +407,6 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/battle/group-cards.css"],
     },
     {
-      name: "teaching-resource-arrive",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-modal-enter",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-modal-exit",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
       name: "themeDialogIn",
       sources: ["src/styles/dialogs/theme-confirmation.css"],
     },
@@ -2433,10 +2421,6 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/score-and-member-search.css"],
     },
     {
-      name: "is-closing",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
       name: "is-selected",
       sources: ["src/styles/settings/item-modules.css"],
     },
@@ -3839,82 +3823,6 @@ const GodPowerComponentCatalog = {
     {
       name: "student-no-inline",
       sources: ["src/styles/classroom/student-picker-hand.css"],
-    },
-    {
-      name: "teaching-current",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card-actions",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card-info",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-file-label",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-filters",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-import",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-list",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-preview",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-preview-body",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-scope",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-tags",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-workspace",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-actions",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-form",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-list",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-table",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-toolbar",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-workspace",
-      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "theme-dialog",

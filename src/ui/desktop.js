@@ -810,11 +810,7 @@ const DesktopUI = (() => {
     installSettingsSafetyGuard();
     SaveWorkspace.mount(sections.students);
     GameplayPage.mountAbout(sections.about);
-    TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
-
-    TeachingResourceWorkspace.mount(sections.teaching, {
-      storage: localStorage,
-    });
+    LegacyTeachingBackupView.mount(sections.data);
 
     GodpowerTheme.mount(sections.appearance);
     UIComponentLibrary.mount(sections.appearance);
@@ -977,10 +973,6 @@ const DesktopUI = (() => {
       renderBgmSlotList();
       renderFxSlotList();
       renderItemFxSoundListV26();
-    }
-    if (activeSettings === "teaching") {
-      TeachingWorkspace.refresh();
-      TeachingResourceWorkspace.refresh();
     }
     revealSettings(entering);
   }

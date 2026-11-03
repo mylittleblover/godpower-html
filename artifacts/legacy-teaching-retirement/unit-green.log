@@ -1,0 +1,11 @@
+✔ legacy export preserves exact raw strings and every verified resource without writes (8.486735ms)
+✔ missing or corrupt resources and quota bounds fail export instead of reporting partial success (4.351114ms)
+✔ storage failure is explicit and never falls back to an empty successful backup (1.139922ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 86.089282

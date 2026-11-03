@@ -19,5 +19,29 @@
     ],
     "reason": "Retired markup has no producer; current shared desktop components own presentation. Business APIs and settings are retained.",
     "evidence": "artifacts/css-consolidation-3.0.66/file-retirements.json"
+  },
+  "ui/teaching-workspace.js": {
+    "owners": [
+      "application/legacy-teaching-backup.js",
+      "ui/legacy-teaching-backup.js"
+    ],
+    "reason": "Approved M4.2 retirement of unshared legacy timetable/resource editors. Read-only export preserves all raw keys and verified blobs; shared models/repositories and avatar consumers remain.",
+    "evidence": "docs/reports/TEACHING_UI_RETIREMENT.md"
+  },
+  "ui/teaching-resource-workspace.js": {
+    "owners": [
+      "application/legacy-teaching-backup.js",
+      "ui/legacy-teaching-backup.js"
+    ],
+    "reason": "Approved M4.2 retirement of unshared legacy timetable/resource editors. Read-only export preserves all raw keys and verified blobs; shared models/repositories and avatar consumers remain.",
+    "evidence": "docs/reports/TEACHING_UI_RETIREMENT.md"
+  },
+  "styles/teaching/workspace.css": {
+    "owners": [
+      "application/legacy-teaching-backup.js",
+      "ui/legacy-teaching-backup.js"
+    ],
+    "reason": "Approved M4.2 retirement of unshared legacy timetable/resource editors. Read-only export preserves all raw keys and verified blobs; shared models/repositories and avatar consumers remain.",
+    "evidence": "docs/reports/TEACHING_UI_RETIREMENT.md"
   }
 }

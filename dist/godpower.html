@@ -10054,284 +10054,6 @@ summary:focus-visible {
   color: var(--ui-danger, #a43d30);
 }
 </style>
-<style>.teaching-schedule-workspace {
-  margin-top: 16px;
-}
-.teaching-current,
-.teaching-schedule-form,
-.teaching-schedule-toolbar,
-.teaching-schedule-actions {
-  display: flex;
-  align-items: end;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 12px 0;
-}
-.teaching-current {
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border: 1px solid var(--ui-border);
-  border-radius: 10px;
-  background: var(--ui-soft);
-}
-.teaching-current > span {
-  color: var(--ui-text);
-  font-weight: 700;
-}
-.teaching-schedule-form label,
-.teaching-schedule-toolbar label {
-  display: grid;
-  gap: 5px;
-  color: var(--ui-muted);
-  font-size: 12px;
-  font-weight: 700;
-}
-.teaching-schedule-form input,
-.teaching-schedule-form select,
-.teaching-schedule-toolbar select {
-  box-sizing: border-box;
-  min-height: 38px;
-  padding: 7px 10px;
-  border: 1px solid var(--ui-border-strong);
-  border-radius: 9px;
-  color: var(--ui-text);
-  background: var(--ui-panel);
-  font: inherit;
-}
-.teaching-schedule-form input[type="text"] {
-  min-width: 140px;
-}
-.teaching-schedule-list {
-  max-height: 320px;
-  overflow: auto;
-  border: 1px solid var(--ui-border);
-  border-radius: 10px;
-}
-.teaching-schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.teaching-schedule-table th,
-.teaching-schedule-table td {
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--ui-border);
-  text-align: left;
-}
-.teaching-schedule-table th {
-  position: sticky;
-  top: 0;
-  color: var(--ui-muted);
-  background: var(--ui-soft);
-}
-.teaching-schedule-actions {
-  justify-content: space-between;
-  align-items: center;
-}
-#teachingScheduleStatus[data-state="error"] {
-  color: var(--ui-danger, #a43d30);
-}
-.teaching-resource-workspace > p {
-  max-width: 1040px;
-}
-.teaching-resource-scope,
-.teaching-resource-import,
-.teaching-resource-filters {
-  display: flex;
-  align-items: end;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 12px 0;
-}
-.teaching-resource-scope label,
-.teaching-resource-import label,
-.teaching-resource-filters label {
-  display: grid;
-  gap: 5px;
-  min-width: 150px;
-  color: var(--ui-muted);
-  font-size: 12px;
-  font-weight: 700;
-}
-.teaching-resource-import label:first-child,
-.teaching-resource-import label:nth-child(2) {
-  flex: 1 1 190px;
-}
-.teaching-resource-filters label:first-child {
-  flex: 1 1 300px;
-}
-.teaching-resource-scope input,
-.teaching-resource-scope select,
-.teaching-resource-import input:not([type="file"]),
-.teaching-resource-import select,
-.teaching-resource-filters input {
-  box-sizing: border-box;
-  min-height: 38px;
-  padding: 7px 10px;
-  border: 1px solid var(--ui-border-strong);
-  border-radius: 9px;
-  color: var(--ui-text);
-  background: var(--ui-panel);
-  font: inherit;
-}
-.teaching-resource-file-label input[type="file"] {
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 38px;
-  padding: 5px;
-  border: 1px solid var(--ui-border);
-  border-radius: 9px;
-  color: var(--ui-text);
-  background: var(--ui-panel);
-  font: inherit;
-}
-.teaching-resource-list {
-  display: grid;
-  gap: 8px;
-  max-height: 460px;
-  overflow: auto;
-  padding: 2px;
-}
-.teaching-resource-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-width: 0;
-  padding: 12px 14px;
-  border: 1px solid var(--ui-border);
-  border-radius: 11px;
-  background: var(--ui-panel);
-}
-.teaching-resource-card-info {
-  display: grid;
-  gap: 5px;
-  min-width: 0;
-}
-.teaching-resource-card-info strong,
-.teaching-resource-card-info span {
-  overflow-wrap: anywhere;
-}
-.teaching-resource-card-info strong {
-  color: var(--ui-text);
-  font-size: 14px;
-}
-.teaching-resource-card-info span {
-  color: var(--ui-muted);
-  font-size: 12px;
-}
-.teaching-resource-card-info .teaching-resource-tags {
-  color: var(--ui-accent);
-}
-.teaching-resource-card-actions {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 6px;
-}
-.teaching-resource-preview {
-  width: min(960px, calc(100vw - 64px));
-  max-width: 960px;
-  max-height: min(860px, calc(100vh - 48px));
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid var(--ui-border);
-  border-radius: 18px;
-  color: var(--ui-text);
-  background: var(--ui-panel);
-  box-shadow: var(--ui-shadow-lg, 0 24px 70px #163d353d);
-}
-.teaching-resource-preview::backdrop {
-  background: #102e2c99;
-  backdrop-filter: blur(5px);
-}
-.teaching-resource-preview > header,
-.teaching-resource-preview > footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--ui-border);
-  background: var(--ui-soft);
-}
-.teaching-resource-preview > header h3 {
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-.teaching-resource-preview > footer {
-  border-top: 1px solid var(--ui-border);
-  border-bottom: 0;
-}
-.teaching-resource-preview-body {
-  max-height: calc(100vh - 190px);
-  overflow: auto;
-  padding: 18px;
-}
-.teaching-resource-preview-body pre {
-  margin: 0;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  font:
-    13px/1.65 ui-monospace,
-    SFMono-Regular,
-    Consolas,
-    monospace;
-}
-.teaching-resource-preview-body img {
-  display: block;
-  max-width: 100%;
-  max-height: calc(100vh - 250px);
-  margin: 0 auto;
-  object-fit: contain;
-}
-#teachingResourceStatus[data-state="error"] {
-  color: var(--ui-danger, #a43d30);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .teaching-resource-card {
-    animation: teaching-resource-arrive 260ms cubic-bezier(0.2, 0.8, 0.2, 1)
-      both;
-  }
-  .teaching-resource-preview[open] {
-    animation: teaching-resource-modal-enter 300ms
-      cubic-bezier(0.2, 0.85, 0.22, 1.2) both;
-  }
-  .teaching-resource-preview.is-closing {
-    animation: teaching-resource-modal-exit 220ms cubic-bezier(0.4, 0, 1, 1)
-      both;
-  }
-}
-@keyframes teaching-resource-arrive {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes teaching-resource-modal-enter {
-  from {
-    opacity: 0;
-    transform: translateY(26px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-@keyframes teaching-resource-modal-exit {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.96);
-  }
-}
-</style>
 <style id="application-surfaces">/* Shared application chrome and function surfaces. Geometry remains in legacy layout. */
 :root,
 body {
@@ -19867,782 +19589,106 @@ globalThis.StableIdentity = StableIdentity;
   root.TeachingResourceRepository = Object.freeze({ DATABASE, open });
 })(globalThis);
 </script>
-<script>(function installTeachingWorkspace(root) {
+<script>/* Read-only compatibility export. Original bytes and keys are never migrated here. */
+(function installLegacyTeachingBackup(root) {
   "use strict";
-  const ACTIVE_CLASSROOM_KEY = "godpower_active_classroom_context_v1";
-  const DAY_NAMES = [
-    "星期日",
-    "星期一",
-    "星期二",
-    "星期三",
-    "星期四",
-    "星期五",
-    "星期六",
-  ];
-  const id = (host, value) => host.querySelector(`#${value}`);
-  const text = (tag, value, className = "") => {
-    const element = document.createElement(tag);
-    element.textContent = value;
-    if (className) element.className = className;
-    return element;
-  };
-  const toMinute = (value) => {
-    const [hour, minute] = value.split(":").map(Number);
-    return hour * 60 + minute;
-  };
-  const toTime = (value) =>
-    `${String(Math.floor(value / 60)).padStart(2, "0")}:${String(value % 60).padStart(2, "0")}`;
-  const refreshers = new Set();
-
-  function mount(
-    host,
-    { storage = localStorage, getNow = () => new Date() } = {},
-  ) {
-    if (!host) throw new TypeError("teaching workspace host is required");
-    const rosterRepository =
-      root.ClassroomRosterRepository.createClassroomRosterRepository({
-        storage,
-      });
-    const scheduleRepository =
-      root.TeachingScheduleRepository.createTeachingScheduleRepository({
-        storage,
-      });
-    const section = document.createElement("section");
-    section.id = "teachingScheduleWorkspace";
-    section.className = "ui-settings-group teaching-schedule-workspace";
-    section.innerHTML = `<h4>每周课程表</h4><p class="ui-muted">课程时间按本机时钟显示建议；不会自动切换课堂，也不会改写正式比赛数据。</p><div class="teaching-current"><span id="teachingCurrentLesson" role="status">尚无可用课程安排</span><button id="teachingUseCurrent" type="button" class="btn" disabled>设为本机教学课堂</button><button id="teachingRefreshNow" type="button" class="btn">刷新当前时间</button></div><div class="teaching-schedule-toolbar"><label>教师档案<select id="teachingProfile" aria-label="课程表教师档案"></select></label></div><div class="teaching-schedule-form"><label>课堂<select id="teachingClassroom" aria-label="课程安排课堂"></select></label><label>星期<select id="teachingWeekday" aria-label="星期">${DAY_NAMES.map((name, day) => `<option value="${day}">${name}</option>`).join("")}</select></label><label>开始<input id="teachingStart" type="time" value="08:00"></label><label>结束<input id="teachingEnd" type="text" inputmode="numeric" pattern="(?:[01]\\d|2[0-3]):[0-5]\\d|24:00" value="08:45" aria-label="结束时间，可填24:00"></label><label>学科<input id="teachingSubject" maxlength="80" placeholder="例如：政治"></label><label>备注<input id="teachingNote" maxlength="500" placeholder="可选"></label><button id="teachingAddSlot" type="button" class="btn btn-primary">添加时段</button></div><div class="teaching-schedule-list" id="teachingScheduleList"></div><div class="teaching-schedule-actions"><button id="teachingSaveSchedule" type="button" class="btn btn-primary">保存课程表</button><span id="teachingScheduleStatus" class="ui-muted" role="status" aria-live="polite">本机保存</span></div><p class="ui-muted">更换教学上下文仅更新本机课堂选择提示。课堂名单与正式比赛小组之间尚未启用自动映射。</p>`;
-    host.append(section);
-
-    let rosterResult = null;
-    let schedule = null;
-    let revision = 0;
-    let profileId = "";
-    let editingScheduleId = "";
-
-    function setStatus(message, error = false) {
-      const element = id(section, "teachingScheduleStatus");
-      element.textContent = message;
-      element.dataset.state = error ? "error" : "ok";
+  const keys = Object.freeze([
+    "godpower_teaching_schedule_v1",
+    "godpower_active_classroom_context_v1",
+    "godpower_classroom_roster_v1",
+  ]);
+  async function collect({
+    storage = root.localStorage,
+    openRepository = () => root.TeachingResourceRepository.open(),
+    maxBytes = 128 * 1024 * 1024,
+  } = {}) {
+    const rawStorage = {};
+    let size = 0;
+    for (const key of keys) {
+      const raw = storage.getItem(key);
+      rawStorage[key] = raw;
+      size += new TextEncoder().encode(raw ?? "").byteLength;
     }
-    function currentEntries() {
-      return schedule.entries.filter(
-        (entry) => entry.userProfileId === profileId,
-      );
-    }
-    function cancelEdit() {
-      editingScheduleId = "";
-      id(section, "teachingAddSlot").textContent = "添加时段";
-    }
-    function refreshCurrent() {
-      const now = getNow();
-      let match = null;
-      if (profileId && schedule)
-        match = root.TeachingSchedule.findCurrentLesson(
-          schedule,
-          profileId,
-          now.getDay(),
-          now.getHours() * 60 + now.getMinutes(),
-        );
-      const classroom = rosterResult?.rosterData?.classrooms.find(
-        (entry) => entry.classroomId === match?.classroomId,
-      );
-      id(section, "teachingCurrentLesson").textContent = match
-        ? `当前建议：${classroom?.name || "课堂已删除"} · ${match.subjectId} · ${toTime(match.startMinute)}–${toTime(match.endMinute)}`
-        : `现在没有安排课程 · ${DAY_NAMES[now.getDay()]} ${toTime(now.getHours() * 60 + now.getMinutes())}`;
-      id(section, "teachingUseCurrent").disabled = !match || !classroom;
-      id(section, "teachingUseCurrent").onclick = () => {
-        if (!match || !classroom) return;
-        const value = JSON.stringify({
-          schemaVersion: 1,
-          userProfileId: profileId,
-          classroomId: classroom.classroomId,
-          sourceScheduleId: match.scheduleId,
-        });
-        try {
-          storage.setItem(ACTIVE_CLASSROOM_KEY, value);
-          if (storage.getItem(ACTIVE_CLASSROOM_KEY) !== value)
-            throw new Error("本机课堂上下文读回不一致");
-          root.dispatchEvent(
-            new CustomEvent("godpower:active-classroom-changed", {
-              detail: JSON.parse(value),
-            }),
-          );
-          setStatus(`本机教学课堂已设为“${classroom.name}”；比赛数据未更改。`);
-        } catch (error) {
-          setStatus(`课堂上下文未切换：${error.message}`, true);
-        }
-      };
-    }
-    function renderList() {
-      const hostList = id(section, "teachingScheduleList");
-      hostList.replaceChildren();
-      const entries = currentEntries();
-      if (!entries.length) {
-        hostList.append(text("p", "此教师档案尚无课程安排。", "ui-muted"));
-        refreshCurrent();
-        return;
-      }
-      const table = document.createElement("table");
-      table.className = "teaching-schedule-table";
-      const header = document.createElement("tr");
-      for (const label of ["星期", "时间", "学科", "课堂", "备注", "操作"])
-        header.append(text("th", label));
-      const thead = document.createElement("thead");
-      thead.append(header);
-      const tbody = document.createElement("tbody");
+    if (size > maxBytes)
+      throw Error("旧教学数据超过单次导出上限（128 MiB），未生成不完整备份。");
+    const repository = await openRepository();
+    try {
+      const entries = await repository.exportAll();
+      const resources = [];
       for (const entry of entries) {
-        const row = document.createElement("tr");
-        const classroom = rosterResult.rosterData.classrooms.find(
-          (item) => item.classroomId === entry.classroomId,
-        );
-        row.append(
-          text("td", DAY_NAMES[entry.weekday]),
-          text("td", `${toTime(entry.startMinute)}–${toTime(entry.endMinute)}`),
-          text("td", entry.subjectId),
-          text("td", classroom?.name || "课堂已删除"),
-          text("td", entry.note || "—"),
-        );
-        const action = document.createElement("td");
-        const edit = text("button", "编辑", "btn btn-sm");
-        edit.type = "button";
-        edit.setAttribute(
-          "aria-label",
-          `编辑${DAY_NAMES[entry.weekday]} ${entry.subjectId}`,
-        );
-        edit.onclick = () => {
-          editingScheduleId = entry.scheduleId;
-          id(section, "teachingClassroom").value = entry.classroomId;
-          id(section, "teachingWeekday").value = String(entry.weekday);
-          id(section, "teachingStart").value = toTime(entry.startMinute);
-          id(section, "teachingEnd").value = toTime(entry.endMinute);
-          id(section, "teachingSubject").value = entry.subjectId;
-          id(section, "teachingNote").value = entry.note;
-          id(section, "teachingAddSlot").textContent = "保存修改";
-          id(section, "teachingStart").focus();
-        };
-        const remove = text("button", "删除", "btn btn-sm btn-danger");
-        remove.type = "button";
-        remove.setAttribute(
-          "aria-label",
-          `删除${DAY_NAMES[entry.weekday]} ${entry.subjectId}`,
-        );
-        remove.onclick = () => {
-          schedule.entries = schedule.entries.filter(
-            (item) => item.scheduleId !== entry.scheduleId,
+        if (!entry?.blob) throw Error("旧资源缺失，不能生成完整备份。");
+        size += entry.blob.size;
+        if (size > maxBytes)
+          throw Error(
+            "旧教学资源超过单次导出上限（128 MiB），未生成不完整备份。",
           );
-          if (editingScheduleId === entry.scheduleId) cancelEdit();
-          renderList();
-          setStatus("有未保存的课程安排更改");
-        };
-        action.append(edit, remove);
-        row.append(action);
-        tbody.append(row);
+        const bytes = new Uint8Array(await entry.blob.arrayBuffer());
+        const hash = [
+          ...new Uint8Array(await root.crypto.subtle.digest("SHA-256", bytes)),
+        ]
+          .map((v) => v.toString(16).padStart(2, "0"))
+          .join("");
+        if (
+          hash !== entry.sha256 ||
+          (entry.byteSize !== undefined && entry.byteSize !== bytes.length)
+        )
+          throw Error("旧资源校验失败，原数据保持不变。");
+        let binary = "";
+        for (let i = 0; i < bytes.length; i += 0x8000)
+          binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        const { blob, ...metadata } = entry;
+        resources.push({ ...metadata, dataBase64: btoa(binary) });
       }
-      table.append(thead, tbody);
-      hostList.append(table);
-      refreshCurrent();
+      return {
+        format: "godpower-legacy-teaching-backup",
+        schemaVersion: 1,
+        rawStorage,
+        resources,
+      };
+    } finally {
+      repository.close();
     }
-    function fillProfilesAndClasses() {
-      const profile = id(section, "teachingProfile");
-      const classroom = id(section, "teachingClassroom");
-      const previousProfile = profile.value || profileId;
-      profile.replaceChildren();
-      classroom.replaceChildren();
-      for (const item of rosterResult.rosterData?.profiles || [])
-        profile.append(new Option(item.displayName, item.userProfileId));
-      for (const item of rosterResult.rosterData?.classrooms || [])
-        classroom.append(new Option(item.name, item.classroomId));
-      profileId = (rosterResult.rosterData?.profiles || []).some(
-        (item) => item.userProfileId === previousProfile,
-      )
-        ? previousProfile
-        : rosterResult.rosterData?.profiles[0]?.userProfileId || "";
-      profile.value = profileId;
-      profile.disabled = !profileId;
-      classroom.disabled = !classroom.options.length;
-      id(section, "teachingAddSlot").disabled =
-        classroom.disabled || !profileId;
-      if (!profileId)
-        id(section, "teachingCurrentLesson").textContent =
-          "请先在名单工作区创建教师档案和课堂。";
-    }
-    function refresh() {
-      rosterResult = rosterRepository.read();
-      const scheduleResult = scheduleRepository.read();
-      if (!rosterResult.ok || !scheduleResult.ok) {
-        setStatus("本地课程数据无法读取；没有覆盖任何已有数据。", true);
-        return;
-      }
-      schedule = scheduleResult.schedule;
-      revision = scheduleResult.revision;
-      fillProfilesAndClasses();
-      renderList();
-    }
-
-    id(section, "teachingProfile").onchange = () => {
-      profileId = id(section, "teachingProfile").value;
-      renderList();
-    };
-    id(section, "teachingRefreshNow").onclick = refreshCurrent;
-    id(section, "teachingAddSlot").onclick = () => {
-      const classroomId = id(section, "teachingClassroom").value;
-      if (!profileId || !classroomId) return;
-      try {
-        const entry = {
-          scheduleId: root.StableIdentity.createScheduleId(),
-          userProfileId: profileId,
-          classroomId,
-          weekday: Number(id(section, "teachingWeekday").value),
-          startMinute: toMinute(id(section, "teachingStart").value),
-          endMinute: toMinute(id(section, "teachingEnd").value),
-          subjectId: id(section, "teachingSubject").value.trim(),
-          note: id(section, "teachingNote").value.trim(),
-        };
-        const entries = editingScheduleId
-          ? schedule.entries.map((item) =>
-              item.scheduleId === editingScheduleId
-                ? { ...entry, scheduleId: editingScheduleId }
-                : item,
-            )
-          : [...schedule.entries, entry];
-        schedule = root.TeachingSchedule.validateDocument({
-          schemaVersion: 1,
-          entries,
-        });
-        cancelEdit();
-        id(section, "teachingSubject").value = "";
-        id(section, "teachingNote").value = "";
-        renderList();
-        refreshCurrent();
-        setStatus("课程已加入草稿；请保存课程表。");
-      } catch (error) {
-        setStatus(`未添加课程：${error.message}`, true);
-      }
-    };
-    id(section, "teachingSaveSchedule").onclick = () => {
-      const result = scheduleRepository.write(schedule, {
-        expectedRevision: revision,
-      });
-      if (!result.ok)
-        return setStatus(
-          `课程表保存失败：${result.message || result.code}`,
-          true,
-        );
-      schedule = result.schedule;
-      revision = result.revision;
-      renderList();
-      setStatus("课程表已验证并保存在本机。");
-    };
-    refresh();
-    refreshers.add(refresh);
-    return Object.freeze({ refresh, scheduleRepository });
   }
-
-  root.TeachingWorkspace = Object.freeze({
-    mount,
-    refresh: () => refreshers.forEach((refresh) => refresh()),
-  });
+  root.LegacyTeachingBackup = Object.freeze({ keys, collect });
 })(globalThis);
 </script>
-<script>(function installTeachingResourceWorkspace(root) {
+<script>/* Low-frequency compatibility backup; no timetable or resource editor is mounted. */
+(function installLegacyTeachingBackupView(root) {
   "use strict";
-
-  const ACTIVE_KEY = "godpower_active_classroom_context_v1";
-  const REFRESH_EVENT = "godpower:active-classroom-changed";
-  const refreshers = new Set();
-  const byId = (host, id) => host.querySelector(`#${id}`);
-  const make = (tag, value, className = "") => {
-    const node = document.createElement(tag);
-    node.textContent = value;
-    if (className) node.className = className;
-    return node;
-  };
-
-  function safeFileName(value) {
-    return value.replace(/[\\/\0]/g, "_").slice(0, 255) || "resource";
-  }
-
-  function toBase64(bytes) {
-    let binary = "";
-    const chunkSize = 0x8000;
-    for (let offset = 0; offset < bytes.length; offset += chunkSize)
-      binary += String.fromCharCode(
-        ...bytes.subarray(offset, offset + chunkSize),
-      );
-    return btoa(binary);
-  }
-
-  function fromBase64(value) {
-    if (
-      typeof value !== "string" ||
-      !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
-        value,
-      )
-    )
-      throw new TypeError("资源备份中的 Base64 数据无效");
-    const binary = atob(value);
-    return Uint8Array.from(binary, (character) => character.charCodeAt(0));
-  }
-
-  function mount(host, { storage = localStorage } = {}) {
-    if (!host)
-      throw new TypeError("teaching resource workspace host is required");
-    const rosterRepository =
-      root.ClassroomRosterRepository.createClassroomRosterRepository({
-        storage,
-      });
-    const section = document.createElement("section");
-    section.id = "teachingResourceWorkspace";
-    section.className = "ui-settings-group teaching-resource-workspace";
-    section.innerHTML = `<h4>离线学科资源库</h4><p class="ui-muted">资源保存在本机 IndexedDB。仅接受 PDF、TXT、JSON、PNG、JPEG、WebP；单文件最大 20 MiB。PDF 只显示元信息并下载，不嵌入页面预览。</p><div class="teaching-resource-scope"><label>教师档案<select id="teachingResourceProfile" aria-label="资源教师档案"></select></label><label>课堂<select id="teachingResourceClassroom" aria-label="资源所属课堂"></select></label><label>学科<input id="teachingResourceSubject" maxlength="80" placeholder="例如：政治"></label></div><div class="teaching-resource-import"><label>资源标题（单文件可自定义）<input id="teachingResourceTitle" maxlength="160" placeholder="留空时使用文件名"></label><label>标签（逗号分隔）<input id="teachingResourceTags" maxlength="500" placeholder="复习，必修"></label><label class="teaching-resource-file-label">选择本地资源<input id="teachingResourceFiles" type="file" accept=".pdf,.txt,.json,.png,.jpg,.jpeg,.webp,application/pdf,text/plain,application/json,image/png,image/jpeg,image/webp" multiple></label><button id="teachingResourceImport" type="button" class="btn btn-primary">导入资源</button><label class="teaching-resource-file-label">恢复资源备份<input id="teachingResourceRestoreFile" type="file" accept=".gpresources.json,application/json"></label><button id="teachingResourceRestore" type="button" class="btn">验证并恢复</button><button id="teachingResourceExport" type="button" class="btn">导出当前范围</button></div><div class="teaching-resource-filters"><label>搜索<input id="teachingResourceSearch" type="search" placeholder="标题、学科、文件名或标签"></label><label>学科筛选<input id="teachingResourceSubjectFilter" maxlength="80" placeholder="全部学科"></label><span id="teachingResourceCount" class="ui-muted" role="status">0 项资源</span></div><p id="teachingResourceStatus" class="ui-muted" role="status" aria-live="polite">正在打开本地资源库…</p><div id="teachingResourceList" class="teaching-resource-list"><p class="ui-muted">加载中…</p></div>`;
+  function mount(host) {
+    if (!host || host.querySelector("[data-legacy-teaching-backup]")) return;
+    const section = document.createElement("details");
+    section.className = "ui-settings-disclosure";
+    section.dataset.legacyTeachingBackup = "";
+    section.innerHTML =
+      '<summary><b>旧教学数据备份</b><span>兼容旧课程表与资源库，只读导出</span></summary><div class="ui-settings-detail-body"><p class="ui-muted">新版网页不再编辑旧课程表与资源库。原始数据仍保留在本机；课堂学生和头像请在“学生与小组管理”中维护。导出包含旧配置原文和全部校验通过的资源（上限 128 MiB），不会删除数据。</p><button type="button" class="btn" data-export-legacy-teaching>导出旧教学数据</button><p role="status" aria-live="polite"></p></div>';
+    const button = section.querySelector("button"),
+      status = section.querySelector("[role=status]");
+    button.addEventListener("click", async () => {
+      if (button.disabled) return;
+      button.disabled = true;
+      status.textContent = "正在读取并校验旧数据…";
+      try {
+        const backup = await root.LegacyTeachingBackup.collect();
+        const blob = new Blob([JSON.stringify(backup)], {
+            type: "application/json",
+          }),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download = "godpower-legacy-teaching-backup.json";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+        status.textContent = `已生成完整备份，含 ${backup.resources.length} 个资源。请在下载列表确认保存。`;
+      } catch (error) {
+        status.textContent = "导出失败：" + error.message + " 原数据未修改。";
+      } finally {
+        button.disabled = false;
+      }
+    });
     host.append(section);
-
-    let rosterResult = null;
-    let repository = null;
-    let resources = [];
-    let activeObjectUrl = "";
-
-    function setStatus(message, error = false) {
-      const status = byId(section, "teachingResourceStatus");
-      status.textContent = message;
-      status.dataset.state = error ? "error" : "ok";
-    }
-
-    function ensureResourceUnreferenced(resourceId) {
-      const currentRoster = rosterRepository.read();
-      if (!currentRoster.ok || !currentRoster.rosterData)
-        throw new Error("名单无法可靠读取，已阻止删除资源");
-      if (
-        currentRoster.rosterData.students.some(
-          (student) => student.avatarResourceId === resourceId,
-        )
-      )
-        throw new Error("此资源仍被学生头像引用，请先清除名单头像引用");
-    }
-
-    function fillScope() {
-      const profile = byId(section, "teachingResourceProfile");
-      const classroom = byId(section, "teachingResourceClassroom");
-      const previousProfile = profile.value;
-      const previousClassroom = classroom.value;
-      profile.replaceChildren();
-      classroom.replaceChildren();
-      const profiles = rosterResult?.rosterData?.profiles || [];
-      const classrooms = rosterResult?.rosterData?.classrooms || [];
-      for (const item of profiles)
-        profile.append(new Option(item.displayName, item.userProfileId));
-      for (const item of classrooms)
-        classroom.append(new Option(item.name, item.classroomId));
-      let context = null;
-      try {
-        context = JSON.parse(storage.getItem(ACTIVE_KEY) || "null");
-      } catch {
-        /* invalid context is ignored */
-      }
-      profile.value = profiles.some(
-        (item) => item.userProfileId === previousProfile,
-      )
-        ? previousProfile
-        : profiles.some((item) => item.userProfileId === context?.userProfileId)
-          ? context.userProfileId
-          : profiles[0]?.userProfileId || "";
-      classroom.value = classrooms.some(
-        (item) => item.classroomId === previousClassroom,
-      )
-        ? previousClassroom
-        : classrooms.some((item) => item.classroomId === context?.classroomId)
-          ? context.classroomId
-          : classrooms[0]?.classroomId || "";
-      profile.disabled = !profiles.length;
-      classroom.disabled = !classrooms.length;
-      for (const id of [
-        "teachingResourceImport",
-        "teachingResourceRestore",
-        "teachingResourceExport",
-      ])
-        byId(section, id).disabled =
-          !repository || !profile.value || !classroom.value;
-    }
-
-    function matchingResource(resource, search, subject) {
-      const subjectMatches =
-        !subject || resource.subjectId.toLocaleLowerCase().includes(subject);
-      const queryMatches =
-        !search ||
-        [
-          resource.title,
-          resource.subjectId,
-          resource.fileName,
-          ...resource.tags,
-        ].some((value) => value.toLocaleLowerCase().includes(search));
-      return subjectMatches && queryMatches;
-    }
-
-    function download(resource, fileName = resource.fileName) {
-      const url = URL.createObjectURL(resource.blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = safeFileName(fileName);
-      document.body.append(link);
-      link.click();
-      link.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
-
-    function releasePreview(dialog) {
-      dialog.remove();
-      if (activeObjectUrl) URL.revokeObjectURL(activeObjectUrl);
-      activeObjectUrl = "";
-    }
-
-    function closePreview(dialog) {
-      if (dialog.dataset.closing === "true") return;
-      dialog.dataset.closing = "true";
-      dialog.classList.add("is-closing");
-      setTimeout(() => {
-        if (dialog.open) dialog.close();
-        releasePreview(dialog);
-      }, 220);
-    }
-
-    async function preview(resource) {
-      const dialog = document.createElement("dialog");
-      dialog.className = "teaching-resource-preview ui-function-surface";
-      dialog.setAttribute("aria-labelledby", "teachingResourcePreviewTitle");
-      const header = document.createElement("header");
-      const title = make("h3", resource.title);
-      title.id = "teachingResourcePreviewTitle";
-      const close = make("button", "❌", "ui-window-close");
-      close.type = "button";
-      close.setAttribute("aria-label", "关闭资源预览");
-      close.onclick = () => closePreview(dialog);
-      header.append(title, close);
-      const body = document.createElement("div");
-      body.className = "teaching-resource-preview-body";
-      if (
-        resource.mimeType === "text/plain" ||
-        resource.mimeType === "application/json"
-      ) {
-        const pre = document.createElement("pre");
-        const text = await resource.blob.text();
-        if (resource.mimeType === "application/json") {
-          try {
-            pre.textContent = JSON.stringify(JSON.parse(text), null, 2);
-          } catch {
-            pre.textContent = text;
-          }
-        } else pre.textContent = text;
-        body.append(pre);
-      } else if (resource.mimeType.startsWith("image/")) {
-        const image = document.createElement("img");
-        activeObjectUrl = URL.createObjectURL(resource.blob);
-        image.src = activeObjectUrl;
-        image.alt = resource.title;
-        body.append(image);
-      } else {
-        body.append(
-          make(
-            "p",
-            "PDF 不会嵌入页面运行；可以下载后使用本机 PDF 阅读器打开。",
-            "ui-muted",
-          ),
-        );
-      }
-      const footer = document.createElement("footer");
-      footer.append(
-        make(
-          "span",
-          `${resource.fileName} · ${(resource.byteSize / 1024).toFixed(1)} KiB`,
-        ),
-      );
-      const save = make("button", "下载文件", "btn btn-primary");
-      save.type = "button";
-      save.onclick = () => download(resource);
-      footer.append(save);
-      dialog.append(header, body, footer);
-      dialog.addEventListener("cancel", (event) => {
-        event.preventDefault();
-        closePreview(dialog);
-      });
-      dialog.addEventListener("close", () => releasePreview(dialog), {
-        once: true,
-      });
-      dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) closePreview(dialog);
-      });
-      document.body.append(dialog);
-      dialog.showModal();
-    }
-
-    function renderList() {
-      const list = byId(section, "teachingResourceList");
-      list.replaceChildren();
-      const search = byId(section, "teachingResourceSearch")
-        .value.trim()
-        .toLocaleLowerCase();
-      const subject = byId(section, "teachingResourceSubjectFilter")
-        .value.trim()
-        .toLocaleLowerCase();
-      const visible = resources.filter((item) =>
-        matchingResource(item, search, subject),
-      );
-      byId(section, "teachingResourceCount").textContent =
-        `${visible.length} 项资源（当前课堂共 ${resources.length} 项）`;
-      if (!visible.length) {
-        list.append(
-          make(
-            "p",
-            resources.length ? "没有匹配的资源。" : "此教师和课堂尚无资源。",
-            "ui-muted",
-          ),
-        );
-        return;
-      }
-      for (const item of visible) {
-        const card = document.createElement("article");
-        card.className = "teaching-resource-card";
-        const info = document.createElement("div");
-        info.className = "teaching-resource-card-info";
-        info.append(
-          make("strong", item.title),
-          make(
-            "span",
-            `${item.subjectId} · ${item.fileName} · ${(item.byteSize / 1024).toFixed(1)} KiB`,
-          ),
-        );
-        if (item.tags.length)
-          info.append(
-            make(
-              "span",
-              item.tags.map((tag) => `#${tag}`).join("  "),
-              "teaching-resource-tags",
-            ),
-          );
-        const actions = document.createElement("div");
-        actions.className = "teaching-resource-card-actions";
-        const previewButton = make("button", "预览", "btn btn-sm");
-        previewButton.type = "button";
-        previewButton.onclick = async () =>
-          repository
-            .get(item.resourceId)
-            .then((fullResource) => preview(fullResource))
-            .catch((error) => setStatus(`预览失败：${error.message}`, true));
-        const downloadButton = make("button", "下载", "btn btn-sm");
-        downloadButton.type = "button";
-        downloadButton.onclick = async () => {
-          try {
-            download(await repository.get(item.resourceId));
-          } catch (error) {
-            setStatus(`下载失败：${error.message}`, true);
-          }
-        };
-        const removeButton = make("button", "删除", "btn btn-sm btn-danger");
-        removeButton.type = "button";
-        removeButton.onclick = async () => {
-          try {
-            ensureResourceUnreferenced(item.resourceId);
-          } catch (error) {
-            setStatus(error.message, true);
-            return;
-          }
-          if (
-            !root.confirm(
-              `确认删除“${item.title}”吗？删除前请先导出需要保留的资源。`,
-            )
-          )
-            return;
-          try {
-            ensureResourceUnreferenced(item.resourceId);
-            await repository.remove(item.resourceId);
-            await refresh();
-            setStatus("资源已删除。");
-          } catch (error) {
-            setStatus(`删除失败：${error.message}`, true);
-          }
-        };
-        actions.append(previewButton, downloadButton, removeButton);
-        card.append(info, actions);
-        list.append(card);
-      }
-    }
-
-    async function refresh() {
-      rosterResult = rosterRepository.read();
-      if (!rosterResult.ok) {
-        setStatus("本机教师与课堂名单无法读取；资源未修改。", true);
-        return;
-      }
-      try {
-        repository ||= await root.TeachingResourceRepository.open();
-        fillScope();
-        resources = await repository.list({
-          profileId: byId(section, "teachingResourceProfile").value,
-          classroomId: byId(section, "teachingResourceClassroom").value,
-        });
-        renderList();
-        setStatus("资源仅保存在本机；没有上传到网络。");
-      } catch (error) {
-        setStatus(
-          `本机资源库不可用：${error.message}。名单和比赛数据未更改。`,
-          true,
-        );
-        byId(section, "teachingResourceList").replaceChildren(
-          make("p", "IndexedDB 不可用时，本地资源管理已停用。", "ui-muted"),
-        );
-      }
-      fillScope();
-    }
-
-    async function importFiles() {
-      const input = byId(section, "teachingResourceFiles");
-      const files = [...input.files];
-      if (!files.length) return setStatus("请先选择资源文件。", true);
-      if (
-        files.length > 100 ||
-        files.reduce((sum, item) => sum + item.size, 0) > 100 * 1024 * 1024
-      )
-        return setStatus("单次最多导入 100 个文件，合计不超过 100 MiB。", true);
-      const profileId = byId(section, "teachingResourceProfile").value;
-      const classroomId = byId(section, "teachingResourceClassroom").value;
-      const subjectId = byId(section, "teachingResourceSubject").value.trim();
-      if (!subjectId) return setStatus("请填写资源学科。", true);
-      const title = byId(section, "teachingResourceTitle").value.trim();
-      const tags = byId(section, "teachingResourceTags")
-        .value.split(/[，,]/)
-        .map((value) => value.trim())
-        .filter(Boolean);
-      setStatus(`正在验证 ${files.length} 个文件…`);
-      try {
-        await repository.addBatch(
-          files.map((file) => ({
-            file,
-            profileId,
-            classroomId,
-            subjectId,
-            title: files.length === 1 && title ? title : undefined,
-            tags,
-          })),
-        );
-        input.value = "";
-        byId(section, "teachingResourceTitle").value = "";
-        await refresh();
-        setStatus(`已验证并导入 ${files.length} 个资源。`);
-      } catch (error) {
-        setStatus(`资源未导入：${error.message}。现有资源保持不变。`, true);
-      }
-    }
-
-    async function exportPack() {
-      try {
-        const entries = await repository.exportAll({
-          profileId: byId(section, "teachingResourceProfile").value,
-          classroomId: byId(section, "teachingResourceClassroom").value,
-        });
-        const packed = [];
-        for (const entry of entries) {
-          const { blob, ...metadata } = entry;
-          packed.push({
-            ...metadata,
-            dataBase64: toBase64(new Uint8Array(await blob.arrayBuffer())),
-          });
-        }
-        const blob = new Blob(
-          [
-            JSON.stringify(
-              {
-                format: "godpower-teaching-resources",
-                schemaVersion: 1,
-                resources: packed,
-              },
-              null,
-              2,
-            ),
-          ],
-          { type: "application/json" },
-        );
-        download(
-          { blob, fileName: "godpower-resources.gpresources.json" },
-          "godpower-resources.gpresources.json",
-        );
-        setStatus(`已导出 ${packed.length} 个资源的本地备份。`);
-      } catch (error) {
-        setStatus(`资源备份导出失败：${error.message}`, true);
-      }
-    }
-
-    async function restorePack() {
-      const input = byId(section, "teachingResourceRestoreFile");
-      const file = input.files[0];
-      if (!file) return setStatus("请先选择资源备份文件。", true);
-      if (file.size > 150 * 1024 * 1024)
-        return setStatus("备份文件超过 150 MiB 上限。", true);
-      try {
-        const pack = JSON.parse(await file.text());
-        if (
-          pack?.format !== "godpower-teaching-resources" ||
-          pack.schemaVersion !== 1 ||
-          !Array.isArray(pack.resources) ||
-          !pack.resources.length
-        )
-          throw new TypeError("资源备份版本或结构无效");
-        if (pack.resources.length > 500)
-          throw new TypeError("单个备份最多包含 500 项资源");
-        if (
-          pack.resources.reduce(
-            (sum, entry) => sum + (Number(entry?.byteSize) || 0),
-            0,
-          ) >
-          100 * 1024 * 1024
-        )
-          throw new TypeError("备份中的资源合计超过 100 MiB");
-        const records = pack.resources.map((entry) => {
-          const bytes = fromBase64(entry.dataBase64);
-          const content = new Blob([bytes], { type: entry.mimeType });
-          const restoredFile = new File([content], entry.fileName, {
-            type: entry.mimeType,
-          });
-          return {
-            file: restoredFile,
-            resourceId: entry.resourceId,
-            profileId: entry.profileId,
-            classroomId: entry.classroomId,
-            subjectId: entry.subjectId,
-            title: entry.title,
-            tags: entry.tags,
-            importedAt: entry.importedAt,
-            expectedSha256: entry.sha256,
-            expectedByteSize: entry.byteSize,
-          };
-        });
-        setStatus(`正在预检 ${records.length} 个资源；校验完成前不会写入…`);
-        await repository.addBatch(records);
-        input.value = "";
-        await refresh();
-        setStatus(`已完整验证并恢复 ${records.length} 个资源。`);
-      } catch (error) {
-        setStatus(`备份未恢复：${error.message}。现有资源保持不变。`, true);
-      }
-    }
-
-    byId(section, "teachingResourceProfile").onchange = () =>
-      refresh().catch((error) => setStatus(error.message, true));
-    byId(section, "teachingResourceClassroom").onchange = () =>
-      refresh().catch((error) => setStatus(error.message, true));
-    byId(section, "teachingResourceSearch").oninput = renderList;
-    byId(section, "teachingResourceSubjectFilter").oninput = renderList;
-    byId(section, "teachingResourceImport").onclick = () => importFiles();
-    byId(section, "teachingResourceRestore").onclick = () => restorePack();
-    byId(section, "teachingResourceExport").onclick = () => exportPack();
-    root.addEventListener(REFRESH_EVENT, () => refresh());
-    refreshers.add(refresh);
-    refresh();
-    return Object.freeze({ refresh, repository: () => repository });
   }
-
-  root.TeachingResourceWorkspace = Object.freeze({
-    mount,
-    refresh: () => refreshers.forEach((refresh) => refresh()),
-  });
+  root.LegacyTeachingBackupView = Object.freeze({ mount });
 })(globalThis);
 </script>
 <script>/* Stable score ordering; no rank-rule changes or mutation of caller data. */
@@ -43786,12 +42832,6 @@ const GodPowerSettingsLayout = (() => {
       "学生与小组管理",
       "查看并维护整班小组名单，重建前会再次确认",
     ],
-    [
-      "teaching",
-      "book",
-      "课程表与教学资源",
-      "本地课程安排、课堂上下文与离线资源管理",
-    ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
     ["about", "book", "关于与帮助", "项目、版本和操作说明"],
@@ -44554,18 +43594,6 @@ const GodPowerComponentCatalog = {
     {
       name: "shakeTremor",
       sources: ["src/styles/battle/group-cards.css"],
-    },
-    {
-      name: "teaching-resource-arrive",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-modal-enter",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-modal-exit",
-      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "themeDialogIn",
@@ -46582,10 +45610,6 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/score-and-member-search.css"],
     },
     {
-      name: "is-closing",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
       name: "is-selected",
       sources: ["src/styles/settings/item-modules.css"],
     },
@@ -47988,82 +47012,6 @@ const GodPowerComponentCatalog = {
     {
       name: "student-no-inline",
       sources: ["src/styles/classroom/student-picker-hand.css"],
-    },
-    {
-      name: "teaching-current",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card-actions",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-card-info",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-file-label",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-filters",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-import",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-list",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-preview",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-preview-body",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-scope",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-tags",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-resource-workspace",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-actions",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-form",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-list",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-table",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-toolbar",
-      sources: ["src/styles/teaching/workspace.css"],
-    },
-    {
-      name: "teaching-schedule-workspace",
-      sources: ["src/styles/teaching/workspace.css"],
     },
     {
       name: "theme-dialog",
@@ -52118,11 +51066,7 @@ const DesktopUI = (() => {
     installSettingsSafetyGuard();
     SaveWorkspace.mount(sections.students);
     GameplayPage.mountAbout(sections.about);
-    TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
-
-    TeachingResourceWorkspace.mount(sections.teaching, {
-      storage: localStorage,
-    });
+    LegacyTeachingBackupView.mount(sections.data);
 
     GodpowerTheme.mount(sections.appearance);
     UIComponentLibrary.mount(sections.appearance);
@@ -52285,10 +51229,6 @@ const DesktopUI = (() => {
       renderBgmSlotList();
       renderFxSlotList();
       renderItemFxSoundListV26();
-    }
-    if (activeSettings === "teaching") {
-      TeachingWorkspace.refresh();
-      TeachingResourceWorkspace.refresh();
     }
     revealSettings(entering);
   }
