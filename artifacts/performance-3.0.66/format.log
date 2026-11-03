@@ -1,0 +1,3 @@
+tests/e2e/performance-diagnosis.mjs 99ms
+tests/e2e/performance-experiment.mjs 21ms
+tests/e2e/performance-snapshot-churn.mjs 11ms

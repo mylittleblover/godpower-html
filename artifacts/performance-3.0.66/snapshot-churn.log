@@ -1,0 +1,9 @@
+{
+  "measurements": {
+    "reads": 100,
+    "uniqueStyles": 10,
+    "otherStateVariants": 1,
+    "changedPayloads": 93
+  },
+  "top": []
+}
