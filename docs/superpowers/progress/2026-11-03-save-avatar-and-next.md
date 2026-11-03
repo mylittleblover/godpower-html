@@ -103,3 +103,5 @@ M3C定向原生联调PASS：悬浮窗一行一组→独立透明全屏判定→�
 M4.1完成：新增玩法一级页，原28道具与七状态百科由既有说明owner渲染；关于信息/帮助移入设置，旧about弹窗退役，旧百科链接转到玩法页。首次截图发现原图标样式作用域仍指向aboutMain，真实图标尺寸断言RED→GREEN，直接迁移原CSS owner作用域至gameplayContent，未追加覆盖。Chromium1920×1080/1x页面/跳转/计数/图标边界/控制台PASS，7项受影响单元/治理、check、format PASS，截图artifacts/gameplay-page。旧治理证明仍校验6256a76历史原文；实时仅排除明确迁移的openAbout/closeAbout及退役遮罩监听，保留其余设置AST及唯一实现检查。尚未执行完整跨平台最终回归。
 
 M4.2完成：退役无共享调用的两个旧教学UI模块及其专属CSS，移除课程表/资源库设置分类。共享名单/课程/资源domain和repository保留，旧数据键/IDB资源不修改；设置→数据与安全→旧教学数据备份可只读导出所有范围、损坏配置原文和通过SHA256校验的blob。缺失/损坏资源、存储异常或超过128MiB明确失败，不生成半份成功备份。3项精准单元RED→GREEN，相关治理合计15项PASS，真实Chromium1920×1080/1x下载/资源原字节/原存储不变/入口退役PASS，build/check PASS。退役证据docs/reports/TEACHING_UI_RETIREMENT.md；source-retirements记录替代owner。历史CSS位置测试仍校验原始分拆哈希，现行退休文件按凭据验证，未伪装文件仍在。旧教学UI测试保留历史用途，现行Web回归命令替换为新备份场景。Windows真机未测试。
+
+M4.3完成：浅色积分改为中性深底、保留真实小组亮色数字，去掉黑描边；编号仍为原组色底且浅色黑字。前三名为金/银/铜辅助标签，其他中性；不改变ranking()算法。真实Chromium两主题14卡几何逐项相同、浅色/深色颜色、前三标签、独立BGM控制PASS，5项现行UI模块单元与check PASS。成员可视选择/姓名学号搜索、按studentUid分配、头像和名单原子保存已由S03G/SaveWorkspace完成，复用该唯一入口，不再新增平行group-member-picker。Ruling：按已批准3.0.68规格采用深底亮字，优先于更早浅底白字请求；不改变组色。源码owner直接修改，没有尾部CSS补丁。

@@ -195,7 +195,22 @@ function decorateBattleRanks() {
         badge.className = "rank-badge";
         wrap.appendChild(badge);
       }
-      badge.textContent = `第${ranks.get(id) || "-"}名`;
+      const rank = ranks.get(id);
+      badge.dataset.rank = String(rank || "");
+      const medal = {
+        1: ["#fff2c2", "#805314", "#d8b55a"],
+        2: ["#eef2f6", "#435364", "#b8c3ce"],
+        3: ["#f6e4d6", "#79472c", "#cca17d"],
+      }[rank];
+      for (const [i, key] of [
+        "--rank-background",
+        "--rank-ink",
+        "--rank-border",
+      ].entries()) {
+        if (medal) badge.style.setProperty(key, medal[i]);
+        else badge.style.removeProperty(key);
+      }
+      badge.textContent = `第${rank || "-"}名`;
       const sub = wrap.querySelector(".battle-group-subtitle");
       if (sub) sub.textContent = `当前按${currentCardSortLabelV213()}排列`;
     });

@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'rgba(0, 0, 0, 0)'
+- 'rgb(23, 42, 48)'
+      ^
+
+    at file:///workspace/godpower-html-latest/tests/e2e/group-colors-bgm.mjs:87:16
+    at Array.forEach (<anonymous>)
+    at file:///workspace/godpower-html-latest/tests/e2e/group-colors-bgm.mjs:82:20 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'rgba(0, 0, 0, 0)',
+  expected: 'rgb(23, 42, 48)',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

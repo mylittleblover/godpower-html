@@ -84,10 +84,16 @@ try {
       assert.equal(r.badgeInk, i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)");
       assert.equal(r.light, i < 4);
       if (i < 4) {
-        assert.equal(r.scoreBg, expected[i]);
-        assert.equal(r.scoreInk, "rgb(255, 255, 255)");
+        assert.equal(r.scoreBg, "rgb(23, 42, 48)");
+        assert.equal(r.scoreInk, expected[i]);
       }
     });
+    const medals = await page
+      .locator(".rank-badge")
+      .evaluateAll((nodes) => nodes.map((n) => n.dataset.rank));
+    assert.equal(medals.filter((r) => r === "1").length, 1);
+    assert.equal(medals.filter((r) => r === "2").length, 1);
+    assert.equal(medals.filter((r) => r === "3").length, 1);
     await mkdir("artifacts/web-transition", { recursive: true });
     await page.waitForTimeout(2200);
     await page.screenshot({
@@ -146,7 +152,7 @@ try {
   assert.equal(await page.locator("#bgmVolLabel").textContent(), "0%");
   assert.deepEqual(errors, []);
   console.log(
-    "PASS two-theme exact group paint, pale badge black ink, pale score white rectangle, unchanged 14-card geometry; independent BGM graph, mute, persistence and untouched FX/master; errors=[]",
+    "PASS two-theme exact group paint, pale badge black ink, pale score original ink on neutral dark rectangle, unchanged 14-card geometry; independent BGM graph, mute, persistence and untouched FX/master; errors=[]",
   );
 } finally {
   await browser.close();

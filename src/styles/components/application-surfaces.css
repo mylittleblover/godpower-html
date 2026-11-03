@@ -108,15 +108,11 @@ body {
   letter-spacing: -0.02em;
 }
 #groupList .row-score.row-score-light {
-  background: transparent;
+  background: #172a30;
+  border-radius: 5px;
   box-shadow: none;
-  -webkit-text-stroke: 1px #000;
-  paint-order: stroke fill;
-  text-shadow:
-    1px 0 #000,
-    -1px 0 #000,
-    0 1px #000,
-    0 -1px #000;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
 }
 
 #groupList .item-slot {

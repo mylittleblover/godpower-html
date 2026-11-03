@@ -6579,10 +6579,10 @@ body.modern-flat .rank-badge {
   min-width: 0 !important;
   margin-top: 2px !important;
   padding: 2px 7px !important;
-  border: 1px solid #d8e5e2 !important;
+  border: 1px solid var(--rank-border, #d8e5e2) !important;
   border-radius: 999px !important;
-  background: #f3f8f7 !important;
-  color: #46635f !important;
+  background: var(--rank-background, #f3f8f7) !important;
+  color: var(--rank-ink, #46635f) !important;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
     "Microsoft YaHei", sans-serif !important;
@@ -10164,15 +10164,11 @@ body {
   letter-spacing: -0.02em;
 }
 #groupList .row-score.row-score-light {
-  background: transparent;
+  background: #172a30;
+  border-radius: 5px;
   box-shadow: none;
-  -webkit-text-stroke: 1px #000;
-  paint-order: stroke fill;
-  text-shadow:
-    1px 0 #000,
-    -1px 0 #000,
-    0 1px #000,
-    0 -1px #000;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
 }
 
 #groupList .item-slot {
@@ -37247,7 +37243,22 @@ function decorateBattleRanks() {
         badge.className = "rank-badge";
         wrap.appendChild(badge);
       }
-      badge.textContent = `第${ranks.get(id) || "-"}名`;
+      const rank = ranks.get(id);
+      badge.dataset.rank = String(rank || "");
+      const medal = {
+        1: ["#fff2c2", "#805314", "#d8b55a"],
+        2: ["#eef2f6", "#435364", "#b8c3ce"],
+        3: ["#f6e4d6", "#79472c", "#cca17d"],
+      }[rank];
+      for (const [i, key] of [
+        "--rank-background",
+        "--rank-ink",
+        "--rank-border",
+      ].entries()) {
+        if (medal) badge.style.setProperty(key, medal[i]);
+        else badge.style.removeProperty(key);
+      }
+      badge.textContent = `第${rank || "-"}名`;
       const sub = wrap.querySelector(".battle-group-subtitle");
       if (sub) sub.textContent = `当前按${currentCardSortLabelV213()}排列`;
     });
