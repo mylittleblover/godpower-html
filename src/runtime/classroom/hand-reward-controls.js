@@ -90,23 +90,6 @@ function renderHandRewardControlsV218() {
     ${triple ? `<button class="btn btn-danger" onclick="handUseAllTripleV218()">连发剩余 ${main.charges} 次</button>` : ""}
   </div>`;
 }
-renderHandRewardControlsV214 = renderHandRewardControlsV218;
-handUsePrimaryV214 = handUseOneV218;
-
 /* 正确判定后使用新版奖励栏 */
-const _v218JudgeHandRaise = judgeHandRaise;
-judgeHandRaise = function (correct) {
-  const r = _v218JudgeHandRaise.call(this, correct);
-  if (correct) setTimeout(renderHandRewardControlsV218, 0);
-  return r;
-};
-
 /* 抽完道具仍留在手动举手菜单；只保留“完成”，完成也不强制关窗。 */
-finishHandItemReward = function () {
-  handItemDrawGroupId = null;
-  handItemPendingKey = null;
-  handItemDrawStartedAt = 0;
-  renderHandRewardControlsV218();
-};
-
 /* ---------- 8. 道具百科重新排序 + 使用技巧 ---------- */

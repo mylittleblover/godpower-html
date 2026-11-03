@@ -1,0 +1,526 @@
+
+> godpower-html@3.0.69 test
+> node --test tests/unit/*.test.mjs tests/integration/*.test.mjs
+
+✔ 3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority (1314.701424ms)
+✖ about renderer has one declaration, no override chain, and retains non-view code (194.298283ms)
+✔ V3.0.60 checkpoint: all 117 script units preserve their AST except the retired draw chain (907.98887ms)
+✔ every CSS deletion has a later unconditional identical selector/property/value witness (87.169767ms)
+✔ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (3037.625247ms)
+✔ retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata (3992.620794ms)
+✔ verified write roundtrip (1.039099ms)
+✔ write quota surfaced (0.181905ms)
+✔ write security surfaced (0.088945ms)
+✔ readback mismatch surfaced (0.123026ms)
+✔ archive success preserves complete snapshot (0.73519ms)
+✔ archive quota failure leaves old archive unchanged (0.175925ms)
+✔ corrupt archive not overwritten (0.206202ms)
+✔ archive retry deduplicates same id (0.176667ms)
+✔ same-season archive retry is idempotent and conflicting retries preserve the official record (0.352603ms)
+✔ separate seasons with the same timestamp ID remain separate archives (0.2654ms)
+✔ more than 40 archives retained (1.407685ms)
+✔ common item guard null 0 true (0.227323ms)
+✔ common item guard {"inventory":[{"key":"fire_flower"}],"score":0} 1 true (0.048864ms)
+✔ common item guard {"inventory":[{"key":"ice_flower"}],"score":-1} 0 true (0.037456ms)
+✔ common item guard {"inventory":[{"key":"coin"}],"score":0} 0 false (0.033261ms)
+✔ same triple continuation allowed (0.091268ms)
+✔ different second item blocked (0.097016ms)
+✔ semantic style names are unique and contain no release numbers (4.939687ms)
+✔ naming checkpoint 645ea0f preserves all original scripts outside the declared style-name migration (1036.143574ms)
+✔ contains exactly the 60 stable achievement IDs and six design categories (6.890628ms)
+✔ all 26 actual item keys have one exclusive achievement mapping (0.296398ms)
+✔ hidden achievements are explicitly marked for student-facing masking (0.144127ms)
+✔ durably counts a confirmed classroom event once per stable group and season (2.789431ms)
+✔ manual and imported events never create achievement facts (0.60228ms)
+✔ a new season resets seasonal counters but keeps lifetime counters and unlock buckets (0.345271ms)
+✔ learning streak, participation and accuracy achievements use formal rounds (1.085619ms)
+✔ unanswered rounds break answer streaks and wrong answers restart recovery (0.924005ms)
+✔ 22 stable unique button slots are categorized and separate from business outcome sounds (0.722621ms)
+✔ actual shared main button and picker lever resolve their current action (0.485894ms)
+✔ button intent preserves independent answer, item, score, upload and destructive slots (1.473635ms)
+✔ batch scoring plans each group exactly once (1.489619ms)
+✔ batch scoring refuses partial integer overflow (0.27179ms)
+✔ batch invalid points 0 (0.333404ms)
+✔ batch invalid points 1.5 (0.16593ms)
+✔ batch invalid points Infinity (0.102335ms)
+✔ batch invalid points 9007199254740992 (0.257629ms)
+✔ batch rejects missing groups and invalid counts (0.264188ms)
+✔ renderAll has exactly one canonical definition and no override assignment (1.010065ms)
+✔ globalItemDraw has exactly one canonical definition and no override assignment (0.097607ms)
+✔ handDrawItem has exactly one canonical definition and no override assignment (0.065059ms)
+✔ renderGrid has exactly one canonical definition and no override assignment (0.060602ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.129246ms)
+✔ selectGroupOpt has exactly one canonical definition and no override assignment (0.124609ms)
+✔ toggleAllInCard has exactly one canonical definition and no override assignment (0.083316ms)
+✔ legacyUseItem has exactly one canonical definition and no override assignment (0.171579ms)
+✔ legacyJudgeRound has exactly one canonical definition and no override assignment (0.147002ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.194273ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.140072ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.062765ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.071308ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.036385ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.070646ms)
+✔ Shared score defaults include exactly six signed values and independent presentation toggles (5.753226ms)
+✔ Malformed slot data cannot become scoring commands (0.546505ms)
+✔ Extreme valid scores stay exact and configuration clamps only audio volume (0.153813ms)
+✔ External option reads cannot mutate shared scoring slots (0.133351ms)
+✔ repository writes, verifies and compares revisions without touching legacy classroom key (6.332169ms)
+✔ quota and readback failures restore prior roster bytes and preserve legacy bytes (0.812777ms)
+✔ readback mismatch rolls back the previous roster document (0.300824ms)
+✔ corrupt repository is reported and never overwritten (0.264489ms)
+✔ preview keeps duplicate legacy names distinct and never mutates input (4.254313ms)
+✔ individual mode retains roster and does not require group assignments (0.220823ms)
+✔ projection is profile-scoped, supports rename, and returns copies (0.955833ms)
+✔ rejects repeated identities, cross-classroom students and malformed mode atomically (0.872057ms)
+✔ refuses an unknown profile/group projection instead of redirecting a student (0.355627ms)
+✔ synchronous command persists once and records once (1.84795ms)
+✔ committed domain events are passed to persistence and published only after a successful save (1.372382ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (0.787209ms)
+✔ pending defense never persists a partial command; finish records one operation (8.097023ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (1.079399ms)
+✔ new command cancels pending operation before its own snapshot (1.011177ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (0.945547ms)
+✔ multiple asynchronous effects commit only when all decisions finish (1.916053ms)
+✔ invalid or overflowing commands never persist (0.358421ms)
+✔ stale defense cancels entire command (3.521877ms)
+✔ render failure cannot roll back a successfully persisted command (0.909503ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.213573ms)
+✔ async persistence keeps one command pending until durable acknowledgment (3.742509ms)
+✔ async rejection remains explicitly unsaved and does not publish events (2.711523ms)
+✔ strict async failure restores the pre-operation state and history (1.89748ms)
+✔ cancel cannot roll back an in-flight durable commit (1.864084ms)
+✔ deferred storage acknowledgment is never reported as durable success (0.343729ms)
+✔ async events publish exactly once after durable acknowledgment (0.76796ms)
+✔ postcommit notifications cannot reenter before earlier events and render complete (0.273183ms)
+✔ write barrier distinguishes cancellable defense from a durable commit in flight (1.650031ms)
+✔ snapshot failure does not leave an unresolved idle barrier behind (0.712706ms)
+✔ whenIdle waits for the actual durable result and resolves cancelled defenses (3.27203ms)
+✔ only one status is active at a time; the same one refreshes (2.794469ms)
+✔ freeze caps the answer gain it is the only active status (1.909753ms)
+✔ paralysis cancels answer only and unanswered does not expire (0.893058ms)
+✔ star and mega multiply total score 2x/3x and preserve wrong-answer scores until defenses expire (1.078067ms)
+✔ freeze cancellation and dizziness consume attempts without consuming inventory (0.89418ms)
+✔ exports the pure round calculation port (1.815531ms)
+✔ round score 0 A AllIn=false (0.215335ms)
+✔ round score 10 A AllIn=true (0.088063ms)
+✔ round score 0 A AllIn=true (0.111789ms)
+✔ round score 10 B AllIn=true (0.081643ms)
+✔ round score -10 B AllIn=true (0.065539ms)
+✔ round score -10 A AllIn=false (0.058809ms)
+✔ round score 10 blank AllIn=true (0.062485ms)
+✔ round score 10 B AllIn=false (0.091848ms)
+✔ round score 9007199254740991 B AllIn=false (0.155705ms)
+✔ rejects unsafe result before exposing any partial calculations (0.478943ms)
+✔ calculation preserves input and group ordering (0.728039ms)
+✔ component catalog includes every shipped CSS class, token and animation with source owners (126.034611ms)
+✔ component reference has no direct command, persistence or native authority (0.762861ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.558953ms)
+✔ registers immutable core routes once and does not let plugins shadow them (4.48457ms)
+✔ validates a batch atomically and rejects duplicate IDs, unknown slots and executable descriptors (2.223787ms)
+✔ binds plugin identity and scope to host activation instead of trusting descriptors (0.988131ms)
+✔ disposes only the matching activation and makes repeated disposal safe (0.989424ms)
+✔ returns cloned read-only data and rejects unknown kinds (1.149415ms)
+✔ current defense belongs to exact main item (0.856514ms)
+✔ new command invalidates pending confirmation (0.149887ms)
+✔ replaced item invalidates confirmation (0.121273ms)
+✔ restore/import invalidates former target (0.147723ms)
+✔ phase/answer/round/settlement changes invalidate confirmation (0.368758ms)
+✔ defense invalidation notifies command and visual owners independently (0.708811ms)
+✔ defense priority is an independent pure domain port (0.938849ms)
+✔ timed ghost precedes all effects (0.206152ms)
+✔ horn refusal precedes feather (0.080792ms)
+✔ timed ghost precedes horn refusal (0.066461ms)
+✔ ineligible group precedes feather (0.100081ms)
+✔ feather precedes bullet (0.097537ms)
+✔ bullet absolute defense (0.113512ms)
+✔ star counts even last hit (0.085049ms)
+✔ mega with zero remaining keeps legacy final defense (0.102735ms)
+✔ untimed ghost precedes inventory (0.240784ms)
+✔ bomb blocks shell (0.116786ms)
+✔ bomb cannot block spiny (0.114843ms)
+✔ basic inventory blocks normal attack (0.056005ms)
+✔ basic inventory cannot block spiny (0.043966ms)
+✔ horn blocks spiny (0.085038ms)
+✔ mushroom requests spiny decision (0.070917ms)
+✔ mushroom refused (0.07227ms)
+✔ secondary inventory is not defense (0.068514ms)
+✔ disposal is idempotent and runs every cleanup in reverse registration order (3.253367ms)
+✔ reports cleanup errors but still releases the remaining resources (1.785469ms)
+✔ listeners, timeout, frame, observers and animations are canceled on dispose (31.311882ms)
+✔ page lifecycle replaces the previous route scope exactly once (4.623843ms)
+✔ once listeners release their scope entry immediately after dispatch (0.783003ms)
+✔ listener removal retains the registered capture value when options mutate (0.826499ms)
+✔ command event scope emits immutable, sequenced, JSON-safe envelopes (2.165193ms)
+✔ rejects unsupported event types, missing aggregate identity and non-JSON payloads (0.784496ms)
+✔ keeps event origin explicit so manual edits and imports can be excluded from achievements (1.264902ms)
+✔ closed command scopes cannot produce late events (0.183438ms)
+✔ hand port loads before the desktop transport that uses it (0.809083ms)
+✔ the main renderer keeps classroom ownership; transport only forwards (0.311862ms)
+✔ reward draws stay inside one classroom transaction (0.19858ms)
+✔ desktop hand commands are forwarded instead of dropped (0.138319ms)
+✔ dock picker opens the floating window; only engine calls may hide an internal modal (1.845619ms)
+✔ production template contains no empty legacy scripts (188.046958ms)
+✔ global draw holds one pending command and does not persist the animation session early (4.515356ms)
+✔ one commit awards each item once and publishes idempotent acquisition events (6.779006ms)
+✔ storage rejection restores inventory, cooldowns, counters, ledger and history together (2.325354ms)
+✔ mid-batch award failure rolls back the first award without a partial save (1.848283ms)
+✔ cancelled old frames cannot award or release the replacement owner (1.980373ms)
+✔ asynchronous save remains busy until its durable acknowledgment (2.852692ms)
+道具抽取已提交，界面反馈失败 Error: injected presentation failure
+    at f.scope.renderGrid (file:///workspace/godpower-html-latest/tests/unit/global-draw-command.test.mjs:354:25)
+    at presentCommittedAwards (evalmachine.<anonymous>:126:5)
+    at evalmachine.<anonymous>:233:24
+✔ asynchronous save rejection rolls back and releases this draw (1.844077ms)
+✔ global draw cannot replace an in-progress hand reward draw session (1.038509ms)
+✔ presentation failure after commit preserves awards and releases the draw owner (2.56689ms)
+✔ saturated group badges retain exact selected fill and white ink (1.235928ms)
+✔ pale and invalid colors keep readable fallback (0.141123ms)
+✔ student number foreground meets AA on the existing blue group color (1.10493ms)
+✔ short colors and invalid-color fallback preserve compatibility (6.393433ms)
+✔ group label text meets AA across 216 solid RGB samples without changing group colors (1.789946ms)
+✔ one judged selection chooses a reward and completes without another business intent (2.348029ms)
+✔ wrong answer returns to groups, cancellation preserves an unspent reward (0.658105ms)
+✔ stale selection and another save generation cannot create a command (0.732708ms)
+✔ selection token gates judgment, rewards and group/season changes (7.588319ms)
+✔ failed save keeps judgment/reward retryable, locked mutation denied (1.227185ms)
+✔ rejected draw restores runtime and stays retryable (0.908453ms)
+✔ duplicate judge is refused and tokens are renewed per selection (1.058931ms)
+✔ a successful reward spends the judged selection and cannot score twice (3.393364ms)
+✔ same state object cannot keep a stale hand token across save generation or undo group replacement (1.546989ms)
+✔ cancelled item use preserves reward, accepted unsaved consumption cannot be repeated (2.182048ms)
+✔ snapshot retains exactly the legacy undo domain including global items (1.397029ms)
+✔ later score, inventory, picker and global mutations cannot change a snapshot (0.189757ms)
+✔ snapshot creation never mutates source state (0.160212ms)
+✔ isolated layout repository previews legacy fixed home without writing (2.023645ms)
+✔ layout writes verify, advance revision, and reject stale writers (0.811596ms)
+✔ corrupt data and storage failures never silently replace saved layouts (0.367756ms)
+✔ migration preview prefers saved layout and leaves bytes untouched (0.225591ms)
+✔ validates bounded grid layouts and rejects overlaps and executable data (3.397559ms)
+✔ creates unique home instances and refuses duplicate single-instance card types (1.005388ms)
+✔ moving and resizing uses deterministic collision resolution without overlap (0.759566ms)
+✔ draft undo redo, hide, cancel, and save never mutate initial layout (0.516069ms)
+✔ replacing a draft is undoable and never commits the saved layout (0.322968ms)
+✔ item impact facts report only actual losses to other stable groups (1.580045ms)
+✔ invalid identities, score values and no-op or beneficial changes emit no hit (0.439473ms)
+✔ default blocks preserve weights, score and charges; independent flow settings (1.573656ms)
+✔ weight multiplier preserves zero eligibility and no hidden fallback (4.062704ms)
+✔ invalid import and failed storage preserve live configuration (0.706356ms)
+✔ operation context ends after throw and multiplier rounded once (0.271631ms)
+✔ new inventory carries bounded configured charges; defaults unchanged (0.578564ms)
+✔ persistent slot and stealing modules reject unsupported repeat counts (0.42418ms)
+✔ deprecated item alias forwards one public command and preserves its result (16.594043ms)
+✔ conversion preserves scores, inventory charges, history, achievements and original input (11.569888ms)
+✔ same source imports are deterministic while different same-name students stay separate (4.92844ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (14.474603ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (4.748936ms)
+✔ broken JSON and missing group identities fail without producing a partial save (2.027942ms)
+✔ portable save bundle preserves resource bytes and restores avatar references on import (3.249146ms)
+✔ portable bundles reject missing or corrupted resources before returning an import preview (3.428687ms)
+✔ an explicitly versioned empty classroom remains a valid empty save (2.034572ms)
+✔ staging journals VERIFYING then VERIFIED only after both readbacks (2.507145ms)
+✔ target corruption cannot leave a verified journal (0.275476ms)
+✔ source change after import is durably distinguished from verified staging (0.2517ms)
+✔ journal persistence failure never reports successful staging or changes authority (0.365952ms)
+✔ cancellation after durable verification cannot contradict its recorded outcome (0.318541ms)
+✔ idle snapshots stay identical and never advance the random source (3.22595ms)
+✔ a new reveal cycle selects one style, snapshot polling retains it (1.022233ms)
+✔ ranking exposes an independent domain port (0.810804ms)
+✔ ranking preserves stable source order for ties and never reorders input (0.815211ms)
+✔ seeded characterization agrees with pre-refactor ordering including imported score values (8.127731ms)
+✔ valid score 0 (6.062298ms)
+✔ valid score 1 (0.127542ms)
+✔ valid score -1 (0.072289ms)
+✔ valid score 9999999 (0.382777ms)
+✔ valid score 9007199254740991 (0.131719ms)
+✔ invalid backup null (0.475808ms)
+✔ invalid backup [] (0.162556ms)
+✔ invalid backup {} (0.121824ms)
+✔ invalid backup {"groups":[]} (0.459414ms)
+✔ invalid backup {"schemaVersion":2,"groups":[{}]} (0.461586ms)
+✔ invalid backup {"groups":[{"score":null}]} (0.210187ms)
+✔ invalid backup {"groups":[{"score":1.5}]} (0.067502ms)
+✔ invalid backup {"groups":[{"score":9007199254740992}]} (0.042394ms)
+✔ invalid backup {"groups":[{"members":"abc"}]} (0.038609ms)
+✔ invalid backup {"groups":[{"members":[null]}]} (0.060581ms)
+✔ invalid backup {"groups":[{"inventory":{}}]} (0.112771ms)
+✔ invalid backup {"groups":[{"inventory":[1,2,3,4]}]} (0.075094ms)
+✔ invalid backup {"groups":[{"itemEffect":[]}]} (0.03959ms)
+✔ invalid backup {"groups":[{}],"picker":[]} (0.037226ms)
+✔ phase NOT_STARTED (0.0733ms)
+✔ phase FINISHED (0.036986ms)
+✔ phase ANSWERING (0.048203ms)
+✔ phase ANSWER_SELECTED (0.028853ms)
+✔ phase SETTLED (0.037127ms)
+✔ legacy phase precedence 000:none (0.07289ms)
+✔ legacy phase precedence 000:A (0.029334ms)
+✔ legacy phase precedence 001:none (0.024978ms)
+✔ legacy phase precedence 001:A (0.024547ms)
+✔ legacy phase precedence 010:none (0.024066ms)
+✔ legacy phase precedence 010:A (0.055254ms)
+✔ legacy phase precedence 011:none (0.027371ms)
+✔ legacy phase precedence 011:A (0.044727ms)
+✔ legacy phase precedence 100:none (0.245791ms)
+✔ legacy phase precedence 100:A (0.055043ms)
+✔ legacy phase precedence 101:none (0.047913ms)
+✔ legacy phase precedence 101:A (0.033711ms)
+✔ legacy phase precedence 110:none (0.03375ms)
+✔ legacy phase precedence 110:A (0.070416ms)
+✔ legacy phase precedence 111:none (0.194043ms)
+✔ legacy phase precedence 111:A (0.039881ms)
+✔ reject image x" onerror="alert(1) (0.170267ms)
+✔ reject image javascript:alert(1) (0.080822ms)
+✔ reject image https://example.com/x (0.03344ms)
+✔ reject image data:image/svg+xml;base64,AAAA (0.452944ms)
+✔ raster data image accepted (0.107803ms)
+✔ CSV formula neutralization preserves numeric input externally (0.215886ms)
+✔ unsafe All In score is rejected before mutation (0.304129ms)
+✔ round calculation preserves answer and All In rules (0.625585ms)
+✔ statistics and effects reject injected strings (0.162775ms)
+✔ corrupt undo snapshots rejected on import (0.138018ms)
+✔ picker arrays reject oversized or non-primitive identifiers (0.47686ms)
+✔ cooldown and picker history reject malformed nested records (0.380725ms)
+✔ valid legacy picker cooldown and classroom histories remain importable (0.207774ms)
+✔ render ownership module exists (0.941201ms)
+✔ full refresh renders each page once in the established order (2.425843ms)
+✔ attack keeps old cards until 340ms and coalesces targets (0.808241ms)
+✔ attack callback resets flushing even when renderer throws (1.017436ms)
+✔ FLIP merges grid requests at 810ms and preserves held-score outer phase (0.838185ms)
+✔ attack gate also applies to delayed FLIP callback (0.58968ms)
+✔ only non-answering refresh clears item reorder suppression (0.6625ms)
+✔ classifies evidence separately from shipped code without discarding it (1.45715ms)
+✔ finds comment-only legacy blocks, not executable code (1.204429ms)
+✔ checks source and resource references without a fixed legacy block count (0.707028ms)
+✔ includes new non-ignored worktree files when checking the source manifest (0.133571ms)
+✔ application plan matches stable group IDs, preserves duplicate names and all non-member state (2.399684ms)
+✔ individual mode cannot be projected into group competition (0.630061ms)
+✔ unknown profiles, classrooms, groups and empty competition cannot silently redirect (0.383109ms)
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (3.956854ms)
+✔ new save validates stable identities, revisions and roster references (9.158357ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (3.145429ms)
+✔ malformed canonical archives and roster/match metadata are rejected before activation (4.08722ms)
+✔ failed new-library initialization cannot report a successful legacy save (1.970536ms)
+✔ archive deletion confirmation cannot target another save or bypass a newly locked classroom (2.738375ms)
+✔ runtime projection carries small resource references without decoding inline avatars into history (14.94958ms)
+✔ score-only persistence keeps student identities and roster revision stable (5.585442ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (4.619825ms)
+✔ pending archived season survives same-season projection and clears only on new season (5.494776ms)
+✔ desktop chooses the bounded native backend without opening a second authoritative database (4.189125ms)
+✔ native failures are returned without silently falling back to an empty browser library (1.762951ms)
+✔ legacy roster converts actual assignments and unowned class without inventing matches (15.080378ms)
+✔ legacy avatar bytes are hashed and re-owned only with matching classroom metadata (11.55055ms)
+✔ visual assignment moves stable students between groups without merging equal names (14.732132ms)
+✔ editing a student updates current labels while historical snapshots remain unchanged (7.14998ms)
+✔ adding an unassigned student and assigning avatars preserve scores, inventory and identities (9.187766ms)
+✔ invalid student references, duplicated selection and blank names cannot change roster data (4.350588ms)
+✔ manual score planning is independent of persistence and presentation (1.600527ms)
+✔ 10 plus 5 plans 15 (0.231559ms)
+✔ 0 plus -5 plans -5 (0.378512ms)
+✔ 99 plus 1 plans 100 (0.194203ms)
+✔ -10 plus 9 plans -1 (0.111929ms)
+✔ 9 plus -10 plans -1 (0.180303ms)
+✔ absolute score set preserves negative and unchanged values (0.17848ms)
+✔ overflow and noninteger inputs are rejected before mutation (0.405072ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (1.858816ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (1.965884ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (2.265145ms)
+✔ empty rule cleanup preserves keyframes, layers and quoted declarations (0.371921ms)
+✔ empty conditional scopes can be removed without dropping layer or keyframe semantics (0.279713ms)
+✔ retired selectors only match mandatory classes outside pseudo functions (0.417961ms)
+✔ all shipped CSS has a single canonical styles root (0.713648ms)
+✔ keeps existing group UIDs and assigns distinct stable UIDs to legacy groups (1.963495ms)
+✔ repairs duplicate and invalid group UIDs without changing group IDs (4.16626ms)
+✔ rejects invalid identity factories instead of silently creating unstable IDs (0.537191ms)
+✔ generates distinct item instance IDs with the item namespace (0.243999ms)
+✔ fallback identity generation never consumes the gameplay random generator (1.183818ms)
+✔ creates distinct user profile, classroom and student identities (0.309958ms)
+✔ assignStudentUids preserves valid IDs, repairs duplicates, and clones input (0.27187ms)
+✔ season archive retry is idempotent and never replaces a conflicting official result (1.412272ms)
+✔ an older archive with matching season identity but no comparable snapshot is protected (0.158269ms)
+✔ v1 to v2 migration preserves classroom data and adds stable identities without mutating input (1.592274ms)
+✔ migration copies and verifies the new envelope, writes receipt last, and retains the old source (1.802651ms)
+✔ migration is idempotent and never rewrites an already-current envelope (0.865307ms)
+✔ write or verification failure rolls back only the destination and preserves source bytes (0.366894ms)
+✔ a corrupt current envelope is surfaced instead of silently falling back to older data (4.344689ms)
+✔ legacy mirror migration imports only classroom keys and leaves unrelated IndexedDB assets alone (0.66213ms)
+✔ malformed legacy content is rejected before any destination write (0.292352ms)
+✔ invalid candidates are not exposed as validated recovery data (0.402938ms)
+✔ a valid current envelope never reads damaged fallback mirrors (0.274805ms)
+✔ v1 mistakenly placed in the current slot is durably upgraded once (0.312913ms)
+✔ absent legacy preferences preserve application defaults rather than becoming zero or false (0.222696ms)
+✔ failed destination rollback is reported without touching the legacy source (0.362708ms)
+✔ item target selection is a separately injectable domain port (1.880489ms)
+✔ self selects existing group references without mutating the ranking (1.065679ms)
+✔ above selects existing group references without mutating the ranking (0.138629ms)
+✔ below selects existing group references without mutating the ranking (0.187042ms)
+✔ leader selects existing group references without mutating the ranking (0.221966ms)
+✔ adjacent selects existing group references without mutating the ranking (0.127863ms)
+✔ aheadInclusive selects existing group references without mutating the ranking (0.218219ms)
+✔ behindInclusive selects existing group references without mutating the ranking (0.216998ms)
+✔ allAhead selects existing group references without mutating the ranking (0.207684ms)
+✔ threeAhead selects existing group references without mutating the ranking (0.370569ms)
+✔ randomOther selects existing group references without mutating the ranking (0.225029ms)
+✔ randomUnfrozen selects existing group references without mutating the ranking (0.222086ms)
+✔ blast selects existing group references without mutating the ranking (0.289737ms)
+✔ empty and all-frozen pools consume no random values (0.566696ms)
+✔ random pool uses exactly one supplied value and preserves eligibility ordering (0.113641ms)
+✔ a first-ranked caster is not targeted by leader attacks (0.255035ms)
+✔ unknown selector is rejected rather than silently selecting a target (0.37736ms)
+✔ resource metadata validates stable identities, normalized tags and safe bounds (2.194053ms)
+✔ resource bytes require matching signatures and reject active formats (5.051596ms)
+✔ resource matching is case-insensitive for filename extension only (0.196286ms)
+✔ the six declared formats require matching MIME and recognizable content (0.751204ms)
+✔ schedule validates stable references, weekday and local minute boundaries (2.626535ms)
+✔ schedule rejects overlaps for the same teacher, including different classrooms (0.349688ms)
+✔ current lesson uses a half-open interval and requires explicit profile match (0.766076ms)
+✔ schedule repository verifies writes and rejects stale revisions (0.927791ms)
+✔ schedule write failure restores prior bytes and never clears other data (0.302626ms)
+✔ battle presenter preserves answer, score, queue and All In markup without mutation (2.323778ms)
+✔ window motion finishes exactly once, cancellation never invokes close command (5.268835ms)
+✔ settings categories preserve all nine existing entries with immutable metadata (1.11959ms)
+✔ CSS component split retains original cascade content and source order (13.875138ms)
+✔ disclosure setup is idempotent and disposal releases listener and active animation (1.994231ms)
+✔ daily content is stable across same-day reloads and changes next date (1.332242ms)
+✔ local civil day handles month and year boundaries (0.136816ms)
+✔ empty bank has no fabricated fallback question (0.135234ms)
+✔ built-in examples have sources and corresponding answers (0.519914ms)
+✔ invalid local bank rejected {} (0.286182ms)
+✔ invalid local bank rejected {"knowledge":[],"challenges":[{"id":"q","title":"x","subject":"politics","source":"source","options":["a","b","c","d"],"answer":4,"explanation":"x"}]} (0.168704ms)
+✔ invalid local bank rejected {"knowledge":[{"id":"a","title":"x","subject":"politics"}],"challenges":[]} (0.11928ms)
+✔ history differences use real snapshots without mutations (0.413324ms)
+✔ standings preserves canonical tie order and negative leader (0.351891ms)
+✔ standings aggregate is exact beyond individual safe-integer sum (0.223557ms)
+✔ empty standings is a safe display model (0.607036ms)
+✔ daily offsets are independent of dates and wrap without mutating content (0.141914ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => b.knowledge.push({ ...b.knowledge[0] }) (0.263318ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].id = " ") (0.165159ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].summary = 10) (0.175405ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].subject = " ") (0.26545ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].options[0] = " ") (0.171179ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].options[0] = "a".repeat(10001)) (0.293874ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].source = " ") (0.141924ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) =>
+    b.challenges.push(
+      ...Array.from({ length: 500 }, (_, i) => ({
+        ...b.challenges[0],
+        id: "extra" + i,
+      })),
+    ) (1.40082ms)
+✔ group badges retain exact group colors and use black ink on light fills (0.560657ms)
+✔ UI ownership report follows the build manifest and records the five default pages (121.502533ms)
+✔ manifest order and file byte evidence are deterministic (189.072864ms)
+✔ clock refreshes header while hidden, without rebuilding hidden welcome UI (3.084427ms)
+ℹ tests 397
+ℹ suites 0
+ℹ pass 396
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15956.830913
+
+✖ failing tests:
+
+test at tests/integration/cascade-governance.test.mjs:104:1
+✖ about renderer has one declaration, no override chain, and retains non-view code (194.298283ms)
+  AssertionError [ERR_ASSERTION]: src/runtime/ui/battle-appearance-and-hand-rewards.js
+  + actual - expected
+  ... Skipped lines
+  
+    '/* 唯一主题入口。 */\n' +
+      'function applyModernFlatV217() {\n' +
+      '  document.body.classList.add("modern-flat");\n' +
+      '}\n' +
+      '\n' +
+  ...
+      '\n' +
+  +   '/* Compatibility entry points delegate to the shared card flow. */\n' +
+  +   'function updateHandScoreV214() {\n' +
+  +   '  globalThis.HandFlowView?.render();\n' +
+  -   '/* 举手窗口的组按钮加 data 属性，便于分数变化时原位刷新。 */\n' +
+  -   'renderHandRaise = function () {\n' +
+  -   '  const box = document.getElementById("handGroupGrid");\n' +
+  -   '  if (!box) return;\n' +
+  -   '  box.innerHTML = state.groups\n' +
+  -   '    .map(\n' +
+  -   '      (g) =>\n' +
+  -   '        `<button type="button" class="hand-group two-tier-chip ${g.id === handRaiseGroupId ? "selected" : ""}" data-group-id="${g.id}" aria-pressed="${g.id === handRaiseGroupId ? "true" : "false"}" style="--hand-color:${g.color};--hand-contrast:${readableTextOnColor(g.color)}" onclick="selectHandGroup(${g.id})"><span class="hand-group-name">${escapeHtml(g.name)}</span><small>${g.score} 分</small></button>`,\n' +
+  -   '    )\n' +
+  -   '    .join("");\n' +
+  -   '  const reward = document.getElementById("handRewardBox");\n' +
+  -   '  if (reward) reward.innerHTML = "";\n' +
+  -   '};\n' +
+  -   'function updateHandScoreV214(id) {\n' +
+  -   '  const g = state.groups.find((x) => x.id === id);\n' +
+  -   '  if (!g) return;\n' +
+  -   '  const b = document.querySelector(\n' +
+  -   '    `#handGroupGrid .hand-group[data-group-id="${id}"] small`,\n' +
+  -   '  );\n' +
+  -   '  if (b) b.textContent = `${g.score} 分`;\n' +
+      '}\n' +
+  -   'handQuickScore = function (n) {\n' +
+  -   '  if (handRaiseGroupId == null) return;\n' +
+  -   '  const id = handRaiseGroupId;\n' +
+  -   '  applyScoreDelta(id, n);\n' +
+  -   '  updateHandScoreV214(id);\n' +
+  -   '  setTimeout(() => updateHandScoreV214(id), 120);\n' +
+  -   '};\n' +
+  -   '\n' +
+      'function renderHandRewardControlsV214() {\n' +
+  +   '  globalThis.HandFlowView?.render();\n' +
+  -   '  const box = document.getElementById("handRewardBox");\n' +
+  -   '  const g = state.groups.find((x) => x.id === handRaiseGroupId);\n' +
+  -   '  if (!box || !g) return;\n' +
+  -   '  const main = g.inventory?.[0];\n' +
+  -   '  const useText = main\n' +
+  -   '    ? `使用：${ITEM_DEFS[main.key]?.name || "当前主要道具"}`\n' +
+  -   '    : "使用：无主要道具";\n' +
+  -   '  const drawDisabled = !eligibleForItems(g) || g.inventory.length >= 3;\n' +
+  -   '  const useDisabled = !main || !eligibleForItems(g);\n' +
+  -   '  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b><button class="btn btn-success" onclick="handQuickScore(1)">+1</button><button class="btn btn-success" onclick="handQuickScore(2)">+2</button><button class="btn btn-success" onclick="handQuickScore(5)">+5</button><button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled ? "disabled" : ""}>🎁 抽取道具</button><button class="btn btn-warning" onclick="handUsePrimaryV214()" ${useDisabled ? "disabled" : ""}>${escapeHtml(useText)}</button></div>`;\n' +
+      '}\n' +
+  -   'const _v214JudgeHandRaise = judgeHandRaise;\n' +
+  -   'judgeHandRaise = function (correct) {\n' +
+  -   '  _v214JudgeHandRaise.call(this, correct);\n' +
+  -   '  if (correct) renderHandRewardControlsV214();\n' +
+  -   '};\n' +
+      'function handUsePrimaryV214() {\n' +
+  +   '  return globalThis.HandFlowView?.reward("use");\n' +
+  -   '  const g = state.groups.find((x) => x.id === handRaiseGroupId);\n' +
+  -   '  if (!g) return;\n' +
+  -   '  const main = g.inventory?.[0];\n' +
+  -   '  if (!main) {\n' +
+  -   '    showToast("该组当前没有主要道具");\n' +
+  -   '    return;\n' +
+  -   '  }\n' +
+  -   '  const gid = g.id;\n' +
+  -   '  closeHandRaise();\n' +
+  -   '  // Use from the hand panel also presents the full-screen cinematic, exactly\n' +
+  -   "  // like the floating window's hand menu.\n" +
+  -   '  globalThis.HandItemCinematic?.mark(gid);\n' +
+  -   '  setTimeout(() => useItem(gid, 0), 0);\n' +
+      '}\n' +
+      '\n' +
+  -   '/* 抽完奖励后只允许关闭举手窗口。 */\n' +
+  -   'finishHandItemReward = function () {\n' +
+  -   '  handItemDrawGroupId = null;\n' +
+  -   '  handItemPendingKey = null;\n' +
+  -   '  handItemDrawStartedAt = 0;\n' +
+  -   '  closeHandRaise();\n' +
+  -   '};\n' +
+  -   '\n' +
+      '/* 页面加载完成后启用唯一扁平主题。 */\n' +
+      'window.addEventListener("DOMContentLoaded", () =>\n' +
+      '  setTimeout(() => {\n' +
+      '    applyModernFlatV217();\n' +
+      '    try {\n' +
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/integration/cascade-governance.test.mjs:126:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '/* 唯一主题入口。 */\nfunction applyModernFlatV217() {\n  document.body.classList.add("modern-flat");\n}\n\nfunction rankOfGroupV214(id) {\n  const r = ranking();\n  const i = r.findIndex((g) => g.id === id);\n  return i >= 0 ? i + 1 : null;\n}\n\n/* 在 V2.13 卡片的固定布局上补充实时排名，不增加卡片总体高度。 */\n\n/* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */\n\n/* Compatibility entry points delegate to the shared card flow. */\nfunction updateHandScoreV214() {\n  globalThis.HandFlowView?.render();\n}\nfunction renderHandRewardControlsV214() {\n  globalThis.HandFlowView?.render();\n}\nfunction handUsePrimaryV214() {\n  return globalThis.HandFlowView?.reward("use");\n}\n\n/* 页面加载完成后启用唯一扁平主题。 */\nwindow.addEventListener("DOMContentLoaded", () =>\n  setTimeout(() => {\n    applyModernFlatV217();\n    try {\n      renderGrid();\n    } catch (e) {}\n  }, 320),\n);\n',
+    expected: '/* 唯一主题入口。 */\nfunction applyModernFlatV217() {\n  document.body.classList.add("modern-flat");\n}\n\nfunction rankOfGroupV214(id) {\n  const r = ranking();\n  const i = r.findIndex((g) => g.id === id);\n  return i >= 0 ? i + 1 : null;\n}\n\n/* 在 V2.13 卡片的固定布局上补充实时排名，不增加卡片总体高度。 */\n\n/* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */\n\n/* 举手窗口的组按钮加 data 属性，便于分数变化时原位刷新。 */\nrenderHandRaise = function () {\n  const box = document.getElementById("handGroupGrid");\n  if (!box) return;\n  box.innerHTML = state.groups\n    .map(\n      (g) =>\n        `<button type="button" class="hand-group two-tier-chip ${g.id === handRaiseGroupId ? "selected" : ""}" data-group-id="${g.id}" aria-pressed="${g.id === handRaiseGroupId ? "true" : "false"}" style="--hand-color:${g.color};--hand-contrast:${readableTextOnColor(g.color)}" onclick="selectHandGroup(${g.id})"><span class="hand-group-name">${escapeHtml(g.name)}</span><small>${g.score} 分</small></button>`,\n    )\n    .join("");\n  const reward = document.getElementById("handRewardBox");\n  if (reward) reward.innerHTML = "";\n};\nfunction updateHandScoreV214(id) {\n  const g = state.groups.find((x) => x.id === id);\n  if (!g) return;\n  const b = document.querySelector(\n    `#handGroupGrid .hand-group[data-group-id="${id}"] small`,\n  );\n  if (b) b.textContent = `${g.score} 分`;\n}\nhandQuickScore = function (n) {\n  if (handRaiseGroupId == null) return;\n  const id = handRaiseGroupId;\n  applyScoreDelta(id, n);\n  updateHandScoreV214(id);\n  setTimeout(() => updateHandScoreV214(id), 120);\n};\n\nfunction renderHandRewardControlsV214() {\n  const box = document.getElementById("handRewardBox");\n  const g = state.groups.find((x) => x.id === handRaiseGroupId);\n  if (!box || !g) return;\n  const main = g.inventory?.[0];\n  const useText = main\n    ? `使用：${ITEM_DEFS[main.key]?.name || "当前主要道具"}`\n    : "使用：无主要道具";\n  const drawDisabled = !eligibleForItems(g) || g.inventory.length >= 3;\n  const useDisabled = !main || !eligibleForItems(g);\n  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b><button class="btn btn-success" onclick="handQuickScore(1)">+1</button><button class="btn btn-success" onclick="handQuickScore(2)">+2</button><button class="btn btn-success" onclick="handQuickScore(5)">+5</button><button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled ? "disabled" : ""}>🎁 抽取道具</button><button class="btn btn-warning" onclick="handUsePrimaryV214()" ${useDisabled ? "disabled" : ""}>${escapeHtml(useText)}</button></div>`;\n}\nconst _v214JudgeHandRaise = judgeHandRaise;\njudgeHandRaise = function (correct) {\n  _v214JudgeHandRaise.call(this, correct);\n  if (correct) renderHandRewardControlsV214();\n};\nfunction handUsePrimaryV214() {\n  const g = state.groups.find((x) => x.id === handRaiseGroupId);\n  if (!g) return;\n  const main = g.inventory?.[0];\n  if (!main) {\n    showToast("该组当前没有主要道具");\n    return;\n  }\n  const gid = g.id;\n  closeHandRaise();\n  // Use from the hand panel also presents the full-screen cinematic, exactly\n  // like the floating window\'s hand menu.\n  globalThis.HandItemCinematic?.mark(gid);\n  setTimeout(() => useItem(gid, 0), 0);\n}\n\n/* 抽完奖励后只允许关闭举手窗口。 */\nfinishHandItemReward = function () {\n  handItemDrawGroupId = null;\n  handItemPendingKey = null;\n  handItemDrawStartedAt = 0;\n  closeHandRaise();\n};\n\n/* 页面加载完成后启用唯一扁平主题。 */\nwindow.addEventListener("DOMContentLoaded", () =>\n  setTimeout(() => {\n    applyModernFlatV217();\n    try {\n      renderGrid();\n    } catch (e) {}\n  }, 320),\n);\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

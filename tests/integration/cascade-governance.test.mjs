@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { format } from "prettier";
+import { parse } from "acorn";
 import {
   scanDeclarations,
   scanCssBlocks,
@@ -123,10 +124,41 @@ test("about renderer has one declaration, no override chain, and retains non-vie
         edit.replacement +
         expected.slice(edit.end);
     }
-    assert.equal(
-      await format(readFileSync(row.path, "utf8"), { parser: "babel" }),
-      await format(expected, { parser: "babel" }),
-      row.path,
-    );
+    const current = readFileSync(row.path, "utf8");
+    if (row.path === "src/runtime/ui/battle-appearance-and-hand-rewards.js") {
+      // The hand UI was intentionally replaced after this about-only checkpoint.
+      // Preserve its historical proof and continue guarding every non-hand owner.
+      const checkpoint = execFileSync("git", ["show", "6256a76:" + row.path], {
+        encoding: "utf8",
+      });
+      assert.equal(
+        await format(checkpoint, { parser: "babel" }),
+        await format(expected, { parser: "babel" }),
+      );
+      function nonHand(text) {
+        return parse(text, { ecmaVersion: "latest" })
+          .body.filter(
+            (n) =>
+              (n.type === "FunctionDeclaration" &&
+                ["applyModernFlatV217", "rankOfGroupV214"].includes(
+                  n.id.name,
+                )) ||
+              (n.type === "ExpressionStatement" &&
+                text.slice(n.start, n.end).includes('"DOMContentLoaded"')),
+          )
+          .map((n) => text.slice(n.start, n.end))
+          .join("\n");
+      }
+      assert.equal(
+        await format(nonHand(current), { parser: "babel" }),
+        await format(nonHand(checkpoint), { parser: "babel" }),
+        "non-hand owners must remain unchanged",
+      );
+    } else
+      assert.equal(
+        await format(current, { parser: "babel" }),
+        await format(expected, { parser: "babel" }),
+        row.path,
+      );
   }
 });

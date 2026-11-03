@@ -139,78 +139,12 @@ function scorePickerCustom() {
 }
 
 /* 手动举手 */
-function openHandRaise() {
-  ensureV2State();
-  handRaiseGroupId = null;
-  showClassroomWindow(document.getElementById("handRaiseBackdrop"));
-  renderHandRaise();
-  // The floating hand menu follows the dock: a stale selection there would make
-  // every later gesture fail with "举手小组已变化".
-  globalThis.ClassroomHandSync?.notify({ groupId: null });
-}
-function closeHandRaise() {
-  hideClassroomWindow(document.getElementById("handRaiseBackdrop"));
-}
-function renderHandRaise() {
-  const box = document.getElementById("handGroupGrid");
-  if (!box) return;
-  box.innerHTML = state.groups
-    .map(
-      (g) =>
-        `<button class="hand-group ${g.id === handRaiseGroupId ? "selected" : ""}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>`,
-    )
-    .join("");
-  document.getElementById("handRewardBox").innerHTML = "";
-}
-function selectHandGroup(id) {
-  if (!ClassroomWriteBarrier.allow()) return false;
-  handRaiseGroupId = id;
-  renderHandRaise();
-  document
-    .querySelectorAll(".hand-group")
-    .forEach((b) => b.classList.remove("selected"));
-  const arr = [...document.querySelectorAll(".hand-group")],
-    idx = state.groups.findIndex((g) => g.id === id);
-  if (arr[idx]) arr[idx].classList.add("selected");
-  globalThis.ClassroomHandSync?.notify({ groupId: id });
-}
-function judgeHandRaise(correct) {
-  ensureV2State();
-  const g = state.groups.find((x) => x.id === handRaiseGroupId);
-  if (!g) {
-    showToast("先选择举手小组");
-    return;
-  }
-  recordHistory(`${g.name} 手动举手：${correct ? "正确" : "错误"}`);
-  g.itemStats.correct += correct ? 1 : 0;
-  g.itemStats.wrong += correct ? 0 : 1;
-  state.itemGlobal.handRaiseTotal++;
-  state.itemGlobal.handRaiseHistory.push({
-    time: Date.now(),
-    groupId: g.id,
-    correct,
-  });
-  saveState();
-  renderAll();
-  // Hand the judged session to the floating menu so its reward controls unlock
-  // without re-judging (which would double-count the raise).
-  globalThis.ClassroomHandSync?.notify({
-    groupId: g.id,
-    correct,
-    judged: true,
-  });
-  const box = document.getElementById("handRewardBox");
-  if (!correct) {
-    box.innerHTML =
-      '<div class="hand-rewards"><b>已记录错误，本次不发放奖励。</b></div>';
-    return;
-  }
-  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b>${ClassroomFeedback.slotMarkup("hand")}<div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
-}
-function handQuickScore(n) {
-  if (handRaiseGroupId != null) applyScoreDelta(handRaiseGroupId, n);
-}
-
+function openHandRaise() { return globalThis.HandFlowView?.toggle(); }
+function closeHandRaise() { cancelHandItemDraw(true); return globalThis.HandFlowView?.close(); }
+function renderHandRaise() { return globalThis.HandFlowView?.render(); }
+function selectHandGroup(id) { return globalThis.HandFlowView?.select(id); }
+function judgeHandRaise(correct) { return globalThis.HandFlowView?.judge(correct); }
+function handQuickScore(n) { return globalThis.HandFlowView?.score(n); }
 function handUseItem() {
   const g = state.groups.find((x) => x.id === handRaiseGroupId);
   if (!g || !g.inventory.length) {

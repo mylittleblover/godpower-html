@@ -1285,6 +1285,16 @@
       "attributes": ""
     },
     {
+      "type": "style",
+      "path": "styles/classroom/hand-flow.css",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/hand-flow-view.js",
+      "attributes": ""
+    },
+    {
       "type": "script",
       "path": "ui/electron-host.js",
       "attributes": ""

@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: hand mode must select live cards without covering them with a group modal
++ actual - expected
+
++ undefined
+- 'SELECT_GROUP'
+
+    at file:///workspace/godpower-html-latest/tests/e2e/hand-flow-cards.mjs:44:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'SELECT_GROUP',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

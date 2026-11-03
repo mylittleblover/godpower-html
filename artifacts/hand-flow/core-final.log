@@ -1,0 +1,22 @@
+✔ hand port loads before the desktop transport that uses it (2.123376ms)
+✔ the main renderer keeps classroom ownership; transport only forwards (0.595439ms)
+✔ reward draws stay inside one classroom transaction (0.263608ms)
+✔ desktop hand commands are forwarded instead of dropped (0.152871ms)
+✔ one judged selection chooses a reward and completes without another business intent (33.876632ms)
+✔ wrong answer returns to groups, cancellation preserves an unspent reward (0.749772ms)
+✔ stale selection and another save generation cannot create a command (0.857615ms)
+✔ selection token gates judgment, rewards and group/season changes (5.534907ms)
+✔ failed save keeps judgment/reward retryable, locked mutation denied (1.186462ms)
+✔ rejected draw restores runtime and stays retryable (1.111849ms)
+✔ duplicate judge is refused and tokens are renewed per selection (1.175815ms)
+✔ a successful reward spends the judged selection and cannot score twice (2.242316ms)
+✔ same state object cannot keep a stale hand token across save generation or undo group replacement (1.541778ms)
+✔ cancelled item use preserves reward, accepted unsaved consumption cannot be repeated (1.813468ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 360.878411

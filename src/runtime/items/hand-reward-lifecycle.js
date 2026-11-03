@@ -20,39 +20,6 @@ function cancelHandItemDraw(silent = false) {
   if (wasPending && !silent) showToast("本次道具抽取已取消");
 }
 
-const _v21CloseHandRaise = closeHandRaise;
-closeHandRaise = function () {
-  cancelHandItemDraw(true);
-  _v21CloseHandRaise();
-};
-
-const _v21SelectHandGroup = selectHandGroup;
-selectHandGroup = function (id) {
-  if (handItemDrawTimer) {
-    showToast("道具正在抽取，请等待结果");
-    return;
-  }
-  _v21SelectHandGroup(id);
-};
-
-const _v21JudgeHandRaise = judgeHandRaise;
-judgeHandRaise = function (correct) {
-  cancelHandItemDraw(true);
-  _v21JudgeHandRaise(correct);
-  if (correct) {
-    const g = state.groups.find((x) => x.id === handRaiseGroupId);
-    const btn = [...document.querySelectorAll("#handRewardBox button")].find(
-      (b) => b.textContent.includes("抽取道具"),
-    );
-    if (btn && g && (!eligibleForItems(g) || g.inventory.length >= 3)) {
-      btn.disabled = true;
-      btn.style.opacity = ".45";
-      btn.title =
-        g.score < 0 ? "负分状态禁止获得任何道具" : "三个道具槽均已占用";
-    }
-  }
-};
-
 /* Floating-window hand reward: same pool, throttle and eligibility rules as
    handDrawItem, but the presentation belongs to the caller's own surface. */
 function drawHandRewardForPort(group, context) {

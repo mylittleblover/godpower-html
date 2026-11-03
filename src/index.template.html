@@ -465,14 +465,9 @@
 </div>
 
 <div id="handRaiseBackdrop" class="classroom-backdrop">
-  <div class="classroom-window ui-function-surface">
-    <div class="classroom-head"><b>✋ 举手办案处</b><button class="btn btn-sm" onclick="closeHandRaise()">关闭</button></div>
-    <div class="classroom-body">
-      <div style="color:#64748b;margin-bottom:10px">先认领是哪组举的手，再决定答得对不对。答对有奖励，答错至少留下了一次勇敢的统计记录。</div>
-      <div id="handGroupGrid" class="hand-grid"></div>
-      <div class="hand-actions"><button class="btn btn-success" onclick="judgeHandRaise(true)">✓ 正确</button><button class="btn btn-danger" onclick="judgeHandRaise(false)">✕ 错误</button></div>
-      <div id="handRewardBox"></div>
-    </div>
+  <div class="classroom-window ui-function-surface hand-flow-window" role="dialog" aria-modal="true" aria-labelledby="handFlowTitle">
+    <div class="classroom-head"><b id="handFlowTitle">课堂举手</b><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="关闭举手窗口">❌</button></div>
+    <div class="classroom-body" id="handFlowContent"></div>
   </div>
 </div>
 <div id="aboutBackdrop" class="about-backdrop">
@@ -925,6 +920,8 @@
 <script>@@SOURCE:application/hand-flow.js@@</script>
 <script>@@SOURCE:application/hand-raise-port.js@@</script>
 <script>@@SOURCE:runtime/classroom/hand-session.js@@</script>
+<style>@@SOURCE:styles/classroom/hand-flow.css@@</style>
+<script>@@SOURCE:ui/hand-flow-view.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>
 <script>@@SOURCE:ui/save-file-settings.js@@</script>
 <script>@@SOURCE:ui/electron-windows.js@@</script>

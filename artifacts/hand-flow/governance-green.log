@@ -1,0 +1,31 @@
+✔ 3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority (1168.858149ms)
+✔ about renderer has one declaration, no override chain, and retains non-view code (215.075759ms)
+✔ renderAll has exactly one canonical definition and no override assignment (1.158349ms)
+✔ globalItemDraw has exactly one canonical definition and no override assignment (0.100883ms)
+✔ handDrawItem has exactly one canonical definition and no override assignment (0.068654ms)
+✔ openHandRaise has exactly one canonical definition and no override assignment (0.065239ms)
+✔ closeHandRaise has exactly one canonical definition and no override assignment (0.094102ms)
+✔ renderHandRaise has exactly one canonical definition and no override assignment (0.129846ms)
+✔ selectHandGroup has exactly one canonical definition and no override assignment (0.13253ms)
+✔ judgeHandRaise has exactly one canonical definition and no override assignment (0.0597ms)
+✔ handQuickScore has exactly one canonical definition and no override assignment (0.118178ms)
+✔ renderGrid has exactly one canonical definition and no override assignment (0.13292ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.123096ms)
+✔ selectGroupOpt has exactly one canonical definition and no override assignment (0.107132ms)
+✔ toggleAllInCard has exactly one canonical definition and no override assignment (0.087422ms)
+✔ legacyUseItem has exactly one canonical definition and no override assignment (0.110607ms)
+✔ legacyJudgeRound has exactly one canonical definition and no override assignment (0.085819ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.135054ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.03969ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.47021ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.153121ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.076325ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.06631ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1773.924555

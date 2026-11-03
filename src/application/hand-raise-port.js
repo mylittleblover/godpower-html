@@ -338,7 +338,7 @@ globalThis.HandRaisePort = (() => {
         return {
           ok: true,
           persisted: true,
-          ...(drawn ? { itemName } : {}),
+          ...(drawn ? { itemName, itemKey: drawn.key } : {}),
         };
       } finally {
         running = false;

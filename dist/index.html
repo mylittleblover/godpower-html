@@ -14482,14 +14482,9 @@ html[data-theme="marx"] {
 </div>
 
 <div id="handRaiseBackdrop" class="classroom-backdrop">
-  <div class="classroom-window ui-function-surface">
-    <div class="classroom-head"><b>✋ 举手办案处</b><button class="btn btn-sm" onclick="closeHandRaise()">关闭</button></div>
-    <div class="classroom-body">
-      <div style="color:#64748b;margin-bottom:10px">先认领是哪组举的手，再决定答得对不对。答对有奖励，答错至少留下了一次勇敢的统计记录。</div>
-      <div id="handGroupGrid" class="hand-grid"></div>
-      <div class="hand-actions"><button class="btn btn-success" onclick="judgeHandRaise(true)">✓ 正确</button><button class="btn btn-danger" onclick="judgeHandRaise(false)">✕ 错误</button></div>
-      <div id="handRewardBox"></div>
-    </div>
+  <div class="classroom-window ui-function-surface hand-flow-window" role="dialog" aria-modal="true" aria-labelledby="handFlowTitle">
+    <div class="classroom-head"><b id="handFlowTitle">课堂举手</b><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="关闭举手窗口">❌</button></div>
+    <div class="classroom-body" id="handFlowContent"></div>
   </div>
 </div>
 <div id="aboutBackdrop" class="about-backdrop">
@@ -30451,78 +30446,12 @@ function scorePickerCustom() {
 }
 
 /* 手动举手 */
-function openHandRaise() {
-  ensureV2State();
-  handRaiseGroupId = null;
-  showClassroomWindow(document.getElementById("handRaiseBackdrop"));
-  renderHandRaise();
-  // The floating hand menu follows the dock: a stale selection there would make
-  // every later gesture fail with "举手小组已变化".
-  globalThis.ClassroomHandSync?.notify({ groupId: null });
-}
-function closeHandRaise() {
-  hideClassroomWindow(document.getElementById("handRaiseBackdrop"));
-}
-function renderHandRaise() {
-  const box = document.getElementById("handGroupGrid");
-  if (!box) return;
-  box.innerHTML = state.groups
-    .map(
-      (g) =>
-        `<button class="hand-group ${g.id === handRaiseGroupId ? "selected" : ""}" onclick="selectHandGroup(${g.id})">${escapeHtml(g.name)}<br><small>${g.score} 分</small></button>`,
-    )
-    .join("");
-  document.getElementById("handRewardBox").innerHTML = "";
-}
-function selectHandGroup(id) {
-  if (!ClassroomWriteBarrier.allow()) return false;
-  handRaiseGroupId = id;
-  renderHandRaise();
-  document
-    .querySelectorAll(".hand-group")
-    .forEach((b) => b.classList.remove("selected"));
-  const arr = [...document.querySelectorAll(".hand-group")],
-    idx = state.groups.findIndex((g) => g.id === id);
-  if (arr[idx]) arr[idx].classList.add("selected");
-  globalThis.ClassroomHandSync?.notify({ groupId: id });
-}
-function judgeHandRaise(correct) {
-  ensureV2State();
-  const g = state.groups.find((x) => x.id === handRaiseGroupId);
-  if (!g) {
-    showToast("先选择举手小组");
-    return;
-  }
-  recordHistory(`${g.name} 手动举手：${correct ? "正确" : "错误"}`);
-  g.itemStats.correct += correct ? 1 : 0;
-  g.itemStats.wrong += correct ? 0 : 1;
-  state.itemGlobal.handRaiseTotal++;
-  state.itemGlobal.handRaiseHistory.push({
-    time: Date.now(),
-    groupId: g.id,
-    correct,
-  });
-  saveState();
-  renderAll();
-  // Hand the judged session to the floating menu so its reward controls unlock
-  // without re-judging (which would double-count the raise).
-  globalThis.ClassroomHandSync?.notify({
-    groupId: g.id,
-    correct,
-    judged: true,
-  });
-  const box = document.getElementById("handRewardBox");
-  if (!correct) {
-    box.innerHTML =
-      '<div class="hand-rewards"><b>已记录错误，本次不发放奖励。</b></div>';
-    return;
-  }
-  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b>${ClassroomFeedback.slotMarkup("hand")}<div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div><button class="btn btn-primary" onclick="handDrawItem()">🎁 抽取道具</button><button class="btn btn-warning" onclick="handUseItem()">🎒 查看道具</button></div>`;
-}
-function handQuickScore(n) {
-  if (handRaiseGroupId != null) applyScoreDelta(handRaiseGroupId, n);
-}
-
+function openHandRaise() { return globalThis.HandFlowView?.toggle(); }
+function closeHandRaise() { cancelHandItemDraw(true); return globalThis.HandFlowView?.close(); }
+function renderHandRaise() { return globalThis.HandFlowView?.render(); }
+function selectHandGroup(id) { return globalThis.HandFlowView?.select(id); }
+function judgeHandRaise(correct) { return globalThis.HandFlowView?.judge(correct); }
+function handQuickScore(n) { return globalThis.HandFlowView?.score(n); }
 function handUseItem() {
   const g = state.groups.find((x) => x.id === handRaiseGroupId);
   if (!g || !g.inventory.length) {
@@ -30806,39 +30735,6 @@ function cancelHandItemDraw(silent = false) {
   handItemDrawStartedAt = 0;
   if (wasPending && !silent) showToast("本次道具抽取已取消");
 }
-
-const _v21CloseHandRaise = closeHandRaise;
-closeHandRaise = function () {
-  cancelHandItemDraw(true);
-  _v21CloseHandRaise();
-};
-
-const _v21SelectHandGroup = selectHandGroup;
-selectHandGroup = function (id) {
-  if (handItemDrawTimer) {
-    showToast("道具正在抽取，请等待结果");
-    return;
-  }
-  _v21SelectHandGroup(id);
-};
-
-const _v21JudgeHandRaise = judgeHandRaise;
-judgeHandRaise = function (correct) {
-  cancelHandItemDraw(true);
-  _v21JudgeHandRaise(correct);
-  if (correct) {
-    const g = state.groups.find((x) => x.id === handRaiseGroupId);
-    const btn = [...document.querySelectorAll("#handRewardBox button")].find(
-      (b) => b.textContent.includes("抽取道具"),
-    );
-    if (btn && g && (!eligibleForItems(g) || g.inventory.length >= 3)) {
-      btn.disabled = true;
-      btn.style.opacity = ".45";
-      btn.title =
-        g.score < 0 ? "负分状态禁止获得任何道具" : "三个道具槽均已占用";
-    }
-  }
-};
 
 /* Floating-window hand reward: same pool, throttle and eligibility rules as
    handDrawItem, but the presentation belongs to the caller's own surface. */
@@ -32661,75 +32557,10 @@ function rankOfGroupV214(id) {
 /* About 里的“道具百科”与设置里的图标管理彻底分离：只保留左图右文的百科结构。 */
 
 
-/* 举手窗口的组按钮加 data 属性，便于分数变化时原位刷新。 */
-renderHandRaise = function () {
-  const box = document.getElementById("handGroupGrid");
-  if (!box) return;
-  box.innerHTML = state.groups
-    .map(
-      (g) =>
-        `<button type="button" class="hand-group two-tier-chip ${g.id === handRaiseGroupId ? "selected" : ""}" data-group-id="${g.id}" aria-pressed="${g.id === handRaiseGroupId ? "true" : "false"}" style="--hand-color:${g.color};--hand-contrast:${readableTextOnColor(g.color)}" onclick="selectHandGroup(${g.id})"><span class="hand-group-name">${escapeHtml(g.name)}</span><small>${g.score} 分</small></button>`,
-    )
-    .join("");
-  const reward = document.getElementById("handRewardBox");
-  if (reward) reward.innerHTML = "";
-};
-function updateHandScoreV214(id) {
-  const g = state.groups.find((x) => x.id === id);
-  if (!g) return;
-  const b = document.querySelector(
-    `#handGroupGrid .hand-group[data-group-id="${id}"] small`,
-  );
-  if (b) b.textContent = `${g.score} 分`;
-}
-handQuickScore = function (n) {
-  if (handRaiseGroupId == null) return;
-  const id = handRaiseGroupId;
-  applyScoreDelta(id, n);
-  updateHandScoreV214(id);
-  setTimeout(() => updateHandScoreV214(id), 120);
-};
-
-function renderHandRewardControlsV214() {
-  const box = document.getElementById("handRewardBox");
-  const g = state.groups.find((x) => x.id === handRaiseGroupId);
-  if (!box || !g) return;
-  const main = g.inventory?.[0];
-  const useText = main
-    ? `使用：${ITEM_DEFS[main.key]?.name || "当前主要道具"}`
-    : "使用：无主要道具";
-  const drawDisabled = !eligibleForItems(g) || g.inventory.length >= 3;
-  const useDisabled = !main || !eligibleForItems(g);
-  box.innerHTML = `<div class="hand-rewards"><b style="width:100%">回答正确 · 选择奖励</b><button class="btn btn-success" onclick="handQuickScore(1)">+1</button><button class="btn btn-success" onclick="handQuickScore(2)">+2</button><button class="btn btn-success" onclick="handQuickScore(5)">+5</button><button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled ? "disabled" : ""}>🎁 抽取道具</button><button class="btn btn-warning" onclick="handUsePrimaryV214()" ${useDisabled ? "disabled" : ""}>${escapeHtml(useText)}</button></div>`;
-}
-const _v214JudgeHandRaise = judgeHandRaise;
-judgeHandRaise = function (correct) {
-  _v214JudgeHandRaise.call(this, correct);
-  if (correct) renderHandRewardControlsV214();
-};
-function handUsePrimaryV214() {
-  const g = state.groups.find((x) => x.id === handRaiseGroupId);
-  if (!g) return;
-  const main = g.inventory?.[0];
-  if (!main) {
-    showToast("该组当前没有主要道具");
-    return;
-  }
-  const gid = g.id;
-  closeHandRaise();
-  // Use from the hand panel also presents the full-screen cinematic, exactly
-  // like the floating window's hand menu.
-  globalThis.HandItemCinematic?.mark(gid);
-  setTimeout(() => useItem(gid, 0), 0);
-}
-
-/* 抽完奖励后只允许关闭举手窗口。 */
-finishHandItemReward = function () {
-  handItemDrawGroupId = null;
-  handItemPendingKey = null;
-  handItemDrawStartedAt = 0;
-  closeHandRaise();
-};
+/* Compatibility entry points delegate to the shared card flow. */
+function updateHandScoreV214() { globalThis.HandFlowView?.render(); }
+function renderHandRewardControlsV214() { globalThis.HandFlowView?.render(); }
+function handUsePrimaryV214() { return globalThis.HandFlowView?.reward("use"); }
 
 /* 页面加载完成后启用唯一扁平主题。 */
 window.addEventListener("DOMContentLoaded", () =>
@@ -35099,169 +34930,7 @@ function globalItemDraw() {
 
 /* 举手奖励抽取同样压缩到 1.5s。 */
 function handDrawItem() {
-  if (itemDrawBusy) {
-    showToast("请等待当前道具抽取完成");
-    return false;
-  }
-  ensureV2State();
-  const g = state.groups.find((x) => x.id === handRaiseGroupId);
-  if (!g) return;
-  if (!eligibleForItems(g)) {
-    showToast("负分状态禁止获得任何道具");
-    return;
-  }
-  if (g.inventory.length >= 3) {
-    showToast("该组的三个道具槽都已占用");
-    return;
-  }
-  if (handItemDrawTimer) return;
-
-  if (typeof beginDrawSessionV21710 === "function")
-    beginDrawSessionV21710("hand");
-  if (typeof DesktopUI !== "undefined")
-    DesktopUI.visualEvent("ITEM_DRAW_START", {
-      groupId: handRaiseGroupId,
-      scope: "hand",
-    });
-  try {
-    startDrawSoundBedV2164();
-  } catch (e) {}
-
-  handItemDrawGroupId = g.id;
-  handItemPendingKey = null;
-  handItemDrawStartedAt = performance.now();
-
-  const box = document.getElementById("handRewardBox");
-  box.innerHTML = `<div class="hand-item-draw-stage hand-draw-horizontal">
-    <div class="hand-draw-head" style="font-weight:950;color:#0369a1">${escapeHtml(g.name)} · 道具抽取</div>
-    <div id="handItemCapsule" class="hand-item-capsule spinning">❔</div>
-    <div class="hand-draw-copy">
-      <div id="handItemDrawName" class="hand-item-draw-name">道具滚动中…</div>
-      <div class="hand-item-draw-sub">预览全部道具 · 最终结果按当前排名权重计算</div>
-    </div>
-    <div class="hand-item-progress"><div id="handItemProgressBar"></div></div>
-  </div>`;
-  BattleMotion.enterDrawContent(box.firstElementChild);
-
-  let last = 0;
-  const total = ITEM_DRAW_DURATION_V21712;
-  handItemDrawTimer = { raf: true };
-
-  function frame(now) {
-    if (!handItemDrawTimer) return;
-
-    const t = Math.min(1, (now - handItemDrawStartedAt) / total);
-    const interval = 55 + 90 * Math.pow(t, 2.1);
-
-    const bar = document.getElementById("handItemProgressBar");
-    if (bar) bar.style.width = t * 100 + "%";
-
-    if (now - last >= interval) {
-      last = now;
-      const live = state.groups.find((x) => x.id === handItemDrawGroupId);
-      if (!live) return;
-
-      const k = roulettePreviewPickV282();
-      const cap = document.getElementById("handItemCapsule");
-      const name = document.getElementById("handItemDrawName");
-
-      if (cap) {
-        cap.innerHTML = itemVisual(k);
-        cap.animate(
-          [
-            { opacity: 0.45, transform: "scale(.84)" },
-            { opacity: 1, transform: "scale(1)" },
-          ],
-          { duration: 70, easing: "cubic-bezier(.2,.8,.3,1)" },
-        );
-      }
-      if (name) name.textContent = ITEM_DEFS[k].name;
-    }
-
-    if (t < 1) {
-      requestAnimationFrame(frame);
-      return;
-    }
-
-    handItemDrawTimer = null;
-
-    const live = state.groups.find((x) => x.id === handItemDrawGroupId);
-    if (!live || !eligibleForItems(live) || live.inventory.length >= 3) {
-      cancelHandItemDraw(true);
-      showToast("抽取结束前该组已不满足获得条件");
-      renderHandRaise();
-      return;
-    }
-
-    const k = pickItemForGroupV281(live, new Set());
-    handItemPendingKey = k;
-
-    const groupUid = live.groupUid;
-    const accepted = runClassroomCommand(
-      `${live.name} 举手奖励抽取 ${ITEM_DEFS[k].name}`,
-      (context) => {
-        const current = state.groups.find((x) => x.groupUid === groupUid);
-        if (
-          !current ||
-          !eligibleForItems(current) ||
-          current.inventory.length >= 3
-        )
-          return false;
-        if (!addItemToGroup(current, k)) return false;
-        const acquired = current.inventory[current.inventory.length - 1];
-        context.emit(
-          "ITEM_ACQUIRED",
-          { type: "group", id: current.groupUid },
-          {
-            seasonId: state.seasonId,
-            itemKey: k,
-            itemInstanceId: acquired?.itemInstanceId || null,
-            source: "hand-raise-reward",
-          },
-        );
-        return true;
-      },
-      { retainOnPersistenceFailure: false },
-    );
-    if (!accepted) {
-      cancelHandItemDraw(true);
-      showToast("道具加入失败");
-      renderHandRaise();
-      return;
-    }
-
-    classroomCommands.whenIdle().then((result) => {
-      if (!result?.ok || !result.persisted) {
-        v213SuppressReorderAnimation = false;
-        cancelHandItemDraw(true);
-        showToast("道具奖励未能保存，已恢复原状态");
-        renderHandRaise();
-        return;
-      }
-      v213SkipNextReorderAnimation = true;
-      v213SuppressReorderAnimation = true;
-      renderAll();
-      v213SuppressReorderAnimation = false;
-
-      const current = state.groups.find((x) => x.groupUid === groupUid);
-      const slot = Math.max(0, (current?.inventory.length || 1) - 1);
-      box.innerHTML = `<div class="hand-item-draw-stage hand-draw-horizontal">
-        <div class="hand-draw-head" style="font-weight:950;color:#16a34a">🎁 获得道具</div>
-        <div class="hand-item-capsule reveal">${itemVisual(k)}</div>
-        <div class="hand-draw-copy">
-          <div class="hand-item-draw-name">${ITEM_DEFS[k].name}</div>
-          <div class="hand-item-draw-sub">已放入 ${escapeHtml(current?.name || live.name)} 的${slot === 0 ? "主要道具栏" : "次要道具栏 " + slot}</div>
-        </div>
-        <div class="hand-item-result-actions">
-          <button class="btn btn-primary" onclick="handUseNewItem()">🎒 查看道具</button>
-          <button class="btn btn-success" onclick="finishHandItemReward()">✓ 完成</button>
-        </div>
-      </div>`;
-      BattleMotion.enterDrawContent(box.firstElementChild);
-    });
-  }
-
-  requestAnimationFrame(frame);
+  return globalThis.HandFlowView?.reward("draw");
 }
 
 /* Presentation delegates to one cancellable layer; rules remain in the item engine. */
@@ -36925,25 +36594,8 @@ function renderHandRewardControlsV218() {
     ${triple ? `<button class="btn btn-danger" onclick="handUseAllTripleV218()">连发剩余 ${main.charges} 次</button>` : ""}
   </div>`;
 }
-renderHandRewardControlsV214 = renderHandRewardControlsV218;
-handUsePrimaryV214 = handUseOneV218;
-
 /* 正确判定后使用新版奖励栏 */
-const _v218JudgeHandRaise = judgeHandRaise;
-judgeHandRaise = function (correct) {
-  const r = _v218JudgeHandRaise.call(this, correct);
-  if (correct) setTimeout(renderHandRewardControlsV218, 0);
-  return r;
-};
-
 /* 抽完道具仍留在手动举手菜单；只保留“完成”，完成也不强制关窗。 */
-finishHandItemReward = function () {
-  handItemDrawGroupId = null;
-  handItemPendingKey = null;
-  handItemDrawStartedAt = 0;
-  renderHandRewardControlsV218();
-};
-
 /* ---------- 8. 道具百科重新排序 + 使用技巧 ---------- */
 const ITEM_ORDER_V218 = [
   "mushroom",
@@ -44708,6 +44360,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/settlement-and-core.css"],
     },
     {
+      name: "hand-reward-roll",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "handCrystalFloat",
       sources: ["src/styles/items/inventory-and-roulette.css"],
     },
@@ -46511,6 +46167,46 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
     {
+      name: "hand-flow-card",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-description",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-grid",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-hint",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-reel",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-reveal",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-score-form",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-shade",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-strip",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-window",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "hand-grid",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
@@ -47446,6 +47142,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
     {
+      name: "negative",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "neutral",
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
@@ -47576,6 +47276,10 @@ const GodPowerComponentCatalog = {
     {
       name: "pos",
       sources: ["src/styles/classroom/student-picker-hand.css"],
+    },
+    {
+      name: "positive",
+      sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
       name: "primary",
@@ -48160,6 +47864,10 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "six",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "slot-machine-case",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
@@ -48397,6 +48105,10 @@ const GodPowerComponentCatalog = {
     {
       name: "theme-marx",
       sources: ["src/styles/themes/tokens-and-presets.css"],
+    },
+    {
+      name: "three",
+      sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
       name: "toast",
@@ -55508,7 +55220,7 @@ globalThis.HandRaisePort = (() => {
         return {
           ok: true,
           persisted: true,
-          ...(drawn ? { itemName } : {}),
+          ...(drawn ? { itemName, itemKey: drawn.key } : {}),
         };
       } finally {
         running = false;
@@ -55633,6 +55345,556 @@ globalThis.HandRaisePort = (() => {
       console.warn("Legacy hand selection could not be adopted", result.error);
   });
   root.addEventListener("godpower:active-save-changed", invalidate);
+})(globalThis);
+</script>
+<style>.hand-flow-shade {
+  position: fixed;
+  inset: 0;
+  z-index: 299900;
+  pointer-events: none;
+}
+.hand-flow-shade > svg {
+  position: absolute;
+  inset: 0;
+}
+.hand-flow-hint {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 18px;
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ui-shadow);
+  pointer-events: auto;
+}
+.hand-flow-hint button {
+  border: 0;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+}
+.hand-flow-window {
+  width: min(1100px, 92vw);
+}
+.hand-flow-description {
+  text-align: center;
+  color: var(--ui-muted);
+  margin: 8px 0 24px;
+}
+.hand-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.hand-flow-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.hand-flow-grid.six {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.hand-flow-card {
+  min-height: 210px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  background: var(--ui-panel);
+  color: var(--ui-primary);
+  cursor: pointer;
+  transition:
+    transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+    background 160ms ease;
+}
+.hand-flow-card.positive {
+  color: var(--ui-success);
+}
+.hand-flow-card.negative {
+  color: var(--ui-danger);
+}
+.hand-flow-card svg {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hand-flow-card strong {
+  font-size: clamp(22px, 2vw, 34px);
+}
+.hand-flow-card span {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ui-muted);
+}
+.hand-flow-card:active {
+  transform: scale(0.97);
+}
+.hand-flow-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.hand-flow-card:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+.hand-flow-score-form {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.hand-flow-score-form label {
+  display: grid;
+  gap: 8px;
+}
+.hand-flow-score-form input {
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  color: var(--ui-text);
+  background: var(--ui-panel);
+}
+.hand-flow-reveal:not([hidden]) {
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 34px;
+  color: var(--ui-primary);
+}
+.hand-flow-reveal img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+.hand-flow-reel {
+  height: 110px;
+  overflow: hidden;
+  max-width: 250px;
+  margin: 30px auto;
+  mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent);
+}
+.hand-flow-strip {
+  display: flex;
+  flex-direction: column;
+  animation: hand-reward-roll 700ms linear infinite;
+}
+.hand-flow-strip > div {
+  height: 110px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+.hand-flow-strip img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+@keyframes hand-reward-roll {
+  to {
+    transform: translateY(-50%);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .hand-flow-card:not(:disabled):hover {
+    transform: translateY(-4px);
+    background: var(--ui-soft);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hand-flow-card {
+    transition: none;
+  }
+  .hand-flow-strip {
+    animation: none;
+  }
+}
+</style>
+<script>/* Owns hand card presentation; every judgment/reward goes through the shared session. */
+(function installHandFlowView(root) {
+  "use strict";
+  let active = false,
+    stage = "CLOSED",
+    owner = 0,
+    pending = false,
+    presentation = null,
+    frame = null,
+    timer = null,
+    oldFocus = null;
+  const cardAttributes = new Map();
+  const animations = new Set();
+  function clearAnimations() {
+    for (const animation of animations) animation.cancel();
+    animations.clear();
+  }
+  const E = (value) => escapeHtml(String(value ?? ""));
+  const content = () => document.getElementById("handFlowContent");
+  const backdrop = () => document.getElementById("handRaiseBackdrop");
+  const snapshot = () => ClassroomHandSession.getSnapshot();
+  const token = () => {
+    const s = snapshot();
+    return { groupId: s.groupId, selectionId: s.selectionId };
+  };
+  const icon = (path) =>
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
+  function shade() {
+    if (!active || stage !== "SELECT_GROUP") return;
+    let node = document.getElementById("handFlowShade");
+    if (!node) {
+      node = document.createElement("div");
+      node.id = "handFlowShade";
+      node.className = "hand-flow-shade";
+      node.setAttribute("aria-hidden", "true");
+      document.body.append(node);
+    }
+    const holes = [...document.querySelectorAll("#groupList>.group-row-card")]
+      .map((card) => {
+        const r = card.getBoundingClientRect();
+        return `<rect x="${r.x - 2}" y="${r.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
+      })
+      .join("");
+    node.innerHTML = `<svg width="100%" height="100%"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组 · Escape 退出<button type="button" data-hand-close>❌</button></div>`;
+  }
+  function scheduleShade() {
+    if (frame !== null) return;
+    frame = requestAnimationFrame(() => {
+      frame = null;
+      shade();
+    });
+  }
+  function clearPresentation() {
+    clearTimeout(timer);
+    timer = null;
+    presentation = null;
+    content()?.replaceChildren();
+  }
+  function selectMode() {
+    stage = "SELECT_GROUP";
+    document.body.dataset.handFlow = stage;
+    hideClassroomWindow(backdrop());
+    shade();
+    for (const card of cardAttributes.keys())
+      if (!card.isConnected) cardAttributes.delete(card);
+    for (const card of document.querySelectorAll(
+      "#groupList>.group-row-card",
+    )) {
+      if (!cardAttributes.has(card))
+        cardAttributes.set(card, {
+          tabindex: card.getAttribute("tabindex"),
+          role: card.getAttribute("role"),
+          label: card.getAttribute("aria-label"),
+        });
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute(
+        "aria-label",
+        `选择举手小组：${card.querySelector(".group-name")?.textContent || card.dataset.groupId}`,
+      );
+    }
+  }
+  function enterCards() {
+    clearAnimations();
+    document.getElementById("handFlowShade")?.remove();
+    document.body.dataset.handFlow = stage;
+    const preferences = root.DesktopUI?.getPreferences();
+    const reduced =
+      preferences?.motion === "off" ||
+      (preferences?.systemMotion &&
+        matchMedia("(prefers-reduced-motion: reduce)").matches);
+    if (!reduced)
+      for (const [i, card] of [
+        ...content().querySelectorAll(".hand-flow-card"),
+      ].entries()) {
+        const animation = card.animate(
+          [
+            { opacity: 0, transform: "translateY(16px) scale(.97)" },
+            { opacity: 1, transform: "translateY(0) scale(1)" },
+          ],
+          { duration: 240, delay: i * 35, easing: "cubic-bezier(.23,1,.32,1)" },
+        );
+        animations.add(animation);
+        animation.finished.then(
+          () => animations.delete(animation),
+          () => animations.delete(animation),
+        );
+      }
+    showClassroomWindow(backdrop());
+  }
+  function render() {
+    if (!active || pending || presentation) return;
+    const s = snapshot();
+    if (!s.selectionId || s.phase === "SELECT_GROUP" || s.phase === "CLOSED") {
+      selectMode();
+      return;
+    }
+    stage = s.phase;
+    const group = state.groups.find((g) => g.id === s.groupId);
+    document.getElementById("handFlowTitle").textContent =
+      group?.name || "课堂举手";
+    if (stage === "JUDGE")
+      content().innerHTML = `<p class="hand-flow-description">这一次回答，是否正确？</p><div class="hand-flow-grid"><button type="button" class="hand-flow-card positive" data-hand-judge="correct">${icon("m5 12 4 4L19 6")}<strong>回答正确</strong><span>记录参与，选择本次奖励</span></button><button type="button" class="hand-flow-card negative" data-hand-judge="wrong">${icon("m6 6 12 12M18 6 6 18")}<strong>回答错误</strong><span>记录勇敢参与，继续下一组</span></button></div>`;
+    else
+      content().innerHTML = `<p class="hand-flow-description">回答正确 · 本次选择一项奖励</p><div class="hand-flow-grid three"><button type="button" class="hand-flow-card positive" data-hand-reward="score" ${s.canScore ? "" : "disabled"}>${icon("M12 5v14M5 12h14")}<strong>我要加分</strong><span>六个预设或自由输入</span></button><button type="button" class="hand-flow-card" data-hand-reward="draw" ${s.canDraw ? "" : "disabled"}>${icon("M3 8h18v12H3ZM12 8v12M3 12h18M12 8C4 8 5 1 9 4l3 4c8 0 7-7 3-4Z")}<strong>我要抽道具</strong><span>${s.canDraw ? "正式奖池，抽取一次" : s.inventoryCount >= 3 ? "道具槽已满" : "当前状态不可获得道具"}</span></button><button type="button" class="hand-flow-card" data-hand-reward="use" ${s.canUse ? "" : "disabled"}>${icon("m14 3 7 7-4 4-3-3-7 10-4-4 10-7-3-3Z")}<strong>我要用道具</strong><span>${E(s.mainItemName || "暂无可用主要道具")}</span></button></div>`;
+    enterCards();
+  }
+  function scoreCards() {
+    stage = "SCORE";
+    document.body.dataset.handFlow = stage;
+    content().innerHTML = `<p class="hand-flow-description">正数加分，负数扣分 · 成功后完成本次奖励</p><div class="hand-flow-grid six">${ClassroomFeedback.getOptions()
+      .slots.map(
+        (n) =>
+          `<button type="button" class="hand-flow-card ${n > 0 ? "positive" : "negative"}" data-hand-score="${n}"><strong>${n > 0 ? "+" : ""}${n}</strong><span>分</span></button>`,
+      )
+      .join(
+        "",
+      )}</div><form id="handFlowScoreForm" class="hand-flow-score-form"><label>自定义分数<input id="handFlowScoreInput" type="number" step="1" required aria-label="举手自由分值"></label><button class="btn btn-primary" type="submit" data-hand-score-submit>确认赋分</button><button class="btn" type="button" data-hand-back>返回奖励</button></form>`;
+    enterCards();
+  }
+  async function execute(action, payload = {}, after = null) {
+    if (pending) return;
+    const generation = owner;
+    pending = true;
+    content()?.setAttribute("aria-busy", "true");
+    content()
+      ?.querySelectorAll("button,input")
+      .forEach((el) => (el.disabled = true));
+    try {
+      const result = await ClassroomHandSession.command(action, {
+        ...token(),
+        ...payload,
+      });
+      if (!active || owner !== generation) return;
+      if (!result.ok) {
+        showToast(result.error || "操作未完成，请重试");
+        return;
+      }
+      if (after) await after(result, generation);
+    } catch (error) {
+      if (active && owner === generation) showToast(error.message);
+    } finally {
+      if (active && owner === generation) {
+        pending = false;
+        content()?.removeAttribute("aria-busy");
+        if (!presentation) render();
+      }
+    }
+  }
+  async function select(groupId) {
+    if (!active) return;
+    await execute("handSelect", { groupId });
+  }
+  function drawPresentation(result, generation) {
+    presentation = true;
+    stage = "DRAW";
+    document.body.dataset.handFlow = stage;
+    const key =
+      result.itemKey ||
+      Object.keys(ITEM_DEFS).find((k) => ITEM_DEFS[k].name === result.itemName);
+    const keys = Object.keys(ITEM_DEFS).slice(0, 8);
+    const strip = [...keys, ...keys]
+      .map((k) => `<div>${itemVisual(k)}</div>`)
+      .join("");
+    content().innerHTML = `<p class="hand-flow-description">抽取结果已保存 · 正在揭晓</p><div class="hand-flow-reel" aria-label="道具滚动揭晓"><div class="hand-flow-strip">${strip}</div></div><div id="handFlowDrawResult" class="hand-flow-reveal" hidden></div><button type="button" class="btn" data-hand-skip>跳过演出</button>`;
+    enterCards();
+    const motionPreferences = DesktopUI.getPreferences();
+    const reduced =
+      motionPreferences.motion === "off" ||
+      (motionPreferences.systemMotion &&
+        matchMedia("(prefers-reduced-motion: reduce)").matches);
+    timer = setTimeout(
+      () => {
+        if (owner !== generation || !active) return;
+        content().querySelector(".hand-flow-reel")?.remove();
+        const reveal = document.getElementById("handFlowDrawResult");
+        reveal.hidden = false;
+        reveal.innerHTML = `${key ? itemVisual(key) : ""}<strong>${E(result.itemName || "道具已入库")}</strong>`;
+        if (!reduced) {
+          const animation = reveal.animate(
+            [
+              { opacity: 0, transform: "translateY(20px) scale(.96)" },
+              { opacity: 1, transform: "translateY(0) scale(1)" },
+            ],
+            { duration: 350, easing: "cubic-bezier(.23,1,.32,1)" },
+          );
+          animations.add(animation);
+          animation.finished.then(
+            () => animations.delete(animation),
+            () => animations.delete(animation),
+          );
+        }
+        timer = setTimeout(
+          () => {
+            if (owner !== generation || !active) return;
+            clearPresentation();
+            render();
+          },
+          reduced ? 0 : 1100,
+        );
+      },
+      reduced ? 0 : 900,
+    );
+  }
+  function reward(kind) {
+    if (kind === "score") {
+      scoreCards();
+      return;
+    }
+    return execute(
+      kind === "draw" ? "handDraw" : "handUse",
+      {},
+      kind === "draw" ? drawPresentation : null,
+    );
+  }
+  function close() {
+    if (!active) return;
+    active = false;
+    owner++;
+    pending = false;
+    clearPresentation();
+    clearAnimations();
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null;
+    document.getElementById("handFlowShade")?.remove();
+    delete document.body.dataset.handFlow;
+    for (const [card, attributes] of cardAttributes)
+      for (const [key, name] of [
+        ["tabindex", "tabindex"],
+        ["role", "role"],
+        ["label", "aria-label"],
+      ]) {
+        if (attributes[key] === null) card.removeAttribute(name);
+        else card.setAttribute(name, attributes[key]);
+      }
+    cardAttributes.clear();
+    hideClassroomWindow(backdrop());
+    ClassroomHandSession.invalidate();
+    handRaiseGroupId = null;
+    if (oldFocus?.isConnected) oldFocus.focus({ preventScroll: true });
+    oldFocus = null;
+  }
+  function toggle() {
+    if (active) {
+      close();
+      return;
+    }
+    if (!ClassroomWriteBarrier.allow()) return;
+    if (currentView !== "battle") switchView("battle");
+    active = true;
+    owner++;
+    oldFocus = document.activeElement;
+    ClassroomHandSession.invalidate();
+    selectMode();
+  }
+  document.addEventListener(
+    "click",
+    (event) => {
+      if (!active) return;
+      if (stage === "SELECT_GROUP") {
+        const target = event.target.closest?.(
+          '[data-hand-close],.bottom-dock [onclick*="openHandRaise"]',
+        );
+        if (target?.matches("[data-hand-close]")) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          close();
+          return;
+        }
+        if (target) return;
+        const card = event.target.closest?.("#groupList>.group-row-card");
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (card && !pending) void select(Number(card.dataset.groupId));
+        return;
+      }
+      const button = event.target.closest?.("#handRaiseBackdrop button");
+      if (!button) return;
+      if (button.hasAttribute("data-hand-judge"))
+        void execute("handJudge", {
+          correct: button.dataset.handJudge === "correct",
+        });
+      if (button.hasAttribute("data-hand-reward"))
+        void reward(button.dataset.handReward);
+      if (button.hasAttribute("data-hand-score"))
+        void execute("handScore", { delta: Number(button.dataset.handScore) });
+      if (button.hasAttribute("data-hand-back")) render();
+      if (button.hasAttribute("data-hand-skip")) {
+        clearPresentation();
+        render();
+      }
+    },
+    true,
+  );
+  document.addEventListener("submit", (event) => {
+    if (event.target.id !== "handFlowScoreForm") return;
+    event.preventDefault();
+    const delta = Number(document.getElementById("handFlowScoreInput").value);
+    if (!Number.isSafeInteger(delta) || !delta) {
+      showToast("请输入非零安全整数");
+      return;
+    }
+    void execute("handScore", { delta });
+  });
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (!active) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        close();
+        return;
+      }
+      if (stage !== "SELECT_GROUP") return;
+      const cards = [...cardAttributes.keys()];
+      if (event.key === "Tab") {
+        event.preventDefault();
+        const index = cards.indexOf(document.activeElement);
+        cards[
+          (index + (event.shiftKey ? -1 : 1) + cards.length) % cards.length
+        ]?.focus({ preventScroll: true });
+      }
+      if (event.key === "Enter" || event.key === " ") {
+        const card = event.target.closest?.(".group-row-card");
+        if (card) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          void select(Number(card.dataset.groupId));
+        }
+      }
+    },
+    true,
+  );
+  root.addEventListener("resize", scheduleShade);
+  document.addEventListener("scroll", scheduleShade, true);
+  root.addEventListener("godpower:active-save-changed", close);
+  root.addEventListener("pagehide", close, { once: true });
+  ClassroomHandSession.subscribe(render);
+  root.HandFlowView = Object.freeze({
+    toggle,
+    close,
+    render,
+    select,
+    reward,
+    judge: (correct) => execute("handJudge", { correct }),
+    score: (delta) => execute("handScore", { delta }),
+    status: () => ({ active, stage, pending }),
+  });
 })(globalThis);
 </script>
 <script>/* Transport only. Standalone HTML has no desktop bridge and keeps all existing behavior. */

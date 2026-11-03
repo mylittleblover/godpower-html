@@ -211,6 +211,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/settlement-and-core.css"],
     },
     {
+      name: "hand-reward-roll",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "handCrystalFloat",
       sources: ["src/styles/items/inventory-and-roulette.css"],
     },
@@ -2014,6 +2018,46 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
     {
+      name: "hand-flow-card",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-description",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-grid",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-hint",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-reel",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-reveal",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-score-form",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-shade",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-strip",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
+      name: "hand-flow-window",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "hand-grid",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
@@ -2949,6 +2993,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
     {
+      name: "negative",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "neutral",
       sources: ["src/styles/classroom/student-picker-hand.css"],
     },
@@ -3079,6 +3127,10 @@ const GodPowerComponentCatalog = {
     {
       name: "pos",
       sources: ["src/styles/classroom/student-picker-hand.css"],
+    },
+    {
+      name: "positive",
+      sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
       name: "primary",
@@ -3663,6 +3715,10 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "six",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "slot-machine-case",
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
@@ -3900,6 +3956,10 @@ const GodPowerComponentCatalog = {
     {
       name: "theme-marx",
       sources: ["src/styles/themes/tokens-and-presets.css"],
+    },
+    {
+      name: "three",
+      sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
       name: "toast",
