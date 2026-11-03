@@ -75,7 +75,7 @@ const RoundItemEffects = (() => {
           delete group.booRoundsLeftV218;
         }
       }
-      delete group.roundItemContinuationKeyV218;
+      ItemRoundUse.reset(group);
     });
     return true;
   }

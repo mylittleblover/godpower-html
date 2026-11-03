@@ -1,0 +1,104 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "key": "triple_green",
+      "id": "item-1880824d-3e51-4566-b928-5fcadcb17a07",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 3
+    },
+    {
+      "key": "triple_red",
+      "id": "item-d6fcbb93-e337-45f0-9257-bc7d68ad49da",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 6
+    },
+    {
+      "key": "triple_banana",
+      "id": "item-0dc3dce8-cc71-4012-9e5d-af55ff1c2d5b",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 9
+    },
+    {
+      "key": "triple_mushroom",
+      "id": "item-501164e2-74b7-4401-99e6-e391bd1c290e",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 12
+    },
+    {
+      "key": "fire_flower",
+      "id": "item-d4f7d169-c8e7-4aa9-9999-117b9b800db4",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 15
+    },
+    {
+      "key": "ice_flower",
+      "id": "item-973a1202-d353-4127-b3b4-7971828a1447",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 18
+    },
+    {
+      "key": "boomerang_flower",
+      "id": "item-13c20576-9d42-4827-bfc5-c0d035603237",
+      "accepted": [
+        true,
+        true,
+        true
+      ],
+      "blocked": false,
+      "otherBlocked": true,
+      "scoreUnchanged": true,
+      "sameTypeNew": "本题已经使用过道具",
+      "used": 21
+    }
+  ],
+  "errors": []
+}

@@ -345,6 +345,7 @@ function normalizeGroup(raw, index = 0) {
       source.roundItemContinuationKeyV218 || "",
     ),
     itemUsedThisRound: !!source.itemUsedThisRound,
+    roundItemInstanceId: StableIdentity.isValidItemInstanceId(source.roundItemInstanceId) ? source.roundItemInstanceId : "",
   };
 }
 

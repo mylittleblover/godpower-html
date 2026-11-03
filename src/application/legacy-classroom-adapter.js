@@ -325,7 +325,7 @@ function useItem(groupId, index) {
       );
       if (result === false || itemCommandSnapshot() === beforeValue)
         return false;
-      markItemUsedThisRoundV2177(groupId);
+      markItemUsedThisRoundV2177(groupId, usedItem);
       context.emit(
         "ITEM_USED",
         { type: "group", id: g.groupUid },

@@ -238,13 +238,7 @@ const Reliability = (() => {
     if (index !== 0) return "次要道具需要等待主要道具";
     if (Number(g.score) < 0) return "负分保护：该组不能使用道具";
     const key = g.inventory[index].key;
-    const continuation =
-      [
-        "triple_green",
-        "triple_red",
-        "triple_banana",
-        "triple_mushroom",
-      ].includes(key) && g.roundItemContinuationKeyV218 === key;
+    const continuation = ItemRoundUse.canContinue(g, g.inventory[index]);
     if (s.roundActive && !s.evaluated && g.itemUsedThisRound && !continuation)
       return "本题已经使用过道具";
     if (

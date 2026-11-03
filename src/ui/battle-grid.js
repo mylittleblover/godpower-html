@@ -235,8 +235,11 @@ function decorateRoundItemLocks() {
 
       const main = card.querySelector(".battle-main-item");
       if (main) {
-        main.classList.add("round-item-locked");
-        main.title = "本题已经使用过一次道具";
+        const continuation = ItemRoundUse.canContinue(g, g.inventory?.[0]);
+        main.classList.toggle("round-item-locked", !continuation);
+        main.title = continuation
+          ? `继续使用同一道具（剩余 ${g.inventory[0].charges} 次）`
+          : "本题已经使用过另一枚道具";
       }
     });
   }

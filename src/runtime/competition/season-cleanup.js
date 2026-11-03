@@ -19,7 +19,7 @@ function resetCompetitionDataAfterSettlementV21812() {
     g.itemEffect = null;
     g.competitionEffects = {};
     g.booShield = 0;
-    g.itemUsedThisRound = false;
+    ItemRoundUse.reset(g);
 
     delete g.booRoundsLeftV218;
     delete g.roundItemContinuationKeyV218;

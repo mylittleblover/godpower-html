@@ -26,33 +26,7 @@ function finishOwnItemUseV218(g, key, index, targetText) {
   return true;
 }
 
-/* 道具窗口状态：同一个三重道具在本题剩余次数仍可继续点。 */
-if (typeof queueUseStateV2120 === "function") {
-  const _v218QueueState = queueUseStateV2120;
-  queueUseStateV2120 = function (g, index) {
-    if (
-      g?.inventory?.[index]?.key &&
-      globalThis.ItemModules &&
-      !ItemModules.canUse(g.inventory[index].key)
-    )
-      return { usable: false, label: "设置中已关闭主动使用" };
-    if (
-      index === 0 &&
-      state.roundActive &&
-      !state.evaluated &&
-      g?.itemUsedThisRound &&
-      TRIPLE_KEYS_V218.has(g.inventory?.[0]?.key) &&
-      g.roundItemContinuationKeyV218 === g.inventory?.[0]?.key
-    ) {
-      return {
-        usable: true,
-        label: `继续使用（剩余 ${g.inventory[0].charges}）`,
-      };
-    }
-    return _v218QueueState.call(this, g, index);
-  };
-}
-
+/* 主道具状态统一由queue-adapters与ItemRoundUse计算。 */
 /* 幽灵 3 题内无限防御，不因攻击消耗。 */
 
 /* 超级喇叭防刺龟壳改为确认弹窗，机制参考蘑菇。 */

@@ -337,14 +337,6 @@ const ItemOperationBlocks = (() => {
       group.itemStats = group.itemStats || {};
       if (!context.noStats)
         group.itemStats.used = (Number(group.itemStats.used) || 0) + 1;
-      if (
-        blueprint.continuation &&
-        group.inventory?.[0]?.key === key &&
-        group.inventory[0].charges > 0
-      )
-        group.roundItemContinuationKeyV218 = key;
-      else if (blueprint.continuation)
-        delete group.roundItemContinuationKeyV218;
       if (blueprint.punishOvertake !== false)
         detectOvertakePunish(
           group.id,

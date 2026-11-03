@@ -15,6 +15,7 @@ function queueUseStateV2120(g, index) {
   const it = g?.inventory?.[index];
   if (!it) return { usable: false, label: "空道具槽" };
   if (index !== 0) return { usable: false, label: "🔒 等待主要道具" };
+  if (globalThis.ItemModules && !ItemModules.canUse(it.key)) return { usable: false, label: "设置中已关闭主动使用" };
   if (isQueuePersistentActiveV2120(g, it))
     return { usable: false, label: "⏳ 生效中 · 等待结束" };
   if (!eligibleForItems(g)) return { usable: false, label: "负分保护" };
@@ -23,7 +24,7 @@ function queueUseStateV2120(g, index) {
   if (reason) return { usable: false, label: reason };
   if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
     return { usable: true, label: "解除冻结（本次不发动）" };
-  return { usable: true, label: "使用主要道具" };
+  return { usable: true, label: state.roundActive && !state.evaluated && ItemRoundUse.canContinue(g, it) ? `继续使用（剩余 ${it.charges}）` : "使用主要道具" };
 }
 
 /* 最终主动使用守门：即使旧 DOM、历史页面或脚本直接传入 index 1/2，也不能越过主要道具。 */
