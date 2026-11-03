@@ -1,0 +1,10 @@
+✔ legacy roster converts actual assignments and unowned class without inventing matches (20.292924ms)
+✔ legacy avatar bytes are hashed and re-owned only with matching classroom metadata (10.882573ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.600226

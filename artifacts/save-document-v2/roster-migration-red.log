@@ -1,0 +1,46 @@
+✖ legacy roster converts actual assignments and unowned class without inventing matches (3.222766ms)
+✖ legacy avatar bytes are hashed and re-owned only with matching classroom metadata (2.526375ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.697482
+
+✖ failing tests:
+
+test at tests/unit/save-roster-migration.test.mjs:8:1
+✖ legacy roster converts actual assignments and unowned class without inventing matches (3.222766ms)
+  Error: ENOENT: no such file or directory, open 'src/application/save-roster-migration.js'
+      at readFileSync (node:fs:484:20)
+      at core (file:///workspace/godpower-html-latest/tests/unit/save-roster-migration.test.mjs:7:137)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster-migration.test.mjs:8:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/application/save-roster-migration.js'
+  }
+
+test at tests/unit/save-roster-migration.test.mjs:9:1
+✖ legacy avatar bytes are hashed and re-owned only with matching classroom metadata (2.526375ms)
+  Error: ENOENT: no such file or directory, open 'src/application/save-roster-migration.js'
+      at readFileSync (node:fs:484:20)
+      at core (file:///workspace/godpower-html-latest/tests/unit/save-roster-migration.test.mjs:7:137)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster-migration.test.mjs:9:116)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/application/save-roster-migration.js'
+  }

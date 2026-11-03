@@ -317,6 +317,11 @@
     },
     {
       "type": "script",
+      "path": "application/save-roster-migration.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "infrastructure/classroom-roster-repository.js",
       "attributes": ""
     },
@@ -479,331 +484,331 @@
       "type": "script",
       "path": "runtime/ui/window-visibility.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/core/state-and-preferences.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/archives/settlement-actions.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/session-cache.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/history/compatibility-ui.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/resource-loading.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/sound-playback.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/battle-playback.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/toast.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/storage/classroom-save.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/battle-layout-controls.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/admin-lock.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/competition/round-actions.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/classroom/roster-settings-actions.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/score-dialog-and-animation.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/competition/answer-adapter.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/member-search.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/competition-summary.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/picker/selection-engine.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/classroom/roster-text-import.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/storage/classroom-transfer.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/classroom/group-actions.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/settings-and-transfer.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/navigation-and-clock.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-patterns.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-synthesis.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-transport.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/menu-settings.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/picker-roll.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/wallpaper.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/bootstrap/classroom-startup.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/definitions-and-state.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/ranking-and-drop-legacy.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/attack-legacy.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/group-window.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/picker/classroom-tools.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/encyclopedia-and-icons.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/settings-and-about.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/hand-reward-lifecycle.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/feedback-and-icons.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/card-effects-legacy.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/history/boot-and-settings-compat.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/audio/item-sound-settings.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/icon-settings.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/settings-navigation-compat.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/persistent-state-repair.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/program-confirmation.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/weighted-selection.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/effect-palette-and-preview.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/catalog-adapters.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/catalog-refresh.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/feature-switch.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/ui/chart-and-window-polish.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/lightning-and-hit-legacy.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
       "path": "runtime/items/queue-adapters.js",
       "attributes": "",
-      "executionGroup": "script-78"
+      "executionGroup": "script-79"
     },
     {
       "type": "script",
@@ -964,37 +969,37 @@
       "type": "script",
       "path": "runtime/classroom/student-labels-and-search.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
       "path": "runtime/classroom/quick-person-score.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
       "path": "runtime/items/triple-defense-helpers.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
       "path": "runtime/items/first-hand-pool.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
       "path": "runtime/classroom/hand-reward-controls.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
       "path": "runtime/items/encyclopedia-rules.js",
       "attributes": " id=\"v2180HandwrittenPlanLogic\"",
-      "executionGroup": "script-110"
+      "executionGroup": "script-111"
     },
     {
       "type": "script",
@@ -1210,19 +1215,19 @@
       "type": "script",
       "path": "ui/component-catalog.js",
       "attributes": "",
-      "executionGroup": "script-153"
+      "executionGroup": "script-154"
     },
     {
       "type": "script",
       "path": "ui/component-preview-style.js",
       "attributes": "",
-      "executionGroup": "script-153"
+      "executionGroup": "script-154"
     },
     {
       "type": "script",
       "path": "ui/component-library.js",
       "attributes": "",
-      "executionGroup": "script-153"
+      "executionGroup": "script-154"
     },
     {
       "type": "style",

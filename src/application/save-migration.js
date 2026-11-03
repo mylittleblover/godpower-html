@@ -92,6 +92,7 @@
     rawText,
     name = "导入课堂",
     rosterData = null,
+    readAsset,
   } = {}) {
     if (
       typeof rawText !== "string" ||
@@ -100,6 +101,8 @@
       throw Error("source text is missing or exceeds import limit");
     const raw = JSON.parse(rawText);
     root.SaveSchema.safeTree(raw);
+    if (root.ClassroomRosterMigration?.matches(raw))
+      return root.ClassroomRosterMigration.preview({ rawText, readAsset });
     if (raw?.kind === "godpower.save-bundle") {
       if (
         raw.schemaVersion !== 2 ||

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "migrated": {
+    "entries": 4,
+    "old": [
+      "save-6be6ad6b677238206831029ae3b8d39d8bed28649b9a988d17d837ef60fc00cd",
+      "save-f1d2946dcacd39b9cb7bff2a7f5d5318c11be5d41730a1ad292f4154bd32c82a",
+      "save-66e0dd7beb2b8d6179e818ea5f2f0b6a08f835e322c784aaa58ea75c2973b104"
+    ],
+    "rawUnchanged": true,
+    "sourceUnchanged": true,
+    "notice": "已从旧名单建立 3 个独立课堂存档；仅迁移真实分组，不推测比赛成绩。"
+  },
+  "errors": []
+}

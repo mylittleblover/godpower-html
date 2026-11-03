@@ -1,7 +1,8 @@
 /* Runtime owner for the save library. Competition rules remain in their existing commands. */
 (function installSaveManager(root) {
   "use strict";
-  let libraryBlocked = false,
+  let legacyRosterMessage = "",
+    libraryBlocked = false,
     deferredLegacySave = null,
     preferenceQueue = Promise.resolve({ ok: true });
   let repo = null,
@@ -105,6 +106,7 @@
           if (!imported.ok) throw Error(imported.message || imported.code);
         }
       }
+      await discoverLegacyRoster();
       session = await SaveSession.create({
         repository: repo,
         apply: applyDocument,
@@ -279,8 +281,43 @@
     if (!accepted) return { ok: false, error: "操作未提交" };
     return classroomCommands.whenIdle();
   }
+  async function discoverLegacyRoster() {
+    try {
+      const rawText = root.localStorage.getItem("godpower_classroom_roster_v1");
+      if (!rawText) return;
+      const digest = await SaveMigration.textDigest(rawText),
+        previous = await repo.getSource(digest);
+      if (previous?.raw) {
+        legacyRosterMessage =
+          "旧教师／课堂名单已保留为独立存档，原始名单与头像库未删除。";
+        return;
+      }
+      const preview = await previewSource(rawText, "旧课堂名单");
+      const result = await repo.importPreview(preview, { activate: false });
+      if (!result.ok) throw Error(result.message || result.code);
+      legacyRosterMessage = `已从旧名单建立 ${preview.documents.length} 个独立课堂存档；仅迁移真实分组，不推测比赛成绩。`;
+      if (preview.warnings.some((w) => w.code === "LEGACY_AVATAR_UNAVAILABLE"))
+        legacyRosterMessage += " 部分旧头像暂不可读，原资源和来源信息仍保留。";
+    } catch (error) {
+      legacyRosterMessage = "旧名单暂未转换，原文保持不变：" + error.message;
+      console.warn(legacyRosterMessage);
+    }
+  }
   async function previewSource(rawText, name) {
-    const preview = await SaveMigration.preview({ rawText, name });
+    let resources = null,
+      preview;
+    try {
+      preview = await SaveMigration.preview({
+        rawText,
+        name,
+        readAsset: async (id) => {
+          resources ||= await root.TeachingResourceRepository.open();
+          return resources.get(id);
+        },
+      });
+    } finally {
+      resources?.close();
+    }
     for (const doc of preview.documents)
       Reliability.validateBackup(
         SaveProjection.toRuntime(doc, { values: prefs() }),
@@ -361,7 +398,7 @@
         ? { saveId: currentStatus.saveId, generation: currentStatus.generation }
         : null),
     snapshot: () => session?.snapshot() || null,
-    status: () => ({ ...currentStatus }),
+    status: () => ({ ...currentStatus, legacyRosterMessage }),
     repository: () => repo,
     persist,
     scheduleLegacySave,

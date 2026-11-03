@@ -201,3 +201,7 @@ AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/
 ### 归档后初始化恢复标记
 
 `match.pendingSettlement?: {seasonId, recordId}` 与正式档案在同一文档事务中提交，只能引用当前赛季真实档案。保存新赛季成功后移除。同赛季投影保留该标记；中央命令及遗留名单/小组/点名入口禁止继续修改，避免归档后新增数据被下一次清零遗漏。刷新后显示“完成新一届初始化”，继续使用原清场规则且不重复颁发归档。
+
+### 旧教师／课堂名单
+
+`ClassroomRosterMigration`读取schema1名单/仓库envelope/名单离线备份，依据实际assignments建立独立SaveDocument；无assignment课堂保留为未分组学生池。保留稳定学生UID和已记录分组UID，未知组名显式标注，缺比赛快照不会补造分数、历史、成就。来源信息在migration保存userProfileId、classroomId、mode和原文摘要。旧键、头像库及原文不删除；导入回执保证重启不重复。导出备份的头像必须校验通过，单独资源库暂不可读时记录缺失来源并保留原资源。

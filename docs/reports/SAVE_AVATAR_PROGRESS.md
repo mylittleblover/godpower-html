@@ -24,7 +24,7 @@
 | 两份实际文件：14组/56人/40历史/19头像 | PASS | private-migration-summary.json、private-ui-summary.json |
 | 原文哈希不变、逐字段回环、原生仓库关闭重开 | PASS | 上述摘要；原始私有文件未入Git |
 | 独立仓库/IPC前一检查点Electron21场景 | PASS | Electron artifacts/save-library-native |
-| 本轮默认权威切换后的Electron完整场景 | NOT TESTED | 待同步已提交HTML后执行 |
+| 本轮默认权威切换后的Electron完整场景 | PASS | Electron artifacts/save-library-active-fixed，21/21；Linux Xvfb，非Windows |
 | 新版file://及Windows物理设备 | NOT TESTED | 待最终验证；不以HTTP或Linux代替 |
 
 公开截图只使用模拟数据。实际姓名/照片及原文、映射、迁移回执和完整新包均在/workspace/attachments/save-avatar-staging及原始下载目录，不进公开仓库。
@@ -47,3 +47,5 @@
 - 新增退出flush握手，等待renderer预处理、命令确认、偏好与磁盘队列；服务与Windows退出协调单元PASS，最终真实Electron退出待同步验证。
 
 不改变既有retainOnPersistenceFailure语义：普通答题保存失败仍可保留本页结果并明确persisted:false/导出警告；这不算持久化成功。归档、清零及导入必须等待可靠ACK。
+
+追加检查点：旧多教师/课堂名单迁移与可视化搜索已实现，391项单元/集成与专项浏览器PASS；Electron的75项单元/21场景已通过归档/点名修复后的42acb2f源码。之后新增名单迁移仍待再次同步。独立复审因代理额度限制BLOCKED，不计通过。

@@ -15425,6 +15425,7 @@ globalThis.StableIdentity = StableIdentity;
     rawText,
     name = "导入课堂",
     rosterData = null,
+    readAsset,
   } = {}) {
     if (
       typeof rawText !== "string" ||
@@ -15433,6 +15434,8 @@ globalThis.StableIdentity = StableIdentity;
       throw Error("source text is missing or exceeds import limit");
     const raw = JSON.parse(rawText);
     root.SaveSchema.safeTree(raw);
+    if (root.ClassroomRosterMigration?.matches(raw))
+      return root.ClassroomRosterMigration.preview({ rawText, readAsset });
     if (raw?.kind === "godpower.save-bundle") {
       if (
         raw.schemaVersion !== 2 ||
@@ -17204,6 +17207,222 @@ globalThis.StableIdentity = StableIdentity;
     projectLegacyMembers,
     planCompetitionMemberUpdate,
   });
+})(globalThis);
+</script>
+<script>/* Read-only migration of legacy teacher/class rosters; never infer match results. */
+(function installClassroomRosterMigration(root) {
+  "use strict";
+  const copy = (value) => root.SaveSchema.clone(value);
+  const digest = async (bytes) =>
+    [...new Uint8Array(await root.crypto.subtle.digest("SHA-256", bytes))]
+      .map((n) => n.toString(16).padStart(2, "0"))
+      .join("");
+  const hashText = (text) => digest(new TextEncoder().encode(text));
+  const matches = (raw) =>
+    raw?.schemaVersion === 1 &&
+    (!!raw.rosterData || Array.isArray(raw.profiles));
+  async function preview({ rawText, readAsset = async () => null }) {
+    if (
+      typeof rawText !== "string" ||
+      new TextEncoder().encode(rawText).length > 128 * 1024 * 1024
+    )
+      throw Error("旧名单超过导入限制");
+    const raw = JSON.parse(rawText);
+    root.SaveSchema.safeTree(raw);
+    if (!matches(raw)) throw Error("不支持的旧名单格式");
+    const data = root.ClassroomRoster.validateRosterDocument(
+        raw.rosterData || raw,
+      ),
+      sourceDigest = await hashText(rawText);
+    const warnings = [
+        {
+          code: "NO_COMPETITION_SNAPSHOT",
+          message:
+            "旧名单未记录比赛快照；转换为未开始课堂，积分为零，不推测历史战绩。",
+        },
+      ],
+      assets = new Map(),
+      avatarIds = new Map();
+    const embedded = new Map();
+    if (raw.avatars !== undefined) {
+      if (!Array.isArray(raw.avatars) || raw.avatars.length > 10000)
+        throw Error("旧头像备份格式错误");
+      for (const asset of raw.avatars) {
+        if (
+          !asset ||
+          typeof asset.resourceId !== "string" ||
+          embedded.has(asset.resourceId)
+        )
+          throw Error("旧头像标识重复或无效");
+        embedded.set(asset.resourceId, asset);
+      }
+    }
+    let totalBytes = 0;
+    for (const student of data.students) {
+      const oldId = student.avatarResourceId;
+      if (!oldId) continue;
+      const key = student.classroomId + ":" + oldId;
+      if (avatarIds.has(key)) continue;
+      let entry = embedded.get(oldId);
+      try {
+        entry ||= await readAsset(oldId);
+        if (
+          !entry ||
+          entry.classroomId !== student.classroomId ||
+          entry.subjectId !== "student-avatar" ||
+          !/^image\/(png|jpeg|webp)$/.test(entry.mimeType)
+        )
+          throw Error("头像课堂或格式不匹配");
+        const bytes = entry.blob
+          ? new Uint8Array(await entry.blob.arrayBuffer())
+          : Uint8Array.from(atob(entry.bytesBase64), (c) => c.charCodeAt(0));
+        if (!bytes.length || bytes.length > 2 * 1024 * 1024)
+          throw Error("旧头像大小无效");
+        totalBytes += bytes.length;
+        if (totalBytes > 50 * 1024 * 1024) throw Error("旧头像总大小超过50MiB");
+        const sha256 = await digest(bytes);
+        if (entry.sha256 && sha256 !== entry.sha256.toLowerCase())
+          throw Error("旧头像摘要不匹配");
+        const resourceId = "asset-" + sha256;
+        let dataBase64 = "";
+        for (let i = 0; i < bytes.length; i += 0x8000)
+          dataBase64 += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        assets.set(resourceId, {
+          resourceId,
+          sha256,
+          mimeType: entry.mimeType,
+          byteLength: bytes.length,
+          dataBase64: btoa(dataBase64),
+        });
+        avatarIds.set(key, resourceId);
+      } catch (error) {
+        if (embedded.has(oldId))
+          throw Error("备份头像校验失败：" + error.message);
+        avatarIds.set(key, null);
+        warnings.push({
+          code: "LEGACY_AVATAR_UNAVAILABLE",
+          studentUid: student.studentUid,
+          resourceId: oldId,
+          message: error.message,
+        });
+      }
+    }
+    const contexts = [...data.assignments];
+    for (const classroom of data.classrooms)
+      if (!contexts.some((a) => a.classroomId === classroom.classroomId))
+        contexts.push({
+          userProfileId: null,
+          classroomId: classroom.classroomId,
+          mode: "individual",
+          groupAssignments: [],
+        });
+    if (!contexts.length) throw Error("旧名单没有可转换的课堂；原文保持不变");
+    const documents = [];
+    for (const context of contexts) {
+      const classroom = data.classrooms.find(
+          (c) => c.classroomId === context.classroomId,
+        ),
+        profile = data.profiles.find(
+          (p) => p.userProfileId === context.userProfileId,
+        );
+      const identity = await hashText(
+        sourceDigest +
+          ":" +
+          (context.userProfileId || "unowned") +
+          ":" +
+          context.classroomId,
+      );
+      const students = data.students
+        .filter((s) => s.classroomId === context.classroomId)
+        .map((s) => ({
+          studentUid: s.studentUid,
+          displayName: s.displayName,
+          number: s.number ?? null,
+          avatarResourceId:
+            avatarIds.get(s.classroomId + ":" + s.avatarResourceId) || null,
+        }));
+      const groupIds = [
+        ...new Set(context.groupAssignments.map((a) => a.groupUid)),
+      ];
+      const empty = groupIds.length === 0;
+      if (empty) groupIds.push("group-" + identity);
+      const groups = groupIds.map((groupUid, i) => ({
+        id: i + 1,
+        groupUid,
+        groupNo: i + 1,
+        name: empty ? "待分组" : "原分组 " + (i + 1) + "（名称未记录）",
+        color: "#0f766e",
+        score: 0,
+        displayScore: 0,
+        members: context.groupAssignments
+          .filter((a) => a.groupUid === groupUid)
+          .map((a) =>
+            root.SaveRoster.label(
+              students.find((s) => s.studentUid === a.studentUid),
+            ),
+          ),
+        inventory: [],
+        itemStats: { correct: 0, wrong: 0, draws: 0, used: 0 },
+      }));
+      const base = await root.SaveMigration.preview({
+        rawText: JSON.stringify({
+          schemaVersion: 2,
+          seasonId: "season-" + identity,
+          timestamp: "1970-01-01T00:00:00.000Z",
+          groups,
+          history: [],
+          round: {
+            roundActive: false,
+            evaluated: false,
+            hasStartedOnce: false,
+            correctAns: "",
+          },
+          picker: {
+            mode: context.mode,
+            antiRepeat: true,
+            pickedStudentKeys: [],
+            pickedGroupIds: [],
+            preselectedGroupIds: [],
+          },
+          itemGlobal: {},
+          achievementLedger: { schemaVersion: 1, groups: {} },
+        }),
+        name: classroom.name + " · " + (profile?.displayName || "旧名单"),
+      });
+      const doc = base.documents[0];
+      doc.saveId = "save-" + identity;
+      doc.roster.students = students;
+      doc.roster.assignments = copy(context.groupAssignments);
+      doc.assetReferences = [
+        ...new Set(students.map((s) => s.avatarResourceId).filter(Boolean)),
+      ];
+      doc.migration = {
+        ...doc.migration,
+        sourceDigest,
+        sourceType: "legacy-roster-only",
+        userProfileId: context.userProfileId,
+        classroomId: context.classroomId,
+        mode: context.mode,
+        warnings: copy(warnings),
+      };
+      documents.push(root.SaveSchema.validateV2(doc));
+    }
+    return {
+      documents,
+      assets: [...assets.values()],
+      sourceDigest,
+      sourceText: rawText,
+      warnings,
+      appPreferences: { schemaVersion: 1, values: {} },
+      report: {
+        saves: documents.length,
+        students: documents.reduce((n, d) => n + d.roster.students.length, 0),
+        groups: documents.reduce((n, d) => n + d.roster.groups.length, 0),
+        assets: assets.size,
+      },
+    };
+  }
+  root.ClassroomRosterMigration = Object.freeze({ matches, preview });
 })(globalThis);
 </script>
 <script>(function installClassroomRosterRepository(root) {
@@ -41007,7 +41226,8 @@ globalThis.ClassroomSaveFile = (() => {
 <script>/* Runtime owner for the save library. Competition rules remain in their existing commands. */
 (function installSaveManager(root) {
   "use strict";
-  let libraryBlocked = false,
+  let legacyRosterMessage = "",
+    libraryBlocked = false,
     deferredLegacySave = null,
     preferenceQueue = Promise.resolve({ ok: true });
   let repo = null,
@@ -41111,6 +41331,7 @@ globalThis.ClassroomSaveFile = (() => {
           if (!imported.ok) throw Error(imported.message || imported.code);
         }
       }
+      await discoverLegacyRoster();
       session = await SaveSession.create({
         repository: repo,
         apply: applyDocument,
@@ -41285,8 +41506,43 @@ globalThis.ClassroomSaveFile = (() => {
     if (!accepted) return { ok: false, error: "操作未提交" };
     return classroomCommands.whenIdle();
   }
+  async function discoverLegacyRoster() {
+    try {
+      const rawText = root.localStorage.getItem("godpower_classroom_roster_v1");
+      if (!rawText) return;
+      const digest = await SaveMigration.textDigest(rawText),
+        previous = await repo.getSource(digest);
+      if (previous?.raw) {
+        legacyRosterMessage =
+          "旧教师／课堂名单已保留为独立存档，原始名单与头像库未删除。";
+        return;
+      }
+      const preview = await previewSource(rawText, "旧课堂名单");
+      const result = await repo.importPreview(preview, { activate: false });
+      if (!result.ok) throw Error(result.message || result.code);
+      legacyRosterMessage = `已从旧名单建立 ${preview.documents.length} 个独立课堂存档；仅迁移真实分组，不推测比赛成绩。`;
+      if (preview.warnings.some((w) => w.code === "LEGACY_AVATAR_UNAVAILABLE"))
+        legacyRosterMessage += " 部分旧头像暂不可读，原资源和来源信息仍保留。";
+    } catch (error) {
+      legacyRosterMessage = "旧名单暂未转换，原文保持不变：" + error.message;
+      console.warn(legacyRosterMessage);
+    }
+  }
   async function previewSource(rawText, name) {
-    const preview = await SaveMigration.preview({ rawText, name });
+    let resources = null,
+      preview;
+    try {
+      preview = await SaveMigration.preview({
+        rawText,
+        name,
+        readAsset: async (id) => {
+          resources ||= await root.TeachingResourceRepository.open();
+          return resources.get(id);
+        },
+      });
+    } finally {
+      resources?.close();
+    }
     for (const doc of preview.documents)
       Reliability.validateBackup(
         SaveProjection.toRuntime(doc, { values: prefs() }),
@@ -41367,7 +41623,7 @@ globalThis.ClassroomSaveFile = (() => {
         ? { saveId: currentStatus.saveId, generation: currentStatus.generation }
         : null),
     snapshot: () => session?.snapshot() || null,
-    status: () => ({ ...currentStatus }),
+    status: () => ({ ...currentStatus, legacyRosterMessage }),
     repository: () => repo,
     persist,
     scheduleLegacySave,
@@ -50643,13 +50899,20 @@ const UIComponentLibrary = (() => {
   gap: 8px;
   margin: 12px 0;
 }
-.save-member-options label {
+.save-member-options label:not([hidden]) {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-sm);
+}
+.save-member-options img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
 }
 .save-member-options small {
   color: var(--ui-muted);
@@ -50729,6 +50992,8 @@ const UIComponentLibrary = (() => {
       ? `${doc.name} · 修订 ${doc.revision} · ${status.phase === "saving" ? "保存中…" : status.phase === "error" ? "保存失败，保留当前数据" : "本地保存"}`
       : status.error || "正在读取当前存档…";
     mounted.querySelector("[data-save-retry]").hidden = !SaveManager.blocked();
+    mounted.querySelector("[data-legacy-roster-status]").textContent =
+      status.legacyRosterMessage || "";
     if (!doc) return;
     if (saveId !== doc.saveId) {
       saveId = doc.saveId;
@@ -50895,6 +51160,7 @@ const UIComponentLibrary = (() => {
       group = doc?.roster.groups.find((g) => g.groupUid === groupUid);
     if (!group) return;
     const body = mounted.querySelector("[data-member-options]");
+    mounted.querySelector("[data-member-search]").value = "";
     mounted.querySelector("[data-member-title]").textContent =
       group.name + " · 选择成员";
     body.innerHTML =
@@ -50906,7 +51172,7 @@ const UIComponentLibrary = (() => {
           const other = doc.roster.groups.find(
             (g) => g.groupUid === a?.groupUid,
           );
-          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${a?.groupUid === groupUid ? "checked" : ""}><span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
+          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${a?.groupUid === groupUid ? "checked" : ""}>${s.avatarResourceId ? `<img data-asset="${E(s.avatarResourceId)}" alt="头像">` : ""}<span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
         })
         .join("") || "<p>请先新增学生。</p>";
     const panel = mounted.querySelector("[data-member-editor]");
@@ -50914,6 +51180,7 @@ const UIComponentLibrary = (() => {
     panel.dataset.groupUid = groupUid;
     panel.dataset.saveId = doc.saveId;
     panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    thumbnails();
   }
   function mount(parent) {
     if (mounted) return mounted;
@@ -50924,12 +51191,22 @@ const UIComponentLibrary = (() => {
    <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
    <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
+   <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
    <form id="saveStudentForm" class="save-student-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required></label><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button></form>
    <div class="save-roster-columns"><section><h4 data-save-students-count>学生</h4><table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section><section><h4>小组列表</h4><div data-save-groups></div></section></div>
-   <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
+   <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><label>搜索学生（学号或姓名）<input type="search" data-member-search autocomplete="off" placeholder="输入学号或姓名"></label><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
    <input hidden type="file" accept=".json" data-save-file><input hidden type="file" accept="image/png,image/jpeg,image/webp" data-avatar-file><input hidden multiple type="file" accept="image/png,image/jpeg,image/webp" data-batch-file>`;
     parent.prepend(mounted);
+    mounted
+      .querySelector("[data-member-search]")
+      .addEventListener("input", (event) => {
+        const query = event.target.value.trim().toLocaleLowerCase();
+        for (const label of mounted.querySelectorAll(
+          "[data-member-options] label",
+        ))
+          label.hidden = !label.textContent.toLocaleLowerCase().includes(query);
+      });
     const handle = (fn) => async (event) => {
       try {
         await fn(event);

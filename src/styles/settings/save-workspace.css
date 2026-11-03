@@ -103,13 +103,20 @@
   gap: 8px;
   margin: 12px 0;
 }
-.save-member-options label {
+.save-member-options label:not([hidden]) {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-sm);
+}
+.save-member-options img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
 }
 .save-member-options small {
   color: var(--ui-muted);

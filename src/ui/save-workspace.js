@@ -67,6 +67,8 @@
       ? `${doc.name} · 修订 ${doc.revision} · ${status.phase === "saving" ? "保存中…" : status.phase === "error" ? "保存失败，保留当前数据" : "本地保存"}`
       : status.error || "正在读取当前存档…";
     mounted.querySelector("[data-save-retry]").hidden = !SaveManager.blocked();
+    mounted.querySelector("[data-legacy-roster-status]").textContent =
+      status.legacyRosterMessage || "";
     if (!doc) return;
     if (saveId !== doc.saveId) {
       saveId = doc.saveId;
@@ -233,6 +235,7 @@
       group = doc?.roster.groups.find((g) => g.groupUid === groupUid);
     if (!group) return;
     const body = mounted.querySelector("[data-member-options]");
+    mounted.querySelector("[data-member-search]").value = "";
     mounted.querySelector("[data-member-title]").textContent =
       group.name + " · 选择成员";
     body.innerHTML =
@@ -244,7 +247,7 @@
           const other = doc.roster.groups.find(
             (g) => g.groupUid === a?.groupUid,
           );
-          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${a?.groupUid === groupUid ? "checked" : ""}><span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
+          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${a?.groupUid === groupUid ? "checked" : ""}>${s.avatarResourceId ? `<img data-asset="${E(s.avatarResourceId)}" alt="头像">` : ""}<span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
         })
         .join("") || "<p>请先新增学生。</p>";
     const panel = mounted.querySelector("[data-member-editor]");
@@ -252,6 +255,7 @@
     panel.dataset.groupUid = groupUid;
     panel.dataset.saveId = doc.saveId;
     panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    thumbnails();
   }
   function mount(parent) {
     if (mounted) return mounted;
@@ -262,12 +266,22 @@
    <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
    <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
+   <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
    <form id="saveStudentForm" class="save-student-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required></label><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button></form>
    <div class="save-roster-columns"><section><h4 data-save-students-count>学生</h4><table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section><section><h4>小组列表</h4><div data-save-groups></div></section></div>
-   <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
+   <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><label>搜索学生（学号或姓名）<input type="search" data-member-search autocomplete="off" placeholder="输入学号或姓名"></label><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
    <input hidden type="file" accept=".json" data-save-file><input hidden type="file" accept="image/png,image/jpeg,image/webp" data-avatar-file><input hidden multiple type="file" accept="image/png,image/jpeg,image/webp" data-batch-file>`;
     parent.prepend(mounted);
+    mounted
+      .querySelector("[data-member-search]")
+      .addEventListener("input", (event) => {
+        const query = event.target.value.trim().toLocaleLowerCase();
+        for (const label of mounted.querySelectorAll(
+          "[data-member-options] label",
+        ))
+          label.hidden = !label.textContent.toLocaleLowerCase().includes(query);
+      });
     const handle = (fn) => async (event) => {
       try {
         await fn(event);
