@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "result": {
+    "first": true,
+    "duplicate": true,
+    "initialCount": 1,
+    "initialStudents": 3,
+    "saved": true,
+    "newScore": 102,
+    "conflict": "REVISION_CONFLICT",
+    "switched": true,
+    "stale": "GENERATION_CONFLICT",
+    "sourcePreserved": true,
+    "count": 2,
+    "restartedScore": 102,
+    "prefs": true,
+    "globalTheme": "marx"
+  },
+  "transactionRollback": {
+    "ok": false,
+    "entries": 0,
+    "source": null
+  }
+}

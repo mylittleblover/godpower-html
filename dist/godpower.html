@@ -15019,6 +15019,731 @@ const StableIdentity = (() => {
 })();
 globalThis.StableIdentity = StableIdentity;
 </script>
+<script>/* Versioned save contract. No DOM, storage or competition calculations. */
+(function installSaveSchema(root) {
+  "use strict";
+  const APP_KEYS = Object.freeze([
+    "adminPin",
+    "masterVolume",
+    "sfxVolume",
+    "zoomLevel",
+    "resizerEnabled",
+    "resizerHeight",
+    "columnMode",
+  ]);
+  const copy = (value) => JSON.parse(JSON.stringify(value));
+  const object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+  const fail = (message) => {
+    throw new TypeError(message);
+  };
+  const uid = (v) =>
+    typeof v === "string" && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(v);
+  function safeTree(value, depth = 0) {
+    if (depth > 40) fail("save nesting exceeds limit");
+    if (typeof value === "number" && !Number.isFinite(value))
+      fail("non-finite save number");
+    if (value && typeof value === "object")
+      for (const key of Object.keys(value)) {
+        if (["__proto__", "prototype", "constructor"].includes(key))
+          fail("unsafe save property");
+        safeTree(value[key], depth + 1);
+      }
+  }
+  function unique(rows, key, label) {
+    if (!Array.isArray(rows)) fail(label + " must be an array");
+    const ids = new Set();
+    for (const row of rows) {
+      if (!object(row) || !uid(row[key]) || ids.has(row[key]))
+        fail("invalid or duplicate " + label + " identity");
+      ids.add(row[key]);
+    }
+    return ids;
+  }
+  function validateGroups(groups, current = true) {
+    if (!Array.isArray(groups) || groups.length > 1000)
+      fail("invalid match groups");
+    if (current) unique(groups, "groupUid", "match group");
+    for (const g of groups) {
+      if (!object(g) || !Number.isSafeInteger(Number(g.score ?? 0)))
+        fail("score must be a safe integer");
+      if (
+        g.members != null &&
+        (!Array.isArray(g.members) ||
+          g.members.some((x) => typeof x !== "string"))
+      )
+        fail("invalid members");
+      if (
+        g.inventory != null &&
+        (!Array.isArray(g.inventory) ||
+          g.inventory.length > 3 ||
+          g.inventory.some((x) => !object(x)))
+      )
+        fail("invalid inventory");
+    }
+  }
+  function validateV2(input) {
+    if (
+      !object(input) ||
+      input.kind !== "godpower.save" ||
+      input.schemaVersion !== 2
+    )
+      fail("unsupported save kind/format");
+    safeTree(input);
+    if (
+      typeof input.saveId !== "string" ||
+      !/^save-[A-Za-z0-9_-]{1,96}$/.test(input.saveId)
+    )
+      fail("invalid save identity");
+    if (!Number.isSafeInteger(input.revision) || input.revision < 1)
+      fail("invalid save revision");
+    if (typeof input.name !== "string" || !input.name.trim())
+      fail("save name is required");
+    if (!object(input.roster) || !object(input.match))
+      fail("missing roster or match");
+    const students = unique(input.roster.students, "studentUid", "student");
+    const groups = unique(input.roster.groups, "groupUid", "roster group");
+    if (students.size > 100000 || groups.size > 1000)
+      fail("roster exceeds limit");
+    for (const s of input.roster.students)
+      if (typeof s.displayName !== "string" || !s.displayName.trim())
+        fail("student displayName is required");
+    if (!Array.isArray(input.roster.assignments))
+      fail("assignments must be an array");
+    const assigned = new Set();
+    for (const a of input.roster.assignments) {
+      if (!object(a) || !students.has(a.studentUid))
+        fail("assignment student is missing");
+      if (!groups.has(a.groupUid)) fail("assignment group is missing");
+      if (assigned.has(a.studentUid)) fail("duplicate student assignment");
+      assigned.add(a.studentUid);
+    }
+    validateGroups(input.match.groups);
+    for (const g of input.match.groups)
+      if (!groups.has(g.groupUid)) fail("match group has no roster entry");
+    if (!Array.isArray(input.match.history) || input.match.history.length > 40)
+      fail("invalid history");
+    for (const h of input.match.history) {
+      if (!object(h)) fail("invalid history entry");
+      validateGroups(h.groups, false);
+    }
+    if (
+      !Array.isArray(input.assetReferences) ||
+      new Set(input.assetReferences).size !== input.assetReferences.length
+    )
+      fail("invalid asset references");
+    const refs = new Set(input.assetReferences);
+    if (
+      [...refs].some(
+        (x) => typeof x !== "string" || !/^asset-[a-f0-9]{64}$/.test(x),
+      )
+    )
+      fail("invalid asset identity");
+    for (const row of [...input.roster.students, ...input.roster.groups])
+      if (row.avatarResourceId != null && !refs.has(row.avatarResourceId))
+        fail("avatar asset reference is missing");
+    function checkRefs(v) {
+      if (!v || typeof v !== "object") return;
+      if (
+        Object.keys(v).length === 1 &&
+        typeof v.$asset === "string" &&
+        !refs.has(v.$asset)
+      )
+        fail("match asset reference is missing");
+      for (const child of Object.values(v)) checkRefs(child);
+    }
+    checkRefs(input.match);
+    if (APP_KEYS.some((k) => Object.hasOwn(input.match, k)))
+      fail("program preferences belong outside match");
+    return copy(input);
+  }
+  function validateIndex(input) {
+    if (
+      !object(input) ||
+      input.kind !== "godpower.save-index" ||
+      input.schemaVersion !== 2
+    )
+      fail("invalid save index");
+    safeTree(input);
+    if (
+      !Number.isSafeInteger(input.revision) ||
+      input.revision < 0 ||
+      !Number.isSafeInteger(input.generation) ||
+      input.generation < 0
+    )
+      fail("invalid index revision/generation");
+    const ids = unique(input.entries, "saveId", "index entry");
+    for (const e of input.entries)
+      if (
+        !Number.isSafeInteger(e.revision) ||
+        e.revision < 1 ||
+        typeof e.name !== "string"
+      )
+        fail("invalid index entry");
+    if (input.activeSaveId !== null && !ids.has(input.activeSaveId))
+      fail("active save is missing");
+    return copy(input);
+  }
+  root.SaveSchema = Object.freeze({
+    validateV2,
+    validateIndex,
+    validateGroups,
+    safeTree,
+    appPreferenceKeys: APP_KEYS,
+    clone: copy,
+  });
+})(globalThis);
+</script>
+<script>/* Read-only legacy conversion, resource extraction and reversible projection. */
+(function installSaveMigration(root) {
+  "use strict";
+  const clone = (value) => JSON.parse(JSON.stringify(value));
+  const known = new Set([
+    "schemaVersion",
+    "appVersion",
+    "timestamp",
+    "seasonId",
+    "achievementLedger",
+    "groups",
+    "picker",
+    "itemGlobal",
+    "round",
+    "history",
+    "firstHandDrawPending",
+    "saveAllIn",
+    ...root.SaveSchema.appPreferenceKeys,
+  ]);
+  const digest = async (bytes) =>
+    [...new Uint8Array(await root.crypto.subtle.digest("SHA-256", bytes))]
+      .map((n) => n.toString(16).padStart(2, "0"))
+      .join("");
+  const textDigest = (text) => digest(new TextEncoder().encode(text));
+  function parseMember(label) {
+    const m = label.trim().match(/^(\d+)[\s.．、:：-]*(.*)$/);
+    return {
+      number: m ? m[1] : null,
+      displayName: (m ? m[2] : label).trim() || label.trim() || "未命名学生",
+    };
+  }
+  async function preview({
+    rawText,
+    name = "导入课堂",
+    rosterData = null,
+  } = {}) {
+    if (
+      typeof rawText !== "string" ||
+      new TextEncoder().encode(rawText).byteLength > 128 * 1024 * 1024
+    )
+      throw Error("source text is missing or exceeds import limit");
+    const raw = JSON.parse(rawText);
+    root.SaveSchema.safeTree(raw);
+    if (raw?.kind === "godpower.save")
+      return {
+        documents: [root.SaveSchema.validateV2(raw)],
+        assets: [],
+        appPreferences: { schemaVersion: 1, values: {} },
+        sourceDigest: await textDigest(rawText),
+        report: {
+          groups: raw.roster.groups.length,
+          students: raw.roster.students.length,
+          history: raw.match.history.length,
+          extractedOccurrences: 0,
+        },
+        warnings: [],
+        sourceText: rawText,
+      };
+    if (
+      !raw ||
+      typeof raw !== "object" ||
+      Array.isArray(raw) ||
+      ![1, 2].includes(raw.schemaVersion ?? 1)
+    )
+      throw Error("unsupported legacy save");
+    if (!Array.isArray(raw.groups) || !raw.groups.length)
+      throw Error("legacy save groups are missing");
+    root.SaveSchema.validateGroups(raw.groups, false);
+    const sourceDigest = await textDigest(rawText),
+      assets = new Map(),
+      warnings = [];
+    let occurrences = 0;
+    async function extract(value, key = "") {
+      if (
+        key === "groupAvatar" &&
+        typeof value === "string" &&
+        value.startsWith("data:image/")
+      ) {
+        const m = value.match(
+          /^data:(image\/(?:png|jpeg|webp));base64,([A-Za-z0-9+/=]+)$/,
+        );
+        if (!m) {
+          warnings.push({ code: "UNSUPPORTED_LEGACY_AVATAR" });
+          return value;
+        }
+        const bytes = Uint8Array.from(atob(m[2]), (c) => c.charCodeAt(0));
+        const sha256 = await digest(bytes),
+          resourceId = "asset-" + sha256;
+        occurrences++;
+        if (!assets.has(resourceId))
+          assets.set(resourceId, {
+            resourceId,
+            mimeType: m[1],
+            sha256,
+            byteLength: bytes.byteLength,
+            dataBase64: m[2],
+          });
+        return { $asset: resourceId };
+      }
+      if (Array.isArray(value))
+        return Promise.all(value.map((v) => extract(v)));
+      if (value && typeof value === "object") {
+        const out = {};
+        for (const [k, v] of Object.entries(value))
+          out[k] = await extract(v, k);
+        return out;
+      }
+      return value;
+    }
+    const groups = await extract(raw.groups),
+      used = new Set();
+    for (let i = 0; i < groups.length; i++) {
+      const g = groups[i];
+      if (
+        g.groupUid != null &&
+        (!root.StableIdentity.isValidGroupUid(g.groupUid) ||
+          used.has(g.groupUid))
+      )
+        throw Error("invalid or duplicate group identity");
+      g.groupUid ||=
+        "group-" + (await textDigest(sourceDigest + ":group:" + i));
+      used.add(g.groupUid);
+      g.score = Number(g.score ?? 0);
+    }
+    const students = [],
+      assignments = [],
+      rosterGroups = [];
+    for (const [i, g] of groups.entries()) {
+      rosterGroups.push({
+        groupUid: g.groupUid,
+        name: String(g.name || `第${i + 1}组`),
+        groupNo: g.groupNo ?? i + 1,
+        color: g.color || "#0f766e",
+        avatarResourceId: g.groupAvatar?.$asset || null,
+      });
+      for (const [j, label] of (g.members || []).entries()) {
+        const studentUid =
+          "student-" +
+          (await textDigest(sourceDigest + ":" + g.groupUid + ":" + j));
+        students.push({
+          studentUid,
+          ...parseMember(label),
+          legacyLabel: label,
+          avatarResourceId: null,
+        });
+        assignments.push({ studentUid, groupUid: g.groupUid });
+      }
+    }
+    if (rosterData)
+      warnings.push({
+        code: "ROSTER_REQUIRES_EXPLICIT_MAPPING",
+        message: "独立名单身份需按来源映射，不按同名自动合并",
+      });
+    const prefs = {};
+    for (const key of root.SaveSchema.appPreferenceKeys)
+      if (Object.hasOwn(raw, key)) prefs[key] = clone(raw[key]);
+    const extensions = {};
+    for (const [k, v] of Object.entries(raw))
+      if (!known.has(k)) extensions[k] = clone(v);
+    const history = await extract(raw.history || []);
+    const date =
+      typeof raw.timestamp === "string"
+        ? raw.timestamp
+        : new Date().toISOString();
+    const doc = {
+      kind: "godpower.save",
+      schemaVersion: 2,
+      saveId: "save-" + sourceDigest,
+      revision: 1,
+      name: name.trim() || "导入课堂",
+      createdAt: date,
+      updatedAt: date,
+      roster: { revision: 1, students, groups: rosterGroups, assignments },
+      match: {
+        season: { seasonId: raw.seasonId || "season-" + sourceDigest },
+        groups,
+        round: clone(raw.round || {}),
+        picker: clone(raw.picker || {}),
+        itemGlobal: clone(raw.itemGlobal || {}),
+        history,
+        firstHandDrawPending: raw.firstHandDrawPending ?? false,
+        extensions,
+      },
+      achievements: clone(
+        raw.achievementLedger || { schemaVersion: 1, groups: {} },
+      ),
+      archives: [],
+      perSaveOptions: Object.hasOwn(raw, "saveAllIn")
+        ? { saveAllIn: raw.saveAllIn }
+        : {},
+      assetReferences: [...assets.keys()],
+      migration: {
+        sourceDigest,
+        rootOrder: Object.keys(raw),
+        legacyMeta: {
+          schemaVersion: raw.schemaVersion,
+          appVersion: raw.appVersion,
+          timestamp: raw.timestamp,
+        },
+        sourceType: "legacy-classroom",
+        warnings,
+      },
+    };
+    const valid = root.SaveSchema.validateV2(doc);
+    return {
+      documents: [valid],
+      assets: [...assets.values()],
+      appPreferences: { schemaVersion: 1, values: prefs },
+      sourceDigest,
+      sourceText: rawText,
+      warnings,
+      report: {
+        groups: groups.length,
+        students: students.length,
+        history: history.length,
+        assets: assets.size,
+        extractedOccurrences: occurrences,
+        sourceBytes: new TextEncoder().encode(rawText).byteLength,
+        documentBytes: new TextEncoder().encode(JSON.stringify(valid))
+          .byteLength,
+      },
+    };
+  }
+  function toLegacy(document, assets = [], preferences = { values: {} }) {
+    const doc = root.SaveSchema.validateV2(document);
+    const byId = new Map(assets.map((a) => [a.resourceId, a]));
+    function expand(v) {
+      if (Array.isArray(v)) return v.map(expand);
+      if (v && typeof v === "object") {
+        if (Object.keys(v).length === 1 && typeof v.$asset === "string") {
+          const asset = byId.get(v.$asset);
+          if (!asset) throw Error("缺少头像资源 asset " + v.$asset);
+          return `data:${asset.mimeType};base64,${asset.dataBase64}`;
+        }
+        return Object.fromEntries(
+          Object.entries(v).map(([k, x]) => [k, expand(x)]),
+        );
+      }
+      return v;
+    }
+    const match = expand(doc.match);
+    const values = {
+      ...match.extensions,
+      ...doc.migration?.legacyMeta,
+      seasonId: match.season.seasonId,
+      achievementLedger: clone(doc.achievements),
+      groups: match.groups,
+      picker: match.picker,
+      itemGlobal: match.itemGlobal,
+      round: match.round,
+      history: match.history,
+      firstHandDrawPending: match.firstHandDrawPending,
+      ...preferences.values,
+      ...doc.perSaveOptions,
+    };
+    const order = doc.migration?.rootOrder || Object.keys(values);
+    const result = {};
+    for (const k of order) if (Object.hasOwn(values, k)) result[k] = values[k];
+    return result;
+  }
+  root.SaveMigration = Object.freeze({
+    preview,
+    convert: (p) => ({
+      documents: clone(p.documents),
+      assets: clone(p.assets),
+      appPreferences: clone(p.appPreferences),
+      sourceDigest: p.sourceDigest,
+      sourceText: p.sourceText,
+    }),
+    toLegacy,
+    textDigest,
+    parseMember,
+  });
+})(globalThis);
+</script>
+<script>/* Atomic browser save library. The active generation rejects stale classroom writes. */
+(function installSaveRepository(root) {
+  "use strict";
+  const stores = [
+    "meta",
+    "documents",
+    "assets",
+    "sources",
+    "receipts",
+    "preferences",
+  ];
+  const copy = (value) => root.SaveSchema.clone(value);
+  const request = (req) =>
+    new Promise((resolve, reject) => {
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  const emptyIndex = () => ({
+    kind: "godpower.save-index",
+    schemaVersion: 2,
+    revision: 0,
+    generation: 0,
+    activeSaveId: null,
+    entries: [],
+  });
+  const failure = (code, message) =>
+    Object.assign(new Error(message || code), { code });
+  async function open({ name = "godpower_save_library_v2" } = {}) {
+    const opening = root.indexedDB.open(name, 1);
+    opening.onupgradeneeded = () => {
+      for (const store of stores) opening.result.createObjectStore(store);
+    };
+    const db = await request(opening);
+    db.onversionchange = () => db.close();
+    async function transact(names, mode, operation) {
+      const tx = db.transaction(names, mode);
+      // Always await the durable transaction outcome, including aborts after a successful put.
+      const done = new Promise((resolve) => {
+        tx.oncomplete = () => resolve(null);
+        tx.onabort = () => resolve(tx.error || failure("TRANSACTION_ABORTED"));
+        tx.onerror = () => {}; // Abort supplies the final error; requests still reject normally.
+      });
+      const api = {
+        get: (store, key) => request(tx.objectStore(store).get(key)),
+        put: (store, key, value) =>
+          request(tx.objectStore(store).put(value, key)),
+      };
+      try {
+        const result = await operation(api);
+        const error = await done;
+        if (error) throw error;
+        return result;
+      } catch (error) {
+        try {
+          tx.abort();
+        } catch {} // Already completed or aborted.
+        await done;
+        return {
+          ok: false,
+          code: error.code || error.name || "STORAGE_ERROR",
+          message: error.message,
+        };
+      }
+    }
+    const indexOf = async (api) =>
+      root.SaveSchema.validateIndex(
+        (await api.get("meta", "index")) || emptyIndex(),
+      );
+    const entry = (doc) => ({
+      saveId: doc.saveId,
+      name: doc.name,
+      revision: doc.revision,
+      createdAt: doc.createdAt,
+      updatedAt: doc.updatedAt,
+    });
+    const checkGeneration = (index, expected) => {
+      if (expected !== undefined && index.generation !== expected)
+        throw failure("GENERATION_CONFLICT");
+    };
+    async function importPreview(preview, { activate = false } = {}) {
+      // Hashing is outside the transaction: crypto promises must not make IDB inactive.
+      let documents, assets;
+      try {
+        documents = preview.documents.map(root.SaveSchema.validateV2);
+        if (
+          !documents.length ||
+          new Set(documents.map((d) => d.saveId)).size !== documents.length
+        )
+          throw failure("INVALID_IMPORT");
+        if (
+          (await root.SaveMigration.textDigest(preview.sourceText)) !==
+          preview.sourceDigest
+        )
+          throw failure("SOURCE_DIGEST_MISMATCH");
+        assets = [];
+        for (const asset of preview.assets || []) {
+          if (!/^image\/(png|jpeg|webp)$/.test(asset.mimeType))
+            throw failure("INVALID_ASSET_TYPE");
+          const bytes = Uint8Array.from(atob(asset.dataBase64), (c) =>
+            c.charCodeAt(0),
+          );
+          const hash = [
+            ...new Uint8Array(
+              await root.crypto.subtle.digest("SHA-256", bytes),
+            ),
+          ]
+            .map((n) => n.toString(16).padStart(2, "0"))
+            .join("");
+          if (
+            asset.resourceId !== "asset-" + hash ||
+            asset.sha256 !== hash ||
+            asset.byteLength !== bytes.length
+          )
+            throw failure("ASSET_DIGEST_MISMATCH");
+          assets.push({
+            ...asset,
+            raw: new Blob([bytes], { type: asset.mimeType }),
+          });
+        }
+      } catch (error) {
+        return {
+          ok: false,
+          code: error.code || "INVALID_IMPORT",
+          message: error.message,
+        };
+      }
+      return transact(stores, "readwrite", async (api) => {
+        const index = await indexOf(api);
+        const prior = await api.get("receipts", preview.sourceDigest);
+        if (prior)
+          return { ok: true, idempotent: true, saveIds: prior.saveIds };
+        for (const doc of documents)
+          if (await api.get("documents", doc.saveId))
+            throw failure("SAVE_ALREADY_EXISTS");
+        for (const asset of assets)
+          await api.put("assets", asset.resourceId, asset);
+        for (const doc of documents) {
+          for (const id of doc.assetReferences)
+            if (!(await api.get("assets", id)))
+              throw failure("MISSING_ASSET", id);
+          await api.put("documents", doc.saveId, doc);
+          index.entries.push(entry(doc));
+        }
+        if (activate && index.activeSaveId !== documents[0].saveId) {
+          index.activeSaveId = documents[0].saveId;
+          index.generation++;
+        }
+        index.revision++;
+        await api.put("sources", preview.sourceDigest, {
+          sourceDigest: preview.sourceDigest,
+          raw: new Blob([preview.sourceText], { type: "application/json" }),
+        });
+        await api.put("receipts", preview.sourceDigest, {
+          saveIds: documents.map((d) => d.saveId),
+          createdAt: new Date().toISOString(),
+        });
+        await api.put("meta", "index", root.SaveSchema.validateIndex(index));
+        return {
+          ok: true,
+          idempotent: false,
+          index,
+          saveIds: documents.map((d) => d.saveId),
+        };
+      });
+    }
+    return Object.freeze({
+      name,
+      close: () => db.close(),
+      importPreview,
+      list: () =>
+        transact(["meta"], "readonly", async (api) => ({
+          ok: true,
+          index: await indexOf(api),
+        })),
+      load: (saveId) =>
+        transact(["documents"], "readonly", async (api) => {
+          const doc = await api.get("documents", saveId);
+          if (!doc) throw failure("SAVE_NOT_FOUND");
+          return { ok: true, document: root.SaveSchema.validateV2(doc) };
+        }),
+      getSource: (digest) =>
+        transact(
+          ["sources"],
+          "readonly",
+          async (api) => (await api.get("sources", digest)) || null,
+        ),
+      getAsset: (id) =>
+        transact(
+          ["assets"],
+          "readonly",
+          async (api) => (await api.get("assets", id)) || null,
+        ),
+      commit: (
+        saveId,
+        expectedRevision,
+        saveDoc,
+        { expectedGeneration } = {},
+      ) =>
+        transact(["meta", "documents", "assets"], "readwrite", async (api) => {
+          const index = await indexOf(api);
+          checkGeneration(index, expectedGeneration);
+          const old = await api.get("documents", saveId);
+          if (!old) throw failure("SAVE_NOT_FOUND");
+          if (old.revision !== expectedRevision)
+            throw failure("REVISION_CONFLICT");
+          if (
+            saveDoc.saveId !== saveId ||
+            saveDoc.revision !== expectedRevision
+          )
+            throw failure("INVALID_REVISION");
+          const doc = root.SaveSchema.validateV2({
+            ...copy(saveDoc),
+            revision: expectedRevision + 1,
+            updatedAt: new Date().toISOString(),
+          });
+          for (const id of doc.assetReferences)
+            if (!(await api.get("assets", id)))
+              throw failure("MISSING_ASSET", id);
+          await api.put("documents", saveId, doc);
+          index.entries = index.entries.map((e) =>
+            e.saveId === saveId ? entry(doc) : e,
+          );
+          index.revision++;
+          await api.put("meta", "index", index);
+          return { ok: true, document: doc, index };
+        }),
+      switchActive: (saveId, { expectedGeneration } = {}) =>
+        transact(["meta", "documents"], "readwrite", async (api) => {
+          const index = await indexOf(api);
+          checkGeneration(index, expectedGeneration);
+          const doc = await api.get("documents", saveId);
+          if (!doc) throw failure("SAVE_NOT_FOUND");
+          root.SaveSchema.validateV2(doc);
+          if (index.activeSaveId !== saveId) {
+            index.activeSaveId = saveId;
+            index.generation++;
+            index.revision++;
+            await api.put("meta", "index", index);
+          }
+          return { ok: true, index, document: doc };
+        }),
+      loadPreferences: () =>
+        transact(["preferences"], "readonly", async (api) => ({
+          ok: true,
+          preferences: (await api.get("preferences", "global")) || {
+            schemaVersion: 1,
+            revision: 0,
+            values: {},
+          },
+        })),
+      savePreferences: (values, { expectedRevision } = {}) =>
+        transact(["preferences"], "readwrite", async (api) => {
+          root.SaveSchema.safeTree(values);
+          if (!values || typeof values !== "object" || Array.isArray(values))
+            throw failure("INVALID_PREFERENCES");
+          const old = (await api.get("preferences", "global")) || {
+            revision: 0,
+          };
+          if (
+            expectedRevision !== undefined &&
+            old.revision !== expectedRevision
+          )
+            throw failure("REVISION_CONFLICT");
+          const preferences = {
+            schemaVersion: 1,
+            revision: old.revision + 1,
+            values: copy(values),
+          };
+          await api.put("preferences", "global", preferences);
+          return { ok: true, preferences };
+        }),
+    });
+  }
+  root.SaveRepository = Object.freeze({ open });
+})(globalThis);
+</script>
 <script>/* Pure, versioned dashboard layout model. No classroom state or DOM access. */
 (function installHomeLayout(root) {
   "use strict";

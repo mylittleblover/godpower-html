@@ -336,7 +336,13 @@ test("3.0.66 CSS edits preserve every non-retired declaration and original casca
 test("retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata", async () => {
   const manifest = JSON.parse(readFileSync("src/manifest.json"));
   let logic = readFileSync("src/index.template.html", "utf8");
-  for (const b of manifest.blocks.filter(
+  // Current code participates in retired-selector checks. Historical statement
+  // equality uses the historical manifest so future modules are not looked up
+  // in a commit where they did not yet exist.
+  for (const b of manifest.blocks.filter((b) => b.type === "script"))
+    logic += "\n" + readFileSync("src/" + b.path, "utf8");
+  const checkpointManifest = JSON.parse(baseline("src/manifest.json"));
+  for (const b of checkpointManifest.blocks.filter(
     (b) => b.type === "script" && b.path !== "ui/component-catalog.js",
   )) {
     const path = "src/" + b.path,

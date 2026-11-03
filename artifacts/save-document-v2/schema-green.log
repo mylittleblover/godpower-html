@@ -1,0 +1,16 @@
+✔ conversion preserves scores, inventory charges, history, achievements and original input (10.140781ms)
+✔ same source imports are deterministic while different same-name students stay separate (4.821218ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (13.603134ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (7.791419ms)
+✔ broken JSON and missing group identities fail without producing a partial save (2.005872ms)
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (3.165986ms)
+✔ new save validates stable identities, revisions and roster references (8.454752ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (3.715276ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 172.801334

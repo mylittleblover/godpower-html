@@ -28,12 +28,13 @@ const rules = [
     ]),
   },
 ];
-function walk(node, inspect) {
+function walk(node, inspect, parent = null) {
   if (!node || typeof node !== "object") return;
-  if (node.type) inspect(node);
+  if (node.type) inspect(node, parent);
   for (const value of Object.values(node)) {
-    if (Array.isArray(value)) value.forEach((child) => walk(child, inspect));
-    else if (value && typeof value === "object") walk(value, inspect);
+    if (Array.isArray(value))
+      value.forEach((child) => walk(child, inspect, node));
+    else if (value && typeof value === "object") walk(value, inspect, node);
   }
 }
 for (const { root, banned } of rules) {
@@ -45,7 +46,15 @@ for (const { root, banned } of rules) {
       ecmaVersion: "latest",
       locations: true,
     });
-    walk(tree, (node) => {
+    walk(tree, (node, parent) => {
+      // An object field named "document" is a DTO key, not a DOM dependency.
+      if (
+        parent?.type === "Property" &&
+        parent.key === node &&
+        !parent.computed &&
+        !parent.shorthand
+      )
+        return;
       if (node.type === "Identifier" && banned.has(node.name))
         violations.push(
           `${path}:${node.loc.start.line}: forbidden layer dependency ${node.name}`,

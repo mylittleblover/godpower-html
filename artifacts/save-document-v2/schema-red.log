@@ -1,0 +1,158 @@
+✖ conversion preserves scores, inventory charges, history, achievements and original input (2.683112ms)
+✖ same source imports are deterministic while different same-name students stay separate (1.139026ms)
+✖ repeated inline avatars in history are extracted once and restore losslessly (0.895048ms)
+✖ program preferences stay outside the match and missing assets refuse restoration (2.377121ms)
+✖ broken JSON and missing group identities fail without producing a partial save (1.023261ms)
+✖ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (2.948751ms)
+✖ new save validates stable identities, revisions and roster references (1.111614ms)
+✖ negative revisions, duplicate identities and unsafe scores are rejected (1.152025ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 188.167001
+
+✖ failing tests:
+
+test at tests/unit/legacy-save-conversion.test.mjs:5:1
+✖ conversion preserves scores, inventory charges, history, achievements and original input (2.683112ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:5:125)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/legacy-save-conversion.test.mjs:6:1
+✖ same source imports are deterministic while different same-name students stay separate (1.139026ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:6:123)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/legacy-save-conversion.test.mjs:7:1
+✖ repeated inline avatars in history are extracted once and restore losslessly (0.895048ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:7:113)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/legacy-save-conversion.test.mjs:8:1
+✖ program preferences stay outside the match and missing assets refuse restoration (2.377121ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:8:117)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/legacy-save-conversion.test.mjs:9:1
+✖ broken JSON and missing group identities fail without producing a partial save (1.023261ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:9:115)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/save-document.test.mjs:4:1
+✖ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (2.948751ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-document.test.mjs:4:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/save-document.test.mjs:5:1
+✖ new save validates stable identities, revisions and roster references (1.111614ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-document.test.mjs:5:113)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
+
+test at tests/unit/save-document.test.mjs:6:1
+✖ negative revisions, duplicate identities and unsafe scores are rejected (1.152025ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-document.js'
+      at readFileSync (node:fs:484:20)
+      at saveCore (file:///workspace/godpower-html-latest/tests/fixtures/save-v2.mjs:6:117)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-document.test.mjs:6:115)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-document.js'
+  }
