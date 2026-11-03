@@ -3,8 +3,12 @@ window.GodpowerPicker = (() => {
   'use strict';
   let phase = 'idle', serial = 0, resultId = null, preparing = false, external = false, externalEffects = true;
   const listeners = new Set();
+  let revealStyle = 'aurora';
   function notify(next) {
-    if (next === 'rolling') resultId = `pick-${Date.now()}-${++serial}`;
+    if (next === 'rolling') {
+      resultId = `pick-${Date.now()}-${++serial}`;
+      revealStyle = randomEffectStyle();
+    }
     if (next === 'idle' || next === 'cancelled') { next = 'idle'; resultId = null; }
     if (next) phase = next;
     const snapshot = getSnapshot();
@@ -53,7 +57,7 @@ window.GodpowerPicker = (() => {
       result, slots: options.slots,
       history: (state.itemGlobal?.pickerHistory || []).slice(-30).map(x => ({ text: x.text, time: x.time })),
       locked: !!state.isLocked, unsaved: !!window.classroomUnsavedChanges,
-      effects: { enabled: effectEnabled, style: randomEffectStyle(), duration: options.duration } };
+      effects: { enabled: effectEnabled, style: revealStyle, duration: options.duration } };
   }
   function cancel() {
     clearInterval(slotEngine.timerGroup); clearInterval(slotEngine.timerStudent);

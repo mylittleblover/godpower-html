@@ -1,0 +1,56 @@
+✖ idle snapshots stay identical and never advance the random source (5.363784ms)
+✖ a new reveal cycle selects one style, snapshot polling retains it (1.651043ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 89.619805
+
+✖ failing tests:
+
+test at tests/unit/picker-snapshot-stability.test.mjs:11:1
+✖ idle snapshots stay identical and never advance the random source (5.363784ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '{"protocolVersion":1,"theme":"classic","phase":"idle","mode":"individual","antiRepeat":false,"preselectedGroupIds":[],"remaining":"","preview":{"group":"","student":""},"groups":[],"result":null,"slots":[1,2],"history":[],"locked":false,"unsaved":false,"effects":{"enabled":true,"style":"ripple","duration":3600}}'
+  - '{"protocolVersion":1,"theme":"classic","phase":"idle","mode":"individual","antiRepeat":false,"preselectedGroupIds":[],"remaining":"","preview":{"group":"","student":""},"groups":[],"result":null,"slots":[1,2],"history":[],"locked":false,"unsaved":false,"effects":{"enabled":true,"style":"burst","duration":3600}}'
+
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/picker-snapshot-stability.test.mjs:11:203)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"protocolVersion":1,"theme":"classic","phase":"idle","mode":"individual","antiRepeat":false,"preselectedGroupIds":[],"remaining":"","preview":{"group":"","student":""},"groups":[],"result":null,"slots":[1,2],"history":[],"locked":false,"unsaved":false,"effects":{"enabled":true,"style":"ripple","duration":3600}}',
+    expected: '{"protocolVersion":1,"theme":"classic","phase":"idle","mode":"individual","antiRepeat":false,"preselectedGroupIds":[],"remaining":"","preview":{"group":"","student":""},"groups":[],"result":null,"slots":[1,2],"history":[],"locked":false,"unsaved":false,"effects":{"enabled":true,"style":"burst","duration":3600}}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/picker-snapshot-stability.test.mjs:12:1
+✖ a new reveal cycle selects one style, snapshot polling retains it (1.651043ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'starlight'
+  - 'ripple'
+
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/picker-snapshot-stability.test.mjs:12:247)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'starlight',
+    expected: 'ripple',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

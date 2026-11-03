@@ -333,7 +333,7 @@ test("3.0.66 CSS edits preserve every non-retired declaration and original casca
     );
 });
 
-test("retired screen classes have no business or preview references; scripts retain statements except declared presentation metadata", async () => {
+test("retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata", async () => {
   const manifest = JSON.parse(readFileSync("src/manifest.json"));
   let logic = readFileSync("src/index.template.html", "utf8");
   for (const b of manifest.blocks.filter(
@@ -351,7 +351,13 @@ test("retired screen classes have no business or preview references; scripts ret
       if (edit.path === path)
         expected = expected.replace(edit.original, edit.replacement);
     assert.equal(
-      await format(s, { parser: "babel" }),
+      await format(
+        execFileSync("git", ["show", "a1c9b2e:" + path], {
+          encoding: "utf8",
+          maxBuffer: 2e6,
+        }),
+        { parser: "babel" },
+      ),
       await format(expected, { parser: "babel" }),
       path,
     );

@@ -1,0 +1,4 @@
+tests/unit/picker-snapshot-stability.test.mjs 50ms
+tests/unit/welcome-clock-work.test.mjs 7ms
+tests/e2e/picker-snapshot-stability.mjs 28ms
+tests/integration/css-consolidation.test.mjs 75ms
