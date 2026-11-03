@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "elapsed": 1187.9000000003725,
+  "history": 1,
+  "scoreAck": {
+    "ok": true,
+    "persisted": true,
+    "stored": 222,
+    "live": 222
+  }
+}

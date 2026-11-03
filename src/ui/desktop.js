@@ -71,6 +71,7 @@ const DesktopUI = (() => {
     document.body.dataset.itemFx = preferences.itemFx ? "on" : "off";
     document.body.dataset.systemMotion = String(preferences.systemMotion);
     if (!canAnimate()) {
+      clearPickerReveal();
       cancelItemScoreAnimations();
       cancelScoreAnimationAndSync();
       cancelAnimations();
@@ -1348,8 +1349,17 @@ const DesktopUI = (() => {
   let pickerGeneration = 0,
     pickerPreparing = false,
     pickerRevealing = false;
+  let pickerRevealDeadline = null;
+  const pickerRevealAnimations = [];
   const pickerReelRestores = [];
   function clearPickerReveal() {
+    if (pickerRevealDeadline) {
+      clearTimeout(pickerRevealDeadline.timer);
+      pickerRevealDeadline.resolve();
+      pickerRevealDeadline = null;
+    }
+    for (const animation of pickerRevealAnimations.splice(0))
+      animation.cancel();
     pickerRevealing = false;
     $("#pickerModal")?.removeAttribute("data-picker-reveal");
     for (const restore of pickerReelRestores.splice(0)) restore();
@@ -1436,6 +1446,17 @@ const DesktopUI = (() => {
       return;
     }
     pickerRevealing = true;
+    // Native reels must not depend on WAAPI in the hidden/minimized main window.
+    // Cancellation resolves animation.finished early; a paused timeline may never
+    // resolve it. This owned deadline preserves the one-second reveal contract.
+    const minimumReveal = new Promise((resolve) => {
+      const owner = { resolve, timer: null };
+      owner.timer = setTimeout(() => {
+        if (pickerRevealDeadline === owner) pickerRevealDeadline = null;
+        resolve();
+      }, 1000);
+      pickerRevealDeadline = owner;
+    });
     modal.dataset.pickerReveal = "pending";
     button.disabled = true;
     button.setAttribute("aria-busy", "true");
@@ -1496,12 +1517,18 @@ const DesktopUI = (() => {
           fill: "forwards",
         },
       );
-      if (a) pending.push(a.finished.catch(() => {}));
+      if (a) {
+        pickerRevealAnimations.push(a);
+        pending.push(a.finished.catch(() => {}));
+      }
     });
     ClassroomFeedback.clearLive();
     // clearLive restores the legacy name; keep it hidden behind the settling strip.
     pendingActual.forEach((e) => (e.style.visibility = "hidden"));
-    Promise.all(pending).then(complete);
+    (window.GodpowerPicker?.isExternalPresentation()
+      ? minimumReveal
+      : Promise.all([minimumReveal, ...pending])
+    ).then(complete);
   }
   function pickerChanged() {
     const target = pickerTargetGroup();

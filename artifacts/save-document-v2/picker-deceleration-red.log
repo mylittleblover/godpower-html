@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: cancelled hidden-window WAAPI must not skip the visible floating reel slowdown
++ actual - expected
+
++ 'revealed'
+- 'settling'
+
+    at file:///workspace/godpower-html-latest/tests/e2e/picker-deceleration-lifecycle.mjs:6:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'revealed',
+  expected: 'settling',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

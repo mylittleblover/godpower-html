@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: floating score reply must follow durable storage ACK
+
+140 !== 142
+
+    at file:///workspace/godpower-html-latest/tests/e2e/picker-deceleration-lifecycle.mjs:56:82 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 140,
+  expected: 142,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
