@@ -2,4 +2,4 @@
 > godpower-html@3.0.68 build
 > node scripts/build.mjs
 
-{"file":"dist/godpower.html","bytes":11458431,"sha256":"1ecbe6aa9c58f185032f086ebbe613e0b5dd44ae2fc84cffcbad489e9a82fea4"}
+{"file":"dist/godpower.html","bytes":11476680,"sha256":"76a081604e0ad56c33acc712c547d22416722c7294794af6b5fe34201992bd0e"}

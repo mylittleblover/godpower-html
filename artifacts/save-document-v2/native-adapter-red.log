@@ -1,0 +1,34 @@
+✖ desktop chooses the bounded native backend without opening a second authoritative database (5.570825ms)
+✖ native failures are returned without silently falling back to an empty browser library (1.813947ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 84.650034
+
+✖ failing tests:
+
+test at tests/unit/save-repository-adapter.test.mjs:6:1
+✖ desktop chooses the bounded native backend without opening a second authoritative database (5.570825ms)
+  TypeError: Cannot read properties of undefined (reading 'open')
+      at Object.open (evalmachine.<anonymous>:29:36)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-repository-adapter.test.mjs:10:42)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/unit/save-repository-adapter.test.mjs:15:1
+✖ native failures are returned without silently falling back to an empty browser library (1.813947ms)
+  TypeError: Cannot read properties of undefined (reading 'open')
+      at Object.open (evalmachine.<anonymous>:29:36)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-repository-adapter.test.mjs:17:128)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

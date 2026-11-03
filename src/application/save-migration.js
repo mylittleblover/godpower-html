@@ -29,6 +29,65 @@
       displayName: (m ? m[2] : label).trim() || label.trim() || "未命名学生",
     };
   }
+  async function validateAssets(input) {
+    if (!Array.isArray(input) || input.length > 10000)
+      throw Error("invalid asset collection");
+    const result = [],
+      ids = new Set();
+    let total = 0;
+    for (const asset of input) {
+      if (
+        !asset ||
+        typeof asset.dataBase64 !== "string" ||
+        !/^image\/(png|jpeg|webp)$/.test(asset.mimeType)
+      )
+        throw Error("invalid avatar asset");
+      const bytes = Uint8Array.from(atob(asset.dataBase64), (c) =>
+        c.charCodeAt(0),
+      );
+      total += bytes.length;
+      if (total > 96 * 1024 * 1024)
+        throw Error("asset collection exceeds import limit");
+      const sha256 = await digest(bytes);
+      if (
+        asset.resourceId !== "asset-" + sha256 ||
+        asset.sha256 !== sha256 ||
+        asset.byteLength !== bytes.length ||
+        ids.has(asset.resourceId)
+      )
+        throw Error("asset digest/identity mismatch");
+      ids.add(asset.resourceId);
+      result.push({
+        resourceId: asset.resourceId,
+        mimeType: asset.mimeType,
+        sha256,
+        byteLength: bytes.length,
+        dataBase64: asset.dataBase64,
+      });
+    }
+    return result;
+  }
+  function bundle(document, assets) {
+    const doc = root.SaveSchema.validateV2(document);
+    const byId = new Map(assets.map((a) => [a.resourceId, a]));
+    const resources = doc.assetReferences.map((id) => {
+      const asset = byId.get(id);
+      if (!asset) throw Error("缺少头像资源 asset " + id);
+      return {
+        resourceId: asset.resourceId,
+        mimeType: asset.mimeType,
+        sha256: asset.sha256,
+        byteLength: asset.byteLength,
+        dataBase64: asset.dataBase64,
+      };
+    });
+    return {
+      kind: "godpower.save-bundle",
+      schemaVersion: 2,
+      documents: [doc],
+      assets: resources,
+    };
+  }
   async function preview({
     rawText,
     name = "导入课堂",
@@ -41,6 +100,36 @@
       throw Error("source text is missing or exceeds import limit");
     const raw = JSON.parse(rawText);
     root.SaveSchema.safeTree(raw);
+    if (raw?.kind === "godpower.save-bundle") {
+      if (
+        raw.schemaVersion !== 2 ||
+        !Array.isArray(raw.documents) ||
+        !raw.documents.length
+      )
+        throw Error("unsupported save bundle");
+      const documents = raw.documents.map(root.SaveSchema.validateV2);
+      if (new Set(documents.map((d) => d.saveId)).size !== documents.length)
+        throw Error("duplicate save identity");
+      const assets = await validateAssets(raw.assets),
+        ids = new Set(assets.map((a) => a.resourceId));
+      for (const doc of documents)
+        for (const id of doc.assetReferences)
+          if (!ids.has(id)) throw Error("缺少头像资源 asset " + id);
+      return {
+        documents,
+        assets,
+        appPreferences: { schemaVersion: 1, values: {} },
+        sourceDigest: await textDigest(rawText),
+        sourceText: rawText,
+        warnings: [],
+        report: {
+          saves: documents.length,
+          groups: documents.reduce((n, d) => n + d.roster.groups.length, 0),
+          students: documents.reduce((n, d) => n + d.roster.students.length, 0),
+          assets: assets.length,
+        },
+      };
+    }
     if (raw?.kind === "godpower.save")
       return {
         documents: [root.SaveSchema.validateV2(raw)],
@@ -260,6 +349,8 @@
   }
   root.SaveMigration = Object.freeze({
     preview,
+    bundle,
+    validateAssets,
     convert: (p) => ({
       documents: clone(p.documents),
       assets: clone(p.assets),

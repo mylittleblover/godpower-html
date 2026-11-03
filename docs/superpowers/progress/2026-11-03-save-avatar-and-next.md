@@ -42,3 +42,12 @@
 S02A：浏览器事务仓库真实Chromium1920×1080/1x PASS，包含来源原文保留、导入幂等、修订CAS、切档代次、全局偏好独立持久化、关闭重开，以及真实IDB事务中断完整回滚。尚未接入课堂权威保存入口或Electron磁盘，不把该结果当作完整产品验收。
 
 S01A/S02A验证：全量单元/集成373/373 PASS；build、check、format:core PASS。历史CSS证明测试改用其历史manifest做历史语句比较，仍扫描全部现行脚本检查退役类；边界检查修复DTO字段document被误当DOM引用的误报，DOM标识引用禁令保留。版本尚未发行，仍为3.0.68，最终集成发布时统一提升可见/内部/双仓版本。
+
+## S01B/S02B/S03A
+
+- 可移植save-bundle包含文档与去重资源；缺失资源/损坏摘要拒绝导入。新增头像可与文档原子提交。
+- SaveSession统一活动文档、修订与代次，真实IDB测试证明先等待旧写入ACK再切档，切档时拦截新写入，旧token拒绝。
+- SaveRoster负责稳定学生身份、可视化分组、未分组学生保留及头像引用；SaveProjection桥接现有比赛内核，纯积分变化不重建名单/头像缓存，运行时不恢复大量历史Base64。
+- 全量单元/集成384/384 PASS，build/check/format:core PASS；上述模块尚未接入课堂默认入口，不宣称设置界面或正式数据切换完成。
+- 两份实际源文件已分别生成私有staging可移植新档，19张确认头像写入；14组56人40历史，旧档字段回环、资源摘要、新包导入、原生仓库关闭重开、原始哈希不变均PASS。暂存件及含姓名映射/偏好回执仅位于/workspace/attachments/save-avatar-staging；公开报告只保留计数/摘要。尚未上传为正式交付。
+- Electron提交046db9f新增受控SaveVault与共享schema校验；67项单元与真实Electron21场景PASS（Linux Xvfb），主课堂ACK切换仍待完成。

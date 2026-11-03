@@ -1,0 +1,36 @@
+[
+  {
+    "source": "primary",
+    "status": "PASS",
+    "sourceSHA256": "d05f1cbfd11d4def8c552f80f240cbe208809cf3e48bab74f93527c6a581ae1b",
+    "sourceBytes": 26680769,
+    "saveBytes": 6108643,
+    "saveSHA256": "9dad100b77178c3cb5e0a2a144d8752ad3878d70017ac1d676251a9597f36372",
+    "groups": 14,
+    "students": 56,
+    "history": 40,
+    "studentAvatars": 19,
+    "assets": 28,
+    "exactLegacyRoundTrip": true,
+    "portableReimport": true,
+    "nativeReopen": true,
+    "originalUnchanged": true
+  },
+  {
+    "source": "backup",
+    "status": "PASS",
+    "sourceSHA256": "7f205793bb55b6e0bbfa4ccebda29574ce6d010ee0dfbf89cf3f508aa7d46f2a",
+    "sourceBytes": 31112558,
+    "saveBytes": 6123093,
+    "saveSHA256": "45e535801cfef3727e5c318cba9cdf4868196f140fe02c7da1760086b734c1e8",
+    "groups": 14,
+    "students": 56,
+    "history": 40,
+    "studentAvatars": 19,
+    "assets": 28,
+    "exactLegacyRoundTrip": true,
+    "portableReimport": true,
+    "nativeReopen": true,
+    "originalUnchanged": true
+  }
+]

@@ -1,0 +1,23 @@
+
+> godpower-html@3.0.68 test:saves
+> node --test tests/unit/save-document.test.mjs tests/unit/legacy-save-conversion.test.mjs && node tests/e2e/save-repository.mjs
+
+✔ conversion preserves scores, inventory charges, history, achievements and original input (10.176137ms)
+✔ same source imports are deterministic while different same-name students stay separate (4.510334ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (15.24705ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (7.394889ms)
+✔ broken JSON and missing group identities fail without producing a partial save (2.244085ms)
+✔ portable save bundle preserves resource bytes and restores avatar references on import (3.766009ms)
+✔ portable bundles reject missing or corrupted resources before returning an import preview (3.744295ms)
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (3.274374ms)
+✔ new save validates stable identities, revisions and roster references (9.333924ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (3.016965ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.116697
+PASS real IndexedDB import, CAS, generation, idempotency, preferences, source preservation, reopen and transaction rollback

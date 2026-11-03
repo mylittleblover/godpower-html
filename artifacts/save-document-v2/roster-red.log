@@ -1,0 +1,84 @@
+✖ visual assignment moves stable students between groups without merging equal names (3.249525ms)
+✖ editing a student updates current labels while historical snapshots remain unchanged (1.169956ms)
+✖ adding an unassigned student and assigning avatars preserve scores, inventory and identities (2.174301ms)
+✖ invalid student references, duplicated selection and blank names cannot change roster data (1.019048ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 85.843363
+
+✖ failing tests:
+
+test at tests/unit/save-roster.test.mjs:3:1
+✖ visual assignment moves stable students between groups without merging equal names (3.249525ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-roster.js'
+      at readFileSync (node:fs:484:20)
+      at fixture (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:2:79)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:3:131)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-roster.js'
+  }
+
+test at tests/unit/save-roster.test.mjs:4:1
+✖ editing a student updates current labels while historical snapshots remain unchanged (1.169956ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-roster.js'
+      at readFileSync (node:fs:484:20)
+      at fixture (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:2:79)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:4:133)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-roster.js'
+  }
+
+test at tests/unit/save-roster.test.mjs:5:1
+✖ adding an unassigned student and assigning avatars preserve scores, inventory and identities (2.174301ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-roster.js'
+      at readFileSync (node:fs:484:20)
+      at fixture (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:2:79)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:5:141)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-roster.js'
+  }
+
+test at tests/unit/save-roster.test.mjs:6:1
+✖ invalid student references, duplicated selection and blank names cannot change roster data (1.019048ms)
+  Error: ENOENT: no such file or directory, open 'src/domain/save-roster.js'
+      at readFileSync (node:fs:484:20)
+      at fixture (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:2:79)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-roster.test.mjs:6:139)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/domain/save-roster.js'
+  }

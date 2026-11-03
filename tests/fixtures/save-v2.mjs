@@ -17,6 +17,7 @@ export function saveCore() {
   for (const file of [
     "domain/identity.js",
     "domain/save-document.js",
+    "domain/save-roster.js",
     "application/save-migration.js",
   ])
     vm.runInContext(readFileSync("src/" + file, "utf8"), context);

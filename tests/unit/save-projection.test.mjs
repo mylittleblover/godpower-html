@@ -1,0 +1,65 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import vm from "node:vm";
+import { readFileSync } from "node:fs";
+import { saveCore, legacy } from "../fixtures/save-v2.mjs";
+async function fixture() {
+  const c = saveCore();
+  for (const f of ["domain/save-roster.js", "application/save-projection.js"])
+    vm.runInContext(readFileSync("src/" + f, "utf8"), c.context);
+  return {
+    ...c,
+    projection: c.context.SaveProjection,
+    document: (await c.migration.preview({ rawText: JSON.stringify(legacy()) }))
+      .documents[0],
+  };
+}
+test("runtime projection carries small resource references without decoding inline avatars into history", async () => {
+  const { migration, projection } = await fixture(),
+    raw = legacy();
+  raw.groups[0].groupAvatar =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+  raw.history = [{ groups: structuredClone(raw.groups) }];
+  const p = await migration.preview({ rawText: JSON.stringify(raw) });
+  const runtime = projection.toRuntime(p.documents[0], {
+    values: { masterVolume: 0.2 },
+  });
+  assert.equal(runtime.groups[0].groupAvatar, "");
+  assert.equal(runtime.groups[0].avatarResourceId, p.assets[0].resourceId);
+  assert.equal(JSON.stringify(runtime).includes("data:image/"), false);
+  assert.equal(runtime.masterVolume, 0.2);
+  assert.equal(runtime.groups[0].score, 100);
+});
+test("score-only persistence keeps student identities and roster revision stable", async () => {
+  const { projection, document } = await fixture();
+  const runtime = projection.toRuntime(document);
+  runtime.groups[0].score = 102;
+  const saved = await projection.fromRuntime(document, runtime);
+  assert.equal(saved.document.match.groups[0].score, 102);
+  assert.equal(
+    JSON.stringify(saved.document.roster),
+    JSON.stringify(document.roster),
+  );
+  assert.equal(saved.document.saveId, document.saveId);
+  assert.equal(saved.document.revision, document.revision);
+});
+test("legacy membership updates preserve existing students and retain removed members as unassigned", async () => {
+  const { projection, document } = await fixture();
+  const runtime = projection.toRuntime(document);
+  runtime.groups[0].members = ["01 甲", "04 新人"];
+  delete runtime.rosterSnapshot;
+  const saved = await projection.fromRuntime(document, runtime);
+  const roster = saved.document.roster;
+  assert.equal(roster.students.length, 4);
+  assert.equal(roster.assignments.length, 3);
+  assert.equal(
+    roster.students[0].studentUid,
+    document.roster.students[0].studentUid,
+  );
+  assert.equal(
+    roster.assignments.some(
+      (a) => a.studentUid === document.roster.students[1].studentUid,
+    ),
+    false,
+  );
+});

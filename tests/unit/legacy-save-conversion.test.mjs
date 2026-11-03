@@ -77,3 +77,38 @@ test("broken JSON and missing group identities fail without producing a partial 
     /identity|身份|duplicate/,
   );
 });
+
+test("portable save bundle preserves resource bytes and restores avatar references on import", async () => {
+  const { migration } = saveCore(),
+    raw = legacy();
+  raw.groups[0].groupAvatar = png;
+  const a = await migration.preview({ rawText: JSON.stringify(raw) });
+  const text = JSON.stringify(migration.bundle(a.documents[0], a.assets));
+  const b = await migration.preview({ rawText: text });
+  assert.equal(b.documents[0].saveId, a.documents[0].saveId);
+  assert.deepEqual(b.assets, a.assets);
+  assert.equal(
+    JSON.stringify(
+      migration.toLegacy(b.documents[0], b.assets, a.appPreferences),
+    ),
+    JSON.stringify(raw),
+  );
+});
+test("portable bundles reject missing or corrupted resources before returning an import preview", async () => {
+  const { migration } = saveCore(),
+    raw = legacy();
+  raw.groups[0].groupAvatar = png;
+  const a = await migration.preview({ rawText: JSON.stringify(raw) });
+  const bundle = migration.bundle(a.documents[0], a.assets);
+  bundle.assets = [];
+  await assert.rejects(
+    migration.preview({ rawText: JSON.stringify(bundle) }),
+    /asset|资源/,
+  );
+  bundle.assets = structuredClone(a.assets);
+  bundle.assets[0].dataBase64 = "AAAA";
+  await assert.rejects(
+    migration.preview({ rawText: JSON.stringify(bundle) }),
+    /asset|资源|digest/,
+  );
+});

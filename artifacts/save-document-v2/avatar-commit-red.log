@@ -1,0 +1,32 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
++   code: 'MISSING_ASSET',
++   message: 'asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460',
++   ok: false
+-   avatar: true,
+-   bytes: true,
+-   failed: false,
+-   ok: true,
+-   revision: 2
+  }
+
+    at file:///workspace/godpower-html-latest/tests/e2e/save-repository.mjs:156:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    ok: false,
+    code: 'MISSING_ASSET',
+    message: 'asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460'
+  },
+  expected: { ok: true, failed: false, revision: 2, avatar: true, bytes: true },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

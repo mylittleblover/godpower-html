@@ -1,0 +1,15 @@
+✔ conversion preserves scores, inventory charges, history, achievements and original input (13.346664ms)
+✔ same source imports are deterministic while different same-name students stay separate (5.279178ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (19.404727ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (5.560592ms)
+✔ broken JSON and missing group identities fail without producing a partial save (4.868388ms)
+✔ portable save bundle preserves resource bytes and restores avatar references on import (6.305657ms)
+✔ portable bundles reject missing or corrupted resources before returning an import preview (4.594555ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.975672

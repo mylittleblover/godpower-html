@@ -15193,6 +15193,101 @@ globalThis.StableIdentity = StableIdentity;
   });
 })(globalThis);
 </script>
+<script>/* Canonical roster edits; labels are a compatibility projection, never identity. */
+(function installSaveRoster(root) {
+  "use strict";
+  const validate = (input) => root.SaveSchema.validateV2(input);
+  const label = (student) =>
+    student.legacyLabel ||
+    [student.number, student.displayName].filter(Boolean).join(" ");
+  function project(doc) {
+    const students = new Map(doc.roster.students.map((s) => [s.studentUid, s]));
+    for (const group of doc.match.groups)
+      group.members = doc.roster.assignments
+        .filter((a) => a.groupUid === group.groupUid)
+        .map((a) => label(students.get(a.studentUid)));
+    return doc;
+  }
+  function finish(doc) {
+    doc.roster.revision = (doc.roster.revision || 1) + 1;
+    return validate(doc);
+  }
+  function assign(input, groupUid, studentUids) {
+    const doc = validate(input);
+    if (!doc.roster.groups.some((g) => g.groupUid === groupUid))
+      throw Error("小组不存在");
+    if (
+      !Array.isArray(studentUids) ||
+      new Set(studentUids).size !== studentUids.length
+    )
+      throw Error("学生选择重复或无效");
+    const ids = new Set(doc.roster.students.map((s) => s.studentUid)),
+      selection = new Set(studentUids);
+    for (const id of studentUids) if (!ids.has(id)) throw Error("学生不存在");
+    doc.roster.assignments = doc.roster.assignments.filter(
+      (a) => a.groupUid !== groupUid && !selection.has(a.studentUid),
+    );
+    doc.roster.assignments.push(
+      ...studentUids.map((studentUid) => ({ studentUid, groupUid })),
+    );
+    return finish(project(doc));
+  }
+  function editStudent(input, studentUid, changes) {
+    const doc = validate(input),
+      student = doc.roster.students.find((s) => s.studentUid === studentUid);
+    if (!student) throw Error("学生不存在");
+    const name = String(changes.displayName ?? student.displayName).trim();
+    if (!name || name.length > 200) throw Error("姓名不能为空且不得超过200字");
+    const number = String(changes.number ?? student.number ?? "").trim();
+    if (number.length > 30) throw Error("学号过长");
+    student.displayName = name;
+    student.number = number || null;
+    student.legacyLabel = [number, name].filter(Boolean).join(" ");
+    return finish(project(doc));
+  }
+  function addStudent(input, { displayName, number = null }) {
+    const doc = validate(input),
+      name = String(displayName ?? "").trim(),
+      studentNumber = String(number ?? "").trim();
+    if (!name || name.length > 200 || studentNumber.length > 30)
+      throw Error("学生姓名或学号无效");
+    const studentUid = root.StableIdentity.createStudentUid();
+    doc.roster.students.push({
+      studentUid,
+      displayName: name,
+      number: studentNumber || null,
+      legacyLabel: [studentNumber, name].filter(Boolean).join(" "),
+      avatarResourceId: null,
+    });
+    return finish(doc);
+  }
+  function setAvatar(input, type, identity, resourceId) {
+    const doc = validate(input);
+    if (resourceId !== null && !doc.assetReferences.includes(resourceId))
+      throw Error("头像资源 asset 尚未加入当前存档");
+    const rows =
+      type === "student"
+        ? doc.roster.students
+        : type === "group"
+          ? doc.roster.groups
+          : null;
+    if (!rows) throw Error("头像目标类型无效");
+    const row = rows.find(
+      (r) => (type === "student" ? r.studentUid : r.groupUid) === identity,
+    );
+    if (!row) throw Error("头像目标不存在");
+    row.avatarResourceId = resourceId;
+    return finish(doc);
+  }
+  root.SaveRoster = Object.freeze({
+    assign,
+    editStudent,
+    addStudent,
+    setAvatar,
+    label,
+  });
+})(globalThis);
+</script>
 <script>/* Read-only legacy conversion, resource extraction and reversible projection. */
 (function installSaveMigration(root) {
   "use strict";
@@ -15224,6 +15319,65 @@ globalThis.StableIdentity = StableIdentity;
       displayName: (m ? m[2] : label).trim() || label.trim() || "未命名学生",
     };
   }
+  async function validateAssets(input) {
+    if (!Array.isArray(input) || input.length > 10000)
+      throw Error("invalid asset collection");
+    const result = [],
+      ids = new Set();
+    let total = 0;
+    for (const asset of input) {
+      if (
+        !asset ||
+        typeof asset.dataBase64 !== "string" ||
+        !/^image\/(png|jpeg|webp)$/.test(asset.mimeType)
+      )
+        throw Error("invalid avatar asset");
+      const bytes = Uint8Array.from(atob(asset.dataBase64), (c) =>
+        c.charCodeAt(0),
+      );
+      total += bytes.length;
+      if (total > 96 * 1024 * 1024)
+        throw Error("asset collection exceeds import limit");
+      const sha256 = await digest(bytes);
+      if (
+        asset.resourceId !== "asset-" + sha256 ||
+        asset.sha256 !== sha256 ||
+        asset.byteLength !== bytes.length ||
+        ids.has(asset.resourceId)
+      )
+        throw Error("asset digest/identity mismatch");
+      ids.add(asset.resourceId);
+      result.push({
+        resourceId: asset.resourceId,
+        mimeType: asset.mimeType,
+        sha256,
+        byteLength: bytes.length,
+        dataBase64: asset.dataBase64,
+      });
+    }
+    return result;
+  }
+  function bundle(document, assets) {
+    const doc = root.SaveSchema.validateV2(document);
+    const byId = new Map(assets.map((a) => [a.resourceId, a]));
+    const resources = doc.assetReferences.map((id) => {
+      const asset = byId.get(id);
+      if (!asset) throw Error("缺少头像资源 asset " + id);
+      return {
+        resourceId: asset.resourceId,
+        mimeType: asset.mimeType,
+        sha256: asset.sha256,
+        byteLength: asset.byteLength,
+        dataBase64: asset.dataBase64,
+      };
+    });
+    return {
+      kind: "godpower.save-bundle",
+      schemaVersion: 2,
+      documents: [doc],
+      assets: resources,
+    };
+  }
   async function preview({
     rawText,
     name = "导入课堂",
@@ -15236,6 +15390,36 @@ globalThis.StableIdentity = StableIdentity;
       throw Error("source text is missing or exceeds import limit");
     const raw = JSON.parse(rawText);
     root.SaveSchema.safeTree(raw);
+    if (raw?.kind === "godpower.save-bundle") {
+      if (
+        raw.schemaVersion !== 2 ||
+        !Array.isArray(raw.documents) ||
+        !raw.documents.length
+      )
+        throw Error("unsupported save bundle");
+      const documents = raw.documents.map(root.SaveSchema.validateV2);
+      if (new Set(documents.map((d) => d.saveId)).size !== documents.length)
+        throw Error("duplicate save identity");
+      const assets = await validateAssets(raw.assets),
+        ids = new Set(assets.map((a) => a.resourceId));
+      for (const doc of documents)
+        for (const id of doc.assetReferences)
+          if (!ids.has(id)) throw Error("缺少头像资源 asset " + id);
+      return {
+        documents,
+        assets,
+        appPreferences: { schemaVersion: 1, values: {} },
+        sourceDigest: await textDigest(rawText),
+        sourceText: rawText,
+        warnings: [],
+        report: {
+          saves: documents.length,
+          groups: documents.reduce((n, d) => n + d.roster.groups.length, 0),
+          students: documents.reduce((n, d) => n + d.roster.students.length, 0),
+          assets: assets.length,
+        },
+      };
+    }
     if (raw?.kind === "godpower.save")
       return {
         documents: [root.SaveSchema.validateV2(raw)],
@@ -15455,6 +15639,8 @@ globalThis.StableIdentity = StableIdentity;
   }
   root.SaveMigration = Object.freeze({
     preview,
+    bundle,
+    validateAssets,
     convert: (p) => ({
       documents: clone(p.documents),
       assets: clone(p.assets),
@@ -15496,6 +15682,56 @@ globalThis.StableIdentity = StableIdentity;
   const failure = (code, message) =>
     Object.assign(new Error(message || code), { code });
   async function open({ name = "godpower_save_library_v2" } = {}) {
+    const native =
+      root.godpowerDesktop?.role === "main"
+        ? root.godpowerDesktop.saveVault
+        : null;
+    if (native) {
+      // The desktop disk library is authoritative. Do not dual-write IndexedDB
+      // or turn an IPC failure into a new empty classroom.
+      return Object.freeze({
+        name: "native-save-library",
+        backend: "native",
+        close: () => {},
+        list: () => native.list(),
+        load: (id) => native.load(id),
+        importPreview: (preview, options = {}) =>
+          native.importPreview(preview, options),
+        commit: (id, revision, saveDoc, options = {}) =>
+          native.commit(id, revision, saveDoc, options),
+        switchActive: (id, options = {}) => native.switchActive(id, options),
+        loadPreferences: () => native.loadPreferences(),
+        savePreferences: (values, options = {}) =>
+          native.savePreferences(values, options),
+        getSource: async (digest) => {
+          const source = await native.getSource(digest);
+          return source?.sourceText !== undefined
+            ? {
+                ...source,
+                raw: new Blob([source.sourceText], {
+                  type: "application/json",
+                }),
+              }
+            : source;
+        },
+        getAsset: async (id) => {
+          const asset = await native.getAsset(id);
+          return asset?.dataBase64 !== undefined
+            ? {
+                ...asset,
+                raw: new Blob(
+                  [
+                    Uint8Array.from(atob(asset.dataBase64), (c) =>
+                      c.charCodeAt(0),
+                    ),
+                  ],
+                  { type: asset.mimeType },
+                ),
+              }
+            : asset;
+        },
+      });
+    }
     const opening = root.indexedDB.open(name, 1);
     opening.onupgradeneeded = () => {
       for (const store of stores) opening.result.createObjectStore(store);
@@ -15562,31 +15798,15 @@ globalThis.StableIdentity = StableIdentity;
           preview.sourceDigest
         )
           throw failure("SOURCE_DIGEST_MISMATCH");
-        assets = [];
-        for (const asset of preview.assets || []) {
-          if (!/^image\/(png|jpeg|webp)$/.test(asset.mimeType))
-            throw failure("INVALID_ASSET_TYPE");
-          const bytes = Uint8Array.from(atob(asset.dataBase64), (c) =>
-            c.charCodeAt(0),
-          );
-          const hash = [
-            ...new Uint8Array(
-              await root.crypto.subtle.digest("SHA-256", bytes),
-            ),
-          ]
-            .map((n) => n.toString(16).padStart(2, "0"))
-            .join("");
-          if (
-            asset.resourceId !== "asset-" + hash ||
-            asset.sha256 !== hash ||
-            asset.byteLength !== bytes.length
-          )
-            throw failure("ASSET_DIGEST_MISMATCH");
-          assets.push({
-            ...asset,
-            raw: new Blob([bytes], { type: asset.mimeType }),
-          });
-        }
+        assets = (
+          await root.SaveMigration.validateAssets(copy(preview.assets || []))
+        ).map((asset) => ({
+          ...asset,
+          raw: new Blob(
+            [Uint8Array.from(atob(asset.dataBase64), (c) => c.charCodeAt(0))],
+            { type: asset.mimeType },
+          ),
+        }));
       } catch (error) {
         return {
           ok: false,
@@ -15635,6 +15855,7 @@ globalThis.StableIdentity = StableIdentity;
     }
     return Object.freeze({
       name,
+      backend: "indexeddb",
       close: () => db.close(),
       importPreview,
       list: () =>
@@ -15660,40 +15881,66 @@ globalThis.StableIdentity = StableIdentity;
           "readonly",
           async (api) => (await api.get("assets", id)) || null,
         ),
-      commit: (
+      commit: async (
         saveId,
         expectedRevision,
         saveDoc,
-        { expectedGeneration } = {},
-      ) =>
-        transact(["meta", "documents", "assets"], "readwrite", async (api) => {
-          const index = await indexOf(api);
-          checkGeneration(index, expectedGeneration);
-          const old = await api.get("documents", saveId);
-          if (!old) throw failure("SAVE_NOT_FOUND");
-          if (old.revision !== expectedRevision)
-            throw failure("REVISION_CONFLICT");
-          if (
-            saveDoc.saveId !== saveId ||
-            saveDoc.revision !== expectedRevision
-          )
-            throw failure("INVALID_REVISION");
-          const doc = root.SaveSchema.validateV2({
-            ...copy(saveDoc),
-            revision: expectedRevision + 1,
-            updatedAt: new Date().toISOString(),
-          });
-          for (const id of doc.assetReferences)
-            if (!(await api.get("assets", id)))
-              throw failure("MISSING_ASSET", id);
-          await api.put("documents", saveId, doc);
-          index.entries = index.entries.map((e) =>
-            e.saveId === saveId ? entry(doc) : e,
+        { expectedGeneration, assets: inputAssets = [] } = {},
+      ) => {
+        let preparedAssets;
+        try {
+          saveDoc = copy(saveDoc);
+          preparedAssets = await root.SaveMigration.validateAssets(
+            copy(inputAssets),
           );
-          index.revision++;
-          await api.put("meta", "index", index);
-          return { ok: true, document: doc, index };
-        }),
+        } catch (error) {
+          return { ok: false, code: "INVALID_ASSET", message: error.message };
+        }
+        return transact(
+          ["meta", "documents", "assets"],
+          "readwrite",
+          async (api) => {
+            const index = await indexOf(api);
+            checkGeneration(index, expectedGeneration);
+            const old = await api.get("documents", saveId);
+            if (!old) throw failure("SAVE_NOT_FOUND");
+            if (old.revision !== expectedRevision)
+              throw failure("REVISION_CONFLICT");
+            if (
+              saveDoc.saveId !== saveId ||
+              saveDoc.revision !== expectedRevision
+            )
+              throw failure("INVALID_REVISION");
+            const doc = root.SaveSchema.validateV2({
+              ...copy(saveDoc),
+              revision: expectedRevision + 1,
+              updatedAt: new Date().toISOString(),
+            });
+            for (const asset of preparedAssets)
+              await api.put("assets", asset.resourceId, {
+                ...asset,
+                raw: new Blob(
+                  [
+                    Uint8Array.from(atob(asset.dataBase64), (c) =>
+                      c.charCodeAt(0),
+                    ),
+                  ],
+                  { type: asset.mimeType },
+                ),
+              });
+            for (const id of doc.assetReferences)
+              if (!(await api.get("assets", id)))
+                throw failure("MISSING_ASSET", id);
+            await api.put("documents", saveId, doc);
+            index.entries = index.entries.map((e) =>
+              e.saveId === saveId ? entry(doc) : e,
+            );
+            index.revision++;
+            await api.put("meta", "index", index);
+            return { ok: true, document: doc, index };
+          },
+        );
+      },
       switchActive: (saveId, { expectedGeneration } = {}) =>
         transact(["meta", "documents"], "readwrite", async (api) => {
           const index = await indexOf(api);
@@ -15742,6 +15989,276 @@ globalThis.StableIdentity = StableIdentity;
     });
   }
   root.SaveRepository = Object.freeze({ open });
+})(globalThis);
+</script>
+<script>/* One active save owner; serialized ACKs precede cutover and stale work is rejected. */
+(function installSaveSession(root) {
+  "use strict";
+  const clone = (value) => root.SaveSchema.clone(value);
+  async function create({
+    repository,
+    apply,
+    onStatus = () => {},
+    beforeSwitch = () => {},
+    commandBusy = () => false,
+  }) {
+    const initial = await repository.list();
+    if (!initial?.ok)
+      throw Error(initial?.message || initial?.code || "无法读取存档索引");
+    let index = initial.index;
+    if (!index.activeSaveId) throw Error("NO_ACTIVE_SAVE");
+    const loaded = await repository.load(index.activeSaveId);
+    if (!loaded?.ok)
+      throw Error(loaded?.message || loaded?.code || "无法读取当前存档");
+    let current = root.SaveSchema.validateV2(loaded.document),
+      switching = false,
+      queue = Promise.resolve({ ok: true });
+    function status(phase, error = null) {
+      try {
+        onStatus({
+          phase,
+          saveId: current.saveId,
+          revision: current.revision,
+          generation: index.generation,
+          error,
+        });
+      } catch (reportError) {
+        console.error("Save status presentation failed", reportError);
+      }
+    }
+    const token = () =>
+      Object.freeze({ saveId: current.saveId, generation: index.generation });
+    const matches = (t) =>
+      t && t.saveId === current.saveId && t.generation === index.generation;
+    const reject = (code, message = code) => ({
+      ok: false,
+      code,
+      error: message,
+    });
+    function enqueue(operation) {
+      const run = async () => {
+        try {
+          return await operation();
+        } catch (error) {
+          status("error", error.message);
+          return reject(error.code || "SAVE_FAILED", error.message);
+        }
+      };
+      queue = queue.then(run, run);
+      return queue;
+    }
+    async function applyCurrent() {
+      try {
+        await apply(clone(current));
+        return true;
+      } catch (error) {
+        status("presentation-error", error.message);
+        return false;
+      }
+    }
+    if (!(await applyCurrent()))
+      throw Error("无法显示已保存的课堂，存档原文仍保留");
+    status("ready");
+    return Object.freeze({
+      token,
+      snapshot: () => clone(current),
+      isSwitching: () => switching,
+      whenIdle: () => queue,
+      update: (
+        prepare,
+        { token: requested = token(), apply: shouldApply = false } = {},
+      ) => {
+        if (switching)
+          return Promise.resolve(
+            reject("SAVE_SWITCHING", "正在切换存档，请稍候"),
+          );
+        if (!matches(requested))
+          return Promise.resolve(
+            reject("GENERATION_CONFLICT", "操作属于旧存档，已取消"),
+          );
+        return enqueue(async () => {
+          if (!matches(requested)) return reject("GENERATION_CONFLICT");
+          status("saving");
+          const prepared = await prepare(clone(current));
+          if (!matches(requested)) return reject("GENERATION_CONFLICT");
+          const doc = root.SaveSchema.validateV2(prepared.document);
+          if (
+            doc.saveId !== current.saveId ||
+            doc.revision !== current.revision
+          )
+            return reject("REVISION_CONFLICT");
+          const result = await repository.commit(
+            current.saveId,
+            current.revision,
+            doc,
+            {
+              expectedGeneration: index.generation,
+              assets: prepared.assets || [],
+            },
+          );
+          if (!result?.ok) {
+            status("error", result?.message || result?.code);
+            return {
+              ...result,
+              error: result?.message || result?.code || "保存失败",
+            };
+          }
+          current = result.document;
+          index = result.index;
+          const applied = shouldApply ? await applyCurrent() : true;
+          status(applied ? "saved" : "presentation-error");
+          return { ...result, applied };
+        });
+      },
+      switchTo: (id) => {
+        if (switching) return Promise.resolve(reject("SAVE_SWITCHING"));
+        if (commandBusy())
+          return Promise.resolve(
+            reject("COMMAND_PENDING", "请先完成当前操作再切换存档"),
+          );
+        switching = true;
+        status("switching");
+        return enqueue(async () => {
+          try {
+            await beforeSwitch();
+            const result = await repository.switchActive(id, {
+              expectedGeneration: index.generation,
+            });
+            if (!result?.ok) {
+              status("error", result?.message || result?.code);
+              return { ...result, error: result?.message || result?.code };
+            }
+            index = result.index;
+            current = result.document;
+            const applied = await applyCurrent();
+            status(applied ? "ready" : "presentation-error");
+            return { ...result, applied };
+          } finally {
+            switching = false;
+          }
+        });
+      },
+    });
+  }
+  root.SaveSession = Object.freeze({ create });
+})(globalThis);
+</script>
+<script>/* Bridge the unchanged competition envelope to canonical save/roster storage. */
+(function installSaveProjection(root) {
+  "use strict";
+  const copy = (value) => root.SaveSchema.clone(value);
+  function toRuntime(input, preferences = { values: {} }) {
+    const doc = root.SaveSchema.validateV2(input);
+    function compact(value) {
+      if (Array.isArray(value)) return value.map(compact);
+      if (value && typeof value === "object") {
+        const out = {};
+        for (const [key, child] of Object.entries(value)) {
+          if (key === "groupAvatar" && child?.$asset) {
+            out.groupAvatar = "";
+            out.avatarResourceId = child.$asset;
+          } else out[key] = compact(child);
+        }
+        return out;
+      }
+      return value;
+    }
+    const compactDoc = { ...doc, match: compact(doc.match) };
+    const runtime = root.SaveMigration.toLegacy(compactDoc, [], preferences);
+    runtime.rosterSnapshot = copy(doc.roster);
+    for (const group of runtime.groups) {
+      const row = doc.roster.groups.find((g) => g.groupUid === group.groupUid);
+      group.avatarResourceId = row?.avatarResourceId || null;
+      group.memberStudentUids = doc.roster.assignments
+        .filter((a) => a.groupUid === group.groupUid)
+        .map((a) => a.studentUid);
+    }
+    return runtime;
+  }
+  async function fromRuntime(input, payload) {
+    const current = root.SaveSchema.validateV2(input),
+      snapshot = copy(payload);
+    const imported = await root.SaveMigration.preview({
+        rawText: JSON.stringify(snapshot),
+      }),
+      replacement = imported.documents[0];
+    const roster = copy(snapshot.rosterSnapshot || current.roster);
+    const oldAssignments = roster.assignments,
+      assigned = new Set(),
+      assignments = [];
+    const groupRows = [];
+    for (const group of replacement.match.groups) {
+      const previous = roster.groups.find((g) => g.groupUid === group.groupUid);
+      groupRows.push({
+        groupUid: group.groupUid,
+        name: group.name,
+        groupNo: group.groupNo ?? previous?.groupNo,
+        color: group.color,
+        avatarResourceId:
+          group.groupAvatar?.$asset ||
+          (Object.hasOwn(group, "avatarResourceId")
+            ? group.avatarResourceId
+            : previous?.avatarResourceId) ||
+          null,
+      });
+      const oldIds = oldAssignments
+        .filter((a) => a.groupUid === group.groupUid)
+        .map((a) => a.studentUid);
+      for (const label of group.members || []) {
+        // Same-name students in different groups never become one identity.
+        const candidates = roster.students.filter(
+          (s) =>
+            oldIds.includes(s.studentUid) &&
+            !assigned.has(s.studentUid) &&
+            root.SaveRoster.label(s) === label,
+        );
+        let student = candidates[0];
+        if (!student) {
+          student = {
+            studentUid: root.StableIdentity.createStudentUid(),
+            ...root.SaveMigration.parseMember(label),
+            legacyLabel: label,
+            avatarResourceId: null,
+          };
+          roster.students.push(student);
+        }
+        assigned.add(student.studentUid);
+        assignments.push({
+          studentUid: student.studentUid,
+          groupUid: group.groupUid,
+        });
+      }
+    }
+    roster.groups = groupRows;
+    roster.assignments = assignments;
+    const a = copy(roster),
+      b = copy(current.roster);
+    delete a.revision;
+    delete b.revision;
+    roster.revision =
+      current.roster.revision +
+      (JSON.stringify(a) === JSON.stringify(b) ? 0 : 1);
+    const document = {
+      ...current,
+      roster,
+      match: replacement.match,
+      achievements: replacement.achievements,
+      perSaveOptions: replacement.perSaveOptions,
+      assetReferences: [
+        ...new Set([
+          ...current.assetReferences,
+          ...replacement.assetReferences,
+        ]),
+      ],
+    };
+    delete document.match.extensions.rosterSnapshot;
+    return {
+      document: root.SaveSchema.validateV2(document),
+      assets: imported.assets,
+      appPreferences: imported.appPreferences,
+    };
+  }
+  root.SaveProjection = Object.freeze({ toRuntime, fromRuntime });
 })(globalThis);
 </script>
 <script>/* Pure, versioned dashboard layout model. No classroom state or DOM access. */

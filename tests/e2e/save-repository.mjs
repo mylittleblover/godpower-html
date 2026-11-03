@@ -11,6 +11,7 @@ for (const f of [
   "domain/save-document.js",
   "application/save-migration.js",
   "infrastructure/save-repository.js",
+  "application/save-session.js",
 ])
   if (existsSync("src/" + f)) scripts.push(await readFile("src/" + f, "utf8"));
 const html =
@@ -138,6 +139,116 @@ try {
   assert.equal(aborted.ok, false);
   assert.equal(aborted.entries, 0);
   assert.equal(aborted.source, null);
+  assert.equal(
+    await p.evaluate(() => typeof SaveSession),
+    "object",
+    "active-save session must exist",
+  );
+  const sessionResult = await p.evaluate(async (raw) => {
+    const repo = await SaveRepository.open({
+      name: "session-" + crypto.randomUUID(),
+    });
+    const a = await SaveMigration.preview({ rawText: JSON.stringify(raw) });
+    raw.groups[0].score = 300;
+    const b = await SaveMigration.preview({ rawText: JSON.stringify(raw) });
+    await repo.importPreview(a, { activate: true });
+    await repo.importPreview(b);
+    const applied = [];
+    const session = await SaveSession.create({
+      repository: repo,
+      apply: (doc) => applied.push(doc.saveId),
+    });
+    const original = session.token();
+    let release;
+    const gate = new Promise((r) => (release = r));
+    const writing = session.update(async (doc) => {
+      await gate;
+      doc.match.groups[0].score += 2;
+      return { document: doc };
+    });
+    const switching = session.switchTo(b.documents[0].saveId);
+    const blocked = await session.update((doc) => ({ document: doc }));
+    const before = applied.length;
+    release();
+    const saved = await writing;
+    const switched = await switching;
+    const late = await session.update((doc) => ({ document: doc }), {
+      token: original,
+    });
+    const first = await repo.load(a.documents[0].saveId);
+    const active = session.snapshot();
+    repo.close();
+    return {
+      saved: saved.ok,
+      switched: switched.ok,
+      before,
+      after: applied.length,
+      blocked: blocked.code,
+      late: late.code,
+      oldScore: first.document.match.groups[0].score,
+      activeScore: active.match.groups[0].score,
+    };
+  }, legacy());
+  assert.deepEqual(sessionResult, {
+    saved: true,
+    switched: true,
+    before: 1,
+    after: 2,
+    blocked: "SAVE_SWITCHING",
+    late: "GENERATION_CONFLICT",
+    oldScore: 102,
+    activeScore: 300,
+  });
+  const avatarResult = await p.evaluate(async (raw) => {
+    const repo = await SaveRepository.open({
+      name: "avatar-commit-" + crypto.randomUUID(),
+    });
+    const preview = await SaveMigration.preview({
+      rawText: JSON.stringify(raw),
+    });
+    await repo.importPreview(preview, { activate: true });
+    raw.groups[0].groupAvatar =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=";
+    const extracted = await SaveMigration.preview({
+      rawText: JSON.stringify(raw),
+    });
+    const doc = preview.documents[0],
+      asset = extracted.assets[0];
+    doc.assetReferences.push(asset.resourceId);
+    doc.roster.students[0].avatarResourceId = asset.resourceId;
+    const saved = await repo.commit(doc.saveId, doc.revision, doc, {
+      expectedGeneration: 1,
+      assets: [asset],
+    });
+    if (!saved.ok) return saved;
+    const bad = structuredClone(asset);
+    bad.dataBase64 = "AAAA";
+    const failed = await repo.commit(
+      doc.saveId,
+      saved.document.revision,
+      saved.document,
+      { expectedGeneration: 1, assets: [bad] },
+    );
+    const loaded = await repo.load(doc.saveId);
+    const stored = await repo.getAsset(asset.resourceId);
+    repo.close();
+    return {
+      ok: saved.ok,
+      failed: failed.ok,
+      revision: loaded.document.revision,
+      avatar:
+        loaded.document.roster.students[0].avatarResourceId ===
+        asset.resourceId,
+      bytes: stored.raw.size === asset.byteLength,
+    };
+  }, legacy());
+  assert.deepEqual(avatarResult, {
+    ok: true,
+    failed: false,
+    revision: 2,
+    avatar: true,
+    bytes: true,
+  });
   await writeFile(
     "artifacts/save-document-v2/repository-result.json",
     JSON.stringify(

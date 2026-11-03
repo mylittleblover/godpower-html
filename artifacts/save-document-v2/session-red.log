@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: active-save session must exist
++ actual - expected
+
++ 'undefined'
+- 'object'
+
+    at file:///workspace/godpower-html-latest/tests/e2e/save-repository.mjs:142:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'undefined',
+  expected: 'object',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

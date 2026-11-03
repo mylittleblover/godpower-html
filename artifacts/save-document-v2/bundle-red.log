@@ -1,0 +1,31 @@
+✔ conversion preserves scores, inventory charges, history, achievements and original input (40.815931ms)
+✔ same source imports are deterministic while different same-name students stay separate (53.473819ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (50.792465ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (48.64131ms)
+✔ broken JSON and missing group identities fail without producing a partial save (8.115421ms)
+✖ portable save bundle preserves resource bytes and restores avatar references on import (13.789376ms)
+✖ portable bundles reject missing or corrupted resources before returning an import preview (15.021555ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 562.908352
+
+✖ failing tests:
+
+test at tests/unit/legacy-save-conversion.test.mjs:81:1
+✖ portable save bundle preserves resource bytes and restores avatar references on import (13.789376ms)
+  TypeError: migration.bundle is not a function
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:84:38)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/unit/legacy-save-conversion.test.mjs:90:1
+✖ portable bundles reject missing or corrupted resources before returning an import preview (15.021555ms)
+  TypeError: migration.bundle is not a function
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/legacy-save-conversion.test.mjs:93:25)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

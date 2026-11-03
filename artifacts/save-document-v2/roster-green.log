@@ -1,0 +1,12 @@
+✔ visual assignment moves stable students between groups without merging equal names (12.063043ms)
+✔ editing a student updates current labels while historical snapshots remain unchanged (4.652771ms)
+✔ adding an unassigned student and assigning avatars preserve scores, inventory and identities (5.627452ms)
+✔ invalid student references, duplicated selection and blank names cannot change roster data (6.16976ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 124.851916

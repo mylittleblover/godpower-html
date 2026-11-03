@@ -66,3 +66,9 @@ component-library为只读维护窗口；component-catalog是从所有CSS生成�
 ### 3.0.65 样式与关于视图边界
 
 表现层类名/动画以职责命名（152/44迁移）；映射scripts/semantic-style-names.json。renderAbout在runtime/ui/settings-and-about.js保留单一兼容入口，调用ui/about-view.js的info/items视图及文案清理；原百科数据表只供读取。原about-copy.js退役路径通过source-relocations.json追踪。现行覆盖链与后续归属见audit/JS_OVERRIDE_INVENTORY_3.0.65.md；本轮不宣称全局状态或全部CSS已解耦。
+
+## 新存档管线（开发中，尚未替换默认课堂入口）
+
+SaveSchema负责kind/schema、身份和引用校验；SaveRoster负责名单变更；SaveMigration负责只读预检、资源提取、可移植包及旧格式回环；SaveProjection桥接既有比赛字段与规范名单；SaveRepository选择浏览器IDB或受限native IPC作为单一存储；SaveSession串行持久化确认并管理活动存档与切换代次。UI/比赛接入尚在实施，不将这些模块的独立测试当作用户端迁移完成。
+
+Electron SaveVault先暂存不可变文档/资产/来源，再发布索引；索引是提交点，失败留下的孤立暂存文件不成为可用存档。全局偏好独立CAS，不随切档恢复历史音量/布局。共享SaveSchema由固定源码提交同步并校验SHA-256。

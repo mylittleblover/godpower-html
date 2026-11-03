@@ -26,6 +26,56 @@
   const failure = (code, message) =>
     Object.assign(new Error(message || code), { code });
   async function open({ name = "godpower_save_library_v2" } = {}) {
+    const native =
+      root.godpowerDesktop?.role === "main"
+        ? root.godpowerDesktop.saveVault
+        : null;
+    if (native) {
+      // The desktop disk library is authoritative. Do not dual-write IndexedDB
+      // or turn an IPC failure into a new empty classroom.
+      return Object.freeze({
+        name: "native-save-library",
+        backend: "native",
+        close: () => {},
+        list: () => native.list(),
+        load: (id) => native.load(id),
+        importPreview: (preview, options = {}) =>
+          native.importPreview(preview, options),
+        commit: (id, revision, saveDoc, options = {}) =>
+          native.commit(id, revision, saveDoc, options),
+        switchActive: (id, options = {}) => native.switchActive(id, options),
+        loadPreferences: () => native.loadPreferences(),
+        savePreferences: (values, options = {}) =>
+          native.savePreferences(values, options),
+        getSource: async (digest) => {
+          const source = await native.getSource(digest);
+          return source?.sourceText !== undefined
+            ? {
+                ...source,
+                raw: new Blob([source.sourceText], {
+                  type: "application/json",
+                }),
+              }
+            : source;
+        },
+        getAsset: async (id) => {
+          const asset = await native.getAsset(id);
+          return asset?.dataBase64 !== undefined
+            ? {
+                ...asset,
+                raw: new Blob(
+                  [
+                    Uint8Array.from(atob(asset.dataBase64), (c) =>
+                      c.charCodeAt(0),
+                    ),
+                  ],
+                  { type: asset.mimeType },
+                ),
+              }
+            : asset;
+        },
+      });
+    }
     const opening = root.indexedDB.open(name, 1);
     opening.onupgradeneeded = () => {
       for (const store of stores) opening.result.createObjectStore(store);
@@ -92,31 +142,15 @@
           preview.sourceDigest
         )
           throw failure("SOURCE_DIGEST_MISMATCH");
-        assets = [];
-        for (const asset of preview.assets || []) {
-          if (!/^image\/(png|jpeg|webp)$/.test(asset.mimeType))
-            throw failure("INVALID_ASSET_TYPE");
-          const bytes = Uint8Array.from(atob(asset.dataBase64), (c) =>
-            c.charCodeAt(0),
-          );
-          const hash = [
-            ...new Uint8Array(
-              await root.crypto.subtle.digest("SHA-256", bytes),
-            ),
-          ]
-            .map((n) => n.toString(16).padStart(2, "0"))
-            .join("");
-          if (
-            asset.resourceId !== "asset-" + hash ||
-            asset.sha256 !== hash ||
-            asset.byteLength !== bytes.length
-          )
-            throw failure("ASSET_DIGEST_MISMATCH");
-          assets.push({
-            ...asset,
-            raw: new Blob([bytes], { type: asset.mimeType }),
-          });
-        }
+        assets = (
+          await root.SaveMigration.validateAssets(copy(preview.assets || []))
+        ).map((asset) => ({
+          ...asset,
+          raw: new Blob(
+            [Uint8Array.from(atob(asset.dataBase64), (c) => c.charCodeAt(0))],
+            { type: asset.mimeType },
+          ),
+        }));
       } catch (error) {
         return {
           ok: false,
@@ -165,6 +199,7 @@
     }
     return Object.freeze({
       name,
+      backend: "indexeddb",
       close: () => db.close(),
       importPreview,
       list: () =>
@@ -190,40 +225,66 @@
           "readonly",
           async (api) => (await api.get("assets", id)) || null,
         ),
-      commit: (
+      commit: async (
         saveId,
         expectedRevision,
         saveDoc,
-        { expectedGeneration } = {},
-      ) =>
-        transact(["meta", "documents", "assets"], "readwrite", async (api) => {
-          const index = await indexOf(api);
-          checkGeneration(index, expectedGeneration);
-          const old = await api.get("documents", saveId);
-          if (!old) throw failure("SAVE_NOT_FOUND");
-          if (old.revision !== expectedRevision)
-            throw failure("REVISION_CONFLICT");
-          if (
-            saveDoc.saveId !== saveId ||
-            saveDoc.revision !== expectedRevision
-          )
-            throw failure("INVALID_REVISION");
-          const doc = root.SaveSchema.validateV2({
-            ...copy(saveDoc),
-            revision: expectedRevision + 1,
-            updatedAt: new Date().toISOString(),
-          });
-          for (const id of doc.assetReferences)
-            if (!(await api.get("assets", id)))
-              throw failure("MISSING_ASSET", id);
-          await api.put("documents", saveId, doc);
-          index.entries = index.entries.map((e) =>
-            e.saveId === saveId ? entry(doc) : e,
+        { expectedGeneration, assets: inputAssets = [] } = {},
+      ) => {
+        let preparedAssets;
+        try {
+          saveDoc = copy(saveDoc);
+          preparedAssets = await root.SaveMigration.validateAssets(
+            copy(inputAssets),
           );
-          index.revision++;
-          await api.put("meta", "index", index);
-          return { ok: true, document: doc, index };
-        }),
+        } catch (error) {
+          return { ok: false, code: "INVALID_ASSET", message: error.message };
+        }
+        return transact(
+          ["meta", "documents", "assets"],
+          "readwrite",
+          async (api) => {
+            const index = await indexOf(api);
+            checkGeneration(index, expectedGeneration);
+            const old = await api.get("documents", saveId);
+            if (!old) throw failure("SAVE_NOT_FOUND");
+            if (old.revision !== expectedRevision)
+              throw failure("REVISION_CONFLICT");
+            if (
+              saveDoc.saveId !== saveId ||
+              saveDoc.revision !== expectedRevision
+            )
+              throw failure("INVALID_REVISION");
+            const doc = root.SaveSchema.validateV2({
+              ...copy(saveDoc),
+              revision: expectedRevision + 1,
+              updatedAt: new Date().toISOString(),
+            });
+            for (const asset of preparedAssets)
+              await api.put("assets", asset.resourceId, {
+                ...asset,
+                raw: new Blob(
+                  [
+                    Uint8Array.from(atob(asset.dataBase64), (c) =>
+                      c.charCodeAt(0),
+                    ),
+                  ],
+                  { type: asset.mimeType },
+                ),
+              });
+            for (const id of doc.assetReferences)
+              if (!(await api.get("assets", id)))
+                throw failure("MISSING_ASSET", id);
+            await api.put("documents", saveId, doc);
+            index.entries = index.entries.map((e) =>
+              e.saveId === saveId ? entry(doc) : e,
+            );
+            index.revision++;
+            await api.put("meta", "index", index);
+            return { ok: true, document: doc, index };
+          },
+        );
+      },
       switchActive: (saveId, { expectedGeneration } = {}) =>
         transact(["meta", "documents"], "readwrite", async (api) => {
           const index = await indexOf(api);
