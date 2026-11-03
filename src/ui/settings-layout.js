@@ -25,6 +25,7 @@ const GodPowerSettingsLayout = (() => {
     ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
+    ["about", "book", "关于与帮助", "项目、版本和操作说明"],
   ];
   function organize(sections, shell, { query: $, escape: E }) {
     function group(

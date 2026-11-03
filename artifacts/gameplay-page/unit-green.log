@@ -1,0 +1,15 @@
+✔ 3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority (1153.412445ms)
+✔ about renderer has one declaration, no override chain, and retains non-view code (253.875014ms)
+✔ registers immutable core routes once and does not let plugins shadow them (3.700345ms)
+✔ validates a batch atomically and rejects duplicate IDs, unknown slots and executable descriptors (1.272351ms)
+✔ binds plugin identity and scope to host activation instead of trusting descriptors (1.007491ms)
+✔ disposes only the matching activation and makes repeated disposal safe (1.259071ms)
+✔ returns cloned read-only data and rejects unknown kinds (0.971696ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1562.683446

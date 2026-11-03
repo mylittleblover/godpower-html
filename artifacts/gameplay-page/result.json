@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "counts": {
+    "expected": 28,
+    "items": 28,
+    "statuses": 7
+  },
+  "errors": []
+}

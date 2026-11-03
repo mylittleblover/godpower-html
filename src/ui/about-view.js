@@ -15,19 +15,18 @@ function cleanAboutVisibleCopy() {
   }
 }
 
-function renderAboutItems(tab) {
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
-  m.innerHTML = `<div class="item-reference-head">
-    <div><h2>28 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
-    <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
+function renderAboutItems() {
+  return GameplayPage.open();
+}
+function itemReferenceMarkup() {
+  const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
+  return `<div class="item-reference-head">
+    <div><h2>${itemCount} 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
+    <button class="btn btn-sm" onclick="closeAbout()">返回比赛</button>
   </div>
   <div class="item-reference-general">
     <b>📖 百科阅读须知：</b>
-    这里的吐槽负责让你愿意把 28 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
+    这里的吐槽负责让你愿意把 ${itemCount} 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
     第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>

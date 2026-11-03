@@ -8,7 +8,7 @@ function escapeHtml(str) {
 }
 
 /* ================================================================
- * v3：六个core view（含插件中心）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
+ * v3：六个core view（含玩法参考）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
@@ -17,6 +17,7 @@ const VIEW_NAMES = window.GodPowerPageShell?.listPages()
   .map((page) => page.route) || [
   "welcome",
   "battle",
+  "gameplay",
   "history",
   "archives",
   "settings",

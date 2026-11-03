@@ -40,11 +40,12 @@ function showSettingsV2(which) {
 
 /* About */
 function openAbout() {
-  showClassroomWindow(document.getElementById("aboutBackdrop"));
+  switchView("settings");
+  DesktopUI.selectSettings("about");
   renderAbout("info");
 }
 function closeAbout() {
-  hideClassroomWindow(document.getElementById("aboutBackdrop"));
+  switchView("battle");
 }
 function renderAbout(tab) {
   const result =
@@ -134,9 +135,6 @@ renderItemWindow = function () {
 /* 答题轮次统计 */
 
 /* 设置/关于关闭与初始化 */
-document.getElementById("aboutBackdrop")?.addEventListener("click", (e) => {
-  if (e.target.id === "aboutBackdrop") closeAbout();
-});
 document.getElementById("handRaiseBackdrop")?.addEventListener("click", (e) => {
   if (e.target.id === "handRaiseBackdrop") closeHandRaise();
 });

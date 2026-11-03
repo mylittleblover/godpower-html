@@ -221,6 +221,7 @@ const DesktopUI = (() => {
         ? pageScope.frame(enterPage)
         : requestAnimationFrame(enterPage);
     }
+    if (name === "gameplay") GameplayPage.render();
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);
   }
@@ -808,6 +809,7 @@ const DesktopUI = (() => {
     GodPowerSettingsLayout.organize(sections, shell, { query: $, escape: E });
     installSettingsSafetyGuard();
     SaveWorkspace.mount(sections.students);
+    GameplayPage.mountAbout(sections.about);
     TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
 
     TeachingResourceWorkspace.mount(sections.teaching, {
@@ -1080,7 +1082,6 @@ const DesktopUI = (() => {
     pickerModal: () => closePickerModal(),
     itemModalBackdrop: () => closeItemWindow(),
     handRaiseBackdrop: () => closeHandRaise(),
-    aboutBackdrop: () => closeAbout(),
     batchImportModal: () => closeBatchImportModal(),
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
@@ -1654,11 +1655,20 @@ const DesktopUI = (() => {
         cancelSettingsMotion();
     });
     ready = true;
-    document.querySelectorAll(".nav-tab").forEach((b, i) => {
-      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
-      b.innerHTML =
-        icon(["home", "battle", "history", "archive", "settings"][i]) +
-        `<span>${text}</span>`;
+    const navigation = {
+      welcome: ["欢迎", "home"],
+      battle: ["比赛", "battle"],
+      gameplay: ["玩法", "gift"],
+      history: ["历史", "history"],
+      archives: ["档案", "archive"],
+      settings: ["设置", "settings"],
+    };
+    document.querySelectorAll(".nav-tab").forEach((b) => {
+      const [text, glyph] = navigation[b.dataset.view] || [
+        b.textContent,
+        "home",
+      ];
+      b.innerHTML = icon(glyph) + `<span>${text}</span>`;
       b.setAttribute("role", "tab");
     });
     setupDock();

@@ -154,6 +154,34 @@ test("about renderer has one declaration, no override chain, and retains non-vie
         await format(nonHand(checkpoint), { parser: "babel" }),
         "non-hand owners must remain unchanged",
       );
+    } else if (row.path === "src/runtime/ui/settings-and-about.js") {
+      const checkpoint = execFileSync("git", ["show", "6256a76:" + row.path], {
+        encoding: "utf8",
+      });
+      assert.equal(
+        await format(checkpoint, { parser: "babel" }),
+        await format(expected, { parser: "babel" }),
+      );
+      function nonAbout(text) {
+        return parse(text, { ecmaVersion: "latest" })
+          .body.filter(
+            (n) =>
+              !(
+                n.type === "FunctionDeclaration" &&
+                ["openAbout", "closeAbout"].includes(n.id.name)
+              ) &&
+              !text
+                .slice(n.start, n.end)
+                .startsWith('document.getElementById("aboutBackdrop")'),
+          )
+          .map((n) => text.slice(n.start, n.end))
+          .join("\n");
+      }
+      assert.equal(
+        await format(nonAbout(current), { parser: "babel" }),
+        await format(nonAbout(checkpoint), { parser: "babel" }),
+        "other legacy settings/item owners must stay unchanged",
+      );
     } else
       assert.equal(
         await format(current, { parser: "babel" }),

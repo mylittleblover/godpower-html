@@ -92,6 +92,7 @@
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
+    <button type="button" class="nav-tab" data-view="gameplay" onclick="switchView('gameplay')">🎁 玩法</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
@@ -325,6 +326,9 @@
 </div>
 
 <!-- 结算档案处弹窗 -->
+<div id="view-gameplay" class="view">
+  <main class="gameplay-page-shell"><header class="gameplay-page-heading"><h1>玩法参考</h1><p>道具、状态与操作规则 · 沿用当前课堂的真实定义</p></header><div id="gameplayContent"></div></main>
+</div>
 <div id="view-archives" class="view">
   <div class="ui-collection-header">
     <div>
@@ -468,16 +472,6 @@
   <div class="classroom-window ui-function-surface hand-flow-window" role="dialog" aria-modal="true" aria-labelledby="handFlowTitle">
     <div class="classroom-head"><b id="handFlowTitle">课堂举手</b><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="关闭举手窗口">❌</button></div>
     <div class="classroom-body" id="handFlowContent"></div>
-  </div>
-</div>
-<div id="aboutBackdrop" class="about-backdrop">
-  <div class="about-window ui-function-surface">
-    <aside class="about-side">
-      <button class="active" data-about="info" onclick="renderAbout('info')">这玩意儿是什么</button>
-      <button data-about="items" onclick="renderAbout('items')">道具百科</button>
-      <button data-about="guide" onclick="renderAbout('guide')">别乱按指南</button>
-    </aside>
-    <main id="aboutMain" class="about-main"></main>
   </div>
 </div>
 <input id="itemIconInput" type="file" accept="image/*" style="display:none" onchange="handleItemIconUpload(event)">
@@ -911,6 +905,8 @@
 <script>@@SOURCE:ui/component-catalog.js@@@@SOURCE:ui/component-preview-style.js@@@@SOURCE:ui/component-library.js@@</script>
 <style>@@SOURCE:styles/settings/save-workspace.css@@</style>
 <script>@@SOURCE:ui/save-workspace.js@@</script>
+<style>@@SOURCE:styles/classroom/gameplay-page.css@@</style>
+<script>@@SOURCE:ui/gameplay-page.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-dashboard.js@@</script>

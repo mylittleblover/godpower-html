@@ -1240,6 +1240,16 @@
       "attributes": ""
     },
     {
+      "type": "style",
+      "path": "styles/classroom/gameplay-page.css",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/gameplay-page.js",
+      "attributes": ""
+    },
+    {
       "type": "script",
       "path": "ui/desktop.js",
       "attributes": ""

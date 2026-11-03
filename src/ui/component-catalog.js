@@ -447,6 +447,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/classroom/gameplay-page.css",
       ],
     },
     {
@@ -1445,6 +1446,22 @@ const GodPowerComponentCatalog = {
     {
       name: "gain",
       sources: ["src/styles/battle/score-feedback.css"],
+    },
+    {
+      name: "gameplay-about-settings",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-about-tabs",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-page-heading",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-page-shell",
+      sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "god-item-grid",

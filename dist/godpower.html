@@ -200,7 +200,14 @@ globalThis.CompetitionEffects = (() => {
     "builtin.command-shortcut",
     "builtin.decoration",
   ]);
-  const CORE_PAGES = ["welcome", "battle", "history", "archives", "settings"];
+  const CORE_PAGES = [
+    "welcome",
+    "battle",
+    "gameplay",
+    "history",
+    "archives",
+    "settings",
+  ];
   const REQUIRED = {
     page: "ui.page.register",
     navigation: "ui.navigation.register",
@@ -6922,30 +6929,30 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
 
 
 
-<style id="v2170EncyclopediaStyle">/* ===== V2.17.0：道具百科固定左图右文 ===== */
-#aboutMain .item-reference-head {
+<style id="v2170EncyclopediaStyle">/* Canonical gameplay reference: bounded image column and readable copy. */
+#gameplayContent .item-reference-head {
   display: flex !important;
   align-items: flex-start !important;
   justify-content: space-between !important;
   gap: 16px !important;
   margin-bottom: 14px !important;
 }
-#aboutMain .item-reference-head h2 {
+#gameplayContent .item-reference-head h2 {
   margin: 0 !important;
   color: var(--window-head-text, var(--ui-text, #17302d)) !important;
 }
-#aboutMain .item-reference-sub {
+#gameplayContent .item-reference-sub {
   margin-top: 4px !important;
   color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;
   font-size: 12px !important;
 }
-#aboutMain .item-reference-list {
+#gameplayContent .item-reference-list {
   display: flex !important;
   flex-direction: column !important;
   gap: 9px !important;
   width: 100% !important;
 }
-#aboutMain .item-reference-row {
+#gameplayContent .item-reference-row {
   display: grid !important;
   grid-template-columns: 88px minmax(0, 1fr) !important;
   align-items: center !important;
@@ -6959,7 +6966,7 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
   box-shadow: none !important;
   overflow: hidden !important;
 }
-#aboutMain .item-reference-icon {
+#gameplayContent .item-reference-icon {
   width: 78px !important;
   height: 78px !important;
   min-width: 78px !important;
@@ -6976,8 +6983,8 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
   font-size: 44px !important;
   line-height: 1 !important;
 }
-#aboutMain .item-reference-icon .item-reference-img,
-#aboutMain .item-reference-icon img {
+#gameplayContent .item-reference-icon .item-reference-img,
+#gameplayContent .item-reference-icon img {
   width: 62px !important;
   height: 62px !important;
   min-width: 0 !important;
@@ -6990,20 +6997,20 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
   padding: 0 !important;
   transform: none !important;
 }
-#aboutMain .item-reference-copy {
+#gameplayContent .item-reference-copy {
   min-width: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   gap: 5px !important;
 }
-#aboutMain .item-reference-name {
+#gameplayContent .item-reference-name {
   color: var(--ui-text, #17302d) !important;
   font-size: 15px !important;
   font-weight: 900 !important;
   line-height: 1.25 !important;
 }
-#aboutMain .item-reference-desc {
+#gameplayContent .item-reference-desc {
   color: var(--ui-muted, #607773) !important;
   font-size: 13px !important;
   line-height: 1.6 !important;
@@ -7012,21 +7019,21 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
 }
 
 /* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */
-#aboutMain {
+#gameplayContent {
   min-width: 0 !important;
 }
-#aboutMain img {
+#gameplayContent img {
   object-fit: contain;
 }
 
 @media (max-width: 640px) {
-  #aboutMain .item-reference-row {
+  #gameplayContent .item-reference-row {
     grid-template-columns: 66px minmax(0, 1fr) !important;
     min-height: 78px !important;
     gap: 10px !important;
     padding: 8px 10px !important;
   }
-  #aboutMain .item-reference-icon {
+  #gameplayContent .item-reference-icon {
     width: 58px !important;
     height: 58px !important;
     min-width: 58px !important;
@@ -7034,17 +7041,17 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
     max-width: 58px !important;
     max-height: 58px !important;
   }
-  #aboutMain .item-reference-icon .item-reference-img,
-  #aboutMain .item-reference-icon img {
+  #gameplayContent .item-reference-icon .item-reference-img,
+  #gameplayContent .item-reference-icon img {
     width: 46px !important;
     height: 46px !important;
     max-width: 46px !important;
     max-height: 46px !important;
   }
-  #aboutMain .item-reference-name {
+  #gameplayContent .item-reference-name {
     font-size: 14px !important;
   }
-  #aboutMain .item-reference-desc {
+  #gameplayContent .item-reference-desc {
     font-size: 12px !important;
   }
 }
@@ -14016,6 +14023,7 @@ html[data-theme="marx"] {
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
+    <button type="button" class="nav-tab" data-view="gameplay" onclick="switchView('gameplay')">🎁 玩法</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
@@ -14342,6 +14350,9 @@ html[data-theme="marx"] {
 </div>
 
 <!-- 结算档案处弹窗 -->
+<div id="view-gameplay" class="view">
+  <main class="gameplay-page-shell"><header class="gameplay-page-heading"><h1>玩法参考</h1><p>道具、状态与操作规则 · 沿用当前课堂的真实定义</p></header><div id="gameplayContent"></div></main>
+</div>
 <div id="view-archives" class="view">
   <div class="ui-collection-header">
     <div>
@@ -14485,16 +14496,6 @@ html[data-theme="marx"] {
   <div class="classroom-window ui-function-surface hand-flow-window" role="dialog" aria-modal="true" aria-labelledby="handFlowTitle">
     <div class="classroom-head"><b id="handFlowTitle">课堂举手</b><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="关闭举手窗口">❌</button></div>
     <div class="classroom-body" id="handFlowContent"></div>
-  </div>
-</div>
-<div id="aboutBackdrop" class="about-backdrop">
-  <div class="about-window ui-function-surface">
-    <aside class="about-side">
-      <button class="active" data-about="info" onclick="renderAbout('info')">这玩意儿是什么</button>
-      <button data-about="items" onclick="renderAbout('items')">道具百科</button>
-      <button data-about="guide" onclick="renderAbout('guide')">别乱按指南</button>
-    </aside>
-    <main id="aboutMain" class="about-main"></main>
   </div>
 </div>
 <input id="itemIconInput" type="file" accept="image/*" style="display:none" onchange="handleItemIconUpload(event)">
@@ -28091,7 +28092,7 @@ function escapeHtml(str) {
 }
 
 /* ================================================================
- * v3：六个core view（含插件中心）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
+ * v3：六个core view（含玩法参考）+ 欢迎界面 + 菜单同拍音频池（9 套）+ 工程台
  * ================================================================ */
 
 /* ---------- 视图导航 ---------- */
@@ -28100,6 +28101,7 @@ const VIEW_NAMES = window.GodPowerPageShell?.listPages()
   .map((page) => page.route) || [
   "welcome",
   "battle",
+  "gameplay",
   "history",
   "archives",
   "settings",
@@ -30602,11 +30604,12 @@ function showSettingsV2(which) {
 
 /* About */
 function openAbout() {
-  showClassroomWindow(document.getElementById("aboutBackdrop"));
+  switchView("settings");
+  DesktopUI.selectSettings("about");
   renderAbout("info");
 }
 function closeAbout() {
-  hideClassroomWindow(document.getElementById("aboutBackdrop"));
+  switchView("battle");
 }
 function renderAbout(tab) {
   const result =
@@ -30696,9 +30699,6 @@ renderItemWindow = function () {
 /* 答题轮次统计 */
 
 /* 设置/关于关闭与初始化 */
-document.getElementById("aboutBackdrop")?.addEventListener("click", (e) => {
-  if (e.target.id === "aboutBackdrop") closeAbout();
-});
 document.getElementById("handRaiseBackdrop")?.addEventListener("click", (e) => {
   if (e.target.id === "handRaiseBackdrop") closeHandRaise();
 });
@@ -37340,19 +37340,18 @@ function cleanAboutVisibleCopy() {
   }
 }
 
-function renderAboutItems(tab) {
-  document
-    .querySelectorAll("[data-about]")
-    .forEach((b) => b.classList.toggle("active", b.dataset.about === tab));
-  const m = document.getElementById("aboutMain");
-  if (!m) return;
-  m.innerHTML = `<div class="item-reference-head">
-    <div><h2>28 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
-    <button class="btn btn-sm" onclick="closeAbout()">关闭</button>
+function renderAboutItems() {
+  return GameplayPage.open();
+}
+function itemReferenceMarkup() {
+  const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
+  return `<div class="item-reference-head">
+    <div><h2>${itemCount} 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
+    <button class="btn btn-sm" onclick="closeAbout()">返回比赛</button>
   </div>
   <div class="item-reference-general">
     <b>📖 百科阅读须知：</b>
-    这里的吐槽负责让你愿意把 28 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
+    这里的吐槽负责让你愿意把 ${itemCount} 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
     第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>
@@ -43795,6 +43794,7 @@ const GodPowerSettingsLayout = (() => {
     ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
+    ["about", "book", "关于与帮助", "项目、版本和操作说明"],
   ];
   function organize(sections, shell, { query: $, escape: E }) {
     function group(
@@ -44596,6 +44596,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/classroom/gameplay-page.css",
       ],
     },
     {
@@ -45594,6 +45595,22 @@ const GodPowerComponentCatalog = {
     {
       name: "gain",
       sources: ["src/styles/battle/score-feedback.css"],
+    },
+    {
+      name: "gameplay-about-settings",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-about-tabs",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-page-heading",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-page-shell",
+      sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "god-item-grid",
@@ -51227,6 +51244,68 @@ const UIComponentLibrary = (() => {
   root.SaveWorkspace = Object.freeze({ mount, openMembers });
 })(globalThis);
 </script>
+<style>#view-gameplay {
+  height: 100%;
+  overflow: auto;
+  padding: 24px;
+}
+.gameplay-page-shell {
+  max-width: 1700px;
+  margin: 0 auto;
+}
+.gameplay-page-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+  color: var(--ui-text);
+}
+.gameplay-page-heading h1 {
+  font-size: 30px;
+  margin: 0;
+}
+.gameplay-page-heading p {
+  color: var(--ui-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+.gameplay-about-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.gameplay-about-settings .about-main {
+  max-width: 100%;
+  padding: 0;
+}
+</style>
+<script>/* First-level gameplay reference; data and copy remain in their existing owners. */
+(function installGameplayPage(root) {
+  "use strict";
+  function render() {
+    const host = document.getElementById("gameplayContent");
+    if (host) host.innerHTML = itemReferenceMarkup();
+  }
+  function open() {
+    switchView("gameplay");
+  }
+  function mountAbout(parent) {
+    if (!parent || document.getElementById("aboutMain")) return;
+    const section = document.createElement("section");
+    section.className = "ui-settings-card gameplay-about-settings";
+    section.innerHTML =
+      '<nav class="gameplay-about-tabs" aria-label="关于与帮助"><button type="button" class="btn" data-about="info">项目与版本</button><button type="button" class="btn" data-about="guide">操作帮助</button></nav><div id="aboutMain" class="about-main"></div>';
+    section.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-about]");
+      if (button) renderAbout(button.dataset.about);
+    });
+    parent.append(section);
+    renderAboutInformation("info");
+  }
+  root.GameplayPage = Object.freeze({ render, open, mountAbout });
+})(globalThis);
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -51450,6 +51529,7 @@ const DesktopUI = (() => {
         ? pageScope.frame(enterPage)
         : requestAnimationFrame(enterPage);
     }
+    if (name === "gameplay") GameplayPage.render();
     if (name === "welcome") renderWelcome();
     if (name === "settings") selectSettings(activeSettings, true);
   }
@@ -52037,6 +52117,7 @@ const DesktopUI = (() => {
     GodPowerSettingsLayout.organize(sections, shell, { query: $, escape: E });
     installSettingsSafetyGuard();
     SaveWorkspace.mount(sections.students);
+    GameplayPage.mountAbout(sections.about);
     TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
 
     TeachingResourceWorkspace.mount(sections.teaching, {
@@ -52309,7 +52390,6 @@ const DesktopUI = (() => {
     pickerModal: () => closePickerModal(),
     itemModalBackdrop: () => closeItemWindow(),
     handRaiseBackdrop: () => closeHandRaise(),
-    aboutBackdrop: () => closeAbout(),
     batchImportModal: () => closeBatchImportModal(),
     themeDialogV21727: () => closeThemeDialogV21727(false),
     quickPersonBackdropV218: () => closeQuickPersonScoreV218(),
@@ -52883,11 +52963,20 @@ const DesktopUI = (() => {
         cancelSettingsMotion();
     });
     ready = true;
-    document.querySelectorAll(".nav-tab").forEach((b, i) => {
-      const text = ["欢迎", "比赛", "历史", "档案", "设置"][i];
-      b.innerHTML =
-        icon(["home", "battle", "history", "archive", "settings"][i]) +
-        `<span>${text}</span>`;
+    const navigation = {
+      welcome: ["欢迎", "home"],
+      battle: ["比赛", "battle"],
+      gameplay: ["玩法", "gift"],
+      history: ["历史", "history"],
+      archives: ["档案", "archive"],
+      settings: ["设置", "settings"],
+    };
+    document.querySelectorAll(".nav-tab").forEach((b) => {
+      const [text, glyph] = navigation[b.dataset.view] || [
+        b.textContent,
+        "home",
+      ];
+      b.innerHTML = icon(glyph) + `<span>${text}</span>`;
       b.setAttribute("role", "tab");
     });
     setupDock();
