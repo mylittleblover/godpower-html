@@ -1,0 +1,397 @@
+{
+  "kind": "godpower.save-bundle",
+  "schemaVersion": 2,
+  "documents": [
+    {
+      "kind": "godpower.save",
+      "schemaVersion": 2,
+      "saveId": "save-4fa87801e93c6f75976a84d119af6dc28f91649dcf236240e98d1c6829f521b2",
+      "revision": 3,
+      "name": "离线存档",
+      "createdAt": "2026-11-03T00:00:00Z",
+      "updatedAt": "2026-11-03T22:14:34.619Z",
+      "roster": {
+        "revision": 1,
+        "students": [
+          {
+            "studentUid": "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+            "number": "01",
+            "displayName": "甲",
+            "legacyLabel": "01 甲",
+            "avatarResourceId": null
+          },
+          {
+            "studentUid": "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace",
+            "number": "02",
+            "displayName": "同名",
+            "legacyLabel": "02 同名",
+            "avatarResourceId": null
+          },
+          {
+            "studentUid": "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416",
+            "number": "03",
+            "displayName": "同名",
+            "legacyLabel": "03 同名",
+            "avatarResourceId": null
+          }
+        ],
+        "groups": [
+          {
+            "groupUid": "group-one",
+            "name": "第一组",
+            "groupNo": 1,
+            "color": "#123456",
+            "avatarResourceId": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460"
+          },
+          {
+            "groupUid": "group-two",
+            "name": "第二组",
+            "groupNo": 2,
+            "color": "#dddddd",
+            "avatarResourceId": null
+          }
+        ],
+        "assignments": [
+          {
+            "studentUid": "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+            "groupUid": "group-one"
+          },
+          {
+            "studentUid": "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace",
+            "groupUid": "group-one"
+          },
+          {
+            "studentUid": "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416",
+            "groupUid": "group-two"
+          }
+        ]
+      },
+      "match": {
+        "season": {
+          "seasonId": "season-test"
+        },
+        "groups": [
+          {
+            "id": 1,
+            "groupUid": "group-one",
+            "name": "第一组",
+            "color": "#123456",
+            "score": 102,
+            "displayScore": 102,
+            "selectedOpt": "",
+            "allIn": false,
+            "resultText": "",
+            "animState": "",
+            "members": [
+              "01 甲",
+              "02 同名"
+            ],
+            "groupAvatar": {
+              "$asset": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460"
+            },
+            "avatarResourceId": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+            "memberStudentUids": [
+              "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+              "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace"
+            ],
+            "inventory": [
+              {
+                "key": "triple_green",
+                "charges": 2,
+                "acquiredAt": 1793744073935,
+                "itemInstanceId": "item-one"
+              }
+            ],
+            "itemStats": {
+              "correct": 0,
+              "wrong": 0,
+              "draws": 0,
+              "used": 0
+            },
+            "itemEffect": null,
+            "competitionEffects": {},
+            "booShield": 0,
+            "groupNo": 1,
+            "booRoundsLeftV218": 0,
+            "roundItemContinuationKeyV218": "",
+            "itemUsedThisRound": false
+          },
+          {
+            "id": 2,
+            "groupUid": "group-two",
+            "name": "第二组",
+            "color": "#dddddd",
+            "score": -5,
+            "displayScore": -5,
+            "selectedOpt": "",
+            "allIn": false,
+            "resultText": "",
+            "animState": "",
+            "members": [
+              "03 同名"
+            ],
+            "groupAvatar": "",
+            "avatarResourceId": null,
+            "memberStudentUids": [
+              "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416"
+            ],
+            "inventory": [],
+            "itemStats": {
+              "correct": 0,
+              "wrong": 0,
+              "draws": 0,
+              "used": 0
+            },
+            "itemEffect": null,
+            "competitionEffects": {},
+            "booShield": 0,
+            "groupNo": 2,
+            "booRoundsLeftV218": 0,
+            "roundItemContinuationKeyV218": "",
+            "itemUsedThisRound": false
+          }
+        ],
+        "round": {
+          "roundActive": true,
+          "evaluated": false,
+          "correctAns": "A",
+          "hasStartedOnce": true,
+          "lastRoundAllIn": null
+        },
+        "picker": {
+          "mode": "individual",
+          "antiRepeat": true,
+          "pickedStudentKeys": [],
+          "pickedGroupIds": [],
+          "preselectedGroupIds": []
+        },
+        "itemGlobal": {
+          "totalDraws": 3,
+          "blooperUntil": 0,
+          "handRaiseTotal": 0,
+          "pkTotal": 0,
+          "pickerHistory": [],
+          "handRaiseHistory": [],
+          "customIcons": {}
+        },
+        "history": [
+          {
+            "desc": "离线保存回归",
+            "time": "10:14:34 PM",
+            "groups": [
+              {
+                "id": 1,
+                "groupUid": "group-one",
+                "name": "第一组",
+                "color": "#123456",
+                "score": 100,
+                "displayScore": 100,
+                "selectedOpt": "",
+                "allIn": false,
+                "resultText": "",
+                "animState": "",
+                "members": [
+                  "01 甲",
+                  "02 同名"
+                ],
+                "groupAvatar": {
+                  "$asset": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460"
+                },
+                "avatarResourceId": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+                "memberStudentUids": [
+                  "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+                  "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace"
+                ],
+                "inventory": [
+                  {
+                    "key": "triple_green",
+                    "charges": 2,
+                    "acquiredAt": 1793744073935,
+                    "itemInstanceId": "item-one"
+                  }
+                ],
+                "itemStats": {
+                  "correct": 0,
+                  "wrong": 0,
+                  "draws": 0,
+                  "used": 0
+                },
+                "itemEffect": null,
+                "competitionEffects": {},
+                "booShield": 0,
+                "groupNo": 1,
+                "booRoundsLeftV218": 0,
+                "roundItemContinuationKeyV218": "",
+                "itemUsedThisRound": false
+              },
+              {
+                "id": 2,
+                "groupUid": "group-two",
+                "name": "第二组",
+                "color": "#dddddd",
+                "score": -5,
+                "displayScore": -5,
+                "selectedOpt": "",
+                "allIn": false,
+                "resultText": "",
+                "animState": "",
+                "members": [
+                  "03 同名"
+                ],
+                "groupAvatar": "",
+                "avatarResourceId": null,
+                "memberStudentUids": [
+                  "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416"
+                ],
+                "inventory": [],
+                "itemStats": {
+                  "correct": 0,
+                  "wrong": 0,
+                  "draws": 0,
+                  "used": 0
+                },
+                "itemEffect": null,
+                "competitionEffects": {},
+                "booShield": 0,
+                "groupNo": 2,
+                "booRoundsLeftV218": 0,
+                "roundItemContinuationKeyV218": "",
+                "itemUsedThisRound": false
+              }
+            ],
+            "rosterSnapshot": {
+              "revision": 1,
+              "students": [
+                {
+                  "studentUid": "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+                  "number": "01",
+                  "displayName": "甲",
+                  "legacyLabel": "01 甲",
+                  "avatarResourceId": null
+                },
+                {
+                  "studentUid": "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace",
+                  "number": "02",
+                  "displayName": "同名",
+                  "legacyLabel": "02 同名",
+                  "avatarResourceId": null
+                },
+                {
+                  "studentUid": "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416",
+                  "number": "03",
+                  "displayName": "同名",
+                  "legacyLabel": "03 同名",
+                  "avatarResourceId": null
+                }
+              ],
+              "groups": [
+                {
+                  "groupUid": "group-one",
+                  "name": "第一组",
+                  "groupNo": 1,
+                  "color": "#123456",
+                  "avatarResourceId": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460"
+                },
+                {
+                  "groupUid": "group-two",
+                  "name": "第二组",
+                  "groupNo": 2,
+                  "color": "#dddddd",
+                  "avatarResourceId": null
+                }
+              ],
+              "assignments": [
+                {
+                  "studentUid": "student-44f3ee0a9395c1c0e6909b8f336cc876f50b01008027fc5f91f8957fbaea3036",
+                  "groupUid": "group-one"
+                },
+                {
+                  "studentUid": "student-6d94a95dfb588a4314192d07de33f45a02c0b5fa707bcd1b1549a23eab339ace",
+                  "groupUid": "group-one"
+                },
+                {
+                  "studentUid": "student-970a78ac747853648a59fbdd4cd28965c040a325af99ffc6fbddd406cdd8b416",
+                  "groupUid": "group-two"
+                }
+              ]
+            },
+            "picker": {
+              "mode": "individual",
+              "antiRepeat": true,
+              "pickedStudentKeys": [],
+              "pickedGroupIds": [],
+              "preselectedGroupIds": []
+            },
+            "resizerHeight": 120,
+            "correctAns": "A",
+            "evaluated": false,
+            "roundActive": true,
+            "hasStartedOnce": true,
+            "lastRoundAllIn": null,
+            "itemGlobal": {
+              "totalDraws": 3,
+              "blooperUntil": 0,
+              "handRaiseTotal": 0,
+              "pkTotal": 0,
+              "pickerHistory": [],
+              "handRaiseHistory": [],
+              "customIcons": {}
+            },
+            "achievementLedger": {
+              "groups": {},
+              "schemaVersion": 1
+            }
+          }
+        ],
+        "firstHandDrawPending": false,
+        "extensions": {}
+      },
+      "achievements": {
+        "groups": {},
+        "schemaVersion": 1
+      },
+      "archives": [],
+      "perSaveOptions": {
+        "saveAllIn": true
+      },
+      "assetReferences": [
+        "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460"
+      ],
+      "migration": {
+        "sourceDigest": "4fa87801e93c6f75976a84d119af6dc28f91649dcf236240e98d1c6829f521b2",
+        "rootOrder": [
+          "schemaVersion",
+          "appVersion",
+          "seasonId",
+          "timestamp",
+          "groups",
+          "round",
+          "picker",
+          "history",
+          "itemGlobal",
+          "achievementLedger",
+          "masterVolume",
+          "zoomLevel",
+          "adminPin",
+          "firstHandDrawPending"
+        ],
+        "legacyMeta": {
+          "schemaVersion": 2,
+          "appVersion": "V3.0.64",
+          "timestamp": "2026-11-03T00:00:00Z"
+        },
+        "sourceType": "legacy-classroom",
+        "warnings": []
+      }
+    }
+  ],
+  "assets": [
+    {
+      "resourceId": "asset-431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+      "mimeType": "image/png",
+      "sha256": "431ced6916a2a21a156e38701afe55bbd7f88969fbbfc56d7fe099d47f265460",
+      "byteLength": 68,
+      "dataBase64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+    }
+  ]
+}

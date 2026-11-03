@@ -44,6 +44,8 @@
         commit: (id, revision, saveDoc, options = {}) =>
           native.commit(id, revision, saveDoc, options),
         switchActive: (id, options = {}) => native.switchActive(id, options),
+        setTrashed: (id, value, options = {}) =>
+          native.setTrashed(id, value, options),
         loadPreferences: () => native.loadPreferences(),
         savePreferences: (values, options = {}) =>
           native.savePreferences(values, options),
@@ -208,7 +210,10 @@
           index: await indexOf(api),
         })),
       load: (saveId) =>
-        transact(["documents"], "readonly", async (api) => {
+        transact(["meta", "documents"], "readonly", async (api) => {
+          const index = await indexOf(api);
+          if (!index.entries.some((e) => e.saveId === saveId))
+            throw failure("SAVE_NOT_FOUND");
           const doc = await api.get("documents", saveId);
           if (!doc) throw failure("SAVE_NOT_FOUND");
           return { ok: true, document: root.SaveSchema.validateV2(doc) };
@@ -246,6 +251,8 @@
           async (api) => {
             const index = await indexOf(api);
             checkGeneration(index, expectedGeneration);
+            if (!index.entries.some((e) => e.saveId === saveId))
+              throw failure("SAVE_NOT_FOUND");
             const old = await api.get("documents", saveId);
             if (!old) throw failure("SAVE_NOT_FOUND");
             if (old.revision !== expectedRevision)
@@ -289,6 +296,8 @@
         transact(["meta", "documents"], "readwrite", async (api) => {
           const index = await indexOf(api);
           checkGeneration(index, expectedGeneration);
+          if (!index.entries.some((e) => e.saveId === saveId))
+            throw failure("SAVE_NOT_FOUND");
           const doc = await api.get("documents", saveId);
           if (!doc) throw failure("SAVE_NOT_FOUND");
           root.SaveSchema.validateV2(doc);
@@ -299,6 +308,46 @@
             await api.put("meta", "index", index);
           }
           return { ok: true, index, document: doc };
+        }),
+      setTrashed: (
+        saveId,
+        trashed,
+        { expectedGeneration, expectedRevision } = {},
+      ) =>
+        transact(["meta", "documents"], "readwrite", async (api) => {
+          if (typeof trashed !== "boolean")
+            throw failure("INVALID_TRASH_ACTION");
+          const index = await indexOf(api);
+          checkGeneration(index, expectedGeneration);
+          if (saveId === index.activeSaveId) throw failure("ACTIVE_SAVE");
+          const from = trashed ? index.entries : index.trashedEntries || [],
+            target = from.find((e) => e.saveId === saveId);
+          if (!target) throw failure("SAVE_NOT_FOUND");
+          if (target.revision !== expectedRevision)
+            throw failure("REVISION_CONFLICT");
+          const doc = root.SaveSchema.validateV2(
+            await api.get("documents", saveId),
+          );
+          if (doc.revision !== target.revision)
+            throw failure("REVISION_CONFLICT");
+          index.trashedEntries ||= [];
+          if (trashed) {
+            index.entries = index.entries.filter((e) => e.saveId !== saveId);
+            index.trashedEntries.push({
+              ...target,
+              trashedAt: new Date().toISOString(),
+            });
+          } else {
+            index.trashedEntries = index.trashedEntries.filter(
+              (e) => e.saveId !== saveId,
+            );
+            const restored = { ...target };
+            delete restored.trashedAt;
+            index.entries.push(restored);
+          }
+          index.revision++;
+          await api.put("meta", "index", root.SaveSchema.validateIndex(index));
+          return { ok: true, index };
         }),
       loadPreferences: () =>
         transact(["preferences"], "readonly", async (api) => ({

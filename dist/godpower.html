@@ -15215,7 +15215,11 @@ globalThis.StableIdentity = StableIdentity;
     )
       fail("invalid index revision/generation");
     const ids = unique(input.entries, "saveId", "index entry");
-    for (const e of input.entries)
+    const trashed = input.trashedEntries || [];
+    unique(trashed, "saveId", "trashed entry");
+    if (trashed.some((e) => ids.has(e.saveId)))
+      fail("save cannot be active and trashed");
+    for (const e of [...input.entries, ...trashed])
       if (
         !Number.isSafeInteger(e.revision) ||
         e.revision < 1 ||
@@ -15746,6 +15750,8 @@ globalThis.StableIdentity = StableIdentity;
         commit: (id, revision, saveDoc, options = {}) =>
           native.commit(id, revision, saveDoc, options),
         switchActive: (id, options = {}) => native.switchActive(id, options),
+        setTrashed: (id, value, options = {}) =>
+          native.setTrashed(id, value, options),
         loadPreferences: () => native.loadPreferences(),
         savePreferences: (values, options = {}) =>
           native.savePreferences(values, options),
@@ -15910,7 +15916,10 @@ globalThis.StableIdentity = StableIdentity;
           index: await indexOf(api),
         })),
       load: (saveId) =>
-        transact(["documents"], "readonly", async (api) => {
+        transact(["meta", "documents"], "readonly", async (api) => {
+          const index = await indexOf(api);
+          if (!index.entries.some((e) => e.saveId === saveId))
+            throw failure("SAVE_NOT_FOUND");
           const doc = await api.get("documents", saveId);
           if (!doc) throw failure("SAVE_NOT_FOUND");
           return { ok: true, document: root.SaveSchema.validateV2(doc) };
@@ -15948,6 +15957,8 @@ globalThis.StableIdentity = StableIdentity;
           async (api) => {
             const index = await indexOf(api);
             checkGeneration(index, expectedGeneration);
+            if (!index.entries.some((e) => e.saveId === saveId))
+              throw failure("SAVE_NOT_FOUND");
             const old = await api.get("documents", saveId);
             if (!old) throw failure("SAVE_NOT_FOUND");
             if (old.revision !== expectedRevision)
@@ -15991,6 +16002,8 @@ globalThis.StableIdentity = StableIdentity;
         transact(["meta", "documents"], "readwrite", async (api) => {
           const index = await indexOf(api);
           checkGeneration(index, expectedGeneration);
+          if (!index.entries.some((e) => e.saveId === saveId))
+            throw failure("SAVE_NOT_FOUND");
           const doc = await api.get("documents", saveId);
           if (!doc) throw failure("SAVE_NOT_FOUND");
           root.SaveSchema.validateV2(doc);
@@ -16001,6 +16014,46 @@ globalThis.StableIdentity = StableIdentity;
             await api.put("meta", "index", index);
           }
           return { ok: true, index, document: doc };
+        }),
+      setTrashed: (
+        saveId,
+        trashed,
+        { expectedGeneration, expectedRevision } = {},
+      ) =>
+        transact(["meta", "documents"], "readwrite", async (api) => {
+          if (typeof trashed !== "boolean")
+            throw failure("INVALID_TRASH_ACTION");
+          const index = await indexOf(api);
+          checkGeneration(index, expectedGeneration);
+          if (saveId === index.activeSaveId) throw failure("ACTIVE_SAVE");
+          const from = trashed ? index.entries : index.trashedEntries || [],
+            target = from.find((e) => e.saveId === saveId);
+          if (!target) throw failure("SAVE_NOT_FOUND");
+          if (target.revision !== expectedRevision)
+            throw failure("REVISION_CONFLICT");
+          const doc = root.SaveSchema.validateV2(
+            await api.get("documents", saveId),
+          );
+          if (doc.revision !== target.revision)
+            throw failure("REVISION_CONFLICT");
+          index.trashedEntries ||= [];
+          if (trashed) {
+            index.entries = index.entries.filter((e) => e.saveId !== saveId);
+            index.trashedEntries.push({
+              ...target,
+              trashedAt: new Date().toISOString(),
+            });
+          } else {
+            index.trashedEntries = index.trashedEntries.filter(
+              (e) => e.saveId !== saveId,
+            );
+            const restored = { ...target };
+            delete restored.trashedAt;
+            index.entries.push(restored);
+          }
+          index.revision++;
+          await api.put("meta", "index", root.SaveSchema.validateIndex(index));
+          return { ok: true, index };
         }),
       loadPreferences: () =>
         transact(["preferences"], "readonly", async (api) => ({
@@ -41579,6 +41632,16 @@ globalThis.ClassroomSaveFile = (() => {
       imported = await repo.importPreview(copy, { activate: false });
     }
     if (!imported.ok) return imported;
+    const currentIndex = await repo.list();
+    if (!currentIndex.ok) return currentIndex;
+    if (
+      !currentIndex.index.entries.some((e) => e.saveId === imported.saveIds[0])
+    )
+      return {
+        ok: false,
+        code: "SAVE_IN_TRASH",
+        error: "此来源已导入并移到回收站，请先从回收站恢复。",
+      };
     if (session) return session.switchTo(imported.saveIds[0]);
     const active = await repo.switchActive(imported.saveIds[0], {
       expectedGeneration: listed.index.generation,
@@ -41734,6 +41797,25 @@ globalThis.ClassroomSaveFile = (() => {
         doc.archives = doc.archives.filter((a) => a.id !== id);
         return { document: doc };
       }),
+    setTrashed: async (id, value, { context: requested, revision } = {}) => {
+      const now = session?.token();
+      if (
+        !now ||
+        !requested ||
+        now.saveId !== requested.saveId ||
+        now.generation !== requested.generation
+      )
+        return { ok: false, error: "存档已切换，请重新操作" };
+      if (state.isLocked || !ClassroomWriteBarrier.allow())
+        return { ok: false, error: "请先解锁并等待当前操作完成" };
+      const result = await repo.setTrashed(id, value, {
+        expectedGeneration: now.generation,
+        expectedRevision: revision,
+      });
+      if (result.ok)
+        root.dispatchEvent(new CustomEvent("godpower:save-library-changed"));
+      return result;
+    },
     whenIdle: async () => {
       await deferredLegacySave;
       const result = await session?.whenIdle();
@@ -51029,6 +51111,25 @@ const UIComponentLibrary = (() => {
         )
         .join("") || "<p>暂无小组，可从比赛页添加小组。</p>";
     const listed = await SaveManager.repository().list();
+    if (listed.ok) {
+      mounted.querySelector("[data-save-inactive]").innerHTML =
+        '<option value="">选择其他存档</option>' +
+        listed.index.entries
+          .filter((e) => e.saveId !== doc.saveId)
+          .map(
+            (e) =>
+              `<option value="${E(e.saveId)}" data-revision="${e.revision}">${E(e.name)}</option>`,
+          )
+          .join("");
+      mounted.querySelector("[data-save-trash-list]").innerHTML =
+        '<option value="">选择已移除存档</option>' +
+        (listed.index.trashedEntries || [])
+          .map(
+            (e) =>
+              `<option value="${E(e.saveId)}" data-revision="${e.revision}">${E(e.name)}</option>`,
+          )
+          .join("");
+    }
     if (listed.ok)
       mounted.querySelector("[data-save-select]").innerHTML =
         listed.index.entries
@@ -51189,7 +51290,7 @@ const UIComponentLibrary = (() => {
     mounted.className = "ui-settings-card save-workspace";
     mounted.innerHTML = `<header><h3>当前存档 · 学生与小组</h3><p data-save-state role="status">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button></header>
    <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
-   <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div></details>
+   <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>移入回收站</button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>恢复存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
    <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
@@ -51249,6 +51350,39 @@ const UIComponentLibrary = (() => {
       handle(async (event) => {
         const button = event.target.closest("button");
         if (!button) return;
+        if (
+          button.hasAttribute("data-save-trash") ||
+          button.hasAttribute("data-save-restore")
+        ) {
+          const trash = button.hasAttribute("data-save-trash"),
+            select = mounted.querySelector(
+              trash ? "[data-save-inactive]" : "[data-save-trash-list]",
+            ),
+            option = select.selectedOptions[0];
+          if (!select.value) throw Error("请先选择存档");
+          const id = select.value,
+            revision = Number(option.dataset.revision),
+            context = SaveManager.context();
+          if (
+            trash &&
+            !(await themeConfirm(
+              `将「${option.textContent}」移入回收站？原文件和头像将保留，可以恢复。`,
+              { title: "移除存档", danger: true, confirmText: "移入回收站" },
+            ))
+          )
+            return;
+          const result = await SaveManager.setTrashed(id, trash, {
+            context,
+            revision,
+          });
+          if (!result.ok)
+            throw Error(result.error || result.message || result.code);
+          message(
+            trash
+              ? "已移入回收站，原文件仍保留。"
+              : "存档已恢复，可以切换使用。",
+          );
+        }
         if (button.hasAttribute("data-save-retry")) {
           await SaveManager.retry();
           lastRoster = "";
@@ -51370,6 +51504,10 @@ const UIComponentLibrary = (() => {
       }),
     );
     root.addEventListener("godpower:save-status", render);
+    root.addEventListener("godpower:save-library-changed", () => {
+      lastRoster = "";
+      render();
+    });
     root.addEventListener("pagehide", revoke, { once: true });
     SaveManager.ready().then(render);
     return mounted;

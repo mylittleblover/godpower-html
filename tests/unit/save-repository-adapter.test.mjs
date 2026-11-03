@@ -9,6 +9,12 @@ test("desktop chooses the bounded native backend without opening a second author
   context.godpowerDesktop = {
     role: "main",
     saveVault: {
+      setTrashed: async (id, value, options) => ({
+        ok: true,
+        id,
+        value,
+        generation: options.expectedGeneration,
+      }),
       list: async () => ({ ok: true, index: { generation: 4 } }),
       load: async (id) => {
         calls.push(id);
@@ -39,6 +45,11 @@ test("desktop chooses the bounded native backend without opening a second author
     "unchanged原文",
   );
   assert.equal((await repo.getAsset("test")).raw.size, 3);
+  assert.equal(
+    (await repo.setTrashed("save-test", true, { expectedGeneration: 4 }))
+      .generation,
+    4,
+  );
   repo.close();
 });
 test("native failures are returned without silently falling back to an empty browser library", async () => {

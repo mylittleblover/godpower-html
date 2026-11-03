@@ -354,6 +354,16 @@
       imported = await repo.importPreview(copy, { activate: false });
     }
     if (!imported.ok) return imported;
+    const currentIndex = await repo.list();
+    if (!currentIndex.ok) return currentIndex;
+    if (
+      !currentIndex.index.entries.some((e) => e.saveId === imported.saveIds[0])
+    )
+      return {
+        ok: false,
+        code: "SAVE_IN_TRASH",
+        error: "此来源已导入并移到回收站，请先从回收站恢复。",
+      };
     if (session) return session.switchTo(imported.saveIds[0]);
     const active = await repo.switchActive(imported.saveIds[0], {
       expectedGeneration: listed.index.generation,
@@ -509,6 +519,25 @@
         doc.archives = doc.archives.filter((a) => a.id !== id);
         return { document: doc };
       }),
+    setTrashed: async (id, value, { context: requested, revision } = {}) => {
+      const now = session?.token();
+      if (
+        !now ||
+        !requested ||
+        now.saveId !== requested.saveId ||
+        now.generation !== requested.generation
+      )
+        return { ok: false, error: "存档已切换，请重新操作" };
+      if (state.isLocked || !ClassroomWriteBarrier.allow())
+        return { ok: false, error: "请先解锁并等待当前操作完成" };
+      const result = await repo.setTrashed(id, value, {
+        expectedGeneration: now.generation,
+        expectedRevision: revision,
+      });
+      if (result.ok)
+        root.dispatchEvent(new CustomEvent("godpower:save-library-changed"));
+      return result;
+    },
     whenIdle: async () => {
       await deferredLegacySave;
       const result = await session?.whenIdle();

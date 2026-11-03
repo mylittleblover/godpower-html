@@ -1,0 +1,2 @@
+before reload { ready: 'complete', unsaved: false, status: 'saved' }
+PASS file:// offline save, score ACK, reload, avatar bundle and JSON download without network

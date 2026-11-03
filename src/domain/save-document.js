@@ -193,7 +193,11 @@
     )
       fail("invalid index revision/generation");
     const ids = unique(input.entries, "saveId", "index entry");
-    for (const e of input.entries)
+    const trashed = input.trashedEntries || [];
+    unique(trashed, "saveId", "trashed entry");
+    if (trashed.some((e) => ids.has(e.saveId)))
+      fail("save cannot be active and trashed");
+    for (const e of [...input.entries, ...trashed])
       if (
         !Number.isSafeInteger(e.revision) ||
         e.revision < 1 ||

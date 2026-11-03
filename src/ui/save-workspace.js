@@ -104,6 +104,25 @@
         )
         .join("") || "<p>暂无小组，可从比赛页添加小组。</p>";
     const listed = await SaveManager.repository().list();
+    if (listed.ok) {
+      mounted.querySelector("[data-save-inactive]").innerHTML =
+        '<option value="">选择其他存档</option>' +
+        listed.index.entries
+          .filter((e) => e.saveId !== doc.saveId)
+          .map(
+            (e) =>
+              `<option value="${E(e.saveId)}" data-revision="${e.revision}">${E(e.name)}</option>`,
+          )
+          .join("");
+      mounted.querySelector("[data-save-trash-list]").innerHTML =
+        '<option value="">选择已移除存档</option>' +
+        (listed.index.trashedEntries || [])
+          .map(
+            (e) =>
+              `<option value="${E(e.saveId)}" data-revision="${e.revision}">${E(e.name)}</option>`,
+          )
+          .join("");
+    }
     if (listed.ok)
       mounted.querySelector("[data-save-select]").innerHTML =
         listed.index.entries
@@ -264,7 +283,7 @@
     mounted.className = "ui-settings-card save-workspace";
     mounted.innerHTML = `<header><h3>当前存档 · 学生与小组</h3><p data-save-state role="status">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button></header>
    <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
-   <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div></details>
+   <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>移入回收站</button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>恢复存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
    <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
@@ -324,6 +343,39 @@
       handle(async (event) => {
         const button = event.target.closest("button");
         if (!button) return;
+        if (
+          button.hasAttribute("data-save-trash") ||
+          button.hasAttribute("data-save-restore")
+        ) {
+          const trash = button.hasAttribute("data-save-trash"),
+            select = mounted.querySelector(
+              trash ? "[data-save-inactive]" : "[data-save-trash-list]",
+            ),
+            option = select.selectedOptions[0];
+          if (!select.value) throw Error("请先选择存档");
+          const id = select.value,
+            revision = Number(option.dataset.revision),
+            context = SaveManager.context();
+          if (
+            trash &&
+            !(await themeConfirm(
+              `将「${option.textContent}」移入回收站？原文件和头像将保留，可以恢复。`,
+              { title: "移除存档", danger: true, confirmText: "移入回收站" },
+            ))
+          )
+            return;
+          const result = await SaveManager.setTrashed(id, trash, {
+            context,
+            revision,
+          });
+          if (!result.ok)
+            throw Error(result.error || result.message || result.code);
+          message(
+            trash
+              ? "已移入回收站，原文件仍保留。"
+              : "存档已恢复，可以切换使用。",
+          );
+        }
         if (button.hasAttribute("data-save-retry")) {
           await SaveManager.retry();
           lastRoster = "";
@@ -445,6 +497,10 @@
       }),
     );
     root.addEventListener("godpower:save-status", render);
+    root.addEventListener("godpower:save-library-changed", () => {
+      lastRoster = "";
+      render();
+    });
     root.addEventListener("pagehide", revoke, { once: true });
     SaveManager.ready().then(render);
     return mounted;

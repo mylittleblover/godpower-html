@@ -11,5 +11,6 @@
     "sourceUnchanged": true,
     "notice": "已从旧名单建立 3 个独立课堂存档；仅迁移真实分组，不推测比赛成绩。"
   },
+  "trashRestore": "PASS",
   "errors": []
 }

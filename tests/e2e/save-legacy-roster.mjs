@@ -83,6 +83,68 @@ try {
     await page.evaluate(() => SaveManager.snapshot().roster.assignments.length),
     2,
   );
+  const deniedTrash = await page.evaluate(async () => {
+    const doc = SaveManager.snapshot(),
+      context = SaveManager.context();
+    return SaveManager.setTrashed(doc.saveId, true, {
+      context,
+      revision: doc.revision,
+    });
+  });
+  assert.equal(deniedTrash.code, "ACTIVE_SAVE");
+  await page.locator("#saveWorkspace details summary").click();
+  await page.locator("[data-save-inactive]").selectOption(migrated.old[1]);
+  await page.locator("[data-save-trash]").click();
+  await page.locator("#themeDialogActionsV21727 .danger").click();
+  await page.waitForFunction(
+    async () =>
+      (await SaveManager.repository().list()).index.trashedEntries?.length ===
+      1,
+  );
+  assert.equal(
+    await page.evaluate(
+      async (id) => (await SaveManager.repository().load(id)).ok,
+      migrated.old[1],
+    ),
+    false,
+  );
+  const abortedRestore = await page.evaluate(async (id) => {
+    const original = IDBObjectStore.prototype.put;
+    IDBObjectStore.prototype.put = function (...args) {
+      const req = original.apply(this, args);
+      if (this.name === "meta") this.transaction.abort();
+      return req;
+    };
+    let failed;
+    try {
+      failed = await SaveManager.repository().setTrashed(id, false, {
+        expectedGeneration: SaveManager.context().generation,
+        expectedRevision: 1,
+      });
+    } finally {
+      IDBObjectStore.prototype.put = original;
+    }
+    return {
+      ok: failed.ok,
+      count: (await SaveManager.repository().list()).index.trashedEntries
+        .length,
+    };
+  }, migrated.old[1]);
+  assert.deepEqual(abortedRestore, { ok: false, count: 1 });
+  await page.locator("[data-save-trash-list]").selectOption(migrated.old[1]);
+  await page.locator("[data-save-restore]").click();
+  await page.waitForFunction(
+    async () =>
+      (await SaveManager.repository().list()).index.trashedEntries?.length ===
+      0,
+  );
+  assert.equal(
+    await page.evaluate(
+      async (id) => (await SaveManager.repository().load(id)).ok,
+      migrated.old[1],
+    ),
+    true,
+  );
   await page
     .locator("#saveWorkspace")
     .screenshot({ path: "artifacts/save-legacy-roster/current-roster.png" });
@@ -102,7 +164,11 @@ try {
   assert.deepEqual(errors, []);
   await writeFile(
     "artifacts/save-legacy-roster/result.json",
-    JSON.stringify({ status: "PASS", migrated, errors }, null, 2),
+    JSON.stringify(
+      { status: "PASS", migrated, trashRestore: "PASS", errors },
+      null,
+      2,
+    ),
   );
   console.log(
     "PASS legacy profile/class migration preserves original bytes, stable identities, idempotency and searchable member selections",

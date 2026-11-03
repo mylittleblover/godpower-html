@@ -1,0 +1,13 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.reload: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+    at /workspace/godpower-html-latest/tests/e2e/save-offline.mjs:53:14 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

@@ -1,0 +1,21 @@
+✖ desktop chooses the bounded native backend without opening a second authoritative database (4.880528ms)
+✔ native failures are returned without silently falling back to an empty browser library (1.938476ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 71.404763
+
+✖ failing tests:
+
+test at tests/unit/save-repository-adapter.test.mjs:6:1
+✖ desktop chooses the bounded native backend without opening a second authoritative database (4.880528ms)
+  ReferenceError: Cannot access 'db' before initialization
+      at transact (evalmachine.<anonymous>:132:18)
+      at Object.setTrashed (evalmachine.<anonymous>:54:11)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-repository-adapter.test.mjs:43:28)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

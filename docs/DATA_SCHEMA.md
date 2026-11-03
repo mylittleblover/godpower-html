@@ -205,3 +205,7 @@ AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/
 ### 旧教师／课堂名单
 
 `ClassroomRosterMigration`读取schema1名单/仓库envelope/名单离线备份，依据实际assignments建立独立SaveDocument；无assignment课堂保留为未分组学生池。保留稳定学生UID和已记录分组UID，未知组名显式标注，缺比赛快照不会补造分数、历史、成就。来源信息在migration保存userProfileId、classroomId、mode和原文摘要。旧键、头像库及原文不删除；导入回执保证重启不重复。导出备份的头像必须校验通过，单独资源库暂不可读时记录缺失来源并保留原资源。
+
+### 存档回收站
+
+索引可含`trashedEntries`；条目结构与entries一致，附trashedAt。一个saveId不能同时出现在两组，activeSaveId只能引用正常entries。移入/恢复只原子变更索引，不删除文档、头像、原文或迁移回执；必须校验存档修订和活动代次，不能移除当前存档。恢复前验证文档完整性；Electron同时验证资源。重复导入已在回收站的来源不会偷偷恢复或覆盖，提示先恢复。暂不提供永久删除/资源清理。
