@@ -77,6 +77,15 @@
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
+            phase: handSnapshot.phase,
+            motionEnabled:
+              DesktopUI.getPreferences().motion !== "off" &&
+              !(
+                DesktopUI.getPreferences().systemMotion &&
+                matchMedia("(prefers-reduced-motion: reduce)").matches
+              ),
+            rewardComplete: handSnapshot.rewardComplete,
+            canScore: handSnapshot.canScore,
             selectionId: handSnapshot.selectionId,
             groupId: handSnapshot.groupId,
             correct: handSnapshot.correct,
@@ -110,6 +119,7 @@
     "handScore",
     "handDraw",
     "handUse",
+    "handCancel",
   ]);
   const sounds = {
     start: "pick_start",

@@ -191,6 +191,11 @@ globalThis.HandRaisePort = (() => {
         return { ok: false, error: "STALE_HAND_SESSION" };
       if (action !== "handSelect" && payload.selectionId !== session.id)
         return { ok: false, error: "STALE_HAND_SESSION" };
+      if (action === "handCancel") {
+        session = null;
+        flow = rootFlow();
+        return { ok: true, persisted: false };
+      }
       if (state.isLocked) return { ok: false, error: "LOCKED" };
       if (action === "handJudge") {
         if (typeof payload.correct !== "boolean")

@@ -55073,6 +55073,11 @@ globalThis.HandRaisePort = (() => {
         return { ok: false, error: "STALE_HAND_SESSION" };
       if (action !== "handSelect" && payload.selectionId !== session.id)
         return { ok: false, error: "STALE_HAND_SESSION" };
+      if (action === "handCancel") {
+        session = null;
+        flow = rootFlow();
+        return { ok: true, persisted: false };
+      }
       if (state.isLocked) return { ok: false, error: "LOCKED" };
       if (action === "handJudge") {
         if (typeof payload.correct !== "boolean")
@@ -55976,6 +55981,15 @@ globalThis.HandRaisePort = (() => {
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
+            phase: handSnapshot.phase,
+            motionEnabled:
+              DesktopUI.getPreferences().motion !== "off" &&
+              !(
+                DesktopUI.getPreferences().systemMotion &&
+                matchMedia("(prefers-reduced-motion: reduce)").matches
+              ),
+            rewardComplete: handSnapshot.rewardComplete,
+            canScore: handSnapshot.canScore,
             selectionId: handSnapshot.selectionId,
             groupId: handSnapshot.groupId,
             correct: handSnapshot.correct,
@@ -56009,6 +56023,7 @@ globalThis.HandRaisePort = (() => {
     "handScore",
     "handDraw",
     "handUse",
+    "handCancel",
   ]);
   const sounds = {
     start: "pick_start",

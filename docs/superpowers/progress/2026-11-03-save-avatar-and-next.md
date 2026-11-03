@@ -91,3 +91,5 @@ M3B：主页面举手改为直接点选真实14组卡片。SVG遮罩只遮暗卡
 本模块targeted14项、build/check、UI/样式format PASS；仅在M3B成块完成后进行一次完整单元回归。下一步M3C原生悬浮窗卡牌及全屏交互，尚未完成，现有Electron资源仍是已发布3.0.69而非这些未发布代码。
 
 M3B整批单元实际397项：396 PASS，1 FAIL（旧about清理证明要求其所在文件后续所有举手代码永久相同，与本次获批迁移冲突）。未删除断言：历史about变更仍逐字对照6256a76；当前about唯一实现、全部其余文件、该文件非举手函数/启动逻辑仍验证；另新增6个举手入口唯一声明且禁止覆盖赋值的实时AST守卫。修复后的受影响测试23项PASS，保留首次失败，依用户缩减测试要求暂不重复整套，M3整体收尾再回归。
+
+M3C正在实施：原生DTO新增phase/rewardComplete/canScore，已完成奖励强制关闭全部奖励能力，举手名单改为一行一组。新增受控全屏交互校验器，effect只能对当前窗口所显示的groupId/selectionId与活动saveContext发起handJudge/Score/Draw/Use/Cancel，不开放完整IPC或Node；请求复用Broker幂等/序号机制。威胁边界为effect→main与picker→main，均要求精确sender角色/主frame/本地URL；没有新增个人信息类别。下一步接Windows交互窗口及原生hand-card renderer，当前校验器2项RED→GREEN，尚未完整联调，不发布。
