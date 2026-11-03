@@ -2,11 +2,11 @@
 globalThis.ItemBlueprints = Object.freeze({
   kamek: { target: "randomOther", effect: "kamek", punishOvertake: false },
   item_box: { target: "self", effect: "itemBox", punishOvertake: false },
-  green: { target: "randomOther", effect: "fraction", denominator: 4 },
+  green: { target: "randomOther", effect: "fraction", denominator: 3 },
   triple_green: {
     target: "randomOther",
     effect: "fraction",
-    denominator: 4,
+    denominator: 3,
     continuation: true,
   },
   red: {
@@ -46,11 +46,11 @@ globalThis.ItemBlueprints = Object.freeze({
   coin: { target: "self", effect: "flat", amount: 2 },
   coin_shell: { target: "aheadInclusive", effect: "boost", denominator: 4 },
   question: { target: "behindInclusive", effect: "boost", denominator: 4 },
-  mushroom: { target: "self", effect: "boost", denominator: 4 },
+  mushroom: { target: "self", effect: "boost", denominator: 3 },
   triple_mushroom: {
     target: "self",
     effect: "boost",
-    denominator: 4,
+    denominator: 3,
     continuation: true,
   },
   boo: {
@@ -74,7 +74,7 @@ globalThis.ItemBlueprints = Object.freeze({
     target: "self",
     effect: "status",
     type: "power",
-    rounds: 3,
+    rounds: 5,
     retain: true,
   },
   feather: {
@@ -94,7 +94,7 @@ globalThis.ItemBlueprints = Object.freeze({
     effect: "freeze",
     denominator: 5,
     rounds: 3,
-    allowEmpty: true,
+    allowEmpty: false,
   },
   boomerang_flower: {
     punishOvertake: false,

@@ -57,7 +57,7 @@ const ITEM_TIPS_V218 = {
   star: "立即释放主要栏，并获得持续 3 轮答题的无敌状态，适合需要腾出道具槽时使用。",
   mega: "占据主要栏 3 轮答题，期间抵挡全部攻击。",
   bullet: "追赶效果依赖当前排名和前方组数，越靠后通常收益越明显。",
-  power: "仅持续 3 次答题；答错也会消耗次数，因此最好在把握较高时启用。",
+  power: "仅持续 5 次答题；答错也会消耗次数，因此最好在把握较高时启用。",
 };
 
 
@@ -67,7 +67,7 @@ if (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined") {
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.blooper =
     "暂时遮蔽全场积分、领奖台、图表以及比赛页顶部排名预览，使其显示为未知状态。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.power =
-    "效果持续 3 次答题；每次答题都会消耗 1 次，答对时强制向前提升 1 个排名，答错不发动。";
+    "效果持续 5 次有效答题；答错也消耗，答对以答题前紧邻的更高分组为目标，补至其常规与状态结算后积分 +1；已自然超过则不降分，多组同时发动不按数组顺序连锁。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.fire_flower =
     "拥有 3 次火之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/4。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.ice_flower =

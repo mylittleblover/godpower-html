@@ -17,15 +17,15 @@ await p.goto(`http://127.0.0.1:${server.address().port}`, {
   waitUntil: "domcontentloaded",
 });
 await p.waitForTimeout(400);
-// All 26 public commands must work without entering the superseded dispatcher.
+// The original 26 public commands (newer two have separate integration coverage) must work without entering the superseded dispatcher.
 await p.evaluate(() => {
   legacyUseItem = () => {
     throw Error("public pipeline entered superseded dispatcher");
   };
 });
 const expected = {
-  green: [75, 140, 180, 220],
-  triple_green: [75, 140, 180, 220],
+  green: [67, 140, 180, 220],
+  triple_green: [67, 140, 180, 220],
   red: [100, 140, 120, 220],
   triple_red: [100, 140, 120, 220],
   spiny: [100, 140, 180, 110],
@@ -37,8 +37,8 @@ const expected = {
   coin: [100, 142, 180, 220],
   coin_shell: [100, 175, 225, 275],
   question: [125, 175, 180, 220],
-  mushroom: [100, 175, 180, 220],
-  triple_mushroom: [100, 175, 180, 220],
+  mushroom: [100, 187, 180, 220],
+  triple_mushroom: [100, 187, 180, 220],
   boo: [100, 140, 180, 220],
   blooper: [100, 140, 180, 220],
   lightning: [100, 140, 90, 110],
@@ -53,17 +53,20 @@ const expected = {
 };
 const results = [];
 for (const [key, scores] of Object.entries(expected)) {
+  await p.evaluate(() => classroomCommands.whenIdle());
   await setup(p);
   try {
-    const r = await p.evaluate((key) => {
+    const r = await p.evaluate(async (key) => {
       const rng = Math.random;
       Math.random = () => 0;
       const g = state.groups[1];
       addItemToGroup(g, key);
       g.allIn = true;
-      const ok = useItem(g.id, 0);
+      const ok = await useItem(g.id, 0);
+      await classroomCommands.whenIdle();
       const allIn = g.allIn;
       toggleAllInCard(g.id);
+      await classroomCommands.whenIdle();
       Math.random = rng;
       return {
         ok,
@@ -100,8 +103,8 @@ for (const [key, scores] of Object.entries(expected)) {
     if (key === "ice_flower") {
       assert.equal(r.targetStatuses.freeze.remaining, 2);
     }
-    if (["star", "mega"].includes(key)) assert.equal(r.effect.hitsLeft, 3);
-    if (key === "power") assert.equal(r.effect.roundsLeft, 3);
+    if (["star", "mega"].includes(key)) assert.equal(r.effect.roundsLeft, 3);
+    if (key === "power") assert.equal(r.effect.roundsLeft, 5);
     if (key === "boo") assert.equal(r.ghost, 3);
     if (key === "feather") assert.equal(r.effect.featherDodge, 1);
     if (key === "blooper") assert.equal(r.masked, true);

@@ -1,0 +1,11 @@
+✔ approved thirds apply only to green shells and normal mushrooms; new power lasts five answers (2.202703ms)
+✔ random target range is top three union bottom two, deduplicated and excluding self and illegal targets (2.442425ms)
+✔ power uses frozen pre-answer upper neighbor and post-base score snapshot, independent of group traversal (1.852034ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 68.383168

@@ -1,0 +1,45 @@
+FAIL red Expected values to be strictly equal:
+
+false !== true
+
+FAIL spiny Expected values to be strictly equal:
+
+false !== true
+
+FAIL horn Expected values to be strictly equal:
+
+false !== true
+
+FAIL coin Expected values to be strictly equal:
+
+false !== true
+
+FAIL mushroom Expected values to be strictly equal:
+
+false !== true
+
+FAIL boo Expected values to be strictly equal:
+
+false !== true
+
+FAIL star Expected values to be strictly equal:
+
+false !== true
+
+FAIL mega Expected values to be strictly equal:
+
+undefined !== 3
+
+FAIL bullet Expected values to be strictly equal:
+
+false !== true
+
+FAIL fire_flower Expected values to be strictly equal:
+
+false !== true
+
+FAIL boomerang_flower Expected values to be strictly equal:
+
+false !== true
+
+{ pass: 15, fail: 11 }

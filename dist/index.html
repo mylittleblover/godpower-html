@@ -22104,6 +22104,36 @@ const ItemRoundUse = (() => {
   return Object.freeze({ canContinue, mark, reset });
 })();
 </script>
+<script>/* Simultaneous power overtake calculation; neither array traversal nor UI determines results. */
+const PowerRound = (() => {
+  function calculate({ before, after, answers, activeIds }) {
+    const ordered = before
+        .map((g, i) => ({ ...g, index: i }))
+        .sort((a, b) => b.score - a.score || a.index - b.index),
+      scores = new Map(after.map((g) => [g.id, g.score])),
+      active = new Set(activeIds),
+      valid = new Map(answers.map((a) => [a.id, a]));
+    const updates = [];
+    for (const group of ordered) {
+      const answer = valid.get(group.id);
+      if (!active.has(group.id) || !answer?.answered || !answer.correct)
+        continue;
+      const position = ordered.findIndex((g) => g.id === group.id);
+      const upper = ordered
+        .slice(0, position)
+        .toReversed()
+        .find((g) => g.score > group.score);
+      if (!upper || !scores.has(group.id) || !scores.has(upper.id)) continue;
+      const score = Math.max(scores.get(group.id), scores.get(upper.id) + 1);
+      if (!Number.isSafeInteger(score))
+        throw Error("强力蘑菇计分超出安全整数范围");
+      updates.push({ id: group.id, score });
+    }
+    return updates;
+  }
+  return Object.freeze({ calculate });
+})();
+</script>
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
   const schemaVersion = 2;
@@ -28401,7 +28431,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 1,
-    desc: "随机攻击其他小组 -1/4；可抵挡常规攻击与刺龟壳。",
+    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺龟壳。",
   },
   triple_green: {
     name: "三重绿龟壳",
@@ -28409,7 +28439,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 3,
-    desc: "可分 3 次攻击/防御，每次 -1/4。",
+    desc: "可分 3 次攻击/防御，每次 -1/3。",
   },
   red: {
     name: "红龟壳",
@@ -28498,14 +28528,14 @@ const ITEM_DEFS = {
     icon: "🍄",
     kind: "boost",
     charges: 1,
-    desc: "自身 +1/4；刺龟壳来袭时可主动闪避。",
+    desc: "自身 +1/3；刺龟壳来袭时可主动闪避。",
   },
   triple_mushroom: {
     name: "三重蘑菇",
     icon: "🍄³",
     kind: "boost",
     charges: 3,
-    desc: "3 次 +1/4，也可分次主动闪避刺龟壳。",
+    desc: "3 次 +1/3，也可分次主动闪避刺龟壳。",
   },
   boo: {
     name: "害羞幽灵",
@@ -28554,7 +28584,7 @@ const ITEM_DEFS = {
     icon: "🌟🍄",
     kind: "status",
     charges: 1,
-    desc: "持续 3 次答题；答对后在常规结算后提升一名，答错也会消耗 1 次。",
+    desc: "持续 5 次答题；答对后以答题前紧邻上位组为基准追赶至其结算后积分 +1（不降低已自然超过的积分），答错也会消耗 1 次。",
   },
 
   /* V2.17.19：扩展道具必须在第一次 ensureItemState() 之前注册。
@@ -31911,11 +31941,11 @@ const SHELL_ATTACK_KEYS_V2170 = new Set([
 Object.assign(ITEM_DEFS, {
   green: {
     ...ITEM_DEFS.green,
-    desc: "随机攻击其他小组 -1/4；作为主要道具可抵挡常规攻击。遭刺龟壳或回旋镖破坏时会直接消失。",
+    desc: "随机攻击其他小组 -1/3；作为主要道具可抵挡常规攻击。遭刺龟壳或回旋镖破坏时会直接消失。",
   },
   triple_green: {
     ...ITEM_DEFS.triple_green,
-    desc: "3 次绿龟壳攻击/防御，每次 -1/4；作为主要道具时可逐次防御，遭刺龟壳或回旋镖破坏时直接失去整组。",
+    desc: "3 次绿龟壳攻击/防御，每次 -1/3；作为主要道具时可逐次防御，遭刺龟壳或回旋镖破坏时直接失去整组。",
   },
   red: {
     ...ITEM_DEFS.red,
@@ -34040,9 +34070,9 @@ applyLightningHitV2116 = function (caster, target) {
 
 const ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 = {
   green:
-    "随机攻击其他小组，扣除其当前积分的 1/4；作为主要道具时可抵挡一次常规攻击。",
+    "随机攻击其他小组，扣除其当前积分的 1/3；作为主要道具时可抵挡一次常规攻击。",
   triple_green:
-    "拥有 3 次绿龟壳使用次数；每次可随机攻击其他小组并扣除其当前积分的 1/4，也可作为主要道具逐次防御。",
+    "拥有 3 次绿龟壳使用次数；每次可随机攻击其他小组并扣除其当前积分的 1/3，也可作为主要道具逐次防御。",
   red: "攻击当前排名正上方的小组，扣除其当前积分的 1/3；作为主要道具时可抵挡一次常规攻击。",
   triple_red:
     "拥有 3 次红龟壳使用次数；每次攻击当前排名正上方的小组，也可作为主要道具逐次防御。",
@@ -34060,9 +34090,9 @@ const ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 = {
     "自己增加当前积分的 1/4，同时所有排名高于自己的小组也增加当前积分的 1/4。",
   question:
     "自己增加当前积分的 1/4，同时所有排名低于自己的小组也增加当前积分的 1/4。",
-  mushroom: "自己增加当前积分的 1/4；作为主要道具时可主动消耗以闪避刺龟壳。",
+  mushroom: "自己增加当前积分的 1/3；作为主要道具时可主动消耗以闪避刺龟壳。",
   triple_mushroom:
-    "拥有 3 次蘑菇使用次数；每次可增加自身当前积分的 1/4，并可逐次用于刺龟壳闪避。",
+    "拥有 3 次蘑菇使用次数；每次可增加自身当前积分的 1/3，并可逐次用于刺龟壳闪避。",
   boo: "偷取当前排名正上方小组最新获得的一件道具，并获得一次攻击防护。",
   blooper: "暂时遮蔽全场积分、领奖台和图表信息，使其显示为未知状态。",
   lightning:
@@ -34072,7 +34102,7 @@ const ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 = {
   bullet:
     "强力追赶。若前方至少有 3 组，积分直接提升到前方第 3 组的积分 +1；不足 3 组时提升到第一名积分 +1；已经第一名时则 +1 分。",
   power:
-    "效果持续 3 次答题；每次答题都会消耗 1 次，答对时强制向前提升 1 个排名，答错不发动。",
+    "持续 5 次有效答题；答对以答题前紧邻的更高分组为目标，补至其常规与状态结算后积分 +1；自然超过不降分，多组发动不顺序连锁。",
   feather: "获得一次外部攻击闪避机会，可在受到攻击时自动规避本次效果。",
   fire_flower:
     "拥有 3 次火之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/4。",
@@ -35677,7 +35707,7 @@ const ITEM_TIPS_V218 = {
   star: "立即释放主要栏，并获得持续 3 轮答题的无敌状态，适合需要腾出道具槽时使用。",
   mega: "占据主要栏 3 轮答题，期间抵挡全部攻击。",
   bullet: "追赶效果依赖当前排名和前方组数，越靠后通常收益越明显。",
-  power: "仅持续 3 次答题；答错也会消耗次数，因此最好在把握较高时启用。",
+  power: "仅持续 5 次答题；答错也会消耗次数，因此最好在把握较高时启用。",
 };
 
 
@@ -35687,7 +35717,7 @@ if (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined") {
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.blooper =
     "暂时遮蔽全场积分、领奖台、图表以及比赛页顶部排名预览，使其显示为未知状态。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.power =
-    "效果持续 3 次答题；每次答题都会消耗 1 次，答对时强制向前提升 1 个排名，答错不发动。";
+    "效果持续 5 次有效答题；答错也消耗，答对以答题前紧邻的更高分组为目标，补至其常规与状态结算后积分 +1；已自然超过则不降分，多组同时发动不按数组顺序连锁。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.fire_flower =
     "拥有 3 次火之花攻击次数；每次随机攻击一个其他小组，扣除其当前积分的 1/4。";
   ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715.ice_flower =
@@ -35747,9 +35777,9 @@ const GROUP_ITEM_ORDER_V2182 = [
 ];
 
 const GROUP_ITEM_DESC_V2182 = {
-  green: "随机攻击一个其他小组，扣除当前积分的 1/4；主要栏可用于基础防御。",
+  green: "随机攻击一个其他小组，扣除当前积分的 1/3；主要栏可用于基础防御。",
   triple_green:
-    "3 次绿龟壳；每次随机攻击一个其他小组 -1/4，也可逐次用于基础防御。",
+    "3 次绿龟壳；每次随机攻击一个其他小组 -1/3，也可逐次用于基础防御。",
   red: "攻击当前排名紧邻的上一组 -1/3；若没有上方排名，道具仍会消耗但不产生效果。",
   triple_red:
     "3 次红龟壳；每一发都按发动时的最新排名重新寻找紧邻上一组；无上方排名时该发直接消耗。",
@@ -35762,9 +35792,9 @@ const GROUP_ITEM_DESC_V2182 = {
   coin: "立即 +2 分。",
   coin_shell: "自己 +1/4，同时所有排名高于自己的小组也 +1/4。",
   question: "自己 +1/4，同时所有排名低于自己的小组也 +1/4。",
-  mushroom: "自己 +1/4；主要栏持有时，遭遇刺龟壳可选择主动消耗进行闪避。",
+  mushroom: "自己 +1/3；主要栏持有时，遭遇刺龟壳可选择主动消耗进行闪避。",
   triple_mushroom:
-    "3 次 +1/4；答题期间首次使用后禁止 All In，但同一枚三重蘑菇剩余次数仍可继续使用。",
+    "3 次 +1/3；答题期间首次使用后禁止 All In，但同一枚三重蘑菇剩余次数仍可继续使用。",
   boo: "偷取紧邻上方小组最新获得的道具；若无上方排名或上方没有道具，则自动获得一个蘑菇。使用后获得持续 3 次答题的攻击防护，受攻击不会消耗持续次数。",
   blooper:
     "全场比分遮蔽 2 分钟；积分、领奖台、图表与比赛页顶部排名预览均显示为 ???。",
@@ -35775,7 +35805,7 @@ const GROUP_ITEM_DESC_V2182 = {
   bullet:
     "若前方至少有 3 组，积分提升到当前领先自己 3 名的小组积分 +1；前方不足 3 组则追到第一名积分 +1；第一名使用则 +1。",
   power:
-    "持续 3 次答题；每次答题都会消耗 1 次。答对时在常规结算后强制向前提升 1 名，答错则不发动效果。",
+    "持续 5 次有效答题；答对以答题前紧邻的更高分组为目标，补至其常规与状态结算后积分 +1；自然超过不降分，多组发动不顺序连锁。",
   feather: "闪避下一次来自外部的攻击，触发后消失。",
   fire_flower: "3 次火球；每次随机攻击一个其他小组，扣除其当前积分的 1/5。",
   ice_flower:
@@ -36373,7 +36403,7 @@ function itemReferenceMarkup() {
   <div class="item-reference-general">
     <b>📖 百科阅读须知：</b>
     这里的吐槽负责让你愿意把 ${itemCount} 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
-    第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
+    随机范围道具仅从当前前三名与最后两名的合法目标中抽取；第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
     总之，规则不会因为文案开始讲冷笑话就放你一马。
   </div>
   <div class="item-reference-list">
@@ -37384,13 +37414,13 @@ function refreshBattleGrid() {
     list.splice(0, list.length, ...order);
   const descriptions = {
     kamek:
-      "随机选择 1～3 个不同的其他小组，分别施加灼烧、冰冻、麻痹、中毒、眩晕中的一种随机状态；现有防御可抵挡。",
+      "从当前前三与末二的合法组中随机选择 1～3 个不同的其他小组，分别施加灼烧、冰冻、麻痹、中毒、眩晕中的一种随机状态；现有防御可抵挡。",
     item_box:
       "为所有符合条件的小组按其排名抽取一个道具；负分或库存已满者跳过。使用者先释放道具箱槽位，再参与分发。",
     fire_flower:
-      "3 发火球；每次随机攻击其他一组，扣当前积分 1/4；未被防御的命中追加灼烧，接下来 2 次答题后各扣 1～3 分。",
+      "3 发火球；每次从当前前三与末二随机攻击其他一组，扣当前积分 1/4；未被防御的命中追加灼烧，接下来 2 次答题后各扣 1～3 分。",
     ice_flower:
-      "3 发冰球；每次随机攻击尚未冰冻的小组，扣当前积分 1/5 并冰冻：禁止 All In，正向答题收益最多 1 分；2 次答题或阻挡一次道具使用后解除，原道具不消耗。全场已冻结时消耗 1 发但无效果。",
+      "3 发冰球；每次随机攻击尚未冰冻的小组，扣当前积分 1/5 并冰冻：禁止 All In，正向答题收益最多 1 分；2 次答题或阻挡一次道具使用后解除，原道具不消耗。目标仅限前三与末二的未冻结合法组；没有目标时不消耗次数。",
     boomerang_flower:
       "3 次回旋镖；每次攻击相邻上下组，各扣当前积分 1/5，并追加眩晕：接下来 2 次定向道具尝试有 50% 概率转向自身。不会重复扣除 1/5。",
     star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。按答题轮次计时，到期后状态结束。例：20 分答对变 40，All In 答对变 60；答错仍为 20。",
@@ -37527,11 +37557,11 @@ function statusGuideGlyph(key) {
 globalThis.ItemBlueprints = Object.freeze({
   kamek: { target: "randomOther", effect: "kamek", punishOvertake: false },
   item_box: { target: "self", effect: "itemBox", punishOvertake: false },
-  green: { target: "randomOther", effect: "fraction", denominator: 4 },
+  green: { target: "randomOther", effect: "fraction", denominator: 3 },
   triple_green: {
     target: "randomOther",
     effect: "fraction",
-    denominator: 4,
+    denominator: 3,
     continuation: true,
   },
   red: {
@@ -37571,11 +37601,11 @@ globalThis.ItemBlueprints = Object.freeze({
   coin: { target: "self", effect: "flat", amount: 2 },
   coin_shell: { target: "aheadInclusive", effect: "boost", denominator: 4 },
   question: { target: "behindInclusive", effect: "boost", denominator: 4 },
-  mushroom: { target: "self", effect: "boost", denominator: 4 },
+  mushroom: { target: "self", effect: "boost", denominator: 3 },
   triple_mushroom: {
     target: "self",
     effect: "boost",
-    denominator: 4,
+    denominator: 3,
     continuation: true,
   },
   boo: {
@@ -37599,7 +37629,7 @@ globalThis.ItemBlueprints = Object.freeze({
     target: "self",
     effect: "status",
     type: "power",
-    rounds: 3,
+    rounds: 5,
     retain: true,
   },
   feather: {
@@ -37619,7 +37649,7 @@ globalThis.ItemBlueprints = Object.freeze({
     effect: "freeze",
     denominator: 5,
     rounds: 3,
-    allowEmpty: true,
+    allowEmpty: false,
   },
   boomerang_flower: {
     punishOvertake: false,
@@ -37701,7 +37731,25 @@ const ItemImpactFacts = (() => {
 </script>
 <script>/* Target policy only: no mutation, effects, UI or ambient random generator. */
 const ItemTargets = (() => {
+  const randomKinds = Object.freeze([
+    "randomOther",
+    "randomUnfrozen",
+    "randomAhead",
+    "blast",
+  ]);
+  function randomCandidates(context, eligible) {
+    const ids = new Set(
+      [...context.ranking.slice(0, 3), ...context.ranking.slice(-2)].map(
+        (g) => g.id,
+      ),
+    );
+    return context.others.filter(
+      (g) => g.id !== context.group.id && ids.has(g.id) && eligible(g),
+    );
+  }
   function select(kind, context, { random, eligible }) {
+    if (randomKinds.includes(kind))
+      context = { ...context, others: randomCandidates(context, eligible) };
     const randomOne = (pool) =>
       pool.length ? [pool[Math.floor(random() * pool.length)]] : [];
     const selectors = {
@@ -37720,7 +37768,7 @@ const ItemTargets = (() => {
       randomAhead: (c) =>
         c.ranking
           .slice(0, c.position)
-          .filter(eligible)
+          .filter((g) => context.others.some((t) => t.id === g.id))
           .sort(() => random() - 0.5)
           .slice(0, 3),
       randomUnfrozen: (c) =>
@@ -37736,7 +37784,8 @@ const ItemTargets = (() => {
         if (!center) return [];
         const i = c.ranking.indexOf(center);
         return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
-          (t) => t && t.id !== c.group.id,
+          (t) =>
+            t && t.id !== c.group.id && c.others.some((g) => g.id === t.id),
         );
       },
     };
@@ -37745,7 +37794,7 @@ const ItemTargets = (() => {
       throw new Error("Unknown item target selector: " + kind);
     return selector(context);
   }
-  return { select };
+  return Object.freeze({ select, randomCandidates, randomKinds });
 })();
 </script>
 <script>/* Operation pipeline. Draw policy has no access to this executor. */
@@ -38042,6 +38091,8 @@ const ItemOperationBlocks = (() => {
       command,
       blocked: new Set(),
     };
+    if (ItemTargets.randomKinds.includes(blueprint.target))
+      context.others = ItemTargets.randomCandidates(context, eligibleForItems);
     context.targets =
       targets[blueprint.target](context).filter(eligibleForItems);
     if (!context.targets.length && !blueprint.allowEmpty) {
@@ -38107,7 +38158,15 @@ const ItemOperationBlocks = (() => {
 </script>
 <script>/* Explicit compatibility owner for item effects applied after base answer scoring. */
 const RoundItemEffects = (() => {
-  function settle({ rankingsBefore, answersBefore }) {
+  function settle({ rankingsBefore, groupsBefore, answersBefore }) {
+    const powerIds = state.groups
+      .filter(
+        (g) =>
+          g.itemEffect?.type === "power" &&
+          eligibleForItems(g) &&
+          answersBefore.some((a) => a.id === g.id && a.answered),
+      )
+      .map((g) => g.id);
     answersBefore.forEach((answer) => {
       const group = state.groups.find(
         (candidate) => candidate.id === answer.id,
@@ -38117,16 +38176,7 @@ const RoundItemEffects = (() => {
       else group.itemStats.wrong++;
       if (group.itemEffect && group.itemEffect.type === "power") {
         group.itemEffect.roundsLeft--;
-        if (answer.correct && eligibleForItems(group)) {
-          const sorted = ranking(),
-            position = sorted.findIndex(
-              (candidate) => candidate.id === group.id,
-            );
-          if (position > 0) {
-            group.score = sorted[position - 1].score + 1;
-            group.displayScore = group.score;
-          }
-        }
+
         if (group.itemEffect && group.itemEffect.roundsLeft <= 0) {
           const index = group.inventory.findIndex(
             (item) => item.key === "power",
@@ -38153,8 +38203,27 @@ const RoundItemEffects = (() => {
       );
       group.score = result.score;
       group.displayScore = group.score;
-      detectOvertakePunish(group.id, rankingsBefore);
+      if (!powerIds.length) detectOvertakePunish(group.id, rankingsBefore);
     });
+    const before =
+      groupsBefore ||
+      rankingsBefore.map((id) => ({
+        id,
+        score: answersBefore.find((a) => a.id === id)?.scoreBefore || 0,
+      }));
+    const updates = PowerRound.calculate({
+      before,
+      after: state.groups,
+      answers: answersBefore,
+      activeIds: powerIds,
+    });
+    for (const update of updates) {
+      const group = state.groups.find((g) => g.id === update.id);
+      group.score = group.displayScore = update.score;
+    }
+    if (powerIds.length)
+      for (const answer of answersBefore)
+        if (answer.answered) detectOvertakePunish(answer.id, rankingsBefore);
     return true;
   }
   function expire({ answersBefore }) {

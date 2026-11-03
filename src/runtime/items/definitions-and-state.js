@@ -5,7 +5,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 1,
-    desc: "随机攻击其他小组 -1/4；可抵挡常规攻击与刺龟壳。",
+    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺龟壳。",
   },
   triple_green: {
     name: "三重绿龟壳",
@@ -13,7 +13,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 3,
-    desc: "可分 3 次攻击/防御，每次 -1/4。",
+    desc: "可分 3 次攻击/防御，每次 -1/3。",
   },
   red: {
     name: "红龟壳",
@@ -102,14 +102,14 @@ const ITEM_DEFS = {
     icon: "🍄",
     kind: "boost",
     charges: 1,
-    desc: "自身 +1/4；刺龟壳来袭时可主动闪避。",
+    desc: "自身 +1/3；刺龟壳来袭时可主动闪避。",
   },
   triple_mushroom: {
     name: "三重蘑菇",
     icon: "🍄³",
     kind: "boost",
     charges: 3,
-    desc: "3 次 +1/4，也可分次主动闪避刺龟壳。",
+    desc: "3 次 +1/3，也可分次主动闪避刺龟壳。",
   },
   boo: {
     name: "害羞幽灵",
@@ -158,7 +158,7 @@ const ITEM_DEFS = {
     icon: "🌟🍄",
     kind: "status",
     charges: 1,
-    desc: "持续 3 次答题；答对后在常规结算后提升一名，答错也会消耗 1 次。",
+    desc: "持续 5 次答题；答对后以答题前紧邻上位组为基准追赶至其结算后积分 +1（不降低已自然超过的积分），答错也会消耗 1 次。",
   },
 
   /* V2.17.19：扩展道具必须在第一次 ensureItemState() 之前注册。

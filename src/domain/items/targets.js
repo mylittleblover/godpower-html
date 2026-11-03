@@ -1,6 +1,24 @@
 /* Target policy only: no mutation, effects, UI or ambient random generator. */
 const ItemTargets = (() => {
+  const randomKinds = Object.freeze([
+    "randomOther",
+    "randomUnfrozen",
+    "randomAhead",
+    "blast",
+  ]);
+  function randomCandidates(context, eligible) {
+    const ids = new Set(
+      [...context.ranking.slice(0, 3), ...context.ranking.slice(-2)].map(
+        (g) => g.id,
+      ),
+    );
+    return context.others.filter(
+      (g) => g.id !== context.group.id && ids.has(g.id) && eligible(g),
+    );
+  }
   function select(kind, context, { random, eligible }) {
+    if (randomKinds.includes(kind))
+      context = { ...context, others: randomCandidates(context, eligible) };
     const randomOne = (pool) =>
       pool.length ? [pool[Math.floor(random() * pool.length)]] : [];
     const selectors = {
@@ -19,7 +37,7 @@ const ItemTargets = (() => {
       randomAhead: (c) =>
         c.ranking
           .slice(0, c.position)
-          .filter(eligible)
+          .filter((g) => context.others.some((t) => t.id === g.id))
           .sort(() => random() - 0.5)
           .slice(0, 3),
       randomUnfrozen: (c) =>
@@ -35,7 +53,8 @@ const ItemTargets = (() => {
         if (!center) return [];
         const i = c.ranking.indexOf(center);
         return [c.ranking[i - 1], center, c.ranking[i + 1]].filter(
-          (t) => t && t.id !== c.group.id,
+          (t) =>
+            t && t.id !== c.group.id && c.others.some((g) => g.id === t.id),
         );
       },
     };
@@ -44,5 +63,5 @@ const ItemTargets = (() => {
       throw new Error("Unknown item target selector: " + kind);
     return selector(context);
   }
-  return { select };
+  return Object.freeze({ select, randomCandidates, randomKinds });
 })();

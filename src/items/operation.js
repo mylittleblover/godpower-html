@@ -292,6 +292,8 @@ const ItemOperationBlocks = (() => {
       command,
       blocked: new Set(),
     };
+    if (ItemTargets.randomKinds.includes(blueprint.target))
+      context.others = ItemTargets.randomCandidates(context, eligibleForItems);
     context.targets =
       targets[blueprint.target](context).filter(eligibleForItems);
     if (!context.targets.length && !blueprint.allowEmpty) {

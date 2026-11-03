@@ -20,11 +20,11 @@ const SHELL_ATTACK_KEYS_V2170 = new Set([
 Object.assign(ITEM_DEFS, {
   green: {
     ...ITEM_DEFS.green,
-    desc: "随机攻击其他小组 -1/4；作为主要道具可抵挡常规攻击。遭刺龟壳或回旋镖破坏时会直接消失。",
+    desc: "随机攻击其他小组 -1/3；作为主要道具可抵挡常规攻击。遭刺龟壳或回旋镖破坏时会直接消失。",
   },
   triple_green: {
     ...ITEM_DEFS.triple_green,
-    desc: "3 次绿龟壳攻击/防御，每次 -1/4；作为主要道具时可逐次防御，遭刺龟壳或回旋镖破坏时直接失去整组。",
+    desc: "3 次绿龟壳攻击/防御，每次 -1/3；作为主要道具时可逐次防御，遭刺龟壳或回旋镖破坏时直接失去整组。",
   },
   red: {
     ...ITEM_DEFS.red,

@@ -1,6 +1,14 @@
 /* Explicit compatibility owner for item effects applied after base answer scoring. */
 const RoundItemEffects = (() => {
-  function settle({ rankingsBefore, answersBefore }) {
+  function settle({ rankingsBefore, groupsBefore, answersBefore }) {
+    const powerIds = state.groups
+      .filter(
+        (g) =>
+          g.itemEffect?.type === "power" &&
+          eligibleForItems(g) &&
+          answersBefore.some((a) => a.id === g.id && a.answered),
+      )
+      .map((g) => g.id);
     answersBefore.forEach((answer) => {
       const group = state.groups.find(
         (candidate) => candidate.id === answer.id,
@@ -10,16 +18,7 @@ const RoundItemEffects = (() => {
       else group.itemStats.wrong++;
       if (group.itemEffect && group.itemEffect.type === "power") {
         group.itemEffect.roundsLeft--;
-        if (answer.correct && eligibleForItems(group)) {
-          const sorted = ranking(),
-            position = sorted.findIndex(
-              (candidate) => candidate.id === group.id,
-            );
-          if (position > 0) {
-            group.score = sorted[position - 1].score + 1;
-            group.displayScore = group.score;
-          }
-        }
+
         if (group.itemEffect && group.itemEffect.roundsLeft <= 0) {
           const index = group.inventory.findIndex(
             (item) => item.key === "power",
@@ -46,8 +45,27 @@ const RoundItemEffects = (() => {
       );
       group.score = result.score;
       group.displayScore = group.score;
-      detectOvertakePunish(group.id, rankingsBefore);
+      if (!powerIds.length) detectOvertakePunish(group.id, rankingsBefore);
     });
+    const before =
+      groupsBefore ||
+      rankingsBefore.map((id) => ({
+        id,
+        score: answersBefore.find((a) => a.id === id)?.scoreBefore || 0,
+      }));
+    const updates = PowerRound.calculate({
+      before,
+      after: state.groups,
+      answers: answersBefore,
+      activeIds: powerIds,
+    });
+    for (const update of updates) {
+      const group = state.groups.find((g) => g.id === update.id);
+      group.score = group.displayScore = update.score;
+    }
+    if (powerIds.length)
+      for (const answer of answersBefore)
+        if (answer.answered) detectOvertakePunish(answer.id, rankingsBefore);
     return true;
   }
   function expire({ answersBefore }) {
