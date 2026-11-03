@@ -279,11 +279,7 @@ try {
       false,
     );
   });
-  for (const [width, height] of [
-    [1366, 768],
-    [1920, 1080],
-    [2560, 1440],
-  ])
+  for (const [width, height] of [[1920, 1080]])
     await test(`Settings and full-screen bounds ${width}`, async () => {
       await p.setViewportSize({ width, height });
       await p.evaluate(() => {

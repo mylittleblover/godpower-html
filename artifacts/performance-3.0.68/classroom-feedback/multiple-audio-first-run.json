@@ -1,0 +1,53 @@
+{
+  "sha256": "fa24a00f2d73ee7f8ac30ab7489b554cce06700086881395058c90ce0d05a27b",
+  "results": [
+    {
+      "name": "Multiple WAV upload keeps legacy primary and appends two persistent candidates",
+      "status": "PASS",
+      "evidence": {
+        "primary": true,
+        "candidates": [
+          "second.wav",
+          "<img src=x onerror=alert(1)>.wav"
+        ]
+      }
+    },
+    {
+      "name": "Actual playback randomly selects exactly one sample without consuming game Math.random",
+      "status": "PASS",
+      "evidence": {
+        "deterministic": [
+          0,
+          1,
+          2
+        ],
+        "selected": [
+          0,
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "name": "Real reload restores primary, candidate count and filenames",
+      "status": "FAIL",
+      "error": "page.reload: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:130:16\n    at test (/workspace/godpower-html/tests/e2e/multiple-audio.mjs:40:28)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:129:9"
+    },
+    {
+      "name": "Audio BIN export and import preserve all choices and old primary format",
+      "status": "FAIL",
+      "error": "page.evaluate: Execution context was destroyed, most likely because of a navigation\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:145:16\n    at test (/workspace/godpower-html/tests/e2e/multiple-audio.mjs:40:28)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:143:9"
+    },
+    {
+      "name": "Per-item and looping sounds share selection; removing one candidate preserves others",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: PER_ITEM_SOUND_IDS_V2174 is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:20)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:171:31\n    at test (/workspace/godpower-html/tests/e2e/multiple-audio.mjs:40:28)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:170:9"
+    },
+    {
+      "name": "Failed restore transaction retains the primary and remaining candidate",
+      "status": "FAIL",
+      "error": "page.evaluate: ReferenceError: db is not defined\n    at eval (eval at evaluate (:290:30), <anonymous>:2:24)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:210:10\n    at test (/workspace/godpower-html/tests/e2e/multiple-audio.mjs:40:28)\n    at /workspace/godpower-html/tests/e2e/multiple-audio.mjs:209:9"
+    }
+  ],
+  "errors": []
+}

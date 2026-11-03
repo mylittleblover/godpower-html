@@ -225,10 +225,13 @@ const DesktopUI = (() => {
   }
   function renderWelcome() {
     if (!ready) return;
+    // Business feedback is observed on every refresh, even when home is hidden.
+    // Home DOM/layout is presentation work and is rebuilt on the next entry.
+    observeVisualState();
+    if (currentView !== "welcome") return;
     const track = $("#uiGroupTrack");
     if (!track) return;
     syncViewport();
-    observeVisualState();
     if (!canAnimate()) document.getAnimations().forEach((a) => a.cancel());
     const groups = state.groups || [],
       sorted = [...groups].sort((a, b) => Number(b.score) - Number(a.score));

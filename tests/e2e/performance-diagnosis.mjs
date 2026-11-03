@@ -1,7 +1,9 @@
 import { createServer } from "node:http";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sourceAt } from "../fixtures/source-at.mjs";
 import { launch, setup } from "../fixtures/browser.mjs";
+const root = process.env.PERF_ARTIFACTS || "artifacts/performance-3.0.66";
+await mkdir(root, { recursive: true });
 const html = process.env.PERF_SOURCE_REF
   ? sourceAt(process.env.PERF_SOURCE_REF)
   : await readFile("dist/godpower.html");
@@ -115,7 +117,7 @@ const { profile } = profiling
   ? await cdp.send("Profiler.stop")
   : { profile: { nodes: [], samples: [], timeDeltas: [] } };
 await writeFile(
-  `artifacts/performance-3.0.66/${process.env.PERF_SOURCE_REF || "current"}-profile.json`,
+  `${root}/${process.env.PERF_SOURCE_REF || "current"}-profile.json`,
   JSON.stringify(profile),
 );
 const hits = new Map();
@@ -128,7 +130,7 @@ for (let i = 0; i < (profile.samples || []).length; i++) {
 }
 const top = [...hits].sort((a, b) => b[1] - a[1]).slice(0, 35);
 await writeFile(
-  `artifacts/performance-3.0.66/${process.env.PERF_SOURCE_REF || "current"}-${profiling ? "diagnosis" : "unprofiled"}.json`,
+  `${root}/${process.env.PERF_SOURCE_REF || "current"}-${profiling ? "diagnosis" : "unprofiled"}.json`,
   JSON.stringify({ measurements, top }, null, 2),
 );
 console.log(JSON.stringify({ measurements, top }, null, 2));

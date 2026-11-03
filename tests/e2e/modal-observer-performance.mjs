@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { sourceAt } from "../fixtures/source-at.mjs";
 import { launch, setup } from "../fixtures/browser.mjs";
+await mkdir("artifacts/performance-3.0.68", { recursive: true });
 const html = process.env.MODAL_BASELINE
   ? sourceAt(process.env.MODAL_BASELINE)
   : await readFile("dist/godpower.html");

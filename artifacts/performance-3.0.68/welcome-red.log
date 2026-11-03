@@ -1,0 +1,19 @@
+{"mutations":1500,"drawEvents":1,"times":[1220.7000000001863,1439.7000000001863,594.3999999999069,547.3999999999069,796.8000000002794],"finalName":"性能验证-4-19","trackName":"性能验证-4-19"}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: hidden welcome must not rebuild cards
+
+1500 !== 0
+
+    at file:///workspace/godpower-html-latest/tests/e2e/hidden-welcome-performance.mjs:17:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1500,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

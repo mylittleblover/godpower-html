@@ -1,0 +1,342 @@
+[
+  {
+    "id": "fullscreen_pick",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "fullscreen_score_add",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "fullscreen_score_sub",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_nav",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_open",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_close",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_expand",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_answer",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_allin",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_start",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_judge",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_next",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_undo",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_draw",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_use",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_pick_start",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_pick_stop",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_positive",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_negative",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_confirm",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_cancel",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_upload",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_export",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_danger",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_button_settings",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "score_add",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "score_sub",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "pk_correct",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "allin_win",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "allin_lose",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "big_win",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "rewind",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "ui_click",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "roll_tick",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "roll_loop",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "roll_win",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_draw_start",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_draw_tick",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_draw_reveal",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_defend",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_green",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_triple_green",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_red",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_triple_red",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_spiny",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_banana",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_triple_banana",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_horn",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_bomb",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_hammer",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_coin",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_coin_shell",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_question",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_mushroom",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_triple_mushroom",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_boo",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_blooper",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_lightning",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_star",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_mega",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_bullet",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_power",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_feather",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_fire_flower",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_ice_flower",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_boomerang_flower",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_kamek",
+    "played": true,
+    "listed": true
+  },
+  {
+    "id": "item_item_box",
+    "played": true,
+    "listed": true
+  }
+]

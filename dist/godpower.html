@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.67</title>
+<title>上帝的力量 V3.0.68</title>
 <script>/* Additive status state; legacy itemEffect owns defense charges independently. */
 globalThis.CompetitionEffects = (() => {
   const definitions = Object.freeze({
@@ -864,7 +864,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.67";
+    document.title = name() + " V3.0.68";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -14012,7 +14012,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.67</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.68</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -35790,7 +35790,7 @@ if (typeof renderLockState === "function") {
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.67";
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.68";
 </script>
 
 
@@ -39529,7 +39529,7 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.67",
+    appVersion: "V3.0.68",
     timestamp: new Date().toISOString(),
     seasonId: state.seasonId,
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
@@ -48727,10 +48727,13 @@ const DesktopUI = (() => {
   }
   function renderWelcome() {
     if (!ready) return;
+    // Business feedback is observed on every refresh, even when home is hidden.
+    // Home DOM/layout is presentation work and is rebuilt on the next entry.
+    observeVisualState();
+    if (currentView !== "welcome") return;
     const track = $("#uiGroupTrack");
     if (!track) return;
     syncViewport();
-    observeVisualState();
     if (!canAnimate()) document.getAnimations().forEach((a) => a.cancel());
     const groups = state.groups || [],
       sorted = [...groups].sort((a, b) => Number(b.score) - Number(a.score));

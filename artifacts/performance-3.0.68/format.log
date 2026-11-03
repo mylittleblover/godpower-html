@@ -1,0 +1,4 @@
+src/ui/desktop.js 237ms (unchanged)
+tests/e2e/hidden-welcome-performance.mjs 21ms
+tests/e2e/performance-diagnosis.mjs 15ms (unchanged)
+tests/e2e/classroom-feedback.mjs 49ms (unchanged)

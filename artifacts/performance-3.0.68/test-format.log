@@ -1,0 +1,4 @@
+tests/e2e/modal-observer-performance.mjs 91ms (unchanged)
+tests/e2e/hidden-welcome-performance.mjs 24ms (unchanged)
+tests/e2e/fullscreen-compositing-experiment.mjs 27ms
+tests/e2e/performance-diagnosis.mjs 26ms (unchanged)
