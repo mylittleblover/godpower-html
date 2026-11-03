@@ -1151,8 +1151,9 @@ const DesktopUI = (() => {
         item.focus.focus({ preventScroll: true });
       cancelAnimations();
     }
-    function scan() {
-      for (const [id, close] of Object.entries(modalClosers)) {
+    function scan(ids = Object.keys(modalClosers)) {
+      for (const id of ids) {
+        const close = modalClosers[id];
         const el = document.getElementById(id);
         if (
           known.get(id) &&
@@ -1272,11 +1273,35 @@ const DesktopUI = (() => {
         }
       }
     }
-    new MutationObserver(scan).observe(document.body, {
+    const modalSelector = Object.keys(modalClosers)
+      .map((id) => `#${id}`)
+      .join(",");
+    new MutationObserver((records) => {
+      const ids = new Set();
+      for (const record of records) {
+        // Global visibility changes can affect an already-open window. Ordinary
+        // card/reel/effect mutations must not scan every unrelated dialog.
+        if (record.type === "attributes" && record.target === document.body) {
+          Object.keys(modalClosers).forEach((id) => ids.add(id));
+          continue;
+        }
+        const owner = record.target.closest?.(modalSelector);
+        if (owner) ids.add(owner.id);
+        if (record.type === "childList") {
+          for (const node of [...record.addedNodes, ...record.removedNodes]) {
+            if (node.matches?.(modalSelector)) ids.add(node.id);
+            node
+              .querySelectorAll?.(modalSelector)
+              .forEach((el) => ids.add(el.id));
+          }
+        }
+      }
+      if (ids.size) scan(ids);
+    }).observe(document.body, {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["class", "style", "data-external-picker"],
+      attributeFilter: ["class", "style", "open", "data-external-picker"],
     });
     document.addEventListener(
       "keydown",
