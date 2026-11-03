@@ -9,7 +9,15 @@ globalThis.ClassroomHandSync = (() => {
   function notify(value) {
     current =
       value && Number.isSafeInteger(value.groupId)
-        ? { groupId: value.groupId }
+        ? {
+            groupId: value.groupId,
+            ...(typeof value.selectionId === "string"
+              ? { selectionId: value.selectionId }
+              : {}),
+            ...(typeof value.correct === "boolean"
+              ? { correct: value.correct, judged: value.judged === true }
+              : {}),
+          }
         : null;
     for (const fn of [...listeners]) {
       try {

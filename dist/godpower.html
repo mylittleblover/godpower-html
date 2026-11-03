@@ -55017,7 +55017,15 @@ globalThis.ClassroomHandSync = (() => {
   function notify(value) {
     current =
       value && Number.isSafeInteger(value.groupId)
-        ? { groupId: value.groupId }
+        ? {
+            groupId: value.groupId,
+            ...(typeof value.selectionId === "string"
+              ? { selectionId: value.selectionId }
+              : {}),
+            ...(typeof value.correct === "boolean"
+              ? { correct: value.correct, judged: value.judged === true }
+              : {}),
+          }
         : null;
     for (const fn of [...listeners]) {
       try {
@@ -55041,6 +55049,125 @@ globalThis.ClassroomHandSync = (() => {
   };
 })();
 </script>
+<script>/* Presentation state and validated command intents; business commits stay in HandRaisePort. */
+(function installHandFlow(root) {
+  "use strict";
+  const copy = (value) => JSON.parse(JSON.stringify(value));
+  function initial() {
+    return { phase: "CLOSED", groupId: null, selectionId: null, context: null };
+  }
+  const sameContext = (a, b) =>
+    a?.saveId === b?.saveId &&
+    a?.generation === b?.generation &&
+    a?.revision === b?.revision;
+  function reduce(input, action) {
+    const state = copy(input || initial());
+    const reject = (error) => ({
+      ok: false,
+      error,
+      next: state,
+      commandIntent: null,
+      presentationIntent: null,
+    });
+    const done = (next, commandIntent = null) => ({
+      ok: true,
+      next,
+      commandIntent,
+      presentationIntent: { phase: next.phase },
+    });
+    const clear = (phase) => ({ ...initial(), phase, context: state.context });
+    if (action?.type === "EXIT") return done(initial());
+    if (action?.type === "ENTER")
+      return state.phase === "CLOSED"
+        ? done({
+            ...initial(),
+            phase: "SELECT_GROUP",
+            context: copy(action.context || null),
+          })
+        : reject("ALREADY_OPEN");
+    if (action?.type === "CANCEL") {
+      if (["SCORE", "DRAW", "USE"].includes(state.phase))
+        return done({ ...state, phase: "REWARD_CHOICE" });
+      return state.phase === "CLOSED"
+        ? reject("CLOSED")
+        : done(clear("SELECT_GROUP"));
+    }
+    if (action?.type === "SELECT") {
+      if (!["SELECT_GROUP", "JUDGE", "REWARD_CHOICE"].includes(state.phase))
+        return reject("INVALID_PHASE");
+      if (
+        !Number.isSafeInteger(action.groupId) ||
+        action.groupId <= 0 ||
+        typeof action.selectionId !== "string" ||
+        !action.selectionId
+      )
+        return reject("INVALID_SELECTION");
+      if (!sameContext(state.context, action.context))
+        return reject("STALE_CONTEXT");
+      return done({
+        ...state,
+        phase: "JUDGE",
+        groupId: action.groupId,
+        selectionId: action.selectionId,
+      });
+    }
+    if (
+      !state.selectionId ||
+      action?.selectionId !== state.selectionId ||
+      !sameContext(state.context, action.context)
+    )
+      return reject("STALE_SELECTION");
+    const intent = (name, payload = {}) => ({
+      action: name,
+      payload: {
+        groupId: state.groupId,
+        selectionId: state.selectionId,
+        ...payload,
+      },
+    });
+    if (action.type === "JUDGE_OK" || action.type === "JUDGE_WRONG") {
+      if (state.phase !== "JUDGE") return reject("ALREADY_JUDGED");
+      const correct = action.type === "JUDGE_OK";
+      return done(
+        correct ? { ...state, phase: "REWARD_CHOICE" } : clear("SELECT_GROUP"),
+        intent("handJudge", { correct }),
+      );
+    }
+    const choices = {
+      SELECT_SCORE: "SCORE",
+      SELECT_DRAW: "DRAW",
+      SELECT_USE: "USE",
+    };
+    if (choices[action.type]) {
+      if (state.phase !== "REWARD_CHOICE") return reject("INVALID_PHASE");
+      const phase = choices[action.type];
+      return done(
+        { ...state, phase },
+        phase === "DRAW"
+          ? intent("handDraw")
+          : phase === "USE"
+            ? intent("handUse")
+            : null,
+      );
+    }
+    if (action.type === "SUBMIT_SCORE") {
+      if (
+        state.phase !== "SCORE" ||
+        !Number.isSafeInteger(action.delta) ||
+        action.delta === 0
+      )
+        return reject("INVALID_SCORE");
+      return done(state, intent("handScore", { delta: action.delta }));
+    }
+    if (action.type === "COMPLETE")
+      return ["SCORE", "DRAW", "USE"].includes(state.phase)
+        ? done(clear("SELECT_GROUP"))
+        : reject("INVALID_PHASE");
+    return reject("UNKNOWN_ACTION");
+  }
+  root.HandFlow = Object.freeze({ initial, reduce });
+})(globalThis);
+</script>
 <script>/* Floating hand controls operate the main classroom; no renderer-owned scores.
    The host owns classroom state, transactions and persistence; this port only
    validates the hand session token and orders one atomic command per gesture. */
@@ -55048,7 +55175,49 @@ globalThis.HandRaisePort = (() => {
   "use strict";
   function create(host) {
     let session = null,
-      running = false;
+      running = false,
+      flow = rootFlow();
+    function rootFlow() {
+      return globalThis.HandFlow.initial();
+    }
+    const context = () => host.context?.() || null;
+    const sameContext = (a, b) =>
+      a?.saveId === b?.saveId &&
+      a?.generation === b?.generation &&
+      a?.revision === b?.revision;
+    function selectFlow(group, id) {
+      flow = HandFlow.reduce(rootFlow(), {
+        type: "ENTER",
+        context: context(),
+      }).next;
+      flow = HandFlow.reduce(flow, {
+        type: "SELECT",
+        groupId: group.id,
+        selectionId: id,
+        context: context(),
+      }).next;
+    }
+    function advance(type) {
+      const result = HandFlow.reduce(flow, {
+        type,
+        selectionId: session?.id,
+        context: flow.context,
+      });
+      if (result.ok) flow = result.next;
+      flow.context = context();
+    }
+    function spendReward(action) {
+      session.rewardComplete = true;
+      advance(
+        action === "handScore"
+          ? "SELECT_SCORE"
+          : action === "handDraw"
+            ? "SELECT_DRAW"
+            : "SELECT_USE",
+      );
+      advance("COMPLETE");
+      session.context = context();
+    }
     function current() {
       let state;
       try {
@@ -55063,9 +55232,12 @@ globalThis.HandRaisePort = (() => {
         session.owner !== state ||
         session.season !== state.seasonId ||
         !group ||
+        session.group !== group ||
+        (!running && !sameContext(session.context, context())) ||
         (session.groupUid && group.groupUid !== session.groupUid)
       ) {
         session = null;
+        flow = HandFlow.reduce(flow, { type: "CANCEL" }).next;
         return null;
       }
       return group;
@@ -55079,9 +55251,12 @@ globalThis.HandRaisePort = (() => {
       const isBusy = busy();
       const locked = !!state.isLocked;
       const inventoryCount = group?.inventory?.length || 0;
-      const answerCorrect = session?.correct === true;
+      const answerCorrect =
+        session?.correct === true && !session.rewardComplete;
       const mainItem = group?.inventory?.[0] || null;
       return {
+        phase: flow.phase,
+        rewardComplete: !!session?.rewardComplete,
         selectionId: session?.id || null,
         groupId: group?.id ?? null,
         groupName: group?.name || "",
@@ -55127,12 +55302,18 @@ globalThis.HandRaisePort = (() => {
           owner: state,
           season: state.seasonId,
           groupId: group.id,
+          group: group,
+          context: context(),
+          rewardComplete: false,
           groupUid: group.groupUid,
           id: host.id(),
           correct: null,
           itemRewarded: false,
           itemName: "",
         };
+        selectFlow(group, session.id);
+        if (session.correct === true) advance("JUDGE_OK");
+        if (session.correct === false) advance("JUDGE_WRONG");
         return {
           ok: true,
           session: { selectionId: session.id, groupId: group.id },
@@ -55149,6 +55330,9 @@ globalThis.HandRaisePort = (() => {
           owner: state,
           season: state.seasonId,
           groupId: group.id,
+          group: group,
+          context: context(),
+          rewardComplete: false,
           groupUid: group.groupUid,
           id:
             typeof payload.selectionId === "string"
@@ -55163,6 +55347,9 @@ globalThis.HandRaisePort = (() => {
           itemRewarded: false,
           itemName: "",
         };
+        selectFlow(group, session.id);
+        if (session.correct === true) advance("JUDGE_OK");
+        if (session.correct === false) advance("JUDGE_WRONG");
         return {
           ok: true,
           session: { selectionId: session.id, groupId: group.id },
@@ -55187,6 +55374,8 @@ globalThis.HandRaisePort = (() => {
       ) {
         if (session.correct !== true)
           return { ok: false, error: "ANSWER_NOT_CORRECT" };
+        if (session.rewardComplete)
+          return { ok: false, error: "REWARD_ALREADY_GIVEN" };
         if (
           action === "handScore" &&
           (!Number.isSafeInteger(payload.delta) || !payload.delta)
@@ -55215,14 +55404,31 @@ globalThis.HandRaisePort = (() => {
       // must not be nested inside a second one here.
       if (action === "handUse") {
         if (!group.inventory?.length) return { ok: false, error: "NO_ITEM" };
+        const beforeInventory = JSON.stringify(group.inventory),
+          beforeUsed = Number(group.itemStats?.used || 0);
         running = true;
         try {
           const used = host.use(group);
           if (!used)
             return { ok: false, persisted: false, error: "ITEM_NOT_USED" };
           const result = await host.whenIdle();
+          const consumed =
+            beforeInventory !== JSON.stringify(group.inventory) ||
+            Number(group.itemStats?.used || 0) > beforeUsed;
+          if (result?.ok && session === expected && current()) {
+            session.context = context();
+            flow.context = context();
+            if (consumed) spendReward(action);
+          }
           if (!result?.ok || result.persisted !== true)
-            return { ok: false, persisted: false, error: "SAVE_FAILED" };
+            return {
+              ok: false,
+              persisted: false,
+              effectCommitted: !!(result?.ok && consumed),
+              error: "SAVE_FAILED",
+            };
+          if (!consumed)
+            return { ok: false, persisted: true, error: "ITEM_NOT_USED" };
           try {
             host.feedback?.(action, group, null, null, used);
           } catch {}
@@ -55286,7 +55492,11 @@ globalThis.HandRaisePort = (() => {
           };
         }
         if (session === expected && current()) {
-          if (action === "handJudge") session.correct = payload.correct;
+          if (action === "handJudge") {
+            session.correct = payload.correct;
+            advance(payload.correct ? "JUDGE_OK" : "JUDGE_WRONG");
+          } else spendReward(action);
+          session.context = context();
           if (action === "handDraw") {
             session.itemRewarded = true;
             session.itemName = itemName;
@@ -55309,11 +55519,121 @@ globalThis.HandRaisePort = (() => {
       getSnapshot,
       invalidate() {
         session = null;
+        flow = rootFlow();
       },
     };
   }
   return { create };
 })();
+</script>
+<script>/* One main-renderer hand session shared by HTML UI and native transports. */
+(function installClassroomHandSession(root) {
+  "use strict";
+  const listeners = new Set();
+  const port = globalThis.HandRaisePort.create({
+    getState: () => state,
+    context: () => {
+      const status = globalThis.SaveManager?.status();
+      const token = globalThis.SaveManager?.context();
+      return token ? { ...token, revision: status.revision } : null;
+    },
+    busy: () =>
+      !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
+    id: () => StableIdentity.createCommandId(),
+    enabled: () => !state.isLocked,
+    eligible: (group) => eligibleForItems(group),
+    planScore: (group, delta) => ScoreAdjustments.delta(group, delta),
+    captureRuntime: () => ({
+      session: activeDrawSessionV21710,
+      pending:
+        typeof firstHandDrawPendingV218 !== "undefined"
+          ? firstHandDrawPendingV218
+          : null,
+    }),
+    restoreRuntime: (runtime) => {
+      if (!runtime) return;
+      activeDrawSessionV21710 = runtime.session;
+      if (runtime.pending !== null) firstHandDrawPendingV218 = runtime.pending;
+    },
+    draw: (group, context) => drawHandRewardForPort(group, context),
+    /* Using an item from the hand panel runs the same classroom command as the
+       dock button, and marks the origin so the cinematic is presented. */
+    use: (group, context) => {
+      const index = 0;
+      const item = group.inventory?.[index];
+      if (!item) return null;
+      globalThis.HandItemCinematic?.mark(group.id);
+      const accepted = useItem(group.id, index);
+      if (accepted === false) {
+        globalThis.HandItemCinematic?.take(null);
+        return null;
+      }
+      void context;
+      return { key: item.key, name: ITEM_DEFS[item.key]?.name || item.key };
+    },
+    itemName: (key) => ITEM_DEFS[key]?.name || key,
+    run: (label, operation, options) =>
+      runClassroomCommand(label, operation, options),
+    whenIdle: () => classroomCommands.whenIdle(),
+    feedback: (action, group, plan, drawn) => {
+      if (action === "handScore" && plan && Number.isFinite(group?.score)) {
+        ClassroomFeedback.score(group.name, plan.after - plan.before);
+        void playSound(plan.after >= plan.before ? "score_add" : "score_sub");
+      }
+      if (action === "handDraw" && drawn) void playSound("big_win");
+    },
+  });
+  function publish() {
+    const snapshot = port.getSnapshot();
+    for (const listener of listeners)
+      try {
+        listener(snapshot);
+      } catch (error) {
+        console.error("Hand session observer failed", error);
+      }
+  }
+  async function command(action, payload = {}) {
+    const conflict = ClassroomWriteBarrier.conflict();
+    if (conflict)
+      return { ok: false, error: conflict.error, reason: conflict.reason };
+    const pending = port.command(action, payload);
+    publish();
+    try {
+      return await pending;
+    } finally {
+      publish();
+    }
+  }
+  function invalidate() {
+    port.invalidate();
+    publish();
+  }
+  root.ClassroomHandSession = Object.freeze({
+    command,
+    getSnapshot: port.getSnapshot,
+    invalidate,
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  });
+  root.ClassroomHandSync?.subscribe(async (next) => {
+    if (!next) {
+      invalidate();
+      return;
+    }
+    const current = port.getSnapshot();
+    if (
+      current.groupId === next.groupId &&
+      (!next.judged || current.correct === next.correct)
+    )
+      return;
+    const result = await command("handAdopt", next);
+    if (!result.ok)
+      console.warn("Legacy hand selection could not be adopted", result.error);
+  });
+  root.addEventListener("godpower:active-save-changed", invalidate);
+})(globalThis);
 </script>
 <script>/* Transport only. Standalone HTML has no desktop bridge and keeps all existing behavior. */
 (() => {
@@ -55384,54 +55704,7 @@ globalThis.HandRaisePort = (() => {
 
   /* Authoritative hand port: the main renderer owns the classroom transaction,
      the floating window only sends a gesture with its selection token. */
-  const hand = globalThis.HandRaisePort?.create({
-    getState: () => state,
-    busy: () =>
-      !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
-    id: () => StableIdentity.createCommandId(),
-    enabled: () => !state.isLocked,
-    eligible: (group) => eligibleForItems(group),
-    planScore: (group, delta) => ScoreAdjustments.delta(group, delta),
-    captureRuntime: () => ({
-      session: activeDrawSessionV21710,
-      pending:
-        typeof firstHandDrawPendingV218 !== "undefined"
-          ? firstHandDrawPendingV218
-          : null,
-    }),
-    restoreRuntime: (runtime) => {
-      if (!runtime) return;
-      activeDrawSessionV21710 = runtime.session;
-      if (runtime.pending !== null) firstHandDrawPendingV218 = runtime.pending;
-    },
-    draw: (group, context) => drawHandRewardForPort(group, context),
-    /* Using an item from the hand panel runs the same classroom command as the
-       dock button, and marks the origin so the cinematic is presented. */
-    use: (group, context) => {
-      const index = 0;
-      const item = group.inventory?.[index];
-      if (!item) return null;
-      globalThis.HandItemCinematic?.mark(group.id);
-      const accepted = useItem(group.id, index);
-      if (accepted === false) {
-        globalThis.HandItemCinematic?.take(null);
-        return null;
-      }
-      void context;
-      return { key: item.key, name: ITEM_DEFS[item.key]?.name || item.key };
-    },
-    itemName: (key) => ITEM_DEFS[key]?.name || key,
-    run: (label, operation, options) =>
-      runClassroomCommand(label, operation, options),
-    whenIdle: () => classroomCommands.whenIdle(),
-    feedback: (action, group, plan, drawn) => {
-      if (action === "handScore" && plan && Number.isFinite(group?.score)) {
-        ClassroomFeedback.score(group.name, plan.after - plan.before);
-        void playSound(plan.after >= plan.before ? "score_add" : "score_sub");
-      }
-      if (action === "handDraw" && drawn) void playSound("big_win");
-    },
-  });
+  const hand = globalThis.ClassroomHandSession;
 
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
@@ -55536,27 +55809,7 @@ globalThis.HandRaisePort = (() => {
   desktop.onUnlockRequest(() => {
     if (state.isLocked) openPwdModal();
   });
-  /* The dock owns the hand selection. Adopt its session (never re-select) so the
-     floating menu keeps a valid token without recording a second raise. */
-  globalThis.ClassroomHandSync?.subscribe(async (next) => {
-    if (!next || !Number.isSafeInteger(next.groupId)) {
-      hand.invalidate();
-      publish();
-      return;
-    }
-    const snapshot = hand.getSnapshot?.();
-    if (snapshot?.groupId === next.groupId) return;
-    try {
-      await hand.command("handAdopt", {
-        groupId: next.groupId,
-        selectionId: next.selectionId,
-        correct: next.correct,
-      });
-      publish();
-    } catch (error) {
-      console.warn("Hand selection sync failed", error);
-    }
-  });
+  hand.subscribe(publish);
   window.addEventListener("godpower:active-save-changed", () => {
     hand.invalidate();
     completed.clear();

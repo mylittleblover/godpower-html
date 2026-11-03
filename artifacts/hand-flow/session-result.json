@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "result": {
+    "phase": "JUDGE",
+    "judged": true,
+    "rewardPhase": "REWARD_CHOICE",
+    "scored": true,
+    "completedPhase": "SELECT_GROUP",
+    "repeated": false,
+    "delta": 2,
+    "stored": true,
+    "cancelled": false
+  },
+  "errors": []
+}

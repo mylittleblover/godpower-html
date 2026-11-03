@@ -1,0 +1,50 @@
+✔ selection token gates judgment, rewards and group/season changes (9.335361ms)
+✔ failed save keeps judgment/reward retryable, locked mutation denied (1.45071ms)
+✔ rejected draw restores runtime and stays retryable (0.836382ms)
+✔ duplicate judge is refused and tokens are renewed per selection (1.236897ms)
+✖ a successful reward spends the judged selection and cannot score twice (2.155123ms)
+✖ same state object cannot keep a stale hand token across save generation or undo group replacement (2.412902ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 82.798041
+
+✖ failing tests:
+
+test at tests/unit/hand-raise-port.test.mjs:46:1
+✖ a successful reward spends the judged selection and cannot score twice (2.155123ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/hand-raise-port.test.mjs:50:88)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/hand-raise-port.test.mjs:53:1
+✖ same state object cannot keep a stale hand token across save generation or undo group replacement (2.412902ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/hand-raise-port.test.mjs:56:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

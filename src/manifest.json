@@ -1271,7 +1271,17 @@
     },
     {
       "type": "script",
+      "path": "application/hand-flow.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/hand-raise-port.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "runtime/classroom/hand-session.js",
       "attributes": ""
     },
     {

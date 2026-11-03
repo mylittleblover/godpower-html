@@ -1,0 +1,36 @@
+✔ one judged selection chooses a reward and completes without another business intent (2.477952ms)
+✔ wrong answer returns to groups, cancellation preserves an unspent reward (0.938387ms)
+✔ stale selection and another save generation cannot create a command (2.216788ms)
+✖ selection token gates judgment, rewards and group/season changes (5.515398ms)
+✔ failed save keeps judgment/reward retryable, locked mutation denied (1.136125ms)
+✔ rejected draw restores runtime and stays retryable (0.957756ms)
+✔ duplicate judge is refused and tokens are renewed per selection (0.990176ms)
+✔ a successful reward spends the judged selection and cannot score twice (1.153031ms)
+✔ same state object cannot keep a stale hand token across save generation or undo group replacement (1.752376ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 145.143453
+
+✖ failing tests:
+
+test at tests/unit/hand-raise-port.test.mjs:77:1
+✖ selection token gates judgment, rewards and group/season changes (5.515398ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/hand-raise-port.test.mjs:108:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

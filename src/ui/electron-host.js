@@ -67,54 +67,7 @@
 
   /* Authoritative hand port: the main renderer owns the classroom transaction,
      the floating window only sends a gesture with its selection token. */
-  const hand = globalThis.HandRaisePort?.create({
-    getState: () => state,
-    busy: () =>
-      !!window.itemCommandActive || !!itemDrawBusy || !!handItemDrawTimer,
-    id: () => StableIdentity.createCommandId(),
-    enabled: () => !state.isLocked,
-    eligible: (group) => eligibleForItems(group),
-    planScore: (group, delta) => ScoreAdjustments.delta(group, delta),
-    captureRuntime: () => ({
-      session: activeDrawSessionV21710,
-      pending:
-        typeof firstHandDrawPendingV218 !== "undefined"
-          ? firstHandDrawPendingV218
-          : null,
-    }),
-    restoreRuntime: (runtime) => {
-      if (!runtime) return;
-      activeDrawSessionV21710 = runtime.session;
-      if (runtime.pending !== null) firstHandDrawPendingV218 = runtime.pending;
-    },
-    draw: (group, context) => drawHandRewardForPort(group, context),
-    /* Using an item from the hand panel runs the same classroom command as the
-       dock button, and marks the origin so the cinematic is presented. */
-    use: (group, context) => {
-      const index = 0;
-      const item = group.inventory?.[index];
-      if (!item) return null;
-      globalThis.HandItemCinematic?.mark(group.id);
-      const accepted = useItem(group.id, index);
-      if (accepted === false) {
-        globalThis.HandItemCinematic?.take(null);
-        return null;
-      }
-      void context;
-      return { key: item.key, name: ITEM_DEFS[item.key]?.name || item.key };
-    },
-    itemName: (key) => ITEM_DEFS[key]?.name || key,
-    run: (label, operation, options) =>
-      runClassroomCommand(label, operation, options),
-    whenIdle: () => classroomCommands.whenIdle(),
-    feedback: (action, group, plan, drawn) => {
-      if (action === "handScore" && plan && Number.isFinite(group?.score)) {
-        ClassroomFeedback.score(group.name, plan.after - plan.before);
-        void playSound(plan.after >= plan.before ? "score_add" : "score_sub");
-      }
-      if (action === "handDraw" && drawn) void playSound("big_win");
-    },
-  });
+  const hand = globalThis.ClassroomHandSession;
 
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
@@ -219,27 +172,7 @@
   desktop.onUnlockRequest(() => {
     if (state.isLocked) openPwdModal();
   });
-  /* The dock owns the hand selection. Adopt its session (never re-select) so the
-     floating menu keeps a valid token without recording a second raise. */
-  globalThis.ClassroomHandSync?.subscribe(async (next) => {
-    if (!next || !Number.isSafeInteger(next.groupId)) {
-      hand.invalidate();
-      publish();
-      return;
-    }
-    const snapshot = hand.getSnapshot?.();
-    if (snapshot?.groupId === next.groupId) return;
-    try {
-      await hand.command("handAdopt", {
-        groupId: next.groupId,
-        selectionId: next.selectionId,
-        correct: next.correct,
-      });
-      publish();
-    } catch (error) {
-      console.warn("Hand selection sync failed", error);
-    }
-  });
+  hand.subscribe(publish);
   window.addEventListener("godpower:active-save-changed", () => {
     hand.invalidate();
     completed.clear();

@@ -1,0 +1,11 @@
+✔ one judged selection chooses a reward and completes without another business intent (2.169986ms)
+✔ wrong answer returns to groups, cancellation preserves an unspent reward (0.718104ms)
+✔ stale selection and another save generation cannot create a command (0.700037ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 65.712884

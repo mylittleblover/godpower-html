@@ -5,7 +5,49 @@ globalThis.HandRaisePort = (() => {
   "use strict";
   function create(host) {
     let session = null,
-      running = false;
+      running = false,
+      flow = rootFlow();
+    function rootFlow() {
+      return globalThis.HandFlow.initial();
+    }
+    const context = () => host.context?.() || null;
+    const sameContext = (a, b) =>
+      a?.saveId === b?.saveId &&
+      a?.generation === b?.generation &&
+      a?.revision === b?.revision;
+    function selectFlow(group, id) {
+      flow = HandFlow.reduce(rootFlow(), {
+        type: "ENTER",
+        context: context(),
+      }).next;
+      flow = HandFlow.reduce(flow, {
+        type: "SELECT",
+        groupId: group.id,
+        selectionId: id,
+        context: context(),
+      }).next;
+    }
+    function advance(type) {
+      const result = HandFlow.reduce(flow, {
+        type,
+        selectionId: session?.id,
+        context: flow.context,
+      });
+      if (result.ok) flow = result.next;
+      flow.context = context();
+    }
+    function spendReward(action) {
+      session.rewardComplete = true;
+      advance(
+        action === "handScore"
+          ? "SELECT_SCORE"
+          : action === "handDraw"
+            ? "SELECT_DRAW"
+            : "SELECT_USE",
+      );
+      advance("COMPLETE");
+      session.context = context();
+    }
     function current() {
       let state;
       try {
@@ -20,9 +62,12 @@ globalThis.HandRaisePort = (() => {
         session.owner !== state ||
         session.season !== state.seasonId ||
         !group ||
+        session.group !== group ||
+        (!running && !sameContext(session.context, context())) ||
         (session.groupUid && group.groupUid !== session.groupUid)
       ) {
         session = null;
+        flow = HandFlow.reduce(flow, { type: "CANCEL" }).next;
         return null;
       }
       return group;
@@ -36,9 +81,12 @@ globalThis.HandRaisePort = (() => {
       const isBusy = busy();
       const locked = !!state.isLocked;
       const inventoryCount = group?.inventory?.length || 0;
-      const answerCorrect = session?.correct === true;
+      const answerCorrect =
+        session?.correct === true && !session.rewardComplete;
       const mainItem = group?.inventory?.[0] || null;
       return {
+        phase: flow.phase,
+        rewardComplete: !!session?.rewardComplete,
         selectionId: session?.id || null,
         groupId: group?.id ?? null,
         groupName: group?.name || "",
@@ -84,12 +132,18 @@ globalThis.HandRaisePort = (() => {
           owner: state,
           season: state.seasonId,
           groupId: group.id,
+          group: group,
+          context: context(),
+          rewardComplete: false,
           groupUid: group.groupUid,
           id: host.id(),
           correct: null,
           itemRewarded: false,
           itemName: "",
         };
+        selectFlow(group, session.id);
+        if (session.correct === true) advance("JUDGE_OK");
+        if (session.correct === false) advance("JUDGE_WRONG");
         return {
           ok: true,
           session: { selectionId: session.id, groupId: group.id },
@@ -106,6 +160,9 @@ globalThis.HandRaisePort = (() => {
           owner: state,
           season: state.seasonId,
           groupId: group.id,
+          group: group,
+          context: context(),
+          rewardComplete: false,
           groupUid: group.groupUid,
           id:
             typeof payload.selectionId === "string"
@@ -120,6 +177,9 @@ globalThis.HandRaisePort = (() => {
           itemRewarded: false,
           itemName: "",
         };
+        selectFlow(group, session.id);
+        if (session.correct === true) advance("JUDGE_OK");
+        if (session.correct === false) advance("JUDGE_WRONG");
         return {
           ok: true,
           session: { selectionId: session.id, groupId: group.id },
@@ -144,6 +204,8 @@ globalThis.HandRaisePort = (() => {
       ) {
         if (session.correct !== true)
           return { ok: false, error: "ANSWER_NOT_CORRECT" };
+        if (session.rewardComplete)
+          return { ok: false, error: "REWARD_ALREADY_GIVEN" };
         if (
           action === "handScore" &&
           (!Number.isSafeInteger(payload.delta) || !payload.delta)
@@ -172,14 +234,31 @@ globalThis.HandRaisePort = (() => {
       // must not be nested inside a second one here.
       if (action === "handUse") {
         if (!group.inventory?.length) return { ok: false, error: "NO_ITEM" };
+        const beforeInventory = JSON.stringify(group.inventory),
+          beforeUsed = Number(group.itemStats?.used || 0);
         running = true;
         try {
           const used = host.use(group);
           if (!used)
             return { ok: false, persisted: false, error: "ITEM_NOT_USED" };
           const result = await host.whenIdle();
+          const consumed =
+            beforeInventory !== JSON.stringify(group.inventory) ||
+            Number(group.itemStats?.used || 0) > beforeUsed;
+          if (result?.ok && session === expected && current()) {
+            session.context = context();
+            flow.context = context();
+            if (consumed) spendReward(action);
+          }
           if (!result?.ok || result.persisted !== true)
-            return { ok: false, persisted: false, error: "SAVE_FAILED" };
+            return {
+              ok: false,
+              persisted: false,
+              effectCommitted: !!(result?.ok && consumed),
+              error: "SAVE_FAILED",
+            };
+          if (!consumed)
+            return { ok: false, persisted: true, error: "ITEM_NOT_USED" };
           try {
             host.feedback?.(action, group, null, null, used);
           } catch {}
@@ -243,7 +322,11 @@ globalThis.HandRaisePort = (() => {
           };
         }
         if (session === expected && current()) {
-          if (action === "handJudge") session.correct = payload.correct;
+          if (action === "handJudge") {
+            session.correct = payload.correct;
+            advance(payload.correct ? "JUDGE_OK" : "JUDGE_WRONG");
+          } else spendReward(action);
+          session.context = context();
           if (action === "handDraw") {
             session.itemRewarded = true;
             session.itemName = itemName;
@@ -266,6 +349,7 @@ globalThis.HandRaisePort = (() => {
       getSnapshot,
       invalidate() {
         session = null;
+        flow = rootFlow();
       },
     };
   }
