@@ -6,6 +6,7 @@ const HistorySnapshots = {
       desc,
       time,
       groups: copy(s.groups),
+      ...(s.rosterSnapshot ? { rosterSnapshot: copy(s.rosterSnapshot) } : {}),
       picker: copy(s.picker),
       resizerHeight: s.resizerHeight,
       correctAns: s.correctAns,

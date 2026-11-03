@@ -1,5 +1,5 @@
 
-> godpower-html@3.0.68 build
+> godpower-html@3.0.69 build
 > node scripts/build.mjs
 
-{"file":"dist/godpower.html","bytes":11476680,"sha256":"76a081604e0ad56c33acc712c547d22416722c7294794af6b5fe34201992bd0e"}
+{"file":"dist/godpower.html","bytes":11528277,"sha256":"43de17886abdad006b6a726338670a0160cd1d18432b3cd3b5e92978c6e8b7c1"}

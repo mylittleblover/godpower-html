@@ -7,6 +7,7 @@ globalThis.ClassroomSaveFile = (() => {
   let info = null;
   let ready = false;
   let lastError = null;
+  let startupSourceText = null;
   // True while startup reads the file; classroom saves wait so the file is not
   // overwritten before we know what it holds.
   let hydrating = true;
@@ -46,7 +47,18 @@ globalThis.ClassroomSaveFile = (() => {
       if (!current) return { status: "unavailable", error: lastError };
       let result;
       try {
-        result = await bridge().saveFileRead();
+        if (typeof bridge().saveFileSource === "function") {
+          const source = await bridge().saveFileSource();
+          if (source?.ok && source.present) {
+            startupSourceText = source.sourceText;
+            result = {
+              ok: true,
+              present: true,
+              data: JSON.parse(source.sourceText),
+              bytes: source.bytes,
+            };
+          } else result = source;
+        } else result = await bridge().saveFileRead();
       } catch (error) {
         return { status: "error", error: String(error?.message || error) };
       }
@@ -150,6 +162,7 @@ globalThis.ClassroomSaveFile = (() => {
 
   return {
     available,
+    sourceText: () => startupSourceText,
     hydrate,
     write,
     choose,

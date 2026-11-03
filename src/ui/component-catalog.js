@@ -3482,6 +3482,42 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/components/application-surfaces.css"],
     },
     {
+      name: "save-avatar-button",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-row",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-member-options",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-roster-columns",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-student-form",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-student-table",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-workspace",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-workspace-help",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-workspace-toolbar",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
       name: "score-card-number",
       sources: ["src/styles/feedback/item-score-cinematics.css"],
     },

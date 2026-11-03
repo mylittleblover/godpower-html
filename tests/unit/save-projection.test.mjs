@@ -28,6 +28,16 @@ test("runtime projection carries small resource references without decoding inli
   assert.equal(runtime.groups[0].avatarResourceId, p.assets[0].resourceId);
   assert.equal(JSON.stringify(runtime).includes("data:image/"), false);
   assert.equal(runtime.masterVolume, 0.2);
+  const stored = await projection.fromRuntime(p.documents[0], runtime);
+  assert.equal(
+    stored.document.match.groups[0].groupAvatar.$asset,
+    p.assets[0].resourceId,
+  );
+  assert.equal(
+    migration.toLegacy(stored.document, p.assets, p.appPreferences).groups[0]
+      .groupAvatar,
+    raw.groups[0].groupAvatar,
+  );
   assert.equal(runtime.groups[0].score, 100);
 });
 test("score-only persistence keeps student identities and roster revision stable", async () => {

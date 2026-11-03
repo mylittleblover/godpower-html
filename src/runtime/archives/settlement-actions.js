@@ -2,6 +2,7 @@ let confettiAnimationId = null;
 let confettiParticles = [];
 
 function getSettlementHistory() {
+  if(globalThis.SaveManager?.enabled())return SaveManager.snapshot().archives;
   return STORAGE.getJSON("politics_settlement_history", []);
 }
 
@@ -45,12 +46,18 @@ function closeSettlementNameModal() {
   hideClassroomWindow(document.getElementById("settlementNameModal"));
 }
 
-function confirmFinalSettlement() {
+let settlementSaving = false;
+async function confirmFinalSettlement(){
+  if(settlementSaving)return {ok:false,reason:"busy"};
+  try{return await performFinalSettlement();}finally{settlementSaving=false;}
+}
+async function performFinalSettlement() {
   const conflict = ClassroomWriteBarrier.conflict();
   if (conflict) {
     showToast(conflict.error);
     return conflict;
   }
+  settlementSaving=true;
   Reliability.invalidateDefenseDecisions();
   if (state.isLocked) {
     openPwdModal();
@@ -104,7 +111,8 @@ function confirmFinalSettlement() {
     groups: clone(sorted),
     achievementLedger: AchievementLedger.normalize(state.achievementLedger),
   };
-  const archiveResult = saveSettlementRecord(record);
+  if(globalThis.SaveManager?.enabled())record.clearedData=buildSettlementClearedDataV21813();
+  const archiveResult = globalThis.SaveManager?.enabled() ? await SaveManager.archive(record) : saveSettlementRecord(record);
   if (!archiveResult.ok) {
     themeAlert(
       "归档失败，课堂数据保持原样。请导出 JSON 备份并释放存储空间。" +
@@ -149,7 +157,8 @@ function confirmFinalSettlement() {
   initConfetti();
 
   resetCompetitionDataAfterSettlementV21812();
-  const resetResult = saveState();
+  const pendingReset = saveState();
+  const resetResult = pendingReset?.completion ? await pendingReset.completion : await pendingReset;
   if (!resetResult.ok) {
     state = beforeReset;
     historyStack = beforeHistory;
@@ -290,26 +299,25 @@ function exportLatestSettlementCSV() {
 }
 
 async function deleteSettlementRecord(index) {
-  if (state.isLocked) {
-    themeAlert(
-      "想删档案先解锁上帝模式。历史已经够脆弱了，系统至少要求你先输个密码。",
-    );
-    openPwdModal();
-    return;
+  if(!ClassroomWriteBarrier.allow())return false;
+  if(state.isLocked){openPwdModal();return false;}
+  const initial=getSettlementHistory(),target=initial[index];if(!target)return false;
+  const context=globalThis.SaveManager?.context?.()||null;
+  const owner=state,season=state.seasonId,id=target.id,fingerprint=JSON.stringify(target);
+  if(!(await themeConfirm("确定要删除这条最终结算档案记录吗？此操作不可逆！",{title:"删除结算档案",danger:true,confirmText:"删除"})))return false;
+  const currentContext=globalThis.SaveManager?.context?.()||null;
+  if(state.isLocked||state!==owner||state.seasonId!==season||context?.saveId!==currentContext?.saveId||context?.generation!==currentContext?.generation||!ClassroomWriteBarrier.allow()){
+    showToast("课堂或权限已变化，请重新确认删除。");return false;
   }
-  if (
-    !(await themeConfirm("确定要删除这条最终结算档案记录吗？此操作不可逆！", {
-      title: "删除结算档案",
-      danger: true,
-      confirmText: "删除",
-    }))
-  )
-    return;
-  const list = getSettlementHistory();
-  list.splice(index, 1);
-  STORAGE.setJSON("politics_settlement_history", list);
-  renderSettlementHistoryList();
-  showToast("该结算档案已删除");
+  const list=getSettlementHistory(),current=list.findIndex(record=>record.id===id&&JSON.stringify(record)===fingerprint);
+  if(current<0){showToast("档案记录已变化，请重新确认删除。");return false;}
+  if(globalThis.SaveManager?.enabled()){
+    const result=await SaveManager.removeArchive(id);
+    if(!result.ok){themeAlert('删除未保存，原档案保留：'+(result.error||result.message||result.code));return false;}
+  }else{
+    list.splice(current,1);if(!STORAGE.setJSON("politics_settlement_history",list)){themeAlert("删除未保存，原档案保留。");return false;}
+  }
+  renderSettlementHistoryList();showToast("该结算档案已删除");return true;
 }
 
 // ===== 启动性能优化：音频元数据缓存 + 延迟音频初始化 =====

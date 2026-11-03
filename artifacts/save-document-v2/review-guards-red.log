@@ -1,0 +1,48 @@
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (5.430435ms)
+✔ new save validates stable identities, revisions and roster references (14.683208ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (4.690684ms)
+✖ malformed canonical archives and roster/match metadata are rejected before activation (5.91338ms)
+✖ failed new-library initialization cannot report a successful legacy save (3.624053ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225.321785
+
+✖ failing tests:
+
+test at tests/unit/save-document.test.mjs:38:1
+✖ malformed canonical archives and roster/match metadata are rejected before activation (5.91338ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-document.test.mjs:38:526)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests/unit/save-failure-guard.test.mjs:2:1
+✖ failed new-library initialization cannot report a successful legacy save (3.624053ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-failure-guard.test.mjs:4:147)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

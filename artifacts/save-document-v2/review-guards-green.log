@@ -1,0 +1,14 @@
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (4.970273ms)
+✔ new save validates stable identities, revisions and roster references (33.171226ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (20.647909ms)
+✔ malformed canonical archives and roster/match metadata are rejected before activation (23.164888ms)
+✔ failed new-library initialization cannot report a successful legacy save (4.52622ms)
+✔ archive deletion confirmation cannot target another save or bypass a newly locked classroom (6.100579ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 297.100248

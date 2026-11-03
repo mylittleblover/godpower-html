@@ -806,14 +806,7 @@ const DesktopUI = (() => {
     };
     GodPowerSettingsLayout.organize(sections, shell, { query: $, escape: E });
     installSettingsSafetyGuard();
-    ClassroomRosterWorkspace.mount(sections.students, {
-      storage: localStorage,
-      getGroups: () => state.groups,
-    });
-    sections.students.insertBefore(
-      $("#classroomRosterWorkspace"),
-      $("#uiSettingsRoster"),
-    );
+    SaveWorkspace.mount(sections.students);
     TeachingWorkspace.mount(sections.teaching, { storage: localStorage });
 
     TeachingResourceWorkspace.mount(sections.teaching, {

@@ -43,6 +43,8 @@
       fail("invalid match groups");
     if (current) unique(groups, "groupUid", "match group");
     for (const g of groups) {
+      if (current && typeof g.score !== "number")
+        fail("canonical score must be a number");
       if (!object(g) || !Number.isSafeInteger(Number(g.score ?? 0)))
         fail("score must be a safe integer");
       if (
@@ -79,6 +81,32 @@
       fail("save name is required");
     if (!object(input.roster) || !object(input.match))
       fail("missing roster or match");
+    if (
+      !Number.isSafeInteger(input.roster.revision) ||
+      input.roster.revision < 1
+    )
+      fail("invalid roster revision");
+    if (
+      !object(input.match.season) ||
+      !uid(input.match.season.seasonId) ||
+      !input.match.season.seasonId.startsWith("season-")
+    )
+      fail("invalid match season");
+    for (const key of ["round", "picker", "itemGlobal"])
+      if (!object(input.match[key])) fail("invalid match " + key);
+    if (!object(input.achievements) || !object(input.perSaveOptions))
+      fail("invalid achievement/options metadata");
+    if (
+      input.perSaveOptions.saveAllIn !== undefined &&
+      typeof input.perSaveOptions.saveAllIn !== "boolean"
+    )
+      fail("invalid saveAllIn option");
+    if (!Array.isArray(input.archives) || input.archives.length > 10000)
+      fail("archives must be an array");
+    for (const archive of input.archives) {
+      if (!object(archive)) fail("invalid archive entry");
+      if (archive.groups !== undefined) validateGroups(archive.groups, false);
+    }
     const students = unique(input.roster.students, "studentUid", "student");
     const groups = unique(input.roster.groups, "groupUid", "roster group");
     if (students.size > 100000 || groups.size > 1000)

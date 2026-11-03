@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "browser": "154.0.8037.57",
+  "viewport": [
+    1920,
+    1080
+  ],
+  "scale": 1,
+  "results": [
+    {
+      "source": "primary",
+      "status": "PASS",
+      "groups": 14,
+      "students": 56,
+      "history": 40,
+      "expectedAvatars": 19,
+      "pickerAvatars": 19,
+      "layout": {
+        "groups": 14,
+        "allVisible": true
+      },
+      "reload": {
+        "groups": 14,
+        "students": 56,
+        "avatars": 19
+      }
+    },
+    {
+      "source": "backup",
+      "status": "PASS",
+      "groups": 14,
+      "students": 56,
+      "history": 40,
+      "expectedAvatars": 19,
+      "pickerAvatars": 19,
+      "layout": {
+        "groups": 14,
+        "allVisible": true
+      },
+      "reload": {
+        "groups": 14,
+        "students": 56,
+        "avatars": 19
+      }
+    }
+  ],
+  "errors": []
+}

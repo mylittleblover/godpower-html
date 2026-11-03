@@ -59,6 +59,8 @@ const HistoryCommands = (() => {
         snapshot.achievementLedger,
       );
     state.groups = normalizeAllGroups(snapshot.groups);
+    if (snapshot.rosterSnapshot)
+      state.rosterSnapshot = clone(snapshot.rosterSnapshot);
     state.groups.forEach((g) => {
       g.displayScore = g.score;
     });

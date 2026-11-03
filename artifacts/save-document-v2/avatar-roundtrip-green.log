@@ -1,0 +1,11 @@
+✔ runtime projection carries small resource references without decoding inline avatars into history (17.014206ms)
+✔ score-only persistence keeps student identities and roster revision stable (8.760395ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (6.798381ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 107.262869

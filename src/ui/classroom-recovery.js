@@ -124,7 +124,7 @@ const ClassroomRecovery = (() => {
     if (!accepted) return;
     byId("classroomRecoveryRestore").disabled = true;
     try {
-      const result = importClassroomData(selected.data);
+      const result = await importClassroomData(selected.data);
       if (!result?.ok) throw new Error(result?.error || "恢复未完成");
       byId("classroomRecoveryTools").hidden = true;
       setStatus("课堂已恢复并完成主存档写入。");

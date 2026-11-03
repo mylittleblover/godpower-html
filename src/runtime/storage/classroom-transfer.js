@@ -1,4 +1,7 @@
-function exportData() {
+async function exportData() {
+  if(globalThis.SaveManager?.enabled()){
+    const data=await SaveManager.exportCurrent(),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"})),a=document.createElement("a");a.href=url;a.download="上帝的力量_完整存档_含头像.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return;
+  }
   const blob = new Blob([JSON.stringify(buildClassroomBackup(), null, 2)], {
     type: "application/json",
   });
@@ -27,9 +30,9 @@ function handleFileImport(event) {
     return;
   }
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = async () => {
     try {
-      const result = importClassroomData(JSON.parse(reader.result));
+      const result = globalThis.SaveManager?.enabled() ? await SaveManager.importSource(await SaveManager.previewSource(String(reader.result),file.name)) : await importClassroomData(JSON.parse(reader.result));
       if (result.ok) showToast("数据恢复成功");
       else themeAlert("导入失败，原数据已保留：" + result.error);
     } catch (error) {

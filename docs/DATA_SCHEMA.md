@@ -169,3 +169,31 @@ commands记录新增可选intentHash：对规范化命令意图计算SHA-256，�
 ### V3.0.56 独立背景音乐音量
 
 `politics_bgm_volume`：本机偏好，0到1的十进制数，缺失或非法内容默认1。仅改变音乐总线增益，不进入比赛快照、历史或课堂JSON备份，不影响计分/撤销。主音量仍作为音乐及音效的共同上级增益。
+
+## 3.0.69 新存档（开发检查点）
+
+`schemaVersion:2`仅与`kind:"godpower.save"`一起表示新格式；旧课堂envelope也曾使用schemaVersion2，必须先看kind。
+
+| 字段 | 类型/默认 | 说明 |
+|---|---|---|
+| saveId | save-前缀安全ID | 稳定存档身份，不用显示名称作身份 |
+| revision | 正整数 | 仓库CAS，每次确认保存递增 |
+| name | 非空字符串 | 可修改显示名称 |
+| roster | 对象 | revision、students、groups、assignments |
+| roster.students | 数组 | studentUid/displayName/number/legacyLabel/avatarResourceId |
+| roster.groups | 数组 | groupUid/name/groupNo/color/avatarResourceId |
+| roster.assignments | 数组 | studentUid→groupUid；每人最多一组，未分组学生保留 |
+| match | 对象 | season、groups、round、picker、itemGlobal、history及兼容extensions |
+| achievements | 对象 | 原成就账本，导入不模拟业务事件 |
+| archives | 数组 | 当前存档归档记录；缺失或非数组的新格式拒绝 |
+| perSaveOptions | 对象 | 存档专属选项，例如saveAllIn |
+| assetReferences | SHA-256资源ID数组 | 个人/小组/历史图片只保存引用，原始数据独立 |
+| migration | 可选对象 | 来源摘要、原字段顺序、兼容元数据及迁移回执说明 |
+
+当前比赛分数必须为安全整数数字；旧格式只读转换时按既有兼容规则规范化。已知核心字段缺失/非法的新格式在发布前拒绝。新历史带rosterSnapshot用于撤销姓名/分组/头像；旧历史没有的永久学生身份不凭同名猜测。
+
+SaveIndex使用kind godpower.save-index、schemaVersion2，包含revision、generation、activeSaveId、entries。切换活动档递增generation，旧令牌不能提交。浏览器在一次IDB事务内写索引/文档/资源/原文/回执；Electron先写不可变版本和资源，最后发布索引。
+
+AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/masterVolume/sfxVolume/zoomLevel/resizerEnabled/resizerHeight/columnMode；其余主题、动效、音频/题库等既有全局键暂保留原位置，不随切档改写，后续再渐进归并。原localStorage不清空。
+
+可移植发行存档使用kind godpower.save-bundle、schemaVersion2、documents和assets；每项asset为resourceId/mimeType/sha256/byteLength/dataBase64。导入验证资源摘要和引用。源文件以独立原文及摘要保存；实际迁移的原文件另在私有交付目录保留。冲突导入建立独立副本，不覆盖当前课堂；源摘要回执保证重复导入幂等。

@@ -1,0 +1,24 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
+    group: true,
++   secondStudent: false,
+-   secondStudent: true,
+    student: true
+  }
+
+    at file:///workspace/godpower-html-latest/tests/e2e/save-workspace.mjs:62:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: { student: true, secondStudent: false, group: true },
+  expected: { student: true, secondStudent: true, group: true },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

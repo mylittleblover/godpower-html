@@ -605,9 +605,9 @@
     </div>
 
     <div class="setting-item" data-settings-category="data" data-settings-group="savefile">
-      <span class="setting-label">固定存档位置（桌面版）</span>
+      <span class="setting-label">旧版存档导入来源（桌面版）</span>
       <div style="display:flex;flex-direction:column;gap:8px;max-width:640px;">
-        <p class="ui-muted" style="margin:0">每次改动都会同步写入此文件，启动时也能从它恢复课堂。换机器只需复制该 JSON。浏览器版不适用。</p>
+        <p class="ui-muted" style="margin:0">此处保留旧版 JSON 来源位置。新版当前存档与头像在「学生与小组」中管理；换机器请导出完整存档。这里读取旧文件会建立独立恢复副本。</p>
         <code id="saveFilePath" style="display:block;padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#1e293b;font-size:12px;word-break:break-all;">未初始化</code>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
           <button class="btn btn-sm btn-primary" onclick="chooseSaveFileLocation()">更改位置…</button>
@@ -900,6 +900,7 @@
 <style>@@SOURCE:styles/feedback/item-score-cinematics.css@@</style>
 <script>@@SOURCE:ui/item-score-cinematics.js@@</script>
 <script>@@SOURCE:infrastructure/save-file-bridge.js@@</script>
+<script>@@SOURCE:application/save-manager.js@@</script>
 <script>@@SOURCE:application/legacy-classroom-adapter.js@@</script>
 <script>@@SOURCE:ui/classroom-recovery.js@@</script>
 <script>@@SOURCE:ui/classroom-feedback.js@@</script>
@@ -911,6 +912,8 @@
 <script>@@SOURCE:ui/window-motion.js@@</script>
 <script>@@SOURCE:ui/disclosure-motion.js@@</script>
 <script>@@SOURCE:ui/component-catalog.js@@@@SOURCE:ui/component-preview-style.js@@@@SOURCE:ui/component-library.js@@</script>
+<style>@@SOURCE:styles/settings/save-workspace.css@@</style>
+<script>@@SOURCE:ui/save-workspace.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-dashboard.js@@</script>

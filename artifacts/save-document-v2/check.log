@@ -1,10 +1,10 @@
 
-> godpower-html@3.0.68 check
+> godpower-html@3.0.69 check
 > node scripts/check.mjs
 
-131 script blocks parse; all 27 original embedded resources preserved plus 2 new item icons
-238 source blocks match the manifest and template
-Visible, internal and package version match: 3.0.68
-Package lock version matches: 3.0.68
+133 script blocks parse; all 27 original embedded resources preserved plus 2 new item icons
+241 source blocks match the manifest and template
+Visible, internal and package version match: 3.0.69
+Package lock version matches: 3.0.69
 Domain and infrastructure boundaries pass
 Component catalog covers all shipped classes, tokens and animations

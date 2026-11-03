@@ -113,8 +113,9 @@ function renderItemWindow() {
           </div>
         </section>
         <section class="group-detail-section">
-          <h4>成员管理（每行一人，也支持逗号或顿号分隔）</h4>
-          <div class="group-detail-field"><textarea id="groupDetailMembers" ${disabled}>${escapeHtml((g.members || []).join("\n"))}</textarea></div>
+          <h4>成员管理</h4>
+          <p>${escapeHtml((g.members || []).join(' · ') || '暂无成员')}</p>
+          <button type="button" class="btn" ${disabled} onclick="closeItemWindow();switchView('settings');DesktopUI.selectSettings('students');SaveWorkspace.openMembers('${escapeHtml(g.groupUid)}')">从学生名单选择成员</button>
         </section>
         <section class="group-detail-section"><h4>当前状态</h4><div>${escapeHtml(status)}</div></section>
         <div class="group-detail-actions"><button type="button" class="btn" onclick="renderItemWindow()" ${disabled}>放弃未保存修改</button><button type="button" class="btn btn-primary" onclick="saveItemGroupDetail(${g.id})" ${disabled}>保存更改</button></div>
@@ -177,23 +178,10 @@ function saveItemGroupDetail(id) {
     showToast("该编号已被其他小组使用");
     return;
   }
-  const rawMembers = document.getElementById("groupDetailMembers")?.value || "";
-  const members = Array.from(
-    new Set(
-      rawMembers
-        .split(/[\n,，、]+/)
-        .map((s) => s.trim())
-        .filter(Boolean),
-    ),
-  );
-  const changed =
-    g.name !== name ||
-    Number(g.groupNo) !== groupNo ||
-    JSON.stringify(g.members || []) !== JSON.stringify(members);
+  const changed = g.name !== name || Number(g.groupNo) !== groupNo;
   if (changed) recordHistory(`${g.name} 更新小组详情`);
   g.name = name;
   g.groupNo = groupNo;
-  g.members = members;
   saveState();
   renderAll();
   updatePickerPoolUI();

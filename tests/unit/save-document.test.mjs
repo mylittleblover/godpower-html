@@ -26,11 +26,35 @@ test("negative revisions, duplicate identities and unsafe scores are rejected", 
     .documents[0];
   for (const change of [
     (x) => (x.revision = -1),
+    (x) => (x.match.groups[0].score = "2"),
+    (x) => (x.match.groups[0].score = null),
     (x) => x.roster.students.push(x.roster.students[0]),
     (x) => (x.match.groups[0].score = Number.MAX_SAFE_INTEGER + 1),
   ]) {
     const bad = structuredClone(d);
     change(bad);
+    assert.throws(() => schema.validateV2(bad));
+  }
+});
+
+test("malformed canonical archives and roster/match metadata are rejected before activation", async () => {
+  const { schema, migration } = saveCore();
+  const doc = (await migration.preview({ rawText: JSON.stringify(legacy()) }))
+    .documents[0];
+  for (const mutate of [
+    (d) => delete d.archives,
+    (d) => (d.archives = {}),
+    (d) => (d.archives = [null]),
+    (d) => (d.archives = [{ groups: {} }]),
+    (d) => delete d.roster.revision,
+    (d) => (d.match.season = null),
+    (d) => (d.match.round = []),
+    (d) => (d.match.picker = "bad"),
+    (d) => (d.achievements = null),
+    (d) => (d.perSaveOptions = []),
+  ]) {
+    const bad = structuredClone(doc);
+    mutate(bad);
     assert.throws(() => schema.validateV2(bad));
   }
 });

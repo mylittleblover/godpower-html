@@ -8,6 +8,8 @@
   let contextKey = "";
   let avatarIndex = new Map();
   let generation = 0;
+  const ownGroupAvatars = new Map();
+  let saveIndexPending = null;
 
   function currentContext() {
     try {
@@ -33,6 +35,7 @@
     compactImages.clear();
     compactGroups.clear();
     avatarIndex = new Map();
+    ownGroupAvatars.clear();
   }
 
   function canvasImage(source, width, height) {
@@ -81,7 +84,55 @@
     return pending;
   }
 
+  async function readSaveIndex() {
+    const doc = root.SaveManager.snapshot(),
+      nextKey = `save:${doc.saveId}:${doc.roster.revision}`;
+    if (nextKey === contextKey) return saveIndexPending;
+    generation++;
+    clearUrls();
+    contextKey = nextKey;
+    const localGeneration = generation;
+    const byStudent = new Map(
+      doc.roster.students.map((s) => [s.studentUid, s]),
+    );
+    for (const group of doc.roster.groups) {
+      const entries = doc.roster.assignments
+        .filter((a) => a.groupUid === group.groupUid)
+        .map((a) => byStudent.get(a.studentUid))
+        .filter(Boolean)
+        .map((s) => ({
+          name: root.SaveRoster.label(s),
+          resourceId: s.avatarResourceId || "",
+        }));
+      avatarIndex.set(group.groupUid, entries);
+      if (group.avatarResourceId)
+        ownGroupAvatars.set(group.groupUid, group.avatarResourceId);
+    }
+    const ids = new Set(
+      [...avatarIndex.values()]
+        .flatMap((rows) => rows.map((r) => r.resourceId))
+        .filter(Boolean),
+    );
+    for (const id of ownGroupAvatars.values()) ids.add(id);
+    saveIndexPending = (async () => {
+      await Promise.all(
+        [...ids].map(async (id) => {
+          try {
+            const asset = await root.SaveManager.repository().getAsset(id);
+            if (localGeneration !== generation || !asset?.raw) return;
+            urls.set(id, root.URL.createObjectURL(asset.raw));
+          } catch (error) {
+            console.warn("可选存档头像读取失败", error.message);
+          }
+        }),
+      );
+      if (localGeneration === generation)
+        await Promise.all([...urls.values()].map(compactImage));
+    })();
+    return saveIndexPending;
+  }
   async function readIndex() {
+    if (root.SaveManager?.enabled()) return readSaveIndex();
     const context = currentContext();
     const nextKey = context
       ? `${context.userProfileId}\u0000${context.classroomId}`
@@ -161,18 +212,29 @@
     await Promise.all([...urls.values()].map(compactImage));
   }
 
-  function studentUrl(group, name, occurrence = 0) {
+  function studentUrl(group, name, memberIndex = 0) {
     const entries = avatarIndex.get(group?.groupUid) || [];
-    let matchIndex = 0;
-    for (const entry of entries) {
-      if (entry.name !== name) continue;
-      if (matchIndex++ !== occurrence) continue;
-      return entry.resourceId ? urls.get(entry.resourceId) || "" : "";
+    // Picker callers pass the student's absolute position in the group, not
+    // the occurrence count among identical names.
+    const indexed = entries[memberIndex];
+    if (indexed?.name === name)
+      return indexed.resourceId ? urls.get(indexed.resourceId) || "" : "";
+    const matches = entries.filter((entry) => entry.name === name);
+    if (matches.length === 1)
+      return matches[0].resourceId ? urls.get(matches[0].resourceId) || "" : "";
+    if (group?.members?.[memberIndex] === name) {
+      const occurrence = group.members
+        .slice(0, memberIndex)
+        .filter((label) => label === name).length;
+      const match = matches[occurrence];
+      return match?.resourceId ? urls.get(match.resourceId) || "" : "";
     }
     return "";
   }
 
   function groupUrls(group) {
+    const own = urls.get(ownGroupAvatars.get(group?.groupUid));
+    if (own) return [own];
     const entries = avatarIndex.get(group?.groupUid) || [];
     const seen = new Set();
     const result = [];
@@ -258,7 +320,9 @@
     const taskGeneration = generation;
     // A teacher-chosen group avatar wins over the member stack.
     for (const group of groups) {
-      if (!group.groupAvatar) continue;
+      const ownAvatar =
+        group.groupAvatar || urls.get(ownGroupAvatars.get(group.groupUid));
+      if (!ownAvatar) continue;
       const card = root.document.querySelector(
         `.group-row-card[data-group-id="${CSS.escape(String(group.id))}"]`,
       );
@@ -269,7 +333,7 @@
       badge.replaceChildren();
       const image = root.document.createElement("img");
       image.className = "battle-group-avatar-single";
-      image.src = group.groupAvatar;
+      image.src = ownAvatar;
       image.alt = `${group.name} 头像`;
       image.draggable = false;
       const number = root.document.createElement("span");
@@ -347,6 +411,11 @@
   root.addEventListener("godpower:active-classroom-changed", () => {
     contextKey = "!refresh!";
     readIndex();
+  });
+  root.addEventListener("godpower:active-save-changed", () => {
+    readIndex().then(() =>
+      decorateGroupCards(typeof state !== "undefined" ? state.groups : []),
+    );
   });
   root.addEventListener("pagehide", clearUrls, { once: true });
 

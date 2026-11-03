@@ -122,8 +122,21 @@
         status("读取失败：" + (result.error || "未知原因"), "ERROR");
         return;
       }
-      applyClassroomBackup(result.data);
-      saveState();
+      if (globalThis.SaveManager?.enabled()) {
+        const preview = await SaveManager.previewSource(
+          JSON.stringify(result.data),
+          "旧文件恢复课堂",
+        );
+        const imported = await SaveManager.importSource(preview);
+        if (!imported.ok)
+          throw Error(imported.error || imported.message || imported.code);
+      } else {
+        applyClassroomBackup(result.data);
+        const saved = saveState();
+        const ack = saved.completion ? await saved.completion : await saved;
+        if (!ack.ok) throw Error(ack.error);
+      }
+
       renderAll();
       updatePickerPoolUI();
       status("已从文件恢复课堂。", "OK");

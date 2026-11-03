@@ -1,0 +1,48 @@
+✖ failed new-library initialization cannot report a successful legacy save (4.356607ms)
+✖ archive deletion confirmation cannot target another save or bypass a newly locked classroom (4.035511ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.141493
+
+✖ failing tests:
+
+test at tests/unit/save-failure-guard.test.mjs:2:1
+✖ failed new-library initialization cannot report a successful legacy save (4.356607ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-failure-guard.test.mjs:4:147)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/save-failure-guard.test.mjs:7:1
+✖ archive deletion confirmation cannot target another save or bypass a newly locked classroom (4.035511ms)
+  AssertionError [ERR_ASSERTION]: switch must invalidate confirmation
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-failure-guard.test.mjs:12:69)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

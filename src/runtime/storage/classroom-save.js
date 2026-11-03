@@ -9,6 +9,13 @@ function getPersistableGroups() {
 }
 
 function saveState(transaction) {
+  if (globalThis.SaveManager?.blocked?.()) {
+    showClassroomSaveWarning(
+      "新版存档库读取失败，已禁止回退覆盖旧存档，请重试或导出当前显示的数据。",
+    );
+    return { ok: false, error: "存档库未成功读取，旧文件保持不变" };
+  }
+  if (globalThis.SaveManager?.isStarting()) return { ok: true, deferred: true };
   if (window.classroomRecoveryRequired) {
     showClassroomSaveWarning("需要先恢复主存档");
     return { ok: false, error: "需要先恢复主存档" };
@@ -17,8 +24,15 @@ function saveState(transaction) {
     !window.classroomReady ||
     window.itemCommandActive ||
     classroomCommands.isPending()
-  )
+  ) {
+    if (
+      globalThis.SaveManager?.enabled() &&
+      !window.itemCommandActive &&
+      classroomCommands.isPending()
+    )
+      SaveManager.scheduleLegacySave();
     return { ok: true, deferred: true };
+  }
   ensureV2State();
   if (Array.isArray(transaction?.events) && transaction.events.length) {
     state.achievementLedger = AchievementLedger.apply(
@@ -32,6 +46,13 @@ function saveState(transaction) {
   // writing now would overwrite a classroom the user copied in.
   if (globalThis.ClassroomSaveFile?.isHydrating?.())
     return { ok: true, deferred: true };
+  if (globalThis.SaveManager?.enabled()) {
+    const completion = SaveManager.persist(payload).then((result) => ({
+      ...result,
+      ...(transaction?.events?.length ? { eventsPersisted: !!result.ok } : {}),
+    }));
+    return transaction ? completion : { ok: true, pending: true, completion };
+  }
   const result = Reliability.writeVerified(
     CLASSROOM_STORAGE,
     Reliability.stateKey,

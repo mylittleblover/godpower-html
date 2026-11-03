@@ -20,6 +20,9 @@ function buildClassroomBackup() {
       lastRoundAllIn: state.lastRoundAllIn,
     },
     history: clone(historyStack),
+    ...(state.rosterSnapshot
+      ? { rosterSnapshot: clone(state.rosterSnapshot) }
+      : {}),
     firstHandDrawPending: firstHandDrawPendingV218,
     adminPin: state.adminPin,
     masterVolume: state.masterVolume,
@@ -45,6 +48,7 @@ function applyClassroomBackup(raw) {
   else if (!state.achievementLedger)
     state.achievementLedger = AchievementLedger.empty();
   state.groups = normalizeAllGroups(data.groups);
+  if (data.rosterSnapshot) state.rosterSnapshot = clone(data.rosterSnapshot);
   if (data.picker) {
     const p = data.picker;
     state.picker = {
@@ -118,6 +122,10 @@ function applyClassroomBackup(raw) {
   ensureGroupNumbersV213(false);
 }
 function importClassroomData(data) {
+  if (globalThis.SaveManager?.enabled())
+    return SaveManager.previewSource(JSON.stringify(data), "导入课堂").then(
+      (preview) => SaveManager.importSource(preview),
+    );
   const conflict = ClassroomWriteBarrier.conflict();
   if (conflict) return conflict;
   if (state.isLocked) return { ok: false, error: "请先解锁" };
@@ -238,6 +246,7 @@ Reliability.onDefenseInvalidation(() =>
   classroomCommands.cancel("lifecycle-changed"),
 );
 function runClassroomCommand(description, operation, options) {
+  if (!ClassroomWriteBarrier.allow()) return false;
   return classroomCommands.run(description, operation, options);
 }
 function deferClassroomDefense(promise, apply, isCurrent) {
@@ -408,24 +417,26 @@ window.classroomReady = true;
    copying that file is how a teacher moves a classroom between machines. Saves
    are held off until this settles (ClassroomSaveFile.isHydrating). */
 if (globalThis.ClassroomSaveFile?.available?.()) {
-  ClassroomSaveFile.hydrate().then((result) => {
-    window.classroomSaveFileStatus = result.status;
-    if (result.status !== "loaded") return;
-    try {
-      applyClassroomBackup(result.data);
-      // Hydration is settled now, so this write mirrors the restored classroom
-      // back to both localStorage and the file.
-      saveState();
-      renderAll();
-      updatePickerPoolUI();
-      window.classroomSaveFileStatus = "restored";
-      showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
-    } catch (error) {
-      window.classroomSaveFileStatus = "restore-failed";
-      console.error("存档文件恢复失败", error);
-      showToast("存档文件无法恢复，已保留本机数据：" + error.message);
-    }
-  });
+  window.classroomHydrationPromise = ClassroomSaveFile.hydrate().then(
+    (result) => {
+      window.classroomSaveFileStatus = result.status;
+      if (result.status !== "loaded") return;
+      try {
+        applyClassroomBackup(result.data);
+        // Hydration is settled now, so this write mirrors the restored classroom
+        // back to both localStorage and the file.
+        saveState();
+        renderAll();
+        updatePickerPoolUI();
+        window.classroomSaveFileStatus = "restored";
+        showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
+      } catch (error) {
+        window.classroomSaveFileStatus = "restore-failed";
+        console.error("存档文件恢复失败", error);
+        showToast("存档文件无法恢复，已保留本机数据：" + error.message);
+      }
+    },
+  );
 } else {
   // The browser build has no file bridge, so nothing waits.
   ClassroomSaveFile?.markHydrated?.();

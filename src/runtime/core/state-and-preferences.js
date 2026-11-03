@@ -317,6 +317,8 @@ function normalizeGroup(raw, index = 0) {
     /* Group avatar: a small local data URL chosen by the teacher. Empty means the
        card keeps showing its member stack as before. */
     groupAvatar: normalizeGroupAvatarV2200(source.groupAvatar),
+    ...(source.avatarResourceId !== undefined ? {avatarResourceId:source.avatarResourceId} : {}),
+    ...(Array.isArray(source.memberStudentUids) ? {memberStudentUids:[...source.memberStudentUids]} : {}),
     /* V2.8: these fields are persistent classroom data, not session-only UI state. */
     inventory: Array.isArray(source.inventory)
       ? source.inventory.map((it) => ({ ...it }))

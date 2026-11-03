@@ -152,7 +152,7 @@
       ![1, 2].includes(raw.schemaVersion ?? 1)
     )
       throw Error("unsupported legacy save");
-    if (!Array.isArray(raw.groups) || !raw.groups.length)
+    if (!Array.isArray(raw.groups))
       throw Error("legacy save groups are missing");
     root.SaveSchema.validateGroups(raw.groups, false);
     const sourceDigest = await textDigest(rawText),

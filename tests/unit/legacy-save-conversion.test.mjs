@@ -112,3 +112,12 @@ test("portable bundles reject missing or corrupted resources before returning an
     /asset|资源|digest/,
   );
 });
+
+test("an explicitly versioned empty classroom remains a valid empty save", async () => {
+  const { migration } = saveCore(),
+    raw = legacy();
+  raw.groups = [];
+  const preview = await migration.preview({ rawText: JSON.stringify(raw) });
+  assert.equal(preview.documents[0].roster.students.length, 0);
+  assert.equal(preview.documents[0].match.groups.length, 0);
+});

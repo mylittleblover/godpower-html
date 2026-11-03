@@ -1,6 +1,6 @@
 {
   "name": "godpower-html",
-  "version": "3.0.68",
+  "version": "3.0.69",
   "private": true,
   "type": "module",
   "scripts": {
@@ -47,7 +47,7 @@
     "audit:styles": "node scripts/style-governance-audit.mjs",
     "test:css-governance": "node --test tests/integration/css-consolidation.test.mjs tests/integration/cascade-governance.test.mjs tests/integration/semantic-style-names.test.mjs && node tests/e2e/css-consolidation.mjs",
     "format:styles": "prettier --check src/styles",
-    "test:saves": "node --test tests/unit/save-document.test.mjs tests/unit/legacy-save-conversion.test.mjs && node tests/e2e/save-repository.mjs"
+    "test:saves": "npm run build && node --test tests/unit/save-*.test.mjs tests/unit/legacy-save-conversion.test.mjs && node tests/e2e/save-repository.mjs && node tests/e2e/save-workspace.mjs"
   },
   "devDependencies": {
     "acorn": "8.15.0",

@@ -103,9 +103,23 @@
         ...new Set([
           ...current.assetReferences,
           ...replacement.assetReferences,
+          ...[...roster.students, ...roster.groups]
+            .map((r) => r.avatarResourceId)
+            .filter(Boolean),
         ]),
       ],
     };
+    const refs = new Set(document.assetReferences);
+    for (const group of [
+      ...document.match.groups,
+      ...document.match.history.flatMap((row) => row.groups),
+    ]) {
+      if (
+        typeof group.avatarResourceId === "string" &&
+        refs.has(group.avatarResourceId)
+      )
+        group.groupAvatar = { $asset: group.avatarResourceId };
+    }
     delete document.match.extensions.rosterSnapshot;
     return {
       document: root.SaveSchema.validateV2(document),
