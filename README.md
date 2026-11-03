@@ -1,3 +1,5 @@
+> V3.0.68 性能修复版：[下载目录](https://drive.google.com/drive/folders/1cDO_DuovqIpZcT3_7LHCHrKq61dt3IuB)。减少隐藏欢迎页与窗口扫描工作，Electron使用串行异步存档。包含Windows分卷、合并脚本、独立HTML和验收记录。Windows真机性能尚未验证，先从托盘彻底退出旧版再启动新版本。详见[性能记录](docs/performance/2026-11-03-PERFORMANCE_3.0.68.md)。
+
 > V3.0.66 CSS治理：统一样式目录、清除已证明冗余与旧界面样式。[开发须知](DEVELOPMENT.md) · [本轮验证](docs/validation/CSS_CONSOLIDATION_3.0.66.md)。
 
 > V3.0.65：样式语义化治理（152类/44动效）、77条覆盖声明删除、关于/百科单一渲染入口。[实际验收与限制](docs/validation/SEMANTIC_STYLE_GOVERNANCE_3.0.65.md) · [剩余JS覆盖清单](docs/audit/JS_OVERRIDE_INVENTORY_3.0.65.md)。
