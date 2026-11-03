@@ -1,0 +1,740 @@
+
+> godpower-html@3.0.70 test
+> node --test tests/unit/*.test.mjs tests/integration/*.test.mjs
+
+✔ 3.0.65 checkpoint CSS deletions have equally scoped witnesses and no stronger priority (1218.507311ms)
+✔ about renderer has one declaration, no override chain, and retains non-view code (297.444627ms)
+✔ V3.0.60 checkpoint: all 117 script units preserve their AST except the retired draw chain (717.662479ms)
+✔ every CSS deletion has a later unconditional identical selector/property/value witness (82.412115ms)
+✖ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2303.41715ms)
+✖ retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata (671.386473ms)
+✔ verified write roundtrip (1.012458ms)
+✔ write quota surfaced (0.155115ms)
+✔ write security surfaced (0.081323ms)
+✔ readback mismatch surfaced (0.123726ms)
+✔ archive success preserves complete snapshot (0.747368ms)
+✔ archive quota failure leaves old archive unchanged (0.275926ms)
+✔ corrupt archive not overwritten (0.239792ms)
+✔ archive retry deduplicates same id (0.183898ms)
+✔ same-season archive retry is idempotent and conflicting retries preserve the official record (0.293963ms)
+✔ separate seasons with the same timestamp ID remain separate archives (0.25858ms)
+✔ more than 40 archives retained (1.200192ms)
+✔ common item guard null 0 true (0.202917ms)
+✔ common item guard {"inventory":[{"key":"fire_flower"}],"score":0} 1 true (0.046871ms)
+✔ common item guard {"inventory":[{"key":"ice_flower"}],"score":-1} 0 true (0.039519ms)
+✔ common item guard {"inventory":[{"key":"coin"}],"score":0} 0 false (0.032739ms)
+✔ same triple continuation allowed (0.093541ms)
+✔ different second item blocked (0.131068ms)
+✔ semantic style names are unique and contain no release numbers (4.91546ms)
+✔ naming checkpoint 645ea0f preserves all original scripts outside the declared style-name migration (908.382007ms)
+✔ contains exactly the 60 stable achievement IDs and six design categories (2.12646ms)
+✔ all 26 actual item keys have one exclusive achievement mapping (0.239942ms)
+✔ hidden achievements are explicitly marked for student-facing masking (0.167453ms)
+✔ durably counts a confirmed classroom event once per stable group and season (2.348004ms)
+✔ manual and imported events never create achievement facts (0.620557ms)
+✔ a new season resets seasonal counters but keeps lifetime counters and unlock buckets (0.305531ms)
+✔ learning streak, participation and accuracy achievements use formal rounds (1.35792ms)
+✔ unanswered rounds break answer streaks and wrong answers restart recovery (0.539734ms)
+✔ 22 stable unique button slots are categorized and separate from business outcome sounds (0.796172ms)
+✔ actual shared main button and picker lever resolve their current action (0.32501ms)
+✔ button intent preserves independent answer, item, score, upload and destructive slots (1.345891ms)
+✔ batch scoring plans each group exactly once (1.313283ms)
+✔ batch scoring refuses partial integer overflow (0.260924ms)
+✔ batch invalid points 0 (0.118369ms)
+✔ batch invalid points 1.5 (0.111148ms)
+✔ batch invalid points Infinity (0.080542ms)
+✔ batch invalid points 9007199254740992 (0.06598ms)
+✔ batch rejects missing groups and invalid counts (0.182736ms)
+✔ renderAll has exactly one canonical definition and no override assignment (0.949533ms)
+✔ globalItemDraw has exactly one canonical definition and no override assignment (0.101343ms)
+✔ handDrawItem has exactly one canonical definition and no override assignment (0.070076ms)
+✔ openHandRaise has exactly one canonical definition and no override assignment (0.340905ms)
+✔ closeHandRaise has exactly one canonical definition and no override assignment (0.131238ms)
+✔ renderHandRaise has exactly one canonical definition and no override assignment (0.090577ms)
+✔ selectHandGroup has exactly one canonical definition and no override assignment (0.089675ms)
+✔ judgeHandRaise has exactly one canonical definition and no override assignment (0.056345ms)
+✔ handQuickScore has exactly one canonical definition and no override assignment (0.087442ms)
+✔ renderGrid has exactly one canonical definition and no override assignment (0.239672ms)
+✔ useItem has exactly one canonical definition and no override assignment (0.142985ms)
+✔ selectGroupOpt has exactly one canonical definition and no override assignment (0.058138ms)
+✔ toggleAllInCard has exactly one canonical definition and no override assignment (0.040191ms)
+✔ legacyUseItem has exactly one canonical definition and no override assignment (0.05942ms)
+✔ legacyJudgeRound has exactly one canonical definition and no override assignment (0.035584ms)
+✔ applyItemScore has exactly one canonical definition and no override assignment (0.07252ms)
+✔ tryDefend has exactly one canonical definition and no override assignment (0.034182ms)
+✔ saveState has exactly one canonical definition and no override assignment (0.032869ms)
+✔ recordHistory has exactly one canonical definition and no override assignment (0.032579ms)
+✔ restoreStateFromSnapshot has exactly one canonical definition and no override assignment (0.038898ms)
+✔ undoLast has exactly one canonical definition and no override assignment (0.027691ms)
+✔ Shared score defaults include exactly six signed values and independent presentation toggles (2.177508ms)
+✔ Malformed slot data cannot become scoring commands (0.668539ms)
+✔ Extreme valid scores stay exact and configuration clamps only audio volume (1.092019ms)
+✔ External option reads cannot mutate shared scoring slots (0.151118ms)
+✔ repository writes, verifies and compares revisions without touching legacy classroom key (2.347233ms)
+✔ quota and readback failures restore prior roster bytes and preserve legacy bytes (0.344611ms)
+✔ readback mismatch rolls back the previous roster document (0.319912ms)
+✔ corrupt repository is reported and never overwritten (0.250868ms)
+✔ preview keeps duplicate legacy names distinct and never mutates input (2.746456ms)
+✔ individual mode retains roster and does not require group assignments (0.207243ms)
+✔ projection is profile-scoped, supports rename, and returns copies (0.646305ms)
+✔ rejects repeated identities, cross-classroom students and malformed mode atomically (0.886689ms)
+✔ refuses an unknown profile/group projection instead of redirecting a student (0.241805ms)
+✔ synchronous command persists once and records once (1.614317ms)
+✔ committed domain events are passed to persistence and published only after a successful save (0.857354ms)
+✔ cancelled, rejected and unpersisted commands do not publish achievement events (0.415487ms)
+✔ pending defense never persists a partial command; finish records one operation (6.327361ms)
+✔ cancellation restores pre-operation score and history, ignores late resolution (0.912017ms)
+✔ new command cancels pending operation before its own snapshot (1.626149ms)
+✔ rejected dialog rolls back instead of committing attacker consumption (0.588508ms)
+✔ multiple asynchronous effects commit only when all decisions finish (2.764222ms)
+✔ invalid or overflowing commands never persist (0.379924ms)
+✔ stale defense cancels entire command (1.632113ms)
+✔ render failure cannot roll back a successfully persisted command (1.044056ms)
+✔ non-history controls still get validation, one save and rollback without adding undo entries (0.214084ms)
+✔ async persistence keeps one command pending until durable acknowledgment (0.675019ms)
+✔ async rejection remains explicitly unsaved and does not publish events (1.718614ms)
+✔ strict async failure restores the pre-operation state and history (1.594437ms)
+✔ cancel cannot roll back an in-flight durable commit (1.551962ms)
+✔ deferred storage acknowledgment is never reported as durable success (0.3844ms)
+✔ async events publish exactly once after durable acknowledgment (2.062934ms)
+✔ postcommit notifications cannot reenter before earlier events and render complete (0.206211ms)
+✔ write barrier distinguishes cancellable defense from a durable commit in flight (2.701148ms)
+✔ snapshot failure does not leave an unresolved idle barrier behind (0.491062ms)
+✔ whenIdle waits for the actual durable result and resolves cancelled defenses (1.671343ms)
+✔ only one status is active at a time; the same one refreshes (2.447335ms)
+✔ freeze caps the answer gain it is the only active status (1.561838ms)
+✔ paralysis cancels answer only and unanswered does not expire (0.639145ms)
+✔ star and mega multiply total score 2x/3x and preserve wrong-answer scores until defenses expire (1.004827ms)
+✔ freeze cancellation and dizziness consume attempts without consuming inventory (0.833849ms)
+✔ exports the pure round calculation port (1.696671ms)
+✔ round score 0 A AllIn=false (0.209536ms)
+✔ round score 10 A AllIn=true (0.146411ms)
+✔ round score 0 A AllIn=true (0.096245ms)
+✔ round score 10 B AllIn=true (0.079861ms)
+✔ round score -10 B AllIn=true (0.116406ms)
+✔ round score -10 A AllIn=false (0.063786ms)
+✔ round score 10 blank AllIn=true (0.061103ms)
+✔ round score 10 B AllIn=false (0.13912ms)
+✔ round score 9007199254740991 B AllIn=false (0.248115ms)
+✔ rejects unsafe result before exposing any partial calculations (0.541758ms)
+✔ calculation preserves input and group ordering (0.687978ms)
+✖ component catalog includes every shipped CSS class, token and animation with source owners (97.850284ms)
+✔ component reference has no direct command, persistence or native authority (1.185519ms)
+✔ preview scoping preserves var shorthand declarations and only rewrites root selectors (1.226551ms)
+✔ registers immutable core routes once and does not let plugins shadow them (4.003043ms)
+✔ validates a batch atomically and rejects duplicate IDs, unknown slots and executable descriptors (1.53687ms)
+✔ binds plugin identity and scope to host activation instead of trusting descriptors (1.41121ms)
+✔ disposes only the matching activation and makes repeated disposal safe (0.995352ms)
+✔ returns cloned read-only data and rejects unknown kinds (0.897775ms)
+✔ current defense belongs to exact main item (0.997115ms)
+✔ new command invalidates pending confirmation (0.15201ms)
+✔ replaced item invalidates confirmation (0.120091ms)
+✔ restore/import invalidates former target (0.146371ms)
+✔ phase/answer/round/settlement changes invalidate confirmation (0.22536ms)
+✔ defense invalidation notifies command and visual owners independently (0.6825ms)
+✔ defense priority is an independent pure domain port (1.120942ms)
+✔ timed ghost precedes all effects (0.294615ms)
+✔ horn refusal precedes feather (0.171239ms)
+✔ timed ghost precedes horn refusal (0.084448ms)
+✔ ineligible group precedes feather (0.135364ms)
+✔ feather precedes bullet (0.087071ms)
+✔ bullet absolute defense (0.199361ms)
+✔ star counts even last hit (0.13301ms)
+✔ mega with zero remaining keeps legacy final defense (0.176566ms)
+✔ untimed ghost precedes inventory (0.214814ms)
+✔ bomb blocks shell (0.091829ms)
+✔ bomb cannot block spiny (0.150918ms)
+✔ basic inventory blocks normal attack (0.090747ms)
+✔ basic inventory cannot block spiny (0.128934ms)
+✔ horn blocks spiny (0.167373ms)
+✔ mushroom requests spiny decision (0.123065ms)
+✔ mushroom refused (0.267884ms)
+✔ secondary inventory is not defense (0.120572ms)
+✔ disposal is idempotent and runs every cleanup in reverse registration order (2.454385ms)
+✔ reports cleanup errors but still releases the remaining resources (1.6959ms)
+✔ listeners, timeout, frame, observers and animations are canceled on dispose (31.667028ms)
+✔ page lifecycle replaces the previous route scope exactly once (1.538122ms)
+✔ once listeners release their scope entry immediately after dispatch (0.836553ms)
+✔ listener removal retains the registered capture value when options mutate (0.702691ms)
+✔ command event scope emits immutable, sequenced, JSON-safe envelopes (2.077346ms)
+✔ rejects unsupported event types, missing aggregate identity and non-JSON payloads (0.689231ms)
+✔ keeps event origin explicit so manual edits and imports can be excluded from achievements (0.988862ms)
+✔ closed command scopes cannot produce late events (0.174714ms)
+✔ hand port loads before the desktop transport that uses it (0.785556ms)
+✔ the main renderer keeps classroom ownership; transport only forwards (0.318211ms)
+✔ reward draws stay inside one classroom transaction (0.261896ms)
+✔ desktop hand commands are forwarded instead of dropped (0.161944ms)
+✔ dock picker opens the floating window; only engine calls may hide an internal modal (1.818005ms)
+✔ production template contains no empty legacy scripts (185.00411ms)
+✔ global draw holds one pending command and does not persist the animation session early (4.467954ms)
+✔ one commit awards each item once and publishes idempotent acquisition events (7.178737ms)
+✔ storage rejection restores inventory, cooldowns, counters, ledger and history together (2.297338ms)
+✔ mid-batch award failure rolls back the first award without a partial save (1.611583ms)
+✔ cancelled old frames cannot award or release the replacement owner (2.346722ms)
+✔ asynchronous save remains busy until its durable acknowledgment (2.097796ms)
+道具抽取已提交，界面反馈失败 Error: injected presentation failure
+    at f.scope.renderGrid (file:///workspace/godpower-html-latest/tests/unit/global-draw-command.test.mjs:354:25)
+    at presentCommittedAwards (evalmachine.<anonymous>:126:5)
+    at evalmachine.<anonymous>:233:24
+✔ asynchronous save rejection rolls back and releases this draw (2.84219ms)
+✔ global draw cannot replace an in-progress hand reward draw session (0.919578ms)
+✔ presentation failure after commit preserves awards and releases the draw owner (2.396307ms)
+✔ saturated group badges retain exact selected fill and white ink (1.031037ms)
+✔ pale and invalid colors keep readable fallback (0.142965ms)
+✔ student number foreground meets AA on the existing blue group color (0.90069ms)
+✔ short colors and invalid-color fallback preserve compatibility (0.246312ms)
+✔ group label text meets AA across 216 solid RGB samples without changing group colors (1.467896ms)
+✔ one judged selection chooses a reward and completes without another business intent (2.392271ms)
+✔ wrong answer returns to groups, cancellation preserves an unspent reward (0.689471ms)
+✔ stale selection and another save generation cannot create a command (0.892757ms)
+✔ selection token gates judgment, rewards and group/season changes (4.605652ms)
+✔ failed save keeps judgment/reward retryable, locked mutation denied (1.176245ms)
+✔ rejected draw restores runtime and stays retryable (0.860689ms)
+✔ duplicate judge is refused and tokens are renewed per selection (1.055794ms)
+✔ a successful reward spends the judged selection and cannot score twice (1.777283ms)
+✔ same state object cannot keep a stale hand token across save generation or undo group replacement (1.600847ms)
+✔ cancelled item use preserves reward, accepted unsaved consumption cannot be repeated (1.320773ms)
+✔ snapshot retains exactly the legacy undo domain including global items (1.301475ms)
+✔ later score, inventory, picker and global mutations cannot change a snapshot (0.176777ms)
+✔ snapshot creation never mutates source state (0.148865ms)
+✔ isolated layout repository previews legacy fixed home without writing (2.160381ms)
+✔ layout writes verify, advance revision, and reject stale writers (0.923133ms)
+✔ corrupt data and storage failures never silently replace saved layouts (0.414606ms)
+✔ migration preview prefers saved layout and leaves bytes untouched (0.191098ms)
+✔ validates bounded grid layouts and rejects overlaps and executable data (2.914009ms)
+✔ creates unique home instances and refuses duplicate single-instance card types (0.876634ms)
+✔ moving and resizing uses deterministic collision resolution without overlap (0.819097ms)
+✔ draft undo redo, hide, cancel, and save never mutate initial layout (0.427676ms)
+✔ replacing a draft is undoable and never commits the saved layout (0.279902ms)
+✔ item impact facts report only actual losses to other stable groups (1.352371ms)
+✔ invalid identities, score values and no-op or beneficial changes emit no hit (0.32472ms)
+✔ default blocks preserve weights, score and charges; independent flow settings (1.198369ms)
+✔ weight multiplier preserves zero eligibility and no hidden fallback (1.108093ms)
+✔ invalid import and failed storage preserve live configuration (0.617142ms)
+✔ operation context ends after throw and multiplier rounded once (0.257859ms)
+✔ new inventory carries bounded configured charges; defaults unchanged (0.519945ms)
+✔ persistent slot and stealing modules reject unsupported repeat counts (0.427866ms)
+✔ deprecated item alias forwards one public command and preserves its result (9.438348ms)
+✔ conversion preserves scores, inventory charges, history, achievements and original input (10.316212ms)
+✔ same source imports are deterministic while different same-name students stay separate (3.806075ms)
+✔ repeated inline avatars in history are extracted once and restore losslessly (15.349841ms)
+✔ program preferences stay outside the match and missing assets refuse restoration (3.24602ms)
+✔ broken JSON and missing group identities fail without producing a partial save (2.08638ms)
+✔ portable save bundle preserves resource bytes and restores avatar references on import (3.600425ms)
+✔ portable bundles reject missing or corrupted resources before returning an import preview (3.804062ms)
+✔ an explicitly versioned empty classroom remains a valid empty save (1.686335ms)
+✔ legacy export preserves exact raw strings and every verified resource without writes (6.686118ms)
+✔ missing or corrupt resources and quota bounds fail export instead of reporting partial success (2.411751ms)
+✔ storage failure is explicit and never falls back to an empty successful backup (1.218629ms)
+✔ staging journals VERIFYING then VERIFIED only after both readbacks (2.567505ms)
+✔ target corruption cannot leave a verified journal (0.279401ms)
+✔ source change after import is durably distinguished from verified staging (0.351741ms)
+✔ journal persistence failure never reports successful staging or changes authority (0.372312ms)
+✔ cancellation after durable verification cannot contradict its recorded outcome (3.592693ms)
+✔ idle snapshots stay identical and never advance the random source (6.120339ms)
+✔ a new reveal cycle selects one style, snapshot polling retains it (1.791885ms)
+✔ ranking exposes an independent domain port (0.713237ms)
+✔ ranking preserves stable source order for ties and never reorders input (0.667968ms)
+✔ seeded characterization agrees with pre-refactor ordering including imported score values (6.521834ms)
+✔ valid score 0 (3.226711ms)
+✔ valid score 1 (0.245ms)
+✔ valid score -1 (0.074302ms)
+✔ valid score 9999999 (0.188645ms)
+✔ valid score 9007199254740991 (0.132551ms)
+✔ invalid backup null (0.223627ms)
+✔ invalid backup [] (0.744765ms)
+✔ invalid backup {} (0.33734ms)
+✔ invalid backup {"groups":[]} (0.183167ms)
+✔ invalid backup {"schemaVersion":2,"groups":[{}]} (0.248595ms)
+✔ invalid backup {"groups":[{"score":null}]} (0.160452ms)
+✔ invalid backup {"groups":[{"score":1.5}]} (0.058198ms)
+✔ invalid backup {"groups":[{"score":9007199254740992}]} (0.041032ms)
+✔ invalid backup {"groups":[{"members":"abc"}]} (0.037807ms)
+✔ invalid backup {"groups":[{"members":[null]}]} (0.060701ms)
+✔ invalid backup {"groups":[{"inventory":{}}]} (0.107172ms)
+✔ invalid backup {"groups":[{"inventory":[1,2,3,4]}]} (0.067622ms)
+✔ invalid backup {"groups":[{"itemEffect":[]}]} (0.039159ms)
+✔ invalid backup {"groups":[{}],"picker":[]} (0.037116ms)
+✔ phase NOT_STARTED (0.07223ms)
+✔ phase FINISHED (0.028904ms)
+✔ phase ANSWERING (0.025448ms)
+✔ phase ANSWER_SELECTED (0.024027ms)
+✔ phase SETTLED (0.024167ms)
+✔ legacy phase precedence 000:none (0.115675ms)
+✔ legacy phase precedence 000:A (0.034853ms)
+✔ legacy phase precedence 001:none (0.024537ms)
+✔ legacy phase precedence 001:A (0.103596ms)
+✔ legacy phase precedence 010:none (0.028984ms)
+✔ legacy phase precedence 010:A (0.074763ms)
+✔ legacy phase precedence 011:none (0.088253ms)
+✔ legacy phase precedence 011:A (0.03959ms)
+✔ legacy phase precedence 100:none (0.063866ms)
+✔ legacy phase precedence 100:A (0.032209ms)
+✔ legacy phase precedence 101:none (0.050817ms)
+✔ legacy phase precedence 101:A (0.053141ms)
+✔ legacy phase precedence 110:none (0.027111ms)
+✔ legacy phase precedence 110:A (0.025218ms)
+✔ legacy phase precedence 111:none (0.114222ms)
+✔ legacy phase precedence 111:A (0.035654ms)
+✔ reject image x" onerror="alert(1) (0.431332ms)
+✔ reject image javascript:alert(1) (0.150948ms)
+✔ reject image https://example.com/x (0.041453ms)
+✔ reject image data:image/svg+xml;base64,AAAA (0.120832ms)
+✔ raster data image accepted (0.095233ms)
+✔ CSV formula neutralization preserves numeric input externally (0.139831ms)
+✔ unsafe All In score is rejected before mutation (0.267714ms)
+✔ round calculation preserves answer and All In rules (0.737583ms)
+✔ statistics and effects reject injected strings (0.162004ms)
+✔ corrupt undo snapshots rejected on import (0.108274ms)
+✔ picker arrays reject oversized or non-primitive identifiers (0.245641ms)
+✔ cooldown and picker history reject malformed nested records (0.215305ms)
+✔ valid legacy picker cooldown and classroom histories remain importable (0.155295ms)
+✔ render ownership module exists (0.843353ms)
+✔ full refresh renders each page once in the established order (1.686335ms)
+✔ attack keeps old cards until 340ms and coalesces targets (0.822001ms)
+✔ attack callback resets flushing even when renderer throws (0.882662ms)
+✔ FLIP merges grid requests at 810ms and preserves held-score outer phase (0.667948ms)
+✔ attack gate also applies to delayed FLIP callback (0.674878ms)
+✔ only non-answering refresh clears item reorder suppression (0.691213ms)
+✔ classifies evidence separately from shipped code without discarding it (1.305971ms)
+✔ finds comment-only legacy blocks, not executable code (1.017195ms)
+✔ checks source and resource references without a fixed legacy block count (0.718775ms)
+✔ includes new non-ignored worktree files when checking the source manifest (0.210007ms)
+✔ application plan matches stable group IDs, preserves duplicate names and all non-member state (2.458261ms)
+✔ individual mode cannot be projected into group competition (0.92756ms)
+✔ unknown profiles, classrooms, groups and empty competition cannot silently redirect (0.462218ms)
+✔ legacy schemaVersion 2 must not be mistaken for a new SaveDocument (3.306952ms)
+✔ new save validates stable identities, revisions and roster references (7.947862ms)
+✔ negative revisions, duplicate identities and unsafe scores are rejected (3.02089ms)
+✔ malformed canonical archives and roster/match metadata are rejected before activation (3.266922ms)
+✔ failed new-library initialization cannot report a successful legacy save (2.030905ms)
+✔ archive deletion confirmation cannot target another save or bypass a newly locked classroom (2.618332ms)
+✔ runtime projection carries small resource references without decoding inline avatars into history (14.55444ms)
+✔ score-only persistence keeps student identities and roster revision stable (5.397518ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (4.571291ms)
+✔ pending archived season survives same-season projection and clears only on new season (5.642518ms)
+✔ desktop chooses the bounded native backend without opening a second authoritative database (5.072647ms)
+✔ native failures are returned without silently falling back to an empty browser library (1.774639ms)
+✔ legacy roster converts actual assignments and unowned class without inventing matches (14.089478ms)
+✔ legacy avatar bytes are hashed and re-owned only with matching classroom metadata (6.358709ms)
+✔ visual assignment moves stable students between groups without merging equal names (9.735276ms)
+✔ editing a student updates current labels while historical snapshots remain unchanged (6.111576ms)
+✔ adding an unassigned student and assigning avatars preserve scores, inventory and identities (3.979958ms)
+✔ invalid student references, duplicated selection and blank names cannot change roster data (3.596178ms)
+✔ manual score planning is independent of persistence and presentation (0.798225ms)
+✔ 10 plus 5 plans 15 (0.183798ms)
+✔ 0 plus -5 plans -5 (0.115844ms)
+✔ 99 plus 1 plans 100 (0.108875ms)
+✔ -10 plus 9 plans -1 (0.080912ms)
+✔ 9 plus -10 plans -1 (0.067412ms)
+✔ absolute score set preserves negative and unchanged values (0.134202ms)
+✔ overflow and noninteger inputs are rejected before mutation (0.337269ms)
+✔ grouped sources remain one execution unit with ordered immutable provenance (2.913768ms)
+✔ CSS source scanner retains conditional blocks and quoted braces, comments and URL semicolons (1.572024ms)
+✔ all numbered source files are retired and all replacement owners are included in the build (1.505953ms)
+✔ empty rule cleanup preserves keyframes, layers and quoted declarations (0.471612ms)
+✔ empty conditional scopes can be removed without dropping layer or keyframe semantics (0.321115ms)
+✔ retired selectors only match mandatory classes outside pseudo functions (0.337759ms)
+✔ all shipped CSS has a single canonical styles root (1.096205ms)
+✔ keeps existing group UIDs and assigns distinct stable UIDs to legacy groups (1.396018ms)
+✔ repairs duplicate and invalid group UIDs without changing group IDs (0.880128ms)
+✔ rejects invalid identity factories instead of silently creating unstable IDs (0.509489ms)
+✔ generates distinct item instance IDs with the item namespace (0.228695ms)
+✔ fallback identity generation never consumes the gameplay random generator (1.037486ms)
+✔ creates distinct user profile, classroom and student identities (0.197688ms)
+✔ assignStudentUids preserves valid IDs, repairs duplicates, and clones input (0.269307ms)
+✔ season archive retry is idempotent and never replaces a conflicting official result (1.08693ms)
+✔ an older archive with matching season identity but no comparable snapshot is protected (0.153502ms)
+✔ v1 to v2 migration preserves classroom data and adds stable identities without mutating input (1.613486ms)
+✔ migration copies and verifies the new envelope, writes receipt last, and retains the old source (0.78146ms)
+✔ migration is idempotent and never rewrites an already-current envelope (0.480716ms)
+✔ write or verification failure rolls back only the destination and preserves source bytes (0.315436ms)
+✔ a corrupt current envelope is surfaced instead of silently falling back to older data (1.048082ms)
+✔ legacy mirror migration imports only classroom keys and leaves unrelated IndexedDB assets alone (0.470741ms)
+✔ malformed legacy content is rejected before any destination write (0.195184ms)
+✔ invalid candidates are not exposed as validated recovery data (0.342067ms)
+✔ a valid current envelope never reads damaged fallback mirrors (0.292251ms)
+✔ v1 mistakenly placed in the current slot is durably upgraded once (0.284049ms)
+✔ absent legacy preferences preserve application defaults rather than becoming zero or false (0.276026ms)
+✔ failed destination rollback is reported without touching the legacy source (0.352412ms)
+✔ item target selection is a separately injectable domain port (2.249556ms)
+✔ self selects existing group references without mutating the ranking (1.172409ms)
+✔ above selects existing group references without mutating the ranking (0.129516ms)
+✔ below selects existing group references without mutating the ranking (0.208245ms)
+✔ leader selects existing group references without mutating the ranking (0.190528ms)
+✔ adjacent selects existing group references without mutating the ranking (0.275807ms)
+✔ aheadInclusive selects existing group references without mutating the ranking (0.229166ms)
+✔ behindInclusive selects existing group references without mutating the ranking (0.154013ms)
+✔ allAhead selects existing group references without mutating the ranking (0.312692ms)
+✔ threeAhead selects existing group references without mutating the ranking (0.262306ms)
+✔ randomOther selects existing group references without mutating the ranking (0.396178ms)
+✔ randomUnfrozen selects existing group references without mutating the ranking (0.170638ms)
+✔ blast selects existing group references without mutating the ranking (0.141604ms)
+✔ empty and all-frozen pools consume no random values (0.188444ms)
+✔ random pool uses exactly one supplied value and preserves eligibility ordering (0.118259ms)
+✔ a first-ranked caster is not targeted by leader attacks (3.374784ms)
+✔ unknown selector is rejected rather than silently selecting a target (0.366393ms)
+✔ resource metadata validates stable identities, normalized tags and safe bounds (2.548879ms)
+✔ resource bytes require matching signatures and reject active formats (4.409828ms)
+✔ resource matching is case-insensitive for filename extension only (0.165159ms)
+✔ the six declared formats require matching MIME and recognizable content (0.791234ms)
+✔ schedule validates stable references, weekday and local minute boundaries (2.760507ms)
+✔ schedule rejects overlaps for the same teacher, including different classrooms (0.411831ms)
+✔ current lesson uses a half-open interval and requires explicit profile match (0.305271ms)
+✔ schedule repository verifies writes and rejects stale revisions (0.664724ms)
+✔ schedule write failure restores prior bytes and never clears other data (0.228515ms)
+✔ battle presenter preserves answer, score, queue and All In markup without mutation (2.414725ms)
+✔ window motion finishes exactly once, cancellation never invokes close command (4.347083ms)
+✔ settings categories preserve current entries, About and retirement backup route with immutable metadata (0.931787ms)
+✔ CSS component split retains original cascade content and source order (12.555401ms)
+✔ disclosure setup is idempotent and disposal releases listener and active animation (1.684253ms)
+✔ daily content is stable across same-day reloads and changes next date (2.798736ms)
+✔ local civil day handles month and year boundaries (0.132841ms)
+✔ empty bank has no fabricated fallback question (0.102084ms)
+✔ built-in examples have sources and corresponding answers (0.334645ms)
+✔ invalid local bank rejected {} (0.396769ms)
+✔ invalid local bank rejected {"knowledge":[],"challenges":[{"id":"q","title":"x","subject":"politics","source":"source","options":["a","b","c","d"],"answer":4,"explanation":"x"}]} (0.369938ms)
+✔ invalid local bank rejected {"knowledge":[{"id":"a","title":"x","subject":"politics"}],"challenges":[]} (0.12559ms)
+✔ history differences use real snapshots without mutations (0.476459ms)
+✔ standings preserves canonical tie order and negative leader (0.278491ms)
+✔ standings aggregate is exact beyond individual safe-integer sum (0.494927ms)
+✔ empty standings is a safe display model (0.227203ms)
+✔ daily offsets are independent of dates and wrap without mutating content (0.133041ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => b.knowledge.push({ ...b.knowledge[0] }) (0.335717ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].id = " ") (0.227463ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].summary = 10) (1.039149ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.knowledge[0].subject = " ") (0.164258ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].options[0] = " ") (0.169126ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].options[0] = "a".repeat(10001)) (0.195996ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) => (b.challenges[0].source = " ") (0.49679ms)
+✔ bank rejects malformed fields and duplicates atomically: (b) =>
+    b.challenges.push(
+      ...Array.from({ length: 500 }, (_, i) => ({
+        ...b.challenges[0],
+        id: "extra" + i,
+      })),
+    ) (1.376668ms)
+✔ group badges retain exact group colors and use black ink on light fills (0.594237ms)
+✖ UI ownership report follows the build manifest and records the five default pages (97.164857ms)
+✔ manifest order and file byte evidence are deterministic (137.751682ms)
+✔ clock refreshes header while hidden, without rebuilding hidden welcome UI (2.221324ms)
+ℹ tests 406
+ℹ suites 0
+ℹ pass 402
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10969.112747
+
+✖ failing tests:
+
+test at tests/integration/css-consolidation.test.mjs:61:1
+✖ 3.0.66 CSS edits preserve every non-retired declaration and original cascade order (2303.41715ms)
+  AssertionError [ERR_ASSERTION]: src/styles/items/encyclopedia-layout.css
+  + actual - expected
+  ... Skipped lines
+  
+  + '/* Canonical gameplay reference: bounded image column and readable copy. */\n' +
+  +   '#gameplayContent .item-reference-head {\n' +
+  - '/* ===== V2.17.0：道具百科固定左图右文 ===== */\n' +
+  -   '#aboutMain .item-reference-head {\n' +
+      '  display: flex !important;\n' +
+      '  align-items: flex-start !important;\n' +
+      '  justify-content: space-between !important;\n' +
+      '  gap: 16px !important;\n' +
+      '  margin-bottom: 14px !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-head h2 {\n' +
+  -   '#aboutMain .item-reference-head h2 {\n' +
+      '  margin: 0 !important;\n' +
+      '  color: var(--window-head-text, var(--ui-text, #17302d)) !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-sub {\n' +
+  -   '#aboutMain .item-reference-sub {\n' +
+      '  margin-top: 4px !important;\n' +
+      '  color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;\n' +
+      '  font-size: 12px !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-list {\n' +
+  -   '#aboutMain .item-reference-list {\n' +
+      '  display: flex !important;\n' +
+      '  flex-direction: column !important;\n' +
+      '  gap: 9px !important;\n' +
+      '  width: 100% !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-row {\n' +
+  -   '#aboutMain .item-reference-row {\n' +
+      '  display: grid !important;\n' +
+      '  grid-template-columns: 88px minmax(0, 1fr) !important;\n' +
+      '  align-items: center !important;\n' +
+      '  gap: 14px !important;\n' +
+      '  width: 100% !important;\n' +
+  ...
+      '}\n' +
+  +   '#gameplayContent .item-reference-icon {\n' +
+  -   '#aboutMain .item-reference-icon {\n' +
+      '  width: 78px !important;\n' +
+      '  height: 78px !important;\n' +
+      '  min-width: 78px !important;\n' +
+      '  min-height: 78px !important;\n' +
+      '  max-width: 78px !important;\n' +
+  ...
+      '}\n' +
+  +   '#gameplayContent .item-reference-icon .item-reference-img,\n' +
+  +   '#gameplayContent .item-reference-icon img {\n' +
+  -   '#aboutMain .item-reference-icon .item-reference-img,\n' +
+  -   '#aboutMain .item-reference-icon img {\n' +
+      '  width: 62px !important;\n' +
+      '  height: 62px !important;\n' +
+      '  min-width: 0 !important;\n' +
+      '  min-height: 0 !important;\n' +
+      '  max-width: 62px !important;\n' +
+  ...
+      '}\n' +
+  +   '#gameplayContent .item-reference-copy {\n' +
+  -   '#aboutMain .item-reference-copy {\n' +
+      '  min-width: 0 !important;\n' +
+      '  display: flex !important;\n' +
+      '  flex-direction: column !important;\n' +
+      '  justify-content: center !important;\n' +
+      '  gap: 5px !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-name {\n' +
+  -   '#aboutMain .item-reference-name {\n' +
+      '  color: var(--ui-text, #17302d) !important;\n' +
+      '  font-size: 15px !important;\n' +
+      '  font-weight: 900 !important;\n' +
+      '  line-height: 1.25 !important;\n' +
+      '}\n' +
+  +   '#gameplayContent .item-reference-desc {\n' +
+  -   '#aboutMain .item-reference-desc {\n' +
+      '  color: var(--ui-muted, #607773) !important;\n' +
+      '  font-size: 13px !important;\n' +
+      '  line-height: 1.6 !important;\n' +
+      '  white-space: normal !important;\n' +
+      '  overflow-wrap: anywhere !important;\n' +
+  ...
+      '/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */\n' +
+  +   '#gameplayContent {\n' +
+  -   '#aboutMain {\n' +
+      '  min-width: 0 !important;\n' +
+      '}\n' +
+  +   '#gameplayContent img {\n' +
+  -   '#aboutMain img {\n' +
+      '  object-fit: contain;\n' +
+      '}\n' +
+      '\n' +
+      '@media (max-width: 640px) {\n' +
+  +   '  #gameplayContent .item-reference-row {\n' +
+  -   '  #aboutMain .item-reference-row {\n' +
+      '    grid-template-columns: 66px minmax(0, 1fr) !important;\n' +
+      '    min-height: 78px !important;\n' +
+      '    gap: 10px !important;\n' +
+      '    padding: 8px 10px !important;\n' +
+      '  }\n' +
+  +   '  #gameplayContent .item-reference-icon {\n' +
+  -   '  #aboutMain .item-reference-icon {\n' +
+      '    width: 58px !important;\n' +
+      '    height: 58px !important;\n' +
+      '    min-width: 58px !important;\n' +
+      '    min-height: 58px !important;\n' +
+      '    max-width: 58px !important;\n' +
+      '    max-height: 58px !important;\n' +
+      '  }\n' +
+  +   '  #gameplayContent .item-reference-icon .item-reference-img,\n' +
+  +   '  #gameplayContent .item-reference-icon img {\n' +
+  -   '  #aboutMain .item-reference-icon .item-reference-img,\n' +
+  -   '  #aboutMain .item-reference-icon img {\n' +
+      '    width: 46px !important;\n' +
+      '    height: 46px !important;\n' +
+      '    max-width: 46px !important;\n' +
+      '    max-height: 46px !important;\n' +
+      '  }\n' +
+  +   '  #gameplayContent .item-reference-name {\n' +
+  -   '  #aboutMain .item-reference-name {\n' +
+      '    font-size: 14px !important;\n' +
+      '  }\n' +
+  +   '  #gameplayContent .item-reference-desc {\n' +
+  -   '  #aboutMain .item-reference-desc {\n' +
+      '    font-size: 12px !important;\n' +
+      '  }\n' +
+      '}\n'
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/integration/css-consolidation.test.mjs:329:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '/* Canonical gameplay reference: bounded image column and readable copy. */\n#gameplayContent .item-reference-head {\n  display: flex !important;\n  align-items: flex-start !important;\n  justify-content: space-between !important;\n  gap: 16px !important;\n  margin-bottom: 14px !important;\n}\n#gameplayContent .item-reference-head h2 {\n  margin: 0 !important;\n  color: var(--window-head-text, var(--ui-text, #17302d)) !important;\n}\n#gameplayContent .item-reference-sub {\n  margin-top: 4px !important;\n  color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;\n  font-size: 12px !important;\n}\n#gameplayContent .item-reference-list {\n  display: flex !important;\n  flex-direction: column !important;\n  gap: 9px !important;\n  width: 100% !important;\n}\n#gameplayContent .item-reference-row {\n  display: grid !important;\n  grid-template-columns: 88px minmax(0, 1fr) !important;\n  align-items: center !important;\n  gap: 14px !important;\n  width: 100% !important;\n  min-height: 96px !important;\n  padding: 9px 14px !important;\n  border: 1px solid var(--ui-border, #c9dcd8) !important;\n  border-radius: 12px !important;\n  background: #fff !important;\n  box-shadow: none !important;\n  overflow: hidden !important;\n}\n#gameplayContent .item-reference-icon {\n  width: 78px !important;\n  height: 78px !important;\n  min-width: 78px !important;\n  min-height: 78px !important;\n  max-width: 78px !important;\n  max-height: 78px !important;\n  border-radius: 50% !important;\n  background: #f3f8f7 !important;\n  border: 1px solid #d8e5e2 !important;\n  display: flex !important;\n  align-items: center !important;\n  justify-content: center !important;\n  overflow: hidden !important;\n  font-size: 44px !important;\n  line-height: 1 !important;\n}\n#gameplayContent .item-reference-icon .item-reference-img,\n#gameplayContent .item-reference-icon img {\n  width: 62px !important;\n  height: 62px !important;\n  min-width: 0 !important;\n  min-height: 0 !important;\n  max-width: 62px !important;\n  max-height: 62px !important;\n  object-fit: contain !important;\n  display: block !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  transform: none !important;\n}\n#gameplayContent .item-reference-copy {\n  min-width: 0 !important;\n  display: flex !important;\n  flex-direction: column !important;\n  justify-content: center !important;\n  gap: 5px !important;\n}\n#gameplayContent .item-reference-name {\n  color: var(--ui-text, #17302d) !important;\n  font-size: 15px !important;\n  font-weight: 900 !important;\n  line-height: 1.25 !important;\n}\n#gameplayContent .item-reference-desc {\n  color: var(--ui-muted, #607773) !important;\n  font-size: 13px !important;\n  line-height: 1.6 !important;\n  white-space: normal !important;\n  overflow-wrap: anywhere !important;\n}\n\n/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */\n#gameplayContent {\n  min-width: 0 !important;\n}\n#gameplayContent img {\n  object-fit: contain;\n}\n\n@media (max-width: 640px) {\n  #gameplayContent .item-reference-row {\n    grid-template-columns: 66px minmax(0, 1fr) !important;\n    min-height: 78px !important;\n    gap: 10px !important;\n    padding: 8px 10px !important;\n  }\n  #gameplayContent .item-reference-icon {\n    width: 58px !important;\n    height: 58px !important;\n    min-width: 58px !important;\n    min-height: 58px !important;\n    max-width: 58px !important;\n    max-height: 58px !important;\n  }\n  #gameplayContent .item-reference-icon .item-reference-img,\n  #gameplayContent .item-reference-icon img {\n    width: 46px !important;\n    height: 46px !important;\n    max-width: 46px !important;\n    max-height: 46px !important;\n  }\n  #gameplayContent .item-reference-name {\n    font-size: 14px !important;\n  }\n  #gameplayContent .item-reference-desc {\n    font-size: 12px !important;\n  }\n}\n',
+    expected: '/* ===== V2.17.0：道具百科固定左图右文 ===== */\n#aboutMain .item-reference-head {\n  display: flex !important;\n  align-items: flex-start !important;\n  justify-content: space-between !important;\n  gap: 16px !important;\n  margin-bottom: 14px !important;\n}\n#aboutMain .item-reference-head h2 {\n  margin: 0 !important;\n  color: var(--window-head-text, var(--ui-text, #17302d)) !important;\n}\n#aboutMain .item-reference-sub {\n  margin-top: 4px !important;\n  color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;\n  font-size: 12px !important;\n}\n#aboutMain .item-reference-list {\n  display: flex !important;\n  flex-direction: column !important;\n  gap: 9px !important;\n  width: 100% !important;\n}\n#aboutMain .item-reference-row {\n  display: grid !important;\n  grid-template-columns: 88px minmax(0, 1fr) !important;\n  align-items: center !important;\n  gap: 14px !important;\n  width: 100% !important;\n  min-height: 96px !important;\n  padding: 9px 14px !important;\n  border: 1px solid var(--ui-border, #c9dcd8) !important;\n  border-radius: 12px !important;\n  background: #fff !important;\n  box-shadow: none !important;\n  overflow: hidden !important;\n}\n#aboutMain .item-reference-icon {\n  width: 78px !important;\n  height: 78px !important;\n  min-width: 78px !important;\n  min-height: 78px !important;\n  max-width: 78px !important;\n  max-height: 78px !important;\n  border-radius: 50% !important;\n  background: #f3f8f7 !important;\n  border: 1px solid #d8e5e2 !important;\n  display: flex !important;\n  align-items: center !important;\n  justify-content: center !important;\n  overflow: hidden !important;\n  font-size: 44px !important;\n  line-height: 1 !important;\n}\n#aboutMain .item-reference-icon .item-reference-img,\n#aboutMain .item-reference-icon img {\n  width: 62px !important;\n  height: 62px !important;\n  min-width: 0 !important;\n  min-height: 0 !important;\n  max-width: 62px !important;\n  max-height: 62px !important;\n  object-fit: contain !important;\n  display: block !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  transform: none !important;\n}\n#aboutMain .item-reference-copy {\n  min-width: 0 !important;\n  display: flex !important;\n  flex-direction: column !important;\n  justify-content: center !important;\n  gap: 5px !important;\n}\n#aboutMain .item-reference-name {\n  color: var(--ui-text, #17302d) !important;\n  font-size: 15px !important;\n  font-weight: 900 !important;\n  line-height: 1.25 !important;\n}\n#aboutMain .item-reference-desc {\n  color: var(--ui-muted, #607773) !important;\n  font-size: 13px !important;\n  line-height: 1.6 !important;\n  white-space: normal !important;\n  overflow-wrap: anywhere !important;\n}\n\n/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */\n#aboutMain {\n  min-width: 0 !important;\n}\n#aboutMain img {\n  object-fit: contain;\n}\n\n@media (max-width: 640px) {\n  #aboutMain .item-reference-row {\n    grid-template-columns: 66px minmax(0, 1fr) !important;\n    min-height: 78px !important;\n    gap: 10px !important;\n    padding: 8px 10px !important;\n  }\n  #aboutMain .item-reference-icon {\n    width: 58px !important;\n    height: 58px !important;\n    min-width: 58px !important;\n    min-height: 58px !important;\n    max-width: 58px !important;\n    max-height: 58px !important;\n  }\n  #aboutMain .item-reference-icon .item-reference-img,\n  #aboutMain .item-reference-icon img {\n    width: 46px !important;\n    height: 46px !important;\n    max-width: 46px !important;\n    max-height: 46px !important;\n  }\n  #aboutMain .item-reference-name {\n    font-size: 14px !important;\n  }\n  #aboutMain .item-reference-desc {\n    font-size: 12px !important;\n  }\n}\n',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/css-consolidation.test.mjs:336:1
+✖ retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata (671.386473ms)
+  Error: ENOENT: no such file or directory, open 'src/ui/teaching-workspace.js'
+      at readFileSync (node:fs:484:20)
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/integration/css-consolidation.test.mjs:349:11)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'src/ui/teaching-workspace.js'
+  }
+
+test at tests/unit/component-catalog.test.mjs:7:1
+✖ component catalog includes every shipped CSS class, token and animation with source owners (97.850284ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    [
+      'about-head',
+      'about-side-title',
+      'about-tabs',
+      'action-score-col',
+  ...
+      'inventory-row',
+  +   'is-closing',
+      'item-bar',
+      'item-draw-board',
+      'item-draw-card',
+      'item-draw-grid',
+      'item-draw-overlay',
+  ...
+      'stat-card',
+  +   'teaching-current',
+  +   'teaching-resource-card',
+  +   'teaching-resource-card-actions',
+  +   'teaching-resource-card-info',
+  +   'teaching-resource-file-label',
+  +   'teaching-resource-filters',
+  +   'teaching-resource-import',
+  +   'teaching-resource-list',
+  +   'teaching-resource-preview',
+  +   'teaching-resource-preview-body',
+  +   'teaching-resource-scope',
+  +   'teaching-resource-tags',
+  +   'teaching-resource-workspace',
+  +   'teaching-schedule-actions',
+  +   'teaching-schedule-form',
+  +   'teaching-schedule-list',
+  +   'teaching-schedule-table',
+  +   'teaching-schedule-toolbar',
+  +   'teaching-schedule-workspace',
+      'top-dashboard-grid',
+      'ui-clock',
+      'ui-modal-close',
+      'ui-page-head',
+      'ui-section-title',
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/component-catalog.test.mjs:32:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [
+      'about-head',                   'about-side-title',               'about-tabs',
+      'action-score-col',             'answer-zone',                    'archive-card',
+      'battle-metrics-row',           'card-fx-layer',                  'chart-container',
+      'chart-wrapper',                'color-picker',                   'component-library-token',
+      'component-library-tokens',     'copy-kicker',                    'dashboard-card-title',
+      'dashboard-summary-container',  'del-btn',                        'draw-name',
+      'expanded',                     'full',                           'fullview-body',
+      'fullview-header',              'fx-bundle-copy',                 'fx-bundle-toolbar',
+      'group-control-tabs',           'group-control-window',           'group-modal-window',
+      'hand-window',                  'header-meta-col',                'header-name-col',
+      'hist-actions',                 'hist-card',                      'hist-card-top',
+      'hist-compare',                 'hist-compare-table',             'hist-delta-neg',
+      'hist-delta-pos',               'hist-delta-zero',                'hist-desc',
+      'hist-time',                    'history-card',                   'history-item',
+      'icon-setting-card',            'inventory-row',                  'is-closing',
+      'item-bar',                     'item-draw-board',                'item-draw-card',
+      'item-draw-grid',               'item-draw-overlay',              'item-draw-title',
+      'item-encyclopedia-icon',       'item-feature-only',              'item-inventory',
+      'item-members',                 'item-row',                       'item-rule',
+      'item-sidebar',                 'item-slots-row',                 'item-tabs',
+      'item-window-body',             'item-window-tabs',               'legacy-settings-tabbar',
+      'member-count-tag',             'member-search-fab',              'menu-active',
+      'metric-box',                   'metric-label',                   'metric-value',
+      'name-input',                   'picker-modal',                   'picker-window',
+      'result-msg-box',               'roulette',                       'score-zone',
+      'setting-section',              'settings-card',                  'sound-setting-card',
+      'squid-score-mask',             'stat-card',                      'teaching-current',
+      'teaching-resource-card',       'teaching-resource-card-actions', 'teaching-resource-card-info',
+      'teaching-resource-file-label', 'teaching-resource-filters',      'teaching-resource-import',
+      'teaching-resource-list',       'teaching-resource-preview',      'teaching-resource-preview-body',
+      'teaching-resource-scope',      'teaching-resource-tags',         'teaching-resource-workspace',
+      'teaching-schedule-actions',    'teaching-schedule-form',         'teaching-schedule-list',
+      'teaching-schedule-table',      'teaching-schedule-toolbar',      'teaching-schedule-workspace',
+      'top-dashboard-grid',
+      ... 31 more items
+    ],
+    expected: [
+      'about-head',                  'about-side-title',       'about-tabs',
+      'action-score-col',            'answer-zone',            'archive-card',
+      'battle-metrics-row',          'card-fx-layer',          'chart-container',
+      'chart-wrapper',               'color-picker',           'component-library-token',
+      'component-library-tokens',    'copy-kicker',            'dashboard-card-title',
+      'dashboard-summary-container', 'del-btn',                'draw-name',
+      'expanded',                    'full',                   'fullview-body',
+      'fullview-header',             'fx-bundle-copy',         'fx-bundle-toolbar',
+      'group-control-tabs',          'group-control-window',   'group-modal-window',
+      'hand-window',                 'header-meta-col',        'header-name-col',
+      'hist-actions',                'hist-card',              'hist-card-top',
+      'hist-compare',                'hist-compare-table',     'hist-delta-neg',
+      'hist-delta-pos',              'hist-delta-zero',        'hist-desc',
+      'hist-time',                   'history-card',           'history-item',
+      'icon-setting-card',           'inventory-row',          'item-bar',
+      'item-draw-board',             'item-draw-card',         'item-draw-grid',
+      'item-draw-overlay',           'item-draw-title',        'item-encyclopedia-icon',
+      'item-feature-only',           'item-inventory',         'item-members',
+      'item-row',                    'item-rule',              'item-sidebar',
+      'item-slots-row',              'item-tabs',              'item-window-body',
+      'item-window-tabs',            'legacy-settings-tabbar', 'member-count-tag',
+      'member-search-fab',           'menu-active',            'metric-box',
+      'metric-label',                'metric-value',           'name-input',
+      'picker-modal',                'picker-window',          'result-msg-box',
+      'roulette',                    'score-zone',             'setting-section',
+      'settings-card',               'sound-setting-card',     'squid-score-mask',
+      'stat-card',                   'top-dashboard-grid',     'ui-clock',
+      'ui-modal-close',              'ui-page-head',           'ui-section-title',
+      'ui-welcome-time',             'w-stat-label',           'welcome-card',
+      'welcome-card-title',          'welcome-card-title-row', 'welcome-cards',
+      'welcome-chart-wrapper',       'welcome-clock',          'welcome-date',
+      'welcome-enter-wrap',          'welcome-extra-metrics',  'welcome-greeting',
+      'welcome-hero',                'welcome-modal',          'welcome-modal-btn',
+      'welcome-modal-card',
+      ... 11 more items
+    ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/unit/ui-ownership.test.mjs:5:1
+✖ UI ownership report follows the build manifest and records the five default pages (97.164857ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'view-welcome',
+      'view-battle',
+  +   'view-gameplay',
+      'view-archives',
+      'view-history',
+      'view-settings'
+    ]
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/ui-ownership.test.mjs:8:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'view-welcome', 'view-battle', 'view-gameplay', 'view-archives', 'view-history', 'view-settings' ],
+    expected: [ 'view-welcome', 'view-battle', 'view-archives', 'view-history', 'view-settings' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

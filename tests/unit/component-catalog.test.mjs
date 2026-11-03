@@ -29,9 +29,37 @@ test("component catalog includes every shipped CSS class, token and animation wi
   const missing = baseline.classes.filter(
     (item) => !generated.classes.some((current) => current.name === item.name),
   );
+  const retirements = JSON.parse(
+    readFileSync("src/source-retirements.json", "utf8"),
+  );
+  const laterRetired = Array.from(missing).filter((item) =>
+    item.sources.every((path) => {
+      const moves = JSON.parse(
+        readFileSync("src/source-relocations.json", "utf8"),
+      );
+      let next = path.slice(4);
+      const seen = new Set();
+      while (moves[next]) {
+        assert.ok(!seen.has(next));
+        seen.add(next);
+        next = moves[next];
+      }
+      const receipt = retirements[next];
+      return (
+        receipt &&
+        receipt.owners.every((owner) => readFileSync("src/" + owner).length) &&
+        readFileSync(receipt.evidence).length
+      );
+    }),
+  );
   assert.deepEqual(
     Array.from(missing, (item) => item.name).sort(),
-    proof.removed.map((item) => item.name).sort(),
+    [
+      ...new Set([
+        ...proof.removed.map((item) => item.name),
+        ...laterRetired.map((item) => item.name),
+      ]),
+    ].sort(),
   );
   const relocations = JSON.parse(readFileSync("src/source-relocations.json"));
   const currentOwner = (path) => {

@@ -325,12 +325,49 @@ test("3.0.66 CSS edits preserve every non-retired declaration and original casca
     assert.equal(hash(s), postScopes.sourceHashes[p], p);
     stages.set(p, removeEmptyStyleRules(s, { dropEmptyConditions: true }));
   }
-  for (const [p, s] of stages)
+  const ownerEdits = JSON.parse(
+    readFileSync("artifacts/m4-governance/style-owner-edits.json", "utf8"),
+  );
+  const retirements = JSON.parse(
+    readFileSync("src/source-retirements.json", "utf8"),
+  );
+  for (const [p, s] of stages) {
+    let expected = s;
+    const receipt = ownerEdits.find((row) => row.path === p);
+    if (receipt) {
+      const old = execFileSync("git", ["show", receipt.baseline + ":" + p], {
+        encoding: "utf8",
+        maxBuffer: 2e6,
+      });
+      assert.equal(hash(old), receipt.sha256, p);
+      assert.equal(
+        await format(old, { parser: "css" }),
+        await format(expected, { parser: "css" }),
+        p + " historical checkpoint",
+      );
+      if (receipt.retired) {
+        assert.ok(
+          retirements[p.slice(4)] &&
+            existsSync(retirements[p.slice(4)].evidence),
+        );
+        assert.equal(existsSync(p), false);
+        continue;
+      }
+      expected = old;
+      for (const edit of receipt.edits.toSorted((a, b) => b.start - a.start)) {
+        assert.equal(expected.slice(edit.start, edit.end), edit.original);
+        expected =
+          expected.slice(0, edit.start) +
+          edit.replacement +
+          expected.slice(edit.end);
+      }
+    }
     assert.equal(
       await format(readFileSync(p, "utf8"), { parser: "css" }),
-      await format(s, { parser: "css" }),
+      await format(expected, { parser: "css" }),
       p,
     );
+  }
 });
 
 test("retired screen classes have no current references; CSS checkpoint scripts retain statements except presentation metadata", async () => {
@@ -345,9 +382,15 @@ test("retired screen classes have no current references; CSS checkpoint scripts 
   for (const b of checkpointManifest.blocks.filter(
     (b) => b.type === "script" && b.path !== "ui/component-catalog.js",
   )) {
-    const path = "src/" + b.path,
-      s = readFileSync(path, "utf8");
-    logic += "\n" + s;
+    const path = "src/" + b.path;
+    if (existsSync(path)) logic += "\n" + readFileSync(path, "utf8");
+    else {
+      const receipt = JSON.parse(
+        readFileSync("src/source-retirements.json", "utf8"),
+      )[b.path];
+      assert.ok(receipt && existsSync(receipt.evidence), path);
+      assert.ok(receipt.owners.every((owner) => existsSync("src/" + owner)));
+    }
     let expected = baseline(path);
     for (const [from, to] of Object.entries(
       read("style-directory-moves").moves,
