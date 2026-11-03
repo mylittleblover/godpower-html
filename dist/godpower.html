@@ -37806,7 +37806,8 @@ const ItemOperationBlocks = (() => {
         CompetitionEffects.has(g, "invincible") ||
         CompetitionEffects.has(g, "mega");
       const clean = pool.filter((g) => !hasStatus(g));
-      const pickFrom = (list) => list.splice(Math.floor(Math.random() * list.length), 1)[0];
+      const pickFrom = (list) =>
+        list.splice(Math.floor(Math.random() * list.length), 1)[0];
       c.targets = [];
       for (let i = 0; i < count; i++) {
         const candidates = clean.length ? clean : pool;
@@ -38084,9 +38085,10 @@ const ItemOperationBlocks = (() => {
       if (effects[blueprint.effect](context) === false) return false;
       Object.assign(presentation, {
         key,
-        caster: { id: group.id, name: group.name },
+        caster: { id: group.id, groupUid: group.groupUid, name: group.name },
         targets: context.targets.map((target) => ({
           id: target.id,
+          groupUid: target.groupUid,
           name: target.name,
           blocked: context.blocked.has(target.id),
           delta:
@@ -38117,12 +38119,7 @@ const ItemOperationBlocks = (() => {
           ordered.map((g) => g.id),
         );
       // The card animation still plays; the small text toast under it is gone.
-      if (!presentation.fromHand)
-        showItemUseFx(
-          key,
-          group.id,
-          "",
-        );
+      if (!presentation.fromHand) showItemUseFx(key, group.id, "");
       return true;
     } finally {
       if (context.redirectedItem)
@@ -39428,6 +39425,15 @@ const ManualScoreCommands = (() => {
   object-fit: contain;
   filter: drop-shadow(0 0 24px #ffffff50);
 }
+.hic-group-avatar {
+  display: block;
+  width: clamp(90px, 12vw, 180px);
+  height: clamp(90px, 12vw, 180px);
+  object-fit: cover;
+  border-radius: 24px;
+  margin: 18px auto;
+  box-shadow: 0 0 36px #71dbc144;
+}
 .hic-targets strong {
   display: block;
   font-size: clamp(24px, 4vw, 64px);
@@ -39532,6 +39538,24 @@ globalThis.HandItemCinematic = (() => {
   }
   /* The native reveal window cannot decode this document's DOM, so the
      cinematic travels as plain validated data. */
+  function avatarFor(group) {
+    if (!group?.groupUid) return "";
+    const live = state.groups.find(
+      (g) => g.id === group.id && g.groupUid === group.groupUid,
+    );
+    const url = live
+      ? globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(live) || ""
+      : "";
+    return url.length <= 180000 &&
+      /^data:image\/webp;base64,[A-Za-z0-9+/=]+$/.test(url)
+      ? url
+      : "";
+  }
+  function avatarMarkup(url) {
+    return url
+      ? `<img class="hic-group-avatar" src="${escapeHtml(url)}" alt="小组头像">`
+      : "";
+  }
   function payload(result) {
     const targets = result.targets?.length
       ? result.targets
@@ -39539,6 +39563,7 @@ globalThis.HandItemCinematic = (() => {
     return {
       key: result.key,
       caster: result.caster?.name || "",
+      casterAvatarDataUrl: avatarFor(result.caster),
       itemName: ITEM_DEFS[result.key]?.name || result.key,
       icon:
         typeof itemIconDataUrl === "function"
@@ -39546,6 +39571,7 @@ globalThis.HandItemCinematic = (() => {
           : "",
       targets: targets.slice(0, 16).map((target) => ({
         name: String(target.name || ""),
+        avatarDataUrl: avatarFor(target),
         delta: Number.isSafeInteger(target.delta) ? target.delta : 0,
         blocked: !!target.blocked,
         effectChanged: !!target.effectChanged,
@@ -39584,7 +39610,7 @@ globalThis.HandItemCinematic = (() => {
     const targets = result.targets.length
       ? result.targets
       : [{ name: "无可用目标", delta: 0 }];
-    dialog.innerHTML = `<div class="hic-surface"><section class="hic-attacker"><small>攻击方 / 发动方</small><h2>${escapeHtml(result.caster.name)}</h2><div class="hic-icon">${itemVisual(result.key)}</div><strong>${escapeHtml(ITEM_DEFS[result.key].name)}</strong></section><span class="hic-arrow" aria-hidden="true">→</span><section class="hic-defender"><small>防守方 / 接收方</small><div class="hic-targets"></div></section></div><button class="btn ui-cinematic-skip">继续课堂 · 跳过特效</button>`;
+    dialog.innerHTML = `<div class="hic-surface"><section class="hic-attacker"><small>攻击方 / 发动方</small>${avatarMarkup(avatarFor(result.caster))}<h2>${escapeHtml(result.caster.name)}</h2><div class="hic-icon">${itemVisual(result.key)}</div><strong>${escapeHtml(ITEM_DEFS[result.key].name)}</strong></section><span class="hic-arrow" aria-hidden="true">→</span><section class="hic-defender"><small>防守方 / 接收方</small><div class="hic-targets"></div></section></div><button class="btn ui-cinematic-skip">继续课堂 · 跳过特效</button>`;
     dialog.querySelector("button").onclick = dismiss;
     dialog.addEventListener("cancel", (e) => {
       e.preventDefault();
@@ -39605,7 +39631,7 @@ globalThis.HandItemCinematic = (() => {
               ? "获得道具"
               : "效果已结算";
       dialog.querySelector(".hic-targets").innerHTML =
-        `<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p><small>${index} / ${targets.length}</small>`;
+        `${avatarMarkup(avatarFor(target))}<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p><small>${index} / ${targets.length}</small>`;
       timer = setTimeout(index < targets.length ? next : dismiss, 1500);
     };
     dialog.showModal();
@@ -45362,6 +45388,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hic-arrow",
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
+    },
+    {
+      name: "hic-group-avatar",
       sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
@@ -55021,6 +55051,10 @@ globalThis.HandRaisePort = (() => {
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
+            avatarDataUrl:
+              globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(
+                state.groups.find((g) => g.id === handSnapshot.groupId),
+              ) || "",
             phase: handSnapshot.phase,
             motionEnabled:
               DesktopUI.getPreferences().motion !== "off" &&

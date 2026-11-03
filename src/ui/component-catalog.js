@@ -2165,6 +2165,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
+      name: "hic-group-avatar",
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
+    },
+    {
       name: "hic-icon",
       sources: ["src/styles/feedback/item-score-cinematics.css"],
     },

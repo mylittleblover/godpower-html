@@ -38,7 +38,8 @@ const ItemOperationBlocks = (() => {
         CompetitionEffects.has(g, "invincible") ||
         CompetitionEffects.has(g, "mega");
       const clean = pool.filter((g) => !hasStatus(g));
-      const pickFrom = (list) => list.splice(Math.floor(Math.random() * list.length), 1)[0];
+      const pickFrom = (list) =>
+        list.splice(Math.floor(Math.random() * list.length), 1)[0];
       c.targets = [];
       for (let i = 0; i < count; i++) {
         const candidates = clean.length ? clean : pool;
@@ -316,9 +317,10 @@ const ItemOperationBlocks = (() => {
       if (effects[blueprint.effect](context) === false) return false;
       Object.assign(presentation, {
         key,
-        caster: { id: group.id, name: group.name },
+        caster: { id: group.id, groupUid: group.groupUid, name: group.name },
         targets: context.targets.map((target) => ({
           id: target.id,
+          groupUid: target.groupUid,
           name: target.name,
           blocked: context.blocked.has(target.id),
           delta:
@@ -349,12 +351,7 @@ const ItemOperationBlocks = (() => {
           ordered.map((g) => g.id),
         );
       // The card animation still plays; the small text toast under it is gone.
-      if (!presentation.fromHand)
-        showItemUseFx(
-          key,
-          group.id,
-          "",
-        );
+      if (!presentation.fromHand) showItemUseFx(key, group.id, "");
       return true;
     } finally {
       if (context.redirectedItem)

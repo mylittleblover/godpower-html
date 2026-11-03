@@ -40,6 +40,15 @@
   object-fit: contain;
   filter: drop-shadow(0 0 24px #ffffff50);
 }
+.hic-group-avatar {
+  display: block;
+  width: clamp(90px, 12vw, 180px);
+  height: clamp(90px, 12vw, 180px);
+  object-fit: cover;
+  border-radius: 24px;
+  margin: 18px auto;
+  box-shadow: 0 0 36px #71dbc144;
+}
 .hic-targets strong {
   display: block;
   font-size: clamp(24px, 4vw, 64px);

@@ -1,0 +1,33 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
++   caster: undefined,
++   staleCaster: undefined,
++   staleTarget: undefined,
++   target: undefined
+-   caster: true,
+-   staleCaster: '',
+-   staleTarget: '',
+-   target: true
+  }
+
+    at file:///workspace/godpower-html-latest/tests/e2e/item-avatars.mjs:85:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: {
+    caster: undefined,
+    target: undefined,
+    staleCaster: undefined,
+    staleTarget: undefined
+  },
+  expected: { caster: true, target: true, staleCaster: '', staleTarget: '' },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

@@ -24,6 +24,24 @@ globalThis.HandItemCinematic = (() => {
   }
   /* The native reveal window cannot decode this document's DOM, so the
      cinematic travels as plain validated data. */
+  function avatarFor(group) {
+    if (!group?.groupUid) return "";
+    const live = state.groups.find(
+      (g) => g.id === group.id && g.groupUid === group.groupUid,
+    );
+    const url = live
+      ? globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(live) || ""
+      : "";
+    return url.length <= 180000 &&
+      /^data:image\/webp;base64,[A-Za-z0-9+/=]+$/.test(url)
+      ? url
+      : "";
+  }
+  function avatarMarkup(url) {
+    return url
+      ? `<img class="hic-group-avatar" src="${escapeHtml(url)}" alt="小组头像">`
+      : "";
+  }
   function payload(result) {
     const targets = result.targets?.length
       ? result.targets
@@ -31,6 +49,7 @@ globalThis.HandItemCinematic = (() => {
     return {
       key: result.key,
       caster: result.caster?.name || "",
+      casterAvatarDataUrl: avatarFor(result.caster),
       itemName: ITEM_DEFS[result.key]?.name || result.key,
       icon:
         typeof itemIconDataUrl === "function"
@@ -38,6 +57,7 @@ globalThis.HandItemCinematic = (() => {
           : "",
       targets: targets.slice(0, 16).map((target) => ({
         name: String(target.name || ""),
+        avatarDataUrl: avatarFor(target),
         delta: Number.isSafeInteger(target.delta) ? target.delta : 0,
         blocked: !!target.blocked,
         effectChanged: !!target.effectChanged,
@@ -76,7 +96,7 @@ globalThis.HandItemCinematic = (() => {
     const targets = result.targets.length
       ? result.targets
       : [{ name: "无可用目标", delta: 0 }];
-    dialog.innerHTML = `<div class="hic-surface"><section class="hic-attacker"><small>攻击方 / 发动方</small><h2>${escapeHtml(result.caster.name)}</h2><div class="hic-icon">${itemVisual(result.key)}</div><strong>${escapeHtml(ITEM_DEFS[result.key].name)}</strong></section><span class="hic-arrow" aria-hidden="true">→</span><section class="hic-defender"><small>防守方 / 接收方</small><div class="hic-targets"></div></section></div><button class="btn ui-cinematic-skip">继续课堂 · 跳过特效</button>`;
+    dialog.innerHTML = `<div class="hic-surface"><section class="hic-attacker"><small>攻击方 / 发动方</small>${avatarMarkup(avatarFor(result.caster))}<h2>${escapeHtml(result.caster.name)}</h2><div class="hic-icon">${itemVisual(result.key)}</div><strong>${escapeHtml(ITEM_DEFS[result.key].name)}</strong></section><span class="hic-arrow" aria-hidden="true">→</span><section class="hic-defender"><small>防守方 / 接收方</small><div class="hic-targets"></div></section></div><button class="btn ui-cinematic-skip">继续课堂 · 跳过特效</button>`;
     dialog.querySelector("button").onclick = dismiss;
     dialog.addEventListener("cancel", (e) => {
       e.preventDefault();
@@ -97,7 +117,7 @@ globalThis.HandItemCinematic = (() => {
               ? "获得道具"
               : "效果已结算";
       dialog.querySelector(".hic-targets").innerHTML =
-        `<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p><small>${index} / ${targets.length}</small>`;
+        `${avatarMarkup(avatarFor(target))}<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p><small>${index} / ${targets.length}</small>`;
       timer = setTimeout(index < targets.length ? next : dismiss, 1500);
     };
     dialog.showModal();

@@ -77,6 +77,10 @@
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
+            avatarDataUrl:
+              globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(
+                state.groups.find((g) => g.id === handSnapshot.groupId),
+              ) || "",
             phase: handSnapshot.phase,
             motionEnabled:
               DesktopUI.getPreferences().motion !== "off" &&

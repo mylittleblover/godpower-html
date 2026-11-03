@@ -105,3 +105,5 @@ M4.1完成：新增玩法一级页，原28道具与七状态百科由既有说�
 M4.2完成：退役无共享调用的两个旧教学UI模块及其专属CSS，移除课程表/资源库设置分类。共享名单/课程/资源domain和repository保留，旧数据键/IDB资源不修改；设置→数据与安全→旧教学数据备份可只读导出所有范围、损坏配置原文和通过SHA256校验的blob。缺失/损坏资源、存储异常或超过128MiB明确失败，不生成半份成功备份。3项精准单元RED→GREEN，相关治理合计15项PASS，真实Chromium1920×1080/1x下载/资源原字节/原存储不变/入口退役PASS，build/check PASS。退役证据docs/reports/TEACHING_UI_RETIREMENT.md；source-retirements记录替代owner。历史CSS位置测试仍校验原始分拆哈希，现行退休文件按凭据验证，未伪装文件仍在。旧教学UI测试保留历史用途，现行Web回归命令替换为新备份场景。Windows真机未测试。
 
 M4.3完成：浅色积分改为中性深底、保留真实小组亮色数字，去掉黑描边；编号仍为原组色底且浅色黑字。前三名为金/银/铜辅助标签，其他中性；不改变ranking()算法。真实Chromium两主题14卡几何逐项相同、浅色/深色颜色、前三标签、独立BGM控制PASS，5项现行UI模块单元与check PASS。成员可视选择/姓名学号搜索、按studentUid分配、头像和名单原子保存已由S03G/SaveWorkspace完成，复用该唯一入口，不再新增平行group-member-picker。Ruling：按已批准3.0.68规格采用深底亮字，优先于更早浅底白字请求；不改变组色。源码owner直接修改，没有尾部CSS补丁。
+
+M4.4 Web完成：道具结果DTO增加稳定groupUid；演出头像只从当前同id+uid组读取有界WebP缓存，发动方/目标均展示，没有头像或旧档UID则准确隐藏，不跨档补图。正式道具行为无改动。真实Chromium头像上传入档→缓存→双方演出/关闭清理、过期UID不显示RED→GREEN；check/format PASS，截图artifacts/item-avatars。点名三模式头像此前S03已接入同一适配器；Electron举手/道具头像IPC白名单及显示正在联调，尚未宣称整段完成。
