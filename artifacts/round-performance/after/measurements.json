@@ -1,0 +1,59 @@
+{
+  "source": "worktree",
+  "browser": "154.0.8037.57",
+  "environment": "Linux Chromium headless; not Windows FPS",
+  "viewport": "1920x1080 DPR1",
+  "groups": 14,
+  "students": 56,
+  "history": 40,
+  "results": [
+    {
+      "key": "round",
+      "ok": true,
+      "ackMs": 711.6999999992549,
+      "frames": 56,
+      "p50": 33.30000000000018,
+      "p95": 116.80000000000018,
+      "max": 416.60000000000036,
+      "longTasks": [
+        213,
+        408
+      ],
+      "before": [
+        100,
+        140,
+        180,
+        220,
+        260,
+        300,
+        340,
+        380,
+        420,
+        460,
+        500,
+        540,
+        580,
+        620
+      ],
+      "after": [
+        102,
+        142,
+        182,
+        222,
+        262,
+        302,
+        342,
+        382,
+        422,
+        462,
+        502,
+        542,
+        582,
+        622
+      ],
+      "fullscreens": 0,
+      "remainingLayers": 0
+    }
+  ],
+  "errors": []
+}

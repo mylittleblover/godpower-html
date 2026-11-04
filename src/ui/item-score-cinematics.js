@@ -146,17 +146,33 @@ globalThis.ScoreCardMotion = (() => {
     session.nodes?.forEach((n) => n.remove());
     session.hidden?.classList.remove("score-motion-hidden");
   }
-  function mount(session, card) {
+  function measure(card) {
+    const score = card?.querySelector(".row-score");
+    if (!score) return null;
+    const cardRect = card.getBoundingClientRect(),
+      scoreRect = score.getBoundingClientRect();
+    return {
+      card,
+      x:
+        scoreRect.left +
+        scoreRect.width / 2 -
+        cardRect.left -
+        cardRect.width / 2,
+      y:
+        scoreRect.top +
+        scoreRect.height / 2 -
+        cardRect.top -
+        cardRect.height / 2,
+    };
+  }
+  function mount(session, card, measured) {
     remove(session);
     if (!card) return;
     const score = card.querySelector(".row-score");
     if (!score) return;
-    const cardRect = card.getBoundingClientRect(),
-      scoreRect = score.getBoundingClientRect();
-    const x =
-      scoreRect.left + scoreRect.width / 2 - cardRect.left - cardRect.width / 2;
-    const y =
-      scoreRect.top + scoreRect.height / 2 - cardRect.top - cardRect.height / 2;
+    const point = measured?.card === card ? measured : measure(card);
+    if (!point) return;
+    const { x, y } = point;
     const layer = document.createElement("div");
     layer.className = "score-card-wash";
     const number = document.createElement("div");
@@ -231,6 +247,18 @@ globalThis.ScoreCardMotion = (() => {
       done?.();
       return;
     }
+    // Read all layout once before any card gets an animated overlay.
+    const positions = new Map();
+    if (enabled())
+      for (const update of updates) {
+        if (update.start === update.target) continue;
+        const point = measure(
+          document.querySelector(
+            `#groupList [data-group-id="${update.groupId}"]`,
+          ),
+        );
+        if (point) positions.set(update.groupId, point);
+      }
     for (const update of updates) {
       const g = state.groups.find((g) => g.id === update.groupId);
       if (!g || !enabled() || update.start === update.target) {
@@ -269,9 +297,13 @@ globalThis.ScoreCardMotion = (() => {
       sessions.set(String(g.id), session);
       g.displayScore = update.start;
       itemScoreDisplayHoldV21732.set(String(g.id), update.start);
+      const point = positions.get(g.id);
       mount(
         session,
-        document.querySelector(`#groupList [data-group-id="${g.id}"]`),
+        point?.card.isConnected
+          ? point.card
+          : document.querySelector(`#groupList [data-group-id="${g.id}"]`),
+        point,
       );
       session.timer = setTimeout(() => finish(session), duration + 40);
     }

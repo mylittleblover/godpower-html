@@ -1,0 +1,1 @@
+PASS score animation geometry reads form one batch before DOM writes

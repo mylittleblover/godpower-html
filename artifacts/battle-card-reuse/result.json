@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "ok": true,
+  "reused": 13,
+  "count": 14,
+  "score": 342,
+  "changedStatus": true,
+  "round": {
+    "judged": true,
+    "before": [
+      100,
+      140,
+      180,
+      220,
+      260,
+      300,
+      342,
+      380,
+      420,
+      460,
+      500,
+      540,
+      580,
+      620
+    ],
+    "after": [
+      102,
+      142,
+      182,
+      222,
+      262,
+      302,
+      344,
+      382,
+      422,
+      462,
+      502,
+      542,
+      582,
+      622
+    ],
+    "historyAdded": 1,
+    "evaluated": true
+  }
+}

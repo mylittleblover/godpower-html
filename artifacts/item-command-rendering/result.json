@@ -3,6 +3,7 @@
   "result": {
     "ok": true,
     "renders": 1,
+    "oldCardMeasurements": 0,
     "fullDocumentScans": 0,
     "before": 340,
     "after": 342,

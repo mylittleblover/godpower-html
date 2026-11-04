@@ -223,9 +223,9 @@ function itemCustomScore(id) {
   itemQuickScore(id, Math.round(n));
 }
 
-function enhanceItemCards() {
+function enhanceItemCards(groups = state.groups) {
   ensureItemState();
-  state.groups.forEach((g) => {
+  groups.forEach((g) => {
     const c = document.querySelector(
       `.group-row-card[data-group-id="${g.id}"]`,
     );

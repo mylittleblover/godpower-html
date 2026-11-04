@@ -45,7 +45,9 @@ try {
   await cdp.send("Profiler.enable");
   await cdp.send("Profiler.start");
   const results = [];
-  for (const key of ["coin", "green", "lightning", "star"]) {
+  for (const key of process.env.PERF_ONLY_ROUND
+    ? ["round"]
+    : ["coin", "green", "lightning", "star"]) {
     await page.evaluate((key) => {
       BattleMotion.clear();
       cancelScoreAnimationAndSync();
@@ -58,7 +60,16 @@ try {
         delete g.roundItemInstanceId;
         delete g.roundItemKey;
       }
-      addItemToGroup(state.groups[6], key);
+      if (key === "round") {
+        state.roundActive = true;
+        state.evaluated = false;
+        state.correctAns = "A";
+        state.groups.forEach((g) => {
+          g.selectedOpt = "A";
+          g.allIn = false;
+          g.competitionEffects = {};
+        });
+      } else addItemToGroup(state.groups[6], key);
       renderAll();
     }, key);
     const row = await page.evaluate(async (key) => {
@@ -78,7 +89,8 @@ try {
       requestAnimationFrame(frame);
       const start = performance.now(),
         before = state.groups.map((g) => g.score);
-      const ok = await useItem(state.groups[6].id, 0);
+      const ok =
+        key === "round" ? judgeRound() : await useItem(state.groups[6].id, 0);
       await classroomCommands.whenIdle();
       await SaveManager.whenIdle();
       const ack = performance.now() - start;

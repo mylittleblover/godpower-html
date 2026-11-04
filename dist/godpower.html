@@ -29424,9 +29424,9 @@ function itemCustomScore(id) {
   itemQuickScore(id, Math.round(n));
 }
 
-function enhanceItemCards() {
+function enhanceItemCards(groups = state.groups) {
   ensureItemState();
-  state.groups.forEach((g) => {
+  groups.forEach((g) => {
     const c = document.querySelector(
       `.group-row-card[data-group-id="${g.id}"]`,
     );
@@ -36915,6 +36915,7 @@ const GodPowerBattleCardView = Object.freeze({
 });
 </script>
 <script>/* Card DOM and decoration only. Rules and refresh scheduling have separate owners. */
+const battleCardRenderState = new WeakMap();
 function renderBattleGridCards() {
   const grid = document.getElementById("groupList");
   if (!grid) return;
@@ -36937,7 +36938,6 @@ function renderBattleGridCards() {
     oldOrderIds.length === newOrderIds.length &&
     oldOrderIds.some((id, i) => id !== newOrderIds[i]);
 
-
   const oldRects = new Map();
   if (orderActuallyChanged)
     grid.querySelectorAll(".group-row-card[data-group-id]").forEach((c) => {
@@ -36951,23 +36951,19 @@ function renderBattleGridCards() {
       ? "1fr"
       : "repeat(auto-fill, minmax(380px, 1fr))";
   grid.dataset.columnMode = state.columnMode;
-  grid.innerHTML = "";
-
+  const oldCards = new Map(
+    [...grid.children].map((card) => [String(card.dataset.groupId), card]),
+  );
+  const cards = [],
+    changedGroups = [];
 
   /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
      答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
   const rankReorderAnimationV21723 = orderActuallyChanged;
 
   ordered.forEach((g) => {
-    const rowCard = document.createElement("div");
-    rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
-    rowCard.dataset.groupId = g.id;
-    rowCard.style.borderLeftColor = g.color;
-    rowCard.style.setProperty("--group-color", g.color);
     const badge = GodpowerUIModel.badgeColors(g.color);
-    rowCard.style.setProperty("--group-contrast", badge.foreground);
-    rowCard.style.setProperty("--group-badge-color", badge.background);
-    rowCard.innerHTML = GodPowerBattleCardView.render(
+    const markup = GodPowerBattleCardView.render(
       g,
       {
         roundActive: state.roundActive,
@@ -36986,16 +36982,57 @@ function renderBattleGridCards() {
         groupNumber: groupNoTextV213,
       },
     );
-    grid.appendChild(rowCard);
+    const signature = JSON.stringify([
+      markup,
+      g.color,
+      g.animState,
+      g.itemEffect,
+      g.competitionEffects,
+      g.booShield,
+      g.itemUsedThisRound,
+      g.roundItemInstanceId,
+      g.avatarResourceId,
+      g.memberStudentUids,
+      g.members,
+      state.rosterSnapshot?.revision,
+    ]);
+    const previous = oldCards.get(String(g.id)),
+      cache = previous && battleCardRenderState.get(previous);
+    if (
+      !orderActuallyChanged &&
+      cache?.group === g &&
+      cache.signature === signature
+    ) {
+      cards.push(previous);
+      return;
+    }
+    const rowCard = document.createElement("div");
+    rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
+    rowCard.dataset.groupId = g.id;
+    rowCard.style.borderLeftColor = g.color;
+    rowCard.style.setProperty("--group-color", g.color);
+    rowCard.style.setProperty("--group-contrast", badge.foreground);
+    rowCard.style.setProperty("--group-badge-color", badge.background);
+    rowCard.innerHTML = markup;
+    battleCardRenderState.set(rowCard, { group: g, signature });
+    cards.push(rowCard);
+    changedGroups.push(g);
+  });
+
+  const retained = new Set(cards);
+  for (const card of [...grid.children]) if (!retained.has(card)) card.remove();
+  cards.forEach((card, index) => {
+    if (grid.children[index] !== card)
+      grid.insertBefore(card, grid.children[index] || null);
   });
 
   /* 复用既有队列/防御/持续状态逻辑，但把三点菜单控制权拿回来。 */
   try {
-    enhanceItemCards();
+    enhanceItemCards(changedGroups);
   } catch (e) {
     console.warn("enhance item cards", e);
   }
-  ordered.forEach((g) => {
+  changedGroups.forEach((g) => {
     const card = grid.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
     if (!card) return;
     const main = card.querySelector(".queue-main-slot");
@@ -37040,13 +37077,13 @@ function renderBattleGridCards() {
     globalThis.ScoreCardMotion?.restore(card, g.id);
   });
   if (typeof ClassroomAvatarDisplay !== "undefined")
-    ClassroomAvatarDisplay.decorateGroupCards(ordered);
+    ClassroomAvatarDisplay.decorateGroupCards(changedGroups);
 
   if (state.editingScoreId != null) {
     const input = document.getElementById(
       `input-score-${state.editingScoreId}`,
     );
-    if (input) {
+    if (input && document.activeElement !== input) {
       input.focus();
       input.select();
     }
@@ -37285,11 +37322,12 @@ function refreshBattleGrid() {
       "3 发冰球；每次随机攻击尚未冰冻的小组，扣当前积分 1/5 并冰冻：禁止 All In，正向答题收益最多 1 分；2 次答题或阻挡一次道具使用后解除，原道具不消耗。目标仅限前三与末二的未冻结合法组；没有目标时不消耗次数。",
     boomerang_flower:
       "3 次回旋镖；每次攻击相邻上下组，各扣当前积分 1/5，并追加眩晕：接下来 2 次定向道具尝试有 50% 概率转向自身。不会重复扣除 1/5。",
-    star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。按答题轮次计时，到期后状态结束。例：20 分答对变 40，All In 答对变 60；答错仍为 20。",
-    mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。按答题轮次计时，到期后释放道具栏。例：20 分答对变 40，All In 答对变 60；答错仍为 20。",
+    star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后状态结束。",
+    mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后释放道具栏。",
   };
-  for (const [key, desc] of Object.entries(descriptions)) {
-    ITEM_DEFS[key].desc = desc;
+  for (const [key, desc] of Object.entries(descriptions)) ITEM_DEFS[key].desc = desc;
+  for (const key of ITEM_KEYS) {
+    const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
     for (const map of [
       GROUP_ITEM_DESC_V2182,
@@ -37318,6 +37356,8 @@ function refreshBattleGrid() {
   if (typeof ITEM_TIPS_V218 !== "undefined")
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
   Object.assign(ITEM_FUNNY_COPY_V2184, {
+    star: "三轮防御，使用后立即腾出主要道具槽。",
+    mega: "三轮防御，占据主要道具槽。",
     kamek: "水晶球一亮，随机给几位对手安排一点小麻烦。每组一份，不重复点名。",
     item_box: "拆开一箱，全班补货。别忘了别人也会拿到道具。",
     fire_flower: "火球扣分之后还有余温；接下来的两次答题，灼烧仍会扣分。",
@@ -39584,17 +39624,33 @@ globalThis.ScoreCardMotion = (() => {
     session.nodes?.forEach((n) => n.remove());
     session.hidden?.classList.remove("score-motion-hidden");
   }
-  function mount(session, card) {
+  function measure(card) {
+    const score = card?.querySelector(".row-score");
+    if (!score) return null;
+    const cardRect = card.getBoundingClientRect(),
+      scoreRect = score.getBoundingClientRect();
+    return {
+      card,
+      x:
+        scoreRect.left +
+        scoreRect.width / 2 -
+        cardRect.left -
+        cardRect.width / 2,
+      y:
+        scoreRect.top +
+        scoreRect.height / 2 -
+        cardRect.top -
+        cardRect.height / 2,
+    };
+  }
+  function mount(session, card, measured) {
     remove(session);
     if (!card) return;
     const score = card.querySelector(".row-score");
     if (!score) return;
-    const cardRect = card.getBoundingClientRect(),
-      scoreRect = score.getBoundingClientRect();
-    const x =
-      scoreRect.left + scoreRect.width / 2 - cardRect.left - cardRect.width / 2;
-    const y =
-      scoreRect.top + scoreRect.height / 2 - cardRect.top - cardRect.height / 2;
+    const point = measured?.card === card ? measured : measure(card);
+    if (!point) return;
+    const { x, y } = point;
     const layer = document.createElement("div");
     layer.className = "score-card-wash";
     const number = document.createElement("div");
@@ -39669,6 +39725,18 @@ globalThis.ScoreCardMotion = (() => {
       done?.();
       return;
     }
+    // Read all layout once before any card gets an animated overlay.
+    const positions = new Map();
+    if (enabled())
+      for (const update of updates) {
+        if (update.start === update.target) continue;
+        const point = measure(
+          document.querySelector(
+            `#groupList [data-group-id="${update.groupId}"]`,
+          ),
+        );
+        if (point) positions.set(update.groupId, point);
+      }
     for (const update of updates) {
       const g = state.groups.find((g) => g.id === update.groupId);
       if (!g || !enabled() || update.start === update.target) {
@@ -39707,9 +39775,13 @@ globalThis.ScoreCardMotion = (() => {
       sessions.set(String(g.id), session);
       g.displayScore = update.start;
       itemScoreDisplayHoldV21732.set(String(g.id), update.start);
+      const point = positions.get(g.id);
       mount(
         session,
-        document.querySelector(`#groupList [data-group-id="${g.id}"]`),
+        point?.card.isConnected
+          ? point.card
+          : document.querySelector(`#groupList [data-group-id="${g.id}"]`),
+        point,
       );
       session.timer = setTimeout(() => finish(session), duration + 40);
     }

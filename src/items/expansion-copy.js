@@ -47,11 +47,12 @@
       "3 发冰球；每次随机攻击尚未冰冻的小组，扣当前积分 1/5 并冰冻：禁止 All In，正向答题收益最多 1 分；2 次答题或阻挡一次道具使用后解除，原道具不消耗。目标仅限前三与末二的未冻结合法组；没有目标时不消耗次数。",
     boomerang_flower:
       "3 次回旋镖；每次攻击相邻上下组，各扣当前积分 1/5，并追加眩晕：接下来 2 次定向道具尝试有 50% 概率转向自身。不会重复扣除 1/5。",
-    star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。按答题轮次计时，到期后状态结束。例：20 分答对变 40，All In 答对变 60；答错仍为 20。",
-    mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。按答题轮次计时，到期后释放道具栏。例：20 分答对变 40，All In 答对变 60；答错仍为 20。",
+    star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后状态结束。",
+    mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后释放道具栏。",
   };
-  for (const [key, desc] of Object.entries(descriptions)) {
-    ITEM_DEFS[key].desc = desc;
+  for (const [key, desc] of Object.entries(descriptions)) ITEM_DEFS[key].desc = desc;
+  for (const key of ITEM_KEYS) {
+    const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
     for (const map of [
       GROUP_ITEM_DESC_V2182,
@@ -80,6 +81,8 @@
   if (typeof ITEM_TIPS_V218 !== "undefined")
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
   Object.assign(ITEM_FUNNY_COPY_V2184, {
+    star: "三轮防御，使用后立即腾出主要道具槽。",
+    mega: "三轮防御，占据主要道具槽。",
     kamek: "水晶球一亮，随机给几位对手安排一点小麻烦。每组一份，不重复点名。",
     item_box: "拆开一箱，全班补货。别忘了别人也会拿到道具。",
     fire_flower: "火球扣分之后还有余温；接下来的两次答题，灼烧仍会扣分。",

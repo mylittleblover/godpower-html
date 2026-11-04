@@ -1,4 +1,5 @@
 /* Card DOM and decoration only. Rules and refresh scheduling have separate owners. */
+const battleCardRenderState = new WeakMap();
 function renderBattleGridCards() {
   const grid = document.getElementById("groupList");
   if (!grid) return;
@@ -21,7 +22,6 @@ function renderBattleGridCards() {
     oldOrderIds.length === newOrderIds.length &&
     oldOrderIds.some((id, i) => id !== newOrderIds[i]);
 
-
   const oldRects = new Map();
   if (orderActuallyChanged)
     grid.querySelectorAll(".group-row-card[data-group-id]").forEach((c) => {
@@ -35,23 +35,19 @@ function renderBattleGridCards() {
       ? "1fr"
       : "repeat(auto-fill, minmax(380px, 1fr))";
   grid.dataset.columnMode = state.columnMode;
-  grid.innerHTML = "";
-
+  const oldCards = new Map(
+    [...grid.children].map((card) => [String(card.dataset.groupId), card]),
+  );
+  const cards = [],
+    changedGroups = [];
 
   /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
      答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
   const rankReorderAnimationV21723 = orderActuallyChanged;
 
   ordered.forEach((g) => {
-    const rowCard = document.createElement("div");
-    rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
-    rowCard.dataset.groupId = g.id;
-    rowCard.style.borderLeftColor = g.color;
-    rowCard.style.setProperty("--group-color", g.color);
     const badge = GodpowerUIModel.badgeColors(g.color);
-    rowCard.style.setProperty("--group-contrast", badge.foreground);
-    rowCard.style.setProperty("--group-badge-color", badge.background);
-    rowCard.innerHTML = GodPowerBattleCardView.render(
+    const markup = GodPowerBattleCardView.render(
       g,
       {
         roundActive: state.roundActive,
@@ -70,16 +66,57 @@ function renderBattleGridCards() {
         groupNumber: groupNoTextV213,
       },
     );
-    grid.appendChild(rowCard);
+    const signature = JSON.stringify([
+      markup,
+      g.color,
+      g.animState,
+      g.itemEffect,
+      g.competitionEffects,
+      g.booShield,
+      g.itemUsedThisRound,
+      g.roundItemInstanceId,
+      g.avatarResourceId,
+      g.memberStudentUids,
+      g.members,
+      state.rosterSnapshot?.revision,
+    ]);
+    const previous = oldCards.get(String(g.id)),
+      cache = previous && battleCardRenderState.get(previous);
+    if (
+      !orderActuallyChanged &&
+      cache?.group === g &&
+      cache.signature === signature
+    ) {
+      cards.push(previous);
+      return;
+    }
+    const rowCard = document.createElement("div");
+    rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
+    rowCard.dataset.groupId = g.id;
+    rowCard.style.borderLeftColor = g.color;
+    rowCard.style.setProperty("--group-color", g.color);
+    rowCard.style.setProperty("--group-contrast", badge.foreground);
+    rowCard.style.setProperty("--group-badge-color", badge.background);
+    rowCard.innerHTML = markup;
+    battleCardRenderState.set(rowCard, { group: g, signature });
+    cards.push(rowCard);
+    changedGroups.push(g);
+  });
+
+  const retained = new Set(cards);
+  for (const card of [...grid.children]) if (!retained.has(card)) card.remove();
+  cards.forEach((card, index) => {
+    if (grid.children[index] !== card)
+      grid.insertBefore(card, grid.children[index] || null);
   });
 
   /* 复用既有队列/防御/持续状态逻辑，但把三点菜单控制权拿回来。 */
   try {
-    enhanceItemCards();
+    enhanceItemCards(changedGroups);
   } catch (e) {
     console.warn("enhance item cards", e);
   }
-  ordered.forEach((g) => {
+  changedGroups.forEach((g) => {
     const card = grid.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
     if (!card) return;
     const main = card.querySelector(".queue-main-slot");
@@ -124,13 +161,13 @@ function renderBattleGridCards() {
     globalThis.ScoreCardMotion?.restore(card, g.id);
   });
   if (typeof ClassroomAvatarDisplay !== "undefined")
-    ClassroomAvatarDisplay.decorateGroupCards(ordered);
+    ClassroomAvatarDisplay.decorateGroupCards(changedGroups);
 
   if (state.editingScoreId != null) {
     const input = document.getElementById(
       `input-score-${state.editingScoreId}`,
     );
-    if (input) {
+    if (input && document.activeElement !== input) {
       input.focus();
       input.select();
     }
