@@ -132,7 +132,15 @@ const ClassroomFeedback = (() => {
         root.querySelector(".cf-show-particles")?.replaceChildren();
       });
   }
-  function show({ type, title, subtitle, value, avatars = [] }) {
+  function show({
+    type,
+    title,
+    subtitle,
+    value,
+    avatars = [],
+    groupName = "",
+    groupAvatarUrl = "",
+  }) {
     if (
       !allowed() ||
       (type === "pick" ? !options.pickEffects : !options.scoreEffects)
@@ -191,12 +199,24 @@ const ClassroomFeedback = (() => {
       avatarStack.append(image);
     }
     avatarStack.hidden = !avatarStack.childElementCount;
+    const groupIdentity = root.querySelector(".cf-show-group"),
+      groupImage = groupIdentity.querySelector("img");
+    groupIdentity.hidden = !groupName;
+    groupIdentity.querySelector("span").textContent = groupName;
+    groupImage.hidden = !groupAvatarUrl;
+    groupImage.removeAttribute("src");
+    if (groupAvatarUrl.startsWith("blob:")) groupImage.src = groupAvatarUrl;
+    groupImage.onerror = () => {
+      groupImage.hidden = true;
+      groupImage.removeAttribute("src");
+    };
+
     const particles = root.querySelector(".cf-show-particles");
     const simple = DesktopUI.getPreferences().motion === "simple";
     if (!simple)
-      for (let i = 0; i < 24; i++) {
+      for (let i = 0; i < 12; i++) {
         const dot = document.createElement("i");
-        const angle = (i / 24) * Math.PI * 2;
+        const angle = (i / 12) * Math.PI * 2;
         dot.style.setProperty("--px", `${Math.cos(angle) * 42}vw`);
         dot.style.setProperty("--py", `${Math.sin(angle) * 42}vh`);
         dot.style.setProperty("--delay", `${(i % 6) * 35}ms`);
@@ -236,7 +256,14 @@ const ClassroomFeedback = (() => {
       subtitle:
         mode === "group"
           ? "本次抽中小组"
-          : `${group?.name || ""}${student?.number != null ? " · 学号 " + student.number : ""}`,
+          : student?.number != null
+            ? "学号 " + student.number
+            : "本次课堂之星",
+      groupName: mode === "group" ? "" : group?.name || "",
+      groupAvatarUrl:
+        mode === "group"
+          ? ""
+          : window.ClassroomAvatarDisplay?.ownGroupUrl(group) || "",
       value: mode === "group" ? "LUCKY TEAM" : "就是你",
       avatars:
         mode === "group"
@@ -377,7 +404,7 @@ const ClassroomFeedback = (() => {
     }
     document.body.insertAdjacentHTML(
       "beforeend",
-      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><div class="cf-show-avatar-stack" hidden></div><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
+      `<dialog id="classroomShowcase" aria-label="课堂结果特效"><section class="cf-show-surface ui-function-surface"><div class="cf-show-orbit" aria-hidden="true"></div><div class="cf-show-particles" aria-hidden="true"></div><div class="cf-show-copy"><p class="cf-show-eyebrow"></p><div class="cf-show-avatar-stack" hidden></div><h2 class="cf-show-title"></h2><p class="cf-show-subtitle"></p><div class="cf-show-group" hidden><img alt="小组头像" hidden><span></span></div><strong class="cf-show-value"></strong></div></section><button type="button" class="btn ui-cinematic-skip" onclick="ClassroomFeedback.dismiss()">继续课堂 · 跳过特效</button></dialog>`,
     );
     bindButtonSound();
     Reliability.onDefenseInvalidation(() => {

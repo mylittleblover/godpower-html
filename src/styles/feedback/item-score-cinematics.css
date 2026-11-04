@@ -49,9 +49,28 @@
   margin: 18px auto;
   box-shadow: 0 0 36px #71dbc144;
 }
+.hic-target-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+}
+.hic-target-grid article {
+  padding: 12px;
+  border: 1px solid #ffffff26;
+  border-radius: 16px;
+  background: #ffffff0a;
+}
+.hic-target-grid h2 {
+  font-size: clamp(18px, 2vw, 32px);
+}
+.hic-target-grid .hic-group-avatar {
+  width: 68px;
+  height: 68px;
+  margin: 4px auto 10px;
+}
 .hic-targets strong {
   display: block;
-  font-size: clamp(24px, 4vw, 64px);
+  font-size: clamp(20px, 2.5vw, 36px);
   color: #fff3ad;
 }
 .hic-arrow {

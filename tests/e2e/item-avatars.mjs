@@ -150,6 +150,30 @@ try {
     "cached avatar presentation must not clone complete match/history documents",
   );
 
+  const person = await page.evaluate(() => {
+    const group = state.groups[0],
+      win = { group, memberName: group.members[0], memberIndex: 0 };
+    state.picker.mode = "individual";
+    slotEngine.chosenResult = win;
+    GodpowerPicker.notify("rolling");
+    GodpowerPicker.notify("revealed");
+    const r = GodpowerPicker.getSnapshot().result;
+    ClassroomFeedback.setOptions({ pickEffects: true }, { persist: false });
+    ClassroomFeedback.picked(win, "individual");
+    return {
+      student: r.avatarDataUrl?.startsWith("data:image/webp"),
+      group: r.groupAvatarDataUrl?.startsWith("data:image/webp"),
+      name: group.name,
+    };
+  });
+  assert.equal(person.student, true);
+  assert.equal(person.group, true);
+  assert.equal(
+    await page.locator(".cf-show-group span").textContent(),
+    person.name,
+  );
+  assert.equal(await page.locator(".cf-show-group img").isVisible(), true);
+  await page.evaluate(() => ClassroomFeedback.cancel());
   const result = await page.evaluate(() => {
     const g = state.groups[0];
     const presentation = {

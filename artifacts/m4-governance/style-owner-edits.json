@@ -704,10 +704,34 @@
     "sha256": "c221eba6391e1c2528a6c3d0c5a5205849ab001a922c05eaa850dc9d6772f11e",
     "edits": [
       {
-        "start": 852,
-        "end": 852,
+        "start": 861,
+        "end": 861,
         "original": "",
-        "replacement": ";\n}\n.hic-group-avatar {\n  display: block;\n  width: clamp(90px, 12vw, 180px);\n  height: clamp(90px, 12vw, 180px);\n  object-fit: cover;\n  border-radius: 24px;\n  margin: 18px auto;\n  box-shadow: 0 0 36px #71dbc144"
+        "replacement": "group-avatar {\n  display: block;\n  width: clamp(90px, 12vw, 180px);\n  height: clamp(90px, 12vw, 180px);\n  object-fit: cover;\n  border-radius: 24px;\n  margin: 18px auto;\n  box-shadow: 0 0 36px #71dbc144;\n}\n.hic-target-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));\n  gap: 14px;\n}\n.hic-target-grid article {\n  padding: 12px;\n  border: 1px solid #ffffff26;\n  border-radius: 16px;\n  background: #ffffff0a;\n}\n.hic-target-grid h2 {\n  font-size: clamp(18px, 2vw, 32px);\n}\n.hic-target-grid .hic-group-avatar {\n  width: 68px;\n  height: 68px;\n  margin: 4px auto 10px;\n}\n.hic-"
+      },
+      {
+        "start": 916,
+        "end": 917,
+        "original": "4",
+        "replacement": "0"
+      },
+      {
+        "start": 921,
+        "end": 922,
+        "original": "4",
+        "replacement": "2.5"
+      },
+      {
+        "start": 926,
+        "end": 926,
+        "original": "",
+        "replacement": "3"
+      },
+      {
+        "start": 927,
+        "end": 928,
+        "original": "4",
+        "replacement": ""
       }
     ]
   }

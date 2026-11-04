@@ -85,7 +85,7 @@ globalThis.HandItemCinematic = (() => {
             typeof globalThis.randomEffectStyle === "function"
               ? globalThis.randomEffectStyle()
               : "aurora",
-          duration: p.speed >= 1.5 ? 1200 : 2600,
+          duration: ClassroomFeedback.getOptions().duration,
         },
       });
       return;
@@ -103,25 +103,24 @@ globalThis.HandItemCinematic = (() => {
       dismiss();
     });
     document.body.append(dialog);
-    let index = 0;
-    const next = () => {
-      if (!dialog) return;
-      const target = targets[index++];
-      const label = target.blocked
-        ? "防御成功"
-        : target.delta
-          ? `${target.delta > 0 ? "+" : ""}${target.delta} 分`
-          : target.effectChanged
-            ? "状态已施加"
-            : result.key === "item_box"
-              ? "获得道具"
-              : "效果已结算";
-      dialog.querySelector(".hic-targets").innerHTML =
-        `${avatarMarkup(avatarFor(target))}<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p><small>${index} / ${targets.length}</small>`;
-      timer = setTimeout(index < targets.length ? next : dismiss, 1500);
-    };
+    const box = dialog.querySelector(".hic-targets");
+    box.classList.add("hic-target-grid");
+    box.innerHTML = targets
+      .map((target) => {
+        const label = target.blocked
+          ? "防御成功"
+          : target.delta
+            ? `${target.delta > 0 ? "+" : ""}${target.delta} 分`
+            : target.effectChanged
+              ? "状态已施加"
+              : result.key === "item_box"
+                ? "获得道具"
+                : "效果已结算";
+        return `<article>${avatarMarkup(avatarFor(target))}<h2>${escapeHtml(target.name)}</h2><strong>${escapeHtml(label)}</strong><p>${escapeHtml(target.status || "")}</p></article>`;
+      })
+      .join("");
     dialog.showModal();
-    next();
+    timer = setTimeout(dismiss, ClassroomFeedback.getOptions().duration);
   }
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) dismiss();

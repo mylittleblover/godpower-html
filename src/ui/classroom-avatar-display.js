@@ -334,6 +334,10 @@
     return typeof value === "string" ? value : "";
   }
 
+  function ownGroupDataUrlCached(group) {
+    const value = compactImages.get(ownGroupUrl(group));
+    return typeof value === "string" ? value : "";
+  }
   function groupDataUrlCached(group) {
     const value = compactGroups.get(group?.groupUid);
     return typeof value === "string" ? value : "";
@@ -455,6 +459,7 @@
     decorateGroupCards,
     groupUrls,
     ownGroupUrl,
+    ownGroupDataUrlCached,
     populateGroupPreview,
     groupDataUrl,
     groupDataUrlCached,

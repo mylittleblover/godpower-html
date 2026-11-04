@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "result": {
+    "ok": true,
+    "renders": 1,
+    "before": 340,
+    "after": 342,
+    "used": 1,
+    "inventory": 0
+  },
+  "errors": []
+}

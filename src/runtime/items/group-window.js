@@ -16,6 +16,8 @@ function switchItemTab(tab) {
   renderItemWindow();
 }
 function renderItemWindow() {
+  const modal = document.getElementById("itemModalBackdrop");
+  if (!modal?.classList.contains("active") || modal.dataset.uiClosing) return;
   const g = state.groups.find((x) => x.id === activeItemGroupId);
   if (!g) return closeItemWindow();
   ensureGroupNumbersV213(false);

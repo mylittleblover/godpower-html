@@ -40,16 +40,7 @@ function markItemUsedThisRoundV2177(groupId, item) {
     showToast(`${g.name} 已使用道具，本题 All In 自动取消`);
   }
 
-  saveState();
-  try {
-    renderGrid();
-  } catch (e) {}
-  try {
-    renderDashboard();
-  } catch (e) {}
-  try {
-    renderItemWindow();
-  } catch (e) {}
+  // The enclosing item command owns validation, persistence and one refresh.
 }
 
 /* 实际成功使用由命令入口落锁；冰冻取消不计有效使用。 */

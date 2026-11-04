@@ -57,7 +57,7 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
   } catch (e) {}
 
   try {
-    if (casterId != null && typeof playCasterCardFx === "function") {
+    if (typeof BattleMotion === "undefined" && casterId != null && typeof playCasterCardFx === "function") {
       playCasterCardFx(key, casterId);
     }
     if (casterId != null && typeof cardFxTargets === "function") {

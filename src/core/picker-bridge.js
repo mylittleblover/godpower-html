@@ -62,6 +62,8 @@ window.GodpowerPicker = (() => {
       name: student?.name || group.name,
       number: student?.number ?? null,
       avatarDataUrl,
+      groupAvatarDataUrl:
+        window.ClassroomAvatarDisplay?.ownGroupDataUrlCached(group) || "",
       memberName: state.picker.mode === "group" ? null : win.memberName,
     };
   }

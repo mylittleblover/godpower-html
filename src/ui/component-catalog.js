@@ -927,6 +927,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/feedback/classroom-effects.css"],
     },
     {
+      name: "cf-show-group",
+      sources: ["src/styles/feedback/classroom-effects.css"],
+    },
+    {
       name: "cf-show-orbit",
       sources: ["src/styles/feedback/classroom-effects.css"],
     },
@@ -2174,6 +2178,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hic-surface",
+      sources: ["src/styles/feedback/item-score-cinematics.css"],
+    },
+    {
+      name: "hic-target-grid",
       sources: ["src/styles/feedback/item-score-cinematics.css"],
     },
     {
