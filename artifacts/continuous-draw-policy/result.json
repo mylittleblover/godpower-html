@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "result": {
+    "keys": 28,
+    "expected": 28,
+    "gapImproves": true,
+    "power": 0,
+    "lightning": 0,
+    "disabled": 0,
+    "first": "triple_mushroom",
+    "horn": "horn",
+    "nonHorn": "green",
+    "description": true
+  },
+  "errors": []
+}

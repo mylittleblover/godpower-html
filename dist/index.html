@@ -22134,6 +22134,161 @@ const PowerRound = (() => {
   return Object.freeze({ calculate });
 })();
 </script>
+<script>/* Reviewed rank/positive-gap blend. Anchors preserve legacy weight shapes, not hard eligibility bands. */
+const ItemDrawPolicy = (() => {
+  const anchors = [
+    {
+      kamek: 0,
+      item_box: 0,
+      green: 13,
+      triple_green: 3,
+      red: 7,
+      triple_red: 2,
+      spiny: 0,
+      banana: 13,
+      triple_banana: 3,
+      horn: 6,
+      bomb: 0,
+      hammer: 0,
+      coin: 18,
+      coin_shell: 6,
+      question: 10,
+      mushroom: 9,
+      triple_mushroom: 2,
+      boo: 0,
+      blooper: 0,
+      lightning: 0,
+      star: 0,
+      mega: 0,
+      bullet: 0,
+      power: 0,
+      feather: 8,
+      fire_flower: 0,
+      ice_flower: 0,
+      boomerang_flower: 0,
+    },
+    {
+      kamek: 3,
+      item_box: 4,
+      green: 8,
+      triple_green: 6,
+      red: 11,
+      triple_red: 7,
+      spiny: 5,
+      banana: 8,
+      triple_banana: 6,
+      horn: 9,
+      bomb: 10,
+      hammer: 8,
+      coin: 0,
+      coin_shell: 6,
+      question: 0,
+      mushroom: 16,
+      triple_mushroom: 5,
+      boo: 7,
+      blooper: 7,
+      lightning: 0,
+      star: 0,
+      mega: 0,
+      bullet: 0,
+      power: 6,
+      feather: 0,
+      fire_flower: 11,
+      ice_flower: 9,
+      boomerang_flower: 10,
+    },
+    {
+      kamek: 0,
+      item_box: 0,
+      green: 0,
+      triple_green: 1,
+      red: 0,
+      triple_red: 1,
+      spiny: 9,
+      banana: 0,
+      triple_banana: 1,
+      horn: 5,
+      bomb: 0,
+      hammer: 0,
+      coin: 0,
+      coin_shell: 0,
+      question: 0,
+      mushroom: 12,
+      triple_mushroom: 4,
+      boo: 9,
+      blooper: 8,
+      lightning: 11,
+      star: 11,
+      mega: 10,
+      bullet: 13,
+      power: 12,
+      feather: 0,
+      fire_flower: 0,
+      ice_flower: 0,
+      boomerang_flower: 0,
+    },
+  ];
+  const keys = Object.freeze(Object.keys(anchors[0]));
+  const highImpact = Object.freeze([
+    "star",
+    "mega",
+    "bullet",
+    "lightning",
+    "power",
+    "spiny",
+  ]);
+  const unique = Object.freeze(["lightning", "blooper", "kamek", "item_box"]);
+  const version = "continuous-rank-gap-1";
+  const summary =
+    "名次与正向分差连续调节追赶道具；首次举手特殊池保留，第一名喇叭为10%且仅前60%可抽；场上唯一、库存去重、冷却和自定义开关仍生效。";
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  function weights({
+    position,
+    total,
+    score = 0,
+    leaderScore = score,
+    field = [],
+    held = [],
+  } = {}) {
+    const n = Math.max(1, Number(total) || 1),
+      p = clamp(Number(position) || 1, 1, n),
+      x = n <= 1 ? 0 : (p - 1) / (n - 1),
+      segment = x <= 0.5 ? 0 : 1,
+      t = x <= 0.5 ? x * 2 : x * 2 - 1,
+      smooth = t * t * (3 - 2 * t),
+      gap =
+        leaderScore > 0 && score >= 0
+          ? clamp(
+              Math.log2(Math.max(1, leaderScore / Math.max(1, score))) / 2,
+              0,
+              1,
+            )
+          : 0;
+    const blocked = new Set(held),
+      present = new Set(field),
+      result = {};
+    for (const key of keys) {
+      const a = Math.max(0.5, anchors[segment][key] || 0),
+        b = Math.max(0.5, anchors[segment + 1][key] || 0);
+      let weight = a + (b - a) * smooth;
+      if (highImpact.includes(key)) weight *= 1 + x * 0.5 + gap * 1.5;
+      if (key === "horn") {
+        if (p > Math.max(1, Math.ceil(n * 0.6))) weight = 0;
+        else weight = Math.max(weight, 8);
+      }
+      if (
+        score < 0 ||
+        blocked.has(key) ||
+        (unique.includes(key) && present.has(key))
+      )
+        weight = 0;
+      result[key] = weight;
+    }
+    return result;
+  }
+  return Object.freeze({ version, summary, keys, highImpact, unique, weights });
+})();
+</script>
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
   const schemaVersion = 2;
@@ -28836,98 +28991,7 @@ function boostFraction(target, denom = 4) {
   return true;
 }
 
-function itemDropWeights(pos, total) {
-  // V2.11.9：26 种道具全部正式接入排名权重池。
-  // 依据 24人 / 12人道具分布图做百分位映射：
-  // 1 位偏防守与基础道具，中游最丰富，后排逐渐增加追赶型与高影响道具。
-  const p = total <= 1 ? 1 : (pos - 1) / (total - 1),
-    virtual = 1 + p * 23;
-  const W = {};
-  const put = (k, w) => {
-    W[k] = w;
-  };
 
-  if (virtual <= 5) {
-    // 领先区：基础、防守、轻攻击为主。
-    put("coin", 18);
-    put("green", 18);
-    put("banana", 18);
-    put("question", 10);
-    put("red", virtual >= 2 ? 12 : 0);
-    put("horn", virtual >= 3 ? 7 : 0);
-    put("bomb", virtual >= 3 ? 7 : 0);
-    put("hammer", virtual >= 3 ? 5 : 0);
-    put("mushroom", virtual >= 3 ? 7 : 0);
-    put("triple_green", virtual >= 4 ? 4 : 0);
-    put("triple_red", virtual >= 4 ? 3 : 0);
-    put("triple_banana", virtual >= 4 ? 4 : 0);
-
-    // 新四道具：前排可少量出现羽毛 / 火之花。
-    put("feather", virtual >= 2 ? 5 : 2);
-    put("fire_flower", virtual >= 4 ? 4 : 0);
-    put("ice_flower", 0);
-    put("boomerang_flower", virtual >= 4 ? 3 : 0);
-  } else if (virtual <= 16) {
-    // 中游区：道具种类最丰富，攻击、防守、控场均有。
-    put("green", 8);
-    put("banana", 8);
-    put("red", 14);
-    put("triple_red", 8);
-    put("triple_green", 7);
-    put("triple_banana", 7);
-    put("horn", 10);
-    put("bomb", 10);
-    put("hammer", 8);
-    put("mushroom", 14);
-    put("triple_mushroom", 8);
-    put("boo", 7);
-    put("blooper", 7);
-    put("coin_shell", 7);
-    put("question", 7);
-    put("mega", virtual >= 11 ? 4 : 1);
-    put("power", virtual >= 11 ? 5 : 2);
-
-    // 新四道具在中游成为主要常规奖池成员。
-    put("feather", 8);
-    put("fire_flower", 11);
-    put("ice_flower", virtual >= 10 ? 9 : 6);
-    put("boomerang_flower", 10);
-  } else {
-    // 落后区：追赶型、控场型、高影响道具权重增加。
-    put("mushroom", 12);
-    put("triple_mushroom", 15);
-    put("boo", 10);
-    put("blooper", 10);
-    put("spiny", virtual <= 21 ? 9 : 5);
-    put("lightning", virtual >= 19 ? 12 : 7);
-    put("star", 13);
-    put("mega", 12);
-    put("bullet", virtual >= 19 ? 17 : 10);
-    put("power", 14);
-    put("horn", 6);
-    put("bomb", 5);
-    put("hammer", 4);
-    put("red", 5);
-    put("question", 7);
-
-    // 新四道具：后排减少羽毛，增加冰花；火花/回旋镖保留中等追赶能力。
-    put("feather", 5);
-    put("fire_flower", 8);
-    put("ice_flower", 11);
-    put("boomerang_flower", 8);
-  }
-
-  // 前 20% 继续严格屏蔽最强追赶道具。
-  if (p < 0.2) {
-    W.spiny = 0;
-    W.lightning = 0;
-    W.star = 0;
-    W.bullet = 0;
-    W.power = 0;
-  }
-
-  return W;
-}
 function weightedPick(weights) {
   const arr = Object.entries(weights).filter(([, w]) => w > 0);
   let sum = arr.reduce((a, [, w]) => a + w, 0),
@@ -32308,116 +32372,7 @@ function itemRankBandV2172(pos, total) {
    4. 三重道具显著降低权重。
    5. 鱿鱿和闪电同时最多各存在 1 个。
 */
-itemDropWeights = function (pos, total) {
-  const band = itemRankBandV2172(pos, total);
-  const W = {};
-  const put = (k, w) => {
-    W[k] = Math.max(0, Number(w) || 0);
-  };
 
-  /* 先把全部道具显式归零，避免旧权重残留。 */
-  ITEM_KEYS.forEach((k) => put(k, 0));
-
-  if (band === "front") {
-    /* 前三名：低收益、防守、轻量位移为主。 */
-    put("coin", 18);
-    put("feather", 8);
-    put("question", 10);
-
-    put("green", 13);
-    put("banana", 13);
-    put("red", pos >= 2 ? 7 : 3);
-    put("horn", 6);
-    put("mushroom", 8);
-    put("coin_shell", 6);
-
-    /* 三重道具大幅降权，只做偶发资源。 */
-    put("triple_green", 2);
-    put("triple_banana", 2);
-    put("triple_red", 1);
-    put("triple_mushroom", 1);
-
-    /* 前排不出现中游常规攻击组，也不出现强追赶道具。 */
-  } else if (band === "mid") {
-    /* 中游：常规攻击道具的主要活动区域。 */
-    put("green", 10);
-    put("banana", 10);
-    put("red", 14);
-    put("horn", 9);
-    put("bomb", 10);
-    put("hammer", 8);
-    put("mushroom", 10);
-    put("boo", 7);
-    put("blooper", 7);
-    put("coin_shell", 6);
-    put("power", 6);
-
-    put("fire_flower", 11);
-    put("ice_flower", 9);
-    put("boomerang_flower", 10);
-
-    /* 中后段可以少量出现刺龟壳，但不开放四个强追赶道具。 */
-    const midProgress = total <= 1 ? 0 : (pos - 1) / (total - 1);
-    put("spiny", midProgress >= 0.45 ? 5 : 2);
-
-    /* 三重道具降低到普通单体道具的约 1/4~1/5。 */
-    put("triple_green", 2);
-    put("triple_red", 3);
-    put("triple_banana", 2);
-    put("triple_mushroom", 3);
-  } else {
-    /* 后30%：追赶与高影响道具为主。 */
-    put("mushroom", 12);
-    put("boo", 9);
-    put("blooper", 8);
-    put("spiny", 9);
-    put("lightning", 11);
-    put("star", 11);
-    put("mega", 10);
-    put("bullet", 13);
-    put("power", 12);
-    put("horn", 5);
-
-    /* 后排仍有极少量基础防御，避免奖池只剩大招。 */
-    put("green", 4);
-    put("banana", 4);
-    put("red", 4);
-
-    /* 三重道具继续低权重。 */
-    put("triple_green", 1);
-    put("triple_red", 1);
-    put("triple_banana", 1);
-    put("triple_mushroom", 4);
-
-    /* 火花 / 冰花 / 回旋镖 / 炸弹 / 锤子不进入后30%奖池。 */
-  }
-
-  /* 严格排名限制。 */
-  if (band !== "front") {
-    W.coin = 0;
-    W.feather = 0;
-    W.question = 0;
-  }
-  if (band !== "rear") {
-    W.star = 0;
-    W.bullet = 0;
-    W.mega = 0;
-    W.lightning = 0;
-  }
-  if (band !== "mid") {
-    W.fire_flower = 0;
-    W.ice_flower = 0;
-    W.boomerang_flower = 0;
-    W.bomb = 0;
-    W.hammer = 0;
-  }
-
-  /* 场上唯一性。 */
-  if (itemExistsOnFieldV2172("blooper")) W.blooper = 0;
-  if (itemExistsOnFieldV2172("lightning")) W.lightning = 0;
-
-  return W;
-};
 
 /* 上帝模式追加时同样遵守“鱿鱿 / 闪电各最多一个”的规则。 */
 const _v2172AddItemToGroup = addItemToGroup;
@@ -32542,147 +32497,25 @@ if (document.readyState === "loading") {
 </script>
 
 
-<script id="v2173ItemWeightTuning">/* ===== V2.17.3：基础防御限制前50% + 中游蘑菇/三重防御增权 ===== */
-
-itemDropWeights = function (pos, total) {
-  const safeTotal = Math.max(1, Number(total) || 1);
-  const safePos = Math.max(1, Math.min(safeTotal, Number(pos) || 1));
-  const band = itemRankBandV2172(safePos, safeTotal);
-
-  /* “前50%”按实际名次计算。
-     例如 16 组 = 第1~8名，8组 = 第1~4名。 */
-  const topHalfEnd = Math.ceil(safeTotal * 0.5);
-  const inTopHalf = safePos <= topHalfEnd;
-
-  const W = {};
-  const put = (k, w) => {
-    W[k] = Math.max(0, Number(w) || 0);
-  };
-  ITEM_DRAW_KEYS.forEach((k) => put(k, 0));
-
-  if (band === "front") {
-    /* 前三名：继续以基础防御、低收益和轻量资源为主。 */
-    put("coin", 18);
-    put("feather", 8);
-    put("question", 10);
-
-    put("green", 13);
-    put("banana", 13);
-    put("red", safePos >= 2 ? 7 : 3);
-    put("horn", 6);
-    put("mushroom", 9);
-    put("coin_shell", 6);
-
-    /* 三重防御仍低于单个基础防御，但略高于上一版。 */
-    put("triple_green", 3);
-    put("triple_banana", 3);
-    put("triple_red", 2);
-    put("triple_mushroom", 2);
-  } else if (band === "mid") {
-    /*
-      中游：
-      - 蘑菇显著增权；
-      - 三重红/绿龟壳、三重香蕉明显增权；
-      - 单个红/绿龟壳、香蕉只允许出现在整个排名的前50%。
-    */
-    if (inTopHalf) {
-      put("green", 8);
-      put("banana", 8);
-      put("red", 11);
-    }
-
-    /* 卡美克与道具箱影响面很大，权重从 7 降到 3/4，避免一局接连出现。 */
-    put("kamek", 3);
-    put("item_box", 4);
-    put("horn", 9);
-    put("bomb", 10);
-    put("hammer", 8);
-
-    /* 蘑菇从上一版 10 提高到 16。 */
-    put("mushroom", 16);
-
-    put("boo", 7);
-    put("blooper", 7);
-    put("coin_shell", 6);
-    put("power", 6);
-
-    put("fire_flower", 11);
-    put("ice_flower", 9);
-    put("boomerang_flower", 10);
-
-    const midProgress = safeTotal <= 1 ? 0 : (safePos - 1) / (safeTotal - 1);
-    put("spiny", midProgress >= 0.45 ? 5 : 2);
-
-    /* 三重基础防御显著提高。
-       仍低于对应单体峰值，避免中游重新变成三重道具海。 */
-    put("triple_green", 6);
-    put("triple_red", 7);
-    put("triple_banana", 6);
-
-    /* 三重蘑菇也适度提高，增强中游追赶能力。 */
-    put("triple_mushroom", 5);
-  } else {
-    /* 后30%：强追赶道具，不再出现单个红/绿龟壳和香蕉。 */
-    put("mushroom", 12);
-    put("boo", 9);
-    put("blooper", 8);
-    put("spiny", 9);
-    put("lightning", 11);
-    put("star", 11);
-    put("mega", 10);
-    put("bullet", 13);
-    put("power", 12);
-    put("horn", 5);
-
-    /* 单个基础防御严格限制在前50%，后排全部为 0。 */
-
-    /* 后排三重基础防御仍保持低概率，避免追赶池被防御道具挤占。 */
-    put("triple_green", 1);
-    put("triple_red", 1);
-    put("triple_banana", 1);
-    put("triple_mushroom", 4);
-  }
-
-  /* 前三名专属。 */
-  if (band !== "front") {
-    W.coin = 0;
-    W.feather = 0;
-    W.question = 0;
-  }
-
-  /* 后30%专属。 */
-  if (band !== "rear") {
-    W.star = 0;
-    W.bullet = 0;
-    W.mega = 0;
-    W.lightning = 0;
-  }
-
-  /* 常规主动攻击主要限制在中游。 */
-  if (band !== "mid") {
-    W.fire_flower = 0;
-    W.ice_flower = 0;
-    W.boomerang_flower = 0;
-    W.bomb = 0;
-    W.hammer = 0;
-  }
-
-  /* 新规则：单个红/绿龟壳、香蕉绝不出现在后50%。 */
-  if (!inTopHalf) {
-    W.green = 0;
-    W.red = 0;
-    W.banana = 0;
-  }
-
-  /* 场上唯一性继续保留。 */
-  if (itemExistsOnFieldV2172("blooper")) W.blooper = 0;
-  if (itemExistsOnFieldV2172("lightning")) W.lightning = 0;
-  /* 卡美克与道具箱同样全场只能存在一个。 */
-  if (itemExistsOnFieldV2172("kamek")) W.kamek = 0;
-  if (itemExistsOnFieldV2172("item_box")) W.item_box = 0;
-
-  return W;
-};
+<script id="v2173ItemWeightTuning">/* The only compatibility entry for ordinary draw weights; the pure policy owns calculation. */
+function itemDropWeights(pos, total) {
+  const ordered = ranking(),
+    position = Math.max(
+      1,
+      Math.min(Math.max(1, Number(total) || 1), Math.trunc(Number(pos) || 1)),
+    ),
+    group = ordered[position - 1];
+  const W = ItemDrawPolicy.weights({
+    position,
+    total,
+    score: group?.score || 0,
+    leaderScore: ordered[0]?.score || 0,
+    held: group?.inventory?.map((item) => item.key) || [],
+    field: ItemDrawPolicy.unique.filter((key) => itemExistsOnFieldV2172(key)),
+  });
+  if (position === 1 && suppressFirstHornV218) W.horn = 0;
+  return globalThis.ItemModules ? ItemModules.drawWeights(W) : W;
+}
 </script>
 
 
@@ -35534,18 +35367,8 @@ const FIRST_HAND_POOL_V218 = [
 let firstHandDrawPendingV218 = true;
 let suppressFirstHornV218 = false;
 
-const _v218ItemDropWeights = itemDropWeights;
-itemDropWeights = function (pos, total) {
-  const W = _v218ItemDropWeights.call(this, pos, total);
-  const cutoff = Math.max(1, Math.ceil(Math.max(1, total) * 0.6));
-  if (pos <= cutoff) {
-    W.horn = Math.max(Number(W.horn) || 0, 8);
-  } else {
-    W.horn = 0;
-  }
-  if (pos === 1 && suppressFirstHornV218) W.horn = 0;
-  return globalThis.ItemModules ? ItemModules.drawWeights(W) : W;
-};
+
+
 
 const _v218PickItem = pickItemForGroupV281;
 pickItemForGroupV281 = function (g, batchUsed = new Set()) {
@@ -50317,7 +50140,16 @@ const UIComponentLibrary = (() => {
   "use strict";
   function render() {
     const host = document.getElementById("gameplayContent");
-    if (host) host.innerHTML = itemReferenceMarkup();
+    if (!host) return;
+    host.innerHTML = itemReferenceMarkup();
+    const details = document.createElement("details");
+    details.className = "ui-settings-disclosure";
+    const summary = document.createElement("summary");
+    summary.textContent = "当前抽取规则 · " + ItemDrawPolicy.version;
+    const copy = document.createElement("p");
+    copy.textContent = ItemDrawPolicy.summary;
+    details.append(summary, copy);
+    host.prepend(details);
   }
   function open() {
     switchView("gameplay");

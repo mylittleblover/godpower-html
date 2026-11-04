@@ -43,5 +43,13 @@
     ],
     "reason": "Approved M4.2 retirement of unshared legacy timetable/resource editors. Read-only export preserves all raw keys and verified blobs; shared models/repositories and avatar consumers remain.",
     "evidence": "docs/reports/TEACHING_UI_RETIREMENT.md"
+  },
+  "runtime/items/drop-midfield-weights.js": {
+    "owners": [
+      "domain/items/draw-policy.js",
+      "runtime/items/draw-policy-adapter.js"
+    ],
+    "reason": "Reviewed continuous rank/gap policy replaces all four old ordinary-weight definitions. First-hand special pool, leader horn exception, field uniqueness, inventory and cooldown filters are retained.",
+    "evidence": "docs/validation/DRAW_POLICY_REVIEW.md"
   }
 }

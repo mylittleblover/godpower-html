@@ -3,7 +3,16 @@
   "use strict";
   function render() {
     const host = document.getElementById("gameplayContent");
-    if (host) host.innerHTML = itemReferenceMarkup();
+    if (!host) return;
+    host.innerHTML = itemReferenceMarkup();
+    const details = document.createElement("details");
+    details.className = "ui-settings-disclosure";
+    const summary = document.createElement("summary");
+    summary.textContent = "当前抽取规则 · " + ItemDrawPolicy.version;
+    const copy = document.createElement("p");
+    copy.textContent = ItemDrawPolicy.summary;
+    details.append(summary, copy);
+    host.prepend(details);
   }
   function open() {
     switchView("gameplay");

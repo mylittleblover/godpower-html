@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "result": [
+    {
+      "left": 4,
+      "score": 183
+    },
+    {
+      "left": 3,
+      "score": 225
+    },
+    {
+      "left": 2,
+      "score": 227
+    },
+    {
+      "left": 1,
+      "score": 229
+    },
+    {
+      "left": 0,
+      "score": 231
+    }
+  ],
+  "empty": {
+    "used": false,
+    "unchanged": true,
+    "charges": 1,
+    "roundUsed": false
+  },
+  "errors": []
+}
