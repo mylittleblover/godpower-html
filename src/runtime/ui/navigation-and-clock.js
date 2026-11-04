@@ -158,7 +158,7 @@ function updateWelcomeClock() {
 function renderWelcomePage() {
   if (typeof DesktopUI !== "undefined") DesktopUI.renderWelcome();
   const wrap = document.getElementById("welcomePodiumDeck");
-  if (!wrap) return;
+  if (!wrap || wrap.closest?.("[hidden]")) return;
   const sorted = [...state.groups].sort(
     (a, b) => (Number(b.score) || 0) - (Number(a.score) || 0),
   );

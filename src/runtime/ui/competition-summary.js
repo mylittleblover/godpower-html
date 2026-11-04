@@ -21,7 +21,7 @@ function updateHeaderStats() {
 /* 核心改进：条形图保持 DOM 元素稳定，支持宽度平滑递增与排位平滑滑动互换 */
 function renderChart() {
   const wrapper = document.getElementById("chartWrapper");
-  if (!wrapper) return;
+  if (!wrapper || wrapper.closest?.("[hidden]")) return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;
@@ -94,7 +94,7 @@ function renderChart() {
 
 function renderDashboard() {
   const podiumDeck = document.getElementById("podiumDeck");
-  if (!podiumDeck) return;
+  if (!podiumDeck || podiumDeck.closest?.("[hidden]")) return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;

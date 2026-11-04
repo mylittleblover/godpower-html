@@ -172,7 +172,7 @@
       leader: ordered[0]?.name ?? "—",
     };
   }
-  // Preserve the selected paint; only the foreground changes for pale fills.
+  // Shared badge and score display palette; source group colors remain unchanged.
   function paintColors(color, threshold) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
@@ -182,19 +182,27 @@
         .join("");
     if (!/^[a-f0-9]{6}$/i.test(raw))
       return { background: "#607773", foreground: "#FFFFFF" };
-    const linear = raw
-      .match(/../g)
-      .map((v) => parseInt(v, 16) / 255)
-      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-    const luminance = linear.reduce(
-      (sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i],
-      0,
-    );
+    const luminance = (hex) =>
+      hex
+        .match(/../g)
+        .map((v) => parseInt(v, 16) / 255)
+        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+    const light = luminance(raw);
+    const contrast = (ink) => {
+      const l = luminance(ink.slice(1));
+      return (Math.max(light, l) + 0.05) / (Math.min(light, l) + 0.05);
+    };
+    const candidates =
+      light > threshold
+        ? ["#000000"]
+        : ["#FFFFFF", "#33251A", "#111827", "#000000"];
     return {
       background: "#" + raw,
-      foreground: luminance > threshold ? "#000000" : "#FFFFFF",
+      foreground: candidates.find((ink) => contrast(ink) >= 4.5) || "#000000",
     };
   }
+
   function badgeColors(color) {
     return paintColors(color, 0.45);
   }

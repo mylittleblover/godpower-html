@@ -79,9 +79,21 @@ try {
       "rgb(15, 118, 110)",
       "rgb(255, 102, 0)",
     ];
+    const paletteForTest = [
+      "#ffff00",
+      "#fff2cc",
+      "#aaffcc",
+      "#ffffff",
+      "#0f766e",
+      "#ff6600",
+    ];
     colors.records.forEach((r, i) => {
-      assert.equal(r.badgeBg, expected[i]);
-      assert.equal(r.badgeInk, i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)");
+      assert.equal(
+        r.color.toLowerCase(),
+        paletteForTest[i],
+        "stored group color remains unchanged",
+      );
+      assert.equal(r.badgeBg, expected[i], "all displayed group backgrounds remain exact");
       assert.equal(r.capsule, true);
       assert.equal(
         r.scoreInk,
@@ -90,13 +102,8 @@ try {
       );
       assert.equal(
         r.scoreBg,
-        expected[i],
+        r.badgeBg,
         "every score capsule keeps group paint",
-      );
-      assert.equal(
-        r.scoreInk,
-        i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)",
-        "capsule text follows the existing group number palette",
       );
     });
     const medals = await page

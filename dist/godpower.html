@@ -14578,7 +14578,7 @@ html[data-theme="marx"] {
       leader: ordered[0]?.name ?? "—",
     };
   }
-  // Preserve the selected paint; only the foreground changes for pale fills.
+  // Shared badge and score display palette; source group colors remain unchanged.
   function paintColors(color, threshold) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
@@ -14588,19 +14588,27 @@ html[data-theme="marx"] {
         .join("");
     if (!/^[a-f0-9]{6}$/i.test(raw))
       return { background: "#607773", foreground: "#FFFFFF" };
-    const linear = raw
-      .match(/../g)
-      .map((v) => parseInt(v, 16) / 255)
-      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-    const luminance = linear.reduce(
-      (sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i],
-      0,
-    );
+    const luminance = (hex) =>
+      hex
+        .match(/../g)
+        .map((v) => parseInt(v, 16) / 255)
+        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+    const light = luminance(raw);
+    const contrast = (ink) => {
+      const l = luminance(ink.slice(1));
+      return (Math.max(light, l) + 0.05) / (Math.min(light, l) + 0.05);
+    };
+    const candidates =
+      light > threshold
+        ? ["#000000"]
+        : ["#FFFFFF", "#33251A", "#111827", "#000000"];
     return {
       background: "#" + raw,
-      foreground: luminance > threshold ? "#000000" : "#FFFFFF",
+      foreground: candidates.find((ink) => contrast(ink) >= 4.5) || "#000000",
     };
   }
+
   function badgeColors(color) {
     return paintColors(color, 0.45);
   }
@@ -26165,7 +26173,7 @@ function updateHeaderStats() {
 /* 核心改进：条形图保持 DOM 元素稳定，支持宽度平滑递增与排位平滑滑动互换 */
 function renderChart() {
   const wrapper = document.getElementById("chartWrapper");
-  if (!wrapper) return;
+  if (!wrapper || wrapper.closest?.("[hidden]")) return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;
@@ -26238,7 +26246,7 @@ function renderChart() {
 
 function renderDashboard() {
   const podiumDeck = document.getElementById("podiumDeck");
-  if (!podiumDeck) return;
+  if (!podiumDeck || podiumDeck.closest?.("[hidden]")) return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;
@@ -27588,7 +27596,7 @@ function updateWelcomeClock() {
 function renderWelcomePage() {
   if (typeof DesktopUI !== "undefined") DesktopUI.renderWelcome();
   const wrap = document.getElementById("welcomePodiumDeck");
-  if (!wrap) return;
+  if (!wrap || wrap.closest?.("[hidden]")) return;
   const sorted = [...state.groups].sort(
     (a, b) => (Number(b.score) || 0) - (Number(a.score) || 0),
   );
