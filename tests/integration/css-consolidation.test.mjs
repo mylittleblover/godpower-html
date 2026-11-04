@@ -325,9 +325,17 @@ test("3.0.66 CSS edits preserve every non-retired declaration and original casca
     assert.equal(hash(s), postScopes.sourceHashes[p], p);
     stages.set(p, removeEmptyStyleRules(s, { dropEmptyConditions: true }));
   }
-  const ownerEdits = JSON.parse(
-    readFileSync("artifacts/m4-governance/style-owner-edits.json", "utf8"),
-  );
+  const ownerEdits = [
+    ...JSON.parse(
+      readFileSync("artifacts/m4-governance/style-owner-edits.json", "utf8"),
+    ),
+    ...JSON.parse(
+      readFileSync(
+        "artifacts/performance-governance/style-owner-edits.json",
+        "utf8",
+      ),
+    ),
+  ];
   const retirements = JSON.parse(
     readFileSync("src/source-retirements.json", "utf8"),
   );

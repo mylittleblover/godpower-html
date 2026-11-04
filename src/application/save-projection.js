@@ -31,12 +31,43 @@
     return runtime;
   }
   async function fromRuntime(input, payload) {
-    const current = root.SaveSchema.validateV2(input),
+    const current = root.SaveSchema.assertV2(input),
       snapshot = copy(payload);
-    const imported = await root.SaveMigration.preview({
-        rawText: JSON.stringify(snapshot),
-      }),
-      replacement = imported.documents[0];
+    // Runtime saves already have stable identities and resource references.
+    // Full old-file migration is an import operation, never an every-click operation.
+    root.SaveSchema.validateGroups(snapshot.groups, true);
+    const known = new Set(root.SaveSchema.runtimeKeys);
+    const extensions = Object.fromEntries(
+      Object.entries(snapshot).filter(([key]) => !known.has(key)),
+    );
+    const replacement = {
+      match: {
+        season: { seasonId: snapshot.seasonId },
+        groups: snapshot.groups,
+        round: snapshot.round || {},
+        picker: snapshot.picker || {},
+        itemGlobal: snapshot.itemGlobal || {},
+        history: snapshot.history || [],
+        firstHandDrawPending: snapshot.firstHandDrawPending ?? false,
+        extensions,
+      },
+      achievements: snapshot.achievementLedger || {
+        schemaVersion: 1,
+        groups: {},
+      },
+      perSaveOptions: Object.hasOwn(snapshot, "saveAllIn")
+        ? { saveAllIn: snapshot.saveAllIn }
+        : {},
+      assetReferences: [],
+    };
+    const appPreferences = {
+      schemaVersion: 1,
+      values: Object.fromEntries(
+        root.SaveSchema.appPreferenceKeys
+          .filter((key) => Object.hasOwn(snapshot, key))
+          .map((key) => [key, snapshot[key]]),
+      ),
+    };
     const roster = copy(snapshot.rosterSnapshot || current.roster);
     const oldAssignments = roster.assignments,
       assigned = new Set(),
@@ -128,8 +159,8 @@
     delete document.match.extensions.rosterSnapshot;
     return {
       document: root.SaveSchema.validateV2(document),
-      assets: imported.assets,
-      appPreferences: imported.appPreferences,
+      assets: [],
+      appPreferences,
     };
   }
   root.SaveProjection = Object.freeze({ toRuntime, fromRuntime });

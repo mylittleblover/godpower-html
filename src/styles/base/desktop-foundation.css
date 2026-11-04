@@ -185,7 +185,7 @@ body.modern-flat #itemWindowBody {
   overflow: auto !important;
   overscroll-behavior: contain !important;
 }
-body.modern-flat:has(.modal-overlay.active),
+body.modern-flat:has(.modal-overlay.active:not([data-external-picker])),
 body.modern-flat:has(.score-modal-backdrop.active),
 body.modern-flat:has(.item-modal-backdrop.active),
 body.modern-flat:has(.classroom-backdrop.active),

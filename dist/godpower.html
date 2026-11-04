@@ -1892,7 +1892,7 @@ body {
   bottom: 0;
   z-index: 999;
 }
-.modal-overlay.active {
+.modal-overlay.active:not([data-external-picker]) {
   display: flex;
 }
 .modal-box {
@@ -5858,7 +5858,7 @@ body.modern-flat #itemWindowBody {
   overflow: auto !important;
   overscroll-behavior: contain !important;
 }
-body.modern-flat:has(.modal-overlay.active),
+body.modern-flat:has(.modal-overlay.active:not([data-external-picker])),
 body.modern-flat:has(.score-modal-backdrop.active),
 body.modern-flat:has(.item-modal-backdrop.active),
 body.modern-flat:has(.classroom-backdrop.active),
@@ -8126,7 +8126,7 @@ body.modern-flat .battle-rank-dock .resizer-handle {
   justify-content: center;
   padding: 18px;
   background: rgba(15, 23, 42, 0.48);
-  backdrop-filter: blur(3px);
+  /* Static shade keeps the classroom from being resampled while this window moves. */
 }
 .theme-dialog.active {
   display: flex;
@@ -8401,7 +8401,7 @@ body.modern-flat .battle-rank-dock .resizer-handle {
   inset: 0;
   z-index: 22000;
   background: rgba(15, 23, 42, 0.48);
-  backdrop-filter: blur(3px);
+  /* Static shade keeps the classroom from being resampled while this window moves. */
   align-items: center;
   justify-content: center;
   padding: 16px;
@@ -9943,7 +9943,7 @@ summary:focus-visible {
   place-items: center;
   padding: 28px;
   background: rgb(15 37 34 / 54%);
-  backdrop-filter: blur(5px);
+  /* Static shade keeps the classroom from being resampled while this window moves. */
   animation: roster-apply-backdrop-in 180ms ease-out both;
 }
 .roster-apply-card {
@@ -11046,7 +11046,7 @@ body[data-motion="off"] {
 }
 #classroomShowcase::backdrop {
   background: rgb(2 13 20 / 0.88);
-  backdrop-filter: blur(7px);
+  /* Opaque shading avoids resampling the complete classroom every animation frame. */
 }
 #classroomShowcase .cf-show-surface {
   --cf-accent: #66f0b0;
@@ -14746,6 +14746,21 @@ globalThis.StableIdentity = StableIdentity;
     "resizerHeight",
     "columnMode",
   ]);
+  const RUNTIME_KEYS = Object.freeze([
+    "schemaVersion",
+    "appVersion",
+    "timestamp",
+    "seasonId",
+    "achievementLedger",
+    "groups",
+    "picker",
+    "itemGlobal",
+    "round",
+    "history",
+    "firstHandDrawPending",
+    "saveAllIn",
+    ...APP_KEYS,
+  ]);
   const copy = (value) => JSON.parse(JSON.stringify(value));
   const object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
   const fail = (message) => {
@@ -14798,7 +14813,7 @@ globalThis.StableIdentity = StableIdentity;
         fail("invalid inventory");
     }
   }
-  function validateV2(input) {
+  function assertV2(input) {
     if (
       !object(input) ||
       input.kind !== "godpower.save" ||
@@ -14911,7 +14926,10 @@ globalThis.StableIdentity = StableIdentity;
     checkRefs(input.match);
     if (APP_KEYS.some((k) => Object.hasOwn(input.match, k)))
       fail("program preferences belong outside match");
-    return copy(input);
+    return input;
+  }
+  function validateV2(input) {
+    return copy(assertV2(input));
   }
   function validateIndex(input) {
     if (
@@ -14946,10 +14964,12 @@ globalThis.StableIdentity = StableIdentity;
   }
   root.SaveSchema = Object.freeze({
     validateV2,
+    assertV2,
     validateIndex,
     validateGroups,
     safeTree,
     appPreferenceKeys: APP_KEYS,
+    runtimeKeys: RUNTIME_KEYS,
     clone: copy,
   });
 })(globalThis);
@@ -15053,21 +15073,7 @@ globalThis.StableIdentity = StableIdentity;
 (function installSaveMigration(root) {
   "use strict";
   const clone = (value) => JSON.parse(JSON.stringify(value));
-  const known = new Set([
-    "schemaVersion",
-    "appVersion",
-    "timestamp",
-    "seasonId",
-    "achievementLedger",
-    "groups",
-    "picker",
-    "itemGlobal",
-    "round",
-    "history",
-    "firstHandDrawPending",
-    "saveAllIn",
-    ...root.SaveSchema.appPreferenceKeys,
-  ]);
+  const known = new Set(root.SaveSchema.runtimeKeys);
   const digest = async (bytes) =>
     [...new Uint8Array(await root.crypto.subtle.digest("SHA-256", bytes))]
       .map((n) => n.toString(16).padStart(2, "0"))
@@ -15682,8 +15688,8 @@ globalThis.StableIdentity = StableIdentity;
               saveDoc.revision !== expectedRevision
             )
               throw failure("INVALID_REVISION");
-            const doc = root.SaveSchema.validateV2({
-              ...copy(saveDoc),
+            const doc = root.SaveSchema.assertV2({
+              ...saveDoc,
               revision: expectedRevision + 1,
               updatedAt: new Date().toISOString(),
             });
@@ -15876,6 +15882,16 @@ globalThis.StableIdentity = StableIdentity;
     return Object.freeze({
       token,
       snapshot: () => clone(current),
+      rosterContext: () => ({
+        ...token(),
+        rosterRevision: current.roster.revision,
+      }),
+      rosterView: () => ({
+        saveId: current.saveId,
+        revision: current.revision,
+        name: current.name,
+        roster: clone(current.roster),
+      }),
       isSwitching: () => switching,
       whenIdle: () => queue,
       update: (
@@ -15895,7 +15911,7 @@ globalThis.StableIdentity = StableIdentity;
           status("saving");
           const prepared = await prepare(clone(current));
           if (!matches(requested)) return reject("GENERATION_CONFLICT");
-          const doc = root.SaveSchema.validateV2(prepared.document);
+          const doc = root.SaveSchema.assertV2(prepared.document);
           if (
             doc.saveId !== current.saveId ||
             doc.revision !== current.revision
@@ -15990,12 +16006,43 @@ globalThis.StableIdentity = StableIdentity;
     return runtime;
   }
   async function fromRuntime(input, payload) {
-    const current = root.SaveSchema.validateV2(input),
+    const current = root.SaveSchema.assertV2(input),
       snapshot = copy(payload);
-    const imported = await root.SaveMigration.preview({
-        rawText: JSON.stringify(snapshot),
-      }),
-      replacement = imported.documents[0];
+    // Runtime saves already have stable identities and resource references.
+    // Full old-file migration is an import operation, never an every-click operation.
+    root.SaveSchema.validateGroups(snapshot.groups, true);
+    const known = new Set(root.SaveSchema.runtimeKeys);
+    const extensions = Object.fromEntries(
+      Object.entries(snapshot).filter(([key]) => !known.has(key)),
+    );
+    const replacement = {
+      match: {
+        season: { seasonId: snapshot.seasonId },
+        groups: snapshot.groups,
+        round: snapshot.round || {},
+        picker: snapshot.picker || {},
+        itemGlobal: snapshot.itemGlobal || {},
+        history: snapshot.history || [],
+        firstHandDrawPending: snapshot.firstHandDrawPending ?? false,
+        extensions,
+      },
+      achievements: snapshot.achievementLedger || {
+        schemaVersion: 1,
+        groups: {},
+      },
+      perSaveOptions: Object.hasOwn(snapshot, "saveAllIn")
+        ? { saveAllIn: snapshot.saveAllIn }
+        : {},
+      assetReferences: [],
+    };
+    const appPreferences = {
+      schemaVersion: 1,
+      values: Object.fromEntries(
+        root.SaveSchema.appPreferenceKeys
+          .filter((key) => Object.hasOwn(snapshot, key))
+          .map((key) => [key, snapshot[key]]),
+      ),
+    };
     const roster = copy(snapshot.rosterSnapshot || current.roster);
     const oldAssignments = roster.assignments,
       assigned = new Set(),
@@ -16087,8 +16134,8 @@ globalThis.StableIdentity = StableIdentity;
     delete document.match.extensions.rosterSnapshot;
     return {
       document: root.SaveSchema.validateV2(document),
-      assets: imported.assets,
-      appPreferences: imported.appPreferences,
+      assets: [],
+      appPreferences,
     };
   }
   root.SaveProjection = Object.freeze({ toRuntime, fromRuntime });
@@ -18537,9 +18584,11 @@ globalThis.StableIdentity = StableIdentity;
   }
 
   async function readSaveIndex() {
-    const doc = root.SaveManager.snapshot(),
-      nextKey = `save:${doc.saveId}:${doc.roster.revision}`;
+    const context = root.SaveManager.rosterContext();
+    if (!context) return;
+    const nextKey = `save:${context.saveId}:${context.generation}:${context.rosterRevision}`;
     if (nextKey === contextKey) return saveIndexPending;
+    const doc = root.SaveManager.rosterView();
     generation++;
     clearUrls();
     contextKey = nextKey;
@@ -18684,6 +18733,27 @@ globalThis.StableIdentity = StableIdentity;
     return "";
   }
 
+  function ownGroupUrl(group) {
+    return urls.get(ownGroupAvatars.get(group?.groupUid)) || "";
+  }
+  async function populateGroupPreview(group, node) {
+    const identity = root.SaveManager.context();
+    await readIndex();
+    const current = root.SaveManager.context();
+    if (
+      !node?.isConnected ||
+      identity?.saveId !== current?.saveId ||
+      identity?.generation !== current?.generation
+    )
+      return;
+    const url = ownGroupUrl(group);
+    if (!url) return;
+    const image = root.document.createElement("img");
+    image.src = url;
+    image.alt = group.name + " 头像";
+    node.replaceChildren(image);
+    node.classList.remove("empty");
+  }
   function groupUrls(group) {
     const own = urls.get(ownGroupAvatars.get(group?.groupUid));
     if (own) return [own];
@@ -18883,6 +18953,8 @@ globalThis.StableIdentity = StableIdentity;
     },
     decorateGroupCards,
     groupUrls,
+    ownGroupUrl,
+    populateGroupPreview,
     groupDataUrl,
     groupDataUrlCached,
     renderRaffleReel,
@@ -26254,12 +26326,8 @@ function renderControls() {
   updateQuickBatchBar();
 }
 function openPickerModal({ internal = false } = {}) {
-  // The desktop dock entry opens the floating picker directly; the in-page
-  // modal only serves as the hidden drawing engine for that external window.
-  if (!internal && window.godpowerDesktop?.role === "main") {
-    window.godpowerDesktop.openPicker();
-    return;
-  }
+  // Default entry is the program's own picker. Only explicit external-engine
+  // calls hide its presentation behind the independent floating window.
   const external = internal && window.godpowerDesktop?.role === "main";
   document.getElementById("pickerModal").toggleAttribute("data-external-picker", !!external);
   window.GodpowerPicker?.setExternalPresentation(!!external);
@@ -29152,27 +29220,28 @@ function renderItemWindow() {
       statusParts.push(`害羞幽灵防护 ×${Number(g.booShield || 0)}`);
     }
     const status = statusParts.length ? statusParts.join(" · ") : "无";
+    const avatarUrl=ClassroomAvatarDisplay.ownGroupUrl(g),hasAvatar=!!g.avatarResourceId;
     body.innerHTML = `
       ${locked ? '<div class="group-detail-lock">🔒 当前处于锁定状态，可查看信息，但不能编辑、赋分、使用道具或删除小组。</div>' : ""}
       <section class="group-detail-section group-avatar-section">
         <h4>小组头像</h4>
         <div class="group-avatar-row">
-          <div class="group-avatar-preview ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
+          <div class="group-avatar-preview ${hasAvatar ? "" : "empty"}" id="groupAvatarPreview">
             ${
-              g.groupAvatar
-                ? `<img src="${escapeHtml(g.groupAvatar)}" alt="${escapeHtml(g.name)} 头像">`
+              avatarUrl
+                ? `<img src="${escapeHtml(avatarUrl)}" alt="${escapeHtml(g.name)} 头像">`
                 : `<span>${escapeHtml(String(g.groupNo || "?"))}</span>`
             }
           </div>
           <div class="group-avatar-copy">
-            <b>${g.groupAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
+            <b>${hasAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
             <span>支持 PNG、JPEG、WebP，单张不超过 512 KiB。未设置时沿用成员头像堆叠。</span>
             <div class="group-avatar-actions">
               <label class="btn btn-sm group-avatar-upload" ${locked ? 'aria-disabled="true"' : ""}>
-                ${g.groupAvatar ? "更换图片" : "选择图片"}
+                ${hasAvatar ? "更换图片" : "选择图片"}
                 <input type="file" accept="image/png,image/jpeg,image/webp" hidden ${disabled} onchange="pickGroupAvatarV2200(${g.id},this)">
               </label>
-              ${g.groupAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
+              ${hasAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
             </div>
             <p id="groupAvatarStatusV2200" class="ui-muted" role="status" aria-live="polite"></p>
           </div>
@@ -29215,6 +29284,7 @@ function renderItemWindow() {
         <div class="group-detail-actions"><button type="button" class="btn" onclick="renderItemWindow()" ${disabled}>放弃未保存修改</button><button type="button" class="btn btn-primary" onclick="saveItemGroupDetail(${g.id})" ${disabled}>保存更改</button></div>
         <section class="group-detail-section group-detail-danger"><h4>🧨 红色按钮区</h4><p>点下去以后，这组的积分、成员和道具会一起退场。系统不会替你假装刚才没看见。</p><button type="button" class="btn btn-danger" onclick="deleteItemDetailGroup(${g.id})" ${disabled}>删除小组</button></section>
       </div>`;
+    if(hasAvatar)void ClassroomAvatarDisplay.populateGroupPreview(g,document.getElementById('groupAvatarPreview'));
   } else if (activeItemTab === "items") {
     const canUse = !locked && eligibleForItems(g);
     body.innerHTML = `${locked ? '<div class="group-detail-lock">🔒 解锁后才能使用道具。</div>' : ""}<div class="item-inventory-grid">${[
@@ -29376,79 +29446,19 @@ function groupAvatarStatusV2200(text, kind = "") {
   node.textContent = text;
   node.dataset.status = kind;
 }
-function pickGroupAvatarV2200(groupId, input) {
-  const file = input?.files?.[0];
-  if (!file) return;
-  const g = state.groups.find((x) => x.id === groupId);
-  if (!g) return;
-  if (state.isLocked) {
-    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
-    input.value = "";
-    return;
-  }
-  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
-    groupAvatarStatusV2200("只接受 PNG、JPEG 或 WebP 图片。", "ERROR");
-    input.value = "";
-    return;
-  }
-  if (file.size > GROUP_AVATAR_LIMIT_V2200) {
-    groupAvatarStatusV2200("图片不能超过 512 KiB，请先压缩。", "ERROR");
-    input.value = "";
-    return;
-  }
-  groupAvatarStatusV2200("正在读取…", "PENDING");
-  const reader = new FileReader();
-  reader.onerror = () => {
-    groupAvatarStatusV2200("读取失败，请重试。", "ERROR");
-    input.value = "";
-  };
-  reader.onload = () => {
-    const dataUrl = String(reader.result || "");
-    if (!normalizeGroupAvatarV2200(dataUrl)) {
-      groupAvatarStatusV2200("图片格式无法识别，未保存。", "ERROR");
-      input.value = "";
-      return;
-    }
-    const accepted = runClassroomCommand(`设置 ${g.name} 的小组头像`, () => {
-      const live = state.groups.find((x) => x.id === groupId);
-      if (live) live.groupAvatar = dataUrl;
-      return true;
-    });
-    input.value = "";
-    if (accepted === false) {
-      groupAvatarStatusV2200("头像未保存，已恢复原状态。", "ERROR");
-      return;
-    }
-    renderAll();
-    renderItemWindow();
-    const next = document.getElementById("groupAvatarStatusV2200");
-    if (next) {
-      next.textContent = "头像已保存。";
-      next.dataset.status = "OK";
-    }
-  };
-  reader.readAsDataURL(file);
+async function pickGroupAvatarV2200(groupId,input){
+  const file=input?.files?.[0],group=state.groups.find(g=>g.id===groupId);if(!file||!group)return;
+  if(state.isLocked){groupAvatarStatusV2200('请先解锁课堂。','ERROR');input.value='';return;}
+  if(file.size>GROUP_AVATAR_LIMIT_V2200){groupAvatarStatusV2200('单张图片不能超过512 KiB。','ERROR');input.value='';return;}
+  const context=SaveManager.context();groupAvatarStatusV2200('正在处理并保存…','PENDING');
+  try{await SaveWorkspace.setAvatarFiles([file],{type:'group',id:group.groupUid,context});
+    if(SaveManager.context().saveId===context.saveId&&activeItemGroupId===groupId){await ClassroomAvatarDisplay.prepare(state.groups);renderItemWindow();groupAvatarStatusV2200('头像已保存，与设置同步。','OK');}
+  }catch(error){groupAvatarStatusV2200(error.message,'ERROR');}finally{input.value='';}
 }
-function clearGroupAvatarV2200(groupId) {
-  const target = state.groups.find((x) => x.id === groupId);
-  if (!target) return;
-  if (state.isLocked) {
-    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
-    return;
-  }
-  const accepted = runClassroomCommand(`清除 ${target.name} 的小组头像`, () => {
-    const live = state.groups.find((x) => x.id === groupId);
-    if (live) live.groupAvatar = "";
-    return true;
-  });
-  if (accepted === false) return;
-  renderAll();
-  if (activeItemGroupId === groupId) renderItemWindow();
-  const next = document.getElementById("groupAvatarStatusV2200");
-  if (next) {
-    next.textContent = "头像已清除，卡片恢复成员头像。";
-    next.dataset.status = "OK";
-  }
+async function clearGroupAvatarV2200(groupId){
+  const group=state.groups.find(g=>g.id===groupId);if(!group)return;
+  try{await SaveWorkspace.clearAvatar('group',group.groupUid);await ClassroomAvatarDisplay.prepare(state.groups);if(activeItemGroupId===groupId)renderItemWindow();groupAvatarStatusV2200('头像已清除。','OK');}
+  catch(error){groupAvatarStatusV2200(error.message,'ERROR');}
 }
 
 const savedItemGlobal = STORAGE.getJSON("politics_item_global", null);
@@ -30312,18 +30322,7 @@ const ITEM_FX_SOUND_SLOTS = [
   },
   { id: "item_steal", name: "害羞幽灵·偷取", desc: "成功偷取道具" },
 ];
-function renderItemFxSoundListV26() {
-  const box = document.getElementById("itemFxSoundListV26");
-  if (!box) return;
-  box.innerHTML = ITEM_FX_SOUND_SLOTS.filter(
-    (s) => !GENERIC_ITEM_USE_SOUNDS_V2174.has(s.id),
-  )
-    .map((s) => {
-      const custom = !!customFxBuffers[s.id] || hasSound("fx_" + s.id);
-      return `<div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom ? "已载入自定义音频" : s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom ? `<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>` : ""}</div></div>`;
-    })
-    .join("");
-}
+
 function itemSoundCategoryV26(k) {
   if (
     [
@@ -32660,7 +32659,8 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
 /* 设置页重做：
    公共事件音效仅留下抽取三件套 + 防御成功；
    下面单独列出 26 个道具，每一个都可独立试听 / 上传 / 还原。 */
-renderItemFxSoundListV26 = function () {
+const itemFxSoundMarkupCache = new WeakMap();
+function renderItemFxSoundListV26() {
   const box = document.getElementById("itemFxSoundListV26");
   if (!box) return;
 
@@ -32700,7 +32700,7 @@ renderItemFxSoundListV26 = function () {
     </div>`;
   };
 
-  box.innerHTML = `
+  const markup = `
     <div class="audio-head">
       <b>公共道具事件</b>
       <span>抽取过程与统一防御提示</span>
@@ -32719,7 +32719,11 @@ renderItemFxSoundListV26 = function () {
       }).join("")}
     </div>
   `;
-};
+  const previous=itemFxSoundMarkupCache.get(box);
+  if(previous?.markup===markup && previous.firstChild===box.firstChild)return;
+  box.innerHTML=markup;
+  itemFxSoundMarkupCache.set(box,{markup,firstChild:box.firstChild});
+}
 
 /* 上传 / 删除后立即刷新独立道具音效列表。 */
 const _v2174HandleSoundFileUpload = handleSoundFileUpload;
@@ -40110,15 +40114,8 @@ globalThis.ClassroomSaveFile = (() => {
       ...SaveSchema.appPreferenceKeys.map((k) => ({ [k]: snapshot[k] })),
     );
     const prefResult = await persistPreferences(values);
-    // A compatibility cache is not a second authority. Its failure cannot undo a
-    // successful native/IDB commit or cause a duplicate classroom command.
-    const cache = Reliability.writeVerified(
-      CLASSROOM_STORAGE,
-      Reliability.stateKey,
-      snapshot,
-    );
-    if (!cache.ok)
-      console.warn("新版存档已确认，旧版兼容缓存未更新：" + cache.error);
+    // The versioned vault ACK is authoritative. Do not re-serialize and
+    // synchronously mirror the entire history into a superseded save format.
     root.classroomUnsavedChanges = false;
     const warning = document.getElementById("classroomSaveWarning");
     if (warning) warning.hidden = true;
@@ -40286,6 +40283,8 @@ globalThis.ClassroomSaveFile = (() => {
         ? { saveId: currentStatus.saveId, generation: currentStatus.generation }
         : null),
     snapshot: () => session?.snapshot() || null,
+    rosterContext: () => session?.rosterContext() || null,
+    rosterView: () => session?.rosterView() || null,
     status: () => ({ ...currentStatus, legacyRosterMessage }),
     repository: () => repo,
     persist,
@@ -49652,7 +49651,7 @@ const UIComponentLibrary = (() => {
   }
   async function render() {
     if (!mounted) return;
-    const doc = SaveManager.snapshot();
+    const doc = SaveManager.rosterView();
     const status = SaveManager.status();
     mounted.querySelector("[data-save-state]").textContent = doc
       ? `${doc.name} · 修订 ${doc.revision} · ${status.phase === "saving" ? "保存中…" : status.phase === "error" ? "保存失败，保留当前数据" : "本地保存"}`
@@ -50096,7 +50095,20 @@ const UIComponentLibrary = (() => {
     SaveManager.ready().then(render);
     return mounted;
   }
-  root.SaveWorkspace = Object.freeze({ mount, openMembers });
+  root.SaveWorkspace = Object.freeze({
+    mount,
+    openMembers,
+    setAvatarFiles,
+    async clearAvatar(type, id) {
+      const result = await SaveManager.edit("清除名单头像", (doc) =>
+        SaveRoster.setAvatar(doc, type, id, null),
+      );
+      if (!result.ok || !result.persisted)
+        throw Error(result.error || "头像未保存");
+      await render();
+      return result;
+    },
+  });
 })(globalThis);
 </script>
 <style>#view-gameplay {

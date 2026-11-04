@@ -1,0 +1,32 @@
+✔ runtime projection carries small resource references without decoding inline avatars into history (17.083521ms)
+✔ score-only persistence keeps student identities and roster revision stable (6.921894ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (5.954123ms)
+✔ pending archived season survives same-season projection and clears only on new season (6.632872ms)
+✖ ordinary runtime saves preserve identities without running legacy import hashes (6.718852ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 113.226611
+
+✖ failing tests:
+
+test at tests/unit/save-projection.test.mjs:95:1
+✖ ordinary runtime saves preserve identities without running legacy import hashes (6.718852ms)
+  AssertionError [ERR_ASSERTION]: normal saves must not rehash an import source and every student
+  
+  4 !== 0
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-projection.test.mjs:100:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

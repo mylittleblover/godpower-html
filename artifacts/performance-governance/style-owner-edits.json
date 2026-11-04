@@ -1,0 +1,278 @@
+[
+  {
+    "path": "src/styles/dialogs/settlement-and-core.css",
+    "baseline": "bd02970",
+    "sha256": "d3c56da6171cf85181cb715dc293ec05275088c4ee48064fab84243888725604",
+    "edits": [
+      {
+        "start": 1749,
+        "end": 1749,
+        "original": "",
+        "replacement": ":not([data-external-picker])"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/base/desktop-foundation.css",
+    "baseline": "bd02970",
+    "sha256": "0839800d6f14b529a7f0fff8e1ed35fd9a760b2faf882bd0cab236d7158dcf3b",
+    "edits": [
+      {
+        "start": 5486,
+        "end": 5486,
+        "original": "",
+        "replacement": ":not([data-external-picker])"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/feedback/classroom-effects.css",
+    "baseline": "bd02970",
+    "sha256": "4f42df21ded975b6bb6208ad37926e49caa2cf9d6bef4bde231aa243a09865d0",
+    "edits": [
+      {
+        "start": 1588,
+        "end": 1589,
+        "original": "b",
+        "replacement": "/* Op"
+      },
+      {
+        "start": 1590,
+        "end": 1590,
+        "original": "",
+        "replacement": "que shading avoids resampling the "
+      },
+      {
+        "start": 1591,
+        "end": 1593,
+        "original": "kd",
+        "replacement": "omplete class"
+      },
+      {
+        "start": 1595,
+        "end": 1601,
+        "original": "p-filt",
+        "replacement": "om ev"
+      },
+      {
+        "start": 1603,
+        "end": 1604,
+        "original": ":",
+        "replacement": "y"
+      },
+      {
+        "start": 1605,
+        "end": 1608,
+        "original": "blu",
+        "replacement": "animation f"
+      },
+      {
+        "start": 1609,
+        "end": 1615,
+        "original": "(7px);",
+        "replacement": "ame. */"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/classroom/student-picker-hand.css",
+    "baseline": "bd02970",
+    "sha256": "3bbda3af87a2fe5b836840f740917797bf8c5652e52125d19911811fe984afaa",
+    "edits": [
+      {
+        "start": 355,
+        "end": 356,
+        "original": "b",
+        "replacement": "/* St"
+      },
+      {
+        "start": 357,
+        "end": 357,
+        "original": "",
+        "replacement": "ti"
+      },
+      {
+        "start": 358,
+        "end": 358,
+        "original": "",
+        "replacement": " shade "
+      },
+      {
+        "start": 359,
+        "end": 360,
+        "original": "d",
+        "replacement": "eeps the class"
+      },
+      {
+        "start": 362,
+        "end": 362,
+        "original": "",
+        "replacement": "om from being resam"
+      },
+      {
+        "start": 363,
+        "end": 365,
+        "original": "-f",
+        "replacement": "led wh"
+      },
+      {
+        "start": 367,
+        "end": 367,
+        "original": "",
+        "replacement": "e "
+      },
+      {
+        "start": 368,
+        "end": 368,
+        "original": "",
+        "replacement": "his window mov"
+      },
+      {
+        "start": 369,
+        "end": 371,
+        "original": "r:",
+        "replacement": "s."
+      },
+      {
+        "start": 372,
+        "end": 382,
+        "original": "blur(3px);",
+        "replacement": "*/"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/dialogs/theme-confirmation.css",
+    "baseline": "bd02970",
+    "sha256": "8e25b3b20ca758b7787c660cf57e1d5117091ed6ee32f7717cd05993486cf449",
+    "edits": [
+      {
+        "start": 207,
+        "end": 208,
+        "original": "b",
+        "replacement": "/* St"
+      },
+      {
+        "start": 209,
+        "end": 209,
+        "original": "",
+        "replacement": "ti"
+      },
+      {
+        "start": 210,
+        "end": 210,
+        "original": "",
+        "replacement": " shade "
+      },
+      {
+        "start": 211,
+        "end": 212,
+        "original": "d",
+        "replacement": "eeps the class"
+      },
+      {
+        "start": 214,
+        "end": 214,
+        "original": "",
+        "replacement": "om from being resam"
+      },
+      {
+        "start": 215,
+        "end": 217,
+        "original": "-f",
+        "replacement": "led wh"
+      },
+      {
+        "start": 219,
+        "end": 219,
+        "original": "",
+        "replacement": "e "
+      },
+      {
+        "start": 220,
+        "end": 220,
+        "original": "",
+        "replacement": "his window mov"
+      },
+      {
+        "start": 221,
+        "end": 223,
+        "original": "r:",
+        "replacement": "s."
+      },
+      {
+        "start": 224,
+        "end": 234,
+        "original": "blur(3px);",
+        "replacement": "*/"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/classroom/roster-workspace.css",
+    "baseline": "bd02970",
+    "sha256": "7f15c3d115480292329972dc543693565bb1bd565a4ef5f521048f2669f1909a",
+    "edits": [
+      {
+        "start": 2485,
+        "end": 2486,
+        "original": "b",
+        "replacement": "/* St"
+      },
+      {
+        "start": 2487,
+        "end": 2487,
+        "original": "",
+        "replacement": "ti"
+      },
+      {
+        "start": 2488,
+        "end": 2488,
+        "original": "",
+        "replacement": " shade "
+      },
+      {
+        "start": 2489,
+        "end": 2490,
+        "original": "d",
+        "replacement": "eeps the class"
+      },
+      {
+        "start": 2492,
+        "end": 2492,
+        "original": "",
+        "replacement": "om from being resam"
+      },
+      {
+        "start": 2493,
+        "end": 2495,
+        "original": "-f",
+        "replacement": "led wh"
+      },
+      {
+        "start": 2497,
+        "end": 2497,
+        "original": "",
+        "replacement": "e "
+      },
+      {
+        "start": 2498,
+        "end": 2498,
+        "original": "",
+        "replacement": "his window mov"
+      },
+      {
+        "start": 2499,
+        "end": 2501,
+        "original": "r:",
+        "replacement": "s."
+      },
+      {
+        "start": 2502,
+        "end": 2512,
+        "original": "blur(5px);",
+        "replacement": "*/"
+      }
+    ]
+  }
+]

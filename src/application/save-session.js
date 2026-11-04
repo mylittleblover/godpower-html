@@ -70,6 +70,16 @@
     return Object.freeze({
       token,
       snapshot: () => clone(current),
+      rosterContext: () => ({
+        ...token(),
+        rosterRevision: current.roster.revision,
+      }),
+      rosterView: () => ({
+        saveId: current.saveId,
+        revision: current.revision,
+        name: current.name,
+        roster: clone(current.roster),
+      }),
       isSwitching: () => switching,
       whenIdle: () => queue,
       update: (
@@ -89,7 +99,7 @@
           status("saving");
           const prepared = await prepare(clone(current));
           if (!matches(requested)) return reject("GENERATION_CONFLICT");
-          const doc = root.SaveSchema.validateV2(prepared.document);
+          const doc = root.SaveSchema.assertV2(prepared.document);
           if (
             doc.saveId !== current.saveId ||
             doc.revision !== current.revision

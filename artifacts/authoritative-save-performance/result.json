@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "result": {
+    "writes": 0,
+    "unchangedCache": true,
+    "before": 100,
+    "score": 102,
+    "stored": 102
+  },
+  "errors": []
+}

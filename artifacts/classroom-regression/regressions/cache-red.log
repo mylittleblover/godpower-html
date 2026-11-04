@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: one authoritative commit must not synchronously rewrite a complete obsolete save cache
+
+1 !== 0
+
+    at file:///workspace/godpower-html-latest/tests/e2e/authoritative-save-performance.mjs:58:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

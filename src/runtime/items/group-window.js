@@ -58,27 +58,28 @@ function renderItemWindow() {
       statusParts.push(`害羞幽灵防护 ×${Number(g.booShield || 0)}`);
     }
     const status = statusParts.length ? statusParts.join(" · ") : "无";
+    const avatarUrl=ClassroomAvatarDisplay.ownGroupUrl(g),hasAvatar=!!g.avatarResourceId;
     body.innerHTML = `
       ${locked ? '<div class="group-detail-lock">🔒 当前处于锁定状态，可查看信息，但不能编辑、赋分、使用道具或删除小组。</div>' : ""}
       <section class="group-detail-section group-avatar-section">
         <h4>小组头像</h4>
         <div class="group-avatar-row">
-          <div class="group-avatar-preview ${g.groupAvatar ? "" : "empty"}" id="groupAvatarPreview">
+          <div class="group-avatar-preview ${hasAvatar ? "" : "empty"}" id="groupAvatarPreview">
             ${
-              g.groupAvatar
-                ? `<img src="${escapeHtml(g.groupAvatar)}" alt="${escapeHtml(g.name)} 头像">`
+              avatarUrl
+                ? `<img src="${escapeHtml(avatarUrl)}" alt="${escapeHtml(g.name)} 头像">`
                 : `<span>${escapeHtml(String(g.groupNo || "?"))}</span>`
             }
           </div>
           <div class="group-avatar-copy">
-            <b>${g.groupAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
+            <b>${hasAvatar ? "已设置自定义头像" : "当前使用默认编号"}</b>
             <span>支持 PNG、JPEG、WebP，单张不超过 512 KiB。未设置时沿用成员头像堆叠。</span>
             <div class="group-avatar-actions">
               <label class="btn btn-sm group-avatar-upload" ${locked ? 'aria-disabled="true"' : ""}>
-                ${g.groupAvatar ? "更换图片" : "选择图片"}
+                ${hasAvatar ? "更换图片" : "选择图片"}
                 <input type="file" accept="image/png,image/jpeg,image/webp" hidden ${disabled} onchange="pickGroupAvatarV2200(${g.id},this)">
               </label>
-              ${g.groupAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
+              ${hasAvatar ? `<button type="button" class="btn btn-sm" ${disabled} onclick="clearGroupAvatarV2200(${g.id})">清除头像</button>` : ""}
             </div>
             <p id="groupAvatarStatusV2200" class="ui-muted" role="status" aria-live="polite"></p>
           </div>
@@ -121,6 +122,7 @@ function renderItemWindow() {
         <div class="group-detail-actions"><button type="button" class="btn" onclick="renderItemWindow()" ${disabled}>放弃未保存修改</button><button type="button" class="btn btn-primary" onclick="saveItemGroupDetail(${g.id})" ${disabled}>保存更改</button></div>
         <section class="group-detail-section group-detail-danger"><h4>🧨 红色按钮区</h4><p>点下去以后，这组的积分、成员和道具会一起退场。系统不会替你假装刚才没看见。</p><button type="button" class="btn btn-danger" onclick="deleteItemDetailGroup(${g.id})" ${disabled}>删除小组</button></section>
       </div>`;
+    if(hasAvatar)void ClassroomAvatarDisplay.populateGroupPreview(g,document.getElementById('groupAvatarPreview'));
   } else if (activeItemTab === "items") {
     const canUse = !locked && eligibleForItems(g);
     body.innerHTML = `${locked ? '<div class="group-detail-lock">🔒 解锁后才能使用道具。</div>' : ""}<div class="item-inventory-grid">${[
@@ -282,79 +284,19 @@ function groupAvatarStatusV2200(text, kind = "") {
   node.textContent = text;
   node.dataset.status = kind;
 }
-function pickGroupAvatarV2200(groupId, input) {
-  const file = input?.files?.[0];
-  if (!file) return;
-  const g = state.groups.find((x) => x.id === groupId);
-  if (!g) return;
-  if (state.isLocked) {
-    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
-    input.value = "";
-    return;
-  }
-  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
-    groupAvatarStatusV2200("只接受 PNG、JPEG 或 WebP 图片。", "ERROR");
-    input.value = "";
-    return;
-  }
-  if (file.size > GROUP_AVATAR_LIMIT_V2200) {
-    groupAvatarStatusV2200("图片不能超过 512 KiB，请先压缩。", "ERROR");
-    input.value = "";
-    return;
-  }
-  groupAvatarStatusV2200("正在读取…", "PENDING");
-  const reader = new FileReader();
-  reader.onerror = () => {
-    groupAvatarStatusV2200("读取失败，请重试。", "ERROR");
-    input.value = "";
-  };
-  reader.onload = () => {
-    const dataUrl = String(reader.result || "");
-    if (!normalizeGroupAvatarV2200(dataUrl)) {
-      groupAvatarStatusV2200("图片格式无法识别，未保存。", "ERROR");
-      input.value = "";
-      return;
-    }
-    const accepted = runClassroomCommand(`设置 ${g.name} 的小组头像`, () => {
-      const live = state.groups.find((x) => x.id === groupId);
-      if (live) live.groupAvatar = dataUrl;
-      return true;
-    });
-    input.value = "";
-    if (accepted === false) {
-      groupAvatarStatusV2200("头像未保存，已恢复原状态。", "ERROR");
-      return;
-    }
-    renderAll();
-    renderItemWindow();
-    const next = document.getElementById("groupAvatarStatusV2200");
-    if (next) {
-      next.textContent = "头像已保存。";
-      next.dataset.status = "OK";
-    }
-  };
-  reader.readAsDataURL(file);
+async function pickGroupAvatarV2200(groupId,input){
+  const file=input?.files?.[0],group=state.groups.find(g=>g.id===groupId);if(!file||!group)return;
+  if(state.isLocked){groupAvatarStatusV2200('请先解锁课堂。','ERROR');input.value='';return;}
+  if(file.size>GROUP_AVATAR_LIMIT_V2200){groupAvatarStatusV2200('单张图片不能超过512 KiB。','ERROR');input.value='';return;}
+  const context=SaveManager.context();groupAvatarStatusV2200('正在处理并保存…','PENDING');
+  try{await SaveWorkspace.setAvatarFiles([file],{type:'group',id:group.groupUid,context});
+    if(SaveManager.context().saveId===context.saveId&&activeItemGroupId===groupId){await ClassroomAvatarDisplay.prepare(state.groups);renderItemWindow();groupAvatarStatusV2200('头像已保存，与设置同步。','OK');}
+  }catch(error){groupAvatarStatusV2200(error.message,'ERROR');}finally{input.value='';}
 }
-function clearGroupAvatarV2200(groupId) {
-  const target = state.groups.find((x) => x.id === groupId);
-  if (!target) return;
-  if (state.isLocked) {
-    groupAvatarStatusV2200("课堂已锁定，解锁后才能修改头像。", "ERROR");
-    return;
-  }
-  const accepted = runClassroomCommand(`清除 ${target.name} 的小组头像`, () => {
-    const live = state.groups.find((x) => x.id === groupId);
-    if (live) live.groupAvatar = "";
-    return true;
-  });
-  if (accepted === false) return;
-  renderAll();
-  if (activeItemGroupId === groupId) renderItemWindow();
-  const next = document.getElementById("groupAvatarStatusV2200");
-  if (next) {
-    next.textContent = "头像已清除，卡片恢复成员头像。";
-    next.dataset.status = "OK";
-  }
+async function clearGroupAvatarV2200(groupId){
+  const group=state.groups.find(g=>g.id===groupId);if(!group)return;
+  try{await SaveWorkspace.clearAvatar('group',group.groupUid);await ClassroomAvatarDisplay.prepare(state.groups);if(activeItemGroupId===groupId)renderItemWindow();groupAvatarStatusV2200('头像已清除。','OK');}
+  catch(error){groupAvatarStatusV2200(error.message,'ERROR');}
 }
 
 const savedItemGlobal = STORAGE.getJSON("politics_item_global", null);

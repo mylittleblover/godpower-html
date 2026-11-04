@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import vm from "node:vm";
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { saveCore, legacy } from "../fixtures/save-v2.mjs";
 async function fixture() {
@@ -90,4 +91,79 @@ test("pending archived season survives same-season projection and clears only on
   const next = await projection.fromRuntime(document, runtime);
   assert.equal(next.document.match.pendingSettlement, undefined);
   assert.equal(next.document.archives.length, 1);
+});
+
+test("ordinary runtime saves preserve identities without running legacy import hashes", async () => {
+  const { projection, document, context } = await fixture();
+  const runtime = projection.toRuntime(document);
+  runtime.groups[0].score += 2;
+  let hashes = 0;
+  const original = context.crypto;
+  context.crypto = {
+    subtle: {
+      digest(...args) {
+        hashes++;
+        return original.subtle.digest(...args);
+      },
+    },
+  };
+  const result = await projection.fromRuntime(document, runtime);
+  assert.equal(
+    hashes,
+    0,
+    "normal saves must not rehash an import source and every student",
+  );
+  assert.equal(
+    result.document.roster.students[0].studentUid,
+    document.roster.students[0].studentUid,
+  );
+  assert.equal(result.document.match.groups[0].score, 102);
+});
+
+test("direct projection matches the verified prior save contract for ordinary score, history and configuration changes", async () => {
+  const c = saveCore();
+  vm.runInContext(
+    execFileSync(
+      "git",
+      ["show", "bd02970:src/application/save-projection.js"],
+      { encoding: "utf8" },
+    ),
+    c.context,
+  );
+  const previous = c.context.SaveProjection;
+  vm.runInContext(
+    readFileSync("src/application/save-projection.js", "utf8"),
+    c.context,
+  );
+  const current = c.context.SaveProjection;
+  const document = (
+    await c.migration.preview({ rawText: JSON.stringify(legacy()) })
+  ).documents[0];
+  for (const variant of ["score", "history", "config"]) {
+    const runtime = current.toRuntime(document);
+    if (variant === "score") {
+      runtime.groups[0].score += 7;
+      runtime.groups[0].name = "新组名";
+    }
+    if (variant === "history") {
+      runtime.history = Array.from({ length: 4 }, (_, i) => ({
+        desc: "history " + i,
+        groups: structuredClone(runtime.groups),
+      }));
+      runtime.round = { roundActive: true, evaluated: false };
+    }
+    if (variant === "config") {
+      runtime.customFeature = { enabled: true, values: [1, 2, 3] };
+      runtime.masterVolume = 0.35;
+      runtime.saveAllIn = true;
+    }
+    const old = await previous.fromRuntime(document, runtime),
+      next = await current.fromRuntime(document, runtime);
+    assert.equal(
+      JSON.stringify(next),
+      JSON.stringify(old),
+      variant +
+        " must preserve the existing document, asset and preference contract",
+    );
+  }
 });

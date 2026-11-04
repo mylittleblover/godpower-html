@@ -1,0 +1,347 @@
+{
+  "source": "worktree",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080 DPR1",
+  "synthetic": true,
+  "phases": [
+    {
+      "name": "score-command",
+      "samples": [
+        {
+          "ms": 562.6999999999534,
+          "digests": []
+        },
+        {
+          "ms": 508,
+          "digests": []
+        },
+        {
+          "ms": 494.29999999993015,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "group-name-command",
+      "samples": [
+        {
+          "ms": 295,
+          "digests": []
+        },
+        {
+          "ms": 299.19999999995343,
+          "digests": []
+        },
+        {
+          "ms": 458,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "renderAll",
+      "samples": [
+        {
+          "ms": 76.30000000004657,
+          "digests": []
+        },
+        {
+          "ms": 34.70000000006985,
+          "digests": []
+        },
+        {
+          "ms": 28.599999999976717,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "settings-switch",
+      "samples": [
+        {
+          "ms": 449.9000000000233,
+          "digests": []
+        },
+        {
+          "ms": 492,
+          "digests": []
+        },
+        {
+          "ms": 530.7999999999302,
+          "digests": []
+        }
+      ]
+    }
+  ],
+  "frameResults": [
+    {
+      "type": "idle",
+      "count": 58,
+      "p50": 16.69999999999891,
+      "p95": 66.60000000000036,
+      "max": 83.39999999999964
+    },
+    {
+      "type": "picker",
+      "count": 56,
+      "p50": 16.700000000000728,
+      "p95": 50,
+      "max": 50
+    },
+    {
+      "type": "fullscreen",
+      "count": 16,
+      "p50": 66.70000000000073,
+      "p95": 250,
+      "max": 250
+    }
+  ],
+  "longTasks": [
+    {
+      "start": 6120.400000000023,
+      "duration": 365
+    },
+    {
+      "start": 6529.5,
+      "duration": 59
+    },
+    {
+      "start": 6597.599999999977,
+      "duration": 86
+    },
+    {
+      "start": 6785.199999999953,
+      "duration": 150
+    },
+    {
+      "start": 6993.29999999993,
+      "duration": 106
+    },
+    {
+      "start": 7199.699999999953,
+      "duration": 93
+    },
+    {
+      "start": 7419.699999999953,
+      "duration": 219
+    },
+    {
+      "start": 7713,
+      "duration": 70
+    },
+    {
+      "start": 7821.599999999977,
+      "duration": 92
+    },
+    {
+      "start": 7989.29999999993,
+      "duration": 119
+    },
+    {
+      "start": 8129.79999999993,
+      "duration": 55
+    },
+    {
+      "start": 8192.900000000023,
+      "duration": 92
+    },
+    {
+      "start": 8336.5,
+      "duration": 162
+    },
+    {
+      "start": 8582.099999999977,
+      "duration": 53
+    },
+    {
+      "start": 8722.79999999993,
+      "duration": 176
+    },
+    {
+      "start": 9084.900000000023,
+      "duration": 96
+    },
+    {
+      "start": 9235.29999999993,
+      "duration": 76
+    },
+    {
+      "start": 9588.400000000023,
+      "duration": 450
+    },
+    {
+      "start": 10038.5,
+      "duration": 75
+    },
+    {
+      "start": 10184.099999999977,
+      "duration": 492
+    },
+    {
+      "start": 10789.5,
+      "duration": 530
+    },
+    {
+      "start": 11320.5,
+      "duration": 79
+    },
+    {
+      "start": 12705,
+      "duration": 80
+    },
+    {
+      "start": 13976,
+      "duration": 228
+    },
+    {
+      "start": 14236.400000000023,
+      "duration": 64
+    }
+  ],
+  "groups": 14,
+  "students": 56,
+  "history": 40,
+  "dom": 4253,
+  "top": [
+    {
+      "name": "(idle) @-1",
+      "selfMs": 3195.956
+    },
+    {
+      "name": "(program) @-1",
+      "selfMs": 3040.97
+    },
+    {
+      "name": "copy @14763",
+      "selfMs": 938
+    },
+    {
+      "name": "renderItemFxSoundListV26 @32695",
+      "selfMs": 810.497
+    },
+    {
+      "name": "clone @23542",
+      "selfMs": 280.928
+    },
+    {
+      "name": " @26282",
+      "selfMs": 257.144
+    },
+    {
+      "name": "selectSettings @51157",
+      "selfMs": 218.629
+    },
+    {
+      "name": "(garbage collector) @-1",
+      "selfMs": 155.068
+    },
+    {
+      "name": "recordHistory @22963",
+      "selfMs": 100.119
+    },
+    {
+      "name": "querySelectorAll @-1",
+      "selfMs": 89.25
+    },
+    {
+      "name": "safeTree @14770",
+      "selfMs": 88.091
+    },
+    {
+      "name": "showModal @-1",
+      "selfMs": 66.849
+    },
+    {
+      "name": " @36955",
+      "selfMs": 65.243
+    },
+    {
+      "name": "getPropertyValue @-1",
+      "selfMs": 50.343
+    },
+    {
+      "name": " @37100",
+      "selfMs": 49.976
+    },
+    {
+      "name": "animate @-1",
+      "selfMs": 48.449
+    },
+    {
+      "name": "render @49685",
+      "selfMs": 48.221
+    },
+    {
+      "name": "measure @11",
+      "selfMs": 45.011
+    },
+    {
+      "name": "getElementById @-1",
+      "selfMs": 43.1
+    },
+    {
+      "name": "unique @14781",
+      "selfMs": 42.756
+    },
+    {
+      "name": "req.onsuccess @15436",
+      "selfMs": 39.865
+    },
+    {
+      "name": "setItem @-1",
+      "selfMs": 36.876
+    },
+    {
+      "name": " @16037",
+      "selfMs": 34.09
+    },
+    {
+      "name": "getAllKeys @-1",
+      "selfMs": 32.886
+    },
+    {
+      "name": "checkRefs @14915",
+      "selfMs": 31.6
+    },
+    {
+      "name": "renderFxSlotList @27047",
+      "selfMs": 29.653
+    },
+    {
+      "name": "writeVerified @19822",
+      "selfMs": 28.592
+    },
+    {
+      "name": "renderBattleGridCards @36914",
+      "selfMs": 23.643
+    },
+    {
+      "name": "getClientRects @-1",
+      "selfMs": 22.039
+    },
+    {
+      "name": "put @-1",
+      "selfMs": 21.402
+    },
+    {
+      "name": " @31567",
+      "selfMs": 20.693
+    },
+    {
+      "name": "buildClassroomBackup @40471",
+      "selfMs": 18.804
+    },
+    {
+      "name": "put @15518",
+      "selfMs": 16.395
+    },
+    {
+      "name": "fromRuntime @15993",
+      "selfMs": 15.504
+    },
+    {
+      "name": "MutationObserver.observe.subtree @51473",
+      "selfMs": 14.391
+    }
+  ]
+}

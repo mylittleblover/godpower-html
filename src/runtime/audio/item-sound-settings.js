@@ -17,18 +17,7 @@ const ITEM_FX_SOUND_SLOTS = [
   },
   { id: "item_steal", name: "害羞幽灵·偷取", desc: "成功偷取道具" },
 ];
-function renderItemFxSoundListV26() {
-  const box = document.getElementById("itemFxSoundListV26");
-  if (!box) return;
-  box.innerHTML = ITEM_FX_SOUND_SLOTS.filter(
-    (s) => !GENERIC_ITEM_USE_SOUNDS_V2174.has(s.id),
-  )
-    .map((s) => {
-      const custom = !!customFxBuffers[s.id] || hasSound("fx_" + s.id);
-      return `<div class="sound-row"><div class="sound-desc"><div class="sound-name">${s.name}</div><div class="sound-tag">${custom ? "已载入自定义音频" : s.desc}</div></div><div class="sound-controls"><button class="btn btn-sm" onclick="playSound('${s.id}')">试听</button><button class="btn btn-sm btn-primary" onclick="triggerUploadAudio('fx_${s.id}')">上传</button>${custom ? `<button class="btn btn-sm btn-danger" onclick="deleteFxTrack('fx_${s.id}','${s.id}');setTimeout(renderItemFxSoundListV26,100)">还原</button>` : ""}</div></div>`;
-    })
-    .join("");
-}
+
 function itemSoundCategoryV26(k) {
   if (
     [

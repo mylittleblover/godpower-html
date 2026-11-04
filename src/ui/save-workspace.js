@@ -61,7 +61,7 @@
   }
   async function render() {
     if (!mounted) return;
-    const doc = SaveManager.snapshot();
+    const doc = SaveManager.rosterView();
     const status = SaveManager.status();
     mounted.querySelector("[data-save-state]").textContent = doc
       ? `${doc.name} · 修订 ${doc.revision} · ${status.phase === "saving" ? "保存中…" : status.phase === "error" ? "保存失败，保留当前数据" : "本地保存"}`
@@ -505,5 +505,18 @@
     SaveManager.ready().then(render);
     return mounted;
   }
-  root.SaveWorkspace = Object.freeze({ mount, openMembers });
+  root.SaveWorkspace = Object.freeze({
+    mount,
+    openMembers,
+    setAvatarFiles,
+    async clearAvatar(type, id) {
+      const result = await SaveManager.edit("清除名单头像", (doc) =>
+        SaveRoster.setAvatar(doc, type, id, null),
+      );
+      if (!result.ok || !result.persisted)
+        throw Error(result.error || "头像未保存");
+      await render();
+      return result;
+    },
+  });
 })(globalThis);

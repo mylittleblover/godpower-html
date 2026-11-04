@@ -139,7 +139,8 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
 /* 设置页重做：
    公共事件音效仅留下抽取三件套 + 防御成功；
    下面单独列出 26 个道具，每一个都可独立试听 / 上传 / 还原。 */
-renderItemFxSoundListV26 = function () {
+const itemFxSoundMarkupCache = new WeakMap();
+function renderItemFxSoundListV26() {
   const box = document.getElementById("itemFxSoundListV26");
   if (!box) return;
 
@@ -179,7 +180,7 @@ renderItemFxSoundListV26 = function () {
     </div>`;
   };
 
-  box.innerHTML = `
+  const markup = `
     <div class="audio-head">
       <b>公共道具事件</b>
       <span>抽取过程与统一防御提示</span>
@@ -198,7 +199,11 @@ renderItemFxSoundListV26 = function () {
       }).join("")}
     </div>
   `;
-};
+  const previous=itemFxSoundMarkupCache.get(box);
+  if(previous?.markup===markup && previous.firstChild===box.firstChild)return;
+  box.innerHTML=markup;
+  itemFxSoundMarkupCache.set(box,{markup,firstChild:box.firstChild});
+}
 
 /* 上传 / 删除后立即刷新独立道具音效列表。 */
 const _v2174HandleSoundFileUpload = handleSoundFileUpload;

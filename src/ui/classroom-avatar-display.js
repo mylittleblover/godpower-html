@@ -85,9 +85,11 @@
   }
 
   async function readSaveIndex() {
-    const doc = root.SaveManager.snapshot(),
-      nextKey = `save:${doc.saveId}:${doc.roster.revision}`;
+    const context = root.SaveManager.rosterContext();
+    if (!context) return;
+    const nextKey = `save:${context.saveId}:${context.generation}:${context.rosterRevision}`;
     if (nextKey === contextKey) return saveIndexPending;
+    const doc = root.SaveManager.rosterView();
     generation++;
     clearUrls();
     contextKey = nextKey;
@@ -232,6 +234,27 @@
     return "";
   }
 
+  function ownGroupUrl(group) {
+    return urls.get(ownGroupAvatars.get(group?.groupUid)) || "";
+  }
+  async function populateGroupPreview(group, node) {
+    const identity = root.SaveManager.context();
+    await readIndex();
+    const current = root.SaveManager.context();
+    if (
+      !node?.isConnected ||
+      identity?.saveId !== current?.saveId ||
+      identity?.generation !== current?.generation
+    )
+      return;
+    const url = ownGroupUrl(group);
+    if (!url) return;
+    const image = root.document.createElement("img");
+    image.src = url;
+    image.alt = group.name + " 头像";
+    node.replaceChildren(image);
+    node.classList.remove("empty");
+  }
   function groupUrls(group) {
     const own = urls.get(ownGroupAvatars.get(group?.groupUid));
     if (own) return [own];
@@ -431,6 +454,8 @@
     },
     decorateGroupCards,
     groupUrls,
+    ownGroupUrl,
+    populateGroupPreview,
     groupDataUrl,
     groupDataUrlCached,
     renderRaffleReel,

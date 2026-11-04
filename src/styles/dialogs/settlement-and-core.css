@@ -93,7 +93,7 @@
   bottom: 0;
   z-index: 999;
 }
-.modal-overlay.active {
+.modal-overlay.active:not([data-external-picker]) {
   display: flex;
 }
 .modal-box {

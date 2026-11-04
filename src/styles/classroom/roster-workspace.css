@@ -125,7 +125,7 @@
   place-items: center;
   padding: 28px;
   background: rgb(15 37 34 / 54%);
-  backdrop-filter: blur(5px);
+  /* Static shade keeps the classroom from being resampled while this window moves. */
   animation: roster-apply-backdrop-in 180ms ease-out both;
 }
 .roster-apply-card {

@@ -76,6 +76,80 @@ try {
   );
   await page.evaluate(() => classroomCommands.whenIdle());
   await page.evaluate(() => ClassroomAvatarDisplay.prepare(state.groups));
+  await page.evaluate(() => openItemWindow(state.groups[0].id, "detail"));
+  assert.equal(
+    await page.locator("#groupAvatarPreview img").count(),
+    1,
+    "group information uses the same saved group avatar as settings",
+  );
+  const initialGroupAsset = await page.evaluate(
+    () => SaveManager.snapshot().roster.groups[0].avatarResourceId,
+  );
+  const redPng = await page.evaluate(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 4;
+    const g = c.getContext("2d");
+    g.fillStyle = "#e65252";
+    g.fillRect(0, 0, 4, 4);
+    return c.toDataURL("image/png").split(",")[1];
+  });
+  await page.locator(".group-avatar-upload input").setInputFiles({
+    name: "changed.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(redPng, "base64"),
+  });
+  await page.waitForFunction(
+    (old) => SaveManager.snapshot().roster.groups[0].avatarResourceId !== old,
+    initialGroupAsset,
+  );
+  await page.waitForFunction(() =>
+    document.querySelector("#groupAvatarPreview img")?.src.startsWith("blob:"),
+  );
+  await page.locator('[onclick^="clearGroupAvatarV2200"]').click();
+  await page.waitForFunction(
+    () => SaveManager.snapshot().roster.groups[0].avatarResourceId === null,
+  );
+  await page.waitForFunction(
+    () => !document.querySelector("#groupAvatarPreview img"),
+  );
+  assert.equal(
+    await page.locator("#groupAvatarPreview img").count(),
+    0,
+    "clear in group information clears the same saved avatar",
+  );
+  await page.locator(".group-avatar-upload input").setInputFiles({
+    name: "restored.png",
+    mimeType: "image/png",
+    buffer: Buffer.from(redPng, "base64"),
+  });
+  await page.waitForFunction(
+    () => !!SaveManager.snapshot().roster.groups[0].avatarResourceId,
+  );
+  await page.waitForFunction(
+    () => !!document.querySelector("#groupAvatarPreview img"),
+  );
+  await page.evaluate(() => closeItemWindow());
+  const wholeCopies = await page.evaluate(async () => {
+    const original = JSON.stringify;
+    let copies = 0;
+    JSON.stringify = function (value, ...args) {
+      if (value?.kind === "godpower.save" && value.match) copies++;
+      return original.call(this, value, ...args);
+    };
+    try {
+      for (let i = 0; i < 5; i++)
+        await ClassroomAvatarDisplay.prepare(state.groups);
+    } finally {
+      JSON.stringify = original;
+    }
+    return copies;
+  });
+  assert.equal(
+    wholeCopies,
+    0,
+    "cached avatar presentation must not clone complete match/history documents",
+  );
+
   const result = await page.evaluate(() => {
     const g = state.groups[0];
     const presentation = {

@@ -70,7 +70,7 @@
 }
 #classroomShowcase::backdrop {
   background: rgb(2 13 20 / 0.88);
-  backdrop-filter: blur(7px);
+  /* Opaque shading avoids resampling the complete classroom every animation frame. */
 }
 #classroomShowcase .cf-show-surface {
   --cf-accent: #66f0b0;

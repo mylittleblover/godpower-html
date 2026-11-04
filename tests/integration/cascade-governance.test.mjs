@@ -182,6 +182,30 @@ test("about renderer has one declaration, no override chain, and retains non-vie
         await format(nonAbout(checkpoint), { parser: "babel" }),
         "other legacy settings/item owners must stay unchanged",
       );
+    } else if (
+      [
+        "src/runtime/items/defense-chain-compat.js",
+        "src/runtime/items/encyclopedia-effects.js",
+        "src/runtime/items/group-encyclopedia.js",
+        "src/runtime/items/encyclopedia-rules.js",
+      ].includes(row.path)
+    ) {
+      const before = execFileSync("git", ["show", "59f9abc:" + row.path], {
+        encoding: "utf8",
+      });
+      const after = execFileSync("git", ["show", "b6f4aaa:" + row.path], {
+        encoding: "utf8",
+      });
+      assert.equal(
+        await format(before, { parser: "babel" }),
+        await format(expected, { parser: "babel" }),
+        row.path + " original about checkpoint",
+      );
+      assert.equal(
+        await format(current, { parser: "babel" }),
+        await format(after, { parser: "babel" }),
+        row.path + " approved M5 description owner",
+      );
     } else
       assert.equal(
         await format(current, { parser: "babel" }),

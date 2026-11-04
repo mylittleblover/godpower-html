@@ -1,0 +1,14 @@
+✔ runtime projection carries small resource references without decoding inline avatars into history (17.430056ms)
+✔ score-only persistence keeps student identities and roster revision stable (5.206532ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (4.78197ms)
+✔ pending archived season survives same-season projection and clears only on new season (3.812086ms)
+✔ ordinary runtime saves preserve identities without running legacy import hashes (4.067232ms)
+✔ direct projection matches the verified prior save contract for ordinary score, history and configuration changes (18.430932ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 124.255405

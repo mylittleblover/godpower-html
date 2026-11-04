@@ -2,21 +2,7 @@
 (function installSaveMigration(root) {
   "use strict";
   const clone = (value) => JSON.parse(JSON.stringify(value));
-  const known = new Set([
-    "schemaVersion",
-    "appVersion",
-    "timestamp",
-    "seasonId",
-    "achievementLedger",
-    "groups",
-    "picker",
-    "itemGlobal",
-    "round",
-    "history",
-    "firstHandDrawPending",
-    "saveAllIn",
-    ...root.SaveSchema.appPreferenceKeys,
-  ]);
+  const known = new Set(root.SaveSchema.runtimeKeys);
   const digest = async (bytes) =>
     [...new Uint8Array(await root.crypto.subtle.digest("SHA-256", bytes))]
       .map((n) => n.toString(16).padStart(2, "0"))

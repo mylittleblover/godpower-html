@@ -10,6 +10,21 @@
     "resizerHeight",
     "columnMode",
   ]);
+  const RUNTIME_KEYS = Object.freeze([
+    "schemaVersion",
+    "appVersion",
+    "timestamp",
+    "seasonId",
+    "achievementLedger",
+    "groups",
+    "picker",
+    "itemGlobal",
+    "round",
+    "history",
+    "firstHandDrawPending",
+    "saveAllIn",
+    ...APP_KEYS,
+  ]);
   const copy = (value) => JSON.parse(JSON.stringify(value));
   const object = (v) => !!v && typeof v === "object" && !Array.isArray(v);
   const fail = (message) => {
@@ -62,7 +77,7 @@
         fail("invalid inventory");
     }
   }
-  function validateV2(input) {
+  function assertV2(input) {
     if (
       !object(input) ||
       input.kind !== "godpower.save" ||
@@ -175,7 +190,10 @@
     checkRefs(input.match);
     if (APP_KEYS.some((k) => Object.hasOwn(input.match, k)))
       fail("program preferences belong outside match");
-    return copy(input);
+    return input;
+  }
+  function validateV2(input) {
+    return copy(assertV2(input));
   }
   function validateIndex(input) {
     if (
@@ -210,10 +228,12 @@
   }
   root.SaveSchema = Object.freeze({
     validateV2,
+    assertV2,
     validateIndex,
     validateGroups,
     safeTree,
     appPreferenceKeys: APP_KEYS,
+    runtimeKeys: RUNTIME_KEYS,
     clone: copy,
   });
 })(globalThis);

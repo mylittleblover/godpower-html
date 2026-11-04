@@ -1,0 +1,355 @@
+{
+  "source": "worktree",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080 DPR1",
+  "synthetic": true,
+  "phases": [
+    {
+      "name": "score-command",
+      "samples": [
+        {
+          "ms": 562.5,
+          "digests": []
+        },
+        {
+          "ms": 587.7000000000698,
+          "digests": []
+        },
+        {
+          "ms": 514.5,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "group-name-command",
+      "samples": [
+        {
+          "ms": 616.5,
+          "digests": []
+        },
+        {
+          "ms": 483.20000000006985,
+          "digests": []
+        },
+        {
+          "ms": 693.5999999999767,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "renderAll",
+      "samples": [
+        {
+          "ms": 65.90000000002328,
+          "digests": []
+        },
+        {
+          "ms": 48.10000000009313,
+          "digests": []
+        },
+        {
+          "ms": 53.70000000006985,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "settings-switch",
+      "samples": [
+        {
+          "ms": 740.5999999999767,
+          "digests": []
+        },
+        {
+          "ms": 646,
+          "digests": []
+        },
+        {
+          "ms": 683.8000000000466,
+          "digests": []
+        }
+      ]
+    }
+  ],
+  "frameResults": [
+    {
+      "type": "idle",
+      "count": 55,
+      "p50": 16.700000000000728,
+      "p95": 33.399999999999636,
+      "max": 66.69999999999891
+    },
+    {
+      "type": "picker",
+      "count": 41,
+      "p50": 16.700000000000728,
+      "p95": 66.70000000000073,
+      "max": 83.39999999999964
+    },
+    {
+      "type": "fullscreen",
+      "count": 5,
+      "p50": 266.6999999999989,
+      "p95": 500,
+      "max": 500
+    }
+  ],
+  "longTasks": [
+    {
+      "start": 4994.300000000047,
+      "duration": 370
+    },
+    {
+      "start": 5390.900000000023,
+      "duration": 78
+    },
+    {
+      "start": 5487.900000000023,
+      "duration": 109
+    },
+    {
+      "start": 5770.599999999977,
+      "duration": 216
+    },
+    {
+      "start": 6077,
+      "duration": 72
+    },
+    {
+      "start": 6163.099999999977,
+      "duration": 196
+    },
+    {
+      "start": 6535.800000000047,
+      "duration": 215
+    },
+    {
+      "start": 6783.199999999953,
+      "duration": 82
+    },
+    {
+      "start": 6938.800000000047,
+      "duration": 114
+    },
+    {
+      "start": 7247.800000000047,
+      "duration": 217
+    },
+    {
+      "start": 7497.699999999953,
+      "duration": 85
+    },
+    {
+      "start": 7741.400000000023,
+      "duration": 123
+    },
+    {
+      "start": 7972.699999999953,
+      "duration": 205
+    },
+    {
+      "start": 8294.900000000023,
+      "duration": 161
+    },
+    {
+      "start": 8583,
+      "duration": 279
+    },
+    {
+      "start": 8953.599999999977,
+      "duration": 111
+    },
+    {
+      "start": 9087.900000000023,
+      "duration": 188
+    },
+    {
+      "start": 9435.099999999977,
+      "duration": 66
+    },
+    {
+      "start": 9688,
+      "duration": 53
+    },
+    {
+      "start": 9799.800000000047,
+      "duration": 740
+    },
+    {
+      "start": 10635.599999999977,
+      "duration": 646
+    },
+    {
+      "start": 11281.900000000023,
+      "duration": 73
+    },
+    {
+      "start": 11384,
+      "duration": 683
+    },
+    {
+      "start": 12067.900000000023,
+      "duration": 83
+    },
+    {
+      "start": 13438.599999999977,
+      "duration": 99
+    },
+    {
+      "start": 14743.5,
+      "duration": 408
+    },
+    {
+      "start": 15179.599999999977,
+      "duration": 65
+    }
+  ],
+  "groups": 14,
+  "students": 56,
+  "history": 40,
+  "dom": 4253,
+  "top": [
+    {
+      "name": "(idle) @-1",
+      "selfMs": 3354.252
+    },
+    {
+      "name": "(program) @-1",
+      "selfMs": 3125.395
+    },
+    {
+      "name": "copy @14763",
+      "selfMs": 1205.453
+    },
+    {
+      "name": "renderItemFxSoundListV26 @32668",
+      "selfMs": 1026.013
+    },
+    {
+      "name": "selectSettings @51145",
+      "selfMs": 500.913
+    },
+    {
+      "name": "(garbage collector) @-1",
+      "selfMs": 291.013
+    },
+    {
+      "name": " @26317",
+      "selfMs": 265.953
+    },
+    {
+      "name": "clone @23577",
+      "selfMs": 239.827
+    },
+    {
+      "name": "safeTree @14770",
+      "selfMs": 206.34
+    },
+    {
+      "name": "setItem @-1",
+      "selfMs": 149.133
+    },
+    {
+      "name": "closest @-1",
+      "selfMs": 129.139
+    },
+    {
+      "name": " @36928",
+      "selfMs": 123.941
+    },
+    {
+      "name": "renderBattleGridCards @36887",
+      "selfMs": 122.474
+    },
+    {
+      "name": "req.onsuccess @15436",
+      "selfMs": 100.429
+    },
+    {
+      "name": " @31540",
+      "selfMs": 93.316
+    },
+    {
+      "name": "showModal @-1",
+      "selfMs": 85.85
+    },
+    {
+      "name": "getPropertyValue @-1",
+      "selfMs": 80.453
+    },
+    {
+      "name": "getClientRects @-1",
+      "selfMs": 78.184
+    },
+    {
+      "name": "recordHistory @22998",
+      "selfMs": 77.195
+    },
+    {
+      "name": "setItem @22770",
+      "selfMs": 61.413
+    },
+    {
+      "name": "checkRefs @14915",
+      "selfMs": 53.326
+    },
+    {
+      "name": "measure @11",
+      "selfMs": 52.849
+    },
+    {
+      "name": "renderBattleRankPreviewV21721 @34158",
+      "selfMs": 52.519
+    },
+    {
+      "name": "render @49660",
+      "selfMs": 50.284
+    },
+    {
+      "name": "querySelectorAll @-1",
+      "selfMs": 49.03
+    },
+    {
+      "name": "writeVerified @19857",
+      "selfMs": 48.894
+    },
+    {
+      "name": "MutationObserver.observe.subtree @51461",
+      "selfMs": 42.453
+    },
+    {
+      "name": "put @15518",
+      "selfMs": 40.936
+    },
+    {
+      "name": " @0",
+      "selfMs": 40.642
+    },
+    {
+      "name": "getAnimations @-1",
+      "selfMs": 26.975
+    },
+    {
+      "name": "close @-1",
+      "selfMs": 24.366
+    },
+    {
+      "name": "put @-1",
+      "selfMs": 24.119
+    },
+    {
+      "name": "refreshClassroomSaveWarning @40615",
+      "selfMs": 22.273
+    },
+    {
+      "name": "renderFxSlotList @27078",
+      "selfMs": 21.025
+    },
+    {
+      "name": "escapeHtml @27395",
+      "selfMs": 19.189
+    }
+  ]
+}

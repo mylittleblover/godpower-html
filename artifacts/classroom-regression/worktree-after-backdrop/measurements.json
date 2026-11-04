@@ -1,0 +1,339 @@
+{
+  "source": "worktree",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080 DPR1",
+  "synthetic": true,
+  "phases": [
+    {
+      "name": "score-command",
+      "samples": [
+        {
+          "ms": 618.3000000000466,
+          "digests": []
+        },
+        {
+          "ms": 360.30000000004657,
+          "digests": []
+        },
+        {
+          "ms": 422.30000000004657,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "group-name-command",
+      "samples": [
+        {
+          "ms": 399.5,
+          "digests": []
+        },
+        {
+          "ms": 477.5999999998603,
+          "digests": []
+        },
+        {
+          "ms": 514.6000000000931,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "renderAll",
+      "samples": [
+        {
+          "ms": 80.10000000009313,
+          "digests": []
+        },
+        {
+          "ms": 29.5,
+          "digests": []
+        },
+        {
+          "ms": 30.399999999906868,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "settings-switch",
+      "samples": [
+        {
+          "ms": 506.80000000004657,
+          "digests": []
+        },
+        {
+          "ms": 768,
+          "digests": []
+        },
+        {
+          "ms": 724.3000000000466,
+          "digests": []
+        }
+      ]
+    }
+  ],
+  "frameResults": [
+    {
+      "type": "idle",
+      "count": 57,
+      "p50": 16.700000000000728,
+      "p95": 49.899999999999636,
+      "max": 66.60000000000036
+    },
+    {
+      "type": "picker",
+      "count": 48,
+      "p50": 16.700000000000728,
+      "p95": 66.70000000000073,
+      "max": 100
+    },
+    {
+      "type": "fullscreen",
+      "count": 41,
+      "p50": 16.700000000000728,
+      "p95": 50,
+      "max": 150
+    }
+  ],
+  "longTasks": [
+    {
+      "start": 5553.5,
+      "duration": 310
+    },
+    {
+      "start": 5971.5,
+      "duration": 82
+    },
+    {
+      "start": 6119.700000000186,
+      "duration": 53
+    },
+    {
+      "start": 6277.40000000014,
+      "duration": 200
+    },
+    {
+      "start": 6575.700000000186,
+      "duration": 62
+    },
+    {
+      "start": 6748.5,
+      "duration": 269
+    },
+    {
+      "start": 7323.800000000047,
+      "duration": 159
+    },
+    {
+      "start": 7647.700000000186,
+      "duration": 75
+    },
+    {
+      "start": 7872.800000000047,
+      "duration": 249
+    },
+    {
+      "start": 8160.90000000014,
+      "duration": 56
+    },
+    {
+      "start": 8275.700000000186,
+      "duration": 74
+    },
+    {
+      "start": 8453.600000000093,
+      "duration": 278
+    },
+    {
+      "start": 8875.700000000186,
+      "duration": 92
+    },
+    {
+      "start": 9045,
+      "duration": 80
+    },
+    {
+      "start": 9469,
+      "duration": 506
+    },
+    {
+      "start": 9975.90000000014,
+      "duration": 77
+    },
+    {
+      "start": 10077.800000000047,
+      "duration": 768
+    },
+    {
+      "start": 10845.90000000014,
+      "duration": 92
+    },
+    {
+      "start": 11019,
+      "duration": 724
+    },
+    {
+      "start": 11743.5,
+      "duration": 75
+    },
+    {
+      "start": 13158.600000000093,
+      "duration": 97
+    },
+    {
+      "start": 13266.5,
+      "duration": 54
+    },
+    {
+      "start": 14441.800000000047,
+      "duration": 108
+    }
+  ],
+  "groups": 14,
+  "students": 56,
+  "history": 40,
+  "dom": 4253,
+  "top": [
+    {
+      "name": "(program) @-1",
+      "selfMs": 3340.765
+    },
+    {
+      "name": "(idle) @-1",
+      "selfMs": 3082.768
+    },
+    {
+      "name": "renderItemFxSoundListV26 @32672",
+      "selfMs": 1094.093
+    },
+    {
+      "name": "copy @14763",
+      "selfMs": 651.136
+    },
+    {
+      "name": "clone @23581",
+      "selfMs": 427.501
+    },
+    {
+      "name": "selectSettings @51142",
+      "selfMs": 333.156
+    },
+    {
+      "name": " @26321",
+      "selfMs": 244.701
+    },
+    {
+      "name": "(garbage collector) @-1",
+      "selfMs": 235.842
+    },
+    {
+      "name": "querySelectorAll @-1",
+      "selfMs": 143.813
+    },
+    {
+      "name": "safeTree @14770",
+      "selfMs": 123.559
+    },
+    {
+      "name": "checkRefs @14915",
+      "selfMs": 120.926
+    },
+    {
+      "name": "renderFxSlotList @27082",
+      "selfMs": 94.686
+    },
+    {
+      "name": "animate @-1",
+      "selfMs": 81.815
+    },
+    {
+      "name": "req.onsuccess @15440",
+      "selfMs": 74.462
+    },
+    {
+      "name": " @36932",
+      "selfMs": 72.775
+    },
+    {
+      "name": "renderBattleGridCards @36891",
+      "selfMs": 62.847
+    },
+    {
+      "name": "put @15522",
+      "selfMs": 62.44
+    },
+    {
+      "name": "requestAnimationFrame @-1",
+      "selfMs": 56.887
+    },
+    {
+      "name": "fromRuntime @16007",
+      "selfMs": 56.795
+    },
+    {
+      "name": "getPropertyValue @-1",
+      "selfMs": 51.68
+    },
+    {
+      "name": "getBoundingClientRect @-1",
+      "selfMs": 48.832
+    },
+    {
+      "name": "render @49657",
+      "selfMs": 48.361
+    },
+    {
+      "name": "recordHistory @23002",
+      "selfMs": 47.498
+    },
+    {
+      "name": "persistPreferences @40026",
+      "selfMs": 44.821
+    },
+    {
+      "name": "closest @-1",
+      "selfMs": 41.423
+    },
+    {
+      "name": "matches @-1",
+      "selfMs": 35.988
+    },
+    {
+      "name": " @26163",
+      "selfMs": 21.653
+    },
+    {
+      "name": "MutationObserver.observe.subtree @51458",
+      "selfMs": 19.963
+    },
+    {
+      "name": "showModal @-1",
+      "selfMs": 19.506
+    },
+    {
+      "name": "getClientRects @-1",
+      "selfMs": 18.892
+    },
+    {
+      "name": "escapeHtml @27399",
+      "selfMs": 17.774
+    },
+    {
+      "name": "scan @51333",
+      "selfMs": 17.703
+    },
+    {
+      "name": "saveState @25309",
+      "selfMs": 14.796
+    },
+    {
+      "name": "updateHeaderStats @26123",
+      "selfMs": 14.304
+    },
+    {
+      "name": "setProperty @-1",
+      "selfMs": 13.74
+    }
+  ]
+}

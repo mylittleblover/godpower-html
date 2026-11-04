@@ -262,8 +262,8 @@
               saveDoc.revision !== expectedRevision
             )
               throw failure("INVALID_REVISION");
-            const doc = root.SaveSchema.validateV2({
-              ...copy(saveDoc),
+            const doc = root.SaveSchema.assertV2({
+              ...saveDoc,
               revision: expectedRevision + 1,
               updatedAt: new Date().toISOString(),
             });

@@ -1,10 +1,6 @@
 function openPickerModal({ internal = false } = {}) {
-  // The desktop dock entry opens the floating picker directly; the in-page
-  // modal only serves as the hidden drawing engine for that external window.
-  if (!internal && window.godpowerDesktop?.role === "main") {
-    window.godpowerDesktop.openPicker();
-    return;
-  }
+  // Default entry is the program's own picker. Only explicit external-engine
+  // calls hide its presentation behind the independent floating window.
   const external = internal && window.godpowerDesktop?.role === "main";
   document.getElementById("pickerModal").toggleAttribute("data-external-picker", !!external);
   window.GodpowerPicker?.setExternalPresentation(!!external);

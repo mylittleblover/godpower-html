@@ -1,0 +1,327 @@
+{
+  "source": "worktree",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080 DPR1",
+  "synthetic": true,
+  "phases": [
+    {
+      "name": "score-command",
+      "samples": [
+        {
+          "ms": 582,
+          "digests": []
+        },
+        {
+          "ms": 419.69999999995343,
+          "digests": []
+        },
+        {
+          "ms": 262.19999999995343,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "group-name-command",
+      "samples": [
+        {
+          "ms": 278,
+          "digests": []
+        },
+        {
+          "ms": 240.5999999998603,
+          "digests": []
+        },
+        {
+          "ms": 325.9000000001397,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "renderAll",
+      "samples": [
+        {
+          "ms": 17.399999999906868,
+          "digests": []
+        },
+        {
+          "ms": 22.300000000046566,
+          "digests": []
+        },
+        {
+          "ms": 18,
+          "digests": []
+        }
+      ]
+    },
+    {
+      "name": "settings-switch",
+      "samples": [
+        {
+          "ms": 332.5,
+          "digests": []
+        },
+        {
+          "ms": 391.9000000001397,
+          "digests": []
+        },
+        {
+          "ms": 442.19999999995343,
+          "digests": []
+        }
+      ]
+    }
+  ],
+  "frameResults": [
+    {
+      "type": "idle",
+      "count": 54,
+      "p50": 16.700000000000728,
+      "p95": 50,
+      "max": 66.70000000000073
+    },
+    {
+      "type": "picker",
+      "count": 47,
+      "p50": 16.700000000000728,
+      "p95": 50.100000000000364,
+      "max": 66.70000000000073
+    },
+    {
+      "type": "fullscreen",
+      "count": 9,
+      "p50": 150.10000000000036,
+      "p95": 300.10000000000036,
+      "max": 300.10000000000036
+    }
+  ],
+  "longTasks": [
+    {
+      "start": 5183.199999999953,
+      "duration": 308
+    },
+    {
+      "start": 5680.300000000047,
+      "duration": 90
+    },
+    {
+      "start": 5901.5,
+      "duration": 262
+    },
+    {
+      "start": 6192,
+      "duration": 72
+    },
+    {
+      "start": 6416.100000000093,
+      "duration": 171
+    },
+    {
+      "start": 6621.800000000047,
+      "duration": 56
+    },
+    {
+      "start": 6718.600000000093,
+      "duration": 166
+    },
+    {
+      "start": 6903.90000000014,
+      "duration": 59
+    },
+    {
+      "start": 7068,
+      "duration": 116
+    },
+    {
+      "start": 7480.40000000014,
+      "duration": 147
+    },
+    {
+      "start": 7724.300000000047,
+      "duration": 82
+    },
+    {
+      "start": 8176.800000000047,
+      "duration": 332
+    },
+    {
+      "start": 8509.40000000014,
+      "duration": 72
+    },
+    {
+      "start": 8590.600000000093,
+      "duration": 392
+    },
+    {
+      "start": 9027.40000000014,
+      "duration": 52
+    },
+    {
+      "start": 9083.300000000047,
+      "duration": 442
+    },
+    {
+      "start": 9525.699999999953,
+      "duration": 83
+    },
+    {
+      "start": 10881.699999999953,
+      "duration": 108
+    },
+    {
+      "start": 11221.300000000047,
+      "duration": 51
+    },
+    {
+      "start": 12198.40000000014,
+      "duration": 310
+    }
+  ],
+  "groups": 14,
+  "students": 56,
+  "history": 40,
+  "dom": 4253,
+  "top": [
+    {
+      "name": "(idle) @-1",
+      "selfMs": 3105.541
+    },
+    {
+      "name": "(program) @-1",
+      "selfMs": 2758.606
+    },
+    {
+      "name": "copy @14763",
+      "selfMs": 712.468
+    },
+    {
+      "name": "renderItemFxSoundListV26 @32668",
+      "selfMs": 603.914
+    },
+    {
+      "name": "(garbage collector) @-1",
+      "selfMs": 277.491
+    },
+    {
+      "name": "clone @23577",
+      "selfMs": 239.005
+    },
+    {
+      "name": "selectSettings @51138",
+      "selfMs": 213.244
+    },
+    {
+      "name": " @36928",
+      "selfMs": 136.496
+    },
+    {
+      "name": "getPropertyValue @-1",
+      "selfMs": 132.81
+    },
+    {
+      "name": " @26317",
+      "selfMs": 111.512
+    },
+    {
+      "name": "recordHistory @22998",
+      "selfMs": 85.218
+    },
+    {
+      "name": " @15672",
+      "selfMs": 79.46
+    },
+    {
+      "name": "safeTree @14770",
+      "selfMs": 78.072
+    },
+    {
+      "name": "showModal @-1",
+      "selfMs": 71.15
+    },
+    {
+      "name": "querySelector @-1",
+      "selfMs": 55.748
+    },
+    {
+      "name": "checkRefs @14915",
+      "selfMs": 54.456
+    },
+    {
+      "name": "getClientRects @-1",
+      "selfMs": 53.056
+    },
+    {
+      "name": "renderBattleRankPreviewV21721 @34158",
+      "selfMs": 46.883
+    },
+    {
+      "name": " @15435",
+      "selfMs": 45.238
+    },
+    {
+      "name": "updateHeaderStats @26119",
+      "selfMs": 40.855
+    },
+    {
+      "name": "enhanceItemCards @31520",
+      "selfMs": 39.819
+    },
+    {
+      "name": " @26635",
+      "selfMs": 36.827
+    },
+    {
+      "name": "querySelectorAll @-1",
+      "selfMs": 30.035
+    },
+    {
+      "name": "renderFxSlotList @27078",
+      "selfMs": 23.835
+    },
+    {
+      "name": "closest @-1",
+      "selfMs": 22.384
+    },
+    {
+      "name": "validateV2 @14815",
+      "selfMs": 20.164
+    },
+    {
+      "name": "put @15518",
+      "selfMs": 19.704
+    },
+    {
+      "name": "getBoundingClientRect @-1",
+      "selfMs": 16.218
+    },
+    {
+      "name": "MutationObserver.observe.subtree @51454",
+      "selfMs": 13.979
+    },
+    {
+      "name": "animate @-1",
+      "selfMs": 13.913
+    },
+    {
+      "name": "escapeHtml @27395",
+      "selfMs": 13.724
+    },
+    {
+      "name": "remove @-1",
+      "selfMs": 13.373
+    },
+    {
+      "name": "getAnimations @-1",
+      "selfMs": 12.903
+    },
+    {
+      "name": "scan @51329",
+      "selfMs": 12.731
+    },
+    {
+      "name": "renderBgmSlotList @27014",
+      "selfMs": 12.059
+    }
+  ]
+}

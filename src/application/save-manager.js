@@ -232,15 +232,8 @@
       ...SaveSchema.appPreferenceKeys.map((k) => ({ [k]: snapshot[k] })),
     );
     const prefResult = await persistPreferences(values);
-    // A compatibility cache is not a second authority. Its failure cannot undo a
-    // successful native/IDB commit or cause a duplicate classroom command.
-    const cache = Reliability.writeVerified(
-      CLASSROOM_STORAGE,
-      Reliability.stateKey,
-      snapshot,
-    );
-    if (!cache.ok)
-      console.warn("新版存档已确认，旧版兼容缓存未更新：" + cache.error);
+    // The versioned vault ACK is authoritative. Do not re-serialize and
+    // synchronously mirror the entire history into a superseded save format.
     root.classroomUnsavedChanges = false;
     const warning = document.getElementById("classroomSaveWarning");
     if (warning) warning.hidden = true;
@@ -408,6 +401,8 @@
         ? { saveId: currentStatus.saveId, generation: currentStatus.generation }
         : null),
     snapshot: () => session?.snapshot() || null,
+    rosterContext: () => session?.rosterContext() || null,
+    rosterView: () => session?.rosterView() || null,
     status: () => ({ ...currentStatus, legacyRosterMessage }),
     repository: () => repo,
     persist,
