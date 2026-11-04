@@ -36930,8 +36930,16 @@ function renderBattleGridCards() {
     ...grid.querySelectorAll(".group-row-card[data-group-id]"),
   ].map((c) => String(c.dataset.groupId));
 
+  const ordered = desiredGroupsV213();
+  const newOrderIds = ordered.map((g) => String(g.id));
+  const orderActuallyChanged =
+    animateReorder &&
+    oldOrderIds.length === newOrderIds.length &&
+    oldOrderIds.some((id, i) => id !== newOrderIds[i]);
+
+
   const oldRects = new Map();
-  if (animateReorder)
+  if (orderActuallyChanged)
     grid.querySelectorAll(".group-row-card[data-group-id]").forEach((c) => {
       const rect = c.getBoundingClientRect();
       /* 页面隐藏时会留下 0×0 的无效坐标，不能拿来做进入比赛页的 FLIP 起点。 */
@@ -36945,12 +36953,6 @@ function renderBattleGridCards() {
   grid.dataset.columnMode = state.columnMode;
   grid.innerHTML = "";
 
-  const ordered = desiredGroupsV213();
-  const newOrderIds = ordered.map((g) => String(g.id));
-  const orderActuallyChanged =
-    animateReorder &&
-    oldOrderIds.length === newOrderIds.length &&
-    oldOrderIds.some((id, i) => id !== newOrderIds[i]);
 
   /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
      答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */

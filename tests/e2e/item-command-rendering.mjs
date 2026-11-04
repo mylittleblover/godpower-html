@@ -54,6 +54,11 @@ try {
     addItemToGroup(g, "coin");
     const before = g.score,
       original = renderGrid;
+    let oldCardMeasurements = 0;
+    for (const card of document.querySelectorAll("#groupList > .group-row-card")) {
+      const read = card.getBoundingClientRect.bind(card);
+      card.getBoundingClientRect = () => { oldCardMeasurements++; return read(); };
+    }
     let renders = 0,
       fullDocumentScans = 0;
     const queryAll = document.querySelectorAll;
@@ -79,6 +84,7 @@ try {
     return {
       ok,
       renders,
+      oldCardMeasurements,
       fullDocumentScans,
       before,
       after: g.score,
@@ -87,6 +93,7 @@ try {
     };
   });
   assert.equal(result.ok, true);
+  assert.equal(result.oldCardMeasurements, 0, "unchanged numbered order does not need old FLIP geometry");
   assert.equal(result.after, result.before + 2);
   assert.equal(result.used, 1);
   assert.equal(result.inventory, 0);
