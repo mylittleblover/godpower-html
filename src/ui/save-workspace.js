@@ -387,7 +387,21 @@
             id: button.dataset.avatarId,
             context: SaveManager.context(),
           };
-          mounted.querySelector("[data-avatar-file]").click();
+          const target = avatarTarget;
+          AvatarPresetPicker.open({
+            target,
+            onUpload: () => mounted.querySelector("[data-avatar-file]").click(),
+            onChoose: (file) => setAvatarFiles([file], target),
+            onClear: async () => {
+              const now = SaveManager.context();
+              if (
+                now.saveId !== target.context.saveId ||
+                now.generation !== target.context.generation
+              )
+                throw Error("存档已切换，请重新选择");
+              await root.SaveWorkspace.clearAvatar(target.type, target.id);
+            },
+          });
         }
         if (button.dataset.editStudent)
           await editStudent(button.dataset.editStudent);

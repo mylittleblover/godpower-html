@@ -3,7 +3,7 @@
   padding: 24px;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-lg);
-  background: var(--ui-surface);
+  background: var(--ui-panel);
 }
 .save-workspace header h3 {
   margin: 0 0 8px;
@@ -36,7 +36,7 @@
 .save-workspace select {
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-sm);
-  background: var(--ui-surface);
+  background: var(--ui-panel);
   color: var(--ui-text);
   padding: 9px 12px;
 }
@@ -68,7 +68,7 @@
   overflow: hidden;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-md);
-  background: var(--ui-surface);
+  background: var(--ui-panel);
   color: var(--ui-text);
   cursor: pointer;
   flex-shrink: 0;
@@ -125,4 +125,96 @@
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid var(--ui-border);
+}
+
+/* Avatar chooser owner: bounded pages keep large offline catalogs lightweight. */
+.avatar-preset-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(800px, 85vw);
+  max-height: 85vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.avatar-preset-surface {
+  max-height: 85vh;
+  overflow: auto;
+  padding: var(--space-5);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  box-shadow: var(--shadow-float);
+}
+.avatar-preset-dialog::backdrop {
+  background: rgb(9 32 29 / 55%);
+}
+.avatar-preset-dialog header,
+.avatar-preset-dialog footer,
+.avatar-preset-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar-preset-dialog header {
+  justify-content: space-between;
+}
+.avatar-preset-dialog h3 {
+  margin: 0;
+}
+.avatar-preset-dialog p {
+  color: var(--ui-muted);
+}
+.avatar-preset-controls {
+  margin: 16px 0;
+}
+.avatar-preset-controls input {
+  flex: 1;
+  min-width: 0;
+}
+.avatar-preset-controls input,
+.avatar-preset-controls select {
+  padding: 10px;
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+}
+.avatar-preset-dialog [data-preset-grid] {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+.avatar-preset-dialog [data-preset-card] {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  cursor: pointer;
+}
+.avatar-preset-dialog [data-preset-card]:hover {
+  border-color: var(--primary);
+}
+.avatar-preset-dialog [data-preset-card] img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.avatar-preset-dialog [data-preset-card] span {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.avatar-preset-dialog footer {
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.avatar-preset-dialog [data-preset-count] {
+  margin-left: auto;
+  color: var(--ui-muted);
 }

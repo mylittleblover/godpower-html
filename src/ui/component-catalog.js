@@ -608,6 +608,18 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/catalog-and-card-compat.css"],
     },
     {
+      name: "avatar-preset-controls",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "avatar-preset-dialog",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "avatar-preset-surface",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
       name: "batch-allin-btn",
       sources: ["src/styles/battle/overview-and-resizer.css"],
     },

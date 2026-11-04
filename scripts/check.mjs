@@ -46,6 +46,10 @@ const additions = ["item_box", "kamek"];
 const addedResources = await Promise.all(
   additions.map((key) => readFile("src/resources/" + key + ".txt", "utf8")),
 );
+const presetResources = resources(await readFile("src/resources/avatar-presets.js", "utf8"));
+const presetProof = JSON.parse(await readFile("docs/AVATAR_PRESET_SOURCES.json", "utf8"));
+if (presetResources.length !== presetProof.items.length) throw Error("Preset source inventory mismatch");
+addedResources.push(...presetResources);
 const currentResources = resources(s);
 for (const resource of addedResources) {
   const index = currentResources.indexOf(resource);
@@ -57,7 +61,7 @@ if (JSON.stringify(currentResources) !== JSON.stringify(resources(baseline)))
 if (/<(?:script|link)[^>]+(?:src|href)=["']https?:/i.test(s))
   throw Error("External runtime dependency");
 console.log(
-  `${count} script blocks parse; all ${resources(baseline).length} original embedded resources preserved plus ${addedResources.length} new item icons`,
+  `${count} script blocks parse; all ${resources(baseline).length} original embedded resources preserved plus ${addedResources.length} new embedded resources (item icons and verified avatar presets)`,
 );
 const template = await readFile("src/index.template.html", "utf8");
 const expectedBlocks = parseSourceBlocks(template);

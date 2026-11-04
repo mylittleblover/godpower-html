@@ -1246,6 +1246,16 @@
     },
     {
       "type": "script",
+      "path": "resources/avatar-presets.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/avatar-preset-picker.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/save-workspace.js",
       "attributes": ""
     },
