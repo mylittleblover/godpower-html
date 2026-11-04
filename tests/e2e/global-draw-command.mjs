@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { launch, setup } from "../fixtures/browser.mjs";
+import { sourceAt } from "../fixtures/source-at.mjs";
 const root =
   process.env.GLOBAL_DRAW_ARTIFACT_DIR || "artifacts/global-draw-command";
-const html = await readFile("dist/godpower.html");
+const html = process.env.GLOBAL_DRAW_SOURCE_REF
+  ? sourceAt(process.env.GLOBAL_DRAW_SOURCE_REF)
+  : await readFile("dist/godpower.html");
 const server = createServer((_, response) => response.end(html));
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const browser = await launch();
@@ -17,7 +20,12 @@ try {
   });
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(`http://127.0.0.1:${server.address().port}`);
+  await page.evaluate(() => SaveManager.ready());
   await setup(page, 4);
+  await page.evaluate(async () => {
+    await saveState();
+    await SaveManager.whenIdle();
+  });
   const success = await page.evaluate(async () => {
     const ledgerBeforeDraw = JSON.parse(
       JSON.stringify(state.achievementLedger),
@@ -25,17 +33,17 @@ try {
     const transactions = [];
     const listener = (event) => transactions.push(event.detail);
     window.addEventListener("godpower:domain-commit", listener);
-    const original = Storage.prototype.setItem;
+    const original = IDBObjectStore.prototype.put;
     let writes = 0;
-    Storage.prototype.setItem = function (key, value) {
-      if (key === Reliability.stateKey) writes++;
-      return original.call(this, key, value);
+    IDBObjectStore.prototype.put = function (...args) {
+      if (this.name === "documents") writes++;
+      return original.apply(this, args);
     };
     try {
       const accepted = globalItemDraw();
       const duplicate = globalItemDraw();
       handRaiseGroupId = state.groups[0].id;
-      const handAttempt = handDrawItem();
+      const handAttempt = ClassroomHandSession.command("handDraw");
       const backup = buildClassroomBackup();
       const pending = {
         pending: classroomCommands.isPending(),
@@ -60,7 +68,7 @@ try {
         accepted,
         ledgerBeforeDraw,
         duplicate,
-        handAttempt,
+        handAttempt: await handAttempt,
         pending,
         outcome,
         writes,
@@ -78,13 +86,13 @@ try {
         ledgerAfterReplay: repeated,
       };
     } finally {
-      Storage.prototype.setItem = original;
+      IDBObjectStore.prototype.put = original;
       window.removeEventListener("godpower:domain-commit", listener);
     }
   });
   assert.equal(success.accepted, true);
   assert.equal(success.duplicate, false);
-  assert.equal(success.handAttempt, false);
+  assert.deepEqual(success.handAttempt, { ok: false, error: "BUSY" });
   assert.deepEqual(success.pending, {
     pending: true,
     writes: 0,
@@ -129,7 +137,12 @@ try {
     result: undone,
   });
   await page.waitForFunction(() => !itemDrawBusy);
+  await page.evaluate(() => SaveManager.ready());
   await setup(page, 4);
+  await page.evaluate(async () => {
+    await saveState();
+    await SaveManager.whenIdle();
+  });
   const failure = await page.evaluate(async () => {
     ensureV2State();
     const fingerprint = () =>
@@ -140,17 +153,17 @@ try {
         history: historyStack,
       });
     const before = fingerprint();
-    const original = Storage.prototype.setItem;
+    const original = IDBObjectStore.prototype.put;
     let writes = 0,
       commits = 0;
     const listener = () => commits++;
     window.addEventListener("godpower:domain-commit", listener);
-    Storage.prototype.setItem = function (key, value) {
-      if (key === Reliability.stateKey) {
+    IDBObjectStore.prototype.put = function (...args) {
+      if (this.name === "documents") {
         writes++;
         throw new DOMException("test quota", "QuotaExceededError");
       }
-      return original.call(this, key, value);
+      return original.apply(this, args);
     };
     try {
       globalItemDraw();
@@ -165,7 +178,7 @@ try {
         overlays: document.querySelectorAll(".card-item-roulette").length,
       };
     } finally {
-      Storage.prototype.setItem = original;
+      IDBObjectStore.prototype.put = original;
       window.removeEventListener("godpower:domain-commit", listener);
     }
   });

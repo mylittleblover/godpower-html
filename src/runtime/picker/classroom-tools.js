@@ -11,6 +11,7 @@ function ensureV2State() {
   if (!state.itemGlobal.customIcons)
     state.itemGlobal.customIcons = STORAGE.getJSON("politics_item_icons", {});
 }
+ensureV2State();
 const BUILTIN_ITEM_ICONS_V2121 = {
   item_box: "@@RESOURCE:item_box.txt@@",
   kamek: "@@RESOURCE:kamek.txt@@",
@@ -42,21 +43,41 @@ const BUILTIN_ITEM_ICONS_V2121 = {
   boomerang_flower: "@@RESOURCE:asset-025.txt@@",
 };
 const BUILTIN_ITEM_BOX_V2121 = "@@RESOURCE:asset-026.txt@@";
-function itemVisual(key, cls = "") {
-  ensureV2State();
+const itemIconPresentationCache = new Map();
+function itemIconPresentation(key) {
   const d = ITEM_DEFS[key],
-    custom = state.itemGlobal.customIcons[key],
+    custom = state.itemGlobal?.customIcons?.[key],
     builtin = BUILTIN_ITEM_ICONS_V2121[key];
-  const src = Reliability.safeImage(custom) || builtin;
-  return src
-    ? `<img class="${cls}" src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}">`
-    : d.icon;
+  let entry = itemIconPresentationCache.get(key);
+  if (
+    !entry ||
+    entry.custom !== custom ||
+    entry.builtin !== builtin ||
+    entry.name !== d.name
+  ) {
+    entry = {
+      custom,
+      builtin,
+      name: d.name,
+      src: Reliability.safeImage(custom) || builtin,
+    };
+    if (itemIconPresentationCache.size >= 128)
+      itemIconPresentationCache.clear();
+    itemIconPresentationCache.set(key, entry);
+  }
+  return entry;
+}
+function itemVisual(key, cls = "") {
+  const entry = itemIconPresentation(key);
+  if (!entry.src) return ITEM_DEFS[key].icon;
+  if (entry.escapedSrc === undefined) entry.escapedSrc = escapeHtml(entry.src);
+  if (entry.escapedName === undefined)
+    entry.escapedName = escapeHtml(entry.name);
+  return `<img class="${escapeHtml(cls)}" src="${entry.escapedSrc}" alt="${entry.escapedName}">`;
 }
 /* Raw icon for surfaces outside this document (the native reveal window). */
 function itemIconDataUrl(key) {
-  ensureV2State();
-  const custom = state.itemGlobal.customIcons?.[key];
-  return Reliability.safeImage(custom) || BUILTIN_ITEM_ICONS_V2121[key] || "";
+  return itemIconPresentation(key).src || "";
 }
 function itemBoxVisualV2121(cls = "") {
   return BUILTIN_ITEM_BOX_V2121
@@ -139,12 +160,25 @@ function scorePickerCustom() {
 }
 
 /* 手动举手 */
-function openHandRaise() { return globalThis.HandFlowView?.toggle(); }
-function closeHandRaise() { cancelHandItemDraw(true); return globalThis.HandFlowView?.close(); }
-function renderHandRaise() { return globalThis.HandFlowView?.render(); }
-function selectHandGroup(id) { return globalThis.HandFlowView?.select(id); }
-function judgeHandRaise(correct) { return globalThis.HandFlowView?.judge(correct); }
-function handQuickScore(n) { return globalThis.HandFlowView?.score(n); }
+function openHandRaise() {
+  return globalThis.HandFlowView?.toggle();
+}
+function closeHandRaise() {
+  cancelHandItemDraw(true);
+  return globalThis.HandFlowView?.close();
+}
+function renderHandRaise() {
+  return globalThis.HandFlowView?.render();
+}
+function selectHandGroup(id) {
+  return globalThis.HandFlowView?.select(id);
+}
+function judgeHandRaise(correct) {
+  return globalThis.HandFlowView?.judge(correct);
+}
+function handQuickScore(n) {
+  return globalThis.HandFlowView?.score(n);
+}
 function handUseItem() {
   const g = state.groups.find((x) => x.id === handRaiseGroupId);
   if (!g || !g.inventory.length) {

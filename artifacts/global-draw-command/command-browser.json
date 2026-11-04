@@ -1,0 +1,300 @@
+{
+  "status": "PASS",
+  "browser": "154.0.8037.57",
+  "results": [
+    {
+      "scenario": "single durable command, safe pending backup and idempotent events",
+      "result": {
+        "accepted": true,
+        "ledgerBeforeDraw": {
+          "groups": {},
+          "schemaVersion": 1
+        },
+        "duplicate": false,
+        "handAttempt": {
+          "ok": false,
+          "error": "BUSY"
+        },
+        "pending": {
+          "pending": true,
+          "writes": 0,
+          "inventory": 0,
+          "total": 0
+        },
+        "outcome": {
+          "ok": true,
+          "persisted": true
+        },
+        "writes": 1,
+        "events": [
+          {
+            "type": "ITEM_ACQUIRED",
+            "group": "group-b92c283a-ba25-45d2-a016-0bdc9c46cb42",
+            "source": "global-draw"
+          },
+          {
+            "type": "ITEM_ACQUIRED",
+            "group": "group-34cae097-bf3e-4de4-9ad5-53da7c0ec93d",
+            "source": "global-draw"
+          },
+          {
+            "type": "ITEM_ACQUIRED",
+            "group": "group-8a48221d-3e17-4c5f-8154-7c392da0eda8",
+            "source": "global-draw"
+          },
+          {
+            "type": "ITEM_ACQUIRED",
+            "group": "group-1e085d15-b970-4fa2-82fd-d0822f63cde5",
+            "source": "global-draw"
+          }
+        ],
+        "total": 4,
+        "inventory": 4,
+        "ledgerBeforeReplay": {
+          "groups": {
+            "group-b92c283a-ba25-45d2-a016-0bdc9c46cb42": {
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "permanentUnlocks": {},
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonUnlocks": {},
+              "seasonProgress": {
+                "answered": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "answeredStreak": 0,
+                "recoveryRemaining": 0,
+                "recoveryReady": false
+              },
+              "itemDiscovery": [
+                "lightning"
+              ],
+              "itemMastery": [],
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:1"
+              ]
+            },
+            "group-34cae097-bf3e-4de4-9ad5-53da7c0ec93d": {
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "permanentUnlocks": {},
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonUnlocks": {},
+              "seasonProgress": {
+                "answered": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "answeredStreak": 0,
+                "recoveryRemaining": 0,
+                "recoveryReady": false
+              },
+              "itemDiscovery": [
+                "fire_flower"
+              ],
+              "itemMastery": [],
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:2"
+              ]
+            },
+            "group-8a48221d-3e17-4c5f-8154-7c392da0eda8": {
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "permanentUnlocks": {},
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonUnlocks": {},
+              "seasonProgress": {
+                "answered": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "answeredStreak": 0,
+                "recoveryRemaining": 0,
+                "recoveryReady": false
+              },
+              "itemDiscovery": [
+                "banana"
+              ],
+              "itemMastery": [],
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:3"
+              ]
+            },
+            "group-1e085d15-b970-4fa2-82fd-d0822f63cde5": {
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "permanentUnlocks": {},
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonUnlocks": {},
+              "seasonProgress": {
+                "answered": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "answeredStreak": 0,
+                "recoveryRemaining": 0,
+                "recoveryReady": false
+              },
+              "itemDiscovery": [
+                "feather"
+              ],
+              "itemMastery": [],
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:4"
+              ]
+            }
+          },
+          "schemaVersion": 1
+        },
+        "ledgerAfterReplay": {
+          "groups": {
+            "group-1e085d15-b970-4fa2-82fd-d0822f63cde5": {
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "itemDiscovery": [
+                "feather"
+              ],
+              "itemMastery": [],
+              "permanentUnlocks": {},
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:4"
+              ],
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "seasonProgress": {
+                "answered": 0,
+                "answeredStreak": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "recoveryReady": false,
+                "recoveryRemaining": 0
+              },
+              "seasonUnlocks": {}
+            },
+            "group-34cae097-bf3e-4de4-9ad5-53da7c0ec93d": {
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "itemDiscovery": [
+                "fire_flower"
+              ],
+              "itemMastery": [],
+              "permanentUnlocks": {},
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:2"
+              ],
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "seasonProgress": {
+                "answered": 0,
+                "answeredStreak": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "recoveryReady": false,
+                "recoveryRemaining": 0
+              },
+              "seasonUnlocks": {}
+            },
+            "group-8a48221d-3e17-4c5f-8154-7c392da0eda8": {
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "itemDiscovery": [
+                "banana"
+              ],
+              "itemMastery": [],
+              "permanentUnlocks": {},
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:3"
+              ],
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "seasonProgress": {
+                "answered": 0,
+                "answeredStreak": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "recoveryReady": false,
+                "recoveryRemaining": 0
+              },
+              "seasonUnlocks": {}
+            },
+            "group-b92c283a-ba25-45d2-a016-0bdc9c46cb42": {
+              "historicalCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "itemDiscovery": [
+                "lightning"
+              ],
+              "itemMastery": [],
+              "permanentUnlocks": {},
+              "processedEvents": [
+                "command-77b268e3-8222-4e85-9fcd-22b3cc36af65:1"
+              ],
+              "seasonCounters": {
+                "ITEM_ACQUIRED": 1
+              },
+              "seasonId": "season-c7d6f51e-dcea-4e09-a2a5-8de0ec5120a4",
+              "seasonProgress": {
+                "answered": 0,
+                "answeredStreak": 0,
+                "correct": 0,
+                "correctStreak": 0,
+                "recoveryReady": false,
+                "recoveryRemaining": 0
+              },
+              "seasonUnlocks": {}
+            }
+          },
+          "schemaVersion": 1
+        }
+      }
+    },
+    {
+      "scenario": "real undo restores committed acquisition ledger receipts",
+      "result": {
+        "ledger": {
+          "groups": {},
+          "schemaVersion": 1
+        },
+        "inventory": 0,
+        "total": 0
+      }
+    },
+    {
+      "scenario": "quota failure restores all awards, ledger and history",
+      "result": {
+        "outcome": {
+          "ok": false,
+          "error": "test quota"
+        },
+        "writes": 1,
+        "commits": 0,
+        "restored": true,
+        "busy": false,
+        "overlays": 0
+      }
+    }
+  ],
+  "errors": []
+}

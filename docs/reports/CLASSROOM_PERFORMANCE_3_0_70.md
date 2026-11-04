@@ -88,3 +88,9 @@
 弹窗MutationObserver之前会因深层文本滚动而反复遍历控件。现用窗口根ID/直接surface所有权定位，仅处理真正的窗口可见属性、surface替换和弹窗节点增删；滚动名字不触发生命周期扫描。8次文本更改扫描次数降为0；Escape、重开、嵌套积分窗、替换surface后关闭按钮与底层窗口恢复PASS。
 
 音乐音量滑动仍只调现有图，不因trim变化重建缓冲；BPM失效任务在下一个yield取消，唯一等待者自动加载最新配置，防止静音；延时重启不重复合成已准备的新缓冲。可控异步单元RED→GREEN，原声PCM对照仍在浮点误差范围；430项单元集成PASS。默认音轨听感、真实Windows设备、长期课堂仍需实测。
+
+## 图标读取与抽取事务回归
+
+道具图标原先每次调用ensureV2State，连带规范化全部小组库存；改为初始化一次、展示只读，128项有界缓存随自定义来源/名称变化失效，不改库存和规则。20次图标展示重复规范化20→0，源转义复用且自定义替换立即生效。
+
+旧global-draw-command在8c1efba原提交同样失败（异步举手返回Promise，却断言false；写入/故障注入仍指向退役localStorage镜像）。保留失败日志并迁到现行ClassroomHandSession结构化BUSY结果和IndexedDB documents权威写入；仍严格断言一次写入、4份奖励、事件幂等、真实撤销，以及QuotaExceededError时完整回滚/无事件/无动画残留。真实Chromium1920×1080/DPR1 PASS；artifacts/global-draw-command。不是删除失败或跳过持久化。

@@ -1429,3 +1429,5 @@ SAVE-003已实现当前档案学生/小组与头像管理和可视化成员选�
 - PERF-MODAL-OBSERVER（P1，已修复）：点名滚动文本不再反复扫描整个弹窗控件；保留根开关、surface重建、嵌套焦点与Escape。证据artifacts/modal-observer-work，含RED→GREEN。
 - PERF-MENU-SYNTH（P1，已修复）：默认音乐节点分批创建/共用滤波器；过期BPM任务取消、最新请求接续、trim不重建、延时重启去重。真实离线PCM对照及单元PASS；听感NOT TESTED。见artifacts/menu-synth-performance。
 - PERF-WINDOWS-REMAINING（P1，待Windows诊断）：Linux软件渲染冷操作仍有长帧；热金币样本129ms ACK/P95约17ms，不能据此宣称所有道具或Windows稳定。保留可靠保存/校验；未来线程化持久化须先证明回滚、存档与版本兼容，不能盲目跳过校验。
+
+- PERF-ITEM-ICON（P1，已修复）：图标读取不再重复规范化全班库存，缓存保留安全来源验证和变更失效。20次读取0次规范化；正式抽取/撤销/IndexedDB配额失败全回滚实际浏览器PASS。旧测试接口迁移及原提交失败证据保存在artifacts/global-draw-command。
