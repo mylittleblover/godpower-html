@@ -94,9 +94,7 @@ const AvatarPresetPicker = (() => {
     surface.className = "avatar-preset-surface ui-function-surface";
     surface.append(...dialog.childNodes);
     dialog.append(surface);
-    for (const category of [
-      ...new Set(AvatarPresetCatalog.items.map((x) => x.category)),
-    ]) {
+    for (const category of AvatarPresetCatalog.categories) {
       const o = document.createElement("option");
       o.value = o.textContent = category;
       dialog.querySelector("select").append(o);

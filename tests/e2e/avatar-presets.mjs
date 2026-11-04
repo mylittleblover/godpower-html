@@ -74,8 +74,20 @@ try {
     .first()
     .click();
   await page.waitForSelector("#avatarPresetDialog[open]");
+  assert.deepEqual(
+    await page.locator("#avatarPresetDialog select option").allTextContents(),
+    [
+      "全部分类",
+      "花草",
+      "岩石",
+      "近代政治人物",
+      "现代政治人物",
+      "任天堂与大乱斗",
+    ],
+  );
   for (const [category, count] of [
-    ["政治人物", 6],
+    ["近代政治人物", 6],
+    ["现代政治人物", 9],
     ["花草", 8],
     ["岩石", 8],
   ]) {
@@ -84,6 +96,16 @@ try {
       await page.locator("#avatarPresetDialog [data-preset-card]").count(),
       count,
     );
+    if (/政治人物$/.test(category)) {
+      await page
+        .locator("#avatarPresetDialog [data-preset-card] img")
+        .evaluateAll((images) =>
+          Promise.all(images.map((image) => image.decode())),
+        );
+      await page.screenshot({
+        path: `artifacts/avatar-presets/${category === "近代政治人物" ? "historical" : "modern"}-figures.png`,
+      });
+    }
   }
   await page.locator("#avatarPresetDialog select").selectOption("");
   await page.locator("#avatarPresetSearch").fill("马力欧");
