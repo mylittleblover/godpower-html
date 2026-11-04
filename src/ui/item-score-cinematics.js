@@ -164,7 +164,7 @@ globalThis.ScoreCardMotion = (() => {
     layer.style.background = session.color;
     number.style.color = session.ink;
     number.innerHTML = "<span></span><small></small>";
-    number.firstChild.textContent = `${session.from}分`;
+    number.firstChild.textContent = `${session.to}分`;
     number.lastChild.textContent = `${session.to - session.from > 0 ? "+" : ""}${session.to - session.from}`;
     score.classList.add("score-motion-hidden");
     session.hidden = score;
@@ -205,23 +205,9 @@ globalThis.ScoreCardMotion = (() => {
     );
     wash.currentTime = elapsed;
     move.currentTime = elapsed;
-    number.lastChild.style.opacity = elapsed >= 600 ? "1" : "0";
-    const update = () => {
-      if (sessions.get(String(session.id)) !== session || !number.isConnected)
-        return;
-      const raw = Math.min(
-        1,
-        Math.max(0, (performance.now() - session.started - 600) / 650),
-      );
-      // Ease-out quint: the counter decelerates into its final value instead of
-      // stepping at a constant rate, so the last digits settle gently.
-      const t = 1 - Math.pow(1 - raw, 5);
-      number.firstChild.textContent = `${Math.round(session.from + (session.to - session.from) * t)}分`;
-      number.lastChild.style.opacity = raw > 0 ? "1" : "0";
-      if (raw < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
+    // The exact result and signed delta stay readable; no per-frame text writes.
   }
+
   function finish(session) {
     if (sessions.get(String(session.id)) !== session) return;
     sessions.delete(String(session.id));

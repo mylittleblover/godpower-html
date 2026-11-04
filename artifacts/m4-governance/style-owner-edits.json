@@ -600,10 +600,34 @@
     "sha256": "203115ddad5c03b2421c2f642552b2ac080dca559683bd34792554ed74b59f35",
     "edits": [
       {
+        "start": 3189,
+        "end": 3200,
+        "original": "#groupList ",
+        "replacement": ""
+      },
+      {
+        "start": 3201,
+        "end": 3215,
+        "original": "row-score.row-",
+        "replacement": ""
+      },
+      {
+        "start": 3221,
+        "end": 3221,
+        "original": "",
+        "replacement": "capsu"
+      },
+      {
+        "start": 3222,
+        "end": 3226,
+        "original": "ight",
+        "replacement": "e"
+      },
+      {
         "start": 3243,
         "end": 3244,
         "original": "t",
-        "replacement": "#172a30;\n  border-"
+        "replacement": "var(--score-capsule-bg, var(--group-color));\n  border-"
       },
       {
         "start": 3246,
@@ -615,7 +639,7 @@
         "start": 3248,
         "end": 3248,
         "original": "",
-        "replacement": ": 5"
+        "replacement": ": 999"
       },
       {
         "start": 3249,
@@ -637,15 +661,21 @@
       },
       {
         "start": 3351,
-        "end": 3352,
-        "original": "\n",
-        "replacement": ""
+        "end": 3351,
+        "original": "",
+        "replacement": " none;"
       },
       {
-        "start": 3353,
+        "start": 3354,
+        "end": 3354,
+        "original": "",
+        "replacement": "text-align:"
+      },
+      {
+        "start": 3355,
         "end": 3416,
-        "original": "   1px 0 #000,\n    -1px 0 #000,\n    0 1px #000,\n    0 -1px #000",
-        "replacement": "none"
+        "original": " 1px 0 #000,\n    -1px 0 #000,\n    0 1px #000,\n    0 -1px #000",
+        "replacement": "center"
       }
     ]
   },

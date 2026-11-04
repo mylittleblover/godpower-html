@@ -1,6 +1,17 @@
 /* Read-only card markup presenter. No DOM, commands, timers, storage or business state writes. */
 const GodPowerBattleCardView = Object.freeze({
-  render(g, state, { badge, escapeHtml, itemVisual, itemName, groupNumber }) {
+  render(
+    g,
+    state,
+    {
+      badge,
+      scorePalette = badge,
+      escapeHtml,
+      itemVisual,
+      itemName,
+      groupNumber,
+    },
+  ) {
     const roundClass =
       state.roundActive && !state.evaluated ? "" : "round-disabled";
     const optionsHtml = ["A", "B", "C", "D"]
@@ -20,7 +31,7 @@ const GodPowerBattleCardView = Object.freeze({
     const scoreHtml =
       state.editingScoreId === g.id
         ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
+        : `<span class="row-score score-capsule ${editCls}" id="score-val-${g.id}" style="color:${scorePalette.foreground};--score-capsule-bg:${scorePalette.background || g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
     const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
     const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
 

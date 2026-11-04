@@ -61,6 +61,7 @@ function renderBattleGridCards() {
       },
       {
         badge,
+        scorePalette: GodpowerUIModel.scoreColors(g.color),
         escapeHtml,
         itemVisual,
         itemName: (key) => ITEM_DEFS[key]?.name,

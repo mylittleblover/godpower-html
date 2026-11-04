@@ -61,7 +61,7 @@ try {
           badgeInk: getComputedStyle(badge).color,
           scoreBg: getComputedStyle(score).backgroundColor,
           scoreInk: getComputedStyle(score).color,
-          light: score.classList.contains("row-score-light"),
+          capsule: score.classList.contains("score-capsule"),
         };
       });
       return { before, after, records };
@@ -82,11 +82,17 @@ try {
     colors.records.forEach((r, i) => {
       assert.equal(r.badgeBg, expected[i]);
       assert.equal(r.badgeInk, i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)");
-      assert.equal(r.light, i < 4);
-      if (i < 4) {
-        assert.equal(r.scoreBg, "rgb(23, 42, 48)");
-        assert.equal(r.scoreInk, expected[i]);
-      }
+      assert.equal(r.capsule, true);
+      assert.equal(
+        r.scoreBg,
+        expected[i],
+        "every score capsule keeps group paint",
+      );
+      assert.equal(
+        r.scoreInk,
+        i === 4 ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)",
+        "capsule text meets contrast for pale and saturated colors",
+      );
     });
     const medals = await page
       .locator(".rank-badge")
@@ -152,7 +158,7 @@ try {
   assert.equal(await page.locator("#bgmVolLabel").textContent(), "0%");
   assert.deepEqual(errors, []);
   console.log(
-    "PASS two-theme exact group paint, pale badge black ink, pale score original ink on neutral dark rectangle, unchanged 14-card geometry; independent BGM graph, mute, persistence and untouched FX/master; errors=[]",
+    "PASS two-theme exact group paint, pale badge black ink, all score capsules with adaptive ink, unchanged 14-card geometry; independent BGM graph, mute, persistence and untouched FX/master; errors=[]",
   );
 } finally {
   await browser.close();

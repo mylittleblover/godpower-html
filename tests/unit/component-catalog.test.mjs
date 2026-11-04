@@ -52,11 +52,32 @@ test("component catalog includes every shipped CSS class, token and animation wi
       );
     }),
   );
+  // All group scores now share the capsule; its pale-only predecessor is retired.
+  const previousScoreStyle = execFileSync(
+    "git",
+    ["show", "e50dabe:src/styles/components/application-surfaces.css"],
+    { encoding: "utf8" },
+  );
+  assert.ok(
+    previousScoreStyle.includes("#groupList .row-score.row-score-light"),
+  );
+  const currentScoreStyle = readFileSync(
+    "src/styles/components/application-surfaces.css",
+    "utf8",
+  );
+  assert.ok(currentScoreStyle.includes(".score-capsule {"));
+  assert.ok(!currentScoreStyle.includes("row-score-light"));
+  assert.ok(
+    !readFileSync("src/ui/battle-card-view.js", "utf8").includes(
+      "row-score-light",
+    ),
+  );
   assert.deepEqual(
     Array.from(missing, (item) => item.name).sort(),
     [
       ...new Set([
         ...proof.removed.map((item) => item.name),
+        "row-score-light",
         ...laterRetired.map((item) => item.name),
       ]),
     ].sort(),

@@ -42,3 +42,9 @@
 - 回归：七个同时积分动画汇总刷新次数 RED 6→GREEN 1；发动事件挂载 RED无卡片→GREEN有卡片；卡片主动画不包含filter/clipPath。首次测试遗漏取消旧积分调度，改用完整取消入口隔离前一个操作，保留失败日志。
 - 全文档扫描断言首次即通过，说明本次关闭窗口的直接道具命令没有复现扫描，未据此盲目删除旧窗口同步器。
 - 结果/CPU采样在 `artifacts/battle-item-performance/{21aa612,worktree,optimized}`；都是Linux无头Chromium，不是Windows课堂结论。
+
+## 积分表现进一步简化
+
+按用户追加要求，积分动画保留小组色铺底、准确最终分数、明确正负增量与回落位置，移除逐帧整数更新；不修改权威score、displayScore完成同步及撤销语义。新专项 `tests/e2e/score-simplification.mjs`：RED原100分→GREEN立即135/75分、+35/−25；900ms期间数字DOM写入0、结束清理与最终值PASS。旧item-score-cinematics脚本在此前举手流程入口已超时，未作为本轮通过证据；未删除该脚本或放宽断言。
+
+统一比赛与首页小组分数为静态积分胶囊，使用原小组底色与独立4.5:1文字明暗阈值；不改变左侧组号规则。两主题、14卡片位置/大小逐项一致，BGM控制与保存回归PASS。浅色专用旧class退出时保留e50dabe原样式和替代owner的精确审计断言。没有增加阴影/模糊/常驻动画。截图 `artifacts/web-transition/group-colors-*-3.0.56.png`（历史文件名，当前实际版本3.0.70）；所有418项单元/集成PASS。按用户最新指示暂停进一步外观扩展，继续性能治理。

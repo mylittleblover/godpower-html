@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "early": [
+    {
+      "score": "135分",
+      "delta": "+35",
+      "color": "rgb(0, 0, 0)"
+    },
+    {
+      "score": "75分",
+      "delta": "-25",
+      "color": "rgb(0, 0, 0)"
+    }
+  ],
+  "changes": 0,
+  "final": [
+    {
+      "score": 135,
+      "display": 135,
+      "text": "135分"
+    },
+    {
+      "score": 75,
+      "display": 75,
+      "text": "75分"
+    }
+  ]
+}

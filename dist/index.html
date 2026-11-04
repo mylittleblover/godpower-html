@@ -10162,12 +10162,13 @@ body {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
-#groupList .row-score.row-score-light {
-  background: #172a30;
-  border-radius: 5px;
+.score-capsule {
+  background: var(--score-capsule-bg, var(--group-color));
+  border-radius: 999px;
   box-shadow: none;
   -webkit-text-stroke: 0;
   text-shadow: none;
+  text-align: center;
 }
 
 #groupList .item-slot {
@@ -14578,7 +14579,7 @@ html[data-theme="marx"] {
     };
   }
   // Preserve the selected paint; only the foreground changes for pale fills.
-  function badgeColors(color) {
+  function paintColors(color, threshold) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
       raw = raw
@@ -14597,12 +14598,19 @@ html[data-theme="marx"] {
     );
     return {
       background: "#" + raw,
-      foreground: luminance > 0.45 ? "#000000" : "#FFFFFF",
+      foreground: luminance > threshold ? "#000000" : "#FFFFFF",
     };
+  }
+  function badgeColors(color) {
+    return paintColors(color, 0.45);
+  }
+  function scoreColors(color) {
+    return paintColors(color, 0.179);
   }
   root.GodpowerUIModel = {
     examples,
     badgeColors,
+    scoreColors,
     standings,
     dayIndex,
     daily,
@@ -36847,7 +36855,18 @@ exportSingleSettlementCSV = function (index) {
 
 <script>/* Read-only card markup presenter. No DOM, commands, timers, storage or business state writes. */
 const GodPowerBattleCardView = Object.freeze({
-  render(g, state, { badge, escapeHtml, itemVisual, itemName, groupNumber }) {
+  render(
+    g,
+    state,
+    {
+      badge,
+      scorePalette = badge,
+      escapeHtml,
+      itemVisual,
+      itemName,
+      groupNumber,
+    },
+  ) {
     const roundClass =
       state.roundActive && !state.evaluated ? "" : "round-disabled";
     const optionsHtml = ["A", "B", "C", "D"]
@@ -36867,7 +36886,7 @@ const GodPowerBattleCardView = Object.freeze({
     const scoreHtml =
       state.editingScoreId === g.id
         ? `<input type="number" class="score-input" id="input-score-${g.id}" value="${g.score}" onblur="finishDirectScoreEdit(${g.id})" onkeydown="handleScoreInputKey(event,${g.id})">`
-        : `<span class="row-score ${editCls} ${badge.foreground === "#000000" ? "row-score-light" : ""}" id="score-val-${g.id}" style="color:${g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
+        : `<span class="row-score score-capsule ${editCls}" id="score-val-${g.id}" style="color:${scorePalette.foreground};--score-capsule-bg:${scorePalette.background || g.color}" onclick="startDirectScoreEdit(${g.id})">${rawScore}分</span>`;
     const allInClass = g.allIn ? "allin-toggle-btn active" : "allin-toggle-btn";
     const allInText = g.allIn ? "🔥 ALL IN" : "ALL IN";
 
@@ -36956,6 +36975,7 @@ function renderBattleGridCards() {
       },
       {
         badge,
+        scorePalette: GodpowerUIModel.scoreColors(g.color),
         escapeHtml,
         itemVisual,
         itemName: (key) => ITEM_DEFS[key]?.name,
@@ -39578,7 +39598,7 @@ globalThis.ScoreCardMotion = (() => {
     layer.style.background = session.color;
     number.style.color = session.ink;
     number.innerHTML = "<span></span><small></small>";
-    number.firstChild.textContent = `${session.from}分`;
+    number.firstChild.textContent = `${session.to}分`;
     number.lastChild.textContent = `${session.to - session.from > 0 ? "+" : ""}${session.to - session.from}`;
     score.classList.add("score-motion-hidden");
     session.hidden = score;
@@ -39619,23 +39639,9 @@ globalThis.ScoreCardMotion = (() => {
     );
     wash.currentTime = elapsed;
     move.currentTime = elapsed;
-    number.lastChild.style.opacity = elapsed >= 600 ? "1" : "0";
-    const update = () => {
-      if (sessions.get(String(session.id)) !== session || !number.isConnected)
-        return;
-      const raw = Math.min(
-        1,
-        Math.max(0, (performance.now() - session.started - 600) / 650),
-      );
-      // Ease-out quint: the counter decelerates into its final value instead of
-      // stepping at a constant rate, so the last digits settle gently.
-      const t = 1 - Math.pow(1 - raw, 5);
-      number.firstChild.textContent = `${Math.round(session.from + (session.to - session.from) * t)}分`;
-      number.lastChild.style.opacity = raw > 0 ? "1" : "0";
-      if (raw < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
+    // The exact result and signed delta stay readable; no per-frame text writes.
   }
+
   function finish(session) {
     if (sessions.get(String(session.id)) !== session) return;
     sessions.delete(String(session.id));
@@ -46690,10 +46696,6 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
-      name: "row-score-light",
-      sources: ["src/styles/components/application-surfaces.css"],
-    },
-    {
       name: "save-avatar-button",
       sources: ["src/styles/settings/save-workspace.css"],
     },
@@ -46728,6 +46730,10 @@ const GodPowerComponentCatalog = {
     {
       name: "save-workspace-toolbar",
       sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "score-capsule",
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "score-card-number",
@@ -50529,7 +50535,7 @@ const DesktopUI = (() => {
                   );
               if (g.booShield > 0 || g.booRoundsLeftV218 > 0)
                 states.push("幽灵保护");
-              return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
+              return `<button class="ui-group-card" data-group="${Number(g.id)}" style="--group-color:${/^#[a-f\d]{3,8}$/i.test(g.color) ? g.color : "#0f766e"}" aria-label="查看${E(g.name)}的小组详情"><span class="ui-chip">第 ${E(g.groupNo || groups.indexOf(g) + 1)} 组</span><span class="ui-muted" style="float:right">排名 ${mask ? "—" : sorted.findIndex((x) => x.id === g.id) + 1}</span><span class="ui-group-title">${E(g.name)}</span><span class="ui-group-score score-capsule" style="color:${GodpowerUIModel.scoreColors(g.color).foreground};--score-capsule-bg:${GodpowerUIModel.scoreColors(g.color).background}">${mask ? "???" : E(g.score)}</span><span class="ui-muted"> 分</span><footer>${item ? itemVisual(item.key) : icon("gift")}<span>${E(item ? ITEM_DEFS[item.key]?.name || "未知道具" : "暂无主要道具")}</span></footer>${states.length ? `<div class="ui-muted">${E(states.join(" · "))}</div>` : ""}</button>`;
             })
             .join("")
         : empty(

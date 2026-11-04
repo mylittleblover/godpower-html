@@ -3543,10 +3543,6 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
-      name: "row-score-light",
-      sources: ["src/styles/components/application-surfaces.css"],
-    },
-    {
       name: "save-avatar-button",
       sources: ["src/styles/settings/save-workspace.css"],
     },
@@ -3581,6 +3577,10 @@ const GodPowerComponentCatalog = {
     {
       name: "save-workspace-toolbar",
       sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "score-capsule",
+      sources: ["src/styles/components/application-surfaces.css"],
     },
     {
       name: "score-card-number",

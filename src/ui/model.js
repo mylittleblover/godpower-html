@@ -173,7 +173,7 @@
     };
   }
   // Preserve the selected paint; only the foreground changes for pale fills.
-  function badgeColors(color) {
+  function paintColors(color, threshold) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
       raw = raw
@@ -192,12 +192,19 @@
     );
     return {
       background: "#" + raw,
-      foreground: luminance > 0.45 ? "#000000" : "#FFFFFF",
+      foreground: luminance > threshold ? "#000000" : "#FFFFFF",
     };
+  }
+  function badgeColors(color) {
+    return paintColors(color, 0.45);
+  }
+  function scoreColors(color) {
+    return paintColors(color, 0.179);
   }
   root.GodpowerUIModel = {
     examples,
     badgeColors,
+    scoreColors,
     standings,
     dayIndex,
     daily,
