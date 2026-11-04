@@ -25336,8 +25336,8 @@ function showToast(msg) {
     toastTimer = null;
   }, 3800);
 }
-function getPersistableGroups() {
-  return state.groups.map((g) => ({
+function getPersistableGroups(groups = state.groups) {
+  return groups.map((g) => ({
     ...g,
     score: Number.isFinite(Number(g.score)) ? Math.trunc(Number(g.score)) : 0,
     displayScore: Number.isFinite(Number(g.score))
@@ -40545,37 +40545,58 @@ globalThis.ClassroomSaveFile = (() => {
 function buildClassroomBackup() {
   if (window.classroomReady && classroomCommands.isPending())
     return clone(classroomCommands.baseline().backup);
+  return projectClassroomBackup(state, historyStack, false);
+}
+// The owned path consumes the command's private snapshot, never live classroom data.
+function projectClassroomBackup(source, history, owned) {
   return {
     schemaVersion: Reliability.schemaVersion,
     appVersion: "V3.0.70",
     timestamp: new Date().toISOString(),
-    seasonId: state.seasonId,
-    achievementLedger: AchievementLedger.normalize(state.achievementLedger),
-    groups: getPersistableGroups(),
-    picker: clone(state.picker),
-    itemGlobal: clone(state.itemGlobal || {}),
+    seasonId: source.seasonId,
+    achievementLedger: AchievementLedger.normalize(source.achievementLedger),
+    groups: getPersistableGroups(source.groups),
+    picker: owned ? source.picker : clone(source.picker),
+    itemGlobal: owned
+      ? source.itemGlobal || {}
+      : clone(source.itemGlobal || {}),
     round: {
-      roundActive: state.roundActive,
-      evaluated: state.evaluated,
-      correctAns: state.correctAns,
-      hasStartedOnce: state.hasStartedOnce,
-      lastRoundAllIn: state.lastRoundAllIn,
+      roundActive: source.roundActive,
+      evaluated: source.evaluated,
+      correctAns: source.correctAns,
+      hasStartedOnce: source.hasStartedOnce,
+      lastRoundAllIn: source.lastRoundAllIn,
     },
-    history: clone(historyStack),
-    ...(state.rosterSnapshot
-      ? { rosterSnapshot: clone(state.rosterSnapshot) }
+    history: owned ? history : clone(history),
+    ...(source.rosterSnapshot
+      ? {
+          rosterSnapshot: owned
+            ? source.rosterSnapshot
+            : clone(source.rosterSnapshot),
+        }
       : {}),
     firstHandDrawPending: firstHandDrawPendingV218,
-    adminPin: state.adminPin,
-    masterVolume: state.masterVolume,
-    sfxVolume: state.sfxVolume,
-    zoomLevel: state.zoomLevel,
-    resizerEnabled: state.resizerEnabled,
-    resizerHeight: state.resizerHeight,
-    columnMode: state.columnMode,
-    saveAllIn: state.saveAllIn,
+    adminPin: source.adminPin,
+    masterVolume: source.masterVolume,
+    sfxVolume: source.sfxVolume,
+    zoomLevel: source.zoomLevel,
+    resizerEnabled: source.resizerEnabled,
+    resizerHeight: source.resizerHeight,
+    columnMode: source.columnMode,
+    saveAllIn: source.saveAllIn,
   };
 }
+function captureClassroomCommandSnapshot() {
+  const captured = clone(state),
+    history = clone(historyStack);
+  return {
+    state: captured,
+    history,
+    identity: state,
+    backup: projectClassroomBackup(captured, history, true),
+  };
+}
+
 function applyClassroomBackup(raw) {
   Reliability.validateBackup(raw);
   const data = Reliability.validateBackup(SchemaMigrations.migrateBackup(raw));
@@ -40748,12 +40769,7 @@ const classroomCommands = CommandLifecycle.create({
   commandId: () => StableIdentity.createCommandId(),
   createEventScope: (options) => DomainEvents.createScope(options),
   invalidate: () => Reliability.invalidateDefenseDecisions(),
-  snapshot: () => ({
-    state: clone(state),
-    history: clone(historyStack),
-    identity: state,
-    backup: clone(buildClassroomBackup()),
-  }),
+  snapshot: captureClassroomCommandSnapshot,
   restore: (before) => {
     // Imported/replaced state belongs to a newer classroom and must be preserved.
     if (state === before.identity) {

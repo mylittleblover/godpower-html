@@ -68,3 +68,9 @@
 - 一次真实金币命令RED复用0→GREEN复用13；状态改变仍刷新目标。真实判题14组均+2、已结算、历史仅+1。14组DOM尺寸/位置对照PASS。证据artifacts/battle-card-reuse。
 - 分数动画先统一测量28个位置，再插入14组图层；原来每插一组再读取下一组，会反复触发布局。读后写专项RED→GREEN；数字准确性、增减值、清理专项PASS。证据artifacts/score-layout-batch。
 - 答题专项scripts/profile-battle-items.mjs新增round模式，前后均实际judgeRound、14组均+2。原始CPU与Linux采样在artifacts/round-performance，仅诊断样本，不能当作Windows流畅承诺；历史单次约781/712ms，仍有长帧。后续继续检查事务复制与原生桥接。
+
+## 共用命令快照
+
+事务之前同时克隆state/history，再构建backup（再次复制历史），最后又整体克隆backup。现由一个私有投影复用已经隔离的state/history；公开备份数据形状和待决命令读取未改变。单元对比6d45f66的原构建字节、私有引用与活状态不共享、后续修改不污染快照；14组40历史的序列化字节低于原70%。不减少历史条数，不跳过命令校验、持久化或回滚。异步防御蘑菇/喇叭实际接受、拒绝、旧命令、旧状态及替换道具回归PASS；424项单元集成PASS。
+
+新判题诊断仍14组各+2；单次ACK约704ms，P95约250ms，最长约317ms。不同采样指标有波动，不能凭单次ACK下降声称流畅；继续分析Electron主renderer。证据artifacts/command-snapshot与artifacts/round-performance/private-snapshot。

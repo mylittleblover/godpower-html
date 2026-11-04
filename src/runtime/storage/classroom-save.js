@@ -1,5 +1,5 @@
-function getPersistableGroups() {
-  return state.groups.map((g) => ({
+function getPersistableGroups(groups = state.groups) {
+  return groups.map((g) => ({
     ...g,
     score: Number.isFinite(Number(g.score)) ? Math.trunc(Number(g.score)) : 0,
     displayScore: Number.isFinite(Number(g.score))

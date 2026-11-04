@@ -1,0 +1,10 @@
+✔ command snapshot shares only owned baseline data, preserving legacy backup bytes (9.628871ms)
+✔ private command capture serializes fewer bytes without reducing history (37.584328ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 121.777631
