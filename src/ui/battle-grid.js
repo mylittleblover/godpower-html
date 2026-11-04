@@ -68,6 +68,7 @@ function renderBattleGridCards() {
     );
     const signature = JSON.stringify([
       markup,
+      g.score,
       g.color,
       g.animState,
       g.itemEffect,

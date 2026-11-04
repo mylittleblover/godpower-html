@@ -1425,3 +1425,7 @@ SAVE-003已实现当前档案学生/小组与头像管理和可视化成员选�
 
 - PERF-CARD-REUSE（P1，已实现）：不变卡片复用、14卡积分动画批量读布局；金币13卡保留/状态失效刷新/14组判题+2/布局对照PASS。继续跟踪Windows长帧，不将局部实现完成等同整体性能达标。
 - DOC-ITEM-CURRENT（P1，已实现）：百科28项实际效果与当前道具描述同源；移除无敌星/巨大蘑菇数字举例。后续每次规则变更须同步当前描述并运行item-copy-consistency测试。
+
+- PERF-MODAL-OBSERVER（P1，已修复）：点名滚动文本不再反复扫描整个弹窗控件；保留根开关、surface重建、嵌套焦点与Escape。证据artifacts/modal-observer-work，含RED→GREEN。
+- PERF-MENU-SYNTH（P1，已修复）：默认音乐节点分批创建/共用滤波器；过期BPM任务取消、最新请求接续、trim不重建、延时重启去重。真实离线PCM对照及单元PASS；听感NOT TESTED。见artifacts/menu-synth-performance。
+- PERF-WINDOWS-REMAINING（P1，待Windows诊断）：Linux软件渲染冷操作仍有长帧；热金币样本129ms ACK/P95约17ms，不能据此宣称所有道具或Windows稳定。保留可靠保存/校验；未来线程化持久化须先证明回滚、存档与版本兼容，不能盲目跳过校验。

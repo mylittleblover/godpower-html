@@ -1,0 +1,31 @@
+✔ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.485063ms)
+✔ same-config menu requests share work and preserve uploaded audio priority (2.123437ms)
+✔ live menu volume trims do not rebuild an already loaded music buffer (0.793518ms)
+✖ a sole pending menu request restarts with the latest tempo instead of going silent (6.239421ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 66.763913
+
+✖ failing tests:
+
+test at tests/unit/menu-buffer-ownership.test.mjs:117:1
+✖ a sole pending menu request restarts with the latest tempo instead of going silent (6.239421ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/menu-buffer-ownership.test.mjs:119:144)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

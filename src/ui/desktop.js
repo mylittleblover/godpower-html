@@ -1096,7 +1096,8 @@ const DesktopUI = (() => {
   let openStack = [],
     modalLayer = 300000;
   function setupModals() {
-    const known = new Map();
+    const known = new Map(),
+      surfaceOwners = new WeakMap();
     function focusModal(top) {
       if (
         !top.el.getClientRects().length ||
@@ -1162,6 +1163,7 @@ const DesktopUI = (() => {
           const surface =
             el.querySelector(".ui-function-surface") || el.firstElementChild;
           if (surface) {
+            surfaceOwners.set(surface, id);
             for (const old of surface.querySelectorAll(
               'button[onclick*="close"]',
             )) {
@@ -1275,14 +1277,19 @@ const DesktopUI = (() => {
           Object.keys(modalClosers).forEach((id) => ids.add(id));
           continue;
         }
-        const owner = record.target.closest?.(modalSelector);
-        if (owner) ids.add(owner.id);
+        const ownId = record.target.id;
+        if (Object.hasOwn(modalClosers, ownId)) ids.add(ownId);
+        else if (record.type === "childList") {
+          const surfaceId = surfaceOwners.get(record.target);
+          if (surfaceId) ids.add(surfaceId);
+        }
         if (record.type === "childList") {
           for (const node of [...record.addedNodes, ...record.removedNodes]) {
             if (node.matches?.(modalSelector)) ids.add(node.id);
-            node
-              .querySelectorAll?.(modalSelector)
-              .forEach((el) => ids.add(el.id));
+            if (node.firstElementChild)
+              node
+                .querySelectorAll(modalSelector)
+                .forEach((el) => ids.add(el.id));
           }
         }
       }

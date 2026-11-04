@@ -1,0 +1,32 @@
+✔ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.392472ms)
+✔ same-config menu requests share work and preserve uploaded audio priority (4.721216ms)
+✔ live menu volume trims do not rebuild an already loaded music buffer (0.789472ms)
+✔ a sole pending menu request restarts with the latest tempo instead of going silent (5.940326ms)
+✖ debounced tempo restart reuses the latest already prepared buffer (2.037085ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 73.415495
+
+✖ failing tests:
+
+test at tests/unit/menu-buffer-ownership.test.mjs:142:1
+✖ debounced tempo restart reuses the latest already prepared buffer (2.037085ms)
+  AssertionError [ERR_ASSERTION]: tempo restart must not synthesize the same latest buffer twice
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/menu-buffer-ownership.test.mjs:144:148)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -52,7 +52,8 @@ function menuEnsureGraph() {
 }
 
 /* 合成兜底：按工程台 BPM/拍号/循环拍数离线渲染一轨同拍循环 buffer（未上传该轨音频时使用） */
-async function makeSynthMenuBuffer(key) {
+async function makeSynthMenuBuffer(key, isCurrent = () => true) {
+  if (!isCurrent()) return null;
   const sr = audioCtx.sampleRate;
   const bpm = Math.max(40, Number(menuCfg.bpm) || 130);
   const beats = Math.max(
@@ -72,6 +73,7 @@ async function makeSynthMenuBuffer(key) {
     if (step > 0 && step % 8 === 0) {
       if (globalThis.scheduler?.yield) await globalThis.scheduler.yield();
       else await new Promise((resolve) => setTimeout(resolve, 0));
+      if (!isCurrent()) return null;
     }
     const time = step * stepSec;
     const bassMidi = pat.bass[step];

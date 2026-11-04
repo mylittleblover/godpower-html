@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: rolling text must not rerun modal lifecycle scans
+
+8 !== 0
+
+    at file:///workspace/godpower-html-latest/tests/e2e/modal-observer-work.mjs:5:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 8,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

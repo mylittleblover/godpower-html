@@ -1,0 +1,14 @@
+✔ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.419342ms)
+✔ same-config menu requests share work and preserve uploaded audio priority (1.849882ms)
+✔ live menu volume trims do not rebuild an already loaded music buffer (1.113541ms)
+✔ a sole pending menu request restarts with the latest tempo instead of going silent (5.241161ms)
+✔ debounced tempo restart reuses the latest already prepared buffer (1.2652ms)
+✔ default menu synth shares the hat filter and yields without changing note timing (10.643984ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 131.164319

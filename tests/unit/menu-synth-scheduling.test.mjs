@@ -78,4 +78,15 @@ test("default menu synth shares the hat filter and yields without changing note 
     ["start", 0.03125],
     ["start", 0.03125],
   ]);
+  let allowed = true;
+  const before = log.notes.filter((x) => x[0] === "start").length;
+  ctx.scheduler.yield = async () => {
+    allowed = false;
+  };
+  assert.equal(
+    await ctx.makeSynthMenuBuffer("test", () => allowed),
+    null,
+    "superseded synthesis stops at the next yield",
+  );
+  assert.ok(log.notes.filter((x) => x[0] === "start").length - before < 256);
 });

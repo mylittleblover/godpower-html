@@ -1,16 +1,15 @@
 const menuLoading = {};
 const menuBufferOwners = {};
-function menuBufferSignature(key) {
+function menuBufferSignature() {
   return JSON.stringify([
     menuCfg.bpm,
     menuCfg.loopStartBeat,
     menuCfg.loopEndBeat,
-    menuCfg.gainTrims?.[key],
     audioCtx?.sampleRate,
   ]);
 }
 async function menuLoadBuffer(key) {
-  const signature = menuBufferSignature(key),
+  const signature = menuBufferSignature(),
     context = audioCtx;
   if (menuBgm.buffers[key] && menuBufferOwners[key] === signature)
     return menuBgm.buffers[key];
@@ -21,7 +20,16 @@ async function menuLoadBuffer(key) {
   const current = () =>
     menuLoading[key] === owner &&
     audioCtx === context &&
-    signature === menuBufferSignature(key);
+    signature === menuBufferSignature();
+  const superseded = () => {
+    if (
+      menuLoading[key] === owner &&
+      audioCtx === context &&
+      signature !== menuBufferSignature()
+    )
+      return menuLoadBuffer(key);
+    return null;
+  };
   const p = (async () => {
     let buf = null,
       uploaded = false;
@@ -33,7 +41,7 @@ async function menuLoadBuffer(key) {
           req.onsuccess = () => res(req.result?.arrayBuffer || null);
           req.onerror = () => res(null);
         });
-        if (!current()) return null;
+        if (!current()) return superseded();
         if (ab?.byteLength) {
           buf = normalizeWelcomeLoopBuffer(
             key,
@@ -45,16 +53,16 @@ async function menuLoadBuffer(key) {
         console.warn("自定义菜单音乐读取失败，将使用默认音乐", key, error);
       }
     }
-    if (!current()) return null;
+    if (!current()) return superseded();
     if (!buf) {
       try {
-        buf = await makeSynthMenuBuffer(key);
+        buf = await makeSynthMenuBuffer(key, current);
       } catch (error) {
         console.warn("默认菜单音乐合成失败", key, error);
         return null;
       }
     }
-    if (!current()) return null;
+    if (!current()) return superseded();
     if (buf) {
       menuBgm.buffers[key] = buf;
       menuBufferOwners[key] = signature;
@@ -276,8 +284,7 @@ function menuScheduleReload() {
     menuReloadTimer = null;
     const key = menuBgm.currentKey;
     if (!key || !menuBgm.active) return;
-    delete menuBgm.buffers[key];
-    menuBgm.uploadedKeys.delete(key);
+    // The timing signature already invalidates obsolete buffers; keep a fresh one.
     const buf = await menuLoadBuffer(key);
     if (!buf || key !== menuBgm.currentKey || !menuBgm.active) return;
     // BPM 变化后旧的时间原点失去意义：从整曲起点重新开始
