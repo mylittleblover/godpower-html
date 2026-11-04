@@ -173,10 +173,10 @@ globalThis.ScoreCardMotion = (() => {
     const elapsed = Math.max(0, performance.now() - session.started);
     const wash = layer.animate(
       [
-        { clipPath: "circle(0% at 85% 35%)" },
-        { clipPath: "circle(150% at 85% 35%)", offset: 0.23 },
-        { clipPath: "circle(150% at 85% 35%)", offset: 0.78 },
-        { clipPath: "circle(0% at 85% 35%)" },
+        { opacity: 0, transform: "scale(.96)" },
+        { opacity: 0.9, transform: "scale(1)", offset: 0.23 },
+        { opacity: 0.9, transform: "scale(1)", offset: 0.78 },
+        { opacity: 0, transform: "scale(.96)" },
       ],
       { duration, fill: "both", easing: "ease-in-out" },
     );
@@ -231,9 +231,12 @@ globalThis.ScoreCardMotion = (() => {
     const score = document.getElementById("score-val-" + session.id);
     if (score && g) score.textContent = g.score + "分";
     itemScoreDisplayHoldV21732.delete(String(session.id));
-    renderChart();
-    renderDashboard();
-    updateHeaderStats();
+    // A multi-target attack completes as one visual batch.
+    if (!sessions.size) {
+      renderChart();
+      renderDashboard();
+      updateHeaderStats();
+    }
     session.done?.();
   }
   function play(updates, done) {

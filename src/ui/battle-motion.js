@@ -28,20 +28,16 @@ const BattleMotion = (() => {
     badge.innerHTML = `<span>${ITEM_DEFS[session.key] ? itemVisual(session.key) : "✦"}</span><b>${escapeHtml(session.label)}</b>`;
     node.append(badge);
     const simple = DesktopUI.getPreferences().motion === "simple";
-    // Two extra layers give every family weight: a shockwave that escapes the
-    // card, and shards that fly outward and fade.
-    if (!simple) {
-      const wave = document.createElement("i");
-      wave.className = "bm-wave";
+    // Keep multi-target hits inside their cards; only the caster gets four sparks.
+    if (!simple && session.kind === "use") {
       const shards = document.createElement("i");
       shards.className = "bm-shards";
-      for (let n = 0; n < 10; n++) {
+      for (let n = 0; n < 4; n++) {
         const shard = document.createElement("u");
-        shard.style.setProperty("--a", `${n * 36}deg`);
-        shard.style.setProperty("--d", `${0.7 + (n % 4) * 0.12}s`);
+        shard.style.setProperty("--a", `${n * 90}deg`);
         shards.append(shard);
       }
-      node.append(wave, shards);
+      node.append(shards);
     }
     card.append(node);
     node.animate(
@@ -53,8 +49,8 @@ const BattleMotion = (() => {
             { opacity: 0 },
           ]
         : [
-            { opacity: 0, filter: "brightness(1.25)" },
-            { opacity: 1, filter: "brightness(1)", offset: 0.18 },
+            { opacity: 0 },
+            { opacity: 1, offset: 0.18 },
             { opacity: 1, offset: 0.64 },
             { opacity: 0 },
           ],
@@ -173,7 +169,8 @@ const BattleMotion = (() => {
     }
   }
   function event(type, detail) {
-    if (type === "ITEM_EFFECT_EXPIRED")
+    if (type === "ITEM_USE_START") show("use", detail.groupId, detail.key);
+    else if (type === "ITEM_EFFECT_EXPIRED")
       show("expired", detail.groupId, detail.key, "持续状态已解除");
     else if (type === "ITEM_EFFECT_APPLIED")
       show("applied", detail.groupId, detail.key, "持续状态已更新");

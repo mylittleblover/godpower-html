@@ -1,0 +1,18 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: simultaneous score animations share one summary refresh
+
+6 !== 1
+
+    at file:///workspace/godpower-html-latest/tests/e2e/item-command-rendering.mjs:83:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 6,
+  expected: 1,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

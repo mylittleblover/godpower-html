@@ -3,6 +3,7 @@
   "result": {
     "ok": true,
     "renders": 1,
+    "fullDocumentScans": 0,
     "before": 340,
     "after": 342,
     "used": 1,
