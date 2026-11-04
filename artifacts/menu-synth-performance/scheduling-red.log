@@ -1,0 +1,28 @@
+✖ default menu synth shares the hat filter and yields without changing note timing (9.837666ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 77.488923
+
+✖ failing tests:
+
+test at tests/unit/menu-synth-scheduling.test.mjs:2:1
+✖ default menu synth shares the hat filter and yields without changing note timing (9.837666ms)
+  AssertionError [ERR_ASSERTION]: one linear high-pass filter is shared by hat voices
+  
+  128 !== 1
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/menu-synth-scheduling.test.mjs:7:70)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

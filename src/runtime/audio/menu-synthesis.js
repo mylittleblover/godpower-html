@@ -52,7 +52,7 @@ function menuEnsureGraph() {
 }
 
 /* 合成兜底：按工程台 BPM/拍号/循环拍数离线渲染一轨同拍循环 buffer（未上传该轨音频时使用） */
-function makeSynthMenuBuffer(key) {
+async function makeSynthMenuBuffer(key) {
   const sr = audioCtx.sampleRate;
   const bpm = Math.max(40, Number(menuCfg.bpm) || 130);
   const beats = Math.max(
@@ -67,7 +67,12 @@ function makeSynthMenuBuffer(key) {
   const offline = new OfflineAudioContext(1, len, sr);
   const pat = buildMenuPattern(key, bars);
   const trim = Math.max(0, Math.min(3, Number(menuCfg.gainTrims[key]) || 1));
+  let hatFilter = null;
   for (let step = 0; step < totalSteps; step++) {
+    if (step > 0 && step % 8 === 0) {
+      if (globalThis.scheduler?.yield) await globalThis.scheduler.yield();
+      else await new Promise((resolve) => setTimeout(resolve, 0));
+    }
     const time = step * stepSec;
     const bassMidi = pat.bass[step];
     const leadMidi = pat.lead[step];
@@ -107,12 +112,14 @@ function makeSynthMenuBuffer(key) {
       const g = offline.createGain();
       g.gain.setValueAtTime(0.07 * trim, time);
       g.gain.exponentialRampToValueAtTime(0.001, time + 0.035);
-      const hp = offline.createBiquadFilter();
-      hp.type = "highpass";
-      hp.frequency.value = 6000;
+      if (!hatFilter) {
+        hatFilter = offline.createBiquadFilter();
+        hatFilter.type = "highpass";
+        hatFilter.frequency.value = 6000;
+        hatFilter.connect(offline.destination);
+      }
       src.connect(g);
-      g.connect(hp);
-      hp.connect(offline.destination);
+      g.connect(hatFilter);
       src.start(time);
     }
   }

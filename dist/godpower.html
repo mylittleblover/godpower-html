@@ -27897,7 +27897,7 @@ function menuEnsureGraph() {
 }
 
 /* 合成兜底：按工程台 BPM/拍号/循环拍数离线渲染一轨同拍循环 buffer（未上传该轨音频时使用） */
-function makeSynthMenuBuffer(key) {
+async function makeSynthMenuBuffer(key) {
   const sr = audioCtx.sampleRate;
   const bpm = Math.max(40, Number(menuCfg.bpm) || 130);
   const beats = Math.max(
@@ -27912,7 +27912,12 @@ function makeSynthMenuBuffer(key) {
   const offline = new OfflineAudioContext(1, len, sr);
   const pat = buildMenuPattern(key, bars);
   const trim = Math.max(0, Math.min(3, Number(menuCfg.gainTrims[key]) || 1));
+  let hatFilter = null;
   for (let step = 0; step < totalSteps; step++) {
+    if (step > 0 && step % 8 === 0) {
+      if (globalThis.scheduler?.yield) await globalThis.scheduler.yield();
+      else await new Promise((resolve) => setTimeout(resolve, 0));
+    }
     const time = step * stepSec;
     const bassMidi = pat.bass[step];
     const leadMidi = pat.lead[step];
@@ -27952,12 +27957,14 @@ function makeSynthMenuBuffer(key) {
       const g = offline.createGain();
       g.gain.setValueAtTime(0.07 * trim, time);
       g.gain.exponentialRampToValueAtTime(0.001, time + 0.035);
-      const hp = offline.createBiquadFilter();
-      hp.type = "highpass";
-      hp.frequency.value = 6000;
+      if (!hatFilter) {
+        hatFilter = offline.createBiquadFilter();
+        hatFilter.type = "highpass";
+        hatFilter.frequency.value = 6000;
+        hatFilter.connect(offline.destination);
+      }
       src.connect(g);
-      g.connect(hp);
-      hp.connect(offline.destination);
+      g.connect(hatFilter);
       src.start(time);
     }
   }
@@ -27966,43 +27973,75 @@ function makeSynthMenuBuffer(key) {
 
 /* 加载一轨：优先 IndexedDB 用户上传音频（bgm_menu_<key>），无则合成兜底；并发加载去重 */
 const menuLoading = {};
+const menuBufferOwners = {};
+function menuBufferSignature(key) {
+  return JSON.stringify([
+    menuCfg.bpm,
+    menuCfg.loopStartBeat,
+    menuCfg.loopEndBeat,
+    menuCfg.gainTrims?.[key],
+    audioCtx?.sampleRate,
+  ]);
+}
 async function menuLoadBuffer(key) {
-  if (menuBgm.buffers[key]) return menuBgm.buffers[key];
-  if (menuLoading[key]) return menuLoading[key];
+  const signature = menuBufferSignature(key),
+    context = audioCtx;
+  if (menuBgm.buffers[key] && menuBufferOwners[key] === signature)
+    return menuBgm.buffers[key];
+  if (menuLoading[key]?.signature === signature)
+    return menuLoading[key].promise;
+  const owner = { signature, promise: null };
+  menuLoading[key] = owner;
+  const current = () =>
+    menuLoading[key] === owner &&
+    audioCtx === context &&
+    signature === menuBufferSignature(key);
   const p = (async () => {
-    let buf = null;
+    let buf = null,
+      uploaded = false;
     if (db) {
       try {
         const ab = await new Promise((res) => {
-          const tx = db.transaction("sounds", "readonly");
-          const req = tx.objectStore("sounds").get("bgm_menu_" + key);
-          req.onsuccess = () =>
-            res((req.result && req.result.arrayBuffer) || null);
+          const tx = db.transaction("sounds", "readonly"),
+            req = tx.objectStore("sounds").get("bgm_menu_" + key);
+          req.onsuccess = () => res(req.result?.arrayBuffer || null);
           req.onerror = () => res(null);
         });
-        if (ab && ab.byteLength > 0) {
-          buf = await audioCtx.decodeAudioData(ab.slice(0));
-          buf = normalizeWelcomeLoopBuffer(key, buf);
-          menuBgm.uploadedKeys.add(key);
+        if (!current()) return null;
+        if (ab?.byteLength) {
+          buf = normalizeWelcomeLoopBuffer(
+            key,
+            await context.decodeAudioData(ab.slice(0)),
+          );
+          uploaded = true;
         }
-      } catch (e) {}
+      } catch (error) {
+        console.warn("自定义菜单音乐读取失败，将使用默认音乐", key, error);
+      }
     }
+    if (!current()) return null;
     if (!buf) {
       try {
         buf = await makeSynthMenuBuffer(key);
-      } catch (e2) {
-        buf = null;
+      } catch (error) {
+        console.warn("默认菜单音乐合成失败", key, error);
+        return null;
       }
-      if (buf) menuBgm.uploadedKeys.delete(key);
     }
-    if (buf) menuBgm.buffers[key] = buf;
+    if (!current()) return null;
+    if (buf) {
+      menuBgm.buffers[key] = buf;
+      menuBufferOwners[key] = signature;
+      if (uploaded) menuBgm.uploadedKeys.add(key);
+      else menuBgm.uploadedKeys.delete(key);
+    }
     return buf;
   })();
-  menuLoading[key] = p;
+  owner.promise = p;
   try {
     return await p;
   } finally {
-    delete menuLoading[key];
+    if (menuLoading[key] === owner) delete menuLoading[key];
   }
 }
 

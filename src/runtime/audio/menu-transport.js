@@ -1,41 +1,73 @@
 const menuLoading = {};
+const menuBufferOwners = {};
+function menuBufferSignature(key) {
+  return JSON.stringify([
+    menuCfg.bpm,
+    menuCfg.loopStartBeat,
+    menuCfg.loopEndBeat,
+    menuCfg.gainTrims?.[key],
+    audioCtx?.sampleRate,
+  ]);
+}
 async function menuLoadBuffer(key) {
-  if (menuBgm.buffers[key]) return menuBgm.buffers[key];
-  if (menuLoading[key]) return menuLoading[key];
+  const signature = menuBufferSignature(key),
+    context = audioCtx;
+  if (menuBgm.buffers[key] && menuBufferOwners[key] === signature)
+    return menuBgm.buffers[key];
+  if (menuLoading[key]?.signature === signature)
+    return menuLoading[key].promise;
+  const owner = { signature, promise: null };
+  menuLoading[key] = owner;
+  const current = () =>
+    menuLoading[key] === owner &&
+    audioCtx === context &&
+    signature === menuBufferSignature(key);
   const p = (async () => {
-    let buf = null;
+    let buf = null,
+      uploaded = false;
     if (db) {
       try {
         const ab = await new Promise((res) => {
-          const tx = db.transaction("sounds", "readonly");
-          const req = tx.objectStore("sounds").get("bgm_menu_" + key);
-          req.onsuccess = () =>
-            res((req.result && req.result.arrayBuffer) || null);
+          const tx = db.transaction("sounds", "readonly"),
+            req = tx.objectStore("sounds").get("bgm_menu_" + key);
+          req.onsuccess = () => res(req.result?.arrayBuffer || null);
           req.onerror = () => res(null);
         });
-        if (ab && ab.byteLength > 0) {
-          buf = await audioCtx.decodeAudioData(ab.slice(0));
-          buf = normalizeWelcomeLoopBuffer(key, buf);
-          menuBgm.uploadedKeys.add(key);
+        if (!current()) return null;
+        if (ab?.byteLength) {
+          buf = normalizeWelcomeLoopBuffer(
+            key,
+            await context.decodeAudioData(ab.slice(0)),
+          );
+          uploaded = true;
         }
-      } catch (e) {}
+      } catch (error) {
+        console.warn("自定义菜单音乐读取失败，将使用默认音乐", key, error);
+      }
     }
+    if (!current()) return null;
     if (!buf) {
       try {
         buf = await makeSynthMenuBuffer(key);
-      } catch (e2) {
-        buf = null;
+      } catch (error) {
+        console.warn("默认菜单音乐合成失败", key, error);
+        return null;
       }
-      if (buf) menuBgm.uploadedKeys.delete(key);
     }
-    if (buf) menuBgm.buffers[key] = buf;
+    if (!current()) return null;
+    if (buf) {
+      menuBgm.buffers[key] = buf;
+      menuBufferOwners[key] = signature;
+      if (uploaded) menuBgm.uploadedKeys.add(key);
+      else menuBgm.uploadedKeys.delete(key);
+    }
     return buf;
   })();
-  menuLoading[key] = p;
+  owner.promise = p;
   try {
     return await p;
   } finally {
-    delete menuLoading[key];
+    if (menuLoading[key] === owner) delete menuLoading[key];
   }
 }
 

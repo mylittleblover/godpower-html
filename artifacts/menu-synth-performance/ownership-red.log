@@ -1,0 +1,30 @@
+✖ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.837612ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 65.34342
+
+✖ failing tests:
+
+test at tests/unit/menu-buffer-ownership.test.mjs:2:1
+✖ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.837612ms)
+  AssertionError [ERR_ASSERTION]: new timing needs its own synthesis job
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/menu-buffer-ownership.test.mjs:4:109)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

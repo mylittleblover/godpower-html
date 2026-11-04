@@ -1,0 +1,11 @@
+✔ menu synthesis superseded by a tempo change cannot replace the newer buffer (2.51903ms)
+✔ same-config menu requests share work and preserve uploaded audio priority (3.393039ms)
+✔ default menu synth shares the hat filter and yields without changing note timing (10.204051ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143.058173
