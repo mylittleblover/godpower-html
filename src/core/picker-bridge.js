@@ -179,6 +179,8 @@ window.GodpowerPicker = (() => {
     if (action === "mode") {
       if (!["individual", "group", "two_tier"].includes(payload.mode))
         return { ok: false, error: "INVALID_MODE" };
+      if (payload.mode === state.picker.mode)
+        return { ok: true, persisted: !window.classroomUnsavedChanges };
       setPickerMode(payload.mode);
       saveState();
       notify("idle");

@@ -167,3 +167,34 @@ test("direct projection matches the verified prior save contract for ordinary sc
     );
   }
 });
+
+test("owned runtime projection avoids duplicate copies while retaining validation and public isolation", async () => {
+  const { projection, document } = await fixture();
+  const runtime = projection.toRuntime(document);
+  runtime.groups[0].score = 123;
+  const publicResult = await projection.fromRuntime(document, runtime);
+  assert.equal(typeof projection.fromOwnedRuntime, "function");
+  const ownedDocument = structuredClone(document),
+    ownedRuntime = structuredClone(runtime);
+  const ownedResult = await projection.fromOwnedRuntime(
+    ownedDocument,
+    ownedRuntime,
+  );
+  assert.equal(JSON.stringify(ownedResult), JSON.stringify(publicResult));
+  assert.equal(
+    ownedResult.document.match.groups,
+    ownedRuntime.groups,
+    "one already-private snapshot is consumed",
+  );
+  assert.notEqual(
+    publicResult.document.match.groups,
+    runtime.groups,
+    "public projection remains isolated",
+  );
+  publicResult.document.match.groups[0].score = 999;
+  assert.equal(runtime.groups[0].score, 123);
+  ownedRuntime.groups[0].score = Infinity;
+  await assert.rejects(
+    projection.fromOwnedRuntime(ownedDocument, ownedRuntime),
+  );
+});

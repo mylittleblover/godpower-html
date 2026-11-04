@@ -14604,13 +14604,10 @@ html[data-theme="marx"] {
   function badgeColors(color) {
     return paintColors(color, 0.45);
   }
-  function scoreColors(color) {
-    return paintColors(color, 0.179);
-  }
   root.GodpowerUIModel = {
     examples,
     badgeColors,
-    scoreColors,
+    scoreColors: badgeColors,
     standings,
     dayIndex,
     daily,
@@ -16026,9 +16023,9 @@ globalThis.StableIdentity = StableIdentity;
     }
     return runtime;
   }
-  async function fromRuntime(input, payload) {
+  async function projectRuntime(input, payload, owned) {
     const current = root.SaveSchema.assertV2(input),
-      snapshot = copy(payload);
+      snapshot = owned ? payload : copy(payload);
     // Runtime saves already have stable identities and resource references.
     // Full old-file migration is an import operation, never an every-click operation.
     root.SaveSchema.validateGroups(snapshot.groups, true);
@@ -16154,12 +16151,20 @@ globalThis.StableIdentity = StableIdentity;
     }
     delete document.match.extensions.rosterSnapshot;
     return {
-      document: root.SaveSchema.validateV2(document),
+      document: owned
+        ? root.SaveSchema.assertV2(document)
+        : root.SaveSchema.validateV2(document),
       assets: [],
       appPreferences,
     };
   }
-  root.SaveProjection = Object.freeze({ toRuntime, fromRuntime });
+  root.SaveProjection = Object.freeze({
+    toRuntime,
+    fromRuntime: (input, payload) => projectRuntime(input, payload, false),
+    // Internal ownership-transfer port: SaveSession supplies its private draft,
+    // SaveManager supplies a private payload. Neither may be reused after this call.
+    fromOwnedRuntime: (input, payload) => projectRuntime(input, payload, true),
+  });
 })(globalThis);
 </script>
 <script>/* Pure, versioned dashboard layout model. No classroom state or DOM access. */
@@ -39688,14 +39693,7 @@ globalThis.ScoreCardMotion = (() => {
         remove(prior);
         prior.done?.();
       }
-      const color = GodpowerUIModel.badgeColors(g.color);
-      const raw = color.background.slice(1);
-      const channels = [0, 2, 4]
-        .map((i) => parseInt(raw.slice(i, i + 2), 16) / 255)
-        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-      const luminance =
-        channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
-      color.foreground = luminance > 0.179 ? "#000000" : "#FFFFFF";
+      const color = GodpowerUIModel.scoreColors(g.color);
       const session = {
         id: g.id,
         from: update.start,
@@ -40108,7 +40106,7 @@ globalThis.ClassroomSaveFile = (() => {
       .map((a) => a.asset);
     const result = await session.update(
       async (doc) => {
-        const projected = await SaveProjection.fromRuntime(doc, snapshot);
+        const projected = await SaveProjection.fromOwnedRuntime(doc, snapshot);
         if (
           doc.match.pendingSettlement &&
           doc.match.season.seasonId === projected.document.match.season.seasonId
@@ -53675,6 +53673,8 @@ window.GodpowerPicker = (() => {
     if (action === "mode") {
       if (!["individual", "group", "two_tier"].includes(payload.mode))
         return { ok: false, error: "INVALID_MODE" };
+      if (payload.mode === state.picker.mode)
+        return { ok: true, persisted: !window.classroomUnsavedChanges };
       setPickerMode(payload.mode);
       saveState();
       notify("idle");

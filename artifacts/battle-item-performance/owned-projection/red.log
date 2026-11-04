@@ -1,0 +1,36 @@
+✔ runtime projection carries small resource references without decoding inline avatars into history (15.297728ms)
+✔ score-only persistence keeps student identities and roster revision stable (4.615629ms)
+✔ legacy membership updates preserve existing students and retain removed members as unassigned (8.189466ms)
+✔ pending archived season survives same-season projection and clears only on new season (4.512243ms)
+✔ ordinary runtime saves preserve identities without running legacy import hashes (3.395547ms)
+✔ direct projection matches the verified prior save contract for ordinary score, history and configuration changes (14.446402ms)
+✖ owned runtime projection avoids duplicate copies while retaining validation and public isolation (5.015453ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 121.947376
+
+✖ failing tests:
+
+test at tests/unit/save-projection.test.mjs:171:1
+✖ owned runtime projection avoids duplicate copies while retaining validation and public isolation (5.015453ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'undefined'
+  - 'function'
+  
+      at TestContext.<anonymous> (file:///workspace/godpower-html-latest/tests/unit/save-projection.test.mjs:176:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'undefined',
+    expected: 'function',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

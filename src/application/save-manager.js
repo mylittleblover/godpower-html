@@ -188,7 +188,7 @@
       .map((a) => a.asset);
     const result = await session.update(
       async (doc) => {
-        const projected = await SaveProjection.fromRuntime(doc, snapshot);
+        const projected = await SaveProjection.fromOwnedRuntime(doc, snapshot);
         if (
           doc.match.pendingSettlement &&
           doc.match.season.seasonId === projected.document.match.season.seasonId

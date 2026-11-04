@@ -46,3 +46,11 @@ test("a new reveal cycle selects one style, snapshot polling retains it", () => 
   api.notify("rolling");
   assert.equal(draws(), n + 1);
 });
+
+test("reselecting the current native picker mode does not rebuild or save unchanged state", async () => {
+  const {api,ctx}=fixture();let saves=0,renders=0;
+  ctx.setPickerMode=()=>renders++;
+  ctx.saveState=()=>saves++;
+  const result=await api.command("mode",{mode:"individual"});
+  assert.equal(result.ok,true);assert.equal(saves,0);assert.equal(renders,0);
+});

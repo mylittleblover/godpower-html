@@ -30,9 +30,9 @@
     }
     return runtime;
   }
-  async function fromRuntime(input, payload) {
+  async function projectRuntime(input, payload, owned) {
     const current = root.SaveSchema.assertV2(input),
-      snapshot = copy(payload);
+      snapshot = owned ? payload : copy(payload);
     // Runtime saves already have stable identities and resource references.
     // Full old-file migration is an import operation, never an every-click operation.
     root.SaveSchema.validateGroups(snapshot.groups, true);
@@ -158,10 +158,18 @@
     }
     delete document.match.extensions.rosterSnapshot;
     return {
-      document: root.SaveSchema.validateV2(document),
+      document: owned
+        ? root.SaveSchema.assertV2(document)
+        : root.SaveSchema.validateV2(document),
       assets: [],
       appPreferences,
     };
   }
-  root.SaveProjection = Object.freeze({ toRuntime, fromRuntime });
+  root.SaveProjection = Object.freeze({
+    toRuntime,
+    fromRuntime: (input, payload) => projectRuntime(input, payload, false),
+    // Internal ownership-transfer port: SaveSession supplies its private draft,
+    // SaveManager supplies a private payload. Neither may be reused after this call.
+    fromOwnedRuntime: (input, payload) => projectRuntime(input, payload, true),
+  });
 })(globalThis);

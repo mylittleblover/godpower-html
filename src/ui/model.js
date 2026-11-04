@@ -198,13 +198,10 @@
   function badgeColors(color) {
     return paintColors(color, 0.45);
   }
-  function scoreColors(color) {
-    return paintColors(color, 0.179);
-  }
   root.GodpowerUIModel = {
     examples,
     badgeColors,
-    scoreColors,
+    scoreColors: badgeColors,
     standings,
     dayIndex,
     daily,

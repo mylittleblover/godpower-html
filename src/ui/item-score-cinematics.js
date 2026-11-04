@@ -254,14 +254,7 @@ globalThis.ScoreCardMotion = (() => {
         remove(prior);
         prior.done?.();
       }
-      const color = GodpowerUIModel.badgeColors(g.color);
-      const raw = color.background.slice(1);
-      const channels = [0, 2, 4]
-        .map((i) => parseInt(raw.slice(i, i + 2), 16) / 255)
-        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-      const luminance =
-        channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
-      color.foreground = luminance > 0.179 ? "#000000" : "#FFFFFF";
+      const color = GodpowerUIModel.scoreColors(g.color);
       const session = {
         id: g.id,
         from: update.start,

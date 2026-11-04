@@ -84,14 +84,19 @@ try {
       assert.equal(r.badgeInk, i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)");
       assert.equal(r.capsule, true);
       assert.equal(
+        r.scoreInk,
+        r.badgeInk,
+        "number and score share the same foreground rule",
+      );
+      assert.equal(
         r.scoreBg,
         expected[i],
         "every score capsule keeps group paint",
       );
       assert.equal(
         r.scoreInk,
-        i === 4 ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)",
-        "capsule text meets contrast for pale and saturated colors",
+        i < 4 ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)",
+        "capsule text follows the existing group number palette",
       );
     });
     const medals = await page
