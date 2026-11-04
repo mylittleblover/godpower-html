@@ -35688,18 +35688,7 @@ if (ITEM_DEFS.blooper) ITEM_DEFS.blooper.name = "鱿鱿";
 /* 找到小组信息里“上帝模式 · 强制追加到队尾”的按钮网格并重新排序，
    同时把按钮 title 同步成新版效果，避免另一处说明又活成化石。 */
 function syncGodItemPickerV2182() {
-  const roots = [...document.querySelectorAll("*")].filter(
-    (el) =>
-      el.children.length &&
-      /上帝模式\s*·\s*强制追加到队尾/.test(el.textContent || ""),
-  );
-  let root = roots
-    .sort(
-      (a, b) =>
-        a.querySelectorAll("button").length -
-        b.querySelectorAll("button").length,
-    )
-    .find((el) => el.querySelectorAll("button").length >= 20);
+  const root = document.querySelector("#itemWindowBody .god-item-grid");
   if (!root) return;
 
   const buttons = [...root.querySelectorAll("button")];
