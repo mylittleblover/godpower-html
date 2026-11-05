@@ -3559,6 +3559,18 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
+      name: "save-form-actions",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-color",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-name",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
       name: "save-group-row",
       sources: ["src/styles/settings/save-workspace.css"],
     },
@@ -3571,7 +3583,15 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
-      name: "save-student-form",
+      name: "save-roster-form",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-roster-heading",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-roster-section",
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {

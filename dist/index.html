@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.71</title>
+<title>上帝的力量 V3.0.72</title>
 <script>/* Additive status state; legacy itemEffect owns defense charges independently. */
 globalThis.CompetitionEffects = (() => {
   const definitions = Object.freeze({
@@ -871,7 +871,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.71";
+    document.title = name() + " V3.0.72";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -13751,7 +13751,7 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.71</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.72</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
@@ -15047,17 +15047,39 @@ globalThis.StableIdentity = StableIdentity;
     if (!name || name.length > 200) throw Error("姓名不能为空且不得超过200字");
     const number = String(changes.number ?? student.number ?? "").trim();
     if (number.length > 30) throw Error("学号过长");
+    if (Object.hasOwn(changes, "groupUid")) {
+      if (
+        changes.groupUid &&
+        !doc.roster.groups.some((g) => g.groupUid === changes.groupUid)
+      )
+        throw Error("小组不存在");
+      const previous = doc.roster.assignments.find(
+        (a) => a.studentUid === studentUid,
+      );
+      if ((previous?.groupUid || null) !== (changes.groupUid || null)) {
+        doc.roster.assignments = doc.roster.assignments.filter(
+          (a) => a.studentUid !== studentUid,
+        );
+        if (changes.groupUid)
+          doc.roster.assignments.push({
+            studentUid,
+            groupUid: changes.groupUid,
+          });
+      }
+    }
     student.displayName = name;
     student.number = number || null;
     student.legacyLabel = [number, name].filter(Boolean).join(" ");
     return finish(project(doc));
   }
-  function addStudent(input, { displayName, number = null }) {
+  function addStudent(input, { displayName, number = null, groupUid = null }) {
     const doc = validate(input),
       name = String(displayName ?? "").trim(),
       studentNumber = String(number ?? "").trim();
     if (!name || name.length > 200 || studentNumber.length > 30)
       throw Error("学生姓名或学号无效");
+    if (groupUid && !doc.roster.groups.some((g) => g.groupUid === groupUid))
+      throw Error("小组不存在");
     const studentUid = root.StableIdentity.createStudentUid();
     doc.roster.students.push({
       studentUid,
@@ -15066,6 +15088,58 @@ globalThis.StableIdentity = StableIdentity;
       legacyLabel: [studentNumber, name].filter(Boolean).join(" "),
       avatarResourceId: null,
     });
+    if (groupUid) doc.roster.assignments.push({ studentUid, groupUid });
+    return finish(project(doc));
+  }
+  function groupDetails({ name, color }) {
+    name = String(name ?? "").trim();
+    if (!name || name.length > 200) throw Error("小组名称需为1～200个字符");
+    if (!/^#[0-9a-f]{6}$/i.test(color)) throw Error("请选择有效的小组颜色");
+    return { name, color };
+  }
+  function addGroup(input, details) {
+    const doc = validate(input),
+      { name, color } = groupDetails(details);
+    const ids = new Set(
+      [
+        ...doc.match.groups,
+        ...(doc.match.history || []).flatMap((h) => h.groups || []),
+      ].map((g) => String(g.id)),
+    );
+    let id = Date.now();
+    while (ids.has(String(id))) id++;
+    const groupUid = root.StableIdentity.createGroupUid();
+    const groupNo =
+      Math.max(0, ...doc.roster.groups.map((g) => Number(g.groupNo) || 0)) + 1;
+    doc.roster.groups.push({ groupUid, name, groupNo, avatarResourceId: null });
+    doc.match.groups.push({
+      id,
+      groupUid,
+      groupNo,
+      name,
+      color,
+      score: 0,
+      displayScore: 0,
+      selectedOpt: "",
+      allIn: false,
+      resultText: "",
+      animState: "",
+      members: [],
+      inventory: [],
+    });
+    return finish(doc);
+  }
+  function editGroup(input, groupUid, details) {
+    const doc = validate(input),
+      group = doc.roster.groups.find((g) => g.groupUid === groupUid);
+    if (!group) throw Error("小组不存在");
+    const match = doc.match.groups.find((g) => g.groupUid === groupUid);
+    const { name, color } = groupDetails({
+      color: match?.color || "#0f766e",
+      ...details,
+    });
+    group.name = name;
+    if (match) Object.assign(match, { name, color });
     return finish(doc);
   }
   function setAvatar(input, type, identity, resourceId) {
@@ -15090,6 +15164,8 @@ globalThis.StableIdentity = StableIdentity;
     assign,
     editStudent,
     addStudent,
+    addGroup,
+    editGroup,
     setAvatar,
     label,
   });
@@ -36164,7 +36240,7 @@ if (typeof renderLockState === "function") {
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.71";
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.72";
 </script>
 
 
@@ -40634,7 +40710,7 @@ function buildClassroomBackup() {
 function projectClassroomBackup(source, history, owned) {
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.71",
+    appVersion: "V3.0.72",
     timestamp: new Date().toISOString(),
     seasonId: source.seasonId,
     achievementLedger: AchievementLedger.normalize(source.achievementLedger),
@@ -42962,7 +43038,7 @@ const GodPowerSettingsLayout = (() => {
       "students",
       "users",
       "学生与小组管理",
-      "查看并维护整班小组名单，重建前会再次确认",
+      "名单、分组与头像保存在当前存档，修改后即时保存",
     ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
@@ -46880,6 +46956,18 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
+      name: "save-form-actions",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-color",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-name",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
       name: "save-group-row",
       sources: ["src/styles/settings/save-workspace.css"],
     },
@@ -46892,7 +46980,15 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
-      name: "save-student-form",
+      name: "save-roster-form",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-roster-heading",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-roster-section",
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
@@ -49711,13 +49807,6 @@ const UIComponentLibrary = (() => {
 </script>
 <style>.save-workspace {
   color: var(--ui-text);
-  padding: 24px;
-  border: 1px solid var(--ui-border);
-  border-radius: var(--radius-lg);
-  background: var(--ui-panel);
-}
-.save-workspace header h3 {
-  margin: 0 0 8px;
 }
 .save-workspace-toolbar {
   display: flex;
@@ -49731,17 +49820,60 @@ const UIComponentLibrary = (() => {
 }
 .save-workspace-help {
   color: var(--ui-muted);
-  line-height: 1.6;
+  font-size: var(--font-sm);
+  line-height: 1.7;
 }
-.save-student-form {
+/* Paired roster sections: headings, compact forms, then the real saved rows. */
+.save-roster-section {
+  min-width: 0;
+}
+.save-roster-heading {
   display: flex;
-  gap: 12px;
-  align-items: end;
-  margin: 20px 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
 }
-.save-student-form label {
+.save-roster-heading h4 {
+  margin: 0;
+  font-size: var(--font-md);
+  white-space: nowrap;
+}
+.save-roster-heading input {
+  min-width: 0;
+  width: min(250px, 58%);
+}
+.save-roster-form {
   display: grid;
-  gap: 6px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  align-items: end;
+  margin: var(--space-4) 0;
+}
+.save-roster-form label {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-2);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-label);
+}
+.save-roster-form input,
+.save-roster-form select {
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+}
+.save-roster-form .save-group-name {
+  grid-column: span 2;
+}
+.save-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  grid-column: 1 / -1;
+}
+.save-group-color input {
+  cursor: pointer;
 }
 .save-workspace input:not([type="checkbox"]),
 .save-workspace select {
@@ -49753,14 +49885,16 @@ const UIComponentLibrary = (() => {
 }
 .save-roster-columns {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   align-items: start;
+  margin-top: var(--space-4);
 }
 .save-student-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  font-size: var(--font-sm);
 }
 .save-student-table th,
 .save-student-table td {
@@ -49773,8 +49907,8 @@ const UIComponentLibrary = (() => {
   font-weight: 600;
 }
 .save-avatar-button {
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   overflow: hidden;
   border: 1px solid var(--ui-border);
@@ -49792,7 +49926,7 @@ const UIComponentLibrary = (() => {
 .save-avatar-button span {
   font-size: 12px;
 }
-.save-group-row {
+.save-group-row:not([hidden]) {
   display: flex;
   gap: 12px;
   align-items: center;
@@ -49806,6 +49940,7 @@ const UIComponentLibrary = (() => {
 }
 .save-group-row p {
   margin: 6px 0 0;
+  font-size: var(--font-sm);
   color: var(--ui-muted);
 }
 .save-member-options {
@@ -49836,6 +49971,7 @@ const UIComponentLibrary = (() => {
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid var(--ui-border);
+  margin-bottom: var(--space-4);
 }
 
 /* Avatar chooser owner: bounded pages keep large offline catalogs lightweight. */
@@ -50192,22 +50328,34 @@ const AvatarPresetPicker = (() => {
       saveId = doc.saveId;
       lastRoster = "";
       mounted.querySelector("[data-member-editor]").hidden = true;
-      delete mounted.querySelector("#saveStudentForm").dataset.editing;
-      mounted.querySelector("#saveStudentName").value = "";
-      mounted.querySelector("#saveStudentNumber").value = "";
-      mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+      resetStudentForm();
+      resetGroupForm();
+      mounted.querySelector("[data-student-search]").value = "";
+      mounted.querySelector("[data-group-search]").value = "";
       revoke();
     }
     const signature = doc.saveId + ":" + doc.roster.revision;
     if (signature === lastRoster) return;
     lastRoster = signature;
     const groups = new Map(doc.roster.groups.map((g) => [g.groupUid, g]));
+    const assignments = new Map(
+      doc.roster.assignments.map((a) => [a.studentUid, a]),
+    );
+    const memberCounts = new Map();
+    for (const a of doc.roster.assignments)
+      memberCounts.set(a.groupUid, (memberCounts.get(a.groupUid) || 0) + 1);
+    const select = mounted.querySelector("#saveStudentGroup"),
+      selectedGroup = select.value;
+    select.innerHTML =
+      '<option value="">暂不分组</option>' +
+      doc.roster.groups
+        .map((g) => `<option value="${E(g.groupUid)}">${E(g.name)}</option>`)
+        .join("");
+    if (groups.has(selectedGroup)) select.value = selectedGroup;
     mounted.querySelector("#saveWorkspaceStudentRows").innerHTML =
       doc.roster.students
         .map((s) => {
-          const a = doc.roster.assignments.find(
-            (a) => a.studentUid === s.studentUid,
-          );
+          const a = assignments.get(s.studentUid);
           return `<tr><td>${avatar(s, "student")}</td><td><b>${E(s.number || "—")}</b></td><td>${E(s.displayName)}</td><td>${E(groups.get(a?.groupUid)?.name || "未分组")}</td><td><button type="button" class="btn" data-edit-student="${E(s.studentUid)}">编辑</button></td></tr>`;
         })
         .join("") ||
@@ -50218,9 +50366,11 @@ const AvatarPresetPicker = (() => {
       doc.roster.groups
         .map(
           (g) =>
-            `<article class="save-group-row">${avatar(g, "group")}<div><b>${E(g.name)}</b><p>${doc.roster.assignments.filter((a) => a.groupUid === g.groupUid).length} 名成员</p></div><button type="button" class="btn" data-members="${E(g.groupUid)}">选择成员</button></article>`,
+            `<article class="save-group-row">${avatar(g, "group")}<div><b>${E(g.name)}</b><p>${memberCounts.get(g.groupUid) || 0} 名成员</p></div><button type="button" class="btn" data-edit-group="${E(g.groupUid)}">编辑</button><button type="button" class="btn" data-members="${E(g.groupUid)}">成员</button></article>`,
         )
-        .join("") || "<p>暂无小组，可从比赛页添加小组。</p>";
+        .join("") || "<p>暂无小组，可在上方直接新增。</p>";
+    filterRows("student");
+    filterRows("group");
     const listed = await SaveManager.repository().list();
     if (listed.ok) {
       mounted.querySelector("[data-save-inactive]").innerHTML =
@@ -50356,6 +50506,40 @@ const AvatarPresetPicker = (() => {
     );
     await render();
   }
+  function filterRows(kind) {
+    const query = mounted
+      .querySelector(`[data-${kind}-search]`)
+      .value.trim()
+      .toLocaleLowerCase();
+    const selector =
+      kind === "student"
+        ? "#saveWorkspaceStudentRows tr"
+        : "[data-save-groups] .save-group-row";
+    for (const row of mounted.querySelectorAll(selector))
+      row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+  }
+  function resetStudentForm() {
+    mounted.querySelector("#saveStudentForm").reset();
+    delete mounted.querySelector("#saveStudentForm").dataset.editing;
+    mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+    mounted.querySelector("[data-student-cancel]").hidden = true;
+  }
+  function resetGroupForm() {
+    mounted.querySelector("#saveGroupForm").reset();
+    delete mounted.querySelector("#saveGroupForm").dataset.editing;
+    mounted.querySelector("#saveGroupAdd").textContent = "新增小组";
+    mounted.querySelector("[data-group-cancel]").hidden = true;
+  }
+  function editGroup(id) {
+    const group = state.groups.find((g) => g.groupUid === id);
+    if (!group) return;
+    mounted.querySelector("#saveGroupName").value = group.name;
+    mounted.querySelector("#saveGroupColor").value = group.color;
+    mounted.querySelector("#saveGroupForm").dataset.editing = id;
+    mounted.querySelector("#saveGroupAdd").textContent = "保存小组";
+    mounted.querySelector("[data-group-cancel]").hidden = false;
+    mounted.querySelector("#saveGroupName").focus();
+  }
   function editStudent(id) {
     const student = SaveManager.snapshot()?.roster.students.find(
       (s) => s.studentUid === id,
@@ -50363,6 +50547,11 @@ const AvatarPresetPicker = (() => {
     if (!student) return;
     mounted.querySelector("#saveStudentName").value = student.displayName;
     mounted.querySelector("#saveStudentNumber").value = student.number || "";
+    mounted.querySelector("#saveStudentGroup").value =
+      SaveManager.rosterView().roster.assignments.find(
+        (a) => a.studentUid === id,
+      )?.groupUid || "";
+    mounted.querySelector("[data-student-cancel]").hidden = false;
     mounted.querySelector("#saveStudentForm").dataset.editing = id;
     mounted.querySelector("#saveStudentAdd").textContent = "保存学生";
     mounted.querySelector("#saveStudentName").focus();
@@ -50398,18 +50587,25 @@ const AvatarPresetPicker = (() => {
     if (mounted) return mounted;
     mounted = document.createElement("section");
     mounted.id = "saveWorkspace";
-    mounted.className = "ui-settings-card save-workspace";
-    mounted.innerHTML = `<header><h3>当前存档 · 学生与小组</h3><p data-save-state role="status">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button></header>
-   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
+    mounted.className = "save-workspace";
+    mounted.innerHTML = `<header class="ui-settings-group"><h4>当前存档</h4><p data-save-state role="status" class="ui-muted">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button>
+   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div></header>
    <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>移入回收站</button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>恢复存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
    <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
-   <form id="saveStudentForm" class="save-student-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required></label><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button></form>
-   <div class="save-roster-columns"><section><h4 data-save-students-count>学生</h4><table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section><section><h4>小组列表</h4><div data-save-groups></div></section></div>
+   <div class="save-roster-columns">
+   <section class="ui-settings-group save-roster-section"><header class="save-roster-heading"><h4 data-save-students-count>学生</h4><input type="search" data-student-search autocomplete="off" placeholder="搜索学号、姓名或小组" aria-label="搜索学生"></header>
+   <form id="saveStudentForm" class="save-roster-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30" placeholder="选填"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required placeholder="学生姓名"></label><label>所属小组<select id="saveStudentGroup"><option value="">暂不分组</option></select></label><div class="save-form-actions"><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button><button type="button" class="btn" data-student-cancel hidden>取消编辑</button></div></form>
+   <table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section>
+   <section class="ui-settings-group save-roster-section"><header class="save-roster-heading"><h4>小组列表</h4><input type="search" data-group-search autocomplete="off" placeholder="搜索小组" aria-label="搜索小组"></header>
+   <form id="saveGroupForm" class="save-roster-form"><label class="save-group-name">小组名称<input id="saveGroupName" autocomplete="off" maxlength="200" required placeholder="新小组名称"></label><label class="save-group-color">小组色<input id="saveGroupColor" type="color" value="#0f766e"></label><div class="save-form-actions"><button class="btn btn-primary" type="submit" id="saveGroupAdd">新增小组</button><button type="button" class="btn" data-group-cancel hidden>取消编辑</button></div></form>
    <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><label>搜索学生（学号或姓名）<input type="search" data-member-search autocomplete="off" placeholder="输入学号或姓名"></label><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
+   <div data-save-groups></div></section></div>
    <input hidden type="file" accept=".json" data-save-file><input hidden type="file" accept="image/png,image/jpeg,image/webp" data-avatar-file><input hidden multiple type="file" accept="image/png,image/jpeg,image/webp" data-batch-file>`;
-    parent.prepend(mounted);
+    const title = parent.querySelector(".ui-settings-title");
+    if (title) title.after(mounted);
+    else parent.prepend(mounted);
     mounted
       .querySelector("[data-member-search]")
       .addEventListener("input", (event) => {
@@ -50427,32 +50623,96 @@ const AvatarPresetPicker = (() => {
         console.error("存档工作区操作失败", error);
       }
     };
+    const currentContext = (context) => {
+      const now = SaveManager.context();
+      return (
+        context?.saveId === now?.saveId &&
+        context?.generation === now?.generation
+      );
+    };
+    const formSubmission = (kind, operation) =>
+      handle(async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.dataset.saving) return;
+        const context = SaveManager.context();
+        const controls = [
+          ...form.querySelectorAll("input,select,button"),
+          ...mounted.querySelectorAll(`[data-edit-${kind}]`),
+        ];
+        const disabled = controls.map((el) => [el, el.disabled]);
+        form.dataset.saving = "true";
+        form.setAttribute("aria-busy", "true");
+        controls.forEach((el) => (el.disabled = true));
+        try {
+          await operation(event, context);
+        } finally {
+          delete form.dataset.saving;
+          form.removeAttribute("aria-busy");
+          for (const [el, before] of disabled)
+            if (el.isConnected) el.disabled = before;
+        }
+      });
+    for (const kind of ["student", "group"])
+      mounted
+        .querySelector(`[data-${kind}-search]`)
+        .addEventListener("input", () => filterRows(kind));
+    mounted.querySelector("#saveGroupForm").addEventListener(
+      "submit",
+      formSubmission("group", async (event, context) => {
+        event.preventDefault();
+        const editing = event.target.dataset.editing;
+        const details = {
+          name: mounted.querySelector("#saveGroupName").value,
+          color: mounted.querySelector("#saveGroupColor").value,
+        };
+        const result = await SaveManager.edit(
+          editing ? "编辑小组" : "新增小组",
+          (doc) => {
+            if (!currentContext(context) || doc.saveId !== context.saveId)
+              throw Error("存档已切换，请重新提交");
+            return editing
+              ? SaveRoster.editGroup(doc, editing, details)
+              : SaveRoster.addGroup(doc, details);
+          },
+        );
+        if (!result.ok || !result.persisted)
+          throw Error(result.error || "未保存");
+        if (!currentContext(context)) return;
+        resetGroupForm();
+        message(editing ? "小组修改已保存" : "小组已新增");
+        await render();
+      }),
+    );
     mounted.querySelector("#saveStudentForm").addEventListener(
       "submit",
-      handle(async (event) => {
+      formSubmission("student", async (event, context) => {
         event.preventDefault();
         const name = mounted.querySelector("#saveStudentName"),
           number = mounted.querySelector("#saveStudentNumber");
         const editing = event.target.dataset.editing;
+        const groupUid =
+          mounted.querySelector("#saveStudentGroup").value || null;
+        const details = {
+          displayName: name.value,
+          number: number.value,
+          groupUid,
+        };
         const result = await SaveManager.edit(
           editing ? "编辑学生" : "新增学生",
-          (doc) =>
-            editing
-              ? SaveRoster.editStudent(doc, editing, {
-                  displayName: name.value,
-                  number: number.value,
-                })
-              : SaveRoster.addStudent(doc, {
-                  displayName: name.value,
-                  number: number.value,
-                }),
+          (doc) => {
+            if (!currentContext(context) || doc.saveId !== context.saveId)
+              throw Error("存档已切换，请重新提交");
+            return editing
+              ? SaveRoster.editStudent(doc, editing, details)
+              : SaveRoster.addStudent(doc, details);
+          },
         );
         if (!result.ok || !result.persisted)
           throw Error(result.error || "未保存");
-        name.value = "";
-        number.value = "";
-        delete event.target.dataset.editing;
-        mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+        if (!currentContext(context)) return;
+        resetStudentForm();
+        message(editing ? "学生修改已保存" : "学生已新增并保存");
         render();
       }),
     );
@@ -50461,6 +50721,12 @@ const AvatarPresetPicker = (() => {
       handle(async (event) => {
         const button = event.target.closest("button");
         if (!button) return;
+        if (button.hasAttribute("data-student-cancel")) resetStudentForm();
+        if (button.hasAttribute("data-group-cancel")) resetGroupForm();
+        if (button.dataset.editGroup) {
+          if (mounted.querySelector("#saveGroupForm").dataset.saving) return;
+          editGroup(button.dataset.editGroup);
+        }
         if (
           button.hasAttribute("data-save-trash") ||
           button.hasAttribute("data-save-restore")
@@ -50521,8 +50787,10 @@ const AvatarPresetPicker = (() => {
             },
           });
         }
-        if (button.dataset.editStudent)
-          await editStudent(button.dataset.editStudent);
+        if (button.dataset.editStudent) {
+          if (mounted.querySelector("#saveStudentForm").dataset.saving) return;
+          editStudent(button.dataset.editStudent);
+        }
         if (button.dataset.members) openMembers(button.dataset.members);
         if (button.hasAttribute("data-save-import"))
           mounted.querySelector("[data-save-file]").click();

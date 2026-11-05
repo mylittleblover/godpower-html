@@ -74,22 +74,34 @@
       saveId = doc.saveId;
       lastRoster = "";
       mounted.querySelector("[data-member-editor]").hidden = true;
-      delete mounted.querySelector("#saveStudentForm").dataset.editing;
-      mounted.querySelector("#saveStudentName").value = "";
-      mounted.querySelector("#saveStudentNumber").value = "";
-      mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+      resetStudentForm();
+      resetGroupForm();
+      mounted.querySelector("[data-student-search]").value = "";
+      mounted.querySelector("[data-group-search]").value = "";
       revoke();
     }
     const signature = doc.saveId + ":" + doc.roster.revision;
     if (signature === lastRoster) return;
     lastRoster = signature;
     const groups = new Map(doc.roster.groups.map((g) => [g.groupUid, g]));
+    const assignments = new Map(
+      doc.roster.assignments.map((a) => [a.studentUid, a]),
+    );
+    const memberCounts = new Map();
+    for (const a of doc.roster.assignments)
+      memberCounts.set(a.groupUid, (memberCounts.get(a.groupUid) || 0) + 1);
+    const select = mounted.querySelector("#saveStudentGroup"),
+      selectedGroup = select.value;
+    select.innerHTML =
+      '<option value="">暂不分组</option>' +
+      doc.roster.groups
+        .map((g) => `<option value="${E(g.groupUid)}">${E(g.name)}</option>`)
+        .join("");
+    if (groups.has(selectedGroup)) select.value = selectedGroup;
     mounted.querySelector("#saveWorkspaceStudentRows").innerHTML =
       doc.roster.students
         .map((s) => {
-          const a = doc.roster.assignments.find(
-            (a) => a.studentUid === s.studentUid,
-          );
+          const a = assignments.get(s.studentUid);
           return `<tr><td>${avatar(s, "student")}</td><td><b>${E(s.number || "—")}</b></td><td>${E(s.displayName)}</td><td>${E(groups.get(a?.groupUid)?.name || "未分组")}</td><td><button type="button" class="btn" data-edit-student="${E(s.studentUid)}">编辑</button></td></tr>`;
         })
         .join("") ||
@@ -100,9 +112,11 @@
       doc.roster.groups
         .map(
           (g) =>
-            `<article class="save-group-row">${avatar(g, "group")}<div><b>${E(g.name)}</b><p>${doc.roster.assignments.filter((a) => a.groupUid === g.groupUid).length} 名成员</p></div><button type="button" class="btn" data-members="${E(g.groupUid)}">选择成员</button></article>`,
+            `<article class="save-group-row">${avatar(g, "group")}<div><b>${E(g.name)}</b><p>${memberCounts.get(g.groupUid) || 0} 名成员</p></div><button type="button" class="btn" data-edit-group="${E(g.groupUid)}">编辑</button><button type="button" class="btn" data-members="${E(g.groupUid)}">成员</button></article>`,
         )
-        .join("") || "<p>暂无小组，可从比赛页添加小组。</p>";
+        .join("") || "<p>暂无小组，可在上方直接新增。</p>";
+    filterRows("student");
+    filterRows("group");
     const listed = await SaveManager.repository().list();
     if (listed.ok) {
       mounted.querySelector("[data-save-inactive]").innerHTML =
@@ -238,6 +252,40 @@
     );
     await render();
   }
+  function filterRows(kind) {
+    const query = mounted
+      .querySelector(`[data-${kind}-search]`)
+      .value.trim()
+      .toLocaleLowerCase();
+    const selector =
+      kind === "student"
+        ? "#saveWorkspaceStudentRows tr"
+        : "[data-save-groups] .save-group-row";
+    for (const row of mounted.querySelectorAll(selector))
+      row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+  }
+  function resetStudentForm() {
+    mounted.querySelector("#saveStudentForm").reset();
+    delete mounted.querySelector("#saveStudentForm").dataset.editing;
+    mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+    mounted.querySelector("[data-student-cancel]").hidden = true;
+  }
+  function resetGroupForm() {
+    mounted.querySelector("#saveGroupForm").reset();
+    delete mounted.querySelector("#saveGroupForm").dataset.editing;
+    mounted.querySelector("#saveGroupAdd").textContent = "新增小组";
+    mounted.querySelector("[data-group-cancel]").hidden = true;
+  }
+  function editGroup(id) {
+    const group = state.groups.find((g) => g.groupUid === id);
+    if (!group) return;
+    mounted.querySelector("#saveGroupName").value = group.name;
+    mounted.querySelector("#saveGroupColor").value = group.color;
+    mounted.querySelector("#saveGroupForm").dataset.editing = id;
+    mounted.querySelector("#saveGroupAdd").textContent = "保存小组";
+    mounted.querySelector("[data-group-cancel]").hidden = false;
+    mounted.querySelector("#saveGroupName").focus();
+  }
   function editStudent(id) {
     const student = SaveManager.snapshot()?.roster.students.find(
       (s) => s.studentUid === id,
@@ -245,6 +293,11 @@
     if (!student) return;
     mounted.querySelector("#saveStudentName").value = student.displayName;
     mounted.querySelector("#saveStudentNumber").value = student.number || "";
+    mounted.querySelector("#saveStudentGroup").value =
+      SaveManager.rosterView().roster.assignments.find(
+        (a) => a.studentUid === id,
+      )?.groupUid || "";
+    mounted.querySelector("[data-student-cancel]").hidden = false;
     mounted.querySelector("#saveStudentForm").dataset.editing = id;
     mounted.querySelector("#saveStudentAdd").textContent = "保存学生";
     mounted.querySelector("#saveStudentName").focus();
@@ -280,18 +333,25 @@
     if (mounted) return mounted;
     mounted = document.createElement("section");
     mounted.id = "saveWorkspace";
-    mounted.className = "ui-settings-card save-workspace";
-    mounted.innerHTML = `<header><h3>当前存档 · 学生与小组</h3><p data-save-state role="status">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button></header>
-   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div>
+    mounted.className = "save-workspace";
+    mounted.innerHTML = `<header class="ui-settings-group"><h4>当前存档</h4><p data-save-state role="status" class="ui-muted">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button>
+   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>导入新存档</button><button type="button" class="btn" data-save-export>导出完整存档（含头像）</button><button type="button" class="btn" data-batch-avatar>批量添加头像</button></div></header>
    <details class="ui-settings-disclosure"><summary>更多存档管理</summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>新建空白课堂</button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>移入回收站</button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>恢复存档</button></div></details>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
    <p data-legacy-roster-status class="save-workspace-help"></p>
    <p data-save-message role="status"></p>
-   <form id="saveStudentForm" class="save-student-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required></label><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button></form>
-   <div class="save-roster-columns"><section><h4 data-save-students-count>学生</h4><table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section><section><h4>小组列表</h4><div data-save-groups></div></section></div>
+   <div class="save-roster-columns">
+   <section class="ui-settings-group save-roster-section"><header class="save-roster-heading"><h4 data-save-students-count>学生</h4><input type="search" data-student-search autocomplete="off" placeholder="搜索学号、姓名或小组" aria-label="搜索学生"></header>
+   <form id="saveStudentForm" class="save-roster-form"><label>学号<input id="saveStudentNumber" autocomplete="off" maxlength="30" placeholder="选填"></label><label>姓名<input id="saveStudentName" autocomplete="off" maxlength="200" required placeholder="学生姓名"></label><label>所属小组<select id="saveStudentGroup"><option value="">暂不分组</option></select></label><div class="save-form-actions"><button class="btn btn-primary" type="submit" id="saveStudentAdd">新增学生</button><button type="button" class="btn" data-student-cancel hidden>取消编辑</button></div></form>
+   <table class="save-student-table"><thead><tr><th>头像</th><th>学号</th><th>姓名</th><th>小组</th><th>管理</th></tr></thead><tbody id="saveWorkspaceStudentRows"></tbody></table></section>
+   <section class="ui-settings-group save-roster-section"><header class="save-roster-heading"><h4>小组列表</h4><input type="search" data-group-search autocomplete="off" placeholder="搜索小组" aria-label="搜索小组"></header>
+   <form id="saveGroupForm" class="save-roster-form"><label class="save-group-name">小组名称<input id="saveGroupName" autocomplete="off" maxlength="200" required placeholder="新小组名称"></label><label class="save-group-color">小组色<input id="saveGroupColor" type="color" value="#0f766e"></label><div class="save-form-actions"><button class="btn btn-primary" type="submit" id="saveGroupAdd">新增小组</button><button type="button" class="btn" data-group-cancel hidden>取消编辑</button></div></form>
    <section data-member-editor hidden><h4 data-member-title></h4><p>学生同一时间只属于一个小组；未勾选的原成员会保留在未分组名单中。</p><label>搜索学生（学号或姓名）<input type="search" data-member-search autocomplete="off" placeholder="输入学号或姓名"></label><div data-member-options class="save-member-options"></div><button type="button" class="btn btn-primary" data-member-save>保存成员</button><button type="button" class="btn" data-member-close>取消</button></section>
+   <div data-save-groups></div></section></div>
    <input hidden type="file" accept=".json" data-save-file><input hidden type="file" accept="image/png,image/jpeg,image/webp" data-avatar-file><input hidden multiple type="file" accept="image/png,image/jpeg,image/webp" data-batch-file>`;
-    parent.prepend(mounted);
+    const title = parent.querySelector(".ui-settings-title");
+    if (title) title.after(mounted);
+    else parent.prepend(mounted);
     mounted
       .querySelector("[data-member-search]")
       .addEventListener("input", (event) => {
@@ -309,32 +369,96 @@
         console.error("存档工作区操作失败", error);
       }
     };
+    const currentContext = (context) => {
+      const now = SaveManager.context();
+      return (
+        context?.saveId === now?.saveId &&
+        context?.generation === now?.generation
+      );
+    };
+    const formSubmission = (kind, operation) =>
+      handle(async (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.dataset.saving) return;
+        const context = SaveManager.context();
+        const controls = [
+          ...form.querySelectorAll("input,select,button"),
+          ...mounted.querySelectorAll(`[data-edit-${kind}]`),
+        ];
+        const disabled = controls.map((el) => [el, el.disabled]);
+        form.dataset.saving = "true";
+        form.setAttribute("aria-busy", "true");
+        controls.forEach((el) => (el.disabled = true));
+        try {
+          await operation(event, context);
+        } finally {
+          delete form.dataset.saving;
+          form.removeAttribute("aria-busy");
+          for (const [el, before] of disabled)
+            if (el.isConnected) el.disabled = before;
+        }
+      });
+    for (const kind of ["student", "group"])
+      mounted
+        .querySelector(`[data-${kind}-search]`)
+        .addEventListener("input", () => filterRows(kind));
+    mounted.querySelector("#saveGroupForm").addEventListener(
+      "submit",
+      formSubmission("group", async (event, context) => {
+        event.preventDefault();
+        const editing = event.target.dataset.editing;
+        const details = {
+          name: mounted.querySelector("#saveGroupName").value,
+          color: mounted.querySelector("#saveGroupColor").value,
+        };
+        const result = await SaveManager.edit(
+          editing ? "编辑小组" : "新增小组",
+          (doc) => {
+            if (!currentContext(context) || doc.saveId !== context.saveId)
+              throw Error("存档已切换，请重新提交");
+            return editing
+              ? SaveRoster.editGroup(doc, editing, details)
+              : SaveRoster.addGroup(doc, details);
+          },
+        );
+        if (!result.ok || !result.persisted)
+          throw Error(result.error || "未保存");
+        if (!currentContext(context)) return;
+        resetGroupForm();
+        message(editing ? "小组修改已保存" : "小组已新增");
+        await render();
+      }),
+    );
     mounted.querySelector("#saveStudentForm").addEventListener(
       "submit",
-      handle(async (event) => {
+      formSubmission("student", async (event, context) => {
         event.preventDefault();
         const name = mounted.querySelector("#saveStudentName"),
           number = mounted.querySelector("#saveStudentNumber");
         const editing = event.target.dataset.editing;
+        const groupUid =
+          mounted.querySelector("#saveStudentGroup").value || null;
+        const details = {
+          displayName: name.value,
+          number: number.value,
+          groupUid,
+        };
         const result = await SaveManager.edit(
           editing ? "编辑学生" : "新增学生",
-          (doc) =>
-            editing
-              ? SaveRoster.editStudent(doc, editing, {
-                  displayName: name.value,
-                  number: number.value,
-                })
-              : SaveRoster.addStudent(doc, {
-                  displayName: name.value,
-                  number: number.value,
-                }),
+          (doc) => {
+            if (!currentContext(context) || doc.saveId !== context.saveId)
+              throw Error("存档已切换，请重新提交");
+            return editing
+              ? SaveRoster.editStudent(doc, editing, details)
+              : SaveRoster.addStudent(doc, details);
+          },
         );
         if (!result.ok || !result.persisted)
           throw Error(result.error || "未保存");
-        name.value = "";
-        number.value = "";
-        delete event.target.dataset.editing;
-        mounted.querySelector("#saveStudentAdd").textContent = "新增学生";
+        if (!currentContext(context)) return;
+        resetStudentForm();
+        message(editing ? "学生修改已保存" : "学生已新增并保存");
         render();
       }),
     );
@@ -343,6 +467,12 @@
       handle(async (event) => {
         const button = event.target.closest("button");
         if (!button) return;
+        if (button.hasAttribute("data-student-cancel")) resetStudentForm();
+        if (button.hasAttribute("data-group-cancel")) resetGroupForm();
+        if (button.dataset.editGroup) {
+          if (mounted.querySelector("#saveGroupForm").dataset.saving) return;
+          editGroup(button.dataset.editGroup);
+        }
         if (
           button.hasAttribute("data-save-trash") ||
           button.hasAttribute("data-save-restore")
@@ -403,8 +533,10 @@
             },
           });
         }
-        if (button.dataset.editStudent)
-          await editStudent(button.dataset.editStudent);
+        if (button.dataset.editStudent) {
+          if (mounted.querySelector("#saveStudentForm").dataset.saving) return;
+          editStudent(button.dataset.editStudent);
+        }
         if (button.dataset.members) openMembers(button.dataset.members);
         if (button.hasAttribute("data-save-import"))
           mounted.querySelector("[data-save-file]").click();
