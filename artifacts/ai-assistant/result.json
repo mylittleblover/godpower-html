@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "before": {
+    "score": 180,
+    "history": 0
+  },
+  "finalScore": 187,
+  "network": "mock only",
+  "fileStatus": "BLOCKED",
+  "fileReason": "Chromium managed policy blocked file:// navigation",
+  "viewport": "1920x1080 DPR1"
+}

@@ -46,6 +46,7 @@ function switchView(name) {
   } else if (!VIEW_NAMES.includes(name) || !route?.core) name = "welcome";
   ensureAudioUnlocked();
   currentView = name;
+  if (typeof AIChat !== "undefined") AIChat.viewChanged(name);
   if (typeof DesktopUI !== "undefined") DesktopUI.viewChanged(name);
 
   document

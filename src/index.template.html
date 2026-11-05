@@ -94,6 +94,7 @@
     <button type="button" class="nav-tab" data-view="gameplay" onclick="switchView('gameplay')">🎁 玩法</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
+    <button type="button" class="nav-tab" data-view="ai" onclick="switchView('ai')">✨ AI</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
   </div>
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
@@ -325,6 +326,7 @@
 </div>
 
 <!-- 结算档案处弹窗 -->
+<div id="view-ai" class="view"><main id="aiHost" class="ai-page-shell"></main></div>
 <div id="view-gameplay" class="view">
   <main class="gameplay-page-shell"><header class="ui-collection-header gameplay-page-heading"><div><span class="ui-settings-eyebrow">CLASSROOM PLAYBOOK · 课堂玩法</span><h2>玩法参考</h2><div class="ui-collection-sub">认识道具，掌握状态，让每一次使用都心中有数。</div></div><div class="gameplay-overview"><span class="ui-chip"><b data-gameplay-items-count>28</b>种道具</span><span class="ui-chip">7种状态</span><button type="button" class="btn" onclick="switchView('battle')">返回比赛</button></div></header><div class="gameplay-toolbar"><nav class="gameplay-tabs" aria-label="玩法分类"><button type="button" class="btn btn-primary" data-gameplay-tab="items" aria-current="true">道具图鉴</button><button type="button" class="btn" data-gameplay-tab="statuses">状态效果</button><button type="button" class="btn" data-gameplay-tab="rules">抽取与使用规则</button></nav><label>快速查找<input id="gameplaySearch" type="search" placeholder="道具名称、效果或状态" autocomplete="off"></label></div><div id="gameplayContent"></div><p id="gameplayEmpty" class="ui-snapshot-note" hidden>没有匹配结果，换个关键词试试。</p></main>
 </div>
@@ -912,6 +914,9 @@
 <style>@@SOURCE:styles/classroom/gameplay-page.css@@</style>
 <script>@@SOURCE:ui/gameplay-item-dialog.js@@</script>
 <script>@@SOURCE:ui/gameplay-page.js@@</script>
+<script>@@SOURCE:application/ai-tool-gateway.js@@</script>
+<style>@@SOURCE:styles/classroom/ai-chat.css@@</style>
+<script>@@SOURCE:ui/ai-chat.js@@</script>
 <script>@@SOURCE:ui/desktop.js@@</script>
 <script>@@SOURCE:ui/migration.js@@</script>
 <script>@@SOURCE:ui/welcome-dashboard.js@@</script>

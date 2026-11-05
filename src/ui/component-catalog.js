@@ -487,6 +487,46 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "ai-composer-actions",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-conversation",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-examples",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-help",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-message",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-messages",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-model-settings",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-page-shell",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-toolbar",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-workspace",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "allin-toggle-btn",
       sources: [
         "src/styles/battle/group-cards.css",
@@ -788,6 +828,7 @@ const GodPowerComponentCatalog = {
         "src/styles/feedback/classroom-effects.css",
         "src/styles/settings/item-modules.css",
         "src/styles/home/welcome.css",
+        "src/styles/classroom/ai-chat.css",
       ],
     },
     {

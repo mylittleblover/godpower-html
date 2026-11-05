@@ -1,0 +1,10 @@
+✔ manifest order and file byte evidence are deterministic (168.233579ms)
+✔ clock refreshes header while hidden, without rebuilding hidden welcome UI (1.821616ms)
+ℹ tests 449
+ℹ suites 0
+ℹ pass 449
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15591.71881

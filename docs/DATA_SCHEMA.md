@@ -209,3 +209,7 @@ AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/
 ### 存档回收站
 
 索引可含`trashedEntries`；条目结构与entries一致，附trashedAt。一个saveId不能同时出现在两组，activeSaveId只能引用正常entries。移入/恢复只原子变更索引，不删除文档、头像、原文或迁移回执；必须校验存档修订和活动代次，不能移除当前存档。恢复前验证文档完整性；Electron同时验证资源。重复导入已在回收站的来源不会偷偷恢复或覆盖，提示先恢复。暂不提供永久删除/资源清理。
+
+## AI首期数据（3.0.74）
+
+课堂存档schema不变。AI对话、临时提案、确认状态和最近100条操作审计为本次页面会话内存数据；教师可导出schemaVersion1的对话/审计JSON，不自动恢复待确认写操作。提案绑定saveId、generation、revision、viewEpoch、groupUid、before/after/delta及2分钟有效期。发送模型的结构仅含本次request文字和可选匿名group/score数组，不含内部稳定身份。Electron ai-settings.json与课堂存档分离：provider/model及可选系统加密encryptedKey；密钥默认仅进程内存，任何密钥不进入课堂备份/对话/审计。

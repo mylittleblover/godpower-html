@@ -1658,6 +1658,7 @@ const DesktopUI = (() => {
       welcome: ["欢迎", "home"],
       battle: ["比赛", "battle"],
       gameplay: ["玩法", "gift"],
+      ai: ["AI", "spark"],
       history: ["历史", "history"],
       archives: ["档案", "archive"],
       settings: ["设置", "settings"],

@@ -1276,6 +1276,21 @@
     },
     {
       "type": "script",
+      "path": "application/ai-tool-gateway.js",
+      "attributes": ""
+    },
+    {
+      "type": "style",
+      "path": "styles/classroom/ai-chat.css",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/ai-chat.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/desktop.js",
       "attributes": ""
     },

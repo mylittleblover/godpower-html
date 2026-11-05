@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>上帝的力量 V3.0.73</title>
+<title>上帝的力量 V3.0.74</title>
 <script>/* Additive status state; legacy itemEffect owns defense charges independently. */
 globalThis.CompetitionEffects = (() => {
   const definitions = Object.freeze({
@@ -204,6 +204,7 @@ globalThis.CompetitionEffects = (() => {
     "welcome",
     "battle",
     "gameplay",
+    "ai",
     "history",
     "archives",
     "settings",
@@ -871,7 +872,7 @@ window.GodpowerTheme = (() => {
   }
   function apply() {
     boot();
-    document.title = name() + " V3.0.73";
+    document.title = name() + " V3.0.74";
     const label = document.querySelector(".gp-brand-label");
     if (label?.firstChild?.nodeType === Node.TEXT_NODE)
       label.firstChild.textContent = name() + " ";
@@ -13719,13 +13720,14 @@ html[data-theme="marx"] {
 <script>GodpowerTheme.boot();</script>
 
 <div class="header-banner app-topnav">
-  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.73</small></span></div>
+  <div class="header-title"><span class="gp-brand-mount" id="gpBrandMount" aria-hidden="true"></span><span class="gp-brand-label">上帝的力量 <small>V3.0.74</small></span></div>
   <div class="nav-tabs" role="tablist">
     <button type="button" class="nav-tab active" data-view="welcome" onclick="switchView('welcome')">🏠 欢迎</button>
     <button type="button" class="nav-tab" data-view="battle" onclick="switchView('battle')">⚔️ 比赛</button>
     <button type="button" class="nav-tab" data-view="gameplay" onclick="switchView('gameplay')">🎁 玩法</button>
     <button type="button" class="nav-tab" data-view="history" onclick="switchView('history')">📜 历史</button>
     <button type="button" class="nav-tab" data-view="archives" onclick="switchView('archives')">🗄️ 档案</button>
+    <button type="button" class="nav-tab" data-view="ai" onclick="switchView('ai')">✨ AI</button>
     <button type="button" class="nav-tab" data-view="settings" onclick="switchView('settings')">⚙️ 设置</button>
   </div>
   <div class="header-stats" id="topHeaderStats">各组竞赛全景视图</div>
@@ -14050,6 +14052,7 @@ html[data-theme="marx"] {
 </div>
 
 <!-- 结算档案处弹窗 -->
+<div id="view-ai" class="view"><main id="aiHost" class="ai-page-shell"></main></div>
 <div id="view-gameplay" class="view">
   <main class="gameplay-page-shell"><header class="ui-collection-header gameplay-page-heading"><div><span class="ui-settings-eyebrow">CLASSROOM PLAYBOOK · 课堂玩法</span><h2>玩法参考</h2><div class="ui-collection-sub">认识道具，掌握状态，让每一次使用都心中有数。</div></div><div class="gameplay-overview"><span class="ui-chip"><b data-gameplay-items-count>28</b>种道具</span><span class="ui-chip">7种状态</span><button type="button" class="btn" onclick="switchView('battle')">返回比赛</button></div></header><div class="gameplay-toolbar"><nav class="gameplay-tabs" aria-label="玩法分类"><button type="button" class="btn btn-primary" data-gameplay-tab="items" aria-current="true">道具图鉴</button><button type="button" class="btn" data-gameplay-tab="statuses">状态效果</button><button type="button" class="btn" data-gameplay-tab="rules">抽取与使用规则</button></nav><label>快速查找<input id="gameplaySearch" type="search" placeholder="道具名称、效果或状态" autocomplete="off"></label></div><div id="gameplayContent"></div><p id="gameplayEmpty" class="ui-snapshot-note" hidden>没有匹配结果，换个关键词试试。</p></main>
 </div>
@@ -27528,6 +27531,7 @@ function switchView(name) {
   } else if (!VIEW_NAMES.includes(name) || !route?.core) name = "welcome";
   ensureAudioUnlocked();
   currentView = name;
+  if (typeof AIChat !== "undefined") AIChat.viewChanged(name);
   if (typeof DesktopUI !== "undefined") DesktopUI.viewChanged(name);
 
   document
@@ -36155,7 +36159,7 @@ if (typeof renderLockState === "function") {
 </script>
 
 
-<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.73";
+<script id="v2186OpenFixMarker">window.__GOD_POWER_VERSION__ = "V3.0.74";
 </script>
 
 
@@ -40623,7 +40627,7 @@ function buildClassroomBackup() {
 function projectClassroomBackup(source, history, owned) {
   return {
     schemaVersion: Reliability.schemaVersion,
-    appVersion: "V3.0.73",
+    appVersion: "V3.0.74",
     timestamp: new Date().toISOString(),
     seasonId: source.seasonId,
     achievementLedger: AchievementLedger.normalize(source.achievementLedger),
@@ -42988,6 +42992,7 @@ const GodPowerSettingsLayout = (() => {
     ],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
+    ["ai", "spark", "AI 助手", "模型连接与数据发送由教师明确控制"],
     ["about", "book", "关于与帮助", "项目、版本和操作说明"],
   ];
   function organize(sections, shell, { query: $, escape: E }) {
@@ -43830,6 +43835,46 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "ai-composer-actions",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-conversation",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-examples",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-help",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-message",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-messages",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-model-settings",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-page-shell",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-toolbar",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-workspace",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "allin-toggle-btn",
       sources: [
         "src/styles/battle/group-cards.css",
@@ -44131,6 +44176,7 @@ const GodPowerComponentCatalog = {
         "src/styles/feedback/classroom-effects.css",
         "src/styles/settings/item-modules.css",
         "src/styles/home/welcome.css",
+        "src/styles/classroom/ai-chat.css",
       ],
     },
     {
@@ -51293,6 +51339,795 @@ const GameplayItemDialog = (() => {
   root.GameplayPage = Object.freeze({ render, open, mountAbout });
 })(globalThis);
 </script>
+<script>/* AI can propose bounded actions; only the teacher-facing host can approve writes. */
+const AIToolGateway = (() => {
+  const routes = [
+    "welcome",
+    "battle",
+    "gameplay",
+    "history",
+    "archives",
+    "settings",
+    "ai",
+  ];
+  function exact(value, keys) {
+    if (
+      !value ||
+      typeof value !== "object" ||
+      Array.isArray(value) ||
+      Object.keys(value).some((key) => !keys.includes(key))
+    )
+      throw Error("不支持的操作格式");
+  }
+  function validate(action) {
+    exact(action, ["intent", "params"]);
+    exact(action.params, ["group", "delta", "route"]);
+    const p = action.params;
+    if (action.intent === "adjustScore") {
+      exact(p, ["group", "delta"]);
+      if (
+        !/^G[1-9]\d{0,3}$/.test(p.group) ||
+        !Number.isSafeInteger(p.delta) ||
+        !p.delta ||
+        Math.abs(p.delta) > 1000000
+      )
+        throw Error("请提供有效小组及非零整数，单次最多100万分");
+    } else if (action.intent === "navigate") {
+      exact(p, ["route"]);
+      if (!routes.includes(p.route)) throw Error("不支持的页面");
+    } else throw Error("该操作不在AI工具白名单中");
+    return JSON.parse(JSON.stringify(action));
+  }
+  function create(host) {
+    const proposals = new Map(),
+      audit = [];
+    const record = (entry) => {
+      audit.push({ ...entry, time: Date.now() });
+      if (audit.length > 100) audit.shift();
+    };
+    function publicContext() {
+      return host
+        .capture()
+        .groups.map((g, i) => ({ group: "G" + (i + 1), score: g.score }));
+    }
+    function propose(input, snapshot = host.capture()) {
+      const action = validate(input);
+      for (const [id, proposal] of proposals) {
+        if (
+          proposal.status === "cancelled" ||
+          (proposals.size > 100 &&
+            ["done", "failed", "stale"].includes(proposal.status))
+        )
+          proposals.delete(id);
+      }
+      if (
+        [...proposals.values()].filter((p) => p.status === "pending").length >=
+        40
+      )
+        throw Error("待确认操作过多，请清空会话");
+      if (action.intent === "navigate") {
+        host.navigate(action.params.route);
+        record({ intent: "navigate", status: "done" });
+        return { kind: "navigation", route: action.params.route };
+      }
+      const group = snapshot.groups[Number(action.params.group.slice(1)) - 1];
+      if (!group || !group.uid) throw Error("小组不存在，请刷新课堂上下文");
+      const after = group.score + action.params.delta;
+      if (!Number.isSafeInteger(after)) throw Error("积分超出安全整数范围");
+      const p = {
+        id: host.id(),
+        kind: "score",
+        groupUid: group.uid,
+        label: group.label,
+        before: group.score,
+        after,
+        delta: action.params.delta,
+        saveId: snapshot.saveId,
+        generation: snapshot.generation,
+        revision: snapshot.revision,
+        viewEpoch: snapshot.viewEpoch,
+        created: Date.now(),
+        status: "pending",
+      };
+      proposals.set(p.id, p);
+      return { ...p };
+    }
+    function confirm(id, approved) {
+      const p = proposals.get(id);
+      if (!p || approved !== true)
+        return Promise.resolve({ ok: false, error: "需要教师明确确认" });
+      if (p.promise) return p.promise;
+      if (p.status !== "pending")
+        return Promise.resolve({ ok: false, error: "该操作已失效" });
+      const now = host.capture(),
+        group = now.groups.find((g) => g.uid === p.groupUid),
+        blocked = host.blocked();
+      if (
+        blocked ||
+        Date.now() - p.created > 120000 ||
+        !group ||
+        group.score !== p.before ||
+        ["saveId", "generation", "revision", "viewEpoch"].some(
+          (k) => now[k] !== p[k],
+        )
+      ) {
+        p.status = "stale";
+        return Promise.resolve({
+          ok: false,
+          error: blocked || "课堂或页面已变化，请重新生成预览",
+        });
+      }
+      p.status = "executing";
+      // Set the promise before invoking the command: duplicate gestures share one receipt.
+      p.promise = Promise.resolve()
+        .then(() => {
+          const latest = host.capture(),
+            current = latest.groups.find((g) => g.uid === p.groupUid),
+            conflict = host.blocked();
+          if (
+            conflict ||
+            !current ||
+            current.score !== p.before ||
+            ["saveId", "generation", "revision", "viewEpoch"].some(
+              (k) => latest[k] !== p[k],
+            )
+          )
+            return {
+              ok: false,
+              error: conflict || "课堂或页面已变化，请重新生成预览",
+            };
+          return host.execute(current, p.delta);
+        })
+        .then((result) => {
+          p.status = result?.ok ? "done" : "failed";
+          const receipt = {
+            ok: result?.ok === true,
+            persisted: result?.persisted === true,
+            error:
+              result?.error || (!result?.ok ? "课堂命令未完成" : undefined),
+          };
+          record({
+            intent: "adjustScore",
+            proposalId: p.id,
+            delta: p.delta,
+            status: p.status,
+            persisted: receipt.persisted,
+          });
+          return receipt;
+        })
+        .catch(() => {
+          p.status = "failed";
+          record({ intent: "adjustScore", proposalId: p.id, status: "failed" });
+          return { ok: false, error: "课堂命令未完成，请检查保存状态" };
+        });
+      return p.promise;
+    }
+    function cancel() {
+      for (const p of proposals.values())
+        if (p.status === "pending") p.status = "cancelled";
+    }
+    return Object.freeze({
+      publicContext,
+      propose,
+      reject: (id) => {
+        const p = proposals.get(id);
+        if (p?.status === "pending") p.status = "cancelled";
+      },
+      confirm,
+      cancel,
+      audit: () => audit.map((x) => ({ ...x })),
+      capture: host.capture,
+    });
+  }
+  function offline(text, snapshot) {
+    const score = text
+      .trim()
+      .match(
+        /^(?:请)?(?:给)?(?:第)?(\d+)\s*(?:小组|组)\s*(加|减|扣)\s*(\d+)\s*分[。！!]?$/,
+      );
+    if (score) {
+      const group = snapshot.groups.findIndex((g) => g.no === Number(score[1]));
+      if (group < 0) return { reply: "没有找到这个编号的小组。", actions: [] };
+      return {
+        reply: "已准备积分调整。请核对下方预览，确认后才会执行。",
+        actions: [
+          {
+            intent: "adjustScore",
+            params: {
+              group: "G" + (group + 1),
+              delta: Number(score[3]) * (score[2] === "加" ? 1 : -1),
+            },
+          },
+        ],
+      };
+    }
+    const nav = text
+      .trim()
+      .match(
+        /^(?:请)?(?:打开|进入|前往)(欢迎|首页|比赛|玩法|历史|档案|设置)(?:页|页面)?[。！!]?$/,
+      );
+    if (nav)
+      return {
+        reply: "已打开指定页面。",
+        actions: [
+          {
+            intent: "navigate",
+            params: {
+              route: {
+                欢迎: "welcome",
+                首页: "welcome",
+                比赛: "battle",
+                玩法: "gameplay",
+                历史: "history",
+                档案: "archives",
+                设置: "settings",
+              }[nav[1]],
+            },
+          },
+        ],
+      };
+    if (/积分|排名|得分/.test(text) && !/(?:加|减|扣)\s*\d/.test(text)) {
+      const sorted = [...snapshot.groups].sort((a, b) => b.score - a.score);
+      return {
+        reply: sorted.length
+          ? sorted
+              .map((g, i) => `${i + 1}. ${g.label}：${g.score} 分`)
+              .join("\n")
+          : "当前没有小组。",
+        actions: [],
+      };
+    }
+    return {
+      reply:
+        "当前为离线规则助手，不是大模型。可以输入“查看小组积分”“给第3组加5分”或“打开设置”。使用模型对话请先在连接设置中配置。",
+      actions: [],
+    };
+  }
+  function parseReply(text) {
+    if (typeof text !== "string" || text.length > 24000)
+      throw Error("模型响应过大");
+    let value;
+    try {
+      value = JSON.parse(text);
+    } catch {
+      return { reply: text, actions: [] };
+    }
+    exact(value, ["reply", "actions"]);
+    if (
+      typeof value.reply !== "string" ||
+      !Array.isArray(value.actions) ||
+      value.actions.length > 1
+    )
+      throw Error("模型操作格式不符合约定");
+    return { reply: value.reply, actions: value.actions.map(validate) };
+  }
+  return Object.freeze({ create, offline, parseReply });
+})();
+</script>
+<style>#view-ai {
+  height: 100%;
+  overflow: auto;
+}
+.ai-page-shell {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.ai-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: start;
+}
+.ai-conversation {
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.ai-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--ui-border);
+}
+.ai-toolbar > span {
+  flex: 1;
+}
+.ai-toolbar label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.ai-messages {
+  height: 410px;
+  overflow-y: auto;
+  padding: 24px;
+  overscroll-behavior: contain;
+}
+.ai-message {
+  max-width: 88%;
+  padding: 16px 20px;
+  border-radius: 16px;
+  margin: 0 0 16px;
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+}
+.ai-message[data-role="user"] {
+  margin-left: auto;
+  background: var(--ui-soft);
+}
+.ai-message[data-role="receipt"] {
+  border-left: 4px solid var(--ui-primary);
+}
+.ai-message small {
+  font-weight: 700;
+  color: var(--ui-primary);
+}
+.ai-message p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  margin: 8px 0;
+}
+.ai-message .btn {
+  margin: 8px 8px 0 0;
+}
+#aiComposer {
+  padding: 18px 22px;
+  border-top: 1px solid var(--ui-border);
+}
+#aiPrompt {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 84px;
+  margin: 8px 0 12px;
+}
+.ai-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ai-composer-actions > span {
+  flex: 1;
+}
+#aiDataConsent label {
+  display: block;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+.ai-help {
+  margin: 0;
+}
+.ai-help p {
+  line-height: 1.7;
+}
+.ai-examples {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+#aiAudit {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 190px;
+  overflow-y: auto;
+  font: inherit;
+  font-size: 12px;
+}
+.ai-model-settings form {
+  display: grid;
+  gap: 18px;
+  max-width: 720px;
+}
+.ai-model-settings form > label {
+  display: block;
+}
+.ai-model-settings input:not([type="checkbox"]),
+.ai-model-settings select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+.ai-page-shell select,
+.ai-page-shell textarea {
+  font: inherit;
+  border: 1px solid var(--ui-border-strong);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--ui-panel);
+  color: inherit;
+}
+.ai-page-shell :focus-visible {
+  outline: 3px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+@media (max-width: 1500px) {
+  .ai-workspace {
+    grid-template-columns: minmax(0, 1fr) 270px;
+  }
+}
+</style>
+<script>/* AI presentation and explicit teacher approvals; classroom state remains authoritative. */
+const AIChat = (() => {
+  let mounted = false,
+    viewEpoch = 0,
+    request = null,
+    version = 0,
+    config = null;
+  const bridge = () => window.godpowerDesktop?.ai;
+  const $ = (s) => document.querySelector(s);
+  function capture() {
+    const saveStatus = SaveManager.status(),
+      context = SaveManager.context();
+    return {
+      saveId: context?.saveId,
+      generation: context?.generation,
+      revision: saveStatus.revision,
+      viewEpoch,
+      groups: state.groups.map((g, i) => ({
+        uid: g.groupUid,
+        id: g.id,
+        no: g.groupNo || i + 1,
+        label: g.name,
+        score: g.score,
+      })),
+    };
+  }
+  const gateway = AIToolGateway.create({
+    capture,
+    id: () => crypto.randomUUID(),
+    blocked: () =>
+      state.isLocked
+        ? "请先解除课堂管理锁"
+        : ClassroomWriteBarrier.conflict()?.error ||
+          (classroomCommands.isPending() ||
+          SaveManager.status().phase === "saving"
+            ? "课堂正在保存，请稍后重试"
+            : null),
+    execute: async (group, delta) => {
+      if (ManualScoreCommands.adjust(group.id, delta) !== true)
+        return { ok: false, error: "课堂拒绝该操作" };
+      const result = await classroomCommands.whenIdle();
+      return {
+        ok: result.ok === true,
+        persisted: result.persisted === true,
+        error: result.error,
+      };
+    },
+    navigate: (route) => switchView(route),
+  });
+  function message(role, text) {
+    const entry = document.createElement("article");
+    entry.className = "ai-message";
+    entry.dataset.role = role;
+    const label = document.createElement("small");
+    label.textContent =
+      role === "user" ? "你" : role === "assistant" ? "课堂助手" : "操作回执";
+    const body = document.createElement("p");
+    body.textContent = text;
+    entry.append(label, body);
+    $("#aiMessages").append(entry);
+    while ($("#aiMessages").children.length > 60)
+      $("#aiMessages").firstElementChild.remove();
+    if (currentView === "ai") {
+      entry.scrollIntoView({ block: "nearest" });
+      const p = DesktopUI.getPreferences();
+      if (
+        p.motion !== "off" &&
+        !(
+          p.systemMotion &&
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+      )
+        entry.animate(
+          [
+            { opacity: 0, translate: "0 8px" },
+            { opacity: 1, translate: "0 0" },
+          ],
+          { duration: 180 / p.speed, easing: "cubic-bezier(.2,.8,.2,1)" },
+        );
+    }
+    return entry;
+  }
+  function stop() {
+    version++;
+    if (request) void bridge()?.cancel(request);
+    request = null;
+    gateway.cancel();
+    if (mounted) {
+      $("#aiSend").disabled = false;
+      $("#aiStop").disabled = true;
+      $("#aiConsent").checked = false;
+    }
+  }
+  function viewChanged() {
+    viewEpoch++;
+    if (request) {
+      stop();
+      message(
+        "receipt",
+        "页面已切换，请重新发送请求。待确认的操作不会自动执行。",
+      );
+    }
+  }
+  function receiptLog() {
+    const node = $("#aiAudit");
+    node.textContent =
+      gateway
+        .audit()
+        .slice(-8)
+        .map(
+          (r) =>
+            `${new Date(r.time).toLocaleTimeString()} · ${r.intent} · ${r.status}${r.persisted ? " · 已保存" : ""}`,
+        )
+        .join("\n") || "尚无操作回执。";
+  }
+  function proposal(action, snapshot) {
+    const p = gateway.propose(action, snapshot);
+    if (p.kind !== "score") {
+      receiptLog();
+      return;
+    }
+    const node = message(
+      "receipt",
+      `${p.label}\n${p.before} → ${p.after} 分（${p.delta > 0 ? "+" : ""}${p.delta}）\n教师确认后调用原手动积分命令；可通过原历史功能撤销。`,
+    );
+    node.dataset.proposal = p.id;
+    const approve = document.createElement("button"),
+      reject = document.createElement("button");
+    approve.type = reject.type = "button";
+    approve.className = "btn btn-primary";
+    reject.className = "btn";
+    approve.textContent = "确认并执行";
+    reject.textContent = "拒绝";
+    approve.onclick = async () => {
+      approve.disabled = reject.disabled = true;
+      const r = await gateway.confirm(p.id, true);
+      const text = r.ok
+        ? r.persisted
+          ? "积分已更新并保存。"
+          : "积分已更新但未持久保存，请立即导出备份。"
+        : r.error;
+      message("receipt", text);
+      node.dataset.result = r.ok ? "done" : "failed";
+      receiptLog();
+    };
+    reject.onclick = () => {
+      approve.disabled = reject.disabled = true;
+      node.dataset.result = "rejected";
+      reject.textContent = "已拒绝";
+      gateway.reject(p.id);
+    };
+    node.append(approve, reject);
+  }
+  async function send(event) {
+    event.preventDefault();
+    if (request) return;
+    const input = $("#aiPrompt"),
+      text = input.value.trim();
+    if (!text) return;
+    if (text.length > 4000) {
+      message("receipt", "输入不能超过4000字。");
+      return;
+    }
+    const snapshot = capture(),
+      ownVersion = ++version,
+      cloud = $("#aiMode").value === "model",
+      shareScores = $("#aiShareScores").checked;
+    if (cloud && !$("#aiConsent").checked) {
+      message("receipt", "请先确认本次发送的数据范围。");
+      return;
+    }
+    message("user", text);
+    input.value = "";
+    $("#aiSend").disabled = true;
+    $("#aiStop").disabled = false;
+    try {
+      let result;
+      if (!cloud) result = AIToolGateway.offline(text, snapshot);
+      else {
+        if (!bridge()) throw Error("模型连接仅在Electron中可用");
+        request = crypto.randomUUID();
+        const response = await bridge().request({
+          id: request,
+          text,
+          consent: true,
+          groups: shareScores ? gateway.publicContext() : [],
+        });
+        if (!response.ok) throw Error(response.error);
+        result = AIToolGateway.parseReply(response.text);
+        if (
+          !shareScores &&
+          result.actions.some((a) => a.intent === "adjustScore")
+        )
+          throw Error(
+            "本次未授权小组上下文，无法准备改分；请勾选匿名积分或使用离线指令",
+          );
+      }
+      if (ownVersion !== version) return;
+      const now = capture();
+      if (
+        ["saveId", "generation", "revision", "viewEpoch"].some(
+          (k) => snapshot[k] !== now[k],
+        )
+      )
+        throw Error("课堂或页面已变化，响应已丢弃，请重新发送");
+      message("assistant", result.reply);
+      for (const action of result.actions) proposal(action, snapshot);
+    } catch (error) {
+      if (ownVersion === version)
+        message("receipt", error.message || "请求未完成");
+    } finally {
+      if (ownVersion === version) {
+        request = null;
+        $("#aiSend").disabled = false;
+        $("#aiStop").disabled = true;
+        $("#aiConsent").checked = false;
+      }
+    }
+  }
+  function status() {
+    if (!mounted) return;
+    $("#aiRemember").checked = config?.remembered === true;
+    $("#aiConnection").textContent = config
+      ? `${config.provider} · ${config.model}${config.keyPresent || config.provider === "ollama" ? " · 已配置" : " · 未配置密钥"}`
+      : "离线规则助手 · 无网络请求";
+    $("#aiModelState").textContent = bridge()
+      ? config?.remembered
+        ? "密钥由系统加密保存。"
+        : "密钥仅本次进程可用；关闭程序后需重新输入。"
+      : "网页离线版不保存模型密钥。模型连接需要Electron桌面版，离线课堂助手仍然可用。";
+  }
+  async function loadConfig() {
+    if (bridge()) {
+      const r = await bridge().status();
+      if (r.ok) {
+        config = r.config;
+        $("#aiProvider").value = config.provider;
+        $("#aiModel").value = config.model;
+        $("#aiRemember").disabled = !config.encryptedStorage;
+      }
+    }
+    status();
+  }
+  function mount() {
+    if (mounted) return;
+    mounted = true;
+    $("#aiHost").innerHTML =
+      '<header class="ui-collection-header"><div><span class="ui-settings-eyebrow">CLASSROOM COPILOT</span><h2>AI 课堂助手</h2><div class="ui-collection-sub">先看清，再确认。课堂规则与数据始终由程序管理。</div></div><button type="button" class="btn" id="aiOpenSettings">模型连接设置</button></header><div class="ai-workspace"><section class="ai-conversation"><div class="ai-toolbar"><label>工作方式<select id="aiMode"><option value="offline">离线规则助手</option><option value="model">模型对话</option></select></label><span class="ui-muted" id="aiConnection"></span><button type="button" class="btn" id="aiClear">清空对话</button></div><div id="aiMessages" class="ai-messages" role="log" aria-live="polite"></div><form id="aiComposer"><label for="aiPrompt">发送消息</label><textarea id="aiPrompt" maxlength="4000" rows="3" placeholder="试试：查看小组积分；给第3组加5分"></textarea><div id="aiDataConsent" hidden><label><input id="aiShareScores" type="checkbox"> 附带当前小组的匿名编号和积分（不含组名、学生、学号、头像）</label><label><input id="aiConsent" type="checkbox"> 我确认本次将当前输入文字及所选数据发送给已配置的模型服务（不自动发送历史对话）</label></div><div class="ai-composer-actions"><span class="ui-muted">关闭页面不会自动执行待确认操作；对话仅保留本次页面会话。</span><button type="button" class="btn" id="aiStop" disabled>停止</button><button type="submit" class="btn btn-primary" id="aiSend">发送</button></div></form></section><aside class="ai-help ui-settings-group"><h3>你来决定每次操作</h3><p>查看积分和打开页面可直接完成。改分必须点击确认；导入、删除、道具和归档不对AI开放。</p><div class="ai-examples"><button type="button" class="btn" data-ai-example="查看小组积分">查看小组积分</button><button type="button" class="btn" data-ai-example="给第3组加5分">准备加分预览</button><button type="button" class="btn" data-ai-example="打开设置">打开设置</button></div><h4>操作审计</h4><pre id="aiAudit">尚无操作回执。</pre><button type="button" class="btn" id="aiExport">导出对话与回执</button><p class="ui-muted">模型回复是辅助内容，不是教材原文。没有模型时只处理明确的本地指令。</p></aside></div>';
+    const panel = document.querySelector('[data-category-panel="ai"]');
+    const box = document.createElement("section");
+    box.className = "ui-settings-group ai-model-settings";
+    box.innerHTML =
+      '<h4>模型连接</h4><p id="aiModelState" class="ui-muted"></p><form id="aiSettingsForm"><label>服务提供商<select id="aiProvider"><option value="opencode">OpenCode（首选）</option><option value="opencode_go">OpenCode Go</option><option value="opencode_zen">OpenCode Zen（旧地址兼容）</option><option value="opencode_go_legacy">OpenCode Go（旧地址兼容）</option><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="openrouter">OpenRouter</option><option value="ollama">Ollama（本机127.0.0.1:11434）</option></select></label><label>模型标识（需在你的服务账户中可用）<input id="aiModel" value="glm-5.3-flash" maxlength="120" required></label><label>API密钥<input id="aiKey" type="password" maxlength="512" autocomplete="off" placeholder="同一提供商留空保留；切换提供商后重新输入"></label><label><input id="aiRemember" type="checkbox"> 使用系统安全存储记住密钥（不可用时禁用）</label><p class="ui-muted">配置连接不会自动发起模型请求。发送前逐次确认数据范围；请求可能由服务商计费。Ollama需另行安装并下载相应模型。</p><button class="btn btn-primary" type="submit">保存连接设置</button><button class="btn btn-danger" type="button" id="aiForget">清除模型密钥</button><button class="btn" type="button" id="aiReturn">返回AI助手</button><p id="aiSettingsResult" role="status"></p></form>';
+    panel?.append(box);
+    $("#aiComposer").onsubmit = send;
+    $("#aiStop").onclick = () => {
+      stop();
+      message("receipt", "已停止请求，待确认操作已失效。");
+    };
+    $("#aiClear").onclick = () => {
+      stop();
+      $("#aiMessages").replaceChildren();
+      message("assistant", "对话已清空。离线规则助手不会调用网络。");
+    };
+    $("#aiMode").onchange = () => {
+      stop();
+      $("#aiDataConsent").hidden = $("#aiMode").value !== "model";
+    };
+    $("#aiOpenSettings").onclick = () => {
+      switchView("settings");
+      DesktopUI.selectSettings("ai");
+    };
+    $("#aiReturn").onclick = () => switchView("ai");
+    $("#aiProvider").onchange = () => {
+      $("#aiModel").value = {
+        opencode: "glm-5.3-flash",
+        opencode_go: "glm-5.3-flash",
+        opencode_zen: "glm-5.3-flash",
+        opencode_go_legacy: "glm-5.3-flash",
+        openai: "gpt-4o-mini",
+        deepseek: "deepseek-chat",
+        openrouter: "openai/gpt-4o-mini",
+        ollama: "qwen2.5:7b",
+      }[$("#aiProvider").value];
+      $("#aiKey").value = "";
+    };
+    $("#aiSettingsForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const btn = e.submitter;
+      if (btn) btn.disabled = true;
+      try {
+        const apiKey = $("#aiKey").value;
+        $("#aiKey").value = "";
+        const r = await bridge().configure({
+          provider: $("#aiProvider").value,
+          model: $("#aiModel").value.trim(),
+          apiKey,
+          remember: $("#aiRemember").checked,
+        });
+        if (!r.ok) throw Error(r.error);
+        config = r.config;
+        status();
+        $("#aiSettingsResult").textContent = "连接设置已保存，尚未发送请求。";
+      } catch (error) {
+        $("#aiSettingsResult").textContent = error.message;
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    };
+    $("#aiForget").onclick = async () => {
+      const r = await bridge().clear();
+      if (r.ok) {
+        config = r.config;
+        $("#aiKey").value = "";
+        status();
+        $("#aiSettingsResult").textContent = "密钥已清除。";
+      } else
+        $("#aiSettingsResult").textContent =
+          r.error || "密钥清除未完成，请重试";
+    };
+    $("#aiExport").onclick = () => {
+      const blob = new Blob(
+        [
+          JSON.stringify(
+            {
+              schemaVersion: 1,
+              messages: [...$("#aiMessages").children].map((n) => ({
+                role: n.dataset.role,
+                text: n.querySelector("p").textContent,
+              })),
+              audit: gateway.audit(),
+            },
+            null,
+            2,
+          ),
+        ],
+        { type: "application/json" },
+      );
+      const url = URL.createObjectURL(blob),
+        a = document.createElement("a");
+      a.href = url;
+      a.download = "classroom-ai-session.json";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
+    $("#aiHost").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-ai-example]");
+      if (b) {
+        $("#aiPrompt").value = b.dataset.aiExample;
+        $("#aiPrompt").focus();
+      }
+    });
+    if (!bridge()) {
+      for (const n of $("#aiSettingsForm").elements)
+        if (n.id !== "aiReturn") n.disabled = true;
+      $('#aiMode option[value="model"]').disabled = true;
+    }
+    message(
+      "assistant",
+      "你好。当前默认为离线规则助手。可以查看积分、打开页面或准备改分预览；不会自动发送学生资料。",
+    );
+    void loadConfig();
+    window.addEventListener("godpower:active-save-changed", () => {
+      stop();
+      viewEpoch++;
+      message("receipt", "存档已切换，旧提案已失效。");
+    });
+    window.addEventListener("pagehide", stop);
+  }
+  window.addEventListener("DOMContentLoaded", () => setTimeout(mount, 0), {
+    once: true,
+  });
+  return Object.freeze({ viewChanged });
+})();
+</script>
 <script>/* UI composition service. Existing business commands remain the only state writers. */
 const DesktopUI = (() => {
   const M = GodpowerUIModel,
@@ -52953,6 +53788,7 @@ const DesktopUI = (() => {
       welcome: ["欢迎", "home"],
       battle: ["比赛", "battle"],
       gameplay: ["玩法", "gift"],
+      ai: ["AI", "spark"],
       history: ["历史", "history"],
       archives: ["档案", "archive"],
       settings: ["设置", "settings"],

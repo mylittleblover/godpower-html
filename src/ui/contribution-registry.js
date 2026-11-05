@@ -31,6 +31,7 @@
     "welcome",
     "battle",
     "gameplay",
+    "ai",
     "history",
     "archives",
     "settings",

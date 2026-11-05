@@ -72,3 +72,7 @@ component-library为只读维护窗口；component-catalog是从所有CSS生成�
 SaveSchema负责kind/schema、身份和引用校验；SaveRoster负责名单变更；SaveMigration负责只读预检、资源提取、可移植包及旧格式回环；SaveProjection桥接既有比赛字段与规范名单；SaveRepository选择浏览器IDB或受限native IPC作为单一存储；SaveSession串行持久化确认并管理活动存档与切换代次。默认比赛入口已接入SaveManager和持久化ACK，设置直接管理当前存档的名单与头像；尚需旧多教师名单迁移及完整桌面发行验收，不将阶段验证当作ZIP全部功能完成。
 
 Electron SaveVault先暂存不可变文档/资产/来源，再发布索引；索引是提交点，失败留下的孤立暂存文件不成为可用存档。全局偏好独立CAS，不随切档恢复历史音量/布局。共享SaveSchema由固定源码提交同步并校验SHA-256。
+
+## 3.0.74 AI首期：独立可关闭的附加能力
+
+AIChat负责对话展示、发送授权及教师确认；AIToolGateway负责严格动作模式、存档/页面修订所有权、提案幂等和脱敏审计；改分仍由ManualScoreCommands→CommandLifecycle→SaveManager完成。只查询保存状态修订和积分，不复制完整大存档。AI视图通过现有核心路由注册，无插件平台依赖。设置模型连接由Electron受控主进程代理，网页模式明确禁用云端连接但保留离线规则助手。UI不执行模型代码、不直接保存权威课堂数据。详见reports/AI_ASSISTANT_3_0_74.md。

@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { createUiOwnershipReport } from "../../scripts/ui-ownership.mjs";
 
-test("UI ownership report follows the build manifest and records the six current core pages", async () => {
+test("UI ownership report follows the build manifest and records the seven current core pages", async () => {
   const report = await createUiOwnershipReport();
   assert.ok(report.manifestBlocks >= 125);
   assert.deepEqual(report.pages, [
     "view-welcome",
     "view-battle",
+    "view-ai",
     "view-gameplay",
     "view-archives",
     "view-history",

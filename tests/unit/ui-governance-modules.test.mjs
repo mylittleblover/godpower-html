@@ -122,7 +122,7 @@ test("settings categories preserve current entries, About and retirement backup 
   const layout = load("settings-layout.js", "GodPowerSettingsLayout");
   assert.equal(
     Array.from(layout.categories, (row) => row[0]).join(","),
-    "rules,appearance,motion,sound,items,students,welcome,data,about",
+    "rules,appearance,motion,sound,items,students,welcome,data,ai,about",
   );
   assert.equal(Object.isFrozen(layout.categories), true);
   assert.equal(Object.isFrozen(layout.categories[0]), true);
