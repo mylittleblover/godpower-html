@@ -1,0 +1,9 @@
+✔ clock refreshes header while hidden, without rebuilding hidden welcome UI (1.915968ms)
+ℹ tests 441
+ℹ suites 0
+ℹ pass 441
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18040.458596

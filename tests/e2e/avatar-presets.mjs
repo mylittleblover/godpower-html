@@ -89,6 +89,8 @@ try {
       "岩石",
       "近代政治人物",
       "现代政治人物",
+      "宝可梦",
+      "索尼克系列",
       "任天堂与大乱斗",
     ],
   );
@@ -114,13 +116,81 @@ try {
       });
     }
   }
+  const decoded = await page.evaluate(async () => {
+    let count = 0;
+    for (const item of AvatarPresetCatalog.items) {
+      const image = new Image();
+      image.src = item.dataUrl;
+      await image.decode();
+      if (image.naturalWidth !== 160 || image.naturalHeight !== 160)
+        throw Error(`Invalid preset dimensions: ${item.id}`);
+      count++;
+    }
+    return count;
+  });
+  assert.equal(
+    decoded,
+    236,
+    "all embedded images decode with external network blocked",
+  );
+  for (const [category, total, slug] of [
+    ["宝可梦", 83, "pokemon"],
+    ["索尼克系列", 38, "sonic"],
+    ["任天堂与大乱斗", 84, "smash-official"],
+  ]) {
+    await page.locator("#avatarPresetDialog select").selectOption(category);
+    const seen = [];
+    for (let n = 0; n < Math.ceil(total / 24); n++) {
+      await page
+        .locator("#avatarPresetDialog [data-preset-card] img")
+        .evaluateAll((images) =>
+          Promise.all(images.map((image) => image.decode())),
+        );
+      seen.push(
+        ...(await page
+          .locator("#avatarPresetDialog [data-preset-card]")
+          .evaluateAll((nodes) =>
+            nodes.map((node) => node.dataset.presetCard),
+          )),
+      );
+      await page.screenshot({
+        path: `artifacts/avatar-presets/${slug}-${n + 1}.png`,
+      });
+      if (n + 1 < Math.ceil(total / 24))
+        await page.locator("[data-preset-next]").click();
+    }
+    assert.equal(seen.length, total);
+    assert.equal(
+      new Set(seen).size,
+      total,
+      "pagination must not omit or duplicate presets",
+    );
+    assert.equal(await page.locator("[data-preset-next]").isDisabled(), true);
+  }
+  await page.locator("#avatarPresetDialog select").selectOption("宝可梦");
+  await page.locator("#avatarPresetSearch").fill("魔幻假面喵");
+  assert.equal(
+    await page.locator('[data-preset-card="pokemon-0908"]').count(),
+    1,
+  );
+  await page.locator("#avatarPresetDialog select").selectOption("索尼克系列");
+  await page.locator("#avatarPresetSearch").fill("塔尔斯");
+  assert.equal(
+    await page.locator("#avatarPresetDialog [data-preset-card]").count(),
+    2,
+  );
+  assert.match(
+    await page.locator('[data-preset-card="sonic-classic-tails"]').innerText(),
+    /经典版/,
+  );
   await page.locator("#avatarPresetDialog select").selectOption("");
   await page.locator("#avatarPresetSearch").fill("马力欧");
   assert.equal(
     await page.locator("#avatarPresetDialog [data-preset-card]").count(),
-    1,
+    2,
+    "official names also match 马力欧医生",
   );
-  await page.locator("#avatarPresetDialog [data-preset-card]").click();
+  await page.locator('[data-preset-card="smash-mario"]').click();
   await page.waitForFunction(() => {
     const dialog = document.getElementById("avatarPresetDialog");
     return (
@@ -169,7 +239,7 @@ try {
   await mkdir("artifacts/avatar-presets", { recursive: true });
   await writeFile(
     "artifacts/avatar-presets/result.json",
-    JSON.stringify({ status: "PASS", resource, errors }, null, 2),
+    JSON.stringify({ status: "PASS", resource, decoded, errors }, null, 2),
   );
   console.log(
     "PASS offline preset search, upload pipeline, durable reload and clear",

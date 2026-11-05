@@ -33,6 +33,8 @@ test("offline avatar presets are bounded, unique and backed by source hashes", (
     "岩石",
     "近代政治人物",
     "现代政治人物",
+    "宝可梦",
+    "索尼克系列",
     "任天堂与大乱斗",
   ]);
   assert.equal(items.at(-1).category, "任天堂与大乱斗");
@@ -41,6 +43,8 @@ test("offline avatar presets are bounded, unique and backed by source hashes", (
     "岩石",
     "近代政治人物",
     "现代政治人物",
+    "宝可梦",
+    "索尼克系列",
     "任天堂与大乱斗",
   ])
     assert.ok(items.some((x) => x.category === category));

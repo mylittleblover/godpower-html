@@ -45,7 +45,10 @@ const AvatarPresetPicker = (() => {
     const all = AvatarPresetCatalog.items.filter(
       (x) =>
         (!category || x.category === category) &&
-        (x.name + " " + x.id).toLocaleLowerCase().includes(query),
+        [x.name, x.id, x.variant || "", ...(x.aliases || [])]
+          .join(" ")
+          .toLocaleLowerCase()
+          .includes(query),
     );
     const pages = Math.max(1, Math.ceil(all.length / size));
     page = Math.min(page, pages - 1);
@@ -55,7 +58,10 @@ const AvatarPresetPicker = (() => {
       const b = document.createElement("button");
       b.type = "button";
       b.dataset.presetCard = item.id;
-      b.title = item.name;
+      const displayName = item.variant
+        ? `${item.name}（${item.variant}）`
+        : item.name;
+      b.title = displayName;
       const img = new Image();
       img.src = item.dataUrl;
       img.alt = "";
@@ -63,7 +69,7 @@ const AvatarPresetPicker = (() => {
       img.height = 80;
       img.loading = "lazy";
       const label = document.createElement("span");
-      label.textContent = item.name;
+      label.textContent = displayName;
       b.append(img, label);
       b.onclick = () =>
         perform(async () => {
