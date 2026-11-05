@@ -3,7 +3,14 @@ import { createServer } from "node:http";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { launch, setup } from "../fixtures/browser.mjs";
 const html = await readFile("dist/godpower.html"),
-  server = createServer((_, r) => r.end(html));
+  server = createServer((_, r) => {
+    // Match Electron's strict connect policy: embedded avatars must not use fetch(data:).
+    r.setHeader(
+      "Content-Security-Policy",
+      "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'",
+    );
+    r.end(html);
+  });
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const browser = await launch();
 try {
@@ -114,8 +121,17 @@ try {
     1,
   );
   await page.locator("#avatarPresetDialog [data-preset-card]").click();
-  await page.waitForFunction(
-    () => !document.getElementById("avatarPresetDialog").open,
+  await page.waitForFunction(() => {
+    const dialog = document.getElementById("avatarPresetDialog");
+    return (
+      !dialog.open ||
+      dialog.querySelector("[role=status]").textContent.trim().length > 0
+    );
+  });
+  assert.equal(
+    await page.locator("#avatarPresetDialog").evaluate((dialog) => dialog.open),
+    false,
+    "embedded preset must save under Electron connect-src self without Failed to fetch",
   );
   await page.evaluate(() => SaveManager.whenIdle());
   const resource = await page.evaluate(

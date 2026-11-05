@@ -35,13 +35,14 @@
       node.setAttribute("aria-hidden", "true");
       document.body.append(node);
     }
+    const bounds = node.getBoundingClientRect();
     const holes = [...document.querySelectorAll("#groupList>.group-row-card")]
       .map((card) => {
         const r = card.getBoundingClientRect();
-        return `<rect x="${r.x - 2}" y="${r.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
+        return `<rect x="${r.x - bounds.x - 2}" y="${r.y - bounds.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
       })
       .join("");
-    node.innerHTML = `<svg width="100%" height="100%"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组 · Escape 退出<button type="button" data-hand-close>❌</button></div>`;
+    node.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 ${bounds.width} ${bounds.height}" preserveAspectRatio="none"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组<button type="button" data-hand-close aria-label="退出举手模式">退出举手 ❌</button></div>`;
   }
   function scheduleShade() {
     if (frame !== null) return;
@@ -119,6 +120,11 @@
     const group = state.groups.find((g) => g.id === s.groupId);
     document.getElementById("handFlowTitle").textContent =
       group?.name || "课堂举手";
+    const avatar = document.getElementById("handFlowAvatar");
+    const src = root.ClassroomAvatarDisplay?.ownGroupUrl(group) || "";
+    avatar.hidden = !src;
+    if (src) avatar.src = src;
+    else avatar.removeAttribute("src");
     if (stage === "JUDGE")
       content().innerHTML = `<p class="hand-flow-description">这一次回答，是否正确？</p><div class="hand-flow-grid"><button type="button" class="hand-flow-card positive" data-hand-judge="correct">${icon("m5 12 4 4L19 6")}<strong>回答正确</strong><span>记录参与，选择本次奖励</span></button><button type="button" class="hand-flow-card negative" data-hand-judge="wrong">${icon("m6 6 12 12M18 6 6 18")}<strong>回答错误</strong><span>记录勇敢参与，继续下一组</span></button></div>`;
     else

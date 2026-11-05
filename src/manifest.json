@@ -1266,6 +1266,11 @@
     },
     {
       "type": "script",
+      "path": "ui/gameplay-item-dialog.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "ui/gameplay-page.js",
       "attributes": ""
     },

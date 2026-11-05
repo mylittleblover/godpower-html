@@ -4,10 +4,10 @@ const BattleMotion = (() => {
     draws = new Map();
   const duration = 1700,
     fade = 600;
-  function enabled() {
+  function enabled(requireBattle = true) {
     const p = DesktopUI.getPreferences();
     return (
-      currentView === "battle" &&
+      (!requireBattle || currentView === "battle") &&
       p.itemFx &&
       p.motion !== "off" &&
       !(
@@ -15,8 +15,8 @@ const BattleMotion = (() => {
       )
     );
   }
-  function mount(session, card) {
-    if (!card || !enabled()) return;
+  function mount(session, card, preview = false) {
+    if (!card || !enabled(!preview)) return;
     const node = document.createElement("div");
     node.className = "bm-layer";
     node.dataset.bmKey = session.id;
@@ -56,18 +56,9 @@ const BattleMotion = (() => {
           ],
       { duration, easing: "cubic-bezier(.22,.7,.25,1)", fill: "both" },
     ).currentTime = Math.max(0, performance.now() - session.started);
+    return node;
   }
-  function show(kind, gid, key, label) {
-    if (!enabled()) return;
-    const id = String(gid) + ":" + kind,
-      prior = sessions.get(id);
-    if (prior) clearTimeout(prior.timer);
-    document.querySelectorAll(".bm-layer").forEach((el) => {
-      if (el.dataset.bmKey === id) {
-        el.getAnimations().forEach((a) => a.cancel());
-        el.remove();
-      }
-    });
+  function styleFor(key, kind) {
     const family = /fire/.test(key)
       ? "fire"
       : /ice/.test(key)
@@ -121,6 +112,47 @@ const BattleMotion = (() => {
           : CARD_HIT_COLOR[key] ||
             CARD_HIT_COLOR[aliases[key]] ||
             (family === "buff" ? "#20a47a" : "#e97359");
+    return { family, color };
+  }
+  function preview(card, key) {
+    if (!card || !ITEM_DEFS[key]) return () => {};
+    const node = mount(
+      {
+        id: "preview",
+        key,
+        kind: "use",
+        ...styleFor(key, "use"),
+        label: ITEM_DEFS[key].name + " · 发动示例",
+        started: performance.now(),
+      },
+      card,
+      true,
+    );
+    let disposed = false;
+    const release = () => {
+      if (disposed || !node) return;
+      disposed = true;
+      node.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      node.remove();
+    };
+    node
+      ?.getAnimations()[0]
+      ?.finished.catch(() => {})
+      .finally(release);
+    return release;
+  }
+  function show(kind, gid, key, label) {
+    if (!enabled()) return;
+    const id = String(gid) + ":" + kind,
+      prior = sessions.get(id);
+    if (prior) clearTimeout(prior.timer);
+    document.querySelectorAll(".bm-layer").forEach((el) => {
+      if (el.dataset.bmKey === id) {
+        el.getAnimations().forEach((a) => a.cancel());
+        el.remove();
+      }
+    });
+    const { family, color } = styleFor(key, kind);
     const session = {
       id,
       gid,
@@ -197,6 +229,7 @@ const BattleMotion = (() => {
     if (document.hidden) clear();
   });
   return {
+    preview,
     show,
     restore,
     event,

@@ -1,13 +1,9 @@
 /* ===== V2.17.9：道具抽取冷却限制 =====
    1. 闪电 / 鱿鱿：全局冷却。抽中后必须间隔 4 次其他实际抽取，
       到第 5 次实际抽取才重新进入候选池。
-   2. 炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：
-      对单组生效。任意一个被该组抽中后，该组“下一次实际抽取”
-      会把这 4 个强力道具全部从候选池排除；再下一次恢复正常。
-   3. 仅统计真正的最终抽取结果，不统计轮盘预览，不统计上帝模式追加。 */
+   2. 仅统计真正的最终抽取结果，不统计轮盘预览，不统计上帝模式追加。 */
 
 const GLOBAL_FIVE_DRAW_ITEMS_V2179 = new Set(["lightning", "blooper"]);
-const STRONG_GROUP_ITEMS_V2179 = new Set(["bullet", "power", "mega", "star"]);
 
 function ensureDrawThrottleV2179() {
   ensureItemState();
@@ -19,7 +15,6 @@ function ensureDrawThrottleV2179() {
     state.itemGlobal.drawThrottleV2179 = {
       sequence: 0,
       nextEligible: { lightning: 0, blooper: 0 },
-      groupStrongSkip: {},
     };
   }
 
@@ -34,9 +29,6 @@ function ensureDrawThrottleV2179() {
     if (!Number.isFinite(Number(t.nextEligible[k]))) t.nextEligible[k] = 0;
     t.nextEligible[k] = Math.max(0, Math.floor(Number(t.nextEligible[k]) || 0));
   });
-
-  if (!t.groupStrongSkip || typeof t.groupStrongSkip !== "object")
-    t.groupStrongSkip = {};
 
   return t;
 }
@@ -57,30 +49,10 @@ function restrictedItemWeightsV2179(g) {
     if (drawNo < next) W[k] = 0;
   }
 
-  /* 单组强力道具冷却：只封锁这个组的下一次实际抽取。 */
-  if (Number(t.groupStrongSkip[g.id] || 0) > 0) {
-    STRONG_GROUP_ITEMS_V2179.forEach((k) => {
-      W[k] = 0;
-    });
-  }
-
   return { weights: W, drawNo, throttle: t };
 }
 
 function commitDrawThrottleV2179(g, key, drawNo, t) {
-  /* 先消费“下一抽禁强力”的一次机会。 */
-  const oldSkip = Math.max(0, Number(t.groupStrongSkip[g.id]) || 0);
-  if (oldSkip > 0) {
-    const left = oldSkip - 1;
-    if (left > 0) t.groupStrongSkip[g.id] = left;
-    else delete t.groupStrongSkip[g.id];
-  }
-
-  /* 本次如果又抽到了强力道具，则重新给该组挂上 1 次冷却。 */
-  if (STRONG_GROUP_ITEMS_V2179.has(key)) {
-    t.groupStrongSkip[g.id] = 1;
-  }
-
   /* 闪电 / 鱿鱿：本次之后至少间隔 4 次其他抽取，第 5 次重新开放。 */
   if (GLOBAL_FIVE_DRAW_ITEMS_V2179.has(key)) {
     t.nextEligible[key] = drawNo + 5;
@@ -133,19 +105,19 @@ if (ITEM_DEFS.blooper) {
 }
 if (ITEM_DEFS.bullet) {
   ITEM_DEFS.bullet.desc =
-    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取；本组抽中后，下一次抽取不会再出现炮弹刺客、强力蘑菇、巨大蘑菇或无敌星。";
+    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取。";
 }
 if (ITEM_DEFS.power) {
   ITEM_DEFS.power.desc =
-    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具；本组抽中后，下一次抽取不会再出现炮弹刺客、强力蘑菇、巨大蘑菇或无敌星。";
+    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具。";
 }
 if (ITEM_DEFS.mega) {
   ITEM_DEFS.mega.desc =
-    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取；本组抽中后，下一次抽取不会再出现4种强力道具。";
+    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
 }
 if (ITEM_DEFS.star) {
   ITEM_DEFS.star.desc =
-    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取；本组抽中后，下一次抽取不会再出现4种强力道具。";
+    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
 }
 
 /* 给数据页的道具区补一个小状态说明，便于实际使用时判断冷却有没有工作。 */
@@ -160,7 +132,6 @@ function installDrawCooldownInfoV2179() {
   info.innerHTML = `
     <b>抽取冷却规则</b>
     <span>闪电 / 鱿鱿：全局每次抽中后间隔 4 次其他抽取，第 5 次重新开放。</span>
-    <span>炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：某组抽中任意一个后，该组下一次抽取屏蔽全部 4 种。</span>
     <small>当前累计实际抽取序号：${t.sequence}</small>
   `;
   host.appendChild(info);

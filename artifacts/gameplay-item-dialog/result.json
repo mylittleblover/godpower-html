@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "previews": [
+    {
+      "key": "coin",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "mushroom",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "triple_mushroom",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "coin_shell",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "question",
+      "rendered": true,
+      "family": "mystery"
+    },
+    {
+      "key": "item_box",
+      "rendered": true,
+      "family": "box"
+    },
+    {
+      "key": "green",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "triple_green",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "red",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "triple_red",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "banana",
+      "rendered": true,
+      "family": "banana"
+    },
+    {
+      "key": "triple_banana",
+      "rendered": true,
+      "family": "banana"
+    },
+    {
+      "key": "horn",
+      "rendered": true,
+      "family": "horn"
+    },
+    {
+      "key": "bomb",
+      "rendered": true,
+      "family": "bomb"
+    },
+    {
+      "key": "hammer",
+      "rendered": true,
+      "family": "hammer"
+    },
+    {
+      "key": "spiny",
+      "rendered": true,
+      "family": "shell"
+    },
+    {
+      "key": "fire_flower",
+      "rendered": true,
+      "family": "fire"
+    },
+    {
+      "key": "ice_flower",
+      "rendered": true,
+      "family": "ice"
+    },
+    {
+      "key": "boomerang_flower",
+      "rendered": true,
+      "family": "boomerang"
+    },
+    {
+      "key": "kamek",
+      "rendered": true,
+      "family": "kamek"
+    },
+    {
+      "key": "lightning",
+      "rendered": true,
+      "family": "lightning"
+    },
+    {
+      "key": "blooper",
+      "rendered": true,
+      "family": "ink"
+    },
+    {
+      "key": "boo",
+      "rendered": true,
+      "family": "ghost"
+    },
+    {
+      "key": "feather",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "star",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "mega",
+      "rendered": true,
+      "family": "buff"
+    },
+    {
+      "key": "bullet",
+      "rendered": true,
+      "family": "bullet"
+    },
+    {
+      "key": "power",
+      "rendered": true,
+      "family": "buff"
+    }
+  ],
+  "unchanged": true,
+  "errors": []
+}

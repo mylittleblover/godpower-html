@@ -1,0 +1,1022 @@
+[
+  {
+    "path": "src/styles/items/encyclopedia-layout.css",
+    "baseline": "1fa4e72",
+    "sha256": "6c0b333b0eb33b6fb89f76cd701189c215993ef8004269c9f55f21a78851606d",
+    "reason": "User approved gameplay redesign and modal examples; old classroom encyclopedia declarations move to dedicated owner, without priority escalation.",
+    "evidence": [
+      "artifacts/gameplay-page/encyclopedia.png",
+      "artifacts/gameplay-item-dialog/green-preview.png"
+    ],
+    "edits": [
+      {
+        "start": 3,
+        "end": 4,
+        "original": "C",
+        "replacement": "Gameplay encyclopedia owner: one responsive card surface "
+      },
+      {
+        "start": 6,
+        "end": 6,
+        "original": "",
+        "replacement": "d theme t"
+      },
+      {
+        "start": 7,
+        "end": 7,
+        "original": "",
+        "replacement": "ke"
+      },
+      {
+        "start": 8,
+        "end": 12,
+        "original": "ical",
+        "replacement": "s."
+      },
+      {
+        "start": 13,
+        "end": 13,
+        "original": "",
+        "replacement": "*/\n."
+      },
+      {
+        "start": 21,
+        "end": 23,
+        "original": " r",
+        "replacement": "-s"
+      },
+      {
+        "start": 24,
+        "end": 29,
+        "original": "feren",
+        "replacement": ""
+      },
+      {
+        "start": 30,
+        "end": 41,
+        "original": "e: bounded ",
+        "replacement": "t"
+      },
+      {
+        "start": 42,
+        "end": 86,
+        "original": "mage column and readable copy. */\n#gameplayC",
+        "replacement": ""
+      },
+      {
+        "start": 88,
+        "end": 108,
+        "original": "tent .item-reference",
+        "replacement": ""
+      },
+      {
+        "start": 113,
+        "end": 113,
+        "original": "",
+        "replacement": "ing"
+      },
+      {
+        "start": 115,
+        "end": 250,
+        "original": "\n  display: flex !important;\n  align-items: flex-start !important;\n  justify-content: space-between !important;\n  gap: 16px !important;",
+        "replacement": ""
+      },
+      {
+        "start": 268,
+        "end": 269,
+        "original": "1",
+        "replacement": "var(--space-"
+      },
+      {
+        "start": 270,
+        "end": 283,
+        "original": "px !important",
+        "replacement": ")"
+      },
+      {
+        "start": 287,
+        "end": 288,
+        "original": "#",
+        "replacement": "."
+      },
+      {
+        "start": 296,
+        "end": 297,
+        "original": "C",
+        "replacement": "-secti"
+      },
+      {
+        "start": 299,
+        "end": 319,
+        "original": "tent .item-reference",
+        "replacement": ""
+      },
+      {
+        "start": 324,
+        "end": 324,
+        "original": "",
+        "replacement": "ing"
+      },
+      {
+        "start": 342,
+        "end": 345,
+        "original": "!im",
+        "replacement": "0 var(--s"
+      },
+      {
+        "start": 346,
+        "end": 346,
+        "original": "",
+        "replacement": "ace-2);\n  f"
+      },
+      {
+        "start": 347,
+        "end": 350,
+        "original": "rta",
+        "replacement": ""
+      },
+      {
+        "start": 352,
+        "end": 352,
+        "original": "",
+        "replacement": "-size: var(--font-lg);\n}\n.gameplay-section-heading p {\n  margin: 0"
+      },
+      {
+        "start": 369,
+        "end": 537,
+        "original": "window-head-text, var(--ui-text, #17302d)) !important;\n}\n#gameplayContent .item-reference-sub {\n  margin-top: 4px !important;\n  color: var(--window-head-subtext, var(--",
+        "replacement": ""
+      },
+      {
+        "start": 545,
+        "end": 554,
+        "original": ", #607773",
+        "replacement": ""
+      },
+      {
+        "start": 555,
+        "end": 567,
+        "original": ") !important",
+        "replacement": ""
+      },
+      {
+        "start": 582,
+        "end": 591,
+        "original": "12px !imp",
+        "replacement": "var(--f"
+      },
+      {
+        "start": 592,
+        "end": 595,
+        "original": "rta",
+        "replacement": ""
+      },
+      {
+        "start": 597,
+        "end": 597,
+        "original": "",
+        "replacement": "-sm)"
+      },
+      {
+        "start": 601,
+        "end": 618,
+        "original": "#gameplayContent ",
+        "replacement": ""
+      },
+      {
+        "start": 638,
+        "end": 650,
+        "original": " {\n  display",
+        "replacement": ""
+      },
+      {
+        "start": 651,
+        "end": 661,
+        "original": " flex !imp",
+        "replacement": "n"
+      },
+      {
+        "start": 662,
+        "end": 663,
+        "original": "r",
+        "replacement": ""
+      },
+      {
+        "start": 664,
+        "end": 732,
+        "original": "ant;\n  flex-direction: column !important;\n  gap: 9px !important;\n  w",
+        "replacement": "([h"
+      },
+      {
+        "start": 734,
+        "end": 770,
+        "original": "th: 100% !important;\n}\n#gameplayCont",
+        "replacement": "d"
+      },
+      {
+        "start": 772,
+        "end": 793,
+        "original": "t .item-reference-row",
+        "replacement": "])"
+      },
+      {
+        "start": 811,
+        "end": 822,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 849,
+        "end": 851,
+        "original": "88",
+        "replacement": "repeat(3, minmax(0, 1fr));\n  gap: var(--space-4);\n}\n.item-reference-row:not([hidden]) {\n  display: grid;\n  grid-template-columns: 64"
+      },
+      {
+        "start": 868,
+        "end": 879,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 896,
+        "end": 909,
+        "original": "center !impor",
+        "replacement": "s"
+      },
+      {
+        "start": 911,
+        "end": 912,
+        "original": "n",
+        "replacement": "r"
+      },
+      {
+        "start": 922,
+        "end": 923,
+        "original": "1",
+        "replacement": "var(--space-"
+      },
+      {
+        "start": 924,
+        "end": 963,
+        "original": "px !important;\n  width: 100% !important",
+        "replacement": ")"
+      },
+      {
+        "start": 971,
+        "end": 971,
+        "original": "",
+        "replacement": "widt"
+      },
+      {
+        "start": 972,
+        "end": 977,
+        "original": "eight",
+        "replacement": ""
+      },
+      {
+        "start": 979,
+        "end": 994,
+        "original": "96px !important",
+        "replacement": "0"
+      },
+      {
+        "start": 1007,
+        "end": 1008,
+        "original": "9",
+        "replacement": "var(--s"
+      },
+      {
+        "start": 1009,
+        "end": 1023,
+        "original": "x 14px !import",
+        "replacement": ""
+      },
+      {
+        "start": 1024,
+        "end": 1026,
+        "original": "nt",
+        "replacement": "ce-5)"
+      },
+      {
+        "start": 1063,
+        "end": 1072,
+        "original": ", #c9dcd8",
+        "replacement": ""
+      },
+      {
+        "start": 1073,
+        "end": 1084,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1103,
+        "end": 1109,
+        "original": "12px !",
+        "replacement": "var(--rad"
+      },
+      {
+        "start": 1110,
+        "end": 1110,
+        "original": "",
+        "replacement": "us-"
+      },
+      {
+        "start": 1111,
+        "end": 1118,
+        "original": "portant",
+        "replacement": "d)"
+      },
+      {
+        "start": 1134,
+        "end": 1140,
+        "original": "#fff !",
+        "replacement": "var(--u"
+      },
+      {
+        "start": 1141,
+        "end": 1142,
+        "original": "m",
+        "replacement": "-"
+      },
+      {
+        "start": 1143,
+        "end": 1146,
+        "original": "ort",
+        "replacement": ""
+      },
+      {
+        "start": 1148,
+        "end": 1149,
+        "original": "t",
+        "replacement": "el)"
+      },
+      {
+        "start": 1165,
+        "end": 1175,
+        "original": "none !impo",
+        "replacement": "va"
+      },
+      {
+        "start": 1176,
+        "end": 1177,
+        "original": "t",
+        "replacement": "(--sh"
+      },
+      {
+        "start": 1178,
+        "end": 1190,
+        "original": "nt;\n  overfl",
+        "replacement": "d"
+      },
+      {
+        "start": 1192,
+        "end": 1196,
+        "original": ": hi",
+        "replacement": "-car"
+      },
+      {
+        "start": 1197,
+        "end": 1211,
+        "original": "den !important",
+        "replacement": ")"
+      },
+      {
+        "start": 1215,
+        "end": 1232,
+        "original": "#gameplayContent ",
+        "replacement": ""
+      },
+      {
+        "start": 1264,
+        "end": 1266,
+        "original": "78",
+        "replacement": "64"
+      },
+      {
+        "start": 1268,
+        "end": 1279,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1291,
+        "end": 1293,
+        "original": "78",
+        "replacement": "64"
+      },
+      {
+        "start": 1295,
+        "end": 1306,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1310,
+        "end": 1319,
+        "original": "min-width",
+        "replacement": "flex"
+      },
+      {
+        "start": 1321,
+        "end": 1330,
+        "original": "78px !imp",
+        "replacement": "n"
+      },
+      {
+        "start": 1331,
+        "end": 1334,
+        "original": "rta",
+        "replacement": ""
+      },
+      {
+        "start": 1335,
+        "end": 1345,
+        "original": "t;\n  min-h",
+        "replacement": ""
+      },
+      {
+        "start": 1346,
+        "end": 1428,
+        "original": "ight: 78px !important;\n  max-width: 78px !important;\n  max-height: 78px !important",
+        "replacement": ""
+      },
+      {
+        "start": 1447,
+        "end": 1452,
+        "original": "50% !",
+        "replacement": "var(--rad"
+      },
+      {
+        "start": 1453,
+        "end": 1453,
+        "original": "",
+        "replacement": "us-"
+      },
+      {
+        "start": 1454,
+        "end": 1461,
+        "original": "portant",
+        "replacement": "d)"
+      },
+      {
+        "start": 1477,
+        "end": 1486,
+        "original": "#f3f8f7 !",
+        "replacement": "var(--u"
+      },
+      {
+        "start": 1487,
+        "end": 1511,
+        "original": "mportant;\n  border: 1px ",
+        "replacement": "-"
+      },
+      {
+        "start": 1513,
+        "end": 1531,
+        "original": "lid #d8e5e2 !impor",
+        "replacement": "f"
+      },
+      {
+        "start": 1532,
+        "end": 1535,
+        "original": "ant",
+        "replacement": ")"
+      },
+      {
+        "start": 1548,
+        "end": 1554,
+        "original": "flex !",
+        "replacement": "gr"
+      },
+      {
+        "start": 1555,
+        "end": 1563,
+        "original": "mportant",
+        "replacement": "d"
+      },
+      {
+        "start": 1567,
+        "end": 1567,
+        "original": "",
+        "replacement": "pl"
+      },
+      {
+        "start": 1568,
+        "end": 1572,
+        "original": "lign",
+        "replacement": "ce"
+      },
+      {
+        "start": 1586,
+        "end": 1635,
+        "original": " !important;\n  justify-content: center !important",
+        "replacement": ""
+      },
+      {
+        "start": 1655,
+        "end": 1666,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1681,
+        "end": 1683,
+        "original": "44",
+        "replacement": "36"
+      },
+      {
+        "start": 1685,
+        "end": 1696,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1714,
+        "end": 1725,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1729,
+        "end": 1741,
+        "original": "#gameplayCon",
+        "replacement": ".i"
+      },
+      {
+        "start": 1743,
+        "end": 1743,
+        "original": "",
+        "replacement": "m-refere"
+      },
+      {
+        "start": 1744,
+        "end": 1746,
+        "original": "t ",
+        "replacement": "ce-img,\n"
+      },
+      {
+        "start": 1767,
+        "end": 1825,
+        "original": ".item-reference-img,\n#gameplayContent .item-reference-icon",
+        "replacement": ">"
+      },
+      {
+        "start": 1841,
+        "end": 1842,
+        "original": "6",
+        "replacement": "5"
+      },
+      {
+        "start": 1845,
+        "end": 1856,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 1868,
+        "end": 1869,
+        "original": "6",
+        "replacement": "5"
+      },
+      {
+        "start": 1872,
+        "end": 1999,
+        "original": " !important;\n  min-width: 0 !important;\n  min-height: 0 !important;\n  max-width: 62px !important;\n  max-height: 62px !important",
+        "replacement": ""
+      },
+      {
+        "start": 2022,
+        "end": 2033,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 2051,
+        "end": 2141,
+        "original": " !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  transform: none !important",
+        "replacement": ""
+      },
+      {
+        "start": 2145,
+        "end": 2162,
+        "original": "#gameplayContent ",
+        "replacement": ""
+      },
+      {
+        "start": 2199,
+        "end": 2336,
+        "original": " !important;\n  display: flex !important;\n  flex-direction: column !important;\n  justify-content: center !important;\n  gap: 5px !important",
+        "replacement": ""
+      },
+      {
+        "start": 2340,
+        "end": 2357,
+        "original": "#gameplayContent ",
+        "replacement": ""
+      },
+      {
+        "start": 2382,
+        "end": 2382,
+        "original": "",
+        "replacement": "display: flex;\n  align-items: baseline;\n  flex-wrap: wrap;\n  gap: var(--space-2);\n  "
+      },
+      {
+        "start": 2402,
+        "end": 2411,
+        "original": ", #17302d",
+        "replacement": ""
+      },
+      {
+        "start": 2412,
+        "end": 2423,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 2438,
+        "end": 2447,
+        "original": "15px !imp",
+        "replacement": "var(--f"
+      },
+      {
+        "start": 2448,
+        "end": 2451,
+        "original": "rta",
+        "replacement": ""
+      },
+      {
+        "start": 2453,
+        "end": 2453,
+        "original": "",
+        "replacement": "-md)"
+      },
+      {
+        "start": 2470,
+        "end": 2475,
+        "original": "900 !",
+        "replacement": "var(--we"
+      },
+      {
+        "start": 2476,
+        "end": 2480,
+        "original": "mpor",
+        "replacement": "gh"
+      },
+      {
+        "start": 2481,
+        "end": 2481,
+        "original": "",
+        "replacement": "-he"
+      },
+      {
+        "start": 2482,
+        "end": 2482,
+        "original": "",
+        "replacement": "di"
+      },
+      {
+        "start": 2483,
+        "end": 2484,
+        "original": "t",
+        "replacement": "g)"
+      },
+      {
+        "start": 2503,
+        "end": 2504,
+        "original": "2",
+        "replacement": ""
+      },
+      {
+        "start": 2505,
+        "end": 2516,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 2520,
+        "end": 2521,
+        "original": "#",
+        "replacement": ".item-reference-ta"
+      },
+      {
+        "start": 2522,
+        "end": 2522,
+        "original": "",
+        "replacement": " {\n  p"
+      },
+      {
+        "start": 2523,
+        "end": 2523,
+        "original": "",
+        "replacement": "dding: 3px 7px;\n  border-radius: var(--radius-s"
+      },
+      {
+        "start": 2524,
+        "end": 2525,
+        "original": "e",
+        "replacement": ");\n  color: var(--ui-"
+      },
+      {
+        "start": 2526,
+        "end": 2527,
+        "original": "l",
+        "replacement": "rim"
+      },
+      {
+        "start": 2528,
+        "end": 2528,
+        "original": "",
+        "replacement": "r"
+      },
+      {
+        "start": 2529,
+        "end": 2530,
+        "original": "C",
+        "replacement": ");\n  background: var(--ui-soft);\n  f"
+      },
+      {
+        "start": 2533,
+        "end": 2533,
+        "original": "",
+        "replacement": "-size: var(--font-xs);\n  font-weight: var(--weight-label);\n}\n.item-refer"
+      },
+      {
+        "start": 2535,
+        "end": 2535,
+        "original": "",
+        "replacement": "ce-"
+      },
+      {
+        "start": 2536,
+        "end": 2536,
+        "original": "",
+        "replacement": "ip"
+      },
+      {
+        "start": 2537,
+        "end": 2537,
+        "original": "",
+        "replacement": "{\n  margin-top: var(--space-3);\n  color: var(--ui-text);\n  font-size: var(--font-sm);\n  line-height: 1.75;\n  overflow-wrap: anywhere;\n}\n.item-reference-tip b {\n  color: var(--ui-primary);\n  font-size: var(--font-xs);\n}\n.item-reference-tip p {\n  margin: var(--space-1) 0 0;\n}\n.item-reference-open {\n  margin-top: var(--space-4);\n}\n"
+      },
+      {
+        "start": 2583,
+        "end": 2584,
+        "original": ",",
+        "replacement": ");\n}\n.item-reference-general"
+      },
+      {
+        "start": 2585,
+        "end": 2592,
+        "original": "#607773",
+        "replacement": "{\n  margin-bottom: var(--space-4);\n  padding: var(--space-4"
+      },
+      {
+        "start": 2594,
+        "end": 2597,
+        "original": "!im",
+        "replacement": "var(--s"
+      },
+      {
+        "start": 2598,
+        "end": 2598,
+        "original": "",
+        "replacement": "ace-5);\n  col"
+      },
+      {
+        "start": 2600,
+        "end": 2600,
+        "original": "",
+        "replacement": ": var(--ui-mu"
+      },
+      {
+        "start": 2601,
+        "end": 2601,
+        "original": "",
+        "replacement": "ed);\n  b"
+      },
+      {
+        "start": 2602,
+        "end": 2602,
+        "original": "",
+        "replacement": "ckgrou"
+      },
+      {
+        "start": 2603,
+        "end": 2603,
+        "original": "",
+        "replacement": "d: var(--ui-sof"
+      },
+      {
+        "start": 2604,
+        "end": 2604,
+        "original": "",
+        "replacement": "-2);\n  border: 1px solid var(--ui-border);\n  border-radius: var(--radius-md)"
+      },
+      {
+        "start": 2619,
+        "end": 2628,
+        "original": "13px !imp",
+        "replacement": "var(--f"
+      },
+      {
+        "start": 2629,
+        "end": 2632,
+        "original": "rta",
+        "replacement": ""
+      },
+      {
+        "start": 2634,
+        "end": 2634,
+        "original": "",
+        "replacement": "-sm)"
+      },
+      {
+        "start": 2653,
+        "end": 2657,
+        "original": "6 !i",
+        "replacement": "8;\n}\n.co"
+      },
+      {
+        "start": 2659,
+        "end": 2659,
+        "original": "",
+        "replacement": "etiti"
+      },
+      {
+        "start": 2660,
+        "end": 2661,
+        "original": "r",
+        "replacement": "n-s"
+      },
+      {
+        "start": 2663,
+        "end": 2664,
+        "original": "n",
+        "replacement": ""
+      },
+      {
+        "start": 2665,
+        "end": 2666,
+        "original": ";",
+        "replacement": "us-guide > h3 {"
+      },
+      {
+        "start": 2669,
+        "end": 2671,
+        "original": "wh",
+        "replacement": "margin-top: 0;\n}\n.compet"
+      },
+      {
+        "start": 2673,
+        "end": 2673,
+        "original": "",
+        "replacement": "ion-status-guid"
+      },
+      {
+        "start": 2674,
+        "end": 2674,
+        "original": "",
+        "replacement": "-sub {\n  margin-bottom: var(-"
+      },
+      {
+        "start": 2680,
+        "end": 2699,
+        "original": ": normal !important",
+        "replacement": "-5)"
+      },
+      {
+        "start": 2703,
+        "end": 2703,
+        "original": "",
+        "replacement": "c"
+      },
+      {
+        "start": 2704,
+        "end": 2708,
+        "original": "verf",
+        "replacement": ""
+      },
+      {
+        "start": 2710,
+        "end": 2713,
+        "original": "w-w",
+        "replacement": ""
+      },
+      {
+        "start": 2714,
+        "end": 2716,
+        "original": "ap",
+        "replacement": ""
+      },
+      {
+        "start": 2718,
+        "end": 2718,
+        "original": "",
+        "replacement": "v"
+      },
+      {
+        "start": 2719,
+        "end": 2719,
+        "original": "",
+        "replacement": "r(--ui-muted);\n  fo"
+      },
+      {
+        "start": 2720,
+        "end": 2722,
+        "original": "yw",
+        "replacement": "t-size: var(--font-sm);\n  line-"
+      },
+      {
+        "start": 2724,
+        "end": 2726,
+        "original": "re",
+        "replacement": "ight:"
+      },
+      {
+        "start": 2727,
+        "end": 2737,
+        "original": "!important",
+        "replacement": "1.8"
+      },
+      {
+        "start": 2740,
+        "end": 2777,
+        "original": "\n\n/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */",
+        "replacement": ""
+      },
+      {
+        "start": 2811,
+        "end": 2822,
+        "original": " !important",
+        "replacement": ""
+      },
+      {
+        "start": 2825,
+        "end": 2874,
+        "original": "\n#gameplayContent img {\n  object-fit: contain;\n}\n",
+        "replacement": ""
+      },
+      {
+        "start": 2894,
+        "end": 2896,
+        "original": "64",
+        "replacement": "150"
+      },
+      {
+        "start": 2904,
+        "end": 2921,
+        "original": " #gameplayContent",
+        "replacement": ""
+      },
+      {
+        "start": 2938,
+        "end": 2939,
+        "original": "r",
+        "replacement": "list:n"
+      },
+      {
+        "start": 2940,
+        "end": 2941,
+        "original": "w",
+        "replacement": "t([hidden])"
+      },
+      {
+        "start": 2971,
+        "end": 2973,
+        "original": "66",
+        "replacement": "re"
+      },
+      {
+        "start": 2974,
+        "end": 2975,
+        "original": "x",
+        "replacement": "eat(2,"
+      },
+      {
+        "start": 2990,
+        "end": 3716,
+        "original": " !important;\n    min-height: 78px !important;\n    gap: 10px !important;\n    padding: 8px 10px !important;\n  }\n  #gameplayContent .item-reference-icon {\n    width: 58px !important;\n    height: 58px !important;\n    min-width: 58px !important;\n    min-height: 58px !important;\n    max-width: 58px !important;\n    max-height: 58px !important;\n  }\n  #gameplayContent .item-reference-icon .item-reference-img,\n  #gameplayContent .item-reference-icon img {\n    width: 46px !important;\n    height: 46px !important;\n    max-width: 46px !important;\n    max-height: 46px !important;\n  }\n  #gameplayContent .item-reference-name {\n    font-size: 14px !important;\n  }\n  #gameplayContent .item-reference-desc {\n    font-size: 12px !important",
+        "replacement": ")"
+      }
+    ]
+  },
+  {
+    "path": "src/styles/classroom/student-picker-hand.css",
+    "baseline": "1fa4e72",
+    "sha256": "a95e3f2af0c1d73b7e8914bfdec5b9b645b52ea7081e730c77d0f40e0a90c7fb",
+    "reason": "User approved gameplay redesign and modal examples; old classroom encyclopedia declarations move to dedicated owner, without priority escalation.",
+    "evidence": [
+      "artifacts/gameplay-page/encyclopedia.png",
+      "artifacts/gameplay-item-dialog/green-preview.png"
+    ],
+    "edits": [
+      {
+        "start": 5434,
+        "end": 5842,
+        "original": "百科技巧块 */\n.item-reference-tip {\n  margin-top: 8px;\n  padding: 8px 10px;\n  border-radius: 8px;\n  background: #f0f9f7;\n  color: #42635d;\n  font-size: 12px;\n  line-height: 1.55;\n}\n.item-reference-tip b {\n  color: #0f766e;\n}\n.item-reference-general {\n  margin: 0 0 12px;\n  padding: 12px 14px;\n  border: 1px solid #cfe2de;\n  border-radius: 10px;\n  background: #f8fcfb;\n  color: #425e59;\n  line-height: 1.65;\n}\n\n/* ",
+        "replacement": ""
+      }
+    ]
+  }
+]

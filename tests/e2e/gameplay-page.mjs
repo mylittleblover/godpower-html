@@ -40,6 +40,46 @@ try {
   }));
   assert.equal(counts.items, counts.expected);
   assert.equal(counts.statuses, 7);
+  assert.equal(
+    await page.locator("#gameplaySearch").count(),
+    1,
+    "gameplay reference needs a consistent search toolbar",
+  );
+  await page.locator("#gameplaySearch").fill("金币");
+  assert.ok(
+    (await page
+      .locator(
+        "#gameplayContent>.item-reference-list>.item-reference-row:visible",
+      )
+      .count()) > 0,
+  );
+  await page.locator("#gameplaySearch").fill("不存在的道具名称");
+  assert.equal(
+    await page
+      .locator(
+        "#gameplayContent>.item-reference-list>.item-reference-row:visible",
+      )
+      .count(),
+    0,
+  );
+  assert.equal(await page.locator("#gameplayEmpty").isVisible(), true);
+  await page.locator("#gameplaySearch").fill("");
+  await page.locator('[data-gameplay-tab="statuses"]').click();
+  assert.equal(
+    await page
+      .locator(
+        "#gameplayContent .competition-status-list>.item-reference-row:visible",
+      )
+      .count(),
+    7,
+  );
+  await page.locator('[data-gameplay-tab="rules"]').click();
+  assert.equal(await page.locator(".gameplay-rules").isVisible(), true);
+  assert.doesNotMatch(
+    await page.locator("#gameplayContent").innerText(),
+    /下一次抽取屏蔽|下一次抽取不会再出现/,
+  );
+  await page.locator('[data-gameplay-tab="items"]').click();
   const imageBox = await page
     .locator("#gameplayContent .item-reference-icon img")
     .first()

@@ -6928,130 +6928,121 @@ body.modern-flat .group-row-card.item-draw-spinning .card-item-roulette.reveal {
 
 
 
-<style id="v2170EncyclopediaStyle">/* Canonical gameplay reference: bounded image column and readable copy. */
-#gameplayContent .item-reference-head {
-  display: flex !important;
-  align-items: flex-start !important;
-  justify-content: space-between !important;
-  gap: 16px !important;
-  margin-bottom: 14px !important;
+<style id="v2170EncyclopediaStyle">/* Gameplay encyclopedia owner: one responsive card surface and theme tokens. */
+.gameplay-section-heading {
+  margin-bottom: var(--space-4);
 }
-#gameplayContent .item-reference-head h2 {
-  margin: 0 !important;
-  color: var(--window-head-text, var(--ui-text, #17302d)) !important;
+.gameplay-section-heading h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--font-lg);
 }
-#gameplayContent .item-reference-sub {
-  margin-top: 4px !important;
-  color: var(--window-head-subtext, var(--ui-muted, #607773)) !important;
-  font-size: 12px !important;
+.gameplay-section-heading p {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: var(--font-sm);
 }
-#gameplayContent .item-reference-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 9px !important;
-  width: 100% !important;
+.item-reference-list:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
 }
-#gameplayContent .item-reference-row {
-  display: grid !important;
-  grid-template-columns: 88px minmax(0, 1fr) !important;
-  align-items: center !important;
-  gap: 14px !important;
-  width: 100% !important;
-  min-height: 96px !important;
-  padding: 9px 14px !important;
-  border: 1px solid var(--ui-border, #c9dcd8) !important;
-  border-radius: 12px !important;
-  background: #fff !important;
-  box-shadow: none !important;
-  overflow: hidden !important;
+.item-reference-row:not([hidden]) {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  background: var(--ui-panel);
+  box-shadow: var(--shadow-card);
 }
-#gameplayContent .item-reference-icon {
-  width: 78px !important;
-  height: 78px !important;
-  min-width: 78px !important;
-  min-height: 78px !important;
-  max-width: 78px !important;
-  max-height: 78px !important;
-  border-radius: 50% !important;
-  background: #f3f8f7 !important;
-  border: 1px solid #d8e5e2 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  font-size: 44px !important;
-  line-height: 1 !important;
+.item-reference-icon {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--ui-soft);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: 36px;
+  line-height: 1;
 }
-#gameplayContent .item-reference-icon .item-reference-img,
-#gameplayContent .item-reference-icon img {
-  width: 62px !important;
-  height: 62px !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  max-width: 62px !important;
-  max-height: 62px !important;
-  object-fit: contain !important;
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  transform: none !important;
-}
-#gameplayContent .item-reference-copy {
-  min-width: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  gap: 5px !important;
-}
-#gameplayContent .item-reference-name {
-  color: var(--ui-text, #17302d) !important;
-  font-size: 15px !important;
-  font-weight: 900 !important;
-  line-height: 1.25 !important;
-}
-#gameplayContent .item-reference-desc {
-  color: var(--ui-muted, #607773) !important;
-  font-size: 13px !important;
-  line-height: 1.6 !important;
-  white-space: normal !important;
-  overflow-wrap: anywhere !important;
-}
-
-/* 百科所在右栏允许正常滚动，不让单个 PNG 改变窗口尺寸。 */
-#gameplayContent {
-  min-width: 0 !important;
-}
-#gameplayContent img {
+.item-reference-img,
+.item-reference-icon > img {
+  width: 52px;
+  height: 52px;
   object-fit: contain;
+  display: block;
 }
-
-@media (max-width: 640px) {
-  #gameplayContent .item-reference-row {
-    grid-template-columns: 66px minmax(0, 1fr) !important;
-    min-height: 78px !important;
-    gap: 10px !important;
-    padding: 8px 10px !important;
-  }
-  #gameplayContent .item-reference-icon {
-    width: 58px !important;
-    height: 58px !important;
-    min-width: 58px !important;
-    min-height: 58px !important;
-    max-width: 58px !important;
-    max-height: 58px !important;
-  }
-  #gameplayContent .item-reference-icon .item-reference-img,
-  #gameplayContent .item-reference-icon img {
-    width: 46px !important;
-    height: 46px !important;
-    max-width: 46px !important;
-    max-height: 46px !important;
-  }
-  #gameplayContent .item-reference-name {
-    font-size: 14px !important;
-  }
-  #gameplayContent .item-reference-desc {
-    font-size: 12px !important;
+.item-reference-copy {
+  min-width: 0;
+}
+.item-reference-name {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  color: var(--ui-text);
+  font-size: var(--font-md);
+  font-weight: var(--weight-heading);
+  line-height: 1.5;
+}
+.item-reference-tag {
+  padding: 3px 7px;
+  border-radius: var(--radius-sm);
+  color: var(--ui-primary);
+  background: var(--ui-soft);
+  font-size: var(--font-xs);
+  font-weight: var(--weight-label);
+}
+.item-reference-tip {
+  margin-top: var(--space-3);
+  color: var(--ui-text);
+  font-size: var(--font-sm);
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.item-reference-tip b {
+  color: var(--ui-primary);
+  font-size: var(--font-xs);
+}
+.item-reference-tip p {
+  margin: var(--space-1) 0 0;
+}
+.item-reference-open {
+  margin-top: var(--space-4);
+}
+.item-reference-desc {
+  color: var(--ui-muted);
+}
+.item-reference-general {
+  margin-bottom: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  color: var(--ui-muted);
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  line-height: 1.8;
+}
+.competition-status-guide > h3 {
+  margin-top: 0;
+}
+.competition-status-guide-sub {
+  margin-bottom: var(--space-5);
+  color: var(--ui-muted);
+  font-size: var(--font-sm);
+  line-height: 1.8;
+}
+#gameplayContent {
+  min-width: 0;
+}
+@media (max-width: 1500px) {
+  .item-reference-list:not([hidden]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 </style>
@@ -8653,29 +8644,6 @@ body.modern-flat .battle-rank-dock .resizer-handle {
 /* 抽奖结束后不再显示“查看道具” */
 #handRewardBox button[onclick="handUseNewItem()"] {
   display: none !important;
-}
-
-/* 百科技巧块 */
-.item-reference-tip {
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: #f0f9f7;
-  color: #42635d;
-  font-size: 12px;
-  line-height: 1.55;
-}
-.item-reference-tip b {
-  color: #0f766e;
-}
-.item-reference-general {
-  margin: 0 0 12px;
-  padding: 12px 14px;
-  border: 1px solid #cfe2de;
-  border-radius: 10px;
-  background: #f8fcfb;
-  color: #425e59;
-  line-height: 1.65;
 }
 
 /* 小屏 */
@@ -14083,7 +14051,7 @@ html[data-theme="marx"] {
 
 <!-- 结算档案处弹窗 -->
 <div id="view-gameplay" class="view">
-  <main class="gameplay-page-shell"><header class="gameplay-page-heading"><h1>玩法参考</h1><p>道具、状态与操作规则 · 沿用当前课堂的真实定义</p></header><div id="gameplayContent"></div></main>
+  <main class="gameplay-page-shell"><header class="ui-collection-header gameplay-page-heading"><div><span class="ui-settings-eyebrow">CLASSROOM PLAYBOOK · 课堂玩法</span><h2>玩法参考</h2><div class="ui-collection-sub">认识道具，掌握状态，让每一次使用都心中有数。</div></div><div class="gameplay-overview"><span class="ui-chip"><b data-gameplay-items-count>28</b>种道具</span><span class="ui-chip">7种状态</span><button type="button" class="btn" onclick="switchView('battle')">返回比赛</button></div></header><div class="gameplay-toolbar"><nav class="gameplay-tabs" aria-label="玩法分类"><button type="button" class="btn btn-primary" data-gameplay-tab="items" aria-current="true">道具图鉴</button><button type="button" class="btn" data-gameplay-tab="statuses">状态效果</button><button type="button" class="btn" data-gameplay-tab="rules">抽取与使用规则</button></nav><label>快速查找<input id="gameplaySearch" type="search" placeholder="道具名称、效果或状态" autocomplete="off"></label></div><div id="gameplayContent"></div><p id="gameplayEmpty" class="ui-snapshot-note" hidden>没有匹配结果，换个关键词试试。</p></main>
 </div>
 <div id="view-archives" class="view">
   <div class="ui-collection-header">
@@ -14226,7 +14194,7 @@ html[data-theme="marx"] {
 
 <div id="handRaiseBackdrop" class="classroom-backdrop">
   <div class="classroom-window ui-function-surface hand-flow-window" role="dialog" aria-modal="true" aria-labelledby="handFlowTitle">
-    <div class="classroom-head"><b id="handFlowTitle">课堂举手</b><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="关闭举手窗口">❌</button></div>
+    <div class="classroom-head"><div class="hand-flow-identity"><img id="handFlowAvatar" alt="小组头像" hidden><b id="handFlowTitle">课堂举手</b></div><button type="button" class="btn btn-sm" onclick="closeHandRaise()" aria-label="退出举手模式">退出举手 ❌</button></div>
     <div class="classroom-body" id="handFlowContent"></div>
   </div>
 </div>
@@ -33341,13 +33309,9 @@ batchToggleAllIn = function () {
 <script id="v2179ItemDrawCooldownRules">/* ===== V2.17.9：道具抽取冷却限制 =====
    1. 闪电 / 鱿鱿：全局冷却。抽中后必须间隔 4 次其他实际抽取，
       到第 5 次实际抽取才重新进入候选池。
-   2. 炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：
-      对单组生效。任意一个被该组抽中后，该组“下一次实际抽取”
-      会把这 4 个强力道具全部从候选池排除；再下一次恢复正常。
-   3. 仅统计真正的最终抽取结果，不统计轮盘预览，不统计上帝模式追加。 */
+   2. 仅统计真正的最终抽取结果，不统计轮盘预览，不统计上帝模式追加。 */
 
 const GLOBAL_FIVE_DRAW_ITEMS_V2179 = new Set(["lightning", "blooper"]);
-const STRONG_GROUP_ITEMS_V2179 = new Set(["bullet", "power", "mega", "star"]);
 
 function ensureDrawThrottleV2179() {
   ensureItemState();
@@ -33359,7 +33323,6 @@ function ensureDrawThrottleV2179() {
     state.itemGlobal.drawThrottleV2179 = {
       sequence: 0,
       nextEligible: { lightning: 0, blooper: 0 },
-      groupStrongSkip: {},
     };
   }
 
@@ -33374,9 +33337,6 @@ function ensureDrawThrottleV2179() {
     if (!Number.isFinite(Number(t.nextEligible[k]))) t.nextEligible[k] = 0;
     t.nextEligible[k] = Math.max(0, Math.floor(Number(t.nextEligible[k]) || 0));
   });
-
-  if (!t.groupStrongSkip || typeof t.groupStrongSkip !== "object")
-    t.groupStrongSkip = {};
 
   return t;
 }
@@ -33397,30 +33357,10 @@ function restrictedItemWeightsV2179(g) {
     if (drawNo < next) W[k] = 0;
   }
 
-  /* 单组强力道具冷却：只封锁这个组的下一次实际抽取。 */
-  if (Number(t.groupStrongSkip[g.id] || 0) > 0) {
-    STRONG_GROUP_ITEMS_V2179.forEach((k) => {
-      W[k] = 0;
-    });
-  }
-
   return { weights: W, drawNo, throttle: t };
 }
 
 function commitDrawThrottleV2179(g, key, drawNo, t) {
-  /* 先消费“下一抽禁强力”的一次机会。 */
-  const oldSkip = Math.max(0, Number(t.groupStrongSkip[g.id]) || 0);
-  if (oldSkip > 0) {
-    const left = oldSkip - 1;
-    if (left > 0) t.groupStrongSkip[g.id] = left;
-    else delete t.groupStrongSkip[g.id];
-  }
-
-  /* 本次如果又抽到了强力道具，则重新给该组挂上 1 次冷却。 */
-  if (STRONG_GROUP_ITEMS_V2179.has(key)) {
-    t.groupStrongSkip[g.id] = 1;
-  }
-
   /* 闪电 / 鱿鱿：本次之后至少间隔 4 次其他抽取，第 5 次重新开放。 */
   if (GLOBAL_FIVE_DRAW_ITEMS_V2179.has(key)) {
     t.nextEligible[key] = drawNo + 5;
@@ -33473,19 +33413,19 @@ if (ITEM_DEFS.blooper) {
 }
 if (ITEM_DEFS.bullet) {
   ITEM_DEFS.bullet.desc =
-    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取；本组抽中后，下一次抽取不会再出现炮弹刺客、强力蘑菇、巨大蘑菇或无敌星。";
+    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取。";
 }
 if (ITEM_DEFS.power) {
   ITEM_DEFS.power.desc =
-    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具；本组抽中后，下一次抽取不会再出现炮弹刺客、强力蘑菇、巨大蘑菇或无敌星。";
+    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具。";
 }
 if (ITEM_DEFS.mega) {
   ITEM_DEFS.mega.desc =
-    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取；本组抽中后，下一次抽取不会再出现4种强力道具。";
+    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
 }
 if (ITEM_DEFS.star) {
   ITEM_DEFS.star.desc =
-    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取；本组抽中后，下一次抽取不会再出现4种强力道具。";
+    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
 }
 
 /* 给数据页的道具区补一个小状态说明，便于实际使用时判断冷却有没有工作。 */
@@ -33500,7 +33440,6 @@ function installDrawCooldownInfoV2179() {
   info.innerHTML = `
     <b>抽取冷却规则</b>
     <span>闪电 / 鱿鱿：全局每次抽中后间隔 4 次其他抽取，第 5 次重新开放。</span>
-    <span>炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：某组抽中任意一个后，该组下一次抽取屏蔽全部 4 种。</span>
     <small>当前累计实际抽取序号：${t.sequence}</small>
   `;
   host.appendChild(info);
@@ -33612,34 +33551,12 @@ function sessionRestrictedWeightsV21710(g) {
   if (itemExistsOnFieldV2172("lightning")) W.lightning = 0;
   if (itemExistsOnFieldV2172("blooper")) W.blooper = 0;
 
-  /* 单组强力道具“下一抽禁用”规则继续保留。 */
-  const old = ensureDrawThrottleV2179();
-  if (Number(old.groupStrongSkip[g.id] || 0) > 0) {
-    STRONG_GROUP_ITEMS_V2179.forEach((k) => {
-      W[k] = 0;
-    });
-  }
-
   return W;
 }
 
 function commitSessionDrawV21710(g, key) {
   const t = ensureDrawSessionThrottleV21710();
   const sessionNo = activeDrawSessionV21710?.no || t.sessionNo;
-
-  /* 单组强力道具冷却沿用，但不再让 V2.17.9 的“全局序号”控制闪电 / 鱿鱿。 */
-  const old = ensureDrawThrottleV2179();
-  const oldSkip = Math.max(0, Number(old.groupStrongSkip[g.id]) || 0);
-
-  if (oldSkip > 0) {
-    const left = oldSkip - 1;
-    if (left > 0) old.groupStrongSkip[g.id] = left;
-    else delete old.groupStrongSkip[g.id];
-  }
-
-  if (STRONG_GROUP_ITEMS_V2179.has(key)) {
-    old.groupStrongSkip[g.id] = 1;
-  }
 
   if (GLOBAL_FIVE_DRAW_ITEMS_V2179.has(key)) {
     /* 本轮抽中后，第 1~4 个后续轮次禁用，第 5 个后续轮次恢复。
@@ -33698,7 +33615,6 @@ function refreshDrawCooldownInfoV21710() {
     <b>抽取冷却规则</b>
     <span>闪电 / 鱿鱿按“抽取轮次”计算，不按一次全局抽取发出了多少个道具计算。</span>
     <span>抽中后，接下来 4 个全局/举手抽取轮次禁用，第 5 个轮次重新开放。</span>
-    <span>炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：某组抽中任意一个后，该组下一次抽取屏蔽全部 4 种。</span>
     <small>当前全局抽取轮次：${t.sessionNo}</small>
     <small>${text("lightning", "闪电")}</small>
     <small>${text("blooper", "鱿鱿")}</small>
@@ -33736,8 +33652,7 @@ if (ITEM_DEFS.blooper) {
     "使全场积分、领奖台与图表暂时被墨汁遮蔽。整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
 }
 
-/* 旧 V2.17.9 的全局序号不再参与闪电/鱿鱿判定。
-   保留其对象只为了兼容单组强力道具冷却。 */
+/* 旧抽取序号和单组强力禁抽记录不参与现行候选判定。 */
 setTimeout(() => {
   try {
     refreshDrawCooldownInfoV21710();
@@ -35997,9 +35912,9 @@ const ITEM_FUNNY_TAG_V2184 = {
    这里补上真正讲战术的技巧文本，文风沿用其他条目：讲清什么时候用、亏在哪。 */
 const ITEM_TIPS_OVERRIDE_V2199 = {
   fire_flower:
-    "三发各自随机，等于把分数压力平摊给全班而不是集中打一个人。想要精准压制某组，火之花帮不上忙；想让所有人一起掉队，它最省事。",
+    "从前三名与末两名的合法目标中随机攻击，命中后还会灼烧；适合持续施压。",
   ice_flower:
-    "冻结会同时关掉对方的 All In 和道具，最适合用在别人准备梭哈的前一题。已经冻结全场时别再按，那只是花一发换一个提示。",
+    "冻结会限制 All In 和道具使用，适合阻止对手的下一步行动；没有合法未冻结目标时不消耗次数。",
   boomerang_flower:
     "上下邻居一起挨打，等于用一发管两个方向。缺点是永远打不到远处的第一名，适合中段缠斗，不适合追分。",
   star:
@@ -36007,7 +35922,7 @@ const ITEM_TIPS_OVERRIDE_V2199 = {
   mega:
     "和无敌星的持续时间相同（都是三轮答题），但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。道具栏本来就想留给它时，这个代价几乎为零。",
   kamek:
-    "五个负面状态随机分配，意味着你无法指定对手收到哪一种，只能指定“谁倒霉”。对手身上的防御可以挡下，所以它更像开盲盒，而不是精准打击。",
+    "在合法候选中随机选择目标和负面状态，对手的防御可以抵挡；适合制造变数。",
   item_box:
     "全班按排名各抽一件，等于把局面整体加速，而不是让你单独变强。分数领先时开箱，往往是在给别人发追赶的弹药。",
 };
@@ -36400,46 +36315,44 @@ function cleanAboutVisibleCopy() {
 function renderAboutItems() {
   return GameplayPage.open();
 }
+function itemReferenceEntry(k) {
+  const d = ITEM_DEFS[k];
+  const exact =
+    (typeof GROUP_ITEM_DESC_V2182 !== "undefined" &&
+      GROUP_ITEM_DESC_V2182[k]) ||
+    (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined" &&
+      ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k]) ||
+    d.desc ||
+    "";
+  const funny =
+    ITEM_FUNNY_COPY_V2184[k] ||
+    "它有自己的工作，而且暂时没有向策划提交辞职申请。";
+  const tag = ITEM_FUNNY_TAG_V2184[k] || "道具";
+  const tip =
+    ITEM_TIPS_OVERRIDE_V2199[k] ||
+    (typeof ITEM_TIPS_V218 !== "undefined" && ITEM_TIPS_V218[k]) ||
+    "根据排名和当前局势使用，别只因为图标好看就按。";
+  return { definition: d, exact, funny, tag, tip };
+}
 function itemReferenceMarkup() {
   const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
-  return `<div class="item-reference-head">
-    <div><h2>${itemCount} 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
-    <button class="btn btn-sm" onclick="closeAbout()">返回比赛</button>
-  </div>
+  return `<div class="gameplay-section-heading"><h2>${itemCount} 种道具</h2><p>实际效果以当前课堂规则为准，点击查看说明与动画示例。</p></div>
   <div class="item-reference-general">
-    <b>📖 百科阅读须知：</b>
-    这里的吐槽负责让你愿意把 ${itemCount} 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
-    随机范围道具仅从当前前三名与最后两名的合法目标中抽取；第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
-    总之，规则不会因为文案开始讲冷笑话就放你一马。
+    <b>使用前请留意</b>
+    随机范围道具只从当前前三名与最后两名的合法目标中抽取。首次手动举手抽取使用特殊等概率池；答题期间使用道具后不能 All In。同一枚多次使用道具可以继续使用剩余次数。
   </div>
   <div class="item-reference-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
-        const d = ITEM_DEFS[k];
-        const exact =
-          (typeof GROUP_ITEM_DESC_V2182 !== "undefined" &&
-            GROUP_ITEM_DESC_V2182[k]) ||
-          (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined" &&
-            ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k]) ||
-          d.desc ||
-          "";
-        const funny =
-          ITEM_FUNNY_COPY_V2184[k] ||
-          "它有自己的工作，而且暂时没有向策划提交辞职申请。";
-        const tag = ITEM_FUNNY_TAG_V2184[k] || "道具";
-        const tip =
-          ITEM_TIPS_OVERRIDE_V2199[k] ||
-          (typeof ITEM_TIPS_V218 !== "undefined" && ITEM_TIPS_V218[k]) ||
-          "根据排名和当前局势使用，别只因为图标好看就按。";
-        return `<div class="item-reference-row">
+        const { definition: d, exact, tag } = itemReferenceEntry(k);
+        return `<article class="item-reference-row" data-item-key="${escapeHtml(k)}">
         <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
         <div class="item-reference-copy">
-          <div class="item-reference-name">${escapeHtml(d.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(tag)}</span></div>
-          <div class="item-reference-desc" style="margin-top:7px;color:#334e49;line-height:1.65">${escapeHtml(funny)}</div>
-          <div class="item-reference-tip"><b>实际效果：</b>${escapeHtml(exact)}</div>
-          <div class="item-reference-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用技巧：</b>${escapeHtml(tip)}</div>
+          <div class="item-reference-name">${escapeHtml(d.name)} <span class="item-reference-tag">${escapeHtml(tag)}</span></div>
+          <div class="item-reference-tip"><b>实际效果</b><p>${escapeHtml(exact)}</p></div>
+          <button type="button" class="btn btn-sm item-reference-open" data-item-details="${escapeHtml(k)}">说明与效果演示 →</button>
         </div>
-      </div>`;
+      </article>`;
       })
       .join("")}
   </div>
@@ -37484,7 +37397,8 @@ function refreshBattleGrid() {
     star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后状态结束。",
     mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后释放道具栏。",
   };
-  for (const [key, desc] of Object.entries(descriptions)) ITEM_DEFS[key].desc = desc;
+  for (const [key, desc] of Object.entries(descriptions))
+    ITEM_DEFS[key].desc = desc;
   for (const key of ITEM_KEYS) {
     const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
@@ -37507,10 +37421,8 @@ function refreshBattleGrid() {
       "冻结同时关掉对方的 All In 和道具，最适合用在别人准备梭哈的前一题。全场已冻结时再按只是白花一发。",
     boomerang_flower:
       "上下邻居一起挨打，一发管两个方向；缺点是永远打不到远处的第一名，适合中段缠斗而非追分。",
-    star:
-      "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
-    mega:
-      "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
+    star: "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
+    mega: "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
   };
   if (typeof ITEM_TIPS_V218 !== "undefined")
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
@@ -37570,7 +37482,8 @@ function competitionStatusGuideMarkup() {
       key: "invincible",
       name: "无敌",
       tag: "无敌星",
-      exact: "持续 3 轮答题：期间抵挡全部攻击，答对总分×2、All In 答对×3，答错保分。",
+      exact:
+        "持续 3 轮答题：期间抵挡全部攻击，答对总分×2、All In 答对×3，答错保分。",
       tip: "按答题轮次计时，与是否被攻击无关；同时清空已有的负面状态。",
     },
     {
@@ -37590,9 +37503,9 @@ function competitionStatusGuideMarkup() {
           (row) => `<div class="item-reference-row">
         <div class="item-reference-icon status-icon-${row.key}"><span>${statusGuideGlyph(row.key)}</span></div>
         <div class="item-reference-copy">
-          <div class="item-reference-name">${escapeHtml(row.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(row.tag)}</span></div>
+          <div class="item-reference-name">${escapeHtml(row.name)} <span class="item-reference-tag">${escapeHtml(row.tag)}</span></div>
           <div class="item-reference-tip"><b>实际效果：</b>${escapeHtml(row.exact)}</div>
-          <div class="item-reference-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用要点：</b>${escapeHtml(row.tip)}</div>
+          <div class="item-reference-tip item-reference-tactic"><b>使用要点：</b>${escapeHtml(row.tip)}</div>
         </div>
       </div>`,
         )
@@ -41960,10 +41873,10 @@ const BattleMotion = (() => {
     draws = new Map();
   const duration = 1700,
     fade = 600;
-  function enabled() {
+  function enabled(requireBattle = true) {
     const p = DesktopUI.getPreferences();
     return (
-      currentView === "battle" &&
+      (!requireBattle || currentView === "battle") &&
       p.itemFx &&
       p.motion !== "off" &&
       !(
@@ -41971,8 +41884,8 @@ const BattleMotion = (() => {
       )
     );
   }
-  function mount(session, card) {
-    if (!card || !enabled()) return;
+  function mount(session, card, preview = false) {
+    if (!card || !enabled(!preview)) return;
     const node = document.createElement("div");
     node.className = "bm-layer";
     node.dataset.bmKey = session.id;
@@ -42012,18 +41925,9 @@ const BattleMotion = (() => {
           ],
       { duration, easing: "cubic-bezier(.22,.7,.25,1)", fill: "both" },
     ).currentTime = Math.max(0, performance.now() - session.started);
+    return node;
   }
-  function show(kind, gid, key, label) {
-    if (!enabled()) return;
-    const id = String(gid) + ":" + kind,
-      prior = sessions.get(id);
-    if (prior) clearTimeout(prior.timer);
-    document.querySelectorAll(".bm-layer").forEach((el) => {
-      if (el.dataset.bmKey === id) {
-        el.getAnimations().forEach((a) => a.cancel());
-        el.remove();
-      }
-    });
+  function styleFor(key, kind) {
     const family = /fire/.test(key)
       ? "fire"
       : /ice/.test(key)
@@ -42077,6 +41981,47 @@ const BattleMotion = (() => {
           : CARD_HIT_COLOR[key] ||
             CARD_HIT_COLOR[aliases[key]] ||
             (family === "buff" ? "#20a47a" : "#e97359");
+    return { family, color };
+  }
+  function preview(card, key) {
+    if (!card || !ITEM_DEFS[key]) return () => {};
+    const node = mount(
+      {
+        id: "preview",
+        key,
+        kind: "use",
+        ...styleFor(key, "use"),
+        label: ITEM_DEFS[key].name + " · 发动示例",
+        started: performance.now(),
+      },
+      card,
+      true,
+    );
+    let disposed = false;
+    const release = () => {
+      if (disposed || !node) return;
+      disposed = true;
+      node.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      node.remove();
+    };
+    node
+      ?.getAnimations()[0]
+      ?.finished.catch(() => {})
+      .finally(release);
+    return release;
+  }
+  function show(kind, gid, key, label) {
+    if (!enabled()) return;
+    const id = String(gid) + ":" + kind,
+      prior = sessions.get(id);
+    if (prior) clearTimeout(prior.timer);
+    document.querySelectorAll(".bm-layer").forEach((el) => {
+      if (el.dataset.bmKey === id) {
+        el.getAnimations().forEach((a) => a.cancel());
+        el.remove();
+      }
+    });
+    const { family, color } = styleFor(key, kind);
     const session = {
       id,
       gid,
@@ -42153,6 +42098,7 @@ const BattleMotion = (() => {
     if (document.hidden) clear();
   });
   return {
+    preview,
     show,
     restore,
     event,
@@ -44631,7 +44577,14 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "competition-status-guide",
-      sources: ["src/styles/feedback/item-score-cinematics.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/feedback/item-score-cinematics.css",
+      ],
+    },
+    {
+      name: "competition-status-guide-sub",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "component-library-content",
@@ -44857,11 +44810,51 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
+      name: "gameplay-demo-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-demo-heading",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-dialog",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-section",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-surface",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-overview",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "gameplay-page-heading",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "gameplay-page-shell",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-rules",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-section-heading",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
+    },
+    {
+      name: "gameplay-tabs",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-toolbar",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
@@ -45452,6 +45445,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
+      name: "hand-flow-identity",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "hand-flow-reel",
       sources: ["src/styles/classroom/hand-flow.css"],
     },
@@ -46039,12 +46036,11 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-reference-general",
-      sources: ["src/styles/classroom/student-picker-hand.css"],
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-reference-head",
       sources: [
-        "src/styles/items/encyclopedia-layout.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
       ],
@@ -46066,16 +46062,20 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
+      name: "item-reference-open",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
+    },
+    {
       name: "item-reference-row",
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
-      name: "item-reference-sub",
+      name: "item-reference-tag",
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-reference-tip",
-      sources: ["src/styles/classroom/student-picker-hand.css"],
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-score-delta",
@@ -47411,6 +47411,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
+        "src/styles/classroom/gameplay-page.css",
       ],
     },
     {
@@ -50138,12 +50139,17 @@ const AvatarPresetPicker = (() => {
       b.append(img, label);
       b.onclick = () =>
         perform(async () => {
-          const response = await fetch(item.dataUrl);
+          // Embedded bytes are local resources, not network requests. Electron
+          // deliberately disallows fetch(data:) through connect-src 'self'.
+          const encoded = item.dataUrl.match(
+            /^data:image\/webp;base64,([A-Za-z0-9+/=]+)$/,
+          )?.[1];
+          if (!encoded || encoded.length > 40000)
+            throw Error("预设头像资源无效");
+          const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
           current();
           await owner.onChoose(
-            new File([await response.blob()], item.id + ".webp", {
-              type: "image/webp",
-            }),
+            new File([bytes], item.id + ".webp", { type: "image/webp" }),
           );
         });
       grid.append(b);
@@ -50931,21 +50937,46 @@ const AvatarPresetPicker = (() => {
   margin: 0 auto;
 }
 .gameplay-page-heading {
+  align-items: center;
+}
+.gameplay-overview {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  gap: var(--space-3);
+}
+.gameplay-overview .ui-chip {
+  color: #fff;
+  background: #ffffff20;
+}
+.gameplay-toolbar {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 24px;
-  color: var(--ui-text);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
 }
-.gameplay-page-heading h1 {
-  font-size: 30px;
-  margin: 0;
+.gameplay-tabs {
+  display: flex;
+  gap: var(--space-2);
 }
-.gameplay-page-heading p {
+.gameplay-toolbar label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   color: var(--ui-muted);
-  margin: 0;
-  line-height: 1.6;
+  font-size: var(--font-sm);
+}
+.gameplay-toolbar input {
+  width: 300px;
+  padding: 10px 14px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  color: var(--ui-text);
+  background: var(--ui-panel);
+}
+.gameplay-rules {
+  color: var(--ui-text);
+  line-height: 1.8;
 }
 .gameplay-about-tabs {
   display: flex;
@@ -50956,22 +50987,286 @@ const AvatarPresetPicker = (() => {
   max-width: 100%;
   padding: 0;
 }
+
+/* Item reference modal: native focus boundary, existing shared motion surface. */
+.gameplay-item-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(900px, 92vw);
+  max-height: 90vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.gameplay-item-dialog::backdrop {
+  background: rgb(9 32 29 / 55%);
+}
+.gameplay-item-surface {
+  max-height: 90vh;
+  overflow: auto;
+  padding: var(--space-5);
+  color: var(--ui-text);
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+}
+.gameplay-item-surface > header,
+.gameplay-demo-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.gameplay-item-surface > header > div:nth-child(2) {
+  flex: 1;
+}
+.gameplay-item-surface h3 {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-lg);
+}
+.gameplay-item-section {
+  margin-top: var(--space-5);
+  font-size: var(--font-sm);
+  line-height: 1.8;
+}
+.gameplay-item-section h4 {
+  margin: 0 0 var(--space-2);
+  color: var(--ui-primary);
+}
+.gameplay-item-section p {
+  margin: var(--space-2) 0;
+}
+.gameplay-demo-heading {
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.gameplay-demo-card {
+  position: relative;
+  padding: var(--space-4);
+  min-height: 100px;
+  border: 1px solid var(--ui-border);
+  border-left: 4px solid var(--group-color);
+  border-radius: var(--radius-md);
+  background: var(--ui-soft-2);
+}
 </style>
+<script>/* Read-only item reference and isolated demo; never invokes classroom commands. */
+const GameplayItemDialog = (() => {
+  let dialog,
+    key = null,
+    releasePreview = () => {},
+    releasePage = null;
+  function stopPreview() {
+    releasePreview();
+    releasePreview = () => {};
+  }
+  function close() {
+    if (!dialog?.open) return;
+    stopPreview();
+    DesktopUI.dismissWindow(dialog, () => {
+      const release = releasePage;
+      releasePage = null;
+      if (release) release();
+      else {
+        dialog.close();
+        key = null;
+      }
+    });
+  }
+  function demoCard(itemKey) {
+    const card = document.createElement("div");
+    card.className = "group-row-card battle-card gameplay-demo-card";
+    card.style.setProperty("--group-color", "#0f766e");
+    card.style.setProperty("--group-contrast", "#fff");
+    card.style.setProperty("--group-badge-color", "#0f766e");
+    const group = {
+      id: -1,
+      name: "演示小组",
+      color: "#0f766e",
+      score: 100,
+      displayScore: 100,
+      members: [],
+      inventory: [{ key: itemKey, charges: ITEM_DEFS[itemKey].charges || 1 }],
+      selectedOpt: "",
+      allIn: false,
+      resultText: "效果示例",
+      competitionEffects: {},
+    };
+    card.innerHTML = GodPowerBattleCardView.render(
+      group,
+      {
+        roundActive: false,
+        evaluated: true,
+        isLocked: true,
+        sortLabel: "编号",
+      },
+      {
+        badge: { foreground: "#fff", background: "#0f766e" },
+        escapeHtml,
+        itemVisual,
+        itemName: (k) => ITEM_DEFS[k]?.name || "",
+        groupNumber: () => "01",
+      },
+    );
+    for (const node of [card, ...card.querySelectorAll("*")]) {
+      for (const attribute of [...node.attributes])
+        if (/^on/i.test(attribute.name) || attribute.name === "id")
+          node.removeAttribute(attribute.name);
+      if (node.matches("button,input,select")) node.disabled = true;
+    }
+    card.inert = true;
+    return card;
+  }
+  function replay() {
+    stopPreview();
+    if (key && dialog?.open)
+      releasePreview = BattleMotion.preview(
+        dialog.querySelector(".gameplay-demo-card"),
+        key,
+      );
+  }
+  function mount() {
+    if (dialog) return;
+    dialog = document.createElement("dialog");
+    dialog.id = "gameplayItemDialog";
+    dialog.className = "gameplay-item-dialog";
+    dialog.setAttribute("aria-labelledby", "gameplayItemTitle");
+    dialog.innerHTML =
+      '<section class="ui-function-surface gameplay-item-surface"><header><div class="item-reference-icon" data-item-dialog-icon></div><div><span class="ui-muted">道具说明</span><h3 id="gameplayItemTitle"></h3></div><button type="button" class="btn btn-sm" data-item-dialog-close aria-label="关闭道具说明">❌</button></header><section class="gameplay-item-section"><h4>实际效果</h4><p data-item-dialog-effect></p></section><section class="gameplay-item-section"><h4>使用技巧</h4><p data-item-dialog-tip></p><p class="ui-muted" data-item-dialog-funny></p></section><section class="gameplay-item-section"><div class="gameplay-demo-heading"><div><h4>卡片动画示例</h4><p class="ui-muted">示例不影响课堂积分、库存和历史。</p></div><button type="button" class="btn" data-item-preview-play>重播卡片效果</button></div><div data-item-demo-host></div></section></section>';
+    dialog.querySelector("[data-item-dialog-close]").onclick = close;
+    dialog.querySelector("[data-item-preview-play]").onclick = replay;
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
+    window.addEventListener("pagehide", () => {
+      stopPreview();
+      dialog.close();
+    });
+    document.body.append(dialog);
+  }
+  function open(itemKey) {
+    if (!ITEM_DEFS[itemKey]) return;
+    mount();
+    DesktopUI.cancelWindowClose(dialog);
+    stopPreview();
+    key = itemKey;
+    const entry = itemReferenceEntry(itemKey);
+    dialog.querySelector("#gameplayItemTitle").textContent =
+      entry.definition.name;
+    dialog.querySelector("[data-item-dialog-icon]").innerHTML =
+      itemVisual(itemKey);
+    dialog.querySelector("[data-item-dialog-effect]").textContent = entry.exact;
+    dialog.querySelector("[data-item-dialog-tip]").textContent = entry.tip;
+    dialog.querySelector("[data-item-dialog-funny]").textContent = entry.funny;
+    dialog
+      .querySelector("[data-item-demo-host]")
+      .replaceChildren(demoCard(itemKey));
+    if (!releasePage)
+      releasePage =
+        window.GodPowerPageLifecycle?.current()?.add(() => {
+          releasePage = null;
+          stopPreview();
+          DesktopUI.cancelWindowClose(dialog);
+          dialog.close();
+          key = null;
+        }) || null;
+    if (!dialog.open) dialog.showModal();
+    const p = DesktopUI.getPreferences();
+    const motion =
+      p.motion !== "off" &&
+      !(
+        p.systemMotion && matchMedia("(prefers-reduced-motion: reduce)").matches
+      );
+    const play = dialog.querySelector("[data-item-preview-play]");
+    play.disabled = !motion || !p.itemFx;
+    play.textContent = play.disabled ? "动效已在设置中关闭" : "重播卡片效果";
+    if (motion && p.pageMotion) {
+      const style = getComputedStyle(document.documentElement);
+      dialog.querySelector(".gameplay-item-surface").animate(
+        [
+          { opacity: 0, translate: "0 24px" },
+          { opacity: 1, translate: "0 0" },
+        ],
+        {
+          duration: 240 / p.speed,
+          easing: style.getPropertyValue("--motion-ease").trim(),
+          fill: "backwards",
+        },
+      );
+    }
+    replay();
+  }
+  return Object.freeze({ open, close, replay });
+})();
+</script>
 <script>/* First-level gameplay reference; data and copy remain in their existing owners. */
 (function installGameplayPage(root) {
   "use strict";
+  let tab = "items",
+    bound = false;
+  function filter() {
+    const host = document.getElementById("gameplayContent");
+    const query = document
+      .getElementById("gameplaySearch")
+      .value.trim()
+      .toLocaleLowerCase();
+    const items = host.querySelector(":scope > .item-reference-list");
+    const statuses = host.querySelector(".competition-status-guide");
+    host.querySelector(".gameplay-section-heading").hidden = tab !== "items";
+    items.hidden = tab !== "items";
+    statuses.hidden = tab !== "statuses";
+    host.querySelector(".gameplay-rules").hidden = tab !== "rules";
+    host.querySelector(".item-reference-general").hidden = tab !== "rules";
+    let visible = 0;
+    const list = tab === "statuses" ? statuses : items;
+    for (const row of list.querySelectorAll(".item-reference-row")) {
+      row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+      if (!row.hidden) visible++;
+    }
+    document.getElementById("gameplayEmpty").hidden =
+      tab === "rules" || visible > 0;
+    document.getElementById("gameplaySearch").disabled = tab === "rules";
+    document.querySelectorAll("[data-gameplay-tab]").forEach((button) => {
+      const selected = button.dataset.gameplayTab === tab;
+      button.setAttribute("aria-current", String(selected));
+      button.classList.toggle("btn-primary", selected);
+    });
+  }
   function render() {
     const host = document.getElementById("gameplayContent");
     if (!host) return;
     host.innerHTML = itemReferenceMarkup();
-    const details = document.createElement("details");
-    details.className = "ui-settings-disclosure";
-    const summary = document.createElement("summary");
-    summary.textContent = "当前抽取规则 · " + ItemDrawPolicy.version;
+    const rules = document.createElement("section");
+    rules.className = "ui-settings-group gameplay-rules";
+    const title = document.createElement("h3");
+    title.textContent = "当前抽取规则";
     const copy = document.createElement("p");
     copy.textContent = ItemDrawPolicy.summary;
-    details.append(summary, copy);
-    host.prepend(details);
+    rules.append(title, copy);
+    host.prepend(rules);
+    document.querySelector("[data-gameplay-items-count]").textContent =
+      ITEM_KEYS.length;
+    if (!bound) {
+      bound = true;
+      host.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-item-details]");
+        if (button) GameplayItemDialog.open(button.dataset.itemDetails);
+      });
+      document
+        .getElementById("gameplaySearch")
+        .addEventListener("input", filter);
+      document
+        .querySelector(".gameplay-tabs")
+        .addEventListener("click", (event) => {
+          const button = event.target.closest("[data-gameplay-tab]");
+          if (!button) return;
+          tab = button.dataset.gameplayTab;
+          filter();
+        });
+    }
+    filter();
   }
   function open() {
     switchView("gameplay");
@@ -54359,8 +54654,9 @@ window.GodpowerPicker = (() => {
         group: document.getElementById("reelTextGroup")?.textContent || "",
         student: document.getElementById("reelTextStudent")?.textContent || "",
       },
-      groups: state.groups.map((g) => ({
+      groups: state.groups.map((g, index) => ({
         id: g.id,
+        groupNo: g.groupNo || index + 1,
         name: g.name,
         color: g.color,
         members: g.members?.length || 0,
@@ -55165,6 +55461,21 @@ globalThis.HandRaisePort = (() => {
 .hand-flow-window {
   width: min(1100px, 92vw);
 }
+.hand-flow-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.hand-flow-identity img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+.hand-flow-identity b {
+  overflow-wrap: anywhere;
+}
 .hand-flow-description {
   text-align: center;
   color: var(--ui-muted);
@@ -55346,13 +55657,14 @@ globalThis.HandRaisePort = (() => {
       node.setAttribute("aria-hidden", "true");
       document.body.append(node);
     }
+    const bounds = node.getBoundingClientRect();
     const holes = [...document.querySelectorAll("#groupList>.group-row-card")]
       .map((card) => {
         const r = card.getBoundingClientRect();
-        return `<rect x="${r.x - 2}" y="${r.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
+        return `<rect x="${r.x - bounds.x - 2}" y="${r.y - bounds.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
       })
       .join("");
-    node.innerHTML = `<svg width="100%" height="100%"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组 · Escape 退出<button type="button" data-hand-close>❌</button></div>`;
+    node.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 ${bounds.width} ${bounds.height}" preserveAspectRatio="none"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组<button type="button" data-hand-close aria-label="退出举手模式">退出举手 ❌</button></div>`;
   }
   function scheduleShade() {
     if (frame !== null) return;
@@ -55430,6 +55742,11 @@ globalThis.HandRaisePort = (() => {
     const group = state.groups.find((g) => g.id === s.groupId);
     document.getElementById("handFlowTitle").textContent =
       group?.name || "课堂举手";
+    const avatar = document.getElementById("handFlowAvatar");
+    const src = root.ClassroomAvatarDisplay?.ownGroupUrl(group) || "";
+    avatar.hidden = !src;
+    if (src) avatar.src = src;
+    else avatar.removeAttribute("src");
     if (stage === "JUDGE")
       content().innerHTML = `<p class="hand-flow-description">这一次回答，是否正确？</p><div class="hand-flow-grid"><button type="button" class="hand-flow-card positive" data-hand-judge="correct">${icon("m5 12 4 4L19 6")}<strong>回答正确</strong><span>记录参与，选择本次奖励</span></button><button type="button" class="hand-flow-card negative" data-hand-judge="wrong">${icon("m6 6 12 12M18 6 6 18")}<strong>回答错误</strong><span>记录勇敢参与，继续下一组</span></button></div>`;
     else
@@ -55754,15 +56071,22 @@ globalThis.HandRaisePort = (() => {
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
       handSnapshot = hand?.getSnapshot() || null;
+    const drawnItemKey = handSnapshot?.itemName
+      ? ITEM_KEYS.find((key) => ITEM_DEFS[key].name === handSnapshot.itemName)
+      : null;
     const payload = {
       ...snapshot,
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
             avatarDataUrl:
+              globalThis.ClassroomAvatarDisplay?.ownGroupDataUrlCached(
+                state.groups.find((g) => g.id === handSnapshot.groupId),
+              ) ||
               globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(
                 state.groups.find((g) => g.id === handSnapshot.groupId),
-              ) || "",
+              ) ||
+              "",
             phase: handSnapshot.phase,
             motionEnabled:
               DesktopUI.getPreferences().motion !== "off" &&
@@ -55782,6 +56106,7 @@ globalThis.HandRaisePort = (() => {
             canUse: handSnapshot.canUse,
             mainItemName: handSnapshot.mainItemName,
             itemName: handSnapshot.itemName,
+            itemIcon: drawnItemKey ? itemIconDataUrl(drawnItemKey) : "",
           }
         : null,
     };

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "item-reference-sub",
+    "baseline": "1fa4e72",
+    "path": "src/styles/items/encyclopedia-layout.css",
+    "replacementOwner": "src/styles/items/encyclopedia-layout.css",
+    "replacement": ".gameplay-section-heading p",
+    "producer": "src/ui/about-view.js",
+    "reason": "Duplicate old encyclopedia subtitle replaced by the current gameplay section heading."
+  }
+]

@@ -370,6 +370,34 @@ test("3.0.66 CSS edits preserve every non-retired declaration and original casca
           expected.slice(edit.end);
       }
     }
+    // Preserve the historical cleanup proof, then apply the separately audited
+    // user-requested 3.0.72 presentation changes with exact owner-edit receipts.
+    const followups = JSON.parse(
+      readFileSync(
+        "artifacts/classroom-hotfix-3.0.72/style-owner-edits.json",
+        "utf8",
+      ),
+    );
+    for (const row of followups.filter((row) => row.path === p)) {
+      const prior = execFileSync("git", ["show", row.baseline + ":" + p], {
+        encoding: "utf8",
+      });
+      assert.equal(hash(prior), row.sha256);
+      assert.equal(
+        await format(prior, { parser: "css" }),
+        await format(expected, { parser: "css" }),
+        p + " pre-redesign checkpoint",
+      );
+      expected = prior;
+      assert.ok(row.evidence.every((file) => existsSync(file)));
+      for (const edit of row.edits.toSorted((a, b) => b.start - a.start)) {
+        assert.equal(expected.slice(edit.start, edit.end), edit.original);
+        expected =
+          expected.slice(0, edit.start) +
+          edit.replacement +
+          expected.slice(edit.end);
+      }
+    }
     assert.equal(
       await format(readFileSync(p, "utf8"), { parser: "css" }),
       await format(expected, { parser: "css" }),

@@ -270,29 +270,6 @@
   display: none !important;
 }
 
-/* 百科技巧块 */
-.item-reference-tip {
-  margin-top: 8px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: #f0f9f7;
-  color: #42635d;
-  font-size: 12px;
-  line-height: 1.55;
-}
-.item-reference-tip b {
-  color: #0f766e;
-}
-.item-reference-general {
-  margin: 0 0 12px;
-  padding: 12px 14px;
-  border: 1px solid #cfe2de;
-  border-radius: 10px;
-  background: #f8fcfb;
-  color: #425e59;
-  line-height: 1.65;
-}
-
 /* 小屏 */
 @media (max-width: 700px) {
   .quick-person-card {

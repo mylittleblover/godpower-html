@@ -1,18 +1,69 @@
 /* First-level gameplay reference; data and copy remain in their existing owners. */
 (function installGameplayPage(root) {
   "use strict";
+  let tab = "items",
+    bound = false;
+  function filter() {
+    const host = document.getElementById("gameplayContent");
+    const query = document
+      .getElementById("gameplaySearch")
+      .value.trim()
+      .toLocaleLowerCase();
+    const items = host.querySelector(":scope > .item-reference-list");
+    const statuses = host.querySelector(".competition-status-guide");
+    host.querySelector(".gameplay-section-heading").hidden = tab !== "items";
+    items.hidden = tab !== "items";
+    statuses.hidden = tab !== "statuses";
+    host.querySelector(".gameplay-rules").hidden = tab !== "rules";
+    host.querySelector(".item-reference-general").hidden = tab !== "rules";
+    let visible = 0;
+    const list = tab === "statuses" ? statuses : items;
+    for (const row of list.querySelectorAll(".item-reference-row")) {
+      row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
+      if (!row.hidden) visible++;
+    }
+    document.getElementById("gameplayEmpty").hidden =
+      tab === "rules" || visible > 0;
+    document.getElementById("gameplaySearch").disabled = tab === "rules";
+    document.querySelectorAll("[data-gameplay-tab]").forEach((button) => {
+      const selected = button.dataset.gameplayTab === tab;
+      button.setAttribute("aria-current", String(selected));
+      button.classList.toggle("btn-primary", selected);
+    });
+  }
   function render() {
     const host = document.getElementById("gameplayContent");
     if (!host) return;
     host.innerHTML = itemReferenceMarkup();
-    const details = document.createElement("details");
-    details.className = "ui-settings-disclosure";
-    const summary = document.createElement("summary");
-    summary.textContent = "当前抽取规则 · " + ItemDrawPolicy.version;
+    const rules = document.createElement("section");
+    rules.className = "ui-settings-group gameplay-rules";
+    const title = document.createElement("h3");
+    title.textContent = "当前抽取规则";
     const copy = document.createElement("p");
     copy.textContent = ItemDrawPolicy.summary;
-    details.append(summary, copy);
-    host.prepend(details);
+    rules.append(title, copy);
+    host.prepend(rules);
+    document.querySelector("[data-gameplay-items-count]").textContent =
+      ITEM_KEYS.length;
+    if (!bound) {
+      bound = true;
+      host.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-item-details]");
+        if (button) GameplayItemDialog.open(button.dataset.itemDetails);
+      });
+      document
+        .getElementById("gameplaySearch")
+        .addEventListener("input", filter);
+      document
+        .querySelector(".gameplay-tabs")
+        .addEventListener("click", (event) => {
+          const button = event.target.closest("[data-gameplay-tab]");
+          if (!button) return;
+          tab = button.dataset.gameplayTab;
+          filter();
+        });
+    }
+    filter();
   }
   function open() {
     switchView("gameplay");

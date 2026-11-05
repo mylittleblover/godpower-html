@@ -50,7 +50,8 @@
     star: "无敌星触发无敌状态：持续 3 轮答题；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后状态结束。",
     mega: "巨大蘑菇触发巨大化状态：持续 3 轮答题并占据主要道具栏；期间抵挡全部攻击，普通答对总分 ×2，All In 答对总分 ×3；答错不扣答题分，All In 失败不清零。到期后释放道具栏。",
   };
-  for (const [key, desc] of Object.entries(descriptions)) ITEM_DEFS[key].desc = desc;
+  for (const [key, desc] of Object.entries(descriptions))
+    ITEM_DEFS[key].desc = desc;
   for (const key of ITEM_KEYS) {
     const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
@@ -73,10 +74,8 @@
       "冻结同时关掉对方的 All In 和道具，最适合用在别人准备梭哈的前一题。全场已冻结时再按只是白花一发。",
     boomerang_flower:
       "上下邻居一起挨打，一发管两个方向；缺点是永远打不到远处的第一名，适合中段缠斗而非追分。",
-    star:
-      "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
-    mega:
-      "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
+    star: "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
+    mega: "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
   };
   if (typeof ITEM_TIPS_V218 !== "undefined")
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
@@ -136,7 +135,8 @@ function competitionStatusGuideMarkup() {
       key: "invincible",
       name: "无敌",
       tag: "无敌星",
-      exact: "持续 3 轮答题：期间抵挡全部攻击，答对总分×2、All In 答对×3，答错保分。",
+      exact:
+        "持续 3 轮答题：期间抵挡全部攻击，答对总分×2、All In 答对×3，答错保分。",
       tip: "按答题轮次计时，与是否被攻击无关；同时清空已有的负面状态。",
     },
     {
@@ -156,9 +156,9 @@ function competitionStatusGuideMarkup() {
           (row) => `<div class="item-reference-row">
         <div class="item-reference-icon status-icon-${row.key}"><span>${statusGuideGlyph(row.key)}</span></div>
         <div class="item-reference-copy">
-          <div class="item-reference-name">${escapeHtml(row.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(row.tag)}</span></div>
+          <div class="item-reference-name">${escapeHtml(row.name)} <span class="item-reference-tag">${escapeHtml(row.tag)}</span></div>
           <div class="item-reference-tip"><b>实际效果：</b>${escapeHtml(row.exact)}</div>
-          <div class="item-reference-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用要点：</b>${escapeHtml(row.tip)}</div>
+          <div class="item-reference-tip item-reference-tactic"><b>使用要点：</b>${escapeHtml(row.tip)}</div>
         </div>
       </div>`,
         )

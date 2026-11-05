@@ -18,46 +18,44 @@ function cleanAboutVisibleCopy() {
 function renderAboutItems() {
   return GameplayPage.open();
 }
+function itemReferenceEntry(k) {
+  const d = ITEM_DEFS[k];
+  const exact =
+    (typeof GROUP_ITEM_DESC_V2182 !== "undefined" &&
+      GROUP_ITEM_DESC_V2182[k]) ||
+    (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined" &&
+      ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k]) ||
+    d.desc ||
+    "";
+  const funny =
+    ITEM_FUNNY_COPY_V2184[k] ||
+    "它有自己的工作，而且暂时没有向策划提交辞职申请。";
+  const tag = ITEM_FUNNY_TAG_V2184[k] || "道具";
+  const tip =
+    ITEM_TIPS_OVERRIDE_V2199[k] ||
+    (typeof ITEM_TIPS_V218 !== "undefined" && ITEM_TIPS_V218[k]) ||
+    "根据排名和当前局势使用，别只因为图标好看就按。";
+  return { definition: d, exact, funny, tag, tip };
+}
 function itemReferenceMarkup() {
   const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
-  return `<div class="item-reference-head">
-    <div><h2>${itemCount} 种道具百科</h2><div class="item-reference-sub">规则很严肃，介绍决定不配合。</div></div>
-    <button class="btn btn-sm" onclick="closeAbout()">返回比赛</button>
-  </div>
+  return `<div class="gameplay-section-heading"><h2>${itemCount} 种道具</h2><p>实际效果以当前课堂规则为准，点击查看说明与动画示例。</p></div>
   <div class="item-reference-general">
-    <b>📖 百科阅读须知：</b>
-    这里的吐槽负责让你愿意把 ${itemCount} 种道具看完，下面的“实际效果”才负责在比赛时救你的命。
-    随机范围道具仅从当前前三名与最后两名的合法目标中抽取；第一次手动举手抽取仍使用特殊等概率池；答题期间主动使用道具后不能 All In；三重道具则可以继续消耗同一件道具的剩余次数。
-    总之，规则不会因为文案开始讲冷笑话就放你一马。
+    <b>使用前请留意</b>
+    随机范围道具只从当前前三名与最后两名的合法目标中抽取。首次手动举手抽取使用特殊等概率池；答题期间使用道具后不能 All In。同一枚多次使用道具可以继续使用剩余次数。
   </div>
   <div class="item-reference-list">
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
-        const d = ITEM_DEFS[k];
-        const exact =
-          (typeof GROUP_ITEM_DESC_V2182 !== "undefined" &&
-            GROUP_ITEM_DESC_V2182[k]) ||
-          (typeof ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715 !== "undefined" &&
-            ITEM_ENCYCLOPEDIA_EFFECT_ONLY_V21715[k]) ||
-          d.desc ||
-          "";
-        const funny =
-          ITEM_FUNNY_COPY_V2184[k] ||
-          "它有自己的工作，而且暂时没有向策划提交辞职申请。";
-        const tag = ITEM_FUNNY_TAG_V2184[k] || "道具";
-        const tip =
-          ITEM_TIPS_OVERRIDE_V2199[k] ||
-          (typeof ITEM_TIPS_V218 !== "undefined" && ITEM_TIPS_V218[k]) ||
-          "根据排名和当前局势使用，别只因为图标好看就按。";
-        return `<div class="item-reference-row">
+        const { definition: d, exact, tag } = itemReferenceEntry(k);
+        return `<article class="item-reference-row" data-item-key="${escapeHtml(k)}">
         <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
         <div class="item-reference-copy">
-          <div class="item-reference-name">${escapeHtml(d.name)} <span style="font-size:11px;font-weight:800;color:#0f766e;background:#eaf7f4;border-radius:999px;padding:3px 7px;margin-left:5px">${escapeHtml(tag)}</span></div>
-          <div class="item-reference-desc" style="margin-top:7px;color:#334e49;line-height:1.65">${escapeHtml(funny)}</div>
-          <div class="item-reference-tip"><b>实际效果：</b>${escapeHtml(exact)}</div>
-          <div class="item-reference-tip" style="background:#fff8eb;color:#6f5830"><b style="color:#b66a00">使用技巧：</b>${escapeHtml(tip)}</div>
+          <div class="item-reference-name">${escapeHtml(d.name)} <span class="item-reference-tag">${escapeHtml(tag)}</span></div>
+          <div class="item-reference-tip"><b>实际效果</b><p>${escapeHtml(exact)}</p></div>
+          <button type="button" class="btn btn-sm item-reference-open" data-item-details="${escapeHtml(k)}">说明与效果演示 →</button>
         </div>
-      </div>`;
+      </article>`;
       })
       .join("")}
   </div>

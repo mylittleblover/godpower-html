@@ -67,12 +67,17 @@ const AvatarPresetPicker = (() => {
       b.append(img, label);
       b.onclick = () =>
         perform(async () => {
-          const response = await fetch(item.dataUrl);
+          // Embedded bytes are local resources, not network requests. Electron
+          // deliberately disallows fetch(data:) through connect-src 'self'.
+          const encoded = item.dataUrl.match(
+            /^data:image\/webp;base64,([A-Za-z0-9+/=]+)$/,
+          )?.[1];
+          if (!encoded || encoded.length > 40000)
+            throw Error("预设头像资源无效");
+          const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
           current();
           await owner.onChoose(
-            new File([await response.blob()], item.id + ".webp", {
-              type: "image/webp",
-            }),
+            new File([bytes], item.id + ".webp", { type: "image/webp" }),
           );
         });
       grid.append(b);

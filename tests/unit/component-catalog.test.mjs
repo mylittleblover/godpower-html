@@ -72,12 +72,32 @@ test("component catalog includes every shipped CSS class, token and animation wi
       "row-score-light",
     ),
   );
+  const redesignRetirements = JSON.parse(
+    readFileSync(
+      "artifacts/classroom-hotfix-3.0.72/class-retirements.json",
+      "utf8",
+    ),
+  );
+  for (const row of redesignRetirements) {
+    const old = execFileSync("git", ["show", row.baseline + ":" + row.path], {
+      encoding: "utf8",
+    });
+    assert.ok(old.includes("." + row.name));
+    assert.ok(
+      readFileSync(row.replacementOwner, "utf8").includes(row.replacement),
+    );
+    assert.ok(
+      !readFileSync(row.producer, "utf8").includes('class="' + row.name + '"'),
+    );
+    assert.ok(!generated.classes.some((item) => item.name === row.name));
+  }
   assert.deepEqual(
     Array.from(missing, (item) => item.name).sort(),
     [
       ...new Set([
         ...proof.removed.map((item) => item.name),
         "row-score-light",
+        ...redesignRetirements.map((row) => row.name),
         ...laterRetired.map((item) => item.name),
       ]),
     ].sort(),

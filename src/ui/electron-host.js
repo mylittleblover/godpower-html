@@ -72,15 +72,22 @@
   const publish = () => {
     const snapshot = GodpowerPicker.getSnapshot(),
       handSnapshot = hand?.getSnapshot() || null;
+    const drawnItemKey = handSnapshot?.itemName
+      ? ITEM_KEYS.find((key) => ITEM_DEFS[key].name === handSnapshot.itemName)
+      : null;
     const payload = {
       ...snapshot,
       saveContext: globalThis.SaveManager?.context?.() || null,
       hand: handSnapshot
         ? {
             avatarDataUrl:
+              globalThis.ClassroomAvatarDisplay?.ownGroupDataUrlCached(
+                state.groups.find((g) => g.id === handSnapshot.groupId),
+              ) ||
               globalThis.ClassroomAvatarDisplay?.groupDataUrlCached(
                 state.groups.find((g) => g.id === handSnapshot.groupId),
-              ) || "",
+              ) ||
+              "",
             phase: handSnapshot.phase,
             motionEnabled:
               DesktopUI.getPreferences().motion !== "off" &&
@@ -100,6 +107,7 @@
             canUse: handSnapshot.canUse,
             mainItemName: handSnapshot.mainItemName,
             itemName: handSnapshot.itemName,
+            itemIcon: drawnItemKey ? itemIconDataUrl(drawnItemKey) : "",
           }
         : null,
     };

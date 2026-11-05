@@ -153,3 +153,7 @@ PERF-069检查点：确认正常保存完整旧档转换57摘要/命令、ACK后
 
 - 3.0.71已完成5文件Drive上传回读，目录1M2W1tMfkrg_sFHcJwhH7pKrV6xNgeMFz；HTML98c4d14/Electron82097f6，上传回执faaf81d。之后推进3.0.72名单界面。按用户纠正复用ui-settings-title/ui-settings-group，不再大白面板包另一套卡片；对齐表单、搜索、直接分组/小组增改。独立审查发现ACK清空其他编辑表单，已RED→GREEN保护表单与上下文；补历史ID冻结时钟碰撞测试。当前437单元集成、实际浏览器保存失败/切档/搜索焦点/取消/刷新/14组几何PASS。
 - 用户新反馈优先处理：预设Failed to fetch（Electron connect-src self，data URL fetch被CSP阻止）；举手缩放、正确判定卡顿闪烁；浮窗小组带序号与移除多余判定按钮；玩法页美化；明确取消单组下一抽禁强力，保留其他资格/唯一性/全局冷却。先定位和回归，不恢复插件或放宽CSP。
+
+- 2026-11-05批次计划见2026-11-05-classroom-hotfix.md。头像严格CSP RED→GREEN，不放宽CSP；双层强力禁抽移除且全局冷却仍测；0.8/1/1.25遮罩、退出与正确判定保持激活实际浏览器PASS。原生DTO/renderer/窗口所有权与玩法页仍待完成，3.0.72尚未构建上传。
+
+- 用户要求每次提交都上传修改部分实际截图：两仓DEVELOPMENT已补长期约束，下一次提交按版本/Commit上传。另追加后续任务AVATAR-OFFICIAL-CN-POKEMON，明确在本批修复后执行，不能抢先打断Failed to fetch/举手/特效/玩法修复。

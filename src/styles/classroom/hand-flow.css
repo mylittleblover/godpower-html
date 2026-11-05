@@ -33,6 +33,21 @@
 .hand-flow-window {
   width: min(1100px, 92vw);
 }
+.hand-flow-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.hand-flow-identity img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+.hand-flow-identity b {
+  overflow-wrap: anywhere;
+}
 .hand-flow-description {
   text-align: center;
   color: var(--ui-muted);

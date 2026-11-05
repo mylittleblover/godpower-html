@@ -87,34 +87,12 @@ function sessionRestrictedWeightsV21710(g) {
   if (itemExistsOnFieldV2172("lightning")) W.lightning = 0;
   if (itemExistsOnFieldV2172("blooper")) W.blooper = 0;
 
-  /* 单组强力道具“下一抽禁用”规则继续保留。 */
-  const old = ensureDrawThrottleV2179();
-  if (Number(old.groupStrongSkip[g.id] || 0) > 0) {
-    STRONG_GROUP_ITEMS_V2179.forEach((k) => {
-      W[k] = 0;
-    });
-  }
-
   return W;
 }
 
 function commitSessionDrawV21710(g, key) {
   const t = ensureDrawSessionThrottleV21710();
   const sessionNo = activeDrawSessionV21710?.no || t.sessionNo;
-
-  /* 单组强力道具冷却沿用，但不再让 V2.17.9 的“全局序号”控制闪电 / 鱿鱿。 */
-  const old = ensureDrawThrottleV2179();
-  const oldSkip = Math.max(0, Number(old.groupStrongSkip[g.id]) || 0);
-
-  if (oldSkip > 0) {
-    const left = oldSkip - 1;
-    if (left > 0) old.groupStrongSkip[g.id] = left;
-    else delete old.groupStrongSkip[g.id];
-  }
-
-  if (STRONG_GROUP_ITEMS_V2179.has(key)) {
-    old.groupStrongSkip[g.id] = 1;
-  }
 
   if (GLOBAL_FIVE_DRAW_ITEMS_V2179.has(key)) {
     /* 本轮抽中后，第 1~4 个后续轮次禁用，第 5 个后续轮次恢复。
@@ -173,7 +151,6 @@ function refreshDrawCooldownInfoV21710() {
     <b>抽取冷却规则</b>
     <span>闪电 / 鱿鱿按“抽取轮次”计算，不按一次全局抽取发出了多少个道具计算。</span>
     <span>抽中后，接下来 4 个全局/举手抽取轮次禁用，第 5 个轮次重新开放。</span>
-    <span>炮弹刺客 / 强力蘑菇 / 巨大蘑菇 / 无敌星：某组抽中任意一个后，该组下一次抽取屏蔽全部 4 种。</span>
     <small>当前全局抽取轮次：${t.sessionNo}</small>
     <small>${text("lightning", "闪电")}</small>
     <small>${text("blooper", "鱿鱿")}</small>
@@ -211,8 +188,7 @@ if (ITEM_DEFS.blooper) {
     "使全场积分、领奖台与图表暂时被墨汁遮蔽。整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
 }
 
-/* 旧 V2.17.9 的全局序号不再参与闪电/鱿鱿判定。
-   保留其对象只为了兼容单组强力道具冷却。 */
+/* 旧抽取序号和单组强力禁抽记录不参与现行候选判定。 */
 setTimeout(() => {
   try {
     refreshDrawCooldownInfoV21710();

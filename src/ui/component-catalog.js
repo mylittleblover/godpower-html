@@ -1234,7 +1234,14 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "competition-status-guide",
-      sources: ["src/styles/feedback/item-score-cinematics.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/feedback/item-score-cinematics.css",
+      ],
+    },
+    {
+      name: "competition-status-guide-sub",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "component-library-content",
@@ -1460,11 +1467,51 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
+      name: "gameplay-demo-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-demo-heading",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-dialog",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-section",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-item-surface",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-overview",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "gameplay-page-heading",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "gameplay-page-shell",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-rules",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-section-heading",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
+    },
+    {
+      name: "gameplay-tabs",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-toolbar",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
@@ -2055,6 +2102,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
+      name: "hand-flow-identity",
+      sources: ["src/styles/classroom/hand-flow.css"],
+    },
+    {
       name: "hand-flow-reel",
       sources: ["src/styles/classroom/hand-flow.css"],
     },
@@ -2642,12 +2693,11 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-reference-general",
-      sources: ["src/styles/classroom/student-picker-hand.css"],
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-reference-head",
       sources: [
-        "src/styles/items/encyclopedia-layout.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
       ],
@@ -2669,16 +2719,20 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
+      name: "item-reference-open",
+      sources: ["src/styles/items/encyclopedia-layout.css"],
+    },
+    {
       name: "item-reference-row",
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
-      name: "item-reference-sub",
+      name: "item-reference-tag",
       sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-reference-tip",
-      sources: ["src/styles/classroom/student-picker-hand.css"],
+      sources: ["src/styles/items/encyclopedia-layout.css"],
     },
     {
       name: "item-score-delta",
@@ -4014,6 +4068,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
+        "src/styles/classroom/gameplay-page.css",
       ],
     },
     {

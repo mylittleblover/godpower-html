@@ -206,6 +206,37 @@ test("about renderer has one declaration, no override chain, and retains non-vie
         await format(after, { parser: "babel" }),
         row.path + " approved M5 description owner",
       );
+    } else if (row.path === "src/runtime/items/encyclopedia-copy.js") {
+      const checkpoint = execFileSync("git", ["show", "1fa4e72:" + row.path], {
+        encoding: "utf8",
+      });
+      assert.equal(
+        await format(checkpoint, { parser: "babel" }),
+        await format(expected, { parser: "babel" }),
+      );
+      function protectedCopy(text) {
+        const tree = parse(text, { ecmaVersion: "latest" });
+        const tips = tree.body.find(
+          (n) =>
+            n.type === "VariableDeclaration" &&
+            n.declarations[0].id.name === "ITEM_TIPS_OVERRIDE_V2199",
+        ).declarations[0].init;
+        for (const property of tips.properties)
+          if (
+            ["fire_flower", "ice_flower", "kamek"].includes(property.key.name)
+          )
+            property.value.value = "approved-current-rule-copy";
+        return JSON.parse(
+          JSON.stringify(tree, (key, value) =>
+            ["start", "end", "raw"].includes(key) ? undefined : value,
+          ),
+        );
+      }
+      assert.deepEqual(
+        protectedCopy(current),
+        protectedCopy(checkpoint),
+        "only the three approved tips can change; executable statements and other copy remain protected",
+      );
     } else
       assert.equal(
         await format(current, { parser: "babel" }),

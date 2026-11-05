@@ -116,8 +116,9 @@ window.GodpowerPicker = (() => {
         group: document.getElementById("reelTextGroup")?.textContent || "",
         student: document.getElementById("reelTextStudent")?.textContent || "",
       },
-      groups: state.groups.map((g) => ({
+      groups: state.groups.map((g, index) => ({
         id: g.id,
+        groupNo: g.groupNo || index + 1,
         name: g.name,
         color: g.color,
         members: g.members?.length || 0,
