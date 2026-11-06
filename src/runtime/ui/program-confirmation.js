@@ -54,6 +54,7 @@ function programConfirmV28(message, opts = {}) {
 
 /* 页面离开时做同步回写。 */
 window.addEventListener("beforeunload", () => {
+  if (globalThis.SaveManager?.enabled()) return;
   try {
     saveState();
     persistHistoryV26();

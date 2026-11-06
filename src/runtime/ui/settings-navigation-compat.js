@@ -120,8 +120,7 @@ window.addEventListener("DOMContentLoaded", () => {
   applyUiIconsV26();
   setTimeout(() => {
     renderItemFxSoundListV26();
-    persistHistoryV26();
-    saveState();
+    // Rendering settings is read-only; it must not rewrite a newly opened save.
   }, 400);
 });
 

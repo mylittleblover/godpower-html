@@ -6,13 +6,17 @@ try {
 } catch (e) {}
 
 window.addEventListener("pagehide", () => {
+  if (globalThis.SaveManager?.enabled()) return;
   try {
     saveState();
     persistHistoryV26();
   } catch (e) {}
 });
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "hidden") {
+  if (
+    document.visibilityState === "hidden" &&
+    !globalThis.SaveManager?.enabled()
+  ) {
     try {
       saveState();
       persistHistoryV26();

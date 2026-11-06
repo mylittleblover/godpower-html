@@ -391,89 +391,119 @@ function useItem(groupId, index) {
   }
   return accepted;
 }
-// Read access denial is a browser capability limitation, not a corrupt save.
-// Leave stored data untouched and keep ordinary classroom actions usable in RAM.
-let classroomStoredState = null;
-try {
-  const loaded = ClassroomRepository.loadOrMigrate(CLASSROOM_STORAGE, {
-    currentKey: Reliability.stateKey,
-    legacyKey: Reliability.legacyStateKey,
-    receiptKey: "godpower_migration_v2_receipt",
-    fallbackData: () => SchemaMigrations.fromLegacyKeys(CLASSROOM_STORAGE),
-    migrate: (raw) => {
-      Reliability.validateBackup(raw);
-      return SchemaMigrations.migrateBackup(raw);
-    },
-    validate: (data) => Reliability.validateBackup(data),
-  });
-  window.classroomMigrationResult = {
-    status: loaded.status,
-    stage: loaded.stage || null,
-    sourceKey: loaded.sourceKey,
-    error: loaded.error || null,
-  };
-  classroomStoredState = loaded.data;
-  if (loaded.status === "failed") {
-    if (loaded.sourceValidated) {
-      showClassroomSaveWarning("迁移暂未保存，旧存档已保留：" + loaded.error);
-    } else if (
-      ["validate-current", "prepare-migration", "read-legacy"].includes(
-        loaded.stage,
-      )
-    ) {
+function initializeLegacyClassroomCache() {
+  // Read access denial is a browser capability limitation, not a corrupt save.
+  // Leave stored data untouched and keep ordinary classroom actions usable in RAM.
+  let classroomStoredState = null;
+  try {
+    const loaded = ClassroomRepository.loadOrMigrate(CLASSROOM_STORAGE, {
+      currentKey: Reliability.stateKey,
+      legacyKey: Reliability.legacyStateKey,
+      receiptKey: "godpower_migration_v2_receipt",
+      fallbackData: () => SchemaMigrations.fromLegacyKeys(CLASSROOM_STORAGE),
+      migrate: (raw) => {
+        Reliability.validateBackup(raw);
+        return SchemaMigrations.migrateBackup(raw);
+      },
+      validate: (data) => Reliability.validateBackup(data),
+    });
+    window.classroomMigrationResult = {
+      status: loaded.status,
+      stage: loaded.stage || null,
+      sourceKey: loaded.sourceKey,
+      error: loaded.error || null,
+    };
+    classroomStoredState = loaded.data;
+    if (loaded.status === "failed") {
+      if (loaded.sourceValidated) {
+        showClassroomSaveWarning("迁移暂未保存，旧存档已保留：" + loaded.error);
+      } else if (
+        ["validate-current", "prepare-migration", "read-legacy"].includes(
+          loaded.stage,
+        )
+      ) {
+        window.classroomRecoveryRequired = true;
+        showClassroomSaveWarning(
+          "原存档无法读取，已保护原数据：" + loaded.error,
+        );
+      } else {
+        window.classroomStorageUnavailable = true;
+        showClassroomSaveWarning(loaded.error);
+      }
+    }
+    if (loaded.receiptError)
+      console.warn("迁移数据已保存，迁移回执写入失败", loaded.receiptError);
+  } catch (error) {
+    window.classroomStorageUnavailable = true;
+    showClassroomSaveWarning(error.message);
+  }
+  if (classroomStoredState !== null) {
+    try {
+      applyClassroomBackup(classroomStoredState);
+    } catch (error) {
+      console.error("主存档读取失败，未覆盖原存档", error);
       window.classroomRecoveryRequired = true;
-      showClassroomSaveWarning("原存档无法读取，已保护原数据：" + loaded.error);
-    } else {
-      window.classroomStorageUnavailable = true;
-      showClassroomSaveWarning(loaded.error);
+      showClassroomSaveWarning(
+        "原存档无法解析，已保护原数据：" + error.message,
+      );
     }
   }
-  if (loaded.receiptError)
-    console.warn("迁移数据已保存，迁移回执写入失败", loaded.receiptError);
-} catch (error) {
-  window.classroomStorageUnavailable = true;
-  showClassroomSaveWarning(error.message);
+  window.classroomReady = true;
 }
-if (classroomStoredState !== null) {
-  try {
-    applyClassroomBackup(classroomStoredState);
-  } catch (error) {
-    console.error("主存档读取失败，未覆盖原存档", error);
-    window.classroomRecoveryRequired = true;
-    showClassroomSaveWarning("原存档无法解析，已保护原数据：" + error.message);
-  }
-}
-window.classroomReady = true;
 
-/* Desktop hydration. The fixed save file is the classroom's durable home, so it
-   wins over the browser cache whenever it holds a valid envelope: editing or
-   copying that file is how a teacher moves a classroom between machines. Saves
-   are held off until this settles (ClassroomSaveFile.isHydrating). */
-if (globalThis.ClassroomSaveFile?.available?.()) {
-  window.classroomHydrationPromise = ClassroomSaveFile.hydrate().then(
-    (result) => {
-      window.classroomSaveFileStatus = result.status;
-      if (result.status !== "loaded") return;
-      try {
-        applyClassroomBackup(result.data);
-        // Hydration is settled now, so this write mirrors the restored classroom
-        // back to both localStorage and the file.
-        saveState();
-        renderAll();
-        updatePickerPoolUI();
-        window.classroomSaveFileStatus = "restored";
-        showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
-      } catch (error) {
-        window.classroomSaveFileStatus = "restore-failed";
-        console.error("存档文件恢复失败", error);
-        showToast("存档文件无法恢复，已保留本机数据：" + error.message);
-      }
-    },
-  );
-} else {
-  // The browser build has no file bridge, so nothing waits.
-  ClassroomSaveFile?.markHydrated?.();
-}
+/* The canonical library is authoritative. Never replay an old mirror/file over
+   an existing new-format classroom, or write anything merely because it opened. */
+window.classroomReady = false;
+window.classroomHydrationPromise = (async () => {
+  let probe;
+  try {
+    probe = await SaveRepository.open();
+    const existing = await probe.list();
+    if (!existing?.ok)
+      throw Error(existing?.message || existing?.code || "存档库读取失败");
+    if (existing.index.entries.length) {
+      window.classroomCanonicalAtStartup = true;
+      window.classroomMigrationResult = {
+        status: "canonical",
+        sourceKey: null,
+      };
+      window.classroomSaveFileStatus = "canonical";
+      ClassroomSaveFile.markHydrated();
+      return;
+    }
+  } catch (error) {
+    window.classroomStartupError = String(error.message || error);
+    ClassroomSaveFile.markHydrated();
+    return;
+  } finally {
+    probe?.close();
+  }
+  // Only a genuinely empty library may use the original first-run bootstrap.
+  // Explicit old-file import/recovery remains available and preserves its source.
+  initializeLegacyClassroomCache();
+  if (globalThis.ClassroomSaveFile?.available?.()) {
+    const result = await ClassroomSaveFile.hydrate();
+
+    window.classroomSaveFileStatus = result.status;
+    if (result.status !== "loaded") return;
+    try {
+      applyClassroomBackup(result.data);
+      // Hydration is settled now, so this write mirrors the restored classroom
+      // back to both localStorage and the file.
+      saveState();
+      renderAll();
+      updatePickerPoolUI();
+      window.classroomSaveFileStatus = "restored";
+      showToast("已从存档文件恢复课堂：" + (result.info?.path || ""));
+    } catch (error) {
+      window.classroomSaveFileStatus = "restore-failed";
+      console.error("存档文件恢复失败", error);
+      showToast("存档文件无法恢复，已保留本机数据：" + error.message);
+    }
+  } else ClassroomSaveFile.markHydrated();
+})().finally(() => {
+  window.classroomReady = true;
+});
 
 function legacyJudgeRound() {
   return RoundSettlement.execute();

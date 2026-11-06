@@ -46,6 +46,12 @@
       const listed = await repo.list();
       if (!listed?.ok)
         throw Error(listed?.message || listed?.code || "无法读取存档库");
+      if (root.classroomStartupError && !listed.index.entries.length)
+        throw Error(root.classroomStartupError);
+      if (listed.index.entries.length) {
+        root.classroomCanonicalAtStartup = true;
+        root.classroomStartupError = null;
+      }
       if (
         !listed.index.entries.length &&
         root.classroomStorageUnavailable &&
@@ -60,6 +66,8 @@
         )
       )
         throw Error("原始桌面存档读取失败，已停止自动迁移并保留原文件");
+      if (root.classroomCanonicalAtStartup && !listed.index.entries.length)
+        throw Error("新版存档索引在启动期间变化，已停止自动初始化，请重试");
       const savedPrefs = await repo.loadPreferences();
       if (!savedPrefs?.ok)
         throw Error(
@@ -106,7 +114,7 @@
           if (!imported.ok) throw Error(imported.message || imported.code);
         }
       }
-      await discoverLegacyRoster();
+      if (!root.classroomCanonicalAtStartup) await discoverLegacyRoster();
       session = await SaveSession.create({
         repository: repo,
         apply: applyDocument,
