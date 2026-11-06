@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "resolution": "1920x1080@1",
+  "checks": [
+    "nine-subjects",
+    "single-close",
+    "import",
+    "duplicate-atomicity",
+    "reload",
+    "confirmed-delete",
+    "scoped-excerpts",
+    "source-cards",
+    "research-read-only"
+  ],
+  "errors": []
+}

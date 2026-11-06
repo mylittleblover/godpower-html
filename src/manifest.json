@@ -1276,6 +1276,26 @@
     },
     {
       "type": "script",
+      "path": "domain/ai-knowledge.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "resources/subject-library.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/ai-knowledge-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "ui/ai-knowledge.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "domain/ai-conversations.js",
       "attributes": ""
     },

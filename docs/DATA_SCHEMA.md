@@ -219,3 +219,11 @@ AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/
 IDB `godpower_ai_conversations` / store `library` / key `current`：kind=godpower.ai.conversations、schemaVersion=1、revision（CAS）、activeId、conversations。每会话 id/title/createdAt/messages；消息 id/role/text/channel/complete。仅纯文本；不含可执行动作、提案授权或模型密钥。50会话，每会话100消息，单消息24000字符；序列化上限4Mi字符（约8MiB UTF-16）。超限拒绝新增，输入保留，不静默删除。所有ID/消息ID在所属范围唯一。导出包含完整library及当前对话/审计。
 
 上下文须逐次确认并勾选，默认不携带。最多最近12条成功模型消息，单条最多4000字符，总16000字符；跳过开头孤立assistant。取消/失败的用户请求complete=false，不成为上下文。连接配置仍共享；课堂schema保持不变。对话库读取失败或CAS冲突禁止覆盖，不清空数据库；可导出本次内存记录。后续备份应单独保留对话JSON，课堂备份不自动包含此库。
+
+## AI学科资料（3.0.77）
+
+内置SubjectLibrary：id/title/subject/text/kind/sourceLabel/sourceUrl/license。kind区分study-note（原创参考）、textbook-link（仅教材入口）、user-note（用户导入）；无textbook-full占位条目。九科为语数英物化生政史地。资料不得含额外脚本字段；文本≤200000字符。
+
+用户资料独立IDB godpower_ai_knowledge / documents，id为归一化内容SHA-256的user-前缀。批导入1–100条、总库≤100条及2Mi字符，重复或任意校验失败整批不写；TXT/MD/指定schemaVersion1 JSON支持，PDF/OCR尚不支持。导出格式godpower.ai.knowledge/schemaVersion1/documents，读取损坏时禁止覆盖。
+
+模型research可选对象：local布尔、webQuery≤300字符、documents≤4/总12000字符；仅匹配摘录，默认不发送。主进程生成R/W来源编号并返回sources/readOnly，来源文字另存现行会话receipt，不修改课堂schema。搜索结果正文不可信、不执行、不决定课堂操作；无法搜索返回错误，不伪装联网成功。

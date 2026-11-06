@@ -3,6 +3,10 @@ const GodPowerComponentCatalog = {
   schemaVersion: 1,
   animations: [
     {
+      name: "ai-knowledge-enter",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "attackHitBadge",
       sources: ["src/styles/items/attack-feedback.css"],
     },
@@ -499,7 +503,35 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
+      name: "ai-header-actions",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "ai-help",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-body",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-controls",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-header",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-import",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-overlay",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-knowledge-window",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
@@ -516,6 +548,14 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ai-page-shell",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-resource",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-resource-text",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {

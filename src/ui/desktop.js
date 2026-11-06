@@ -1062,6 +1062,8 @@ const DesktopUI = (() => {
   });
   const { settleDisclosures, setupDisclosures } = disclosureMotion;
   const modalClosers = {
+    aiKnowledgeDialog: () =>
+      document.getElementById("aiKnowledgeClose")?.click(),
     componentLibraryModal: () => UIComponentLibrary.close(),
     classroomShowcase: () => ClassroomFeedback.dismiss(),
     programConfirmV28: () => document.getElementById("pcCancelV28")?.click(),

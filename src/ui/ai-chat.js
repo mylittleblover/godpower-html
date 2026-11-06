@@ -297,6 +297,50 @@ const AIChat = (() => {
       message("receipt", "请先确认本次发送的数据范围。");
       return;
     }
+    const useLocal = cloud && $("#aiUseKnowledge").checked,
+      useWeb = cloud && $("#aiUseWeb").checked;
+    const research =
+      useLocal || useWeb
+        ? {
+            local: useLocal,
+            webQuery: useWeb ? $("#aiWebQuery").value.trim() : "",
+            documents: [],
+          }
+        : undefined;
+    if (useWeb && !research.webQuery) {
+      $("#aiSavedState").textContent =
+        "请输入本次联网关键词；不会自动将整段对话发给搜索站点。";
+      return;
+    }
+    $("#aiSend").disabled = true;
+    $("#aiStop").disabled = false;
+    try {
+      if (useLocal)
+        research.documents = await AIKnowledgeUI.excerpts(
+          text,
+          $("#aiKnowledgeSubject").value,
+        );
+      if (ownVersion !== version) return;
+      if (
+        snapshot.viewEpoch !== viewEpoch ||
+        library.activeId !== conversationId
+      ) {
+        stop();
+        return;
+      }
+      if (useLocal && !research.documents.length && !useWeb)
+        throw Error(
+          "没有匹配的本地资料，请调整问题或学科，也可以取消引用资料后发送。",
+        );
+    } catch (error) {
+      if (ownVersion === version) {
+        $("#aiSavedState").textContent = error.message;
+        $("#aiSend").disabled = false;
+        $("#aiStop").disabled = true;
+      }
+      return;
+    }
+    let responseSources = [];
     let userMessage;
     try {
       userMessage = message("user", text, {
@@ -305,6 +349,8 @@ const AIChat = (() => {
         required: true,
       });
     } catch {
+      $("#aiSend").disabled = false;
+      $("#aiStop").disabled = true;
       return;
     }
     $("#aiSend").disabled = true;
@@ -331,11 +377,18 @@ const AIChat = (() => {
           id: request,
           text,
           consent: true,
-          groups: shareScores ? gateway.publicContext() : [],
+          groups: !research && shareScores ? gateway.publicContext() : [],
           history,
+          ...(research ? { research } : {}),
         });
         if (!response.ok) throw Error(response.error);
         result = AIToolGateway.parseReply(response.text);
+        if (research) {
+          result.actions = [];
+          responseSources = Array.isArray(response.sources)
+            ? response.sources
+            : [];
+        }
         if (
           !shareScores &&
           result.actions.some((a) => a.intent === "adjustScore")
@@ -352,7 +405,7 @@ const AIChat = (() => {
         )
       )
         throw Error("课堂或页面已变化，响应已丢弃，请重新发送");
-      message("assistant", result.reply, {
+      const answerNode = message("assistant", result.reply, {
         channel: cloud ? "model" : "offline",
         required: true,
       });
@@ -364,6 +417,19 @@ const AIChat = (() => {
           { complete: true },
         );
         void persistConversation();
+      }
+      if (responseSources.length) {
+        AIKnowledgeUI.renderSources(answerNode, responseSources);
+        message(
+          "receipt",
+          "本次提供给模型的来源（不代表全文核验）：\n" +
+            responseSources
+              .map(
+                (s) =>
+                  `[${s.id}] ${s.title} · ${s.kind === "local-excerpt" ? "本地摘录" : "搜索摘要"}${s.url ? "\n" + s.url : ""}`,
+              )
+              .join("\n"),
+        );
       }
       for (const action of result.actions) proposal(action, snapshot);
     } catch (error) {
@@ -397,6 +463,7 @@ const AIChat = (() => {
         config = r.config;
         $("#aiProvider").value = config.provider;
         $("#aiModel").value = config.model;
+        $("#aiModel").readOnly = config.provider === "amr";
         $("#aiRemember").disabled = !config.encryptedStorage;
       }
     }
@@ -406,14 +473,20 @@ const AIChat = (() => {
     if (mounted) return;
     mounted = true;
     $("#aiHost").innerHTML =
-      '<header class="ui-collection-header"><div><span class="ui-settings-eyebrow">CLASSROOM COPILOT</span><h2>AI 课堂助手</h2><div class="ui-collection-sub">先看清，再确认。课堂规则与数据始终由程序管理。</div></div><button type="button" class="btn" id="aiOpenSettings">模型连接设置</button></header><div class="ai-workspace"><aside class="ai-session-sidebar ui-settings-group"><button type="button" class="btn btn-primary" id="aiNewConversation">新建对话</button><label>搜索对话<input id="aiSearch" type="search" placeholder="搜索标题"></label><nav id="aiConversationList" aria-label="对话列表"></nav><label>当前对话标题<input id="aiConversationTitle" maxlength="80"></label><button type="button" class="btn" id="aiRenameConversation">重命名</button><button type="button" class="btn btn-danger" id="aiDeleteConversation">删除当前对话</button></aside><section class="ai-conversation"><div class="ai-toolbar"><label>工作方式<select id="aiMode"><option value="offline">离线规则助手</option><option value="model">模型对话</option></select></label><span class="ui-muted" id="aiConnection"></span><button type="button" class="btn" id="aiClear">清空对话</button></div><div id="aiMessages" class="ai-messages" role="log" aria-live="polite"></div><form id="aiComposer"><label for="aiPrompt">发送消息</label><textarea id="aiPrompt" maxlength="4000" rows="3" placeholder="试试：查看小组积分；给第3组加5分"></textarea><div id="aiDataConsent" hidden><label><input id="aiShareScores" type="checkbox"> 附带当前小组的匿名编号和积分（不含组名、学生、学号、头像）</label><label><input id="aiShareHistory" type="checkbox"> 附带此对话最近的成功模型消息（最多12条、16000字；不含离线结果与操作回执）</label><label><input id="aiConsent" type="checkbox"> 我确认本次将当前输入文字及所选数据发送给已配置的模型服务（历史消息仅在上方勾选时发送）</label></div><div class="ai-composer-actions"><span class="ui-muted" id="aiSavedState" role="status">正在读取本机对话…</span><button type="button" class="btn" id="aiStop" disabled>停止</button><button type="submit" class="btn btn-primary" id="aiSend" disabled>发送</button></div></form></section><aside class="ai-help ui-settings-group"><h3>你来决定每次操作</h3><p>查看积分和打开页面可直接完成。改分必须点击确认；导入、删除、道具和归档不对AI开放。</p><div class="ai-examples"><button type="button" class="btn" data-ai-example="查看小组积分">查看小组积分</button><button type="button" class="btn" data-ai-example="给第3组加5分">准备加分预览</button><button type="button" class="btn" data-ai-example="打开设置">打开设置</button></div><h4>操作审计</h4><pre id="aiAudit">尚无操作回执。</pre><button type="button" class="btn" id="aiExport">导出对话与回执</button><p class="ui-muted">模型回复是辅助内容，不是教材原文。没有模型时只处理明确的本地指令。</p></aside></div>';
+      '<header class="ui-collection-header"><div><span class="ui-settings-eyebrow">CLASSROOM COPILOT</span><h2>AI 课堂助手</h2><div class="ui-collection-sub">先看清，再确认。课堂规则与数据始终由程序管理。</div></div><div class="ai-header-actions"><button type="button" class="btn" id="aiOpenKnowledge">高中学科资料</button><button type="button" class="btn" id="aiOpenSettings">模型连接设置</button></div></header><div class="ai-workspace"><aside class="ai-session-sidebar ui-settings-group"><button type="button" class="btn btn-primary" id="aiNewConversation">新建对话</button><label>搜索对话<input id="aiSearch" type="search" placeholder="搜索标题"></label><nav id="aiConversationList" aria-label="对话列表"></nav><label>当前对话标题<input id="aiConversationTitle" maxlength="80"></label><button type="button" class="btn" id="aiRenameConversation">重命名</button><button type="button" class="btn btn-danger" id="aiDeleteConversation">删除当前对话</button></aside><section class="ai-conversation"><div class="ai-toolbar"><label>工作方式<select id="aiMode"><option value="offline">离线规则助手</option><option value="model">模型对话</option></select></label><span class="ui-muted" id="aiConnection"></span><button type="button" class="btn" id="aiClear">清空对话</button></div><div id="aiMessages" class="ai-messages" role="log" aria-live="polite"></div><form id="aiComposer"><label for="aiPrompt">发送消息</label><textarea id="aiPrompt" maxlength="4000" rows="3" placeholder="试试：查看小组积分；给第3组加5分"></textarea><div id="aiDataConsent" hidden><label><input id="aiUseKnowledge" type="checkbox"> 引用本地学科资料（仅发送匹配摘录）<select id="aiKnowledgeSubject" aria-label="引用学科"><option value="">全部九科</option></select></label><label><input id="aiUseWeb" type="checkbox"> 联网查资料（搜索摘要，非网页全文）</label><label>联网关键词<input id="aiWebQuery" maxlength="300" placeholder="仅这些关键词会发送给搜索服务"></label><p class="ui-muted">资料问答只读，不执行课堂操作；联网关键词发给Bing及必要时的维基百科，相关摘录与结果摘要发给所选模型。</p><label><input id="aiShareScores" type="checkbox"> 附带当前小组的匿名编号和积分（不含组名、学生、学号、头像）</label><label><input id="aiShareHistory" type="checkbox"> 附带此对话最近的成功模型消息（最多12条、16000字；不含离线结果与操作回执）</label><label><input id="aiConsent" type="checkbox"> 我确认本次将当前输入文字及所选数据发送给已配置的模型服务（历史消息仅在上方勾选时发送）</label></div><div class="ai-composer-actions"><span class="ui-muted" id="aiSavedState" role="status">正在读取本机对话…</span><button type="button" class="btn" id="aiStop" disabled>停止</button><button type="submit" class="btn btn-primary" id="aiSend" disabled>发送</button></div></form></section><aside class="ai-help ui-settings-group"><h3>你来决定每次操作</h3><p>查看积分和打开页面可直接完成。改分必须点击确认；导入、删除、道具和归档不对AI开放。</p><div class="ai-examples"><button type="button" class="btn" data-ai-example="查看小组积分">查看小组积分</button><button type="button" class="btn" data-ai-example="给第3组加5分">准备加分预览</button><button type="button" class="btn" data-ai-example="打开设置">打开设置</button></div><h4>操作审计</h4><pre id="aiAudit">尚无操作回执。</pre><button type="button" class="btn" id="aiExport">导出对话与回执</button><p class="ui-muted">模型回复是辅助内容，不是教材原文。没有模型时只处理明确的本地指令。</p></aside></div>';
     const panel = document.querySelector('[data-category-panel="ai"]');
     const box = document.createElement("section");
     box.className = "ui-settings-group ai-model-settings";
     box.innerHTML =
-      '<h4>模型连接</h4><p id="aiModelState" class="ui-muted"></p><form id="aiSettingsForm"><label>服务提供商<select id="aiProvider"><option value="opencode">OpenCode（首选）</option><option value="opencode_go">OpenCode Go</option><option value="opencode_zen">OpenCode Zen（旧地址兼容）</option><option value="opencode_go_legacy">OpenCode Go（旧地址兼容）</option><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="openrouter">OpenRouter</option><option value="ollama">Ollama（本机127.0.0.1:11434）</option></select></label><label>模型标识（需在你的服务账户中可用）<input id="aiModel" value="glm-5.3-flash" maxlength="120" required></label><label>API密钥<input id="aiKey" type="password" maxlength="512" autocomplete="off" placeholder="同一提供商留空保留；切换提供商后重新输入"></label><label><input id="aiRemember" type="checkbox"> 使用系统安全存储记住密钥（不可用时禁用）</label><p class="ui-muted">配置连接不会自动发起模型请求。发送前逐次确认数据范围；请求可能由服务商计费。Ollama需另行安装并下载相应模型。</p><button class="btn btn-primary" type="submit">保存连接设置</button><button class="btn btn-danger" type="button" id="aiForget">清除模型密钥</button><button class="btn" type="button" id="aiReturn">返回AI助手</button><p id="aiSettingsResult" role="status"></p></form>';
+      '<h4>模型连接</h4><p id="aiModelState" class="ui-muted"></p><form id="aiSettingsForm"><label>服务提供商<select id="aiProvider"><option value="amr">AMR · DeepSeek Flash</option><option value="opencode">OpenCode（首选）</option><option value="opencode_go">OpenCode Go</option><option value="opencode_zen">OpenCode Zen（旧地址兼容）</option><option value="opencode_go_legacy">OpenCode Go（旧地址兼容）</option><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="openrouter">OpenRouter</option><option value="ollama">Ollama（本机127.0.0.1:11434）</option></select></label><label>模型标识（需在你的服务账户中可用）<input id="aiModel" value="glm-5.3-flash" maxlength="120" required></label><label>API密钥<input id="aiKey" type="password" maxlength="512" autocomplete="off" placeholder="同一提供商留空保留；切换提供商后重新输入"></label><label><input id="aiRemember" type="checkbox"> 使用系统安全存储记住密钥（不可用时禁用）</label><p class="ui-muted">配置连接不会自动发起模型请求。发送前逐次确认数据范围；请求可能由服务商计费。Ollama需另行安装并下载相应模型。</p><button class="btn btn-primary" type="submit">保存连接设置</button><button class="btn btn-danger" type="button" id="aiForget">清除模型密钥</button><button class="btn" type="button" id="aiReturn">返回AI助手</button><p id="aiSettingsResult" role="status"></p></form>';
     panel?.append(box);
     $("#aiComposer").onsubmit = send;
+    $("#aiOpenKnowledge").onclick = () => AIKnowledgeUI.open();
+    for (const subject of AIKnowledge.subjects) {
+      const o = document.createElement("option");
+      o.value = o.textContent = subject;
+      $("#aiKnowledgeSubject").append(o);
+    }
     $("#aiStop").onclick = () => {
       stop();
       message("receipt", "已停止请求，待确认操作已失效。");
@@ -504,6 +577,7 @@ const AIChat = (() => {
     $("#aiReturn").onclick = () => switchView("ai");
     $("#aiProvider").onchange = () => {
       $("#aiModel").value = {
+        amr: "deepseek-v4.1-flash",
         opencode: "glm-5.3-flash",
         opencode_go: "glm-5.3-flash",
         opencode_zen: "glm-5.3-flash",
@@ -514,6 +588,7 @@ const AIChat = (() => {
         ollama: "qwen2.5:7b",
       }[$("#aiProvider").value];
       $("#aiKey").value = "";
+      $("#aiModel").readOnly = $("#aiProvider").value === "amr";
     };
     $("#aiSettingsForm").onsubmit = async (e) => {
       e.preventDefault();
