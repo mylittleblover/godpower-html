@@ -1276,6 +1276,16 @@
     },
     {
       "type": "script",
+      "path": "domain/ai-conversations.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
+      "path": "infrastructure/ai-conversation-repository.js",
+      "attributes": ""
+    },
+    {
+      "type": "script",
       "path": "application/ai-tool-gateway.js",
       "attributes": ""
     },

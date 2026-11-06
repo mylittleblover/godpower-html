@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "resolution": "1920x1080@1",
+  "checks": [
+    "two-conversations",
+    "rename-search",
+    "reload",
+    "history-consent",
+    "late-result-discarded",
+    "no-resumed-proposals",
+    "CAS-conflict",
+    "corrupt-library-preserved",
+    "leave-during-save-no-network",
+    "full-library-keeps-input",
+    "old-send-cannot-cancel-new-send",
+    "no-overflow"
+  ],
+  "errors": []
+}

@@ -213,3 +213,9 @@ AppPreferences为独立schemaVersion1/revision/values。目前已迁移adminPin/
 ## AI首期数据（3.0.74）
 
 课堂存档schema不变。AI对话、临时提案、确认状态和最近100条操作审计为本次页面会话内存数据；教师可导出schemaVersion1的对话/审计JSON，不自动恢复待确认写操作。提案绑定saveId、generation、revision、viewEpoch、groupUid、before/after/delta及2分钟有效期。发送模型的结构仅含本次request文字和可选匿名group/score数组，不含内部稳定身份。Electron ai-settings.json与课堂存档分离：provider/model及可选系统加密encryptedKey；密钥默认仅进程内存，任何密钥不进入课堂备份/对话/审计。
+
+## AI会话独立存储（3.0.76）
+
+IDB `godpower_ai_conversations` / store `library` / key `current`：kind=godpower.ai.conversations、schemaVersion=1、revision（CAS）、activeId、conversations。每会话 id/title/createdAt/messages；消息 id/role/text/channel/complete。仅纯文本；不含可执行动作、提案授权或模型密钥。50会话，每会话100消息，单消息24000字符；序列化上限4Mi字符（约8MiB UTF-16）。超限拒绝新增，输入保留，不静默删除。所有ID/消息ID在所属范围唯一。导出包含完整library及当前对话/审计。
+
+上下文须逐次确认并勾选，默认不携带。最多最近12条成功模型消息，单条最多4000字符，总16000字符；跳过开头孤立assistant。取消/失败的用户请求complete=false，不成为上下文。连接配置仍共享；课堂schema保持不变。对话库读取失败或CAS冲突禁止覆盖，不清空数据库；可导出本次内存记录。后续备份应单独保留对话JSON，课堂备份不自动包含此库。

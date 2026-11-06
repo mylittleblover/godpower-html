@@ -5,6 +5,10 @@ const AIChat = (() => {
     request = null,
     version = 0,
     config = null;
+  let library = null,
+    savedRevision = 0,
+    saveQueue = Promise.resolve(),
+    storageBlocked = false;
   const bridge = () => window.godpowerDesktop?.ai;
   const $ = (s) => document.querySelector(s);
   function capture() {
@@ -47,10 +51,121 @@ const AIChat = (() => {
     },
     navigate: (route) => switchView(route),
   });
-  function message(role, text) {
+  function activeConversation() {
+    return library?.conversations.find((c) => c.id === library.activeId);
+  }
+  function persistConversation() {
+    if (!library || storageBlocked) return Promise.resolve(false);
+    const candidate = AIConversations.validate(library);
+    $("#aiSavedState").textContent = "正在保存对话…";
+    saveQueue = saveQueue.then(async () => {
+      if (storageBlocked) return false;
+      try {
+        const saved = await AIConversationRepository.save(
+          candidate,
+          savedRevision,
+        );
+        savedRevision = saved.revision;
+        library.revision = savedRevision;
+        $("#aiSavedState").textContent = "对话已保存到此设备";
+        return true;
+      } catch (error) {
+        storageBlocked = true;
+        $("#aiSavedState").textContent =
+          "对话未保存：" + error.message + "。请导出备份；原记录保持不变。";
+        return false;
+      }
+    });
+    return saveQueue;
+  }
+  function conversationList() {
+    const list = $("#aiConversationList"),
+      query = $("#aiSearch").value.trim().toLocaleLowerCase();
+    list.replaceChildren();
+    for (const c of library.conversations) {
+      if (query && !c.title.toLocaleLowerCase().includes(query)) continue;
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn ai-session";
+      b.textContent = c.title;
+      b.dataset.conversation = c.id;
+      b.setAttribute("aria-current", String(c.id === library.activeId));
+      b.onclick = () => {
+        stop();
+        viewEpoch++;
+        library = AIConversations.select(library, c.id);
+        renderConversation();
+        void persistConversation();
+      };
+      list.append(b);
+    }
+  }
+  function renderConversation() {
+    $("#aiMessages").replaceChildren();
+    const c = activeConversation();
+    $("#aiConversationTitle").value = c.title;
+    for (const m of c.messages)
+      message(m.role, m.text, { restore: true, id: m.id });
+    conversationList();
+    $("#aiPrompt").value = "";
+    $("#aiShareHistory").checked = false;
+  }
+  async function loadConversations() {
+    try {
+      library = await AIConversationRepository.load();
+      savedRevision = library?.revision || 0;
+      if (!library) {
+        library = AIConversations.create({
+          id: crypto.randomUUID(),
+          time: new Date().toISOString(),
+        });
+        renderConversation();
+        message(
+          "assistant",
+          "你好。默认使用离线规则助手；模型消息仅在你逐次确认后发送。",
+        );
+      } else renderConversation();
+      if (!storageBlocked)
+        $("#aiSavedState").textContent =
+          "对话已从此设备恢复；旧操作不会自动执行";
+    } catch (error) {
+      storageBlocked = true;
+      library = AIConversations.create({
+        id: crypto.randomUUID(),
+        time: new Date().toISOString(),
+      });
+      renderConversation();
+      $("#aiSavedState").textContent =
+        "原对话库无法读取，已禁止覆盖：" +
+        error.message +
+        "。本次记录仅保留在内存，可导出。";
+    }
+    $("#aiSend").disabled = false;
+  }
+  function message(role, text, options = {}) {
+    const id = options.id || crypto.randomUUID();
+    if (library && !options.restore) {
+      try {
+        library = AIConversations.append(library, library.activeId, {
+          id,
+          role,
+          text,
+          channel:
+            options.channel || (role === "receipt" ? "receipt" : "offline"),
+          complete: options.complete !== false,
+        });
+        void persistConversation();
+      } catch (error) {
+        $("#aiSavedState").textContent =
+          "对话未记录：" + error.message + "。请先导出。";
+        if (options.required) throw error;
+      }
+    }
+
     const entry = document.createElement("article");
     entry.className = "ai-message";
     entry.dataset.role = role;
+    entry.dataset.messageId = id;
     const label = document.createElement("small");
     label.textContent =
       role === "user" ? "你" : role === "assistant" ? "课堂助手" : "操作回执";
@@ -64,6 +179,7 @@ const AIChat = (() => {
       entry.scrollIntoView({ block: "nearest" });
       const p = DesktopUI.getPreferences();
       if (
+        !options.restore &&
         p.motion !== "off" &&
         !(
           p.systemMotion &&
@@ -119,6 +235,7 @@ const AIChat = (() => {
       receiptLog();
       return;
     }
+    const ownerConversation = library?.activeId;
     const node = message(
       "receipt",
       `${p.label}\n${p.before} → ${p.after} 分（${p.delta > 0 ? "+" : ""}${p.delta}）\n教师确认后调用原手动积分命令；可通过原历史功能撤销。`,
@@ -134,6 +251,7 @@ const AIChat = (() => {
     approve.onclick = async () => {
       approve.disabled = reject.disabled = true;
       const r = await gateway.confirm(p.id, true);
+      if (library?.activeId !== ownerConversation) return;
       const text = r.ok
         ? r.persisted
           ? "积分已更新并保存。"
@@ -153,7 +271,12 @@ const AIChat = (() => {
   }
   async function send(event) {
     event.preventDefault();
-    if (request) return;
+    if (request || !library || $("#aiSend").disabled) return;
+    if (activeConversation().messages.length > 90) {
+      $("#aiSavedState").textContent =
+        "当前对话接近100条上限，请导出并新建对话。";
+      return;
+    }
     const input = $("#aiPrompt"),
       text = input.value.trim();
     if (!text) return;
@@ -164,12 +287,37 @@ const AIChat = (() => {
     const snapshot = capture(),
       ownVersion = ++version,
       cloud = $("#aiMode").value === "model",
-      shareScores = $("#aiShareScores").checked;
+      shareScores = $("#aiShareScores").checked,
+      conversationId = library.activeId,
+      history =
+        cloud && $("#aiShareHistory").checked
+          ? AIConversations.context(library, conversationId)
+          : [];
     if (cloud && !$("#aiConsent").checked) {
       message("receipt", "请先确认本次发送的数据范围。");
       return;
     }
-    message("user", text);
+    let userMessage;
+    try {
+      userMessage = message("user", text, {
+        channel: cloud ? "model" : "offline",
+        complete: !cloud,
+        required: true,
+      });
+    } catch {
+      return;
+    }
+    $("#aiSend").disabled = true;
+    $("#aiStop").disabled = false;
+    await saveQueue;
+    if (ownVersion !== version) return;
+    if (
+      snapshot.viewEpoch !== viewEpoch ||
+      library.activeId !== conversationId
+    ) {
+      stop();
+      return;
+    }
     input.value = "";
     $("#aiSend").disabled = true;
     $("#aiStop").disabled = false;
@@ -184,6 +332,7 @@ const AIChat = (() => {
           text,
           consent: true,
           groups: shareScores ? gateway.publicContext() : [],
+          history,
         });
         if (!response.ok) throw Error(response.error);
         result = AIToolGateway.parseReply(response.text);
@@ -195,7 +344,7 @@ const AIChat = (() => {
             "本次未授权小组上下文，无法准备改分；请勾选匿名积分或使用离线指令",
           );
       }
-      if (ownVersion !== version) return;
+      if (ownVersion !== version || library.activeId !== conversationId) return;
       const now = capture();
       if (
         ["saveId", "generation", "revision", "viewEpoch"].some(
@@ -203,7 +352,19 @@ const AIChat = (() => {
         )
       )
         throw Error("课堂或页面已变化，响应已丢弃，请重新发送");
-      message("assistant", result.reply);
+      message("assistant", result.reply, {
+        channel: cloud ? "model" : "offline",
+        required: true,
+      });
+      if (cloud) {
+        library = AIConversations.update(
+          library,
+          conversationId,
+          userMessage.dataset.messageId,
+          { complete: true },
+        );
+        void persistConversation();
+      }
       for (const action of result.actions) proposal(action, snapshot);
     } catch (error) {
       if (ownVersion === version)
@@ -245,7 +406,7 @@ const AIChat = (() => {
     if (mounted) return;
     mounted = true;
     $("#aiHost").innerHTML =
-      '<header class="ui-collection-header"><div><span class="ui-settings-eyebrow">CLASSROOM COPILOT</span><h2>AI 课堂助手</h2><div class="ui-collection-sub">先看清，再确认。课堂规则与数据始终由程序管理。</div></div><button type="button" class="btn" id="aiOpenSettings">模型连接设置</button></header><div class="ai-workspace"><section class="ai-conversation"><div class="ai-toolbar"><label>工作方式<select id="aiMode"><option value="offline">离线规则助手</option><option value="model">模型对话</option></select></label><span class="ui-muted" id="aiConnection"></span><button type="button" class="btn" id="aiClear">清空对话</button></div><div id="aiMessages" class="ai-messages" role="log" aria-live="polite"></div><form id="aiComposer"><label for="aiPrompt">发送消息</label><textarea id="aiPrompt" maxlength="4000" rows="3" placeholder="试试：查看小组积分；给第3组加5分"></textarea><div id="aiDataConsent" hidden><label><input id="aiShareScores" type="checkbox"> 附带当前小组的匿名编号和积分（不含组名、学生、学号、头像）</label><label><input id="aiConsent" type="checkbox"> 我确认本次将当前输入文字及所选数据发送给已配置的模型服务（不自动发送历史对话）</label></div><div class="ai-composer-actions"><span class="ui-muted">关闭页面不会自动执行待确认操作；对话仅保留本次页面会话。</span><button type="button" class="btn" id="aiStop" disabled>停止</button><button type="submit" class="btn btn-primary" id="aiSend">发送</button></div></form></section><aside class="ai-help ui-settings-group"><h3>你来决定每次操作</h3><p>查看积分和打开页面可直接完成。改分必须点击确认；导入、删除、道具和归档不对AI开放。</p><div class="ai-examples"><button type="button" class="btn" data-ai-example="查看小组积分">查看小组积分</button><button type="button" class="btn" data-ai-example="给第3组加5分">准备加分预览</button><button type="button" class="btn" data-ai-example="打开设置">打开设置</button></div><h4>操作审计</h4><pre id="aiAudit">尚无操作回执。</pre><button type="button" class="btn" id="aiExport">导出对话与回执</button><p class="ui-muted">模型回复是辅助内容，不是教材原文。没有模型时只处理明确的本地指令。</p></aside></div>';
+      '<header class="ui-collection-header"><div><span class="ui-settings-eyebrow">CLASSROOM COPILOT</span><h2>AI 课堂助手</h2><div class="ui-collection-sub">先看清，再确认。课堂规则与数据始终由程序管理。</div></div><button type="button" class="btn" id="aiOpenSettings">模型连接设置</button></header><div class="ai-workspace"><aside class="ai-session-sidebar ui-settings-group"><button type="button" class="btn btn-primary" id="aiNewConversation">新建对话</button><label>搜索对话<input id="aiSearch" type="search" placeholder="搜索标题"></label><nav id="aiConversationList" aria-label="对话列表"></nav><label>当前对话标题<input id="aiConversationTitle" maxlength="80"></label><button type="button" class="btn" id="aiRenameConversation">重命名</button><button type="button" class="btn btn-danger" id="aiDeleteConversation">删除当前对话</button></aside><section class="ai-conversation"><div class="ai-toolbar"><label>工作方式<select id="aiMode"><option value="offline">离线规则助手</option><option value="model">模型对话</option></select></label><span class="ui-muted" id="aiConnection"></span><button type="button" class="btn" id="aiClear">清空对话</button></div><div id="aiMessages" class="ai-messages" role="log" aria-live="polite"></div><form id="aiComposer"><label for="aiPrompt">发送消息</label><textarea id="aiPrompt" maxlength="4000" rows="3" placeholder="试试：查看小组积分；给第3组加5分"></textarea><div id="aiDataConsent" hidden><label><input id="aiShareScores" type="checkbox"> 附带当前小组的匿名编号和积分（不含组名、学生、学号、头像）</label><label><input id="aiShareHistory" type="checkbox"> 附带此对话最近的成功模型消息（最多12条、16000字；不含离线结果与操作回执）</label><label><input id="aiConsent" type="checkbox"> 我确认本次将当前输入文字及所选数据发送给已配置的模型服务（历史消息仅在上方勾选时发送）</label></div><div class="ai-composer-actions"><span class="ui-muted" id="aiSavedState" role="status">正在读取本机对话…</span><button type="button" class="btn" id="aiStop" disabled>停止</button><button type="submit" class="btn btn-primary" id="aiSend" disabled>发送</button></div></form></section><aside class="ai-help ui-settings-group"><h3>你来决定每次操作</h3><p>查看积分和打开页面可直接完成。改分必须点击确认；导入、删除、道具和归档不对AI开放。</p><div class="ai-examples"><button type="button" class="btn" data-ai-example="查看小组积分">查看小组积分</button><button type="button" class="btn" data-ai-example="给第3组加5分">准备加分预览</button><button type="button" class="btn" data-ai-example="打开设置">打开设置</button></div><h4>操作审计</h4><pre id="aiAudit">尚无操作回执。</pre><button type="button" class="btn" id="aiExport">导出对话与回执</button><p class="ui-muted">模型回复是辅助内容，不是教材原文。没有模型时只处理明确的本地指令。</p></aside></div>';
     const panel = document.querySelector('[data-category-panel="ai"]');
     const box = document.createElement("section");
     box.className = "ui-settings-group ai-model-settings";
@@ -257,10 +418,80 @@ const AIChat = (() => {
       stop();
       message("receipt", "已停止请求，待确认操作已失效。");
     };
-    $("#aiClear").onclick = () => {
+    $("#aiNewConversation").onclick = () => {
+      if (!library) return;
+      try {
+        stop();
+        viewEpoch++;
+        library = AIConversations.add(library, {
+          id: crypto.randomUUID(),
+          time: new Date().toISOString(),
+        });
+        renderConversation();
+        void persistConversation();
+      } catch (e) {
+        $("#aiSavedState").textContent = e.message;
+      }
+    };
+    $("#aiSearch").oninput = () => {
+      if (library) conversationList();
+    };
+    $("#aiRenameConversation").onclick = () => {
+      try {
+        library = AIConversations.rename(
+          library,
+          library.activeId,
+          $("#aiConversationTitle").value,
+        );
+        conversationList();
+        void persistConversation();
+      } catch (e) {
+        $("#aiSavedState").textContent = e.message;
+      }
+    };
+    $("#aiDeleteConversation").onclick = async () => {
+      if (!library) return;
+      const id = library.activeId;
+      if (
+        !(await programConfirmV28(
+          "仅删除当前对话记录，不影响课堂数据。此操作不能撤销。",
+          { title: "删除对话", okText: "删除" },
+        ))
+      )
+        return;
+      if (library.activeId !== id) return;
+      try {
+        const next = AIConversations.remove(library, id);
+        stop();
+        viewEpoch++;
+        library = next;
+        renderConversation();
+        void persistConversation();
+      } catch (e) {
+        $("#aiSavedState").textContent = e.message;
+      }
+    };
+    $("#aiClear").onclick = async () => {
+      if (!library) return;
+      const id = library.activeId;
+      if (
+        !(await programConfirmV28("清空当前对话文字，课堂数据不受影响。", {
+          title: "清空对话",
+          okText: "清空",
+        }))
+      )
+        return;
+      if (library.activeId !== id) return;
       stop();
-      $("#aiMessages").replaceChildren();
-      message("assistant", "对话已清空。离线规则助手不会调用网络。");
+      viewEpoch++;
+      library = AIConversations.validate({
+        ...library,
+        conversations: library.conversations.map((c) =>
+          c.id === id ? { ...c, messages: [] } : c,
+        ),
+      });
+      renderConversation();
+      void persistConversation();
     };
     $("#aiMode").onchange = () => {
       stop();
@@ -329,6 +560,7 @@ const AIChat = (() => {
                 text: n.querySelector("p").textContent,
               })),
               audit: gateway.audit(),
+              library,
             },
             null,
             2,
@@ -355,10 +587,7 @@ const AIChat = (() => {
         if (n.id !== "aiReturn") n.disabled = true;
       $('#aiMode option[value="model"]').disabled = true;
     }
-    message(
-      "assistant",
-      "你好。当前默认为离线规则助手。可以查看积分、打开页面或准备改分预览；不会自动发送学生资料。",
-    );
+    void loadConversations();
     void loadConfig();
     window.addEventListener("godpower:active-save-changed", () => {
       stop();

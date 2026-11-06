@@ -519,6 +519,14 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
+      name: "ai-session",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-session-sidebar",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "ai-toolbar",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
