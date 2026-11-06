@@ -59,6 +59,7 @@ function startBulletTimer() {
     if (!any) {
       clearInterval(bulletTimer);
       bulletTimer = null;
+      return;
     }
     saveState();
     renderGrid();
