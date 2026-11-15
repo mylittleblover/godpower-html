@@ -1,6 +1,8 @@
 /* Explicit compatibility owner for item effects applied after base answer scoring. */
 const RoundItemEffects = (() => {
-  function settle({ rankingsBefore, groupsBefore, answersBefore }) {
+  function settle(context) {
+    const { rankingsBefore, groupsBefore, answersBefore } = context;
+    context.powerCompletedById = context.powerCompletedById || {};
     const powerIds = state.groups
       .filter(
         (g) =>
@@ -17,9 +19,18 @@ const RoundItemEffects = (() => {
       if (answer.correct) group.itemStats.correct++;
       else group.itemStats.wrong++;
       if (group.itemEffect && group.itemEffect.type === "power") {
+        group.itemEffect.totalAnswered =
+          (Number(group.itemEffect.totalAnswered) || 0) + 1;
+        if (answer.correct)
+          group.itemEffect.totalCorrect =
+            (Number(group.itemEffect.totalCorrect) || 0) + 1;
         group.itemEffect.roundsLeft--;
 
         if (group.itemEffect && group.itemEffect.roundsLeft <= 0) {
+          context.powerCompletedById[group.id] = {
+            totalAnswered: group.itemEffect.totalAnswered,
+            totalCorrect: group.itemEffect.totalCorrect,
+          };
           const index = group.inventory.findIndex(
             (item) => item.key === "power",
           );

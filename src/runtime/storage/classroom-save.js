@@ -35,11 +35,14 @@ function saveState(transaction) {
   }
   ensureV2State();
   if (Array.isArray(transaction?.events) && transaction.events.length) {
-    state.achievementLedger = AchievementLedger.apply(
+    const ledgerResult = AchievementLedger.apply(
       state.achievementLedger,
       transaction.events,
       { seasonId: state.seasonId },
-    ).ledger;
+    );
+    state.achievementLedger = ledgerResult.ledger;
+    if (ledgerResult.unlocked.length)
+      transaction.unlockedAchievements = ledgerResult.unlocked;
   }
   const payload = buildClassroomBackup();
   // Until startup hydration finishes, the file is still the source of truth;

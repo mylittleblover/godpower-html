@@ -1,9 +1,9 @@
 /* Settings navigation and DOM placement only. Existing nodes and their handlers are moved, never cloned. */
 const GodPowerSettingsLayout = (() => {
   const categories = [
-    ["rules", "battle", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
-    ["appearance", "home", "外观与界面", "壁纸、显示模式与视图比例"],
-    ["motion", "spark", "动画与特效", "可中断的界面动效，不影响业务结果"],
+    ["rules", "tune", "课堂与比赛规则", "沿用现有规则与即时保存方式"],
+    ["appearance", "palette", "外观与界面", "壁纸、显示模式与视图比例"],
+    ["motion", "animation", "动画与特效", "可中断的界面动效，不影响业务结果"],
     [
       "sound",
       "sound",
@@ -20,7 +20,7 @@ const GodPowerSettingsLayout = (() => {
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
     ["ai", "spark", "AI 助手", "模型连接与数据发送由教师明确控制"],
-    ["about", "book", "关于与帮助", "项目、版本和操作说明"],
+    ["about", "info", "关于与帮助", "项目、版本和操作说明"],
   ];
   function organize(sections, shell, { query: $, escape: E }) {
     function group(

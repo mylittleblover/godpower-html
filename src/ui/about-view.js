@@ -37,6 +37,36 @@ function itemReferenceEntry(k) {
     "根据排名和当前局势使用，别只因为图标好看就按。";
   return { definition: d, exact, funny, tag, tip };
 }
+const ITEM_UI_CATEGORY = {
+  green: "attack",
+  triple_green: "attack",
+  red: "attack",
+  triple_red: "attack",
+  banana: "attack",
+  triple_banana: "attack",
+  fire_flower: "attack",
+  ice_flower: "attack",
+  boomerang_flower: "attack",
+  bomb: "attack",
+  hammer: "attack",
+  spiny: "attack",
+  feather: "defense",
+  horn: "defense",
+  star: "defense",
+  mega: "defense",
+  coin: "boost",
+  coin_shell: "boost",
+  mushroom: "boost",
+  triple_mushroom: "boost",
+  bullet: "boost",
+  power: "boost",
+  boo: "special",
+  blooper: "special",
+  lightning: "special",
+  question: "team",
+  kamek: "special",
+  item_box: "team",
+};
 function itemReferenceMarkup() {
   const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
   return `<div class="gameplay-section-heading"><h2>${itemCount} 种道具</h2><p>实际效果以当前课堂规则为准，点击查看说明与动画示例。</p></div>
@@ -48,10 +78,11 @@ function itemReferenceMarkup() {
     ${ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k])
       .map((k) => {
         const { definition: d, exact, tag } = itemReferenceEntry(k);
-        return `<article class="item-reference-row" data-item-key="${escapeHtml(k)}">
+        const category = ITEM_UI_CATEGORY[k] || "special";
+        return `<article class="item-reference-row" data-item-key="${escapeHtml(k)}" data-item-category="${category}">
         <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
         <div class="item-reference-copy">
-          <div class="item-reference-name">${escapeHtml(d.name)} <span class="item-reference-tag">${escapeHtml(tag)}</span></div>
+          <div class="item-reference-name">${escapeHtml(d.name)} <span class="item-reference-tag" data-item-category="${category}">${escapeHtml(tag)}</span></div>
           <div class="item-reference-tip"><b>实际效果</b><p>${escapeHtml(exact)}</p></div>
           <button type="button" class="btn btn-sm item-reference-open" data-item-details="${escapeHtml(k)}">说明与效果演示 →</button>
         </div>
@@ -84,15 +115,20 @@ function renderAboutInformation(tab) {
     return;
   }
 
+  const ic = (k) =>
+    typeof GodpowerTheme !== "undefined" &&
+    typeof GodpowerTheme.icon === "function"
+      ? GodpowerTheme.icon(k)
+      : "";
   m.innerHTML = `<div class="about-heading">
-    <h2>别乱按指南</h2>
+    <h2>${ic("info")}<span>别乱按指南</span></h2>
     <button class="btn btn-sm" onclick="closeAbout()">我大概会了</button>
   </div>
-  <div class="guide-block"><b>🧠 PK：</b>各组答完统一判定。知识负责决定对错，系统负责把对错变成分数和排名。</div>
-  <div class="guide-block"><b>🎁 命运批发部：</b>给符合条件的小组统一抽道具。满背包和负分保护组会自动退出这场命运分配。</div>
-  <div class="guide-block"><b>✋ 举手办案处：</b>选举手小组、判正误、加分、抽道具、用道具，一条龙处理，省得老师在五个窗口之间练手速。</div>
-  <div class="guide-block"><b>🎰 天选之人：</b>个人、小组、先组后人都能抽。算法没有私人恩怨，被点到纯属数学。</div>
-  <div class="guide-block"><b>🤑 精准撒币：</b>按学号、姓名首字母或小组筛人，批量给所属小组加分。多人同组会累计，钱终于有账可查。</div>
-  <div class="guide-block"><b>🔒 上帝模式：</b>需要密码后才能改那些正常比赛不该随便碰的东西。不是因为系统怀疑你，只是因为“手滑”在人类历史上战绩辉煌。</div>
-  <div class="guide-block"><b>↩️ 时间倒流：</b>历史记录能回滚。犯错不可怕，可怕的是犯错以后还没有撤销按钮。</div>`;
+  <div class="guide-block"><b>${ic("battle")}<span>PK：</span></b>各组答完统一判定。知识负责决定对错，系统负责把对错变成分数和排名。</div>
+  <div class="guide-block"><b>${ic("gift")}<span>命运批发部：</span></b>给符合条件的小组统一抽道具。满背包和负分保护组会自动退出这场命运分配。</div>
+  <div class="guide-block"><b>${ic("hand")}<span>举手办案处：</span></b>选举手小组、判正误、加分、抽道具、用道具，一条龙处理，省得老师在五个窗口之间练手速。</div>
+  <div class="guide-block"><b>${ic("casino")}<span>天选之人：</span></b>个人、小组、先组后人都能抽。算法没有私人恩怨，被点到纯属数学。</div>
+  <div class="guide-block"><b>${ic("bolt")}<span>精准撒币：</span></b>按学号、姓名首字母或小组筛人，批量给所属小组加分。多人同组会累计，钱终于有账可查。</div>
+  <div class="guide-block"><b>${ic("lock")}<span>上帝模式：</span></b>需要密码后才能改那些正常比赛不该随便碰的东西。不是因为系统怀疑你，只是因为“手滑”在人类历史上战绩辉煌。</div>
+  <div class="guide-block"><b>${ic("undo")}<span>时间倒流：</span></b>历史记录能回滚。犯错不可怕，可怕的是犯错以后还没有撤销按钮。</div>`;
 }

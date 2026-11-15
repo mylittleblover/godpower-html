@@ -15,13 +15,15 @@
       displayName: (m ? m[2] : label).trim() || label.trim() || "未命名学生",
     };
   }
-  async function validateAssets(input) {
+  async function validateAssets(input, onProgress) {
     if (!Array.isArray(input) || input.length > 10000)
       throw Error("invalid asset collection");
     const result = [],
       ids = new Set();
     let total = 0;
-    for (const asset of input) {
+    for (let index = 0; index < input.length; index++) {
+      const asset = input[index];
+      onProgress?.(index + 1, input.length);
       if (
         !asset ||
         typeof asset.dataBase64 !== "string" ||
@@ -79,6 +81,7 @@
     name = "导入课堂",
     rosterData = null,
     readAsset,
+    onProgress,
   } = {}) {
     if (
       typeof rawText !== "string" ||
@@ -99,7 +102,9 @@
       const documents = raw.documents.map(root.SaveSchema.validateV2);
       if (new Set(documents.map((d) => d.saveId)).size !== documents.length)
         throw Error("duplicate save identity");
-      const assets = await validateAssets(raw.assets),
+      const assets = await validateAssets(raw.assets, (done, total) => {
+          onProgress?.({ done, total, stage: "assets" });
+        }),
         ids = new Set(assets.map((a) => a.resourceId));
       for (const doc of documents)
         for (const id of doc.assetReferences)

@@ -211,7 +211,7 @@
       button.addEventListener("click", () => desktop.openPicker());
       document.querySelector("#pickerModal .picker-left")?.append(button);
       GodpowerPicker.subscribe(publish);
-      timer = setInterval(publish, 120);
+      timer = setInterval(publish, 350);
       publish();
       desktop.ready();
     },

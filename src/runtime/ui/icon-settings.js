@@ -1,26 +1,26 @@
 const UI_ICON_TARGETS = [
-  ["nav_welcome", "欢迎", '[data-view="welcome"]', "🏠"],
-  ["nav_battle", "比赛", '[data-view="battle"]', "⚔️"],
-  ["nav_history", "历史", '[data-view="history"]', "📜"],
-  ["nav_archives", "档案", '[data-view="archives"]', "🗄️"],
-  ["nav_plugins", "插件", '[data-view="plugins"]', "🧩"],
-  ["nav_settings", "设置", '[data-view="settings"]', "⚙️"],
-  ["dock_item", "全局道具抽取", 'button[onclick="globalItemDraw()"]', "🎁"],
-  ["dock_hand", "举手办案处", 'button[onclick="openHandRaise()"]', "✋"],
-  ["dock_picker", "点名抽签", 'button[onclick="openPickerModal()"]', "🎰"],
-  ["dock_about", "关于", 'button[onclick="openAbout()"]', "ⓘ"],
+  ["nav_welcome", "欢迎", '[data-view="welcome"]', "home"],
+  ["nav_battle", "比赛", '[data-view="battle"]', "battle"],
+  ["nav_history", "历史", '[data-view="history"]', "history"],
+  ["nav_archives", "档案", '[data-view="archives"]', "archive"],
+  ["nav_plugins", "玩法", '[data-view="gameplay"]', "gift"],
+  ["nav_settings", "设置", '[data-view="settings"]', "settings"],
+  ["dock_item", "全局道具抽取", 'button[onclick="globalItemDraw()"]', "gift"],
+  ["dock_hand", "举手办案处", 'button[onclick="openHandRaise()"]', "hand"],
+  ["dock_picker", "点名抽签", 'button[onclick="openPickerModal()"]', "casino"],
+  ["dock_about", "关于", 'button[onclick="openAbout()"]', "info"],
   [
     "dock_search",
     "人肉搜索（文明版）",
     'button[onclick="openMemberSearchModal()"]',
-    "😎",
+    "search",
   ],
-  ["dock_undo", "撤销", 'button[onclick="undoLast()"]', "↩️"],
-  ["dock_lock", "上帝模式", 'button[onclick="toggleLock()"]', "🔒"],
-  ["dock_add", "增加小组", 'button[onclick="addGroup()"]', "➕"],
-  ["dock_zoomin", "放大", 'button[onclick="zoomIn()"]', "🔍⁺"],
-  ["dock_zoomout", "缩小", 'button[onclick="zoomOut()"]', "🔍⁻"],
-  ["dock_zoomreset", "复位缩放", 'button[onclick="zoomReset()"]', "🔍↺"],
+  ["dock_undo", "撤销", 'button[onclick="undoLast()"]', "undo"],
+  ["dock_lock", "上帝模式", 'button[onclick="toggleLock()"]', "lock"],
+  ["dock_add", "增加小组", 'button[onclick="addGroup()"]', "add"],
+  ["dock_zoomin", "放大", 'button[onclick="zoomIn()"]', "zoom_in"],
+  ["dock_zoomout", "缩小", 'button[onclick="zoomOut()"]', "zoom_out"],
+  ["dock_zoomreset", "复位缩放", 'button[onclick="zoomReset()"]', "restart"],
 ];
 let pendingUiIconV26 = null;
 function uiIconsV26() {
@@ -72,7 +72,7 @@ function renderUiIconManagerV26() {
   const box = document.getElementById("uiIconManagerV26");
   if (!box) return;
   const m = uiIconsV26();
-  box.innerHTML = `<div class="icon-custom-grid">${UI_ICON_TARGETS.map(([id, label, , fallback]) => `<div class="icon-custom-card"><div class="icon-preview">${m[id] ? `<img src="${m[id]}">` : fallback}</div><div style="flex:1"><b>${label}</b><div style="font-size:11px;color:#64748b">支持 PNG / JPG / WebP</div></div><button class="btn btn-sm btn-primary" onclick="chooseUiIconV26('${id}')">上传</button>${m[id] ? `<button class="btn btn-sm" onclick="resetUiIconV26('${id}')">还原</button>` : ""}</div>`).join("")}</div>`;
+  box.innerHTML = `<div class="icon-custom-grid">${UI_ICON_TARGETS.map(([id, label, , fallback]) => `<div class="icon-custom-card"><div class="icon-preview">${m[id] ? `<img src="${m[id]}">` : typeof GodpowerTheme !== "undefined" && GodpowerTheme.icon ? GodpowerTheme.icon(fallback) : fallback}</div><div style="flex:1"><b>${label}</b><div style="font-size:11px;color:#64748b">支持 PNG / JPG / WebP</div></div><button class="btn btn-sm btn-primary" onclick="chooseUiIconV26('${id}')">上传</button>${m[id] ? `<button class="btn btn-sm" onclick="resetUiIconV26('${id}')">还原</button>` : ""}</div>`).join("")}</div>`;
 }
 
 /* 5. 重建设置页标签，真正做到互斥显示 */

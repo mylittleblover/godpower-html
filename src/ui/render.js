@@ -30,6 +30,7 @@ function refreshPages() {
   updateResizerUI();
   renderWelcomePage();
   updateWelcomeTrackIfNeeded();
+  globalThis.RandomEventUI?.renderBattleStrip?.();
 }
 
 function renderGrid() {

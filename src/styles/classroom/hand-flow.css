@@ -3,6 +3,7 @@
   inset: 0;
   z-index: 299900;
   pointer-events: none;
+  contain: layout style;
 }
 .hand-flow-shade > svg {
   position: absolute;
@@ -10,7 +11,7 @@
 }
 .hand-flow-hint {
   position: absolute;
-  top: 24px;
+  top: 68px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -48,6 +49,19 @@
 .hand-flow-identity b {
   overflow-wrap: anywhere;
 }
+.hand-flow-meta {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ui-soft);
+  border: 1px solid var(--ui-border);
+  color: var(--ui-muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 .hand-flow-description {
   text-align: center;
   color: var(--ui-muted);
@@ -62,8 +76,8 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .hand-flow-grid.six {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 .hand-flow-card {
   min-height: 210px;
@@ -80,13 +94,24 @@
   cursor: pointer;
   transition:
     transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
-    background 160ms ease;
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.hand-flow-grid.six .hand-flow-card {
+  min-height: 118px;
+  padding: 18px 16px;
+  gap: 6px;
 }
 .hand-flow-card.positive {
   color: var(--ui-success);
+  background: #f3fbf7;
+  border-color: #bfe4cf;
 }
 .hand-flow-card.negative {
   color: var(--ui-danger);
+  background: #fff6f5;
+  border-color: #f4cbc6;
 }
 .hand-flow-card svg {
   width: 52px;
@@ -150,11 +175,19 @@
   object-fit: contain;
 }
 .hand-flow-reel {
-  height: 110px;
+  height: 116px;
   overflow: hidden;
-  max-width: 250px;
-  margin: 30px auto;
+  max-width: 280px;
+  margin: 26px auto;
+  border: 2px solid var(--ui-border);
+  border-radius: var(--radius-lg);
+  background: var(--ui-soft);
+  box-shadow: inset 0 6px 14px rgba(15, 35, 32, 0.08);
   mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent);
+}
+#handRaiseBackdrop [data-hand-skip] {
+  display: block;
+  margin: 12px auto 0;
 }
 .hand-flow-strip {
   display: flex;

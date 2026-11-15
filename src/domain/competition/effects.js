@@ -23,8 +23,15 @@ globalThis.CompetitionEffects = (() => {
     for (const key of Object.keys(definitions)) {
       if (key === "invincible" || key === "mega") continue;
       const remaining = Number(raw?.[key]?.remaining);
-      if (Number.isSafeInteger(remaining) && remaining > 0)
-        effects[key] = { remaining: Math.min(remaining, 999) };
+      if (Number.isSafeInteger(remaining) && remaining > 0) {
+        const entry = { remaining: Math.min(remaining, 999) };
+        if (
+          typeof raw?.[key]?.casterGroupUid === "string" &&
+          raw[key].casterGroupUid.length <= 128
+        )
+          entry.casterGroupUid = raw[key].casterGroupUid;
+        effects[key] = entry;
+      }
     }
     group.competitionEffects = effects;
     return effects;
@@ -117,7 +124,9 @@ globalThis.CompetitionEffects = (() => {
   }
   function answer(group, before, after, random, facts = {}) {
     if (has(group, "invincible") || has(group, "mega")) {
-      if (facts.correct === true) after = before * (facts.allIn ? 3 : 2);
+      if (facts.correct === true)
+        after =
+          before * (facts.allIn ? 3 : 2) + (Number(facts.eventFlatBonus) || 0);
       else if (facts.correct === false) after = before;
     }
     let answerDelta = after - before,

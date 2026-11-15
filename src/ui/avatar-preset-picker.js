@@ -99,8 +99,7 @@ const AvatarPresetPicker = (() => {
     dialog.id = "avatarPresetDialog";
     dialog.className = "avatar-preset-dialog";
     dialog.setAttribute("aria-label", "选择头像");
-    dialog.innerHTML =
-      '<header><div><h3>选择头像</h3><p>预设离线可用，也可以上传自己的照片。</p></div><button type="button" data-preset-close aria-label="关闭">❌</button></header><div class="avatar-preset-controls"><input id="avatarPresetSearch" type="search" placeholder="搜索名称或角色" aria-label="搜索预设"><select aria-label="预设分类"><option value="">全部分类</option></select></div><div data-preset-grid></div><p role="status"></p><footer><button type="button" class="btn" data-avatar-upload>上传照片</button><button type="button" class="btn btn-danger" data-avatar-clear>清除头像</button><span data-preset-count></span><button type="button" class="btn" data-preset-prev>上一页</button><button type="button" class="btn" data-preset-next>下一页</button></footer>';
+    dialog.innerHTML = `<header><div><h3>选择头像</h3><p>预设离线可用，也可以上传自己的照片。</p></div><button type="button" data-preset-close aria-label="关闭">${typeof GodpowerTheme !== "undefined" && typeof GodpowerTheme.icon === "function" ? GodpowerTheme.icon("close") : "×"}</button></header><div class="avatar-preset-controls"><input id="avatarPresetSearch" type="search" placeholder="搜索名称或角色" aria-label="搜索预设"><select aria-label="预设分类"><option value="">全部分类</option></select></div><div data-preset-grid></div><p role="status"></p><footer><button type="button" class="btn" data-avatar-upload>上传照片</button><button type="button" class="btn btn-danger" data-avatar-clear>清除头像</button><span data-preset-count></span><button type="button" class="btn" data-preset-prev>上一页</button><button type="button" class="btn" data-preset-next>下一页</button></footer>`;
     const surface = document.createElement("section");
     surface.className = "avatar-preset-surface ui-function-surface";
     surface.append(...dialog.childNodes);

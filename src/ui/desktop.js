@@ -26,27 +26,11 @@ const DesktopUI = (() => {
     lastWelcome = "",
     animations = new Set(),
     settingsAnimations = new Set();
-  const paths = {
-    home: "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
-    battle: "m5 3 16 16m0-16L5 19M3 15l6 6m6-18 6 6",
-    history: "M3 12a9 9 0 1 0 3-7M3 3v6h6m3-2v5l3 2",
-    archive: "M4 5h16v5H4Zm2 5v11h12V10m-9 4h6",
-    settings:
-      "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m-2-5h4l1 3 3 1 3 3v4l-3 1-1 3-3 3h-4l-1-3-3-1-3-3v-4l3-1 1-3Z",
-    users:
-      "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m14-13a4 4 0 0 1 0 8m5 5v-2a4 4 0 0 0-3-4M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8",
-    spark: "m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z",
-    sound: "m3 9 5 0 5-5v16l-5-5H3Zm14-2a7 7 0 0 1 0 10m3-13a11 11 0 0 1 0 16",
-    book: "M12 5Q7 1 2 4v16q5-3 10 1 5-4 10-1V4q-5-3-10 1v16",
-    shield: "M12 2 3 6v6q0 7 9 10 9-3 9-10V6Z",
-    arrow: "m9 5 7 7-7 7",
-    gift: "M3 9h18v5H3Zm2 5v8h14v-8M12 9v13M12 9C2 9 5 0 9 4Zm0 0c10 0 7-9 3-5Z",
-  };
   function icon(name) {
-    return GodpowerTheme.icon(name, paths[name] || paths.spark);
+    return GodpowerTheme.icon(name);
   }
-  function empty(title, text) {
-    return `<div class="ui-empty">${icon("archive")}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">进入比赛</button></div>`;
+  function empty(title, text, glyph = "archive") {
+    return `<div class="ui-empty">${icon(glyph)}<h3>${E(title)}</h3><p>${E(text)}</p><button class="btn btn-primary" onclick="switchView('battle')">${icon("battle")}<span>进入比赛</span></button></div>`;
   }
   function persistPreferences() {
     try {
@@ -398,13 +382,13 @@ const DesktopUI = (() => {
       quizAttempt = { key: quizKey, answer: null, correct: false };
     let html = "";
     if (preferences.knowledge)
-      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details><button class="btn btn-sm" id="uiNextKnowledge">下一条知识</button>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-knowledge"><span class="ui-eyebrow">每日知识 · 教学示例</span><h3>${E(knowledge?.title || "本学科暂无知识卡")}</h3>${knowledge ? `<span class="ui-muted">${E(knowledge.module || knowledge.subject)}</span><p>${E(knowledge.summary || "")}</p><p class="ui-muted">易错点：${E(knowledge.mistake || "未提供")}</p><details><summary>展开详细解释</summary><p>${E(knowledge.detail || knowledge.summary || "")}</p><div class="ui-source">${E(knowledge.source)}</div></details><button class="btn btn-sm" id="uiNextKnowledge"><span>下一条知识</span>${icon("arrow")}</button>` : '<p class="ui-muted">可在设置中导入本地审核题库。</p>'}</article>`;
     if (preferences.itemTip)
-      html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">打开实际道具百科</button></details></article>`;
+      html += `<article class="ui-panel gp-daily-item"><span class="ui-eyebrow">今日道具小知识</span><div class="ui-item-tip-icon">${itemVisual(key)}</div><h3>${E(item.name)}</h3><p>${E(item.desc)}</p><p class="ui-muted">使用条件：以当前比赛的主要道具队列及规则引擎校验为准；冻结、模式和每题限制均保留。</p><details><summary>使用技巧与完整规则</summary><p>先确认主要道具及可用目标，再使用。次要道具需等待晋升。</p><button class="btn btn-sm btn-primary" onclick="openItemEncyclopedia()">${icon("book")}<span>打开实际道具百科</span></button></details></article>`;
     if (preferences.honors)
-      html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">走进封神榜</button></article>`;
+      html += `<article class="ui-panel gp-daily-honors"><span class="ui-eyebrow">历史荣誉</span><h3>${E(last?.champion || winner?.name || "等待第一届冠军")}</h3><p>${winner ? E(winner.score) + " 分 · 最近归档冠军" : "每一届课堂，都值得被记住。"}</p><p class="ui-muted">已归档 ${history.length} 届</p><p class="ui-muted">${E(last?.title || "正式结算后在这里留下荣誉")}</p><button class="btn btn-sm btn-primary" onclick="switchView('archives')">${icon("trophy")}<span>走进封神榜</span></button></article>`;
     if (preferences.challenge)
-      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div><button class="btn btn-sm" id="uiNextChallenge" disabled>答对后下一题</button>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
+      html += `<article class="ui-panel gp-daily-challenge"><span class="ui-eyebrow">每日课堂挑战 · 不计比赛积分</span><h3>${E(quiz?.title || "本学科暂无挑战")}</h3>${quiz ? `<div class="ui-quiz-options">${quiz.options.map((o, i) => `<button data-quiz-answer="${i}" aria-pressed="false">${"ABCD"[i]} · ${E(o)}</button>`).join("")}</div><div class="ui-quiz-result" role="status"></div><div class="ui-source">${E(quiz.source)}</div><button class="btn btn-sm" id="uiNextChallenge" disabled><span>答对后下一题</span>${icon("arrow")}</button>` : '<p class="ui-muted">请在设置中导入对应学科的题目。</p>'}</article>`;
     host.innerHTML = html;
     host.dataset.dailyRevision = String(
       Number(host.dataset.dailyRevision || 0) + 1,
@@ -431,8 +415,9 @@ const DesktopUI = (() => {
           quizAttempt.correct ||= quizAttempt.answer === quiz.answer;
           const card = b.closest(".gp-daily-challenge");
           if (quizAttempt.correct) {
-            card.querySelector("#uiNextChallenge").disabled = false;
-            card.querySelector("#uiNextChallenge").textContent = "下一题";
+            const nextChallengeBtn = card.querySelector("#uiNextChallenge");
+            nextChallengeBtn.disabled = false;
+            nextChallengeBtn.innerHTML = `<span>下一题</span>${icon("arrow")}`;
           }
           card.querySelector(".ui-quiz-result").textContent =
             (Number(b.dataset.quizAnswer) === quiz.answer
@@ -477,6 +462,7 @@ const DesktopUI = (() => {
       host.innerHTML = empty(
         "后悔药还没开封",
         "每次操作前的快照会留在这里。查看记录不会改变当前比赛。",
+        "history",
       );
       return;
     }
@@ -495,7 +481,7 @@ const DesktopUI = (() => {
               JSON.stringify(d.effectsBefore) !==
                 JSON.stringify(d.effectsAfter),
           );
-        return `<article class="ui-panel ui-history" data-kind="${kind}" style="--record-index:'${String(i + 1).padStart(2, "0")}'"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">恢复此操作前的状态</button></details></article>`;
+        return `<article class="ui-panel ui-history" data-kind="${kind}" style="--record-index:'${String(i + 1).padStart(2, "0")}'"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">${icon("undo")}<span>恢复此操作前的状态</span></button></details></article>`;
       })
       .reverse()
       .join("");
@@ -549,17 +535,18 @@ const DesktopUI = (() => {
       ? Math.max(...all.map((g) => Number(g.score)))
       : null;
     $("#archiveClassStats").innerHTML = `<div class="ui-overview">${[
-      ["已归档届数", records.length],
+      ["已归档届数", records.length, "archive"],
       [
         "最近冠军",
         records[0]?.champion || records[0]?.groups?.[0]?.name || "暂无",
+        "trophy",
       ],
-      ["历史最高积分", best ?? "暂无"],
-      ["最近归档", records[0]?.time || "暂无"],
+      ["历史最高积分", best ?? "暂无", "trending_up"],
+      ["最近归档", records[0]?.time || "暂无", "history"],
     ]
       .map(
-        ([t, v]) =>
-          `<div class="ui-panel"><span class="ui-muted">${t}</span><strong>${E(v)}</strong></div>`,
+        ([t, v, glyph]) =>
+          `<div class="ui-panel"><span class="ui-muted">${icon(glyph)}<span>${t}</span></span><strong>${E(v)}</strong></div>`,
       )
       .join("")}</div>`;
     const host = $("#settlementHistoryContainer");
@@ -593,7 +580,7 @@ const DesktopUI = (() => {
               )
               .join(
                 "",
-              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">导出完整 CSV</button><button class="btn" data-json="${index}">导出原始 JSON</button><button class="btn btn-danger" data-delete="${index}">删除档案</button></div></details></article>`;
+              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">${icon("download")}<span>导出完整 CSV</span></button><button class="btn" data-json="${index}">${icon("download")}<span>导出原始 JSON</span></button><button class="btn btn-danger" data-delete="${index}">${icon("delete")}<span>删除档案</span></button></div></details></article>`;
           })
           .join("")
       : empty(
@@ -642,6 +629,7 @@ const DesktopUI = (() => {
           (b.onclick = () =>
             downloadJson(records[Number(b.dataset.json)], "课堂归档.json")),
       );
+    globalThis.AchievementArchiveUI?.render?.();
   }
   function downloadJson(value, name) {
     const url = URL.createObjectURL(
@@ -662,7 +650,7 @@ const DesktopUI = (() => {
     const shell = document.createElement("div");
     shell.className = "ui-settings-shell";
     shell.id = "uiSettingsShell";
-    shell.innerHTML = `<nav class="ui-settings-nav" aria-label="设置分类">${categories.map(([id, glyph, title]) => `<button data-category="${id}">${icon(glyph)}${title}</button>`).join("")}</nav><main class="ui-settings-body">${categories.map(([id, , title, desc]) => `<section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${title}</h3><div class="ui-muted">${desc}</div></header></section>`).join("")}</main>`;
+    shell.innerHTML = `<nav class="ui-settings-nav" aria-label="设置分类">${categories.map(([id, glyph, title]) => `<button data-category="${id}">${icon(glyph)}<span>${title}</span></button>`).join("")}</nav><main class="ui-settings-body">${categories.map(([id, glyph, title, desc]) => `<section class="ui-settings-category" data-category-panel="${id}" hidden><header class="ui-settings-title"><h3>${icon(glyph)}<span>${title}</span></h3><div class="ui-muted">${desc}</div></header></section>`).join("")}</main>`;
     const sections = Object.fromEntries(
       [...shell.querySelectorAll("[data-category-panel]")].map((p) => [
         p.dataset.categoryPanel,
@@ -694,7 +682,7 @@ const DesktopUI = (() => {
       .forEach((b) => (b.onclick = () => selectSettings(b.dataset.category)));
     sections.appearance.insertAdjacentHTML(
       "beforeend",
-      '<div class="ui-settings-row" data-settings-group="layout"><span id="uiSettingsZoomLabel">比赛视图缩放</span><div role="group" aria-labelledby="uiSettingsZoomLabel"><button class="btn btn-sm" aria-label="缩小视图" onclick="zoomOut()">−</button> <button class="btn btn-sm" onclick="zoomReset()">复位 100%</button> <button class="btn btn-sm" aria-label="放大视图" onclick="zoomIn()">＋</button></div></div>',
+      `<div class="ui-settings-row" data-settings-group="layout"><span id="uiSettingsZoomLabel">比赛视图缩放</span><div role="group" aria-labelledby="uiSettingsZoomLabel"><button class="btn btn-sm" aria-label="缩小视图" onclick="zoomOut()">${icon("zoom_out")}</button> <button class="btn btn-sm" onclick="zoomReset()">${icon("restart")}<span>复位 100%</span></button> <button class="btn btn-sm" aria-label="放大视图" onclick="zoomIn()">${icon("zoom_in")}</button></div></div>`,
     );
     function row(title, id, content) {
       return `<div class="ui-settings-row"><label for="${id}">${title}</label>${content}</div>`;
@@ -807,6 +795,8 @@ const DesktopUI = (() => {
       }
     };
     GodPowerSettingsLayout.organize(sections, shell, { query: $, escape: E });
+    if (window.RandomEventUI?.mountSettings)
+      RandomEventUI.mountSettings(sections.rules);
     installSettingsSafetyGuard();
     SaveWorkspace.mount(sections.students);
     GameplayPage.mountAbout(sections.about);
@@ -929,15 +919,15 @@ const DesktopUI = (() => {
         node,
         [
           {
-            opacity: simple ? 0.6 : 0,
-            translate: simple ? "0 -4px" : "0 -12px",
+            opacity: simple ? 0.92 : 0.72,
+            translate: simple ? "0 -3px" : "0 -6px",
           },
           { opacity: 1, translate: "0 0" },
         ],
         {
-          duration: (simple ? 140 : 260) / preferences.speed,
+          duration: (simple ? 90 : 150) / preferences.speed,
           delay:
-            Math.min(i * (simple ? 15 : 50), simple ? 60 : 280) /
+            Math.min(i * (simple ? 8 : 18), simple ? 24 : 72) /
             preferences.speed,
           fill: "backwards",
         },
@@ -980,8 +970,7 @@ const DesktopUI = (() => {
     const right = $(".dock-right");
     const details = document.createElement("details");
     details.className = "ui-dock-menu";
-    details.innerHTML =
-      '<summary>管理与视图 ▴</summary><div class="ui-dock-menu-body"></div>';
+    details.innerHTML = `<summary>${icon("tune")}<span>管理与视图 ▴</span></summary><div class="ui-dock-menu-body"></div>`;
     const menu = details.lastElementChild;
     for (const b of [...right.children]) {
       const action = b.getAttribute("onclick") || "";
@@ -1010,20 +999,34 @@ const DesktopUI = (() => {
           icon(
             /globalItemDraw/.test(action)
               ? "gift"
-              : /undoLast/.test(action)
-                ? "history"
-                : "users",
+              : /openHandRaise/.test(action)
+                ? "hand"
+                : /openPickerModal/.test(action)
+                  ? "casino"
+                  : "undo",
           ) + `<span style="font-size:12px">${E(label)}</span>`;
       } else {
         b.innerHTML =
           icon(
-            /zoom/.test(action)
-              ? "home"
-              : /Lock/.test(action)
-                ? "shield"
-                : /addGroup|Search/.test(action)
-                  ? "users"
-                  : "book",
+            /zoomIn/.test(action)
+              ? "zoom_in"
+              : /zoomOut/.test(action)
+                ? "zoom_out"
+                : /zoomReset/.test(action)
+                  ? "restart"
+                  : /Lock/.test(action)
+                    ? state.isLocked
+                      ? "lock"
+                      : "lock_open"
+                    : /addGroup/.test(action)
+                      ? "add"
+                      : /openMemberSearchModal/.test(action)
+                        ? "search"
+                        : /openAbout/.test(action)
+                          ? "info"
+                          : b.id === "quickPersonBtnV218"
+                            ? "bolt"
+                            : "book",
           ) + `<span>${E(label)}</span>`;
         menu.append(b);
       }
@@ -1047,7 +1050,8 @@ const DesktopUI = (() => {
   function refreshLockControl(button) {
     if (!ready) return;
     const label = state.isLocked ? "解锁管理口令" : "管理已解锁";
-    const original = icon("shield") + `<span>${label}</span>`;
+    const original =
+      icon(state.isLocked ? "lock" : "lock_open") + `<span>${label}</span>`;
     button.dataset.v26Original = original;
     const image = Reliability.safeImage(uiIconsV26().dock_lock);
     button.innerHTML = image
@@ -1166,22 +1170,28 @@ const DesktopUI = (() => {
             el.querySelector(".ui-function-surface") || el.firstElementChild;
           if (surface) {
             surfaceOwners.set(surface, id);
-            for (const old of surface.querySelectorAll(
-              'button[onclick*="close"]',
-            )) {
-              if (!/取消|跳过|返回课堂/.test(old.textContent))
-                old.hidden = true;
-            }
-            if (!surface.querySelector(":scope > [data-ui-window-close]")) {
-              const button = document.createElement("button");
-              button.type = "button";
-              button.className = "item-close ui-window-close";
-              button.dataset.uiWindowClose = "true";
-              button.setAttribute("aria-label", "关闭窗口");
-              button.title = "关闭窗口（Esc）";
-              button.textContent = "×";
-              button.onclick = close;
-              surface.append(button);
+            const hasClose = Boolean(
+              surface.lastElementChild?.dataset?.uiWindowClose === "true" ||
+                surface.querySelector(":scope > [data-ui-window-close]"),
+            );
+            if (!known.get(id) || !hasClose) {
+              for (const old of surface.querySelectorAll(
+                'button[onclick*="close"]',
+              )) {
+                if (!/取消|跳过|返回课堂/.test(old.textContent))
+                  old.hidden = true;
+              }
+              if (!hasClose) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "item-close ui-window-close";
+                button.dataset.uiWindowClose = "true";
+                button.setAttribute("aria-label", "关闭窗口");
+                button.title = "关闭窗口（Esc）";
+                button.textContent = "×";
+                button.onclick = close;
+                surface.append(button);
+              }
             }
           }
         }
@@ -1191,13 +1201,26 @@ const DesktopUI = (() => {
           const previousZ = el.style.zIndex;
           const previousLayer = el.style.getPropertyValue("--ui-modal-layer");
           const layer = String(++modalLayer);
-          el.style.zIndex = layer;
-          el.style.setProperty("--ui-modal-layer", layer);
-          openStack.push({ id, el, close, focus, previousZ, previousLayer });
           const dialog =
             el.firstElementChild?.tagName === "CANVAS"
               ? el.querySelector(".grand-card")
               : el.firstElementChild;
+          let travel = 0;
+          if (dialog && id !== "grandModalOverlay" && preferences.pageMotion) {
+            // Read layout metrics before writing modal attributes/classes to avoid forced reflow.
+            const zoom = Number(getComputedStyle(document.body).zoom) || 1;
+            const bottom =
+              preferences.motion === "full"
+                ? dialog.getBoundingClientRect().bottom
+                : innerHeight - 16 * zoom;
+            travel = Math.min(
+              preferences.motion === "full" ? 36 : 8,
+              Math.max(0, (innerHeight - bottom) / zoom - 4),
+            );
+          }
+          el.style.zIndex = layer;
+          el.style.setProperty("--ui-modal-layer", layer);
+          openStack.push({ id, el, close, focus, previousZ, previousLayer });
           dialog?.setAttribute("role", "dialog");
           dialog?.setAttribute("aria-modal", "true");
           if (
@@ -1213,15 +1236,6 @@ const DesktopUI = (() => {
           dialog?.classList.add("ui-function-surface");
           el.dataset.uiModalOpen = "true";
           if (dialog && id !== "grandModalOverlay" && preferences.pageMotion) {
-            const zoom = Number(getComputedStyle(document.body).zoom) || 1;
-            const travel = Math.min(
-              preferences.motion === "full" ? 42 : 8,
-              Math.max(
-                0,
-                (innerHeight - dialog.getBoundingClientRect().bottom) / zoom -
-                  4,
-              ),
-            );
             animate(
               dialog,
               [
@@ -1234,7 +1248,7 @@ const DesktopUI = (() => {
               ],
               {
                 duration:
-                  (preferences.motion === "full" ? 420 : 160) /
+                  (preferences.motion === "full" ? 320 : 140) /
                   preferences.speed,
                 easing: "cubic-bezier(.16,1,.3,1)",
                 fill: "backwards",
@@ -1270,13 +1284,14 @@ const DesktopUI = (() => {
     const modalSelector = Object.keys(modalClosers)
       .map((id) => `#${id}`)
       .join(",");
+    const nonModalSubtree =
+      "#groupList, #handFlowContent, #battleRankPreviewGridV21721, #gpSaveTransferModal, #toast, #godpower-hover-tooltip-host, #handFlowShade";
     new MutationObserver((records) => {
       const ids = new Set();
       for (const record of records) {
-        // Global visibility changes can affect an already-open window. Ordinary
-        // card/reel/effect mutations must not scan every unrelated dialog.
+        // Body attribute changes can only affect already-open windows, never closed ones.
         if (record.type === "attributes" && record.target === document.body) {
-          Object.keys(modalClosers).forEach((id) => ids.add(id));
+          for (const item of openStack) ids.add(item.id);
           continue;
         }
         const ownId = record.target.id;
@@ -1285,7 +1300,10 @@ const DesktopUI = (() => {
           const surfaceId = surfaceOwners.get(record.target);
           if (surfaceId) ids.add(surfaceId);
         }
-        if (record.type === "childList") {
+        if (
+          record.type === "childList" &&
+          !record.target.closest?.(nonModalSubtree)
+        ) {
           for (const node of [...record.addedNodes, ...record.removedNodes]) {
             if (node.matches?.(modalSelector)) ids.add(node.id);
             if (node.firstElementChild)
@@ -1618,6 +1636,31 @@ const DesktopUI = (() => {
       button.textContent = text;
     }
   }
+  function syncModalIcons() {
+    const entries = [
+      ["#quickPersonBackdropV218 .quick-person-head b", "bolt"],
+      ["#pickerModal .picker-left h3", "casino"],
+      ["#memberSearchBackdrop .member-search-title", "search"],
+      ["#pwdModal h3", "lock"],
+      [".god-item-tools b, .queue-admin-tools b", "lock_open"],
+      [".god-item-tools .btn-danger, .queue-admin-tools .btn-danger", "delete"],
+    ];
+    for (const [selector, key] of entries) {
+      for (const el of document.querySelectorAll(selector)) {
+        if (el.querySelector(":scope > svg.ui-icon")) continue;
+        const clean = (el.textContent || "")
+          .replace(/^[\s\u{1F300}-\u{1FAFF}\u2600-\u27BF🧹🔓🔒🎰✋😎🤑]+/u, "")
+          .trim();
+        el.innerHTML = icon(key) + `<span>${E(clean)}</span>`;
+      }
+    }
+    const handTitle = document.querySelector(
+      "#handRaiseBackdrop .classroom-head b",
+    );
+    if (handTitle && /^✋/.test(handTitle.textContent || "")) {
+      handTitle.textContent = handTitle.textContent.replace(/^✋\s*/, "");
+    }
+  }
   function init() {
     try {
       const value = JSON.parse(
@@ -1656,6 +1699,7 @@ const DesktopUI = (() => {
         cancelSettingsMotion();
     });
     ready = true;
+    GodpowerTheme.hydrate(document);
     const navigation = {
       welcome: ["欢迎", "home"],
       battle: ["比赛", "battle"],
@@ -1682,6 +1726,24 @@ const DesktopUI = (() => {
     setupSettings();
     setupPicker();
     setupModals();
+    if (typeof window.polishVisibleCopyV2187 === "function") {
+      const basePolish = window.polishVisibleCopyV2187;
+      window.polishVisibleCopyV2187 = function (...args) {
+        const res = basePolish.apply(this, args);
+        syncModalIcons();
+        return res;
+      };
+    }
+    if (typeof window.openPwdModal === "function") {
+      const baseOpenPwd = window.openPwdModal;
+      window.openPwdModal = function (...args) {
+        const res = baseOpenPwd.apply(this, args);
+        syncModalIcons();
+        return res;
+      };
+    }
+    syncModalIcons();
+    setTimeout(syncModalIcons, 140);
     ClassroomFeedback.init();
     setupDisclosures();
     $("#settlementHistoryContainer").addEventListener(

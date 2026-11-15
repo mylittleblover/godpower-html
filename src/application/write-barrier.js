@@ -25,6 +25,12 @@ const ClassroomWriteBarrier = {
         reason: "settlement-pending",
         error: "正在归档课堂，请等待保存完成。",
       };
+    if (globalThis.SaveTransferProgress?.isActive?.())
+      return {
+        ok: false,
+        reason: "transfer-in-progress",
+        error: "存档或数据正在导入/导出，请等待完成后再操作。",
+      };
     if (
       globalThis.SaveManager?.isStarting() ||
       globalThis.SaveManager?.isSwitching()

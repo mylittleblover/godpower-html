@@ -209,6 +209,13 @@ const Reliability = (() => {
         }
       }
     }
+    if (data.randomEvents != null) {
+      if (
+        typeof data.randomEvents !== "object" ||
+        Array.isArray(data.randomEvents)
+      )
+        throw Error("随机事件状态格式无效");
+    }
     if (data.history != null) {
       if (!Array.isArray(data.history) || data.history.length > 40)
         throw Error("历史格式无效");

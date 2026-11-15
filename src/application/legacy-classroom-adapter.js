@@ -18,6 +18,20 @@ function projectClassroomBackup(source, history, owned) {
     itemGlobal: owned
       ? source.itemGlobal || {}
       : clone(source.itemGlobal || {}),
+    ...(source.randomEvents
+      ? {
+          randomEvents: owned
+            ? source.randomEvents
+            : clone(source.randomEvents),
+        }
+      : {}),
+    ...(source.randomEventConfig
+      ? {
+          randomEventConfig: owned
+            ? source.randomEventConfig
+            : clone(source.randomEventConfig),
+        }
+      : {}),
     round: {
       roundActive: source.roundActive,
       evaluated: source.evaluated,
@@ -46,13 +60,21 @@ function projectClassroomBackup(source, history, owned) {
 }
 function captureClassroomCommandSnapshot() {
   const captured = clone(state),
-    history = clone(historyStack);
-  return {
+    history = historyStack.slice();
+  let backup;
+  const snapshot = {
     state: captured,
     history,
     identity: state,
-    backup: projectClassroomBackup(captured, history, true),
   };
+  Object.defineProperty(snapshot, "backup", {
+    enumerable: true,
+    get() {
+      if (!backup) backup = projectClassroomBackup(captured, history, true);
+      return backup;
+    },
+  });
+  return snapshot;
 }
 
 function applyClassroomBackup(raw) {
@@ -98,6 +120,17 @@ function applyClassroomBackup(raw) {
       ),
     );
   }
+  if (data.randomEventConfig && typeof RandomEvents !== "undefined")
+    state.randomEventConfig = RandomEvents.normalizeConfig(
+      data.randomEventConfig,
+    );
+  if (data.randomEvents && typeof RandomEvents !== "undefined")
+    state.randomEvents = RandomEvents.normalizeState(
+      data.randomEvents,
+      state.randomEventConfig,
+    );
+  else if (typeof resetRandomEventSeason === "function")
+    resetRandomEventSeason();
   if (data.round) {
     const r = data.round;
     state.roundActive = !!r.roundActive;
@@ -322,10 +355,49 @@ function useItem(groupId, index) {
       ensureV2State();
       const beforeValue = itemCommandSnapshot();
       const beforeGroups = JSON.parse(beforeValue).groups;
+      const orderedBefore = ranking();
+      const posBefore = orderedBefore.findIndex((x) => x.id === groupId);
+      const casterRankBefore =
+        posBefore >= 0
+          ? 1 + orderedBefore.filter((x) => x.score > g.score).length
+          : null;
+      const adjacentAboveUid = orderedBefore[posBefore - 1]?.groupUid || null;
+      const adjacentBelowUid = orderedBefore[posBefore + 1]?.groupUid || null;
+      const leaderUid =
+        orderedBefore[0] && orderedBefore[0].id !== groupId
+          ? orderedBefore[0].groupUid
+          : null;
+      const aheadSet = new Set(
+        orderedBefore.slice(0, Math.max(0, posBefore)).map((x) => x.groupUid),
+      );
+      const behindSet = new Set(
+        posBefore >= 0
+          ? orderedBefore.slice(posBefore + 1).map((x) => x.groupUid)
+          : [],
+      );
+      const groupCount = state.groups.length;
+      const roundNumber = Number(state.itemGlobal?.pkTotal) || 0;
       const usedItem = g.inventory[index];
       const itemInstanceId = usedItem.itemInstanceId || null;
       const chargesBefore = Number(usedItem.charges) || 1;
+      const freezeCasterUid =
+        g.competitionEffects?.freeze?.casterGroupUid || null;
       if (CompetitionEffects.cancelUse(g)) {
+        if (
+          freezeCasterUid &&
+          StableIdentity.isValidGroupUid(freezeCasterUid)
+        ) {
+          context.emit(
+            "EFFECT_EXPIRED",
+            { type: "group", id: freezeCasterUid },
+            {
+              seasonId: state.seasonId,
+              effectKey: "freeze",
+              reason: "use-cancelled",
+              targetGroupUid: g.groupUid,
+            },
+          );
+        }
         showToast(g.name + " 冰冻已解除，本次道具使用取消");
         return true;
       }
@@ -336,24 +408,78 @@ function useItem(groupId, index) {
         showToast(`${g.name} 冰冻已解除，本次道具使用取消`);
         return true;
       }
-      const result = ItemModules.execute(key, () =>
-        ItemOperationBlocks.run(key, g, index, context, presentation),
-      );
+      const defenseEvents = [];
+      let result;
+      if (typeof pushDefenseCollector === "function")
+        pushDefenseCollector(defenseEvents);
+      try {
+        result = ItemModules.execute(key, () =>
+          ItemOperationBlocks.run(key, g, index, context, presentation),
+        );
+      } finally {
+        if (typeof popDefenseCollector === "function") popDefenseCollector();
+      }
       if (result === false || itemCommandSnapshot() === beforeValue)
         return false;
       markItemUsedThisRoundV2177(groupId, usedItem);
-      context.emit(
-        "ITEM_USED",
-        { type: "group", id: g.groupUid },
-        {
-          seasonId: state.seasonId,
-          itemKey: key,
-          itemInstanceId,
-          chargesBefore,
-          chargesAfter: Number(g.inventory[index]?.charges) || 0,
-        },
-      );
+      const chargesAfter = Number(g.inventory[index]?.charges) || 0;
       context.onCommit((commit) => {
+        const casterBefore = beforeGroups.find((group) => group.id === groupId);
+        const casterAfter = state.groups.find((group) => group.id === groupId);
+        const casterDelta =
+          casterBefore && casterAfter
+            ? casterAfter.score - casterBefore.score
+            : 0;
+        const orderedAfter = ranking();
+        const casterRankAfter = casterAfter
+          ? 1 + orderedAfter.filter((x) => x.score > casterAfter.score).length
+          : casterRankBefore;
+        const boostedOthers = [];
+        const hitTargetUids = [];
+        for (const before of beforeGroups) {
+          if (before.groupUid === g.groupUid) continue;
+          const after = state.groups.find(
+            (group) => group.groupUid === before.groupUid,
+          );
+          if (!after) continue;
+          if (after.score > before.score)
+            boostedOthers.push({
+              groupUid: before.groupUid,
+              delta: after.score - before.score,
+            });
+          else if (after.score < before.score)
+            hitTargetUids.push(before.groupUid);
+        }
+        commit.emit(
+          "ITEM_USED",
+          { type: "group", id: g.groupUid },
+          {
+            seasonId: state.seasonId,
+            itemKey: key,
+            itemInstanceId,
+            chargesBefore,
+            chargesAfter,
+            roundNumber,
+            groupCount,
+            casterDelta,
+            casterRankBefore,
+            casterRankAfter,
+            boostedAheadCount: boostedOthers.filter((x) =>
+              aheadSet.has(x.groupUid),
+            ).length,
+            boostedBehindCount: boostedOthers.filter((x) =>
+              behindSet.has(x.groupUid),
+            ).length,
+            hitTargetUids,
+            hitAheadCount: hitTargetUids.filter((u) => aheadSet.has(u)).length,
+            hitAdjacentAbove:
+              !!adjacentAboveUid && hitTargetUids.includes(adjacentAboveUid),
+            hitAdjacentBelow:
+              !!adjacentBelowUid && hitTargetUids.includes(adjacentBelowUid),
+            hitLeader: !!leaderUid && hitTargetUids.includes(leaderUid),
+            booAlternateMushroom: !!presentation.booAlternateMushroom,
+          },
+        );
         if (presentation.targets) {
           presentation.targets = presentation.targets.map((target) => {
             const before = beforeGroups.find((group) => group.id === target.id);
@@ -376,6 +502,33 @@ function useItem(groupId, index) {
           { actorGroupUid: g.groupUid, itemKey: key, seasonId: state.seasonId },
         ))
           commit.emit("ITEM_HIT", fact.aggregate, fact.payload);
+        for (const def of defenseEvents) {
+          if (StableIdentity.isValidGroupUid(def.defenderGroupUid)) {
+            commit.emit(
+              "DEFENSE_RESOLVED",
+              { type: "group", id: def.defenderGroupUid },
+              {
+                seasonId: state.seasonId,
+                attackerGroupUid: g.groupUid,
+                ...def,
+              },
+            );
+          }
+        }
+        if (key === "coin_shell" || key === "question") {
+          for (const entry of boostedOthers) {
+            commit.emit(
+              "SCORE_CHANGED",
+              { type: "group", id: entry.groupUid },
+              {
+                seasonId: state.seasonId,
+                origin: "item-boost",
+                itemKey: key,
+                delta: entry.delta,
+              },
+            );
+          }
+        }
       });
       return true;
     },
@@ -528,6 +681,35 @@ function judgeRound() {
           { type: "group", id: fact.groupUid },
           fact,
         );
+      const evOut = window.pendingRoundPresentation?.randomEventOutcome;
+      if (evOut?.triggered) {
+        for (const grant of evOut.grantedItems || []) {
+          if (grant.groupUid && grant.itemKey)
+            context.emit(
+              "ITEM_ACQUIRED",
+              { type: "group", id: grant.groupUid },
+              {
+                seasonId: state.seasonId,
+                itemKey: grant.itemKey,
+                itemInstanceId: grant.itemInstanceId || null,
+                source: grant.swappedOutKey
+                  ? "random-event-swap"
+                  : "random-event",
+              },
+            );
+        }
+        context.emit(
+          "RANDOM_EVENT_TRIGGERED",
+          { type: "season", id: state.seasonId },
+          {
+            seasonId: state.seasonId,
+            eventId: evOut.id,
+            eventName: evOut.name,
+            category: evOut.category,
+            roundNumber: evOut.roundNumber,
+          },
+        );
+      }
       return true;
     },
     { retainOnPersistenceFailure: true },

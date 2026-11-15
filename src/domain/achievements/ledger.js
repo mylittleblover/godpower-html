@@ -73,18 +73,110 @@ const AchievementLedger = (() => {
       if (!Array.isArray(progress.itemMastery)) progress.itemMastery = [];
       if (progress.processedEvents.some((id) => typeof id !== "string" || !id))
         throw new TypeError("achievement event receipt is invalid");
+      progress.archivedUnlocks = normalizeArchivedUnlocks(
+        progress.archivedUnlocks,
+      );
+      progress.competitionStats = normalizeCompetitionStats(
+        progress.competitionStats,
+      );
+      progress.itemProgress = normalizeItemProgress(progress.itemProgress);
+      progress.honorStats = normalizeHonorStats(progress.honorStats);
     }
     return ledger;
+  }
+
+  function assertPlainObject(value, label) {
+    if (!value || typeof value !== "object" || Array.isArray(value))
+      throw new TypeError(label);
+  }
+
+  function assertNonNegInt(value, label) {
+    if (!Number.isSafeInteger(value) || value < 0) throw new TypeError(label);
+  }
+
+  function normalizeArchivedUnlocks(raw) {
+    if (raw == null) return {};
+    assertPlainObject(raw, "achievement archived unlocks format is invalid");
+    return raw;
+  }
+
+  function emptyCompetitionStats() {
+    return {
+      positiveGainLifetime: 0,
+      top3In5PlusLifetime: 0,
+      positiveGainSeason: 0,
+      allInStreakSeason: 0,
+      wasLastInSeason: false,
+    };
+  }
+
+  function normalizeCompetitionStats(raw) {
+    if (raw == null) return emptyCompetitionStats();
+    assertPlainObject(raw, "achievement competition stats are invalid");
+    const out = { ...emptyCompetitionStats(), ...raw };
+    for (const k of [
+      "positiveGainLifetime",
+      "top3In5PlusLifetime",
+      "positiveGainSeason",
+      "allInStreakSeason",
+    ])
+      assertNonNegInt(out[k], "achievement competition counter is invalid");
+    if (typeof out.wasLastInSeason !== "boolean")
+      throw new TypeError("achievement seasonal rank flag is invalid");
+    return out;
+  }
+
+  function emptyItemProgress() {
+    return {
+      formalAcquires: 0,
+      byInstance: {},
+      defensesByActivation: {},
+    };
+  }
+
+  function normalizeItemProgress(raw) {
+    if (raw == null) return emptyItemProgress();
+    assertPlainObject(raw, "achievement item progress is invalid");
+    const out = { ...emptyItemProgress(), ...raw };
+    assertNonNegInt(out.formalAcquires, "achievement acquire count is invalid");
+    assertPlainObject(out.byInstance, "achievement item instances are invalid");
+    assertPlainObject(
+      out.defensesByActivation,
+      "achievement defense progress is invalid",
+    );
+    return out;
+  }
+
+  function emptyHonorStats() {
+    return {
+      seasonsCompleted: 0,
+      championCount: 0,
+      runnerUpCount: 0,
+      top3Count: 0,
+    };
+  }
+
+  function normalizeHonorStats(raw) {
+    if (raw == null) return emptyHonorStats();
+    assertPlainObject(raw, "achievement honor stats are invalid");
+    const out = { ...emptyHonorStats(), ...raw };
+    for (const k of Object.keys(emptyHonorStats()))
+      assertNonNegInt(out[k], "achievement honor counter is invalid");
+    return out;
   }
 
   function newGroupProgress(seasonId) {
     return {
       seasonId: seasonId || null,
       permanentUnlocks: {},
+      archivedUnlocks: {},
       historicalCounters: {},
       seasonCounters: {},
       seasonUnlocks: {},
       seasonProgress: emptySeasonProgress(),
+      competitionStats: emptyCompetitionStats(),
+      itemProgress: emptyItemProgress(),
+      honorStats: emptyHonorStats(),
       itemDiscovery: [],
       itemMastery: [],
       processedEvents: [],
@@ -138,6 +230,9 @@ const AchievementLedger = (() => {
         progress.seasonCounters = {};
         progress.seasonUnlocks = {};
         progress.seasonProgress = emptySeasonProgress();
+        progress.competitionStats.positiveGainSeason = 0;
+        progress.competitionStats.allInStreakSeason = 0;
+        progress.competitionStats.wasLastInSeason = false;
       }
       progress.historicalCounters[event.type] =
         (progress.historicalCounters[event.type] || 0) + 1;
@@ -149,15 +244,36 @@ const AchievementLedger = (() => {
         !progress.itemDiscovery.includes(event.payload.itemKey)
       )
         progress.itemDiscovery.push(event.payload.itemKey);
-      const groupUnlocks = LearningAchievementRules.evaluate(progress, event);
+      const groupUnlocks = [];
+      const seenUnlocked = new Set();
+      const pushUnlock = (entry) => {
+        const achievementId =
+          typeof entry === "string" ? entry : entry?.achievementId;
+        if (!achievementId || seenUnlocked.has(achievementId)) return;
+        seenUnlocked.add(achievementId);
+        const layer =
+          typeof entry === "object" && entry?.layer
+            ? entry.layer
+            : progress.permanentUnlocks[achievementId]
+              ? "permanent"
+              : "season";
+        groupUnlocks.push({ groupUid: uid, achievementId, layer });
+      };
+      if (typeof LearningAchievementRules !== "undefined")
+        LearningAchievementRules.evaluate(progress, event).forEach(pushUnlock);
+      if (typeof CompetitionAchievementRules !== "undefined")
+        CompetitionAchievementRules.evaluate(progress, event).forEach(
+          pushUnlock,
+        );
+      if (typeof CollectionAchievementRules !== "undefined")
+        CollectionAchievementRules.evaluate(progress, event).forEach(
+          pushUnlock,
+        );
+      if (typeof HonorAchievementRules !== "undefined")
+        HonorAchievementRules.evaluate(progress, event).forEach(pushUnlock);
       progress.processedEvents.push(event.eventId);
       applied++;
-      unlocked.push(
-        ...groupUnlocks.map((achievementId) => ({
-          groupUid: uid,
-          achievementId,
-        })),
-      );
+      unlocked.push(...groupUnlocks);
     }
     return { ledger, applied, duplicates, unlocked };
   }

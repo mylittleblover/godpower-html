@@ -208,7 +208,11 @@ function applyQuickPersonCustomV218() {
     b.id = "quickPersonBtnV218";
     b.className = "icon-btn";
     b.title = "快速按人加分";
-    b.textContent = "🤑";
+    b.innerHTML =
+      typeof GodpowerTheme !== "undefined" &&
+      typeof GodpowerTheme.icon === "function"
+        ? GodpowerTheme.icon("bolt")
+        : "⚡";
     b.onclick = openQuickPersonScoreV218;
     const hand = [...right.querySelectorAll("button")].find((x) =>
       x.getAttribute("onclick")?.includes("openHandRaise"),

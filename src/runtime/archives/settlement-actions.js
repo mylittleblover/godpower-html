@@ -74,6 +74,59 @@ async function resumeFinalSettlement() {
     return {ok:false,error:error.message};
   } finally { settlementSaving = false; }
 }
+function evaluateSeasonArchiveAchievements(sortedGroups) {
+  const baseLedger = AchievementLedger.normalize(
+    state.achievementLedger || AchievementLedger.empty(),
+  );
+  const groupCount = state.groups.length;
+  const roundsCompleted = Number(state.itemGlobal?.pkTotal) || 0;
+  const totalAnswered = state.groups.reduce(
+    (sum, g) =>
+      sum +
+      (Number(g.itemStats?.correct) || 0) +
+      (Number(g.itemStats?.wrong) || 0),
+    0,
+  );
+  const effectiveSeason =
+    groupCount >= 2 && (roundsCompleted >= 1 || totalAnswered >= 1);
+  if (!effectiveSeason || typeof DomainEvents === "undefined")
+    return { ledger: baseLedger, unlocked: [] };
+
+  const scope = DomainEvents.createScope({
+    commandId:
+      globalThis.StableIdentity?.createCommandId?.() ||
+      `archive-${state.seasonId || Date.now()}`,
+    source: "classroom",
+  });
+  const topScore = Number(sortedGroups[0]?.score) || 0;
+  const secondScore =
+    sortedGroups.length >= 2 ? Number(sortedGroups[1]?.score) || 0 : topScore;
+  const marginOverSecond = topScore - secondScore;
+  for (const g of sortedGroups) {
+    if (!StableIdentity.isValidGroupUid(g.groupUid)) continue;
+    const score = Number(g.score) || 0;
+    const rank =
+      1 +
+      state.groups.filter((other) => (Number(other.score) || 0) > score).length;
+    scope.emit(
+      "SEASON_ARCHIVED",
+      { type: "group", id: g.groupUid },
+      {
+        seasonId: state.seasonId,
+        effectiveSeason: true,
+        groupCount,
+        rank,
+        score,
+        marginOverSecond,
+        roundsCompleted,
+      },
+    );
+  }
+  scope.close();
+  return AchievementLedger.apply(baseLedger, scope.list(), {
+    seasonId: state.seasonId,
+  });
+}
 async function performFinalSettlement() {
   const conflict = ClassroomWriteBarrier.conflict();
   if (conflict) {
@@ -118,6 +171,7 @@ async function performFinalSettlement() {
   const top1 = sorted[0];
   const top2 = sorted[1];
   const top3 = sorted[2];
+  const archiveEvaluation = evaluateSeasonArchiveAchievements(sorted);
 
   const record = {
     id: Date.now(),
@@ -132,7 +186,7 @@ async function performFinalSettlement() {
       0,
     ),
     groups: clone(sorted),
-    achievementLedger: AchievementLedger.normalize(state.achievementLedger),
+    achievementLedger: archiveEvaluation.ledger,
   };
   if(globalThis.SaveManager?.enabled())record.clearedData=buildSettlementClearedDataV21813();
   const archiveResult = globalThis.SaveManager?.enabled() ? await SaveManager.archive(record) : saveSettlementRecord(record);
@@ -142,6 +196,14 @@ async function performFinalSettlement() {
         archiveResult.error,
     );
     return archiveResult;
+  }
+  state.achievementLedger = archiveEvaluation.ledger;
+  if (archiveEvaluation.unlocked.length) {
+    window.dispatchEvent(
+      new CustomEvent("godpower:achievements-unlocked", {
+        detail: { unlocked: archiveEvaluation.unlocked },
+      }),
+    );
   }
   const beforeReset = clone(state),
     beforeHistory = clone(historyStack);

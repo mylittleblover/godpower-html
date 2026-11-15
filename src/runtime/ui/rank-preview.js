@@ -1,5 +1,6 @@
 /* ===== V2.17.21：独立当前排名预览 + 道具不改变卡片排序 ===== */
 
+let _rankPreviewLastSig = "";
 function renderBattleRankPreviewV21721() {
   const box = document.getElementById("battleRankPreviewGridV21721");
   if (!box) return;
@@ -17,6 +18,22 @@ function renderBattleRankPreviewV21721() {
       .slice()
       .sort((a, b) => Number(b.score) - Number(a.score));
   }
+
+  const blooper = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+  const sig =
+    (blooper ? "1|" : "0|") +
+    ranked
+      .map((g) => {
+        const no =
+          typeof groupNoTextV213 === "function"
+            ? groupNoTextV213(g)
+            : String(g.groupNo || g.id || "");
+        return `${g.id}:${no}:${g.name}:${g.color}:${g.score}`;
+      })
+      .join("|");
+  if (sig === _rankPreviewLastSig && box.childElementCount === ranked.length)
+    return;
+  _rankPreviewLastSig = sig;
 
   box.innerHTML = ranked
     .map((g, i) => {

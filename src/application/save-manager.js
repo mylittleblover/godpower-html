@@ -304,10 +304,11 @@
       console.warn(legacyRosterMessage);
     }
   }
-  async function previewSource(rawText, name) {
+  async function previewSource(rawText, name, { onProgress } = {}) {
     let resources = null,
       preview;
     try {
+      onProgress?.({ percent: 30, stage: "正在解析并校验存档结构…" });
       preview = await SaveMigration.preview({
         rawText,
         name,
@@ -315,17 +316,26 @@
           resources ||= await root.TeachingResourceRepository.open();
           return resources.get(id);
         },
+        onProgress: ({ done, total }) => {
+          const pct = total ? 34 + Math.round((done / total) * 18) : 45;
+          onProgress?.({
+            percent: pct,
+            stage: `正在校验头像资源 (${done}/${total})…`,
+          });
+        },
       });
     } finally {
       resources?.close();
     }
+    onProgress?.({ percent: 54, stage: "正在验证课堂数据结构…" });
     for (const doc of preview.documents)
       Reliability.validateBackup(
         SaveProjection.toRuntime(doc, { values: prefs() }),
       );
+    onProgress?.({ percent: 58, stage: "校验完成" });
     return preview;
   }
-  async function importSource(preview) {
+  async function importSource(preview, { onProgress } = {}) {
     await ready();
     if (!repo) return { ok: false, error: "存档库尚未就绪，请重试读取" };
     if (state.isLocked) {
@@ -334,8 +344,10 @@
     }
     if (session && !ClassroomWriteBarrier.allow())
       return { ok: false, error: "课堂正在保存或切换" };
+    onProgress?.({ percent: 64, stage: "正在检查存档索引…" });
     const listed = await repo.list();
     if (!listed.ok) return listed;
+    onProgress?.({ percent: 72, stage: "正在写入存档数据与头像资源…" });
     let imported = await repo.importPreview(preview, { activate: false });
     if (imported.code === "SAVE_ALREADY_EXISTS") {
       // A newer snapshot of the same save must never overwrite the classroom
@@ -355,6 +367,7 @@
       imported = await repo.importPreview(copy, { activate: false });
     }
     if (!imported.ok) return imported;
+    onProgress?.({ percent: 86, stage: "正在切换到新导入的课堂存档…" });
     const currentIndex = await repo.list();
     if (!currentIndex.ok) return currentIndex;
     if (
@@ -376,16 +389,28 @@
     return ready();
   }
 
-  async function exportCurrent() {
+  async function exportCurrent({ onProgress } = {}) {
     if (!session) throw Error("尚未读取可用存档，请先重试读取；原文件仍受保护");
+    onProgress?.({ percent: 10, stage: "正在等待未完成的保存操作…" });
     await session.whenIdle();
     const doc = session.snapshot(),
-      assets = [];
-    for (const id of doc.assetReferences) {
+      assets = [],
+      total = doc.assetReferences.length;
+    onProgress?.({
+      percent: 18,
+      stage: total ? `正在读取头像资源 (0/${total})…` : "正在打包存档数据…",
+    });
+    for (let i = 0; i < total; i++) {
+      const id = doc.assetReferences[i];
       const asset = await repo.getAsset(id);
       if (!asset || asset.ok === false) throw Error("缺少资源：" + id);
       assets.push(asset);
+      onProgress?.({
+        percent: 18 + Math.round(((i + 1) / total) * 58),
+        stage: `正在读取头像资源 (${i + 1}/${total})…`,
+      });
     }
+    onProgress?.({ percent: 82, stage: "正在整合存档包…" });
     return SaveMigration.bundle(doc, assets);
   }
   root.SaveManager = Object.freeze({

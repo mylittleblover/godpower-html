@@ -26,8 +26,16 @@ function settleBaseRoundLegacy() {
   const scoreUpdates = [];
 
   const roundResults = CompetitionRules.calculateRound(state);
+  const eventEffectsById = {};
   state.groups.forEach((g, index) => {
     const result = roundResults[index];
+    if (result) {
+      eventEffectsById[g.id] = {
+        baseMultiplier: result.eventBaseMultiplier || 1,
+        flatBonus: result.eventFlatBonus || 0,
+        consumedStar: !!result.consumedStar,
+      };
+    }
     g.animState = "";
     g.resultText = result.resultText;
     if (!result.answered) return;
@@ -59,5 +67,6 @@ function settleBaseRoundLegacy() {
     hasNormalWin,
     hasMilestone,
     milestoneGroups,
+    eventEffectsById,
   };
 }

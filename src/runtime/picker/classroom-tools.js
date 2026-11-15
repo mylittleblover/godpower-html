@@ -10,6 +10,7 @@ function ensureV2State() {
   if (!state.itemGlobal.pkTotal) state.itemGlobal.pkTotal = 0;
   if (!state.itemGlobal.customIcons)
     state.itemGlobal.customIcons = STORAGE.getJSON("politics_item_icons", {});
+  if (typeof ensureRandomEventState === "function") ensureRandomEventState();
 }
 ensureV2State();
 const BUILTIN_ITEM_ICONS_V2121 = {

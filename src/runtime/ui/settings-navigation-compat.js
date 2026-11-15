@@ -45,17 +45,19 @@ function rebuildSettingsV26() {
   tabs.innerHTML = `<button data-v26="function" onclick="showSettingsV26('function')">⚙️ 功能设置</button><button data-v26="sound" onclick="showSettingsV26('sound')">🔊 音效与音乐</button><button data-v26="items" onclick="showSettingsV26('items')">🎁 道具与图标</button><button data-v26="data" onclick="showSettingsV26('data')">💾 数据与管理</button>`;
   sc.append(tabs, panes.function, panes.sound, panes.items, panes.data);
 
+  const md = (key) =>
+    typeof GodpowerTheme !== "undefined" &&
+    typeof GodpowerTheme.icon === "function"
+      ? GodpowerTheme.icon(key)
+      : "";
   const ui = document.createElement("div");
-  ui.innerHTML =
-    '<div class="setting-section-title">🖼️ 按钮图标自定义</div><div id="uiIconManagerV26"></div>';
+  ui.innerHTML = `<div class="setting-section-title">${md("palette")}<span>按钮图标自定义</span></div><div id="uiIconManagerV26"></div>`;
   panes.function.appendChild(ui);
   const item = document.createElement("div");
-  item.innerHTML =
-    '<div class="setting-section-title">🎁 28 种道具百科与图标管理</div><div id="v2ItemEncyclopedia"></div>';
+  item.innerHTML = `<div class="setting-section-title">${md("gift")}<span>28 种道具百科与图标管理</span></div><div id="v2ItemEncyclopedia"></div>`;
   panes.items.appendChild(item);
   const fx = document.createElement("div");
-  fx.innerHTML =
-    '<div class="setting-section-title">🎮 道具系统音效</div><div id="itemFxSoundListV26"></div>';
+  fx.innerHTML = `<div class="setting-section-title">${md("sound")}<span>道具系统音效</span></div><div id="itemFxSoundListV26"></div>`;
   panes.sound.appendChild(fx);
   const hidden = document.createElement("input");
   hidden.type = "file";

@@ -1,0 +1,892 @@
+/* Post-consolidation page visual refinements across welcome, settings, battle and notifications. */
+#gpIntro .gp-intro-caption {
+  color: var(--ui-muted, var(--theme-tone-486b5e, #486b5e));
+}
+#gpIntro .gp-slider {
+  border-color: var(--ui-border-strong, #b8d8cc);
+  box-shadow: 0 8px 26px rgba(15, 76, 67, 0.14);
+}
+#gpIntro .gp-slider-hint {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-text, #173a32);
+  opacity: 0.72;
+  letter-spacing: 0.04em;
+}
+#view-welcome #homeDashboardGrid .gp-panel {
+  overflow: hidden;
+}
+#view-welcome #homeDashboardGrid > .gp-panel .gp-feed-list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: 4px;
+}
+#view-welcome #homeDashboardGrid .gp-panel .gp-panel-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  position: relative;
+  z-index: 1;
+}
+#view-welcome #homeDashboardGrid .gp-feed-row {
+  padding: 9px 11px;
+  gap: 10px;
+}
+body.gp-intro-reveal #homeDashboardGrid > .gp-panel[data-home-card-type] {
+  animation-duration: 0.26s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: min(var(--home-enter-delay, 0ms), 110ms);
+}
+
+#toast.ui-toast {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 10px 22px;
+  background: var(--theme-tone-123d35, #123d35);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 12px 28px rgba(11, 44, 42, 0.22);
+}
+#toast.ui-toast:empty {
+  opacity: 0;
+  padding: 0;
+  border-width: 0;
+}
+
+#view-settings #aboutMain .about-heading > button[onclick="closeAbout()"] {
+  display: none;
+}
+#uiSettingsRules > div:has(> :only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
+#uiSettingsShell #uiSettingsRules .ui-rule-card {
+  min-height: 0;
+}
+#uiSettingsLayout > div:has(> :nth-child(3):last-child) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+#uiSettingsLayout .ui-settings-row {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm, 10px);
+  background: var(--ui-panel);
+  gap: 12px;
+}
+#uiSettingsShell .setting-item[data-settings-group="savefile"] {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+#uiSettingsShell .setting-item[data-settings-group="savefile"] > div {
+  max-width: 100%;
+}
+/* Reserved active panel grids replace legacy wrapper-id rules in Part 3 below */
+#view-settings .ui-danger-zone > summary,
+#view-settings .ui-danger-zone > summary b {
+  color: #991b1b;
+}
+@media (min-width: 1200px) {
+  #uiSettingsShell #uiSettingsWallpaper > div {
+    align-items: stretch;
+  }
+}
+#uiSettingsShell #uiSettingsWallpaper .setting-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  height: 100%;
+  margin: 0;
+}
+#uiSettingsWallpaper .wall-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+#uiSettingsWallpaper #cfgWallVeil {
+  width: 100%;
+  max-width: 300px;
+}
+
+.ui-history[data-kind="score"] {
+  border-left: 4px solid #147344;
+}
+.ui-history[data-kind="item"] {
+  border-left: 4px solid #b45309;
+}
+.ui-history[data-kind="round"] {
+  border-left: 4px solid var(--ui-primary);
+}
+
+body.modern-flat .resizer-handle {
+  background: var(--ui-panel, #ffffff);
+  border-top-color: var(--ui-border, #cbd5e1);
+  transition:
+    background 0.16s ease,
+    color 0.16s ease;
+}
+body.modern-flat .resizer-handle:hover {
+  background: var(--ui-soft, #eaf3f0);
+  color: var(--ui-primary, #0f766e);
+}
+#view-battle #groupList > .group-row-card {
+  --battle-card-bg: color-mix(
+    in srgb,
+    var(--group-color, #0f766e) 3%,
+    var(--ui-panel, #ffffff)
+  );
+  --battle-card-radius: 15px;
+  --battle-card-shadow:
+    0 1px 2px rgba(15, 38, 33, 0.04),
+    0 8px 20px -8px
+      color-mix(
+        in srgb,
+        var(--group-color, #0f766e) 18%,
+        rgba(15, 38, 33, 0.14)
+      ),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  --ui-border: color-mix(in srgb, var(--group-color, #0f766e) 13%, #d8e5df);
+  --control-bg: color-mix(in srgb, var(--ui-soft-2, #f5f9f7) 86%, #ffffff);
+  --control-border: color-mix(
+    in srgb,
+    var(--ui-border-strong, #c5dad1) 50%,
+    transparent
+  );
+  --control-radius: 8px;
+  --rank-background: color-mix(
+    in srgb,
+    var(--ui-soft, #eef5f2) 80%,
+    var(--ui-panel, #ffffff)
+  );
+  --rank-border: color-mix(
+    in srgb,
+    var(--ui-border-strong, #cbd5e1) 44%,
+    transparent
+  );
+  --rank-ink: var(--ui-muted, #46635f);
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+body.theme-marx #view-battle #groupList > .group-row-card {
+  --ui-border: color-mix(in srgb, var(--group-color, #a91e2c) 14%, #e4d2ca);
+}
+#view-battle
+  #groupList
+  > .group-row-card:not(.card-use-fx):not(.card-hit-fx):hover {
+  --battle-card-bg: color-mix(
+    in srgb,
+    var(--group-color, #0f766e) 5%,
+    var(--ui-panel, #ffffff)
+  );
+  --ui-border: color-mix(in srgb, var(--group-color, #0f766e) 30%, #c7dbd2);
+}
+#view-battle #groupList .battle-group-number:not(.battle-number-avatar) {
+  border-radius: 12px;
+  outline: 1.5px solid
+    color-mix(in srgb, var(--group-color, #0f766e) 26%, transparent);
+  outline-offset: 2px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+#view-battle #groupList .battle-group-name {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--ui-text, #16302b);
+}
+#view-battle #groupList .battle-group-subtitle {
+  opacity: 0.7;
+  font-weight: 500;
+}
+#view-battle #groupList .battle-card .score-capsule,
+#view-welcome .ui-group-card .score-capsule {
+  background: color-mix(
+    in srgb,
+    var(--score-capsule-bg, var(--group-color, #0f766e)) 11%,
+    var(--ui-panel, #ffffff)
+  );
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--score-capsule-bg, var(--group-color, #0f766e)) 26%,
+      transparent
+    );
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease;
+}
+/* Override inline presenter ink so frosted group-tinted capsules guarantee AAA contrast on every group hue */
+#view-battle #groupList .battle-card .score-capsule:not(.score-roll-host),
+#view-welcome .ui-group-card .score-capsule {
+  color: color-mix(
+    in srgb,
+    var(--score-capsule-bg, var(--group-color, #0f766e)) 24%,
+    #0b1c19
+  ) !important;
+}
+body.theme-marx
+  #view-battle
+  #groupList
+  .battle-card
+  .score-capsule:not(.score-roll-host),
+body.theme-marx #view-welcome .ui-group-card .score-capsule {
+  color: color-mix(
+    in srgb,
+    var(--score-capsule-bg, var(--group-color, #a91e2c)) 24%,
+    #241112
+  ) !important;
+}
+#view-battle #groupList .battle-card .score-capsule.editable:hover {
+  background: color-mix(
+    in srgb,
+    var(--score-capsule-bg, var(--group-color, #0f766e)) 18%,
+    var(--ui-panel, #ffffff)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--score-capsule-bg, var(--group-color, #0f766e)) 42%,
+    transparent
+  );
+}
+#view-battle #groupList .battle-card .item-slot {
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ui-soft-2, #f5f9f7) 88%, #ffffff);
+  border-color: color-mix(
+    in srgb,
+    var(--ui-border-strong, #c5dad1) 46%,
+    transparent
+  );
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+#view-battle .battle-card .item-slot.empty {
+  color: var(--ui-muted);
+  font-size: 13px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--ui-soft-2, #f5f9f7) 58%, transparent);
+  border-style: dashed;
+  border-color: color-mix(
+    in srgb,
+    var(--ui-border-strong, #c5dad1) 52%,
+    transparent
+  );
+}
+#view-battle #groupList .battle-card .item-slot.queue-main-slot {
+  border-color: color-mix(
+    in srgb,
+    var(--group-color, var(--ui-primary, #0f766e)) 52%,
+    var(--ui-primary, #0f766e)
+  ) !important;
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--ui-primary, #0f766e) 13%, transparent) !important;
+}
+#view-battle
+  #groupList
+  .battle-card
+  .item-slot.queue-main-slot
+  .queue-slot-role {
+  background: var(--ui-primary, #0f766e);
+  color: #ffffff;
+  border: 1.5px solid var(--ui-panel, #ffffff);
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgba(15, 38, 33, 0.22);
+}
+#view-battle #groupList .battle-card .more-btn {
+  --control-bg: transparent;
+  --control-border: transparent;
+  --control-text: var(--ui-muted, #607773);
+  border-radius: 9px;
+  opacity: 0.72;
+  transition:
+    opacity 0.14s ease,
+    background-color 0.14s ease;
+}
+#view-battle #groupList > .group-row-card:hover .more-btn,
+#view-battle #groupList .battle-card .more-btn:hover {
+  opacity: 1;
+}
+#view-battle #groupList .battle-card .opt-btn,
+#view-battle #groupList .battle-card .allin-toggle-btn {
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+#view-battle
+  #groupList
+  .battle-card
+  .opt-btn:not(.active):not(.correct):not(.wrong):not(:disabled):hover {
+  --control-bg: color-mix(
+    in srgb,
+    var(--group-color, var(--ui-primary, #0f766e)) 10%,
+    #ffffff
+  );
+  --control-border: color-mix(
+    in srgb,
+    var(--group-color, var(--ui-primary, #0f766e)) 36%,
+    var(--ui-border)
+  );
+  --control-text: var(--ui-text);
+}
+#view-battle
+  #groupList
+  .battle-card
+  .allin-toggle-btn:not(.active):not(:disabled):hover {
+  --control-bg: #fff5f0;
+  --control-border: rgba(217, 70, 32, 0.34);
+  --control-text: #b93815;
+}
+#view-welcome .ui-group-card {
+  border-radius: 15px;
+  border-left: 4px solid var(--group-color, #0f766e);
+  background: color-mix(
+    in srgb,
+    var(--group-color, #0f766e) 3%,
+    var(--ui-panel, #ffffff)
+  );
+}
+
+/* Part 2: 学生与小组管理 (#saveWorkspace) 高质感卡片布局与可滚动工作台 */
+#view-settings #saveWorkspace > header.ui-settings-group {
+  display: grid;
+  gap: 8px;
+  padding: 16px 20px;
+}
+#view-settings #saveWorkspace > header.ui-settings-group > h4 {
+  margin: 0;
+  font-size: 16px;
+}
+#view-settings #saveWorkspace .save-workspace-help {
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: color-mix(
+    in srgb,
+    var(--ui-soft, #eef5f2) 72%,
+    var(--ui-panel, #ffffff)
+  );
+  border: 1px solid var(--ui-border);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ui-muted);
+}
+#view-settings #saveWorkspace .save-workspace-help:empty {
+  display: none;
+}
+#view-settings #saveWorkspace .save-roster-section {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  box-shadow: 0 2px 12px rgba(15, 38, 33, 0.04);
+}
+#view-settings #saveWorkspace .save-roster-heading {
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 68%, transparent);
+}
+#view-settings #saveWorkspace .save-roster-heading h4 {
+  font-size: 16px;
+  font-weight: 800;
+}
+#view-settings #saveWorkspace .save-student-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: color-mix(
+    in srgb,
+    var(--ui-soft-2, #f5f9f7) 94%,
+    var(--ui-panel, #ffffff)
+  );
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ui-muted);
+}
+#view-settings #saveWorkspace .save-student-table td {
+  padding: 9px 12px;
+}
+#view-settings #saveWorkspace .save-student-table tbody tr {
+  transition: background-color 0.14s ease;
+}
+#view-settings #saveWorkspace .save-student-table tbody tr:hover {
+  background: color-mix(in srgb, var(--ui-soft, #eef5f2) 48%, transparent);
+}
+#view-settings #saveWorkspace .save-avatar-button {
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+}
+#view-settings #saveWorkspace .save-group-row:not([hidden]) {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border-color: color-mix(
+    in srgb,
+    var(--save-group-color, var(--ui-border)) 22%,
+    var(--ui-border)
+  );
+  box-shadow: inset 4px 0 0 var(--save-group-color, var(--ui-primary, #0f766e));
+  background: color-mix(
+    in srgb,
+    var(--save-group-color, #0f766e) 3%,
+    var(--ui-panel, #ffffff)
+  );
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease;
+}
+#view-battle .battle-rank-chip .battle-rank-score {
+  color: color-mix(
+    in srgb,
+    var(--rank-group-color, #0f766e) 68%,
+    #0b1c19
+  ) !important;
+}
+#view-battle #groupList .battle-card .battle-group-number-below-avatar {
+  color: color-mix(in srgb, var(--group-color, #607d8b) 72%, #0b1c19);
+}
+
+/* Part 3: 设置控制中心各分页排版统一、卡片化、粘性导航与跨页面细节打磨 */
+#view-settings #uiSettingsShell > .ui-settings-nav {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+}
+#view-settings #uiSettingsShell .ui-settings-title {
+  padding-bottom: 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 68%, transparent);
+  margin-bottom: 18px;
+}
+#view-settings #uiSettingsShell .ui-settings-group {
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(15, 38, 33, 0.035);
+}
+@media (min-width: 1200px) {
+  #view-settings
+    #uiSettingsShell
+    #uiSettingsRules
+    > div:has(> #settingsV26_function) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+#view-settings #uiSettingsShell .cf-slot-editor {
+  gap: 12px;
+}
+#view-settings #uiSettingsShell .cf-slot-editor label {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-soft-2, #f5f9f7);
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+#view-settings #uiSettingsShell .cf-slot-editor label:nth-child(-n + 3) {
+  background: color-mix(in srgb, #147344 5%, var(--ui-panel, #ffffff));
+  border-color: color-mix(in srgb, #147344 22%, var(--ui-border));
+  color: #147344;
+}
+#view-settings #uiSettingsShell .cf-slot-editor label:nth-child(n + 4) {
+  background: color-mix(in srgb, #b91c1c 5%, var(--ui-panel, #ffffff));
+  border-color: color-mix(in srgb, #b91c1c 22%, var(--ui-border));
+  color: #b91c1c;
+}
+#view-settings #uiSettingsShell .cf-slot-editor input {
+  text-align: center;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border-radius: 9px;
+}
+#view-settings [data-category-panel="motion"]:not([hidden]),
+#view-settings [data-category-panel="welcome"]:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+#view-settings [data-category-panel="motion"] > header,
+#view-settings [data-category-panel="motion"] > p,
+#view-settings [data-category-panel="motion"] > section,
+#view-settings [data-category-panel="motion"] > details,
+#view-settings [data-category-panel="welcome"] > header,
+#view-settings [data-category-panel="welcome"] > p,
+#view-settings [data-category-panel="welcome"] > section,
+#view-settings [data-category-panel="welcome"] > details {
+  grid-column: 1 / -1;
+}
+#view-settings [data-category-panel="motion"] > .cf-settings,
+#view-settings [data-category-panel="sound"] > .cf-settings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+#view-settings [data-category-panel="motion"] > .cf-settings > h3,
+#view-settings [data-category-panel="motion"] > .cf-settings > p,
+#view-settings [data-category-panel="sound"] > .cf-settings > h3,
+#view-settings [data-category-panel="sound"] > .cf-settings > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+#view-settings [data-category-panel="motion"] .ui-settings-row,
+#view-settings [data-category-panel="welcome"] .ui-settings-row,
+#view-settings [data-category-panel="sound"] > .cf-settings .ui-settings-row {
+  margin: 0;
+  padding: 15px 18px;
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  background: var(--ui-panel);
+  box-shadow: 0 2px 10px rgba(15, 38, 33, 0.03);
+  min-height: 64px;
+  gap: 14px;
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease;
+}
+#view-settings [data-category-panel="motion"] .ui-settings-row:hover,
+#view-settings [data-category-panel="welcome"] .ui-settings-row:hover,
+#view-settings
+  [data-category-panel="sound"]
+  > .cf-settings
+  .ui-settings-row:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--ui-primary, #0f766e) 30%,
+    var(--ui-border)
+  );
+}
+@media (max-width: 960px) {
+  #view-settings [data-category-panel="motion"]:not([hidden]),
+  #view-settings [data-category-panel="welcome"]:not([hidden]),
+  #view-settings [data-category-panel="motion"] > .cf-settings,
+  #view-settings [data-category-panel="sound"] > .cf-settings {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (min-width: 1080px) {
+  #view-settings #uiSettingsShell #uiSettingsVolume > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 14px;
+  }
+}
+#view-settings #uiSettingsShell #uiSettingsVolume .setting-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  margin: 0;
+  padding: 16px 18px;
+  height: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--ui-border);
+  background: color-mix(
+    in srgb,
+    var(--ui-soft-2, #f5f9f7) 75%,
+    var(--ui-panel, #ffffff)
+  );
+}
+#view-settings #uiSettingsShell #uiSettingsVolume .setting-label small {
+  display: block;
+  margin-top: 5px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+#view-settings #uiSettingsShell #uiSettingsVolume input[type="range"] {
+  min-width: 100%;
+  width: 100%;
+}
+#view-settings #uiSettingsShell .ui-snapshot-note {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--ui-border);
+  background: color-mix(
+    in srgb,
+    var(--ui-soft, #eef5f2) 72%,
+    var(--ui-panel, #ffffff)
+  );
+}
+#view-settings #uiSettingsShell #uiSettingsBackup .setting-item,
+#view-settings #uiSettingsShell #uiSettingsLock .setting-item {
+  margin: 8px 0 0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: color-mix(
+    in srgb,
+    var(--ui-soft-2, #f5f9f7) 64%,
+    var(--ui-panel, #ffffff)
+  );
+}
+#view-settings [data-category-panel="ai"] #aiSettingsForm {
+  max-width: 760px;
+}
+#view-settings [data-category-panel="about"] .gameplay-about-tabs {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--ui-soft-2, #f5f9f7);
+  border: 1px solid var(--ui-border);
+  gap: 4px;
+  margin-bottom: 16px;
+}
+#view-settings [data-category-panel="about"] .gameplay-about-tabs .btn {
+  --control-bg: transparent;
+  --control-border: transparent;
+  --control-text: var(--ui-muted);
+  border-radius: 9px;
+  padding: 7px 14px;
+  font-weight: 600;
+  box-shadow: none;
+}
+#view-settings [data-category-panel="about"] .gameplay-about-tabs .btn:hover {
+  --control-bg: color-mix(in srgb, var(--ui-panel, #ffffff) 72%, transparent);
+  --control-text: var(--ui-text);
+}
+#view-settings [data-category-panel="about"] .gameplay-about-tabs .btn.active {
+  --control-bg: var(--ui-primary, #0f766e);
+  --control-border: var(--ui-primary, #0f766e);
+  --control-text: #ffffff;
+  box-shadow: 0 2px 8px
+    color-mix(in srgb, var(--ui-primary, #0f766e) 28%, transparent);
+}
+#view-settings [data-category-panel="about"] #aboutMain {
+  max-width: 960px;
+}
+#view-history .ui-history {
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+#view-history .ui-history:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--ui-primary, #0f766e) 26%,
+    var(--ui-border)
+  );
+}
+#view-ai .ui-panel {
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(15, 38, 33, 0.04);
+}
+#view-settings #saveWorkspace .save-group-row:not([hidden]):hover {
+  background: color-mix(
+    in srgb,
+    var(--save-group-color, #0f766e) 7%,
+    var(--ui-panel, #ffffff)
+  );
+}
+#view-settings #saveWorkspace [data-member-editor]:not([hidden]) {
+  padding: 14px;
+  border-radius: 12px;
+  background: color-mix(
+    in srgb,
+    var(--ui-soft-2, #f5f9f7) 85%,
+    var(--ui-panel, #ffffff)
+  );
+  border: 1px solid var(--ui-border);
+  margin-bottom: 12px;
+}
+#view-settings #saveWorkspace .save-member-options label:has(input:checked) {
+  background: color-mix(in srgb, var(--ui-primary, #0f766e) 10%, #ffffff);
+  border-color: color-mix(in srgb, var(--ui-primary, #0f766e) 35%, transparent);
+}
+#view-archives .ui-archive-search {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+#view-archives .ui-archive-search > .ui-icon {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
+#view-archives .ui-archive-search input#uiArchiveSearch {
+  padding: 0 14px 0 38px;
+  border-radius: 11px;
+}
+svg.ui-icon,
+.hand-flow-card > svg {
+  fill: currentColor;
+  stroke: none;
+  flex: none;
+}
+#view-welcome .gp-kpi-icon svg.ui-icon {
+  width: 20px;
+  height: 20px;
+}
+#view-welcome .gp-feed-icon svg.ui-icon {
+  width: 16px;
+  height: 16px;
+}
+#view-welcome .ui-scroll-buttons button svg.ui-icon {
+  width: 18px;
+  height: 18px;
+}
+#view-welcome .gp-rank-row .gp-rank-bar {
+  background: color-mix(
+    in srgb,
+    var(--rank-group-color, var(--theme-tone-168c79, #168c79)) 14%,
+    var(--theme-tone-ecf3ef, #ecf3ef)
+  );
+}
+#view-welcome .gp-rank-row .gp-rank-bar > i {
+  background: linear-gradient(
+    90deg,
+    color-mix(
+        in srgb,
+        var(--rank-group-color, var(--theme-tone-47c1a7, #47c1a7)) 68%,
+        #ffffff
+      )
+      0%,
+    var(--rank-group-color, var(--theme-tone-168c79, #168c79)) 58%,
+    color-mix(
+        in srgb,
+        var(--rank-group-color, var(--theme-tone-168c79, #168c79)) 82%,
+        #0b1c19
+      )
+      100%
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+:is(
+  #view-welcome .gp-section-heading h2,
+  #view-welcome .gp-group-head h2,
+  #view-welcome .gp-panel-title strong,
+  #view-gameplay .gameplay-page-heading h2,
+  #view-archives .ui-collection-header h2,
+  #view-history .ui-collection-header h2,
+  #view-ai .ui-collection-header h2,
+  #view-settings .ui-settings-header h2,
+  #view-settings .ui-settings-title h3,
+  #view-gameplay .gameplay-rules h3,
+  #view-ai .ai-help h3,
+  #view-ai .ai-help h4,
+  #view-ai .ai-model-settings h4,
+  .save-section-heading
+) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+:is(
+  #view-welcome .gp-actions .gp-button-primary,
+  #view-welcome .gp-actions .gp-button-outline,
+  #view-welcome .gp-panel-footer button,
+  #view-welcome .gp-match-status button,
+  #view-gameplay .gameplay-tabs .btn,
+  #view-gameplay .gameplay-overview .btn,
+  #view-archives .ui-archive-actions .btn,
+  #view-archives .ui-overview .ui-muted,
+  #view-history .ui-history .btn-danger,
+  #view-ai .btn,
+  #view-settings .setting-section-title,
+  #view-settings .ui-settings-disclosure > summary,
+  #view-settings .save-workspace-toolbar .btn,
+  #view-settings .ui-toolbar .btn,
+  #view-settings [data-settings-group="backup"] .btn,
+  #view-settings [data-settings-group="danger"] .btn,
+  #view-battle .battle-rank-preview-title,
+  #view-battle .batch-bar-title,
+  .bottom-dock #btnFinalSettlement,
+  .dock-right .ui-dock-menu > summary,
+  .item-side .item-tab,
+  .member-search-title,
+  .score-modal-title,
+  #pwdModal h3,
+  #batchImportModal h3,
+  #pickerModal .picker-left h3,
+  #pickerModal .picker-vtab,
+  #pickerModal .picker-right > b,
+  #handRaiseBackdrop .hand-flow-identity,
+  #handRaiseBackdrop .classroom-head .btn,
+  #quickPersonBackdropV218 .quick-person-head b,
+  #aboutBackdrop .about-heading h2,
+  #aboutBackdrop .guide-block b,
+  #view-settings [data-category-panel="about"] .gameplay-about-tabs .btn
+) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+:is(
+    #view-gameplay .ui-collection-header h2,
+    #view-archives .ui-collection-header h2,
+    #view-history .ui-collection-header h2,
+    #view-ai .ui-collection-header h2,
+    #view-settings .ui-settings-header h2
+  )
+  > svg.ui-icon {
+  width: 22px;
+  height: 22px;
+  color: currentColor;
+  opacity: 0.96;
+}
+:is(
+    #view-settings .ui-settings-title h3,
+    #view-gameplay .gameplay-rules h3,
+    .score-modal-title,
+    .member-search-title,
+    #pwdModal h3,
+    #settlementNameModal h3,
+    #batchImportModal h3
+  )
+  > svg.ui-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--ui-primary, #0f766e);
+}
+:is(
+    .btn,
+    .setting-section-title,
+    .save-section-heading,
+    .ui-settings-disclosure > summary,
+    .item-tab,
+    .picker-vtab,
+    .guide-block b,
+    #view-archives .ui-overview .ui-muted
+  )
+  svg.ui-icon {
+  width: 16px;
+  height: 16px;
+}
+#view-settings #uiIconManagerV26 .icon-preview svg.ui-icon,
+.ui-transfer-badge svg.ui-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--ui-primary, #0f766e);
+}
+#view-settings #saveWorkspace .save-avatar-placeholder {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ui-muted);
+}
+#view-settings #saveWorkspace .save-avatar-placeholder svg.ui-icon {
+  width: 16px;
+  height: 16px;
+}
+#avatarPresetDialog [data-preset-close] {
+  display: grid;
+  place-items: center;
+}

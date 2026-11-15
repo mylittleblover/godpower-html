@@ -13,6 +13,7 @@ const DomainEvents = (() => {
     "RANK_CHANGED",
     "SEASON_ARCHIVED",
     "SCORE_CHANGED",
+    "RANDOM_EVENT_TRIGGERED",
   ]);
   const MAX_PAYLOAD_BYTES = 64 * 1024;
 

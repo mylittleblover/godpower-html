@@ -1,3 +1,18 @@
+const defenseCollectorStack = [];
+function pushDefenseCollector(collector) {
+  defenseCollectorStack.push(collector);
+}
+function popDefenseCollector() {
+  defenseCollectorStack.pop();
+}
+function currentDefenseCollector() {
+  return defenseCollectorStack[defenseCollectorStack.length - 1] || null;
+}
+function recordDefenseOutcome(collector, outcome) {
+  if (!Array.isArray(collector) || !outcome?.defenderGroupUid) return;
+  collector.push({ blocked: true, ...outcome });
+}
+
 /* Application adapter applies the pure defense decision, preserving legacy side effects. */
 function tryDefend(g, attackType) {
   const kind = DefensePolicy.choose(g, attackType, {
@@ -8,11 +23,17 @@ function tryDefend(g, attackType) {
       SHELL_ATTACK_KEYS_V2170.has(attackType),
   });
   const main = g?.inventory?.[0];
+  const collector = currentDefenseCollector();
   switch (kind) {
     case "timed-ghost": {
       tinyDefenseToast(
         `对方持有防御：害羞幽灵保护（剩余 ${g.booRoundsLeftV218} 次答题）`,
       );
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: "boo",
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "feather": {
@@ -23,10 +44,20 @@ function tryDefend(g, attackType) {
       if (g.itemEffect.featherDodge <= 0) delete g.itemEffect.featherDodge;
       if (Object.keys(g.itemEffect).length === 0) g.itemEffect = null;
       tinyDefenseToast(`${g.name} 使用羽毛跃起，闪避了本次攻击`);
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: "feather",
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "bullet": {
       tinyDefenseToast(`${g.name} 的炮弹刺客处于绝对防御`);
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: "bullet",
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "persistent": {
@@ -34,11 +65,22 @@ function tryDefend(g, attackType) {
       tinyDefenseToast(`对方持有防御：${ITEM_DEFS[type]?.name || "持续状态"}`);
       /* 无敌与巨大化按答题轮次计时，抵挡攻击本身不再扣减次数：
          只要还在有效期内，每次攻击都会被挡下。 */
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: type,
+        effectActivationId: g.itemEffect?.activationId || type,
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "ghost": {
       tinyDefenseToast(`对方持有防御：害羞幽灵保护`);
       g.booShield = Math.max(0, Number(g.booShield || 0) - 1);
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: "boo",
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "bomb": {
@@ -46,14 +88,25 @@ function tryDefend(g, attackType) {
       tinyDefenseToast(
         `${g.name} 用炸弹兵挡住了${ITEM_DEFS[attackType]?.name || "龟壳"}`,
       );
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: "bomb",
+        attackerItemKey: attackType,
+      });
       explodeDestroyedBombV2170(g, null, "防御龟壳时");
       return true;
     }
     case "inventory": {
+      const usedDefKey = main.key;
       tinyDefenseToast(
-        `对方持有防御：${ITEM_DEFS[main.key]?.name || "防御道具"}`,
+        `对方持有防御：${ITEM_DEFS[usedDefKey]?.name || "防御道具"}`,
       );
       consumeInventoryItem(g, 0, 1);
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: g.groupUid,
+        defenderKey: usedDefKey,
+        attackerItemKey: attackType,
+      });
       return true;
     }
     case "ineligible":
@@ -83,6 +136,7 @@ function requestSpinyDefense(target, key, continueAttack) {
   requests.set(flag, requestToken);
   target[flag] = true;
   const decision = Reliability.captureDefenseDecision(state, target, key);
+  const collector = currentDefenseCollector();
   const name = ITEM_DEFS[key]?.name || "蘑菇";
   const prompt = themeConfirm(
     `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${name} 抵消本次攻击？`,
@@ -106,6 +160,11 @@ function requestSpinyDefense(target, key, continueAttack) {
       clear();
       if (useIt) {
         consumeInventoryItem(target, 0, 1);
+        recordDefenseOutcome(collector, {
+          defenderGroupUid: target.groupUid,
+          defenderKey: horn ? "horn" : "mushroom",
+          attackerItemKey: "spiny",
+        });
         tinyDefenseToast(
           horn
             ? `${target.name} 使用超级喇叭成功击碎刺龟壳`

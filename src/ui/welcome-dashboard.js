@@ -69,7 +69,7 @@
       $(id).title = $(id).textContent;
     const signature = JSON.stringify([
       mask,
-      ranked.map((g) => [g.id, g.name, g.score]),
+      ranked.map((g) => [g.id, g.name, g.score, g.color]),
     ]);
     setText("gpHeroCount", groups.length + " 组");
     setText(
@@ -98,7 +98,11 @@
               const pct = mask
                 ? 0
                 : Math.max(0, Math.min(100, (score(g) / max) * 100));
-              return `<div class="gp-rank-row" role="listitem"><span class="gp-rank-index${medal}">${mask ? "—" : i + 1}</span><span class="gp-rank-name" title="${esc(g.name)}">${esc(g.name)}</span><span class="gp-rank-bar" aria-hidden="true"><i style="width:${pct.toFixed(2)}%"></i></span><span class="gp-rank-points">${mask ? "???" : esc(g.score)}</span><span class="gp-rank-state">${mask ? "已遮蔽" : i === 0 ? "领跑" : "参赛中"}</span></div>`;
+              const rawColor = String(g.color || "").trim();
+              const barColor = /^#[0-9a-fA-F]{3,8}$/.test(rawColor)
+                ? rawColor
+                : "#168c79";
+              return `<div class="gp-rank-row" role="listitem"><span class="gp-rank-index${medal}">${mask ? "—" : i + 1}</span><span class="gp-rank-name" title="${esc(g.name)}">${esc(g.name)}</span><span class="gp-rank-bar" aria-hidden="true" style="--rank-group-color:${esc(barColor)}"><i style="width:${pct.toFixed(2)}%"></i></span><span class="gp-rank-points">${mask ? "???" : esc(g.score)}</span><span class="gp-rank-state">${mask ? "已遮蔽" : i === 0 ? "领跑" : "参赛中"}</span></div>`;
             })
             .join("")
         : '<div class="gp-rank-empty">还没有小组。请在设置或比赛页面添加小组。</div>';
@@ -121,10 +125,10 @@
         ? recent
             .map(
               (h) =>
-                `<div class="gp-feed-row"><span class="gp-feed-icon">↗</span><div class="gp-feed-copy"><strong>${esc(h.desc || "课堂操作")}</strong><p>操作记录已保留，可在历史页面查看快照</p></div><span class="gp-feed-time">${esc(h.time || "")}</span></div>`,
+                `<div class="gp-feed-row"><span class="gp-feed-icon">${typeof GodpowerTheme !== "undefined" && GodpowerTheme.icon ? GodpowerTheme.icon("north_east") : "↗"}</span><div class="gp-feed-copy"><strong>${esc(h.desc || "课堂操作")}</strong><p>操作记录已保留，可在历史页面查看快照</p></div><span class="gp-feed-time">${esc(h.time || "")}</span></div>`,
             )
             .join("")
-        : '<div class="gp-feed-row"><span class="gp-feed-icon">✦</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>';
+        : `<div class="gp-feed-row"><span class="gp-feed-icon">${typeof GodpowerTheme !== "undefined" && GodpowerTheme.icon ? GodpowerTheme.icon("spark") : "✦"}</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>`;
     }
     syncRepeats();
     syncCruise();

@@ -3,6 +3,7 @@ const RoundSettlement = (() => {
   function execute() {
     if (!state.roundActive || state.evaluated || !state.correctAns)
       return false;
+    if (typeof ensureRandomEventState === "function") ensureRandomEventState();
     for (const group of state.groups)
       if (CompetitionEffects.blockedAllIn(group)) group.allIn = false;
     const context = {
@@ -29,13 +30,57 @@ const RoundSettlement = (() => {
             !!group.selectedOpt && group.selectedOpt === state.correctAns,
         })),
     };
+    const blooperWasActive =
+      (Number(state.itemGlobal?.blooperUntil) || 0) > Date.now() &&
+      !state.itemGlobal?.blooperAchRecorded &&
+      !!state.itemGlobal?.blooperCasterUid;
     const presentation = settleBaseRoundLegacy();
     if (!presentation) return false;
+    for (const answer of context.answersBefore) {
+      const fx = presentation.eventEffectsById?.[answer.id];
+      if (fx) {
+        answer.eventFlatBonus = fx.flatBonus || 0;
+        answer.consumedStar = !!fx.consumedStar;
+      }
+    }
     RoundItemEffects.settle(context);
     ensureV2State();
     state.itemGlobal.pkTotal = (state.itemGlobal.pkTotal || 0) + 1;
     RoundItemEffects.expire(context);
+    let randomEventOutcome = null;
+    if (typeof RandomEvents !== "undefined") {
+      const consumedUids = context.answersBefore
+        .filter((a) => a.consumedStar && a.correct && a.groupUid)
+        .map((a) => a.groupUid);
+      if (consumedUids.length)
+        RandomEvents.consumeStarTargets(state.randomEvents, consumedUids);
+      const evStep = RandomEvents.advanceRound(
+        state.randomEvents,
+        state.groups,
+        state.randomEventConfig,
+      );
+      state.randomEvents = evStep.state;
+      randomEventOutcome = evStep.outcome;
+    }
+    const anyScoreChanged = context.groupsBefore.some((before) =>
+      state.groups.some((g) => g.id === before.id && g.score !== before.score),
+    );
+    let blooperCasterTriggeredUid = null;
+    if (blooperWasActive && anyScoreChanged) {
+      state.itemGlobal.blooperAchRecorded = true;
+      blooperCasterTriggeredUid = state.itemGlobal.blooperCasterUid;
+    }
     const rankingsAfter = ranking();
+    const groupCount = state.groups.length;
+    const leaderScoreBefore = context.groupsBefore.length
+      ? Math.max(...context.groupsBefore.map((g) => Number(g.score) || 0))
+      : 0;
+    const minScoreAfter = state.groups.length
+      ? Math.min(...state.groups.map((g) => Number(g.score) || 0))
+      : 0;
+    const maxScoreAfter = state.groups.length
+      ? Math.max(...state.groups.map((g) => Number(g.score) || 0))
+      : 0;
     const rankOf = (groups, id) => {
       const group = groups.find((candidate) => candidate.id === id);
       return group
@@ -44,6 +89,7 @@ const RoundSettlement = (() => {
     };
     return {
       ...presentation,
+      randomEventOutcome,
       scoreUpdates: context.groupsBefore
         .filter((before) =>
           state.groups.some(
@@ -63,6 +109,16 @@ const RoundSettlement = (() => {
         return {
           seasonId: state.seasonId,
           roundNumber: state.itemGlobal.pkTotal,
+          groupCount,
+          leaderScoreBefore,
+          isLastInSeason:
+            groupCount >= 5 &&
+            minScoreAfter < maxScoreAfter &&
+            (Number(group?.score) || 0) === minScoreAfter,
+          powerCompleted: context.powerCompletedById?.[answer.id] || null,
+          blooperActiveScored:
+            !!blooperCasterTriggeredUid &&
+            answer.groupUid === blooperCasterTriggeredUid,
           groupUid: answer.groupUid,
           answered: answer.answered,
           correct: answer.correct,
@@ -117,6 +173,11 @@ const RoundSettlement = (() => {
       else if (allInLosses > 0) playSound("allin_lose");
       else if (hasNormalWin) playSound("pk_correct");
     });
+    if (presentation.randomEventOutcome)
+      globalThis.RandomEventUI?.presentOutcome?.(
+        presentation.randomEventOutcome,
+      );
+    globalThis.RandomEventUI?.renderBattleStrip?.();
   }
   let forceEndGeneration = 0;
   async function start() {

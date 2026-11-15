@@ -432,6 +432,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -457,6 +458,142 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
       ],
+    },
+    {
+      name: "ach-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-card-head",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-card-titles",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-cat-pills",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-condition",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-earner-chip",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-earners",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-emblem",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-emblem-item",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-filter-right",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-grid",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-group-bar",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-group-dot",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-hall",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-meta-line",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-progress-fill",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-progress-num",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-progress-track",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-progress-wrap",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-rarity",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-reveal-toggle",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-status-pill",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-time",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-title-line",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-actions",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-body",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-desc",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-icon",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-kicker",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-title",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toast-top",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-toolbar",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-unlock-toast",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "ach-view-switch",
+      sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "action-controls-col",
@@ -488,6 +625,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
         "src/styles/settings/component-library.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -508,7 +646,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ai-help",
-      sources: ["src/styles/classroom/ai-chat.css"],
+      sources: [
+        "src/styles/classroom/ai-chat.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ai-knowledge-body",
@@ -544,7 +685,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ai-model-settings",
-      sources: ["src/styles/classroom/ai-chat.css"],
+      sources: [
+        "src/styles/classroom/ai-chat.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ai-page-shell",
@@ -567,6 +711,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
+      name: "ai-settings-actions",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "ai-toolbar",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
@@ -583,6 +731,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/battle/round-item-locks.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -713,7 +862,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "batch-bar-title",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
+      sources: [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "batch-buttons-group",
@@ -732,6 +884,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/items/draw-flow.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -751,6 +904,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -759,17 +913,22 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
       name: "battle-group-number-below-avatar",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "battle-group-subtitle",
       sources: [
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -785,11 +944,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "battle-number-avatar",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "battle-rank-chip",
-      sources: ["src/styles/battle/rank-preview.css"],
+      sources: [
+        "src/styles/battle/rank-preview.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "battle-rank-dock",
@@ -821,11 +986,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "battle-rank-preview-title",
-      sources: ["src/styles/battle/rank-preview.css"],
+      sources: [
+        "src/styles/battle/rank-preview.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "battle-rank-score",
-      sources: ["src/styles/battle/rank-preview.css"],
+      sources: [
+        "src/styles/battle/rank-preview.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "battle-result",
@@ -861,6 +1032,7 @@ const GodPowerComponentCatalog = {
         "src/styles/shell/dock-and-buttons.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -876,7 +1048,9 @@ const GodPowerComponentCatalog = {
         "src/styles/feedback/classroom-effects.css",
         "src/styles/settings/item-modules.css",
         "src/styles/home/welcome.css",
+        "src/styles/settings/save-workspace.css",
         "src/styles/classroom/ai-chat.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -887,6 +1061,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/readability-and-layers.css",
         "src/styles/settings/clear-items.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -977,6 +1152,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/readability-and-layers.css",
         "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -997,6 +1173,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/readability-and-layers.css",
         "src/styles/items/draw-layout.css",
         "src/styles/items/draw-flow.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1013,7 +1190,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "cf-settings",
-      sources: ["src/styles/feedback/classroom-effects.css"],
+      sources: [
+        "src/styles/feedback/classroom-effects.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "cf-show-avatar-stack",
@@ -1061,7 +1241,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "cf-slot-editor",
-      sources: ["src/styles/feedback/classroom-effects.css"],
+      sources: [
+        "src/styles/feedback/classroom-effects.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "cf-sound-category",
@@ -1291,6 +1474,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1390,6 +1574,7 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/score-and-state.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1437,6 +1622,7 @@ const GodPowerComponentCatalog = {
         "src/styles/shell/dock-and-buttons.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1449,7 +1635,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "editable",
-      sources: ["src/styles/battle/group-cards.css"],
+      sources: [
+        "src/styles/battle/group-cards.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "effect-bomb",
@@ -1493,6 +1682,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1553,7 +1743,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gameplay-about-tabs",
-      sources: ["src/styles/classroom/gameplay-page.css"],
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gameplay-demo-card",
@@ -1576,12 +1769,34 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
-      name: "gameplay-overview",
+      name: "gameplay-mech-badge",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
-      name: "gameplay-page-heading",
+      name: "gameplay-mech-cards",
       sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mech-overview",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mech-rules-grid",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-overview",
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "gameplay-page-heading",
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gameplay-page-shell",
@@ -1589,7 +1804,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gameplay-rules",
-      sources: ["src/styles/classroom/gameplay-page.css"],
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gameplay-section-heading",
@@ -1597,7 +1815,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gameplay-tabs",
-      sources: ["src/styles/classroom/gameplay-page.css"],
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gameplay-toolbar",
@@ -1620,7 +1841,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-actions",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-blue",
@@ -1639,11 +1863,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-button-outline",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-button-primary",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-compact-track",
@@ -1682,18 +1912,25 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-feed-icon",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-feed-list",
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
       name: "gp-feed-row",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-feed-time",
@@ -1713,7 +1950,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-group-head",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-group-live",
@@ -1776,7 +2016,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-intro-caption",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-intro-logo",
@@ -1787,6 +2030,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1810,7 +2054,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-kpi-icon",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-kpi-number",
@@ -1836,7 +2083,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-match-status",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-medal",
@@ -1847,11 +2097,15 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
       name: "gp-panel-footer",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-panel-tag",
@@ -1859,7 +2113,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-panel-title",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-purple",
@@ -1867,7 +2124,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-rank-bar",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-rank-empty",
@@ -1898,7 +2158,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-rank-row",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-rank-state",
@@ -1917,11 +2180,15 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
       name: "gp-slider",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-slider-fill",
@@ -1929,7 +2196,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-slider-hint",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-slider-knob",
@@ -2124,6 +2394,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/draw-layout.css",
         "src/styles/battle/round-item-locks.css",
         "src/styles/items/draw-flow.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2132,6 +2403,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2176,7 +2448,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hand-flow-card",
-      sources: ["src/styles/classroom/hand-flow.css"],
+      sources: [
+        "src/styles/classroom/hand-flow.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "hand-flow-description",
@@ -2192,6 +2467,13 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "hand-flow-identity",
+      sources: [
+        "src/styles/classroom/hand-flow.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "hand-flow-meta",
       sources: ["src/styles/classroom/hand-flow.css"],
     },
     {
@@ -2462,7 +2744,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "icon-preview",
-      sources: ["src/styles/settings/tabs-and-confirmation.css"],
+      sources: [
+        "src/styles/settings/tabs-and-confirmation.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "im-actions",
@@ -2585,8 +2870,20 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/dialogs/score-and-member-search.css"],
     },
     {
+      name: "is-empty",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "is-locked",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "is-selected",
       sources: ["src/styles/settings/item-modules.css"],
+    },
+    {
+      name: "is-unlocked",
+      sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
       name: "item-admin-add",
@@ -2774,7 +3071,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-reference-copy",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-desc",
@@ -2793,7 +3093,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-reference-icon",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-img",
@@ -2805,23 +3108,38 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "item-reference-name",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-open",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-row",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-tag",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-reference-tip",
-      sources: ["src/styles/items/encyclopedia-layout.css"],
+      sources: [
+        "src/styles/items/encyclopedia-layout.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "item-score-delta",
@@ -2851,6 +3169,7 @@ const GodPowerComponentCatalog = {
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2872,6 +3191,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2921,6 +3241,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3079,6 +3400,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3126,6 +3448,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
         "src/styles/themes/tokens-and-presets.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3137,6 +3460,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3176,6 +3500,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3229,6 +3554,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3242,6 +3568,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3263,6 +3590,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3391,6 +3719,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/queue-and-image-constraints.css",
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3437,6 +3766,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/items/queue-and-image-constraints.css",
         "src/styles/items/catalog-and-card-compat.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3489,6 +3819,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/classroom/student-picker-hand.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3568,6 +3899,94 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/components/readability-and-layers.css"],
     },
     {
+      name: "re-active-list",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-active-pill",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-banner",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-banner-close",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-banner-copy",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-banner-icon",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-banner-meta",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-battle-strip",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-event-check",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-event-check-grid",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-history-drawer",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-history-row",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-idle-note",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-interval-inputs",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-strip-actions",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-strip-lead",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-strip-row",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-tag",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-weight-chip",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-weight-grid",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-weight-head",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "re-weight-row",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "ready",
       sources: ["src/styles/home/welcome.css"],
     },
@@ -3576,6 +3995,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/battle/overview-and-resizer.css",
         "src/styles/battle/rank-preview.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3699,14 +4119,29 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "save-avatar-button",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "save-avatar-placeholder",
+      sources: ["src/styles/components/surface-polish.css"],
     },
     {
       name: "save-form-actions",
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
+      name: "save-group-chip",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
       name: "save-group-color",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-group-dot",
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
@@ -3715,11 +4150,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "save-group-row",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "save-member-options",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "save-roster-columns",
@@ -3731,15 +4172,36 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "save-roster-heading",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "save-roster-section",
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "save-section-heading",
+      sources: ["src/styles/components/surface-polish.css"],
+    },
+    {
+      name: "save-student-num",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "save-student-scroll",
       sources: ["src/styles/settings/save-workspace.css"],
     },
     {
       name: "save-student-table",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "save-workspace",
@@ -3747,15 +4209,24 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "save-workspace-help",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "save-workspace-toolbar",
-      sources: ["src/styles/settings/save-workspace.css"],
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "score-capsule",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "score-card-number",
@@ -3807,6 +4278,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/score-and-member-search.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3819,7 +4291,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "score-roll-host",
-      sources: ["src/styles/battle/score-feedback.css"],
+      sources: [
+        "src/styles/battle/score-feedback.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "score-roll-new",
@@ -3855,11 +4330,15 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
       name: "setting-label",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "setting-note",
@@ -3878,6 +4357,7 @@ const GodPowerComponentCatalog = {
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4067,7 +4547,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "theme-marx",
-      sources: ["src/styles/themes/tokens-and-presets.css"],
+      sources: [
+        "src/styles/themes/tokens-and-presets.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "three",
@@ -4114,7 +4597,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-archive-actions",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-archive-card",
@@ -4126,7 +4612,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-archive-filter",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "ui-archive-list",
@@ -4134,7 +4623,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-archive-search",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-archive-sort",
@@ -4174,7 +4666,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-collection-header",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-collection-sub",
@@ -4186,7 +4681,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-danger-zone",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-dock-answers",
@@ -4197,6 +4695,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4234,6 +4733,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4266,6 +4766,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4273,6 +4774,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4287,6 +4789,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4298,6 +4801,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4310,6 +4814,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4343,7 +4848,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-rule-card",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-rule-copy",
@@ -4355,7 +4863,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-scroll-buttons",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-body",
@@ -4371,7 +4882,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-disclosure",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-eyebrow",
@@ -4379,11 +4893,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-group",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-header",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-host",
@@ -4394,11 +4914,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-nav",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-row",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-shell",
@@ -4410,7 +4936,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-title",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-slot-cabinet",
@@ -4430,7 +4959,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-snapshot-note",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-source",
@@ -4456,7 +4988,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-toast",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-toggle",
@@ -4479,7 +5014,53 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-toolbar",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "ui-transfer-badge",
+      sources: [
+        "src/styles/settings/save-workspace.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
+      name: "ui-transfer-dialog",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-fill",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-foot",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-head",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-heading",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-lock-note",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-percent",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-surface",
+      sources: ["src/styles/settings/save-workspace.css"],
+    },
+    {
+      name: "ui-transfer-track",
+      sources: ["src/styles/settings/save-workspace.css"],
     },
     {
       name: "ui-welcome-head",
@@ -4494,7 +5075,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "unlocked",
-      sources: ["src/styles/shell/dock-and-buttons.css"],
+      sources: [
+        "src/styles/shell/dock-and-buttons.css",
+        "src/styles/classroom/gameplay-page.css",
+      ],
     },
     {
       name: "view",
@@ -4516,7 +5100,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "wall-actions",
-      sources: ["src/styles/shell/navigation-and-welcome.css"],
+      sources: [
+        "src/styles/shell/navigation-and-welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "wall-file-btn",
@@ -4535,6 +5122,7 @@ const GodPowerComponentCatalog = {
         "src/styles/battle/score-and-state.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4553,15 +5141,24 @@ const GodPowerComponentCatalog = {
   tokens: [
     {
       name: "--battle-card-bg",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--battle-card-radius",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--battle-card-shadow",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--c-border",
@@ -4629,11 +5226,17 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--control-bg",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--control-border",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--control-danger-bg",
@@ -4649,7 +5252,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--control-radius",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--control-success-bg",
@@ -4665,7 +5271,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--control-text",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "--dock-height",
@@ -4814,6 +5423,18 @@ const GodPowerComponentCatalog = {
     {
       name: "--radius-sm",
       sources: ["src/styles/components/desktop-shell.css"],
+    },
+    {
+      name: "--rank-background",
+      sources: ["src/styles/components/surface-polish.css"],
+    },
+    {
+      name: "--rank-border",
+      sources: ["src/styles/components/surface-polish.css"],
+    },
+    {
+      name: "--rank-ink",
+      sources: ["src/styles/components/surface-polish.css"],
     },
     {
       name: "--shadow-card",
@@ -5524,6 +6145,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/base/desktop-foundation.css",
         "src/styles/themes/tokens-and-presets.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {

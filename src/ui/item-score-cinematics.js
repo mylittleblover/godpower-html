@@ -282,7 +282,9 @@ globalThis.ScoreCardMotion = (() => {
         remove(prior);
         prior.done?.();
       }
-      const color = GodpowerUIModel.scoreColors(g.color);
+      const color = (
+        GodpowerUIModel.crestColors || GodpowerUIModel.scoreColors
+      )(g.color);
       const session = {
         id: g.id,
         from: update.start,

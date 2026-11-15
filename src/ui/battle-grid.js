@@ -1,5 +1,46 @@
 /* Card DOM and decoration only. Rules and refresh scheduling have separate owners. */
 const battleCardRenderState = new WeakMap();
+function serializeBattleShallowList(items, mapper) {
+  if (!Array.isArray(items) || !items.length) return "";
+  return items.map(mapper).join("\x1f");
+}
+function buildBattleCardFastKey(g, badge, globalCardKey, editingThisCard) {
+  const inv = serializeBattleShallowList(g.inventory, (it) =>
+    it ? `${it.key}:${it.charges || 1}` : "",
+  );
+  const compFx = g.competitionEffects
+    ? JSON.stringify(g.competitionEffects)
+    : "";
+  const itemFx = g.itemEffect ? JSON.stringify(g.itemEffect) : "";
+  const uids = serializeBattleShallowList(g.memberStudentUids, (x) => x || "");
+  const members = serializeBattleShallowList(g.members, (x) =>
+    typeof x === "string" ? x : JSON.stringify(x),
+  );
+  return [
+    globalCardKey,
+    editingThisCard ? `1:${g.score}` : "0",
+    g.groupNo,
+    g.name,
+    g.selectedOpt || "",
+    g.displayScore === undefined ? "" : g.displayScore,
+    g.score,
+    g.allIn ? 1 : 0,
+    g.resultText || "",
+    g.color,
+    badge.foreground,
+    badge.background,
+    g.animState || "",
+    g.booShield ? 1 : 0,
+    g.itemUsedThisRound ? 1 : 0,
+    g.roundItemInstanceId || "",
+    g.avatarResourceId || "",
+    inv,
+    itemFx,
+    compFx,
+    uids,
+    members,
+  ].join("\x1e");
+}
 function renderBattleGridCards() {
   const grid = document.getElementById("groupList");
   if (!grid) return;
@@ -45,8 +86,37 @@ function renderBattleGridCards() {
      答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
   const rankReorderAnimationV21723 = orderActuallyChanged;
 
+  const sortLabel = currentCardSortLabelV213();
+  const globalCardKey = [
+    state.roundActive ? 1 : 0,
+    state.evaluated ? 1 : 0,
+    state.correctAns || "",
+    state.isLocked ? 1 : 0,
+    sortLabel,
+    state.rosterSnapshot?.revision || 0,
+  ].join("\x1f");
+
   ordered.forEach((g) => {
-    const badge = GodpowerUIModel.badgeColors(g.color);
+    const badge = (GodpowerUIModel.crestColors || GodpowerUIModel.badgeColors)(
+      g.color,
+    );
+    const editingThisCard = state.editingScoreId === g.id;
+    const fastKey = buildBattleCardFastKey(
+      g,
+      badge,
+      globalCardKey,
+      editingThisCard,
+    );
+    const previous = oldCards.get(String(g.id)),
+      cache = previous && battleCardRenderState.get(previous);
+    if (
+      !orderActuallyChanged &&
+      cache?.group === g &&
+      cache.fastKey === fastKey
+    ) {
+      cards.push(previous);
+      return;
+    }
     const markup = GodPowerBattleCardView.render(
       g,
       {
@@ -55,7 +125,7 @@ function renderBattleGridCards() {
         correctAns: state.correctAns,
         isLocked: state.isLocked,
         editingScoreId: state.editingScoreId,
-        sortLabel: currentCardSortLabelV213(),
+        sortLabel,
       },
       {
         badge,
@@ -66,31 +136,6 @@ function renderBattleGridCards() {
         groupNumber: groupNoTextV213,
       },
     );
-    const signature = JSON.stringify([
-      markup,
-      g.score,
-      g.color,
-      g.animState,
-      g.itemEffect,
-      g.competitionEffects,
-      g.booShield,
-      g.itemUsedThisRound,
-      g.roundItemInstanceId,
-      g.avatarResourceId,
-      g.memberStudentUids,
-      g.members,
-      state.rosterSnapshot?.revision,
-    ]);
-    const previous = oldCards.get(String(g.id)),
-      cache = previous && battleCardRenderState.get(previous);
-    if (
-      !orderActuallyChanged &&
-      cache?.group === g &&
-      cache.signature === signature
-    ) {
-      cards.push(previous);
-      return;
-    }
     const rowCard = document.createElement("div");
     rowCard.className = `group-row-card battle-card ${g.animState || ""}`;
     rowCard.dataset.groupId = g.id;
@@ -99,7 +144,7 @@ function renderBattleGridCards() {
     rowCard.style.setProperty("--group-contrast", badge.foreground);
     rowCard.style.setProperty("--group-badge-color", badge.background);
     rowCard.innerHTML = markup;
-    battleCardRenderState.set(rowCard, { group: g, signature });
+    battleCardRenderState.set(rowCard, { group: g, fastKey });
     cards.push(rowCard);
     changedGroups.push(g);
   });
@@ -224,6 +269,7 @@ function renderBattleGridCards() {
 
 function decorateBattleRanks() {
   const ranks = new Map(ranking().map((g, i) => [g.id, i + 1]));
+  const nextSubText = `当前按${currentCardSortLabelV213()}排列`;
   document
     .querySelectorAll(".group-row-card.battle-card[data-group-id]")
     .forEach((card) => {
@@ -237,23 +283,28 @@ function decorateBattleRanks() {
         wrap.appendChild(badge);
       }
       const rank = ranks.get(id);
-      badge.dataset.rank = String(rank || "");
-      const medal = {
-        1: ["#fff2c2", "#805314", "#d8b55a"],
-        2: ["#eef2f6", "#435364", "#b8c3ce"],
-        3: ["#f6e4d6", "#79472c", "#cca17d"],
-      }[rank];
-      for (const [i, key] of [
-        "--rank-background",
-        "--rank-ink",
-        "--rank-border",
-      ].entries()) {
-        if (medal) badge.style.setProperty(key, medal[i]);
-        else badge.style.removeProperty(key);
+      const nextRank = String(rank || "");
+      if (badge.dataset.rank !== nextRank) {
+        badge.dataset.rank = nextRank;
+        const medal = {
+          1: ["#fff2c2", "#805314", "#d8b55a"],
+          2: ["#eef2f6", "#435364", "#b8c3ce"],
+          3: ["#f6e4d6", "#79472c", "#cca17d"],
+        }[rank];
+        for (const [i, key] of [
+          "--rank-background",
+          "--rank-ink",
+          "--rank-border",
+        ].entries()) {
+          if (medal) badge.style.setProperty(key, medal[i]);
+          else badge.style.removeProperty(key);
+        }
       }
-      badge.textContent = `第${rank || "-"}名`;
+      const nextBadgeText = `第${rank || "-"}名`;
+      if (badge.textContent !== nextBadgeText)
+        badge.textContent = nextBadgeText;
       const sub = wrap.querySelector(".battle-group-subtitle");
-      if (sub) sub.textContent = `当前按${currentCardSortLabelV213()}排列`;
+      if (sub && sub.textContent !== nextSubText) sub.textContent = nextSubText;
     });
 }
 

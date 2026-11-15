@@ -54,6 +54,16 @@ const HistoryCommands = (() => {
   function apply(snapshot) {
     cancelScoreAnimationAndSync();
     if (snapshot.itemGlobal) state.itemGlobal = clone(snapshot.itemGlobal);
+    if (snapshot.randomEvents && typeof RandomEvents !== "undefined")
+      state.randomEvents = RandomEvents.normalizeState(
+        snapshot.randomEvents,
+        state.randomEventConfig,
+      );
+    else if (
+      typeof resetRandomEventSeason === "function" &&
+      !snapshot.randomEvents
+    )
+      resetRandomEventSeason();
     if (snapshot.achievementLedger)
       state.achievementLedger = AchievementLedger.normalize(
         snapshot.achievementLedger,
@@ -68,7 +78,7 @@ const HistoryCommands = (() => {
     state.evaluated = snapshot.evaluated;
     state.roundActive = snapshot.roundActive;
     state.hasStartedOnce = snapshot.hasStartedOnce;
-    state.lastRoundAllIn = snapshot.lastRoundAllIn;
+    state.lastRoundAllIn = clone(snapshot.lastRoundAllIn);
     if (snapshot.picker) state.picker = clone(snapshot.picker);
     if (Number.isFinite(snapshot.resizerHeight))
       state.resizerHeight = snapshot.resizerHeight;

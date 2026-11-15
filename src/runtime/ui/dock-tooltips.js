@@ -144,8 +144,13 @@ function applyDockHumorV2185() {
 
   const finalBtn = document.getElementById("btnFinalSettlement");
   if (finalBtn) {
-    if (finalBtn.textContent !== "🏆 封神榜")
-      finalBtn.textContent = "🏆 封神榜";
+    if (!finalBtn.querySelector(".ui-icon")) {
+      finalBtn.innerHTML =
+        (typeof GodpowerTheme !== "undefined" &&
+        typeof GodpowerTheme.icon === "function"
+          ? GodpowerTheme.icon("trophy")
+          : "") + "<span>封神榜</span>";
+    }
     bindDockHumorV2185(finalBtn, "btnFinalSettlement");
   }
 

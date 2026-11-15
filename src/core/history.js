@@ -15,6 +15,7 @@ const HistorySnapshots = {
       hasStartedOnce: s.hasStartedOnce,
       lastRoundAllIn: s.lastRoundAllIn,
       itemGlobal: copy(s.itemGlobal),
+      ...(s.randomEvents ? { randomEvents: copy(s.randomEvents) } : {}),
       achievementLedger: copy(
         s.achievementLedger || { schemaVersion: 1, groups: {} },
       ),

@@ -126,5 +126,6 @@ function resetCompetitionDataAfterSettlementV21812() {
   } catch (e) {}
 
   /* 再走一次规范化，保证所有必要字段都存在。 */
+  if (typeof resetRandomEventSeason === "function") resetRandomEventSeason();
   ensureV2State();
 }

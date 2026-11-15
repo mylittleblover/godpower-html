@@ -121,3 +121,612 @@
   border-radius: var(--radius-md);
   background: var(--ui-soft-2);
 }
+#gameplayContent .item-reference-row:not([hidden]) {
+  align-items: stretch;
+  border-radius: 16px;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    translate 0.16s ease;
+}
+#gameplayContent .item-reference-row:not([hidden]):hover {
+  border-color: color-mix(in srgb, var(--ui-primary) 35%, var(--ui-border));
+  box-shadow: var(--shadow-float);
+  translate: 0 -2px;
+}
+#gameplayContent .item-reference-icon {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--ui-primary) 14%, transparent);
+}
+#gameplayContent .item-reference-copy {
+  display: flex;
+  flex-direction: column;
+}
+#gameplayContent .item-reference-name {
+  align-items: center;
+}
+#gameplayContent .item-reference-tag {
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.item-reference-tag[data-item-category="attack"] {
+  color: #b42318;
+  background: #fef2f2;
+}
+.item-reference-tag[data-item-category="defense"] {
+  color: #065f46;
+  background: #ecfdf5;
+}
+.item-reference-tag[data-item-category="boost"] {
+  color: #b45309;
+  background: #fffbeb;
+}
+.item-reference-tag[data-item-category="team"] {
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+.item-reference-tag[data-item-category="special"] {
+  color: #6d28d9;
+  background: #f5f3ff;
+}
+#gameplayContent .item-reference-tip {
+  margin-bottom: var(--space-4);
+}
+#gameplayContent .item-reference-open {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Random Events & Achievements Playbook Cards, Battle Strip, Banner & Settings */
+.gameplay-mech-overview {
+  margin-bottom: var(--space-4);
+}
+.gameplay-mech-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.gameplay-mech-rules-grid > div {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+}
+.gameplay-mech-rules-grid b {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ui-primary);
+}
+.gameplay-mech-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 14px;
+}
+.gameplay-mech-badge {
+  display: grid;
+  place-items: center;
+  min-width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 13px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ui-primary, #0f766e), #1d4ed8);
+  flex-shrink: 0;
+}
+.gameplay-mech-badge[data-mech-cat="score"] {
+  background: linear-gradient(135deg, #d97706, #ea580c);
+}
+.gameplay-mech-badge[data-mech-cat="item"] {
+  background: linear-gradient(135deg, #059669, #0284c7);
+}
+.gameplay-mech-badge[data-mech-cat="status"] {
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+}
+.gameplay-mech-badge[data-mech-cat="comeback"] {
+  background: linear-gradient(135deg, #e11d48, #f59e0b);
+}
+.gameplay-mech-badge[data-mech-cat="learning"] {
+  background: linear-gradient(135deg, #0d9488, #2563eb);
+}
+.gameplay-mech-badge[data-mech-cat="competition"] {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+}
+.gameplay-mech-badge[data-mech-cat="collection"],
+.gameplay-mech-badge[data-mech-cat="tactics"] {
+  background: linear-gradient(135deg, #2563eb, #6d28d9);
+}
+.gameplay-mech-badge[data-mech-cat="honors"] {
+  background: linear-gradient(135deg, #ca8a04, #b45309);
+}
+.gameplay-mech-badge[data-mech-cat="hidden"] {
+  background: linear-gradient(135deg, #475569, #1e293b);
+}
+
+.re-battle-strip {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--ui-border, #e2e8f0);
+  background: var(--ui-panel, rgb(255 255 255 / 92%));
+  box-shadow: 0 2px 10px rgb(15 23 42 / 5%);
+}
+.re-strip-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.re-strip-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ui-primary, #0f766e);
+  font-weight: 700;
+  font-size: 13px;
+}
+.re-active-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+.re-active-pill,
+.re-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid
+    color-mix(in srgb, var(--ui-primary, #0f766e) 22%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--ui-primary, #0f766e) 9%,
+    var(--ui-panel, #fff)
+  );
+  color: var(--ui-text, #0f172a);
+}
+.re-idle-note {
+  font-size: 12px;
+  color: var(--ui-muted, #64748b);
+}
+.re-strip-actions {
+  display: inline-flex;
+  gap: 6px;
+}
+.re-history-drawer {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--ui-border, #e2e8f0);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px;
+}
+.re-history-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--ui-soft-2, #f8fafc);
+  font-size: 12px;
+}
+.re-history-row p {
+  margin: 2px 0 0;
+  color: var(--ui-muted, #64748b);
+}
+
+.re-banner {
+  position: fixed;
+  right: 24px;
+  bottom: 92px;
+  z-index: 950;
+  width: min(380px, calc(100vw - 32px));
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--ui-panel, #fff);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--ui-primary, #0f766e) 30%,
+      var(--ui-border, #cbd5e1)
+    );
+  box-shadow: 0 18px 40px rgb(15 23 42 / 18%);
+  color: var(--ui-text, #0f172a);
+}
+.re-banner[hidden] {
+  display: none;
+}
+.re-banner-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ui-primary, #0f766e), #2563eb);
+  flex-shrink: 0;
+}
+.re-banner-copy {
+  flex: 1;
+  min-width: 0;
+}
+.re-banner-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ui-primary, #0f766e);
+}
+.re-banner-copy strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+}
+.re-banner-copy p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--ui-muted, #475569);
+}
+.re-banner-close {
+  background: transparent;
+  border: 0;
+  color: var(--ui-muted, #64748b);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.re-interval-inputs,
+.re-weight-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.re-interval-inputs input,
+.re-weight-chip input {
+  width: 68px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--ui-border, #cbd5e1);
+  background: var(--ui-soft-2, #f8fafc);
+  color: var(--ui-text, #0f172a);
+  font-weight: 700;
+}
+.re-weight-grid {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ui-border, #e2e8f0);
+  background: var(--ui-panel, #fff);
+  margin-top: 10px;
+}
+.re-weight-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 13px;
+}
+.re-weight-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.re-event-check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+  padding-top: 10px;
+}
+.re-event-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--ui-border, #e2e8f0);
+  background: var(--ui-soft-2, #f8fafc);
+  cursor: pointer;
+}
+.re-event-check strong {
+  display: block;
+  font-size: 13px;
+}
+.re-event-check span {
+  display: block;
+  font-size: 12px;
+  color: var(--ui-muted, #64748b);
+  margin-top: 2px;
+}
+
+/* Achievements & Honors Hall (#view-archives) & Non-blocking Toast */
+.ach-view-switch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ach-hall {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ach-hall[hidden],
+#archiveClassStats[hidden],
+.ui-archive-filter[hidden],
+#settlementHistoryContainer[hidden] {
+  display: none;
+}
+.ach-group-bar,
+.ach-cat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ach-group-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+}
+.ach-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ach-filter-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.ach-filter-right select,
+.ach-filter-right input[type="search"] {
+  min-height: 36px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--ui-border, #e2e8f0);
+  background: var(--ui-panel, #fff);
+  color: var(--ui-text, #0f172a);
+}
+.ach-reveal-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ui-muted, #64748b);
+  cursor: pointer;
+}
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 12px;
+}
+.ach-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.ach-card.is-locked {
+  opacity: 0.78;
+}
+.ach-card.is-unlocked {
+  border-color: color-mix(
+    in srgb,
+    var(--ui-primary, #0f766e) 40%,
+    var(--ui-border, #e2e8f0)
+  );
+  box-shadow: 0 4px 14px
+    color-mix(in srgb, var(--ui-primary, #0f766e) 12%, transparent);
+}
+.ach-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ach-emblem {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0f766e);
+}
+.ach-emblem-item {
+  background: var(--ui-soft-2, #f1f5f9);
+  border: 1px solid var(--ui-border, #e2e8f0);
+  color: inherit;
+}
+.ach-emblem-item img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.ach-emblem[data-ach-cat="honors"] {
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+.ach-emblem[data-ach-cat="hidden"] {
+  background: linear-gradient(135deg, #475569, #1e293b);
+}
+.ach-card-titles {
+  flex: 1;
+  min-width: 0;
+}
+.ach-title-line,
+.ach-meta-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ach-meta-line {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--ui-muted, #64748b);
+}
+.ach-rarity {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ui-soft-2, #f1f5f9);
+  color: var(--ui-text, #0f172a);
+}
+.ach-rarity[data-rarity="进阶"] {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.ach-rarity[data-rarity="史诗"] {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+.ach-rarity[data-rarity="传奇"] {
+  background: #fef3c7;
+  color: #b45309;
+}
+.ach-status-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ui-soft-2, #f1f5f9);
+}
+.ach-status-pill.unlocked {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+}
+.ach-condition {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ui-text, #0f172a);
+}
+.ach-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ach-progress-track {
+  flex: 1;
+  height: 7px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--ui-soft-2, #e2e8f0);
+}
+.ach-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ui-primary, #0f766e), #2563eb);
+}
+.ach-progress-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ui-muted, #64748b);
+}
+.ach-earners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ach-earner-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ui-soft-2, #f1f5f9);
+}
+.ach-earner-chip i {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  display: inline-block;
+}
+.ach-time {
+  font-size: 11px;
+  color: var(--ui-muted, #64748b);
+}
+.ach-unlock-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 24px;
+  z-index: 940;
+  min-width: 340px;
+  max-width: min(480px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--ui-panel, #fff);
+  color: var(--ui-text, #0f172a);
+  border: 2px solid color-mix(in srgb, #f59e0b 45%, var(--ui-border, #e2e8f0));
+  box-shadow: 0 12px 32px rgb(15 23 42 / 18%);
+}
+.ach-toast-icon svg,
+.ach-emblem svg {
+  width: 22px;
+  height: 22px;
+}
+.ach-unlock-toast[hidden] {
+  display: none;
+}
+.ach-toast-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  color: #fff;
+  flex-shrink: 0;
+}
+.ach-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+.ach-toast-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: 12px;
+}
+.ach-toast-top b,
+.ach-toast-kicker {
+  white-space: nowrap;
+}
+.ach-toast-kicker {
+  color: #b45309;
+  font-weight: 700;
+}
+.ach-toast-title {
+  font-weight: 800;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.ach-toast-desc {
+  font-size: 12px;
+  color: var(--ui-muted, #64748b);
+  margin-top: 2px;
+}
+.ach-toast-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

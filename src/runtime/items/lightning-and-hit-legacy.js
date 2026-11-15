@@ -65,9 +65,19 @@ function playAttackTargetFxV2116(groupId, key, defended = false) {
 /* 闪电专用防御：绝不经过普通龟壳、香蕉、喇叭或羽毛。
    只有害羞幽灵保护，以及正在生效的无敌星 / 巨大蘑菇可以挡住。 */
 function tryDefendLightningV2116(target) {
+  const collector =
+    typeof currentDefenseCollector === "function"
+      ? currentDefenseCollector()
+      : null;
   // 害羞幽灵的一次性保护也可以挡闪电，并且优先于持续状态消耗。
   if (Number(target?.booShield || 0) > 0) {
     target.booShield = Math.max(0, Number(target.booShield || 0) - 1);
+    if (typeof recordDefenseOutcome === "function")
+      recordDefenseOutcome(collector, {
+        defenderGroupUid: target.groupUid,
+        defenderKey: "boo",
+        attackerItemKey: "lightning",
+      });
     tinyDefenseToast(`${target.name} 的害羞幽灵保护阻挡了闪电`);
     setTimeout(
       () => playAttackTargetFxV2116(target.id, "lightning", true),
@@ -79,6 +89,13 @@ function tryDefendLightningV2116(target) {
   const type = target?.itemEffect?.type;
   if (!["star", "mega"].includes(type)) return false;
 
+  if (typeof recordDefenseOutcome === "function")
+    recordDefenseOutcome(collector, {
+      defenderGroupUid: target.groupUid,
+      defenderKey: type,
+      effectActivationId: target?.itemEffect?.activationId || type,
+      attackerItemKey: "lightning",
+    });
   const name = ITEM_DEFS[type]?.name || "持续状态";
   // 防御按答题轮次计时，挡下闪电不消耗轮次。
   tinyDefenseToast(`${target.name} 的${name}阻挡了闪电`);

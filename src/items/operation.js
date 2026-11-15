@@ -159,12 +159,16 @@ const ItemOperationBlocks = (() => {
             ? applyItemScore(t, -amount, c.group.id, c.key)
             : { changed: false, blocked: tryDefend(t, c.key) };
         if (result.blocked) c.blocked.add(t.id);
-        if (!result.blocked) CompetitionEffects.apply(t, "freeze");
+        if (!result.blocked && CompetitionEffects.apply(t, "freeze") && c.group?.groupUid) {
+          t.competitionEffects.freeze.casterGroupUid = c.group.groupUid;
+        }
       }
       return true;
     },
     mask(c) {
       state.itemGlobal.blooperUntil = Date.now() + c.blueprint.milliseconds;
+      state.itemGlobal.blooperCasterUid = c.group?.groupUid || null;
+      state.itemGlobal.blooperAchRecorded = false;
       startBlooperClock();
       return true;
     },
@@ -204,12 +208,16 @@ const ItemOperationBlocks = (() => {
       if (defensive && globalThis.CompetitionEffects?.arm) {
         // Defensive states live on the round clock, not on absorbed attacks.
         CompetitionEffects.arm(c.group, mine);
+        c.group.itemEffect.activationId =
+          globalThis.StableIdentity?.createCommandId?.() ||
+          `act-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
       } else {
         c.group.itemEffect = {
           type: mine,
           ...(c.blueprint.hits
             ? { hitsLeft: c.blueprint.hits }
             : { roundsLeft: c.blueprint.rounds }),
+          ...(mine === "power" ? { totalAnswered: 0, totalCorrect: 0 } : {}),
           startedAt: Date.now(),
         };
       }
@@ -243,6 +251,7 @@ const ItemOperationBlocks = (() => {
       if (!above || !above.inventory?.length) {
         consumeInventoryItem(c.group, c.index, 1);
         c.consumed = true;
+        c.booAlternateMushroom = true;
         if (
           !c.group.inventory.some((it) => it.key === "mushroom") &&
           c.group.inventory.length < 3
@@ -276,6 +285,10 @@ const ItemOperationBlocks = (() => {
   function run(key, group, index, command, presentation = {}) {
     const blueprint = ItemBlueprints[key];
     if (!blueprint) throw Error("道具模块未注册：" + key);
+    if (globalThis.RandomEvents?.blocksAttackItem?.(state.randomEvents, blueprint)) {
+      showToast("和平协定生效中，本轮暂禁攻击类道具");
+      return false;
+    }
     const ordered = ranking(),
       position = ordered.findIndex((g) => g.id === group.id);
     const context = {
@@ -306,6 +319,16 @@ const ItemOperationBlocks = (() => {
       context.targets = [group];
       context.redirectedItem = group.inventory[index];
       RedirectedItemInstances.add(context.redirectedItem);
+    } else if (globalThis.RandomEvents?.applyChaosMagneticField) {
+      const diverted = RandomEvents.applyChaosMagneticField(
+        state.randomEvents,
+        { ...context, groups: state.groups },
+        eligibleForItems,
+      );
+      if (diverted) {
+        context.targets = diverted;
+        context.chaosDivertedTo = diverted[0]?.name || "";
+      }
     }
     const before = snapshotScoresV21732();
     const beforeEffects = new Map(
@@ -319,6 +342,7 @@ const ItemOperationBlocks = (() => {
       if (effects[blueprint.effect](context) === false) return false;
       Object.assign(presentation, {
         key,
+        booAlternateMushroom: !!context.booAlternateMushroom,
         caster: { id: group.id, groupUid: group.groupUid, name: group.name },
         targets: context.targets.map((target) => ({
           id: target.id,
@@ -345,6 +369,8 @@ const ItemOperationBlocks = (() => {
           ordered.map((g) => g.id),
         );
       // The card animation still plays; the small text toast under it is gone.
+      if (context.chaosDivertedTo)
+        showToast(`混乱磁场生效，攻击偏转至 ${context.chaosDivertedTo}`);
       if (!presentation.fromHand) showItemUseFx(key, group.id, "");
       return true;
     } finally {

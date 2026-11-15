@@ -118,6 +118,13 @@
   gap: 18px;
   max-width: 720px;
 }
+.ai-model-settings .ai-settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 6px;
+}
 .ai-model-settings form > label {
   display: block;
 }
@@ -130,7 +137,8 @@
 }
 .ai-page-shell select,
 .ai-page-shell textarea,
-.ai-session-sidebar input {
+.ai-session-sidebar input,
+.ai-model-settings input:not([type="checkbox"]) {
   font: inherit;
   border: 1px solid var(--ui-border-strong);
   border-radius: 10px;
@@ -177,7 +185,9 @@
 .ai-session[aria-current="true"] {
   background: var(--ui-soft);
   border-color: var(--ui-primary);
+  border-left-width: 4px;
   color: var(--ui-primary);
+  font-weight: 700;
 }
 .ai-header-actions {
   display: flex;

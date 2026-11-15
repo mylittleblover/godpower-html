@@ -172,25 +172,29 @@
       leader: ordered[0]?.name ?? "—",
     };
   }
-  // Shared badge and score display palette; source group colors remain unchanged.
-  function paintColors(color, threshold) {
+  function normalizeHex(color) {
     let raw = String(color || "").replace(/^#/, "");
     if (raw.length === 3)
       raw = raw
         .split("")
         .map((v) => v + v)
         .join("");
-    if (!/^[a-f0-9]{6}$/i.test(raw))
-      return { background: "#607773", foreground: "#FFFFFF" };
-    const luminance = (hex) =>
-      hex
-        .match(/../g)
-        .map((v) => parseInt(v, 16) / 255)
-        .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-        .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
-    const light = luminance(raw);
+    return /^[a-f0-9]{6}$/i.test(raw) ? raw : "";
+  }
+  function hexLuminance(raw) {
+    return raw
+      .match(/../g)
+      .map((v) => parseInt(v, 16) / 255)
+      .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+      .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+  }
+  // Shared badge and score display palette; source group colors remain unchanged.
+  function paintColors(color, threshold) {
+    const raw = normalizeHex(color);
+    if (!raw) return { background: "#607773", foreground: "#FFFFFF" };
+    const light = hexLuminance(raw);
     const contrast = (ink) => {
-      const l = luminance(ink.slice(1));
+      const l = hexLuminance(ink.slice(1));
       return (Math.max(light, l) + 0.05) / (Math.min(light, l) + 0.05);
     };
     const candidates =
@@ -202,6 +206,33 @@
       foreground: candidates.find((ink) => contrast(ink) >= 4.5) || "#000000",
     };
   }
+  // Crest palette calibrates mid-dark colors so white numbers stay crisp (>= 5.4:1).
+  function crestColors(color) {
+    const raw = normalizeHex(color);
+    if (!raw) return { background: "#607773", foreground: "#FFFFFF" };
+    const light = hexLuminance(raw);
+    if (light > 0.48) return { background: "#" + raw, foreground: "#0B1C19" };
+    if (1.05 / (light + 0.05) >= 5.4)
+      return { background: "#" + raw, foreground: "#FFFFFF" };
+    const rgb = raw.match(/../g).map((v) => parseInt(v, 16));
+    const mix = (t) =>
+      rgb
+        .map((c, i) => Math.round(c + ([7, 20, 17][i] - c) * t))
+        .map((v) => v.toString(16).padStart(2, "0"))
+        .join("");
+    let lo = 0,
+      hi = 1,
+      best = raw;
+    for (let i = 0; i < 12; i++) {
+      const mid = (lo + hi) / 2,
+        hex = mix(mid);
+      if (1.05 / (hexLuminance(hex) + 0.05) >= 5.4) {
+        best = hex;
+        hi = mid;
+      } else lo = mid;
+    }
+    return { background: "#" + best, foreground: "#FFFFFF" };
+  }
 
   function badgeColors(color) {
     return paintColors(color, 0.45);
@@ -209,6 +240,7 @@
   root.GodpowerUIModel = {
     examples,
     badgeColors,
+    crestColors,
     scoreColors: badgeColors,
     standings,
     dayIndex,

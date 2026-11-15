@@ -85,7 +85,7 @@ function renderHandRewardControlsV218() {
     <b style="width:100%">回答正确 · 选择奖励</b>
     ${ClassroomFeedback.slotMarkup("hand")}
     <div class="cf-hand-custom"><input id="handCustomScore" type="number" step="1" placeholder="自由增减" aria-label="举手自由分值"><button class="btn btn-primary" onclick="ClassroomFeedback.customHand()">应用</button></div>
-    <button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled ? "disabled" : ""}>🎁 抽取道具</button>
+    <button class="btn btn-primary" onclick="handDrawItem()" ${drawDisabled ? "disabled" : ""}>${typeof GodpowerTheme !== "undefined" && typeof GodpowerTheme.icon === "function" ? GodpowerTheme.icon("gift") : ""}<span>抽取道具</span></button>
     <button class="btn btn-warning" onclick="handUseOneV218()" ${!main ? "disabled" : ""}>${main ? `使用 1 次：${escapeHtml(ITEM_DEFS[main.key]?.name || "道具")}` : "无主要道具"}</button>
     ${triple ? `<button class="btn btn-danger" onclick="handUseAllTripleV218()">连发剩余 ${main.charges} 次</button>` : ""}
   </div>`;

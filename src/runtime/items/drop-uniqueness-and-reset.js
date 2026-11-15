@@ -41,7 +41,6 @@ function itemRankBandV2172(pos, total) {
    5. 鱿鱿和闪电同时最多各存在 1 个。
 */
 
-
 /* 上帝模式追加时同样遵守“鱿鱿 / 闪电各最多一个”的规则。 */
 const _v2172AddItemToGroup = addItemToGroup;
 addItemToGroup = function (g, key) {
@@ -124,7 +123,7 @@ function installClearItemsSettingV2172() {
   const section = document.createElement("div");
   section.id = "clearAllItemsV2172";
   section.innerHTML = `
-    <div class="setting-section-title">🎁 道具数据</div>
+    <div class="setting-section-title">${typeof GodpowerTheme !== "undefined" && typeof GodpowerTheme.icon === "function" ? GodpowerTheme.icon("gift") : ""}<span>道具数据</span></div>
     <div class="clear-items-row">
       <div class="clear-items-copy">
         <b>一键清空所有道具</b>

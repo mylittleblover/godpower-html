@@ -11,6 +11,12 @@
     oldFocus = null;
   const cardAttributes = new Map();
   const animations = new Set();
+  let shadeNode = null,
+    shadeSvg = null,
+    shadeMask = null,
+    shadeBgRect = null,
+    shadeSig = "";
+  const shadeHolePool = [];
   function clearAnimations() {
     for (const animation of animations) animation.cancel();
     animations.clear();
@@ -25,26 +31,80 @@
   };
   const icon = (path) =>
     `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
+  function ensureShadeNode() {
+    if (shadeNode) return shadeNode;
+    shadeNode = document.createElement("div");
+    shadeNode.id = "handFlowShade";
+    shadeNode.className = "hand-flow-shade";
+    shadeNode.setAttribute("aria-hidden", "true");
+    shadeNode.innerHTML =
+      '<svg width="100%" height="100%" preserveAspectRatio="none"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/></mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组<button type="button" data-hand-close aria-label="退出举手模式">退出举手 ×</button></div>';
+    shadeSvg = shadeNode.querySelector("svg");
+    shadeMask = shadeNode.querySelector("#handFlowShadeMask");
+    shadeBgRect = shadeMask.firstElementChild;
+    return shadeNode;
+  }
   function shade() {
     if (!active || stage !== "SELECT_GROUP") return;
-    let node = document.getElementById("handFlowShade");
-    if (!node) {
-      node = document.createElement("div");
-      node.id = "handFlowShade";
-      node.className = "hand-flow-shade";
-      node.setAttribute("aria-hidden", "true");
-      document.body.append(node);
-    }
+    const node = ensureShadeNode();
+    if (!node.isConnected) document.body.append(node);
+    const cards = document.querySelectorAll("#groupList>.group-row-card");
     const bounds = node.getBoundingClientRect();
-    const holes = [...document.querySelectorAll("#groupList>.group-row-card")]
-      .map((card) => {
-        const r = card.getBoundingClientRect();
-        return `<rect x="${r.x - bounds.x - 2}" y="${r.y - bounds.y - 2}" width="${r.width + 4}" height="${r.height + 4}" rx="14" fill="black"/>`;
-      })
-      .join("");
-    node.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 ${bounds.width} ${bounds.height}" preserveAspectRatio="none"><defs><mask id="handFlowShadeMask"><rect width="100%" height="100%" fill="white"/>${holes}</mask></defs><rect width="100%" height="100%" fill="black" opacity=".66" mask="url(#handFlowShadeMask)"/></svg><div class="hand-flow-hint">点击举手的小组<button type="button" data-hand-close aria-label="退出举手模式">退出举手 ❌</button></div>`;
+    const rects = [];
+    let sig = `${bounds.width},${bounds.height},${cards.length}`;
+    for (let i = 0; i < cards.length; i++) {
+      const r = cards[i].getBoundingClientRect();
+      const x = r.x - bounds.x - 2,
+        y = r.y - bounds.y - 2,
+        w = r.width + 4,
+        h = r.height + 4;
+      rects.push([x, y, w, h]);
+      sig += `;${x},${y},${w},${h}`;
+    }
+    if (sig === shadeSig && shadeMask.childElementCount === rects.length + 1)
+      return;
+    shadeSig = sig;
+    const viewBox = `0 0 ${bounds.width} ${bounds.height}`;
+    if (shadeSvg.getAttribute("viewBox") !== viewBox)
+      shadeSvg.setAttribute("viewBox", viewBox);
+    while (shadeHolePool.length < rects.length) {
+      const rect = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "rect",
+      );
+      rect.setAttribute("rx", "14");
+      rect.setAttribute("fill", "black");
+      shadeHolePool.push(rect);
+    }
+    const desiredCount = rects.length + 1;
+    while (shadeMask.childElementCount > desiredCount)
+      shadeMask.lastElementChild.remove();
+    for (let i = 0; i < rects.length; i++) {
+      const rect = shadeHolePool[i],
+        [x, y, w, h] = rects[i];
+      rect.setAttribute("x", String(x));
+      rect.setAttribute("y", String(y));
+      rect.setAttribute("width", String(w));
+      rect.setAttribute("height", String(h));
+      if (rect.parentNode !== shadeMask) shadeMask.append(rect);
+    }
   }
-  function scheduleShade() {
+  function scheduleShade(event) {
+    if (!active || stage !== "SELECT_GROUP") return;
+    if (event && event.type === "scroll") {
+      const target = event.target;
+      const groupList = document.getElementById("groupList");
+      if (
+        target !== document &&
+        target !== window &&
+        target !== document.documentElement &&
+        target !== document.body &&
+        target.id !== "view-battle" &&
+        target !== groupList &&
+        !target.contains?.(groupList)
+      )
+        return;
+    }
     if (frame !== null) return;
     frame = requestAnimationFrame(() => {
       frame = null;
@@ -59,9 +119,9 @@
   }
   function selectMode() {
     stage = "SELECT_GROUP";
-    document.body.dataset.handFlow = stage;
     hideClassroomWindow(backdrop());
     shade();
+    document.body.dataset.handFlow = stage;
     for (const card of cardAttributes.keys())
       if (!card.isConnected) cardAttributes.delete(card);
     for (const card of document.querySelectorAll(
@@ -83,6 +143,7 @@
   }
   function enterCards() {
     clearAnimations();
+    shadeSig = "";
     document.getElementById("handFlowShade")?.remove();
     document.body.dataset.handFlow = stage;
     const preferences = root.DesktopUI?.getPreferences();
@@ -120,15 +181,21 @@
     const group = state.groups.find((g) => g.id === s.groupId);
     document.getElementById("handFlowTitle").textContent =
       group?.name || "课堂举手";
+    const meta = document.getElementById("handFlowMeta");
+    if (meta) {
+      meta.hidden = !group;
+      if (group)
+        meta.textContent = `${groupNoTextV213(group)} · ${group.score} 分`;
+    }
     const avatar = document.getElementById("handFlowAvatar");
     const src = root.ClassroomAvatarDisplay?.ownGroupUrl(group) || "";
     avatar.hidden = !src;
     if (src) avatar.src = src;
     else avatar.removeAttribute("src");
     if (stage === "JUDGE")
-      content().innerHTML = `<p class="hand-flow-description">这一次回答，是否正确？</p><div class="hand-flow-grid"><button type="button" class="hand-flow-card positive" data-hand-judge="correct">${icon("m5 12 4 4L19 6")}<strong>回答正确</strong><span>记录参与，选择本次奖励</span></button><button type="button" class="hand-flow-card negative" data-hand-judge="wrong">${icon("m6 6 12 12M18 6 6 18")}<strong>回答错误</strong><span>记录勇敢参与，继续下一组</span></button></div>`;
+      content().innerHTML = `<p class="hand-flow-description">这一次回答，是否正确？</p><div class="hand-flow-grid"><button type="button" class="hand-flow-card positive" data-hand-judge="correct">${icon("M9 16.17L5.53 12.7a.996.996 0 1 0-1.41 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71a.996.996 0 1 0-1.41-1.41L9 16.17z")}<strong>回答正确</strong><span>记录参与，选择本次奖励</span></button><button type="button" class="hand-flow-card negative" data-hand-judge="wrong">${icon("M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59 7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12 5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z")}<strong>回答错误</strong><span>记录勇敢参与，继续下一组</span></button></div>`;
     else
-      content().innerHTML = `<p class="hand-flow-description">回答正确 · 本次选择一项奖励</p><div class="hand-flow-grid three"><button type="button" class="hand-flow-card positive" data-hand-reward="score" ${s.canScore ? "" : "disabled"}>${icon("M12 5v14M5 12h14")}<strong>我要加分</strong><span>六个预设或自由输入</span></button><button type="button" class="hand-flow-card" data-hand-reward="draw" ${s.canDraw ? "" : "disabled"}>${icon("M3 8h18v12H3ZM12 8v12M3 12h18M12 8C4 8 5 1 9 4l3 4c8 0 7-7 3-4Z")}<strong>我要抽道具</strong><span>${s.canDraw ? "正式奖池，抽取一次" : s.inventoryCount >= 3 ? "道具槽已满" : "当前状态不可获得道具"}</span></button><button type="button" class="hand-flow-card" data-hand-reward="use" ${s.canUse ? "" : "disabled"}>${icon("m14 3 7 7-4 4-3-3-7 10-4-4 10-7-3-3Z")}<strong>我要用道具</strong><span>${E(s.mainItemName || "暂无可用主要道具")}</span></button></div>`;
+      content().innerHTML = `<p class="hand-flow-description">回答正确 · 本次选择一项奖励</p><div class="hand-flow-grid three"><button type="button" class="hand-flow-card positive" data-hand-reward="score" ${s.canScore ? "" : "disabled"}>${icon("M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z")}<strong>我要加分</strong><span>六个预设或自由输入</span></button><button type="button" class="hand-flow-card" data-hand-reward="draw" ${s.canDraw ? "" : "disabled"}>${icon("M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z")}<strong>我要抽道具</strong><span>${s.canDraw ? "正式奖池，抽取一次" : s.inventoryCount >= 3 ? "道具槽已满" : "当前状态不可获得道具"}</span></button><button type="button" class="hand-flow-card" data-hand-reward="use" ${s.canUse ? "" : "disabled"}>${icon("M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z")}<strong>我要用道具</strong><span>${E(s.mainItemName || "暂无可用主要道具")}</span></button></div>`;
     enterCards();
   }
   function scoreCards() {
@@ -272,6 +339,7 @@
       return;
     }
     if (!ClassroomWriteBarrier.allow()) return;
+    window.GodpowerTooltips?.dismiss?.();
     if (currentView !== "battle") switchView("battle");
     active = true;
     owner++;
@@ -359,7 +427,10 @@
     true,
   );
   root.addEventListener("resize", scheduleShade);
-  document.addEventListener("scroll", scheduleShade, true);
+  document.addEventListener("scroll", scheduleShade, {
+    capture: true,
+    passive: true,
+  });
   root.addEventListener("godpower:active-save-changed", close);
   root.addEventListener("pagehide", close, { once: true });
   ClassroomHandSession.subscribe(render);
