@@ -1,6 +1,43 @@
 /* Operation pipeline. Draw policy has no access to this executor. */
 globalThis.RedirectedItemInstances = new WeakSet();
 const ItemOperationBlocks = (() => {
+  function ensureMkwRuntimeState() {
+    state.itemGlobal = state.itemGlobal || {};
+    if (
+      !state.itemGlobal.mkwState ||
+      typeof state.itemGlobal.mkwState !== "object"
+    ) {
+      state.itemGlobal.mkwState = {
+        matchStartedAt: Date.now(),
+        lastUsedAt: {},
+        lastUsedSession: {},
+      };
+    }
+    state.itemGlobal.mkwState.lastUsedAt =
+      state.itemGlobal.mkwState.lastUsedAt || {};
+    state.itemGlobal.mkwState.lastUsedSession =
+      state.itemGlobal.mkwState.lastUsedSession || {};
+    return state.itemGlobal.mkwState;
+  }
+  function resolveRankParam(position1, totalGroups) {
+    const policy = globalThis.ItemDrawPolicy;
+    if (!policy || typeof policy.resolveRank !== "function") return null;
+    const globalState = state.itemGlobal || {};
+    const cfg =
+      typeof policy.normalizeConfig === "function"
+        ? policy.normalizeConfig(globalState.drawConfig)
+        : globalState.drawConfig || {};
+    if (cfg.applyPostDrawRankParams === false) return null;
+    const mkw = ensureMkwRuntimeState();
+    const resolved = policy.resolveRank(position1, totalGroups, {
+      mode: cfg.mode,
+      nowMs: Date.now(),
+      matchStartedAt: mkw.matchStartedAt,
+      applyRankClamp: true,
+    });
+    const param = policy.paramByRank(resolved.rank);
+    return { cfg, mkw, resolved, param };
+  }
   const targets = Object.fromEntries(
     [
       "self",
@@ -159,23 +196,74 @@ const ItemOperationBlocks = (() => {
             ? applyItemScore(t, -amount, c.group.id, c.key)
             : { changed: false, blocked: tryDefend(t, c.key) };
         if (result.blocked) c.blocked.add(t.id);
-        if (!result.blocked && CompetitionEffects.apply(t, "freeze") && c.group?.groupUid) {
+        if (
+          !result.blocked &&
+          CompetitionEffects.apply(t, "freeze") &&
+          c.group?.groupUid
+        ) {
           t.competitionEffects.freeze.casterGroupUid = c.group.groupUid;
         }
       }
       return true;
     },
     mask(c) {
-      state.itemGlobal.blooperUntil = Date.now() + c.blueprint.milliseconds;
+      const baseMs = Number(c.blueprint.milliseconds) || 120000;
+      const rp = resolveRankParam(
+        Math.max(1, c.position + 1),
+        c.ranking.length,
+      );
+      const inkLevel = rp?.param?.inkLevel || 3;
+      const scale = inkLevel === 1 ? 0.5 : inkLevel === 2 ? 0.75 : 1;
+      const durationMs = Math.round(baseMs * scale);
+      state.itemGlobal.blooperUntil = Date.now() + durationMs;
       state.itemGlobal.blooperCasterUid = c.group?.groupUid || null;
       state.itemGlobal.blooperAchRecorded = false;
+      state.itemGlobal.lastInkLevel = inkLevel;
+      if (rp) {
+        rp.mkw.lastParamEffect = {
+          key: "blooper",
+          rank: rp.resolved.rank,
+          inkLevel,
+          durationMs,
+          at: Date.now(),
+        };
+        c.rankParamLabel = `Rank ${rp.resolved.rank + 1} · InkLevel ${inkLevel}`;
+      }
       startBlooperClock();
       return true;
     },
     lightning(c) {
+      const targetParams = c.targets
+        .map((t) => {
+          const pos1 = Math.max(
+            1,
+            c.ranking.findIndex((g) => g.id === t.id) + 1,
+          );
+          const rpT = resolveRankParam(pos1, c.ranking.length);
+          return rpT
+            ? {
+                groupId: t.id,
+                rank: rpT.resolved.rank,
+                thunderFrame: rpT.param.thunderFrame,
+              }
+            : null;
+        })
+        .filter(Boolean);
       c.targets.forEach((t) => {
         if (!applyLightningHitV2116(c.group, t)) c.blocked.add(t.id);
       });
+      if (targetParams.length) {
+        const mkw = ensureMkwRuntimeState();
+        mkw.lastLightningTargets = targetParams;
+        mkw.lastParamEffect = {
+          key: "lightning",
+          targetCount: targetParams.length,
+          minThunderFrame: Math.min(...targetParams.map((x) => x.thunderFrame)),
+          maxThunderFrame: Math.max(...targetParams.map((x) => x.thunderFrame)),
+          at: Date.now(),
+        };
+        c.rankParamLabel = `缩小帧 ${mkw.lastParamEffect.minThunderFrame}~${mkw.lastParamEffect.maxThunderFrame}f`;
+      }
       return true;
     },
     status(c) {
@@ -241,6 +329,19 @@ const ItemOperationBlocks = (() => {
       return true;
     },
     overtake(c) {
+      const rp = resolveRankParam(
+        Math.max(1, c.position + 1),
+        c.ranking.length,
+      );
+      if (rp) {
+        rp.mkw.lastParamEffect = {
+          key: "bullet",
+          rank: rp.resolved.rank,
+          killerTargetRank: rp.param.killerTargetRank,
+          at: Date.now(),
+        };
+        c.rankParamLabel = `Rank ${rp.resolved.rank + 1} · 冲刺目标名次 +${rp.param.killerTargetRank}`;
+      }
       c.group.score = Number(c.targets[0].score) + 1;
       c.group.displayScore = c.group.score;
       c.group.itemEffect = null;
@@ -285,7 +386,9 @@ const ItemOperationBlocks = (() => {
   function run(key, group, index, command, presentation = {}) {
     const blueprint = ItemBlueprints[key];
     if (!blueprint) throw Error("道具模块未注册：" + key);
-    if (globalThis.RandomEvents?.blocksAttackItem?.(state.randomEvents, blueprint)) {
+    if (
+      globalThis.RandomEvents?.blocksAttackItem?.(state.randomEvents, blueprint)
+    ) {
       showToast("和平协定生效中，本轮暂禁攻击类道具");
       return false;
     }
@@ -340,9 +443,17 @@ const ItemOperationBlocks = (() => {
     itemScoreBatchDepthV21732++;
     try {
       if (effects[blueprint.effect](context) === false) return false;
+      const mkw = ensureMkwRuntimeState();
+      mkw.lastUsedAt[key] = Date.now();
+      mkw.lastUsedSession[key] = Number(
+        state.itemGlobal?.drawSessionThrottleV21710?.sessionNo || 0,
+      );
       Object.assign(presentation, {
         key,
         booAlternateMushroom: !!context.booAlternateMushroom,
+        ...(context.rankParamLabel
+          ? { rankParamLabel: context.rankParamLabel }
+          : {}),
         caster: { id: group.id, groupUid: group.groupUid, name: group.name },
         targets: context.targets.map((target) => ({
           id: target.id,

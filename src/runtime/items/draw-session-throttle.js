@@ -106,40 +106,23 @@ function commitSessionDrawV21710(g, key) {
 }
 
 /* 最终挑选器再次接管。
-   注意：这里完全不使用 V2.17.9 的 sequence / nextEligible 来判断闪电和鱿鱿，
-   否则老 bug 会从坟里爬回来继续数“小组数”。 */
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  const held = heldItemKeysV281(g);
-  const weights = sessionRestrictedWeightsV21710(g);
-
-  let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-
-  if (!k) k = weightedPickNoRepeatV281(weights, held);
-  if (!k) k = weightedPick(weights);
-
-  if (!k) {
-    const fallback = {};
-    ITEM_KEYS.forEach((key) => {
-      if (Number(weights[key]) > 0) fallback[key] = Number(weights[key]);
-    });
-    k = Object.keys(fallback).length ? weightedPick(fallback) : null;
-  }
-
-  if (k) commitSessionDrawV21710(g, k);
-  return k;
-};
+   现已统一收口至 ItemDrawBlocks.pick / ItemDrawPolicy，此处仅保留设置页冷却说明同步。 */
 
 /* 最外层全局抽取包装：
    只有确实具备可抽取小组、且不是正在抽取时，才开始计一个“抽取轮次”。 */
 
 /* 举手奖励同样算一个抽取轮次。 */
 
-/* 数据页说明改成“抽取轮次”，避免再把“发了几个道具”误认为“抽了几次”。 */
+/* 数据页说明改成“Product.180 + 抽取轮次”，避免再把“发了几个道具”误认为“抽了几次”。 */
 function refreshDrawCooldownInfoV21710() {
   const host = document.getElementById("drawCooldownInfoV2179");
   if (!host) return;
 
   const t = ensureDrawSessionThrottleV21710();
+  const cfg = globalThis.ItemDrawPolicy?.normalizeConfig?.(
+    state.itemGlobal?.drawConfig,
+  );
+  const modeSpec = cfg && globalThis.ItemDrawPolicy?.modeSpec?.(cfg.mode);
 
   const text = (key, label) => {
     const next = Number(t.nextEligibleSession[key] || 0);
@@ -148,9 +131,9 @@ function refreshDrawCooldownInfoV21710() {
   };
 
   host.innerHTML = `
-    <b>抽取冷却规则</b>
-    <span>闪电 / 鱿鱿按“抽取轮次”计算，不按一次全局抽取发出了多少个道具计算。</span>
-    <span>抽中后，接下来 4 个全局/举手抽取轮次禁用，第 5 个轮次重新开放。</span>
+    <b>抽取冷却规则（MKWorld Product.180）</b>
+    <span>当前模式：${modeSpec ? modeSpec.name : "24 车标准赛"} · 预设：${cfg ? cfg.switchPreset : "ALL"} · 计时：${cfg?.timingMode === "rounds" ? "按抽取轮次" : "实时帧/秒"}</span>
+    <span>闪电 / 鱿鱿 / 刺刺龟壳均受全局开启延迟、间隔冷却与场上数量上限约束。</span>
     <small>当前全局抽取轮次：${t.sessionNo}</small>
     <small>${text("lightning", "闪电")}</small>
     <small>${text("blooper", "鱿鱿")}</small>
@@ -176,16 +159,6 @@ if (typeof showSettingsV26 === "function") {
     }
     return r;
   };
-}
-
-/* 百科文字同步为“抽取轮次”。 */
-if (ITEM_DEFS.lightning) {
-  ITEM_DEFS.lightning.desc =
-    "攻击所有排名高于自己的小组并大幅削减积分；无敌星、巨大蘑菇、害羞幽灵可防御。仅后30%可抽取；整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.blooper) {
-  ITEM_DEFS.blooper.desc =
-    "使全场积分、领奖台与图表暂时被墨汁遮蔽。整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
 }
 
 /* 旧抽取序号和单组强力禁抽记录不参与现行候选判定。 */

@@ -3,13 +3,33 @@
   "result": {
     "keys": 28,
     "expected": 28,
-    "gapImproves": true,
+    "frontHighShare": 0,
+    "backHighShare": 1,
+    "catchUpImproves": true,
     "power": 0,
     "lightning": 0,
     "disabled": 0,
-    "first": "triple_mushroom",
-    "horn": "horn",
-    "nonHorn": "green",
+    "presetPicked": "feather",
+    "nonZeroPresetKeys": [
+      "coin_shell"
+    ],
+    "allowedP05": [
+      "mega",
+      "coin_shell",
+      "ice_flower",
+      "hammer",
+      "question",
+      "kamek",
+      "feather"
+    ],
+    "officialNames": {
+      "mushroom": "冲刺蘑菇",
+      "triple_mushroom": "三重冲刺蘑菇",
+      "power": "强力冲刺蘑菇",
+      "spiny": "刺刺龟壳",
+      "coin_shell": "黄金龟壳",
+      "question": "？砖块"
+    },
     "description": true
   },
   "errors": []

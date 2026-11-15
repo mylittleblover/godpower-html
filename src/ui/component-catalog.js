@@ -1785,6 +1785,50 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
+      name: "gameplay-mkw-head",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-lookup",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-mode-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-modes",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-pill",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-pills",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-section",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-step",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-steps",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-table",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-table-wrap",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "gameplay-overview",
       sources: [
         "src/styles/classroom/gameplay-page.css",
@@ -2748,6 +2792,98 @@ const GodPowerComponentCatalog = {
         "src/styles/settings/tabs-and-confirmation.css",
         "src/styles/components/surface-polish.css",
       ],
+    },
+    {
+      name: "idraw-controls-grid",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-field",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-field-label",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-blocked",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-card",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-open",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-pill",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gates-list",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-group",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-header",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-header-actions",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-item-cell",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-item-icon",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-preview-toolbar",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-settings",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-stat-pill",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-status",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-summary-strip",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-table",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-table-wrap",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggle-card",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggle-copy",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggles-grid",
+      sources: ["src/styles/settings/item-draw-settings.css"],
     },
     {
       name: "im-actions",

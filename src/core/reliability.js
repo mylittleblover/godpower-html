@@ -208,6 +208,54 @@ const Reliability = (() => {
             throw Error("道具抽取会话无效");
         }
       }
+      if (global.drawConfig != null) {
+        const dc = global.drawConfig;
+        if (typeof dc !== "object" || Array.isArray(dc))
+          throw Error("道具抽取配置格式无效");
+        for (const strKey of [
+          "mode",
+          "switchPreset",
+          "timingMode",
+          "positionMapping",
+        ])
+          if (
+            dc[strKey] != null &&
+            (typeof dc[strKey] !== "string" || dc[strKey].length > 64)
+          )
+            throw Error("道具抽取配置字段无效");
+        for (const boolKey of [
+          "useComTable",
+          "enableSame",
+          "ignorePenalty",
+          "includeClassroomItemBox",
+          "applyPostDrawRankParams",
+        ])
+          if (dc[boolKey] != null && typeof dc[boolKey] !== "boolean")
+            throw Error("道具抽取配置开关无效");
+      }
+      if (global.mkwState != null) {
+        const ms = global.mkwState;
+        if (typeof ms !== "object" || Array.isArray(ms))
+          throw Error("MKWorld 抽取运行时状态无效");
+        if (
+          ms.matchStartedAt != null &&
+          (!Number.isSafeInteger(Number(ms.matchStartedAt)) ||
+            Number(ms.matchStartedAt) < 0)
+        )
+          throw Error("MKWorld 计时起点无效");
+        for (const mapKey of ["lastUsedAt", "lastUsedSession"]) {
+          const map = ms[mapKey];
+          if (map == null) continue;
+          if (
+            typeof map !== "object" ||
+            Array.isArray(map) ||
+            Object.values(map).some(
+              (v) => !Number.isSafeInteger(Number(v)) || Number(v) < 0,
+            )
+          )
+            throw Error("MKWorld 道具冷却记录无效");
+        }
+      }
     }
     if (data.randomEvents != null) {
       if (

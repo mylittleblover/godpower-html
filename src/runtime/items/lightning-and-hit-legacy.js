@@ -119,7 +119,7 @@ function applyLightningHitV2116(caster, target) {
   // 被劈中后所有背包道具直接消失。
   target.inventory = [];
 
-  // 强力蘑菇的持续效果强制解除。
+  // 强力冲刺蘑菇的持续效果强制解除。
   if (target.itemEffect?.type === "power") {
     target.itemEffect = null;
   }
@@ -152,7 +152,7 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
    1. inventory[0] 永远是主要道具，只允许主要道具被主动使用；
    2. inventory[1]/[2] 为次要道具，严格按获得顺序晋升；
    3. 三重道具必须 charges 全部耗尽后才释放主栏；
-   4. 无敌星 / 巨大蘑菇 / 强力蘑菇激活后都属于“卡手”主要道具，
+   4. 无敌星 / 巨大蘑菇 / 强力冲刺蘑菇激活后都属于“卡手”主要道具，
       持续状态彻底结束前，后续道具不得晋升或使用；
    5. 被动防御同样只允许主要道具参与，避免次要道具绕过队列。
 */

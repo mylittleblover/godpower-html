@@ -258,7 +258,7 @@ const DesktopUI = (() => {
                         mega: "巨大蘑菇",
                         boo: "幽灵保护",
                         ice: "冻结",
-                        power: "强力蘑菇",
+                        power: "强力冲刺蘑菇",
                         feather: "羽毛",
                       })[k === "type" ? v : k] ||
                       (k === "iceLock" ? "冻结" : k),
@@ -804,6 +804,7 @@ const DesktopUI = (() => {
 
     GodpowerTheme.mount(sections.appearance);
     UIComponentLibrary.mount(sections.appearance);
+    if (window.ItemDrawSettings) ItemDrawSettings.mount(sections.items);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");

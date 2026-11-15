@@ -137,12 +137,12 @@ function requestSpinyDefense(target, key, continueAttack) {
   target[flag] = true;
   const decision = Reliability.captureDefenseDecision(state, target, key);
   const collector = currentDefenseCollector();
-  const name = ITEM_DEFS[key]?.name || "蘑菇";
+  const name = ITEM_DEFS[key]?.name || "冲刺蘑菇";
   const prompt = themeConfirm(
-    `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${name} 抵消本次攻击？`,
+    `${target.name} 遭遇刺刺龟壳！\n是否主动消耗主要道具 ${name} 抵消本次攻击？`,
     {
-      title: "刺龟壳来袭",
-      confirmText: horn ? "使用超级喇叭" : "使用蘑菇闪避",
+      title: "刺刺龟壳来袭",
+      confirmText: horn ? "使用超级喇叭" : "使用冲刺蘑菇闪避",
       cancelText: "承受攻击",
     },
   );
@@ -167,8 +167,8 @@ function requestSpinyDefense(target, key, continueAttack) {
         });
         tinyDefenseToast(
           horn
-            ? `${target.name} 使用超级喇叭成功击碎刺龟壳`
-            : `${target.name} 使用主要道具蘑菇成功闪避刺龟壳`,
+            ? `${target.name} 使用超级喇叭成功击碎刺刺龟壳`
+            : `${target.name} 使用主要道具冲刺蘑菇成功闪避刺刺龟壳`,
         );
         return;
       }

@@ -62,65 +62,9 @@ function commitDrawThrottleV2179(g, key, drawNo, t) {
 }
 
 /* 完整替换最终挑选器，确保所有 fallback 都不能绕过新限制。
-   之前的“防本组重复 / 同批次尽量不重复”仍保留。 */
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  const held = heldItemKeysV281(g);
-  const { weights, drawNo, throttle } = restrictedItemWeightsV2179(g);
+   现已统一收口至 ItemDrawBlocks.pick / ItemDrawPolicy，此处不再覆写挑选器与官方百科描述。 */
 
-  /* 首选：本组不重复 + 同批次尽量不重复。 */
-  let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-
-  /* 候选耗尽时允许跨组重复，但仍避免本组背包重复。 */
-  if (!k) k = weightedPickNoRepeatV281(weights, held);
-
-  /* 极端情况：允许本组重复，但仍只从“受冷却限制后的权重”里选。
-     绝不回退到原 itemDropWeights，否则冷却规则会被后门穿透。 */
-  if (!k) k = weightedPick(weights);
-
-  if (!k) {
-    /* 理论上只会在排名规则 + 背包状态极端组合时出现。
-       为避免动画卡死，尝试任何不违反冷却的正权重道具。 */
-    const fallback = {};
-    ITEM_KEYS.forEach((key) => {
-      if (Number(weights[key]) > 0) fallback[key] = Number(weights[key]);
-    });
-    k = Object.keys(fallback).length ? weightedPick(fallback) : null;
-  }
-
-  if (k) {
-    commitDrawThrottleV2179(g, k, drawNo, throttle);
-  }
-
-  return k;
-};
-
-/* 百科说明同步冷却规则。 */
-if (ITEM_DEFS.lightning) {
-  ITEM_DEFS.lightning.desc =
-    "攻击所有排名高于自己的小组并大幅削减积分；无敌星、巨大蘑菇、害羞幽灵可防御。仅后30%可抽取；全局抽中后需间隔4次其他实际抽取，第5次才可再次出现；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.blooper) {
-  ITEM_DEFS.blooper.desc =
-    "使全场积分、领奖台与图表暂时被墨汁遮蔽。全局抽中后需间隔4次其他实际抽取，第5次才可再次出现；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.bullet) {
-  ITEM_DEFS.bullet.desc =
-    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取。";
-}
-if (ITEM_DEFS.power) {
-  ITEM_DEFS.power.desc =
-    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具。";
-}
-if (ITEM_DEFS.mega) {
-  ITEM_DEFS.mega.desc =
-    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
-}
-if (ITEM_DEFS.star) {
-  ITEM_DEFS.star.desc =
-    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
-}
-
-/* 给数据页的道具区补一个小状态说明，便于实际使用时判断冷却有没有工作。 */
+/* 给设置页的道具区补一个小状态说明，便于实际使用时判断 MKWorld Product.180 与冷却有没有工作。 */
 function installDrawCooldownInfoV2179() {
   const host = document.getElementById("clearAllItemsV2172");
   if (!host || document.getElementById("drawCooldownInfoV2179")) return;
@@ -130,8 +74,8 @@ function installDrawCooldownInfoV2179() {
   info.id = "drawCooldownInfoV2179";
   info.className = "cooldown-note";
   info.innerHTML = `
-    <b>抽取冷却规则</b>
-    <span>闪电 / 鱿鱿：全局每次抽中后间隔 4 次其他抽取，第 5 次重新开放。</span>
+    <b>抽取冷却规则（MKWorld Product.180）</b>
+    <span>由 ItemIntervalLimitDefault + 抽取轮次双轨管理全局冷却与场上上限。</span>
     <small>当前累计实际抽取序号：${t.sequence}</small>
   `;
   host.appendChild(info);

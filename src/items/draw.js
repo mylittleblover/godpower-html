@@ -1,57 +1,97 @@
-/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
+/* Canonical MKWorld Product.180 draw executor: Mode -> Rank -> Ratio Table -> SwitchPreset/Interval/NumLimit Gates -> Weighted Pick -> ParamByRank telemetry -> Cooldown commit. */
 const ItemDrawBlocks = (() => {
-  function pick(group, batchUsed = new Set()) {
-    const config = ItemModules.configuration().items;
-    const held = heldItemKeysV281(group);
-    if (handItemDrawGroupId === group?.id && firstHandDrawPendingV218) {
-      const pool = FIRST_HAND_POOL_V218.filter(
-        (key) =>
-          ITEM_DEFS[key] &&
-          !held.has(key) &&
-          config[key].draw.enabled &&
-          config[key].draw.weight > 0,
-      );
-      firstHandDrawPendingV218 = false;
-      if (pool.length) {
-        const equal = pool.every(
-          (key) => config[key].draw.weight === config[pool[0]].draw.weight,
-        );
-        const key = equal
-          ? pool[Math.floor(Math.random() * pool.length)]
-          : weightedPick(
-              Object.fromEntries(
-                pool.map((key) => [key, config[key].draw.weight]),
-              ),
-            );
-        commitSessionDrawV21710(group, key);
-        return key;
-      }
-    }
-    const leader = rankIndex(group.id) === 0;
-    if (leader && !held.has("horn")) {
-      const weight = config.horn.draw.enabled ? config.horn.draw.weight : 0;
-      const chance = weight ? (0.1 * weight) / (0.9 + 0.1 * weight) : 0;
-      if (Math.random() < chance) {
-        commitSessionDrawV21710(group, "horn");
-        return "horn";
-      }
-    }
-    const before = suppressFirstHornV218;
-    if (leader) suppressFirstHornV218 = true;
-    let weights;
-    try {
-      weights = sessionRestrictedWeightsV21710(group);
-    } finally {
-      suppressFirstHornV218 = before;
-    }
-    let key = weightedPickNoRepeatV281(
-      weights,
-      new Set([...batchUsed, ...held]),
+  function pick(group, batchUsed = new Set(), options = {}) {
+    if (!group || !eligibleForItems(group)) return null;
+    ensureItemState();
+    const ordered = ranking();
+    const total = Math.max(1, ordered.length);
+    const found = ordered.findIndex((g) => g.id === group.id);
+    const position = found >= 0 ? found + 1 : 1;
+    const config =
+      typeof getMkwDrawConfig === "function"
+        ? getMkwDrawConfig()
+        : ItemDrawPolicy.normalizeConfig(state.itemGlobal?.drawConfig);
+    const mkw =
+      typeof ensureMkwDrawState === "function"
+        ? ensureMkwDrawState()
+        : (state.itemGlobal.mkwState ||= {
+            matchStartedAt: Date.now(),
+            lastUsedAt: {},
+            lastUsedSession: {},
+          });
+    const sessionState =
+      typeof ensureDrawSessionThrottleV21710 === "function"
+        ? ensureDrawSessionThrottleV21710()
+        : { sessionNo: 1 };
+    const sessionNo = Math.max(
+      1,
+      Number(
+        (typeof activeDrawSessionV21710 !== "undefined" &&
+          activeDrawSessionV21710?.no) ||
+          sessionState.sessionNo ||
+          1,
+      ),
     );
-    if (!key) key = weightedPickNoRepeatV281(weights, held);
+    const held = (group.inventory || []).map((it) => it?.key).filter(Boolean);
+    const nowMs = Number.isFinite(Number(options.nowMs))
+      ? Number(options.nowMs)
+      : Date.now();
+    const field =
+      typeof collectMkwFieldCounts === "function"
+        ? collectMkwFieldCounts()
+        : {};
+    const evaluation = ItemDrawPolicy.evaluate({
+      config,
+      position,
+      total,
+      score: group.score,
+      eligible: eligibleForItems(group),
+      held,
+      batch: batchUsed ? [...batchUsed] : [],
+      field,
+      moduleConfig: globalThis.ItemModules
+        ? ItemModules.configuration().items
+        : null,
+      nowMs,
+      matchStartedAt: mkw.matchStartedAt,
+      applyRankClamp: true,
+      lastUsedAt: mkw.lastUsedAt,
+      lastUsedSession: mkw.lastUsedSession,
+      sessionNo,
+    });
+    const key = ItemDrawPolicy.pickWeighted(
+      evaluation.weights,
+      options.random || (() => Math.random()),
+    );
+    if (
+      typeof firstHandDrawPendingV218 !== "undefined" &&
+      typeof handItemDrawGroupId !== "undefined" &&
+      handItemDrawGroupId === group.id
+    ) {
+      firstHandDrawPendingV218 = false;
+    }
     if (!key) return null;
-    commitSessionDrawV21710(group, key);
+    mkw.lastUsedAt[key] = nowMs;
+    mkw.lastUsedSession[key] = sessionNo;
+    mkw.lastDraw = {
+      key,
+      groupId: group.id,
+      position,
+      total,
+      mode: evaluation.mode,
+      tableName: evaluation.tableName,
+      column: evaluation.column,
+      rawRank: evaluation.rawRank,
+      rank: evaluation.rank,
+      paramsForRank: evaluation.paramsForRank,
+      activeGates: evaluation.activeGates,
+      at: nowMs,
+    };
+    if (typeof commitSessionDrawV21710 === "function") {
+      commitSessionDrawV21710(group, key);
+    }
     return key;
   }
   return { pick };
 })();
+globalThis.ItemDrawBlocks = ItemDrawBlocks;

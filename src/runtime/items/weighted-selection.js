@@ -11,16 +11,15 @@ function weightedPickNoRepeatV281(weights, blocked = new Set()) {
   return null;
 }
 function pickItemForGroupV281(g, batchUsed = new Set()) {
+  if (typeof ItemDrawBlocks !== "undefined" && ItemDrawBlocks?.pick) {
+    return ItemDrawBlocks.pick(g, batchUsed);
+  }
   const r = ranking(),
     pos = Math.max(1, r.findIndex((x) => x.id === g.id) + 1);
   const weights = itemDropWeights(pos, r.length);
   const held = heldItemKeysV281(g);
-
-  // 首选：既不与本轮其他组重复，也不与自己背包重复。
   let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-  // 候选耗尽：允许跨组重复，但仍避免自己背包重复。
   if (!k) k = weightedPickNoRepeatV281(weights, held);
-  // 极端情况：该名次所有可抽道具都已在自己背包，回退原权重。
   if (!k) k = weightedPick(weights);
   return k;
 }

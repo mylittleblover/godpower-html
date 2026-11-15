@@ -1,6 +1,10 @@
 {
   "status": "PASS",
-  "baseline": "d2b1bc9",
+  "engine": "MKWorld Product.180",
+  "extensionsDisabled": [
+    "kamek",
+    "item_box"
+  ],
   "cases": 448,
   "viewport": "1920x1080 1x"
 }

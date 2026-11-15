@@ -2,7 +2,7 @@
   "status": "PASS",
   "viewport": "1920x1080 1x",
   "checks": [
-    "26 independent configs",
+    "28 independent configs",
     "two pipeline settings",
     "weight save",
     "coin multiplier",

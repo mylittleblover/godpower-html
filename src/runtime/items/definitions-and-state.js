@@ -5,7 +5,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 1,
-    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺龟壳。",
+    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺刺龟壳。",
   },
   triple_green: {
     name: "三重绿龟壳",
@@ -32,7 +32,7 @@ const ITEM_DEFS = {
     desc: "3 次红龟壳攻击/常规防御。",
   },
   spiny: {
-    name: "刺龟壳",
+    name: "刺刺龟壳",
     icon: "🔵",
     kind: "attack",
     charges: 1,
@@ -84,7 +84,7 @@ const ITEM_DEFS = {
     desc: "自身 +2 分。",
   },
   coin_shell: {
-    name: "金币龟壳",
+    name: "黄金龟壳",
     icon: "🟡",
     kind: "boost",
     charges: 1,
@@ -98,25 +98,25 @@ const ITEM_DEFS = {
     desc: "自身及所有落后组各 +1/4。",
   },
   mushroom: {
-    name: "蘑菇",
+    name: "冲刺蘑菇",
     icon: "🍄",
     kind: "boost",
     charges: 1,
-    desc: "自身 +1/3；刺龟壳来袭时可主动闪避。",
+    desc: "自身 +1/3；刺刺龟壳来袭时可主动闪避。",
   },
   triple_mushroom: {
-    name: "三重蘑菇",
+    name: "三重冲刺蘑菇",
     icon: "🍄³",
     kind: "boost",
     charges: 3,
-    desc: "3 次 +1/3，也可分次主动闪避刺龟壳。",
+    desc: "3 次 +1/3，也可分次主动闪避刺刺龟壳。",
   },
   boo: {
     name: "害羞幽灵",
     icon: "👻",
     kind: "tactic",
     charges: 1,
-    desc: "偷取正上方对手最新获得的道具；若无可偷目标则获得一个蘑菇，并获得持续 3 次答题的攻击防护。",
+    desc: "偷取正上方对手最新获得的道具；若无可偷目标则获得一个冲刺蘑菇，并获得持续 3 次答题的攻击防护。",
   },
   blooper: {
     name: "鱿鱿",
@@ -130,7 +130,7 @@ const ITEM_DEFS = {
     icon: "⚡",
     kind: "tactic",
     charges: 1,
-    desc: "劈中所有排名高于自己的小组：各降低当前分数 1/2，并清空全部道具与强力蘑菇效果；无敌星、巨大蘑菇和害羞幽灵保护可阻挡。",
+    desc: "劈中所有排名高于自己的小组：各降低当前分数 1/2，并清空全部道具与强力冲刺蘑菇效果；无敌星、巨大蘑菇和害羞幽灵保护可阻挡。",
   },
   star: {
     name: "无敌星",
@@ -154,7 +154,7 @@ const ITEM_DEFS = {
     desc: "瞬间超越前方 3 名：分数直接变为目标名次的分数 +1；若前方不足 3 名，则直接超过当前第一名。",
   },
   power: {
-    name: "强力蘑菇",
+    name: "强力冲刺蘑菇",
     icon: "🌟🍄",
     kind: "status",
     charges: 1,
@@ -305,5 +305,35 @@ function ensureItemState() {
   });
   if (!state.itemGlobal || typeof state.itemGlobal !== "object")
     state.itemGlobal = { blooperUntil: 0, totalDraws: 0 };
+  if (typeof ItemDrawPolicy !== "undefined") {
+    state.itemGlobal.drawConfig = ItemDrawPolicy.normalizeConfig(
+      state.itemGlobal.drawConfig,
+    );
+  }
+  if (
+    !state.itemGlobal.mkwState ||
+    typeof state.itemGlobal.mkwState !== "object" ||
+    Array.isArray(state.itemGlobal.mkwState)
+  ) {
+    state.itemGlobal.mkwState = {};
+  }
+  const mkw = state.itemGlobal.mkwState;
+  if (
+    !Number.isFinite(Number(mkw.matchStartedAt)) ||
+    Number(mkw.matchStartedAt) <= 0
+  )
+    mkw.matchStartedAt = Date.now();
+  if (
+    !mkw.lastUsedAt ||
+    typeof mkw.lastUsedAt !== "object" ||
+    Array.isArray(mkw.lastUsedAt)
+  )
+    mkw.lastUsedAt = {};
+  if (
+    !mkw.lastUsedSession ||
+    typeof mkw.lastUsedSession !== "object" ||
+    Array.isArray(mkw.lastUsedSession)
+  )
+    mkw.lastUsedSession = {};
 }
 ensureItemState();

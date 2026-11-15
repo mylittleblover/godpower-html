@@ -20,7 +20,7 @@ const PowerRound = (() => {
       if (!upper || !scores.has(group.id) || !scores.has(upper.id)) continue;
       const score = Math.max(scores.get(group.id), scores.get(upper.id) + 1);
       if (!Number.isSafeInteger(score))
-        throw Error("强力蘑菇计分超出安全整数范围");
+        throw Error("强力冲刺蘑菇计分超出安全整数范围");
       updates.push({ id: group.id, score });
     }
     return updates;

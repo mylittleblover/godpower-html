@@ -11805,6 +11805,234 @@ body[data-motion="simple"] .bm-layer::before {
   opacity: 0.12;
 }
 </style>
+<style>/* Scoped to the MKWorld Product.180 item draw settings panel. */
+.idraw-group {
+  margin-bottom: 18px;
+}
+.idraw-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.idraw-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.idraw-header h4 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.idraw-header p {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.idraw-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.idraw-status {
+  margin: 0;
+  color: var(--ui-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.idraw-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.idraw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+}
+.idraw-field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+.idraw-field select,
+.idraw-field input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  font-size: 13px;
+}
+.idraw-field small {
+  color: var(--ui-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.idraw-toggles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.idraw-toggle-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  cursor: pointer;
+}
+.idraw-toggle-card input {
+  margin-top: 3px;
+}
+.idraw-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.idraw-toggle-copy strong {
+  font-size: 13px;
+}
+.idraw-toggle-copy span {
+  color: var(--ui-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.idraw-summary-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.idraw-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  background: var(--ui-soft-2);
+  color: var(--ui-text);
+  font-size: 12px;
+}
+.idraw-preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.idraw-preview-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ui-text);
+}
+.idraw-preview-toolbar select,
+.idraw-preview-toolbar input[type="number"] {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  font-size: 13px;
+}
+.idraw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+}
+.idraw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.idraw-table th,
+.idraw-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ui-border);
+  white-space: nowrap;
+}
+.idraw-table th {
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+  font-weight: 700;
+}
+.idraw-table tr:last-child td {
+  border-bottom: 0;
+}
+.idraw-item-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.idraw-item-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+.idraw-item-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.idraw-gate-pill {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.idraw-gate-open {
+  background: color-mix(in srgb, var(--ui-primary) 14%, var(--ui-panel));
+  color: var(--ui-primary);
+  font-weight: 700;
+}
+.idraw-gate-blocked {
+  background: color-mix(in srgb, #dc2626 12%, var(--ui-panel));
+  color: #b91c1c;
+}
+.idraw-gates-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px;
+}
+.idraw-gate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  font-size: 12px;
+}
+.idraw-gate-card strong {
+  color: var(--ui-text);
+}
+.idraw-gate-card span {
+  color: var(--ui-muted);
+}
+</style>
 <style>/* Scoped to the modular item editor in settings. */
 .im-settings {
   color: var(--ui-text);
@@ -22680,7 +22908,7 @@ const AchievementCatalog = (() => {
       "黄金同行",
       "collection",
       "进阶",
-      "使用金币龟壳，使自身和至少 1 个领先小组实际增加积分",
+      "使用黄金龟壳，使自身和至少 1 个领先小组实际增加积分",
       "coin_shell",
     ],
     [
@@ -22688,15 +22916,15 @@ const AchievementCatalog = (() => {
       "幸运扩散",
       "collection",
       "进阶",
-      "使用问号砖块，使自身和至少 2 个落后小组实际增加积分",
+      "使用？砖块，使自身和至少 2 个落后小组实际增加积分",
       "question",
     ],
     [
       "ACH-030",
-      "蘑菇加速",
+      "冲刺加速",
       "collection",
       "普通",
-      "使用普通蘑菇，使自身积分实际增加至少 1 分",
+      "使用冲刺蘑菇，使自身积分实际增加至少 1 分",
       "mushroom",
     ],
     [
@@ -22704,7 +22932,7 @@ const AchievementCatalog = (() => {
       "三重滋养",
       "collection",
       "史诗",
-      "同一枚三重蘑菇的 3 次使用都成功为自身增加积分",
+      "同一枚三重冲刺蘑菇的 3 次使用都成功为自身增加积分",
       "triple_mushroom",
     ],
     [
@@ -22712,7 +22940,7 @@ const AchievementCatalog = (() => {
       "嘹亮号角",
       "collection",
       "史诗",
-      "成功使用超级喇叭抵挡一次刺龟壳攻击",
+      "成功使用超级喇叭抵挡一次刺刺龟壳攻击",
       "horn",
     ],
     [
@@ -22752,7 +22980,7 @@ const AchievementCatalog = (() => {
       "蓝色警报",
       "tactics",
       "进阶",
-      "使用刺龟壳，成功让当时的第 1 名损失积分",
+      "使用刺刺龟壳，成功让当时的第 1 名损失积分",
       "spiny",
     ],
     [
@@ -22848,7 +23076,7 @@ const AchievementCatalog = (() => {
       "幽灵的馈赠",
       "hidden",
       "进阶",
-      "使用害羞幽灵时，由于没有可偷取的道具，触发获得普通蘑菇的替代效果",
+      "使用害羞幽灵时，由于没有可偷取的道具，触发获得冲刺蘑菇的替代效果",
       "boo",
       true,
     ],
@@ -22857,7 +23085,7 @@ const AchievementCatalog = (() => {
       "墨染战场",
       "hidden",
       "史诗",
-      "使用鱿鱿后，在比分遮蔽仍然有效的 2 分钟内，完成一次实际产生积分变化的正式答题结算",
+      "使用鱿鱿后，在比分遮蔽仍然有效期内，完成一次实际产生积分变化的正式答题结算",
       "blooper",
       true,
     ],
@@ -22875,7 +23103,7 @@ const AchievementCatalog = (() => {
       "强力全胜",
       "hidden",
       "传奇",
-      "同一次强力蘑菇的 3 次有效答题中全部答对，且该状态按正常规则持续至结束",
+      "同一次强力冲刺蘑菇的 3 次有效答题中全部答对，且该状态按正常规则持续至结束",
       "power",
       true,
     ],
@@ -24211,7 +24439,7 @@ const PowerRound = (() => {
       if (!upper || !scores.has(group.id) || !scores.has(upper.id)) continue;
       const score = Math.max(scores.get(group.id), scores.get(upper.id) + 1);
       if (!Number.isSafeInteger(score))
-        throw Error("强力蘑菇计分超出安全整数范围");
+        throw Error("强力冲刺蘑菇计分超出安全整数范围");
       updates.push({ id: group.id, score });
     }
     return updates;
@@ -24219,102 +24447,1430 @@ const PowerRound = (() => {
   return Object.freeze({ calculate });
 })();
 </script>
-<script>/* Reviewed rank/positive-gap blend. Anchors preserve legacy weight shapes, not hard eligibility bands. */
+<script>/* Verbatim Mario Kart World (Product.180) item draw data tables. Pure data only; no DOM or storage access. */
+const MKWProduct180Data = (() => {
+  const OFFICIAL_ITEMS = Object.freeze({
+    banana: {
+      mkwKey: "Banana",
+      name: "香蕉皮",
+      zhTw: "香蕉皮",
+      en: "Banana",
+    },
+    triple_banana: {
+      mkwKey: "Banana3",
+      name: "三重香蕉皮",
+      zhTw: "三重香蕉皮",
+      en: "Triple Bananas",
+    },
+    mushroom: {
+      mkwKey: "Kinoko",
+      name: "冲刺蘑菇",
+      zhTw: "衝刺蘑菇",
+      en: "Dash Mushroom",
+    },
+    triple_mushroom: {
+      mkwKey: "Kinoko3",
+      name: "三重冲刺蘑菇",
+      zhTw: "三重衝刺蘑菇",
+      en: "Triple Dash Mushrooms",
+    },
+    power: {
+      mkwKey: "KinokoP",
+      name: "强力冲刺蘑菇",
+      zhTw: "強力衝刺蘑菇",
+      en: "Golden Dash Mushroom",
+    },
+    mega: {
+      mkwKey: "MegaKinoko",
+      name: "巨大蘑菇",
+      zhTw: "巨大蘑菇",
+      en: "Mega Mushroom",
+    },
+    green: {
+      mkwKey: "KouraG",
+      name: "绿龟壳",
+      zhTw: "綠龜殼",
+      en: "Green Shell",
+    },
+    triple_green: {
+      mkwKey: "KouraG3",
+      name: "三重绿龟壳",
+      zhTw: "三重綠龜殼",
+      en: "Triple Green Shells",
+    },
+    red: {
+      mkwKey: "KouraR",
+      name: "红龟壳",
+      zhTw: "紅龜殼",
+      en: "Red Shell",
+    },
+    triple_red: {
+      mkwKey: "KouraR3",
+      name: "三重红龟壳",
+      zhTw: "三重紅龜殼",
+      en: "Triple Red Shells",
+    },
+    spiny: {
+      mkwKey: "KouraB",
+      name: "刺刺龟壳",
+      zhTw: "刺刺龜殼",
+      en: "Spiny Shell",
+    },
+    coin_shell: {
+      mkwKey: "KouraC",
+      name: "黄金龟壳",
+      zhTw: "黃金龜殼",
+      en: "Coin Shell",
+    },
+    fire_flower: {
+      mkwKey: "FireBall",
+      name: "火之花",
+      zhTw: "火之花",
+      en: "Fire Flower",
+    },
+    ice_flower: {
+      mkwKey: "IceBall",
+      name: "冰之花",
+      zhTw: "冰之花",
+      en: "Ice Flower",
+    },
+    boomerang_flower: {
+      mkwKey: "Boomerang",
+      name: "回旋镖花",
+      zhTw: "迴旋鏢花",
+      en: "Boomerang Flower",
+    },
+    bullet: {
+      mkwKey: "Killer",
+      name: "炮弹刺客",
+      zhTw: "炮彈刺客",
+      en: "Bullet Bill",
+    },
+    bomb: {
+      mkwKey: "Bomhei",
+      name: "炸弹兵",
+      zhTw: "炸彈兵",
+      en: "Bob-omb",
+    },
+    hammer: {
+      mkwKey: "Hammer",
+      name: "锤子",
+      zhTw: "鎚子",
+      en: "Hammer",
+    },
+    horn: {
+      mkwKey: "SHorn",
+      name: "超级喇叭",
+      zhTw: "超級喇叭",
+      en: "Super Horn",
+    },
+    question: {
+      mkwKey: "CoinBox",
+      name: "？砖块",
+      zhTw: "？磚塊",
+      en: "? Block",
+    },
+    coin: {
+      mkwKey: "Coin",
+      name: "金币",
+      zhTw: "金幣",
+      en: "Coin",
+    },
+    boo: {
+      mkwKey: "Teresa",
+      name: "害羞幽灵",
+      zhTw: "害羞幽靈",
+      en: "Boo",
+    },
+    blooper: {
+      mkwKey: "Gesso",
+      name: "鱿鱿",
+      zhTw: "魷魷",
+      en: "Blooper",
+    },
+    kamek: {
+      mkwKey: "Kameck",
+      name: "卡美克",
+      zhTw: "卡美克",
+      en: "Kamek",
+    },
+    feather: {
+      mkwKey: "Feather",
+      name: "羽毛",
+      zhTw: "羽毛",
+      en: "Feather",
+    },
+    star: {
+      mkwKey: "Star",
+      name: "无敌星",
+      zhTw: "無敵星",
+      en: "Super Star",
+    },
+    lightning: {
+      mkwKey: "Thunder",
+      name: "闪电",
+      zhTw: "閃電",
+      en: "Lightning",
+    },
+  });
+
+  const WEIGHT_TABLES = Object.freeze({
+    ItemTableStandard: {
+      banana: [
+        10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      triple_banana: [
+        0, 10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      mushroom: [
+        0, 15, 25, 30, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_mushroom: [
+        0, 0, 0, 0, 30, 40, 40, 30, 30, 30, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      power: [
+        0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        30, 30, 30, 30,
+      ],
+      mega: [
+        0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      green: [
+        10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_green: [
+        0, 10, 10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      red: [
+        0, 15, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_red: [
+        0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      spiny: [
+        0, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin_shell: [
+        0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      fire_flower: [
+        0, 0, 0, 3, 3, 3, 3, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      ice_flower: [
+        0, 0, 5, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        0, 0, 0, 10, 10, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      bullet: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+        50, 50, 50, 50,
+      ],
+      bomb: [
+        0, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      hammer: [
+        0, 2, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      horn: [
+        1, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      question: [
+        2, 2, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin: [
+        50, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      boo: [
+        0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      blooper: [
+        0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      kamek: [
+        0, 0, 2, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      star: [
+        0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      lightning: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableDynamic: {
+      banana: [
+        5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_banana: [
+        10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      mushroom: [
+        0, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_mushroom: [
+        0, 0, 5, 5, 30, 30, 30, 30, 30, 30, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      power: [
+        0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        30, 30, 30, 30,
+      ],
+      mega: [
+        0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      green: [
+        5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_green: [
+        0, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      red: [
+        0, 10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_red: [
+        0, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      spiny: [
+        0, 0, 0, 0, 0, 10, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin_shell: [
+        0, 0, 0, 0, 0, 15, 15, 15, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      fire_flower: [
+        0, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      ice_flower: [
+        0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        0, 5, 5, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      bullet: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+        50, 50, 50, 50,
+      ],
+      bomb: [
+        0, 30, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      hammer: [
+        0, 5, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      horn: [
+        3, 20, 20, 20, 20, 20, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      question: [
+        5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin: [
+        40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boo: [
+        0, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      blooper: [
+        0, 0, 0, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      kamek: [
+        0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        0, 0, 0, 2, 2, 6, 6, 6, 6, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      lightning: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableSimpleCom: {
+      banana: [
+        10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      triple_banana: [
+        0, 10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      mushroom: [
+        0, 15, 25, 30, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_mushroom: [
+        0, 0, 0, 0, 30, 40, 40, 30, 30, 30, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      power: [
+        0, 0, 0, 0, 0, 0, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        30, 30, 30, 30,
+      ],
+      mega: [
+        0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      green: [
+        10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      triple_green: [
+        0, 10, 10, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0,
+      ],
+      red: [
+        0, 5, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      triple_red: [
+        0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      spiny: [
+        0, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin_shell: [
+        0, 0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      fire_flower: [
+        0, 0, 0, 3, 3, 3, 3, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      ice_flower: [
+        0, 0, 5, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        0, 0, 0, 10, 10, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      bullet: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+        50, 50, 50, 50,
+      ],
+      bomb: [
+        0, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      hammer: [
+        0, 2, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      horn: [
+        0, 10, 10, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      question: [
+        2, 2, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      coin: [
+        50, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      boo: [
+        0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      blooper: [
+        0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      kamek: [
+        0, 0, 2, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      star: [
+        0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      lightning: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableBattle: {
+      banana: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_banana: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      mushroom: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      green: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_green: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      red: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_red: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      fire_flower: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      bomb: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      hammer: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boo: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableBattleDynamic: {
+      banana: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_banana: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      mushroom: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_mushroom: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      green: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_green: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      red: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_red: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      fire_flower: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      ice_flower: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      bomb: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      hammer: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      horn: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      boo: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      blooper: [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableBattleCoin: {
+      banana: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_banana: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      mushroom: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      green: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_green: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      red: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_red: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      fire_flower: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      bomb: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      hammer: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boo: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableBattleCoinDynamic: {
+      banana: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_banana: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      mushroom: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_mushroom: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      green: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      triple_green: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      red: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_red: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      coin_shell: [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      fire_flower: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      ice_flower: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boomerang_flower: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      bomb: [
+        40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      hammer: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      horn: [
+        20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0,
+      ],
+      question: [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      boo: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      blooper: [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableKinokoOnly: {
+      mushroom: [
+        100, 90, 75, 60, 40, 20, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0,
+      ],
+      triple_mushroom: [
+        0, 10, 20, 40, 60, 70, 70, 65, 60, 50, 30, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15,
+      ],
+      power: [
+        0, 0, 0, 0, 0, 10, 20, 30, 40, 50, 70, 85, 85, 85, 85, 85, 85, 85, 85,
+        85, 85, 85, 85, 85,
+      ],
+    },
+    ItemTable3KinokoOnly: {
+      triple_mushroom: [
+        10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+        10, 10, 10, 10, 10, 10,
+      ],
+    },
+    ItemTableFreeRun: {
+      mushroom: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_mushroom: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      power: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableMission: {
+      banana: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      mushroom: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      green: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      red: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+    ItemTableNetInterval: {
+      banana: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      mushroom: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      green: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_green: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      red: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      triple_red: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      bomb: [
+        10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      feather: [
+        20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+      star: [
+        5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ],
+    },
+  });
+
+  const RANK_TABLE = Object.freeze([
+    [null],
+    [null, 2],
+    [null, 2, 8],
+    [null, 2, 5, 8],
+    [null, 2, 5, 6, 10],
+    [null, 2, 5, 6, 8, 10],
+    [null, 2, 5, 6, 8, 9, 11],
+    [null, 2, 5, 6, 7, 8, 9, 11],
+    [null, 2, 5, 6, 7, 8, 9, 11, 12],
+    [null, 2, 3, 5, 6, 7, 8, 9, 11, 12],
+    [null, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 11, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 10, 11, 11, 12],
+    [null, 2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 11, 11, 12],
+    [
+      null,
+      2,
+      3,
+      4,
+      5,
+      6,
+      6,
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+      11,
+      11,
+      12,
+    ],
+    [
+      null,
+      2,
+      3,
+      4,
+      5,
+      6,
+      6,
+      7,
+      7,
+      7,
+      8,
+      8,
+      8,
+      8,
+      9,
+      9,
+      9,
+      9,
+      10,
+      10,
+      10,
+      11,
+      11,
+      12,
+    ],
+  ]);
+
+  const INTERVAL_LIMIT_DEFAULT = Object.freeze({
+    triple_banana: {
+      startFrame: 0,
+    },
+    power: {
+      startFrame: 2100,
+    },
+    mega: {
+      startFrame: 1500,
+    },
+    triple_green: {
+      startFrame: 0,
+    },
+    triple_red: {
+      startFrame: 1500,
+    },
+    spiny: {
+      startFrame: 2100,
+      intervalFrame: 5400,
+    },
+    coin_shell: {
+      startFrame: 1500,
+    },
+    fire_flower: {
+      startFrame: 1500,
+      intervalFrame: 0,
+    },
+    ice_flower: {
+      startFrame: 1500,
+    },
+    boomerang_flower: {
+      startFrame: 1500,
+    },
+    bullet: {
+      startFrame: 1800,
+    },
+    bomb: {
+      startFrame: 1500,
+    },
+    hammer: {
+      startFrame: 1500,
+    },
+    horn: {
+      startFrame: 1800,
+    },
+    boo: {
+      startFrame: 1500,
+    },
+    blooper: {
+      startFrame: 1800,
+      intervalFrame: 1800,
+    },
+    kamek: {
+      startFrame: 1800,
+      intervalFrame: 2700,
+    },
+    lightning: {
+      startFrame: 2700,
+      intervalFrame: 5400,
+    },
+  });
+
+  const INTERVAL_LIMIT_BATTLE = Object.freeze({});
+
+  const NUM_LIMIT_DEFAULT = Object.freeze({
+    banana: 100,
+    mushroom: 100,
+    power: 24,
+    mega: 5,
+    green: 100,
+    red: 100,
+    spiny: 1,
+    coin_shell: 2,
+    fire_flower: 32,
+    ice_flower: 32,
+    boomerang_flower: 24,
+    bullet: 3,
+    bomb: 16,
+    horn: 48,
+    question: 1,
+    boo: 3,
+    blooper: 1,
+    kamek: 1,
+    star: 12,
+    lightning: 3,
+  });
+
+  const NUM_LIMIT_BATTLE = Object.freeze({
+    boomerang_flower: 60,
+    bomb: 240,
+    boo: 6,
+  });
+
+  const MODES = Object.freeze([
+    {
+      id: "24KartRace",
+      jpName: "レース通常",
+      type: "KartRace24",
+      table: "ItemTableStandard",
+      gateTable: "ItemTableStandard",
+      enableComTable: true,
+      comTable: "ItemTableSimpleCom",
+      comGateTable: "ItemTableSimpleCom",
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: {
+        firstValue: 4,
+        minFrame: 1500,
+        minValue: 5,
+        maxFrame: 1800,
+        maxValue: 7,
+      },
+    },
+    {
+      id: "Dynamic",
+      jpName: "レース通常_ダイナミック",
+      type: "Dynamic",
+      table: "ItemTableDynamic",
+      gateTable: "ItemTableDynamic",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "Battle",
+      jpName: "ふうせんバトル",
+      type: "Battle",
+      table: "ItemTableBattle",
+      gateTable: "ItemTableBattle",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: "ItemIntervalLimitBattle",
+      numLimitTable: "ItemNumLimitBattle",
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "BattleDynamic",
+      jpName: "バトル_ダイナミック",
+      type: "BattleDynamic",
+      table: "ItemTableBattleDynamic",
+      gateTable: "ItemTableBattleDynamic",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "BattleCoin",
+      jpName: "コインバトル",
+      type: "BattleCoin",
+      table: "ItemTableBattleCoin",
+      gateTable: "ItemTableBattleCoin",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "BattleCoinDynamic",
+      jpName: "コインバトル_ダイナミック",
+      type: "BattleCoinDynamic",
+      table: "ItemTableBattleCoinDynamic",
+      gateTable: "ItemTableBattleCoinDynamic",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "Kinoko3Only",
+      jpName: "3連キノコのみ",
+      type: "Kinoko3Only",
+      table: "ItemTable3KinokoOnly",
+      gateTable: "ItemTable3KinokoOnly",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: true,
+      ignorePenalty: true,
+      rankClamp: null,
+    },
+    {
+      id: "Mission",
+      jpName: "ミッション用",
+      type: "Mission",
+      table: "ItemTableMission",
+      gateTable: "ItemTableMission",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "NetInterval",
+      jpName: "通信投票インターバル用",
+      type: "NetInterval",
+      table: "ItemTableNetInterval",
+      gateTable: "ItemTableNetInterval",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "FreeRun",
+      jpName: "フリーラン用",
+      type: "FreeRun",
+      table: "ItemTableFreeRun",
+      gateTable: "ItemTableFreeRun",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: null,
+    },
+    {
+      id: "Survival",
+      jpName: "サバイバル用",
+      type: "Survival",
+      table: "ItemTableStandard",
+      gateTable: "ItemTableStandard",
+      enableComTable: false,
+      comTable: null,
+      comGateTable: null,
+      intervalTable: null,
+      numLimitTable: null,
+      enableSame: false,
+      ignorePenalty: false,
+      rankClamp: {
+        firstValue: 4,
+        minFrame: 1500,
+        minValue: 5,
+        maxFrame: 1800,
+        maxValue: 7,
+      },
+    },
+  ]);
+
+  const MODE_LABELS = Object.freeze({
+    "24KartRace": {
+      name: "标准竞速（24人赛）",
+      group: "竞速",
+      desc: "官方默认基准表；开局 25~30s 逐步放开名次补偿，含完整冷却与场上上限。",
+    },
+    Dynamic: {
+      name: "动态竞速",
+      group: "竞速",
+      desc: "前段进攻更激烈（炸弹兵 30、超级喇叭 20、三重/回旋镖高占比）。",
+    },
+    SimpleCom: {
+      name: "简单 COM 表",
+      group: "竞速",
+      desc: "轻量调低第 1 名超级喇叭与第 2 名红龟壳比率。",
+    },
+    Survival: {
+      name: "生存淘汰赛",
+      group: "竞速",
+      desc: "使用标准权重表与 25~30s RankClamp 名次补偿。",
+    },
+    Battle: {
+      name: "气球对战",
+      group: "对战",
+      desc: "前 12 位均衡权重（合计 195），不设开局禁用与同种冷却。",
+    },
+    BattleDynamic: {
+      name: "动态对战",
+      group: "对战",
+      desc: "强化对战武器权重的动态对战表（合计 236）。",
+    },
+    BattleCoin: {
+      name: "金币对战",
+      group: "对战",
+      desc: "使用对战基准分布（与气球对战表数值一致）。",
+    },
+    BattleCoinDynamic: {
+      name: "动态金币对战",
+      group: "对战",
+      desc: "在动态对战基础上加入黄金龟壳与 ？砖块（合计 243）。",
+    },
+    KinokoOnly: {
+      name: "仅冲刺蘑菇系",
+      group: "特殊",
+      desc: "仅冲刺蘑菇 / 三重冲刺蘑菇 / 强力冲刺蘑菇按名次平滑过渡。",
+    },
+    Kinoko3Only: {
+      name: "仅三重冲刺蘑菇",
+      group: "特殊",
+      desc: "全名次 100% 抽取三重冲刺蘑菇，允许重复且忽略冷却惩罚。",
+    },
+    FreeRun: {
+      name: "自由行驶",
+      group: "固定",
+      desc: "固定 5 项机动增益池（羽毛 30 / 三重冲刺蘑菇 20 / 冲刺蘑菇 20 / 强力冲刺蘑菇 10 / 无敌星 10）。",
+    },
+    Mission: {
+      name: "任务模式",
+      group: "固定",
+      desc: "固定 4 项基础道具等权池（香蕉皮 / 冲刺蘑菇 / 绿龟壳 / 红龟壳各 10）。",
+    },
+    NetInterval: {
+      name: "联机投票等待",
+      group: "固定",
+      desc: "固定 9 项轻对抗道具池（合计 145）。",
+    },
+  });
+
+  const SWITCH_PRESETS = Object.freeze({
+    P00: ["mushroom", "triple_mushroom", "power", "mega"],
+    P01: ["green", "triple_green", "red", "triple_red", "spiny", "coin_shell"],
+    P02: ["fire_flower", "ice_flower", "boomerang_flower"],
+    P03: ["mega", "bullet", "boo", "star"],
+    P04: ["coin_shell", "question", "coin"],
+    P05: [
+      "mega",
+      "coin_shell",
+      "ice_flower",
+      "hammer",
+      "question",
+      "kamek",
+      "feather",
+    ],
+    P06: [
+      "mushroom",
+      "triple_mushroom",
+      "red",
+      "triple_red",
+      "fire_flower",
+      "horn",
+    ],
+    P07: [
+      "banana",
+      "triple_banana",
+      "power",
+      "mega",
+      "coin_shell",
+      "question",
+      "coin",
+      "star",
+      "lightning",
+    ],
+    P08: [
+      "mushroom",
+      "green",
+      "red",
+      "spiny",
+      "fire_flower",
+      "bullet",
+      "question",
+      "coin",
+      "blooper",
+      "star",
+    ],
+    P09: [
+      "banana",
+      "mushroom",
+      "green",
+      "red",
+      "coin",
+      "boo",
+      "feather",
+      "star",
+      "lightning",
+    ],
+    P10: [
+      "banana",
+      "triple_banana",
+      "mushroom",
+      "triple_mushroom",
+      "power",
+      "green",
+      "triple_green",
+      "red",
+      "triple_red",
+      "spiny",
+      "boo",
+      "star",
+      "lightning",
+    ],
+    P11: ["triple_mushroom", "power", "mega", "spiny", "bullet", "boo", "star"],
+    P12: ["mushroom", "triple_mushroom", "feather", "star"],
+    P13: [
+      "banana",
+      "triple_banana",
+      "green",
+      "triple_green",
+      "fire_flower",
+      "ice_flower",
+      "bomb",
+      "hammer",
+    ],
+    P14: ["triple_banana", "triple_mushroom", "triple_green", "triple_red"],
+  });
+
+  const SWITCH_PRESET_META = Object.freeze({
+    ALL: {
+      name: "全道具开放（默认）",
+      desc: "不裁剪道具池，遵循当前模式与各道具独立开关。",
+    },
+    P00: {
+      name: "P00 · 纯蘑菇局",
+      desc: "仅开放 4 种蘑菇道具（冲刺 / 三重冲刺 / 强力冲刺 / 巨大蘑菇）。",
+    },
+    P01: {
+      name: "P01 · 纯龟壳局",
+      desc: "仅开放 6 种龟壳道具（绿/三重绿/红/三重红/刺刺/黄金龟壳）。",
+    },
+    P02: {
+      name: "P02 · 三花狂欢",
+      desc: "仅开放火之花、冰之花、回旋镖花。",
+    },
+    P03: {
+      name: "P03 · 极限高速保命",
+      desc: "仅巨大蘑菇、炮弹刺客、害羞幽灵、无敌星。",
+    },
+    P04: {
+      name: "P04 · 金币主题",
+      desc: "仅开放黄金龟壳、？砖块与金币。",
+    },
+    P05: {
+      name: "P05 · 金币魔法混战",
+      desc: "巨大蘑菇、黄金龟壳、冰之花、锤子、？砖块、金币、卡美克、羽毛。",
+    },
+    P06: {
+      name: "P06 · 冲刺追击与反制",
+      desc: "冲刺蘑菇、三重冲刺蘑菇、红龟壳、三重红龟壳、火之花、超级喇叭。",
+    },
+    P07: {
+      name: "P07 · 大乱斗经典（9 项）",
+      desc: "香蕉、狂暴蘑菇、黄金龟壳、砖块金币、无敌星与闪电。",
+    },
+    P08: {
+      name: "P08 · 重火力干扰（8 项）",
+      desc: "冲刺蘑菇、红/绿/刺刺龟壳、火之花、炮弹刺客、？砖块、鱿鱿、无敌星。",
+    },
+    P09: {
+      name: "P09 · 敏捷反打（9 项）",
+      desc: "香蕉皮、单发蘑菇绿红龟壳、？砖块金币、幽灵羽毛、无敌星闪电。",
+    },
+    P10: {
+      name: "P10 · 宽松综合（13 项）",
+      desc: "最宽松主题预设，开放香蕉/蘑菇/龟壳全系及幽灵、无敌星、闪电。",
+    },
+    P11: {
+      name: "P11 · 后排大逆转",
+      desc: "三重/强力/巨大蘑菇、刺刺龟壳、炮弹刺客、害羞幽灵、无敌星。",
+    },
+    P12: {
+      name: "P12 · 纯速无攻击",
+      desc: "冲刺蘑菇、三重冲刺蘑菇、金币、羽毛与无敌星。",
+    },
+    P13: {
+      name: "P13 · 硬派近战陷阱",
+      desc: "香蕉皮系、绿龟壳系、火冰之花、炸弹兵与锤子。",
+    },
+    P14: {
+      name: "P14 · 仅三重道具",
+      desc: "只抽取三重香蕉皮、三重冲刺蘑菇、三重绿龟壳与三重红龟壳。",
+    },
+  });
+
+  const PARAM_BY_RANK = Object.freeze({
+    InkLevel: [
+      3, 3, 3, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    ],
+    KillerTargetRank: [
+      1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12,
+      12,
+    ],
+    ThunderFrame: [
+      180, 160, 140, 120, 100, 80, 60, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45,
+      45, 45, 45, 45, 45, 45, 45,
+    ],
+  });
+
+  return Object.freeze({
+    version: "Product.180",
+    OFFICIAL_ITEMS,
+    WEIGHT_TABLES,
+    RANK_TABLE,
+    INTERVAL_LIMIT_DEFAULT,
+    INTERVAL_LIMIT_BATTLE,
+    NUM_LIMIT_DEFAULT,
+    NUM_LIMIT_BATTLE,
+    MODES,
+    MODE_LABELS,
+    SWITCH_PRESETS,
+    SWITCH_PRESET_META,
+    PARAM_BY_RANK,
+  });
+})();
+globalThis.MKWProduct180Data = MKWProduct180Data;
+</script>
+<script>/* Mario Kart World (Product.180) item draw policy engine. Pure domain module: no DOM, storage or timers. */
 const ItemDrawPolicy = (() => {
-  const anchors = [
-    {
-      kamek: 0,
-      item_box: 0,
-      green: 13,
-      triple_green: 3,
-      red: 7,
-      triple_red: 2,
-      spiny: 0,
-      banana: 13,
-      triple_banana: 3,
-      horn: 6,
-      bomb: 0,
-      hammer: 0,
-      coin: 18,
-      coin_shell: 6,
-      question: 10,
-      mushroom: 9,
-      triple_mushroom: 2,
-      boo: 0,
-      blooper: 0,
-      lightning: 0,
-      star: 0,
-      mega: 0,
-      bullet: 0,
-      power: 0,
-      feather: 8,
-      fire_flower: 0,
-      ice_flower: 0,
-      boomerang_flower: 0,
-    },
-    {
-      kamek: 3,
-      item_box: 4,
-      green: 8,
-      triple_green: 6,
-      red: 11,
-      triple_red: 7,
-      spiny: 5,
-      banana: 8,
-      triple_banana: 6,
-      horn: 9,
-      bomb: 10,
-      hammer: 8,
-      coin: 0,
-      coin_shell: 6,
-      question: 0,
-      mushroom: 16,
-      triple_mushroom: 5,
-      boo: 7,
-      blooper: 7,
-      lightning: 0,
-      star: 0,
-      mega: 0,
-      bullet: 0,
-      power: 6,
-      feather: 0,
-      fire_flower: 11,
-      ice_flower: 9,
-      boomerang_flower: 10,
-    },
-    {
-      kamek: 0,
-      item_box: 0,
-      green: 0,
-      triple_green: 1,
-      red: 0,
-      triple_red: 1,
-      spiny: 9,
-      banana: 0,
-      triple_banana: 1,
-      horn: 5,
-      bomb: 0,
-      hammer: 0,
-      coin: 0,
-      coin_shell: 0,
-      question: 0,
-      mushroom: 12,
-      triple_mushroom: 4,
-      boo: 9,
-      blooper: 8,
-      lightning: 11,
-      star: 11,
-      mega: 10,
-      bullet: 13,
-      power: 12,
-      feather: 0,
-      fire_flower: 0,
-      ice_flower: 0,
-      boomerang_flower: 0,
-    },
-  ];
-  const keys = Object.freeze(Object.keys(anchors[0]));
-  const highImpact = Object.freeze([
+  const DATA =
+    typeof MKWProduct180Data !== "undefined" ? MKWProduct180Data : null;
+
+  const ITEM_KEYS_CANONICAL = Object.freeze([
+    "mushroom",
+    "triple_mushroom",
+    "green",
+    "triple_green",
+    "red",
+    "triple_red",
+    "banana",
+    "triple_banana",
+    "horn",
+    "feather",
+    "fire_flower",
+    "ice_flower",
+    "boomerang_flower",
+    "kamek",
+    "item_box",
+    "bomb",
+    "hammer",
+    "spiny",
+    "coin",
+    "coin_shell",
+    "question",
+    "boo",
+    "blooper",
+    "lightning",
+    "star",
+    "mega",
+    "bullet",
+    "power",
+  ]);
+
+  const HIGH_IMPACT = Object.freeze([
     "star",
     "mega",
     "bullet",
@@ -24322,57 +25878,660 @@ const ItemDrawPolicy = (() => {
     "power",
     "spiny",
   ]);
-  const unique = Object.freeze(["lightning", "blooper", "kamek", "item_box"]);
-  const version = "continuous-rank-gap-1";
-  const summary =
-    "名次与正向分差连续调节追赶道具；首次举手特殊池保留，第一名喇叭为10%且仅前60%可抽；场上唯一、库存去重、冷却和自定义开关仍生效。";
-  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-  function weights({
-    position,
-    total,
-    score = 0,
-    leaderScore = score,
-    field = [],
-    held = [],
-  } = {}) {
-    const n = Math.max(1, Number(total) || 1),
-      p = clamp(Number(position) || 1, 1, n),
-      x = n <= 1 ? 0 : (p - 1) / (n - 1),
-      segment = x <= 0.5 ? 0 : 1,
-      t = x <= 0.5 ? x * 2 : x * 2 - 1,
-      smooth = t * t * (3 - 2 * t),
-      gap =
-        leaderScore > 0 && score >= 0
-          ? clamp(
-              Math.log2(Math.max(1, leaderScore / Math.max(1, score))) / 2,
-              0,
-              1,
-            )
-          : 0;
-    const blocked = new Set(held),
-      present = new Set(field),
-      result = {};
-    for (const key of keys) {
-      const a = Math.max(0.5, anchors[segment][key] || 0),
-        b = Math.max(0.5, anchors[segment + 1][key] || 0);
-      let weight = a + (b - a) * smooth;
-      if (highImpact.includes(key)) weight *= 1 + x * 0.5 + gap * 1.5;
-      if (key === "horn") {
-        if (p > Math.max(1, Math.ceil(n * 0.6))) weight = 0;
-        else weight = Math.max(weight, 8);
-      }
-      if (
-        score < 0 ||
-        blocked.has(key) ||
-        (unique.includes(key) && present.has(key))
-      )
-        weight = 0;
-      result[key] = weight;
-    }
-    return result;
+
+  const UNIQUE_KEYS = Object.freeze([
+    "spiny",
+    "coin_shell",
+    "question",
+    "blooper",
+    "kamek",
+    "item_box",
+  ]);
+
+  const RACING_TABLES = new Set([
+    "ItemTableStandard",
+    "ItemTableDynamic",
+    "ItemTableSimpleCom",
+  ]);
+
+  const BATTLE_MODES = new Set([
+    "Battle",
+    "BattleDynamic",
+    "BattleCoin",
+    "BattleCoinDynamic",
+  ]);
+
+  const SINGLE_COL_MODES = new Set(["FreeRun", "Mission", "NetInterval"]);
+
+  const KINOKO_ONLY_SPEC = Object.freeze({
+    id: "KinokoOnly",
+    jpName: "キノコのみ",
+    type: "KinokoOnly",
+    table: "ItemTableKinokoOnly",
+    gateTable: "ItemTableKinokoOnly",
+    enableComTable: false,
+    comTable: null,
+    comGateTable: null,
+    intervalTable: null,
+    numLimitTable: null,
+    enableSame: true,
+    ignorePenalty: true,
+    rankClamp: null,
+  });
+
+  const DEFAULT_CONFIG = Object.freeze({
+    mode: "24KartRace",
+    switchPreset: "ALL",
+    useComTable: false,
+    enableSame: false,
+    ignorePenalty: false,
+    timingMode: "realtime",
+    positionMapping: "auto",
+    includeClassroomItemBox: true,
+    applyPostDrawRankParams: true,
+  });
+
+  const FRAMES_PER_SECOND = 60;
+  const FRAMES_PER_ROUND = 1080; // 18s per classroom round equivalent
+
+  function allModeSpecs() {
+    const base = DATA?.MODES ? [...DATA.MODES] : [];
+    const idx = base.findIndex((m) => m.id === "Kinoko3Only");
+    if (idx >= 0) base.splice(idx, 0, KINOKO_ONLY_SPEC);
+    else base.push(KINOKO_ONLY_SPEC);
+    return base;
   }
-  return Object.freeze({ version, summary, keys, highImpact, unique, weights });
+
+  function modes() {
+    const labels = DATA?.MODE_LABELS || {};
+    return allModeSpecs().map((spec) => ({
+      ...spec,
+      ...(labels[spec.id] || { name: spec.id, group: "其他", desc: "" }),
+    }));
+  }
+
+  function modeSpec(modeId) {
+    const list = allModeSpecs();
+    return list.find((m) => m.id === modeId) || list[0] || null;
+  }
+
+  function switchPresets() {
+    const meta = DATA?.SWITCH_PRESET_META || {};
+    const sets = DATA?.SWITCH_PRESETS || {};
+    const out = [
+      {
+        id: "ALL",
+        ...(meta.ALL || { name: "全道具开放（默认）", desc: "" }),
+        keys: ITEM_KEYS_CANONICAL,
+      },
+    ];
+    for (const id of Object.keys(sets)) {
+      out.push({
+        id,
+        ...(meta[id] || { name: id, desc: "" }),
+        keys: sets[id],
+      });
+    }
+    return out;
+  }
+
+  function presetAllowedSet(presetId) {
+    if (!presetId || presetId === "ALL") return null;
+    const list = DATA?.SWITCH_PRESETS?.[presetId];
+    return Array.isArray(list) ? new Set(list) : null;
+  }
+
+  function defaultConfig() {
+    return { ...DEFAULT_CONFIG };
+  }
+
+  function normalizeConfig(raw = {}) {
+    const src = raw && typeof raw === "object" ? raw : {};
+    const validModes = new Set(allModeSpecs().map((m) => m.id));
+    const mode = validModes.has(src.mode) ? src.mode : DEFAULT_CONFIG.mode;
+    const presetIds = new Set([
+      "ALL",
+      ...Object.keys(DATA?.SWITCH_PRESETS || {}),
+    ]);
+    const switchPreset = presetIds.has(src.switchPreset)
+      ? src.switchPreset
+      : DEFAULT_CONFIG.switchPreset;
+    return {
+      mode,
+      switchPreset,
+      useComTable:
+        typeof src.useComTable === "boolean"
+          ? src.useComTable
+          : DEFAULT_CONFIG.useComTable,
+      enableSame:
+        typeof src.enableSame === "boolean"
+          ? src.enableSame
+          : DEFAULT_CONFIG.enableSame,
+      ignorePenalty:
+        typeof src.ignorePenalty === "boolean"
+          ? src.ignorePenalty
+          : DEFAULT_CONFIG.ignorePenalty,
+      timingMode:
+        src.timingMode === "rounds" || src.timingMode === "realtime"
+          ? src.timingMode
+          : DEFAULT_CONFIG.timingMode,
+      positionMapping:
+        src.positionMapping === "exact" || src.positionMapping === "auto"
+          ? src.positionMapping
+          : DEFAULT_CONFIG.positionMapping,
+      includeClassroomItemBox:
+        typeof src.includeClassroomItemBox === "boolean"
+          ? src.includeClassroomItemBox
+          : DEFAULT_CONFIG.includeClassroomItemBox,
+      applyPostDrawRankParams:
+        typeof src.applyPostDrawRankParams === "boolean"
+          ? src.applyPostDrawRankParams
+          : DEFAULT_CONFIG.applyPostDrawRankParams,
+    };
+  }
+
+  function framesToSessions(frames) {
+    if (!Number.isFinite(frames) || frames <= 0) return 0;
+    return Math.max(1, Math.round(frames / FRAMES_PER_ROUND));
+  }
+
+  function clampPosition(position, total) {
+    const safeTotal = Math.max(1, Math.floor(Number(total) || 1));
+    const safePos = Math.min(
+      safeTotal,
+      Math.max(1, Math.floor(Number(position) || 1)),
+    );
+    return { position: safePos, total: safeTotal };
+  }
+
+  function clampValueForFrame(rankClamp, elapsedFrames) {
+    if (!rankClamp) return null;
+    const f = Math.max(0, Number(elapsedFrames) || 0);
+    if (f < rankClamp.minFrame) return rankClamp.firstValue;
+    if (f >= rankClamp.maxFrame) return rankClamp.maxValue;
+    const span = Math.max(1, rankClamp.maxFrame - rankClamp.minFrame);
+    const ratio = (f - rankClamp.minFrame) / span;
+    return (
+      rankClamp.minValue + (rankClamp.maxValue - rankClamp.minValue) * ratio
+    );
+  }
+
+  function resolveRank(position, total, options = {}) {
+    const { position: pos, total: count } = clampPosition(position, total);
+    const rankTable = DATA?.RANK_TABLE || [];
+    let rowIdx;
+    let colIdx;
+    if (count <= 24) {
+      rowIdx = count - 1;
+      colIdx = pos - 1;
+    } else {
+      rowIdx = 23;
+      colIdx =
+        pos === 1
+          ? 0
+          : Math.min(23, Math.round(((pos - 1) / (count - 1)) * 23));
+    }
+    const rawRank = rankTable[rowIdx]?.[colIdx] ?? null;
+    const spec = modeSpec(options.mode || DEFAULT_CONFIG.mode);
+    const elapsedFrames =
+      options.elapsedFrames ??
+      Math.max(
+        0,
+        ((Number(options.nowMs) || 0) - (Number(options.matchStartedAt) || 0)) /
+          (1000 / FRAMES_PER_SECOND),
+      );
+    const clampVal = clampValueForFrame(spec?.rankClamp, elapsedFrames);
+    const effectiveRank =
+      rawRank === null
+        ? null
+        : clampVal !== null && options.applyRankClamp
+          ? Math.min(rawRank, Math.round(clampVal))
+          : rawRank;
+    return {
+      rawRank,
+      rank: effectiveRank,
+      clampValue: clampVal,
+    };
+  }
+
+  function resolveColumn(modeId, position, total, options = {}) {
+    const { position: pos, total: count } = clampPosition(position, total);
+    if (options.exactColumn || options.positionMapping === "exact") {
+      return Math.min(24, pos);
+    }
+    if (SINGLE_COL_MODES.has(modeId)) return 1;
+    if (BATTLE_MODES.has(modeId)) return Math.min(12, pos);
+    if (count === 24) return pos;
+    if (count > 24) {
+      return 1 + Math.round(((pos - 1) / Math.max(1, count - 1)) * 23);
+    }
+    if (count >= 12) return pos;
+    if (count <= 1 || pos <= 1) return 1;
+    return Math.min(12, 1 + Math.round(((pos - 1) / (count - 1)) * 11));
+  }
+
+  function activeTableName(spec, useComTable) {
+    if (!spec) return "ItemTableStandard";
+    if (useComTable && spec.enableComTable && spec.comTable) {
+      return spec.comTable;
+    }
+    return spec.table;
+  }
+
+  function zeroWeightMap() {
+    return Object.fromEntries(ITEM_KEYS_CANONICAL.map((k) => [k, 0]));
+  }
+
+  function rawColumnWeights(modeId, position, total, options = {}) {
+    const spec = modeSpec(modeId);
+    const tableName = activeTableName(spec, !!options.useComTable);
+    const col = resolveColumn(spec?.id || modeId, position, total, options);
+    const table = DATA?.WEIGHT_TABLES?.[tableName] || {};
+    const out = zeroWeightMap();
+    for (const key of ITEM_KEYS_CANONICAL) {
+      const row = table[key];
+      if (row) out[key] = Number(row[col - 1]) || 0;
+    }
+    if (
+      options.includeClassroomItemBox !== false &&
+      RACING_TABLES.has(tableName) &&
+      col >= 3 &&
+      col <= 7
+    ) {
+      out.item_box = 4;
+    }
+    return { tableName, column: col, weights: out };
+  }
+
+  function intervalRule(spec, key) {
+    const table =
+      spec?.intervalTable === "ItemIntervalLimitBattle"
+        ? DATA?.INTERVAL_LIMIT_BATTLE
+        : DATA?.INTERVAL_LIMIT_DEFAULT;
+    return table?.[key] || null;
+  }
+
+  function numLimit(spec, key, includeClassroomItemBox) {
+    const table =
+      spec?.numLimitTable === "ItemNumLimitBattle"
+        ? DATA?.NUM_LIMIT_BATTLE
+        : DATA?.NUM_LIMIT_DEFAULT;
+    if (table && Object.prototype.hasOwnProperty.call(table, key)) {
+      return table[key];
+    }
+    if (key === "item_box" && includeClassroomItemBox !== false) {
+      return spec?.numLimitTable === "ItemNumLimitBattle" ? null : 1;
+    }
+    return null;
+  }
+
+  function moduleMultiplier(moduleConfig, key) {
+    const draw = moduleConfig?.[key]?.draw;
+    if (!draw) return 1;
+    if (draw.enabled === false) return 0;
+    const w = Number(draw.weight);
+    return Number.isFinite(w) && w >= 0 ? w : 1;
+  }
+
+  function anyModuleEnabled(moduleConfig) {
+    if (!moduleConfig) return true;
+    return ITEM_KEYS_CANONICAL.some(
+      (k) => moduleMultiplier(moduleConfig, k) > 0,
+    );
+  }
+
+  function buildFieldCountMap(field) {
+    const counts = {};
+    if (!field) return counts;
+    if (Array.isArray(field) || field instanceof Set) {
+      for (const k of field) counts[k] = (counts[k] || 0) + 1;
+      return counts;
+    }
+    if (typeof field === "object") {
+      for (const [k, v] of Object.entries(field)) {
+        counts[k] = Math.max(0, Number(v) || 0);
+      }
+    }
+    return counts;
+  }
+
+  function positiveSum(w) {
+    let total = 0;
+    for (const key of ITEM_KEYS_CANONICAL) {
+      const val = Number(w[key]) || 0;
+      if (val > 0) total += val;
+    }
+    return total;
+  }
+
+  function evaluate(context = {}) {
+    const config = normalizeConfig(context.config || context);
+    const spec = modeSpec(config.mode);
+    const effectiveSame = !!(spec?.enableSame || config.enableSame);
+    const effectiveIgnorePenalty = !!(
+      spec?.ignorePenalty || config.ignorePenalty
+    );
+    const pos = context.position ?? 1;
+    const total = context.total ?? 1;
+    const rankInfo = resolveRank(pos, total, {
+      mode: spec?.id,
+      nowMs: context.nowMs,
+      matchStartedAt: context.matchStartedAt,
+      elapsedFrames: context.elapsedFrames,
+      applyRankClamp: context.applyRankClamp,
+    });
+
+    const rankKey = rankInfo.rawRank === null ? 0 : rankInfo.rawRank;
+    const paramsForRank = paramByRank(rankKey);
+
+    if (context.eligible === false || (Number(context.score) || 0) < 0) {
+      return {
+        mode: spec?.id || config.mode,
+        tableName: activeTableName(spec, config.useComTable),
+        column: resolveColumn(spec?.id || config.mode, pos, total, config),
+        rawRank: rankInfo.rawRank,
+        rank: rankInfo.rank,
+        rankClampValue: rankInfo.clampValue,
+        rawWeights: zeroWeightMap(),
+        weights: zeroWeightMap(),
+        blockedReasons: {},
+        activeGates: {
+          relaxedAntiRepeat: false,
+          relaxedStartDelay: false,
+          relaxedCooldown: false,
+          relaxedFieldCap: false,
+          relaxedPresetColumn: false,
+        },
+        paramsForRank,
+      };
+    }
+
+    const raw = rawColumnWeights(spec?.id || config.mode, pos, total, {
+      useComTable: config.useComTable,
+      exactColumn: context.exactColumn || config.positionMapping === "exact",
+      includeClassroomItemBox: config.includeClassroomItemBox,
+    });
+
+    const presetSet = presetAllowedSet(config.switchPreset);
+    const moduleConfig = context.moduleConfig || null;
+    const heldSet = new Set(context.held || []);
+    const batchSet = new Set(context.batch || []);
+    const fieldCounts = buildFieldCountMap(context.field);
+
+    const hasNow = Number.isFinite(Number(context.nowMs));
+    const nowMs = hasNow ? Number(context.nowMs) : 0;
+    const startedAt = Number.isFinite(Number(context.matchStartedAt))
+      ? Number(context.matchStartedAt)
+      : nowMs;
+    const elapsedFrames = Number.isFinite(Number(context.elapsedFrames))
+      ? Math.max(0, Number(context.elapsedFrames))
+      : hasNow
+        ? Math.max(0, ((nowMs - startedAt) / 1000) * FRAMES_PER_SECOND)
+        : Infinity;
+    const lastUsedAt = context.lastUsedAt || {};
+    const lastUsedSession = context.lastUsedSession || {};
+    const sessionNo = Math.max(1, Math.floor(Number(context.sessionNo) || 1));
+
+    const blockedReasons = {};
+    for (const key of ITEM_KEYS_CANONICAL) {
+      const reasons = [];
+      if (raw.weights[key] <= 0) {
+        blockedReasons[key] = reasons;
+        continue;
+      }
+      if (presetSet && !presetSet.has(key)) reasons.push("switch_preset");
+      if (moduleMultiplier(moduleConfig, key) <= 0)
+        reasons.push("module_disabled");
+      const cap = numLimit(spec, key, config.includeClassroomItemBox);
+      if (cap !== null && (fieldCounts[key] || 0) >= cap)
+        reasons.push("field_cap");
+      if (!effectiveIgnorePenalty) {
+        const rule = intervalRule(spec, key);
+        if (rule) {
+          if (config.timingMode === "rounds") {
+            const startRounds = framesToSessions(rule.startFrame);
+            if (startRounds > 0 && sessionNo <= startRounds)
+              reasons.push("start_delay");
+            const cdRounds = framesToSessions(rule.intervalFrame);
+            const lastSess = Number(lastUsedSession[key]) || 0;
+            if (cdRounds > 0 && lastSess > 0 && sessionNo < lastSess + cdRounds)
+              reasons.push("cooldown");
+          } else {
+            if (rule.startFrame > 0 && elapsedFrames < rule.startFrame)
+              reasons.push("start_delay");
+            const cdFrames = Number(rule.intervalFrame) || 0;
+            const lastMs = Number(lastUsedAt[key]) || 0;
+            if (cdFrames > 0 && lastMs > 0 && hasNow) {
+              const sinceFrames = Math.max(
+                0,
+                ((nowMs - lastMs) / 1000) * FRAMES_PER_SECOND,
+              );
+              if (sinceFrames < cdFrames) reasons.push("cooldown");
+            }
+          }
+        }
+      }
+      if (!effectiveSame && heldSet.has(key)) reasons.push("held");
+      if (batchSet.has(key)) reasons.push("batch");
+      blockedReasons[key] = reasons;
+    }
+
+    function filterWith({
+      allowAntiRepeat = false,
+      allowStartDelay = false,
+      allowCooldown = false,
+      allowFieldCap = false,
+      sourceWeights = raw.weights,
+    }) {
+      const out = zeroWeightMap();
+      for (const key of ITEM_KEYS_CANONICAL) {
+        const base = Number(sourceWeights[key]) || 0;
+        if (base <= 0) continue;
+        if (presetSet && !presetSet.has(key)) continue;
+        const mult = moduleMultiplier(moduleConfig, key);
+        if (mult <= 0) continue;
+        if (!allowFieldCap) {
+          const cap = numLimit(spec, key, config.includeClassroomItemBox);
+          if (cap !== null && (fieldCounts[key] || 0) >= cap) continue;
+        }
+        if (!effectiveIgnorePenalty) {
+          const rule = intervalRule(spec, key);
+          if (rule) {
+            if (!allowStartDelay && rule.startFrame > 0) {
+              const blocked =
+                config.timingMode === "rounds"
+                  ? sessionNo <= framesToSessions(rule.startFrame)
+                  : elapsedFrames < rule.startFrame;
+              if (blocked) continue;
+            }
+            if (!allowCooldown && (Number(rule.intervalFrame) || 0) > 0) {
+              let blocked = false;
+              if (config.timingMode === "rounds") {
+                const cdRounds = framesToSessions(rule.intervalFrame);
+                const lastSess = Number(lastUsedSession[key]) || 0;
+                blocked = lastSess > 0 && sessionNo < lastSess + cdRounds;
+              } else if (hasNow) {
+                const lastMs = Number(lastUsedAt[key]) || 0;
+                const sinceFrames = Math.max(
+                  0,
+                  ((nowMs - lastMs) / 1000) * FRAMES_PER_SECOND,
+                );
+                blocked = lastMs > 0 && sinceFrames < rule.intervalFrame;
+              }
+              if (blocked) continue;
+            }
+          }
+        }
+        if (!allowAntiRepeat) {
+          if (!effectiveSame && heldSet.has(key)) continue;
+          if (batchSet.has(key)) continue;
+        }
+        out[key] = base * mult;
+      }
+      return out;
+    }
+
+    let weights = filterWith({});
+    const activeGates = {
+      relaxedAntiRepeat: false,
+      relaxedStartDelay: false,
+      relaxedCooldown: false,
+      relaxedFieldCap: false,
+      relaxedPresetColumn: false,
+    };
+
+    const strictPreview = !!context.strictPreview;
+    if (
+      !strictPreview &&
+      positiveSum(weights) <= 0 &&
+      anyModuleEnabled(moduleConfig)
+    ) {
+      weights = filterWith({ allowAntiRepeat: true });
+      if (positiveSum(weights) > 0) activeGates.relaxedAntiRepeat = true;
+
+      if (positiveSum(weights) <= 0) {
+        weights = filterWith({ allowAntiRepeat: true, allowStartDelay: true });
+        if (positiveSum(weights) > 0) activeGates.relaxedStartDelay = true;
+      }
+      if (positiveSum(weights) <= 0) {
+        weights = filterWith({
+          allowAntiRepeat: true,
+          allowStartDelay: true,
+          allowCooldown: true,
+        });
+        if (positiveSum(weights) > 0) activeGates.relaxedCooldown = true;
+      }
+      if (positiveSum(weights) <= 0) {
+        weights = filterWith({
+          allowAntiRepeat: true,
+          allowStartDelay: true,
+          allowCooldown: true,
+          allowFieldCap: true,
+        });
+        if (positiveSum(weights) > 0) activeGates.relaxedFieldCap = true;
+      }
+      // If a Switch Preset excludes every item in this specific rank column,
+      // fall back to preset items weighted across the table so players never soft-lock.
+      if (positiveSum(weights) <= 0 && presetSet) {
+        const table = DATA?.WEIGHT_TABLES?.[raw.tableName] || {};
+        const fallbackWeights = zeroWeightMap();
+        for (const key of presetSet) {
+          const mult = moduleMultiplier(moduleConfig, key);
+          if (mult <= 0) continue;
+          const row = table[key];
+          const maxCol = row ? Math.max(...row) : 0;
+          fallbackWeights[key] = (maxCol > 0 ? maxCol : 10) * mult;
+        }
+        if (positiveSum(fallbackWeights) > 0) {
+          weights = fallbackWeights;
+          activeGates.relaxedPresetColumn = true;
+        }
+      }
+    }
+
+    return {
+      mode: spec?.id || config.mode,
+      tableName: raw.tableName,
+      column: raw.column,
+      rawRank: rankInfo.rawRank,
+      rank: rankInfo.rank,
+      rankClampValue: rankInfo.clampValue,
+      rawWeights: raw.weights,
+      weights,
+      blockedReasons,
+      activeGates,
+      paramsForRank,
+    };
+  }
+
+  function weights(options = {}) {
+    return evaluate(options).weights;
+  }
+
+  function pickWeighted(weightMap, rng = Math.random) {
+    const entries = Object.entries(weightMap || {}).filter(
+      ([, w]) => Number(w) > 0,
+    );
+    const total = entries.reduce((sum, [, w]) => sum + Number(w), 0);
+    if (total <= 0) return null;
+    let roll = (typeof rng === "function" ? rng() : Math.random()) * total;
+    for (const [key, w] of entries) {
+      roll -= Number(w);
+      if (roll <= 0) return key;
+    }
+    return entries[entries.length - 1][0];
+  }
+
+  function paramByRank(itemOrRank, maybeRank) {
+    const rank =
+      typeof itemOrRank === "number"
+        ? itemOrRank
+        : typeof maybeRank === "number"
+          ? maybeRank
+          : 0;
+    const idx = Math.min(23, Math.max(0, Math.floor(rank || 0)));
+    const p = DATA?.PARAM_BY_RANK || {};
+    return {
+      rank: idx,
+      inkLevel: p.InkLevel?.[idx] ?? 1,
+      killerTargetRank: p.KillerTargetRank?.[idx] ?? 1,
+      thunderFrame: p.ThunderFrame?.[idx] ?? 45,
+    };
+  }
+
+  function describeGateTiming(modeId = "24KartRace", timingMode = "realtime") {
+    const spec = modeSpec(modeId);
+    const items = [];
+    for (const key of ITEM_KEYS_CANONICAL) {
+      const rule = intervalRule(spec, key);
+      const cap = numLimit(spec, key, true);
+      if (!rule && cap === null) continue;
+      items.push({
+        key,
+        name:
+          DATA?.OFFICIAL_ITEMS?.[key]?.name ||
+          (key === "item_box" ? "道具箱" : key),
+        startFrame: rule?.startFrame ?? 0,
+        startSec: rule?.startFrame
+          ? Math.round((rule.startFrame / FRAMES_PER_SECOND) * 10) / 10
+          : 0,
+        startRounds: framesToSessions(rule?.startFrame ?? 0),
+        intervalFrame: rule?.intervalFrame ?? 0,
+        intervalSec: rule?.intervalFrame
+          ? Math.round((rule.intervalFrame / FRAMES_PER_SECOND) * 10) / 10
+          : 0,
+        intervalRounds: framesToSessions(rule?.intervalFrame ?? 0),
+        numLimit: cap,
+        timingMode,
+      });
+    }
+    return items;
+  }
+
+  return Object.freeze({
+    version: "Product.180",
+    summary:
+      "按 MKWorld (Product.180) 六步规则抽取：模式配置 → ItemRankTable 名次映射 → Ratio 权重列 → Switch预设 / 开局延迟 / 冷却 / 场上上限门控 → 加权抽取 → Rank 事后强度参数；28 号道具箱可在竞速模式中段作为课堂扩展启用。",
+    keys: ITEM_KEYS_CANONICAL,
+    highImpact: HIGH_IMPACT,
+    unique: UNIQUE_KEYS,
+    modes,
+    modeSpec,
+    switchPresets,
+    defaultConfig,
+    normalizeConfig,
+    framesToSessions,
+    resolveRank,
+    resolveColumn,
+    rawColumnWeights,
+    evaluate,
+    weights,
+    pickWeighted,
+    paramByRank,
+    describeGateTiming,
+  });
 })();
+globalThis.ItemDrawPolicy = ItemDrawPolicy;
 </script>
 <script>/* Pure schema / storage primitives. No DOM, no remote dependencies. */
 const Reliability = (() => {
@@ -24582,6 +26741,54 @@ const Reliability = (() => {
             session.kind.length > 100
           )
             throw Error("道具抽取会话无效");
+        }
+      }
+      if (global.drawConfig != null) {
+        const dc = global.drawConfig;
+        if (typeof dc !== "object" || Array.isArray(dc))
+          throw Error("道具抽取配置格式无效");
+        for (const strKey of [
+          "mode",
+          "switchPreset",
+          "timingMode",
+          "positionMapping",
+        ])
+          if (
+            dc[strKey] != null &&
+            (typeof dc[strKey] !== "string" || dc[strKey].length > 64)
+          )
+            throw Error("道具抽取配置字段无效");
+        for (const boolKey of [
+          "useComTable",
+          "enableSame",
+          "ignorePenalty",
+          "includeClassroomItemBox",
+          "applyPostDrawRankParams",
+        ])
+          if (dc[boolKey] != null && typeof dc[boolKey] !== "boolean")
+            throw Error("道具抽取配置开关无效");
+      }
+      if (global.mkwState != null) {
+        const ms = global.mkwState;
+        if (typeof ms !== "object" || Array.isArray(ms))
+          throw Error("MKWorld 抽取运行时状态无效");
+        if (
+          ms.matchStartedAt != null &&
+          (!Number.isSafeInteger(Number(ms.matchStartedAt)) ||
+            Number(ms.matchStartedAt) < 0)
+        )
+          throw Error("MKWorld 计时起点无效");
+        for (const mapKey of ["lastUsedAt", "lastUsedSession"]) {
+          const map = ms[mapKey];
+          if (map == null) continue;
+          if (
+            typeof map !== "object" ||
+            Array.isArray(map) ||
+            Object.values(map).some(
+              (v) => !Number.isSafeInteger(Number(v)) || Number(v) < 0,
+            )
+          )
+            throw Error("MKWorld 道具冷却记录无效");
         }
       }
     }
@@ -25257,12 +27464,12 @@ function requestSpinyDefense(target, key, continueAttack) {
   target[flag] = true;
   const decision = Reliability.captureDefenseDecision(state, target, key);
   const collector = currentDefenseCollector();
-  const name = ITEM_DEFS[key]?.name || "蘑菇";
+  const name = ITEM_DEFS[key]?.name || "冲刺蘑菇";
   const prompt = themeConfirm(
-    `${target.name} 遭遇刺龟壳！\n是否主动消耗主要道具 ${name} 抵消本次攻击？`,
+    `${target.name} 遭遇刺刺龟壳！\n是否主动消耗主要道具 ${name} 抵消本次攻击？`,
     {
-      title: "刺龟壳来袭",
-      confirmText: horn ? "使用超级喇叭" : "使用蘑菇闪避",
+      title: "刺刺龟壳来袭",
+      confirmText: horn ? "使用超级喇叭" : "使用冲刺蘑菇闪避",
       cancelText: "承受攻击",
     },
   );
@@ -25287,8 +27494,8 @@ function requestSpinyDefense(target, key, continueAttack) {
         });
         tinyDefenseToast(
           horn
-            ? `${target.name} 使用超级喇叭成功击碎刺龟壳`
-            : `${target.name} 使用主要道具蘑菇成功闪避刺龟壳`,
+            ? `${target.name} 使用超级喇叭成功击碎刺刺龟壳`
+            : `${target.name} 使用主要道具冲刺蘑菇成功闪避刺刺龟壳`,
         );
         return;
       }
@@ -25353,7 +27560,7 @@ function applyItemScoreAfterHorn(
     attackRenderGateV21713 = true;
   let result;
   if (isAttack && target && attackType === "spiny") {
-    destroyPrimaryBasicDefenseV2170(target, sourceId, "刺龟壳");
+    destroyPrimaryBasicDefenseV2170(target, sourceId, "刺刺龟壳");
     const main = target.inventory?.[0];
     if (
       main &&
@@ -31049,7 +33256,7 @@ const ITEM_DEFS = {
     kind: "attack",
     def: "green",
     charges: 1,
-    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺龟壳。",
+    desc: "随机攻击其他小组 -1/3；可抵挡常规攻击与刺刺龟壳。",
   },
   triple_green: {
     name: "三重绿龟壳",
@@ -31076,7 +33283,7 @@ const ITEM_DEFS = {
     desc: "3 次红龟壳攻击/常规防御。",
   },
   spiny: {
-    name: "刺龟壳",
+    name: "刺刺龟壳",
     icon: "🔵",
     kind: "attack",
     charges: 1,
@@ -31128,7 +33335,7 @@ const ITEM_DEFS = {
     desc: "自身 +2 分。",
   },
   coin_shell: {
-    name: "金币龟壳",
+    name: "黄金龟壳",
     icon: "🟡",
     kind: "boost",
     charges: 1,
@@ -31142,25 +33349,25 @@ const ITEM_DEFS = {
     desc: "自身及所有落后组各 +1/4。",
   },
   mushroom: {
-    name: "蘑菇",
+    name: "冲刺蘑菇",
     icon: "🍄",
     kind: "boost",
     charges: 1,
-    desc: "自身 +1/3；刺龟壳来袭时可主动闪避。",
+    desc: "自身 +1/3；刺刺龟壳来袭时可主动闪避。",
   },
   triple_mushroom: {
-    name: "三重蘑菇",
+    name: "三重冲刺蘑菇",
     icon: "🍄³",
     kind: "boost",
     charges: 3,
-    desc: "3 次 +1/3，也可分次主动闪避刺龟壳。",
+    desc: "3 次 +1/3，也可分次主动闪避刺刺龟壳。",
   },
   boo: {
     name: "害羞幽灵",
     icon: "👻",
     kind: "tactic",
     charges: 1,
-    desc: "偷取正上方对手最新获得的道具；若无可偷目标则获得一个蘑菇，并获得持续 3 次答题的攻击防护。",
+    desc: "偷取正上方对手最新获得的道具；若无可偷目标则获得一个冲刺蘑菇，并获得持续 3 次答题的攻击防护。",
   },
   blooper: {
     name: "鱿鱿",
@@ -31174,7 +33381,7 @@ const ITEM_DEFS = {
     icon: "⚡",
     kind: "tactic",
     charges: 1,
-    desc: "劈中所有排名高于自己的小组：各降低当前分数 1/2，并清空全部道具与强力蘑菇效果；无敌星、巨大蘑菇和害羞幽灵保护可阻挡。",
+    desc: "劈中所有排名高于自己的小组：各降低当前分数 1/2，并清空全部道具与强力冲刺蘑菇效果；无敌星、巨大蘑菇和害羞幽灵保护可阻挡。",
   },
   star: {
     name: "无敌星",
@@ -31198,7 +33405,7 @@ const ITEM_DEFS = {
     desc: "瞬间超越前方 3 名：分数直接变为目标名次的分数 +1；若前方不足 3 名，则直接超过当前第一名。",
   },
   power: {
-    name: "强力蘑菇",
+    name: "强力冲刺蘑菇",
     icon: "🌟🍄",
     kind: "status",
     charges: 1,
@@ -31349,6 +33556,36 @@ function ensureItemState() {
   });
   if (!state.itemGlobal || typeof state.itemGlobal !== "object")
     state.itemGlobal = { blooperUntil: 0, totalDraws: 0 };
+  if (typeof ItemDrawPolicy !== "undefined") {
+    state.itemGlobal.drawConfig = ItemDrawPolicy.normalizeConfig(
+      state.itemGlobal.drawConfig,
+    );
+  }
+  if (
+    !state.itemGlobal.mkwState ||
+    typeof state.itemGlobal.mkwState !== "object" ||
+    Array.isArray(state.itemGlobal.mkwState)
+  ) {
+    state.itemGlobal.mkwState = {};
+  }
+  const mkw = state.itemGlobal.mkwState;
+  if (
+    !Number.isFinite(Number(mkw.matchStartedAt)) ||
+    Number(mkw.matchStartedAt) <= 0
+  )
+    mkw.matchStartedAt = Date.now();
+  if (
+    !mkw.lastUsedAt ||
+    typeof mkw.lastUsedAt !== "object" ||
+    Array.isArray(mkw.lastUsedAt)
+  )
+    mkw.lastUsedAt = {};
+  if (
+    !mkw.lastUsedSession ||
+    typeof mkw.lastUsedSession !== "object" ||
+    Array.isArray(mkw.lastUsedSession)
+  )
+    mkw.lastUsedSession = {};
 }
 ensureItemState();
 function ranking() {
@@ -32751,11 +34988,11 @@ const ITEM_FX_SOUND_SLOTS = [
     desc: "龟壳、香蕉、炸弹、锤子、闪电等",
   },
   { id: "item_defend", name: "道具·防御成功", desc: "防御道具抵消攻击" },
-  { id: "item_buff", name: "道具·加分/强化", desc: "金币、蘑菇、？砖块等" },
+  { id: "item_buff", name: "道具·加分/强化", desc: "金币、冲刺蘑菇、？砖块等" },
   {
     id: "item_status",
     name: "道具·持续状态",
-    desc: "星星、巨大蘑菇、炮弹、强力蘑菇、鱿鱿",
+    desc: "无敌星、巨大蘑菇、炮弹、强力冲刺蘑菇、鱿鱿",
   },
   { id: "item_steal", name: "害羞幽灵·偷取", desc: "成功偷取道具" },
 ];
@@ -33130,16 +35367,15 @@ function weightedPickNoRepeatV281(weights, blocked = new Set()) {
   return null;
 }
 function pickItemForGroupV281(g, batchUsed = new Set()) {
+  if (typeof ItemDrawBlocks !== "undefined" && ItemDrawBlocks?.pick) {
+    return ItemDrawBlocks.pick(g, batchUsed);
+  }
   const r = ranking(),
     pos = Math.max(1, r.findIndex((x) => x.id === g.id) + 1);
   const weights = itemDropWeights(pos, r.length);
   const held = heldItemKeysV281(g);
-
-  // 首选：既不与本轮其他组重复，也不与自己背包重复。
   let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-  // 候选耗尽：允许跨组重复，但仍避免自己背包重复。
   if (!k) k = weightedPickNoRepeatV281(weights, held);
-  // 极端情况：该名次所有可抽道具都已在自己背包，回退原权重。
   if (!k) k = weightedPick(weights);
   return k;
 }
@@ -33626,7 +35862,7 @@ function formatChartScoreV294(value) {
 
 /* ===== V2.9.9：持续状态道具重复使用 / 互斥 Toast =====
    持续型道具遵循“同一小组同一时间只能存在一种持续状态”。
-   特别处理巨大蘑菇、炮弹刺客、强力蘑菇这类激活后仍留在道具槽中的道具：
+   特别处理巨大蘑菇、炮弹刺客、强力冲刺蘑菇这类激活后仍留在道具槽中的道具：
    再次点击不会消耗、不会覆盖状态，只弹出阻止 Toast。
 */
 
@@ -33793,7 +36029,7 @@ function applyLightningHitV2116(caster, target) {
   // 被劈中后所有背包道具直接消失。
   target.inventory = [];
 
-  // 强力蘑菇的持续效果强制解除。
+  // 强力冲刺蘑菇的持续效果强制解除。
   if (target.itemEffect?.type === "power") {
     target.itemEffect = null;
   }
@@ -33826,7 +36062,7 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
    1. inventory[0] 永远是主要道具，只允许主要道具被主动使用；
    2. inventory[1]/[2] 为次要道具，严格按获得顺序晋升；
    3. 三重道具必须 charges 全部耗尽后才释放主栏；
-   4. 无敌星 / 巨大蘑菇 / 强力蘑菇激活后都属于“卡手”主要道具，
+   4. 无敌星 / 巨大蘑菇 / 强力冲刺蘑菇激活后都属于“卡手”主要道具，
       持续状态彻底结束前，后续道具不得晋升或使用；
    5. 被动防御同样只允许主要道具参与，避免次要道具绕过队列。
 */
@@ -34276,10 +36512,10 @@ window.addEventListener("DOMContentLoaded", () =>
 </script>
 
 
-<script id="v2164PowerAndItemAudioFix">/* ===== V2.16.4：强力蘑菇可见分数 + 道具音效最终接管 ===== */
+<script id="v2164PowerAndItemAudioFix">/* ===== V2.16.4：强力冲刺蘑菇可见分数 + 道具音效最终接管 ===== */
 
 /*
- * 1. 强力蘑菇：
+ * 1. 强力冲刺蘑菇：
  * 旧逻辑实际上已经改了 g.score，但基础结算的 650ms 分数动画仍在继续，
  * 动画结束时又把 displayScore 写回“普通结算后的分数”，所以画面看起来像没触发。
  * 这里保留“先普通结算、再提升一名”的设计，在基础动画结束后再做第二段提升动画。
@@ -34819,13 +37055,9 @@ function itemRankBandV2172(pos, total) {
   return "mid";
 }
 
-/* -------- 新权重 --------
-   目标：
-   1. 金币 / 羽毛 / ？砖块：只在前三名。
-   2. 无敌星 / 炮弹刺客 / 巨大蘑菇 / 闪电：只在后30%。
-   3. 火之花、冰之花、回旋镖、炸弹、锤子等常规攻击主要集中在中游。
-   4. 三重道具显著降低权重。
-   5. 鱿鱿和闪电同时最多各存在 1 个。
+/* -------- Product.180 权重与字段规则 --------
+   由 ItemDrawPolicy 统一按 MKWorld Product.180 的
+   12 张概率表 × 24×24 RankClamp × SwitchPreset × NumLimit/IntervalLimit 计算。
 */
 
 /* 上帝模式追加时同样遵守“鱿鱿 / 闪电各最多一个”的规则。 */
@@ -34865,7 +37097,7 @@ async function clearAllItemsV2172() {
 
   if (
     !(await themeConfirm(
-      `确定一键清空所有小组道具吗？\n\n将清除：\n• 所有主要 / 次要道具\n• 无敌星、巨大蘑菇、强力蘑菇等持续状态\n• 害羞幽灵防护\n• 当前鱿鱿遮蔽效果\n\n不会修改积分、成员和道具统计。`,
+      `确定一键清空所有小组道具吗？\n\n将清除：\n• 所有主要 / 次要道具\n• 无敌星、巨大蘑菇、强力冲刺蘑菇等持续状态\n• 害羞幽灵防护\n• 当前鱿鱿遮蔽效果\n\n不会修改积分、成员和道具统计。`,
       { title: "清空所有道具", danger: true, confirmText: "确认清空" },
     ))
   )
@@ -34951,24 +37183,73 @@ if (document.readyState === "loading") {
 </script>
 
 
-<script id="v2173ItemWeightTuning">/* The only compatibility entry for ordinary draw weights; the pure policy owns calculation. */
-function itemDropWeights(pos, total) {
-  const ordered = ranking(),
-    position = Math.max(
-      1,
-      Math.min(Math.max(1, Number(total) || 1), Math.trunc(Number(pos) || 1)),
-    ),
-    group = ordered[position - 1];
-  const W = ItemDrawPolicy.weights({
+<script id="v2173ItemWeightTuning">/* The only compatibility entry for ordinary draw weights; the pure MKWorld Product.180 policy owns calculation. */
+function collectMkwFieldCounts() {
+  ensureItemState();
+  const counts = {};
+  if (Number(state.itemGlobal?.blooperUntil || 0) > Date.now()) {
+    counts.blooper = 1;
+  }
+  for (const g of state.groups || []) {
+    for (const it of g?.inventory || []) {
+      if (it?.key) counts[it.key] = (counts[it.key] || 0) + 1;
+    }
+  }
+  return counts;
+}
+
+function getMkwDrawConfig() {
+  ensureItemState();
+  const normalized = ItemDrawPolicy.normalizeConfig(
+    state.itemGlobal?.drawConfig,
+  );
+  if (state?.itemGlobal) state.itemGlobal.drawConfig = normalized;
+  return normalized;
+}
+
+function ensureMkwDrawState() {
+  ensureItemState();
+  const mkw = state.itemGlobal.mkwState;
+  return mkw;
+}
+
+function itemDropWeights(pos, total, opts = {}) {
+  const ordered = ranking();
+  const safeTotal = Math.max(1, Number(total) || ordered.length || 1);
+  const position = Math.max(
+    1,
+    Math.min(safeTotal, Math.trunc(Number(pos) || 1)),
+  );
+  const group = ordered[position - 1];
+  const cfg = opts.config || getMkwDrawConfig();
+  const mkw = ensureMkwDrawState();
+  const sessionNo =
+    (typeof activeDrawSessionV21710 !== "undefined" &&
+      activeDrawSessionV21710?.no) ||
+    state.itemGlobal?.drawSessionThrottleV21710?.sessionNo ||
+    1;
+  return ItemDrawPolicy.weights({
+    config: cfg,
     position,
-    total,
-    score: group?.score || 0,
-    leaderScore: ordered[0]?.score || 0,
-    held: group?.inventory?.map((item) => item.key) || [],
-    field: ItemDrawPolicy.unique.filter((key) => itemExistsOnFieldV2172(key)),
+    total: safeTotal,
+    score: opts.score ?? (group?.score || 0),
+    eligible: opts.eligible ?? (group ? eligibleForItems(group) : true),
+    held: opts.held ?? (group?.inventory?.map((item) => item.key) || []),
+    batch: opts.batch || [],
+    field: opts.field ?? collectMkwFieldCounts(),
+    moduleConfig:
+      opts.moduleConfig ??
+      (globalThis.ItemModules ? ItemModules.configuration().items : null),
+    nowMs: opts.nowMs ?? (opts.live ? Date.now() : undefined),
+    matchStartedAt: opts.matchStartedAt ?? mkw.matchStartedAt,
+    elapsedFrames: opts.elapsedFrames,
+    applyRankClamp: opts.applyRankClamp ?? false,
+    lastUsedAt: opts.lastUsedAt ?? mkw.lastUsedAt,
+    lastUsedSession: opts.lastUsedSession ?? mkw.lastUsedSession,
+    sessionNo: opts.sessionNo ?? sessionNo,
+    exactColumn: opts.exactColumn,
+    strictPreview: opts.strictPreview,
   });
-  if (position === 1 && suppressFirstHornV218) W.horn = 0;
-  return globalThis.ItemModules ? ItemModules.drawWeights(W) : W;
 }
 </script>
 
@@ -35658,65 +37939,9 @@ function commitDrawThrottleV2179(g, key, drawNo, t) {
 }
 
 /* 完整替换最终挑选器，确保所有 fallback 都不能绕过新限制。
-   之前的“防本组重复 / 同批次尽量不重复”仍保留。 */
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  const held = heldItemKeysV281(g);
-  const { weights, drawNo, throttle } = restrictedItemWeightsV2179(g);
+   现已统一收口至 ItemDrawBlocks.pick / ItemDrawPolicy，此处不再覆写挑选器与官方百科描述。 */
 
-  /* 首选：本组不重复 + 同批次尽量不重复。 */
-  let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-
-  /* 候选耗尽时允许跨组重复，但仍避免本组背包重复。 */
-  if (!k) k = weightedPickNoRepeatV281(weights, held);
-
-  /* 极端情况：允许本组重复，但仍只从“受冷却限制后的权重”里选。
-     绝不回退到原 itemDropWeights，否则冷却规则会被后门穿透。 */
-  if (!k) k = weightedPick(weights);
-
-  if (!k) {
-    /* 理论上只会在排名规则 + 背包状态极端组合时出现。
-       为避免动画卡死，尝试任何不违反冷却的正权重道具。 */
-    const fallback = {};
-    ITEM_KEYS.forEach((key) => {
-      if (Number(weights[key]) > 0) fallback[key] = Number(weights[key]);
-    });
-    k = Object.keys(fallback).length ? weightedPick(fallback) : null;
-  }
-
-  if (k) {
-    commitDrawThrottleV2179(g, k, drawNo, throttle);
-  }
-
-  return k;
-};
-
-/* 百科说明同步冷却规则。 */
-if (ITEM_DEFS.lightning) {
-  ITEM_DEFS.lightning.desc =
-    "攻击所有排名高于自己的小组并大幅削减积分；无敌星、巨大蘑菇、害羞幽灵可防御。仅后30%可抽取；全局抽中后需间隔4次其他实际抽取，第5次才可再次出现；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.blooper) {
-  ITEM_DEFS.blooper.desc =
-    "使全场积分、领奖台与图表暂时被墨汁遮蔽。全局抽中后需间隔4次其他实际抽取，第5次才可再次出现；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.bullet) {
-  ITEM_DEFS.bullet.desc =
-    "强力追赶道具。若前方至少3组，积分直接提升到前方第3组+1；不足3组时追至第一名+1；已第一则+1。仅后30%可抽取。";
-}
-if (ITEM_DEFS.power) {
-  ITEM_DEFS.power.desc =
-    "持续5个PK回合；答对时强制提升1名，第一名时不再提升。属于强力道具。";
-}
-if (ITEM_DEFS.mega) {
-  ITEM_DEFS.mega.desc =
-    "占据主要道具栏，抵挡接下来3次攻击；巨大状态下超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
-}
-if (ITEM_DEFS.star) {
-  ITEM_DEFS.star.desc =
-    "使用后立即释放主要道具栏，无敌状态继续生效并抵挡接下来3次攻击；超越上方小组时可压制并摧毁其主要基础防御道具。仅后30%可抽取。";
-}
-
-/* 给数据页的道具区补一个小状态说明，便于实际使用时判断冷却有没有工作。 */
+/* 给设置页的道具区补一个小状态说明，便于实际使用时判断 MKWorld Product.180 与冷却有没有工作。 */
 function installDrawCooldownInfoV2179() {
   const host = document.getElementById("clearAllItemsV2172");
   if (!host || document.getElementById("drawCooldownInfoV2179")) return;
@@ -35726,8 +37951,8 @@ function installDrawCooldownInfoV2179() {
   info.id = "drawCooldownInfoV2179";
   info.className = "cooldown-note";
   info.innerHTML = `
-    <b>抽取冷却规则</b>
-    <span>闪电 / 鱿鱿：全局每次抽中后间隔 4 次其他抽取，第 5 次重新开放。</span>
+    <b>抽取冷却规则（MKWorld Product.180）</b>
+    <span>由 ItemIntervalLimitDefault + 抽取轮次双轨管理全局冷却与场上上限。</span>
     <small>当前累计实际抽取序号：${t.sequence}</small>
   `;
   host.appendChild(info);
@@ -35858,40 +38083,23 @@ function commitSessionDrawV21710(g, key) {
 }
 
 /* 最终挑选器再次接管。
-   注意：这里完全不使用 V2.17.9 的 sequence / nextEligible 来判断闪电和鱿鱿，
-   否则老 bug 会从坟里爬回来继续数“小组数”。 */
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  const held = heldItemKeysV281(g);
-  const weights = sessionRestrictedWeightsV21710(g);
-
-  let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-
-  if (!k) k = weightedPickNoRepeatV281(weights, held);
-  if (!k) k = weightedPick(weights);
-
-  if (!k) {
-    const fallback = {};
-    ITEM_KEYS.forEach((key) => {
-      if (Number(weights[key]) > 0) fallback[key] = Number(weights[key]);
-    });
-    k = Object.keys(fallback).length ? weightedPick(fallback) : null;
-  }
-
-  if (k) commitSessionDrawV21710(g, k);
-  return k;
-};
+   现已统一收口至 ItemDrawBlocks.pick / ItemDrawPolicy，此处仅保留设置页冷却说明同步。 */
 
 /* 最外层全局抽取包装：
    只有确实具备可抽取小组、且不是正在抽取时，才开始计一个“抽取轮次”。 */
 
 /* 举手奖励同样算一个抽取轮次。 */
 
-/* 数据页说明改成“抽取轮次”，避免再把“发了几个道具”误认为“抽了几次”。 */
+/* 数据页说明改成“Product.180 + 抽取轮次”，避免再把“发了几个道具”误认为“抽了几次”。 */
 function refreshDrawCooldownInfoV21710() {
   const host = document.getElementById("drawCooldownInfoV2179");
   if (!host) return;
 
   const t = ensureDrawSessionThrottleV21710();
+  const cfg = globalThis.ItemDrawPolicy?.normalizeConfig?.(
+    state.itemGlobal?.drawConfig,
+  );
+  const modeSpec = cfg && globalThis.ItemDrawPolicy?.modeSpec?.(cfg.mode);
 
   const text = (key, label) => {
     const next = Number(t.nextEligibleSession[key] || 0);
@@ -35900,9 +38108,9 @@ function refreshDrawCooldownInfoV21710() {
   };
 
   host.innerHTML = `
-    <b>抽取冷却规则</b>
-    <span>闪电 / 鱿鱿按“抽取轮次”计算，不按一次全局抽取发出了多少个道具计算。</span>
-    <span>抽中后，接下来 4 个全局/举手抽取轮次禁用，第 5 个轮次重新开放。</span>
+    <b>抽取冷却规则（MKWorld Product.180）</b>
+    <span>当前模式：${modeSpec ? modeSpec.name : "24 车标准赛"} · 预设：${cfg ? cfg.switchPreset : "ALL"} · 计时：${cfg?.timingMode === "rounds" ? "按抽取轮次" : "实时帧/秒"}</span>
+    <span>闪电 / 鱿鱿 / 刺刺龟壳均受全局开启延迟、间隔冷却与场上数量上限约束。</span>
     <small>当前全局抽取轮次：${t.sessionNo}</small>
     <small>${text("lightning", "闪电")}</small>
     <small>${text("blooper", "鱿鱿")}</small>
@@ -35928,16 +38136,6 @@ if (typeof showSettingsV26 === "function") {
     }
     return r;
   };
-}
-
-/* 百科文字同步为“抽取轮次”。 */
-if (ITEM_DEFS.lightning) {
-  ITEM_DEFS.lightning.desc =
-    "攻击所有排名高于自己的小组并大幅削减积分；无敌星、巨大蘑菇、害羞幽灵可防御。仅后30%可抽取；整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
-}
-if (ITEM_DEFS.blooper) {
-  ITEM_DEFS.blooper.desc =
-    "使全场积分、领奖台与图表暂时被墨汁遮蔽。整局按抽取轮次冷却，抽中后接下来4个抽取轮次不会出现，第5轮重新开放；场上同时最多存在1个。";
 }
 
 /* 旧抽取序号和单组强力禁抽记录不参与现行候选判定。 */
@@ -36365,11 +38563,7 @@ function previewItemDetailColorV21716(value) {
 </script>
 
 
-<script id="v21717SpinyCooldown">/* ===== V2.17.17：刺龟壳 3 个抽取轮次冷却 =====
-   规则：某个抽取轮次抽中刺龟壳后，
-   接下来 3 个抽取轮次不再出现刺龟壳，
-   到第 4 个后续抽取轮次重新开放。
-   例如第 10 轮抽中 -> 第 11/12/13 轮禁用 -> 第 14 轮恢复。 */
+<script id="v21717SpinyCooldown">/* ===== 刺刺龟壳冷却兼容性视图：实际门控已统一由 ItemDrawPolicy (MKWorld Product.180 ItemIntervalLimitDefault: 开局 2100f/35s · 冷却 5400f/90s · 场上上限 1) 接管 ===== */
 
 function ensureSpinyCooldownV21717() {
   const t = ensureDrawSessionThrottleV21710();
@@ -36383,55 +38577,25 @@ function ensureSpinyCooldownV21717() {
   return t;
 }
 
-/* 在最终权重生成阶段加入刺龟壳冷却。 */
-const _v21717SessionRestrictedWeights = sessionRestrictedWeightsV21710;
-sessionRestrictedWeightsV21710 = function (g) {
-  const W = _v21717SessionRestrictedWeights.call(this, g);
-  const t = ensureSpinyCooldownV21717();
-  const sessionNo = activeDrawSessionV21710?.no || t.sessionNo;
-  const next = Math.max(0, Number(t.nextEligibleSession.spiny) || 0);
+if (typeof refreshDrawCooldownInfoV21710 === "function") {
+  const _v21717RefreshCooldownInfo = refreshDrawCooldownInfoV21710;
+  refreshDrawCooldownInfoV21710 = function () {
+    _v21717RefreshCooldownInfo.call(this);
 
-  if (sessionNo < next) {
-    W.spiny = 0;
-  }
-  return W;
-};
+    const host = document.getElementById("drawCooldownInfoV2179");
+    if (!host || document.getElementById("spinyCooldownLineV21717")) return;
 
-/* 抽中刺龟壳后写入冷却。
-   +4 的含义是：完整跳过后续 3 轮。 */
-const _v21717CommitSessionDraw = commitSessionDrawV21710;
-commitSessionDrawV21710 = function (g, key) {
-  _v21717CommitSessionDraw.call(this, g, key);
+    const mkw = state.itemGlobal?.mkwState || {};
+    const lastSpiny = Number(mkw.lastUsedAt?.spiny || 0);
+    const extra = document.createElement("small");
+    extra.id = "spinyCooldownLineV21717";
+    extra.textContent = !lastSpiny
+      ? "刺刺龟壳：按 Product.180 规则判定（开局 35s · 冷却 90s · 上限 1）"
+      : `刺刺龟壳：上次触发于 ${Math.max(0, Math.round((Date.now() - lastSpiny) / 1000))} 秒前`;
+    host.appendChild(extra);
+  };
+}
 
-  if (key === "spiny") {
-    const t = ensureSpinyCooldownV21717();
-    const sessionNo = activeDrawSessionV21710?.no || t.sessionNo;
-    t.nextEligibleSession.spiny = sessionNo + 4;
-  }
-};
-
-/* 数据与管理页的冷却状态说明同步增加刺龟壳。 */
-const _v21717RefreshCooldownInfo = refreshDrawCooldownInfoV21710;
-refreshDrawCooldownInfoV21710 = function () {
-  _v21717RefreshCooldownInfo.call(this);
-
-  const host = document.getElementById("drawCooldownInfoV2179");
-  if (!host) return;
-
-  const t = ensureSpinyCooldownV21717();
-  const next = Number(t.nextEligibleSession.spiny || 0);
-  const text =
-    !next || t.sessionNo >= next
-      ? "刺龟壳：当前可抽取"
-      : `刺龟壳：第 ${next} 个抽取轮次重新开放（当前第 ${t.sessionNo} 轮）`;
-
-  const extra = document.createElement("small");
-  extra.id = "spinyCooldownLineV21717";
-  extra.textContent = text;
-  host.appendChild(extra);
-};
-
-/* 道具百科仍只显示功能效果，不写抽取规则；这里只改实际逻辑和管理页。 */
 setTimeout(() => {
   try {
     refreshDrawCooldownInfoV21710();
@@ -36440,30 +38604,10 @@ setTimeout(() => {
 </script>
 
 
-<script id="v21718NoDuplicateInventory">/* ===== V2.17.18：修复“道具栏偶发三个金币” =====
+<script id="v21718NoDuplicateInventory">/* ===== V2.17.18：修复“道具栏偶发重复道具” =====
    1. 未知/损坏的旧道具 key 不再自动替换成 coin；
    2. 启动时清理同组重复道具，只保留最早的一件；
-   3. 抽取器即使候选极端耗尽，也不会回退为本组已有同种道具。 */
-
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  const held = heldItemKeysV281(g);
-  const weights = sessionRestrictedWeightsV21710(g);
-
-  /* 首选：不和本组已有道具重复，也尽量不和本轮其他组重复。 */
-  let k = weightedPickNoRepeatV281(weights, new Set([...batchUsed, ...held]));
-
-  /* 本轮候选冲突时允许跨组重复，但仍严格禁止本组重复。 */
-  if (!k) {
-    k = weightedPickNoRepeatV281(weights, held);
-  }
-
-  /* 如果该组在当前排名、冷却和库存组合下确实没有合法候选，
-     本轮宁可不给道具，也不凭空复制金币或其他已有道具。 */
-  if (!k) return null;
-
-  commitSessionDrawV21710(g, k);
-  return k;
-};
+   3. pickItemForGroupV281 统一委托 ItemDrawBlocks.pick (Product.180)，不再堆叠覆写。 */
 
 /* 再执行一次清洗，顺便修复旧存档里已经留下的重复金币/重复道具。 */
 function repairDuplicateInventoryV21718() {
@@ -37083,7 +39227,7 @@ function queueItemScoreChangesV21732(beforeMap) {
 
 /* 道具主入口 */
 
-/* 异步攻击兜底，例如刺龟壳确认后才真正扣分。 */
+/* 异步攻击兜底，例如刺刺龟壳确认后才真正扣分。 */
 
 /* 关键：旧逻辑在道具动画期间可能多次 renderGrid，并把 displayScore 又写成真实 score。
    每次刷新前重新套用视觉冻结值，确保新分数不会提前露出来。 */
@@ -37763,35 +39907,17 @@ function finishOwnItemUseV218(g, key, index, targetText) {
 /* 主道具状态统一由queue-adapters与ItemRoundUse计算。 */
 /* 幽灵 3 题内无限防御，不因攻击消耗。 */
 
-/* 超级喇叭防刺龟壳改为确认弹窗，机制参考蘑菇。 */
+/* 超级喇叭防刺刺龟壳改为确认弹窗，机制参考冲刺蘑菇。 */
 
 /* ---------- 5. 答题次数型状态 ---------- */
 /* Answered-round expiry is owned by items/round-effects.js. */
 
 /* 冰冻被主动使用触发时：立即解除，并继续沿用“本次使用被取消”的既有规则。 */
 
-/* ---------- 6. 道具抽取：喇叭前 60%，第一名精确 10%；首次举手等概率池 ---------- */
-const FIRST_HAND_POOL_V218 = [
-  "triple_mushroom",
-  "mushroom",
-  "triple_green",
-  "green",
-  "triple_red",
-  "red",
-  "banana",
-  "triple_banana",
-  "horn",
-];
-let firstHandDrawPendingV218 = true;
+/* ---------- 6. 道具抽取：由 MKWorld Product.180 ItemDrawPolicy 统一接管 ---------- */
+/* Legacy state compatibility placeholders; MKWorld Product.180 draw selection is owned solely by ItemDrawBlocks.pick. */
+let firstHandDrawPendingV218 = false;
 let suppressFirstHornV218 = false;
-
-
-
-
-const _v218PickItem = pickItemForGroupV281;
-pickItemForGroupV281 = function (g, batchUsed = new Set()) {
-  return ItemDrawBlocks.pick(g, batchUsed);
-};
 
 /* ---------- 7. 手动举手：不关闭菜单；三重可单发 / 连发；中央效果结算 ---------- */
 let handEffectSuppressV218 = false;
@@ -38787,11 +40913,17 @@ function resetCompetitionDataAfterSettlementV21812() {
   if ("roundNo" in state) state.roundNo = 0;
 
   /* 3. 道具全局状态。
-     customIcons 属于用户配置，不属于课堂战绩，所以保留。 */
+     customIcons 与 drawConfig 属于用户配置，不属于课堂战绩，所以保留。 */
   const customIcons =
     state.itemGlobal && state.itemGlobal.customIcons
       ? state.itemGlobal.customIcons
       : STORAGE.getJSON("politics_item_icons", {});
+  const drawConfig = globalThis.ItemDrawPolicy?.normalizeConfig
+    ? globalThis.ItemDrawPolicy.normalizeConfig(state.itemGlobal?.drawConfig)
+    : state.itemGlobal?.drawConfig || {
+        mode: "24KartRace",
+        switchPreset: "ALL",
+      };
 
   state.itemGlobal = {
     blooperUntil: 0,
@@ -38801,6 +40933,12 @@ function resetCompetitionDataAfterSettlementV21812() {
     handRaiseTotal: 0,
     pkTotal: 0,
     customIcons: customIcons,
+    drawConfig,
+    mkwState: {
+      matchStartedAt: Date.now(),
+      lastUsedAt: {},
+      lastUsedSession: {},
+    },
     drawThrottleV2179: {
       sequence: 0,
       nextEligible: { lightning: 0, blooper: 0 },
@@ -39802,6 +41940,25 @@ function refreshBattleGrid() {
   };
   for (const [key, desc] of Object.entries(descriptions))
     ITEM_DEFS[key].desc = desc;
+  const renameOfficialTerms = (text) =>
+    typeof text === "string"
+      ? text
+          .replace(/三重蘑菇/g, "三重冲刺蘑菇")
+          .replace(/强力蘑菇/g, "强力冲刺蘑菇")
+          .replace(/普通蘑菇/g, "冲刺蘑菇")
+          .replace(/刺龟壳/g, "刺刺龟壳")
+          .replace(/金币龟壳/g, "黄金龟壳")
+          .replace(/(?<![三重强力冲刺巨大黄金])蘑菇/g, "冲刺蘑菇")
+          .replace(
+            /前\s*60%\s*排名都可能获得；第一名每次正常抽取时获得概率为\s*10%。/g,
+            "按 MKWorld (Product.180) 权重表抽取，高位/中游排名段均有分布。",
+          )
+      : text;
+  for (const key of ITEM_KEYS) {
+    if (ITEM_DEFS[key]) {
+      ITEM_DEFS[key].desc = renameOfficialTerms(ITEM_DEFS[key].desc);
+    }
+  }
   for (const key of ITEM_KEYS) {
     const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
@@ -39827,8 +41984,16 @@ function refreshBattleGrid() {
     star: "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
     mega: "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
   };
-  if (typeof ITEM_TIPS_V218 !== "undefined")
+  if (typeof ITEM_TIPS_V218 !== "undefined") {
+    for (const key of Object.keys(ITEM_TIPS_V218))
+      ITEM_TIPS_V218[key] = renameOfficialTerms(ITEM_TIPS_V218[key]);
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
+  }
+  for (const key of Object.keys(ITEM_FUNNY_COPY_V2184)) {
+    ITEM_FUNNY_COPY_V2184[key] = renameOfficialTerms(
+      ITEM_FUNNY_COPY_V2184[key],
+    );
+  }
   Object.assign(ITEM_FUNNY_COPY_V2184, {
     star: "三轮防御，使用后立即腾出主要道具槽。",
     mega: "三轮防御，占据主要道具槽。",
@@ -40177,6 +42342,43 @@ const ItemTargets = (() => {
 <script>/* Operation pipeline. Draw policy has no access to this executor. */
 globalThis.RedirectedItemInstances = new WeakSet();
 const ItemOperationBlocks = (() => {
+  function ensureMkwRuntimeState() {
+    state.itemGlobal = state.itemGlobal || {};
+    if (
+      !state.itemGlobal.mkwState ||
+      typeof state.itemGlobal.mkwState !== "object"
+    ) {
+      state.itemGlobal.mkwState = {
+        matchStartedAt: Date.now(),
+        lastUsedAt: {},
+        lastUsedSession: {},
+      };
+    }
+    state.itemGlobal.mkwState.lastUsedAt =
+      state.itemGlobal.mkwState.lastUsedAt || {};
+    state.itemGlobal.mkwState.lastUsedSession =
+      state.itemGlobal.mkwState.lastUsedSession || {};
+    return state.itemGlobal.mkwState;
+  }
+  function resolveRankParam(position1, totalGroups) {
+    const policy = globalThis.ItemDrawPolicy;
+    if (!policy || typeof policy.resolveRank !== "function") return null;
+    const globalState = state.itemGlobal || {};
+    const cfg =
+      typeof policy.normalizeConfig === "function"
+        ? policy.normalizeConfig(globalState.drawConfig)
+        : globalState.drawConfig || {};
+    if (cfg.applyPostDrawRankParams === false) return null;
+    const mkw = ensureMkwRuntimeState();
+    const resolved = policy.resolveRank(position1, totalGroups, {
+      mode: cfg.mode,
+      nowMs: Date.now(),
+      matchStartedAt: mkw.matchStartedAt,
+      applyRankClamp: true,
+    });
+    const param = policy.paramByRank(resolved.rank);
+    return { cfg, mkw, resolved, param };
+  }
   const targets = Object.fromEntries(
     [
       "self",
@@ -40335,23 +42537,74 @@ const ItemOperationBlocks = (() => {
             ? applyItemScore(t, -amount, c.group.id, c.key)
             : { changed: false, blocked: tryDefend(t, c.key) };
         if (result.blocked) c.blocked.add(t.id);
-        if (!result.blocked && CompetitionEffects.apply(t, "freeze") && c.group?.groupUid) {
+        if (
+          !result.blocked &&
+          CompetitionEffects.apply(t, "freeze") &&
+          c.group?.groupUid
+        ) {
           t.competitionEffects.freeze.casterGroupUid = c.group.groupUid;
         }
       }
       return true;
     },
     mask(c) {
-      state.itemGlobal.blooperUntil = Date.now() + c.blueprint.milliseconds;
+      const baseMs = Number(c.blueprint.milliseconds) || 120000;
+      const rp = resolveRankParam(
+        Math.max(1, c.position + 1),
+        c.ranking.length,
+      );
+      const inkLevel = rp?.param?.inkLevel || 3;
+      const scale = inkLevel === 1 ? 0.5 : inkLevel === 2 ? 0.75 : 1;
+      const durationMs = Math.round(baseMs * scale);
+      state.itemGlobal.blooperUntil = Date.now() + durationMs;
       state.itemGlobal.blooperCasterUid = c.group?.groupUid || null;
       state.itemGlobal.blooperAchRecorded = false;
+      state.itemGlobal.lastInkLevel = inkLevel;
+      if (rp) {
+        rp.mkw.lastParamEffect = {
+          key: "blooper",
+          rank: rp.resolved.rank,
+          inkLevel,
+          durationMs,
+          at: Date.now(),
+        };
+        c.rankParamLabel = `Rank ${rp.resolved.rank + 1} · InkLevel ${inkLevel}`;
+      }
       startBlooperClock();
       return true;
     },
     lightning(c) {
+      const targetParams = c.targets
+        .map((t) => {
+          const pos1 = Math.max(
+            1,
+            c.ranking.findIndex((g) => g.id === t.id) + 1,
+          );
+          const rpT = resolveRankParam(pos1, c.ranking.length);
+          return rpT
+            ? {
+                groupId: t.id,
+                rank: rpT.resolved.rank,
+                thunderFrame: rpT.param.thunderFrame,
+              }
+            : null;
+        })
+        .filter(Boolean);
       c.targets.forEach((t) => {
         if (!applyLightningHitV2116(c.group, t)) c.blocked.add(t.id);
       });
+      if (targetParams.length) {
+        const mkw = ensureMkwRuntimeState();
+        mkw.lastLightningTargets = targetParams;
+        mkw.lastParamEffect = {
+          key: "lightning",
+          targetCount: targetParams.length,
+          minThunderFrame: Math.min(...targetParams.map((x) => x.thunderFrame)),
+          maxThunderFrame: Math.max(...targetParams.map((x) => x.thunderFrame)),
+          at: Date.now(),
+        };
+        c.rankParamLabel = `缩小帧 ${mkw.lastParamEffect.minThunderFrame}~${mkw.lastParamEffect.maxThunderFrame}f`;
+      }
       return true;
     },
     status(c) {
@@ -40417,6 +42670,19 @@ const ItemOperationBlocks = (() => {
       return true;
     },
     overtake(c) {
+      const rp = resolveRankParam(
+        Math.max(1, c.position + 1),
+        c.ranking.length,
+      );
+      if (rp) {
+        rp.mkw.lastParamEffect = {
+          key: "bullet",
+          rank: rp.resolved.rank,
+          killerTargetRank: rp.param.killerTargetRank,
+          at: Date.now(),
+        };
+        c.rankParamLabel = `Rank ${rp.resolved.rank + 1} · 冲刺目标名次 +${rp.param.killerTargetRank}`;
+      }
       c.group.score = Number(c.targets[0].score) + 1;
       c.group.displayScore = c.group.score;
       c.group.itemEffect = null;
@@ -40461,7 +42727,9 @@ const ItemOperationBlocks = (() => {
   function run(key, group, index, command, presentation = {}) {
     const blueprint = ItemBlueprints[key];
     if (!blueprint) throw Error("道具模块未注册：" + key);
-    if (globalThis.RandomEvents?.blocksAttackItem?.(state.randomEvents, blueprint)) {
+    if (
+      globalThis.RandomEvents?.blocksAttackItem?.(state.randomEvents, blueprint)
+    ) {
       showToast("和平协定生效中，本轮暂禁攻击类道具");
       return false;
     }
@@ -40516,9 +42784,17 @@ const ItemOperationBlocks = (() => {
     itemScoreBatchDepthV21732++;
     try {
       if (effects[blueprint.effect](context) === false) return false;
+      const mkw = ensureMkwRuntimeState();
+      mkw.lastUsedAt[key] = Date.now();
+      mkw.lastUsedSession[key] = Number(
+        state.itemGlobal?.drawSessionThrottleV21710?.sessionNo || 0,
+      );
       Object.assign(presentation, {
         key,
         booAlternateMushroom: !!context.booAlternateMushroom,
+        ...(context.rankParamLabel
+          ? { rankParamLabel: context.rankParamLabel }
+          : {}),
         caster: { id: group.id, groupUid: group.groupUid, name: group.name },
         targets: context.targets.map((target) => ({
           id: target.id,
@@ -41029,63 +43305,103 @@ const RoundSettlement = (() => {
   };
 })();
 </script>
-<script>/* Draw-only blocks: special pool -> probability -> restricted weights -> no-repeat -> cooldown commit. */
+<script>/* Canonical MKWorld Product.180 draw executor: Mode -> Rank -> Ratio Table -> SwitchPreset/Interval/NumLimit Gates -> Weighted Pick -> ParamByRank telemetry -> Cooldown commit. */
 const ItemDrawBlocks = (() => {
-  function pick(group, batchUsed = new Set()) {
-    const config = ItemModules.configuration().items;
-    const held = heldItemKeysV281(group);
-    if (handItemDrawGroupId === group?.id && firstHandDrawPendingV218) {
-      const pool = FIRST_HAND_POOL_V218.filter(
-        (key) =>
-          ITEM_DEFS[key] &&
-          !held.has(key) &&
-          config[key].draw.enabled &&
-          config[key].draw.weight > 0,
-      );
-      firstHandDrawPendingV218 = false;
-      if (pool.length) {
-        const equal = pool.every(
-          (key) => config[key].draw.weight === config[pool[0]].draw.weight,
-        );
-        const key = equal
-          ? pool[Math.floor(Math.random() * pool.length)]
-          : weightedPick(
-              Object.fromEntries(
-                pool.map((key) => [key, config[key].draw.weight]),
-              ),
-            );
-        commitSessionDrawV21710(group, key);
-        return key;
-      }
-    }
-    const leader = rankIndex(group.id) === 0;
-    if (leader && !held.has("horn")) {
-      const weight = config.horn.draw.enabled ? config.horn.draw.weight : 0;
-      const chance = weight ? (0.1 * weight) / (0.9 + 0.1 * weight) : 0;
-      if (Math.random() < chance) {
-        commitSessionDrawV21710(group, "horn");
-        return "horn";
-      }
-    }
-    const before = suppressFirstHornV218;
-    if (leader) suppressFirstHornV218 = true;
-    let weights;
-    try {
-      weights = sessionRestrictedWeightsV21710(group);
-    } finally {
-      suppressFirstHornV218 = before;
-    }
-    let key = weightedPickNoRepeatV281(
-      weights,
-      new Set([...batchUsed, ...held]),
+  function pick(group, batchUsed = new Set(), options = {}) {
+    if (!group || !eligibleForItems(group)) return null;
+    ensureItemState();
+    const ordered = ranking();
+    const total = Math.max(1, ordered.length);
+    const found = ordered.findIndex((g) => g.id === group.id);
+    const position = found >= 0 ? found + 1 : 1;
+    const config =
+      typeof getMkwDrawConfig === "function"
+        ? getMkwDrawConfig()
+        : ItemDrawPolicy.normalizeConfig(state.itemGlobal?.drawConfig);
+    const mkw =
+      typeof ensureMkwDrawState === "function"
+        ? ensureMkwDrawState()
+        : (state.itemGlobal.mkwState ||= {
+            matchStartedAt: Date.now(),
+            lastUsedAt: {},
+            lastUsedSession: {},
+          });
+    const sessionState =
+      typeof ensureDrawSessionThrottleV21710 === "function"
+        ? ensureDrawSessionThrottleV21710()
+        : { sessionNo: 1 };
+    const sessionNo = Math.max(
+      1,
+      Number(
+        (typeof activeDrawSessionV21710 !== "undefined" &&
+          activeDrawSessionV21710?.no) ||
+          sessionState.sessionNo ||
+          1,
+      ),
     );
-    if (!key) key = weightedPickNoRepeatV281(weights, held);
+    const held = (group.inventory || []).map((it) => it?.key).filter(Boolean);
+    const nowMs = Number.isFinite(Number(options.nowMs))
+      ? Number(options.nowMs)
+      : Date.now();
+    const field =
+      typeof collectMkwFieldCounts === "function"
+        ? collectMkwFieldCounts()
+        : {};
+    const evaluation = ItemDrawPolicy.evaluate({
+      config,
+      position,
+      total,
+      score: group.score,
+      eligible: eligibleForItems(group),
+      held,
+      batch: batchUsed ? [...batchUsed] : [],
+      field,
+      moduleConfig: globalThis.ItemModules
+        ? ItemModules.configuration().items
+        : null,
+      nowMs,
+      matchStartedAt: mkw.matchStartedAt,
+      applyRankClamp: true,
+      lastUsedAt: mkw.lastUsedAt,
+      lastUsedSession: mkw.lastUsedSession,
+      sessionNo,
+    });
+    const key = ItemDrawPolicy.pickWeighted(
+      evaluation.weights,
+      options.random || (() => Math.random()),
+    );
+    if (
+      typeof firstHandDrawPendingV218 !== "undefined" &&
+      typeof handItemDrawGroupId !== "undefined" &&
+      handItemDrawGroupId === group.id
+    ) {
+      firstHandDrawPendingV218 = false;
+    }
     if (!key) return null;
-    commitSessionDrawV21710(group, key);
+    mkw.lastUsedAt[key] = nowMs;
+    mkw.lastUsedSession[key] = sessionNo;
+    mkw.lastDraw = {
+      key,
+      groupId: group.id,
+      position,
+      total,
+      mode: evaluation.mode,
+      tableName: evaluation.tableName,
+      column: evaluation.column,
+      rawRank: evaluation.rawRank,
+      rank: evaluation.rank,
+      paramsForRank: evaluation.paramsForRank,
+      activeGates: evaluation.activeGates,
+      at: nowMs,
+    };
+    if (typeof commitSessionDrawV21710 === "function") {
+      commitSessionDrawV21710(group, key);
+    }
     return key;
   }
   return { pick };
 })();
+globalThis.ItemDrawBlocks = ItemDrawBlocks;
 </script>
 <script>/* Dependency-injected command lifecycle. No DOM, storage or game rules here. */
 const CommandLifecycle = (() => {
@@ -44907,6 +47223,412 @@ const BattleMotion = (() => {
   };
 })();
 </script>
+<script>/* Settings panel for Mario Kart World (Product.180) item draw configuration and live simulator. */
+const ItemDrawSettings = (() => {
+  "use strict";
+  const mounts = new WeakMap();
+  const GATE_LABELS = Object.freeze({
+    switch_preset: "预设已禁用",
+    disabled: "预设已禁用",
+    start_delay: "开局延迟中",
+    cooldown: "全局冷却中",
+    field_cap: "场上/持有达上限",
+    held: "本组已持有(EnableSame关)",
+    batch: "同批抽中防重",
+    module_disabled: "模块流程已关闭",
+    module_zero_weight: "自定义权重为0",
+  });
+
+  const E = (value) =>
+    typeof escapeHtml === "function"
+      ? escapeHtml(value)
+      : String(value ?? "").replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+
+  function readConfig() {
+    if (typeof getMkwDrawConfig === "function") return getMkwDrawConfig();
+    if (typeof ItemDrawPolicy === "undefined") return {};
+    return ItemDrawPolicy.normalizeConfig(state?.itemGlobal?.drawConfig);
+  }
+
+  function writeConfig(patch, announceText) {
+    if (typeof ItemDrawPolicy === "undefined") return;
+    if (typeof ensureItemState === "function") ensureItemState();
+    const current = readConfig();
+    const next = ItemDrawPolicy.normalizeConfig({ ...current, ...patch });
+    state.itemGlobal.drawConfig = next;
+    try {
+      if (typeof saveState === "function") saveState();
+    } catch (_) {}
+    if (typeof refreshDrawCooldownInfoV21710 === "function") {
+      try {
+        refreshDrawCooldownInfoV21710();
+      } catch (_) {}
+    }
+    if (announceText && typeof showToast === "function") {
+      showToast(announceText);
+    }
+    return next;
+  }
+
+  function formatItemIcon(key) {
+    if (typeof itemVisual === "function") {
+      return itemVisual(key, "idraw-item-img");
+    }
+    return E(ITEM_DEFS?.[key]?.icon || "✦");
+  }
+
+  function renderPanel(panelState) {
+    const { container } = panelState;
+    if (!container || typeof ItemDrawPolicy === "undefined") return;
+    const cfg = readConfig();
+    const modes = ItemDrawPolicy.modes();
+    const presets = ItemDrawPolicy.switchPresets();
+    const modeSpec = ItemDrawPolicy.modeSpec(cfg.mode);
+    const timingDesc = ItemDrawPolicy.describeGateTiming(
+      cfg.mode,
+      cfg.timingMode,
+    );
+    const mkw =
+      typeof ensureMkwDrawState === "function"
+        ? ensureMkwDrawState()
+        : state?.itemGlobal?.mkwState || {
+            matchStartedAt: Date.now(),
+            lastUsedAt: {},
+            lastUsedSession: {},
+          };
+    const elapsedSec = Math.max(
+      0,
+      Math.round(
+        (Date.now() - (Number(mkw.matchStartedAt) || Date.now())) / 1000,
+      ),
+    );
+    const sessionNo = Number(
+      state?.itemGlobal?.drawSessionThrottleV21710?.sessionNo || 0,
+    );
+
+    const groups = Array.isArray(state?.groups) ? state.groups : [];
+    const total = Math.max(1, Number(panelState.total) || groups.length || 12);
+    const pos = Math.max(1, Math.min(total, Number(panelState.position) || 1));
+
+    const heldKeys = new Set();
+    const selectedGroup = groups.find(
+      (g) => String(g.id) === String(panelState.groupId),
+    );
+    if (selectedGroup && Array.isArray(selectedGroup.inventory)) {
+      for (const slot of selectedGroup.inventory) {
+        if (slot?.key) heldKeys.add(slot.key);
+      }
+    }
+
+    const fieldCounts =
+      typeof collectMkwFieldCounts === "function"
+        ? collectMkwFieldCounts()
+        : {};
+    const evaluation = ItemDrawPolicy.evaluate({
+      config: cfg,
+      position: pos,
+      total,
+      score: selectedGroup ? selectedGroup.score : 100,
+      held: [...heldKeys],
+      field: fieldCounts,
+      moduleConfig: globalThis.ItemModules
+        ? ItemModules.configuration().items
+        : null,
+      lastUsedAt: mkw.lastUsedAt || {},
+      lastUsedSession: mkw.lastUsedSession || {},
+      sessionNo: Math.max(1, sessionNo),
+      matchStartedAt: Number(mkw.matchStartedAt) || Date.now(),
+      nowMs: Date.now(),
+      strictPreview: true,
+      ...(panelState.liveTiming ? {} : { elapsedFrames: Infinity }),
+    });
+
+    const totalWeight = Object.values(evaluation.weights).reduce(
+      (sum, v) => sum + (Number(v) || 0),
+      0,
+    );
+
+    const modeOptions = modes
+      .map(
+        (m) =>
+          `<option value="${E(m.id)}" ${cfg.mode === m.id ? "selected" : ""}>${E(m.id)} — ${E(m.name)}</option>`,
+      )
+      .join("");
+    const presetOptions = [
+      `<option value="ALL" ${cfg.switchPreset === "ALL" ? "selected" : ""}>ALL — 全部官方道具开放</option>`,
+      ...presets.map(
+        (p) =>
+          `<option value="${E(p.id)}" ${cfg.switchPreset === p.id ? "selected" : ""}>${E(p.id)} — ${E(p.desc)} (${p.keys?.length || 0}/28)</option>`,
+      ),
+    ].join("");
+
+    const groupOptions = [
+      `<option value="" ${!selectedGroup ? "selected" : ""}>按自定义模拟顺位 (${pos}/${total})</option>`,
+      ...groups.map((g, idx) => {
+        const gid = String(g.id);
+        return `<option value="${E(gid)}" ${String(panelState.groupId) === gid ? "selected" : ""}>第 ${idx + 1} 位 · ${E(g.name || `小组 ${g.groupNo || g.id}`)} (${g.score || 0} 分)</option>`;
+      }),
+    ].join("");
+
+    const blockedItems = [];
+    const rows = ItemDrawPolicy.keys
+      .map((key) => {
+        const raw = Number(evaluation.rawWeights?.[key] || 0);
+        const eff = Number(evaluation.weights?.[key] || 0);
+        const reasons = Array.isArray(evaluation.blockedReasons?.[key])
+          ? evaluation.blockedReasons[key]
+          : [];
+        if (raw <= 0 && !reasons.length) return "";
+        if (reasons.length) blockedItems.push({ key, reasons });
+        const def = ITEM_DEFS?.[key];
+        const name = def?.name || key;
+        const pct =
+          totalWeight > 0 ? ((eff / totalWeight) * 100).toFixed(1) : "0.0";
+        const badgeClass =
+          eff > 0
+            ? "idraw-gate-pill idraw-gate-open"
+            : "idraw-gate-pill idraw-gate-blocked";
+        const statusText =
+          eff > 0
+            ? "可抽取"
+            : reasons.map((r) => GATE_LABELS[r] || r).join(" · ") || "权重 0";
+        return `<tr>
+          <td><span class="idraw-item-cell"><span class="idraw-item-icon">${formatItemIcon(key)}</span><span>${E(name)}</span></span></td>
+          <td><code>${raw}</code></td>
+          <td><strong>${eff}</strong></td>
+          <td>${pct}%</td>
+          <td><span class="${badgeClass}">${E(statusText)}</span></td>
+        </tr>`;
+      })
+      .filter(Boolean)
+      .join("");
+
+    const gateCards = blockedItems.length
+      ? blockedItems
+          .map(({ key, reasons }) => {
+            const name = ITEM_DEFS?.[key]?.name || key;
+            const kindLabel = reasons
+              .map((r) => GATE_LABELS[r] || r)
+              .join(" · ");
+            return `<div class="idraw-gate-card"><strong>${E(name)}</strong><span>${E(kindLabel)}</span></div>`;
+          })
+          .join("")
+      : `<p class="ui-muted">当前试算条件下无道具处于冷却、开局延迟或场上限锁定。</p>`;
+
+    const statusLine =
+      panelState.status ||
+      `已加载 Mario Kart World Product.180（28 种道具 · 12 张权重表 · ${modes.length} 种模式 · 15 套开关预设）。`;
+
+    container.innerHTML = `
+      <div class="idraw-settings">
+        <div class="idraw-header">
+          <div>
+            <h4>Mario Kart World (Product.180) 道具抽取引擎</h4>
+            <p>${E(modeSpec.notes || modeSpec.name)} · 权重表：<code>${E(evaluation.tableName)}</code></p>
+          </div>
+          <div class="idraw-header-actions">
+            <button type="button" class="btn btn-sm" data-idraw-action="reset-timers">重置开局计时与冷却</button>
+            <button type="button" class="btn btn-sm" data-idraw-action="reset-config">恢复默认抽取配置</button>
+          </div>
+        </div>
+        <p class="idraw-status" role="status" aria-live="polite">${E(statusLine)}</p>
+        <div class="idraw-controls-grid">
+          <label class="idraw-field">
+            <span class="idraw-field-label">抽取模式 (ItemGParam)</span>
+            <select data-idraw-cfg="mode">${modeOptions}</select>
+            <small>标准 24 车竞速 / 淘汰 / 气球与金币对战 / 纯蘑菇等 12 套规则。</small>
+          </label>
+          <label class="idraw-field">
+            <span class="idraw-field-label">道具开关预设 (SwitchPreset)</span>
+            <select data-idraw-cfg="switchPreset">${presetOptions}</select>
+            <small>按官网预设 P00–P14 一键启停 28 个正式道具。</small>
+          </label>
+          <label class="idraw-field">
+            <span class="idraw-field-label">开局延迟与冷却计时基准</span>
+            <select data-idraw-cfg="timingMode">
+              <option value="realtime" ${cfg.timingMode === "realtime" ? "selected" : ""}>realtime — 实时秒数换算 60fps 帧率</option>
+              <option value="rounds" ${cfg.timingMode === "rounds" ? "selected" : ""}>rounds — 课堂抽取轮次（每轮约 600 帧）</option>
+            </select>
+            <small>${E(timingDesc.note || "")}</small>
+          </label>
+          <label class="idraw-field">
+            <span class="idraw-field-label">课堂顺位映射 (24 列矩阵)</span>
+            <select data-idraw-cfg="positionMapping">
+              <option value="auto" ${cfg.positionMapping === "auto" ? "selected" : ""}>auto — 按小组总数等比例铺满 1～24 列</option>
+              <option value="exact" ${cfg.positionMapping === "exact" ? "selected" : ""}>exact — 按精确名次直查前 N 列</option>
+            </select>
+            <small>课堂 4～16 组建议使用 auto，才能触发后段补偿列。</small>
+          </label>
+        </div>
+        <div class="idraw-toggles-grid">
+          <label class="idraw-toggle-card">
+            <input type="checkbox" data-idraw-bool="useComTable" ${cfg.useComTable ? "checked" : ""}>
+            <span class="idraw-toggle-copy"><strong>启用 COM 简化权重表</strong><span>将标准赛/简洁赛切换至 RaceCom / SimpleCom 权重分布。</span></span>
+          </label>
+          <label class="idraw-toggle-card">
+            <input type="checkbox" data-idraw-bool="enableSame" ${cfg.enableSame ? "checked" : ""}>
+            <span class="idraw-toggle-copy"><strong>允许手持重复道具 (EnableSame)</strong><span>关闭时优先过滤本组手牌中已持有的道具，避免重复。</span></span>
+          </label>
+          <label class="idraw-toggle-card">
+            <input type="checkbox" data-idraw-bool="ignorePenalty" ${cfg.ignorePenalty ? "checked" : ""}>
+            <span class="idraw-toggle-copy"><strong>忽略开局延迟与惩罚门控</strong><span>跳过 startFrame 与间隔冷却，适合课堂快速调试演示。</span></span>
+          </label>
+          <label class="idraw-toggle-card">
+            <input type="checkbox" data-idraw-bool="applyPostDrawRankParams" ${cfg.applyPostDrawRankParams ? "checked" : ""}>
+            <span class="idraw-toggle-copy"><strong>应用 Rank 动态参数 (Product.180)</strong><span>按当前 Rank 自动调整 鱿鱿 InkLevel、杀手目标名次与 闪电 缩小帧。</span></span>
+          </label>
+        </div>
+        <div class="idraw-summary-strip">
+          <span class="idraw-stat-pill">本局已运行 ${elapsedSec}s（${elapsedSec * 60} 帧）</span>
+          <span class="idraw-stat-pill">累计全局抽取轮次：第 ${sessionNo} 轮</span>
+          <span class="idraw-stat-pill">当前试算列：第 ${evaluation.column} 列 · Rank ${evaluation.rank + 1}</span>
+          <span class="idraw-stat-pill">生效墨汁等级 InkLevel：${evaluation.paramsForRank?.inkLevel || 1}</span>
+          <span class="idraw-stat-pill">闪电缩小帧：${evaluation.paramsForRank?.thunderFrame || 180}f</span>
+        </div>
+        <details class="ui-settings-disclosure" ${panelState.previewOpen ? "open" : ""}>
+          <summary><b>实时权重与门控试算表</b><span>查看当前模式下各顺位 28 种道具概率、Rank 映射与实时冷却状态</span></summary>
+          <div class="ui-settings-detail-body idraw-preview">
+            <div class="idraw-preview-toolbar">
+              <label>小组选择 <select data-idraw-sim="groupId">${groupOptions}</select></label>
+              <label>模拟名次 <input type="number" min="1" max="24" value="${pos}" data-idraw-sim="position"></label>
+              <label>小组总数 <input type="number" min="1" max="24" value="${total}" data-idraw-sim="total"></label>
+              <label><input type="checkbox" data-idraw-sim="liveTiming" ${panelState.liveTiming ? "checked" : ""}> 带入当前开局计时与冷却门控</label>
+            </div>
+            <div class="idraw-table-wrap">
+              <table class="idraw-table">
+                <thead>
+                  <tr><th>道具</th><th>表原始权重</th><th>实际权重</th><th>抽中概率</th><th>门控状态</th></tr>
+                </thead>
+                <tbody>${rows || `<tr><td colspan="5">当前预设与门控下暂无可用候选</td></tr>`}</tbody>
+              </table>
+            </div>
+            <div class="idraw-gates-list">${gateCards}</div>
+          </div>
+        </details>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-idraw-cfg]").forEach((el) => {
+      el.addEventListener("change", () => {
+        const key = el.dataset.idrawCfg;
+        writeConfig({ [key]: el.value });
+        panelState.status = `已保存抽取配置：${key} = ${el.value}`;
+        renderPanel(panelState);
+      });
+    });
+
+    container.querySelectorAll("[data-idraw-bool]").forEach((el) => {
+      el.addEventListener("change", () => {
+        const key = el.dataset.idrawBool;
+        writeConfig({ [key]: !!el.checked });
+        panelState.status = `已更新开关：${key} = ${el.checked ? "开启" : "关闭"}`;
+        renderPanel(panelState);
+      });
+    });
+
+    container.querySelectorAll("[data-idraw-sim]").forEach((el) => {
+      el.addEventListener("change", () => {
+        const key = el.dataset.idrawSim;
+        if (key === "liveTiming") {
+          panelState.liveTiming = !!el.checked;
+        } else if (key === "groupId") {
+          panelState.groupId = el.value;
+          const idx = groups.findIndex((g) => String(g.id) === el.value);
+          if (idx >= 0) {
+            panelState.position = idx + 1;
+            panelState.total = Math.max(1, groups.length);
+          }
+        } else {
+          panelState[key] = Math.max(1, Math.min(24, Number(el.value) || 1));
+        }
+        panelState.previewOpen = true;
+        renderPanel(panelState);
+      });
+    });
+
+    const detailsEl = container.querySelector("details");
+    detailsEl?.addEventListener("toggle", () => {
+      panelState.previewOpen = detailsEl.open;
+    });
+
+    container
+      .querySelector('[data-idraw-action="reset-timers"]')
+      ?.addEventListener("click", () => {
+        if (typeof ensureItemState === "function") ensureItemState();
+        state.itemGlobal.mkwState = {
+          matchStartedAt: Date.now(),
+          lastUsedAt: {},
+          lastUsedSession: {},
+        };
+        if (state.itemGlobal.drawSessionThrottleV21710) {
+          state.itemGlobal.drawSessionThrottleV21710.nextEligibleSession = {
+            lightning: 0,
+            blooper: 0,
+            spiny: 0,
+          };
+        }
+        try {
+          if (typeof saveState === "function") saveState();
+        } catch (_) {}
+        panelState.status = "已重置本局开局计时与全部全局冷却。";
+        renderPanel(panelState);
+      });
+
+    container
+      .querySelector('[data-idraw-action="reset-config"]')
+      ?.addEventListener("click", () => {
+        writeConfig(
+          ItemDrawPolicy.defaultConfig(),
+          "已恢复 MKWorld Product.180 默认抽取配置",
+        );
+        panelState.status =
+          "已恢复默认配置（24KartRace · 预设 ALL · realtime）。";
+        renderPanel(panelState);
+      });
+  }
+
+  function mount(host) {
+    if (!host || typeof ItemDrawPolicy === "undefined") return;
+    const existing = mounts.get(host);
+    if (existing) {
+      renderPanel(existing);
+      return;
+    }
+    const group = document.createElement("div");
+    group.id = "uiSettingsItemDrawPolicy";
+    group.className = "ui-settings-group idraw-group";
+    host.prepend(group);
+    const panelState = {
+      container: group,
+      groupId: "",
+      position: 1,
+      total: Math.max(
+        4,
+        Array.isArray(state?.groups) ? state.groups.length : 12,
+      ),
+      liveTiming: false,
+      previewOpen: false,
+      status: "",
+    };
+    mounts.set(host, panelState);
+    renderPanel(panelState);
+  }
+
+  function sync() {
+    const host = document.getElementById(
+      "uiSettingsItemDrawPolicy",
+    )?.parentElement;
+    const existing = host && mounts.get(host);
+    if (existing) renderPanel(existing);
+  }
+
+  return Object.freeze({ mount, sync });
+})();
+globalThis.ItemDrawSettings = ItemDrawSettings;
+</script>
 <script>/* Per-item settings editor. The ItemModules core owns validation and persistence. */
 const ItemModuleSettings = (() => {
   "use strict";
@@ -47877,6 +50599,50 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
+      name: "gameplay-mkw-head",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-lookup",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-mode-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-modes",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-pill",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-pills",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-section",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-step",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-steps",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-table",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mkw-table-wrap",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "gameplay-overview",
       sources: [
         "src/styles/classroom/gameplay-page.css",
@@ -48840,6 +51606,98 @@ const GodPowerComponentCatalog = {
         "src/styles/settings/tabs-and-confirmation.css",
         "src/styles/components/surface-polish.css",
       ],
+    },
+    {
+      name: "idraw-controls-grid",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-field",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-field-label",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-blocked",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-card",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-open",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gate-pill",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-gates-list",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-group",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-header",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-header-actions",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-item-cell",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-item-icon",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-preview-toolbar",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-settings",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-stat-pill",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-status",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-summary-strip",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-table",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-table-wrap",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggle-card",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggle-copy",
+      sources: ["src/styles/settings/item-draw-settings.css"],
+    },
+    {
+      name: "idraw-toggles-grid",
+      sources: ["src/styles/settings/item-draw-settings.css"],
     },
     {
       name: "im-actions",
@@ -55482,6 +58340,119 @@ const AvatarPresetPicker = (() => {
   align-items: center;
   gap: 6px;
 }
+
+.gameplay-mkw-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gameplay-mkw-section {
+  margin-top: 16px;
+}
+.gameplay-mkw-section h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--ui-text);
+}
+.gameplay-mkw-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+.gameplay-mkw-step {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-soft-2);
+}
+.gameplay-mkw-step > b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ui-primary);
+  font-size: 13px;
+}
+.gameplay-mkw-step p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.gameplay-mkw-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+.gameplay-mkw-mode-card {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.gameplay-mkw-mode-card code {
+  font-weight: 700;
+  color: var(--ui-primary);
+}
+.gameplay-mkw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-panel);
+}
+.gameplay-mkw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.gameplay-mkw-table th,
+.gameplay-mkw-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--ui-border);
+  white-space: nowrap;
+}
+.gameplay-mkw-table th {
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.gameplay-mkw-table tr:last-child td {
+  border-bottom: 0;
+}
+.gameplay-mkw-lookup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.gameplay-mkw-lookup select,
+.gameplay-mkw-lookup input[type="number"] {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  background: var(--ui-panel);
+  color: var(--ui-text);
+}
+.gameplay-mkw-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gameplay-mkw-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  font-size: 12px;
+}
 </style>
 <script>/* Read-only item reference and isolated demo; never invokes classroom commands. */
 const GameplayItemDialog = (() => {
@@ -55816,21 +58787,163 @@ const GameplayItemDialog = (() => {
     });
   }
 
+  function buildRulesSection() {
+    const rules = document.createElement("section");
+    rules.className = "ui-settings-group gameplay-rules";
+
+    const currentCfg =
+      typeof getMkwDrawConfig === "function"
+        ? getMkwDrawConfig()
+        : ItemDrawPolicy.defaultConfig();
+    const modes = ItemDrawPolicy.modes();
+    const presets = ItemDrawPolicy.switchPresets();
+
+    const header = document.createElement("div");
+    header.className = "gameplay-mkw-head";
+    header.innerHTML = `
+      <div>
+        <h3>${ic("rule")}<span>Mario Kart World (Product.180) 道具抽取与课堂机制说明</span></h3>
+        <p>${E(ItemDrawPolicy.summary)}</p>
+      </div>
+      <button type="button" class="btn btn-sm" data-mkw-goto-settings>${ic("tune")}<span>前往设置调整抽取模式与预设</span></button>
+    `;
+    header
+      .querySelector("[data-mkw-goto-settings]")
+      ?.addEventListener("click", () => {
+        if (typeof switchView === "function") switchView("settings");
+        if (typeof showSettingsV26 === "function") showSettingsV26("items");
+      });
+
+    const stepsEl = document.createElement("div");
+    stepsEl.className = "gameplay-mkw-section";
+    stepsEl.innerHTML = `
+      <h4>Product.180 六步抽取与参数管线</h4>
+      <div class="gameplay-mkw-steps">
+        <div class="gameplay-mkw-step"><b>1. 模式表与预设门控</b><p>从 <code>ItemGParam</code> 选定当前模式对应的 9+3 张官方权重表（标准赛/动态/COM/生存/气球/金币/纯蘑菇等），再叠加 <code>SwitchPreset P00–P14</code> 开关筛选。</p></div>
+        <div class="gameplay-mkw-step"><b>2. 顺位映射与 ItemRankTable</b><p>小组名次映射至第 <code>1～24</code> 列，并查 <code>24×24</code> 阶梯表按开局经过时间限幅，避免开局即抽高顺位逆转大招。</p></div>
+        <div class="gameplay-mkw-step"><b>3. 开局禁用延迟 (startFrame)</b><p><b>刺刺龟壳</b>（35s / 2100f）、<b>闪电</b>（45s / 2700f）、<b>鱿鱿</b>（25s / 1500f）、<b>炮弹刺客</b> 等强力道具在开局禁用期内锁权重；后顺位自带兜底回落，绝不空抽。</p></div>
+        <div class="gameplay-mkw-step"><b>4. 间隔冷却与场上总上限</b><p>受 <code>IntervalLimit</code> 与 <code>NumLimit</code> 双控：<b>刺刺龟壳</b> 全局 90s 冷却且全场最多 1 个；<b>闪电</b> 冷却 45～90s 且全场最多 1 个；<b>鱿鱿</b> 冷却 12～45s 且全场最多 1 个。</p></div>
+        <div class="gameplay-mkw-step"><b>5. 加权归一化与防重</b><p>按有效 <code>Ratio / sum</code> 概率抽选；<code>EnableSame</code> 关闭时自动避开本组当前手牌，保留官方 28 道具译名（如 <b>冲刺蘑菇</b>、<b>刺刺龟壳</b>、<b>黄金龟壳</b>、<b>？砖块</b>）。</p></div>
+        <div class="gameplay-mkw-step"><b>6. 使用期 Rank 动态参数</b><p><b>鱿鱿</b>按 Rank 调整 <code>InkLevel (3/2/1)</code> 时长系数（1.0× / 0.75× / 0.5×）；<b>炮弹刺客</b>记录 <code>KillerTargetRank</code>；<b>闪电</b>记录各目标 <code>ThunderFrame</code> 缩小帧。</p></div>
+      </div>
+    `;
+
+    const modeGridEl = document.createElement("div");
+    modeGridEl.className = "gameplay-mkw-section";
+    modeGridEl.innerHTML = `
+      <h4>11+1 种官方模式一览（当前：${E(currentCfg.mode)} · 预设 ${E(currentCfg.switchPreset)}）</h4>
+      <div class="gameplay-mkw-modes">
+        ${modes
+          .map(
+            (m) =>
+              `<div class="gameplay-mkw-mode-card"><code>${E(m.id)}</code> · <strong>${E(m.name)}</strong><div>表：${E(m.table)}${m.comTable ? ` / COM: ${E(m.comTable)}` : ""}</div></div>`,
+          )
+          .join("")}
+      </div>
+    `;
+
+    const sampleRanks = [0, 3, 7, 11, 15, 19, 23];
+    const paramRows = sampleRanks
+      .map((r) => {
+        const p = ItemDrawPolicy.paramByRank(r);
+        const inkMult =
+          p.inkLevel === 1 ? "0.50×" : p.inkLevel === 2 ? "0.75×" : "1.00×";
+        return `<tr><td>Rank ${r + 1}</td><td>Level ${E(p.inkLevel)}（${inkMult}）</td><td>+${E(p.killerTargetRank)}</td><td>${E(p.thunderFrame)}f</td></tr>`;
+      })
+      .join("");
+
+    const paramTableEl = document.createElement("div");
+    paramTableEl.className = "gameplay-mkw-section";
+    paramTableEl.innerHTML = `
+      <h4>ItemParamByRankGParam 代表 Rank 参数表（第 1～24 Rank 实时映射）</h4>
+      <div class="gameplay-mkw-table-wrap">
+        <table class="gameplay-mkw-table">
+          <thead>
+            <tr><th>Rank</th><th>鱿鱿 InkLevel（时长倍率）</th><th>炮弹刺客 KillerTargetRank</th><th>闪电 ThunderFrame（缩小帧）</th></tr>
+          </thead>
+          <tbody>${paramRows}</tbody>
+        </table>
+      </div>
+    `;
+
+    const lookupEl = document.createElement("div");
+    lookupEl.className = "gameplay-mkw-section";
+    let simMode = currentCfg.mode;
+    let simPreset = currentCfg.switchPreset;
+    let simRank = 1;
+    let simTotal = 12;
+
+    const lookupHeader = document.createElement("h4");
+    lookupHeader.textContent = "快速概率试算与热点道具预览";
+    const lookupBar = document.createElement("div");
+    lookupBar.className = "gameplay-mkw-lookup";
+    lookupBar.innerHTML = `
+      <label>模式 <select data-mkw-lookup="mode">${modes.map((m) => `<option value="${E(m.id)}" ${m.id === simMode ? "selected" : ""}>${E(m.id)} (${E(m.name)})</option>`).join("")}</select></label>
+      <label>预设 <select data-mkw-lookup="preset"><option value="ALL">ALL (全开)</option>${presets.map((p) => `<option value="${E(p.id)}" ${p.id === simPreset ? "selected" : ""}>${E(p.id)}</option>`).join("")}</select></label>
+      <label>顺位 <input type="number" min="1" max="24" value="${simRank}" data-mkw-lookup="rank"></label>
+      <label>总组数 <input type="number" min="1" max="24" value="${simTotal}" data-mkw-lookup="total"></label>
+    `;
+    const lookupOut = document.createElement("div");
+    lookupOut.className = "gameplay-mkw-pills";
+
+    const updateLookup = () => {
+      const clampedTotal = Math.max(1, Math.min(24, Number(simTotal) || 12));
+      const clampedRank = Math.max(
+        1,
+        Math.min(clampedTotal, Number(simRank) || 1),
+      );
+      const evalRes = ItemDrawPolicy.evaluate({
+        config: { ...currentCfg, mode: simMode, switchPreset: simPreset },
+        position: clampedRank,
+        total: clampedTotal,
+        elapsedFrames: Infinity,
+      });
+      const sum = Object.values(evalRes.weights).reduce(
+        (acc, v) => acc + (Number(v) || 0),
+        0,
+      );
+      const top = Object.entries(evalRes.weights)
+        .filter(([, w]) => w > 0)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
+      lookupOut.innerHTML = top.length
+        ? top
+            .map(([k, w]) => {
+              const name = ITEM_DEFS?.[k]?.name || k;
+              const pct = sum > 0 ? ((w / sum) * 100).toFixed(1) : "0.0";
+              return `<span class="gameplay-mkw-pill"><strong>${E(name)}</strong><span>权重 ${w} · ${pct}%</span></span>`;
+            })
+            .join("")
+        : `<span class="gameplay-mkw-pill">当前配置无正权重候选</span>`;
+    };
+
+    lookupBar.querySelectorAll("[data-mkw-lookup]").forEach((el) => {
+      el.addEventListener("change", () => {
+        const k = el.dataset.mkwLookup;
+        if (k === "mode") simMode = el.value;
+        else if (k === "preset") simPreset = el.value;
+        else if (k === "rank") simRank = Number(el.value) || 1;
+        else if (k === "total") simTotal = Number(el.value) || 12;
+        updateLookup();
+      });
+    });
+    updateLookup();
+    lookupEl.append(lookupHeader, lookupBar, lookupOut);
+
+    const extra = document.createElement("p");
+    extra.className = "gameplay-mkw-section";
+    extra.textContent =
+      "随机事件每 4～8 轮正式判题自动触发（可在「设置 → 规则」启停或调权）；成就与荣誉仅记录课堂正式对抗事件，撤销时与本步状态原子回滚。";
+
+    rules.append(header, stepsEl, modeGridEl, paramTableEl, lookupEl, extra);
+    return rules;
+  }
+
   function render() {
     const host = document.getElementById("gameplayContent");
     if (!host) return;
     host.innerHTML = itemReferenceMarkup();
-    const rules = document.createElement("section");
-    rules.className = "ui-settings-group gameplay-rules";
-    const title = document.createElement("h3");
-    title.innerHTML = `${ic("rule")}<span>当前抽取与课堂机制说明</span>`;
-    const copy = document.createElement("p");
-    copy.textContent = ItemDrawPolicy.summary;
-    const extra = document.createElement("p");
-    extra.textContent =
-      "随机事件每 4～8 轮正式判题自动触发（可在「设置 → 规则」启停或调权）；成就与荣誉仅记录课堂正式对抗事件，撤销时与本步状态原子回滚。";
-    rules.append(title, copy, extra);
-    host.prepend(rules);
+    host.prepend(buildRulesSection());
     host.append(buildEventsSection(), buildAchievementsSection());
     const countEl = document.querySelector("[data-gameplay-items-count]");
     if (countEl && typeof ITEM_KEYS !== "undefined")
@@ -59410,7 +62523,7 @@ const DesktopUI = (() => {
                         mega: "巨大蘑菇",
                         boo: "幽灵保护",
                         ice: "冻结",
-                        power: "强力蘑菇",
+                        power: "强力冲刺蘑菇",
                         feather: "羽毛",
                       })[k === "type" ? v : k] ||
                       (k === "iceLock" ? "冻结" : k),
@@ -59956,6 +63069,7 @@ const DesktopUI = (() => {
 
     GodpowerTheme.mount(sections.appearance);
     UIComponentLibrary.mount(sections.appearance);
+    if (window.ItemDrawSettings) ItemDrawSettings.mount(sections.items);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");

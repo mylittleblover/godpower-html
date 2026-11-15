@@ -39,11 +39,17 @@ function resetCompetitionDataAfterSettlementV21812() {
   if ("roundNo" in state) state.roundNo = 0;
 
   /* 3. 道具全局状态。
-     customIcons 属于用户配置，不属于课堂战绩，所以保留。 */
+     customIcons 与 drawConfig 属于用户配置，不属于课堂战绩，所以保留。 */
   const customIcons =
     state.itemGlobal && state.itemGlobal.customIcons
       ? state.itemGlobal.customIcons
       : STORAGE.getJSON("politics_item_icons", {});
+  const drawConfig = globalThis.ItemDrawPolicy?.normalizeConfig
+    ? globalThis.ItemDrawPolicy.normalizeConfig(state.itemGlobal?.drawConfig)
+    : state.itemGlobal?.drawConfig || {
+        mode: "24KartRace",
+        switchPreset: "ALL",
+      };
 
   state.itemGlobal = {
     blooperUntil: 0,
@@ -53,6 +59,12 @@ function resetCompetitionDataAfterSettlementV21812() {
     handRaiseTotal: 0,
     pkTotal: 0,
     customIcons: customIcons,
+    drawConfig,
+    mkwState: {
+      matchStartedAt: Date.now(),
+      lastUsedAt: {},
+      lastUsedSession: {},
+    },
     drawThrottleV2179: {
       sequence: 0,
       nextEligible: { lightning: 0, blooper: 0 },

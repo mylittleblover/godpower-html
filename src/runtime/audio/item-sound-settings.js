@@ -9,11 +9,11 @@ const ITEM_FX_SOUND_SLOTS = [
     desc: "龟壳、香蕉、炸弹、锤子、闪电等",
   },
   { id: "item_defend", name: "道具·防御成功", desc: "防御道具抵消攻击" },
-  { id: "item_buff", name: "道具·加分/强化", desc: "金币、蘑菇、？砖块等" },
+  { id: "item_buff", name: "道具·加分/强化", desc: "金币、冲刺蘑菇、？砖块等" },
   {
     id: "item_status",
     name: "道具·持续状态",
-    desc: "星星、巨大蘑菇、炮弹、强力蘑菇、鱿鱿",
+    desc: "无敌星、巨大蘑菇、炮弹、强力冲刺蘑菇、鱿鱿",
   },
   { id: "item_steal", name: "害羞幽灵·偷取", desc: "成功偷取道具" },
 ];

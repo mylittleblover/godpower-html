@@ -52,6 +52,25 @@
   };
   for (const [key, desc] of Object.entries(descriptions))
     ITEM_DEFS[key].desc = desc;
+  const renameOfficialTerms = (text) =>
+    typeof text === "string"
+      ? text
+          .replace(/三重蘑菇/g, "三重冲刺蘑菇")
+          .replace(/强力蘑菇/g, "强力冲刺蘑菇")
+          .replace(/普通蘑菇/g, "冲刺蘑菇")
+          .replace(/刺龟壳/g, "刺刺龟壳")
+          .replace(/金币龟壳/g, "黄金龟壳")
+          .replace(/(?<![三重强力冲刺巨大黄金])蘑菇/g, "冲刺蘑菇")
+          .replace(
+            /前\s*60%\s*排名都可能获得；第一名每次正常抽取时获得概率为\s*10%。/g,
+            "按 MKWorld (Product.180) 权重表抽取，高位/中游排名段均有分布。",
+          )
+      : text;
+  for (const key of ITEM_KEYS) {
+    if (ITEM_DEFS[key]) {
+      ITEM_DEFS[key].desc = renameOfficialTerms(ITEM_DEFS[key].desc);
+    }
+  }
   for (const key of ITEM_KEYS) {
     const desc = ITEM_DEFS[key].desc;
     // The "实际效果" maps share the canonical rules text.
@@ -77,8 +96,16 @@
     star: "真正的价值是腾槽、防御与双倍得分三合一：既把道具栏解放出来，又让这段安全期变成涨分期。",
     mega: "和无敌星规则相同，但它坚持占着道具栏，换来的是一段可预期的双倍得分窗口。",
   };
-  if (typeof ITEM_TIPS_V218 !== "undefined")
+  if (typeof ITEM_TIPS_V218 !== "undefined") {
+    for (const key of Object.keys(ITEM_TIPS_V218))
+      ITEM_TIPS_V218[key] = renameOfficialTerms(ITEM_TIPS_V218[key]);
     for (const [key, tip] of Object.entries(tactics)) ITEM_TIPS_V218[key] = tip;
+  }
+  for (const key of Object.keys(ITEM_FUNNY_COPY_V2184)) {
+    ITEM_FUNNY_COPY_V2184[key] = renameOfficialTerms(
+      ITEM_FUNNY_COPY_V2184[key],
+    );
+  }
   Object.assign(ITEM_FUNNY_COPY_V2184, {
     star: "三轮防御，使用后立即腾出主要道具槽。",
     mega: "三轮防御，占据主要道具槽。",

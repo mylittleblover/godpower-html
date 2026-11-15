@@ -5,10 +5,10 @@
       "weights": {
         "kamek": 3,
         "itemBox": 4,
-        "horn": 9,
+        "horn": 10,
         "bomb": 10,
-        "mushroom": 16,
-        "fireFlower": 11
+        "mushroom": 30,
+        "fireFlower": 3
       },
       "unique": {
         "beforeKamek": 3,
@@ -19,7 +19,7 @@
         "kamekStill": 3,
         "bothKamek": 0,
         "bothBox": 0,
-        "hornUnaffected": 9
+        "hornUnaffected": 10
       },
       "targeting": {
         "allCleanOnly": true

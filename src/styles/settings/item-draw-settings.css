@@ -1,0 +1,227 @@
+/* Scoped to the MKWorld Product.180 item draw settings panel. */
+.idraw-group {
+  margin-bottom: 18px;
+}
+.idraw-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.idraw-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.idraw-header h4 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.idraw-header p {
+  margin: 0;
+  color: var(--ui-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.idraw-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.idraw-status {
+  margin: 0;
+  color: var(--ui-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.idraw-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.idraw-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+}
+.idraw-field-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+.idraw-field select,
+.idraw-field input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  font-size: 13px;
+}
+.idraw-field small {
+  color: var(--ui-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.idraw-toggles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.idraw-toggle-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  cursor: pointer;
+}
+.idraw-toggle-card input {
+  margin-top: 3px;
+}
+.idraw-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.idraw-toggle-copy strong {
+  font-size: 13px;
+}
+.idraw-toggle-copy span {
+  color: var(--ui-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.idraw-summary-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.idraw-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  background: var(--ui-soft-2);
+  color: var(--ui-text);
+  font-size: 12px;
+}
+.idraw-preview-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.idraw-preview-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ui-text);
+}
+.idraw-preview-toolbar select,
+.idraw-preview-toolbar input[type="number"] {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  color: var(--ui-text);
+  font-size: 13px;
+}
+.idraw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+}
+.idraw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.idraw-table th,
+.idraw-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ui-border);
+  white-space: nowrap;
+}
+.idraw-table th {
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+  font-weight: 700;
+}
+.idraw-table tr:last-child td {
+  border-bottom: 0;
+}
+.idraw-item-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.idraw-item-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+.idraw-item-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.idraw-gate-pill {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.idraw-gate-open {
+  background: color-mix(in srgb, var(--ui-primary) 14%, var(--ui-panel));
+  color: var(--ui-primary);
+  font-weight: 700;
+}
+.idraw-gate-blocked {
+  background: color-mix(in srgb, #dc2626 12%, var(--ui-panel));
+  color: #b91c1c;
+}
+.idraw-gates-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px;
+}
+.idraw-gate-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  font-size: 12px;
+}
+.idraw-gate-card strong {
+  color: var(--ui-text);
+}
+.idraw-gate-card span {
+  color: var(--ui-muted);
+}

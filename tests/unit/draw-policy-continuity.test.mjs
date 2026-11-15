@@ -2,67 +2,69 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import vm from "node:vm";
 import { readFileSync, existsSync } from "node:fs";
+
 function load() {
   const c = vm.createContext({});
+  if (existsSync("src/domain/items/mkw-tables.js"))
+    vm.runInContext(readFileSync("src/domain/items/mkw-tables.js", "utf8"), c);
   if (existsSync("src/domain/items/draw-policy.js"))
     vm.runInContext(readFileSync("src/domain/items/draw-policy.js", "utf8"), c);
   const f = vm.runInContext(
     "typeof ItemDrawPolicy==='undefined'?null:ItemDrawPolicy",
     c,
   );
-  assert.ok(f, "continuous production draw policy must exist");
+  assert.ok(f, "MKWorld Product.180 draw policy must exist");
   return f;
 }
+
 const high = ["star", "mega", "bullet", "lightning", "power", "spiny"];
-const share = (w) =>
-  high.reduce((s, k) => s + w[k], 0) /
-  Object.values(w).reduce((a, b) => a + b, 0);
-test("continuous rank blend removes old hard partitions while preserving exact explicit horn eligibility", () => {
+const share = (w) => {
+  const total = Object.values(w).reduce((a, b) => a + b, 0);
+  return total > 0 ? high.reduce((s, k) => s + w[k], 0) / total : 0;
+};
+
+test("Product.180 standard 24-column matrix scales catch-up items monotonically by position", () => {
   const f = load();
-  let before = 0;
-  for (let p = 1; p <= 20; p++) {
-    const w = f.weights({
-      position: p,
-      total: 20,
-      score: 100,
-      leaderScore: 100,
-    });
-    assert.equal(Object.keys(w).length, 28);
-    for (const [key, v] of Object.entries(w)) {
-      assert.ok(Number.isFinite(v) && v >= 0, key);
-      if (key !== "horn")
-        assert.ok(v > 0, key + " must not disappear across an old band");
-    }
-    const s = share(w);
-    assert.ok(
-      s >= before - 1e-12,
-      "catch-up share should not reverse with equal scores",
-    );
-    before = s;
-    if (p > 12) assert.equal(w.horn, 0);
-  }
+  const front = f.weights({ position: 1, total: 24, score: 100 });
+  const mid = f.weights({ position: 12, total: 24, score: 100 });
+  const back = f.weights({ position: 24, total: 24, score: 100 });
+
+  assert.equal(Object.keys(front).length, 28);
+  assert.equal(Object.keys(back).length, 28);
+  assert.equal(front.lightning, 0);
+  assert.equal(front.bullet, 0);
+  assert.ok(share(mid) > share(front));
+  assert.ok(share(back) >= share(mid));
+  assert.ok(mid.lightning > 0);
+  assert.ok(back.bullet > 0);
+  assert.equal(back.horn, 0);
 });
-test("two-fold positive gap increases catch-up probability, while unique and held items remain excluded", () => {
-  const f = load(),
-    small = f.weights({ position: 8, total: 14, score: 100, leaderScore: 100 }),
-    large = f.weights({ position: 8, total: 14, score: 100, leaderScore: 200 });
-  assert.ok(share(large) > share(small));
+
+test("held items, unique field caps, and ineligible negative scores are gated correctly", () => {
+  const f = load();
   const w = f.weights({
-    position: 8,
-    total: 14,
+    position: 20,
+    total: 24,
     score: 100,
-    leaderScore: 200,
-    field: ["lightning", "blooper", "kamek", "item_box"],
+    field: ["lightning", "blooper", "spiny", "kamek", "item_box"],
     held: ["power"],
   });
-  for (const k of ["lightning", "blooper", "kamek", "item_box", "power"])
+  for (const k of [
+    "lightning",
+    "blooper",
+    "spiny",
+    "kamek",
+    "item_box",
+    "power",
+  ])
     assert.equal(w[k], 0);
   assert.ok(
     Object.values(
       f.weights({ position: 2, total: 4, score: -1, leaderScore: 100 }),
-    ).every((w) => w === 0),
+    ).every((v) => v === 0),
   );
 });
+
 test("the build contains one ordinary draw weight entry and no old wrapper chain", () => {
   const blocks = JSON.parse(
     readFileSync("src/manifest.json", "utf8"),

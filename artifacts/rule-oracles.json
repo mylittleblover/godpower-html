@@ -39,8 +39,8 @@
         {
           "key": "triple_green",
           "charges": 2,
-          "acquiredAt": 1793748434433,
-          "itemInstanceId": "item-0e4259d3-47aa-4dd4-9822-b785b284e678"
+          "acquiredAt": 1794734562771,
+          "itemInstanceId": "item-93625611-5588-497b-a88b-2df0f5c0aacf"
         }
       ],
       "effect": null,
@@ -90,8 +90,8 @@
         {
           "key": "triple_red",
           "charges": 2,
-          "acquiredAt": 1793748437305,
-          "itemInstanceId": "item-1817dbc8-090a-4609-a953-a704ca7702e9"
+          "acquiredAt": 1794734562932,
+          "itemInstanceId": "item-455e4520-779d-4d06-871a-ad4a869c4120"
         }
       ],
       "effect": null,
@@ -163,8 +163,8 @@
         {
           "key": "triple_banana",
           "charges": 2,
-          "acquiredAt": 1793748439654,
-          "itemInstanceId": "item-573304b4-59e7-4b66-8c53-1d1280900663"
+          "acquiredAt": 1794734563138,
+          "itemInstanceId": "item-b25be6c1-c78c-46e5-b685-2bfc53555efd"
         }
       ],
       "effect": null,
@@ -346,8 +346,8 @@
         {
           "key": "triple_mushroom",
           "charges": 2,
-          "acquiredAt": 1793748444845,
-          "itemInstanceId": "item-e1dd3590-914d-4b27-9e7c-6d12ea52d9bc"
+          "acquiredAt": 1794734563972,
+          "itemInstanceId": "item-4cdaf4bf-1b1f-4013-9d59-6e5f4a5fe6ae"
         }
       ],
       "effect": null,
@@ -375,8 +375,8 @@
         {
           "key": "mushroom",
           "charges": 1,
-          "acquiredAt": 1793748445446,
-          "itemInstanceId": "item-b3e12cd5-ceb4-488f-a36f-5677e25a08ae"
+          "acquiredAt": 1794734564089,
+          "itemInstanceId": "item-64ef64bb-8a9f-449d-b928-9ddd87b0963d"
         }
       ],
       "effect": null,
@@ -448,7 +448,8 @@
       "effect": {
         "type": "star",
         "roundsLeft": 3,
-        "startedAt": 1793748446552
+        "startedAt": 1794734564443,
+        "activationId": "command-b36ddab0-64b2-4f16-aa7f-d36f2cb944ac"
       },
       "ghost": 0,
       "targetEffect": null,
@@ -474,14 +475,15 @@
         {
           "key": "mega",
           "charges": 1,
-          "acquiredAt": 1793748446937,
-          "itemInstanceId": "item-fd3af2e2-8cf1-40a4-8368-c3d4b31df58f"
+          "acquiredAt": 1794734564577,
+          "itemInstanceId": "item-1e734ff9-d790-48c1-ba43-c3bc6413d485"
         }
       ],
       "effect": {
         "type": "mega",
         "roundsLeft": 3,
-        "startedAt": 1793748446942
+        "startedAt": 1794734564578,
+        "activationId": "command-6d64a428-94f8-4641-80b1-891e1ac8e300"
       },
       "ghost": 0,
       "targetEffect": null,
@@ -529,14 +531,16 @@
         {
           "key": "power",
           "charges": 1,
-          "acquiredAt": 1793748447737,
-          "itemInstanceId": "item-f6c2fc97-09ea-4b2f-b395-b7998ac8920d"
+          "acquiredAt": 1794734564980,
+          "itemInstanceId": "item-442ddf7a-c71b-4465-8310-8b7d88f17bfb"
         }
       ],
       "effect": {
         "type": "power",
         "roundsLeft": 5,
-        "startedAt": 1793748447741
+        "totalAnswered": 0,
+        "totalCorrect": 0,
+        "startedAt": 1794734564982
       },
       "ghost": 0,
       "targetEffect": null,
@@ -586,8 +590,8 @@
         {
           "key": "fire_flower",
           "charges": 2,
-          "acquiredAt": 1793748448630,
-          "itemInstanceId": "item-632c8c4e-3d37-4bf2-9e22-dcd28ed57faa"
+          "acquiredAt": 1794734565339,
+          "itemInstanceId": "item-ad9302fa-deb6-4191-b3d6-6676f495a77e"
         }
       ],
       "effect": null,
@@ -619,8 +623,8 @@
         {
           "key": "ice_flower",
           "charges": 2,
-          "acquiredAt": 1793748448941,
-          "itemInstanceId": "item-99287f56-48b2-4a1c-a05a-7475beb3861d"
+          "acquiredAt": 1794734565508,
+          "itemInstanceId": "item-e6e17b77-111d-4182-a94a-814de706da84"
         }
       ],
       "effect": null,
@@ -628,7 +632,8 @@
       "targetEffect": null,
       "targetStatuses": {
         "freeze": {
-          "remaining": 2
+          "remaining": 2,
+          "casterGroupUid": "group-f28cec83-5969-489c-8052-0fb4317427a2"
         }
       },
       "masked": false
@@ -652,8 +657,8 @@
         {
           "key": "boomerang_flower",
           "charges": 2,
-          "acquiredAt": 1793748449220,
-          "itemInstanceId": "item-0d0de1b8-4066-478b-8f40-7706e5d4cd26"
+          "acquiredAt": 1794734565674,
+          "itemInstanceId": "item-609ddce5-9f79-43b0-88fb-2d1bb0cff009"
         }
       ],
       "effect": null,

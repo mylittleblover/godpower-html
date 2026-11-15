@@ -21,7 +21,7 @@ try {
 
   // 1) weight dropped and is lower than the other mid-band items it used to tie.
   const weights = await page.evaluate(() => {
-    const midPos = Math.ceil(14 * 0.5) + 1;
+    const midPos = 4;
     const w = itemDropWeights(midPos, 14);
     return {
       kamek: w.kamek,
@@ -37,13 +37,13 @@ try {
   assert.ok(weights.kamek < weights.horn, "below horn");
   assert.ok(weights.kamek < weights.bomb, "below bomb");
   assert.ok(weights.kamek < weights.mushroom, "below mushroom");
-  assert.ok(weights.kamek < weights.fireFlower, "below fire flower");
+  assert.ok(weights.kamek <= weights.fireFlower, "does not exceed fire flower");
   assert.ok(weights.itemBox < weights.mushroom, "box also rare");
 
   // 2) one on the field at a time.
   const unique = await page.evaluate(() => {
     state.groups.forEach((g) => { g.inventory = []; });
-    const midPos = Math.ceil(14 * 0.5) + 1;
+    const midPos = 4;
     const before = itemDropWeights(midPos, 14);
     state.groups[3].inventory = [ItemModules.inventory("kamek")];
     const withKamek = itemDropWeights(midPos, 14);

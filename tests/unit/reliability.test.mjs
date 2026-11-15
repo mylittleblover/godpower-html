@@ -40,27 +40,24 @@ for (const hasStartedOnce of [false, true])
   for (const roundActive of [false, true])
     for (const evaluated of [false, true])
       for (const correctAns of ["", "A"])
-        test(
-          `legacy phase precedence ${+hasStartedOnce}${+roundActive}${+evaluated}:${correctAns || "none"}`,
-          () => {
-            const round = {
-              hasStartedOnce,
-              roundActive,
-              evaluated,
-              correctAns,
-            };
-            const expected = !hasStartedOnce
-              ? "NOT_STARTED"
-              : !roundActive
-                ? "FINISHED"
-                : evaluated
-                  ? "SETTLED"
-                  : correctAns
-                    ? "ANSWER_SELECTED"
-                    : "ANSWERING";
-            assert.equal(core.phase(round), expected);
-          },
-        );
+        test(`legacy phase precedence ${+hasStartedOnce}${+roundActive}${+evaluated}:${correctAns || "none"}`, () => {
+          const round = {
+            hasStartedOnce,
+            roundActive,
+            evaluated,
+            correctAns,
+          };
+          const expected = !hasStartedOnce
+            ? "NOT_STARTED"
+            : !roundActive
+              ? "FINISHED"
+              : evaluated
+                ? "SETTLED"
+                : correctAns
+                  ? "ANSWER_SELECTED"
+                  : "ANSWERING";
+          assert.equal(core.phase(round), expected);
+        });
 for (const uri of [
   'x" onerror="alert(1)',
   "javascript:alert(1)",
@@ -176,4 +173,47 @@ test("valid legacy picker cooldown and classroom histories remain importable", (
     },
   };
   assert.equal(core.validateBackup(data), data);
+});
+test("validates MKWorld Product.180 drawConfig and mkwState in backups and rejects malformed fields", () => {
+  const valid = {
+    schemaVersion: 1,
+    groups: [{ id: 1, score: 10, members: ["学生"] }],
+    itemGlobal: {
+      drawConfig: {
+        mode: "Dynamic",
+        switchPreset: "P08",
+        useComTable: false,
+        enableSame: false,
+        ignorePenalty: false,
+        timingMode: "rounds",
+        positionMapping: "auto",
+        includeClassroomItemBox: true,
+        applyPostDrawRankParams: true,
+      },
+      mkwState: {
+        matchStartedAt: 1700000000,
+        lastUsedAt: { spiny: 1700005000 },
+        lastUsedSession: { spiny: 3 },
+      },
+    },
+  };
+  assert.equal(core.validateBackup(valid), valid);
+  assert.throws(() =>
+    core.validateBackup({
+      groups: [{ score: 0 }],
+      itemGlobal: { drawConfig: ["invalid"] },
+    }),
+  );
+  assert.throws(() =>
+    core.validateBackup({
+      groups: [{ score: 0 }],
+      itemGlobal: { drawConfig: { enableSame: "yes" } },
+    }),
+  );
+  assert.throws(() =>
+    core.validateBackup({
+      groups: [{ score: 0 }],
+      itemGlobal: { mkwState: { lastUsedAt: { lightning: "bad" } } },
+    }),
+  );
 });

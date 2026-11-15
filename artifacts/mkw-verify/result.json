@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "persistedBeforeReload": {
+    "mode": "Dynamic",
+    "switchPreset": "P08",
+    "useComTable": true,
+    "enableSame": true,
+    "ignorePenalty": false,
+    "timingMode": "rounds",
+    "positionMapping": "auto",
+    "includeClassroomItemBox": true,
+    "applyPostDrawRankParams": true
+  },
+  "opMeta": {
+    "afterLeaderBlooper": {
+      "key": "blooper",
+      "rank": null,
+      "inkLevel": 3,
+      "durationMs": 120000,
+      "at": 1794734535248
+    },
+    "afterBullet": {
+      "key": "bullet",
+      "rank": 4,
+      "killerTargetRank": 3,
+      "at": 1794734535389
+    },
+    "afterLightning": {
+      "effect": {
+        "key": "lightning",
+        "targetCount": 2,
+        "minThunderFrame": 140,
+        "maxThunderFrame": 180,
+        "at": 1794734535492
+      },
+      "targets": [
+        {
+          "groupId": 1,
+          "rank": null,
+          "thunderFrame": 180
+        },
+        {
+          "groupId": 2,
+          "rank": 2,
+          "thunderFrame": 140
+        }
+      ]
+    }
+  },
+  "errors": []
+}

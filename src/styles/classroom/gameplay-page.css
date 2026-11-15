@@ -730,3 +730,116 @@
   align-items: center;
   gap: 6px;
 }
+
+.gameplay-mkw-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gameplay-mkw-section {
+  margin-top: 16px;
+}
+.gameplay-mkw-section h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--ui-text);
+}
+.gameplay-mkw-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+.gameplay-mkw-step {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-soft-2);
+}
+.gameplay-mkw-step > b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ui-primary);
+  font-size: 13px;
+}
+.gameplay-mkw-step p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.gameplay-mkw-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+.gameplay-mkw-mode-card {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.gameplay-mkw-mode-card code {
+  font-weight: 700;
+  color: var(--ui-primary);
+}
+.gameplay-mkw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-panel);
+}
+.gameplay-mkw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.gameplay-mkw-table th,
+.gameplay-mkw-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--ui-border);
+  white-space: nowrap;
+}
+.gameplay-mkw-table th {
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+}
+.gameplay-mkw-table tr:last-child td {
+  border-bottom: 0;
+}
+.gameplay-mkw-lookup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.gameplay-mkw-lookup select,
+.gameplay-mkw-lookup input[type="number"] {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  background: var(--ui-panel);
+  color: var(--ui-text);
+}
+.gameplay-mkw-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gameplay-mkw-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-panel);
+  font-size: 12px;
+}

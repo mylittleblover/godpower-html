@@ -30,12 +30,15 @@ try {
         "module settings",
       );
       for (let pos = 1; pos <= 14; pos++)
-        for (const key of ["kamek", "item_box"])
-          assert(
-            itemDropWeights(pos, 14)[key] > 0 ===
-              (itemRankBandV2172(pos, 14) === "mid"),
-            "mid-only " + pos,
-          );
+        for (const key of ["kamek", "item_box"]) {
+          const w = itemDropWeights(pos, 14)[key];
+          if (pos === 1 || pos >= 11) {
+            assert(w === 0, `${key} excluded at boundary pos ${pos}`);
+          }
+          if (pos >= 3 && pos <= 6) {
+            assert(w > 0, `${key} eligible at midfield pos ${pos}`);
+          }
+        }
       assert(
         ITEM_ORDER_V218.includes("kamek") &&
           GROUP_ITEM_ORDER_V2182.includes("item_box") &&

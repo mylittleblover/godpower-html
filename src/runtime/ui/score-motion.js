@@ -202,7 +202,7 @@ function queueItemScoreChangesV21732(beforeMap) {
 
 /* 道具主入口 */
 
-/* 异步攻击兜底，例如刺龟壳确认后才真正扣分。 */
+/* 异步攻击兜底，例如刺刺龟壳确认后才真正扣分。 */
 
 /* 关键：旧逻辑在道具动画期间可能多次 renderGrid，并把 displayScore 又写成真实 score。
    每次刷新前重新套用视觉冻结值，确保新分数不会提前露出来。 */

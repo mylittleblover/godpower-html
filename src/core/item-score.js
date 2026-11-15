@@ -43,7 +43,7 @@ function applyItemScoreAfterHorn(
     attackRenderGateV21713 = true;
   let result;
   if (isAttack && target && attackType === "spiny") {
-    destroyPrimaryBasicDefenseV2170(target, sourceId, "刺龟壳");
+    destroyPrimaryBasicDefenseV2170(target, sourceId, "刺刺龟壳");
     const main = target.inventory?.[0];
     if (
       main &&
