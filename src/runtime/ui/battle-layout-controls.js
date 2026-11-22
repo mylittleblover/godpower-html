@@ -38,8 +38,10 @@ function updateColumnMode(mode) {
 function updateResizerUI() {
   const dock = document.getElementById("heightResizerDock");
   if (!dock) return;
-  dock.style.display = state.resizerEnabled ? "flex" : "none";
-  dock.style.height = `${state.resizerHeight}px`;
+  const nextDisplay = state.resizerEnabled ? "flex" : "none";
+  if (dock.style.display !== nextDisplay) dock.style.display = nextDisplay;
+  const nextHeight = `${state.resizerHeight}px`;
+  if (dock.style.height !== nextHeight) dock.style.height = nextHeight;
 }
 
 function initResizerDrag() {

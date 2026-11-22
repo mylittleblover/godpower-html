@@ -197,6 +197,8 @@ const AchievementLedger = (() => {
   function apply(value, events, { seasonId = null } = {}) {
     const ledger = normalize(value);
     const seenInBatch = new Set();
+    const processedByGroup = new Map();
+    const discoveryByGroup = new Map();
     const unlocked = [];
     let applied = 0;
     let duplicates = 0;
@@ -212,10 +214,12 @@ const AchievementLedger = (() => {
       const uid = event.aggregate.id;
       const progress =
         ledger.groups[uid] || (ledger.groups[uid] = newGroupProgress(seasonId));
-      if (
-        seenInBatch.has(event.eventId) ||
-        progress.processedEvents.includes(event.eventId)
-      ) {
+      let processedSet = processedByGroup.get(uid);
+      if (!processedSet) {
+        processedSet = new Set(progress.processedEvents);
+        processedByGroup.set(uid, processedSet);
+      }
+      if (seenInBatch.has(event.eventId) || processedSet.has(event.eventId)) {
         duplicates++;
         continue;
       }
@@ -240,10 +244,18 @@ const AchievementLedger = (() => {
         (progress.seasonCounters[event.type] || 0) + 1;
       if (
         event.type === "ITEM_ACQUIRED" &&
-        typeof event.payload?.itemKey === "string" &&
-        !progress.itemDiscovery.includes(event.payload.itemKey)
-      )
-        progress.itemDiscovery.push(event.payload.itemKey);
+        typeof event.payload?.itemKey === "string"
+      ) {
+        let discoverySet = discoveryByGroup.get(uid);
+        if (!discoverySet) {
+          discoverySet = new Set(progress.itemDiscovery);
+          discoveryByGroup.set(uid, discoverySet);
+        }
+        if (!discoverySet.has(event.payload.itemKey)) {
+          discoverySet.add(event.payload.itemKey);
+          progress.itemDiscovery.push(event.payload.itemKey);
+        }
+      }
       const groupUnlocks = [];
       const seenUnlocked = new Set();
       const pushUnlock = (entry) => {
@@ -271,6 +283,7 @@ const AchievementLedger = (() => {
         );
       if (typeof HonorAchievementRules !== "undefined")
         HonorAchievementRules.evaluate(progress, event).forEach(pushUnlock);
+      processedSet.add(event.eventId);
       progress.processedEvents.push(event.eventId);
       applied++;
       unlocked.push(...groupUnlocks);

@@ -114,15 +114,8 @@ const MigrationPanel = (() => {
     }
   }
   function download() {
-    if (!report) return;
-    const url = URL.createObjectURL(
-      new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }),
-    );
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "GodPower_迁移校验报告.json";
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    if (report)
+      GodpowerTheme.downloadJson(report, "GodPower_迁移校验报告.json");
   }
   function init() {
     if (!element("v3MigrationTools")) return;

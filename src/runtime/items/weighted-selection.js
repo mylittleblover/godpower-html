@@ -70,30 +70,6 @@ Object.assign(ITEM_DEFS, {
 ITEM_KEYS = Object.keys(ITEM_DEFS); // V2.8.4: 新增道具后刷新全局枚举，所有旧管理器自动获得 26 项
 
 /* 默认图标兼容：若用户没上传图片，就用 emoji；百科/上传系统会自动读取 ITEM_DEFS。 */
-function v282RandomOther(caster) {
-  const arr = state.groups.filter(
-    (g) => g.id !== caster.id && Number(g.score) >= 0,
-  );
-  return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
-}
-function v282TakeFraction(target, frac, key, caster) {
-  if (!target || Number(target.score) < 0) return false;
-  const amount = Math.round(Math.max(0, Number(target.score) || 0) * frac);
-  if (amount <= 0) return true;
-  try {
-    if (typeof applyItemAttack === "function")
-      return applyItemAttack(caster, target, amount, key);
-  } catch (e) {}
-  target.score = Math.round((Number(target.score) || 0) - amount);
-  return true;
-}
-function v282Consume(g, index) {
-  const it = g.inventory[index];
-  if (!it) return;
-  it.charges = Math.max(0, (Number(it.charges) || 1) - 1);
-  if (it.charges <= 0) g.inventory.splice(index, 1);
-}
-
 /* 扩展 useItem。旧 26 种完全交回 V2.8 原逻辑。 */
 
 /* 新增道具视觉语言 */

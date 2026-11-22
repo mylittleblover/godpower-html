@@ -74,6 +74,7 @@
         ...token(),
         rosterRevision: current.roster.revision,
       }),
+      archivesView: () => clone(current.archives),
       rosterView: () => ({
         saveId: current.saveId,
         revision: current.revision,
@@ -84,7 +85,11 @@
       whenIdle: () => queue,
       update: (
         prepare,
-        { token: requested = token(), apply: shouldApply = false } = {},
+        {
+          token: requested = token(),
+          apply: shouldApply = false,
+          cloneCurrent = true,
+        } = {},
       ) => {
         if (switching)
           return Promise.resolve(
@@ -97,7 +102,9 @@
         return enqueue(async () => {
           if (!matches(requested)) return reject("GENERATION_CONFLICT");
           status("saving");
-          const prepared = await prepare(clone(current));
+          const prepared = await prepare(
+            cloneCurrent ? clone(current) : current,
+          );
           if (!matches(requested)) return reject("GENERATION_CONFLICT");
           const doc = root.SaveSchema.assertV2(prepared.document);
           if (
@@ -112,6 +119,7 @@
             {
               expectedGeneration: index.generation,
               assets: prepared.assets || [],
+              owned: true,
             },
           );
           if (!result?.ok) {

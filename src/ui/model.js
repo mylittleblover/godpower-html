@@ -234,6 +234,16 @@
     return { background: "#" + best, foreground: "#FFFFFF" };
   }
 
+  const HTML_ESCAPES = Object.freeze({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  });
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (ch) => HTML_ESCAPES[ch]);
+  }
   function badgeColors(color) {
     return paintColors(color, 0.45);
   }
@@ -242,6 +252,7 @@
     badgeColors,
     crestColors,
     scoreColors: badgeColors,
+    escapeHtml,
     standings,
     dayIndex,
     daily,

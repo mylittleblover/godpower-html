@@ -140,6 +140,7 @@ showItemUseFx = function (key, casterId = null, targetText = "") {
    公共事件音效仅留下抽取三件套 + 防御成功；
    下面单独列出 26 个道具，每一个都可独立试听 / 上传 / 还原。 */
 const itemFxSoundMarkupCache = new WeakMap();
+const itemFxSoundSigCache = new WeakMap();
 function renderItemFxSoundListV26() {
   const box = document.getElementById("itemFxSoundListV26");
   if (!box) return;
@@ -150,6 +151,19 @@ function renderItemFxSoundListV26() {
     { id: "item_draw_reveal", name: "道具抽取 · 定格", desc: "所有道具共用" },
     { id: "item_defend", name: "道具防御 · 成功", desc: "统一防御提示音" },
   ];
+
+  const slotSig = (id) => {
+    const vars = customFxVariants[id];
+    const customIcon = state?.itemGlobal?.customIcons?.[id.slice(5)];
+    return `${id}:${customFxBuffers[id] ? 1 : 0}:${hasSound("fx_" + id) ? 1 : 0}:${Array.isArray(vars) ? vars.map((v) => `${v?.id || ""}:${v?.name || ""}`).join(",") : ""}:${customIcon ? customIcon.length : 0}`;
+  };
+  const sigParts = [ITEM_KEYS.length];
+  for (let i = 0; i < common.length; i++) sigParts.push(slotSig(common[i].id));
+  for (let i = 0; i < ITEM_KEYS.length; i++)
+    sigParts.push(slotSig(`item_${ITEM_KEYS[i]}`));
+  const listSig = sigParts.join("|");
+  const prevSig = itemFxSoundSigCache.get(box);
+  if (prevSig?.sig === listSig && prevSig.firstChild === box.firstChild) return;
 
   const rowHtml = (id, name, desc, visual = "") => {
     const custom =
@@ -199,10 +213,12 @@ function renderItemFxSoundListV26() {
       }).join("")}
     </div>
   `;
-  const previous=itemFxSoundMarkupCache.get(box);
-  if(previous?.markup===markup && previous.firstChild===box.firstChild)return;
-  box.innerHTML=markup;
-  itemFxSoundMarkupCache.set(box,{markup,firstChild:box.firstChild});
+  const previous = itemFxSoundMarkupCache.get(box);
+  if (previous?.markup === markup && previous.firstChild === box.firstChild)
+    return;
+  box.innerHTML = markup;
+  itemFxSoundMarkupCache.set(box, { markup, firstChild: box.firstChild });
+  itemFxSoundSigCache.set(box, { sig: listSig, firstChild: box.firstChild });
 }
 
 /* 上传 / 删除后立即刷新独立道具音效列表。 */

@@ -59,8 +59,8 @@ function refreshBattleGrid() {
     !attackRenderFlushingV21713 &&
     (attackRenderGateV21713 || attackRenderTimerV21713);
   if (!attackPending) {
-    renderBattleGridCards();
-    decorateBattleRanks();
+    const changedCount = renderBattleGridCards();
+    decorateBattleRanks(changedCount > 0);
     decorateRoundItemLocks();
   }
   // Rankings still update while the original attack position is held.

@@ -1,13 +1,7 @@
 /* Non-blocking battle status strip, outcome toast banner, and settings panel for EV01-EV16. */
 (function installRandomEventUI(root) {
   "use strict";
-  const E = (value) =>
-    typeof escapeHtml === "function"
-      ? escapeHtml(value)
-      : String(value ?? "").replace(
-          /[&<>"]/g,
-          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
-        );
+  const E = GodpowerUIModel.escapeHtml;
 
   const CATEGORY_META = Object.freeze({
     score: { label: "得分狂欢", tone: "score", glyph: "trending_up" },
@@ -20,6 +14,7 @@
   let bannerTimer = null;
   let historyDrawerOpen = false;
   let settingsHost = null;
+  let lastBattleStripSig = "";
 
   function icon(name) {
     return typeof GodpowerTheme !== "undefined" &&
@@ -35,16 +30,35 @@
     const cfg = state?.randomEventConfig || RandomEvents.defaultConfig();
     const ev = state?.randomEvents;
     if (!cfg.enabled || !ev) {
-      strip.hidden = true;
-      strip.innerHTML = "";
+      lastBattleStripSig = "";
+      if (!strip.hidden) strip.hidden = true;
+      if (strip.innerHTML) strip.innerHTML = "";
       historyDrawerOpen = false;
       return;
     }
-    strip.hidden = false;
     const active = Array.isArray(ev.active) ? ev.active : [];
     const recent = Array.isArray(ev.history)
       ? ev.history.slice(-6).reverse()
       : [];
+    const sig = JSON.stringify([
+      ev.roundsUntilNext,
+      historyDrawerOpen,
+      cfg.minInterval,
+      cfg.maxInterval,
+      active.map((a) => `${a.id}:${a.remaining}:${a.scope}`),
+      recent.map(
+        (h) =>
+          `${h.roundNumber}:${h.id || h.reason}:${h.roundsUntilNext || ""}:${h.summary || ""}`,
+      ),
+    ]);
+    if (
+      sig === lastBattleStripSig &&
+      !strip.hidden &&
+      strip.childElementCount > 0
+    )
+      return;
+    lastBattleStripSig = sig;
+    strip.hidden = false;
     const badges = active.length
       ? active
           .map((item) => {

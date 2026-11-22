@@ -2,6 +2,54 @@
 const UIComponentLibrary = (() => {
   const definitions = [
     [
+      "unified-surfaces",
+      "统一设计系统",
+      "四层表面层级与扁平分割行",
+      ".gp-surface-panel",
+      "styles/components/unified-primitives.css",
+      "unified-surfaces",
+    ],
+    [
+      "unified-tabs",
+      "统一设计系统",
+      "分段切换标签栏",
+      ".gp-tabs",
+      "styles/components/unified-primitives.css",
+      "unified-tabs",
+    ],
+    [
+      "unified-chips",
+      "统一设计系统",
+      "语义化状态标签",
+      ".gp-chip",
+      "styles/components/unified-primitives.css",
+      "unified-chips",
+    ],
+    [
+      "unified-dialog",
+      "统一设计系统",
+      "统一弹窗顶栏与关闭按钮",
+      ".gp-modal-header",
+      "styles/components/unified-primitives.css",
+      "unified-dialog",
+    ],
+    [
+      "unified-header",
+      "统一设计系统",
+      "紧凑子页顶栏与表格",
+      ".gp-page-header",
+      "styles/components/unified-primitives.css",
+      "unified-header",
+    ],
+    [
+      "unified-motion",
+      "统一设计系统",
+      "按压触感与动效变量",
+      ".gp-showcase-motion",
+      "styles/components/unified-primitives.css",
+      "unified-motion",
+    ],
+    [
       "buttons",
       "基础控件",
       "按钮与危险操作",
@@ -563,7 +611,25 @@ const UIComponentLibrary = (() => {
   function sample(entry) {
     const wrap = create("section");
     wrap.className = "ui-panel";
-    if (entry.sample === "buttons")
+    if (entry.sample === "unified-surfaces")
+      wrap.innerHTML =
+        '<div class="gp-surface-panel"><h4>Tier 1 主面板 · 扁平分割行（最大嵌套深度 ≤ 2）</h4><div class="gp-row-list"><div class="gp-row"><div><strong>保留上一轮 All In 状态</strong><div class="ui-muted">使用发丝分割线替代内层卡片边框</div></div><label class="ui-toggle"><input type="checkbox" checked><span class="ui-toggle-track"><span class="ui-toggle-knob"></span></span></label></div><div class="gp-row"><div><strong>Tier 2 次级内嵌区</strong><div class="ui-muted">仅用于功能分区，不额外叠阴影</div></div><span class="gp-inset">内嵌说明区域</span></div></div></div>';
+    else if (entry.sample === "unified-tabs")
+      wrap.innerHTML =
+        '<div class="gp-tabs" role="tablist"><button type="button" class="gp-tab" aria-selected="true">道具图鉴</button><button type="button" class="gp-tab" aria-selected="false">状态效果</button><button type="button" class="gp-tab" aria-selected="false">随机事件</button><button type="button" class="gp-tab" aria-selected="false">成就荣誉</button></div>';
+    else if (entry.sample === "unified-chips")
+      wrap.innerHTML =
+        '<div class="ui-toolbar"><span class="gp-chip">默认中性</span><span class="gp-chip" data-tone="primary">主色高亮</span><span class="gp-chip" data-tone="positive">已永久解锁</span><span class="gp-chip" data-tone="warning">冷却 2 轮</span><span class="gp-chip" data-tone="danger">不可抽取</span><span class="gp-chip" data-tone="info">进行中</span></div>';
+    else if (entry.sample === "unified-dialog")
+      wrap.innerHTML =
+        '<section class="ui-function-surface" style="border:1px solid var(--ui-border);border-radius:var(--radius-lg);overflow:hidden;position:relative;"><header class="gp-modal-header"><h3>统一弹窗标题栏</h3><button type="button" class="item-close ui-window-close" aria-label="关闭窗口">×</button></header><div style="padding:18px 20px;"><p class="ui-muted">所有弹窗统一右上角圆形关闭按钮与 20px 内边距，不再出现双关闭按钮或 emoji。</p><div class="gp-file-picker btn btn-sm"><span>选择文件</span><input type="file" tabindex="-1"></div></div></section>';
+    else if (entry.sample === "unified-header")
+      wrap.innerHTML =
+        '<header class="ui-collection-header gp-page-header"><div><h2>紧凑子页顶栏</h2><div class="ui-collection-sub">保留经典青绿 / 马克思朱红标识，移除冗余英文眉标，释放首屏空间。</div></div><button type="button" class="btn btn-sm">返回比赛</button></header><div class="ui-table-wrap"><table class="gp-table"><thead><tr><th>小组</th><th>积分变化</th><th>状态说明</th></tr></thead><tbody><tr><td>第 1 小组</td><td class="ui-positive">+15</td><td><span class="gp-chip" data-tone="positive">无敌 · 剩 3 轮</span></td></tr><tr><td>第 5 小组</td><td class="ui-negative">-10</td><td><span class="gp-chip" data-tone="warning">灼烧 · 剩 2 轮</span></td></tr></tbody></table></div>';
+    else if (entry.sample === "unified-motion")
+      wrap.innerHTML =
+        '<div class="gp-showcase-grid"><div class="gp-showcase-swatch"><i style="background:var(--ui-primary)"></i><div><b>--ease-out</b><div>cubic-bezier(0.23, 1, 0.32, 1)</div></div></div><div class="gp-showcase-swatch"><i style="background:var(--ui-secondary)"></i><div><b>--dur-press / --dur-fast</b><div>120ms / 160ms · :active scale(0.97)</div></div></div><div class="gp-showcase-swatch"><i style="background:var(--ui-accent)"></i><div><b>仅合成层属性</b><div>transform + opacity，零 transition: all</div></div></div></div><div class="gp-showcase-motion" style="margin-top:14px;"><button type="button" class="btn btn-primary">按压缩放测试</button><button type="button" class="gp-tab active">标签按压反馈</button></div>';
+    else if (entry.sample === "buttons")
       wrap.innerHTML =
         '<div class="ui-toolbar"><button class="btn">普通按钮</button><button class="btn btn-primary">主要操作</button><button class="btn btn-success">成功</button><button class="btn btn-warning">警告</button><button class="btn btn-danger">危险操作</button><button class="btn btn-primary" disabled>禁用</button><button class="btn btn-sm">小按钮</button><button class="btn" aria-busy="true">处理中…</button></div>';
     else if (entry.sample === "inputs")

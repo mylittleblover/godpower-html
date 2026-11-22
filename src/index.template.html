@@ -331,16 +331,16 @@
 <!-- 结算档案处弹窗 -->
 <div id="view-ai" class="view"><main id="aiHost" class="ai-page-shell"></main></div>
 <div id="view-gameplay" class="view">
-  <main class="gameplay-page-shell"><header class="ui-collection-header gameplay-page-heading"><div><span class="ui-settings-eyebrow">CLASSROOM PLAYBOOK · 课堂玩法</span><h2><span data-md3-icon="gift"></span><span>玩法参考</span></h2><div class="ui-collection-sub">认识道具，掌握状态、随机事件与成就荣誉，让每一次对抗都心中有数。</div></div><div class="gameplay-overview"><span class="ui-chip"><b data-gameplay-items-count>28</b>种道具</span><span class="ui-chip">7种状态</span><span class="ui-chip">16种事件</span><span class="ui-chip">60项成就</span><button type="button" class="btn" onclick="switchView('battle')"><span data-md3-icon="battle"></span><span>返回比赛</span></button></div></header><div class="gameplay-toolbar"><nav class="gameplay-tabs" aria-label="玩法分类"><button type="button" class="btn btn-primary" data-gameplay-tab="items" aria-current="true"><span data-md3-icon="gift"></span><span>道具图鉴</span></button><button type="button" class="btn" data-gameplay-tab="statuses"><span data-md3-icon="bolt"></span><span>状态效果</span></button><button type="button" class="btn" data-gameplay-tab="events"><span data-md3-icon="casino"></span><span>随机事件</span></button><button type="button" class="btn" data-gameplay-tab="achievements"><span data-md3-icon="trophy"></span><span>成就与荣誉</span></button><button type="button" class="btn" data-gameplay-tab="rules"><span data-md3-icon="rule"></span><span>课堂规则总览</span></button></nav><label>快速查找<input id="gameplaySearch" type="search" placeholder="道具、状态、事件或成就" autocomplete="off"></label></div><div id="gameplayContent"></div><p id="gameplayEmpty" class="ui-snapshot-note" hidden>没有匹配结果，换个关键词试试。</p></main>
+  <main class="gameplay-page-shell"><header class="ui-collection-header gp-page-header gameplay-page-heading"><div><h2><span data-md3-icon="gift"></span><span>玩法参考</span></h2><div class="ui-collection-sub">认识道具，掌握状态、随机事件与成就荣誉，让每一次对抗都心中有数。</div></div><div class="gameplay-overview"><span class="ui-chip"><b data-gameplay-items-count>28</b> 种道具</span><span class="ui-chip">7 种状态</span><span class="ui-chip">16 种事件</span><span class="ui-chip">60 项成就</span><button type="button" class="btn" onclick="switchView('battle')"><span data-md3-icon="battle"></span><span>返回比赛</span></button></div></header><div class="gameplay-toolbar"><nav class="gameplay-tabs gp-tabs" aria-label="玩法分类"><button type="button" class="btn btn-primary" data-gameplay-tab="items" aria-current="true"><span data-md3-icon="gift"></span><span>道具图鉴</span></button><button type="button" class="btn" data-gameplay-tab="statuses"><span data-md3-icon="bolt"></span><span>状态效果</span></button><button type="button" class="btn" data-gameplay-tab="events"><span data-md3-icon="casino"></span><span>随机事件</span></button><button type="button" class="btn" data-gameplay-tab="achievements"><span data-md3-icon="trophy"></span><span>成就与荣誉</span></button><button type="button" class="btn" data-gameplay-tab="rules"><span data-md3-icon="rule"></span><span>课堂规则总览</span></button></nav><label>快速查找<input id="gameplaySearch" type="search" placeholder="道具、状态、事件或成就" autocomplete="off"></label></div><div id="gameplayContent"></div><p id="gameplayEmpty" class="ui-snapshot-note" hidden>没有匹配结果，换个关键词试试。</p></main>
 </div>
 <div id="view-archives" class="view">
-  <div class="ui-collection-header">
+  <div class="ui-collection-header gp-page-header">
     <div>
-      <span class="ui-settings-eyebrow">CLASSROOM ARCHIVE · 历届荣誉</span><h2><span data-md3-icon="archive"></span><span>封神榜 · 课堂历届竞技档案馆</span></h2>
+      <h2><span data-md3-icon="archive"></span><span>封神榜 · 课堂历届竞技档案馆</span></h2>
       <div class="ui-collection-sub">历届封神现场都堆在这里。能看排名、查组员，也能把 CSV 拎走继续折腾。</div>
     </div>
     <div class="settings-toolbar">
-      <div class="ach-view-switch" role="tablist" aria-label="档案与成就切换"><button type="button" class="btn btn-sm btn-primary" data-archives-tab="records" aria-selected="true"><span data-md3-icon="archive"></span><span>历届封神档案</span></button><button type="button" class="btn btn-sm" data-archives-tab="achievements" aria-selected="false"><span data-md3-icon="trophy"></span><span>成就与荣誉殿堂</span></button></div>
+      <div class="ach-view-switch gp-tabs" role="tablist" aria-label="档案与成就切换"><button type="button" class="btn btn-sm btn-primary" data-archives-tab="records" aria-selected="true"><span data-md3-icon="archive"></span><span>历届封神档案</span></button><button type="button" class="btn btn-sm" data-archives-tab="achievements" aria-selected="false"><span data-md3-icon="trophy"></span><span>成就与荣誉殿堂</span></button></div>
       <button class="btn btn-sm btn-primary" onclick="exportLatestSettlementCSV()"><span data-md3-icon="download"></span><span>导出最近完整档案 (.csv)</span></button>
     </div>
   </div>
@@ -389,9 +389,9 @@
 </div>
 
 <div id="view-history" class="view">
-  <div class="ui-collection-header">
+  <div class="ui-collection-header gp-page-header">
     <div>
-      <span class="ui-settings-eyebrow">CLASSROOM JOURNAL · 操作与回溯</span><h2><span data-md3-icon="history"></span><span>后悔药仓库 <small>操作历史与回溯</small></span></h2><p id="uiHistoryCount" class="ui-record-count"></p>
+      <h2><span data-md3-icon="history"></span><span>后悔药仓库 <small>操作历史与回溯</small></span></h2><p id="uiHistoryCount" class="ui-record-count"></p>
       <div class="ui-collection-sub">最近 40 次操作前的真实快照。查看差异不会改变比赛；恢复前会再次确认。</div>
     </div>
     <div class="settings-toolbar">
@@ -484,9 +484,8 @@
 <input id="itemPackInput" type="file" accept=".json,application/json" style="display:none" onchange="importItemIconPack(event)">
 <!-- 设置面板（全屏视图）：文案与结构由本模板持有 -->
 <div id="view-settings" class="view">
-  <header class="ui-settings-header">
+  <header class="ui-settings-header gp-page-header">
     <div>
-      <span class="ui-settings-eyebrow">YOUR CLASSROOM · YOUR WAY</span>
       <h2><span data-md3-icon="settings"></span><span>设置控制中心 <small>后台杂物间</small></span></h2>
       <p>把课堂调成顺手的样子。常用偏好直接调整，资源维护按需展开。</p>
     </div>
@@ -948,6 +947,7 @@
 <script>@@SOURCE:application/hand-raise-port.js@@</script>
 <script>@@SOURCE:runtime/classroom/hand-session.js@@</script>
 <style>@@SOURCE:styles/classroom/hand-flow.css@@</style>
+<style id="unified-primitives">@@SOURCE:styles/components/unified-primitives.css@@</style>
 <style id="surface-polish">@@SOURCE:styles/components/surface-polish.css@@</style>
 <script>@@SOURCE:ui/hand-flow-view.js@@</script>
 <script>@@SOURCE:ui/electron-host.js@@</script>

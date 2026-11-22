@@ -15,7 +15,8 @@ function queueUseStateV2120(g, index) {
   const it = g?.inventory?.[index];
   if (!it) return { usable: false, label: "空道具槽" };
   if (index !== 0) return { usable: false, label: "🔒 等待主要道具" };
-  if (globalThis.ItemModules && !ItemModules.canUse(it.key)) return { usable: false, label: "设置中已关闭主动使用" };
+  if (globalThis.ItemModules && !ItemModules.canUse(it.key))
+    return { usable: false, label: "设置中已关闭主动使用" };
   if (isQueuePersistentActiveV2120(g, it))
     return { usable: false, label: "⏳ 生效中 · 等待结束" };
   if (!eligibleForItems(g)) return { usable: false, label: "负分保护" };
@@ -24,7 +25,13 @@ function queueUseStateV2120(g, index) {
   if (reason) return { usable: false, label: reason };
   if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
     return { usable: true, label: "解除冻结（本次不发动）" };
-  return { usable: true, label: state.roundActive && !state.evaluated && ItemRoundUse.canContinue(g, it) ? `继续使用（剩余 ${it.charges}）` : "使用主要道具" };
+  return {
+    usable: true,
+    label:
+      state.roundActive && !state.evaluated && ItemRoundUse.canContinue(g, it)
+        ? `继续使用（剩余 ${it.charges}）`
+        : "使用主要道具",
+  };
 }
 
 /* 最终主动使用守门：即使旧 DOM、历史页面或脚本直接传入 index 1/2，也不能越过主要道具。 */
@@ -135,29 +142,58 @@ renderItemWindow = function () {
 /* 比赛卡片三个小格也明确显示“主 / 次 / 次”，并突出当前主要道具。 */
 const _v2120EnhanceItemCards = enhanceItemCards;
 const queueMainVisualCacheV2120 = new Map();
-enhanceItemCards = function () {
-  _v2120EnhanceItemCards();
-  state.groups.forEach((g) => {
-    const card = document.querySelector(
-      `.group-row-card[data-group-id="${g.id}"]`,
-    );
-    if (!card) return;
+function applyQueueCardItemsV2120(g, card) {
+  if (!card) return;
+  card.classList.remove(
+    "item-def-green",
+    "item-def-red",
+    "item-def-yellow",
+    "item-def-orange",
+    "effect-star",
+    "effect-mega",
+    "effect-power",
+    "effect-bullet",
+    "effect-boo",
+    "effect-ice",
+  );
+  const main = g.inventory?.[0];
+  if (main && ITEM_DEFS[main.key]?.def)
+    card.classList.add("item-def-" + ITEM_DEFS[main.key].def);
+  if (g.itemEffect?.type) card.classList.add("effect-" + g.itemEffect.type);
+  if (g.itemEffect?.iceLock || CompetitionEffects.has(g, "freeze"))
+    card.classList.add("effect-ice");
+  if (g.booShield > 0) card.classList.add("effect-boo");
 
-    // 防御颜色只看主要道具，次要道具不再提前提供被动防御。
-    card.classList.remove(
-      "item-def-green",
-      "item-def-red",
-      "item-def-yellow",
-      "item-def-orange",
-    );
-    const main = g.inventory?.[0];
-    if (main && ITEM_DEFS[main.key]?.def)
-      card.classList.add("item-def-" + ITEM_DEFS[main.key].def);
+  if (!card.querySelector(".item-slots")) {
+    const head = card.querySelector(".card-header-row");
+    if (head) {
+      const slotsWrap = document.createElement("div");
+      slotsWrap.className = "item-slots";
+      slotsWrap.innerHTML =
+        '<div class="item-slot empty">＋</div><div class="item-slot empty">＋</div><div class="item-slot empty">＋</div>';
+      head.parentNode.insertBefore(slotsWrap, head.nextSibling);
+    }
+  }
 
-    const slots = [...card.querySelectorAll(".item-slot")];
-    [0, 1, 2].forEach((i) => {
+  const customIcons = state.itemGlobal?.customIcons;
+  let slotSig = "";
+  for (let i = 0; i < 3; i++) {
+    const it = g.inventory?.[i];
+    if (!it) slotSig += i + "|";
+    else {
+      const active = isQueuePersistentActiveV2120(g, it) ? 1 : 0;
+      const custom = customIcons?.[it.key];
+      const customTag = custom ? `${custom.length}:${custom.slice(-16)}` : "";
+      slotSig += `${it.key}:${it.charges || 1}:${active}:${customTag}|`;
+    }
+  }
+
+  const slots = card.querySelectorAll(".item-slot");
+  if (card.dataset.queueSlotSig !== slotSig) {
+    card.dataset.queueSlotSig = slotSig;
+    for (let i = 0; i < 3; i++) {
       const slot = slots[i];
-      if (!slot) return;
+      if (!slot) continue;
       const it = g.inventory[i];
       slot.className = `item-slot ${i === 0 ? "queue-main-slot" : "queue-secondary-slot"} ${it ? "" : "empty"}`;
       if (it) {
@@ -169,16 +205,32 @@ enhanceItemCards = function () {
         slot.title = queueRoleTextV2120(i) + "：空";
         slot.innerHTML = `<span class="queue-slot-role">${i === 0 ? "主" : "次"}</span><span class="queue-empty-plus">＋</span>`;
       }
-    });
-
-    const currentMain = main ? `${main.key}:${main.acquiredAt || 0}` : "";
-    const prev = queueMainVisualCacheV2120.get(g.id);
-    if (prev !== undefined && prev !== currentMain && currentMain && slots[0]) {
-      slots[0].classList.add("queue-promoted");
-      setTimeout(() => slots[0]?.classList.remove("queue-promoted"), 1150);
     }
-    queueMainVisualCacheV2120.set(g.id, currentMain);
-  });
+  }
+
+  const currentMain = main ? `${main.key}:${main.acquiredAt || 0}` : "";
+  const prev = queueMainVisualCacheV2120.get(g.id);
+  if (prev !== undefined && prev !== currentMain && currentMain && slots[0]) {
+    slots[0].classList.add("queue-promoted");
+    setTimeout(() => slots[0]?.classList.remove("queue-promoted"), 1150);
+  }
+  queueMainVisualCacheV2120.set(g.id, currentMain);
+}
+
+enhanceItemCards = function (targets = state.groups, cardLookup = null) {
+  ensureItemState();
+  ensureV2State();
+  const list = Array.isArray(targets) ? targets : state.groups;
+  if (list.length) {
+    for (let i = 0; i < list.length; i++) {
+      const g = list[i];
+      const card =
+        cardLookup?.get(String(g.id)) ||
+        document.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
+      applyQueueCardItemsV2120(g, card);
+    }
+  }
+  applyBlooperMask();
 };
 
 /* 举手抽奖完成后的文案改为队列语义。 */

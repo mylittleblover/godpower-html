@@ -44,16 +44,24 @@ function saveState(transaction) {
     if (ledgerResult.unlocked.length)
       transaction.unlockedAchievements = ledgerResult.unlocked;
   }
-  const payload = buildClassroomBackup();
+  const useOwnedSaveManager = !!globalThis.SaveManager?.enabled();
+  const payload =
+    useOwnedSaveManager && typeof buildClassroomBackupForSave === "function"
+      ? buildClassroomBackupForSave()
+      : buildClassroomBackup();
   // Until startup hydration finishes, the file is still the source of truth;
   // writing now would overwrite a classroom the user copied in.
   if (globalThis.ClassroomSaveFile?.isHydrating?.())
     return { ok: true, deferred: true };
-  if (globalThis.SaveManager?.enabled()) {
-    const completion = SaveManager.persist(payload).then((result) => ({
-      ...result,
-      ...(transaction?.events?.length ? { eventsPersisted: !!result.ok } : {}),
-    }));
+  if (useOwnedSaveManager) {
+    const completion = SaveManager.persist(payload, { owned: true }).then(
+      (result) => ({
+        ...result,
+        ...(transaction?.events?.length
+          ? { eventsPersisted: !!result.ok }
+          : {}),
+      }),
+    );
     return transaction ? completion : { ok: true, pending: true, completion };
   }
   const result = Reliability.writeVerified(

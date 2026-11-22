@@ -58,32 +58,6 @@ function godAddItemV283(gid, key) {
   }
 }
 
-/* 道具页：每次打开/刷新组窗口时，强制用 26 种清单重建管理区。 */
-function renderGodItemManagerV283(gid) {
-  const g = state.groups.find((x) => x.id === gid);
-  if (!g) return;
-  const roots = [
-    ...document.querySelectorAll(
-      ".god-item-manager,.item-god-manager,.god-item-grid",
-    ),
-  ];
-  let root =
-    roots.find((x) => x.closest(".modal,.group-modal,.vista-window")) ||
-    roots[0];
-  if (!root) {
-    const tactical = document.querySelector(
-      '.group-modal .tactical-tab-content,.group-modal [data-tab-content="items"],#groupModal .tactical-items',
-    );
-    if (!tactical) return;
-    root = document.createElement("div");
-    root.className = "god-item-manager god-item-grid";
-    tactical.appendChild(root);
-  }
-  root.innerHTML = itemKeysV283()
-    .map((k) => itemAdminButtonV283(k, gid))
-    .join("");
-}
-
 /* 找到“上帝模式·强制道具管理”标题后的按钮容器，兼容旧 DOM。 */
 function patchVisibleGodManagerV283(gid) {
   const all = [...document.querySelectorAll("body *")];
@@ -104,68 +78,25 @@ function patchVisibleGodManagerV283(gid) {
     .join("");
 }
 
-/* 百科：直接重建内容，不再依赖旧版写死的 22 个卡片。 */
-function renderEncyclopediaV283() {
-  const headings = [
-    ...document.querySelectorAll("h1,h2,h3,.about-title,.section-title"),
-  ];
-  const h = headings.find((x) =>
-    /22\s*种道具百科|26\s*种道具百科/.test(x.textContent || ""),
-  );
-  if (!h) return;
-  h.textContent = "26 种道具百科";
-  let host = h.nextElementSibling;
-  if (!host) return;
-  // 若 next sibling 是旧卡片，则定位包含连续百科卡片的父容器。
-  const parent = h.parentElement;
-  const candidates = [...parent.children];
-  const start = candidates.indexOf(h) + 1;
-  const cards = candidates
-    .slice(start)
-    .filter(
-      (x) =>
-        x.matches?.(
-          ".guide-block,.item-guide-card,.about-item-card,.encyclopedia-item",
-        ) || x.querySelector?.("b,strong"),
-    );
-  if (cards.length >= 10) {
-    cards.forEach((x) => x.remove());
-    itemKeysV283().forEach((k) => {
-      const d = ITEM_DEFS[k],
-        card = document.createElement("div");
-      card.className = "guide-block encyclopedia-item";
-      card.innerHTML = `<b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc || "")}`;
-      parent.appendChild(card);
-    });
-  } else {
-    host.innerHTML = itemKeysV283()
-      .map((k) => {
-        const d = ITEM_DEFS[k];
-        return `<div class="guide-block encyclopedia-item"><b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc || "")}</div>`;
-      })
-      .join("");
-  }
-}
-
-/* 更可靠的百科补丁：从旧 22 个 ITEM_DEFS 名称定位连续卡片容器并追加缺失 4 项。 */
+/* 更可靠的百科补丁：仅在旧版关于弹窗存在时检查并追加缺失 4 项。 */
 function appendMissingEncyclopediaV283() {
-  document.querySelectorAll("h1,h2,h3").forEach((h) => {
+  const about = document.querySelector(
+    "#aboutModal,.about-modal,#aboutWindow,.about-window",
+  );
+  if (!about) return;
+  about.querySelectorAll("h1,h2,h3").forEach((h) => {
     if (/22\s*种道具百科/.test(h.textContent || ""))
       h.textContent = "26 种道具百科";
   });
-  const existingText = document.body.innerText || "";
-  const about =
-    document.querySelector(
-      "#aboutModal,.about-modal,#aboutWindow,.about-window",
-    ) || document.body;
   const title = [...about.querySelectorAll("h1,h2,h3")].find((x) =>
     /26\s*种道具百科/.test(x.textContent || ""),
   );
   if (!title) return;
   const parent = title.parentElement;
+  const text = parent.textContent || "";
   ["feather", "fire_flower", "ice_flower", "boomerang_flower"].forEach((k) => {
     const d = ITEM_DEFS[k];
-    if ((parent.innerText || "").includes(d.name)) return;
+    if (text.includes(d.name)) return;
     const card = document.createElement("div");
     card.className = "guide-block encyclopedia-item";
     card.innerHTML = `<b>${itemVisual(k)} ${escapeHtml(d.name)}</b><br>${escapeHtml(d.desc)}`;
@@ -176,7 +107,10 @@ function appendMissingEncyclopediaV283() {
 /* 道具图标设置/百科等通过原 renderer 后追加缺失项。 */
 function patchItemIconSettingsV283() {
   const setting = document.querySelector("#view-settings") || document;
-  const labels = [...setting.querySelectorAll("*")].filter(
+  if (setting.querySelector('[onchange*="feather"]')) return;
+  const labels = [
+    ...setting.querySelectorAll("h1,h2,h3,h4,b,strong,label,summary"),
+  ].filter(
     (x) =>
       x.children.length === 0 &&
       /道具.*图标|自定义道具/.test(x.textContent || ""),
@@ -185,7 +119,7 @@ function patchItemIconSettingsV283() {
   if (!anchor) return;
   const region = anchor.parentElement?.parentElement || anchor.parentElement;
   if (!region) return;
-  const txt = region.innerText || "";
+  const txt = region.textContent || "";
   ["feather", "fire_flower", "ice_flower", "boomerang_flower"].forEach((k) => {
     const d = ITEM_DEFS[k];
     if (txt.includes(d.name)) return;

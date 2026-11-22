@@ -32,6 +32,36 @@ const ActionSounds = (() => {
     desc: "独立按钮音效；未上传时继承通用按钮音效",
   }));
   const isClick = (id) => id === "ui_click" || slots.some((x) => x.id === id);
+  const BUTTON_SLOT_RULES = [
+    ["pick_stop", /stopSlotSpin|stopPicker/],
+    [
+      "pick_start",
+      /startSlotSpin|pull.*Lever|toggle.*Slot|pullPickerLever/i,
+      null,
+      (b) => b.id === "uiPickerLever",
+    ],
+    ["draw", /globalItemDraw|drawItem|handDrawItem|DrawForGroup/],
+    ["use", /useItem|handUseNewItem/],
+    ["answer", /selectGroupOpt|batchSelectOption|setCorrectAns/],
+    ["allin", /AllIn/],
+    ["start", /startRound/],
+    ["judge", /evaluateRound/],
+    ["next", /nextRound/],
+    ["undo", /undoLast|restoreHistory/],
+    ["danger", /delete|clear|resetAll|resetScores/i, /清空|删除/],
+    ["upload", /triggerUpload|Import|import|chooseItemIcon/],
+    ["export", /export|Export/],
+    ["cancel", null, /取消/],
+    [
+      "close",
+      /close|dismiss|finishIntro/,
+      null,
+      (b) => b.matches(".ui-round-close,.item-close,.ui-cinematic-skip"),
+    ],
+    ["open", /open[A-Z]/],
+    ["confirm", null, /确认|应用|保存|完成/],
+    ["settings", null, null, (b) => Boolean(b.closest("#view-settings"))],
+  ];
   function classify(button) {
     const explicit = button.dataset.soundSlot;
     if (explicit && isClick(explicit)) return explicit;
@@ -47,39 +77,15 @@ const ActionSounds = (() => {
     else if (button.tagName === "SUMMARY") key = "expand";
     else if (button.dataset.scoreSlot != null)
       key = /^[-−]/.test(text) ? "negative" : "positive";
-    else if (/stopSlotSpin|stopPicker/.test(code)) key = "pick_stop";
-    else if (
-      /startSlotSpin|pull.*Lever|toggle.*Slot|pullPickerLever/i.test(code) ||
-      button.id === "uiPickerLever"
-    )
-      key = "pick_start";
-    else if (/globalItemDraw|drawItem|handDrawItem|DrawForGroup/.test(code))
-      key = "draw";
-    else if (/useItem|handUseNewItem/.test(code)) key = "use";
-    else if (/selectGroupOpt|batchSelectOption|setCorrectAns/.test(code))
-      key = "answer";
-    else if (/AllIn/.test(code)) key = "allin";
-    else if (/startRound/.test(code)) key = "start";
-    else if (/evaluateRound/.test(code)) key = "judge";
-    else if (/nextRound/.test(code)) key = "next";
-    else if (/undoLast|restoreHistory/.test(code)) key = "undo";
-    else if (
-      /delete|clear|resetAll|resetScores/i.test(code) ||
-      /清空|删除/.test(text)
-    )
-      key = "danger";
-    else if (/triggerUpload|Import|import|chooseItemIcon/.test(code))
-      key = "upload";
-    else if (/export|Export/.test(code)) key = "export";
-    else if (/取消/.test(text)) key = "cancel";
-    else if (
-      /close|dismiss|finishIntro/.test(code) ||
-      button.matches(".ui-round-close,.item-close,.ui-cinematic-skip")
-    )
-      key = "close";
-    else if (/open[A-Z]/.test(code)) key = "open";
-    else if (/确认|应用|保存|完成/.test(text)) key = "confirm";
-    else if (button.closest("#view-settings")) key = "settings";
+    else {
+      const matched = BUTTON_SLOT_RULES.find(
+        ([, codeRe, textRe, pred]) =>
+          (codeRe && codeRe.test(code)) ||
+          (textRe && textRe.test(text)) ||
+          (pred && pred(button)),
+      );
+      key = matched?.[0];
+    }
     return key ? "ui_button_" + key : "ui_click";
   }
   return { slots, isClick, classify };

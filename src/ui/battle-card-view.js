@@ -48,7 +48,7 @@ const GodPowerBattleCardView = Object.freeze({
       <div class="milestone-banner-overlay">分数位数增加！</div>
       <div class="card-header-row">
         <div class="battle-group-number" title="小组编号">${groupNumber(g)}</div>
-        <div class="battle-group-heading"><div class="battle-group-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div><div class="battle-group-subtitle">小组名称 · 当前按${state.sortLabel}排列</div></div>
+        <div class="battle-group-heading"><div class="battle-group-name" title="${escapeHtml(g.name)}">${escapeHtml(g.name)}</div></div>
         <div class="item-slots">${slotsHtml}</div>
         <div class="battle-score-container">${scoreHtml}</div>
         <button type="button" class="more-btn" onclick="event.stopPropagation();openItemWindow(${g.id},'detail')" title="打开小组详情">···</button>

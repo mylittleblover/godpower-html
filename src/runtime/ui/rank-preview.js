@@ -3,7 +3,8 @@
 let _rankPreviewLastSig = "";
 function renderBattleRankPreviewV21721() {
   const box = document.getElementById("battleRankPreviewGridV21721");
-  if (!box) return;
+  if (!box || (typeof currentView === "string" && currentView !== "battle"))
+    return;
 
   let ranked = [];
   try {

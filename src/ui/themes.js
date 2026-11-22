@@ -121,7 +121,12 @@ window.GodpowerTheme = (() => {
     return names[theme];
   }
   function hydrate(root = document) {
-    if (!root || typeof root.querySelectorAll !== "function") return;
+    if (
+      !root ||
+      typeof root.querySelector !== "function" ||
+      !root.querySelector("[data-md3-icon]")
+    )
+      return;
     for (const host of root.querySelectorAll("[data-md3-icon]")) {
       const key = host.dataset.md3Icon || "";
       if (!key) continue;
@@ -171,6 +176,8 @@ window.GodpowerTheme = (() => {
     }
     hydrate(document);
     for (const svg of document.querySelectorAll(".ui-icon[data-theme-icon]")) {
+      if (svg.dataset.appliedTheme === theme) continue;
+      svg.dataset.appliedTheme = theme;
       const key = svg.dataset.themeIcon;
       const classicPath = classicPaths[key] || classics.get(key) || star;
       svg
@@ -301,10 +308,21 @@ window.GodpowerTheme = (() => {
       once: true,
     });
   }
+  function downloadJson(value, name = "export.json") {
+    const url = URL.createObjectURL(
+      new Blob([JSON.stringify(value, null, 2)], { type: "application/json" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = name;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   return {
     get: () => theme,
     name,
     icon,
+    downloadJson,
     hydrate,
     boot,
     set,

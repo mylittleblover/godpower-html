@@ -59,6 +59,7 @@ function updateBgmVolume(value) {
 }
 
 let bgmSlotRenderGeneration = 0;
+let lastFxSlotListSig = "";
 async function renderBgmSlotList() {
   const container = document.getElementById("bgmListContainer");
   if (!container) return;
@@ -66,7 +67,6 @@ async function renderBgmSlotList() {
   const setIdx = parseInt(document.getElementById("cfgSetSelector").value, 10);
   const isMenuSet = setIdx === 8;
   const trackTypes = isMenuSet ? MENU_SET_TRACK_TYPES : SET_TRACK_TYPES;
-  container.innerHTML = "";
 
   const bpmDesc = document.getElementById("cfgSetBpmDesc");
   if (bpmDesc) {
@@ -98,6 +98,18 @@ async function renderBgmSlotList() {
     compLabel.style.color = isComplete ? "#059669" : "#d97706";
   }
 
+  let bgmSig = String(setIdx);
+  for (const track of trackTypes) {
+    const slotId = isMenuSet
+      ? `bgm_menu_${track.key}`
+      : `bgm_set_${setIdx}_${track.key}`;
+    bgmSig += "|" + (hasSound(slotId) ? "1" : "0");
+  }
+  if (container.dataset.bgmSig === bgmSig && container.childElementCount > 0)
+    return;
+  container.dataset.bgmSig = bgmSig;
+  container.innerHTML = "";
+
   try {
     for (const track of trackTypes) {
       const slotId = isMenuSet
@@ -126,6 +138,18 @@ async function renderBgmSlotList() {
 function renderFxSlotList() {
   const fxContainer = document.getElementById("soundListContainer");
   if (!fxContainer) return;
+  let fxSig = String(FX_SOUND_SLOTS.length);
+  for (let i = 0; i < FX_SOUND_SLOTS.length; i++) {
+    const id = FX_SOUND_SLOTS[i].id;
+    const hasBuf = customFxBuffers[id] ? 1 : 0;
+    const vars = customFxVariants[id];
+    const varSig = Array.isArray(vars)
+      ? vars.map((v) => `${v?.id || ""}:${v?.name || ""}`).join(",")
+      : "";
+    fxSig += `|${id}:${hasBuf}:${varSig}`;
+  }
+  if (fxSig === lastFxSlotListSig && fxContainer.childElementCount > 0) return;
+  lastFxSlotListSig = fxSig;
   fxContainer.innerHTML = "";
   const categories = new Map();
   FX_SOUND_SLOTS.forEach((slot) => {

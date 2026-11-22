@@ -76,7 +76,7 @@ body.gp-intro-reveal #homeDashboardGrid > .gp-panel[data-home-card-type] {
   padding: 12px 14px;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-sm, 10px);
-  background: var(--ui-panel);
+  background: var(--ui-soft-2);
   gap: 12px;
 }
 #uiSettingsShell .setting-item[data-settings-group="savefile"] {
@@ -371,14 +371,10 @@ body.theme-marx #view-welcome .ui-group-card .score-capsule {
 }
 #view-settings #saveWorkspace .save-workspace-help {
   margin: 0;
-  padding: 9px 14px;
-  border-radius: 10px;
-  background: color-mix(
-    in srgb,
-    var(--ui-soft, #eef5f2) 72%,
-    var(--ui-panel, #ffffff)
-  );
-  border: 1px solid var(--ui-border);
+  padding: 2px 0 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--ui-muted);
@@ -434,17 +430,9 @@ body.theme-marx #view-welcome .ui-group-card .score-capsule {
 #view-settings #saveWorkspace .save-group-row:not([hidden]) {
   padding: 10px 14px;
   border-radius: 12px;
-  border-color: color-mix(
-    in srgb,
-    var(--save-group-color, var(--ui-border)) 22%,
-    var(--ui-border)
-  );
-  box-shadow: inset 4px 0 0 var(--save-group-color, var(--ui-primary, #0f766e));
-  background: color-mix(
-    in srgb,
-    var(--save-group-color, #0f766e) 3%,
-    var(--ui-panel, #ffffff)
-  );
+  border-color: var(--ui-border);
+  box-shadow: inset 3px 0 0 var(--save-group-color, var(--ui-primary, #0f766e));
+  background: var(--ui-panel, #ffffff);
   transition:
     background-color 0.14s ease,
     border-color 0.14s ease;
@@ -467,9 +455,12 @@ body.theme-marx #view-welcome .ui-group-card .score-capsule {
   align-self: start;
 }
 #view-settings #uiSettingsShell .ui-settings-title {
-  padding-bottom: 14px;
-  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 68%, transparent);
-  margin-bottom: 18px;
+  border-left: 0;
+  border-bottom: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 2px 2px 4px;
+  margin: 0 0 12px;
 }
 #view-settings #uiSettingsShell .ui-settings-group {
   border-radius: 16px;
@@ -546,12 +537,12 @@ body.theme-marx #view-welcome .ui-group-card .score-capsule {
 #view-settings [data-category-panel="welcome"] .ui-settings-row,
 #view-settings [data-category-panel="sound"] > .cf-settings .ui-settings-row {
   margin: 0;
-  padding: 15px 18px;
+  padding: 14px 16px;
   border: 1px solid var(--ui-border);
-  border-radius: 14px;
-  background: var(--ui-panel);
-  box-shadow: 0 2px 10px rgba(15, 38, 33, 0.03);
-  min-height: 64px;
+  border-radius: var(--radius-sm, 10px);
+  background: var(--ui-soft-2);
+  box-shadow: none;
+  min-height: 60px;
   gap: 14px;
   transition:
     border-color 0.16s ease,
@@ -618,17 +609,6 @@ body.theme-marx #view-welcome .ui-group-card .score-capsule {
   background: color-mix(
     in srgb,
     var(--ui-soft, #eef5f2) 72%,
-    var(--ui-panel, #ffffff)
-  );
-}
-#view-settings #uiSettingsShell #uiSettingsBackup .setting-item,
-#view-settings #uiSettingsShell #uiSettingsLock .setting-item {
-  margin: 8px 0 0;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: color-mix(
-    in srgb,
-    var(--ui-soft-2, #f5f9f7) 64%,
     var(--ui-panel, #ffffff)
   );
 }
@@ -797,7 +777,6 @@ svg.ui-icon,
   #view-history .ui-history .btn-danger,
   #view-ai .btn,
   #view-settings .setting-section-title,
-  #view-settings .ui-settings-disclosure > summary,
   #view-settings .save-workspace-toolbar .btn,
   #view-settings .ui-toolbar .btn,
   #view-settings [data-settings-group="backup"] .btn,
@@ -815,7 +794,7 @@ svg.ui-icon,
   #pickerModal .picker-vtab,
   #pickerModal .picker-right > b,
   #handRaiseBackdrop .hand-flow-identity,
-  #handRaiseBackdrop .classroom-head .btn,
+  #handRaiseBackdrop .classroom-head .btn:not([hidden]),
   #quickPersonBackdropV218 .quick-person-head b,
   #aboutBackdrop .about-heading h2,
   #aboutBackdrop .guide-block b,
@@ -889,4 +868,228 @@ svg.ui-icon,
 #avatarPresetDialog [data-preset-close] {
   display: grid;
   place-items: center;
+}
+
+/* Unified Surface Hierarchy & Modal Polish */
+body.modern-flat #view-settings #uiSettingsMotionPref {
+  grid-column: 1 / -1;
+}
+body.modern-flat #view-settings .gp-row-list .ui-settings-row {
+  padding: 12px 2px;
+  min-height: 48px;
+  border: 0;
+  border-bottom: 1px solid var(--ui-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+body.modern-flat #view-settings .gp-row-list .ui-settings-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 2px;
+}
+body.modern-flat #view-settings .ui-settings-group .ui-rule-card {
+  background: var(--ui-soft-2);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+}
+body.modern-flat #itemModalBackdrop .modal-box {
+  padding-bottom: 28px;
+}
+body.modern-flat #itemModalBackdrop .group-detail-section {
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+body.modern-flat #itemModalBackdrop .group-detail-section .group-color-free {
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ui-border) !important;
+  border-radius: 0 !important;
+  padding: 12px 0 0 !important;
+  box-shadow: none !important;
+}
+body.modern-flat
+  #view-settings
+  #uiSettingsShell
+  .ui-settings-group
+  .setting-item:not(
+    #uiSettingsVolume .setting-item,
+    #uiSettingsWallpaper .setting-item
+  ) {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0;
+  padding: 12px 2px;
+}
+body.modern-flat
+  #view-settings
+  #uiSettingsShell
+  .ui-settings-group
+  .setting-item:not(
+    #uiSettingsVolume .setting-item,
+    #uiSettingsWallpaper .setting-item
+  ):last-child {
+  border-bottom: 0 !important;
+  padding-bottom: 2px;
+}
+body.modern-flat
+  #view-settings
+  #uiSettingsShell
+  .ui-settings-group
+  .ui-settings-disclosure {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+}
+body.modern-flat
+  #view-settings
+  #uiSettingsShell
+  .ui-settings-disclosure
+  > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  width: 100%;
+  box-sizing: border-box;
+}
+body.modern-flat
+  #view-settings
+  #uiSettingsShell
+  .ui-settings-group
+  .ui-settings-disclosure
+  > summary {
+  padding: 12px 2px;
+}
+body.modern-flat
+  #view-settings
+  [data-category-panel="rules"]
+  .ui-settings-group
+  > .ui-settings-row {
+  border: 0;
+  border-bottom: 1px solid var(--ui-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 12px 2px;
+}
+body.modern-flat
+  #view-settings
+  [data-category-panel="rules"]
+  .ui-settings-group
+  > .ui-settings-row:last-of-type {
+  border-bottom: 0;
+}
+body.modern-flat #view-settings [data-category-panel="rules"] .re-weight-grid {
+  border: 0;
+  border-bottom: 1px solid var(--ui-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 12px 2px;
+  margin-top: 0;
+}
+body.modern-flat #itemModalBackdrop .item-detail-body {
+  padding-bottom: 12px;
+}
+body.modern-flat #itemModalBackdrop #itemWindowBody {
+  padding-bottom: 32px;
+}
+body.modern-flat
+  :is(
+    #pickerModal,
+    #quickPersonBackdropV218,
+    #memberSearchBackdrop,
+    #scoreModalBackdrop,
+    #themeDialogV21727,
+    #programConfirmV28,
+    #settlementNameModal,
+    #pwdModal
+  )
+  .modal-box {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+}
+body.modern-flat #view-history .ui-history > details > summary > span.ui-chip {
+  flex-shrink: 0;
+}
+body.modern-flat #view-archives .ui-archive-summary > span.ui-chip {
+  flex-shrink: 0;
+}
+
+/* Phase 2D: Pixel-identical 6-view outer container width, spacing rhythm & KPI compaction */
+body.modern-flat
+  :is(
+    #view-welcome,
+    #view-gameplay,
+    #view-ai,
+    #view-history,
+    #view-archives,
+    #view-settings
+  ).active {
+  overflow-y: auto !important;
+  scrollbar-gutter: stable;
+}
+body.modern-flat #view-welcome .gp-home {
+  width: 100%;
+  max-width: calc(var(--page-max-width) + var(--page-pad-x) * 2);
+  padding: var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+body.modern-flat #view-welcome :is(.gp-kpis, .gp-main-grid, .gp-daily-grid) {
+  margin-top: var(--page-gap);
+  gap: var(--grid-gap);
+}
+body.modern-flat #view-welcome :is(.gp-section-heading, .gp-group-section) {
+  margin-top: var(--page-gap);
+}
+body.modern-flat :is(#view-history, #view-archives, #view-settings) {
+  padding: var(--page-pad-top) 0 0 !important;
+}
+body.modern-flat
+  :is(
+    #view-history > .ui-collection-header,
+    #view-history > .ui-collection-body,
+    #view-archives > .ui-collection-header,
+    #view-archives > .ui-collection-body,
+    #view-settings > .ui-settings-header,
+    #view-settings > .settings-scroll
+  ) {
+  width: min(var(--page-max-width), calc(100% - var(--page-pad-x) * 2));
+  margin-inline: auto !important;
+  box-sizing: border-box;
+}
+body.modern-flat :is(#view-history, #view-archives) .ui-collection-body {
+  padding: 0 0 var(--page-pad-bottom);
+}
+body.modern-flat :is(#view-history, #view-archives) .ui-collection-header,
+body.modern-flat #view-settings .ui-settings-header {
+  margin: 0 auto var(--page-gap) !important;
+}
+body.modern-flat #view-settings > .settings-scroll {
+  padding: 0 !important;
+}
+body.modern-flat #view-settings .ui-settings-shell {
+  gap: var(--page-gap);
+}
+body.modern-flat #view-settings .ui-settings-body {
+  padding: 0 0 var(--page-pad-bottom);
+}
+body.modern-flat #view-archives .ui-overview {
+  gap: var(--grid-gap);
+  margin-bottom: var(--page-gap);
+}
+body.modern-flat #view-archives .ui-overview .ui-panel {
+  padding: 12px 16px;
+  min-height: 0;
+  gap: 4px;
+}
+body.modern-flat #view-archives .ui-archive-filter {
+  margin-bottom: var(--page-gap);
+  gap: 14px;
 }

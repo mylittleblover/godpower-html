@@ -58,59 +58,44 @@ const BattleMotion = (() => {
     ).currentTime = Math.max(0, performance.now() - session.started);
     return node;
   }
+  const FAMILY_RULES = [
+    [/fire/, "fire"],
+    [/ice/, "ice"],
+    [/lightning/, "lightning"],
+    [/green|red|spiny|shell/, "shell"],
+    [/bomb/, "bomb"],
+    [/boomerang/, "boomerang"],
+    [/banana/, "banana"],
+    [/horn/, "horn"],
+    [/blooper/, "ink"],
+    [/boo/, "ghost"],
+    [/hammer/, "hammer"],
+    [/bullet/, "bullet"],
+    [/kamek/, "kamek"],
+    [/item_?box/, "box"],
+    [/question/, "mystery"],
+    [/star|mega|power|mushroom|feather|coin/, "buff"],
+  ];
+  const KEY_ALIASES = {
+    green: "green_shell",
+    red: "red_shell",
+    spiny: "spiny_shell",
+    horn: "super_horn",
+    bomb: "bob_omb",
+    mega: "giant_mushroom",
+    power: "power_mushroom",
+    bullet: "bullet_bill",
+  };
   function styleFor(key, kind) {
-    const family = /fire/.test(key)
-      ? "fire"
-      : /ice/.test(key)
-        ? "ice"
-        : /lightning/.test(key)
-          ? "lightning"
-          : /green|red|spiny|shell/.test(key)
-            ? "shell"
-            : /bomb/.test(key)
-              ? "bomb"
-              : /boomerang/.test(key)
-                ? "boomerang"
-                : /banana/.test(key)
-                  ? "banana"
-                  : /horn/.test(key)
-                    ? "horn"
-                    : /blooper/.test(key)
-                      ? "ink"
-                      : /boo/.test(key)
-                        ? "ghost"
-                        : /hammer/.test(key)
-                          ? "hammer"
-                          : /bullet/.test(key)
-                            ? "bullet"
-                            : /kamek/.test(key)
-                              ? "kamek"
-                              : /item_?box/.test(key)
-                                ? "box"
-                                : /question/.test(key)
-                                  ? "mystery"
-                                  : /star|mega|power|mushroom|feather|coin/.test(
-                                        key,
-                                      )
-                                    ? "buff"
-                                    : "pulse";
-    const aliases = {
-      green: "green_shell",
-      red: "red_shell",
-      spiny: "spiny_shell",
-      horn: "super_horn",
-      bomb: "bob_omb",
-      mega: "giant_mushroom",
-      power: "power_mushroom",
-      bullet: "bullet_bill",
-    };
+    const family =
+      FAMILY_RULES.find(([pattern]) => pattern.test(key))?.[1] || "pulse";
     const color =
       kind === "defend"
         ? "#249ad0"
         : kind === "heal"
           ? "#1caa73"
           : CARD_HIT_COLOR[key] ||
-            CARD_HIT_COLOR[aliases[key]] ||
+            CARD_HIT_COLOR[KEY_ALIASES[key]] ||
             (family === "buff" ? "#20a47a" : "#e97359");
     return { family, color };
   }

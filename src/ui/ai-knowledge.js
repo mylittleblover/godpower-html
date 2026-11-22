@@ -145,18 +145,8 @@ const AIKnowledgeUI = (() => {
       panel.append(remove);
     }
   }
-  function download(value) {
-    const url = URL.createObjectURL(
-        new Blob([JSON.stringify(value, null, 2)], {
-          type: "application/json",
-        }),
-      ),
-      a = document.createElement("a");
-    a.href = url;
-    a.download = "godpower-ai-knowledge.json";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  const download = (value) =>
+    GodpowerTheme.downloadJson(value, "godpower-ai-knowledge.json");
   async function open() {
     if ($("#aiKnowledgeDialog")) return;
     const overlay = document.createElement("div");
@@ -166,7 +156,7 @@ const AIKnowledgeUI = (() => {
     overlay.setAttribute("aria-modal", "true");
     overlay.setAttribute("aria-labelledby", "aiKnowledgeHeading");
     overlay.innerHTML =
-      '<section class="ai-knowledge-window ui-function-surface"><header class="ai-knowledge-header"><div><h2 id="aiKnowledgeHeading">高中学科资料</h2><p id="aiKnowledgeCount" class="ui-muted"></p></div></header><button type="button" class="item-close ui-window-close" data-ui-window-close="true" id="aiKnowledgeClose" aria-label="关闭学科资料">×</button><div class="ai-knowledge-controls"><label>学科<select id="aiLibrarySubject"><option value="">全部九科</option></select></label><label>搜索<input type="search" id="aiLibrarySearch" placeholder="教材、主题或关键词"></label><button type="button" class="btn" id="aiKnowledgeExport">导出我的资料</button></div><div class="ai-knowledge-body"><nav id="aiKnowledgeList" aria-label="资料列表"></nav><article id="aiKnowledgeDetail"><p>选择资料查看。官方教材条目为在线入口，离线可查看原创参考；导入你的教材文字后，可授权AI检索相关摘录。</p></article></div><footer class="ai-knowledge-import"><label>导入所属学科<select id="aiImportSubject"></select></label><label>导入TXT、Markdown或资料JSON<input type="file" id="aiKnowledgeFile" accept=".txt,.md,.json"></label><span id="aiKnowledgeStatus" role="status">最多2MB/文件；仅导入有权使用的资料。首期不解析PDF或扫描件。</span></footer></section>';
+      '<section class="ai-knowledge-window ui-function-surface"><header class="ai-knowledge-header"><div><h2 id="aiKnowledgeHeading">高中学科资料</h2><p id="aiKnowledgeCount" class="ui-muted"></p></div></header><button type="button" class="item-close ui-window-close" data-ui-window-close="true" id="aiKnowledgeClose" aria-label="关闭学科资料">×</button><div class="ai-knowledge-controls"><label>学科<select id="aiLibrarySubject"><option value="">全部九科</option></select></label><label>搜索<input type="search" id="aiLibrarySearch" placeholder="教材、主题或关键词"></label><button type="button" class="btn" id="aiKnowledgeExport">导出我的资料</button></div><div class="ai-knowledge-body"><nav id="aiKnowledgeList" aria-label="资料列表"></nav><article id="aiKnowledgeDetail"><p>选择资料查看。官方教材条目为在线入口，离线可查看原创参考；导入你的教材文字后，可授权AI检索相关摘录。</p></article></div><footer class="ai-knowledge-import"><label>导入所属学科<select id="aiImportSubject"></select></label><label class="gp-file-picker"><span class="btn btn-sm">选择 TXT / Markdown / JSON</span><input type="file" id="aiKnowledgeFile" accept=".txt,.md,.json"></label><span id="aiKnowledgeStatus" role="status">最多2MB/文件；仅导入有权使用的资料。首期不解析PDF或扫描件。</span></footer></section>';
     document.body.append(overlay);
     const status = overlay.querySelector("#aiKnowledgeStatus");
     showClassroomWindow(overlay);

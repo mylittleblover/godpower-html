@@ -587,14 +587,7 @@
           rosterData: saved.rosterData,
           avatars: assets,
         };
-        const payload = JSON.stringify(backup, null, 2);
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(
-          new Blob([payload], { type: "application/json" }),
-        );
-        link.download = "上帝的力量-课堂名单.gproster.json";
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        GodpowerTheme.downloadJson(backup, "上帝的力量-课堂名单.gproster.json");
         setStatus(`名单备份已导出，包含 ${assets.length} 个头像资源。`);
       } catch (error) {
         setStatus(`导出失败，未生成不完整备份：${error.message}`, true);

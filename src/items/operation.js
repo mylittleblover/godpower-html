@@ -383,6 +383,47 @@ const ItemOperationBlocks = (() => {
       return true;
     },
   };
+  function snapshotGroupEffects(fx) {
+    if (!fx || typeof fx !== "object") return null;
+    const keys = Object.keys(fx);
+    if (!keys.length) return null;
+    const out = {};
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i],
+        v = fx[k];
+      out[k] = v && typeof v === "object" ? { ...v } : v;
+    }
+    return out;
+  }
+  function groupEffectsEqual(before, after) {
+    const a = before || null;
+    const b =
+      after && typeof after === "object" && Object.keys(after).length
+        ? after
+        : null;
+    if (a === b) return true;
+    if (!a || !b) return false;
+    const ak = Object.keys(a);
+    const bk = Object.keys(b);
+    if (ak.length !== bk.length) return false;
+    for (let i = 0; i < ak.length; i++) {
+      const k = ak[i];
+      if (!Object.hasOwn(b, k)) return false;
+      const av = a[k],
+        bv = b[k];
+      if (av === bv) continue;
+      if (!av || !bv || typeof av !== "object" || typeof bv !== "object")
+        return false;
+      const avk = Object.keys(av),
+        bvk = Object.keys(bv);
+      if (avk.length !== bvk.length) return false;
+      for (let j = 0; j < avk.length; j++) {
+        const sub = avk[j];
+        if (!Object.hasOwn(bv, sub) || av[sub] !== bv[sub]) return false;
+      }
+    }
+    return true;
+  }
   function run(key, group, index, command, presentation = {}) {
     const blueprint = ItemBlueprints[key];
     if (!blueprint) throw Error("道具模块未注册：" + key);
@@ -437,7 +478,7 @@ const ItemOperationBlocks = (() => {
     const beforeEffects = new Map(
       state.groups.map((g) => [
         g.id,
-        JSON.stringify(g.competitionEffects || {}),
+        snapshotGroupEffects(g.competitionEffects),
       ]),
     );
     itemScoreBatchDepthV21732++;
@@ -464,9 +505,10 @@ const ItemOperationBlocks = (() => {
             Number(target.score) -
             (before.get(String(target.id)) ?? Number(target.score)),
           status: CompetitionEffects.labels(target).join("；"),
-          effectChanged:
-            beforeEffects.get(target.id) !==
-            JSON.stringify(target.competitionEffects || {}),
+          effectChanged: !groupEffectsEqual(
+            beforeEffects.get(target.id),
+            target.competitionEffects,
+          ),
         })),
       });
       if (!context.consumed && !blueprint.retain)

@@ -11,12 +11,7 @@ const GodPowerSettingsLayout = (() => {
       "日常音量在上方，音乐、音效和迁移维护按需展开",
     ],
     ["items", "gift", "道具与图标", "道具流程配置、百科与自定义图片"],
-    [
-      "students",
-      "users",
-      "学生与小组管理",
-      "名单、分组与头像保存在当前存档，修改后即时保存",
-    ],
+    ["students", "users", "学生与小组管理", "名单、分组与头像保存在当前存档"],
     ["welcome", "book", "欢迎页内容管理", "完全离线、按自然日稳定轮换"],
     ["data", "shield", "数据与安全", "备份、恢复与防误操作管理口令"],
     ["ai", "spark", "AI 助手", "模型连接与数据发送由教师明确控制"],
@@ -53,7 +48,7 @@ const GodPowerSettingsLayout = (() => {
       sections.rules,
       "uiSettingsRules",
       "课堂行为",
-      "沿用原道具开关与 All In 保留规则，修改后即时保存。",
+      "沿用原道具开关与 All In 保留规则。",
       [$("#settingsV26_function"), ...marked("rules")],
     );
     group(

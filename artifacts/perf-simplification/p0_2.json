@@ -1,0 +1,876 @@
+{
+  "generatedAt": "2026-11-22T13:47:18.192Z",
+  "environment": {
+    "node": "v24.22.3",
+    "browserBinary": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "viewport": "1920x1080@1x",
+    "seededState": {
+      "groupCount": 14,
+      "historyCount": 30,
+      "rosterStudentCount": 28,
+      "firstGroupInventoryLen": 3
+    }
+  },
+  "bundle": {
+    "distHtmlBytes": 13312701,
+    "styleBlockCount": 39,
+    "styleFileCount": 53,
+    "totalStyleBytes": 372939,
+    "srcStyleBytes": 372939,
+    "scriptBlockCount": 161,
+    "scriptFileCount": 221,
+    "totalScriptBytes": 12878623,
+    "srcLogicScriptBytes": 1615206,
+    "srcResourceAndCatalogScriptBytes": 1489038,
+    "embeddedDataUriCount": 265,
+    "embeddedDataUriBytes": 10888878,
+    "topScriptBlocks": [
+      {
+        "path": "src/resources/avatar-presets.js",
+        "bytes": 1287724
+      },
+      {
+        "path": "src/ui/component-catalog.js",
+        "bytes": 177518
+      },
+      {
+        "path": "src/ui/desktop.js",
+        "bytes": 76816
+      },
+      {
+        "path": "src/ui/classroom-roster-workspace.js",
+        "bytes": 50151
+      },
+      {
+        "path": "src/domain/items/mkw-tables.js",
+        "bytes": 38443
+      },
+      {
+        "path": "src/ui/save-workspace.js",
+        "bytes": 38045
+      },
+      {
+        "path": "src/domain/competition/random-events.js",
+        "bytes": 37843
+      },
+      {
+        "path": "src/ui/component-library.js",
+        "bytes": 32920
+      },
+      {
+        "path": "src/ui/ai-chat.js",
+        "bytes": 28149
+      },
+      {
+        "path": "src/application/legacy-classroom-adapter.js",
+        "bytes": 26861
+      },
+      {
+        "path": "src/resources/subject-library.js",
+        "bytes": 23796
+      },
+      {
+        "path": "src/ui/achievement-archive.js",
+        "bytes": 23216
+      }
+    ]
+  },
+  "startup": {
+    "runs": 5,
+    "domContentLoadedWaitMs": {
+      "n": 5,
+      "min": 1152.43,
+      "median": 1279.124,
+      "mean": 1286.795,
+      "p95": 1496.364,
+      "max": 1496.364,
+      "stddev": 125.878
+    },
+    "saveReadyAndFirstFrameMs": {
+      "n": 5,
+      "min": 1478.772,
+      "median": 1584.379,
+      "mean": 1664.007,
+      "p95": 2039.66,
+      "max": 2039.66,
+      "stddev": 209.04
+    },
+    "navDomContentLoadedEventEndMs": {
+      "n": 5,
+      "min": 1051.4,
+      "median": 1189.6,
+      "mean": 1184.78,
+      "p95": 1399.4,
+      "max": 1399.4,
+      "stddev": 124.1
+    },
+    "navLoadEventEndMs": {
+      "n": 5,
+      "min": 1093.8,
+      "median": 1231.4,
+      "mean": 1230.66,
+      "p95": 1449.5,
+      "max": 1449.5,
+      "stddev": 128.744
+    },
+    "firstContentfulPaintMs": {
+      "n": 5,
+      "min": 256,
+      "median": 268,
+      "mean": 549.6,
+      "p95": 1672,
+      "max": 1672,
+      "stddev": 561.299
+    },
+    "initialJsHeapMB": {
+      "n": 5,
+      "min": 40.15,
+      "median": 40.15,
+      "mean": 45.891,
+      "p95": 68.855,
+      "max": 68.855,
+      "stddev": 11.482
+    }
+  },
+  "battleHotPath": {
+    "renderAll": {
+      "syncMs": {
+        "n": 25,
+        "min": 1.4,
+        "median": 1.7,
+        "mean": 1.764,
+        "p95": 2.6,
+        "max": 2.8,
+        "stddev": 0.31
+      },
+      "frameMs": {
+        "n": 25,
+        "min": 5.1,
+        "median": 6.9,
+        "mean": 7.472,
+        "p95": 9.9,
+        "max": 20.7,
+        "stddev": 2.823
+      }
+    },
+    "renderGrid": {
+      "syncMs": {
+        "n": 25,
+        "min": 1.5,
+        "median": 1.9,
+        "mean": 2.072,
+        "p95": 2.8,
+        "max": 3.2,
+        "stddev": 0.426
+      },
+      "frameMs": {
+        "n": 25,
+        "min": 5.1,
+        "median": 6.9,
+        "mean": 6.92,
+        "p95": 9.4,
+        "max": 9.4,
+        "stddev": 0.949
+      }
+    },
+    "itemCommandSnapshotMs": {
+      "n": 25,
+      "min": 0,
+      "median": 0.1,
+      "mean": 0.1,
+      "p95": 0.2,
+      "max": 0.2,
+      "stddev": 0.063
+    },
+    "historySnapshotCaptureMs": {
+      "n": 25,
+      "min": 0.2,
+      "median": 0.3,
+      "mean": 0.336,
+      "p95": 0.5,
+      "max": 0.6,
+      "stddev": 0.109
+    },
+    "scoreUpdateAdjustMs": {
+      "n": 25,
+      "min": 71,
+      "median": 112.5,
+      "mean": 115.52,
+      "p95": 166.1,
+      "max": 166.3,
+      "stddev": 27.837
+    },
+    "scoreUpdatePlusItemCommandSnapshotMs": {
+      "n": 25,
+      "min": 71.3,
+      "median": 112.9,
+      "mean": 116.756,
+      "p95": 166.5,
+      "max": 186,
+      "stddev": 29.59
+    },
+    "scoreUpdatePlusCommandIdleSaveMs": {
+      "n": 25,
+      "min": 196.2,
+      "median": 283.8,
+      "mean": 303.352,
+      "p95": 438.8,
+      "max": 475.4,
+      "stddev": 72.574
+    },
+    "scoreChangesObserved": 30,
+    "saveProjectionFromRuntimeMs": {
+      "n": 25,
+      "min": 17.3,
+      "median": 25.7,
+      "mean": 26.836,
+      "p95": 35.7,
+      "max": 50.7,
+      "stddev": 7.164
+    },
+    "saveSchemaValidateV2Ms": {
+      "n": 25,
+      "min": 36.5,
+      "median": 52.2,
+      "mean": 56.308,
+      "p95": 90.6,
+      "max": 127.8,
+      "stddev": 20.359
+    },
+    "saveProjectionPlusValidateV2Ms": {
+      "n": 25,
+      "min": 54.7,
+      "median": 81.3,
+      "mean": 83.148,
+      "p95": 141.3,
+      "max": 161.2,
+      "stddev": 25.09
+    },
+    "cdpDelta": {
+      "layoutCount": 132,
+      "layoutDurationMs": 188.73,
+      "recalcStyleCount": 347,
+      "recalcStyleDurationMs": 1516.517,
+      "scriptDurationMs": 482.581,
+      "taskDurationMs": 12229.133,
+      "nodesAfter": 14902,
+      "jsHeapUsedMB": 118.9
+    },
+    "longTasks": 34,
+    "longTasksMaxMs": 354
+  },
+  "navigationAndUi": {
+    "sevenViewCycle": {
+      "cycleSyncTotalMs": {
+        "n": 10,
+        "min": 335.5,
+        "median": 378.75,
+        "mean": 378.54,
+        "p95": 417.8,
+        "max": 417.8,
+        "stddev": 20.188
+      },
+      "cycleFrameTotalMs": {
+        "n": 10,
+        "min": 498.7,
+        "median": 569.6,
+        "mean": 578.34,
+        "p95": 670.7,
+        "max": 670.7,
+        "stddev": 46.184
+      },
+      "perViewSyncMs": {
+        "welcome": {
+          "n": 10,
+          "min": 158.2,
+          "median": 171.2,
+          "mean": 171.16,
+          "p95": 186.9,
+          "max": 186.9,
+          "stddev": 9.413
+        },
+        "battle": {
+          "n": 10,
+          "min": 6.6,
+          "median": 10.85,
+          "mean": 13.56,
+          "p95": 29.1,
+          "max": 29.1,
+          "stddev": 7.126
+        },
+        "gameplay": {
+          "n": 10,
+          "min": 79,
+          "median": 90.05,
+          "mean": 92.39,
+          "p95": 112.2,
+          "max": 112.2,
+          "stddev": 10.975
+        },
+        "history": {
+          "n": 10,
+          "min": 33.5,
+          "median": 37.7,
+          "mean": 37.95,
+          "p95": 44.6,
+          "max": 44.6,
+          "stddev": 2.974
+        },
+        "archives": {
+          "n": 10,
+          "min": 33.5,
+          "median": 40.25,
+          "mean": 39.86,
+          "p95": 45,
+          "max": 45,
+          "stddev": 3.273
+        },
+        "ai": {
+          "n": 10,
+          "min": 3.6,
+          "median": 4.3,
+          "mean": 4.45,
+          "p95": 6,
+          "max": 6,
+          "stddev": 0.696
+        },
+        "settings": {
+          "n": 10,
+          "min": 15.9,
+          "median": 19.9,
+          "mean": 19.17,
+          "p95": 22.9,
+          "max": 22.9,
+          "stddev": 2.111
+        }
+      },
+      "perViewFrameMs": {
+        "welcome": {
+          "n": 10,
+          "min": 226.5,
+          "median": 240.45,
+          "mean": 245.08,
+          "p95": 268.2,
+          "max": 268.2,
+          "stddev": 14.71
+        },
+        "battle": {
+          "n": 10,
+          "min": 40.8,
+          "median": 57,
+          "mean": 64.06,
+          "p95": 113.2,
+          "max": 113.2,
+          "stddev": 19.977
+        },
+        "gameplay": {
+          "n": 10,
+          "min": 106.1,
+          "median": 115.45,
+          "mean": 119.68,
+          "p95": 142.9,
+          "max": 142.9,
+          "stddev": 12.414
+        },
+        "history": {
+          "n": 10,
+          "min": 37.8,
+          "median": 48.3,
+          "mean": 47.78,
+          "p95": 52.9,
+          "max": 52.9,
+          "stddev": 3.782
+        },
+        "archives": {
+          "n": 10,
+          "min": 46.7,
+          "median": 55.65,
+          "mean": 55.34,
+          "p95": 62.7,
+          "max": 62.7,
+          "stddev": 4.059
+        },
+        "ai": {
+          "n": 10,
+          "min": 19,
+          "median": 21.3,
+          "mean": 22.21,
+          "p95": 31.7,
+          "max": 31.7,
+          "stddev": 3.538
+        },
+        "settings": {
+          "n": 10,
+          "min": 17.3,
+          "median": 22,
+          "mean": 24.19,
+          "p95": 37.4,
+          "max": 37.4,
+          "stddev": 6.195
+        }
+      },
+      "domByView": {
+        "welcome": {
+          "totalNodes": 10044,
+          "viewNodes": 612,
+          "animationsOnEnter": 17
+        },
+        "battle": {
+          "totalNodes": 10044,
+          "viewNodes": 530,
+          "animationsOnEnter": 37
+        },
+        "gameplay": {
+          "totalNodes": 10044,
+          "viewNodes": 1183,
+          "animationsOnEnter": 6
+        },
+        "history": {
+          "totalNodes": 10044,
+          "viewNodes": 3736,
+          "animationsOnEnter": 21
+        },
+        "archives": {
+          "totalNodes": 10044,
+          "viewNodes": 71,
+          "animationsOnEnter": 22
+        },
+        "ai": {
+          "totalNodes": 10044,
+          "viewNodes": 114,
+          "animationsOnEnter": 18
+        },
+        "settings": {
+          "totalNodes": 9984,
+          "viewNodes": 3058,
+          "animationsOnEnter": 24
+        }
+      },
+      "cdpDelta": {
+        "layoutCount": 218,
+        "layoutDurationMs": 752.053,
+        "recalcStyleCount": 988,
+        "recalcStyleDurationMs": 3680.694,
+        "scriptDurationMs": 4564.527,
+        "taskDurationMs": 10183.666,
+        "nodesAfter": 151121,
+        "jsHeapUsedMB": 99.81
+      },
+      "longTasks": 57,
+      "longTasksMaxMs": 281
+    },
+    "gameplayTabs": {
+      "cycleFrameTotalMs": {
+        "n": 15,
+        "min": 63.5,
+        "median": 82.8,
+        "mean": 87.827,
+        "p95": 143.6,
+        "max": 143.6,
+        "stddev": 22.79
+      },
+      "perTabSyncMs": {
+        "items": {
+          "n": 15,
+          "min": 0.4,
+          "median": 0.6,
+          "mean": 0.547,
+          "p95": 0.7,
+          "max": 0.7,
+          "stddev": 0.109
+        },
+        "statuses": {
+          "n": 15,
+          "min": 0.4,
+          "median": 0.6,
+          "mean": 0.627,
+          "p95": 1.5,
+          "max": 1.5,
+          "stddev": 0.269
+        },
+        "events": {
+          "n": 15,
+          "min": 0.3,
+          "median": 0.6,
+          "mean": 0.62,
+          "p95": 1.5,
+          "max": 1.5,
+          "stddev": 0.269
+        },
+        "achievements": {
+          "n": 15,
+          "min": 0.4,
+          "median": 0.5,
+          "mean": 0.547,
+          "p95": 0.9,
+          "max": 0.9,
+          "stddev": 0.136
+        },
+        "rules": {
+          "n": 15,
+          "min": 0.4,
+          "median": 0.6,
+          "mean": 0.6,
+          "p95": 1,
+          "max": 1,
+          "stddev": 0.146
+        }
+      },
+      "perTabFrameMs": {
+        "items": {
+          "n": 15,
+          "min": 17.1,
+          "median": 21.1,
+          "mean": 21.133,
+          "p95": 28.6,
+          "max": 28.6,
+          "stddev": 2.639
+        },
+        "statuses": {
+          "n": 15,
+          "min": 3.4,
+          "median": 7.4,
+          "mean": 11.84,
+          "p95": 71.8,
+          "max": 71.8,
+          "stddev": 16.155
+        },
+        "events": {
+          "n": 15,
+          "min": 2.7,
+          "median": 8.8,
+          "mean": 10.573,
+          "p95": 26.5,
+          "max": 26.5,
+          "stddev": 6.381
+        },
+        "achievements": {
+          "n": 15,
+          "min": 11.9,
+          "median": 16.9,
+          "mean": 19.74,
+          "p95": 39.4,
+          "max": 39.4,
+          "stddev": 7.509
+        },
+        "rules": {
+          "n": 15,
+          "min": 16.5,
+          "median": 21.6,
+          "mean": 24.54,
+          "p95": 44.3,
+          "max": 44.3,
+          "stddev": 7.315
+        }
+      },
+      "cdpDelta": {
+        "layoutCount": 84,
+        "layoutDurationMs": 636.398,
+        "recalcStyleCount": 155,
+        "recalcStyleDurationMs": 750.979,
+        "scriptDurationMs": 82.942,
+        "taskDurationMs": 2164.421,
+        "nodesAfter": 35550,
+        "jsHeapUsedMB": 35.64
+      }
+    },
+    "settingsCategories": {
+      "categories": [
+        "rules",
+        "appearance",
+        "motion",
+        "sound",
+        "items",
+        "students",
+        "welcome",
+        "data",
+        "ai",
+        "about"
+      ],
+      "cycleFrameTotalMs": {
+        "n": 10,
+        "min": 127.4,
+        "median": 135.8,
+        "mean": 144.91,
+        "p95": 175.1,
+        "max": 175.1,
+        "stddev": 15.803
+      },
+      "perCategorySyncMs": {
+        "rules": {
+          "n": 10,
+          "min": 5.5,
+          "median": 6.35,
+          "mean": 6.77,
+          "p95": 9.3,
+          "max": 9.3,
+          "stddev": 1.191
+        },
+        "appearance": {
+          "n": 10,
+          "min": 5,
+          "median": 6.3,
+          "mean": 6.87,
+          "p95": 9.3,
+          "max": 9.3,
+          "stddev": 1.411
+        },
+        "motion": {
+          "n": 10,
+          "min": 4.5,
+          "median": 6.1,
+          "mean": 6.2,
+          "p95": 9.3,
+          "max": 9.3,
+          "stddev": 1.34
+        },
+        "sound": {
+          "n": 10,
+          "min": 32.4,
+          "median": 39.05,
+          "mean": 40.44,
+          "p95": 53.8,
+          "max": 53.8,
+          "stddev": 5.956
+        },
+        "items": {
+          "n": 10,
+          "min": 9.9,
+          "median": 11.4,
+          "mean": 13.29,
+          "p95": 19.2,
+          "max": 19.2,
+          "stddev": 3.801
+        },
+        "students": {
+          "n": 10,
+          "min": 15.1,
+          "median": 21.55,
+          "mean": 22.67,
+          "p95": 39.6,
+          "max": 39.6,
+          "stddev": 6.703
+        },
+        "welcome": {
+          "n": 10,
+          "min": 5.4,
+          "median": 7.4,
+          "mean": 7.37,
+          "p95": 9.7,
+          "max": 9.7,
+          "stddev": 1.208
+        },
+        "data": {
+          "n": 10,
+          "min": 4.9,
+          "median": 6.65,
+          "mean": 6.58,
+          "p95": 7.8,
+          "max": 7.8,
+          "stddev": 0.918
+        },
+        "ai": {
+          "n": 10,
+          "min": 4.3,
+          "median": 5.4,
+          "mean": 5.35,
+          "p95": 6.2,
+          "max": 6.2,
+          "stddev": 0.555
+        },
+        "about": {
+          "n": 10,
+          "min": 2.3,
+          "median": 3.15,
+          "mean": 3.27,
+          "p95": 4.7,
+          "max": 4.7,
+          "stddev": 0.618
+        }
+      },
+      "perCategoryFrameMs": {
+        "rules": {
+          "n": 10,
+          "min": 7.2,
+          "median": 8.2,
+          "mean": 8.55,
+          "p95": 11.3,
+          "max": 11.3,
+          "stddev": 1.312
+        },
+        "appearance": {
+          "n": 10,
+          "min": 7.5,
+          "median": 8.65,
+          "mean": 9.28,
+          "p95": 11.7,
+          "max": 11.7,
+          "stddev": 1.401
+        },
+        "motion": {
+          "n": 10,
+          "min": 6.2,
+          "median": 7.8,
+          "mean": 8.05,
+          "p95": 11,
+          "max": 11,
+          "stddev": 1.4
+        },
+        "sound": {
+          "n": 10,
+          "min": 34.4,
+          "median": 41.6,
+          "mean": 42.75,
+          "p95": 56.1,
+          "max": 56.1,
+          "stddev": 6.034
+        },
+        "items": {
+          "n": 10,
+          "min": 12.8,
+          "median": 19.05,
+          "mean": 19.41,
+          "p95": 33.6,
+          "max": 33.6,
+          "stddev": 6.363
+        },
+        "students": {
+          "n": 10,
+          "min": 18.1,
+          "median": 25.3,
+          "mean": 26.09,
+          "p95": 43.1,
+          "max": 43.1,
+          "stddev": 6.731
+        },
+        "welcome": {
+          "n": 10,
+          "min": 7,
+          "median": 9.15,
+          "mean": 9.47,
+          "p95": 12.2,
+          "max": 12.2,
+          "stddev": 1.45
+        },
+        "data": {
+          "n": 10,
+          "min": 7.2,
+          "median": 8.65,
+          "mean": 8.5,
+          "p95": 9.4,
+          "max": 9.4,
+          "stddev": 0.683
+        },
+        "ai": {
+          "n": 10,
+          "min": 6.2,
+          "median": 6.95,
+          "mean": 7.11,
+          "p95": 9,
+          "max": 9,
+          "stddev": 0.803
+        },
+        "about": {
+          "n": 10,
+          "min": 4.3,
+          "median": 5.3,
+          "mean": 5.7,
+          "p95": 7.6,
+          "max": 7.6,
+          "stddev": 1.147
+        }
+      },
+      "cdpDelta": {
+        "layoutCount": 239,
+        "layoutDurationMs": 509.267,
+        "recalcStyleCount": 774,
+        "recalcStyleDurationMs": 716.802,
+        "scriptDurationMs": 499.126,
+        "taskDurationMs": 2478.54,
+        "nodesAfter": 44440,
+        "jsHeapUsedMB": 63.64
+      }
+    },
+    "itemDrawSimulatorUpdate": {
+      "foundSimulatorControl": true,
+      "syncMs": {
+        "n": 20,
+        "min": 6.4,
+        "median": 7.35,
+        "mean": 10.26,
+        "p95": 21.7,
+        "max": 45.4,
+        "stddev": 8.739
+      },
+      "frameMs": {
+        "n": 20,
+        "min": 18.8,
+        "median": 26.8,
+        "mean": 29.71,
+        "p95": 48.9,
+        "max": 66.3,
+        "stddev": 10.845
+      },
+      "cdpDelta": {
+        "layoutCount": 22,
+        "layoutDurationMs": 82.356,
+        "recalcStyleCount": 22,
+        "recalcStyleDurationMs": 236.432,
+        "scriptDurationMs": 290.363,
+        "taskDurationMs": 727.004,
+        "nodesAfter": 61571,
+        "jsHeapUsedMB": 57.29
+      }
+    }
+  },
+  "idle": {
+    "welcome": {
+      "windowMs": 2000,
+      "activeIntervals": 1,
+      "activeTimeouts": 0,
+      "windowIntervalCallbacks": 2,
+      "windowTimeoutCallbacks": 0,
+      "windowRafCallbacks": 284,
+      "longTasksCount": 0,
+      "longTasksMaxMs": 0,
+      "longTasksTotalMs": 0,
+      "longTasks": [],
+      "animationsIdle": 0,
+      "domNodes": 10044,
+      "cdpDelta": {
+        "layoutCount": 4,
+        "layoutDurationMs": 0.966,
+        "recalcStyleCount": 23,
+        "recalcStyleDurationMs": 2.408,
+        "scriptDurationMs": 100.923,
+        "taskDurationMs": 263.023,
+        "nodesAfter": 61611,
+        "jsHeapUsedMB": 84.03
+      }
+    },
+    "battle": {
+      "windowMs": 2000,
+      "activeIntervals": 1,
+      "activeTimeouts": 0,
+      "windowIntervalCallbacks": 2,
+      "windowTimeoutCallbacks": 0,
+      "windowRafCallbacks": 0,
+      "longTasksCount": 0,
+      "longTasksMaxMs": 0,
+      "longTasksTotalMs": 0,
+      "longTasks": [],
+      "animationsIdle": 9,
+      "domNodes": 10044,
+      "cdpDelta": {
+        "layoutCount": 1,
+        "layoutDurationMs": 0.143,
+        "recalcStyleCount": 30,
+        "recalcStyleDurationMs": 11.092,
+        "scriptDurationMs": 0.255,
+        "taskDurationMs": 55.696,
+        "nodesAfter": 61647,
+        "jsHeapUsedMB": 84.41
+      }
+    }
+  }
+}

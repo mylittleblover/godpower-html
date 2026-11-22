@@ -32,16 +32,56 @@
   };
   const uid = (v) =>
     typeof v === "string" && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(v);
-  function safeTree(value, depth = 0) {
+  function checkSafeKey(key) {
+    if (key === "__proto__" || key === "prototype" || key === "constructor")
+      fail("unsafe save property");
+  }
+  function safeTree(value, depth = 0, matchRefsOut = null) {
     if (depth > 40) fail("save nesting exceeds limit");
     if (typeof value === "number" && !Number.isFinite(value))
       fail("non-finite save number");
-    if (value && typeof value === "object")
-      for (const key of Object.keys(value)) {
-        if (["__proto__", "prototype", "constructor"].includes(key))
-          fail("unsafe save property");
-        safeTree(value[key], depth + 1);
+    if (!value || typeof value !== "object") return;
+    if (Array.isArray(value)) {
+      if (
+        Object.hasOwn(value, "__proto__") ||
+        Object.hasOwn(value, "prototype") ||
+        Object.hasOwn(value, "constructor")
+      )
+        fail("unsafe save property");
+      if (depth === 40 && value.length > 0) fail("save nesting exceeds limit");
+      for (let i = 0; i < value.length; i++) {
+        const child = value[i];
+        if (child && typeof child === "object")
+          safeTree(child, depth + 1, matchRefsOut);
+        else if (typeof child === "number" && !Number.isFinite(child))
+          fail("non-finite save number");
       }
+      return;
+    }
+    const keys = Object.keys(value);
+    if (depth === 40) {
+      if (keys.length > 0) {
+        for (let i = 0; i < keys.length; i++) checkSafeKey(keys[i]);
+        fail("save nesting exceeds limit");
+      }
+      return;
+    }
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      checkSafeKey(key);
+      const child = value[key];
+      if (child && typeof child === "object")
+        safeTree(child, depth + 1, matchRefsOut);
+      else if (typeof child === "number" && !Number.isFinite(child))
+        fail("non-finite save number");
+    }
+    if (
+      matchRefsOut !== null &&
+      keys.length === 1 &&
+      keys[0] === "$asset" &&
+      typeof value.$asset === "string"
+    )
+      matchRefsOut.add(value.$asset);
   }
   function unique(rows, key, label) {
     if (!Array.isArray(rows)) fail(label + " must be an array");
@@ -84,7 +124,18 @@
       input.schemaVersion !== 2
     )
       fail("unsupported save kind/format");
-    safeTree(input);
+    const matchAssetRefs = new Set();
+    const topKeys = Object.keys(input);
+    for (let i = 0; i < topKeys.length; i++) {
+      const key = topKeys[i];
+      checkSafeKey(key);
+      const child = input[key];
+      if (key === "match" && child && typeof child === "object")
+        safeTree(child, 1, matchAssetRefs);
+      else if (child && typeof child === "object") safeTree(child, 1);
+      else if (typeof child === "number" && !Number.isFinite(child))
+        fail("non-finite save number");
+    }
     if (
       typeof input.saveId !== "string" ||
       !/^save-[A-Za-z0-9_-]{1,96}$/.test(input.saveId)
@@ -162,32 +213,23 @@
       if (!object(h)) fail("invalid history entry");
       validateGroups(h.groups, false);
     }
-    if (
-      !Array.isArray(input.assetReferences) ||
-      new Set(input.assetReferences).size !== input.assetReferences.length
-    )
-      fail("invalid asset references");
-    const refs = new Set(input.assetReferences);
-    if (
-      [...refs].some(
-        (x) => typeof x !== "string" || !/^asset-[a-f0-9]{64}$/.test(x),
-      )
-    )
-      fail("invalid asset identity");
-    for (const row of [...input.roster.students, ...input.roster.groups])
+    if (!Array.isArray(input.assetReferences)) fail("invalid asset references");
+    const refs = new Set();
+    for (const x of input.assetReferences) {
+      if (refs.has(x)) fail("invalid asset references");
+      refs.add(x);
+    }
+    for (const x of refs)
+      if (typeof x !== "string" || !/^asset-[a-f0-9]{64}$/.test(x))
+        fail("invalid asset identity");
+    for (const row of input.roster.students)
       if (row.avatarResourceId != null && !refs.has(row.avatarResourceId))
         fail("avatar asset reference is missing");
-    function checkRefs(v) {
-      if (!v || typeof v !== "object") return;
-      if (
-        Object.keys(v).length === 1 &&
-        typeof v.$asset === "string" &&
-        !refs.has(v.$asset)
-      )
-        fail("match asset reference is missing");
-      for (const child of Object.values(v)) checkRefs(child);
-    }
-    checkRefs(input.match);
+    for (const row of input.roster.groups)
+      if (row.avatarResourceId != null && !refs.has(row.avatarResourceId))
+        fail("avatar asset reference is missing");
+    for (const refId of matchAssetRefs)
+      if (!refs.has(refId)) fail("match asset reference is missing");
     if (APP_KEYS.some((k) => Object.hasOwn(input.match, k)))
       fail("program preferences belong outside match");
     return input;

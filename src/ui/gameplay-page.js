@@ -2,14 +2,14 @@
 (function installGameplayPage(root) {
   "use strict";
   let tab = "items",
-    bound = false;
-  const E = (value) =>
-    typeof escapeHtml === "function"
-      ? escapeHtml(value)
-      : String(value ?? "").replace(
-          /[&<>"]/g,
-          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
-        );
+    bound = false,
+    lastBaseSig = "",
+    lastRulesSig = "",
+    lastAchSig = "";
+  let cachedRulesEl = null,
+    cachedEventsEl = null,
+    cachedAchEl = null;
+  const E = GodpowerUIModel.escapeHtml;
 
   const CATEGORY_NAMES = Object.freeze({
     learning: "学习表现",
@@ -51,9 +51,9 @@
         return `<article class="item-reference-row gameplay-mech-card">
           <div class="gameplay-mech-badge" data-mech-cat="${E(ev.category)}">${E(ev.id)}</div>
           <div class="item-reference-copy">
-            <div class="item-reference-name"><strong>${E(ev.name)}</strong><span class="item-reference-tag">${E(cat)}</span><span class="ui-chip">${E(timing)}</span><span class="ui-chip">${E(ev.scope)}</span></div>
+            <div class="item-reference-name"><strong>${E(ev.name)}</strong><span class="gp-chip" data-tone="primary">${E(cat)}</span></div>
+            <div class="gameplay-mech-meta">${E(timing)} · ${E(ev.scope)}${notes.length ? ` · ${E(notes.join(" · "))}` : ""}</div>
             <p>${E(ev.description)}</p>
-            ${notes.length ? `<small class="ui-muted">${E(notes.join(" · "))}</small>` : ""}
           </div>
         </article>`;
       })
@@ -101,9 +101,8 @@
           <div class="item-reference-copy">
             <div class="item-reference-name">
               <strong>${E(masked ? "？？？ · 隐藏成就" : entry.name)}</strong>
-              <span class="item-reference-tag">${E(cat)}</span>
-              <span class="ui-chip">${E(entry.rarity)}</span>
-              ${unlocked ? `<span class="ui-chip" style="color:#047857;border-color:#a7f3d0;">本档已解锁</span>` : ""}
+              <span class="gp-chip">${E(cat)} · ${E(entry.rarity)}</span>
+              ${unlocked ? `<span class="gp-chip" data-tone="positive">本档已解锁</span>` : ""}
             </div>
             <p>${E(masked ? "隐藏条件成就：在课堂真实对抗中触发特定时机后自动揭晓并解锁。" : entry.condition)}</p>
           </div>
@@ -333,12 +332,80 @@
     return rules;
   }
 
+  function customIconsSig() {
+    const custom = state?.itemGlobal?.customIcons;
+    if (!custom) return "";
+    let out = "";
+    for (const k of Object.keys(custom)) {
+      const v = custom[k];
+      if (v) out += `${k}:${v.length},`;
+    }
+    return out;
+  }
+
+  function achievementUnlockedSig() {
+    const groups = state?.achievementLedger?.groups;
+    if (!groups || typeof groups !== "object") return "";
+    const ids = new Set();
+    for (const g of Object.values(groups)) {
+      for (const bucket of [
+        g?.permanentUnlocks,
+        g?.seasonUnlocks,
+        g?.archivedUnlocks,
+      ]) {
+        if (!bucket) continue;
+        for (const k of Object.keys(bucket)) if (bucket[k]) ids.add(k);
+      }
+    }
+    return [...ids].sort().join(",");
+  }
+
   function render() {
     const host = document.getElementById("gameplayContent");
     if (!host) return;
-    host.innerHTML = itemReferenceMarkup();
-    host.prepend(buildRulesSection());
-    host.append(buildEventsSection(), buildAchievementsSection());
+    const themeId =
+      typeof GodpowerTheme !== "undefined"
+        ? GodpowerTheme.current?.() || ""
+        : "";
+    const iconsSig = customIconsSig();
+    const baseSig = `${themeId}|${typeof ITEM_KEYS !== "undefined" ? ITEM_KEYS.length : 0}|${iconsSig}`;
+    const currentCfg =
+      typeof getMkwDrawConfig === "function"
+        ? getMkwDrawConfig()
+        : typeof ItemDrawPolicy !== "undefined"
+          ? ItemDrawPolicy.defaultConfig()
+          : { mode: "", switchPreset: "" };
+    const rulesSig = `${themeId}|${currentCfg.mode}|${currentCfg.switchPreset}`;
+    const achSig = `${themeId}|${achievementUnlockedSig()}`;
+
+    const baseInvalid =
+      baseSig !== lastBaseSig || !host.querySelector(".item-reference-list");
+    if (baseInvalid) {
+      lastBaseSig = baseSig;
+      host.innerHTML = itemReferenceMarkup();
+      cachedRulesEl = buildRulesSection();
+      cachedEventsEl = buildEventsSection();
+      cachedAchEl = buildAchievementsSection();
+      lastRulesSig = rulesSig;
+      lastAchSig = achSig;
+      host.prepend(cachedRulesEl);
+      host.append(cachedEventsEl, cachedAchEl);
+    } else {
+      if (rulesSig !== lastRulesSig || !cachedRulesEl?.isConnected) {
+        lastRulesSig = rulesSig;
+        const nextRules = buildRulesSection();
+        if (cachedRulesEl?.isConnected) cachedRulesEl.replaceWith(nextRules);
+        else host.prepend(nextRules);
+        cachedRulesEl = nextRules;
+      }
+      if (achSig !== lastAchSig || !cachedAchEl?.isConnected) {
+        lastAchSig = achSig;
+        const nextAch = buildAchievementsSection();
+        if (cachedAchEl?.isConnected) cachedAchEl.replaceWith(nextAch);
+        else host.append(nextAch);
+        cachedAchEl = nextAch;
+      }
+    }
     const countEl = document.querySelector("[data-gameplay-items-count]");
     if (countEl && typeof ITEM_KEYS !== "undefined")
       countEl.textContent = ITEM_KEYS.length;

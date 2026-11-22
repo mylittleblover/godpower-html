@@ -120,6 +120,28 @@ function playTargetCardFx(id, key, type = "hit") {
     card.style.removeProperty("--hitc");
   }, 1600);
 }
+const addPrevTarget = (r, i, add) => add(r[i - 1]);
+const addNextTarget = (r, i, add) => add(r[i + 1]);
+const addAheadTargets = (r, i, add) => {
+  for (let j = 0; j < i; j++) add(r[j]);
+};
+const CARD_FX_TARGET_BY_KEY = {
+  red_shell: addPrevTarget,
+  triple_red: addPrevTarget,
+  boo: addPrevTarget,
+  banana: addNextTarget,
+  triple_banana: addNextTarget,
+  super_horn: (r, i, add) => {
+    add(r[i - 1]);
+    add(r[i + 1]);
+  },
+  spiny_shell: (r, _i, add) => add(r[0]),
+  lightning: addAheadTargets,
+  coin_shell: addAheadTargets,
+  question_block: (r, i, add) => {
+    for (let j = i + 1; j < r.length; j++) add(r[j]);
+  },
+};
 function cardFxTargets(key, gid) {
   const r = ranking(),
     i = r.findIndex((g) => g.id === gid),
@@ -127,15 +149,7 @@ function cardFxTargets(key, gid) {
     add = (g) => {
       if (g && g.id !== gid && !ids.includes(g.id)) ids.push(g.id);
     };
-  if (["red_shell", "triple_red", "boo"].includes(key)) add(r[i - 1]);
-  else if (["banana", "triple_banana"].includes(key)) add(r[i + 1]);
-  else if (key === "super_horn") {
-    add(r[i - 1]);
-    add(r[i + 1]);
-  } else if (key === "spiny_shell") add(r[0]);
-  else if (key === "lightning") r.slice(0, Math.max(0, i)).forEach(add);
-  else if (key === "coin_shell") r.slice(0, Math.max(0, i)).forEach(add);
-  else if (key === "question_block") r.slice(i + 1).forEach(add);
+  CARD_FX_TARGET_BY_KEY[key]?.(r, i, add);
   return ids;
 }
 /* 接到 V2.3/V2.2 已确认“实际成功发动”的 showItemUseFx 上。

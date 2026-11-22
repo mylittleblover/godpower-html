@@ -1,10 +1,5 @@
 function escapeHtml(str) {
-  return String(str ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+  return GodpowerUIModel.escapeHtml(str);
 }
 
 /* ================================================================
@@ -61,6 +56,7 @@ function switchView(name) {
   if (name === "welcome") {
     renderWelcomePage();
     updateWelcomeTrackIfNeeded();
+    if (typeof updateWelcomeClock === "function") updateWelcomeClock();
   }
   if (name === "history") renderHistoryList();
   if (name === "archives") renderSettlementHistoryList();
@@ -119,19 +115,34 @@ function startWelcomeClock() {
   welcomeClockTimer = setInterval(updateWelcomeClock, 1000);
 }
 
+let lastWelcomeClockText = "";
+let lastWelcomeDateText = "";
+let lastWelcomeGreetingText = "";
+let lastWelcomePodiumSig = "";
+
 function updateWelcomeClock() {
   updateHeaderStats();
-  if (currentView === "welcome" && typeof DesktopUI !== "undefined")
-    DesktopUI.renderWelcome();
-  const now = new Date();
-  const hh = String(now.getHours()).padStart(2, "0");
-  const mm = String(now.getMinutes()).padStart(2, "0");
-  const ss = String(now.getSeconds()).padStart(2, "0");
+  if (typeof currentView === "string" && currentView !== "welcome") return;
+  if (typeof DesktopUI !== "undefined") DesktopUI.renderWelcome();
   const clock = document.getElementById("welcomeClock");
-  if (clock) clock.innerText = hh + ":" + mm + ":" + ss;
   const date = document.getElementById("welcomeDate");
-  if (date)
-    date.innerText =
+  const greeting = document.getElementById("welcomeGreeting");
+  if (!clock && !date && !greeting) return;
+  const now = new Date();
+  if (clock) {
+    const nextClock =
+      String(now.getHours()).padStart(2, "0") +
+      ":" +
+      String(now.getMinutes()).padStart(2, "0") +
+      ":" +
+      String(now.getSeconds()).padStart(2, "0");
+    if (nextClock !== lastWelcomeClockText || clock.textContent !== nextClock) {
+      lastWelcomeClockText = nextClock;
+      clock.textContent = nextClock;
+    }
+  }
+  if (date) {
+    const nextDate =
       now.getFullYear() +
       "年" +
       (now.getMonth() + 1) +
@@ -139,7 +150,11 @@ function updateWelcomeClock() {
       now.getDate() +
       "日 星期" +
       WEEKDAYS[now.getDay()];
-  const greeting = document.getElementById("welcomeGreeting");
+    if (nextDate !== lastWelcomeDateText || date.textContent !== nextDate) {
+      lastWelcomeDateText = nextDate;
+      date.textContent = nextDate;
+    }
+  }
   if (greeting) {
     const h = now.getHours();
     const part =
@@ -152,14 +167,26 @@ function updateWelcomeClock() {
             : h < 18
               ? "下午好"
               : "晚上好";
-    greeting.innerText = part + "，欢迎使用" + GodpowerTheme.name();
+    const nextGreeting = part + "，欢迎使用" + GodpowerTheme.name();
+    if (
+      nextGreeting !== lastWelcomeGreetingText ||
+      greeting.textContent !== nextGreeting
+    ) {
+      lastWelcomeGreetingText = nextGreeting;
+      greeting.textContent = nextGreeting;
+    }
   }
 }
 
 function renderWelcomePage() {
   if (typeof DesktopUI !== "undefined") DesktopUI.renderWelcome();
   const wrap = document.getElementById("welcomePodiumDeck");
-  if (!wrap || wrap.closest?.("[hidden]")) return;
+  if (
+    !wrap ||
+    wrap.closest?.("[hidden]") ||
+    (typeof currentView === "string" && currentView !== "welcome")
+  )
+    return;
   const sorted = [...state.groups].sort(
     (a, b) => (Number(b.score) || 0) - (Number(a.score) || 0),
   );
@@ -167,6 +194,13 @@ function renderWelcomePage() {
     top2 = sorted[1],
     top3 = sorted[2];
   const getScore = (g) => (g ? Number(g.score) || 0 : 0);
+  const sig = [
+    top1 ? `${top1.name}:${top1.color}:${getScore(top1)}` : "",
+    top2 ? `${top2.name}:${top2.color}:${getScore(top2)}` : "",
+    top3 ? `${top3.name}:${top3.color}:${getScore(top3)}` : "",
+  ].join("|");
+  if (sig === lastWelcomePodiumSig && wrap.childElementCount > 0) return;
+  lastWelcomePodiumSig = sig;
   wrap.innerHTML = `
     <div class="podium-col rank-2" style="background:rgba(246,250,253,.85); border-color:rgba(190,215,235,.9);">
       <span class="podium-badge" style="color:#4a5b73;">第 2 名</span>

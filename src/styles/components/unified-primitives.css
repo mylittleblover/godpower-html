@@ -1,0 +1,378 @@
+/* Unified 4-tier surface hierarchy, consolidated design tokens, and tactile motion primitives. */
+body.modern-flat {
+  --page-max-width: 1680px;
+  --page-pad-top: 20px;
+  --page-pad-x: 28px;
+  --page-pad-bottom: 32px;
+  --page-gap: 18px;
+  --grid-gap: 14px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-xs: 0 1px 2px var(--theme-tone-17302d08, rgba(15, 38, 33, 0.05));
+  --shadow-card: 0 2px 10px var(--theme-tone-17302d08, rgba(15, 38, 33, 0.05));
+  --shadow-float: 0 18px 48px var(--theme-tone-17302d26, rgba(15, 38, 33, 0.18));
+  --font-xs: 12px;
+  --font-sm: 13px;
+  --font-base: 14px;
+  --font-md: 16px;
+  --font-lg: 22px;
+  --font-xl: 32px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 120ms;
+  --dur-fast: 160ms;
+  --dur-normal: 220ms;
+  --dur-modal: 260ms;
+  --tone-positive: #0f764a;
+  --tone-positive-soft: #ecfdf5;
+  --tone-warning: #b45309;
+  --tone-warning-soft: #fffbeb;
+  --tone-danger: #b91c1c;
+  --tone-danger-soft: #fef2f2;
+  --tone-info: #0369a1;
+  --tone-info-soft: #f0f9ff;
+}
+
+body.modern-flat.theme-marx {
+  --tone-positive: #156e45;
+  --tone-positive-soft: #eef9f2;
+  --tone-warning: #9a4f12;
+  --tone-warning-soft: #fdf4e7;
+  --tone-danger: #9f1a28;
+  --tone-danger-soft: #fdf0ef;
+  --tone-info: #7e2230;
+  --tone-info-soft: #faf0ee;
+}
+
+/* Tier 1: Primary section panel (maxCardDepth <= 2 when children use .gp-row) */
+.gp-surface-panel {
+  background: var(--ui-panel);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 18px 20px;
+  color: var(--ui-text);
+  min-width: 0;
+}
+
+/* Tier 2: Inset block inside Tier 1 or Tier 3 (no extra shadow, soft fill) */
+.gp-inset {
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  box-shadow: none;
+  min-width: 0;
+}
+
+/* Compact Tier-1 page header for sub-pages (gameplay, history, archives, ai, settings) */
+body.modern-flat .ui-collection-header.gp-page-header,
+.gp-page-header {
+  padding: 16px 24px;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  min-height: 0;
+  gap: 16px;
+}
+
+body.modern-flat .ui-collection-header.gp-page-header h2,
+.gp-page-header h2 {
+  font-size: var(--font-lg);
+  line-height: 1.25;
+}
+
+body.modern-flat .ui-collection-header.gp-page-header .ui-collection-sub,
+.gp-page-header .ui-collection-sub {
+  margin-top: 4px;
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+/* Unified segmented tabs */
+.gp-tabs {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  background: var(--ui-soft-2);
+  border: 1px solid var(--ui-border);
+}
+
+.gp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ui-muted);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-label);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.gp-tab[aria-current="true"],
+.gp-tab[aria-selected="true"],
+.gp-tab.active {
+  background: var(--ui-panel);
+  color: var(--ui-primary);
+  border-color: var(--ui-border);
+  box-shadow: var(--shadow-xs);
+  font-weight: 700;
+}
+
+/* Semantic pills */
+.gp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--ui-border);
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+  font-size: var(--font-xs);
+  font-weight: var(--weight-label);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.gp-chip[data-tone="primary"] {
+  background: var(--ui-soft);
+  border-color: color-mix(in srgb, var(--ui-primary) 26%, transparent);
+  color: var(--ui-primary);
+}
+
+.gp-chip[data-tone="positive"] {
+  background: var(--tone-positive-soft);
+  border-color: color-mix(in srgb, var(--tone-positive) 26%, transparent);
+  color: var(--tone-positive);
+}
+
+.gp-chip[data-tone="warning"] {
+  background: var(--tone-warning-soft);
+  border-color: color-mix(in srgb, var(--tone-warning) 26%, transparent);
+  color: var(--tone-warning);
+}
+
+.gp-chip[data-tone="danger"] {
+  background: var(--tone-danger-soft);
+  border-color: color-mix(in srgb, var(--tone-danger) 26%, transparent);
+  color: var(--tone-danger);
+}
+
+.gp-chip[data-tone="info"] {
+  background: var(--tone-info-soft);
+  border-color: color-mix(in srgb, var(--tone-info) 26%, transparent);
+  color: var(--tone-info);
+}
+
+/* Flat hairline-divided rows inside a Tier-1 panel (eliminates nested card boxes) */
+.gp-row-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.gp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 12px 4px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 72%, transparent);
+  transition: background-color var(--dur-fast) ease;
+}
+
+.gp-row:last-child {
+  border-bottom: 0;
+}
+
+/* Unified modal header & close control */
+.gp-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 16px 20px;
+  background: var(--surface-hero);
+  color: #ffffff;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.gp-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Unified table wrapper */
+.gp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.gp-table th,
+.gp-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--ui-border);
+  vertical-align: middle;
+}
+
+.gp-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--ui-soft-2);
+  color: var(--ui-muted);
+  font-size: var(--font-xs);
+  font-weight: 700;
+}
+
+/* Styled file picker wrapping visually hidden <input type="file"> */
+.gp-file-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gp-file-picker input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Component Library Showcase Helpers */
+.gp-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.gp-showcase-swatch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-sm);
+  background: var(--ui-panel);
+  font-size: var(--font-xs);
+}
+
+.gp-showcase-swatch i {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--ui-border-strong);
+  flex: none;
+}
+
+.gp-showcase-motion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Motion & interaction unification: replace transition:all + add :active press */
+body.modern-flat
+  :is(
+    .opt-btn,
+    .allin-toggle-btn,
+    .more-btn,
+    .batch-opt-btn,
+    .batch-allin-btn,
+    .ans-btn,
+    .two-tier-chip,
+    .icon-btn,
+    .btn,
+    .nav-tab,
+    .welcome-enter-btn
+  ) {
+  transition-property:
+    transform, background-color, border-color, color, opacity, box-shadow;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+body.modern-flat
+  :is(
+    .btn,
+    .opt-btn,
+    .allin-toggle-btn,
+    .ans-btn,
+    .batch-opt-btn,
+    .batch-allin-btn,
+    .icon-btn,
+    .nav-tab,
+    .gp-tab,
+    .quick-person-chip,
+    .picker-vtab,
+    .item-tab,
+    .ui-settings-nav button,
+    .ui-window-close
+  ):active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Pause decorative animations inside inactive views to keep idle CPU near zero */
+body.modern-flat .view:not(.active) * {
+  animation-play-state: paused;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gp-tab:not([aria-current="true"]):not([aria-selected="true"]):not(
+      .active
+    ):hover {
+    background: color-mix(in srgb, var(--ui-panel) 72%, transparent);
+    color: var(--ui-text);
+  }
+  .gp-row:hover {
+    background: color-mix(in srgb, var(--ui-soft) 45%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.modern-flat
+    :is(
+      .btn,
+      .opt-btn,
+      .allin-toggle-btn,
+      .ans-btn,
+      .batch-opt-btn,
+      .batch-allin-btn,
+      .icon-btn,
+      .nav-tab,
+      .gp-tab,
+      .quick-person-chip,
+      .picker-vtab,
+      .item-tab,
+      .ui-settings-nav button,
+      .ui-window-close
+    ) {
+    transition-duration: 0.01ms;
+  }
+}

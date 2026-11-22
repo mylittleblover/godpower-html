@@ -1,16 +1,21 @@
+const ATTACK_HIT_CLASS_V2116 = {
+  green: "hit-green-shell",
+  triple_green: "hit-green-shell",
+  red: "hit-red-shell",
+  triple_red: "hit-red-shell",
+  spiny: "hit-spiny",
+  banana: "hit-banana",
+  triple_banana: "hit-banana",
+  horn: "hit-horn",
+  bomb: "hit-bomb",
+  hammer: "hit-hammer",
+  lightning: "hit-lightning",
+  fire_flower: "hit-fire",
+  ice_flower: "hit-ice",
+  boomerang_flower: "hit-boomerang",
+};
 function attackHitClassV2116(key) {
-  if (["green", "triple_green"].includes(key)) return "hit-green-shell";
-  if (["red", "triple_red"].includes(key)) return "hit-red-shell";
-  if (key === "spiny") return "hit-spiny";
-  if (["banana", "triple_banana"].includes(key)) return "hit-banana";
-  if (key === "horn") return "hit-horn";
-  if (key === "bomb") return "hit-bomb";
-  if (key === "hammer") return "hit-hammer";
-  if (key === "lightning") return "hit-lightning";
-  if (key === "fire_flower") return "hit-fire";
-  if (key === "ice_flower") return "hit-ice";
-  if (key === "boomerang_flower") return "hit-boomerang";
-  return "hit-generic";
+  return ATTACK_HIT_CLASS_V2116[key] || "hit-generic";
 }
 
 function clearAttackHitFxV2116(card) {

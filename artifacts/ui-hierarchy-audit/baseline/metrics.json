@@ -1,0 +1,2381 @@
+{
+  "phase": "baseline",
+  "capturedAt": "2026-11-22T12:35:15.997Z",
+  "screenshotCount": 68,
+  "screenshots": [
+    "01-intro.png",
+    "02-welcome-normal.png",
+    "03-welcome-edit.png",
+    "04-battle-14-double-active.png",
+    "05-battle-14-double-resizer-evaluated.png",
+    "06-battle-14-single-batch.png",
+    "07-gameplay-items.png",
+    "07-gameplay-statuses.png",
+    "07-gameplay-events.png",
+    "07-gameplay-achievements.png",
+    "07-gameplay-rules.png",
+    "08-gameplay-item-dialog.png",
+    "09-history.png",
+    "10-archives-records.png",
+    "11-archives-achievements.png",
+    "12-ai-chat.png",
+    "13-ai-knowledge-dialog.png",
+    "14-settings-rules-collapsed.png",
+    "14-settings-rules-expanded.png",
+    "14-settings-appearance-collapsed.png",
+    "14-settings-appearance-expanded.png",
+    "14-settings-motion-collapsed.png",
+    "14-settings-sound-collapsed.png",
+    "14-settings-sound-expanded.png",
+    "14-settings-items-collapsed.png",
+    "14-settings-items-expanded.png",
+    "14-settings-students-collapsed.png",
+    "14-settings-students-expanded.png",
+    "14-settings-welcome-collapsed.png",
+    "14-settings-welcome-expanded.png",
+    "14-settings-data-collapsed.png",
+    "14-settings-data-expanded.png",
+    "14-settings-ai-collapsed.png",
+    "14-settings-about-collapsed.png",
+    "15-modal-component-library-components.png",
+    "15-modal-component-library-tokens.png",
+    "15-modal-component-library-styles.png",
+    "15-modal-component-library-animations.png",
+    "15-modal-component-library-conflicts.png",
+    "16-modal-picker-individual.png",
+    "16-modal-picker-group.png",
+    "16-modal-picker-two_tier.png",
+    "17-modal-hand-select.png",
+    "17-modal-hand-judge.png",
+    "17-modal-hand-reward.png",
+    "18-modal-group-detail.png",
+    "18-modal-group-items.png",
+    "18-modal-group-score.png",
+    "19-modal-score.png",
+    "20-modal-quick-person.png",
+    "21-modal-member-search.png",
+    "22-modal-random-event-banner.png",
+    "23-modal-theme-confirm.png",
+    "24-modal-program-confirm.png",
+    "25-modal-settlement-name.png",
+    "26-modal-pwd.png",
+    "27-classroom-recovery-panel.png",
+    "28-marx-welcome.png",
+    "29-marx-battle-14.png",
+    "30-marx-gameplay-items.png",
+    "31-marx-ai-chat.png",
+    "32-marx-settings-appearance.png",
+    "33-electron-picker-panel.png",
+    "34-electron-picker-hand.png",
+    "35-electron-picker-launcher.png",
+    "36-electron-hand-cards-judge.png",
+    "36-electron-hand-cards-reward_choice.png",
+    "36-electron-hand-cards-score.png"
+  ],
+  "pageErrors": [],
+  "surfaceMetrics": [
+    {
+      "label": "01-intro",
+      "visibleElements": 46,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "17px",
+        "13px",
+        "14px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 76, 67, 0.14) 0px 8px 26px 0px",
+        "rgba(15, 128, 105, 0.23) 0px 4px 12px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "12px",
+        "13px",
+        "16px",
+        "29px",
+        "38px"
+      ],
+      "distinctPaddingsCount": 1,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "02-welcome-normal",
+      "visibleElements": 239,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 12,
+      "distinctRadiiSample": [
+        "21px",
+        "8px",
+        "11px",
+        "16px",
+        "99px",
+        "15px",
+        "13px",
+        "17px",
+        "6px",
+        "50%",
+        "10px",
+        "7px"
+      ],
+      "distinctShadowsCount": 5,
+      "distinctShadowsSample": [
+        "rgba(4, 80, 71, 0.13) 0px 14px 40px 0px",
+        "rgba(19, 63, 54, 0.035) 0px 5px 22px 0px",
+        "rgba(19, 63, 54, 0.03) 0px 5px 24px 0px",
+        "rgba(255, 255, 255, 0.28) 0px 1px 0px 0px inset",
+        "rgba(57, 190, 150, 0.153) 0px 0px 0px 4px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "21px",
+        "26px",
+        "33px",
+        "39px"
+      ],
+      "distinctPaddingsCount": 22,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "03-welcome-edit",
+      "visibleElements": 263,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 13,
+      "distinctRadiiSample": [
+        "21px",
+        "8px",
+        "11px",
+        "16px",
+        "99px",
+        "15px",
+        "13px",
+        "9px",
+        "17px",
+        "6px",
+        "50%",
+        "10px",
+        "7px"
+      ],
+      "distinctShadowsCount": 6,
+      "distinctShadowsSample": [
+        "rgba(4, 80, 71, 0.13) 0px 14px 40px 0px",
+        "rgba(19, 63, 54, 0.035) 0px 5px 22px 0px",
+        "rgba(23, 62, 55, 0.11) 0px 2px 8px 0px",
+        "rgba(19, 63, 54, 0.03) 0px 5px 24px 0px",
+        "rgba(255, 255, 255, 0.28) 0px 1px 0px 0px inset",
+        "rgba(57, 190, 150, 0.153) 0px 0px 0px 4px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "21px",
+        "26px",
+        "33px",
+        "39px"
+      ],
+      "distinctPaddingsCount": 19,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "04-battle-14-double-active",
+      "visibleElements": 501,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 10,
+      "distinctRadiiSample": [
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "11px",
+        "7px",
+        "6px"
+      ],
+      "distinctShadowsCount": 19,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset, rgba(14, 165, 233, 0.38) 0px 0px 8px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.168609 0.320857 0.456381 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 12,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 15,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "05-battle-14-double-resizer-evaluated",
+      "visibleElements": 490,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 9,
+      "distinctRadiiSample": [
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "11px",
+        "7px"
+      ],
+      "distinctShadowsCount": 17,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.132809 0.378137 0.260677 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.168609 0.320857 0.456381 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 12,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 13,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "06-battle-14-single-batch",
+      "visibleElements": 261,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 9,
+      "distinctRadiiSample": [
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "11px",
+        "7px"
+      ],
+      "distinctShadowsCount": 11,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.132809 0.378137 0.260677 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.168609 0.320857 0.456381 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 12,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "34px"
+      ],
+      "distinctPaddingsCount": 14,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "07-gameplay-items",
+      "visibleElements": 138,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "16px",
+        "14px",
+        "999px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "22px",
+        "28px",
+        "36px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "07-gameplay-statuses",
+      "visibleElements": 118,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "12px",
+        "16px",
+        "14px",
+        "999px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px",
+        "36px"
+      ],
+      "distinctPaddingsCount": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "07-gameplay-events",
+      "visibleElements": 153,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "12px",
+        "16px",
+        "999px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "07-gameplay-achievements",
+      "visibleElements": 160,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "12px",
+        "16px",
+        "999px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "07-gameplay-rules",
+      "visibleElements": 184,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "12px",
+        "10px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "08-gameplay-item-dialog",
+      "visibleElements": 45,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "14px",
+        "10px",
+        "11px",
+        "7px",
+        "999px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px"
+      ],
+      "distinctFontSizesCount": 10,
+      "distinctFontSizes": [
+        "9px",
+        "10px",
+        "11px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "22px",
+        "24px",
+        "36px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "09-history",
+      "visibleElements": 154,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 2,
+      "distinctRadiiSample": [
+        "20px",
+        "8px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 75, 58, 0.024) 0px 4px 18px 0px"
+      ],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "10-archives-records",
+      "visibleElements": 136,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "16px",
+        "11px",
+        "999px",
+        "14px"
+      ],
+      "distinctShadowsCount": 6,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "rgba(23, 75, 58, 0.024) 0px 4px 18px 0px",
+        "rgb(24, 132, 102) 0px 3px 0px 0px inset",
+        "rgb(167, 188, 178) 0px 3px 0px 0px inset",
+        "rgb(231, 185, 156) 0px 3px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "22px",
+        "26px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 11,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "11-archives-achievements",
+      "visibleElements": 374,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "999px",
+        "16px",
+        "10px",
+        "12px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.12) 0px 4px 14px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "26px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "12-ai-chat",
+      "visibleElements": 93,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "10px",
+        "16px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(7, 77, 59, 0.07) 0px 10px 28px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 2px 12px 0px"
+      ],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "13-ai-knowledge-dialog",
+      "visibleElements": 39,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "22px",
+        "50%",
+        "10px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13px",
+        "14px",
+        "16px",
+        "22px",
+        "24px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-rules-collapsed",
+      "visibleElements": 100,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 8,
+      "distinctRadiiSample": [
+        "16px",
+        "10px",
+        "999px",
+        "50%",
+        "8px",
+        "12px",
+        "14px",
+        "20px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "10.8333px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 10,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-rules-expanded",
+      "visibleElements": 98,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "16px",
+        "10px",
+        "999px",
+        "50%",
+        "8px",
+        "12px",
+        "14px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "10.8333px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-appearance-collapsed",
+      "visibleElements": 81,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "16px",
+        "14px",
+        "8px",
+        "10px",
+        "999px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11.1111px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-appearance-expanded",
+      "visibleElements": 77,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "16px",
+        "14px",
+        "8px",
+        "10px",
+        "999px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11.1111px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-motion-collapsed",
+      "visibleElements": 37,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "14px",
+        "8px",
+        "999px",
+        "20px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.03) 0px 2px 10px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13.3333px",
+        "14px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 4,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-sound-collapsed",
+      "visibleElements": 116,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "20px",
+        "14px",
+        "999px",
+        "16px",
+        "10px",
+        "8px",
+        "12px"
+      ],
+      "distinctShadowsCount": 4,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "rgba(15, 38, 33, 0.03) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 15,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-sound-expanded",
+      "visibleElements": 54,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "14px",
+        "999px",
+        "16px",
+        "10px",
+        "8px"
+      ],
+      "distinctShadowsCount": 4,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "rgba(15, 38, 33, 0.03) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 11,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-items-collapsed",
+      "visibleElements": 187,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "16px",
+        "8px",
+        "999px",
+        "14px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18px",
+        "21px",
+        "23px",
+        "36px"
+      ],
+      "distinctPaddingsCount": 15,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-items-expanded",
+      "visibleElements": 160,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "16px",
+        "8px",
+        "999px",
+        "14px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18px"
+      ],
+      "distinctPaddingsCount": 11,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-students-collapsed",
+      "visibleElements": 217,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "16px",
+        "8px",
+        "14px",
+        "10px",
+        "12px",
+        "999px"
+      ],
+      "distinctShadowsCount": 10,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "color(srgb 0.898039 0.223529 0.207843 / 0.22) 0px 0px 0px 2px",
+        "color(srgb 0.117647 0.533333 0.898039 / 0.22) 0px 0px 0px 2px",
+        "rgb(229, 57, 53) 4px 0px 0px 0px inset",
+        "rgb(30, 136, 229) 4px 0px 0px 0px inset",
+        "rgb(67, 160, 71) 4px 0px 0px 0px inset",
+        "color(srgb 0.262745 0.627451 0.278431 / 0.22) 0px 0px 0px 2px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "12.5px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 12,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-students-expanded",
+      "visibleElements": 179,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "16px",
+        "8px",
+        "14px",
+        "10px",
+        "12px",
+        "999px"
+      ],
+      "distinctShadowsCount": 8,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px",
+        "color(srgb 0.898039 0.223529 0.207843 / 0.22) 0px 0px 0px 2px",
+        "rgb(229, 57, 53) 4px 0px 0px 0px inset",
+        "rgb(30, 136, 229) 4px 0px 0px 0px inset",
+        "color(srgb 0.117647 0.533333 0.898039 / 0.22) 0px 0px 0px 2px",
+        "rgb(67, 160, 71) 4px 0px 0px 0px inset",
+        "color(srgb 0.262745 0.627451 0.278431 / 0.22) 0px 0px 0px 2px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "12.5px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 12,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-welcome-collapsed",
+      "visibleElements": 67,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "14px",
+        "999px",
+        "8px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.03) 0px 2px 10px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-welcome-expanded",
+      "visibleElements": 67,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "14px",
+        "999px",
+        "8px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.03) 0px 2px 10px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-data-collapsed",
+      "visibleElements": 63,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "12px",
+        "16px",
+        "10px",
+        "8px",
+        "4px",
+        "14px",
+        "6px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 13,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-data-expanded",
+      "visibleElements": 53,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "12px",
+        "16px",
+        "10px",
+        "8px",
+        "4px",
+        "14px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(23, 48, 45, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 12,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-ai-collapsed",
+      "visibleElements": 35,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "16px",
+        "8px",
+        "10px",
+        "999px"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "14-settings-about-collapsed",
+      "visibleElements": 22,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "12px",
+        "8px",
+        "10px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 4,
+      "distinctFontSizes": [
+        "14px",
+        "16px",
+        "23px",
+        "24px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "15-modal-component-library-components",
+      "visibleElements": 59,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "14px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "15-modal-component-library-tokens",
+      "visibleElements": 59,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "15-modal-component-library-styles",
+      "visibleElements": 59,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "14px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "15-modal-component-library-animations",
+      "visibleElements": 59,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "14px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "15-modal-component-library-conflicts",
+      "visibleElements": 31,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.15) 0px 16px 56px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "16-modal-picker-individual",
+      "visibleElements": 73,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "999px",
+        "12px",
+        "11px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "10px",
+        "12px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "17px",
+        "18.72px",
+        "20px",
+        "22px",
+        "26px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "16-modal-picker-group",
+      "visibleElements": 73,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "999px",
+        "12px",
+        "11px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "10px",
+        "12px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "17px",
+        "18.72px",
+        "20px",
+        "22px",
+        "26px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "16-modal-picker-two_tier",
+      "visibleElements": 106,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 7,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "999px",
+        "12px",
+        "11px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 13,
+      "distinctFontSizes": [
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "17px",
+        "18.72px",
+        "20px",
+        "22px",
+        "26px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 10,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "17-modal-hand-select",
+      "visibleElements": 614,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 11,
+      "distinctRadiiSample": [
+        "11px",
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "7px",
+        "6px",
+        "20px"
+      ],
+      "distinctShadowsCount": 22,
+      "distinctShadowsSample": [
+        "rgba(17, 76, 63, 0.03) 0px 3px 18px 0px",
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset, rgba(14, 165, 233, 0.38) 0px 0px 8px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 15,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "17px",
+        "18px",
+        "20px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 23,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "17-modal-hand-judge",
+      "visibleElements": 25,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "999px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "22px",
+        "34px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "17-modal-hand-reward",
+      "visibleElements": 30,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "999px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "22px",
+        "34px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "18-modal-group-detail",
+      "visibleElements": 109,
+      "maxCardDepth": 4,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "14px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px",
+        "rgba(255, 255, 255, 0.28) 0px 1px 1px 0px inset, rgba(23, 48, 45, 0.1) 0px 1px 3px 0px",
+        "rgba(23, 48, 45, 0.18) 0px 4px 10px 0px"
+      ],
+      "distinctFontSizesCount": 10,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "22px",
+        "26px"
+      ],
+      "distinctPaddingsCount": 11,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "18-modal-group-items",
+      "visibleElements": 111,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 6,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "14px",
+        "999px",
+        "11px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 10,
+      "distinctFontSizes": [
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px",
+        "46px"
+      ],
+      "distinctPaddingsCount": 10,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "18-modal-group-score",
+      "visibleElements": 30,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13.3333px",
+        "14px",
+        "16px",
+        "20px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "19-modal-score",
+      "visibleElements": 16,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 4,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "20-modal-quick-person",
+      "visibleElements": 288,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "999px",
+        "7px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 6,
+      "distinctFontSizes": [
+        "12px",
+        "13.3333px",
+        "14px",
+        "16px",
+        "18px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "21-modal-member-search",
+      "visibleElements": 16,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13px",
+        "14px",
+        "16px",
+        "20px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 6,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "22-modal-random-event-banner",
+      "visibleElements": 622,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 11,
+      "distinctRadiiSample": [
+        "11px",
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "7px",
+        "6px",
+        "16px"
+      ],
+      "distinctShadowsCount": 23,
+      "distinctShadowsSample": [
+        "rgba(17, 76, 63, 0.03) 0px 3px 18px 0px",
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.0588235 0.462745 0.431373 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset, rgba(14, 165, 233, 0.38) 0px 0px 8px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 15,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "17px",
+        "18px",
+        "20px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 23,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "23-modal-theme-confirm",
+      "visibleElements": 9,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "12px",
+        "9px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 4,
+      "distinctFontSizes": [
+        "14px",
+        "16px",
+        "20px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 5,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "24-modal-program-confirm",
+      "visibleElements": 9,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "8px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "14px",
+        "16px",
+        "19px",
+        "22px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 4,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "25-modal-settlement-name",
+      "visibleElements": 14,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 4,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "26-modal-pwd",
+      "visibleElements": 11,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "20px",
+        "10px",
+        "50%"
+      ],
+      "distinctShadowsCount": 1,
+      "distinctShadowsSample": [
+        "rgba(6, 59, 52, 0.15) 0px 24px 80px 0px, rgba(6, 59, 52, 0.07) 0px 4px 16px 0px"
+      ],
+      "distinctFontSizesCount": 5,
+      "distinctFontSizes": [
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "22px"
+      ],
+      "distinctPaddingsCount": 4,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "27-classroom-recovery-panel",
+      "visibleElements": 10,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 2,
+      "distinctRadiiSample": [
+        "8px",
+        "9px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 1,
+      "distinctFontSizes": [
+        "14px"
+      ],
+      "distinctPaddingsCount": 2,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "28-marx-welcome",
+      "visibleElements": 240,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 12,
+      "distinctRadiiSample": [
+        "21px",
+        "8px",
+        "11px",
+        "16px",
+        "99px",
+        "15px",
+        "13px",
+        "17px",
+        "6px",
+        "50%",
+        "10px",
+        "7px"
+      ],
+      "distinctShadowsCount": 5,
+      "distinctShadowsSample": [
+        "rgba(68, 16, 20, 0.13) 0px 14px 40px 0px",
+        "rgba(63, 19, 23, 0.035) 0px 5px 22px 0px",
+        "rgba(63, 19, 23, 0.03) 0px 5px 24px 0px",
+        "rgba(255, 255, 255, 0.28) 0px 1px 0px 0px inset",
+        "rgba(190, 57, 68, 0.153) 0px 0px 0px 4px"
+      ],
+      "distinctFontSizesCount": 11,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "21px",
+        "26px",
+        "33px",
+        "39px"
+      ],
+      "distinctPaddingsCount": 22,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "29-marx-battle-14",
+      "visibleElements": 501,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 10,
+      "distinctRadiiSample": [
+        "10px",
+        "8px",
+        "0px 0px 8px 8px",
+        "14px",
+        "999px",
+        "15px",
+        "12px",
+        "11px",
+        "7px",
+        "6px"
+      ],
+      "distinctShadowsCount": 19,
+      "distinctShadowsSample": [
+        "rgba(23, 48, 45, 0.06) 0px 1px 3px 0px",
+        "rgba(15, 23, 42, 0.05) 0px 2px 10px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.0588235 0.33995 0.313183 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "color(srgb 0.662745 0.117647 0.172549 / 0.13) 0px 0px 0px 2px",
+        "rgba(15, 38, 33, 0.22) 0px 1px 4px 0px",
+        "rgba(255, 255, 255, 0.7) 0px 1px 0px 0px inset, rgba(14, 165, 233, 0.38) 0px 0px 8px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.574337 0.323244 0.24397 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset",
+        "rgba(15, 38, 33, 0.04) 0px 1px 2px 0px, color(srgb 0.168609 0.320857 0.456381 / 0.295765) 0px 8px 20px -8px, rgba(255, 255, 255, 0.92) 0px 1px 0px 0px inset"
+      ],
+      "distinctFontSizesCount": 12,
+      "distinctFontSizes": [
+        "7px",
+        "8px",
+        "9px",
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18px",
+        "20px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 15,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "30-marx-gameplay-items",
+      "visibleElements": 184,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "12px",
+        "10px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(68, 16, 20, 0.07) 0px 10px 28px 0px",
+        "rgba(48, 23, 25, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 8,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "31-marx-ai-chat",
+      "visibleElements": 93,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "20px",
+        "8px",
+        "14px",
+        "10px",
+        "16px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(68, 16, 20, 0.07) 0px 10px 28px 0px",
+        "rgba(48, 23, 25, 0.03) 0px 4px 20px 0px",
+        "rgba(15, 38, 33, 0.04) 0px 2px 12px 0px"
+      ],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "18.72px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 7,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "32-marx-settings-appearance",
+      "visibleElements": 81,
+      "maxCardDepth": 3,
+      "distinctRadiiCount": 5,
+      "distinctRadiiSample": [
+        "16px",
+        "14px",
+        "8px",
+        "10px",
+        "999px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(15, 38, 33, 0.035) 0px 2px 12px 0px",
+        "rgba(23, 48, 45, 0.08) 0px 2px 8px 0px",
+        "rgba(48, 23, 25, 0.03) 0px 4px 20px 0px"
+      ],
+      "distinctFontSizesCount": 9,
+      "distinctFontSizes": [
+        "11.1111px",
+        "12px",
+        "13px",
+        "13.3333px",
+        "14px",
+        "15px",
+        "16px",
+        "18.72px",
+        "23px"
+      ],
+      "distinctPaddingsCount": 9,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "33-electron-picker-panel",
+      "visibleElements": 72,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 8,
+      "distinctRadiiSample": [
+        "9px",
+        "12px",
+        "20px",
+        "50%",
+        "3px",
+        "999px",
+        "14px",
+        "8px"
+      ],
+      "distinctShadowsCount": 3,
+      "distinctShadowsSample": [
+        "rgba(27, 74, 55, 0.063) 0px 2px 8px 0px",
+        "rgba(10, 64, 49, 0.08) 0px 6px 12px 0px inset",
+        "rgba(162, 70, 55, 0.157) -4px -4px 0px 0px inset, rgba(63, 23, 10, 0.133) 0px 3px 7px 0px"
+      ],
+      "distinctFontSizesCount": 8,
+      "distinctFontSizes": [
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "28px",
+        "31px"
+      ],
+      "distinctPaddingsCount": 16,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "34-electron-picker-hand",
+      "visibleElements": 47,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 4,
+      "distinctRadiiSample": [
+        "9px",
+        "8px",
+        "999px",
+        "7px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 7,
+      "distinctFontSizes": [
+        "10px",
+        "11px",
+        "12px",
+        "13px",
+        "14px",
+        "16px",
+        "28px"
+      ],
+      "distinctPaddingsCount": 13,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "35-electron-picker-launcher",
+      "visibleElements": 10,
+      "maxCardDepth": 2,
+      "distinctRadiiCount": 3,
+      "distinctRadiiSample": [
+        "22px",
+        "14px",
+        "9px"
+      ],
+      "distinctShadowsCount": 2,
+      "distinctShadowsSample": [
+        "rgba(15, 118, 110, 0.35) 0px 0px 0px 3px",
+        "rgba(12, 52, 46, 0.28) 0px 18px 40px 0px"
+      ],
+      "distinctFontSizesCount": 3,
+      "distinctFontSizes": [
+        "11px",
+        "14px",
+        "27px"
+      ],
+      "distinctPaddingsCount": 2,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "36-electron-hand-cards-judge",
+      "visibleElements": 17,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 2,
+      "distinctRadiiSample": [
+        "14px",
+        "20px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 4,
+      "distinctFontSizes": [
+        "16px",
+        "17px",
+        "38px",
+        "40px"
+      ],
+      "distinctPaddingsCount": 2,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "36-electron-hand-cards-reward_choice",
+      "visibleElements": 22,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 2,
+      "distinctRadiiSample": [
+        "14px",
+        "20px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 4,
+      "distinctFontSizes": [
+        "16px",
+        "17px",
+        "38px",
+        "40px"
+      ],
+      "distinctPaddingsCount": 2,
+      "horizontalOverflow": false
+    },
+    {
+      "label": "36-electron-hand-cards-score",
+      "visibleElements": 29,
+      "maxCardDepth": 1,
+      "distinctRadiiCount": 2,
+      "distinctRadiiSample": [
+        "14px",
+        "20px"
+      ],
+      "distinctShadowsCount": 0,
+      "distinctShadowsSample": [],
+      "distinctFontSizesCount": 4,
+      "distinctFontSizes": [
+        "16px",
+        "17px",
+        "38px",
+        "40px"
+      ],
+      "distinctPaddingsCount": 3,
+      "horizontalOverflow": false
+    }
+  ],
+  "cssFindings": {
+    "transitionAll": [
+      {
+        "file": "src/styles/battle/group-cards.css",
+        "line": 175,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/battle/group-cards.css",
+        "line": 194,
+        "text": "transition: all 0.2s;"
+      },
+      {
+        "file": "src/styles/battle/group-cards.css",
+        "line": 211,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/battle/overview-and-resizer.css",
+        "line": 152,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/battle/overview-and-resizer.css",
+        "line": 168,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/dialogs/settlement-and-core.css",
+        "line": 76,
+        "text": "transition: all 0.2s;"
+      },
+      {
+        "file": "src/styles/dialogs/settlement-and-core.css",
+        "line": 222,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/shell/dock-and-buttons.css",
+        "line": 68,
+        "text": "transition: all 0.15s ease;"
+      },
+      {
+        "file": "src/styles/shell/dock-and-buttons.css",
+        "line": 122,
+        "text": "transition: all 0.15s;"
+      },
+      {
+        "file": "src/styles/shell/navigation-and-welcome.css",
+        "line": 15,
+        "text": "transition: all 0.18s;"
+      },
+      {
+        "file": "src/styles/shell/navigation-and-welcome.css",
+        "line": 43,
+        "text": "transition: all 0.2s;"
+      }
+    ],
+    "easeIn": [],
+    "scaleZero": [
+      {
+        "file": "src/styles/feedback/classroom-effects.css",
+        "line": 267,
+        "text": "transform: translate(0, 0) scale(0);"
+      }
+    ],
+    "layoutAnimations": [
+      {
+        "file": "src/styles/battle/overview-and-resizer.css",
+        "line": 38,
+        "text": "transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);"
+      },
+      {
+        "file": "src/styles/home/welcome.css",
+        "line": 871,
+        "text": "transition: width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);"
+      },
+      {
+        "file": "src/styles/items/draw-flow.css",
+        "line": 43,
+        "text": "transition: width 0.035s linear !important;"
+      },
+      {
+        "file": "src/styles/settings/save-workspace.css",
+        "line": 433,
+        "text": "transition: width 0.2s cubic-bezier(0.22, 1, 0.36, 1);"
+      }
+    ],
+    "importantByFile": {
+      "src/styles/audio/item-sounds.css": 7,
+      "src/styles/base/desktop-foundation.css": 307,
+      "src/styles/battle/group-cards.css": 1,
+      "src/styles/battle/quick-batch.css": 12,
+      "src/styles/battle/rank-preview.css": 71,
+      "src/styles/battle/round-item-locks.css": 5,
+      "src/styles/battle/score-and-state.css": 180,
+      "src/styles/battle/score-feedback.css": 8,
+      "src/styles/classroom/group-palette.css": 65,
+      "src/styles/classroom/student-picker-hand.css": 3,
+      "src/styles/components/application-surfaces.css": 24,
+      "src/styles/components/controls-and-scrolling.css": 228,
+      "src/styles/components/readability-and-layers.css": 45,
+      "src/styles/components/surface-polish.css": 5,
+      "src/styles/components/tooltips.css": 1,
+      "src/styles/dialogs/settlement-and-core.css": 5,
+      "src/styles/feedback/defense-notices.css": 11,
+      "src/styles/feedback/item-score-cinematics.css": 1,
+      "src/styles/home/dashboard-layout.css": 4,
+      "src/styles/home/welcome.css": 1,
+      "src/styles/items/attack-feedback.css": 1,
+      "src/styles/items/catalog-and-card-compat.css": 116,
+      "src/styles/items/catalog-and-management.css": 37,
+      "src/styles/items/draw-flow.css": 15,
+      "src/styles/items/draw-layout.css": 118,
+      "src/styles/items/inventory-and-roulette.css": 46,
+      "src/styles/items/queue-and-image-constraints.css": 16,
+      "src/styles/items/roulette-result-and-flowers.css": 64,
+      "src/styles/settings/tabs-and-confirmation.css": 3,
+      "src/styles/shell/navigation-and-welcome.css": 11,
+      "src/styles/themes/tokens-and-presets.css": 1,
+      "electron/effect.css": 1,
+      "electron/picker.css": 3,
+      "electron/tooltips.css": 1
+    },
+    "totalImportant": 1417,
+    "unscopedHoverCount": 76
+  }
+}

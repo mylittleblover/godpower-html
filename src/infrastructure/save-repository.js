@@ -234,11 +234,11 @@
         saveId,
         expectedRevision,
         saveDoc,
-        { expectedGeneration, assets: inputAssets = [] } = {},
+        { expectedGeneration, assets: inputAssets = [], owned = false } = {},
       ) => {
         let preparedAssets;
         try {
-          saveDoc = copy(saveDoc);
+          if (!owned) saveDoc = copy(saveDoc);
           preparedAssets = await root.SaveMigration.validateAssets(
             copy(inputAssets),
           );
@@ -300,7 +300,7 @@
             throw failure("SAVE_NOT_FOUND");
           const doc = await api.get("documents", saveId);
           if (!doc) throw failure("SAVE_NOT_FOUND");
-          root.SaveSchema.validateV2(doc);
+          root.SaveSchema.assertV2(doc);
           if (index.activeSaveId !== saveId) {
             index.activeSaveId = saveId;
             index.generation++;

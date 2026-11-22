@@ -69,7 +69,7 @@ const ITEM_UI_CATEGORY = {
 };
 function itemReferenceMarkup() {
   const itemCount = ITEM_ORDER_V218.filter((k) => ITEM_DEFS[k]).length;
-  return `<div class="gameplay-section-heading"><h2>${itemCount} 种道具</h2><p>实际效果以当前课堂规则为准，点击查看说明与动画示例。</p></div>
+  return `<div class="gameplay-section-heading"><p class="ui-muted">${itemCount} 种正式道具 · 实际效果以当前课堂规则为准，点击卡片查看说明与动画示例。</p></div>
   <div class="item-reference-general">
     <b>使用前请留意</b>
     随机范围道具只从当前前三名与最后两名的合法目标中抽取。首次手动举手抽取使用特殊等概率池；答题期间使用道具后不能 All In。同一枚多次使用道具可以继续使用剩余次数。
@@ -83,8 +83,8 @@ function itemReferenceMarkup() {
         <div class="item-reference-icon">${itemVisual(k, "item-reference-img")}</div>
         <div class="item-reference-copy">
           <div class="item-reference-name">${escapeHtml(d.name)} <span class="item-reference-tag" data-item-category="${category}">${escapeHtml(tag)}</span></div>
-          <div class="item-reference-tip"><b>实际效果</b><p>${escapeHtml(exact)}</p></div>
-          <button type="button" class="btn btn-sm item-reference-open" data-item-details="${escapeHtml(k)}">说明与效果演示 →</button>
+          <div class="item-reference-tip"><p>${escapeHtml(exact)}</p></div>
+          <button type="button" class="btn btn-sm item-reference-open" data-item-details="${escapeHtml(k)}">查看详情与演示</button>
         </div>
       </article>`;
       })

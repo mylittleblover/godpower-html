@@ -460,6 +460,10 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "ach-badges-inline",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "ach-card",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
@@ -504,19 +508,7 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
-      name: "ach-group-bar",
-      sources: ["src/styles/classroom/gameplay-page.css"],
-    },
-    {
-      name: "ach-group-dot",
-      sources: ["src/styles/classroom/gameplay-page.css"],
-    },
-    {
       name: "ach-hall",
-      sources: ["src/styles/classroom/gameplay-page.css"],
-    },
-    {
-      name: "ach-meta-line",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
@@ -625,6 +617,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
         "src/styles/settings/component-library.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -634,6 +627,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ai-conversation",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-delete-btn",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
@@ -715,6 +712,14 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/ai-chat.css"],
     },
     {
+      name: "ai-sidebar-actions",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
+      name: "ai-sidebar-manage",
+      sources: ["src/styles/classroom/ai-chat.css"],
+    },
+    {
       name: "ai-toolbar",
       sources: ["src/styles/classroom/ai-chat.css"],
     },
@@ -731,6 +736,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/battle/round-item-locks.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -748,6 +754,7 @@ const GodPowerComponentCatalog = {
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -858,7 +865,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "batch-allin-btn",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
+      sources: [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "batch-bar-title",
@@ -876,7 +886,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "batch-opt-btn",
-      sources: ["src/styles/battle/overview-and-resizer.css"],
+      sources: [
+        "src/styles/battle/overview-and-resizer.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "battle-card",
@@ -1050,6 +1063,7 @@ const GodPowerComponentCatalog = {
         "src/styles/home/welcome.css",
         "src/styles/settings/save-workspace.css",
         "src/styles/classroom/ai-chat.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -1773,7 +1787,15 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
+      name: "gameplay-mech-card",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
       name: "gameplay-mech-cards",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
+    {
+      name: "gameplay-mech-meta",
       sources: ["src/styles/classroom/gameplay-page.css"],
     },
     {
@@ -1920,6 +1942,13 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "gp-chip",
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/unified-primitives.css",
+      ],
+    },
+    {
       name: "gp-compact-track",
       sources: ["src/styles/home/welcome.css"],
     },
@@ -1932,6 +1961,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -1981,6 +2011,10 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/home/welcome.css"],
     },
     {
+      name: "gp-file-picker",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
       name: "gp-footnote",
       sources: ["src/styles/home/welcome.css"],
     },
@@ -2008,6 +2042,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2040,11 +2075,18 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "gp-home",
-      sources: ["src/styles/home/welcome.css"],
+      sources: [
+        "src/styles/home/welcome.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "gp-hover-tooltip",
       sources: ["src/styles/components/tooltips.css"],
+    },
+    {
+      name: "gp-inset",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "gp-intro",
@@ -2112,6 +2154,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2123,6 +2166,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/home/welcome.css",
         "src/styles/home/dashboard-layout.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -2135,6 +2179,14 @@ const GodPowerComponentCatalog = {
     {
       name: "gp-medal",
       sources: ["src/styles/home/welcome.css"],
+    },
+    {
+      name: "gp-modal-header",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-page-header",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "gp-panel",
@@ -2216,6 +2268,17 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/home/welcome.css"],
     },
     {
+      name: "gp-row",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-row-list",
+      sources: [
+        "src/styles/components/unified-primitives.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
       name: "gp-second",
       sources: ["src/styles/home/welcome.css"],
     },
@@ -2226,6 +2289,18 @@ const GodPowerComponentCatalog = {
         "src/styles/home/dashboard-layout.css",
         "src/styles/components/surface-polish.css",
       ],
+    },
+    {
+      name: "gp-showcase-grid",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-showcase-motion",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-showcase-swatch",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "gp-slider",
@@ -2268,6 +2343,25 @@ const GodPowerComponentCatalog = {
     {
       name: "gp-status-top",
       sources: ["src/styles/home/welcome.css"],
+    },
+    {
+      name: "gp-surface-panel",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-tab",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-table",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "gp-tabs",
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "gp-theme-card",
@@ -2361,7 +2455,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "group-color-free",
-      sources: ["src/styles/classroom/group-palette.css"],
+      sources: [
+        "src/styles/classroom/group-palette.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "group-color-free-copy",
@@ -2411,7 +2508,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "group-detail-section",
-      sources: ["src/styles/base/desktop-foundation.css"],
+      sources: [
+        "src/styles/base/desktop-foundation.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "group-list",
@@ -2769,6 +2869,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -3104,6 +3205,10 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "item-detail-body",
+      sources: ["src/styles/components/surface-polish.css"],
+    },
+    {
       name: "item-draw-spinning",
       sources: [
         "src/styles/items/inventory-and-roulette.css",
@@ -3377,6 +3482,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -3559,6 +3665,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -3584,6 +3691,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
         "src/styles/themes/tokens-and-presets.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -3596,6 +3704,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -3607,6 +3716,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -3636,6 +3746,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-card-compat.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -3726,6 +3837,7 @@ const GodPowerComponentCatalog = {
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -3936,7 +4048,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "quick-person-chip",
-      sources: ["src/styles/classroom/student-picker-hand.css"],
+      sources: [
+        "src/styles/classroom/student-picker-hand.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "quick-person-entry",
@@ -4112,7 +4227,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "re-weight-grid",
-      sources: ["src/styles/classroom/gameplay-page.css"],
+      sources: [
+        "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "re-weight-head",
@@ -4503,6 +4621,7 @@ const GodPowerComponentCatalog = {
         "src/styles/items/catalog-and-management.css",
         "src/styles/base/desktop-foundation.css",
         "src/styles/components/controls-and-scrolling.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4685,6 +4804,7 @@ const GodPowerComponentCatalog = {
       name: "theme-marx",
       sources: [
         "src/styles/themes/tokens-and-presets.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -4721,7 +4841,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "two-tier-chip",
-      sources: ["src/styles/dialogs/settlement-and-core.css"],
+      sources: [
+        "src/styles/dialogs/settlement-and-core.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "two-tier-chips",
@@ -4751,6 +4874,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/application-surfaces.css",
         "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4773,6 +4897,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/components/desktop-shell.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4786,6 +4911,7 @@ const GodPowerComponentCatalog = {
         "src/styles/components/application-surfaces.css",
         "src/styles/home/welcome.css",
         "src/styles/classroom/gameplay-page.css",
+        "src/styles/components/surface-polish.css",
       ],
     },
     {
@@ -4798,18 +4924,26 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-collection-body",
-      sources: ["src/styles/components/application-surfaces.css"],
-    },
-    {
-      name: "ui-collection-header",
       sources: [
         "src/styles/components/application-surfaces.css",
         "src/styles/components/surface-polish.css",
       ],
     },
     {
+      name: "ui-collection-header",
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/classroom/ai-chat.css",
+        "src/styles/components/unified-primitives.css",
+        "src/styles/components/surface-polish.css",
+      ],
+    },
+    {
       name: "ui-collection-sub",
-      sources: ["src/styles/components/application-surfaces.css"],
+      sources: [
+        "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "ui-daily-grid",
@@ -5006,7 +5140,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-body",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-category",
@@ -5052,6 +5189,7 @@ const GodPowerComponentCatalog = {
       name: "ui-settings-nav",
       sources: [
         "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
         "src/styles/components/surface-polish.css",
       ],
     },
@@ -5064,7 +5202,10 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "ui-settings-shell",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/surface-polish.css",
+      ],
     },
     {
       name: "ui-settings-status",
@@ -5207,6 +5348,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/classroom/roster-workspace.css",
         "src/styles/components/application-surfaces.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -5221,6 +5363,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/dialogs/settlement-and-core.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -5250,6 +5393,7 @@ const GodPowerComponentCatalog = {
       sources: [
         "src/styles/shell/navigation-and-welcome.css",
         "src/styles/base/desktop-foundation.css",
+        "src/styles/components/unified-primitives.css",
       ],
     },
     {
@@ -5275,6 +5419,10 @@ const GodPowerComponentCatalog = {
     },
   ],
   tokens: [
+    {
+      name: "--badge-tone",
+      sources: ["src/styles/classroom/gameplay-page.css"],
+    },
     {
       name: "--battle-card-bg",
       sources: [
@@ -5417,6 +5565,34 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/components/desktop-shell.css"],
     },
     {
+      name: "--dur-fast",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--dur-modal",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--dur-normal",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--dur-press",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--ease-drawer",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--ease-in-out",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--ease-out",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
       name: "--end-round-bg",
       sources: [
         "src/styles/components/desktop-shell.css",
@@ -5431,24 +5607,43 @@ const GodPowerComponentCatalog = {
       ],
     },
     {
+      name: "--font-base",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
       name: "--font-lg",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--font-md",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--font-sm",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--font-xl",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--font-xs",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--fxc",
@@ -5463,6 +5658,10 @@ const GodPowerComponentCatalog = {
         "src/styles/items/inventory-and-roulette.css",
         "src/styles/items/roulette-result-and-flowers.css",
       ],
+    },
+    {
+      name: "--grid-gap",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "--hitc",
@@ -5549,16 +5748,53 @@ const GodPowerComponentCatalog = {
       sources: ["src/styles/components/application-surfaces.css"],
     },
     {
+      name: "--page-gap",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--page-max-width",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--page-pad-bottom",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--page-pad-top",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--page-pad-x",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
       name: "--radius-lg",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--radius-md",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
+    },
+    {
+      name: "--radius-pill",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "--radius-sm",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
+    },
+    {
+      name: "--radius-xs",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "--rank-background",
@@ -5574,11 +5810,21 @@ const GodPowerComponentCatalog = {
     },
     {
       name: "--shadow-card",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
     },
     {
       name: "--shadow-float",
-      sources: ["src/styles/components/desktop-shell.css"],
+      sources: [
+        "src/styles/components/desktop-shell.css",
+        "src/styles/components/unified-primitives.css",
+      ],
+    },
+    {
+      name: "--shadow-xs",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "--space-1",
@@ -6254,6 +6500,38 @@ const GodPowerComponentCatalog = {
     {
       name: "--theme-tone-fbfefd",
       sources: ["src/styles/themes/tokens-and-presets.css"],
+    },
+    {
+      name: "--tone-danger",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-danger-soft",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-info",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-info-soft",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-positive",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-positive-soft",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-warning",
+      sources: ["src/styles/components/unified-primitives.css"],
+    },
+    {
+      name: "--tone-warning-soft",
+      sources: ["src/styles/components/unified-primitives.css"],
     },
     {
       name: "--ui-accent",

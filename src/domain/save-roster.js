@@ -7,10 +7,17 @@
     [student.number, student.displayName].filter(Boolean).join(" ");
   function project(doc) {
     const students = new Map(doc.roster.students.map((s) => [s.studentUid, s]));
+    const byGroup = new Map();
+    for (const a of doc.roster.assignments) {
+      let list = byGroup.get(a.groupUid);
+      if (!list) {
+        list = [];
+        byGroup.set(a.groupUid, list);
+      }
+      list.push(label(students.get(a.studentUid)));
+    }
     for (const group of doc.match.groups)
-      group.members = doc.roster.assignments
-        .filter((a) => a.groupUid === group.groupUid)
-        .map((a) => label(students.get(a.studentUid)));
+      group.members = byGroup.get(group.groupUid) || [];
     return doc;
   }
   function finish(doc) {

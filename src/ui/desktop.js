@@ -114,8 +114,12 @@ const DesktopUI = (() => {
     BattleMotion.event(type, detail);
   }
 
-  let viewportSignature = "";
+  let viewportSignature = "",
+    viewportRawKey = "";
   function syncViewport() {
+    const rawKey = `${innerWidth}/${innerHeight}/${state?.zoomLevel ?? ""}`;
+    if (rawKey === viewportRawKey && viewportSignature) return;
+    viewportRawKey = rawKey;
     const zoom = Number(getComputedStyle(document.body).zoom) || 1,
       value = `${innerWidth}/${innerHeight}/${zoom}`;
     if (value === viewportSignature) return;
@@ -234,9 +238,25 @@ const DesktopUI = (() => {
           g.booShield,
           g.booRoundsLeftV218,
         ]),
-      ) + mask;
+      ) +
+      "|" +
+      mask +
+      "|" +
+      (typeof GodpowerTheme !== "undefined"
+        ? GodpowerTheme.current?.() || ""
+        : "");
     if (signature !== lastWelcome) {
       lastWelcome = signature;
+      track.dataset.trackSignature =
+        String(signature.length) +
+        ":" +
+        groups.length +
+        ":" +
+        (mask ? 1 : 0) +
+        ":" +
+        (track.dataset.trackRev = String(
+          Number(track.dataset.trackRev || 0) + 1,
+        ));
       const x = track.scrollLeft;
       track.innerHTML = groups.length
         ? groups
@@ -280,8 +300,8 @@ const DesktopUI = (() => {
             (el.onclick = () =>
               openItemWindow(Number(el.dataset.group), "detail")),
         );
+      requestAnimationFrame(updateArrows);
     }
-    requestAnimationFrame(updateArrows);
     renderDaily();
     if (window.WelcomeV2 && typeof window.WelcomeV2.render === "function")
       window.WelcomeV2.render();
@@ -301,8 +321,7 @@ const DesktopUI = (() => {
     for (const g of state.groups) {
       const current = {
         main: g.inventory?.[0]?.key || "",
-        inventory: JSON.stringify(g.inventory || []),
-        effect: JSON.stringify(g.itemEffect || null),
+        effect: g.itemEffect ? JSON.stringify(g.itemEffect) : "null",
         count: g.inventory?.length || 0,
       };
       const prior = visualSnapshot.get(g.id);
@@ -450,13 +469,154 @@ const DesktopUI = (() => {
         .join("、") || "空"
     );
   }
+  function formatEffects(eff) {
+    if (!eff) return "无";
+    if (Array.isArray(eff))
+      return eff.length ? eff.map((x) => formatEffects(x)).join("、") : "无";
+    if (typeof eff === "object") {
+      const labels = {
+        shield: "护盾",
+        freeze: "冰冻",
+        frozen: "冰冻",
+        double: "双倍",
+        curse: "诅咒",
+        blind: "遮挡",
+        locked: "锁定",
+        swap: "交换",
+        protected: "保护",
+        burn: "灼烧",
+        poison: "中毒",
+        mega: "巨大化",
+        star: "无敌星",
+      };
+      if (typeof eff.type === "string" && eff.type) {
+        const name =
+          (typeof ITEM_DEFS !== "undefined" && ITEM_DEFS?.[eff.type]?.name) ||
+          labels[eff.type] ||
+          eff.type;
+        const left = Number(eff.roundsLeft ?? eff.remaining);
+        return Number.isFinite(left) && left > 0
+          ? `${name}（剩${left}轮）`
+          : name;
+      }
+      const entries = Object.entries(eff).filter(([, v]) => v);
+      if (!entries.length) return "无";
+      return entries
+        .map(([k, v]) => {
+          const name =
+            (typeof ITEM_DEFS !== "undefined" && ITEM_DEFS?.[k]?.name) ||
+            labels[k] ||
+            k;
+          if (v && typeof v === "object") {
+            const left = Number(v.roundsLeft ?? v.remaining);
+            return Number.isFinite(left) && left > 0
+              ? `${name}（剩${left}轮）`
+              : name;
+          }
+          return typeof v === "number" && v > 1 ? `${name}×${v}` : name;
+        })
+        .join("、");
+    }
+    return String(eff);
+  }
+  function formatArchiveStats(st) {
+    if (!st || typeof st !== "object") return "此版本未提供统计";
+    const labels = {
+      used: "使用道具",
+      itemsUsed: "使用道具",
+      hits: "命中次数",
+      draws: "抽取次数",
+      answered: "答题次数",
+      correct: "答对次数",
+      wrong: "答错次数",
+      gained: "道具收益",
+      scoreDelta: "净积分",
+    };
+    const parts = Object.entries(st)
+      .filter(([, v]) => v !== undefined && v !== null && v !== "")
+      .map(
+        ([k, v]) =>
+          `${labels[k] || k} ${typeof v === "object" ? Object.keys(v).length + "项" : v}`,
+      );
+    return parts.length ? parts.join(" · ") : "此版本未提供统计";
+  }
+  function sameInventoryItems(a, b) {
+    if (a === b) return true;
+    const al = Array.isArray(a) ? a.length : 0;
+    const bl = Array.isArray(b) ? b.length : 0;
+    if (al !== bl) return false;
+    for (let i = 0; i < al; i++) {
+      const x = a[i],
+        y = b[i];
+      if (x === y) continue;
+      if (
+        !x ||
+        !y ||
+        x.key !== y.key ||
+        (x.charges ?? 1) !== (y.charges ?? 1) ||
+        x.acquiredAt !== y.acquiredAt
+      )
+        return false;
+    }
+    return true;
+  }
+  function samePlainObjectDeep(a, b) {
+    if (a === b) return true;
+    if (!a || !b || typeof a !== "object" || typeof b !== "object")
+      return false;
+    const ak = Object.keys(a),
+      bk = Object.keys(b);
+    if (ak.length !== bk.length) return false;
+    for (let i = 0; i < ak.length; i++) {
+      const k = ak[i];
+      if (!Object.hasOwn(b, k)) return false;
+      const av = a[k],
+        bv = b[k];
+      if (av === bv) continue;
+      if (!av || !bv || typeof av !== "object" || typeof bv !== "object")
+        return false;
+      if (!samePlainObjectDeep(av, bv)) return false;
+    }
+    return true;
+  }
+  let lastHistoryStackRefs = null,
+    lastHistoryTailSig = "",
+    lastArchivesSig = "";
+  function currentStateHistoryTailSig() {
+    const groups = state.groups || [];
+    let sig = `${state.roundActive ? 1 : 0}|${state.evaluated ? 1 : 0}|${typeof GodpowerTheme !== "undefined" ? GodpowerTheme.current?.() || "" : ""}`;
+    for (let i = 0; i < groups.length; i++) {
+      const g = groups[i];
+      const inv = (g.inventory || [])
+        .map((it) => `${it.key}:${it.charges ?? 1}`)
+        .join(",");
+      const fx = g.itemEffect
+        ? `${g.itemEffect.type || ""}:${g.itemEffect.roundsLeft || 0}:${g.itemEffect.iceLock ? 1 : 0}`
+        : "";
+      sig += `|${g.id}:${g.name}:${g.score}:${g.booShield || 0}:${g.booRoundsLeftV218 || 0}:${inv}:${fx}`;
+    }
+    return sig;
+  }
   function renderHistory() {
     if (!ready) return;
     const host = $("#historyListView");
     if (!host) return;
-    host.className = "ui-timeline";
     $("#uiHistoryCount").textContent =
       `${historyStack.length} / ${MAX_HISTORY} 条记录`;
+    const tailSig = currentStateHistoryTailSig();
+    const refsUnchanged =
+      lastHistoryStackRefs !== null &&
+      lastHistoryStackRefs.length === historyStack.length &&
+      historyStack.every((item, i) => item === lastHistoryStackRefs[i]);
+    if (
+      refsUnchanged &&
+      tailSig === lastHistoryTailSig &&
+      host.firstElementChild
+    )
+      return;
+    lastHistoryStackRefs = historyStack.slice();
+    lastHistoryTailSig = tailSig;
+    host.className = "ui-timeline";
     if (!historyStack.length) {
       host.className = "";
       host.innerHTML = empty(
@@ -476,12 +636,10 @@ const DesktopUI = (() => {
               d.delta ||
               d.added ||
               d.removed ||
-              JSON.stringify(d.inventoryBefore) !==
-                JSON.stringify(d.inventoryAfter) ||
-              JSON.stringify(d.effectsBefore) !==
-                JSON.stringify(d.effectsAfter),
+              !sameInventoryItems(d.inventoryBefore, d.inventoryAfter) ||
+              !samePlainObjectDeep(d.effectsBefore, d.effectsAfter),
           );
-        return `<article class="ui-panel ui-history" data-kind="${kind}" style="--record-index:'${String(i + 1).padStart(2, "0")}'"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"} ${icon("arrow")}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(JSON.stringify(d.effectsBefore))} → ${E(JSON.stringify(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">${icon("undo")}<span>恢复此操作前的状态</span></button></details></article>`;
+        return `<article class="ui-panel ui-history" data-kind="${kind}"><details><summary><div><span class="ui-chip">${icon(glyph)} ${label}</span><h3>${E(h.desc || "未命名操作")}</h3><span class="ui-muted">${E(h.time || "未记录时间")} · ${E(changed.map((g) => g.name).join("、") || "未发现可比较的小组变动")}</span></div><span class="ui-chip">${i === historyStack.length - 1 ? "最近操作前快照" : "查看快照"}</span></summary><div class="ui-snapshot-note">以下比较：此操作前快照 → ${i === historyStack.length - 1 ? "当前状态" : "下一条操作前快照"}。${i === historyStack.length - 1 ? "当前状态可能包含尚未记录的变化。" : "两次快照之间可能含未单独记录的操作。"}历史未保存的字段无法推断。</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>小组</th><th>积分变化</th><th>名次</th><th>道具队列</th><th>持续状态</th></tr></thead><tbody>${diffs.map((d) => `<tr><td>${E(d.name)}${d.added ? "（新增）" : d.removed ? "（移除）" : ""}</td><td>${d.before ?? "—"} → ${d.after ?? "—"} <strong class="${d.delta > 0 ? "ui-positive" : d.delta < 0 ? "ui-negative" : ""}">${d.delta === null ? "" : `(${d.delta > 0 ? "+" : ""}${d.delta})`}</strong></td><td>${d.rankBefore ?? "—"} → ${d.rankAfter ?? "—"}</td><td>${E(inventory(d.inventoryBefore))} → ${E(inventory(d.inventoryAfter))}</td><td>${E(formatEffects(d.effectsBefore))} → ${E(formatEffects(d.effectsAfter))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">答题状态：${h.roundActive ? "答题中" : "未答题"} → ${next.roundActive ? "答题中" : "未答题"}；已结算：${h.evaluated ? "是" : "否"} → ${next.evaluated ? "是" : "否"}。名次按快照积分顺序展示，不改变比赛排序。</p><button class="btn btn-danger" data-restore="${i}">${icon("undo")}<span>恢复此操作前的状态</span></button></details></article>`;
       })
       .reverse()
       .join("");
@@ -523,6 +681,26 @@ const DesktopUI = (() => {
   function renderArchives() {
     if (!ready) return;
     const records = getSettlementHistory();
+    const themeId =
+      typeof GodpowerTheme !== "undefined"
+        ? GodpowerTheme.current?.() || ""
+        : "";
+    const sig = [
+      themeId,
+      archiveSearch,
+      archiveSort,
+      records.length,
+      ...records.map(
+        (r) =>
+          `${r.id || ""}:${r.time || ""}:${r.title || ""}:${r.groups?.length || 0}`,
+      ),
+    ].join("\x1f");
+    const host = $("#settlementHistoryContainer");
+    if (sig === lastArchivesSig && host?.firstElementChild) {
+      globalThis.AchievementArchiveUI?.render?.();
+      return;
+    }
+    lastArchivesSig = sig;
     const all = records
       .flatMap((x) => (Array.isArray(x.groups) ? x.groups : []))
       .filter(
@@ -549,7 +727,6 @@ const DesktopUI = (() => {
           `<div class="ui-panel"><span class="ui-muted">${icon(glyph)}<span>${t}</span></span><strong>${E(v)}</strong></div>`,
       )
       .join("")}</div>`;
-    const host = $("#settlementHistoryContainer");
     host.className = "ui-archive-list";
     let list = records
       .map((r, index) => ({ r, index }))
@@ -572,7 +749,7 @@ const DesktopUI = (() => {
       ? list
           .map(({ r, index }) => {
             const groups = Array.isArray(r.groups) ? r.groups : [];
-            return `<article class="ui-panel ui-archive-card"><details><summary class="ui-archive-summary"><span class="ui-archive-emblem" aria-hidden="true">${icon("archive")}</span><div><span class="ui-eyebrow">CLASSROOM ARCHIVE · ${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案 ${icon("arrow")}</span></summary><div class="ui-podium">${groups
+            return `<article class="ui-panel ui-archive-card"><details><summary class="ui-archive-summary"><span class="ui-archive-emblem" aria-hidden="true">${icon("archive")}</span><div><span class="ui-muted">${E(r.time || "时间未记录")}</span><h3>${E(r.title || "未命名比赛")}</h3><span class="ui-muted">${groups.length} 个归档小组 · 冠军 ${E(r.champion || groups[0]?.name || "未记录")}</span></div><span class="ui-chip">查看完整档案</span></summary><div class="ui-podium">${groups
               .slice(0, 3)
               .map(
                 (g, i) =>
@@ -580,7 +757,7 @@ const DesktopUI = (() => {
               )
               .join(
                 "",
-              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(g.itemStats ? JSON.stringify(g.itemStats) : "此版本未提供统计")}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">${icon("download")}<span>导出完整 CSV</span></button><button class="btn" data-json="${index}">${icon("download")}<span>导出原始 JSON</span></button><button class="btn btn-danger" data-delete="${index}">${icon("delete")}<span>删除档案</span></button></div></details></article>`;
+              )}</div><div class="ui-table-wrap"><table class="ui-table"><thead><tr><th>原档案名次</th><th>小组</th><th>最终积分</th><th>成员</th><th>道具与答题统计</th></tr></thead><tbody>${groups.map((g, i) => `<tr><td>${i + 1}</td><td>${E(g.name || "未记录")}</td><td>${E(g.score ?? "未记录")}</td><td>${E((g.members || []).join("、") || "未记录")}</td><td>${E(formatArchiveStats(g.itemStats))}</td></tr>`).join("")}</tbody></table></div><p class="ui-muted">名次沿用归档顺序；同分保留原始次序。缺少的旧档案字段不作推测。</p><details><summary>完整原始归档数据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto">${E(JSON.stringify(r, null, 2))}</pre></details><div class="ui-archive-actions"><button class="btn btn-primary" data-csv="${index}">${icon("download")}<span>导出完整 CSV</span></button><button class="btn" data-json="${index}">${icon("download")}<span>导出原始 JSON</span></button><button class="btn btn-danger" data-delete="${index}">${icon("delete")}<span>删除档案</span></button></div></details></article>`;
           })
           .join("")
       : empty(
@@ -631,18 +808,7 @@ const DesktopUI = (() => {
       );
     globalThis.AchievementArchiveUI?.render?.();
   }
-  function downloadJson(value, name) {
-    const url = URL.createObjectURL(
-        new Blob([JSON.stringify(value, null, 2)], {
-          type: "application/json",
-        }),
-      ),
-      a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  const downloadJson = GodpowerTheme.downloadJson;
   const categories = GodPowerSettingsLayout.categories;
   function setupSettings() {
     const sc = $("#view-settings .settings-scroll");
@@ -691,11 +857,12 @@ const DesktopUI = (() => {
       `<input id="uiPref-${key}" data-pref="${key}" type="checkbox" ${preferences[key] ? "checked" : ""}>`;
     sections.motion.insertAdjacentHTML(
       "beforeend",
-      row(
-        "动效模式",
-        "uiPref-motion",
-        `<select id="uiPref-motion" data-pref="motion"><option value="full">完整动效</option><option value="simple">简洁动效</option><option value="off">关闭非必要动效</option></select>`,
-      ) +
+      `<section class="ui-settings-group" id="uiSettingsMotionPref"><h4>界面与动效偏好</h4><p class="ui-muted">关闭非必要动效会停用页面与持续光环动画；音效开关仍由音频设置控制。</p><div class="gp-row-list">${
+        row(
+          "动效模式",
+          "uiPref-motion",
+          `<select id="uiPref-motion" data-pref="motion"><option value="full">完整动效</option><option value="simple">简洁动效</option><option value="off">关闭非必要动效</option></select>`,
+        ) +
         row(
           "新界面过渡速度",
           "uiPref-speed",
@@ -707,25 +874,27 @@ const DesktopUI = (() => {
           "尊重系统减少动态效果",
           "uiPref-systemMotion",
           check("systemMotion"),
-        ) +
-        '<p class="ui-muted">关闭非必要动效会停用页面与持续光环动画；音效开关仍由音频设置控制。</p>',
+        )
+      }</div></section>`,
     );
     sections.welcome.insertAdjacentHTML(
       "beforeend",
-      [
-        ["knowledge", "每日知识卡片"],
-        ["itemTip", "每日道具小知识"],
-        ["honors", "历史荣誉"],
-        ["challenge", "每日课堂挑战"],
-        ["groupCruise", "小组卡片连续巡航（默认开启）"],
-      ]
-        .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
-        .join("") +
+      `<section class="ui-settings-group" id="uiSettingsWelcomePref"><h4>首页展示模块</h4><p class="ui-muted">控制欢迎页展示的每日内容卡片与默认学科。</p><div class="gp-row-list">${
+        [
+          ["knowledge", "每日知识卡片"],
+          ["itemTip", "每日道具小知识"],
+          ["honors", "历史荣誉"],
+          ["challenge", "每日课堂挑战"],
+          ["groupCruise", "小组卡片连续巡航（默认开启）"],
+        ]
+          .map(([key, label]) => row(label, "uiPref-" + key, check(key)))
+          .join("") +
         row(
           "展示学科",
           "uiPref-subject",
           '<select id="uiPref-subject" data-pref="subject"></select>',
-        ) +
+        )
+      }</div></section>` +
         '<h3 style="margin-top:24px">本地审核题库</h3><p class="ui-muted">导入完整 JSON：knowledge、challenges 数组；每项需 id、title、subject、source。题目需 4 个 options、0–3 的 answer 和 explanation。请仅使用已审核内容并标明来源。</p><textarea id="uiBankEditor" class="ui-bank-editor" aria-label="本地题库 JSON"></textarea><div class="ui-toolbar"><button class="btn btn-primary" id="uiSaveBank">验证并保存题库</button><button class="btn" id="uiExportBank">导出题库</button><button class="btn btn-warning" id="uiResetBank">恢复内置示例</button></div><p id="uiBankStatus" role="status" class="ui-muted"></p>',
     );
     sections.data
@@ -804,8 +973,8 @@ const DesktopUI = (() => {
 
     GodpowerTheme.mount(sections.appearance);
     UIComponentLibrary.mount(sections.appearance);
-    if (window.ItemDrawSettings) ItemDrawSettings.mount(sections.items);
     if (window.ItemModuleSettings) ItemModuleSettings.mount(sections.items);
+    if (window.ItemDrawSettings) ItemDrawSettings.mount(sections.items);
     const bankBody = $("#uiSettingsBank .ui-settings-detail-body");
     const structured = document.createElement("div");
     structured.id = "uiStructuredBank";
@@ -1051,10 +1220,13 @@ const DesktopUI = (() => {
   function refreshLockControl(button) {
     if (!ready) return;
     const label = state.isLocked ? "解锁管理口令" : "管理已解锁";
+    const image = Reliability.safeImage(uiIconsV26().dock_lock);
+    const sig = `${state.isLocked ? 1 : 0}|${image || ""}`;
+    if (button.dataset.lockSig === sig && button.firstElementChild) return;
+    button.dataset.lockSig = sig;
     const original =
       icon(state.isLocked ? "lock" : "lock_open") + `<span>${label}</span>`;
     button.dataset.v26Original = original;
-    const image = Reliability.safeImage(uiIconsV26().dock_lock);
     button.innerHTML = image
       ? `<img class="custom-ui-icon" src="${image}" alt=""><span>${label}</span>`
       : original;
@@ -1807,8 +1979,8 @@ const DesktopUI = (() => {
     };
     viewChanged(currentView);
     renderWelcome();
-    renderHistory();
-    renderArchives();
+    if (currentView === "history") renderHistory();
+    if (currentView === "archives") renderArchives();
     if (canAnimate()) {
       document
         .querySelectorAll(

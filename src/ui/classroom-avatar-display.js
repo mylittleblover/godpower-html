@@ -97,16 +97,22 @@
     const byStudent = new Map(
       doc.roster.students.map((s) => [s.studentUid, s]),
     );
+    const byGroup = new Map();
+    for (const a of doc.roster.assignments) {
+      const s = byStudent.get(a.studentUid);
+      if (!s) continue;
+      let list = byGroup.get(a.groupUid);
+      if (!list) {
+        list = [];
+        byGroup.set(a.groupUid, list);
+      }
+      list.push({
+        name: root.SaveRoster.label(s),
+        resourceId: s.avatarResourceId || "",
+      });
+    }
     for (const group of doc.roster.groups) {
-      const entries = doc.roster.assignments
-        .filter((a) => a.groupUid === group.groupUid)
-        .map((a) => byStudent.get(a.studentUid))
-        .filter(Boolean)
-        .map((s) => ({
-          name: root.SaveRoster.label(s),
-          resourceId: s.avatarResourceId || "",
-        }));
-      avatarIndex.set(group.groupUid, entries);
+      avatarIndex.set(group.groupUid, byGroup.get(group.groupUid) || []);
       if (group.avatarResourceId)
         ownGroupAvatars.set(group.groupUid, group.avatarResourceId);
     }

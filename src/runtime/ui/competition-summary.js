@@ -1,18 +1,35 @@
+let lastQuickBatchActive = null;
+let lastHeaderStatsSig = "";
+let lastChartSig = "";
+let lastDashboardSig = "";
+let lastLockControlState = null;
+let lastRenderControlsSig = "";
+
 function updateQuickBatchBar() {
   const bar = document.getElementById("quickBatchBar");
   if (!bar) return;
-  if (state.roundActive && !state.evaluated) {
-    bar.classList.add("active");
-  } else {
-    bar.classList.remove("active");
-  }
+  const nextActive = !!(state.roundActive && !state.evaluated);
+  if (
+    lastQuickBatchActive === nextActive &&
+    bar.classList.contains("active") === nextActive
+  )
+    return;
+  lastQuickBatchActive = nextActive;
+  bar.classList.toggle("active", nextActive);
 }
 
 function updateHeaderStats() {
   const banner = document.getElementById("topHeaderStats");
   if (!banner) return;
-  const summary = GodpowerUIModel.standings(ranking());
+  const ordered = ranking();
   const mask = Number(state.itemGlobal?.blooperUntil || 0) > Date.now();
+  const leader = mask ? "已遮蔽" : ordered.length ? ordered[0].name : "暂无";
+  let sum = 0;
+  for (let i = 0; i < ordered.length; i++) sum += Number(ordered[i].score) || 0;
+  const sig = `${ordered.length}|${mask ? "M" : sum}|${leader}`;
+  if (sig === lastHeaderStatsSig) return;
+  lastHeaderStatsSig = sig;
+  const summary = GodpowerUIModel.standings(ordered);
   const html = `小组总数: <b>${summary.count}</b> 组 | 总积分: <b>${mask ? "???" : summary.total}</b> | 当前领先: <b style="color:#0284c7;">${mask ? "已遮蔽" : summary.count ? escapeHtml(summary.leader) : "暂无"}</b>`;
   if (banner.innerHTML !== html) banner.innerHTML = html;
   banner.title = banner.textContent;
@@ -21,7 +38,12 @@ function updateHeaderStats() {
 /* 核心改进：条形图保持 DOM 元素稳定，支持宽度平滑递增与排位平滑滑动互换 */
 function renderChart() {
   const wrapper = document.getElementById("chartWrapper");
-  if (!wrapper || wrapper.closest?.("[hidden]")) return;
+  if (
+    !wrapper ||
+    wrapper.closest?.("[hidden]") ||
+    (typeof currentView === "string" && currentView !== "battle")
+  )
+    return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;
@@ -29,8 +51,19 @@ function renderChart() {
     return scB - scA;
   });
 
+  let sig = String(sorted.length);
+  for (let i = 0; i < sorted.length; i++) {
+    const g = sorted[i];
+    const sc = g.displayScore !== undefined ? g.displayScore : g.score;
+    sig += `|${g.id}:${g.name}:${g.color}:${sc}`;
+  }
+  if (sig === lastChartSig && wrapper.childElementCount === sorted.length)
+    return;
+  lastChartSig = sig;
+
   const rowHeight = 30;
-  wrapper.style.height = sorted.length * rowHeight + "px";
+  const nextHeight = sorted.length * rowHeight + "px";
+  if (wrapper.style.height !== nextHeight) wrapper.style.height = nextHeight;
 
   const maxScore = Math.max(
     ...sorted.map((g) =>
@@ -94,7 +127,12 @@ function renderChart() {
 
 function renderDashboard() {
   const podiumDeck = document.getElementById("podiumDeck");
-  if (!podiumDeck || podiumDeck.closest?.("[hidden]")) return;
+  if (
+    !podiumDeck ||
+    podiumDeck.closest?.("[hidden]") ||
+    (typeof currentView === "string" && currentView !== "battle")
+  )
+    return;
 
   const sorted = [...state.groups].sort((a, b) => {
     const scA = a.displayScore !== undefined ? a.displayScore : a.score;
@@ -107,6 +145,29 @@ function renderDashboard() {
 
   const getScoreText = (g) =>
     g ? (g.displayScore !== undefined ? g.displayScore : g.score) : 0;
+
+  const totalGroups = state.groups.length;
+  let answeredGroups = 0;
+  let allInGroups = 0;
+  let totalScore = 0;
+  for (let i = 0; i < totalGroups; i++) {
+    const g = state.groups[i];
+    if (g.selectedOpt) answeredGroups++;
+    if (g.allIn) allInGroups++;
+    totalScore += Number(getScoreText(g)) || 0;
+  }
+  const avgScore = totalGroups > 0 ? (totalScore / totalGroups).toFixed(1) : 0;
+  const dashSig = [
+    top1 ? `${top1.id}:${top1.name}:${top1.color}:${getScoreText(top1)}` : "",
+    top2 ? `${top2.id}:${top2.name}:${top2.color}:${getScoreText(top2)}` : "",
+    top3 ? `${top3.id}:${top3.name}:${top3.color}:${getScoreText(top3)}` : "",
+    answeredGroups,
+    totalGroups,
+    allInGroups,
+    avgScore,
+  ].join("|");
+  if (dashSig === lastDashboardSig && podiumDeck.childElementCount > 0) return;
+  lastDashboardSig = dashSig;
 
   podiumDeck.innerHTML = `
     <div class="podium-col rank-2">
@@ -126,15 +187,6 @@ function renderDashboard() {
     </div>
   `;
 
-  const totalGroups = state.groups.length;
-  const answeredGroups = state.groups.filter((g) => g.selectedOpt).length;
-  const allInGroups = state.groups.filter((g) => g.allIn).length;
-  const totalScore = state.groups.reduce(
-    (acc, g) => acc + (g.displayScore !== undefined ? g.displayScore : g.score),
-    0,
-  );
-  const avgScore = totalGroups > 0 ? (totalScore / totalGroups).toFixed(1) : 0;
-
   document.getElementById("metricAnswered").innerText =
     `${answeredGroups} / ${totalGroups} 组`;
   document.getElementById("metricAllIn").innerText = `${allInGroups} 组`;
@@ -149,25 +201,36 @@ function renderLockStatus() {
   const undoBtn = document.getElementById("btnUndo");
   if (!btn) return;
 
-  if (state.isLocked) {
-    btn.className = "icon-btn locked";
-    btn.innerText = "🔒";
-    if (addBtn) addBtn.classList.add("locked-disabled");
-    if (importBtn) importBtn.classList.add("locked-disabled");
-    if (resetBtn) resetBtn.classList.add("locked-disabled");
-    if (undoBtn) undoBtn.classList.add("locked-disabled");
-  } else {
-    btn.className = "icon-btn unlocked";
-    btn.innerText = "🔓";
-    if (addBtn) addBtn.classList.remove("locked-disabled");
-    if (importBtn) importBtn.classList.remove("locked-disabled");
-    if (resetBtn) resetBtn.classList.remove("locked-disabled");
-    if (undoBtn) undoBtn.classList.remove("locked-disabled");
+  const locked = !!state.isLocked;
+  if (lastLockControlState !== locked) {
+    lastLockControlState = locked;
+    if (locked) {
+      btn.className = "icon-btn locked";
+      if (!btn.firstElementChild) btn.innerText = "🔒";
+      if (addBtn) addBtn.classList.add("locked-disabled");
+      if (importBtn) importBtn.classList.add("locked-disabled");
+      if (resetBtn) resetBtn.classList.add("locked-disabled");
+      if (undoBtn) undoBtn.classList.add("locked-disabled");
+    } else {
+      btn.className = "icon-btn unlocked";
+      if (!btn.firstElementChild) btn.innerText = "🔓";
+      if (addBtn) addBtn.classList.remove("locked-disabled");
+      if (importBtn) importBtn.classList.remove("locked-disabled");
+      if (resetBtn) resetBtn.classList.remove("locked-disabled");
+      if (undoBtn) undoBtn.classList.remove("locked-disabled");
+    }
   }
   if (typeof DesktopUI !== "undefined") DesktopUI.refreshLockControl(btn);
 }
 
 function renderControls() {
+  const ctrlSig = `${state.roundActive ? 1 : 0}|${state.evaluated ? 1 : 0}|${state.correctAns || ""}`;
+  if (ctrlSig === lastRenderControlsSig) {
+    updateQuickBatchBar();
+    return;
+  }
+  lastRenderControlsSig = ctrlSig;
+
   const statusBadge = document.getElementById("roundStatusBadge");
   const mainActionBtn = document.getElementById("btnMainAction");
   const nextBtn = document.getElementById("btnNextRound");

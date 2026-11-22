@@ -6,7 +6,7 @@ function serializeBattleShallowList(items, mapper) {
 }
 function buildBattleCardFastKey(g, badge, globalCardKey, editingThisCard) {
   const inv = serializeBattleShallowList(g.inventory, (it) =>
-    it ? `${it.key}:${it.charges || 1}` : "",
+    it ? `${it.key}:${it.charges || 1}:${it.acquiredAt || 0}` : "",
   );
   const compFx = g.competitionEffects
     ? JSON.stringify(g.competitionEffects)
@@ -41,9 +41,10 @@ function buildBattleCardFastKey(g, badge, globalCardKey, editingThisCard) {
     members,
   ].join("\x1e");
 }
+let lastBattleRankDecorateSig = "";
 function renderBattleGridCards() {
   const grid = document.getElementById("groupList");
-  if (!grid) return;
+  if (!grid) return 0;
   ensureGroupNumbersV213(true);
   const animateReorder =
     !v213SkipNextReorderAnimation && !v213SuppressReorderAnimation;
@@ -52,41 +53,59 @@ function renderBattleGridCards() {
   /* V2.17.22：记录旧 DOM 顺序。
      FLIP 只服务于“排名顺序 ↔ 编号顺序”这种真正的重排，
      不再把道具使用造成的行高变化误判成卡片位移动画。 */
-  const oldOrderIds = [
-    ...grid.querySelectorAll(".group-row-card[data-group-id]"),
-  ].map((c) => String(c.dataset.groupId));
+  const oldOrderIds = [];
+  const oldCards = new Map();
+  for (let i = 0; i < grid.children.length; i++) {
+    const c = grid.children[i];
+    const gid = c.dataset?.groupId;
+    if (gid !== undefined) {
+      const key = String(gid);
+      oldOrderIds.push(key);
+      oldCards.set(key, c);
+    }
+  }
 
   const ordered = desiredGroupsV213();
-  const newOrderIds = ordered.map((g) => String(g.id));
   const orderActuallyChanged =
     animateReorder &&
-    oldOrderIds.length === newOrderIds.length &&
-    oldOrderIds.some((id, i) => id !== newOrderIds[i]);
+    oldOrderIds.length === ordered.length &&
+    ordered.some((g, i) => String(g.id) !== oldOrderIds[i]);
 
   const oldRects = new Map();
   if (orderActuallyChanged)
-    grid.querySelectorAll(".group-row-card[data-group-id]").forEach((c) => {
+    for (let i = 0; i < grid.children.length; i++) {
+      const c = grid.children[i];
+      if (!c.dataset?.groupId) continue;
       const rect = c.getBoundingClientRect();
       /* 页面隐藏时会留下 0×0 的无效坐标，不能拿来做进入比赛页的 FLIP 起点。 */
       if (rect.width > 1 && rect.height > 1)
         oldRects.set(String(c.dataset.groupId), rect);
-    });
-  grid.style.gridTemplateColumns =
+    }
+  const nextGridCols =
     state.columnMode === "single"
       ? "1fr"
       : "repeat(auto-fill, minmax(380px, 1fr))";
-  grid.dataset.columnMode = state.columnMode;
-  const oldCards = new Map(
-    [...grid.children].map((card) => [String(card.dataset.groupId), card]),
-  );
+  if (grid.style.gridTemplateColumns !== nextGridCols)
+    grid.style.gridTemplateColumns = nextGridCols;
+  if (grid.dataset.columnMode !== state.columnMode)
+    grid.dataset.columnMode = state.columnMode;
   const cards = [],
-    changedGroups = [];
+    changedGroups = [],
+    cardById = new Map();
 
   /* 非答题阶段是排名视图。这里明确恢复 0.75s 排名重排动画；
      答题阶段由于 desiredGroupsV213() 固定按编号，普通道具状态变化不会触发该条件。 */
   const rankReorderAnimationV21723 = orderActuallyChanged;
 
   const sortLabel = currentCardSortLabelV213();
+  const customIconsObj = state.itemGlobal?.customIcons;
+  let customIconSig = "";
+  if (customIconsObj) {
+    for (const k of Object.keys(customIconsObj)) {
+      const v = customIconsObj[k];
+      if (v) customIconSig += `${k}:${v.length},`;
+    }
+  }
   const globalCardKey = [
     state.roundActive ? 1 : 0,
     state.evaluated ? 1 : 0,
@@ -94,6 +113,7 @@ function renderBattleGridCards() {
     state.isLocked ? 1 : 0,
     sortLabel,
     state.rosterSnapshot?.revision || 0,
+    customIconSig,
   ].join("\x1f");
 
   ordered.forEach((g) => {
@@ -107,7 +127,8 @@ function renderBattleGridCards() {
       globalCardKey,
       editingThisCard,
     );
-    const previous = oldCards.get(String(g.id)),
+    const keyId = String(g.id),
+      previous = oldCards.get(keyId),
       cache = previous && battleCardRenderState.get(previous);
     if (
       !orderActuallyChanged &&
@@ -115,6 +136,7 @@ function renderBattleGridCards() {
       cache.fastKey === fastKey
     ) {
       cards.push(previous);
+      cardById.set(keyId, previous);
       return;
     }
     const markup = GodPowerBattleCardView.render(
@@ -146,24 +168,32 @@ function renderBattleGridCards() {
     rowCard.innerHTML = markup;
     battleCardRenderState.set(rowCard, { group: g, fastKey });
     cards.push(rowCard);
+    cardById.set(keyId, rowCard);
     changedGroups.push(g);
   });
 
-  const retained = new Set(cards);
-  for (const card of [...grid.children]) if (!retained.has(card)) card.remove();
-  cards.forEach((card, index) => {
-    if (grid.children[index] !== card)
-      grid.insertBefore(card, grid.children[index] || null);
-  });
+  if (
+    changedGroups.length ||
+    grid.children.length !== cards.length ||
+    orderActuallyChanged
+  ) {
+    const retained = new Set(cards);
+    for (const card of [...grid.children])
+      if (!retained.has(card)) card.remove();
+    cards.forEach((card, index) => {
+      if (grid.children[index] !== card)
+        grid.insertBefore(card, grid.children[index] || null);
+    });
+  }
 
   /* 复用既有队列/防御/持续状态逻辑，但把三点菜单控制权拿回来。 */
   try {
-    enhanceItemCards(changedGroups);
+    enhanceItemCards(changedGroups, cardById);
   } catch (e) {
     console.warn("enhance item cards", e);
   }
   changedGroups.forEach((g) => {
-    const card = grid.querySelector(`.group-row-card[data-group-id="${g.id}"]`);
+    const card = cardById.get(String(g.id));
     if (!card) return;
     const main = card.querySelector(".queue-main-slot");
     if (main) {
@@ -206,7 +236,7 @@ function renderBattleGridCards() {
     if (typeof BattleMotion !== "undefined") BattleMotion.restore(card, g.id);
     globalThis.ScoreCardMotion?.restore(card, g.id);
   });
-  if (typeof ClassroomAvatarDisplay !== "undefined")
+  if (changedGroups.length && typeof ClassroomAvatarDisplay !== "undefined")
     ClassroomAvatarDisplay.decorateGroupCards(changedGroups);
 
   if (state.editingScoreId != null) {
@@ -265,47 +295,58 @@ function renderBattleGridCards() {
       ),
     );
   }
+  return changedGroups.length;
 }
 
-function decorateBattleRanks() {
-  const ranks = new Map(ranking().map((g, i) => [g.id, i + 1]));
+function decorateBattleRanks(forceRefresh = true) {
+  const grid = document.getElementById("groupList");
+  if (!grid) return;
+  const rankedList = ranking();
   const nextSubText = `当前按${currentCardSortLabelV213()}排列`;
-  document
-    .querySelectorAll(".group-row-card.battle-card[data-group-id]")
-    .forEach((card) => {
-      const id = Number(card.dataset.groupId),
-        wrap = card.querySelector(".battle-group-heading");
-      if (!wrap) return;
-      let badge = wrap.querySelector(".rank-badge");
-      if (!badge) {
-        badge = document.createElement("span");
-        badge.className = "rank-badge";
-        wrap.appendChild(badge);
+  let rankSig = nextSubText + "|" + grid.children.length + "|";
+  const ranks = new Map();
+  for (let i = 0; i < rankedList.length; i++) {
+    const id = rankedList[i].id;
+    ranks.set(id, i + 1);
+    rankSig += `${id}:${i + 1},`;
+  }
+  if (!forceRefresh && rankSig === lastBattleRankDecorateSig) return;
+  lastBattleRankDecorateSig = rankSig;
+  for (let i = 0; i < grid.children.length; i++) {
+    const card = grid.children[i];
+    if (!card.classList.contains("battle-card")) continue;
+    const id = Number(card.dataset.groupId),
+      wrap = card.querySelector(".battle-group-heading");
+    if (!wrap) continue;
+    let badge = wrap.querySelector(".rank-badge");
+    if (!badge) {
+      badge = document.createElement("span");
+      badge.className = "rank-badge";
+      wrap.appendChild(badge);
+    }
+    const rank = ranks.get(id);
+    const nextRank = String(rank || "");
+    if (badge.dataset.rank !== nextRank) {
+      badge.dataset.rank = nextRank;
+      const medal = {
+        1: ["#fff2c2", "#805314", "#d8b55a"],
+        2: ["#eef2f6", "#435364", "#b8c3ce"],
+        3: ["#f6e4d6", "#79472c", "#cca17d"],
+      }[rank];
+      for (const [idx, key] of [
+        "--rank-background",
+        "--rank-ink",
+        "--rank-border",
+      ].entries()) {
+        if (medal) badge.style.setProperty(key, medal[idx]);
+        else badge.style.removeProperty(key);
       }
-      const rank = ranks.get(id);
-      const nextRank = String(rank || "");
-      if (badge.dataset.rank !== nextRank) {
-        badge.dataset.rank = nextRank;
-        const medal = {
-          1: ["#fff2c2", "#805314", "#d8b55a"],
-          2: ["#eef2f6", "#435364", "#b8c3ce"],
-          3: ["#f6e4d6", "#79472c", "#cca17d"],
-        }[rank];
-        for (const [i, key] of [
-          "--rank-background",
-          "--rank-ink",
-          "--rank-border",
-        ].entries()) {
-          if (medal) badge.style.setProperty(key, medal[i]);
-          else badge.style.removeProperty(key);
-        }
-      }
-      const nextBadgeText = `第${rank || "-"}名`;
-      if (badge.textContent !== nextBadgeText)
-        badge.textContent = nextBadgeText;
-      const sub = wrap.querySelector(".battle-group-subtitle");
-      if (sub && sub.textContent !== nextSubText) sub.textContent = nextSubText;
-    });
+    }
+    const nextBadgeText = `第${rank || "-"}名`;
+    if (badge.textContent !== nextBadgeText) badge.textContent = nextBadgeText;
+    const sub = wrap.querySelector(".battle-group-subtitle");
+    if (sub && sub.textContent !== nextSubText) sub.textContent = nextSubText;
+  }
 }
 
 function decorateRoundItemLocks() {

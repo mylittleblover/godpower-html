@@ -15,6 +15,8 @@
     cruiseTimer = null,
     cruiseTime = null,
     cruisePosition = null,
+    cachedCruisePeriod = 0,
+    lastRepeatsKey = "",
     pauseUntil = 0;
   let trackHovered = false,
     trackFocused = false,
@@ -23,18 +25,7 @@
     feedSignature = "";
   const background = new Map(),
     animations = new Set();
-  const esc = (value) =>
-    String(value ?? "").replace(
-      /[&<>"']/g,
-      (ch) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        })[ch],
-    );
+  const esc = GodpowerUIModel.escapeHtml;
   const preferences = () =>
     (typeof DesktopUI !== "undefined" ? DesktopUI.getPreferences() : null) || {
       motion: "full",
@@ -67,10 +58,12 @@
     setText("wLeaderName", mask ? "已遮蔽" : summary.leader);
     for (const id of ["wTotalScore", "wMaxScore", "wLeaderName"])
       $(id).title = $(id).textContent;
-    const signature = JSON.stringify([
-      mask,
-      ranked.map((g) => [g.id, g.name, g.score, g.color]),
-    ]);
+    let sig = mask ? "M|" : "V|";
+    for (let i = 0; i < ranked.length; i++) {
+      const g = ranked[i];
+      sig += `${g.id}:${g.name}:${g.score}:${g.color}|`;
+    }
+    const signature = sig;
     setText("gpHeroCount", groups.length + " 组");
     setText(
       "gpRankNote",
@@ -117,8 +110,10 @@
     const phase = phases[Reliability.phase(state)];
     setText("gpRoundTitle", phase[0]);
     setText("gpRoundDetail", phase[1]);
-    const recent = historyStack.slice(-4).reverse(),
-      nextFeed = JSON.stringify(recent.map((h) => [h.desc, h.time]));
+    const recent = historyStack.slice(-4).reverse();
+    let nextFeed = "";
+    for (let i = 0; i < recent.length; i++)
+      nextFeed += `${recent[i].desc || ""}\x1f${recent[i].time || ""}\x1e`;
     if (nextFeed !== feedSignature) {
       feedSignature = nextFeed;
       $("gpFeedList").innerHTML = recent.length
@@ -130,7 +125,6 @@
             .join("")
         : `<div class="gp-feed-row"><span class="gp-feed-icon">${typeof GodpowerTheme !== "undefined" && GodpowerTheme.icon ? GodpowerTheme.icon("spark") : "✦"}</span><div class="gp-feed-copy"><strong>等待第一条课堂动态</strong><p>开始答题、调整积分或使用道具后，相关操作将出现在这里。</p></div></div>`;
     }
-    syncRepeats();
     syncCruise();
   }
   function stopCruise() {
@@ -152,12 +146,12 @@
       !trackFocused &&
       !draggingTrack &&
       track &&
-      track.scrollWidth > track.clientWidth + 6
+      cachedCruisePeriod > 0
     );
   }
   function syncCruise() {
     if (!started) return;
-    syncRepeats();
+    if (currentView === "welcome" && !document.hidden) syncRepeats();
     const enabled = !!preferences().groupCruise;
     setText("gpCruiseToggle", enabled ? "暂停自动巡航" : "开启自动巡航");
     $("gpCruiseToggle").setAttribute("aria-pressed", String(enabled));
@@ -177,9 +171,7 @@
         stopCruise();
         return;
       }
-      const first = track.querySelector(".ui-group-card"),
-        repeat = track.querySelector(".ui-group-repeat"),
-        period = repeat && first ? repeat.offsetLeft - first.offsetLeft : 0;
+      const period = cachedCruisePeriod;
       if (Date.now() >= pauseUntil && period > 0) {
         if (
           cruisePosition === null ||
@@ -196,8 +188,20 @@
     }
     cruiseTimer = requestAnimationFrame(tick);
   }
-  function syncRepeats() {
+  function syncRepeats(forceMeasure = false) {
     const track = $("uiGroupTrack");
+    if (!track) return;
+    if (!forceMeasure && track.clientWidth === 0) return;
+    const wantCruise = !!(preferences().groupCruise && canAnimate());
+    const trackSig =
+      (track.dataset.trackSignature || "") +
+      "|" +
+      (wantCruise ? 1 : 0) +
+      "|" +
+      track.clientWidth;
+    if (!forceMeasure && trackSig === lastRepeatsKey && cachedCruisePeriod >= 0)
+      return;
+    lastRepeatsKey = trackSig;
     const originals = [...track.querySelectorAll(".ui-group-card")];
     const first = originals[0],
       last = originals.at(-1);
@@ -205,25 +209,23 @@
       first && last
         ? last.offsetLeft + last.offsetWidth - first.offsetLeft + 40
         : 0;
-    const needed =
-      preferences().groupCruise &&
-      canAnimate() &&
-      baseWidth > track.clientWidth + 6;
+    const needed = wantCruise && baseWidth > track.clientWidth + 6;
     const copies = [...track.querySelectorAll(".ui-group-repeat")];
+    const sigToken = track.dataset.trackSignature || String(originals.length);
     if (
       !needed ||
       copies.length !== originals.length ||
       copies.some(
-        (copy, i) => copy.dataset.copySignature !== originals[i]?.outerHTML,
+        (copy, i) => copy.dataset.copySignature !== sigToken + ":" + i,
       )
     ) {
       copies.forEach((copy) => copy.remove());
       if (needed)
-        originals.forEach((original) => {
+        originals.forEach((original, i) => {
           const copy = original.cloneNode(true);
           copy.classList.replace("ui-group-card", "ui-group-repeat");
           copy.removeAttribute("data-group");
-          copy.dataset.copySignature = original.outerHTML;
+          copy.dataset.copySignature = sigToken + ":" + i;
           copy.setAttribute("aria-hidden", "true");
           copy.tabIndex = -1;
           copy.onpointerdown = (e) => e.preventDefault();
@@ -231,6 +233,9 @@
           track.append(copy);
         });
     }
+    const repeat = needed ? track.querySelector(".ui-group-repeat") : null;
+    cachedCruisePeriod =
+      needed && repeat && first ? repeat.offsetLeft - first.offsetLeft : 0;
     track.classList.toggle(
       "ui-few",
       !needed && baseWidth <= track.clientWidth + 6,
@@ -640,6 +645,7 @@
         resetPointer();
         drawSlide(0);
       }
+      lastRepeatsKey = "";
       syncCruise();
     });
     window.addEventListener("pagehide", () => {

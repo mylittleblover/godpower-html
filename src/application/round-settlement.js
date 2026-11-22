@@ -62,8 +62,9 @@ const RoundSettlement = (() => {
       state.randomEvents = evStep.state;
       randomEventOutcome = evStep.outcome;
     }
-    const anyScoreChanged = context.groupsBefore.some((before) =>
-      state.groups.some((g) => g.id === before.id && g.score !== before.score),
+    const groupsAfterById = new Map(state.groups.map((g) => [g.id, g]));
+    const anyScoreChanged = context.groupsBefore.some(
+      (before) => groupsAfterById.get(before.id)?.score !== before.score,
     );
     let blooperCasterTriggeredUid = null;
     if (blooperWasActive && anyScoreChanged) {
@@ -81,31 +82,41 @@ const RoundSettlement = (() => {
     const maxScoreAfter = state.groups.length
       ? Math.max(...state.groups.map((g) => Number(g.score) || 0))
       : 0;
-    const rankOf = (groups, id) => {
-      const group = groups.find((candidate) => candidate.id === id);
-      return group
-        ? 1 + groups.filter((candidate) => candidate.score > group.score).length
-        : null;
+    const competitionRanks = (groups) => {
+      const sorted = groups
+        .slice()
+        .sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0));
+      const map = new Map();
+      let rank = 0;
+      let prevScore = null;
+      for (let i = 0; i < sorted.length; i++) {
+        const sc = Number(sorted[i].score) || 0;
+        if (prevScore === null || sc < prevScore) {
+          rank = i + 1;
+          prevScore = sc;
+        }
+        map.set(sorted[i].id, rank);
+      }
+      return map;
     };
+    const ranksBefore = competitionRanks(context.groupsBefore);
+    const ranksAfter = competitionRanks(rankingsAfter);
     return {
       ...presentation,
       randomEventOutcome,
       scoreUpdates: context.groupsBefore
-        .filter((before) =>
-          state.groups.some(
-            (g) => g.id === before.id && g.score !== before.score,
-          ),
-        )
+        .filter((before) => {
+          const after = groupsAfterById.get(before.id);
+          return after && after.score !== before.score;
+        })
         .map((before) => ({
           groupId: before.id,
           start: before.score,
-          target: state.groups.find((g) => g.id === before.id).score,
+          target: groupsAfterById.get(before.id).score,
         })),
       powerBefore: context.powerBefore,
       roundFacts: context.answersBefore.map((answer) => {
-        const group = state.groups.find(
-          (candidate) => candidate.id === answer.id,
-        );
+        const group = groupsAfterById.get(answer.id);
         return {
           seasonId: state.seasonId,
           roundNumber: state.itemGlobal.pkTotal,
@@ -127,8 +138,8 @@ const RoundSettlement = (() => {
           allIn: answer.allIn,
           scoreBefore: answer.scoreBefore,
           scoreAfter: group?.score ?? answer.scoreBefore,
-          rankBefore: rankOf(context.groupsBefore, answer.id),
-          rankAfter: rankOf(rankingsAfter, answer.id),
+          rankBefore: ranksBefore.get(answer.id) ?? null,
+          rankAfter: ranksAfter.get(answer.id) ?? null,
         };
       }),
     };

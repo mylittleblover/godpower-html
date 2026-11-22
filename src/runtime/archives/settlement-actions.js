@@ -2,7 +2,10 @@ let confettiAnimationId = null;
 let confettiParticles = [];
 
 function getSettlementHistory() {
-  if(globalThis.SaveManager?.enabled())return SaveManager.snapshot().archives;
+  if (globalThis.SaveManager?.enabled())
+    return SaveManager.archivesView
+      ? SaveManager.archivesView()
+      : SaveManager.snapshot().archives;
   return STORAGE.getJSON("politics_settlement_history", []);
 }
 
@@ -47,32 +50,56 @@ function closeSettlementNameModal() {
 }
 
 let settlementSaving = false;
-async function confirmFinalSettlement(){
-  if(settlementSaving)return {ok:false,reason:"busy"};
-  try{return await performFinalSettlement();}finally{settlementSaving=false;}
+async function confirmFinalSettlement() {
+  if (settlementSaving) return { ok: false, reason: "busy" };
+  try {
+    return await performFinalSettlement();
+  } finally {
+    settlementSaving = false;
+  }
 }
 async function resumeFinalSettlement() {
-  if (settlementSaving || !globalThis.SaveManager?.pendingSettlement?.()) return {ok:false,reason:"not-pending"};
-  if (state.isLocked) { openPwdModal(); return {ok:false,reason:"locked"}; }
-  if (classroomCommands.isPending() || SaveManager.isStarting() || SaveManager.isSwitching()) return {ok:false,reason:"busy"};
+  if (settlementSaving || !globalThis.SaveManager?.pendingSettlement?.())
+    return { ok: false, reason: "not-pending" };
+  if (state.isLocked) {
+    openPwdModal();
+    return { ok: false, reason: "locked" };
+  }
+  if (
+    classroomCommands.isPending() ||
+    SaveManager.isStarting() ||
+    SaveManager.isSwitching()
+  )
+    return { ok: false, reason: "busy" };
   settlementSaving = true;
-  const before = clone(state), history = clone(historyStack);
+  const before = clone(state),
+    history = clone(historyStack);
   try {
     Reliability.invalidateDefenseDecisions();
     resetCompetitionDataAfterSettlementV21812();
     const pending = saveState();
     const result = await (pending?.completion || pending);
     if (!result?.ok) {
-      state = before; historyStack = history;
-      showClassroomSaveWarning("新一届初始化未保存，原赛季和归档均保留，请重试。");
-    } else { showToast("新一届初始化已完成，原档案保留。"); }
-    renderAll(); refreshClassroomSaveWarning();
+      state = before;
+      historyStack = history;
+      showClassroomSaveWarning(
+        "新一届初始化未保存，原赛季和归档均保留，请重试。",
+      );
+    } else {
+      showToast("新一届初始化已完成，原档案保留。");
+    }
+    renderAll();
+    refreshClassroomSaveWarning();
     return result;
   } catch (error) {
-    state = before; historyStack = history; renderAll();
+    state = before;
+    historyStack = history;
+    renderAll();
     showClassroomSaveWarning(error.message);
-    return {ok:false,error:error.message};
-  } finally { settlementSaving = false; }
+    return { ok: false, error: error.message };
+  } finally {
+    settlementSaving = false;
+  }
 }
 function evaluateSeasonArchiveAchievements(sortedGroups) {
   const baseLedger = AchievementLedger.normalize(
@@ -102,12 +129,16 @@ function evaluateSeasonArchiveAchievements(sortedGroups) {
   const secondScore =
     sortedGroups.length >= 2 ? Number(sortedGroups[1]?.score) || 0 : topScore;
   const marginOverSecond = topScore - secondScore;
-  for (const g of sortedGroups) {
-    if (!StableIdentity.isValidGroupUid(g.groupUid)) continue;
+  let currentRank = 0;
+  let prevScore = null;
+  for (let idx = 0; idx < sortedGroups.length; idx++) {
+    const g = sortedGroups[idx];
     const score = Number(g.score) || 0;
-    const rank =
-      1 +
-      state.groups.filter((other) => (Number(other.score) || 0) > score).length;
+    if (prevScore === null || score < prevScore) {
+      currentRank = idx + 1;
+      prevScore = score;
+    }
+    if (!StableIdentity.isValidGroupUid(g.groupUid)) continue;
     scope.emit(
       "SEASON_ARCHIVED",
       { type: "group", id: g.groupUid },
@@ -115,7 +146,7 @@ function evaluateSeasonArchiveAchievements(sortedGroups) {
         seasonId: state.seasonId,
         effectiveSeason: true,
         groupCount,
-        rank,
+        rank: currentRank,
         score,
         marginOverSecond,
         roundsCompleted,
@@ -133,7 +164,7 @@ async function performFinalSettlement() {
     showToast(conflict.error);
     return conflict;
   }
-  settlementSaving=true;
+  settlementSaving = true;
   Reliability.invalidateDefenseDecisions();
   if (state.isLocked) {
     openPwdModal();
@@ -188,8 +219,11 @@ async function performFinalSettlement() {
     groups: clone(sorted),
     achievementLedger: archiveEvaluation.ledger,
   };
-  if(globalThis.SaveManager?.enabled())record.clearedData=buildSettlementClearedDataV21813();
-  const archiveResult = globalThis.SaveManager?.enabled() ? await SaveManager.archive(record) : saveSettlementRecord(record);
+  if (globalThis.SaveManager?.enabled())
+    record.clearedData = buildSettlementClearedDataV21813();
+  const archiveResult = globalThis.SaveManager?.enabled()
+    ? await SaveManager.archive(record)
+    : saveSettlementRecord(record);
   if (!archiveResult.ok) {
     themeAlert(
       "归档失败，课堂数据保持原样。请导出 JSON 备份并释放存储空间。" +
@@ -243,7 +277,9 @@ async function performFinalSettlement() {
 
   resetCompetitionDataAfterSettlementV21812();
   const pendingReset = saveState();
-  const resetResult = pendingReset?.completion ? await pendingReset.completion : await pendingReset;
+  const resetResult = pendingReset?.completion
+    ? await pendingReset.completion
+    : await pendingReset;
   if (!resetResult.ok) {
     state = beforeReset;
     historyStack = beforeHistory;
@@ -324,31 +360,6 @@ function closeGrandSettlementModal() {
   stopConfetti();
 }
 
-function openSettlementHistoryModal() {
-  switchView("archives");
-}
-
-function closeSettlementHistoryModal() {
-  switchView("battle");
-}
-
-function renderArchiveClassStats() {
-  const host = document.getElementById("archiveClassStats");
-  if (!host) return;
-  const itemGlobal = state.itemGlobal || {};
-  const answers = state.groups.reduce((total, group) => {
-    const stats = group.itemStats || {};
-    return total + Number(stats.correct || 0) + Number(stats.wrong || 0);
-  }, 0);
-  const metrics = [
-    ["课堂作答", answers, "次"],
-    ["答题轮次", Number(itemGlobal.pkTotal || 0), "轮"],
-    ["全局道具发放", Number(itemGlobal.totalDraws || 0), "件"],
-    ["手动举手", Number(itemGlobal.handRaiseTotal || 0), "次"],
-  ];
-  host.innerHTML = `<div class="archive-stats-head"><h3>课堂累计统计</h3><span>随当前课堂数据实时更新</span></div><div class="archive-stats-grid">${metrics.map(([label, value, unit]) => `<div class="archive-stat-card"><b>${value}<small>${unit}</small></b><span>${label}</span></div>`).join("")}</div>`;
-}
-
 function renderSettlementHistoryList() {
   if (typeof DesktopUI !== "undefined") DesktopUI.renderArchives();
 }
@@ -384,25 +395,66 @@ function exportLatestSettlementCSV() {
 }
 
 async function deleteSettlementRecord(index) {
-  if(!ClassroomWriteBarrier.allow())return false;
-  if(state.isLocked){openPwdModal();return false;}
-  const initial=getSettlementHistory(),target=initial[index];if(!target)return false;
-  const context=globalThis.SaveManager?.context?.()||null;
-  const owner=state,season=state.seasonId,id=target.id,fingerprint=JSON.stringify(target);
-  if(!(await themeConfirm("确定要删除这条最终结算档案记录吗？此操作不可逆！",{title:"删除结算档案",danger:true,confirmText:"删除"})))return false;
-  const currentContext=globalThis.SaveManager?.context?.()||null;
-  if(state.isLocked||state!==owner||state.seasonId!==season||context?.saveId!==currentContext?.saveId||context?.generation!==currentContext?.generation||!ClassroomWriteBarrier.allow()){
-    showToast("课堂或权限已变化，请重新确认删除。");return false;
+  if (!ClassroomWriteBarrier.allow()) return false;
+  if (state.isLocked) {
+    openPwdModal();
+    return false;
   }
-  const list=getSettlementHistory(),current=list.findIndex(record=>record.id===id&&JSON.stringify(record)===fingerprint);
-  if(current<0){showToast("档案记录已变化，请重新确认删除。");return false;}
-  if(globalThis.SaveManager?.enabled()){
-    const result=await SaveManager.removeArchive(id);
-    if(!result.ok){themeAlert('删除未保存，原档案保留：'+(result.error||result.message||result.code));return false;}
-  }else{
-    list.splice(current,1);if(!STORAGE.setJSON("politics_settlement_history",list)){themeAlert("删除未保存，原档案保留。");return false;}
+  const initial = getSettlementHistory(),
+    target = initial[index];
+  if (!target) return false;
+  const context = globalThis.SaveManager?.context?.() || null;
+  const owner = state,
+    season = state.seasonId,
+    id = target.id,
+    fingerprint = JSON.stringify(target);
+  if (
+    !(await themeConfirm("确定要删除这条最终结算档案记录吗？此操作不可逆！", {
+      title: "删除结算档案",
+      danger: true,
+      confirmText: "删除",
+    }))
+  )
+    return false;
+  const currentContext = globalThis.SaveManager?.context?.() || null;
+  if (
+    state.isLocked ||
+    state !== owner ||
+    state.seasonId !== season ||
+    context?.saveId !== currentContext?.saveId ||
+    context?.generation !== currentContext?.generation ||
+    !ClassroomWriteBarrier.allow()
+  ) {
+    showToast("课堂或权限已变化，请重新确认删除。");
+    return false;
   }
-  renderSettlementHistoryList();showToast("该结算档案已删除");return true;
+  const list = getSettlementHistory(),
+    current = list.findIndex(
+      (record) => record.id === id && JSON.stringify(record) === fingerprint,
+    );
+  if (current < 0) {
+    showToast("档案记录已变化，请重新确认删除。");
+    return false;
+  }
+  if (globalThis.SaveManager?.enabled()) {
+    const result = await SaveManager.removeArchive(id);
+    if (!result.ok) {
+      themeAlert(
+        "删除未保存，原档案保留：" +
+          (result.error || result.message || result.code),
+      );
+      return false;
+    }
+  } else {
+    list.splice(current, 1);
+    if (!STORAGE.setJSON("politics_settlement_history", list)) {
+      themeAlert("删除未保存，原档案保留。");
+      return false;
+    }
+  }
+  renderSettlementHistoryList();
+  showToast("该结算档案已删除");
+  return true;
 }
 
 // ===== 启动性能优化：音频元数据缓存 + 延迟音频初始化 =====

@@ -5,8 +5,20 @@ function buildClassroomBackup() {
     return clone(classroomCommands.baseline().backup);
   return projectClassroomBackup(state, historyStack, false);
 }
+function buildClassroomBackupForSave() {
+  if (window.classroomReady && classroomCommands.isPending())
+    return clone(classroomCommands.baseline().backup);
+  return projectClassroomBackup(state, historyStack, false, {
+    cloneHistory: false,
+  });
+}
 // The owned path consumes the command's private snapshot, never live classroom data.
-function projectClassroomBackup(source, history, owned) {
+function projectClassroomBackup(
+  source,
+  history,
+  owned,
+  { cloneHistory = true } = {},
+) {
   return {
     schemaVersion: Reliability.schemaVersion,
     appVersion: "V@@VERSION@@",
@@ -39,7 +51,7 @@ function projectClassroomBackup(source, history, owned) {
       hasStartedOnce: source.hasStartedOnce,
       lastRoundAllIn: source.lastRoundAllIn,
     },
-    history: owned ? history : clone(history),
+    history: owned ? history : cloneHistory ? clone(history) : history.slice(),
     ...(source.rosterSnapshot
       ? {
           rosterSnapshot: owned

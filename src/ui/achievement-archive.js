@@ -24,17 +24,14 @@ const AchievementArchiveUI = (() => {
   let statusFilter = "all";
   let searchQuery = "";
   let revealHidden = false;
+  let lastAchSwitchSig = "";
+  let cachedTotalUnlocked = 0;
 
   let toastQueue = [];
   let toastActive = false;
   let toastTimer = null;
 
-  const E = (v) =>
-    String(v ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
+  const E = GodpowerUIModel.escapeHtml;
 
   const glyph = (name) =>
     globalThis.GodpowerTheme?.icon ? globalThis.GodpowerTheme.icon(name) : "";
@@ -208,25 +205,16 @@ const AchievementArchiveUI = (() => {
       }
     }
 
-    const groupTabsHtml = `
-      <div class="ach-group-bar" role="group" aria-label="按小组筛选成就">
-        <button type="button" class="btn btn-sm ${selectedGroupUid === "__all__" ? "btn-primary" : ""}" data-ach-group="__all__">
-          <span>全班总览 (${allUnlocked.size}/${catalog.length})</span>
-        </button>
-        ${groups
-          .map((g) => {
-            const p = ledger.groups[g.groupUid];
-            const count = p
-              ? catalog.filter((e) => resolveUnlockStatus(p, e.id)).length
-              : 0;
-            const active = selectedGroupUid === g.groupUid;
-            return `<button type="button" class="btn btn-sm ${active ? "btn-primary" : ""}" data-ach-group="${E(g.groupUid)}">
-              <span class="ach-group-dot" style="background:${E(g.color || "#3b82f6")}"></span>
-              <span>${E(g.name)} (${count}/${catalog.length})</span>
-            </button>`;
-          })
-          .join("")}
-      </div>`;
+    const groupOptionsHtml = [
+      `<option value="__all__" ${selectedGroupUid === "__all__" ? "selected" : ""}>全班总览 (${allUnlocked.size}/${catalog.length})</option>`,
+      ...groups.map((g) => {
+        const p = ledger.groups[g.groupUid];
+        const count = p
+          ? catalog.filter((e) => resolveUnlockStatus(p, e.id)).length
+          : 0;
+        return `<option value="${E(g.groupUid)}" ${selectedGroupUid === g.groupUid ? "selected" : ""}>${E(g.name)} (${count}/${catalog.length})</option>`;
+      }),
+    ].join("");
 
     const kpiHtml = `<div class="ui-overview ach-kpis">
       <div class="ui-panel"><span class="ui-muted">${glyph("trophy")}<span>总解锁进度</span></span><strong>${totalUnlockedCount} / ${catalog.length}</strong></div>
@@ -312,17 +300,16 @@ const AchievementArchiveUI = (() => {
               ? focusStatus?.label || "已解锁"
               : "未解锁";
 
-            return `<article class="ui-panel ach-card ${isUnlocked ? "is-unlocked" : "is-locked"}">
+            return `<article class="ui-panel ach-card ${isUnlocked ? "is-unlocked" : "is-locked"}" data-ach-id="${E(entry.id)}">
               <div class="ach-card-head">
                 ${emblem}
                 <div class="ach-card-titles">
                   <div class="ach-title-line">
                     <strong>${masked ? "隐藏挑战 · ???" : E(entry.name)}</strong>
-                    <span class="ach-rarity" data-rarity="${E(entry.rarity)}">${E(entry.rarity)}</span>
-                  </div>
-                  <div class="ach-meta-line">
-                    <span>${E(entry.id)}</span>
-                    <span class="ach-status-pill ${isUnlocked ? "unlocked" : ""}">${E(badgeText)}</span>
+                    <span class="ach-badges-inline">
+                      <span class="ach-rarity" data-rarity="${E(entry.rarity)}">${E(entry.rarity)}</span>
+                      <span class="ach-status-pill ${isUnlocked ? "unlocked" : ""}">${E(badgeText)}</span>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -352,11 +339,12 @@ const AchievementArchiveUI = (() => {
           .join("")}</div>`
       : `<div class="ui-empty"><strong>没有匹配的成就</strong><p class="ui-muted">尝试切换分类或调整筛选条件。</p></div>`;
 
-    host.innerHTML = `${groupTabsHtml}${kpiHtml}
+    host.innerHTML = `${kpiHtml}
       <div class="ach-toolbar">
         <div class="ach-cat-pills" role="group" aria-label="成就分类">${catButtons}</div>
         <div class="ach-filter-right">
           <label class="ach-reveal-toggle"><input type="checkbox" id="achRevealHiddenCheck" ${revealHidden ? "checked" : ""}><span>显示隐藏成就条件</span></label>
+          <select id="achGroupSelect" aria-label="按小组筛选成就">${groupOptionsHtml}</select>
           <select id="achStatusSelect" aria-label="解锁状态筛选">
             <option value="all" ${statusFilter === "all" ? "selected" : ""}>全部状态</option>
             <option value="unlocked" ${statusFilter === "unlocked" ? "selected" : ""}>仅已解锁</option>
@@ -367,12 +355,12 @@ const AchievementArchiveUI = (() => {
       </div>
       ${cardsHtml}`;
 
-    host.querySelectorAll("[data-ach-group]").forEach((btn) => {
-      btn.onclick = () => {
-        selectedGroupUid = btn.dataset.achGroup || "__all__";
+    const grpSel = document.getElementById("achGroupSelect");
+    if (grpSel)
+      grpSel.onchange = () => {
+        selectedGroupUid = grpSel.value || "__all__";
         renderHall();
       };
-    });
     host.querySelectorAll("[data-ach-cat]").forEach((btn) => {
       btn.onclick = () => {
         activeCategory = btn.dataset.achCat || "all";
@@ -406,14 +394,27 @@ const AchievementArchiveUI = (() => {
   }
 
   function syncSwitchButtons() {
-    const ledger = safeLedger();
     const catalog =
       typeof AchievementCatalog !== "undefined"
         ? AchievementCatalog.list()
         : [];
-    const totalUnlocked = catalog.length
-      ? classUnlockedIds(ledger, catalog).size
-      : 0;
+    const ledgerRef = state?.achievementLedger || null;
+    const processedSig = ledgerRef?.groups
+      ? Object.values(ledgerRef.groups)
+          .map(
+            (g) =>
+              `${g?.processedEvents?.length || 0}:${Object.keys(g?.permanentUnlocks || {}).length}:${Object.keys(g?.seasonUnlocks || {}).length}:${Object.keys(g?.archivedUnlocks || {}).length}`,
+          )
+          .join(",")
+      : "";
+    if (processedSig !== lastAchSwitchSig) {
+      lastAchSwitchSig = processedSig;
+      const ledger = safeLedger();
+      cachedTotalUnlocked = catalog.length
+        ? classUnlockedIds(ledger, catalog).size
+        : 0;
+    }
+    const totalUnlocked = cachedTotalUnlocked;
     document.querySelectorAll("[data-archives-tab]").forEach((btn) => {
       const target = btn.dataset.archivesTab;
       const isActive = target === activeArchivesTab;

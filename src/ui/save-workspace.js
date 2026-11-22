@@ -1,18 +1,7 @@
 /* Current-save management; no parallel classroom/teacher roster is edited here. */
 (function installSaveWorkspace(root) {
   "use strict";
-  const E = (value) =>
-    String(value ?? "").replace(
-      /[&<>"']/g,
-      (c) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;",
-        })[c],
-    );
+  const E = GodpowerUIModel.escapeHtml;
   let mounted = null,
     lastRoster = "",
     saveId = "",
@@ -145,16 +134,7 @@
     for (const url of urls.values()) URL.revokeObjectURL(url);
     urls.clear();
   }
-  function download(value, name) {
-    const url = URL.createObjectURL(
-      new Blob([JSON.stringify(value, null, 2)], { type: "application/json" }),
-    );
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
+  const download = GodpowerTheme.downloadJson;
   async function thumbnails() {
     const id = saveId;
     for (const image of mounted.querySelectorAll("img[data-asset]")) {
@@ -320,7 +300,7 @@
     }
   }
   async function setAvatarFiles(files, target) {
-    const before = SaveManager.snapshot(),
+    const before = SaveManager.rosterView(),
       context = SaveManager.context();
     if (!before) throw Error("存档未就绪");
     const expected = target?.context || batchContext;
@@ -351,7 +331,7 @@
       updates.push({ ...row, resourceId: asset.resourceId });
     }
     if (
-      SaveManager.snapshot().saveId !== before.saveId ||
+      SaveManager.rosterView()?.saveId !== before.saveId ||
       SaveManager.context().generation !== context.generation
     )
       throw Error("处理图片时存档已切换，已取消");
@@ -416,25 +396,28 @@
     mounted.querySelector("#saveGroupName").focus();
   }
   function editStudent(id) {
-    const student = SaveManager.snapshot()?.roster.students.find(
-      (s) => s.studentUid === id,
-    );
+    const doc = SaveManager.rosterView(),
+      student = doc?.roster.students.find((s) => s.studentUid === id);
     if (!student) return;
     mounted.querySelector("#saveStudentName").value = student.displayName;
     mounted.querySelector("#saveStudentNumber").value = student.number || "";
     mounted.querySelector("#saveStudentGroup").value =
-      SaveManager.rosterView().roster.assignments.find(
-        (a) => a.studentUid === id,
-      )?.groupUid || "";
+      doc.roster.assignments.find((a) => a.studentUid === id)?.groupUid || "";
     mounted.querySelector("[data-student-cancel]").hidden = false;
     mounted.querySelector("#saveStudentForm").dataset.editing = id;
     mounted.querySelector("#saveStudentAdd").textContent = "保存学生";
     mounted.querySelector("#saveStudentName").focus();
   }
   function openMembers(groupUid) {
-    const doc = SaveManager.snapshot(),
-      group = doc?.roster.groups.find((g) => g.groupUid === groupUid);
+    const doc = SaveManager.rosterView(),
+      groupsByUid = new Map(
+        (doc?.roster.groups || []).map((g) => [g.groupUid, g]),
+      ),
+      group = groupsByUid.get(groupUid);
     if (!group) return;
+    const assignedGroupByStudent = new Map(
+      doc.roster.assignments.map((a) => [a.studentUid, a.groupUid]),
+    );
     const body = mounted.querySelector("[data-member-options]");
     mounted.querySelector("[data-member-search]").value = "";
     mounted.querySelector("[data-member-title]").textContent =
@@ -442,13 +425,11 @@
     body.innerHTML =
       doc.roster.students
         .map((s) => {
-          const a = doc.roster.assignments.find(
-            (a) => a.studentUid === s.studentUid,
-          );
-          const other = doc.roster.groups.find(
-            (g) => g.groupUid === a?.groupUid,
-          );
-          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${a?.groupUid === groupUid ? "checked" : ""}>${s.avatarResourceId ? `<img data-asset="${E(s.avatarResourceId)}" alt="头像">` : ""}<span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
+          const assignedGroupUid = assignedGroupByStudent.get(s.studentUid);
+          const other = assignedGroupUid
+            ? groupsByUid.get(assignedGroupUid)
+            : null;
+          return `<label><input type="checkbox" value="${E(s.studentUid)}" ${assignedGroupUid === groupUid ? "checked" : ""}>${s.avatarResourceId ? `<img data-asset="${E(s.avatarResourceId)}" alt="头像">` : ""}<span>${E(SaveRoster.label(s))}</span><small>${E(other && other.groupUid !== groupUid ? "将从" + other.name + "移入" : "")}</small></label>`;
         })
         .join("") || "<p>请先新增学生。</p>";
     const panel = mounted.querySelector("[data-member-editor]");
@@ -464,10 +445,10 @@
     mounted.id = "saveWorkspace";
     mounted.className = "save-workspace";
     mounted.innerHTML = `<header class="ui-settings-group"><h4 class="save-section-heading">${mdIcon("archive")}<span>当前存档</span></h4><p data-save-state role="status" class="ui-muted">正在读取…</p><button type="button" class="btn" hidden data-save-retry>重试存档读取</button>
-   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>${mdIcon("upload")}<span>导入新存档</span></button><button type="button" class="btn" data-save-export>${mdIcon("download")}<span>导出完整存档（含头像）</span></button><button type="button" class="btn" data-batch-avatar>${mdIcon("users")}<span>批量添加头像</span></button></div></header>
-   <details class="ui-settings-disclosure"><summary>${mdIcon("tune")}<span>更多存档管理</span></summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>${mdIcon("add")}<span>新建空白课堂</span></button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>${mdIcon("delete")}<span>移入回收站</span></button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>${mdIcon("undo")}<span>恢复存档</span></button></div></details>
+   <div class="save-workspace-toolbar"><select aria-label="切换存档" data-save-select></select><button type="button" class="btn" data-save-import>${mdIcon("upload")}<span>导入新存档</span></button><button type="button" class="btn" data-save-export>${mdIcon("download")}<span>导出完整存档（含头像）</span></button><button type="button" class="btn" data-batch-avatar>${mdIcon("users")}<span>批量添加头像</span></button></div>
    <p class="save-workspace-help">姓名和头像保存在当前存档中。批量头像按文件名唯一匹配姓名；不匹配或重名时不自动猜测。更改后立即保存。</p>
-   <p data-legacy-roster-status class="save-workspace-help"></p>
+   <p data-legacy-roster-status class="save-workspace-help"></p></header>
+   <details class="ui-settings-disclosure"><summary>${mdIcon("tune")}<span>更多存档管理</span></summary><div class="save-workspace-toolbar"><input data-save-name aria-label="存档名称" placeholder="存档名称" maxlength="100"><button type="button" class="btn" data-save-new>${mdIcon("add")}<span>新建空白课堂</span></button><button type="button" class="btn" data-save-copy>复制当前存档</button><button type="button" class="btn" data-save-rename>重命名当前存档</button></div><p>只移除非当前存档；请先切换到其他存档。回收站保留完整文件、头像及来源，恢复前会校验，暂不提供永久删除。</p><div class="save-workspace-toolbar"><select aria-label="选择待移除存档" data-save-inactive></select><button type="button" class="btn btn-danger" data-save-trash>${mdIcon("delete")}<span>移入回收站</span></button><select aria-label="回收站存档" data-save-trash-list></select><button type="button" class="btn" data-save-restore>${mdIcon("undo")}<span>恢复存档</span></button></div></details>
    <p data-save-message role="status"></p>
    <div class="save-roster-columns">
    <section class="ui-settings-group save-roster-section"><header class="save-roster-heading"><span class="save-section-heading">${mdIcon("users")}<h4 data-save-students-count>学生</h4></span><input type="search" data-student-search autocomplete="off" placeholder="搜索学号、姓名或小组" aria-label="搜索学生"></header>
@@ -713,7 +694,7 @@
               await progress.tick();
               download(
                 bundle,
-                SaveManager.snapshot().name + ".godpower-save.json",
+                SaveManager.rosterView().name + ".godpower-save.json",
               );
               await progress.finish("存档导出已完成");
             },
@@ -722,7 +703,7 @@
           mounted.querySelector("[data-member-editor]").hidden = true;
         if (button.hasAttribute("data-member-save")) {
           const panel = mounted.querySelector("[data-member-editor]");
-          if (panel.dataset.saveId !== SaveManager.snapshot().saveId)
+          if (panel.dataset.saveId !== SaveManager.rosterView()?.saveId)
             throw Error("存档已切换，请重新选择");
           const ids = [...panel.querySelectorAll("input:checked")].map(
             (i) => i.value,

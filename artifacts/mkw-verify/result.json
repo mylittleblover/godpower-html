@@ -17,13 +17,13 @@
       "rank": null,
       "inkLevel": 3,
       "durationMs": 120000,
-      "at": 1794734535248
+      "at": 1795360805213
     },
     "afterBullet": {
       "key": "bullet",
       "rank": 4,
       "killerTargetRank": 3,
-      "at": 1794734535389
+      "at": 1795360805323
     },
     "afterLightning": {
       "effect": {
@@ -31,7 +31,7 @@
         "targetCount": 2,
         "minThunderFrame": 140,
         "maxThunderFrame": 180,
-        "at": 1794734535492
+        "at": 1795360805455
       },
       "targets": [
         {

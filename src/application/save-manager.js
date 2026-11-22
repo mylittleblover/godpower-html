@@ -186,9 +186,9 @@
       });
     return deferredLegacySave;
   }
-  async function persist(payload) {
+  async function persist(payload, { owned = false } = {}) {
     const token = session.token(),
-      snapshot = SaveSchema.clone(payload);
+      snapshot = owned ? payload : SaveSchema.clone(payload);
     const assets = [...pendingAssets.values()]
       .filter(
         (a) => a.saveId === token.saveId && a.generation === token.generation,
@@ -217,7 +217,7 @@
           ],
         };
       },
-      { token },
+      { token, cloneCurrent: false },
     );
     if (!result.ok) {
       showClassroomSaveWarning(result.error || result.message || result.code);
@@ -434,6 +434,7 @@
         ? { saveId: currentStatus.saveId, generation: currentStatus.generation }
         : null),
     snapshot: () => session?.snapshot() || null,
+    archivesView: () => session?.archivesView() || [],
     rosterContext: () => session?.rosterContext() || null,
     rosterView: () => session?.rosterView() || null,
     status: () => ({ ...currentStatus, legacyRosterMessage }),
